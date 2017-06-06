@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Launch animator",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/shoot",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}/res",
+            "environment": [],
+            "externalConsole": false,
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb"
+            }
+        }
+    ]
+}

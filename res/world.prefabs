@@ -1,0 +1,20 @@
+{
+    "prefabs": [
+        {
+            "name": "moon",
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "moon",
+            "position": {
+                "x": -10.0,
+                "y": -10.0
+            },
+            "rotation": 0.0
+        }
+    ]
+}
