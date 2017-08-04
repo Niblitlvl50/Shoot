@@ -15,6 +15,8 @@
         "Makefile": true
     },
     "files.associations": {
-        "ios": "cpp"
+        "ios": "cpp",
+        "__locale": "cpp",
+        "algorithm": "cpp"
     }
 }
