@@ -39,9 +39,9 @@ int main(int argc, char* argv[])
 
         mono::ICameraPtr camera = std::make_shared<mono::TraceCamera>(24, 16);
         
-        mono::LoadFont(game::FontId::SMALL,  "pixelette.ttf", 10.0f, 1.0f / 10.0f);
-        mono::LoadFont(game::FontId::MEDIUM, "pixelette.ttf", 10.0f, 1.0f / 5.0f);
-        mono::LoadFont(game::FontId::LARGE,  "pixelette.ttf", 10.0f, 1.0f);
+        mono::LoadFont(game::FontId::SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
+        mono::LoadFont(game::FontId::MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
+        mono::LoadFont(game::FontId::LARGE,  "res/pixelette.ttf", 10.0f, 1.0f);
 
         mono::Engine engine(window, camera, eventHandler);
         engine.Run(std::make_shared<game::TestZone>(eventHandler));

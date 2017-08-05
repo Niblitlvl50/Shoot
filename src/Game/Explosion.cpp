@@ -10,9 +10,9 @@ using namespace game;
 
 Explosion::Explosion(const ExplosionConfiguration& config, mono::EventHandler& event_handler)
 {
-    mPosition = config.position;
-    mScale = math::Vector(config.scale, config.scale);
-    mRotation = config.rotation;
+    m_position = config.position;
+    m_scale = math::Vector(config.scale, config.scale);
+    m_rotation = config.rotation;
 
     const unsigned int id = Id();
 

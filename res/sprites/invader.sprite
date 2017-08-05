@@ -1,1 +1,22 @@
-{	"texture": "textures/spritesheet.png",	"rows": 1,	"columns": 1,	"x": 143,	"y": 222,	"u": 159,	"v": 237,	"animations": [		{			"name": "default",			"loop": true,			"frames": [ 0, -1 ]		}	]}
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 8,
+            "name": "invader1",
+            "w": 11,
+            "x": 274,
+            "y": 143
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

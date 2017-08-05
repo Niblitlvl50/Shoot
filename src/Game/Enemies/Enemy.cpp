@@ -15,17 +15,17 @@ using namespace game;
 
 Enemy::Enemy(EnemySetup& setup)
 {
-    mPosition = setup.position;
-    mScale = math::Vector(setup.size, setup.size);
+    m_position = setup.position;
+    m_scale = math::Vector(setup.size, setup.size);
 
     mono::IBodyPtr body = mono::PhysicsFactory::CreateBody(setup.mass, 1.0f);
-    body->SetPosition(mPosition);
+    body->SetPosition(m_position);
     
     mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(body, setup.size / 2.0f, math::zeroVec);
     shape->SetCollisionFilter(CollisionCategory::ENEMY, ENEMY_MASK);
     
-    mPhysicsObject.body = body;
-    mPhysicsObject.shapes.push_back(shape);
+    m_physics.body = body;
+    m_physics.shapes.push_back(shape);
 
     m_sprite = mono::CreateSprite(setup.sprite_file);
     m_controller = std::move(setup.controller);

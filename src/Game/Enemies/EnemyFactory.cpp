@@ -18,7 +18,7 @@ EnemyFactory::EnemyFactory(mono::EventHandler& event_handler)
 game::EnemyPtr EnemyFactory::CreateCacoDemon(const math::Vector& position)
 {
     EnemySetup setup;
-    setup.sprite_file = "sprites/cacodemon.sprite";
+    setup.sprite_file = "res/sprites/cacodemon.sprite";
     setup.size = 2.0f;
     setup.mass = 500.0f;
     setup.position = position;
@@ -30,7 +30,7 @@ game::EnemyPtr EnemyFactory::CreateCacoDemon(const math::Vector& position)
 game::EnemyPtr EnemyFactory::CreateRyu(const math::Vector& position)
 {
     EnemySetup setup;
-    setup.sprite_file = "sprites/ryu.sprite";
+    setup.sprite_file = "res/sprites/ryu.sprite";
     setup.size = 2.0f;
     setup.mass = 80.0f;
     setup.position = position;
@@ -42,7 +42,7 @@ game::EnemyPtr EnemyFactory::CreateRyu(const math::Vector& position)
 game::EnemyPtr EnemyFactory::CreateInvader(const math::Vector& position)
 {
     EnemySetup setup;
-    setup.sprite_file = "sprites/invader.sprite";
+    setup.sprite_file = "res/sprites/invader.sprite";
     setup.size = 1.0f;
     setup.mass = 50.0f;
     setup.position = position;
@@ -54,7 +54,7 @@ game::EnemyPtr EnemyFactory::CreateInvader(const math::Vector& position)
 game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
 {
     EnemySetup setup;
-    setup.sprite_file = "sprites/invader.sprite";
+    setup.sprite_file = "res/sprites/invader.sprite";
     setup.size = 1.0f;
     setup.mass = 50.0f;
     setup.position = path->GetGlobalPosition() + path->GetPositionByLength(0.0f);
@@ -66,7 +66,7 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
 game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position)
 {
     EnemySetup setup;
-    setup.sprite_file = "sprites/invader.sprite";
+    setup.sprite_file = "res/sprites/invader.sprite";
     setup.size = 1.0f;
     setup.mass = 50.0f;
     setup.position = position;

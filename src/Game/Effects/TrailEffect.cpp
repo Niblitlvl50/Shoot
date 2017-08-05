@@ -31,7 +31,7 @@ TrailEffect::TrailEffect(const math::Vector& position)
     //config.position = position;
     config.generator = TrailGenerator;
     config.updater = mono::DefaultUpdater;
-    config.texture = mono::CreateTexture("textures/flare.png");
+    config.texture = mono::CreateTexture("res/textures/flare.png");
     config.emit_rate = 0.2f;
     config.point_size = 16.0f;
 

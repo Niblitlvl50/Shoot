@@ -2,7 +2,7 @@
     "prefabs": [
         {
             "name": "moon",
-            "sprite": "sprites/moon.sprite",
+            "sprite": "res/sprites/generic.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0

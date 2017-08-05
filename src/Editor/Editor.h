@@ -35,7 +35,7 @@ namespace editor
         Editor(System::IWindow* window, mono::EventHandler& event_handler, const char* file_name);
         virtual ~Editor();
 
-        virtual void OnLoad(mono::ICameraPtr camera);
+        virtual void OnLoad(mono::ICameraPtr& camera);
         virtual void OnUnload();
 
         void Load();

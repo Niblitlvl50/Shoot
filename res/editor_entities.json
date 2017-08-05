@@ -2,7 +2,7 @@
     "entities": [
         {
             "name": "invader",
-            "sprite": "sprites/invader.sprite",
+            "sprite": "res/sprites/invader.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0
@@ -10,7 +10,7 @@
         },
         {
             "name": "cacodemon",
-            "sprite": "sprites/cacodemon.sprite",
+            "sprite": "res/sprites/cacodemon.sprite",
             "scale": {
                 "x": 2.0,
                 "y": 2.0
@@ -18,7 +18,7 @@
         },
         {
             "name": "pathinvader",
-            "sprite": "sprites/invader.sprite",
+            "sprite": "res/sprites/invader.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0
@@ -26,7 +26,7 @@
         },
         {
             "name": "blacksquare",
-            "sprite": "sprites/invader.sprite",
+            "sprite": "res/sprites/invader.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0
@@ -34,7 +34,7 @@
         },
         {
             "name": "shuttle",
-            "sprite": "sprites/shuttle.sprite",
+            "sprite": "res/sprites/shuttle.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0
@@ -42,7 +42,7 @@
         },
         {
             "name": "meteorite",
-            "sprite": "sprites/meteorite.sprite",
+            "sprite": "res/sprites/meteorite.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0

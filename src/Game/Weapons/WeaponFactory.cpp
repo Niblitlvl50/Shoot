@@ -28,7 +28,7 @@ namespace
         explosion_config.position = bullet->Position();
         explosion_config.scale = 2.0f;
         explosion_config.rotation = 0.0f;
-        explosion_config.sprite_file = "sprites/explosion.sprite";
+        explosion_config.sprite_file = "res/sprites/explosion.sprite";
 
         const game::SpawnEntityEvent event(std::make_shared<game::Explosion>(explosion_config, event_handler));
         event_handler.DispatchEvent(event);
@@ -43,7 +43,7 @@ namespace
         explosion_config.position = bullet->Position();
         explosion_config.scale = 2.0f;
         explosion_config.rotation = 0.0f;
-        explosion_config.sprite_file = "sprites/cacoexplosion.sprite";
+        explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
 
         const game::SpawnEntityEvent event(std::make_shared<game::Explosion>(explosion_config, event_handler));
         event_handler.DispatchEvent(event);
@@ -78,14 +78,14 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.collision_radius = 0.4f;
             bullet_config.scale = 1.0;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
-            bullet_config.sprite_file = "sprites/firebullet.sprite";
+            bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
             bullet_config.sound_file = nullptr;
 
             weapon_config.rounds_per_second = 6.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 3.0f;
             weapon_config.bullet_force = 20.0f;
-            weapon_config.fire_sound = "sound/laser.wav";
+            weapon_config.fire_sound = "res/sound/laser.wav";
 
             break;
         }
@@ -96,7 +96,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
             bullet_config.collision_callback = std::bind(RocketCollision, _1, _2, std::ref(m_eventHandler));
-            bullet_config.sprite_file = "sprites/laser.sprite";
+            bullet_config.sprite_file = "res/sprites/laser.sprite";
             bullet_config.sound_file = nullptr;
 
             weapon_config.rounds_per_second = 1.5f;
@@ -111,7 +111,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
             bullet_config.collision_callback = std::bind(CacoPlasmaCollision, _1, _2, std::ref(m_eventHandler));
-            bullet_config.sprite_file = "sprites/cacobullet.sprite";
+            bullet_config.sprite_file = "res/sprites/caco_bullet.sprite";
             bullet_config.scale = 0.5;
             bullet_config.sound_file = nullptr;
 
@@ -129,7 +129,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.collision_radius = 0.15f;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
             bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-            bullet_config.sprite_file = "sprites/generic_bullet.sprite";
+            bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.sound_file = nullptr;
 
             weapon_config.rounds_per_second = 4.0f;

@@ -10,7 +10,7 @@ namespace
 {
     bool LoadEntities(std::vector<EntityDefinition>& collection)
     {
-        File::FilePtr file = File::OpenAsciiFile("editor_entities.json");
+        File::FilePtr file = File::OpenAsciiFile("res/editor_entities.json");
         if(!file)
             return false;
 
@@ -35,7 +35,7 @@ namespace
 
     bool LoadPrefabs(std::vector<PrefabDefinition>& collection)
     {
-        File::FilePtr file = File::OpenAsciiFile("editor_prefabs.json");
+        File::FilePtr file = File::OpenAsciiFile("res/editor_prefabs.json");
         if(!file)
             return false;
 

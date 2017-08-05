@@ -30,13 +30,13 @@ namespace
 
 SmokeEffect::SmokeEffect(const math::Vector& position)
 {
-    mPosition = position;
+    m_position = position;
 
     mono::ParticleEmitter::Configuration config;
     //config.position = position;
     config.generator = SmokeGenerator;
     config.updater = mono::DefaultUpdater;
-    config.texture = mono::CreateTexture("textures/smoke.png");
+    config.texture = mono::CreateTexture("res/textures/smoke.png");
     config.emit_rate = 0.1f;
     config.point_size = 64.0f;
 

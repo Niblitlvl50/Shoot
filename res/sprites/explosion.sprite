@@ -1,1 +1,61 @@
-{	"texture": "textures/explosions.png",	"rows": 7,	"columns": 1,	"x": 9,	"y": 9,	"u": 40,	"v": 232,	"animations": [		{			"name": "default",			"loop": false,			"frames": [ 0, 100, 1, 50, 2, 50, 3, 50, 4, 100, 5, 100, 6, 100 ]		}	]}
+{
+    "animations": [
+        {
+            "name": "default",
+            "loop": false,
+            "frames": [ 0, 100, 1, 50, 2, 50, 3, 50, 4, 100, 5, 100, 6, 100 ]
+        }
+    ],
+    "frames": [
+        {
+            "h": 8,
+            "name": "explosion1",
+            "w": 8,
+            "x": 289,
+            "y": 143
+        },
+        {
+            "h": 8,
+            "name": "explosion2",
+            "w": 8,
+            "x": 301,
+            "y": 143
+        },
+        {
+            "h": 10,
+            "name": "explosion3",
+            "w": 11,
+            "x": 429,
+            "y": 142
+        },
+        {
+            "h": 10,
+            "name": "explosion4",
+            "w": 11,
+            "x": 414,
+            "y": 142
+        },
+        {
+            "h": 10,
+            "name": "explosion5",
+            "w": 10,
+            "x": 459,
+            "y": 142
+        },
+        {
+            "h": 10,
+            "name": "explosion6",
+            "w": 11,
+            "x": 444,
+            "y": 142
+        },
+        {
+            "h": 11,
+            "name": "explosion7",
+            "w": 11,
+            "x": 481,
+            "y": 131
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

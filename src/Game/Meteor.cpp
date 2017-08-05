@@ -13,21 +13,21 @@ using namespace game;
 
 Meteor::Meteor(float x, float y)
 {
-    mSprite = mono::CreateSprite("sprites/meteorite.sprite");
+    mSprite = mono::CreateSprite("res/sprites/meteorite.sprite");
 
-    mPosition = math::Vector(x, y);
-    mScale = math::Vector(1.0f, 1.0f);
+    m_position = math::Vector(x, y);
+    m_scale = math::Vector(1.0f, 1.0f);
 
     SetProperty(EntityProperties::DAMAGABLE);
     
-    mPhysicsObject.body = mono::PhysicsFactory::CreateBody(15.0f, 1.0f);
-    mPhysicsObject.body->SetPosition(mPosition);
+    m_physics.body = mono::PhysicsFactory::CreateBody(15.0f, 1.0f);
+    m_physics.body->SetPosition(m_position);
 
-    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(mPhysicsObject.body, mScale.x * 0.5, math::zeroVec);
+    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x * 0.5, math::zeroVec);
     shape->SetElasticity(0.9f);
     
-    mPhysicsObject.body->SetMoment(shape->GetInertiaValue());
-    mPhysicsObject.shapes.push_back(shape);
+    m_physics.body->SetMoment(shape->GetInertiaValue());
+    m_physics.shapes.push_back(shape);
 }
 
 void Meteor::Draw(mono::IRenderer& renderer) const

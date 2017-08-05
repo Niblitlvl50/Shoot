@@ -20,21 +20,21 @@ using namespace editor;
 
 PolygonEntity::PolygonEntity()
     : m_selected(false),
-      m_texture_name("textures/placeholder.png")
+      m_texture_name("res/textures/placeholder.png")
 { }
 
 PolygonEntity::PolygonEntity(const std::vector<math::Vector>& points)
     : PolygonEntity()
 {
-    mPosition = points.front();
+    m_position = points.front();
 
     m_points = points;
     
     for(math::Vector& vertex : m_points)
-        vertex -= mPosition;
+        vertex -= m_position;
 
     RecalculateTextureCoordinates();
-    mBasePoint = math::CentroidOfPolygon(m_points);
+    m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 void PolygonEntity::Draw(mono::IRenderer& renderer) const
@@ -47,7 +47,7 @@ void PolygonEntity::Draw(mono::IRenderer& renderer) const
         renderer.DrawClosedPolyline(m_points, selected_color, 6.0f);
 
     DrawPolygon(renderer, m_texture, m_points, m_textureCoordinates);
-    renderer.DrawPoints({ mBasePoint }, point_color, 4.0f);
+    renderer.DrawPoints({ m_base_point }, point_color, 4.0f);
 }
 
 void PolygonEntity::Update(unsigned int delta)
@@ -72,7 +72,7 @@ void PolygonEntity::AddVertex(const math::Vector& vertex)
 {
     m_points.push_back(vertex);
     RecalculateTextureCoordinates();
-    mBasePoint = math::CentroidOfPolygon(m_points);
+    m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 void PolygonEntity::SetVertex(const math::Vector& vertex, size_t index)
@@ -82,7 +82,7 @@ void PolygonEntity::SetVertex(const math::Vector& vertex, size_t index)
 
     m_points[index] = math::Transform(transform, vertex);
     RecalculateTextureCoordinates();
-    //mBasePoint = math::CentroidOfPolygon(m_points);
+    //m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 const std::vector<math::Vector>& PolygonEntity::GetVertices() const
@@ -103,9 +103,9 @@ bool PolygonEntity::IsSelected() const
 void PolygonEntity::SetTexture(const char* texture)
 {
     const std::size_t length = std::strlen(texture);
-    assert(length <= 32);
+    assert(length <= 64);
 
-    std::memset(m_texture_name, 0, 32);
+    std::memset(m_texture_name, 0, 64);
     std::memcpy(m_texture_name, texture, length);
 
     m_texture = nullptr;

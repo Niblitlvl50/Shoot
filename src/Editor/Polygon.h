@@ -41,7 +41,7 @@ namespace editor
 
         std::vector<math::Vector> m_points;
         std::vector<math::Vector> m_textureCoordinates;
-        char m_texture_name[32];
+        char m_texture_name[64];
     };
 
     void DrawPolygon(mono::IRenderer& renderer,

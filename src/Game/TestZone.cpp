@@ -105,7 +105,7 @@ TestZone::TestZone(mono::EventHandler& eventHandler)
     m_spawnConstraintToken = mEventHandler.AddListener(constraintFunc);
     m_despawnConstraintToken = mEventHandler.AddListener(despawnConstraintFunc);
 
-    m_backgroundMusic = mono::AudioFactory::CreateSound("sound/ingame_phoenix.wav", true, true);
+    m_backgroundMusic = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
 }
 
 TestZone::~TestZone()
@@ -119,9 +119,9 @@ TestZone::~TestZone()
     mEventHandler.RemoveListener(m_despawnConstraintToken);
 }
 
-void TestZone::OnLoad(mono::ICameraPtr camera)
+void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    File::FilePtr world_file = File::OpenBinaryFile("world.world");
+    File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
     
     world::LevelFileHeader world_header;
     world::ReadWorld(world_file, world_header);
@@ -146,7 +146,7 @@ void TestZone::OnLoad(mono::ICameraPtr camera)
     AddPhysicsEntity(enemy_factory->CreateBlackSquare(math::Vector(-30.0f, 70.0f)), MIDDLEGROUND);
     AddPhysicsEntity(enemy_factory->CreateBlackSquare(math::Vector(-30.0f, 70.0f)), MIDDLEGROUND);
 
-    const mono::IPathPtr& path = mono::CreatePath("paths/smaller_loop.path");
+    const mono::IPathPtr& path = mono::CreatePath("res/paths/smaller_loop.path");
     AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
     AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
     AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
@@ -229,7 +229,7 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
         config.position = entity->Position();
         config.scale = 1.5f;
         //config.rotation = mono::Random(0.0f, math::PI() * 2.0f);
-        config.sprite_file = "sprites/explosion.sprite";
+        config.sprite_file = "res/sprites/explosion.sprite";
 
         AddEntity(std::make_shared<Explosion>(config, mEventHandler), FOREGROUND);
     }

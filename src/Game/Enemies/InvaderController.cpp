@@ -30,7 +30,7 @@ namespace
         DotEntity(const math::Vector& point)
             : m_point(point)
         {
-            mScale = math::Vector(10, 10);
+            m_scale = math::Vector(10, 10);
         }
 
         virtual void Draw(mono::IRenderer& renderer) const
@@ -41,7 +41,7 @@ namespace
 
         virtual void Update(unsigned int delta)
         {
-            mPosition = m_point;
+            m_position = m_point;
         }
         
         const math::Vector& m_point;

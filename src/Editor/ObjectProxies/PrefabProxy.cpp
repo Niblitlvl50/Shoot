@@ -6,6 +6,7 @@
 #include "UIContext.h"
 
 #include "Math/Quad.h"
+#include "Math/Vector.h"
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
 
@@ -47,7 +48,7 @@ std::vector<SnapPoint> PrefabProxy::GetSnappers() const
     math::Inverse(matrix);
 
     const auto func = [&matrix](SnapPoint& point) {
-        point.position = math::Transform(matrix, point.position);
+        math::Transform(matrix, point.position);
     };
 
     std::vector<SnapPoint> snappers = m_prefab->SnapPoints();

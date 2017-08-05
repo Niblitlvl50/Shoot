@@ -57,7 +57,7 @@ bool ShuttleController::OnMouseUp(const event::MouseUpEvent& event)
 {
     mShuttle->StopFire();
     
-    mShuttle->mPhysicsObject.body->ResetForces();
+    mShuttle->m_physics.body->ResetForces();
     mShuttle->SetBoosterThrusting(BoosterPosition::ALL, false);
 
     mMouseDown = false;
@@ -71,7 +71,7 @@ bool ShuttleController::OnMouseMotion(const event::MouseMotionEvent& event)
         return false;
 
     // Reset forces first.
-    mShuttle->mPhysicsObject.body->ResetForces();
+    mShuttle->m_physics.body->ResetForces();
 
     const math::Vector current(event.screenX, -event.screenY);
 

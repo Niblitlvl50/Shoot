@@ -28,7 +28,7 @@ namespace game
         TestZone(mono::EventHandler& eventHandler);
         ~TestZone();
                 
-        virtual void OnLoad(mono::ICameraPtr camera);
+        virtual void OnLoad(mono::ICameraPtr& camera);
         virtual void OnUnload();
         
         bool SpawnEntity(const game::SpawnEntityEvent& event);

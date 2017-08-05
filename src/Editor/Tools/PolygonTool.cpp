@@ -18,7 +18,7 @@ public:
         : m_points(points),
           m_mousePosition(mouse_position)
     {
-        m_texture = mono::CreateTexture("textures/placeholder.png");
+        m_texture = mono::CreateTexture("res/textures/placeholder.png");
     }
 
     virtual void doDraw(mono::IRenderer& renderer) const

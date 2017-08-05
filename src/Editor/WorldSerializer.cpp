@@ -132,7 +132,7 @@ void editor::SavePaths(const char* file_name, const std::vector<std::shared_ptr<
 
     for(auto& path : paths)
     {
-        const std::string& filename = "paths/" + path->m_name + ".path";
+        const std::string& filename = "res/paths/" + path->m_name + ".path";
         mono::SavePath(filename.c_str(), path->Position(), path->m_points);
         path_names.push_back(filename);
     }

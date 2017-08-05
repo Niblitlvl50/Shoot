@@ -2,12 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Launch animator",
+            "name": "C++ Launch game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/shoot",
+            "program": "${workspaceRoot}/bin/game",
             "stopAtEntry": false,
-            "cwd": "${workspaceRoot}/res",
+            "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
             "linux": {
@@ -19,6 +19,25 @@
             "windows": {
                 "MIMode": "gdb"
             }
-        }
+        },
+        {
+            "name": "C++ Launch editor",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/editor",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb"
+            }
+        }        
     ]
 }

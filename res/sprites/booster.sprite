@@ -1,1 +1,34 @@
-{	"texture": "textures/spritesheet.png",	"rows": 1,	"columns": 3,	"x": 194,	"y": 64,	"u": 238,	"v": 79,	"animations": [		{			"name": "default",			"loop": false,			"frames": [ 0, -1 ]		},		{			"name": "default",			"loop": true,			"frames": [ 1, 50, 2, 50 ]		}	]}
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        },
+        {
+            "name": "default",
+            "frames": [0, 50, 1, 50],
+            "loop": true
+        }
+    ],
+    "frames": [
+        {
+            "h": 12,
+            "name": "booster1",
+            "w": 9,
+            "x": 134,
+            "y": 130
+        },
+        {
+            "h": 11,
+            "name": "booster2",
+            "w": 9,
+            "x": 496,
+            "y": 131
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

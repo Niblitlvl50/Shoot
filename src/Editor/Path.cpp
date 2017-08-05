@@ -53,7 +53,7 @@ PathEntity::PathEntity(const std::string& name, const std::vector<math::Vector>&
     : PathEntity(name)
 {
     m_points = points;
-    mBasePoint = math::CentroidOfPolygon(m_points);
+    m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 void PathEntity::Draw(mono::IRenderer& renderer) const
@@ -62,7 +62,7 @@ void PathEntity::Draw(mono::IRenderer& renderer) const
         renderer.DrawPolyline(m_points, selected_color, 4.0f);
 
     DrawPath(renderer, m_points);
-    renderer.DrawPoints( { mBasePoint }, arrow_color, 4.0f);
+    renderer.DrawPoints( { m_base_point }, arrow_color, 4.0f);
 }
 
 void PathEntity::Update(unsigned int delta)
@@ -94,7 +94,7 @@ void PathEntity::AddVertex(const math::Vector& vertex)
 
     m_points.push_back(vertex - Position());
     if(m_points.size() > 2)
-        mBasePoint = math::CentroidOfPolygon(m_points);
+        m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 void PathEntity::SetVertex(const math::Vector& vertex, size_t index)

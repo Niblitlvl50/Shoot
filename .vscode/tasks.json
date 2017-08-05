@@ -49,7 +49,7 @@
             "taskName": "editor",
             "type": "process",
             "command": "./bin/editor",
-            "args": [],
+            "args": ["res/world.world"],
             "problemMatcher": []
         }
     ]

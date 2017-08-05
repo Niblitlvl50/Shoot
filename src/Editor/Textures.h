@@ -6,13 +6,13 @@
 namespace editor
 {
     static const char* avalible_textures[] = {
-        "textures/placeholder.png",
-        "textures/stone_tileable.png",
-        "textures/gray_stone.png",
-        "textures/dark_stone.png",
-        "textures/brown_stone.png",
-        "textures/lava1.png",
-        "textures/lava2.png"
+        "res/textures/placeholder.png",
+        "res/textures/stone_tileable.png",
+        "res/textures/gray_stone.png",
+        "res/textures/dark_stone.png",
+        "res/textures/brown_stone.png",
+        "res/textures/lava1.png",
+        "res/textures/lava2.png"
         };
 
     constexpr int n_textures = 7;

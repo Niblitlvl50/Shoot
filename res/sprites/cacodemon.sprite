@@ -8,7 +8,7 @@
             "loop": true,
             "name": "idle"
         },
-        {
+                {
             "frames": [
                 6,
                 100,
@@ -83,11 +83,91 @@
             "name": "death"
         }
     ],
-    "columns": 6,
-    "rows": 2,
-    "texture": "textures/cacodemon.png",
-    "u": 478,
-    "v": 158,
-    "x": 1,
-    "y": 1
+    "frames": [
+        {
+            "h": 66,
+            "name": "cacodemon1",
+            "w": 63,
+            "x": 347,
+            "y": 73
+        },
+        {
+            "h": 73,
+            "name": "cacodemon10",
+            "w": 67,
+            "x": 2,
+            "y": 2
+        },
+        {
+            "h": 66,
+            "name": "cacodemon11",
+            "w": 69,
+            "x": 274,
+            "y": 73
+        },
+        {
+            "h": 49,
+            "name": "cacodemon12",
+            "w": 73,
+            "x": 73,
+            "y": 77
+        },
+        {
+            "h": 65,
+            "name": "cacodemon2",
+            "w": 63,
+            "x": 414,
+            "y": 73
+        },
+        {
+            "h": 69,
+            "name": "cacodemon3",
+            "w": 63,
+            "x": 140,
+            "y": 2
+        },
+        {
+            "h": 71,
+            "name": "cacodemon4",
+            "w": 63,
+            "x": 73,
+            "y": 2
+        },
+        {
+            "h": 67,
+            "name": "cacodemon5",
+            "w": 63,
+            "x": 341,
+            "y": 2
+        },
+        {
+            "h": 67,
+            "name": "cacodemon6",
+            "w": 63,
+            "x": 408,
+            "y": 2
+        },
+        {
+            "h": 67,
+            "name": "cacodemon7",
+            "w": 63,
+            "x": 207,
+            "y": 2
+        },
+        {
+            "h": 67,
+            "name": "cacodemon8",
+            "w": 63,
+            "x": 207,
+            "y": 73
+        },
+        {
+            "h": 67,
+            "name": "cacodemon9",
+            "w": 63,
+            "x": 274,
+            "y": 2
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
 }

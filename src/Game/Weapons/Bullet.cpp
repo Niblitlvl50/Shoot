@@ -18,21 +18,21 @@ using namespace game;
 Bullet::Bullet(const BulletConfiguration& config)
     : m_collisionCallback(config.collision_callback)
 {
-    mScale = math::Vector(1.0f, 1.0f) * config.scale;
+    m_scale = math::Vector(1.0f, 1.0f) * config.scale;
 
-    mPhysicsObject.body = mono::PhysicsFactory::CreateBody(1.0f, 1.0f);
-    mPhysicsObject.body->SetCollisionHandler(this);
+    m_physics.body = mono::PhysicsFactory::CreateBody(1.0f, 1.0f);
+    m_physics.body->SetCollisionHandler(this);
 
     mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(
-        mPhysicsObject.body,
+        m_physics.body,
         config.collision_radius * config.scale,
         math::Vector(0.0f, 0.0f)
     );
 
     shape->SetCollisionFilter(config.collision_category, config.collision_mask);
 
-    mPhysicsObject.body->SetMoment(shape->GetInertiaValue());
-    mPhysicsObject.shapes.push_back(shape);
+    m_physics.body->SetMoment(shape->GetInertiaValue());
+    m_physics.shapes.push_back(shape);
 
     m_sprite = mono::CreateSprite(config.sprite_file);
     m_sprite->SetShade(config.shade);
@@ -57,7 +57,7 @@ void Bullet::Update(unsigned int delta)
     m_sprite->doUpdate(delta);
 
     if(m_sound)
-        m_sound->Position(mPosition.x, mPosition.y);
+        m_sound->Position(m_position.x, m_position.y);
 
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)

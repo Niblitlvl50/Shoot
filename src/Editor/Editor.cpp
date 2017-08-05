@@ -47,7 +47,7 @@ namespace
         editor::EntityRepository& repository,
         std::unordered_map<unsigned int, mono::ITexturePtr>& textures)
     {
-        mono::ITexturePtr texture = mono::CreateTexture("textures/placeholder.png");
+        mono::ITexturePtr texture = mono::CreateTexture("res/textures/placeholder.png");
         textures.insert(std::make_pair(texture->Id(), texture));
 
         context.tools_texture_id = texture->Id();
@@ -99,7 +99,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
 
     const System::Size& size = m_window->Size();
     const math::Vector window_size(size.width, size.height);
-    m_guiRenderer = std::make_shared<ImGuiRenderer>("editor_imgui.ini", window_size, textures);
+    m_guiRenderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
     Load();
 }
 
@@ -111,16 +111,16 @@ Editor::~Editor()
     config.cameraPosition = m_camera->GetPosition();
     config.cameraViewport = m_camera->GetViewport();
 
-    editor::SaveConfig("editor_config.json", config);
+    editor::SaveConfig("res/editor_config.json", config);
     Save();
 }
 
-void Editor::OnLoad(mono::ICameraPtr camera)
+void Editor::OnLoad(mono::ICameraPtr& camera)
 {
     m_camera = camera;
     
     editor::Config config;
-    const bool config_loaded = editor::LoadConfig("editor_config.json", config);
+    const bool config_loaded = editor::LoadConfig("res/editor_config.json", config);
     if(config_loaded)
     {
         camera->SetPosition(config.cameraPosition);
@@ -144,15 +144,15 @@ void Editor::Load()
     for(auto& polygon : polygons)
         AddPolygon(polygon);
 
-    const auto& paths = LoadPaths("world.paths");
+    const auto& paths = LoadPaths("res/world.paths");
     for(auto& path : paths)
         AddPath(path);
 
-    const auto& objects = LoadObjects("world.objects", m_entityRepository);
+    const auto& objects = LoadObjects("res/world.objects", m_entityRepository);
     for(auto& object : objects)
         AddObject(object);
 
-    const auto& prefabs = LoadPrefabs("world.prefabs", m_entityRepository);
+    const auto& prefabs = LoadPrefabs("res/world.prefabs", m_entityRepository);
     for(auto& prefab : prefabs)
         AddPrefab(prefab);
 }
@@ -160,9 +160,9 @@ void Editor::Load()
 void Editor::Save()
 {
     SavePolygons(m_fileName, m_polygons);
-    SavePaths("world.paths", m_paths);
-    SaveObjects("world.objects", m_objects);
-    SavePrefabs("world.prefabs", m_prefabs);
+    SavePaths("res/world.paths", m_paths);
+    SaveObjects("res/world.objects", m_objects);
+    SavePrefabs("res/world.prefabs", m_prefabs);
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
