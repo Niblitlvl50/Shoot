@@ -113,6 +113,7 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
 
 void Shuttle::Update(unsigned int delta)
 {
+    m_controller.Update(delta);
     m_sprite->doUpdate(delta);
 
     if(m_fire)

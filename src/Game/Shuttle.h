@@ -5,6 +5,7 @@
 #include "Entity/PhysicsEntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
 #include "ShuttleController.h"
+#include "ShuttleGamepadController.h"
 #include "Physics/IBody.h"
 
 #include "Weapons/IWeaponSystem.h"
@@ -33,6 +34,7 @@ namespace game
     private:
 
         friend class ShuttleController;
+        friend class ::ShuttleGamepadController;
 
         void SelectWeapon(WeaponType weapon);
         
@@ -54,7 +56,8 @@ namespace game
         std::unique_ptr<IWeaponSystem> m_weapon;
 
         mono::ISpritePtr m_sprite;
-        ShuttleController m_controller;
+        //ShuttleController m_controller;
+        ShuttleGamepadController m_controller;
         mono::EventHandler& m_event_handler;
 
         bool m_fire;
