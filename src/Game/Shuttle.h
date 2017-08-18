@@ -4,17 +4,17 @@
 #include "MonoPtrFwd.h"
 #include "Entity/PhysicsEntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
-#include "ShuttleController.h"
 #include "ShuttleGamepadController.h"
 #include "Physics/IBody.h"
 
 #include "Weapons/IWeaponSystem.h"
 
+#include "System/System.h"
+
 class SpriteEntity;
 
 namespace game
 {
-    class IWeaponSystem;
     enum class WeaponType;
 
     enum class BoosterPosition
@@ -29,39 +29,33 @@ namespace game
     {
     public:
         
-        Shuttle(const math::Vector& postiion, mono::EventHandler& eventHandler);
-
-    private:
-
-        friend class ShuttleController;
-        friend class ::ShuttleGamepadController;
+        Shuttle(
+            const math::Vector& postiion, mono::EventHandler& eventHandler, const System::ControllerState& controller);
 
         void SelectWeapon(WeaponType weapon);
-        
-        void ApplyRotationForce(float force);
-        void ApplyThrustForce(float force);
         void ApplyImpulse(const math::Vector& force);
 
         void Fire();
         void StopFire();
 
         void SetBoosterThrusting(BoosterPosition position, bool enabled);
+
+    private:
         
+        void ApplyRotationForce(float force);
+        void ApplyThrustForce(float force);
+
         virtual void Draw(mono::IRenderer& renderer) const;
         virtual void Update(unsigned int delta);
         
         virtual void OnCollideWith(const mono::IBodyPtr& body);
         virtual void OnPostStep();
-
-        std::unique_ptr<IWeaponSystem> m_weapon;
-
-        mono::ISpritePtr m_sprite;
-        //ShuttleController m_controller;
+        
         ShuttleGamepadController m_controller;
-        mono::EventHandler& m_event_handler;
-
         bool m_fire;
-
+        
+        mono::ISpritePtr m_sprite;
+        std::unique_ptr<IWeaponSystem> m_weapon;
         std::shared_ptr<SpriteEntity> m_left_booster;
         std::shared_ptr<SpriteEntity> m_right_booster;
     };

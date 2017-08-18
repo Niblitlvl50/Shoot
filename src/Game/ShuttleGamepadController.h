@@ -2,38 +2,27 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "EventHandler/EventToken.h"
-
-namespace event
-{
-    struct ControllerAddedEvent;
-    struct ControllerRemovedEvent;
-}
+#include "System/System.h"
 
 namespace game
 {
     class Shuttle;
+    
+    class ShuttleGamepadController
+    {
+    public:
+        
+        ShuttleGamepadController(game::Shuttle* shuttle, mono::EventHandler& event_handler, const System::ControllerState& controller);
+        void Update(unsigned int delta);
+        
+    private:
+        
+        game::Shuttle* m_shuttle;
+        mono::EventHandler& m_event_handler;
+
+        const System::ControllerState& m_state;
+        System::ControllerState m_last_state;
+
+        int m_current_weapon_index = 0;
+    };
 }
-
-class ShuttleGamepadController
-{
-public:
-
-    ShuttleGamepadController(game::Shuttle* shuttle, mono::EventHandler& event_handler);
-    ~ShuttleGamepadController();
-
-    void Update(unsigned int delta);
-
-private:
-
-    bool OnControllerAdded(const event::ControllerAddedEvent& event);
-    bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
-
-    game::Shuttle* m_shuttle;
-    mono::EventHandler& m_event_handler;
-
-    mono::EventToken<event::ControllerAddedEvent> m_added_token;
-    mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
-
-    int m_id = -1;
-};

@@ -48,7 +48,8 @@ public:
 
     virtual void Draw(mono::IRenderer& renderer) const
     {
-        renderer.DrawSprite(*m_sprite);
+        if(m_enabled)
+            renderer.DrawSprite(*m_sprite);
     }
 
     virtual void Update(unsigned int delta)
@@ -62,12 +63,12 @@ public:
     }
 
     mono::ISpritePtr m_sprite;
+    bool m_enabled = true;
 };
 
 
-Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler)
-    : m_controller(this, eventHandler),
-      m_event_handler(eventHandler),
+Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler, const System::ControllerState& controller)
+    : m_controller(this, eventHandler, controller),
       m_fire(false)
 {
     m_position = position;
@@ -178,16 +179,20 @@ void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
     {
         case BoosterPosition::LEFT:
             m_left_booster->SetAnimation(state);
+            m_left_booster->m_enabled = enable;
             break;
         case BoosterPosition::RIGHT:
             m_right_booster->SetAnimation(state);
+            m_right_booster->m_enabled = enable;
             break;
         case BoosterPosition::MAIN:
             m_sprite->SetAnimation(state);
             break;
         case BoosterPosition::ALL:
             m_left_booster->SetAnimation(state);
+            m_left_booster->m_enabled = enable;
             m_right_booster->SetAnimation(state);
+            m_right_booster->m_enabled = enable;
             m_sprite->SetAnimation(state);
             break;
     }

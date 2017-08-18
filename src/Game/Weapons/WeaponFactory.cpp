@@ -76,7 +76,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
             bullet_config.collision_radius = 0.4f;
-            bullet_config.scale = 1.0;
+            bullet_config.scale = 0.5;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
             bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
             bullet_config.sound_file = nullptr;

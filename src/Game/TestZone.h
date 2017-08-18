@@ -6,6 +6,7 @@
 
 #include "Spawner.h"
 #include "DamageController.h"
+#include "PlayerDaemon.h"
 #include "Network/RemoteConnection.h"
 #include "Hud/Healthbar.h"
 
@@ -57,6 +58,7 @@ namespace game
         
         mono::EventHandler& mEventHandler;
         Spawner m_spawner;
+        PlayerDaemon m_player_daemon;
         DamageController m_damageController;
         mono::ISoundPtr m_backgroundMusic;
         RemoteConnection m_connection;

@@ -9,7 +9,6 @@
 
 #include "Effects/SmokeEffect.h"
 
-#include "Shuttle.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -39,6 +38,7 @@
 #include "Rendering/Color.h"
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
+#include "Physics/IBody.h"
 #include "FontIds.h"
 
 namespace
@@ -85,7 +85,8 @@ using namespace game;
 TestZone::TestZone(mono::EventHandler& eventHandler)
     : PhysicsZone(math::Vector(0.0f, 0.0f), 0.9f),
       mEventHandler(eventHandler),
-      m_spawner(eventHandler)
+      m_spawner(eventHandler),
+      m_player_daemon(eventHandler, this)
 {
     using namespace std::placeholders;
     
@@ -121,19 +122,18 @@ TestZone::~TestZone()
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    m_player_daemon.SetCamera(camera);
+
     File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
     
     world::LevelFileHeader world_header;
     world::ReadWorld(world_file, world_header);
     game::LoadWorld(this, world_header.polygons);
 
-    std::shared_ptr<Shuttle> shuttle = std::make_shared<Shuttle>(math::zeroVec, mEventHandler);
-
-    AddUpdatable(std::make_shared<ListenerPositionUpdater>(shuttle));
+    //AddUpdatable(std::make_shared<ListenerPositionUpdater>(shuttle));
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
-    AddPhysicsEntity(shuttle, FOREGROUND);
 
     AddPhysicsEntity(enemy_factory->CreateCacoDemon(math::Vector(100, 100)), FOREGROUND);
     AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
@@ -153,9 +153,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
 
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
     AddEntity(std::make_shared<FPSEntity>(), FOREGROUND);
-
-    camera->SetPosition(shuttle->Position());
-    camera->Follow(shuttle, math::Vector(0, -4));
 
     m_backgroundMusic->Play();
 }
@@ -228,7 +225,6 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
         game::ExplosionConfiguration config;
         config.position = entity->Position();
         config.scale = 1.5f;
-        //config.rotation = mono::Random(0.0f, math::PI() * 2.0f);
         config.sprite_file = "res/sprites/explosion.sprite";
 
         AddEntity(std::make_shared<Explosion>(config, mEventHandler), FOREGROUND);
