@@ -3,9 +3,6 @@
 
 namespace game
 {
-    class IWeaponFactory;
-    class IEnemyFactory;
-
-    extern IWeaponFactory* weapon_factory;
-    extern IEnemyFactory* enemy_factory;
+    extern class IWeaponFactory* weapon_factory;
+    extern class IEnemyFactory* enemy_factory;
 }
