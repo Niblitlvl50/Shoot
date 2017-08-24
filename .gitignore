@@ -1,4 +1,4 @@
-.DS_Store
+**/.DS_Store
 .vscode/*.VC.db
 CMakeCache.txt
 cmake_install.cmake
@@ -7,4 +7,4 @@ bin/
 build/
 CMakeFiles/
 DerivedData/
-Resources/animator_imgui.ini
+res/editor_config.json
