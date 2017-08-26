@@ -3,11 +3,11 @@
 #include "Audio/AudioSystem.h"
 #include "Rendering/RenderSystem.h"
 
-#include "Camera/TraceCamera.h"
 #include "Engine.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "EventHandler/EventHandler.h"
 
+#include "Camera.h"
 #include "TestZone.h"
 #include "Factories.h"
 #include "Weapons/WeaponFactory.h"
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
         System::IWindow* window = System::CreateWindow("Shmup", size.x, size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
 
-        mono::ICameraPtr camera = std::make_shared<mono::TraceCamera>(24, 16);
+        mono::ICameraPtr camera = std::make_shared<game::Camera>(24, 16);
         
         mono::LoadFont(game::FontId::SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
         mono::LoadFont(game::FontId::MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);

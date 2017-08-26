@@ -63,7 +63,7 @@ public:
     }
 
     mono::ISpritePtr m_sprite;
-    bool m_enabled = true;
+    bool m_enabled = false;
 };
 
 
@@ -119,8 +119,9 @@ void Shuttle::Update(unsigned int delta)
 
     if(m_fire)
     {
-        constexpr math::Vector position_shift(0.0f, 0.5f);
+        const math::Vector& position_shift = math::VectorFromAngle(m_rotation) * 0.5f;
         const float direction_shift = math::ToRadians(mono::Random(-4.0f, 4.0f));
+
         m_weapon->Fire(m_position + position_shift, m_rotation + direction_shift);
     }
 
@@ -197,6 +198,3 @@ void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
             break;
     }
 }
-
-
-

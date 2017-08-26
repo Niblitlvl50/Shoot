@@ -7,6 +7,9 @@
 #include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "System/System.h"
+#include "Math/MathFunctions.h"
+
+#include "Audio/AudioListener.h"
 
 #define IS_TRIGGERED(variable) (!m_last_state.variable && m_state.variable)
 #define HAS_CHANGED(variable) (m_last_state.variable != m_state.variable)
@@ -22,7 +25,11 @@ ShuttleGamepadController::ShuttleGamepadController(
 
 void ShuttleGamepadController::Update(unsigned int delta)
 {
-    if(m_state.a)
+    const math::Vector& position = m_shuttle->Position();
+    mono::ListenerPosition(position.x, position.y);
+
+    const bool fire = (m_state.a || m_state.right_trigger > 0.25f);
+    if(fire)
         m_shuttle->Fire();
     else
         m_shuttle->StopFire();
@@ -39,14 +46,21 @@ void ShuttleGamepadController::Update(unsigned int delta)
     
     const math::Vector force(m_state.left_x, m_state.left_y);
     m_shuttle->ApplyImpulse(force * 8);
+
+    if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
+    {
+        const math::Vector direction(m_state.right_x, m_state.right_y);
+        const float rotation = math::AngleBetweenPoints(math::zeroVec, direction) - math::PI_2();
+        m_shuttle->SetRotation(rotation);
+    }
     
     const bool leftBoosterOn = (force.x > 0.0f);
     const bool rightBoosterOn = (force.x < 0.0f);
     const bool mainBoosterOn = (force.y > 0.0f);
     
-    m_shuttle->SetBoosterThrusting(game::BoosterPosition::LEFT, leftBoosterOn);
-    m_shuttle->SetBoosterThrusting(game::BoosterPosition::RIGHT, rightBoosterOn);
-    m_shuttle->SetBoosterThrusting(game::BoosterPosition::MAIN, mainBoosterOn);
+    //m_shuttle->SetBoosterThrusting(game::BoosterPosition::LEFT, leftBoosterOn);
+    //m_shuttle->SetBoosterThrusting(game::BoosterPosition::RIGHT, rightBoosterOn);
+    m_shuttle->SetBoosterThrusting(game::BoosterPosition::MAIN, mainBoosterOn || leftBoosterOn || rightBoosterOn);
     
     const bool b = IS_TRIGGERED(b);
     const bool b_changed = HAS_CHANGED(b);

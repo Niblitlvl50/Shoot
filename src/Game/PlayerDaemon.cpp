@@ -40,7 +40,7 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     m_player_one = std::make_shared<Shuttle>(math::zeroVec, m_event_handler, System::GetController(event.id));
     m_zone->AddPhysicsEntity(m_player_one, FOREGROUND);
-    m_camera->Follow(m_player_one, math::Vector(0, -4));
+    m_camera->Follow(m_player_one, math::zeroVec);
 
     return false;
 }
