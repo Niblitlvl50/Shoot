@@ -5,23 +5,24 @@
 #include "Physics/CMFactory.h"
 #include "Random.h"
 
-#include "AIKnowledge.h"
-#include "EntityProperties.h"
-#include "CollisionConfiguration.h"
-
 #include "Entity/EntityBase.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Color.h"
+
+#include "Math/MathFunctions.h"
+#include "Math/Matrix.h"
+
+#include "AIKnowledge.h"
+#include "EntityProperties.h"
+#include "CollisionConfiguration.h"
 
 #include "Factories.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
 
 #include "Effects/TrailEffect.h"
-
-#include "Math/MathFunctions.h"
-#include "Math/Matrix.h"
 
 #include <cmath>
 
@@ -69,7 +70,8 @@ public:
 
 Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler, const System::ControllerState& controller)
     : m_controller(this, eventHandler, controller),
-      m_fire(false)
+      m_fire(false),
+      m_player_info(nullptr)
 {
     m_position = position;
     m_scale = math::Vector(1.0f, 1.0f);
@@ -125,7 +127,11 @@ void Shuttle::Update(unsigned int delta)
         m_weapon->Fire(m_position + position_shift, m_rotation + direction_shift);
     }
 
-    game::player_position = m_position;
+    if(m_player_info)
+    {
+        m_player_info->position = m_position;
+        m_player_info->ammunition = m_weapon->AmmunitionLeft();
+    }
 }
 
 void Shuttle::OnCollideWith(const mono::IBodyPtr& body)
@@ -197,4 +203,14 @@ void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
             m_sprite->SetAnimation(state);
             break;
     }
+}
+
+void Shuttle::SetShading(const mono::Color::RGBA& shade)
+{
+    m_sprite->SetShade(shade);
+}
+
+void Shuttle::SetPlayerInfo(PlayerInfo* info)
+{
+    m_player_info = info;
 }

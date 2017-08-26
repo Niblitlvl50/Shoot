@@ -15,6 +15,7 @@ class SpriteEntity;
 
 namespace game
 {
+    struct PlayerInfo;
     enum class WeaponType;
 
     enum class BoosterPosition
@@ -39,6 +40,8 @@ namespace game
         void StopFire();
 
         void SetBoosterThrusting(BoosterPosition position, bool enabled);
+        void SetShading(const mono::Color::RGBA& shade);
+        void SetPlayerInfo(PlayerInfo* info);
 
     private:
         
@@ -58,6 +61,8 @@ namespace game
         std::unique_ptr<IWeaponSystem> m_weapon;
         std::shared_ptr<SpriteEntity> m_left_booster;
         std::shared_ptr<SpriteEntity> m_right_booster;
+
+        PlayerInfo* m_player_info;
     };
 }
 

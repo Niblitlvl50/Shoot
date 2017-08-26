@@ -1,5 +1,7 @@
 
 #include "AIKnowledge.h"
 
-math::Vector game::player_position;
+game::PlayerInfo game::player_one;
+game::PlayerInfo game::player_two;
+
 math::Quad game::camera_viewport;

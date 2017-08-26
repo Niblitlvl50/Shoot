@@ -130,7 +130,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     world::ReadWorld(world_file, world_header);
     game::LoadWorld(this, world_header.polygons);
 
-    //AddUpdatable(std::make_shared<ListenerPositionUpdater>(shuttle));
+    AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);

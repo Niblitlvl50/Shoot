@@ -6,6 +6,14 @@
 
 namespace game
 {
-    extern math::Vector player_position;
+    struct PlayerInfo
+    {
+        math::Vector position;
+        int ammunition;
+    };
+
+    extern PlayerInfo player_one;
+    extern PlayerInfo player_two;
+
     extern math::Quad camera_viewport;
 }

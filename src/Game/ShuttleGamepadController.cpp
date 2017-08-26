@@ -9,8 +9,6 @@
 #include "System/System.h"
 #include "Math/MathFunctions.h"
 
-#include "Audio/AudioListener.h"
-
 #define IS_TRIGGERED(variable) (!m_last_state.variable && m_state.variable)
 #define HAS_CHANGED(variable) (m_last_state.variable != m_state.variable)
 
@@ -25,9 +23,6 @@ ShuttleGamepadController::ShuttleGamepadController(
 
 void ShuttleGamepadController::Update(unsigned int delta)
 {
-    const math::Vector& position = m_shuttle->Position();
-    mono::ListenerPosition(position.x, position.y);
-
     const bool fire = (m_state.a || m_state.right_trigger > 0.25f);
     if(fire)
         m_shuttle->Fire();

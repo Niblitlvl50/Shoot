@@ -14,7 +14,8 @@ namespace game
     public:
 
         Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandler);
-        virtual bool Fire(const math::Vector& position, float direction);
+        virtual WeaponFireResult Fire(const math::Vector& position, float direction);
+        virtual int AmmunitionLeft() const;
 
     private:
 
@@ -22,6 +23,7 @@ namespace game
         mono::EventHandler& m_eventHandler;
         unsigned int m_lastFireTimestamp;
         float m_currentFireRate;
+        int m_ammunition;
 
         mono::ISoundPtr m_fireSound;
     };

@@ -30,8 +30,11 @@ namespace game
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
 
+        int m_player_one_id;
+        int m_player_two_id;
         std::shared_ptr<Shuttle> m_player_one;
-
+        std::shared_ptr<Shuttle> m_player_two;
+        
         mono::ICameraPtr m_camera;
     };
 }

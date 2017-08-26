@@ -80,7 +80,7 @@ void BlackSquareController::TransitionToState(State new_state)
 
 void BlackSquareController::SleepState(unsigned int delta)
 {
-    const float distance = math::Length(player_position - m_enemy->Position());
+    const float distance = math::Length(player_one.position - m_enemy->Position());
     if(distance < m_triggerDistance)
         TransitionToState(State::AWAKE);
 }
@@ -94,9 +94,9 @@ void BlackSquareController::AwakeState(unsigned int delta)
 
 void BlackSquareController::HuntState(unsigned int delta)
 {
-    m_controlBody->SetPosition(player_position);
+    m_controlBody->SetPosition(player_one.position);
 
-    const float distance = math::Length(player_position - m_enemy->Position());
+    const float distance = math::Length(player_one.position - m_enemy->Position());
     if(distance > m_triggerDistance)
         TransitionToState(State::SLEEPING);
 }

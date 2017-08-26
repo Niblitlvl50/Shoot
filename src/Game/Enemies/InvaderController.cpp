@@ -122,11 +122,11 @@ void InvaderPathController::doUpdate(unsigned int delta)
     if(!is_visible)
         return;
 
-    const float distance = math::Length(player_position - enemy_position);
+    const float distance = math::Length(player_one.position - enemy_position);
     if(distance < 7.0f)
     {
-        const float angle = math::AngleBetweenPoints(player_position, enemy_position) + math::PI_2();
-        m_fireCount += m_weapon->Fire(enemy_position, angle);
+        const float angle = math::AngleBetweenPoints(player_one.position, enemy_position) + math::PI_2();
+        m_fireCount += (m_weapon->Fire(enemy_position, angle) == WeaponFireResult::FIRE);
     }
 
     if(m_fireCount == 5)

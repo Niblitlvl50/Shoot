@@ -19,13 +19,14 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
     : m_weaponConfig(config),
       m_eventHandler(eventHandler),
       m_lastFireTimestamp(0),
-      m_currentFireRate(1.0f)
+      m_currentFireRate(1.0f),
+      m_ammunition(10)
 {
     if(config.fire_sound)
         m_fireSound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
 }
 
-bool Weapon::Fire(const math::Vector& position, float direction)
+WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 {
     const float rpsHz = 1.0f / m_weaponConfig.rounds_per_second;
     const unsigned int weapon_delta = rpsHz * 1000.0f;
@@ -39,6 +40,12 @@ bool Weapon::Fire(const math::Vector& position, float direction)
 
     if(modified_delta > weapon_delta)
     {
+        if(m_ammunition == 0)
+        {
+            //return WeaponFireResult::OUT_OF_AMMO;
+            // Play "click" sound
+        }
+
         const math::Vector unit(-std::sin(direction), std::cos(direction));
         const math::Vector& impulse = unit * m_weaponConfig.bullet_force;
 
@@ -59,8 +66,15 @@ bool Weapon::Fire(const math::Vector& position, float direction)
         m_currentFireRate *= m_weaponConfig.fire_rate_multiplier;
         m_currentFireRate = std::min(m_currentFireRate, m_weaponConfig.max_fire_rate);
 
-        return true;
+        m_ammunition--;
+
+        return WeaponFireResult::FIRE;
     }
 
-    return false;
+    return WeaponFireResult::NONE;
+}
+
+int Weapon::AmmunitionLeft() const
+{
+    return m_ammunition;
 }
