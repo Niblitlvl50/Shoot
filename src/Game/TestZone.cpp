@@ -22,6 +22,7 @@
 #include "EntityProperties.h"
 #include "RenderLayers.h"
 #include "FontIds.h"
+#include "EnemyLoader.h"
 
 #include "WorldFile.h"
 #include "World.h"
@@ -84,6 +85,10 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     world::ReadWorld(world_file, world_header);
     game::LoadWorld(this, world_header.polygons);
 
+    const std::vector<EnemyPtr>& enemies = game::LoadEnemies("res/world.objects", enemy_factory);
+    for(const auto& enemy : enemies)
+        AddPhysicsEntity(enemy, MIDDLEGROUND);
+
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
@@ -95,17 +100,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     
     AddDrawable(m_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
-
-    AddPhysicsEntity(enemy_factory->CreateCacoDemon(math::Vector(100, 100)), FOREGROUND);
-    AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateInvader(math::Vector(20.0f, 100.0f)), MIDDLEGROUND);
-
-    AddPhysicsEntity(enemy_factory->CreateBlackSquare(math::Vector(-30.0f, 70.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateBlackSquare(math::Vector(-30.0f, 70.0f)), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreateBlackSquare(math::Vector(-30.0f, 70.0f)), MIDDLEGROUND);
 
     const mono::IPathPtr& path = mono::CreatePath("res/paths/smaller_loop.path");
     AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);

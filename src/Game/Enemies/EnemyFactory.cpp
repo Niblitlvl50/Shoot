@@ -8,6 +8,7 @@
 #include "InvaderController.h"
 #include "BlackSquareController.h"
 
+#include <cstring>
 
 using namespace game;
 
@@ -75,3 +76,14 @@ game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position)
     return std::make_shared<game::Enemy>(setup);
 }
 
+game::EnemyPtr EnemyFactory::CreateFromName(const char* name, const math::Vector& position)
+{
+    if(std::strcmp(name, "cacodemon") == 0)
+        return CreateCacoDemon(position);
+    else if(std::strcmp(name, "invader") == 0)
+        return CreateInvader(position);
+    else if(std::strcmp(name, "blacksquare") == 0)
+        return CreateBlackSquare(position);
+
+    return nullptr;
+}

@@ -2,7 +2,6 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "MonoPtrFwd.h"
 #include "Physics/CMFwd.h"
 #include "Rendering/Color.h"
 #include "CollisionConfiguration.h"

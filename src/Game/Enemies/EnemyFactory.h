@@ -16,7 +16,8 @@ namespace game
         EnemyPtr CreateInvader(const math::Vector& position) override;
         EnemyPtr CreatePathInvader(const mono::IPathPtr& path) override;
         EnemyPtr CreateBlackSquare(const math::Vector& position) override;
-
+        EnemyPtr CreateFromName(const char* name, const math::Vector& position) override;
+        
     private:
 
         mono::EventHandler& m_eventHandler;
