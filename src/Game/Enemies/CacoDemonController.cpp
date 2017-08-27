@@ -4,6 +4,8 @@
 #include "Weapons/IWeaponFactory.h"
 #include "Factories.h"
 #include "Rendering/Sprite/ISprite.h"
+#include "EntityProperties.h"
+
 #include <cmath>
 
 using namespace game;
@@ -27,10 +29,12 @@ CacoDemonController::CacoDemonController(mono::EventHandler& event_handler)
 void CacoDemonController::Initialize(Enemy* enemy)
 {
     m_enemy = enemy;
+    m_enemy->SetProperty(EntityProperties::DAMAGABLE);
     m_enemy->m_sprite->SetAnimation(Animation::ATTACK);
 }
 
 void CacoDemonController::doUpdate(unsigned int delta)
 {
     m_weapon->Fire(m_enemy->Position(), m_enemy->Rotation());
+    m_weapon->Reload();
 }
