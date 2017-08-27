@@ -14,6 +14,7 @@ namespace game
     };
 
     constexpr unsigned int PLAYER_MASK =
+        CollisionCategory::PLAYER |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
         CollisionCategory::STATIC;
