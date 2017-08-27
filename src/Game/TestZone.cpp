@@ -1,14 +1,13 @@
 
 #include "TestZone.h"
-#include "Rendering/ICamera.h"
-#include "Audio/AudioFactory.h"
 
 #include "Factories.h"
 #include "Enemies/Enemy.h"
 #include "Enemies/IEnemyFactory.h"
 
 #include "Effects/SmokeEffect.h"
-
+#include "Hud/FPSElement.h"
+#include "Hud/PlayerStatsElement.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -20,12 +19,9 @@
 #include "Events/DamageEvent.h"
 #include "Events/SpawnConstraintEvent.h"
 
-#include "Math/MathFunctions.h"
-#include "Utils.h"
 #include "EntityProperties.h"
 #include "RenderLayers.h"
-
-#include "Paths/PathFactory.h"
+#include "FontIds.h"
 
 #include "WorldFile.h"
 #include "World.h"
@@ -34,51 +30,9 @@
 #include "UpdateTasks/HealthbarUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
 
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
-#include "Math/Matrix.h"
-#include "Math/Quad.h"
+#include "Audio/AudioFactory.h"
+#include "Paths/PathFactory.h"
 #include "Physics/IBody.h"
-#include "FontIds.h"
-
-namespace
-{
-    class FPSEntity : public mono::EntityBase
-    {
-    public:
-    
-        FPSEntity()
-        {
-            m_projection = math::Ortho(0.0f, 600.0f, 0.0f, 400.0f, -10.0f, 10.0f);
-        }
-
-        virtual void Draw(mono::IRenderer& renderer) const
-        {
-            constexpr math::Matrix identity;
-            renderer.PushNewTransform(identity);
-            renderer.PushNewProjection(m_projection);
-
-            char text[32] = { '\0' };
-            std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
-
-            constexpr mono::Color::RGBA color(1, 0, 0, 1);
-            renderer.DrawText(game::LARGE, text, math::Vector(10, 10), false, color);
-        }
-
-        virtual void Update(unsigned int delta)
-        {
-            m_counter++;
-        }
-
-        virtual math::Quad BoundingBox() const
-        {
-            return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
-        }
-
-        mono::FPSCounter m_counter;
-        math::Matrix m_projection;
-    };
-}
 
 using namespace game;
 
@@ -133,6 +87,13 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
+    
+    m_overlay = std::make_shared<UIOverlayDrawer>();
+    m_overlay->AddElement(std::make_unique<FPSElement>());
+    m_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_one, math::Vector(10, 0)));
+    m_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_two, math::Vector(200, 0)));
+    
+    AddDrawable(m_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
 
     AddPhysicsEntity(enemy_factory->CreateCacoDemon(math::Vector(100, 100)), FOREGROUND);
@@ -152,7 +113,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
 
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
-    AddEntity(std::make_shared<FPSEntity>(), FOREGROUND);
 
     m_backgroundMusic->Play();
 }

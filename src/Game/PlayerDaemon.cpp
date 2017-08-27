@@ -47,6 +47,8 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
         m_player_one->SetPlayerInfo(&game::player_one);
         m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
 
+        game::player_one.is_active = true;
+
         m_player_one_id = event.id;
         m_camera->Follow(m_player_one, math::zeroVec);
         m_zone->AddPhysicsEntity(m_player_one, FOREGROUND);
@@ -57,6 +59,8 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
         m_player_two->SetPlayerInfo(&game::player_two);
         m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
 
+        game::player_two.is_active = true;
+        
         m_player_two_id = event.id;
         m_zone->AddPhysicsEntity(m_player_two, FOREGROUND);
     }
@@ -71,11 +75,13 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
         m_zone->RemovePhysicsEntity(m_player_one);
         m_camera->Unfollow();
         m_player_one = nullptr;
+        game::player_one.is_active = false;        
     }
     else if(event.id == m_player_two_id)
     {
         m_zone->RemovePhysicsEntity(m_player_two);
         m_player_two = nullptr;
+        game::player_two.is_active = false;
     }
 
     return false;

@@ -8,6 +8,7 @@ namespace game
 {
     struct PlayerInfo
     {
+        bool is_active;
         math::Vector position;
         int ammunition;
     };
