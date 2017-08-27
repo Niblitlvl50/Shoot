@@ -81,6 +81,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.magazine_size = 50;
             weapon_config.rounds_per_second = 6.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 3.0f;
@@ -99,6 +100,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.sprite_file = "res/sprites/laser.sprite";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
             weapon_config.bullet_force = 20.0f;
 
@@ -115,6 +117,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.scale = 0.5;
             bullet_config.sound_file = nullptr;
 
+            weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 5.0f;
             weapon_config.bullet_force = 20.0f;
 
@@ -132,6 +135,7 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 4.0f;
             weapon_config.bullet_force = 15.0f;
 

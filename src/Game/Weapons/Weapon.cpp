@@ -20,7 +20,7 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
       m_eventHandler(eventHandler),
       m_lastFireTimestamp(0),
       m_currentFireRate(1.0f),
-      m_ammunition(10)
+      m_ammunition(config.magazine_size)
 {
     if(config.fire_sound)
         m_fireSound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
@@ -42,8 +42,8 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
     {
         if(m_ammunition == 0)
         {
-            //return WeaponFireResult::OUT_OF_AMMO;
             // Play "click" sound
+            return WeaponFireResult::OUT_OF_AMMO;
         }
 
         const math::Vector unit(-std::sin(direction), std::cos(direction));
@@ -77,4 +77,9 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 int Weapon::AmmunitionLeft() const
 {
     return m_ammunition;
+}
+
+void Weapon::Reload()
+{
+    m_ammunition = m_weaponConfig.magazine_size;
 }

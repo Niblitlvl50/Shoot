@@ -38,6 +38,7 @@ namespace game
 
         void Fire();
         void StopFire();
+        void Reload();
 
         void SetBoosterThrusting(BoosterPosition position, bool enabled);
         void SetShading(const mono::Color::RGBA& shade);

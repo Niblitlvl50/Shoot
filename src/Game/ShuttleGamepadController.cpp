@@ -29,6 +29,10 @@ void ShuttleGamepadController::Update(unsigned int delta)
     else
         m_shuttle->StopFire();
 
+    const bool reload = IS_TRIGGERED(x) && HAS_CHANGED(x);
+    if(reload)
+        m_shuttle->Reload();
+
     const bool left_shoulder = IS_TRIGGERED(left_shoulder);
     const bool right_shoulder = IS_TRIGGERED(right_shoulder);
     if(left_shoulder)

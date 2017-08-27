@@ -16,6 +16,7 @@ namespace game
         Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandler);
         virtual WeaponFireResult Fire(const math::Vector& position, float direction);
         virtual int AmmunitionLeft() const;
+        virtual void Reload();
 
     private:
 

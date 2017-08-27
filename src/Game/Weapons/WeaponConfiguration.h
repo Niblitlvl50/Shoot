@@ -31,6 +31,7 @@ namespace game
 
     struct WeaponConfiguration
     {
+        int magazine_size = 10;
         float rounds_per_second = 1.0f;
         float fire_rate_multiplier = 1.0f;
         float max_fire_rate = 1.0f;

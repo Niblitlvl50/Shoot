@@ -178,6 +178,11 @@ void Shuttle::StopFire()
     m_fire = false;
 }
 
+void Shuttle::Reload()
+{
+    m_weapon->Reload();
+}
+
 void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
 {
     const int state = enable ? constants::THRUSTING : constants::IDLE;
