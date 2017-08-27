@@ -8,3 +8,4 @@ build/
 CMakeFiles/
 DerivedData/
 res/editor_config.json
+res/editor_imgui.ini
