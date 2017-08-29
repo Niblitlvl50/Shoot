@@ -1,5 +1,8 @@
 
 #include "WorldFile.h"
+#include "Math/Serialize.h"
+
+#include "nlohmann_json/json.hpp"
 #include <cstdio>
 
 
@@ -70,6 +73,51 @@ bool world::ReadWorld(File::FilePtr& file, LevelFileHeader& level)
 
         std::memcpy(polygon.vertices.data(), bytes.data() + offset, sizeof(math::Vector) * n_vertices);
         offset += sizeof(math::Vector) * n_vertices;
+    }
+
+    return true;
+}
+
+bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject>& objects)
+{
+    nlohmann::json json_object_collection;
+    
+    for(auto& object : objects)
+    {
+        nlohmann::json json_object;
+        json_object["name"] = object.name;
+        json_object["position"] = object.position;
+        json_object["rotation"] = object.rotation;
+
+        json_object_collection.push_back(json_object);
+    }
+
+    nlohmann::json json;
+    json["objects"] = json_object_collection;
+
+    const std::string& serialized_json = json.dump(4);
+    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+    
+    return true;
+}
+
+bool world::ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& objects)
+{    
+    std::vector<byte> file_data;
+    File::FileRead(file, file_data);
+
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    const nlohmann::json& json_objects = json["objects"];
+
+    for(const auto& json_object : json_objects)
+    {
+        WorldObject object;
+
+        object.name = json_object["name"];
+        object.position = json_object["position"];
+        object.rotation = json_object["rotation"];
+
+        objects.emplace_back(object);
     }
 
     return true;

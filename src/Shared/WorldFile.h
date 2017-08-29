@@ -3,7 +3,9 @@
 
 #include "Math/Vector.h"
 #include "System/File.h"
+
 #include <vector>
+#include <string>
 
 namespace world
 {
@@ -23,6 +25,16 @@ namespace world
         std::vector<PolygonData> polygons;
     };
 
+    struct WorldObject
+    {
+        std::string name;
+        math::Vector position;
+        float rotation;
+    };
+
     bool WriteWorld(File::FilePtr& file, const LevelFileHeader& level);
     bool ReadWorld(File::FilePtr& file, LevelFileHeader& level);
+
+    bool WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject>& objects);
+    bool ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& objects);
 }
