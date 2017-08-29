@@ -12,6 +12,7 @@
 #include "Hud/Overlay.h"
 
 #include <vector>
+#include <memory>
 
 namespace game
 {
@@ -58,8 +59,8 @@ namespace game
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
         
         mono::EventHandler& mEventHandler;
-        Spawner m_spawner;
-        PlayerDaemon m_player_daemon;
+        std::unique_ptr<Spawner> m_spawner;
+        std::unique_ptr<PlayerDaemon> m_player_daemon;
         DamageController m_damageController;
         mono::ISoundPtr m_backgroundMusic;
         RemoteConnection m_connection;

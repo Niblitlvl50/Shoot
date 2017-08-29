@@ -5,7 +5,9 @@
 #include "Rendering/RenderPtrFwd.h"
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
+#include "Math/Vector.h"
 
+#include <vector>
 #include <memory>
 
 namespace game
@@ -16,14 +18,18 @@ namespace game
     {
     public:
 
-        PlayerDaemon(mono::EventHandler& event_handler, mono::IPhysicsZone* zone);
+        PlayerDaemon(
+            const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler, mono::IPhysicsZone* zone);
         ~PlayerDaemon();
 
         void SetCamera(const mono::ICameraPtr& camera);
 
+    private:
+
         bool OnControllerAdded(const event::ControllerAddedEvent& event);
         bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
 
+        const std::vector<math::Vector> m_player_points;
         mono::EventHandler& m_event_handler;
         mono::IPhysicsZone* m_zone;
 

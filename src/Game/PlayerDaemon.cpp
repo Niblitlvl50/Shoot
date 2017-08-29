@@ -15,8 +15,10 @@
 
 using namespace game;
 
-PlayerDaemon::PlayerDaemon(mono::EventHandler& event_handler, mono::IPhysicsZone* zone)
-    : m_event_handler(event_handler),
+PlayerDaemon::PlayerDaemon(
+    const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler, mono::IPhysicsZone* zone)
+    : m_player_points(player_points),
+      m_event_handler(event_handler),
       m_zone(zone)
 {
     using namespace std::placeholders;
@@ -41,9 +43,11 @@ void PlayerDaemon::SetCamera(const mono::ICameraPtr& camera)
 
 bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
+    const math::Vector& spawn_point = m_player_points.empty() ? math::zeroVec : m_player_points.front();
+
     if(!m_player_one)
     {
-        m_player_one = std::make_shared<Shuttle>(math::zeroVec, m_event_handler, System::GetController(event.id));
+        m_player_one = std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(event.id));
         m_player_one->SetPlayerInfo(&game::player_one);
         m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
 
@@ -55,7 +59,7 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
     }
     else
     {
-        m_player_two = std::make_shared<Shuttle>(math::zeroVec, m_event_handler, System::GetController(event.id));
+        m_player_two = std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(event.id));
         m_player_two->SetPlayerInfo(&game::player_two);
         m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
 

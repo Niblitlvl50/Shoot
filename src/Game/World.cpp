@@ -1,6 +1,7 @@
 
 #include "World.h"
 #include "CollisionConfiguration.h"
+#include "Enemies/Enemy.h"
 
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
@@ -111,4 +112,34 @@ void game::LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonD
 
     zone->AddDrawable(static_terrain, BACKGROUND);
     zone->AddPhysicsData(static_terrain->m_static_physics);
+}
+
+void game::LoadWorldObjects(
+    const std::vector<world::WorldObject>& objects,
+    IEnemyFactory* enemy_factory,
+    std::vector<game::EnemyPtr>& enemies,
+    std::vector<SpawnPoint>& spawn_points,
+    std::vector<math::Vector>& player_points)
+{
+    for(const world::WorldObject& object : objects)
+    {
+        if(object.name == "spawnpoint")
+        {
+            const SpawnPoint spawn_point = { object.position, 1.0f };
+            spawn_points.push_back(spawn_point);
+        }
+        else if(object.name == "playerpoint")
+        {
+            player_points.push_back(object.position);
+        }
+        else
+        {
+            game::EnemyPtr enemy = enemy_factory->CreateFromName(object.name.c_str(), object.position);
+            if(enemy)
+            {
+                enemy->SetRotation(object.rotation);
+                enemies.push_back(enemy);
+            }
+        }
+    }
 }

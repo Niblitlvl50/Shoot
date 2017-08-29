@@ -22,7 +22,6 @@
 #include "EntityProperties.h"
 #include "RenderLayers.h"
 #include "FontIds.h"
-#include "EnemyLoader.h"
 
 #include "WorldFile.h"
 #include "World.h"
@@ -39,9 +38,7 @@ using namespace game;
 
 TestZone::TestZone(mono::EventHandler& eventHandler)
     : PhysicsZone(math::Vector(0.0f, 0.0f), 0.9f),
-      mEventHandler(eventHandler),
-      m_spawner(eventHandler),
-      m_player_daemon(eventHandler, this)
+      mEventHandler(eventHandler)
 {
     using namespace std::placeholders;
     
@@ -77,17 +74,29 @@ TestZone::~TestZone()
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    m_player_daemon.SetCamera(camera);
-
     File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
     
     world::LevelFileHeader world_header;
     world::ReadWorld(world_file, world_header);
     game::LoadWorld(this, world_header.polygons);
 
-    const std::vector<EnemyPtr>& enemies = game::LoadEnemies("res/world.objects", enemy_factory);
+    File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects");
+
+    std::vector<world::WorldObject> world_objects;
+    world::ReadWorldObjects(world_objects_file, world_objects);
+
+    std::vector<EnemyPtr> enemies;
+    std::vector<SpawnPoint> spawn_points;
+    std::vector<math::Vector> player_points;
+
+    game::LoadWorldObjects(world_objects, enemy_factory, enemies, spawn_points, player_points);
+
     for(const auto& enemy : enemies)
         AddPhysicsEntity(enemy, MIDDLEGROUND);
+
+    m_spawner = std::make_unique<Spawner>(spawn_points, mEventHandler);
+    m_player_daemon = std::make_unique<PlayerDaemon>(player_points, mEventHandler, this);
+    m_player_daemon->SetCamera(camera);    
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));

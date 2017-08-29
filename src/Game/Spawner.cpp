@@ -8,7 +8,8 @@
 
 using namespace game;
 
-Spawner::Spawner(mono::EventHandler& eventHandler)
+Spawner::Spawner(const std::vector<SpawnPoint>& spawn_points, mono::EventHandler& eventHandler)
+    : m_spawn_points(spawn_points)
 {
     const auto spawn_func = [](void* data) {
         mono::EventHandler* event_handler = static_cast<mono::EventHandler*>(data);

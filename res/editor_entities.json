@@ -57,7 +57,7 @@
             }
         },
         {
-            "name": "playerstart",
+            "name": "playerpoint",
             "sprite": "res/sprites/player_point.sprite",
             "scale": {
                 "x": 1.0,
