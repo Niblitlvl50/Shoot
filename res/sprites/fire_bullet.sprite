@@ -15,14 +15,14 @@
             "name": "fire_bullet1",
             "w": 15,
             "x": 481,
-            "y": 2
+            "y": 49
         },
         {
             "h": 43,
             "name": "fire_bullet2",
             "w": 15,
             "x": 481,
-            "y": 49
+            "y": 2
         }
     ],
     "texture": "res/sprite_atlas.png"

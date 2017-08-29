@@ -14,8 +14,8 @@
             "h": 15,
             "name": "generic1",
             "w": 15,
-            "x": 99,
-            "y": 130
+            "x": 342,
+            "y": 143
         }
     ],
     "texture": "res/sprite_atlas.png"

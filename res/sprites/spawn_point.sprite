@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "invader1",
-            "w": 11,
-            "x": 257,
-            "y": 144
+            "h": 57,
+            "name": "spaw_point",
+            "w": 60,
+            "x": 140,
+            "y": 75
         }
     ],
     "texture": "res/sprite_atlas.png"
