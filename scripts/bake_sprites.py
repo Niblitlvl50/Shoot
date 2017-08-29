@@ -18,6 +18,7 @@ arguments = [
     '-bg_color', '255 0 255 0',
     '-trim_images',
     '-sprite_format',
+    "-sprite_folder", "res/sprites/",
     '-output', 'res/sprite_atlas.png'
 ]
 
