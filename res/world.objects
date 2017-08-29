@@ -87,6 +87,38 @@
                 "y": 32.2955017089844
             },
             "rotation": 0.0
+        },
+        {
+            "name": "playerstart",
+            "position": {
+                "x": -20.880729675293,
+                "y": -3.77660179138184
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "spawnpoint",
+            "position": {
+                "x": -34.8752517700195,
+                "y": 20.5690956115723
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "spawnpoint",
+            "position": {
+                "x": -46.5482330322266,
+                "y": 23.852123260498
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "spawnpoint",
+            "position": {
+                "x": -53.1142883300781,
+                "y": 14.7326011657715
+            },
+            "rotation": 0.0
         }
     ]
 }
