@@ -80,9 +80,6 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
 {
     using namespace std::placeholders;
 
-    m_context.texture_items_count = n_textures;
-    m_context.texture_items = avalible_textures;
-
     m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.editor_menu_callback = std::bind(&Editor::EditorMenuCallback, this, _1);
@@ -204,7 +201,7 @@ void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     m_seleced_id = -1;
-    m_context.components = UIComponent::NONE;
+    m_context.proxy_object = nullptr;
 
     for(auto& proxy : m_object_proxies)
         proxy->SetSelected(false);
@@ -212,7 +209,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     if(proxy_object)
     {
         proxy_object->SetSelected(true);
-        proxy_object->UpdateUIContext(m_context);
+        m_context.proxy_object = proxy_object;
         m_seleced_id = proxy_object->Id();
     }
 
@@ -382,7 +379,7 @@ void Editor::OnDeleteObject()
         SchedulePreFrameTask(remove_prefab_func);
     }
 
-    m_context.components = UIComponent::NONE;
+    m_context.proxy_object = nullptr;
     m_grabbers.clear();
 }
 

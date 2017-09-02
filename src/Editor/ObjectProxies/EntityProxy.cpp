@@ -8,6 +8,8 @@
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
+#include "ImGuiImpl/ImGuiImpl.h"
+
 using namespace editor;
 
 EntityProxy::EntityProxy(const std::shared_ptr<SpriteEntity>& entity)
@@ -47,9 +49,14 @@ std::vector<SnapPoint> EntityProxy::GetSnappers() const
 
 void EntityProxy::UpdateUIContext(UIContext& context) const
 {
-    context.components = UIComponent::NAME | UIComponent::POSITIONAL;
+    const std::string& name = m_entity->Name();
+    const math::Vector& position = m_entity->Position();
+    const float rotation = m_entity->Rotation();
 
-    context.name = m_entity->Name().c_str();
-    context.position = m_entity->Position();
-    context.rotation = m_entity->Rotation();
+    ImGui::Text("%s", name.c_str());
+    
+    ImGui::Value("X", position.x);
+    ImGui::SameLine();
+    ImGui::Value("Y", position.y);
+    ImGui::Value("Rotation", rotation);
 }

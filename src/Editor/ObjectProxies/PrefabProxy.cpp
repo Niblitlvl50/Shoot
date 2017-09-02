@@ -10,6 +10,8 @@
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
 
+#include "ImGuiImpl/ImGuiImpl.h"
+
 using namespace editor;
 
 PrefabProxy::PrefabProxy(const std::shared_ptr<Prefab>& prefab)
@@ -59,9 +61,14 @@ std::vector<SnapPoint> PrefabProxy::GetSnappers() const
 
 void PrefabProxy::UpdateUIContext(UIContext& context) const
 {
-    context.components = UIComponent::NAME | UIComponent::POSITIONAL;
+    const std::string& name = m_prefab->Name();
+    const math::Vector& position = m_prefab->Position();
+    const float rotation = m_prefab->Rotation();
 
-    context.name = m_prefab->Name().c_str();
-    context.position = m_prefab->Position();
-    context.rotation = m_prefab->Rotation();
+    ImGui::Text("%s", name.c_str());
+    
+    ImGui::Value("X", position.x);
+    ImGui::SameLine();
+    ImGui::Value("Y", position.y);
+    ImGui::Value("Rotation", rotation);
 }

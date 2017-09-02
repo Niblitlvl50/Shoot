@@ -9,6 +9,8 @@
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 
+#include "ImGuiImpl/ImGuiImpl.h"
+
 using namespace editor;
 
 PolygonProxy::PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon)
@@ -73,15 +75,15 @@ std::vector<SnapPoint> PolygonProxy::GetSnappers() const
 
 void PolygonProxy::UpdateUIContext(UIContext& context) const
 {
-    context.components = UIComponent::POSITIONAL | UIComponent::TEXTURAL;
+    const math::Vector& position = m_polygon->Position();
+    const float rotation = m_polygon->Rotation();
+    int texture_index = FindTextureIndex(m_polygon->GetTexture());
 
-    const auto callback = [this](int texture_index) {
+    ImGui::Value("X", position.x);
+    ImGui::SameLine();
+    ImGui::Value("Y", position.y);
+    ImGui::Value("Rotation", rotation);
+
+    if(ImGui::Combo("Texture", &texture_index, avalible_textures, n_textures))
         m_polygon->SetTexture(avalible_textures[texture_index]);
-    };
-
-    context.texture_changed_callback = callback;
-
-    context.position = m_polygon->Position();
-    context.rotation = m_polygon->Rotation();
-    context.texture_index = FindTextureIndex(m_polygon->GetTexture());
 }

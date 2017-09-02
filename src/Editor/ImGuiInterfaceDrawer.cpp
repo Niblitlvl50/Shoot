@@ -2,6 +2,7 @@
 #include "ImGuiInterfaceDrawer.h"
 #include "MainMenuOptions.h"
 #include "UIContext.h"
+#include "IObjectProxy.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -110,43 +111,13 @@ namespace
 
     void DrawSelectionView(editor::UIContext& context)
     {
-        if(context.components & UIComponent::NONE)
+        if(!context.proxy_object)
             return;
 
         constexpr int flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
         ImGui::Begin("Selection", nullptr, ImVec2(250, 120), true, flags);
 
-        if(context.components & UIComponent::NAME)
-        {
-            const bool editable = context.components & UIComponent::NAME_EDITABLE;
-
-            char buffer[100] = { 0 };
-            snprintf(buffer, 100, "%s", context.name);
-
-            if(editable)
-            {
-                if(ImGui::InputText("", buffer, 100))
-                    context.name_callback(buffer);
-            }
-            else
-            {
-                ImGui::Text("%s", buffer);
-            }
-        }
-
-        if(context.components & UIComponent::POSITIONAL)
-        {
-            ImGui::Value("X", context.position.x);
-            ImGui::SameLine();
-            ImGui::Value("Y", context.position.y);
-            ImGui::Value("Rotation", context.rotation);
-        }
-        
-        if(context.components & UIComponent::TEXTURAL)
-        {
-            if(ImGui::Combo("Texture", &context.texture_index, context.texture_items, context.texture_items_count))
-                context.texture_changed_callback(context.texture_index);
-        }
+        context.proxy_object->UpdateUIContext(context);
 
         if(ImGui::Button("Delete"))
             context.delete_callback();
@@ -231,7 +202,7 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
 
     DrawMainMenuBar(m_context);
     DrawEntityView(m_context);
-    DrawSelectionView(m_context);
+    DrawSelectionView(m_context);    
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
 

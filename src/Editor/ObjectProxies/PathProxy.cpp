@@ -9,6 +9,8 @@
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
+#include "ImGuiImpl/ImGuiImpl.h"
+
 using namespace editor;
 
 PathProxy::PathProxy(const std::shared_ptr<PathEntity>& path, Editor* editor)
@@ -86,15 +88,17 @@ std::vector<SnapPoint> PathProxy::GetSnappers() const
 
 void PathProxy::UpdateUIContext(UIContext& context) const
 {
-    context.components =
-        UIComponent::NAME |
-        UIComponent::NAME_EDITABLE |
-        UIComponent::POSITIONAL;
+    const std::string& name = m_path->m_name;
+    const math::Vector& position = m_path->Position();
 
-    using namespace std::placeholders;
-    context.name_callback = std::bind(&PathEntity::SetName, m_path, _1);
+    char buffer[100] = { 0 };
+    snprintf(buffer, 100, "%s", name.c_str());
 
-    context.name = m_path->m_name.c_str();
-    context.position = m_path->Position();
-    context.rotation = 0.0f;
+    if(ImGui::InputText("", buffer, 100))
+        m_path->SetName(buffer);
+    
+    ImGui::Value("X", position.x);
+    ImGui::SameLine();
+    ImGui::Value("Y", position.y);
+    ImGui::Value("Rotation", 0.0f);
 }
