@@ -49,6 +49,7 @@
         "forward_list": "cpp",
         "limits": "cpp",
         "ratio": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "iosfwd": "cpp"
     }
 }
