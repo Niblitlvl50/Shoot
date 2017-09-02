@@ -8,18 +8,23 @@
 
 using namespace game;
 
-Spawner::Spawner(const std::vector<SpawnPoint>& spawn_points, mono::EventHandler& eventHandler)
-    : m_spawn_points(spawn_points)
+Spawner::Spawner(const std::vector<SpawnPoint>& spawn_points, mono::EventHandler& event_handler)
+    : m_spawn_points(spawn_points),
+      m_event_handler(event_handler)
 {
     const auto spawn_func = [](void* data) {
-        mono::EventHandler* event_handler = static_cast<mono::EventHandler*>(data);
-
-        const float x = mono::Random(-50.0f, 50.0f);
-        const float y = mono::Random(-50.0f, 50.0f);
-
-        const game::SpawnPhysicsEntityEvent event(std::make_shared<Meteor>(x, y), BACKGROUND);
-        event_handler->DispatchEvent(event);
+        Spawner* spawner = static_cast<Spawner*>(data);
+        spawner->SpawnObject();
     };
 
-    m_timer.reset(System::CreateTimer(1000, false, spawn_func, &eventHandler));
+    m_timer.reset(System::CreateTimer(1000, false, spawn_func, this));
+}
+
+void Spawner::SpawnObject()
+{
+    const int spawn_point_index = mono::RandomInt(0, m_spawn_points.size() -1);
+    const SpawnPoint& point = m_spawn_points[spawn_point_index];
+
+    const game::SpawnPhysicsEntityEvent event(std::make_shared<Meteor>(point.position.x, point.position.y), BACKGROUND);
+    m_event_handler.DispatchEvent(event);
 }

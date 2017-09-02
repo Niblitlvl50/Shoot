@@ -7,6 +7,7 @@ namespace game
     {
         BACKGROUND,
         MIDDLEGROUND,
-        FOREGROUND
+        FOREGROUND,
+        UI
     };
 }
