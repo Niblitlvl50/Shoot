@@ -1,7 +1,7 @@
 
 #include "PolygonTool.h"
 #include "Editor.h"
-#include "Polygon.h"
+#include "Objects/Polygon.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Rendering/Texture/TextureFactory.h"

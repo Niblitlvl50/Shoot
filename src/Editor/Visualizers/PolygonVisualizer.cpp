@@ -4,7 +4,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Texture/TextureFactory.h"
-#include "Polygon.h"
+#include "Objects/Polygon.h"
 
 using namespace editor;
 

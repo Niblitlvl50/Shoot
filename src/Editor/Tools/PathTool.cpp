@@ -3,7 +3,7 @@
 #include "Editor.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "Path.h"
+#include "Objects/Path.h"
 
 using namespace editor;
 

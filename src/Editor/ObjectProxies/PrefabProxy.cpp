@@ -1,9 +1,9 @@
 
 #include "PrefabProxy.h"
-#include "Prefab.h"
+#include "Objects/Prefab.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
-#include "UIContext.h"
+#include "UI/UIContext.h"
 
 #include "Math/Quad.h"
 #include "Math/Vector.h"

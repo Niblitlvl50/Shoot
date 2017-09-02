@@ -2,7 +2,7 @@
 #include "ImGuiInterfaceDrawer.h"
 #include "MainMenuOptions.h"
 #include "UIContext.h"
-#include "IObjectProxy.h"
+#include "ObjectProxies/IObjectProxy.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 

@@ -2,8 +2,8 @@
 #include "EntityProxy.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
-#include "SpriteEntity.h"
-#include "UIContext.h"
+#include "Objects/SpriteEntity.h"
+#include "UI/UIContext.h"
 
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"

@@ -13,7 +13,7 @@
 #include "EventHandler/EventHandler.h"
 
 #include "UserInputController.h"
-#include "ImGuiInterfaceDrawer.h"
+#include "UI/ImGuiInterfaceDrawer.h"
 #include "ImGuiImpl/ImGuiRenderer.h"
 #include "EditorConfig.h"
 #include "Textures.h"
@@ -201,7 +201,7 @@ void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     m_seleced_id = -1;
-    m_context.proxy_object = nullptr;
+    m_context.proxy_object = proxy_object;
 
     for(auto& proxy : m_object_proxies)
         proxy->SetSelected(false);
@@ -209,7 +209,6 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     if(proxy_object)
     {
         proxy_object->SetSelected(true);
-        m_context.proxy_object = proxy_object;
         m_seleced_id = proxy_object->Id();
     }
 

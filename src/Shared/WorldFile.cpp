@@ -78,6 +78,69 @@ bool world::ReadWorld(File::FilePtr& file, LevelFileHeader& level)
     return true;
 }
 
+bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHeader& objects_header)
+{
+    std::fwrite(&objects_header.version, sizeof(int), 1, file.get());
+
+    const int n_objects = static_cast<int>(objects_header.objects.size());
+    std::fwrite(&n_objects, sizeof(int), 1, file.get());
+
+    for(int index = 0; index < n_objects; ++index)
+    {
+        const world::WorldObject& world_object = objects_header.objects[index];
+        const int n_attributes = static_cast<int>(world_object.attributes.size());
+
+        std::fwrite(&world_object.name, sizeof(char), 24, file.get());
+        std::fwrite(&n_attributes, sizeof(int), 1, file.get());
+        std::fwrite(world_object.attributes.data(), sizeof(ID_Attribute), n_attributes, file.get());
+    }
+
+    return true;
+}
+
+bool world::ReadWorldObjects2(File::FilePtr& file, world::WorldObjectsHeader& objects)
+{
+    if(!file)
+        return false;
+
+    std::vector<byte> bytes;
+    File::FileRead(file, bytes);
+
+    if(bytes.empty())
+        return false;
+
+    int offset = 0;
+
+    std::memcpy(&objects.version, bytes.data() + offset, sizeof(int));
+    offset += sizeof(int);
+
+    int n_objects = 0;
+    std::memcpy(&n_objects, bytes.data() + offset, sizeof(int));
+    offset += sizeof(int);
+
+    objects.objects.resize(n_objects);
+
+    for(int index = 0; index < n_objects; ++index)
+    {
+        world::WorldObject& world_object = objects.objects[index];
+        
+        std::memcpy(&world_object.name, bytes.data() + offset, sizeof(char) * 24);
+        offset += sizeof(char) * 24;
+        
+        int n_attributes = 0;
+        std::memcpy(&n_attributes, bytes.data() + offset, sizeof(int));
+        offset += sizeof(int);
+
+        world_object.attributes.resize(n_attributes);
+
+        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(world::ID_Attribute) * n_attributes);
+        offset += sizeof(world::ID_Attribute) * n_attributes;
+    }
+
+    return true;
+}
+
+
 bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject>& objects)
 {
     nlohmann::json json_object_collection;
@@ -85,9 +148,18 @@ bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject
     for(auto& object : objects)
     {
         nlohmann::json json_object;
+
         json_object["name"] = object.name;
-        json_object["position"] = object.position;
-        json_object["rotation"] = object.rotation;
+        nlohmann::json& attributes = json_object["attributes"];
+
+        for(auto& attribute : object.attributes)
+        {
+            nlohmann::json json_attribute;
+            json_attribute["id"] = attribute.id;
+            json_attribute["type"] = static_cast<int>(attribute.attribute.type);
+            json_attribute["data"] = attribute.attribute.data.string_value;
+            attributes.push_back(json_attribute);
+        }
 
         json_object_collection.push_back(json_object);
     }
@@ -113,9 +185,21 @@ bool world::ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& obje
     {
         WorldObject object;
 
-        object.name = json_object["name"];
-        object.position = json_object["position"];
-        object.rotation = json_object["rotation"];
+        //object.name = json_object["name"];
+
+        for(auto& json_attribute : json_object["attributes"])
+        {
+            ID_Attribute attribute;
+            attribute.id = json_attribute["id"];
+                        
+            const std::string data = json_attribute["data"];
+            attribute.attribute = data.c_str();
+            
+            const int type = static_cast<int>(json_attribute["type"]);
+            attribute.attribute.type = ObjectAttribute::Type(type);
+            
+            object.attributes.push_back(attribute);
+        }
 
         objects.emplace_back(object);
     }

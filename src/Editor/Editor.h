@@ -7,17 +7,17 @@
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 
-#include "MainMenuOptions.h"
-#include "UIContext.h"
+#include "UI/MainMenuOptions.h"
+#include "UI/UIContext.h"
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
-#include "IObjectProxy.h"
-#include "Polygon.h"
-#include "Path.h"
-#include "SpriteEntity.h"
+#include "ObjectProxies/IObjectProxy.h"
+#include "Objects/Polygon.h"
+#include "Objects/Path.h"
+#include "Objects/SpriteEntity.h"
+#include "Objects/Prefab.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
-#include "Prefab.h"
 
 #include "EntityRepository.h"
 

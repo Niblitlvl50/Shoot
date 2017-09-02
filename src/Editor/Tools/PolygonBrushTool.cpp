@@ -1,7 +1,7 @@
 
 #include "PolygonBrushTool.h"
 #include "Editor.h"
-#include "Polygon.h"
+#include "Objects/Polygon.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"

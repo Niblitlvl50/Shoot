@@ -1,9 +1,9 @@
 
 #include "WorldSerializer.h"
-#include "Polygon.h"
-#include "Path.h"
-#include "SpriteEntity.h"
-#include "Prefab.h"
+#include "Objects/Polygon.h"
+#include "Objects/Path.h"
+#include "Objects/SpriteEntity.h"
+#include "Objects/Prefab.h"
 #include "Math/Matrix.h"
 #include "Math/Serialize.h"
 #include "System/File.h"
@@ -14,6 +14,10 @@
 #include "Paths/PathFactory.h"
 
 #include "nlohmann_json/json.hpp"
+
+#include "DefinedAttributes.h"
+
+#include <algorithm>
 
 std::vector<std::shared_ptr<editor::PolygonEntity>> editor::LoadPolygons(const char* file_name)
 {
@@ -155,7 +159,6 @@ void editor::SaveObjects(const char* file_name, const std::vector<std::shared_pt
         nlohmann::json json_object;
         json_object["name"] = object->Name();
         json_object["position"] = object->Position();
-        //json_object["scale"] = object->Scale();
         json_object["rotation"] = object->Rotation();
 
         json_object_collection.push_back(json_object);
@@ -168,6 +171,38 @@ void editor::SaveObjects(const char* file_name, const std::vector<std::shared_pt
 
     File::FilePtr file = File::CreateAsciiFile(file_name);
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+
+    // ------------
+
+    world::WorldObjectsHeader world_header;
+    
+    for(auto& object : objects)
+    {
+        world::WorldObject world_object;
+        
+        const char* name = object->Name().c_str();
+        const size_t length = std::strlen(name);
+        const size_t data_length = std::min(length, size_t(24) -1);
+    
+        std::memcpy(world_object.name, name, data_length);
+        world_object.name[data_length] = '\0';
+
+        world::ID_Attribute position;
+        position.id = world::POSITION_ATTRIBUTE;
+        position.attribute = object->Position();
+
+        world::ID_Attribute rotation;
+        rotation.id = world::ROTATION_ATTRIBUTE;
+        rotation.attribute = object->Rotation();
+
+        world_object.attributes.push_back(position);
+        world_object.attributes.push_back(rotation);
+        
+        world_header.objects.push_back(world_object);
+    }
+
+    File::FilePtr file2 = File::CreateBinaryFile("hello.bin");
+    world::WriteWorldObjects2(file2, world_header);
 }
 
 std::vector<std::shared_ptr<editor::SpriteEntity>> editor::LoadObjects(const char* file_name, const editor::EntityRepository& entity_repo)
@@ -199,6 +234,10 @@ std::vector<std::shared_ptr<editor::SpriteEntity>> editor::LoadObjects(const cha
 
         objects.push_back(sprite_object);
     }
+
+    File::FilePtr file2 = File::OpenBinaryFile("hello.bin");
+    world::WorldObjectsHeader world_header;
+    world::ReadWorldObjects2(file2, world_header);
 
     return objects;
 }

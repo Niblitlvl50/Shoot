@@ -5,7 +5,7 @@
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 
-#include "MainMenuOptions.h"
+#include "UI/MainMenuOptions.h"
 
 #include "Tools/PolygonTool.h"
 #include "Tools/PolygonBrushTool.h"
