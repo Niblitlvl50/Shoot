@@ -50,6 +50,10 @@
         "limits": "cpp",
         "ratio": "cpp",
         "utility": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "__bit_reference": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     }
 }
