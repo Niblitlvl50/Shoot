@@ -6,7 +6,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "cacodemon",
@@ -14,7 +18,11 @@
             "scale": {
                 "x": 2.0,
                 "y": 2.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "pathinvader",
@@ -22,7 +30,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "blacksquare",
@@ -30,7 +42,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "shuttle",
@@ -38,7 +54,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "meteorite",
@@ -46,7 +66,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         },
         {
             "name": "spawnpoint",
@@ -54,7 +78,14 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }
+            },
+            "attribute_types": [
+                "position",
+                "rotation",
+                "spawn_tag",
+                "interval",
+                "radius"
+            ]
         },
         {
             "name": "playerpoint",
@@ -62,7 +93,11 @@
             "scale": {
                 "x": 1.0,
                 "y": 1.0
-            }            
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]                
         }
     ]
 }

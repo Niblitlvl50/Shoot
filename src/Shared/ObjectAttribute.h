@@ -25,9 +25,32 @@ public:
 
         int int_value;
         float float_value;
-        char string_value[20];
+        char string_value[24];
         math::Vector point_value;
     };
+
+    ObjectAttribute()
+    { }
+
+    ObjectAttribute(int value)
+    {
+        *this = value;
+    }
+
+    ObjectAttribute(float value)
+    {
+        *this = value;
+    }
+
+    ObjectAttribute(const char* string)
+    {
+        *this = string;
+    }
+
+    ObjectAttribute(const math::Vector& point)
+    {
+        *this = point;
+    }
 
     operator int() const
     {
@@ -89,4 +112,10 @@ public:
 
     Type type = Type::NONE;
     Data data;
+};
+
+struct ID_Attribute
+{
+    unsigned int id = 0;
+    ObjectAttribute attribute;
 };

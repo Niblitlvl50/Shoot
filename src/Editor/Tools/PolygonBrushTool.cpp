@@ -1,6 +1,7 @@
 
 #include "PolygonBrushTool.h"
 #include "Editor.h"
+#include "RenderLayers.h"
 #include "Objects/Polygon.h"
 
 #include "Math/MathFunctions.h"
@@ -74,7 +75,7 @@ void PolygonBrushTool::HandleMouseDown(const math::Vector& world_pos, mono::IEnt
     m_polygon->AddVertex(math::zeroVec);
 
     m_editor->AddPolygon(m_polygon);
-    m_editor->AddDrawable(m_visualizer, 1);
+    m_editor->AddDrawable(m_visualizer, RenderLayer::OBJECTS);
 }
 
 void PolygonBrushTool::HandleMouseUp(const math::Vector& world_pos)

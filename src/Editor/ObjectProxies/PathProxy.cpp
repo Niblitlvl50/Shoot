@@ -1,5 +1,6 @@
 
 #include "PathProxy.h"
+#include "IObjectVisitor.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
 #include "UI/UIContext.h"
@@ -10,6 +11,7 @@
 #include "Math/MathFunctions.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
+#include "ObjectAttribute.h"
 
 using namespace editor;
 
@@ -17,6 +19,11 @@ PathProxy::PathProxy(const std::shared_ptr<PathEntity>& path, Editor* editor)
     : m_path(path),
       m_editor(editor)
 { }
+
+const char* PathProxy::Name() const
+{
+    return "pathobject";
+}
 
 unsigned int PathProxy::Id() const
 {
@@ -33,22 +40,22 @@ void PathProxy::SetSelected(bool selected)
     m_path->SetSelected(selected);
 }
 
-bool PathProxy::Intersects(const math::Vector& position) const
+bool PathProxy::Intersects(const math::Vector& world_position) const
 {
     const math::Quad& bb = m_path->BoundingBox();
-    const bool inside_bb = math::PointInsideQuad(position, bb);
+    const bool inside_bb = math::PointInsideQuad(world_position, bb);
     if(inside_bb)
     {
-        math::Matrix transform = m_path->Transformation();
-        math::Inverse(transform);
-        const math::Vector& local_position = math::Transform(transform, position);
+        math::Matrix world_to_local = m_path->Transformation();
+        math::Inverse(world_to_local);
+        const math::Vector& local_position = math::Transform(world_to_local, world_position);
 
         float min_distance = math::INF;
 
-        const auto& vertices = m_path->m_points;
-        for(size_t index = 0; index < vertices.size() -1; ++index)
+        const auto& local_points = m_path->m_points;
+        for(size_t index = 0; index < local_points.size() -1; ++index)
         {
-            const math::Vector& line_point = math::ClosestPointOnLine(vertices[index], vertices[index+1], local_position);
+            const math::Vector& line_point = math::ClosestPointOnLine(local_points[index], local_points[index+1], local_position);
             const float length = math::Length(line_point - local_position);
             min_distance = std::min(min_distance, length);
         }
@@ -64,16 +71,16 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
 {
     using namespace std::placeholders;
 
-    const math::Matrix& transform = m_path->Transformation();
-    const auto& vertices = m_path->m_points;
+    const math::Matrix& local_to_world = m_path->Transformation();
+    const auto& local_points = m_path->m_points;
 
     std::vector<Grabber> grabbers;
-    grabbers.reserve(vertices.size());
+    grabbers.reserve(local_points.size());
 
-    for(size_t index = 0; index < vertices.size(); ++index)
+    for(size_t index = 0; index < local_points.size(); ++index)
     {
         Grabber grab;
-        grab.position = math::Transform(transform, vertices[index]);
+        grab.position = math::Transform(local_to_world, local_points[index]);
         grab.callback = std::bind(&PathEntity::SetVertex, m_path, _1, index);
         grabbers.push_back(grab);
     }
@@ -86,7 +93,7 @@ std::vector<SnapPoint> PathProxy::GetSnappers() const
     return std::vector<SnapPoint>();
 }
 
-void PathProxy::UpdateUIContext(UIContext& context) const
+void PathProxy::UpdateUIContext(UIContext& context)
 {
     const std::string& name = m_path->m_name;
     const math::Vector& position = m_path->Position();
@@ -100,5 +107,20 @@ void PathProxy::UpdateUIContext(UIContext& context) const
     ImGui::Value("X", position.x);
     ImGui::SameLine();
     ImGui::Value("Y", position.y);
-    ImGui::Value("Rotation", 0.0f);
+    ImGui::Value("Rotation", m_path->Rotation());
+}
+
+std::vector<ID_Attribute> PathProxy::GetAttributes() const
+{
+    return std::vector<ID_Attribute>();
+}
+
+void PathProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+{
+
+}
+
+void PathProxy::Visit(IObjectVisitor& visitor)
+{
+    visitor.Accept(this);
 }

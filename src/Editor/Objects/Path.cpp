@@ -49,10 +49,10 @@ PathEntity::PathEntity(const std::string& name)
       m_selected(false)
 { }
 
-PathEntity::PathEntity(const std::string& name, const std::vector<math::Vector>& points)
+PathEntity::PathEntity(const std::string& name, const std::vector<math::Vector>& local_points)
     : PathEntity(name)
 {
-    m_points = points;
+    m_points = local_points;
     m_base_point = math::CentroidOfPolygon(m_points);
 }
 
@@ -70,10 +70,10 @@ void PathEntity::Update(unsigned int delta)
 
 math::Quad PathEntity::BoundingBox() const
 {
-    const math::Matrix& transform = Transformation();
+    const math::Matrix& local_to_world = Transformation();
     math::Quad bb(math::INF, math::INF, -math::INF, -math::INF);
     for(auto& point : m_points)
-        bb |= math::Transform(transform, point);
+        bb |= math::Transform(local_to_world, point);
 
     return bb;
 }
@@ -83,26 +83,10 @@ void PathEntity::SetSelected(bool selected)
     m_selected = selected;
 }
 
-void PathEntity::AddVertex(const math::Vector& vertex)
+void PathEntity::SetVertex(const math::Vector& world_point, size_t index)
 {
-    if(m_points.empty())
-    {
-        SetPosition(vertex);
-        m_points.push_back(math::zeroVec);
-        return;
-    }
-
-    m_points.push_back(vertex - Position());
-    if(m_points.size() > 2)
-        m_base_point = math::CentroidOfPolygon(m_points);
-}
-
-void PathEntity::SetVertex(const math::Vector& vertex, size_t index)
-{
-    math::Matrix transform = Transformation();
-    math::Inverse(transform);
-
-    m_points[index] = math::Transform(transform, vertex);
+    const math::Matrix& world_to_local = math::Inverse(Transformation());
+    m_points[index] = math::Transform(world_to_local, world_point);
 }
 
 void PathEntity::SetName(const char* new_name)

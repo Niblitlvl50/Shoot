@@ -13,6 +13,7 @@ SpriteEntity::SpriteEntity(const char* name, const char* file)
       m_selected(false)
 {
     m_sprite = mono::CreateSprite(file);
+    //m_base_point = math::Vector(0.5, 0.5);
 }
 
 void SpriteEntity::Draw(mono::IRenderer& renderer) const

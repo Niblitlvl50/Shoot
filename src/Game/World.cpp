@@ -20,6 +20,11 @@
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
+#include "ObjectAttribute.h"
+#include "DefinedAttributes.h"
+
+#include <algorithm>
+
 namespace
 {
     struct TerrainDrawData
@@ -64,7 +69,7 @@ namespace
                 bounding_box |= vertex;
 
             for(const math::Vector& vertex : polygon.vertices)
-                texture_coordinates.push_back(math::MapVectorInQuad(vertex, bounding_box) * polygon.texture_repeate);
+                texture_coordinates.push_back(math::MapVectorInQuad(vertex, bounding_box));
 
             m_vertex_buffer->UpdateData(polygon.vertices.data(), draw_data.offset * 2, draw_data.count * 2);
             m_texture_buffer->UpdateData(texture_coordinates.data(), draw_data.offset * 2, draw_data.count * 2);
@@ -114,6 +119,42 @@ void game::LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonD
     zone->AddPhysicsData(static_terrain->m_static_physics);
 }
 
+namespace
+{
+    template <typename T>
+    bool FindAttribute(unsigned int id, const std::vector<ID_Attribute>& attributes, T& value)
+    {
+        const auto find_func = [id](const ID_Attribute& attribute) {
+            return id == attribute.id;
+        };
+
+        const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
+        const bool found_attribute = (it != attributes.end());
+        if(found_attribute)
+            value = it->attribute;
+
+        return found_attribute;
+    }
+
+    void LoadAttributes(game::SpawnPoint& spawn_point, const std::vector<ID_Attribute>& attributes)
+    {
+        FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
+        FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
+    }
+
+    void LoadAttributes(game::EnemyPtr& enemy, const std::vector<ID_Attribute>& attributes)
+    {
+        math::Vector position;
+        float rotation = 0.0f;
+
+        FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
+        FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
+
+        enemy->SetPosition(position);
+        enemy->SetRotation(rotation);
+    }
+}
+
 void game::LoadWorldObjects(
     const std::vector<world::WorldObject>& objects,
     IEnemyFactory* enemy_factory,
@@ -123,21 +164,25 @@ void game::LoadWorldObjects(
 {
     for(const world::WorldObject& object : objects)
     {
-        if(object.name == "spawnpoint")
+        const std::string name = object.name;
+        if(name == "spawnpoint")
         {
-            const SpawnPoint spawn_point = { object.position, 1.0f };
+            SpawnPoint spawn_point;
+            LoadAttributes(spawn_point, object.attributes);
             spawn_points.push_back(spawn_point);
         }
-        else if(object.name == "playerpoint")
+        else if(name == "playerpoint")
         {
-            player_points.push_back(object.position);
+            math::Vector position;
+            FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
+            player_points.push_back(position);
         }
         else
         {
-            game::EnemyPtr enemy = enemy_factory->CreateFromName(object.name.c_str(), object.position);
+            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), math::zeroVec);
             if(enemy)
             {
-                enemy->SetRotation(object.rotation);
+                LoadAttributes(enemy, object.attributes);
                 enemies.push_back(enemy);
             }
         }

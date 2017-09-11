@@ -12,14 +12,11 @@
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
 #include "ObjectProxies/IObjectProxy.h"
-#include "Objects/Polygon.h"
-#include "Objects/Path.h"
-#include "Objects/SpriteEntity.h"
-#include "Objects/Prefab.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
 
 #include "EntityRepository.h"
+#include "ObjectFactory.h"
 
 
 class ImGuiRenderer;
@@ -27,6 +24,10 @@ class ImGuiRenderer;
 namespace editor
 {
     class UserInputController;
+
+    class PathEntity;
+    class PolygonEntity;
+    class Prefab;
 
     class Editor : public mono::ZoneBase
     {
@@ -45,7 +46,6 @@ namespace editor
 
         void AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon);
         void AddPath(const std::shared_ptr<editor::PathEntity>& path);
-        void AddObject(const std::shared_ptr<editor::SpriteEntity>& object);
         void AddPrefab(const std::shared_ptr<editor::Prefab>& prefab);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
@@ -75,6 +75,7 @@ namespace editor
 
         editor::UIContext m_context;
         EntityRepository m_entityRepository;
+        ObjectFactory m_object_factory;
 
         std::shared_ptr<ImGuiRenderer> m_guiRenderer;
         std::shared_ptr<editor::UserInputController> m_userInputController;
@@ -83,12 +84,14 @@ namespace editor
         std::vector<editor::SnapPoint> m_snap_points;
 
         unsigned int m_seleced_id;
-        std::vector<std::unique_ptr<IObjectProxy>> m_object_proxies;
-        std::vector<std::shared_ptr<editor::PolygonEntity>> m_polygons;
-        std::vector<std::shared_ptr<editor::PathEntity>> m_paths;
-        std::vector<std::shared_ptr<editor::SpriteEntity>> m_objects;
-        std::vector<std::shared_ptr<editor::Prefab>> m_prefabs;
 
+        std::vector<editor::IObjectProxy*> m_paths;
+        std::vector<editor::IObjectProxy*> m_polygons;
+        std::vector<editor::IObjectProxy*> m_prefabs;
+        std::vector<editor::IObjectProxy*> m_objects;
+
+        std::vector<IObjectProxyPtr> m_proxies;
+        
         mono::EventToken<event::SurfaceChangedEvent> m_surfaceChangedToken;
     };
 }

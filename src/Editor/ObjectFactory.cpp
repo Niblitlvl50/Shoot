@@ -29,6 +29,12 @@ IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
     auto entity = std::make_shared<editor::SpriteEntity>(object_name, def.sprite_file.c_str());
     entity->SetScale(def.scale);
     
+
+    auto child = std::make_shared<SpriteEntity>(object_name, def.sprite_file.c_str());
+    child->SetPosition(math::Vector(2, 1));
+    entity->AddChild(child);
+
+
     return std::make_unique<EntityProxy>(entity, def.attribute_types);
 }
 
@@ -60,11 +66,11 @@ IObjectProxyPtr ObjectFactory::CreatePolygon(
     polygon_entity->SetRotation(rotation);
     polygon_entity->SetTexture(texture_name.c_str());
 
-    math::Matrix invert_transform = polygon_entity->Transformation();
-    math::Inverse(invert_transform);
+    math::Matrix world_to_local = polygon_entity->Transformation();
+    math::Inverse(world_to_local);
 
     for(const math::Vector& vertex : vertices)
-        polygon_entity->AddVertex(math::Transform(invert_transform, vertex));
+        polygon_entity->AddVertex(math::Transform(world_to_local, vertex));
 
     return std::make_unique<PolygonProxy>(polygon_entity);
 }

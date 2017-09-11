@@ -14,23 +14,26 @@ namespace editor
     public:
 
         PolygonEntity();
-        PolygonEntity(const std::vector<math::Vector>& points);
+        PolygonEntity(const math::Vector& position, const std::vector<math::Vector>& world_points);
+
+        void AddVertex(const math::Vector& local_point);
+        void SetVertex(const math::Vector& world_point, size_t index);
+
+        // Local vertices
+        const std::vector<math::Vector>& GetVertices() const;
+        
+        void SetSelected(bool selected);
+        bool IsSelected() const;
+        
+        void SetTexture(const char* texture);
+        const char* GetTexture() const;
+        
+        virtual math::Quad BoundingBox() const;
+
+    private:
 
         virtual void Draw(mono::IRenderer& renderer) const;
         virtual void Update(unsigned int delta);
-        virtual math::Quad BoundingBox() const;
-
-        void AddVertex(const math::Vector& vertex);
-        void SetVertex(const math::Vector& vertex, size_t index);
-        const std::vector<math::Vector>& GetVertices() const;
-
-        void SetSelected(bool selected);
-        bool IsSelected() const;
-
-        void SetTexture(const char* texture);
-        const char* GetTexture() const;
-
-    private:
 
         math::Quad LocalBoundingBox() const;
 

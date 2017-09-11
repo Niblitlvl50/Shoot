@@ -15,7 +15,6 @@ namespace world
         math::Vector position;
         math::Vector local_offset;
         float rotation = 0.0f;
-        float texture_repeate = 1.0f;
         char texture[64] = { 0 };
         std::vector<math::Vector> vertices;
     };
@@ -26,15 +25,8 @@ namespace world
         std::vector<PolygonData> polygons;
     };
 
-    struct ID_Attribute
-    {
-        int id = 0;
-        ObjectAttribute attribute;
-    };
-
     struct WorldObject
     {
-        //std::string name;
         char name[24] = { 0 };
         std::vector<ID_Attribute> attributes;
     };

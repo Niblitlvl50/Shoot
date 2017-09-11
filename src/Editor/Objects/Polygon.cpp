@@ -23,15 +23,18 @@ PolygonEntity::PolygonEntity()
       m_texture_name("res/textures/placeholder.png")
 { }
 
-PolygonEntity::PolygonEntity(const std::vector<math::Vector>& points)
+PolygonEntity::PolygonEntity(const math::Vector& position, const std::vector<math::Vector>& world_points)
     : PolygonEntity()
 {
-    m_position = points.front();
-
-    m_points = points;
+    m_position = position;
     
-    for(math::Vector& vertex : m_points)
-        vertex -= m_position;
+    math::Matrix world_to_local = Transformation();
+    math::Inverse(world_to_local);
+    
+    m_points.reserve(world_points.size());
+
+    for(const math::Vector& world_point : world_points)
+        m_points.push_back(math::Transform(world_to_local, world_point));
 
     RecalculateTextureCoordinates();
     m_base_point = math::CentroidOfPolygon(m_points);
@@ -58,31 +61,29 @@ void PolygonEntity::Update(unsigned int delta)
 
 math::Quad PolygonEntity::BoundingBox() const
 {
-    const math::Matrix& transform = Transformation();
+    const math::Matrix& local_to_world = Transformation();
 
     math::Quad bb(math::INF, math::INF, -math::INF, -math::INF);
-
     for(auto& point : m_points)
-        bb |= math::Transform(transform, point);
+        bb |= math::Transform(local_to_world, point);
 
     return bb;
 }
 
-void PolygonEntity::AddVertex(const math::Vector& vertex)
+void PolygonEntity::AddVertex(const math::Vector& local_point)
 {
-    m_points.push_back(vertex);
+    m_points.push_back(local_point);
     RecalculateTextureCoordinates();
     m_base_point = math::CentroidOfPolygon(m_points);
 }
 
-void PolygonEntity::SetVertex(const math::Vector& vertex, size_t index)
+void PolygonEntity::SetVertex(const math::Vector& world_point, size_t index)
 {
-    math::Matrix transform = Transformation();
-    math::Inverse(transform);
+    math::Matrix world_to_local = Transformation();
+    math::Inverse(world_to_local);
 
-    m_points[index] = math::Transform(transform, vertex);
+    m_points[index] = math::Transform(world_to_local, world_point);
     RecalculateTextureCoordinates();
-    //m_base_point = math::CentroidOfPolygon(m_points);
 }
 
 const std::vector<math::Vector>& PolygonEntity::GetVertices() const

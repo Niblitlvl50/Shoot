@@ -44,10 +44,10 @@ void BinarySerializer::Accept(PolygonProxy* proxy)
 
     std::memcpy(polygon_data.texture, texture, string_length);
 
-    const math::Matrix& transform = polygon_entity->Transformation();
+    const math::Matrix& local_to_world = polygon_entity->Transformation();
 
     for(const math::Vector& vertex : polygon_entity->GetVertices())
-        polygon_data.vertices.push_back(math::Transform(transform, vertex));
+        polygon_data.vertices.push_back(math::Transform(local_to_world, vertex));
 
     m_polygon_data.polygons.push_back(polygon_data);
 }

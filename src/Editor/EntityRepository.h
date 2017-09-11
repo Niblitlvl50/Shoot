@@ -14,6 +14,7 @@ namespace editor
         std::string name;
         std::string sprite_file;
         math::Vector scale;
+        std::vector<unsigned int> attribute_types;
     };
 
     struct PrefabDefinition

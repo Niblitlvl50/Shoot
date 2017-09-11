@@ -1,6 +1,7 @@
 
 #include "PolygonTool.h"
 #include "Editor.h"
+#include "RenderLayers.h"
 #include "Objects/Polygon.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
@@ -55,7 +56,7 @@ PolygonTool::PolygonTool(Editor* editor)
 
 void PolygonTool::Begin()
 {
-    m_editor->AddDrawable(m_visualizer, 1);
+    m_editor->AddDrawable(m_visualizer, RenderLayer::OBJECTS);
 }
 
 void PolygonTool::End()
@@ -75,7 +76,7 @@ void PolygonTool::HandleContextMenu(int menu_index)
 
     if(menu_index == 0)
     {
-        m_editor->AddPolygon(std::make_shared<editor::PolygonEntity>(m_points));
+        m_editor->AddPolygon(std::make_shared<editor::PolygonEntity>(m_points.front(), m_points));
         m_points.clear();
     }
     else if(menu_index == 1)

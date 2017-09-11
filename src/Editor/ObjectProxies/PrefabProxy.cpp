@@ -1,5 +1,6 @@
 
 #include "PrefabProxy.h"
+#include "IObjectVisitor.h"
 #include "Objects/Prefab.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
@@ -12,11 +13,18 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
+#include "ObjectAttribute.h"
+
 using namespace editor;
 
 PrefabProxy::PrefabProxy(const std::shared_ptr<Prefab>& prefab)
     : m_prefab(prefab)
 { }
+
+const char* PrefabProxy::Name() const
+{
+    return "prefabobject";
+}
 
 unsigned int PrefabProxy::Id() const
 {
@@ -59,7 +67,7 @@ std::vector<SnapPoint> PrefabProxy::GetSnappers() const
     return snappers;
 }
 
-void PrefabProxy::UpdateUIContext(UIContext& context) const
+void PrefabProxy::UpdateUIContext(UIContext& context)
 {
     const std::string& name = m_prefab->Name();
     const math::Vector& position = m_prefab->Position();
@@ -71,4 +79,17 @@ void PrefabProxy::UpdateUIContext(UIContext& context) const
     ImGui::SameLine();
     ImGui::Value("Y", position.y);
     ImGui::Value("Rotation", rotation);
+}
+
+std::vector<ID_Attribute> PrefabProxy::GetAttributes() const
+{
+    return std::vector<ID_Attribute>();
+}
+
+void PrefabProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+{ }
+
+void PrefabProxy::Visit(IObjectVisitor& visitor)
+{
+    visitor.Accept(this);
 }

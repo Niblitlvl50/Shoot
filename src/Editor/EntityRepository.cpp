@@ -2,6 +2,8 @@
 #include "EntityRepository.h"
 #include "System/File.h"
 #include "Math/Serialize.h"
+#include "Hash.h"
+
 #include "nlohmann_json/json.hpp"
 
 using namespace editor;
@@ -23,10 +25,21 @@ namespace
 
         for(auto& object : entities)
         {
+            const nlohmann::json& attribute_list = object["attribute_types"];
+
             EntityDefinition definition;
             definition.name = object["name"];
             definition.sprite_file = object["sprite"];
             definition.scale = object["scale"];
+            definition.attribute_types.reserve(attribute_list.size());
+
+            for(auto& attrib : attribute_list)
+            {
+                const std::string name = attrib;
+                const unsigned int hash = mono::Hash(name.c_str());
+                definition.attribute_types.push_back(hash);
+            }
+
             collection.push_back(definition);
         }
 

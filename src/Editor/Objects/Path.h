@@ -13,18 +13,16 @@ namespace editor
     public:
 
         PathEntity(const std::string& name);
-        PathEntity(const std::string& name, const std::vector<math::Vector>& points);
+        PathEntity(const std::string& name, const std::vector<math::Vector>& local_points);
+
+        void SetSelected(bool selected);
+        void SetName(const char* new_name);
+
+        void SetVertex(const math::Vector& world_point, size_t index);
 
         virtual void Draw(mono::IRenderer& renderer) const;
         virtual void Update(unsigned int delta);
         virtual math::Quad BoundingBox() const;
-
-        void SetSelected(bool selected);
-
-        void AddVertex(const math::Vector& vertex);
-        void SetVertex(const math::Vector& vertex, size_t index);
-
-        void SetName(const char* new_name);
 
         std::string m_name;
         std::vector<math::Vector> m_points;

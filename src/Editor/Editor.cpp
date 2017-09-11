@@ -19,29 +19,20 @@
 #include "Textures.h"
 #include "RenderLayers.h"
 #include "WorldSerializer.h"
+
 #include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/PathProxy.h"
-#include "ObjectProxies/EntityProxy.h"
 #include "ObjectProxies/PrefabProxy.h"
+
+#include "Objects/Polygon.h"
+#include "Objects/Path.h"
+#include "Objects/Prefab.h"
+
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
 
 namespace
 {
-    template <typename T>
-    T FindObject(unsigned int id, const std::vector<T>& collection)
-    {
-        const auto find_func = [id](const T& object) {
-            return id == object->Id();
-        };
-
-        auto it = std::find_if(collection.begin(), collection.end(), find_func);
-        if(it != collection.end())
-            return *it;
-
-        return nullptr;
-    }
-
     void SetupIcons(
         editor::UIContext& context,
         editor::EntityRepository& repository,
@@ -76,6 +67,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
       m_eventHandler(event_handler),
       m_inputHandler(event_handler),
       m_fileName(file_name),
+      m_object_factory(this),
       m_seleced_id(-1)
 {
     using namespace std::placeholders;
@@ -97,6 +89,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
     const System::Size& size = m_window->Size();
     const math::Vector window_size(size.width, size.height);
     m_guiRenderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
+
     Load();
 }
 
@@ -107,8 +100,8 @@ Editor::~Editor()
     editor::Config config;
     config.cameraPosition = m_camera->GetPosition();
     config.cameraViewport = m_camera->GetViewport();
-
     editor::SaveConfig("res/editor_config.json", config);
+    
     Save();
 }
 
@@ -137,29 +130,51 @@ void Editor::OnUnload()
 
 void Editor::Load()
 {
-    const auto& polygons = LoadPolygons(m_fileName);
-    for(auto& polygon : polygons)
-        AddPolygon(polygon);
+    auto polygons = LoadPolygons(m_fileName, m_object_factory);
+    for(auto& proxy : polygons)
+    {
+        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+        
+        m_polygons.push_back(proxy.get());
+        m_proxies.push_back(std::move(proxy));
+    }
 
-    const auto& paths = LoadPaths("res/world.paths");
-    for(auto& path : paths)
-        AddPath(path);
+    auto paths = LoadPaths("res/world.paths", m_object_factory);
+    for(auto& proxy : paths)
+    {
+        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+        
+        m_paths.push_back(proxy.get());
+        m_proxies.push_back(std::move(proxy));
+    }
 
-    const auto& objects = LoadObjects("res/world.objects", m_entityRepository);
-    for(auto& object : objects)
-        AddObject(object);
+    auto prefabs = LoadPrefabs("res/world.prefabs", m_object_factory);
+    for(auto& proxy : prefabs)
+    {
+        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+        
+        m_prefabs.push_back(proxy.get());
+        m_proxies.push_back(std::move(proxy));
+    }
 
-    const auto& prefabs = LoadPrefabs("res/world.prefabs", m_entityRepository);
-    for(auto& prefab : prefabs)
-        AddPrefab(prefab);
+    //auto objects = LoadObjects("res/world.objects", m_object_factory);
+    auto objects = LoadObjects2("hello.bin", m_object_factory);
+    for(auto& proxy : objects)
+    {
+        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+
+        m_objects.push_back(proxy.get());
+        m_proxies.push_back(std::move(proxy));
+    }
 }
 
 void Editor::Save()
 {
     SavePolygons(m_fileName, m_polygons);
     SavePaths("res/world.paths", m_paths);
-    SaveObjects("res/world.objects", m_objects);
     SavePrefabs("res/world.prefabs", m_prefabs);
+
+    SaveObjects2("hello.bin", m_objects);
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
@@ -173,29 +188,28 @@ bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
 void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
 {
     AddEntity(polygon, RenderLayer::OBJECTS);
-    m_object_proxies.push_back(std::make_unique<PolygonProxy>(polygon));
-    m_polygons.push_back(polygon);
+    
+    auto proxy = std::make_unique<PolygonProxy>(polygon);    
+    m_polygons.push_back(proxy.get());
+    m_proxies.push_back(std::move(proxy));
 }
 
 void Editor::AddPath(const std::shared_ptr<editor::PathEntity>& path)
 {
     AddEntity(path, RenderLayer::OBJECTS);
-    m_object_proxies.push_back(std::make_unique<PathProxy>(path, this));
-    m_paths.push_back(path);
-}
 
-void Editor::AddObject(const std::shared_ptr<editor::SpriteEntity>& object)
-{
-    AddEntity(object, RenderLayer::OBJECTS);
-    m_object_proxies.push_back(std::make_unique<EntityProxy>(object));
-    m_objects.push_back(object);
+    auto path_proxy = std::make_unique<PathProxy>(path, this);
+    m_paths.push_back(path_proxy.get());
+    m_proxies.push_back(std::move(path_proxy));
 }
 
 void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 {
     AddEntity(prefab, RenderLayer::OBJECTS);
-    m_object_proxies.push_back(std::make_unique<PrefabProxy>(prefab));
-    m_prefabs.push_back(prefab);
+
+    auto prefab_proxy = std::make_unique<PrefabProxy>(prefab);
+    m_prefabs.push_back(prefab_proxy.get());
+    m_proxies.push_back(std::move(prefab_proxy));
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
@@ -203,7 +217,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     m_seleced_id = -1;
     m_context.proxy_object = proxy_object;
 
-    for(auto& proxy : m_object_proxies)
+    for(auto& proxy : m_proxies)
         proxy->SetSelected(false);
 
     if(proxy_object)
@@ -214,7 +228,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 
     m_snap_points.clear();
 
-    for(const auto& proxy : m_object_proxies)
+    for(const auto& proxy : m_proxies)
     {
         // Skip the selected one, we dont want that one
         if(proxy->Id() == m_seleced_id)
@@ -229,7 +243,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
 {
-    for(auto& proxy : m_object_proxies)
+    for(auto& proxy : m_proxies)
     {
         if(proxy->Intersects(position))
             return proxy.get();
@@ -268,12 +282,12 @@ void Editor::UpdateGrabbers()
 
     const unsigned int id = m_seleced_id;
 
-    const auto find_func = [id](const std::unique_ptr<IObjectProxy>& proxy) {
+    const auto find_func = [id](const IObjectProxyPtr& proxy) {
         return id == proxy->Id();
     };
 
-    auto it = std::find_if(m_object_proxies.begin(), m_object_proxies.end(), find_func);
-    if(it != m_object_proxies.end())
+    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
+    if(it != m_proxies.end())
         m_grabbers = (*it)->GetGrabbers();
 }
 
@@ -288,12 +302,12 @@ std::pair<int, math::Vector> Editor::FindSnapPosition(const math::Vector& positi
     std::vector<SnapPoint> snappers;
 
     const unsigned int id = m_seleced_id;
-    const auto find_func = [id](const std::unique_ptr<IObjectProxy>& proxy) {
+    const auto find_func = [id](const IObjectProxyPtr& proxy) {
         return id == proxy->Id();
     };
 
-    auto it = std::find_if(m_object_proxies.begin(), m_object_proxies.end(), find_func);
-    if(it != m_object_proxies.end())
+    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
+    if(it != m_proxies.end())
         snappers = (*it)->GetSnappers();
 
     int best_index = -1;
@@ -323,60 +337,42 @@ std::pair<int, math::Vector> Editor::FindSnapPosition(const math::Vector& positi
 
 void Editor::OnDeleteObject()
 {
-    auto polygon = FindObject(m_seleced_id, m_polygons);
-    auto path = FindObject(m_seleced_id, m_paths);
-    auto object = FindObject(m_seleced_id, m_objects);
-    auto prefab = FindObject(m_seleced_id, m_prefabs);
-
     const unsigned int id = m_seleced_id;
-    const auto find_func = [id](const std::unique_ptr<IObjectProxy>& proxy) {
+
+    const auto find_func = [id](const IObjectProxyPtr& proxy) {
         return id == proxy->Id();
     };
 
-    auto it = std::find_if(m_object_proxies.begin(), m_object_proxies.end(), find_func);
-    if(it != m_object_proxies.end())
-        m_object_proxies.erase(it);
-
-    if(polygon)
+    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
+    if(it != m_proxies.end())
     {
-        const auto remove_polygon_func = [this, polygon] {
-            auto it = std::find(m_polygons.begin(), m_polygons.end(), polygon);
-            m_polygons.erase(it);
-            RemoveEntity(polygon);
-        };
+        editor::IObjectProxy* proxy = it->get();
+        
+        auto path_it = std::remove(m_paths.begin(), m_paths.end(), proxy);
+        if(path_it != m_paths.end())
+            m_paths.erase(path_it);
+            
+        auto polygon_it = std::remove(m_polygons.begin(), m_polygons.end(), proxy);
+        if(polygon_it != m_polygons.end())
+            m_polygons.erase(polygon_it);
+    
+        auto prefab_it = std::remove(m_prefabs.begin(), m_prefabs.end(), proxy);
+        if(prefab_it != m_prefabs.end())
+            m_prefabs.erase(prefab_it);
 
-        SchedulePreFrameTask(remove_polygon_func);
+        auto object_it = std::remove(m_objects.begin(), m_objects.end(), proxy);
+        if(object_it != m_objects.end())
+            m_objects.erase(object_it);
+    
+        m_proxies.erase(it);
     }
-    else if(path)
-    {
-        const auto remove_path_func = [this, path] {
-            auto it = std::find(m_paths.begin(), m_paths.end(), path);
-            m_paths.erase(it);
-            RemoveEntity(path);
-        };
 
-        SchedulePreFrameTask(remove_path_func);
-    }
-    else if(object)
-    {
-        const auto remove_object_func = [this, object] {
-            auto it = std::find(m_objects.begin(), m_objects.end(), object);
-            m_objects.erase(it);
-            RemoveEntity(object);
-        };
+    auto entity = FindEntityFromId(id);    
+    const auto remove_entity_func = [this, entity] {
+        RemoveEntity(entity);
+    };
 
-        SchedulePreFrameTask(remove_object_func);
-    }
-    else if(prefab)
-    {
-        const auto remove_prefab_func = [this, prefab] {
-            auto it = std::find(m_prefabs.begin(), m_prefabs.end(), prefab);
-            m_prefabs.erase(it);
-            RemoveEntity(prefab);
-        };
-
-        SchedulePreFrameTask(remove_prefab_func);
-    }
+    SchedulePreFrameTask(remove_entity_func);
 
     m_context.proxy_object = nullptr;
     m_grabbers.clear();
@@ -404,10 +400,13 @@ void Editor::DropItemCallback(const std::string& id, const math::Vector& positio
     const math::Vector window_size(size.width, size.height);
     const math::Vector& world_pos = m_camera->ScreenToWorld(position, window_size);
 
-    const EntityDefinition& def = m_entityRepository.GetDefinitionFromName(id);
-    auto sprite_entity = std::make_shared<SpriteEntity>(def.name.c_str(), def.sprite_file.c_str());
-    sprite_entity->SetPosition(world_pos);
-    sprite_entity->SetScale(def.scale);
+    IObjectProxyPtr proxy = m_object_factory.CreateObject(id.c_str());
+    
+    mono::IEntityPtr entity = proxy->Entity();
+    entity->SetPosition(world_pos);
+    
+    AddEntity(entity, RenderLayer::OBJECTS);
 
-    AddObject(sprite_entity);
+    m_objects.push_back(proxy.get());
+    m_proxies.push_back(std::move(proxy));
 }

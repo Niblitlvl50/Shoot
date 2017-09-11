@@ -65,7 +65,16 @@ void PathTool::HandleContextMenu(int menu_index)
 
     if(menu_index == 0)
     {
-        m_editor->AddPath(std::make_shared<editor::PathEntity>("New path", m_points));
+        const math::Vector position = m_points.front();
+
+        // Make points local
+        for(math::Vector& point : m_points)
+            point -= position;
+
+        auto path_entity = std::make_shared<editor::PathEntity>("New path", m_points);
+        path_entity->SetPosition(position);
+
+        m_editor->AddPath(path_entity);
         m_points.clear();
     }
     else if(menu_index == 1)

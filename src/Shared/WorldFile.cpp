@@ -21,7 +21,6 @@ bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
         std::fwrite(&polygon.position,          sizeof(math::Vector), 1,          file.get());
         std::fwrite(&polygon.local_offset,      sizeof(math::Vector), 1,          file.get());
         std::fwrite(&polygon.rotation,          sizeof(float),        1,          file.get());
-        std::fwrite(&polygon.texture_repeate,   sizeof(float),        1,          file.get());
         std::fwrite(&polygon.texture,           sizeof(char),        64,          file.get());
         std::fwrite(&n_vertices,                sizeof(int),          1,          file.get());
         std::fwrite(polygon.vertices.data(),    sizeof(math::Vector), n_vertices, file.get());
@@ -57,9 +56,6 @@ bool world::ReadWorld(File::FilePtr& file, LevelFileHeader& level)
         offset += sizeof(math::Vector);
 
         std::memcpy(&polygon.rotation, bytes.data() + offset, sizeof(float));
-        offset += sizeof(float);
-
-        std::memcpy(&polygon.texture_repeate, bytes.data() + offset, sizeof(float));
         offset += sizeof(float);
 
         std::memcpy(&polygon.texture, bytes.data() + offset, sizeof(char) * 64);
@@ -133,8 +129,8 @@ bool world::ReadWorldObjects2(File::FilePtr& file, world::WorldObjectsHeader& ob
 
         world_object.attributes.resize(n_attributes);
 
-        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(world::ID_Attribute) * n_attributes);
-        offset += sizeof(world::ID_Attribute) * n_attributes;
+        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(ID_Attribute) * n_attributes);
+        offset += sizeof(ID_Attribute) * n_attributes;
     }
 
     return true;

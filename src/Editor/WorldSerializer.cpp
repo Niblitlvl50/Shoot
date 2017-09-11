@@ -13,29 +13,28 @@
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
 
+#include "ObjectProxies/IObjectProxy.h"
+
 #include "nlohmann_json/json.hpp"
 
 #include "DefinedAttributes.h"
+#include "ObjectFactory.h"
+
+#include "Serializer/JsonSerializer.h"
+#include "Serializer/BinarySerializer.h"
 
 #include <algorithm>
 
-std::vector<std::shared_ptr<editor::PolygonEntity>> editor::LoadPolygons(const char* file_name)
+std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const editor::ObjectFactory& factory)
 {
-    std::vector<std::shared_ptr<editor::PolygonEntity>> polygon_data;
+    std::vector<IObjectProxyPtr> polygon_data;
 
     if(!file_name)
         return polygon_data;
 
-    File::FilePtr file;
-
-    try
-    {
-        file = File::OpenBinaryFile(file_name);
-    }
-    catch(...)
-    {
+    File::FilePtr file = File::OpenBinaryFile(file_name);
+    if(!file)
         return polygon_data;
-    }
 
     world::LevelFileHeader level_data;
     world::ReadWorld(file, level_data);
@@ -44,61 +43,33 @@ std::vector<std::shared_ptr<editor::PolygonEntity>> editor::LoadPolygons(const c
 
     for(const world::PolygonData& polygon : level_data.polygons)
     {
-        std::shared_ptr<editor::PolygonEntity> polygon_entity = std::make_shared<editor::PolygonEntity>();
-        polygon_entity->SetPosition(polygon.position);
-        polygon_entity->SetBasePoint(polygon.local_offset);
-        polygon_entity->SetRotation(polygon.rotation);
-        polygon_entity->SetTexture(polygon.texture);
+        if(polygon.vertices.empty())
+            continue;
 
-        math::Matrix invert_transform = polygon_entity->Transformation();
-        math::Inverse(invert_transform);
-
-        for(const math::Vector& vertex : polygon.vertices)
-            polygon_entity->AddVertex(math::Transform(invert_transform, vertex));
-
-        if(!polygon.vertices.empty())
-            polygon_data.push_back(polygon_entity);
+        auto proxy = factory.CreatePolygon(
+            polygon.position, polygon.local_offset, polygon.rotation, polygon.vertices, polygon.texture);
+        polygon_data.push_back(std::move(proxy));
     }
 
     return polygon_data;
 }
 
-void editor::SavePolygons(const char* file_name, const std::vector<std::shared_ptr<editor::PolygonEntity>>& polygons)
+void editor::SavePolygons(const char* file_name, const std::vector<IObjectProxy*>& polygons)
 {
     if(!file_name)
         return;
 
-    world::LevelFileHeader world_data;
-    world_data.version = 1;
-    world_data.polygons.resize(polygons.size());
+    BinarySerializer serializer;
 
-    for(size_t index = 0; index < polygons.size(); ++index)
-    {
-        const auto& polygon_entity = polygons[index];
-        world::PolygonData& polygon_data = world_data.polygons[index];
+    for(auto* proxy : polygons)
+        proxy->Visit(serializer);
 
-        polygon_data.position = polygon_entity->Position();
-        polygon_data.local_offset = polygon_entity->BasePoint();
-        polygon_data.rotation = polygon_entity->Rotation();
-
-        const char* texture = polygon_entity->GetTexture();
-        const std::size_t string_length = std::strlen(texture);
-
-        std::memcpy(polygon_data.texture, texture, string_length);
-
-        const math::Matrix& transform = polygon_entity->Transformation();
-
-        for(const math::Vector& vertex : polygon_entity->GetVertices())
-            polygon_data.vertices.push_back(math::Transform(transform, vertex));
-    }
-
-    File::FilePtr file = File::CreateBinaryFile(file_name);
-    world::WriteWorld(file, world_data);
+    serializer.WritePolygonFile(file_name);
 }
 
-std::vector<std::shared_ptr<editor::PathEntity>> editor::LoadPaths(const char* file_name)
+std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const editor::ObjectFactory& factory)
 {
-    std::vector<std::shared_ptr<editor::PathEntity>> paths;
+    std::vector<IObjectProxyPtr> paths;
 
     File::FilePtr file = File::OpenAsciiFile(file_name);
     if(!file)
@@ -121,33 +92,23 @@ std::vector<std::shared_ptr<editor::PathEntity>> editor::LoadPaths(const char* f
     for(const std::string& file : path_names)
     {
         std::shared_ptr<mono::IPath> path = mono::CreatePath(file.c_str());
-        auto path_entity = std::make_shared<editor::PathEntity>(get_name(file), path->GetPathPoints());
-        path_entity->SetPosition(path->GetGlobalPosition());
-        paths.push_back(path_entity);
+        auto proxy = factory.CreatePath(get_name(file), path->GetPathPoints());
+        proxy->Entity()->SetPosition(path->GetGlobalPosition());
+
+        paths.push_back(std::move(proxy));
     }
 
     return paths;
 }
 
-void editor::SavePaths(const char* file_name, const std::vector<std::shared_ptr<editor::PathEntity>>& paths)
+void editor::SavePaths(const char* file_name, const std::vector<editor::IObjectProxy*>& paths)
 {
-    std::vector<std::string> path_names;
-    path_names.reserve(paths.size());
+    JsonSerializer serializer(file_name);
 
-    for(auto& path : paths)
-    {
-        const std::string& filename = "res/paths/" + path->m_name + ".path";
-        mono::SavePath(filename.c_str(), path->Position(), path->m_points);
-        path_names.push_back(filename);
-    }
+    for(auto* path : paths)
+        path->Visit(serializer);
 
-    nlohmann::json json;
-    json["path_files"] = path_names;
-
-    const std::string& serialized_json = json.dump(4);
-
-    File::FilePtr file = File::CreateAsciiFile(file_name);
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+    serializer.WritePathFile();
 }
 
 void editor::SaveObjects(const char* file_name, const std::vector<std::shared_ptr<editor::SpriteEntity>>& objects)
@@ -171,44 +132,61 @@ void editor::SaveObjects(const char* file_name, const std::vector<std::shared_pt
 
     File::FilePtr file = File::CreateAsciiFile(file_name);
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+}
 
-    // ------------
-
+void editor::SaveObjects2(const char* file_name, const std::vector<IObjectProxy*>& proxies)
+{
+    File::FilePtr file = File::CreateBinaryFile(file_name);
+    if(!file)
+        return;
+    
     world::WorldObjectsHeader world_header;
     
-    for(auto& object : objects)
+    for(auto proxy : proxies)
     {
         world::WorldObject world_object;
         
-        const char* name = object->Name().c_str();
+        const char* name = proxy->Name();
         const size_t length = std::strlen(name);
         const size_t data_length = std::min(length, size_t(24) -1);
     
         std::memcpy(world_object.name, name, data_length);
         world_object.name[data_length] = '\0';
+        world_object.attributes = proxy->GetAttributes();
 
-        world::ID_Attribute position;
-        position.id = world::POSITION_ATTRIBUTE;
-        position.attribute = object->Position();
-
-        world::ID_Attribute rotation;
-        rotation.id = world::ROTATION_ATTRIBUTE;
-        rotation.attribute = object->Rotation();
-
-        world_object.attributes.push_back(position);
-        world_object.attributes.push_back(rotation);
-        
         world_header.objects.push_back(world_object);
     }
 
-    File::FilePtr file2 = File::CreateBinaryFile("hello.bin");
-    world::WriteWorldObjects2(file2, world_header);
+    world::WriteWorldObjects2(file, world_header);
 }
 
-std::vector<std::shared_ptr<editor::SpriteEntity>> editor::LoadObjects(const char* file_name, const editor::EntityRepository& entity_repo)
+std::vector<IObjectProxyPtr> editor::LoadObjects2(const char* file_name, const editor::ObjectFactory& factory)
 {
-    std::vector<std::shared_ptr<editor::SpriteEntity>> objects;
+    std::vector<IObjectProxyPtr> objects;
 
+    File::FilePtr file = File::OpenBinaryFile(file_name);
+    if(!file)
+        return objects;
+
+    world::WorldObjectsHeader world_header;
+    world::ReadWorldObjects2(file, world_header);
+
+    for(auto& world_object : world_header.objects)
+    {
+        IObjectProxyPtr proxy = factory.CreateObject(world_object.name);
+        proxy->SetAttributes(world_object.attributes);
+        
+        objects.push_back(std::move(proxy));
+    }
+
+    return objects;
+}
+
+
+std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const editor::ObjectFactory& factory)
+{
+    std::vector<IObjectProxyPtr> objects;
+    
     File::FilePtr file = File::OpenAsciiFile(file_name);
     if(!file)
         return objects;
@@ -225,31 +203,23 @@ std::vector<std::shared_ptr<editor::SpriteEntity>> editor::LoadObjects(const cha
         const math::Vector& position = json_object["position"];
         const float rotation = json_object["rotation"];
 
-        const editor::EntityDefinition& def = entity_repo.GetDefinitionFromName(name);
+        const std::vector<ID_Attribute> attributes = {
+            { world::POSITION_ATTRIBUTE, ObjectAttribute(position) },
+            { world::RADIUS_ATTRIBUTE,   ObjectAttribute(rotation) }
+        };
 
-        auto sprite_object = std::make_shared<editor::SpriteEntity>(name.c_str(), def.sprite_file.c_str());
-        sprite_object->SetPosition(position);
-        sprite_object->SetScale(def.scale);
-        sprite_object->SetRotation(rotation);
-
-        objects.push_back(sprite_object);
+        IObjectProxyPtr proxy = factory.CreateObject(name.c_str());
+        proxy->SetAttributes(attributes);
+        
+        objects.push_back(std::move(proxy));
     }
-
-    File::FilePtr file2 = File::OpenBinaryFile("hello.bin");
-    world::WorldObjectsHeader world_header;
-    world::ReadWorldObjects2(file2, world_header);
 
     return objects;
 }
 
-void editor::SavePrefabs(const char* file_name, const std::vector<std::shared_ptr<editor::Prefab>>& prefabs)
+std::vector<IObjectProxyPtr> editor::LoadPrefabs(const char* file_name, const editor::ObjectFactory& factory)
 {
-
-}
-
-std::vector<std::shared_ptr<editor::Prefab>> editor::LoadPrefabs(const char* file_name, const editor::EntityRepository& entity_repo)
-{
-    std::vector<std::shared_ptr<editor::Prefab>> prefabs;
+    std::vector<IObjectProxyPtr> prefabs;
 
     File::FilePtr file = File::OpenAsciiFile(file_name);
     if(!file)
@@ -267,15 +237,19 @@ std::vector<std::shared_ptr<editor::Prefab>> editor::LoadPrefabs(const char* fil
         const math::Vector& position = json_prefab["position"];
         const float rotation = json_prefab["rotation"];
 
-        const PrefabDefinition& def = entity_repo.GetPrefabFromName(name);
-        
-        auto prefab_object = std::make_shared<editor::Prefab>(name.c_str(), def.sprite_file.c_str(), def.snap_points);
-        prefab_object->SetPosition(position);
-        prefab_object->SetScale(def.scale);
-        prefab_object->SetRotation(rotation);
+        IObjectProxyPtr proxy = factory.CreatePrefab(name);
+        auto prefab = proxy->Entity();
 
-        prefabs.push_back(prefab_object);
+        prefab->SetPosition(position);
+        prefab->SetRotation(rotation);
+    
+        prefabs.push_back(std::move(proxy));
     }
 
     return prefabs;
+}
+
+void editor::SavePrefabs(const char* file_name, const std::vector<IObjectProxy*>& prefabs)
+{
+
 }
