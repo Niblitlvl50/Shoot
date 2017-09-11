@@ -158,7 +158,7 @@ void Editor::Load()
     }
 
     //auto objects = LoadObjects("res/world.objects", m_object_factory);
-    auto objects = LoadObjects2("hello.bin", m_object_factory);
+    auto objects = LoadObjects2("res/world.objects.bin", m_object_factory);
     for(auto& proxy : objects)
     {
         AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
@@ -174,7 +174,7 @@ void Editor::Save()
     SavePaths("res/world.paths", m_paths);
     SavePrefabs("res/world.prefabs", m_prefabs);
 
-    SaveObjects2("hello.bin", m_objects);
+    SaveObjects2("res/world.objects.bin", m_objects);
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
