@@ -13,8 +13,6 @@
 
 #include "Math/Matrix.h"
 
-#include "Hash.h"
-
 using namespace editor;
 
 ObjectFactory::ObjectFactory(Editor* editor)
@@ -29,12 +27,6 @@ IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
     auto entity = std::make_shared<editor::SpriteEntity>(object_name, def.sprite_file.c_str());
     entity->SetScale(def.scale);
     
-
-    auto child = std::make_shared<SpriteEntity>(object_name, def.sprite_file.c_str());
-    child->SetPosition(math::Vector(2, 1));
-    entity->AddChild(child);
-
-
     return std::make_unique<EntityProxy>(entity, def.attribute_types);
 }
 
