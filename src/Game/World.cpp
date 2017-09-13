@@ -179,7 +179,7 @@ void game::LoadWorldObjects(
         }
         else
         {
-            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), math::zeroVec);
+            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), math::zeroVec, object.attributes);
             if(enemy)
             {
                 LoadAttributes(enemy, object.attributes);

@@ -2,13 +2,17 @@
 #include "EnemyFactory.h"
 #include "Enemy.h"
 #include "Paths/IPath.h"
+#include "Paths/PathFactory.h"
 
 #include "CacoDemonController.h"
 #include "RyuController.h"
 #include "InvaderController.h"
 #include "BlackSquareController.h"
 
+#include "DefinedAttributes.h"
+
 #include <cstring>
+#include <string>
 
 using namespace game;
 
@@ -24,18 +28,6 @@ game::EnemyPtr EnemyFactory::CreateCacoDemon(const math::Vector& position)
     setup.mass = 500.0f;
     setup.position = position;
     setup.controller = std::make_unique<CacoDemonController>(m_eventHandler);
-
-    return std::make_shared<game::Enemy>(setup);
-}
-
-game::EnemyPtr EnemyFactory::CreateRyu(const math::Vector& position)
-{
-    EnemySetup setup;
-    setup.sprite_file = "res/sprites/ryu.sprite";
-    setup.size = 2.0f;
-    setup.mass = 80.0f;
-    setup.position = position;
-    setup.controller = std::make_unique<RyuController>(m_eventHandler);
 
     return std::make_shared<game::Enemy>(setup);
 }
@@ -64,6 +56,22 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
     return std::make_shared<game::Enemy>(setup);
 }
 
+game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, const std::vector<ID_Attribute>& attributes)
+{
+    const char* filename = nullptr;
+    const bool found_filename = world::FindAttribute(world::FILEPATH_ATTRIBUTE, attributes, filename);
+
+    if(found_filename)
+    {
+        const std::string full_filename = std::string("res/paths/") + filename + ".path";
+        auto path = mono::CreatePath(full_filename.c_str());
+        return CreatePathInvader(path);;
+
+    }
+
+    return nullptr;
+}
+
 game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position)
 {
     EnemySetup setup;
@@ -76,12 +84,15 @@ game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position)
     return std::make_shared<game::Enemy>(setup);
 }
 
-game::EnemyPtr EnemyFactory::CreateFromName(const char* name, const math::Vector& position)
+game::EnemyPtr EnemyFactory::CreateFromName(
+    const char* name, const math::Vector& position, const std::vector<ID_Attribute>& attributes)
 {
     if(std::strcmp(name, "cacodemon") == 0)
         return CreateCacoDemon(position);
     else if(std::strcmp(name, "invader") == 0)
         return CreateInvader(position);
+    else if(std::strcmp(name, "pathinvader") == 0)
+        return CreatePathInvader(position, attributes);
     else if(std::strcmp(name, "blacksquare") == 0)
         return CreateBlackSquare(position);
 

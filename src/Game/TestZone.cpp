@@ -80,16 +80,16 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     world::ReadWorld(world_file, world_header);
     game::LoadWorld(this, world_header.polygons);
 
-    File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects");
+    File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects.bin");
 
-    std::vector<world::WorldObject> world_objects;
-    world::ReadWorldObjects(world_objects_file, world_objects);
+    world::WorldObjectsHeader world_objects_header;
+    world::ReadWorldObjects2(world_objects_file, world_objects_header);
 
     std::vector<EnemyPtr> enemies;
     std::vector<SpawnPoint> spawn_points;
     std::vector<math::Vector> player_points;
 
-    game::LoadWorldObjects(world_objects, enemy_factory, enemies, spawn_points, player_points);
+    game::LoadWorldObjects(world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points);
 
     for(const auto& enemy : enemies)
         AddPhysicsEntity(enemy, MIDDLEGROUND);
@@ -109,11 +109,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     
     AddDrawable(m_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
-
-    const mono::IPathPtr& path = mono::CreatePath("res/paths/smaller_loop.path");
-    AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
-    AddPhysicsEntity(enemy_factory->CreatePathInvader(path), MIDDLEGROUND);
 
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
 

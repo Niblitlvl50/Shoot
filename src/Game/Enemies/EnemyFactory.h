@@ -12,11 +12,12 @@ namespace game
         EnemyFactory(mono::EventHandler& event_handler);
     
         EnemyPtr CreateCacoDemon(const math::Vector& position) override;
-        EnemyPtr CreateRyu(const math::Vector& position) override;
         EnemyPtr CreateInvader(const math::Vector& position) override;
         EnemyPtr CreatePathInvader(const mono::IPathPtr& path) override;
+        EnemyPtr CreatePathInvader(const math::Vector& position, const std::vector<ID_Attribute>& attributes);
         EnemyPtr CreateBlackSquare(const math::Vector& position) override;
-        EnemyPtr CreateFromName(const char* name, const math::Vector& position) override;
+        EnemyPtr CreateFromName(
+            const char* name, const math::Vector& position, const std::vector<ID_Attribute>& attributes) override;
         
     private:
 

@@ -21,12 +21,13 @@ namespace world
         const ObjectAttribute default_attribute;
     };
 
-    static const std::array<HashString, 5> hash_array = {{
+    static const std::array<HashString, 6> hash_array = {{
         HashString("position",  ObjectAttribute(math::zeroVec)),
         HashString("rotation",  ObjectAttribute(0.0f)),
         HashString("radius",    ObjectAttribute(1.0f)),
         HashString("interval",  ObjectAttribute(1)),
-        HashString("spawn_tag", ObjectAttribute(""))
+        HashString("spawn_tag", ObjectAttribute("")),
+        HashString("filepath",  ObjectAttribute(""))
     }};
 
     static const unsigned int POSITION_ATTRIBUTE     = mono::Hash("position");
@@ -34,7 +35,8 @@ namespace world
     static const unsigned int RADIUS_ATTRIBUTE       = mono::Hash("radius");
     static const unsigned int INTERVAL_ATTRIBUTE     = mono::Hash("interval");
     static const unsigned int SPAWN_TAG_ATTRIBUTE    = mono::Hash("spawn_tag");
-
+    static const unsigned int FILEPATH_ATTRIBUTE     = mono::Hash("filepath");
+    
     inline const char* NameFromHash(unsigned int hash)
     {
         for(const HashString& hash_string : hash_array)
