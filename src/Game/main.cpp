@@ -17,25 +17,18 @@
 int main(int argc, char* argv[])
 {
     System::Initialize();
+    System::SetCursorVisibility(System::CursorVisibility::HIDDEN);
+
     mono::InitializeAudio();
     mono::InitializeRender();
 
     {
-        // The "global" event handler used throughout the game
         mono::EventHandler eventHandler;
 
         game::weapon_factory = new game::WeaponFactory(eventHandler);
         game::enemy_factory = new game::EnemyFactory(eventHandler);
-
-        //constexpr math::Vector iPhone6SSize(750.0f, 1334.0f);
-        //const math::Vector& nativeSize = Video::GetCurrentWindowSize();
-        //const float ratio = nativeSize.y / iPhone6SSize.y;
-
-        //const math::Vector& size = iPhone6SSize * ratio;
-        const math::Vector size(1280, 800);
-
-        System::SetCursorVisibility(System::CursorVisibility::HIDDEN);
-
+        
+        constexpr math::Vector size(1280, 800);
         System::IWindow* window = System::CreateWindow("Shmup", size.x, size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
 
