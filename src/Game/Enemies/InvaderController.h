@@ -7,8 +7,6 @@
 
 namespace game
 {
-    class IWeaponSystem;
-
     class InvaderController : public IEnemyController
     {
     public:
@@ -44,7 +42,7 @@ namespace game
 
         mono::IBodyPtr m_controlBody;
         mono::IConstraintPtr m_spring;
-        std::unique_ptr<IWeaponSystem> m_weapon;
+        std::unique_ptr<class IWeaponSystem> m_weapon;
         Enemy* m_enemy;
     };
 }

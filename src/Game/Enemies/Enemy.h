@@ -7,13 +7,11 @@
 
 namespace game
 {
-    class Enemy;
-
     class IEnemyController : public mono::IUpdatable
     {
     public:
 
-        virtual void Initialize(Enemy* enemy) = 0;
+        virtual void Initialize(class Enemy* enemy) = 0;
     };
 
     struct EnemySetup

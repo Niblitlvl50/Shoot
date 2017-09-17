@@ -5,7 +5,6 @@
 #include "Paths/PathFactory.h"
 
 #include "CacoDemonController.h"
-#include "RyuController.h"
 #include "InvaderController.h"
 #include "BlackSquareController.h"
 
