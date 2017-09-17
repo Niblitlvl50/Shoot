@@ -1,5 +1,6 @@
 
 #include "ObjectFactory.h"
+#include "DefinedAttributes.h"
 
 #include "ObjectProxies/EntityProxy.h"
 #include "ObjectProxies/PathProxy.h"
@@ -23,11 +24,19 @@ ObjectFactory::ObjectFactory(Editor* editor)
 
 IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
 {
-    const EntityDefinition def = m_repository.GetDefinitionFromName(object_name);
+    const EntityDefinition& def = m_repository.GetDefinitionFromName(object_name);
+    
     auto entity = std::make_shared<editor::SpriteEntity>(object_name, def.sprite_file.c_str());
     entity->SetScale(def.scale);
+
+    std::vector<ID_Attribute> attributes;
+    for(unsigned int hash : def.attribute_types)
+        attributes.push_back({hash, world::AttributeFromHash(hash)});
     
-    return std::make_unique<EntityProxy>(entity, def.attribute_types);
+    auto proxy = std::make_unique<EntityProxy>(entity, def.attribute_types);
+    proxy->SetAttributes(attributes);
+
+    return std::move(proxy);
 }
 
 IObjectProxyPtr ObjectFactory::CreatePath(const std::string& name, const std::vector<math::Vector>& points) const

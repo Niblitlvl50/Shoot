@@ -95,18 +95,7 @@ void EntityProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
     m_entity->SetPosition(position);
     m_entity->SetRotation(rotation);
 
-    for(unsigned int hash : m_attribute_types)
-    {
-        ID_Attribute attrib;
-        const bool found_attribute = world::FindAttribute(hash, attributes, attrib);
-        if(!found_attribute)
-        {
-            attrib.id = hash;
-            attrib.attribute = world::AttributeFromHash(hash);
-        }
-
-        m_attributes.push_back(attrib);
-    }
+    m_attributes = attributes;
 }
 
 void EntityProxy::Visit(IObjectVisitor& visitor)
