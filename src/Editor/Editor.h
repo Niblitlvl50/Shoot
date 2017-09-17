@@ -63,7 +63,7 @@ namespace editor
         void ToolsMenuCallback(ToolsMenuOptions index);
         void DropItemCallback(const std::string& id, const math::Vector& position);
 
-    //private:
+    private:
 
         System::IWindow* m_window;
         mono::EventHandler& m_eventHandler;

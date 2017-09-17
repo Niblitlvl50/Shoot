@@ -135,25 +135,19 @@ bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
 void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
 {
     AddEntity(polygon, RenderLayer::OBJECTS);
-    
-    auto proxy = std::make_unique<PolygonProxy>(polygon);    
-    m_proxies.push_back(std::move(proxy));
+    m_proxies.push_back(std::make_unique<PolygonProxy>(polygon));
 }
 
 void Editor::AddPath(const std::shared_ptr<editor::PathEntity>& path)
 {
     AddEntity(path, RenderLayer::OBJECTS);
-
-    auto path_proxy = std::make_unique<PathProxy>(path, this);
-    m_proxies.push_back(std::move(path_proxy));
+    m_proxies.push_back(std::make_unique<PathProxy>(path, this));
 }
 
 void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 {
     AddEntity(prefab, RenderLayer::OBJECTS);
-
-    auto prefab_proxy = std::make_unique<PrefabProxy>(prefab);
-    m_proxies.push_back(std::move(prefab_proxy));
+    m_proxies.push_back(std::make_unique<PrefabProxy>(prefab));
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
