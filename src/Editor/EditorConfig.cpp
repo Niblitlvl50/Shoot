@@ -10,14 +10,16 @@ namespace
 {
     constexpr const char* camera_position = "camera_position";
     constexpr const char* camera_viewport = "camera_viewport";
+    constexpr const char* window_size = "window_size";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 {
     nlohmann::json json;
 
-    json[camera_position] = config.cameraPosition;
-    json[camera_viewport] = config.cameraViewport;
+    json[camera_position] = config.camera_position;
+    json[camera_viewport] = config.camera_viewport;
+    json[window_size] = config.window_size;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -38,8 +40,9 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    config.cameraPosition = json[camera_position];
-    config.cameraViewport = json[camera_viewport];
+    config.camera_position = json[camera_position];
+    config.camera_viewport = json[camera_viewport];
+    config.window_size = json[window_size];
 
     return true;
 }

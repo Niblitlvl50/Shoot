@@ -15,7 +15,6 @@
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
 #include "ImGuiImpl/ImGuiRenderer.h"
-#include "EditorConfig.h"
 #include "Textures.h"
 #include "RenderLayers.h"
 #include "WorldSerializer.h"
@@ -95,28 +94,13 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
 
 Editor::~Editor()
 {
-    m_eventHandler.RemoveListener(m_surfaceChangedToken);
-
-    editor::Config config;
-    config.cameraPosition = m_camera->GetPosition();
-    config.cameraViewport = m_camera->GetViewport();
-    editor::SaveConfig("res/editor_config.json", config);
-    
+    m_eventHandler.RemoveListener(m_surfaceChangedToken);    
     Save();
 }
 
 void Editor::OnLoad(mono::ICameraPtr& camera)
 {
     m_camera = camera;
-    
-    editor::Config config;
-    const bool config_loaded = editor::LoadConfig("res/editor_config.json", config);
-    if(config_loaded)
-    {
-        camera->SetPosition(config.cameraPosition);
-        camera->SetViewport(config.cameraViewport);
-    }
-
     m_userInputController = std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_eventHandler);
 
     AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));

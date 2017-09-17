@@ -8,8 +8,9 @@ namespace editor
 {
     struct Config
     {
-        math::Vector cameraPosition;
-        math::Quad cameraViewport;
+        math::Vector camera_position;
+        math::Quad camera_viewport;
+        math::Vector window_size;
     };
 
     bool SaveConfig(const char* config_file, const Config& config);
