@@ -34,6 +34,8 @@ int main(int argc, char* argv[])
         //const math::Vector& size = iPhone6SSize * ratio;
         const math::Vector size(1280, 800);
 
+        System::SetCursorVisibility(System::CursorVisibility::HIDDEN);
+
         System::IWindow* window = System::CreateWindow("Shmup", size.x, size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
 
