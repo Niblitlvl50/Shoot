@@ -23,8 +23,6 @@ class ImGuiRenderer;
 
 namespace editor
 {
-    class UserInputController;
-
     class PathEntity;
     class PolygonEntity;
     class Prefab;
@@ -78,18 +76,12 @@ namespace editor
         ObjectFactory m_object_factory;
 
         std::shared_ptr<ImGuiRenderer> m_guiRenderer;
-        std::shared_ptr<editor::UserInputController> m_userInputController;
+        std::shared_ptr<class UserInputController> m_userInputController;
 
         std::vector<editor::Grabber> m_grabbers;
         std::vector<editor::SnapPoint> m_snap_points;
 
         unsigned int m_seleced_id;
-
-        std::vector<editor::IObjectProxy*> m_paths;
-        std::vector<editor::IObjectProxy*> m_polygons;
-        std::vector<editor::IObjectProxy*> m_prefabs;
-        std::vector<editor::IObjectProxy*> m_objects;
-
         std::vector<IObjectProxyPtr> m_proxies;
         
         mono::EventToken<event::SurfaceChangedEvent> m_surfaceChangedToken;

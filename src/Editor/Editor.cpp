@@ -114,51 +114,14 @@ void Editor::OnUnload()
 
 void Editor::Load()
 {
-    auto polygons = LoadPolygons(m_fileName, m_object_factory);
-    for(auto& proxy : polygons)
-    {
+    m_proxies = LoadWorld(m_fileName, m_object_factory);
+    for(auto& proxy : m_proxies)
         AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
-        
-        m_polygons.push_back(proxy.get());
-        m_proxies.push_back(std::move(proxy));
-    }
-
-    auto paths = LoadPaths("res/world.paths", m_object_factory);
-    for(auto& proxy : paths)
-    {
-        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
-        
-        m_paths.push_back(proxy.get());
-        m_proxies.push_back(std::move(proxy));
-    }
-
-    auto prefabs = LoadPrefabs("res/world.prefabs", m_object_factory);
-    for(auto& proxy : prefabs)
-    {
-        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
-        
-        m_prefabs.push_back(proxy.get());
-        m_proxies.push_back(std::move(proxy));
-    }
-
-    //auto objects = LoadObjects("res/world.objects", m_object_factory);
-    auto objects = LoadObjects2("res/world.objects.bin", m_object_factory);
-    for(auto& proxy : objects)
-    {
-        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
-
-        m_objects.push_back(proxy.get());
-        m_proxies.push_back(std::move(proxy));
-    }
 }
 
 void Editor::Save()
 {
-    SavePolygons(m_fileName, m_polygons);
-    SavePaths("res/world.paths", m_paths);
-    SavePrefabs("res/world.prefabs", m_prefabs);
-
-    SaveObjects2("res/world.objects.bin", m_objects);
+    SaveWorld(m_fileName, m_proxies);
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
@@ -174,7 +137,6 @@ void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
     AddEntity(polygon, RenderLayer::OBJECTS);
     
     auto proxy = std::make_unique<PolygonProxy>(polygon);    
-    m_polygons.push_back(proxy.get());
     m_proxies.push_back(std::move(proxy));
 }
 
@@ -183,7 +145,6 @@ void Editor::AddPath(const std::shared_ptr<editor::PathEntity>& path)
     AddEntity(path, RenderLayer::OBJECTS);
 
     auto path_proxy = std::make_unique<PathProxy>(path, this);
-    m_paths.push_back(path_proxy.get());
     m_proxies.push_back(std::move(path_proxy));
 }
 
@@ -192,7 +153,6 @@ void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
     AddEntity(prefab, RenderLayer::OBJECTS);
 
     auto prefab_proxy = std::make_unique<PrefabProxy>(prefab);
-    m_prefabs.push_back(prefab_proxy.get());
     m_proxies.push_back(std::move(prefab_proxy));
 }
 
@@ -331,23 +291,6 @@ void Editor::OnDeleteObject()
     if(it != m_proxies.end())
     {
         editor::IObjectProxy* proxy = it->get();
-        
-        auto path_it = std::remove(m_paths.begin(), m_paths.end(), proxy);
-        if(path_it != m_paths.end())
-            m_paths.erase(path_it);
-            
-        auto polygon_it = std::remove(m_polygons.begin(), m_polygons.end(), proxy);
-        if(polygon_it != m_polygons.end())
-            m_polygons.erase(polygon_it);
-    
-        auto prefab_it = std::remove(m_prefabs.begin(), m_prefabs.end(), proxy);
-        if(prefab_it != m_prefabs.end())
-            m_prefabs.erase(prefab_it);
-
-        auto object_it = std::remove(m_objects.begin(), m_objects.end(), proxy);
-        if(object_it != m_objects.end())
-            m_objects.erase(object_it);
-    
         m_proxies.erase(it);
     }
 
@@ -391,6 +334,5 @@ void Editor::DropItemCallback(const std::string& id, const math::Vector& positio
     
     AddEntity(entity, RenderLayer::OBJECTS);
 
-    m_objects.push_back(proxy.get());
     m_proxies.push_back(std::move(proxy));
 }

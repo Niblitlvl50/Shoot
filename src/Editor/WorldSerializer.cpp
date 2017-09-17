@@ -54,19 +54,6 @@ std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const e
     return polygon_data;
 }
 
-void editor::SavePolygons(const char* file_name, const std::vector<IObjectProxy*>& polygons)
-{
-    if(!file_name)
-        return;
-
-    BinarySerializer serializer;
-
-    for(auto* proxy : polygons)
-        proxy->Visit(serializer);
-
-    serializer.WritePolygonFile(file_name);
-}
-
 std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const editor::ObjectFactory& factory)
 {
     std::vector<IObjectProxyPtr> paths;
@@ -101,64 +88,28 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     return paths;
 }
 
-void editor::SavePaths(const char* file_name, const std::vector<editor::IObjectProxy*>& paths)
-{
-    JsonSerializer serializer(file_name);
-
-    for(auto* path : paths)
-        path->Visit(serializer);
-
-    serializer.WritePathFile();
-}
-
-void editor::SaveObjects(const char* file_name, const std::vector<std::shared_ptr<editor::SpriteEntity>>& objects)
-{
-    nlohmann::json json_object_collection;
-
-    for(auto& object : objects)
-    {
-        nlohmann::json json_object;
-        json_object["name"] = object->Name();
-        json_object["position"] = object->Position();
-        json_object["rotation"] = object->Rotation();
-
-        json_object_collection.push_back(json_object);
-    }
-
-    nlohmann::json json;
-    json["objects"] = json_object_collection;
-
-    const std::string& serialized_json = json.dump(4);
-
-    File::FilePtr file = File::CreateAsciiFile(file_name);
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-}
-
-void editor::SaveObjects2(const char* file_name, const std::vector<IObjectProxy*>& proxies)
-{
-    File::FilePtr file = File::CreateBinaryFile(file_name);
-    if(!file)
-        return;
-    
-    world::WorldObjectsHeader world_header;
-    
-    for(auto proxy : proxies)
-    {
-        world::WorldObject world_object;
-        
-        const char* name = proxy->Name();
-        const size_t length = std::strlen(name);
-        const size_t data_length = std::min(length, size_t(24) -1);
-    
-        std::memcpy(world_object.name, name, data_length);
-        world_object.name[data_length] = '\0';
-        world_object.attributes = proxy->GetAttributes();
-
-        world_header.objects.push_back(world_object);
-    }
-
-    world::WriteWorldObjects2(file, world_header);
-}
+//void editor::SaveObjects(const char* file_name, const std::vector<std::shared_ptr<editor::SpriteEntity>>& objects)
+//{
+//    nlohmann::json json_object_collection;
+//
+//    for(auto& object : objects)
+//    {
+//        nlohmann::json json_object;
+//        json_object["name"] = object->Name();
+//        json_object["position"] = object->Position();
+//        json_object["rotation"] = object->Rotation();
+//
+//        json_object_collection.push_back(json_object);
+//    }
+//
+//    nlohmann::json json;
+//    json["objects"] = json_object_collection;
+//
+//    const std::string& serialized_json = json.dump(4);
+//
+//    File::FilePtr file = File::CreateAsciiFile(file_name);
+//    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+//}
 
 std::vector<IObjectProxyPtr> editor::LoadObjects2(const char* file_name, const editor::ObjectFactory& factory)
 {
@@ -249,7 +200,48 @@ std::vector<IObjectProxyPtr> editor::LoadPrefabs(const char* file_name, const ed
     return prefabs;
 }
 
-void editor::SavePrefabs(const char* file_name, const std::vector<IObjectProxy*>& prefabs)
+std::vector<IObjectProxyPtr> editor::LoadWorld(const char* file_name, const editor::ObjectFactory& factory)
 {
+    std::vector<IObjectProxyPtr> world_objects;
 
+    auto objects = LoadObjects2("res/world.objects.bin", factory);
+    auto paths = LoadPaths("res/world.paths", factory);
+    auto polygons = LoadPolygons(file_name, factory);
+    auto prefabs = LoadPrefabs("res/world.prefabs", factory);
+
+    for(auto& proxy : objects)
+        world_objects.push_back(std::move(proxy));
+
+    for(auto& proxy : paths)
+        world_objects.push_back(std::move(proxy));
+    
+    for(auto& proxy : polygons)
+        world_objects.push_back(std::move(proxy));
+
+    for(auto& proxy : prefabs)
+        world_objects.push_back(std::move(proxy));
+
+    return world_objects;    
+}
+
+void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies)
+{
+    {
+        BinarySerializer serializer;
+        
+        for(auto& proxy : proxies)
+            proxy->Visit(serializer);
+        
+        serializer.WritePolygonFile(file_name);
+        serializer.WriteObjects("res/world.objects.bin");
+    }
+
+    {
+        JsonSerializer serializer("res/world.paths");
+        
+        for(auto& proxy : proxies)
+            proxy->Visit(serializer);
+    
+        serializer.WritePathFile();
+    }
 }

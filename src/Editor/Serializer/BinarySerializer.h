@@ -14,6 +14,7 @@ namespace editor
 
         BinarySerializer();
         void WritePolygonFile(const std::string& file_name) const;
+        void WriteObjects(const std::string& file_name) const;
 
     private:
         
@@ -22,6 +23,7 @@ namespace editor
         void Accept(PolygonProxy* proxy) override;
         void Accept(PrefabProxy* proxy) override;
         
-        world::LevelFileHeader m_polygon_data;        
+        world::LevelFileHeader m_polygon_data;
+        world::WorldObjectsHeader m_object_data;
     };
 }
