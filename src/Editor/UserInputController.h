@@ -9,6 +9,7 @@
 
 #include "Tools/PolygonTool.h"
 #include "Tools/PolygonBrushTool.h"
+#include "Tools/PolygonBoxTool.h"
 #include "Tools/TranslateTool.h"
 #include "Tools/RotateTool.h"
 #include "Tools/CameraTool.h"
@@ -61,6 +62,7 @@ namespace editor
         editor::TranslateTool m_translateTool;
         editor::RotateTool m_rotateTool;
         editor::PolygonTool m_polygonTool;
+        editor::PolygonBoxTool m_polygon_box_tool;
         editor::PolygonBrushTool m_polygonBrushTool;
         editor::PathTool m_pathTool;
         editor::ITool* m_activeTool;

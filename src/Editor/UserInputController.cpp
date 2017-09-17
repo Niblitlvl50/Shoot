@@ -41,6 +41,7 @@ UserInputController::UserInputController(const mono::ICameraPtr& camera,
       m_translateTool(editor),
       m_rotateTool(editor),
       m_polygonTool(editor),
+      m_polygon_box_tool(editor),
       m_polygonBrushTool(editor),
       m_pathTool(editor),
       m_activeTool(nullptr),
@@ -67,6 +68,12 @@ UserInputController::UserInputController(const mono::ICameraPtr& camera,
         &m_polygonTool,
         Notification(m_context->default_icon, "Polygon tool", 2000),
         { "Create polygon", "Undo last" }
+    };
+
+    tools[ToolsMenuOptions::POLYGON_BOX_TOOL] = {
+        &m_polygon_box_tool,
+        Notification(m_context->default_icon, "Polygon Box", 2000),
+        { }
     };
 
     tools[ToolsMenuOptions::POLYGON_BRUSH_TOOL] = {
@@ -213,8 +220,10 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
     else if(event.key == Keycode::THREE)
         SelectTool(ToolsMenuOptions::POLYGON_TOOL);
     else if(event.key == Keycode::FOUR)
-        SelectTool(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
+        SelectTool(ToolsMenuOptions::POLYGON_BOX_TOOL);
     else if(event.key == Keycode::FIVE)
+        SelectTool(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
+    else if(event.key == Keycode::SIX)
         SelectTool(ToolsMenuOptions::PATH_TOOL);
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();

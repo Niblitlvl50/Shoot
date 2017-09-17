@@ -28,4 +28,19 @@ namespace editor
         const std::vector<Polygon>& m_polygons;
         mono::ITexturePtr m_texture;
     };
+
+    class PolygonVisualizer2 : public mono::IDrawable
+    {
+    public:
+
+        PolygonVisualizer2(const std::vector<math::Vector>& points, const math::Vector& mouse_position);
+        virtual void doDraw(mono::IRenderer& renderer) const;
+        virtual math::Quad BoundingBox() const;
+
+    private:
+
+        const std::vector<math::Vector>& m_points;
+        const math::Vector& m_mousePosition;
+        mono::ITexturePtr m_texture;        
+    };
 }
