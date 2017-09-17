@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ObjectProxies/IObjectVisitor.h"
+#include "Prefab.h"
 
 #include <vector>
 #include <string>
@@ -12,9 +13,8 @@ namespace editor
     {
     public:
 
-        JsonSerializer(const std::string& file_path);
-
-        void WritePathFile();
+        void WritePathFile(const std::string& file_path) const;
+        void WritePrefabs(const std::string& file_path) const;
 
     private:
 
@@ -23,19 +23,7 @@ namespace editor
         void Accept(PolygonProxy* proxy) override;
         void Accept(PrefabProxy* proxy) override;
 
-        const std::string m_file_path;
         std::vector<std::string> m_path_names;
-    };
-
-    class JsonDeserializer : public IObjectVisitor
-    {
-    public:
-
-        JsonDeserializer(const std::string& file_path);
-
-        void Accept(EntityProxy* proxy) override;
-        void Accept(PathProxy* proxy) override;
-        void Accept(PolygonProxy* proxy) override;
-        void Accept(PrefabProxy* proxy) override;        
+        std::vector<editor::PrefabData> m_prefabs;
     };
 }

@@ -26,7 +26,6 @@ namespace editor
         virtual void SetAttributes(const std::vector<ID_Attribute>& attributes);
         virtual void Visit(IObjectVisitor& visitor);
         
-    private:
         std::shared_ptr<Prefab> m_prefab;
     };
 }
