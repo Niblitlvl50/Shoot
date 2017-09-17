@@ -3,55 +3,15 @@
 #include "Editor.h"
 #include "RenderLayers.h"
 #include "Objects/Polygon.h"
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
-#include "Rendering/Texture/TextureFactory.h"
-#include "Math/Quad.h"
+#include "Visualizers/PolygonVisualizer.h"
 
 
 using namespace editor;
 
-class PolygonTool::Visualizer : public mono::IDrawable
-{
-public:
-
-    Visualizer(const std::vector<math::Vector>& points, const math::Vector& mouse_position)
-        : m_points(points),
-          m_mousePosition(mouse_position)
-    {
-        m_texture = mono::CreateTexture("res/textures/placeholder.png");
-    }
-
-    virtual void doDraw(mono::IRenderer& renderer) const
-    {
-        if(m_points.empty())
-            return;
-
-        std::vector<math::Vector> texture_points;
-        texture_points.resize(m_points.size());
-
-        DrawPolygon(renderer, m_texture, m_points, texture_points);
-
-        constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f, 0.2f);
-        const std::vector<math::Vector>& line = { m_points.back(), m_mousePosition, m_points.front() };
-        renderer.DrawPolyline(line, color, 2.0f);
-    }
-
-    virtual math::Quad BoundingBox() const
-    {
-        return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
-    }
-
-    const std::vector<math::Vector>& m_points;
-    const math::Vector& m_mousePosition;
-
-    mono::ITexturePtr m_texture;
-};
-
 PolygonTool::PolygonTool(Editor* editor)
     : m_editor(editor)
 {
-    m_visualizer = std::make_shared<Visualizer>(m_points, m_mousePosition);
+    m_visualizer = std::make_shared<PolygonVisualizer2>(m_points, m_mousePosition);
 }
 
 void PolygonTool::Begin()

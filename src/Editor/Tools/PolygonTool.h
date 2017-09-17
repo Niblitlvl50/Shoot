@@ -25,11 +25,9 @@ namespace editor
         virtual void HandleMousePosition(const math::Vector& world_pos);
 
         Editor* m_editor;
+        std::shared_ptr<class PolygonVisualizer2> m_visualizer;
 
         math::Vector m_mousePosition;
         std::vector<math::Vector> m_points;
-
-        class Visualizer;
-        std::shared_ptr<Visualizer> m_visualizer;
     };
 }
