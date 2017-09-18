@@ -80,6 +80,9 @@ void BlackSquareController::TransitionToState(State new_state)
 
 void BlackSquareController::SleepState(unsigned int delta)
 {
+    if(!player_one.is_active)
+        return;
+
     const float distance = math::Length(player_one.position - m_enemy->Position());
     if(distance < m_triggerDistance)
         TransitionToState(State::AWAKE);

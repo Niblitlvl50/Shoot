@@ -68,8 +68,10 @@ namespace
             for(const math::Vector& vertex : polygon.vertices)
                 bounding_box |= vertex;
 
+            const math::Vector& repeate = (bounding_box.mB - bounding_box.mA) / 2.0f;
+                
             for(const math::Vector& vertex : polygon.vertices)
-                texture_coordinates.push_back(math::MapVectorInQuad(vertex, bounding_box));
+                texture_coordinates.push_back(math::MapVectorInQuad(vertex, bounding_box) * repeate);
 
             m_vertex_buffer->UpdateData(polygon.vertices.data(), draw_data.offset * 2, draw_data.count * 2);
             m_texture_buffer->UpdateData(texture_coordinates.data(), draw_data.offset * 2, draw_data.count * 2);
@@ -179,7 +181,10 @@ void game::LoadWorldObjects(
         }
         else
         {
-            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), math::zeroVec, object.attributes);
+            math::Vector position;
+            FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
+
+            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), position, object.attributes);
             if(enemy)
             {
                 LoadAttributes(enemy, object.attributes);
