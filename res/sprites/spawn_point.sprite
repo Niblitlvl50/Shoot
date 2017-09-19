@@ -12,10 +12,10 @@
     "frames": [
         {
             "h": 57,
-            "name": "spaw_point",
+            "name": "spawn_point",
             "w": 60,
-            "x": 140,
-            "y": 75
+            "x": 388,
+            "y": 67
         }
     ],
     "texture": "res/sprite_atlas.png"

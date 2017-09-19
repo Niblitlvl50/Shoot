@@ -18,22 +18,22 @@
             "h": 48,
             "name": "caco_explosion1",
             "w": 45,
-            "x": 137,
-            "y": 136
+            "x": 140,
+            "y": 69
         },
         {
             "h": 42,
             "name": "caco_explosion2",
             "w": 50,
-            "x": 414,
-            "y": 142
+            "x": 0,
+            "y": 120
         },
         {
             "h": 47,
             "name": "caco_explosion3",
             "w": 53,
-            "x": 79,
-            "y": 138
+            "x": 0,
+            "y": 73
         }
     ],
     "texture": "res/sprite_atlas.png"
