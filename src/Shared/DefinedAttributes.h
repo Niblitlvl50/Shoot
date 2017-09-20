@@ -28,7 +28,7 @@ namespace world
         HashString("interval",          ObjectAttribute(1)),
         HashString("spawn_tag",         ObjectAttribute("")),
         HashString("filepath",          ObjectAttribute("")),
-        HashString("trigger_radius",    ObjectAttribute(5.0f))
+        HashString("trigger_radius",    ObjectAttribute(10.0f))
     }};
 
     static const unsigned int POSITION_ATTRIBUTE        = hash_array[0].hash;
