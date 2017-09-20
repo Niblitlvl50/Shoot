@@ -17,9 +17,9 @@
 
 using namespace editor;
 
-EntityProxy::EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<unsigned int>& attribute_types)
+EntityProxy::EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<ID_Attribute>& attributes)
     : m_entity(entity),
-      m_attribute_types(attribute_types)
+      m_attributes(attributes)
 { }
 
 const char* EntityProxy::Name() const
@@ -95,7 +95,7 @@ void EntityProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
     m_entity->SetPosition(position);
     m_entity->SetRotation(rotation);
 
-    m_attributes = attributes;
+    world::MergeAttributes(m_attributes, attributes);
 }
 
 void EntityProxy::Visit(IObjectVisitor& visitor)

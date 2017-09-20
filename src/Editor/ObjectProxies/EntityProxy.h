@@ -13,7 +13,7 @@ namespace editor
     {
     public:
 
-        EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<unsigned int>& attribute_types);
+        EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<ID_Attribute>& attributes);
 
         virtual const char* Name() const;
         virtual unsigned int Id() const;
@@ -31,6 +31,5 @@ namespace editor
     private:
         std::shared_ptr<SpriteEntity> m_entity;
         std::vector<ID_Attribute> m_attributes;
-        const std::vector<unsigned int> m_attribute_types;
     };
 }

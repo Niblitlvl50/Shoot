@@ -31,12 +31,9 @@ IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
 
     std::vector<ID_Attribute> attributes;
     for(unsigned int hash : def.attribute_types)
-        attributes.push_back({hash, world::AttributeFromHash(hash)});
+        attributes.push_back({hash, world::DefaultAttributeFromHash(hash)});
     
-    auto proxy = std::make_unique<EntityProxy>(entity, def.attribute_types);
-    proxy->SetAttributes(attributes);
-
-    return std::move(proxy);
+    return std::make_unique<EntityProxy>(entity, attributes);
 }
 
 IObjectProxyPtr ObjectFactory::CreatePath(const std::string& name, const std::vector<math::Vector>& points) const
