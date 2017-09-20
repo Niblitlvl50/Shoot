@@ -46,6 +46,11 @@ namespace
             m_draw_data.reserve(polygon_count);
             m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
             m_texture_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
+ 
+            m_color_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 4);
+
+            const std::vector<float> temp_buffer(vertex_count * 4, 0.0f);
+            m_color_buffer->UpdateData(temp_buffer.data(), 0, vertex_count);
         }
 
         void AddPolygon(const world::PolygonData& polygon)
@@ -88,6 +93,8 @@ namespace
                                       draw_data.offset,
                                       draw_data.count,
                                       draw_data.texture);
+                renderer.DrawPolyline(
+                    m_vertex_buffer.get(), m_color_buffer.get(), draw_data.offset, draw_data.count);
             }
         }
 
@@ -101,6 +108,8 @@ namespace
 
         std::unique_ptr<mono::IRenderBuffer> m_vertex_buffer;
         std::unique_ptr<mono::IRenderBuffer> m_texture_buffer;
+        std::unique_ptr<mono::IRenderBuffer> m_color_buffer;
+
         std::vector<TerrainDrawData> m_draw_data;
     };
 }
