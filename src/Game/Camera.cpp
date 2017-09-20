@@ -16,7 +16,7 @@ Camera::Camera(int width, int height)
 
 void Camera::doUpdate(unsigned int delta)
 {
-    constexpr float SPEED = 0.004f;
+    constexpr float SPEED = 0.002f;
     
     const float change = (m_targetViewport.mB.x - m_viewport.mB.x);
     const float xzero = std::floor(std::abs(change));
