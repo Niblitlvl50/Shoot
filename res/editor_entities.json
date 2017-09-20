@@ -46,7 +46,8 @@
             },
             "attribute_types": [
                 "position",
-                "rotation"
+                "rotation",
+                "trigger_radius"
             ]
         },
         {
@@ -64,6 +65,18 @@
         {
             "name": "meteorite",
             "sprite": "res/sprites/meteorite.sprite",
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
+        },
+        {
+            "name": "beast",
+            "sprite": "res/sprites/beast.sprite",
             "scale": {
                 "x": 1.0,
                 "y": 1.0
