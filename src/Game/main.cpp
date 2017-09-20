@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
         System::IWindow* window = System::CreateWindow("Shmup", size.x, size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
 
-        mono::ICameraPtr camera = std::make_shared<game::Camera>(24, 16);
+        mono::ICameraPtr camera = std::make_shared<game::Camera>(32, 20);
         
         mono::LoadFont(game::FontId::SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
         mono::LoadFont(game::FontId::MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
