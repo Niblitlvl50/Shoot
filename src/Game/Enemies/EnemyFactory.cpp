@@ -62,23 +62,21 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, con
 
     if(found_filename)
     {
-        const std::string full_filename = std::string("res/paths/") + filename + ".path";
-        auto path = mono::CreatePath(full_filename.c_str());
-        return CreatePathInvader(path);;
-
+        const std::string& full_filename = std::string("res/paths/") + filename + ".path";
+        return CreatePathInvader(mono::CreatePath(full_filename.c_str()));
     }
 
     return nullptr;
 }
 
-game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position)
+game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position, float trigger_distance)
 {
     EnemySetup setup;
     setup.sprite_file = "res/sprites/invader.sprite";
     setup.size = 1.0f;
-    setup.mass = 50.0f;
+    setup.mass = 20.0f;
     setup.position = position;
-    setup.controller = std::make_unique<BlackSquareController>(15.0f, m_eventHandler);
+    setup.controller = std::make_unique<BlackSquareController>(trigger_distance, m_eventHandler);
 
     return std::make_shared<game::Enemy>(setup);
 }
@@ -93,7 +91,11 @@ game::EnemyPtr EnemyFactory::CreateFromName(
     else if(std::strcmp(name, "pathinvader") == 0)
         return CreatePathInvader(position, attributes);
     else if(std::strcmp(name, "blacksquare") == 0)
-        return CreateBlackSquare(position);
+    {
+        float trigger_distance = 10.0f;
+        world::FindAttribute(world::TRIGGER_RADIUS_ATTRIBUTE, attributes, trigger_distance);
+        return CreateBlackSquare(position, trigger_distance);
+    }
 
     return nullptr;
 }

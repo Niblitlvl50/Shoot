@@ -11,6 +11,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Color.h"
+#include "Math/MathFunctions.h"
 
 using namespace game;
 
@@ -34,7 +35,7 @@ void BlackSquareController::Initialize(Enemy* enemy)
     m_controlBody = mono::PhysicsFactory::CreateKinematicBody();
     m_controlBody->SetPosition(m_enemy->Position());
 
-    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 1.0f, 20.0f, 0.5f);
+    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 0.0f, 50.0f, 0.5f);
 
     m_eventHandler.DispatchEvent(SpawnConstraintEvent(m_spring));
 
@@ -83,6 +84,8 @@ void BlackSquareController::SleepState(unsigned int delta)
     if(!player_one.is_active)
         return;
 
+    m_controlBody->SetPosition(m_enemy->Position());
+        
     const float distance = math::Length(player_one.position - m_enemy->Position());
     if(distance < m_triggerDistance)
         TransitionToState(State::AWAKE);
@@ -97,7 +100,10 @@ void BlackSquareController::AwakeState(unsigned int delta)
 
 void BlackSquareController::HuntState(unsigned int delta)
 {
+    const float angle = math::AngleBetweenPoints(player_one.position, m_enemy->Position()) - math::PI_2();
+
     m_controlBody->SetPosition(player_one.position);
+    m_enemy->SetRotation(angle);
 
     const float distance = math::Length(player_one.position - m_enemy->Position());
     if(distance > m_triggerDistance)
