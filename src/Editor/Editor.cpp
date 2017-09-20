@@ -28,6 +28,7 @@
 #include "Objects/Prefab.h"
 
 #include "Visualizers/GridVisualizer.h"
+#include "Visualizers/ScaleVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
 
 namespace
@@ -105,7 +106,8 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
 
     AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));
     AddDrawable(m_guiRenderer, RenderLayer::UI);
-    AddDrawable(std::make_shared<GridVisualizer>(camera), RenderLayer::BACKGROUND);
+    AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
+    AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
 }
 

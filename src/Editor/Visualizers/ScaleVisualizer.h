@@ -3,18 +3,17 @@
 
 #include "Rendering/IDrawable.h"
 #include "Rendering/RenderPtrFwd.h"
-#include <vector>
 
 namespace editor
 {
-    class GridVisualizer : public mono::IDrawable
+    class ScaleVisualizer : public mono::IDrawable
     {
     public:
 
-        GridVisualizer();
+        ScaleVisualizer(const mono::ICameraPtr& camera);
         virtual void doDraw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
-
-        const std::vector<math::Vector> m_gridVertices;
+        
+        const mono::ICameraPtr& m_camera;
     };
 }
