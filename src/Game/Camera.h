@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Rendering/ICamera.h"
+#include "Camera/CameraController.h"
 #include "MonoFwd.h"
 #include "Math/Quad.h"
 
@@ -33,5 +34,14 @@ namespace game
         math::Vector m_offset;
         math::Quad m_viewport;
         math::Quad m_targetViewport;
+    };
+
+    class DebugCamera : public Camera
+    {
+    public:
+
+        DebugCamera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler);
+
+        mono::CameraController m_controller;
     };
 }

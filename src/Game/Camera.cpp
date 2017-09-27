@@ -100,3 +100,9 @@ math::Vector Camera::ScreenToWorld(const math::Vector& screen_pos, const math::V
     
     return math::Vector(tempx + viewport.mA.x, tempy + viewport.mA.y);    
 }
+
+
+DebugCamera::DebugCamera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler)
+    : Camera(width, height),
+      m_controller(window_width, window_height, this, event_handler)
+{ }
