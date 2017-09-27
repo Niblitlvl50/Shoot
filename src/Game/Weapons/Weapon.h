@@ -27,5 +27,6 @@ namespace game
         int m_ammunition;
 
         mono::ISoundPtr m_fireSound;
+        mono::ISoundPtr m_ooa_sound;
     };
 }

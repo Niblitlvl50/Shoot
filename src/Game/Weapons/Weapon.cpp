@@ -24,6 +24,8 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
 {
     if(config.fire_sound)
         m_fireSound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
+
+    m_ooa_sound = mono::AudioFactory::CreateSound("res/sound/ooa_sound.wav", false, false);
 }
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
@@ -40,9 +42,14 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 
     if(modified_delta > weapon_delta)
     {
+        m_lastFireTimestamp = now;
+        
         if(m_ammunition == 0)
         {
-            // Play "click" sound
+            m_currentFireRate = 1.0f;
+
+            m_ooa_sound->Position(position.x, position.y);
+            m_ooa_sound->Play();
             return WeaponFireResult::OUT_OF_AMMO;
         }
 
@@ -62,7 +69,6 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
             m_fireSound->Play();
         }
 
-        m_lastFireTimestamp = now;
         m_currentFireRate *= m_weaponConfig.fire_rate_multiplier;
         m_currentFireRate = std::min(m_currentFireRate, m_weaponConfig.max_fire_rate);
 
