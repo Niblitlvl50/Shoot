@@ -3,11 +3,11 @@
 
 #include "Factories.h"
 #include "Enemies/Enemy.h"
-#include "Enemies/IEnemyFactory.h"
 
 #include "Effects/SmokeEffect.h"
 #include "Hud/FPSElement.h"
 #include "Hud/PlayerStatsElement.h"
+#include "Hud/Overlay.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -21,7 +21,6 @@
 
 #include "EntityProperties.h"
 #include "RenderLayers.h"
-#include "FontIds.h"
 
 #include "WorldFile.h"
 #include "World.h"
@@ -31,7 +30,6 @@
 #include "UpdateTasks/CameraViewportReporter.h"
 
 #include "Audio/AudioFactory.h"
-#include "Paths/PathFactory.h"
 #include "Physics/IBody.h"
 
 using namespace game;
@@ -102,12 +100,12 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
     
-    m_overlay = std::make_shared<UIOverlayDrawer>();
-    m_overlay->AddElement(std::make_unique<FPSElement>());
-    m_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_one, math::Vector(10, 0)));
-    m_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_two, math::Vector(200, 0)));
+    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
+    hud_overlay->AddElement(std::make_unique<FPSElement>());
+    hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_one, math::Vector(10, 0)));
+    hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_two, math::Vector(200, 0)));
     
-    AddDrawable(m_overlay, FOREGROUND);
+    AddDrawable(hud_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
 
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);

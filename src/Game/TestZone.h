@@ -9,7 +9,6 @@
 #include "Player/PlayerDaemon.h"
 #include "Network/RemoteConnection.h"
 #include "Hud/Healthbar.h"
-#include "Hud/Overlay.h"
 
 #include <vector>
 #include <memory>
@@ -65,7 +64,6 @@ namespace game
         mono::ISoundPtr m_backgroundMusic;
         RemoteConnection m_connection;
 
-        std::shared_ptr<UIOverlayDrawer> m_overlay;
         std::vector<Healthbar> m_healthbars;
     };
 }

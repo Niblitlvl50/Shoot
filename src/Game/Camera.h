@@ -6,13 +6,19 @@
 #include "MonoFwd.h"
 #include "Math/Quad.h"
 
+#include "EventHandler/EventToken.h"
+#include "Events/EventFwd.h"
+
 namespace game
 {
     class Camera : public mono::ICamera
     {
     public:
 
-        Camera(int width, int height);
+        Camera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler);
+        ~Camera();
+
+        bool OnKeyDown(const event::KeyDownEvent& event);
         
         virtual void doUpdate(unsigned int delta);
         
@@ -30,18 +36,16 @@ namespace game
 
     private:
         
-        mono::IEntityPtr m_entity;
         math::Vector m_offset;
         math::Quad m_viewport;
         math::Quad m_targetViewport;
-    };
+        mono::MouseCameraController m_controller;
 
-    class DebugCamera : public Camera
-    {
-    public:
+        mono::EventHandler& m_event_handler;
+        mono::EventToken<event::KeyDownEvent> m_key_down_token;
+        
+        bool m_debug_camera;
 
-        DebugCamera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler);
-
-        mono::CameraController m_controller;
+        mono::IEntityPtr m_entity;
     };
 }

@@ -4,15 +4,44 @@
 #include "Math/Vector.h"
 #include "Math/MathFunctions.h"
 
+#include "EventHandler/EventHandler.h"
+#include "Events/EventFuncFwd.h"
+#include "Events/KeyEvent.h"
+
 #include <cmath>
 
 using namespace game;
 
-Camera::Camera(int width, int height)
+Camera::Camera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler)
     : m_offset(math::zeroVec),
       m_viewport(0.0f, 0.0f, width, height),
-      m_targetViewport(m_viewport)
-{ }
+      m_targetViewport(m_viewport),
+      m_controller(window_width, window_height, this, event_handler),
+      m_event_handler(event_handler),
+      m_debug_camera(false)
+{
+    using namespace std::placeholders;
+
+    const event::KeyDownEventFunc key_down_func = std::bind(&Camera::OnKeyDown, this, _1);
+    m_key_down_token = m_event_handler.AddListener(key_down_func);
+}
+
+Camera::~Camera()
+{
+    m_event_handler.RemoveListener(m_key_down_token);
+}
+
+bool Camera::OnKeyDown(const event::KeyDownEvent& event)
+{
+    const bool toggle_camera = (event.key == Keycode::D);
+    if(toggle_camera)
+    {
+        m_debug_camera = !m_debug_camera;
+        m_debug_camera ? m_controller.Enable() : m_controller.Disable();
+    }
+
+    return true;
+}
 
 void Camera::doUpdate(unsigned int delta)
 {
@@ -27,7 +56,7 @@ void Camera::doUpdate(unsigned int delta)
         math::ResizeQuad(m_viewport, change * 0.1f, aspect);
     }
     
-    if(m_entity)
+    if(m_entity && !m_debug_camera)
     {
         const float rotation = m_entity->Rotation();
 
@@ -100,9 +129,3 @@ math::Vector Camera::ScreenToWorld(const math::Vector& screen_pos, const math::V
     
     return math::Vector(tempx + viewport.mA.x, tempy + viewport.mA.y);    
 }
-
-
-DebugCamera::DebugCamera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler)
-    : Camera(width, height),
-      m_controller(window_width, window_height, this, event_handler)
-{ }
