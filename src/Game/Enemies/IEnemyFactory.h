@@ -11,8 +11,7 @@ struct ID_Attribute;
 
 namespace game
 {
-    class Enemy;
-    using EnemyPtr = std::shared_ptr<Enemy>;
+    using EnemyPtr = std::shared_ptr<class Enemy>;
 
     class IEnemyFactory
     {

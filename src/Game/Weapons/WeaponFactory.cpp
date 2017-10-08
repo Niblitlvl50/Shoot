@@ -13,10 +13,13 @@
 #include "Events/RemoveEntityEvent.h"
 #include "Events/ShockwaveEvent.h"
 
+#include "RenderLayers.h"
+
 
 namespace
 {
-    void StandardCollision(const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+    void StandardCollision(
+        const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
         event_handler.DispatchEvent(game::DamageEvent(other, 10));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
@@ -30,14 +33,16 @@ namespace
         explosion_config.rotation = 0.0f;
         explosion_config.sprite_file = "res/sprites/explosion.sprite";
 
-        const game::SpawnEntityEvent event(std::make_shared<game::Explosion>(explosion_config, event_handler));
+        const game::SpawnEntityEvent event(
+            std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
         event_handler.DispatchEvent(event);
         event_handler.DispatchEvent(game::DamageEvent(other, 20));
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
 
-    void CacoPlasmaCollision(const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+    void CacoPlasmaCollision(
+        const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
@@ -45,7 +50,8 @@ namespace
         explosion_config.rotation = 0.0f;
         explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
 
-        const game::SpawnEntityEvent event(std::make_shared<game::Explosion>(explosion_config, event_handler));
+        const game::SpawnEntityEvent event(
+            std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
         event_handler.DispatchEvent(event);
         event_handler.DispatchEvent(game::DamageEvent(other, 20));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
@@ -76,16 +82,18 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
             bullet_config.collision_radius = 0.4f;
-            bullet_config.scale = 0.5;
+            bullet_config.scale = 0.4;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
-            bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
+            //bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
+            bullet_config.sprite_file = "res/sprites/generic.sprite";
+            bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
             bullet_config.sound_file = nullptr;
 
             weapon_config.magazine_size = 50;
             weapon_config.rounds_per_second = 6.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 3.0f;
-            weapon_config.bullet_force = 20.0f;
+            weapon_config.bullet_force = 40.0f;
             weapon_config.fire_sound = "res/sound/laser.wav";
 
             break;

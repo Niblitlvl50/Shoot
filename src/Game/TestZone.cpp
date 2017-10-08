@@ -25,6 +25,9 @@
 #include "WorldFile.h"
 #include "World.h"
 
+#include "Navigation/NavMesh.h"
+#include "Navigation/NavMeshVisualizer.h"
+
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/HealthbarUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
@@ -35,7 +38,7 @@
 using namespace game;
 
 TestZone::TestZone(mono::EventHandler& eventHandler)
-    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.9f),
+    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.5f),
       mEventHandler(eventHandler)
 {
     using namespace std::placeholders;
@@ -72,29 +75,40 @@ TestZone::~TestZone()
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
-    
-    world::LevelFileHeader world_header;
-    world::ReadWorld(world_file, world_header);
-    game::LoadWorld(this, world_header.polygons);
+    {
+        File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
+        
+        world::LevelFileHeader world_header;
+        world::ReadWorld(world_file, world_header);
+        game::LoadWorld(this, world_header.polygons);
+        
+        // Nav mesh
+        m_nav_mesh = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3);
+        game::FilterNavMesh(m_nav_mesh, world_header.polygons);
+        m_nav_mes_nodes = game::GenerateMeshNodes(m_nav_mesh, world_header.polygons, 5);
+        
+        AddDrawable(std::make_shared<NavMeshVisualizer>(m_nav_mesh, m_nav_mes_nodes), BACKGROUND);
+    }
 
-    File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects.bin");
+    {
+        File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects.bin");
 
-    world::WorldObjectsHeader world_objects_header;
-    world::ReadWorldObjects2(world_objects_file, world_objects_header);
+        world::WorldObjectsHeader world_objects_header;
+        world::ReadWorldObjects2(world_objects_file, world_objects_header);
 
-    std::vector<EnemyPtr> enemies;
-    std::vector<SpawnPoint> spawn_points;
-    std::vector<math::Vector> player_points;
+        std::vector<EnemyPtr> enemies;
+        std::vector<SpawnPoint> spawn_points;
+        std::vector<math::Vector> player_points;
 
-    game::LoadWorldObjects(world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points);
+        game::LoadWorldObjects(world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points);
 
-    for(const auto& enemy : enemies)
-        AddPhysicsEntity(enemy, MIDDLEGROUND);
+        for(const auto& enemy : enemies)
+            AddPhysicsEntity(enemy, MIDDLEGROUND, nullptr);
 
-    m_spawner = std::make_unique<Spawner>(spawn_points, mEventHandler);
-    m_player_daemon = std::make_unique<PlayerDaemon>(player_points, mEventHandler, this);
-    m_player_daemon->SetCamera(camera);    
+        m_spawner = std::make_unique<Spawner>(spawn_points, mEventHandler);
+        m_player_daemon = std::make_unique<PlayerDaemon>(player_points, mEventHandler);
+        m_player_daemon->SetCamera(camera);
+    }
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
@@ -108,7 +122,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(hud_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
 
-    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
+    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
 
     m_backgroundMusic->Play();
 }
@@ -118,13 +132,13 @@ void TestZone::OnUnload()
 
 bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 {
-    AddEntity(event.entity, FOREGROUND);
+    AddEntity(event.entity, event.layer, event.destroyed_func);
     return true;
 }
 
 bool TestZone::SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event)
 {
-    AddPhysicsEntity(event.entity, FOREGROUND);
+    AddPhysicsEntity(event.entity, event.layer, event.destroyed_func);
     return true;
 }
 
@@ -183,17 +197,26 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
         config.scale = 1.5f;
         config.sprite_file = "res/sprites/explosion.sprite";
 
-        AddEntity(std::make_shared<Explosion>(config, mEventHandler), FOREGROUND);
+        AddEntity(std::make_shared<Explosion>(config, mEventHandler), FOREGROUND, nullptr);
     }
 
     return true;
 }
 
-void TestZone::AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer)
+void TestZone::AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
 {
     const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
     if(damagable)
-        m_damageController.CreateRecord(entity->Id());
+        m_damageController.CreateRecord(entity->Id(), nullptr);
+
+    PhysicsZone::AddEntity(entity, layer);
+}
+
+void TestZone::AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
+{
+    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
+    if(damagable)
+        m_damageController.CreateRecord(entity->Id(), destroyed_func);
 
     PhysicsZone::AddPhysicsEntity(entity, layer);
 }
@@ -205,15 +228,6 @@ void TestZone::RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity)
         m_damageController.RemoveRecord(entity->Id());
 
     PhysicsZone::RemovePhysicsEntity(entity);
-}
-
-void TestZone::AddEntity(const mono::IEntityPtr& entity, int layer)
-{
-    PhysicsZone::AddEntity(entity, layer);
-
-    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
-    if(damagable)
-        m_damageController.CreateRecord(entity->Id());
 }
 
 void TestZone::RemoveEntity(const mono::IEntityPtr& entity)

@@ -6,8 +6,11 @@
 
 using namespace game;
 
-DamageRecord& DamageController::CreateRecord(unsigned int record_id)
+DamageRecord& DamageController::CreateRecord(unsigned int record_id, DestroyedFunction destroyed_func)
 {
+    if(destroyed_func)
+        m_DestroyedFunctions.insert(std::make_pair(record_id, destroyed_func));
+
     const auto& pair = m_DamageRecords.insert(std::make_pair(record_id, DamageRecord()));
 
     pair.first->second.health = 100;
@@ -22,6 +25,7 @@ DamageRecord& DamageController::CreateRecord(unsigned int record_id)
 void DamageController::RemoveRecord(unsigned int record_id)
 {
     m_DamageRecords.erase(record_id);
+    m_DestroyedFunctions.erase(record_id);
 }
 
 DamageResult DamageController::ApplyDamage(unsigned int record_id, int damage)
@@ -37,6 +41,13 @@ DamageResult DamageController::ApplyDamage(unsigned int record_id, int damage)
 
         result.success = true;
         result.health_left = record.health;
+    }
+
+    if(result.health_left <= 0)
+    {
+        auto it = m_DestroyedFunctions.find(record_id);
+        if(it != m_DestroyedFunctions.end())
+            it->second(record_id);
     }
 
     return result;

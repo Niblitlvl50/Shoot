@@ -25,6 +25,6 @@ void Spawner::SpawnObject()
     const int spawn_point_index = mono::RandomInt(0, m_spawn_points.size() -1);
     const SpawnPoint& point = m_spawn_points[spawn_point_index];
 
-    const game::SpawnPhysicsEntityEvent event(std::make_shared<Meteor>(point.position.x, point.position.y), BACKGROUND);
+    const game::SpawnPhysicsEntityEvent event(std::make_shared<Meteor>(point.position.x, point.position.y), BACKGROUND, nullptr);
     m_event_handler.DispatchEvent(event);
 }

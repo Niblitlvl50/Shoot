@@ -43,9 +43,10 @@ namespace game
 
     private:
 
-        virtual void AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer);
+        void AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
+        void AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
+
         virtual void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity);
-        virtual void AddEntity(const mono::IEntityPtr& entity, int layer);
         virtual void RemoveEntity(const mono::IEntityPtr& entity);
 
 
@@ -65,5 +66,8 @@ namespace game
         RemoteConnection m_connection;
 
         std::vector<Healthbar> m_healthbars;
+
+        std::vector<math::Vector> m_nav_mesh;
+        std::vector<struct NavmeshNode> m_nav_mes_nodes;
     };
 }

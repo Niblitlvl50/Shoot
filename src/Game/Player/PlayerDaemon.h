@@ -19,7 +19,7 @@ namespace game
     public:
 
         PlayerDaemon(
-            const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler, mono::IPhysicsZone* zone);
+            const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler);
         ~PlayerDaemon();
 
         void SetCamera(const mono::ICameraPtr& camera);
@@ -31,7 +31,6 @@ namespace game
 
         const std::vector<math::Vector> m_player_points;
         mono::EventHandler& m_event_handler;
-        mono::IPhysicsZone* m_zone;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;

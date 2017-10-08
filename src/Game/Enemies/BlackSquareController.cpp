@@ -106,6 +106,6 @@ void BlackSquareController::HuntState(unsigned int delta)
     m_enemy->SetRotation(angle);
 
     const float distance = math::Length(player_one.position - m_enemy->Position());
-    if(distance > m_triggerDistance)
+    if(distance > m_triggerDistance || !player_one.is_active)
         TransitionToState(State::SLEEPING);
 }

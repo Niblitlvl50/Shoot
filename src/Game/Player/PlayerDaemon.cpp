@@ -2,24 +2,24 @@
 #include "PlayerDaemon.h"
 #include "Shuttle.h"
 #include "RenderLayers.h"
+#include "Events/SpawnPhysicsEntityEvent.h"
+#include "Events/RemoveEntityEvent.h"
+#include "AIKnowledge.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/ControllerEvent.h"
 #include "Events/EventFuncFwd.h"
-#include "Zone/IPhysicsZone.h"
+
 #include "Rendering/ICamera.h"
 #include "Rendering/Color.h"
 #include "System/System.h"
 
-#include "AIKnowledge.h"
-
 using namespace game;
 
 PlayerDaemon::PlayerDaemon(
-    const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler, mono::IPhysicsZone* zone)
+    const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler)
     : m_player_points(player_points),
-      m_event_handler(event_handler),
-      m_zone(zone)
+      m_event_handler(event_handler)
 {
     using namespace std::placeholders;
 
@@ -49,13 +49,18 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
     {
         m_player_one = std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(event.id));
         m_player_one->SetPlayerInfo(&game::player_one);
-        m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
+        //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
 
         game::player_one.is_active = true;
 
         m_player_one_id = event.id;
         m_camera->Follow(m_player_one, math::zeroVec);
-        m_zone->AddPhysicsEntity(m_player_one, FOREGROUND);
+
+        const auto destroyed_func = [this](unsigned int id) {
+            game::player_one.is_active = false;
+        };
+
+        m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, FOREGROUND, destroyed_func));
     }
     else
     {
@@ -66,7 +71,12 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
         game::player_two.is_active = true;
         
         m_player_two_id = event.id;
-        m_zone->AddPhysicsEntity(m_player_two, FOREGROUND);
+
+        const auto destroyed_func = [this](unsigned int id) {
+            game::player_two.is_active = false;
+        };
+        
+        m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, FOREGROUND, destroyed_func));
     }
 
     return false;
@@ -76,14 +86,15 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
 {
     if(event.id == m_player_one_id)
     {
-        m_zone->RemovePhysicsEntity(m_player_one);
         m_camera->Unfollow();
+        m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_one->Id()));
+
         m_player_one = nullptr;
         game::player_one.is_active = false;        
     }
     else if(event.id == m_player_two_id)
     {
-        m_zone->RemovePhysicsEntity(m_player_two);
+        m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_two->Id()));
         m_player_two = nullptr;
         game::player_two.is_active = false;
     }
