@@ -83,11 +83,10 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         game::LoadWorld(this, world_header.polygons);
         
         // Nav mesh
-        m_nav_mesh = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3);
-        game::FilterNavMesh(m_nav_mesh, world_header.polygons);
-        m_nav_mes_nodes = game::GenerateMeshNodes(m_nav_mesh, world_header.polygons, 5);
+        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, world_header.polygons);
+        m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, world_header.polygons);
         
-        AddDrawable(std::make_shared<NavMeshVisualizer>(m_nav_mesh, m_nav_mes_nodes), BACKGROUND);
+        AddDrawable(std::make_shared<NavMeshVisualizer>(m_navmesh, mEventHandler), BACKGROUND);
     }
 
     {

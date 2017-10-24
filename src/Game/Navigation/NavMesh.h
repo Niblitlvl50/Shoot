@@ -20,8 +20,13 @@ namespace game
         std::vector<NavmeshNode> nodes;
     };
 
-    std::vector<math::Vector> GenerateMeshPoints(const math::Vector start, float width, float height, float density);
-    void FilterNavMesh(std::vector<math::Vector>& nav_mesh, const std::vector<world::PolygonData>& static_polygons);
+    std::vector<math::Vector> GenerateMeshPoints(
+        const math::Vector start, float width, float height, float density, const std::vector<world::PolygonData>& static_polygons);
     std::vector<NavmeshNode> GenerateMeshNodes(
-        const std::vector<math::Vector>& points, const std::vector<world::PolygonData>& static_polygons, float connection_distance);
+        const std::vector<math::Vector>& points, float connection_distance, const std::vector<world::PolygonData>& static_polygons);
+
+    std::vector<int> AStar(const NavmeshContext& context, int start, int end);
+
+
+    int FindClosestIndex(const NavmeshContext& context, const math::Vector& point);
 }

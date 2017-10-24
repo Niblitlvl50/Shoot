@@ -10,6 +10,8 @@
 #include "Network/RemoteConnection.h"
 #include "Hud/Healthbar.h"
 
+#include "Navigation/NavMesh.h"
+
 #include <vector>
 #include <memory>
 
@@ -67,7 +69,6 @@ namespace game
 
         std::vector<Healthbar> m_healthbars;
 
-        std::vector<math::Vector> m_nav_mesh;
-        std::vector<struct NavmeshNode> m_nav_mes_nodes;
+        NavmeshContext m_navmesh;
     };
 }
