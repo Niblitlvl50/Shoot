@@ -6,6 +6,7 @@
 
 #include "CacoDemonController.h"
 #include "InvaderController.h"
+#include "InvaderPathController.h"
 #include "BlackSquareController.h"
 
 #include "DefinedAttributes.h"

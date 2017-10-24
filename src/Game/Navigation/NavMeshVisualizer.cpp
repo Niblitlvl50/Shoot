@@ -14,7 +14,7 @@
 
 using namespace game;
 
-NavMeshVisualizer::NavMeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler)
+NavmeshVisualizer::NavmeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler)
     : m_navmesh_context(context),
       m_event_handler(event_handler)
 {
@@ -32,16 +32,16 @@ NavMeshVisualizer::NavMeshVisualizer(const NavmeshContext& context, mono::EventH
 
     using namespace std::placeholders;
     
-    const event::MouseUpEventFunc mouse_up_func = std::bind(&NavMeshVisualizer::OnMouseUp, this, _1);
+    const event::MouseUpEventFunc mouse_up_func = std::bind(&NavmeshVisualizer::OnMouseUp, this, _1);
     m_mouse_up_token = m_event_handler.AddListener(mouse_up_func);
 }
 
-NavMeshVisualizer::~NavMeshVisualizer()
+NavmeshVisualizer::~NavmeshVisualizer()
 {
     m_event_handler.RemoveListener(m_mouse_up_token);    
 }
 
-void NavMeshVisualizer::doDraw(mono::IRenderer& renderer) const
+void NavmeshVisualizer::doDraw(mono::IRenderer& renderer) const
 {
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
@@ -53,12 +53,12 @@ void NavMeshVisualizer::doDraw(mono::IRenderer& renderer) const
     renderer.DrawPolyline(m_navigation_points, color, 2.0f);
 }
 
-math::Quad NavMeshVisualizer::BoundingBox() const
+math::Quad NavmeshVisualizer::BoundingBox() const
 {
     return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
 }
 
-bool NavMeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
+bool NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
 {
     const math::Vector position(event.worldX, event.worldY);
 

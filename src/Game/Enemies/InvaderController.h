@@ -1,12 +1,19 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
 #include "Enemy.h"
-#include "Rendering/Color.h"
+#include "StateMachine.h"
+
+#include "MonoPtrFwd.h"
 
 namespace game
 {
+    enum class InvaderStates
+    {
+        IDLE,
+        TRACKING
+    };
+
     class InvaderController : public IEnemyController
     {
     public:
@@ -17,32 +24,18 @@ namespace game
 
     private:
 
+        void ToIdle();
+        void ToTracking();
+        void Idle(unsigned int delta);
+        void Tracking(unsigned int delta);
+        
         Enemy* m_enemy;
-        mono::Color::HSL m_color;
-    };
-
-    class InvaderPathController : public IEnemyController
-    {
-    public:
-
-        InvaderPathController(const mono::IPathPtr& path, mono::EventHandler& event_handler);
-        ~InvaderPathController();
-        virtual void Initialize(Enemy* enemy);
-        virtual void doUpdate(unsigned int delta);
-
-    private:
-
         mono::IPathPtr m_path;
-        mono::EventHandler& m_eventHandler;
-        float m_currentPosition;
-        int m_fireCount;
-        int m_fireCooldown;
 
-        math::Vector m_point;
+        unsigned int m_idle_timer;
+        float m_current_position;
 
-        mono::IBodyPtr m_controlBody;
-        mono::IConstraintPtr m_spring;
-        std::unique_ptr<class IWeaponSystem> m_weapon;
-        Enemy* m_enemy;
+        using InvaderStateMachine = StateMachine<InvaderStates, unsigned int>;
+        InvaderStateMachine m_states;
     };
 }

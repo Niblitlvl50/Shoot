@@ -17,4 +17,5 @@ namespace game
     extern PlayerInfo player_two;
 
     extern math::Quad camera_viewport;
+    extern struct NavmeshContext* g_navmesh;
 }

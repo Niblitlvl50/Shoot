@@ -1,5 +1,6 @@
 
 #include "NavMesh.h"
+#include "NavmeshFactory.h"
 #include "Math/MathFunctions.h"
 
 #include <set>
@@ -177,6 +178,18 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
     std::reverse(path_indices.begin(), path_indices.end());
     return path_indices;
 }
+
+std::vector<math::Vector> game::PathToPoints(const game::NavmeshContext& context, const std::vector<int>& path)
+{
+    std::vector<math::Vector> points;
+    points.reserve(path.size());
+
+    for(int index : path)
+        points.push_back(context.points[index]);
+
+    return points;
+}
+
 
 int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vector& point)
 {

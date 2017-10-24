@@ -12,12 +12,12 @@ namespace game
 {
     struct NavmeshContext;
 
-    class NavMeshVisualizer : public mono::IDrawable
+    class NavmeshVisualizer : public mono::IDrawable
     {
     public:
 
-        NavMeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler);
-        ~NavMeshVisualizer();
+        NavmeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler);
+        ~NavmeshVisualizer();
 
     private:
 

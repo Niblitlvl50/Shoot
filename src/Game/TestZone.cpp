@@ -3,6 +3,7 @@
 
 #include "Factories.h"
 #include "Enemies/Enemy.h"
+#include "AIKnowledge.h"
 
 #include "Effects/SmokeEffect.h"
 #include "Hud/FPSElement.h"
@@ -26,6 +27,7 @@
 #include "World.h"
 
 #include "Navigation/NavMesh.h"
+#include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
@@ -86,7 +88,9 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, world_header.polygons);
         m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, world_header.polygons);
         
-        AddDrawable(std::make_shared<NavMeshVisualizer>(m_navmesh, mEventHandler), BACKGROUND);
+        game::g_navmesh = &m_navmesh;
+        
+        AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, mEventHandler), BACKGROUND);
     }
 
     {
@@ -127,7 +131,9 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
 }
 
 void TestZone::OnUnload()
-{ }
+{
+    game::g_navmesh = nullptr;    
+}
 
 bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 {
