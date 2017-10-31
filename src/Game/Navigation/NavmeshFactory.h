@@ -2,7 +2,11 @@
 #pragma once
 
 #include "NavmeshData.h"
-#include "WorldFile.h"
+
+namespace world
+{
+    struct PolygonData;
+}
 
 namespace game
 {

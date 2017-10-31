@@ -20,7 +20,7 @@ InvaderController::InvaderController(mono::EventHandler& event_handler)
 
     using namespace std::placeholders;
 
-    const std::unordered_map<InvaderStates, InvaderStateMachine::State> state_table = {
+    const std::unordered_map<InvaderStates, InvaderStateMachine::State>& state_table = {
         { InvaderStates::IDLE,      { std::bind(&InvaderController::ToIdle,     this), std::bind(&InvaderController::Idle, this, _1) } },
         { InvaderStates::TRACKING,  { std::bind(&InvaderController::ToTracking, this), std::bind(&InvaderController::Tracking, this, _1) } }
     };

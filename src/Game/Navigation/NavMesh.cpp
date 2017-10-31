@@ -2,6 +2,7 @@
 #include "NavMesh.h"
 #include "NavmeshFactory.h"
 #include "Math/MathFunctions.h"
+#include "WorldFile.h"
 
 #include <set>
 #include <unordered_map>
@@ -141,7 +142,7 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
             if(neighbour_index == -1)
                 continue;
 
-            // Node already evaluated
+            // Node is already evaluated
             if(closed_set.count(neighbour_index) == 1)
                 continue;
 
@@ -160,12 +161,8 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
             f_score[neighbour_index] = tentative_g_score + Heuristics(context, neighbour_index, end);
         }
     }
-
-
-
     
-    std::vector<int> path_indices;    
-    
+    std::vector<int> path_indices;
     int current = end;
 
     do
@@ -176,6 +173,7 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
     
     path_indices.push_back(start);
     std::reverse(path_indices.begin(), path_indices.end());
+
     return path_indices;
 }
 
@@ -189,7 +187,6 @@ std::vector<math::Vector> game::PathToPoints(const game::NavmeshContext& context
 
     return points;
 }
-
 
 int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vector& point)
 {
