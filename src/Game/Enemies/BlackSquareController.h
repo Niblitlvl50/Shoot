@@ -3,6 +3,7 @@
 
 #include "MonoPtrFwd.h"
 #include "Enemy.h"
+#include "StateMachine.h"
 
 namespace game
 {
@@ -18,14 +19,17 @@ namespace game
 
     private:
 
-        enum class State
+        enum class States
         {
             SLEEPING,
             AWAKE,
             HUNT
         };
 
-        void TransitionToState(State new_state);
+        void ToSleep();
+        void ToAwake();
+        void ToHunt();
+
         void SleepState(unsigned int delta);
         void AwakeState(unsigned int delta);
         void HuntState(unsigned int delta);
@@ -33,8 +37,10 @@ namespace game
         const float m_triggerDistance;
         mono::EventHandler& m_eventHandler;
 
+        using MyStateMachine = StateMachine<States, unsigned int>;
+        MyStateMachine m_states;
+
         Enemy* m_enemy;
-        State m_state;
         unsigned int m_awakeStateTimer;
 
         mono::IBodyPtr m_controlBody;
