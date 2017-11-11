@@ -1,5 +1,6 @@
 **/.DS_Store
 .vscode/*.VC.db
+.vscode/c_cpp_properties.json
 CMakeCache.txt
 cmake_install.cmake
 Makefile
