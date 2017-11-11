@@ -1,5 +1,6 @@
 {
     "python.linting.pylintEnabled": false,
+    "C_Cpp.intelliSenseEngine": "Default",
 
     "files.exclude": {
         "**/.git": true,
@@ -54,6 +55,8 @@
         "istream": "cpp",
         "__bit_reference": "cpp",
         "map": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "string_view": "cpp",
+        "__string": "cpp"
     }
 }
