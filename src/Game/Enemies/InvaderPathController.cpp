@@ -4,6 +4,7 @@
 #include "AIKnowledge.h"
 #include "EntityProperties.h"
 #include "Factories.h"
+#include "RenderLayers.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
 
@@ -77,7 +78,7 @@ void InvaderPathController::Initialize(Enemy* enemy)
     m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 1.0f, 20.0f, 0.5f);
 
     m_eventHandler.DispatchEvent(SpawnConstraintEvent(m_spring));
-    //m_eventHandler.DispatchEvent(SpawnEntityEvent(std::make_shared<DotEntity>(m_point)));
+    //m_eventHandler.DispatchEvent(SpawnEntityEvent(std::make_shared<DotEntity>(m_point), LayerId::FOREGROUND, nullptr));
 }
 
 void InvaderPathController::doUpdate(unsigned int delta)
