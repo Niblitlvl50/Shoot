@@ -57,6 +57,7 @@
         "map": "cpp",
         "set": "cpp",
         "string_view": "cpp",
-        "__string": "cpp"
+        "__string": "cpp",
+        "__nullptr": "cpp"
     }
 }
