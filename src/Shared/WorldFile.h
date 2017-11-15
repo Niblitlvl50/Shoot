@@ -6,7 +6,6 @@
 #include "ObjectAttribute.h"
 
 #include <vector>
-#include <string>
 
 namespace world
 {
