@@ -61,7 +61,7 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, con
     const char* filename = nullptr;
     const bool found_filename = world::FindAttribute(world::FILEPATH_ATTRIBUTE, attributes, filename);
 
-    if(found_filename)
+    if(found_filename && strlen(filename) != 0)
     {
         const std::string& full_filename = std::string("res/paths/") + filename + ".path";
         return CreatePathInvader(mono::CreatePath(full_filename.c_str()));
