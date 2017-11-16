@@ -20,5 +20,6 @@ namespace game
         const math::Vector& m_position;
         std::unique_ptr<mono::ParticlePool> m_pool;
         std::unique_ptr<mono::ParticleEmitter> m_emitter;
+        std::unique_ptr<mono::ParticleDrawer> m_drawer;
     };
 }

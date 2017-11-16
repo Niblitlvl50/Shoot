@@ -2,6 +2,7 @@
 #include "SmokeEffect.h"
 #include "Particle/ParticlePool.h"
 #include "Particle/ParticleEmitter.h"
+#include "Particle/ParticleDrawer.h"
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Random.h"
@@ -32,16 +33,19 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
 {
     m_position = position;
 
-    mono::ParticleEmitter::Configuration config;
-    //config.position = position;
-    config.generator = SmokeGenerator;
-    config.updater = mono::DefaultUpdater;
-    config.texture = mono::CreateTexture("res/textures/smoke.png");
-    config.emit_rate = 0.1f;
-    config.point_size = 64.0f;
+    mono::ParticleEmitter::Configuration emit_config;
+    //emit_config.position = position;
+    emit_config.generator = SmokeGenerator;
+    emit_config.updater = mono::DefaultUpdater;
+    emit_config.emit_rate = 0.1f;
+
+    mono::ParticleDrawer::Configuration draw_config;
+    draw_config.texture = mono::CreateTexture("res/textures/smoke.png");
+    draw_config.point_size = 64.0f;
 
     m_pool = std::make_unique<mono::ParticlePool>(1000);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool.get());
+    m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }
 
 SmokeEffect::~SmokeEffect()
@@ -49,7 +53,7 @@ SmokeEffect::~SmokeEffect()
 
 void SmokeEffect::Draw(mono::IRenderer& renderer) const
 {
-    m_emitter->doDraw(renderer);
+    m_drawer->doDraw(renderer);
 }
 
 void SmokeEffect::Update(unsigned int delta)

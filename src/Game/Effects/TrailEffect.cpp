@@ -2,6 +2,7 @@
 #include "TrailEffect.h"
 #include "Particle/ParticlePool.h"
 #include "Particle/ParticleEmitter.h"
+#include "Particle/ParticleDrawer.h"
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Rendering/IRenderer.h"
@@ -31,12 +32,15 @@ TrailEffect::TrailEffect(const math::Vector& position)
     //config.position = position;
     config.generator = TrailGenerator;
     config.updater = mono::DefaultUpdater;
-    config.texture = mono::CreateTexture("res/textures/flare.png");
     config.emit_rate = 0.2f;
-    config.point_size = 16.0f;
+    
+    mono::ParticleDrawer::Configuration draw_config;
+    draw_config.texture = mono::CreateTexture("res/textures/flare.png");
+    draw_config.point_size = 16.0f;
 
     m_pool = std::make_unique<mono::ParticlePool>(1000);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool.get());
+    m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }
 
 TrailEffect::~TrailEffect()
@@ -45,7 +49,7 @@ TrailEffect::~TrailEffect()
 void TrailEffect::Draw(mono::IRenderer& renderer) const
 {
     renderer.PushGlobalTransform();
-    m_emitter->doDraw(renderer);
+    m_drawer->doDraw(renderer);
 }
 
 void TrailEffect::Update(unsigned int delta)
