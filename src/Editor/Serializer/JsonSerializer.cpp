@@ -14,9 +14,19 @@
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
 
+#include "DefinedAttributes.h"
+
 #include "nlohmann_json/json.hpp"
 
 using namespace editor;
+
+void JsonSerializer::WriteEntities(const std::string& file_path) const
+{
+    const std::string& serialized_json = m_json_entities.dump(4);
+
+    File::FilePtr file = File::CreateAsciiFile(file_path.c_str());
+    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
+}
 
 void JsonSerializer::WritePathFile(const std::string& file_path) const
 {
@@ -54,7 +64,39 @@ void JsonSerializer::WritePrefabs(const std::string& file_path) const
 
 void JsonSerializer::Accept(EntityProxy* proxy)
 {
+    nlohmann::json json_attributes;
 
+    for(const auto& attribute : proxy->GetAttributes())
+    {
+        nlohmann::json json_object;
+        json_object["name"] = world::NameFromHash(attribute.id);
+
+        switch(attribute.attribute.type)
+        {
+        case ObjectAttribute::Type::INT:
+            json_object["value"] = (int)attribute.attribute;
+            break;    
+        case ObjectAttribute::Type::FLOAT:
+            json_object["value"] = (float)attribute.attribute;
+            break;    
+        case ObjectAttribute::Type::STRING:
+            json_object["value"] = (const char*)attribute.attribute;
+            break;    
+        case ObjectAttribute::Type::POINT:
+            json_object["value"] = (math::Vector)attribute.attribute;
+            break;
+        default:
+            break;
+        }
+
+        json_attributes.push_back(json_object);
+    }
+
+    nlohmann::json json_entity;
+    json_entity["name"] = proxy->Name();
+    json_entity["attributes"] = json_attributes;
+
+    m_json_entities.push_back(json_entity);
 }
 
 void JsonSerializer::Accept(PathProxy* proxy)
