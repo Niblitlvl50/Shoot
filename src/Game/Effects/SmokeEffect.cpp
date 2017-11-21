@@ -36,14 +36,13 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     mono::ParticleEmitter::Configuration emit_config;
     //emit_config.position = position;
     emit_config.generator = SmokeGenerator;
-    emit_config.updater = mono::DefaultUpdater;
     emit_config.emit_rate = 0.1f;
 
     mono::ParticleDrawer::Configuration draw_config;
     draw_config.texture = mono::CreateTexture("res/textures/smoke.png");
     draw_config.point_size = 64.0f;
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
     m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }
@@ -59,5 +58,6 @@ void SmokeEffect::Draw(mono::IRenderer& renderer) const
 void SmokeEffect::Update(unsigned int delta)
 {
     m_emitter->doUpdate(delta);
+    m_pool->doUpdate(delta);
     //mRotation += math::ToRadians(0.1) * float(delta);
 }

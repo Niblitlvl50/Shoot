@@ -31,14 +31,13 @@ TrailEffect::TrailEffect(const math::Vector& position)
     mono::ParticleEmitter::Configuration config;
     //config.position = position;
     config.generator = TrailGenerator;
-    config.updater = mono::DefaultUpdater;
     config.emit_rate = 0.2f;
     
     mono::ParticleDrawer::Configuration draw_config;
     draw_config.texture = mono::CreateTexture("res/textures/flare.png");
     draw_config.point_size = 16.0f;
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
     m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool);
     m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }
@@ -56,6 +55,7 @@ void TrailEffect::Update(unsigned int delta)
 {
     m_emitter->doUpdate(delta);
     m_emitter->SetPosition(m_position);
+    m_pool->doUpdate(delta);
 }
 
 math::Quad TrailEffect::BoundingBox() const
