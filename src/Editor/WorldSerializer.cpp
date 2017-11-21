@@ -242,6 +242,7 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
         for(auto& proxy : proxies)
             proxy->Visit(serializer);
     
+        serializer.WriteEntities("res/world.objects");
         serializer.WritePathFile("res/world.paths");
         serializer.WritePrefabs("res/world.prefabs");
     }
