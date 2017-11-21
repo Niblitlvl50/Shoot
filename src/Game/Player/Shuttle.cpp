@@ -9,7 +9,12 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Texture/TextureFactory.h"
 #include "Rendering/Color.h"
+
+#include "Particle/ParticlePool.h"
+#include "Particle/ParticleDrawer.h"
+#include "Particle/ParticleSystemDefaults.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
@@ -99,6 +104,14 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     m_right_booster->SetRotation(math::PI_2());
     m_right_booster->SetPosition(math::Vector(0.6f, 0.0f));
     
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
+
+    mono::ParticleDrawer::Configuration particle_config;
+    particle_config.point_size = 10.0f;
+    particle_config.texture = mono::CreateTexture("res/textures/flare.png");
+
+    m_particle_drawer = std::make_unique<mono::ParticleDrawer>(particle_config, *m_pool);
+
     AddChild(std::make_shared<game::TrailEffect>(m_position));
     AddChild(m_left_booster);
     AddChild(m_right_booster);
@@ -109,15 +122,30 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     SelectWeapon(WeaponType::STANDARD);
 }
 
+Shuttle::~Shuttle()
+{ }
+
+#include <cstdio>
+
 void Shuttle::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
+
+    char text[32] = { '\0' };
+    std::snprintf(text, 32, "%zu", m_pool->m_countAlive);
+
+    constexpr mono::Color::RGBA color(1, 0, 0);
+    renderer.DrawText(0, text, math::zeroVec, true, color);
+
+    renderer.PushGlobalTransform();
+    m_particle_drawer->doDraw(renderer);
 }
 
 void Shuttle::Update(unsigned int delta)
 {
     m_controller.Update(delta);
     m_sprite->doUpdate(delta);
+    m_pool->doUpdate(delta);
 
     if(m_fire)
     {
@@ -142,7 +170,7 @@ void Shuttle::OnPostStep()
 
 void Shuttle::SelectWeapon(WeaponType weapon)
 {
-    m_weapon = weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER);
+    m_weapon = weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_pool.get());
 }
 
 void Shuttle::ApplyRotationForce(float force)

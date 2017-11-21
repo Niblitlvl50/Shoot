@@ -6,6 +6,7 @@
 #include "Rendering/RenderPtrFwd.h"
 #include "ShuttleGamepadController.h"
 #include "Physics/IBody.h"
+#include "Particle/ParticleFwd.h"
 
 #include "Weapons/IWeaponSystem.h"
 
@@ -32,6 +33,7 @@ namespace game
         
         Shuttle(
             const math::Vector& postiion, mono::EventHandler& eventHandler, const System::ControllerState& controller);
+        ~Shuttle();
 
         void SelectWeapon(WeaponType weapon);
         void ApplyImpulse(const math::Vector& force);
@@ -62,6 +64,9 @@ namespace game
         std::unique_ptr<IWeaponSystem> m_weapon;
         std::shared_ptr<SpriteEntity> m_left_booster;
         std::shared_ptr<SpriteEntity> m_right_booster;
+
+        std::unique_ptr<mono::ParticlePool> m_pool;
+        std::unique_ptr<mono::ParticleDrawer> m_particle_drawer;
 
         PlayerInfo* m_player_info;
     };

@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "Physics/CMFwd.h"
 #include "Rendering/Color.h"
+#include "Particle/ParticleFwd.h"
 #include "CollisionConfiguration.h"
 
 #include <functional>
@@ -26,6 +27,8 @@ namespace game
 
         const char* sprite_file = nullptr;
         const char* sound_file = nullptr;
+
+        mono::ParticlePool* pool = nullptr;
     };
 
     struct WeaponConfiguration

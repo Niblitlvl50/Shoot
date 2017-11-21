@@ -6,12 +6,30 @@
 #include "Physics/IShape.h"
 #include "Physics/CMFactory.h"
 
+#include "Particle/ParticleEmitter.h"
+#include "Particle/ParticlePool.h"
+#include "Particle/ParticleSystemDefaults.h"
+
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
 #include "Audio/ISound.h"
 #include "Audio/AudioFactory.h"
 #include "Random.h"
+
+namespace
+{
+    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    {
+        constexpr int life = 500;
+
+        pool.m_position[index] = position;
+        pool.m_startColor[index] = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
+        pool.m_endColor[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_startLife[index] = life;
+        pool.m_life[index] = life;
+    }
+}
 
 using namespace game;
 
@@ -45,7 +63,19 @@ Bullet::Bullet(const BulletConfiguration& config)
 
     const float life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
     m_lifeSpan = life_span * 1000.0f;
+
+    if(config.pool)
+    {
+        mono::ParticleEmitter::Configuration emitter_config;
+        emitter_config.generator = SimpleGenerator;
+        emitter_config.emit_rate = 0.1f;
+
+        m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, *config.pool);
+    }
 }
+
+Bullet::~Bullet()
+{ }
 
 void Bullet::Draw(mono::IRenderer& renderer) const
 {
@@ -58,6 +88,12 @@ void Bullet::Update(unsigned int delta)
 
     if(m_sound)
         m_sound->Position(m_position.x, m_position.y);
+
+    if(m_emitter)
+    {
+        m_emitter->SetPosition(m_position);
+        m_emitter->doUpdate(delta);
+    }
 
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)

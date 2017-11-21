@@ -66,6 +66,11 @@ WeaponFactory::WeaponFactory(mono::EventHandler& eventHandler)
 
 std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction)
 {
+    return CreateWeapon(weapon, faction, nullptr);
+}
+
+std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction, mono::ParticlePool* pool)
+{
     using namespace std::placeholders;
 
     WeaponConfiguration weapon_config;
@@ -74,6 +79,8 @@ std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weap
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
     bullet_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
     bullet_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
+    
+    bullet_config.pool = pool;
 
     switch(weapon)
     {
