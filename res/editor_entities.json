@@ -97,7 +97,7 @@
                 "position",
                 "rotation",
                 "spawn_tag",
-                "interval",
+                "time_stamp",
                 "radius"
             ]
         },

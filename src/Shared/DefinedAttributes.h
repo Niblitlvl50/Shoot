@@ -25,7 +25,7 @@ namespace world
         HashString("position",          ObjectAttribute(math::zeroVec)),
         HashString("rotation",          ObjectAttribute(0.0f)),
         HashString("radius",            ObjectAttribute(1.0f)),
-        HashString("interval",          ObjectAttribute(1)),
+        HashString("time_stamp",        ObjectAttribute(5)),
         HashString("spawn_tag",         ObjectAttribute("")),
         HashString("filepath",          ObjectAttribute("")),
         HashString("trigger_radius",    ObjectAttribute(10.0f))
@@ -34,7 +34,7 @@ namespace world
     static const unsigned int POSITION_ATTRIBUTE        = hash_array[0].hash;
     static const unsigned int ROTATION_ATTRIBUTE        = hash_array[1].hash;
     static const unsigned int RADIUS_ATTRIBUTE          = hash_array[2].hash;
-    static const unsigned int INTERVAL_ATTRIBUTE        = hash_array[3].hash;
+    static const unsigned int TIME_STAMP_ATTRIBUTE      = hash_array[3].hash;
     static const unsigned int SPAWN_TAG_ATTRIBUTE       = hash_array[4].hash;
     static const unsigned int FILEPATH_ATTRIBUTE        = hash_array[5].hash;
     static const unsigned int TRIGGER_RADIUS_ATTRIBUTE  = hash_array[6].hash;

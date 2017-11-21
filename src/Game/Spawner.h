@@ -11,10 +11,10 @@ namespace game
 {
     struct SpawnPoint
     {
-        int intervall;
+        int time_stamp = 0;
         float radius = 1.0f;
         math::Vector position;
-        std::vector<std::string> spawn_names;
+        std::vector<std::string> spawn_tags;
     };
 
     class Spawner
@@ -22,12 +22,16 @@ namespace game
     public:
 
         Spawner(const std::vector<SpawnPoint>& spawn_points, mono::EventHandler& event_handler);
-        void SpawnObject();
+        void CheckForSpawn();
 
     private:
+
+        void SpawnObject(const SpawnPoint& spawn_point);
         
-        const std::vector<SpawnPoint> m_spawn_points;
+        std::vector<SpawnPoint> m_spawn_points;
         mono::EventHandler& m_event_handler;
+
+        int m_seconds_elapsed = 0;
         std::unique_ptr<System::ITimer> m_timer;
     };
 }

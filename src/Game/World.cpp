@@ -19,11 +19,13 @@
 
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
+#include "StringFunctions.h"
 
 #include "ObjectAttribute.h"
 #include "DefinedAttributes.h"
 
 #include <algorithm>
+#include <string>
 
 namespace
 {
@@ -151,6 +153,13 @@ namespace
     {
         FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
         FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
+        FindAttribute(world::TIME_STAMP_ATTRIBUTE, attributes, spawn_point.time_stamp);
+
+        const char* spawn_tags = nullptr;
+        FindAttribute(world::SPAWN_TAG_ATTRIBUTE, attributes, spawn_tags);
+
+        if(spawn_tags)
+            spawn_point.spawn_tags = mono::SplitString(spawn_tags, ' ');
     }
 
     void LoadAttributes(game::EnemyPtr& enemy, const std::vector<ID_Attribute>& attributes)
