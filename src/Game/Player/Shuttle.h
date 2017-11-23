@@ -27,7 +27,7 @@ namespace game
         ALL
     };
 
-    class Shuttle : public mono::PhysicsEntityBase, public mono::ICollisionHandler
+    class Shuttle : public mono::PhysicsEntityBase
     {
     public:
         
@@ -51,11 +51,8 @@ namespace game
         void ApplyRotationForce(float force);
         void ApplyThrustForce(float force);
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
-        
-        virtual void OnCollideWith(const mono::IBodyPtr& body);
-        virtual void OnPostStep();
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
         
         ShuttleGamepadController m_controller;
         bool m_fire;

@@ -83,7 +83,6 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     
     m_physics.body = mono::PhysicsFactory::CreateBody(10.0f, INFINITY);
     m_physics.body->SetPosition(m_position);
-    m_physics.body->SetCollisionHandler(this);
 
     mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x / 2.0f, math::zeroVec);
     shape->SetElasticity(0.1f);
@@ -161,12 +160,6 @@ void Shuttle::Update(unsigned int delta)
         m_player_info->ammunition = m_weapon->AmmunitionLeft();
     }
 }
-
-void Shuttle::OnCollideWith(const mono::IBodyPtr& body)
-{ }
-
-void Shuttle::OnPostStep()
-{ }
 
 void Shuttle::SelectWeapon(WeaponType weapon)
 {
