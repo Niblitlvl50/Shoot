@@ -97,13 +97,10 @@ void Bullet::Update(unsigned int delta)
 
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)
-        OnCollideWith(nullptr);
+        OnCollideWith(nullptr, 0);
 }
 
-void Bullet::OnCollideWith(const mono::IBodyPtr& body)
+void Bullet::OnCollideWith(const mono::IBodyPtr& body, unsigned int category)
 {
     m_collisionCallback(this, body);
 }
-
-void Bullet::OnPostStep()
-{ }

@@ -18,11 +18,9 @@ namespace game
         Bullet(const BulletConfiguration& config);
         ~Bullet();
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
-
-        virtual void OnCollideWith(const mono::IBodyPtr& body);
-        virtual void OnPostStep();
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
+        void OnCollideWith(const mono::IBodyPtr& body, unsigned int category) override;
 
     private:
         mono::ISpritePtr m_sprite;

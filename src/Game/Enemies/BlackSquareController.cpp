@@ -3,6 +3,15 @@
 #include "EntityProperties.h"
 #include "AIKnowledge.h"
 #include "Events/SpawnConstraintEvent.h"
+#include "Explosion.h"
+#include "RenderLayers.h"
+#include "CollisionConfiguration.h"
+
+#include "Events/DamageEvent.h"
+#include "Events/SpawnEntityEvent.h"
+#include "Events/RemoveEntityEvent.h"
+#include "Events/ShockwaveEvent.h"
+
 
 #include "Physics/CMFactory.h"
 #include "Physics/IBody.h"
@@ -44,15 +53,42 @@ void BlackSquareController::Initialize(Enemy* enemy)
 
     m_controlBody = mono::PhysicsFactory::CreateKinematicBody();
     m_controlBody->SetPosition(m_enemy->Position());
-    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 0.0f, 50.0f, 0.5f);
 
+    mono::IBodyPtr enemy_body = m_enemy->GetPhysics().body;
+    enemy_body->SetCollisionHandler(this);
+
+    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, enemy_body, 0.0f, 50.0f, 0.5f);
     m_eventHandler.DispatchEvent(SpawnConstraintEvent(m_spring));
+
     m_states.TransitionTo(States::SLEEPING);
 }
 
 void BlackSquareController::doUpdate(unsigned int delta)
 {
     m_states.UpdateState(delta);
+}
+
+void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned int category)
+{
+    if(m_states.ActiveState() == States::SLEEPING)
+        m_states.TransitionTo(States::AWAKE);
+
+    if(category != game::CollisionCategory::PLAYER)
+        return;
+
+    game::ExplosionConfiguration explosion_config;
+    explosion_config.position = m_enemy->Position();
+    explosion_config.scale = 2.0f;
+    explosion_config.rotation = 0.0f;
+    explosion_config.sprite_file = "res/sprites/explosion.sprite";
+    
+    const game::SpawnEntityEvent event(
+        std::make_shared<game::Explosion>(explosion_config, m_eventHandler), game::FOREGROUND, nullptr);
+    
+    m_eventHandler.DispatchEvent(event);
+    m_eventHandler.DispatchEvent(game::DamageEvent(body, 20));
+    m_eventHandler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
+    m_eventHandler.DispatchEvent(game::RemoveEntityEvent(m_enemy->Id()));
 }
 
 void BlackSquareController::ToSleep()
@@ -100,6 +136,6 @@ void BlackSquareController::HuntState(unsigned int delta)
     m_enemy->SetRotation(angle);
 
     const float distance = math::Length(player_one.position - m_enemy->Position());
-    if(distance > m_triggerDistance || !player_one.is_active)
+    if(distance > (m_triggerDistance * 2.0f) || !player_one.is_active)
         m_states.TransitionTo(States::SLEEPING);
 }

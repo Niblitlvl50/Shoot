@@ -2,20 +2,22 @@
 #pragma once
 
 #include "MonoPtrFwd.h"
+#include "Physics/IBody.h"
 #include "Enemy.h"
 #include "StateMachine.h"
 
 namespace game
 {
-    class BlackSquareController : public IEnemyController
+    class BlackSquareController : public IEnemyController, public mono::ICollisionHandler
     {
     public:
 
         BlackSquareController(float trigger_distance, mono::EventHandler& event_handler);
         virtual ~BlackSquareController();
 
-        virtual void Initialize(Enemy* enemy);
-        virtual void doUpdate(unsigned int delta);
+        void Initialize(Enemy* enemy) override;
+        void doUpdate(unsigned int delta) override;
+        void OnCollideWith(const mono::IBodyPtr& body, unsigned int category) override;
 
     private:
 
