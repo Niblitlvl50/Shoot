@@ -10,7 +10,7 @@ namespace game
     {
     public:
 
-        void Draw(mono::IRenderer& renderer) const;
+        void Draw(mono::IRenderer& renderer) const override;
         mutable mono::FPSCounter m_counter;        
     };
 }

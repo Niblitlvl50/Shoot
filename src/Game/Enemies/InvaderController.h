@@ -19,8 +19,8 @@ namespace game
     public:
 
         InvaderController(mono::EventHandler& event_handler);
-        virtual void Initialize(Enemy* enemy);
-        virtual void doUpdate(unsigned int delta);
+        void Initialize(Enemy* enemy) override;
+        void doUpdate(unsigned int delta) override;
 
     private:
 

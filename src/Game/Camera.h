@@ -20,19 +20,16 @@ namespace game
 
         bool OnKeyDown(const event::KeyDownEvent& event);
         
-        virtual void doUpdate(unsigned int delta);
+        void doUpdate(unsigned int delta) override;
         
-        virtual void Follow(const mono::IEntityPtr& entity, const math::Vector& offset);
-        virtual void Unfollow();
-
-        virtual math::Quad GetViewport() const;
-        virtual math::Vector GetPosition() const;
-
-        virtual void SetViewport(const math::Quad& viewport);
-        virtual void SetTargetViewport(const math::Quad& target);
-        virtual void SetPosition(const math::Vector& position);
-
-        virtual math::Vector ScreenToWorld(const math::Vector& screen_pos, const math::Vector& window_size) const;
+        void Follow(const mono::IEntityPtr& entity, const math::Vector& offset) override;
+        void Unfollow() override;
+        math::Quad GetViewport() const override;
+        math::Vector GetPosition() const override;
+        void SetViewport(const math::Quad& viewport) override;
+        void SetTargetViewport(const math::Quad& target) override;
+        void SetPosition(const math::Vector& position) override;
+        math::Vector ScreenToWorld(const math::Vector& screen_pos, const math::Vector& window_size) const override;
 
     private:
         

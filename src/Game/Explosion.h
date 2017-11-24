@@ -19,8 +19,8 @@ namespace game
     public:
         
         Explosion(const ExplosionConfiguration& config, mono::EventHandler& event_handler);
-        virtual void Update(unsigned int delta);
-        virtual void Draw(mono::IRenderer& renderer) const;
+        void Update(unsigned int delta) override;
+        void Draw(mono::IRenderer& renderer) const override;
 
     private:
 

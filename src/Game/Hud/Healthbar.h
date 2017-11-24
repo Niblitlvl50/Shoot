@@ -19,8 +19,8 @@ namespace game
     public:
         HealthbarDrawer(const std::vector<Healthbar>& healthbars);
 
-        virtual void doDraw(mono::IRenderer& renderer) const;
-        virtual math::Quad BoundingBox() const;
+        void doDraw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
         const std::vector<Healthbar>& m_healthbars;
     };

@@ -10,8 +10,8 @@ namespace game
     {
     public:
         WeaponFactory(mono::EventHandler& eventHandler);
+        
         std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction) override;
-
         std::unique_ptr<IWeaponSystem> CreateWeapon(
             WeaponType weapon, WeaponFaction faction, mono::ParticlePool* pool) override;
 

@@ -29,8 +29,8 @@ namespace game
 
         Enemy(EnemySetup& setup);
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
 
         std::unique_ptr<IEnemyController> m_controller;
         mono::ISpritePtr m_sprite;

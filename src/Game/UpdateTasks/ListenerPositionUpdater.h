@@ -8,6 +8,6 @@ namespace game
     class ListenerPositionUpdater : public mono::IUpdatable
     {
     public:
-        virtual void doUpdate(unsigned int delta);
+        void doUpdate(unsigned int delta) override;
     };
 }

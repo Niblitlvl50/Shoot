@@ -22,8 +22,8 @@ namespace game
         UIOverlayDrawer();
         ~UIOverlayDrawer();
         
-        virtual void doDraw(mono::IRenderer& renderer) const;
-        virtual math::Quad BoundingBox() const;
+        void doDraw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
         int AddElement(std::unique_ptr<UIElement> element);
         //void RemoveElement(int id);

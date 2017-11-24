@@ -12,8 +12,8 @@ namespace game
         Meteor(float x, float y);
     
     private:
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
         
         mono::ISpritePtr mSprite;
     };

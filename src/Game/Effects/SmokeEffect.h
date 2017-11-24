@@ -13,8 +13,8 @@ namespace game
         SmokeEffect(const math::Vector& position);
         virtual ~SmokeEffect();
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
 
         std::unique_ptr<mono::ParticlePool> m_pool;
         std::unique_ptr<mono::ParticleEmitter> m_emitter;

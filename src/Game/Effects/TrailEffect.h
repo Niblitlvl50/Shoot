@@ -13,9 +13,9 @@ namespace game
         TrailEffect(const math::Vector& position);
         virtual ~TrailEffect();
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
-        virtual math::Quad BoundingBox() const;
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
+        math::Quad BoundingBox() const override;
 
         const math::Vector& m_position;
         std::unique_ptr<mono::ParticlePool> m_pool;

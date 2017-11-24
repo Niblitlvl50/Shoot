@@ -19,7 +19,7 @@ namespace game
             const DamageController& damage_controller,
             const mono::IPhysicsZone& zone);
 
-        virtual void doUpdate(unsigned int delta);
+        void doUpdate(unsigned int delta) override;
 
     private:
 

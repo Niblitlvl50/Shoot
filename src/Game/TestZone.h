@@ -32,8 +32,8 @@ namespace game
         TestZone(mono::EventHandler& eventHandler);
         ~TestZone();
                 
-        virtual void OnLoad(mono::ICameraPtr& camera);
-        virtual void OnUnload();
+        void OnLoad(mono::ICameraPtr& camera) override;
+        void OnUnload() override;
         
         bool SpawnEntity(const game::SpawnEntityEvent& event);
         bool SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event);
@@ -48,9 +48,8 @@ namespace game
         void AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
         void AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
 
-        virtual void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity);
-        virtual void RemoveEntity(const mono::IEntityPtr& entity);
-
+        void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity) override;
+        void RemoveEntity(const mono::IEntityPtr& entity) override;
 
         mono::EventToken<game::SpawnEntityEvent> mSpawnEntityToken;
         mono::EventToken<game::SpawnPhysicsEntityEvent> mSpawnPhysicsEntityToken;
