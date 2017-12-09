@@ -285,10 +285,7 @@ void Editor::OnDeleteObject()
 
     auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
     if(it != m_proxies.end())
-    {
-        editor::IObjectProxy* proxy = it->get();
         m_proxies.erase(it);
-    }
 
     auto entity = FindEntityFromId(id);    
     const auto remove_entity_func = [this, entity] {
