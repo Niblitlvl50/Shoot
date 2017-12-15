@@ -7,10 +7,13 @@
 #include "Spawner.h"
 #include "DamageController.h"
 #include "Player/PlayerDaemon.h"
-#include "Network/RemoteConnection.h"
 #include "Hud/Healthbar.h"
 
 #include "Navigation/NavMesh.h"
+
+#include "Network/RemoteConnection.h"
+#include "Network/MessageDispatcher.h"
+#include "Network/NetworkBeacon.h"
 
 #include <vector>
 #include <memory>
@@ -45,8 +48,8 @@ namespace game
 
     private:
 
-        void AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
-        void AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
+        void AddEntityWithCallback(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
+        void AddPhysicsEntityWithCallback(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
 
         void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity) override;
         void RemoveEntity(const mono::IEntityPtr& entity) override;
@@ -59,12 +62,15 @@ namespace game
         mono::EventToken<game::SpawnConstraintEvent> m_spawnConstraintToken;
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
         
-        mono::EventHandler& mEventHandler;
+        mono::EventHandler& m_event_handler;
         std::unique_ptr<Spawner> m_spawner;
         std::unique_ptr<PlayerDaemon> m_player_daemon;
         DamageController m_damageController;
         mono::ISoundPtr m_backgroundMusic;
-        RemoteConnection m_connection;
+
+        std::shared_ptr<MessageDispatcher> m_dispatcher;
+        //RemoteConnection m_connection;
+        NetworkBeacon m_beacon;
 
         std::vector<Healthbar> m_healthbars;
 

@@ -5,8 +5,8 @@ namespace game
 {
     enum FontId
     {
-        SMALL,
-        MEDIUM,
-        LARGE
+        PIXELETTE_SMALL,
+        PIXELETTE_MEDIUM,
+        PIXELETTE_LARGE
     };
 }

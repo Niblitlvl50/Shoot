@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "NetworkMessage.h"
 #include <thread>
 
 namespace game
@@ -9,16 +10,18 @@ namespace game
     {
     public:
 
-        RemoteConnection();
+        RemoteConnection(class MessageDispatcher* dispatcher);
         ~RemoteConnection();
 
-        void SetBroadcast(bool enable);
+        void SendMessage(const NetworkMessage& message);
 
     private:
 
         bool m_stop;
-        bool m_broadcast;
-        std::thread m_commThread;
-        std::thread m_broadcastThread;
+        std::thread m_comm_thread;
+        std::thread m_outgoing_thread;
+
+        std::mutex m_message_mutex;
+        std::vector<NetworkMessage> m_unhandled_messages;
     };
 }

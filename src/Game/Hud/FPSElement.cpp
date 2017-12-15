@@ -16,7 +16,7 @@ void FPSElement::Draw(mono::IRenderer& renderer) const
     std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
     
     constexpr mono::Color::RGBA color(1, 0, 0, 1);
-    renderer.DrawText(game::LARGE, text, math::Vector(10, 10), false, color);
+    renderer.DrawText(game::PIXELETTE_LARGE, text, math::Vector(10, 10), false, color);
 
     m_counter++;
 }

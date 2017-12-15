@@ -9,6 +9,7 @@
 
 #include "Camera.h"
 #include "TestZone.h"
+#include "TitleScreen.h"
 #include "Factories.h"
 #include "Weapons/WeaponFactory.h"
 #include "Enemies/EnemyFactory.h"
@@ -32,12 +33,14 @@ int main(int argc, char* argv[])
         System::IWindow* window = System::CreateWindow("Game", window_size.x, window_size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
         
-        mono::LoadFont(game::FontId::SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
-        mono::LoadFont(game::FontId::MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
-        mono::LoadFont(game::FontId::LARGE,  "res/pixelette.ttf", 10.0f, 1.0f);
+        mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
+        mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
+        mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
         
         auto camera = std::make_shared<game::Camera>(32, 20, window_size.x, window_size.y, event_handler);
         mono::Engine engine(window, camera, event_handler);
+        
+        engine.Run(std::make_shared<game::TitleScreen>(event_handler));
         engine.Run(std::make_shared<game::TestZone>(event_handler));
 
         delete window;

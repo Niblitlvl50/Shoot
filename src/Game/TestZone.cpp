@@ -41,7 +41,9 @@ using namespace game;
 
 TestZone::TestZone(mono::EventHandler& eventHandler)
     : PhysicsZone(math::Vector(0.0f, 0.0f), 0.5f),
-      mEventHandler(eventHandler)
+      m_event_handler(eventHandler),
+      m_dispatcher(std::make_shared<MessageDispatcher>())
+      //m_connection(m_dispatcher.get())
 {
     using namespace std::placeholders;
     
@@ -53,26 +55,26 @@ TestZone::TestZone(mono::EventHandler& eventHandler)
     const game::SpawnConstraintFunc& constraintFunc = std::bind(&TestZone::OnSpawnConstraint, this, _1);
     const game::DespawnConstraintFunc& despawnConstraintFunc = std::bind(&TestZone::OnDespawnConstraint, this, _1);
 
-    mSpawnEntityToken = mEventHandler.AddListener(spawnEntityFunc);
-    mSpawnPhysicsEntityToken = mEventHandler.AddListener(spawnPhysicsFunc);
-    mRemoveEntityByIdToken = mEventHandler.AddListener(removeFunc);
-    mShockwaveEventToken = mEventHandler.AddListener(shockwaveFunc);
-    mDamageEventToken = mEventHandler.AddListener(damageFunc);
-    m_spawnConstraintToken = mEventHandler.AddListener(constraintFunc);
-    m_despawnConstraintToken = mEventHandler.AddListener(despawnConstraintFunc);
+    mSpawnEntityToken = m_event_handler.AddListener(spawnEntityFunc);
+    mSpawnPhysicsEntityToken = m_event_handler.AddListener(spawnPhysicsFunc);
+    mRemoveEntityByIdToken = m_event_handler.AddListener(removeFunc);
+    mShockwaveEventToken = m_event_handler.AddListener(shockwaveFunc);
+    mDamageEventToken = m_event_handler.AddListener(damageFunc);
+    m_spawnConstraintToken = m_event_handler.AddListener(constraintFunc);
+    m_despawnConstraintToken = m_event_handler.AddListener(despawnConstraintFunc);
 
     m_backgroundMusic = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
 }
 
 TestZone::~TestZone()
 {
-    mEventHandler.RemoveListener(mSpawnEntityToken);
-    mEventHandler.RemoveListener(mSpawnPhysicsEntityToken);
-    mEventHandler.RemoveListener(mRemoveEntityByIdToken);
-    mEventHandler.RemoveListener(mShockwaveEventToken);
-    mEventHandler.RemoveListener(mDamageEventToken);
-    mEventHandler.RemoveListener(m_spawnConstraintToken);
-    mEventHandler.RemoveListener(m_despawnConstraintToken);
+    m_event_handler.RemoveListener(mSpawnEntityToken);
+    m_event_handler.RemoveListener(mSpawnPhysicsEntityToken);
+    m_event_handler.RemoveListener(mRemoveEntityByIdToken);
+    m_event_handler.RemoveListener(mShockwaveEventToken);
+    m_event_handler.RemoveListener(mDamageEventToken);
+    m_event_handler.RemoveListener(m_spawnConstraintToken);
+    m_event_handler.RemoveListener(m_despawnConstraintToken);
 }
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
@@ -89,7 +91,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, world_header.polygons);
         game::g_navmesh = &m_navmesh;
         
-        //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, mEventHandler), BACKGROUND);
+        //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, m_event_handler), BACKGROUND);
     }
 
     {
@@ -105,10 +107,10 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         game::LoadWorldObjects(world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points);
 
         for(const auto& enemy : enemies)
-            AddPhysicsEntity(enemy, MIDDLEGROUND, nullptr);
+            AddPhysicsEntityWithCallback(enemy, MIDDLEGROUND, nullptr);
 
-        m_spawner = std::make_unique<Spawner>(spawn_points, mEventHandler);
-        m_player_daemon = std::make_unique<PlayerDaemon>(player_points, mEventHandler);
+        m_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
+        m_player_daemon = std::make_unique<PlayerDaemon>(player_points, m_event_handler);
         m_player_daemon->SetCamera(camera);
     }
 
@@ -123,26 +125,27 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     
     AddDrawable(hud_overlay, FOREGROUND);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
-
-    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
+    AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
+    AddUpdatable(m_dispatcher);
 
     m_backgroundMusic->Play();
 }
 
 void TestZone::OnUnload()
 {
+    //m_beacon.Stop();
     game::g_navmesh = nullptr;    
 }
 
 bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 {
-    AddEntity(event.entity, event.layer, event.destroyed_func);
+    AddEntityWithCallback(event.entity, event.layer, event.destroyed_func);
     return true;
 }
 
 bool TestZone::SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event)
 {
-    AddPhysicsEntity(event.entity, event.layer, event.destroyed_func);
+    AddPhysicsEntityWithCallback(event.entity, event.layer, event.destroyed_func);
     return true;
 }
 
@@ -201,13 +204,13 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
         config.scale = 1.5f;
         config.sprite_file = "res/sprites/explosion.sprite";
 
-        AddEntity(std::make_shared<Explosion>(config, mEventHandler), FOREGROUND, nullptr);
+        AddEntityWithCallback(std::make_shared<Explosion>(config, m_event_handler), FOREGROUND, nullptr);
     }
 
     return true;
 }
 
-void TestZone::AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
+void TestZone::AddEntityWithCallback(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
 {
     const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
     if(damagable)
@@ -216,7 +219,7 @@ void TestZone::AddEntity(const mono::IEntityPtr& entity, int layer, DestroyedFun
     PhysicsZone::AddEntity(entity, layer);
 }
 
-void TestZone::AddPhysicsEntity(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
+void TestZone::AddPhysicsEntityWithCallback(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
 {
     const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
     if(damagable)

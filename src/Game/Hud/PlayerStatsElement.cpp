@@ -26,5 +26,5 @@ void PlayerStatsElement::Draw(mono::IRenderer& renderer) const
     char text[32] = { '\0' };
     std::snprintf(text, 32, "Player - ammo: %u", m_info.ammunition);
 
-    renderer.DrawText(game::LARGE, text, m_position, false, color);
+    renderer.DrawText(game::PIXELETTE_LARGE, text, m_position, false, color);
 }
