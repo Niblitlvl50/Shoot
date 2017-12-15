@@ -58,6 +58,9 @@
         "set": "cpp",
         "string_view": "cpp",
         "__string": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "__mutex_base": "cpp",
+        "mutex": "cpp",
+        "cmath": "cpp"
     }
 }

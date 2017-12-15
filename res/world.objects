@@ -1,124 +1,270 @@
-{
-    "objects": [
-        {
-            "name": "blacksquare",
-            "position": {
-                "x": -22.1769752502441,
-                "y": -2.53307056427002
+[
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -12.4222068786621,
+                    "y": -22.6136093139648
+                }
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "cacodemon",
-            "position": {
-                "x": -31.3159332275391,
-                "y": -6.04546928405762
+            {
+                "name": "rotation",
+                "value": 0.0
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "shuttle",
-            "position": {
-                "x": -23.2722702026367,
-                "y": -2.89375495910645
+            {
+                "name": "spawn_tag",
+                "value": "blacksquare cacodemon"
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "cacodemon",
-            "position": {
-                "x": -23.9336452484131,
-                "y": 5.23963928222656
+            {
+                "name": "time_stamp",
+                "value": 3
             },
-            "rotation": 0.437510371208191
-        },
-        {
-            "name": "cacodemon",
-            "position": {
-                "x": -22.2848930358887,
-                "y": 6.00905418395996
+            {
+                "name": "radius",
+                "value": 5.0
+            }
+        ],
+        "name": "spawnpoint"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -44.6009521484375,
+                    "y": 12.9280261993408
+                }
             },
-            "rotation": 0.489130139350891
-        },
-        {
-            "name": "cacodemon",
-            "position": {
-                "x": -26.0770225524902,
-                "y": 4.25038909912109
+            {
+                "name": "rotation",
+                "value": 0.0
+            }
+        ],
+        "name": "cacodemon"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -41.6579208374023,
+                    "y": 11.8785877227783
+                }
             },
-            "rotation": 0.495195746421814
-        },
-        {
-            "name": "meteorite",
-            "position": {
-                "x": -24.1695442199707,
-                "y": 0.87720775604248
+            {
+                "name": "rotation",
+                "value": 0.0
+            }
+        ],
+        "name": "cacodemon"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": 1.06086349487305,
+                    "y": -14.5183582305908
+                }
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "meteorite",
-            "position": {
-                "x": -20.9891490936279,
-                "y": 1.66861724853516
+            {
+                "name": "rotation",
+                "value": 0.0
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "meteorite",
-            "position": {
-                "x": -14.1558151245117,
-                "y": 23.5139846801758
+            {
+                "name": "filepath",
+                "value": "smaller_loop"
+            }
+        ],
+        "name": "pathinvader"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -44.1744270324707,
+                    "y": 7.20381736755371
+                }
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "blacksquare",
-            "position": {
-                "x": -24.3823852539062,
-                "y": 21.7354507446289
+            {
+                "name": "rotation",
+                "value": 0.0
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "cacodemon",
-            "position": {
-                "x": -8.37557983398438,
-                "y": 32.2955017089844
+            {
+                "name": "spawn_tag",
+                "value": ""
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "playerpoint",
-            "position": {
-                "x": -46.8713569641113,
-                "y": 3.79260063171387
+            {
+                "name": "time_stamp",
+                "value": 5
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "spawnpoint",
-            "position": {
-                "x": -34.8752517700195,
-                "y": 20.5690956115723
+            {
+                "name": "radius",
+                "value": 1.0
+            }
+        ],
+        "name": "spawnpoint"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -53.0216598510742,
+                    "y": -18.1753616333008
+                }
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "spawnpoint",
-            "position": {
-                "x": -46.5482330322266,
-                "y": 23.852123260498
+            {
+                "name": "rotation",
+                "value": 0.0
             },
-            "rotation": 0.0
-        },
-        {
-            "name": "spawnpoint",
-            "position": {
-                "x": -53.1142883300781,
-                "y": 14.7326011657715
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -50.634391784668,
+                    "y": -15.5642623901367
+                }
             },
-            "rotation": 0.0
-        }
-    ]
-}
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -50.331916809082,
+                    "y": -22.3200950622559
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -57.2824401855469,
+                    "y": -19.2630729675293
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -55.0110702514648,
+                    "y": -25.5608215332031
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -53.3250427246094,
+                    "y": -22.0028266906738
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -54.719181060791,
+                    "y": -15.2140960693359
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    },
+    {
+        "attributes": [
+            {
+                "name": "position",
+                "value": {
+                    "x": -51.3987655639648,
+                    "y": -25.7792568206787
+                }
+            },
+            {
+                "name": "rotation",
+                "value": 0.0
+            },
+            {
+                "name": "trigger_radius",
+                "value": 10.0
+            }
+        ],
+        "name": "blacksquare"
+    }
+]
