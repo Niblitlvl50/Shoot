@@ -35,8 +35,8 @@ namespace game
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
 
-        int m_player_one_id;
-        int m_player_two_id;
+        int m_player_one_id = -1;
+        int m_player_two_id = -1;
         std::shared_ptr<Shuttle> m_player_one;
         std::shared_ptr<Shuttle> m_player_two;
         
