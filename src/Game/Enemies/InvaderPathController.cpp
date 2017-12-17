@@ -100,6 +100,9 @@ void InvaderPathController::doUpdate(unsigned int delta)
         return;
     }
 
+    if(!player_one.is_active)
+        return;
+
     const math::Vector& enemy_position = m_enemy->Position();
     const bool is_visible = math::PointInsideQuad(enemy_position, camera_viewport);
     if(!is_visible)
