@@ -91,8 +91,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.collision_radius = 0.4f;
             bullet_config.scale = 0.4;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
-            //bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
-            bullet_config.sprite_file = "res/sprites/generic.sprite";
+            bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
+            //bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
             bullet_config.sound_file = nullptr;
 
@@ -100,7 +100,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.rounds_per_second = 6.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 3.0f;
-            weapon_config.bullet_force = 40.0f;
+            weapon_config.bullet_force = 30.0f;
             weapon_config.fire_sound = "res/sound/laser.wav";
 
             break;

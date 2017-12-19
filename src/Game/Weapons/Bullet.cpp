@@ -21,10 +21,10 @@ namespace
 {
     void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
     {
-        constexpr int life = 500;
+        constexpr int life = 100;
 
         pool.m_position[index] = position;
-        pool.m_startColor[index] = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
+        pool.m_startColor[index] = mono::Color::RGBA(1.0f, 0.5f, 0.5f, 1.0f);
         pool.m_endColor[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
         pool.m_startLife[index] = life;
         pool.m_life[index] = life;
@@ -38,7 +38,7 @@ Bullet::Bullet(const BulletConfiguration& config)
 {
     m_scale = math::Vector(1.0f, 1.0f) * config.scale;
 
-    m_physics.body = mono::PhysicsFactory::CreateBody(1.0f, 1.0f);
+    m_physics.body = mono::PhysicsFactory::CreateBody(0.1f, 1.0f);
     m_physics.body->SetCollisionHandler(this);
 
     mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(

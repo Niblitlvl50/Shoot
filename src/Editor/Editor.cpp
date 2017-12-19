@@ -114,6 +114,11 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
 void Editor::OnUnload()
 { }
 
+int Editor::ExitCode()
+{
+    return 0;
+}
+
 void Editor::Load()
 {
     m_proxies = LoadWorld(m_fileName, m_object_factory);

@@ -37,7 +37,8 @@ namespace game
                 
         void OnLoad(mono::ICameraPtr& camera) override;
         void OnUnload() override;
-        
+        int ExitCode() override;
+
         bool SpawnEntity(const game::SpawnEntityEvent& event);
         bool SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event);
         bool OnRemoveEntity(const game::RemoveEntityEvent& event);

@@ -18,10 +18,14 @@ namespace game
 
         void OnLoad(mono::ICameraPtr& camera) override;
         void OnUnload() override;
+        int ExitCode() override;
+
+        void Continue();
+        void Quit();
 
         mono::EventHandler& m_event_handler;
         mono::EventToken<event::KeyUpEvent> m_key_token;
-
         std::vector<struct MoveActionContext> m_move_contexts;
+        int m_exit_zone = 0;
     };
 }

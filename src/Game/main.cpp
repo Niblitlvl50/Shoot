@@ -3,17 +3,15 @@
 #include "Audio/AudioSystem.h"
 #include "Rendering/RenderSystem.h"
 
-#include "Engine.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "EventHandler/EventHandler.h"
 
 #include "Camera.h"
-#include "TestZone.h"
-#include "TitleScreen.h"
 #include "Factories.h"
 #include "Weapons/WeaponFactory.h"
 #include "Enemies/EnemyFactory.h"
 #include "FontIds.h"
+#include "Zones/ZoneManager.h"
 
 int main(int argc, char* argv[])
 {
@@ -38,10 +36,9 @@ int main(int argc, char* argv[])
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
         
         auto camera = std::make_shared<game::Camera>(32, 20, window_size.x, window_size.y, event_handler);
-        mono::Engine engine(window, camera, event_handler);
-        
-        engine.Run(std::make_shared<game::TitleScreen>(event_handler));
-        engine.Run(std::make_shared<game::TestZone>(event_handler));
+
+        game::ZoneManager zone_manager(window, camera, event_handler);
+        zone_manager.Run();
 
         delete window;
         delete game::weapon_factory;

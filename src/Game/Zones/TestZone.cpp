@@ -137,6 +137,11 @@ void TestZone::OnUnload()
     game::g_navmesh = nullptr;    
 }
 
+int TestZone::ExitCode()
+{
+    return 0;
+}
+
 bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 {
     AddEntityWithCallback(event.entity, event.layer, event.destroyed_func);

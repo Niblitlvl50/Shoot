@@ -7,7 +7,7 @@ using namespace game;
 
 UIOverlayDrawer::UIOverlayDrawer()
 {
-    m_projection = math::Ortho(0.0f, 600.0f, 0.0f, 400.0f, -10.0f, 10.0f);    
+    m_projection = math::Ortho(0.0f, 300.0f, 0.0f, 200.0f, -10.0f, 10.0f);    
 }
 
 UIOverlayDrawer::~UIOverlayDrawer()

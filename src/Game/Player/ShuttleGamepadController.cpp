@@ -64,7 +64,7 @@ void ShuttleGamepadController::Update(unsigned int delta)
     const bool b = IS_TRIGGERED(b);
     const bool b_changed = HAS_CHANGED(b);
     if(b)
-        m_event_handler.DispatchEvent(event::TimeScaleEvent(0.5f));
+        m_event_handler.DispatchEvent(event::TimeScaleEvent(0.1f));
     else if(b_changed)
         m_event_handler.DispatchEvent(event::TimeScaleEvent(1.0f));
 
