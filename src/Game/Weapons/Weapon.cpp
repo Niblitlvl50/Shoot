@@ -12,6 +12,7 @@
 #include "RenderLayers.h"
 
 #include <cmath>
+#include <algorithm>
 
 using namespace game;
 
@@ -26,10 +27,14 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
         m_fireSound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
 
     m_ooa_sound = mono::AudioFactory::CreateSound("res/sound/ooa_sound.wav", false, false);
+    m_reload_sound = mono::AudioFactory::CreateSound("res/sound/shotgun-reload.wav", false, false);
 }
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 {
+    if(m_reload_sound->IsPlaying())
+        return WeaponFireResult::RELOADING;
+
     const float rpsHz = 1.0f / m_weaponConfig.rounds_per_second;
     const unsigned int weapon_delta = rpsHz * 1000.0f;
 
@@ -88,4 +93,5 @@ int Weapon::AmmunitionLeft() const
 void Weapon::Reload()
 {
     m_ammunition = m_weaponConfig.magazine_size;
+    m_reload_sound->Play();
 }

@@ -9,6 +9,7 @@ namespace game
     {
         NONE,
         FIRE,
+        RELOADING,
         OUT_OF_AMMO
     };
 

@@ -29,5 +29,6 @@ namespace game
 
         mono::ISoundPtr m_fireSound;
         mono::ISoundPtr m_ooa_sound;
+        mono::ISoundPtr m_reload_sound;
     };
 }
