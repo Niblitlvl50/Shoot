@@ -85,7 +85,7 @@ TitleScreen::~TitleScreen()
 bool TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 {
     if(event.key == Keycode::ENTER)
-        m_event_handler.DispatchEvent(event::QuitEvent());
+        Continue();
 
     return false;
 }
