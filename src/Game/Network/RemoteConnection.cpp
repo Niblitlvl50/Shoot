@@ -5,6 +5,9 @@
 #include "System/Network.h"
 #include "System/System.h"
 
+#include <algorithm>
+#include <cstdio>
+
 using namespace game;
 
 RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher)

@@ -14,6 +14,8 @@
 #include "Rendering/Color.h"
 #include "System/System.h"
 
+#include <functional>
+
 using namespace game;
 
 PlayerDaemon::PlayerDaemon(

@@ -3,6 +3,7 @@
 
 #include "NetworkMessage.h"
 #include <thread>
+#include <mutex>
 
 namespace game
 {

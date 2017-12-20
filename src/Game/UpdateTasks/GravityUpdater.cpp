@@ -6,14 +6,15 @@
 #include "Physics/IBody.h"
 
 #include <cmath>
+#include <functional>
 
 using namespace game;
 
 GravityUpdater::GravityUpdater(mono::IPhysicsZone* zone, const mono::IEntityPtr& moon1, const mono::IEntityPtr& moon2)
-    : mZone(zone),
-        mMoon1(moon1),
-        mMoon2(moon2),
-        mElapsedTime(0)
+    : mZone(zone)
+    , mMoon1(moon1)
+    , mMoon2(moon2)
+    , mElapsedTime(0)
 { }
 
 void GravityUpdater::doUpdate(unsigned int delta)

@@ -15,6 +15,7 @@
 
 #include "RenderLayers.h"
 
+#include <functional>
 
 namespace
 {

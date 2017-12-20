@@ -12,9 +12,9 @@
 using namespace game;
 
 HealthbarUpdater::HealthbarUpdater(std::vector<Healthbar>& healthbars, const DamageController& damage_controller, const mono::IPhysicsZone& zone)
-    : m_healthbars(healthbars),
-        m_damageController(damage_controller),
-        m_zone(zone)
+    : m_healthbars(healthbars)
+    , m_damageController(damage_controller)
+    , m_zone(zone)
 { }
 
 void HealthbarUpdater::doUpdate(unsigned int delta)
@@ -52,5 +52,4 @@ void HealthbarUpdater::doUpdate(unsigned int delta)
         bar.health_percentage = float(record.second.health) / 100.0f;
         m_healthbars.push_back(bar);
     }
-
 }
