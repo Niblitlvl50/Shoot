@@ -3,6 +3,7 @@
 #include "ZoneFlow.h"
 
 #include "UI/TextEntity.h"
+#include "UI/IconEntity.h"
 #include "UI/Background.h"
 #include "RenderLayers.h"
 #include "Actions/MoveAction.h"
@@ -113,9 +114,18 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
     dont_die_text->m_text_color = mono::Color::RGBA(0.9, 0.9, 0.0, 1.0f);
     dont_die_text->SetPosition(dont_die_position);
 
-    auto hit_enter_text = std::make_shared<TextEntity>("Hit enter", FontId::PIXELETTE_SMALL, true);
+    auto hit_enter_text = std::make_shared<TextEntity>("Hit enter, or   /", FontId::PIXELETTE_SMALL, true);
     hit_enter_text->m_shadow_color = mono::Color::RGBA(0.3, 0.3, 0.3, 1);
     hit_enter_text->SetPosition(math::Vector(viewport.mB.x / 2.0f, 2.0f));
+
+    auto ps_cross = std::make_shared<IconEntity>("res/sprites/ps_cross.sprite");
+    ps_cross->SetPosition(math::Vector(3.0f, 0.25f));
+
+    auto xbox_a = std::make_shared<IconEntity>("res/sprites/xbox_one_a.sprite");
+    xbox_a->SetPosition(math::Vector(4.65f, 0.25f));
+
+    hit_enter_text->AddChild(ps_cross);
+    hit_enter_text->AddChild(xbox_a);
 
     game::MoveActionContext title_text_animation;
     title_text_animation.entity = title_text;

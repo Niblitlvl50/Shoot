@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 13,
-            "name": "meteorite1",
-            "w": 12,
-            "x": 480,
-            "y": 257
+            "h": 82,
+            "name": "ps_cross",
+            "w": 82,
+            "x": 2,
+            "y": 2
         }
     ],
     "texture": "res/sprite_atlas.png"
