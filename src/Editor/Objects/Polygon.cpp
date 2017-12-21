@@ -9,6 +9,7 @@
 #include "Math/MathFunctions.h"
 
 #include <cassert>
+#include <cstring>
 
 namespace
 {

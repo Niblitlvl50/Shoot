@@ -4,6 +4,7 @@
 #include "Math/Vector.h"
 #include <assert.h>
 #include <algorithm>
+#include <cstring>
 
 class ObjectAttribute
 {

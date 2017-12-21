@@ -10,6 +10,7 @@
 #include "Math/MathFunctions.h"
 
 #include <algorithm>
+#include <cmath>
 
 #define IS_TRIGGERED(variable) (!m_last_state.variable && m_state.variable)
 #define HAS_CHANGED(variable) (m_last_state.variable != m_state.variable)

@@ -6,6 +6,8 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
+#include <algorithm>
+
 using namespace editor;
 
 namespace

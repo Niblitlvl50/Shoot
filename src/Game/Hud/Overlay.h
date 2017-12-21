@@ -4,6 +4,7 @@
 #include "Rendering/IDrawable.h"
 #include "Math/Matrix.h"
 
+#include <memory>
 #include <vector>
 
 namespace game
