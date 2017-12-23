@@ -2,7 +2,6 @@
 #pragma once
 
 #include <cstring>
-#include <string.h>
 
 namespace editor
 {
