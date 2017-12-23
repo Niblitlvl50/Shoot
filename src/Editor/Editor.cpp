@@ -31,6 +31,8 @@
 #include "Visualizers/ScaleVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
 
+#include <algorithm>
+
 namespace
 {
     void SetupIcons(
