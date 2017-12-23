@@ -10,11 +10,22 @@
 #include "Math/MathFunctions.h"
 
 #include <algorithm>
+#include <cmath>
 
 #define IS_TRIGGERED(variable) (!m_last_state.variable && m_state.variable)
 #define HAS_CHANGED(variable) (m_last_state.variable != m_state.variable)
 
 using namespace game;
+
+namespace
+{
+    template<class T>
+    constexpr const T& clamp(const T& value, const T& min, const T& max)
+    {
+        return std::max(min, std::min(value, max));
+    }
+}
+
 
 ShuttleGamepadController::ShuttleGamepadController(
     game::Shuttle* shuttle, mono::EventHandler& event_handler, const System::ControllerState& controller)
@@ -38,9 +49,11 @@ void ShuttleGamepadController::Update(unsigned int delta)
     const bool left_shoulder = IS_TRIGGERED(left_shoulder);
     const bool right_shoulder = IS_TRIGGERED(right_shoulder);
     if(left_shoulder)
-        m_current_weapon_index = std::max(0, --m_current_weapon_index);
+        --m_current_weapon_index;
     else if(right_shoulder)
-        m_current_weapon_index = std::min(N_WEAPON_TYPES, ++m_current_weapon_index);
+        ++m_current_weapon_index;
+
+    m_current_weapon_index = clamp(m_current_weapon_index, 0, N_WEAPON_TYPES);
         
     if(left_shoulder || right_shoulder)
         m_shuttle->SelectWeapon(static_cast<WeaponType>(m_current_weapon_index));

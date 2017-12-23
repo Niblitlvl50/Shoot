@@ -38,7 +38,7 @@ void GravityUpdater::GravityFunc(const mono::IBodyPtr& body)
     if(distance < 300.0f)
     {
         const float gravity = 1e4f;
-        const float value = -gravity / (distance * std::sqrtf(distance));
+        const float value = -gravity / (distance * std::sqrt(distance));
     
         math::Normalize(newPos);
         newPos *= value;
@@ -51,7 +51,7 @@ void GravityUpdater::GravityFunc(const mono::IBodyPtr& body)
     if(distance2 < 200.0f)
     {
         const float gravity = 1e4f;
-        const float value = -gravity / (distance2 * std::sqrtf(distance2));
+        const float value = -gravity / (distance2 * std::sqrt(distance2));
         
         math::Normalize(newPos2);
         newPos2 *= value;
@@ -61,3 +61,4 @@ void GravityUpdater::GravityFunc(const mono::IBodyPtr& body)
     
     body->ApplyImpulse(impulse, body->GetPosition());
 }
+

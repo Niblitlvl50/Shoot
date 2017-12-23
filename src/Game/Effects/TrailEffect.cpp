@@ -9,6 +9,8 @@
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 
+#include <limits>
+
 using namespace game;
 
 namespace
