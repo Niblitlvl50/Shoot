@@ -16,7 +16,6 @@
 int main(int argc, char* argv[])
 {
     System::Initialize();
-    //System::SetCursorVisibility(System::CursorVisibility::HIDDEN);
 
     mono::InitializeAudio();
     mono::InitializeRender();
