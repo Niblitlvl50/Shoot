@@ -7,13 +7,14 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE Debug)
 # set(CMAKE_BUILD_TYPE Release)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra -Wno-unused-parameter")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter")
 
 add_subdirectory("Mono1/")
-include_directories("Mono1/MonoEngine" "Mono1/External Libs" "src/Shared")
+include_directories("Mono1/MonoEngine" "Mono1/third_party" "src/Shared")
 
 # Shared code
 file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
