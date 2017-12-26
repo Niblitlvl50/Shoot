@@ -113,10 +113,7 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
 }
 
-void Editor::OnUnload()
-{ }
-
-int Editor::ExitCode()
+int Editor::OnUnload()
 {
     return 0;
 }

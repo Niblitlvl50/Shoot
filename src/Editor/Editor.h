@@ -35,8 +35,7 @@ namespace editor
         virtual ~Editor();
 
         void OnLoad(mono::ICameraPtr& camera) override;
-        void OnUnload() override;
-        int ExitCode() override;
+        int OnUnload() override;
 
         void Load();
         void Save();

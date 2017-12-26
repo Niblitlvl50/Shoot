@@ -36,8 +36,7 @@ namespace game
         ~TestZone();
                 
         void OnLoad(mono::ICameraPtr& camera) override;
-        void OnUnload() override;
-        int ExitCode() override;
+        int OnUnload() override;
 
         bool SpawnEntity(const game::SpawnEntityEvent& event);
         bool SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event);

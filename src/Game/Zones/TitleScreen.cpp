@@ -168,10 +168,7 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
     AddEntity(hit_enter_text, LayerId::FOREGROUND);
 }
 
-void TitleScreen::OnUnload()
-{ }
-
-int TitleScreen::ExitCode()
+int TitleScreen::OnUnload()
 {
     return m_exit_zone;
 }

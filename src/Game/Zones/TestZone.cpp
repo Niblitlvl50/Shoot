@@ -40,7 +40,7 @@
 using namespace game;
 
 TestZone::TestZone(mono::EventHandler& eventHandler)
-    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.5f),
+    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.8f),
       m_event_handler(eventHandler),
       m_dispatcher(std::make_shared<MessageDispatcher>())
       //m_connection(m_dispatcher.get())
@@ -131,14 +131,10 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     m_backgroundMusic->Play();
 }
 
-void TestZone::OnUnload()
+int TestZone::OnUnload()
 {
     //m_beacon.Stop();
-    game::g_navmesh = nullptr;    
-}
-
-int TestZone::ExitCode()
-{
+    game::g_navmesh = nullptr;
     return 0;
 }
 
