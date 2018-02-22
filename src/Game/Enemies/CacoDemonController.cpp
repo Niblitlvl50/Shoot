@@ -35,6 +35,7 @@ void CacoDemonController::Initialize(Enemy* enemy)
 
 void CacoDemonController::doUpdate(unsigned int delta)
 {
-    m_weapon->Fire(m_enemy->Position(), m_enemy->Rotation());
-    m_weapon->Reload();
+    const WeaponFireResult fire_result = m_weapon->Fire(m_enemy->Position(), m_enemy->Rotation());
+    if(fire_result == WeaponFireResult::OUT_OF_AMMO)
+        m_weapon->Reload();
 }

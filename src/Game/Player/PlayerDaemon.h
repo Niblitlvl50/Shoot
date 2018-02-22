@@ -23,6 +23,8 @@ namespace game
         ~PlayerDaemon();
 
         void SetCamera(const mono::ICameraPtr& camera);
+        void SpawnPlayer1();
+        void SpawnPlayer2();
 
     private:
 

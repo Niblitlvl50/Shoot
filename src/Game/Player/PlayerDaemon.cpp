@@ -25,17 +25,17 @@ PlayerDaemon::PlayerDaemon(
 {
     using namespace std::placeholders;
 
-    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
-    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
-
-    m_added_token = m_event_handler.AddListener(added_func);
-    m_removed_token = m_event_handler.AddListener(removed_func);
+//    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
+//    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
+//
+//    m_added_token = m_event_handler.AddListener(added_func);
+//    m_removed_token = m_event_handler.AddListener(removed_func);
 }
 
 PlayerDaemon::~PlayerDaemon()
 {
-    m_event_handler.RemoveListener(m_added_token);
-    m_event_handler.RemoveListener(m_removed_token);
+//    m_event_handler.RemoveListener(m_added_token);
+//    m_event_handler.RemoveListener(m_removed_token);
 }
 
 void PlayerDaemon::SetCamera(const mono::ICameraPtr& camera)
@@ -43,42 +43,55 @@ void PlayerDaemon::SetCamera(const mono::ICameraPtr& camera)
     m_camera = camera;
 }
 
-bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+void PlayerDaemon::SpawnPlayer1()
 {
     const math::Vector& spawn_point = m_player_points.empty() ? math::zeroVec : m_player_points.front();
 
+    m_player_one =
+        std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Primary));
+    m_player_one->SetPlayerInfo(&game::player_one);
+    //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
+
+    game::player_one.is_active = true;
+
+    m_camera->Follow(m_player_one, math::zeroVec);
+
+    const auto destroyed_func = [this](unsigned int id) {
+        game::player_one.is_active = false;
+    };
+
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, FOREGROUND, destroyed_func));
+}
+
+void PlayerDaemon::SpawnPlayer2()
+{
+    const math::Vector& spawn_point = m_player_points.empty() ? math::zeroVec : m_player_points.front();
+
+    m_player_two =
+        std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Secondary));
+    m_player_two->SetPlayerInfo(&game::player_two);
+    m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
+
+    game::player_two.is_active = true;
+    
+    const auto destroyed_func = [this](unsigned int id) {
+        game::player_two.is_active = false;
+    };
+    
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, FOREGROUND, destroyed_func));
+}
+
+bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+{
     if(!m_player_one)
     {
-        m_player_one = std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(event.id));
-        m_player_one->SetPlayerInfo(&game::player_one);
-        //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
-
-        game::player_one.is_active = true;
-
+        SpawnPlayer1();
         m_player_one_id = event.id;
-        m_camera->Follow(m_player_one, math::zeroVec);
-
-        const auto destroyed_func = [this](unsigned int id) {
-            game::player_one.is_active = false;
-        };
-
-        m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, FOREGROUND, destroyed_func));
     }
     else
     {
-        m_player_two = std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(event.id));
-        m_player_two->SetPlayerInfo(&game::player_two);
-        m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
-
-        game::player_two.is_active = true;
-        
+        SpawnPlayer2();
         m_player_two_id = event.id;
-
-        const auto destroyed_func = [this](unsigned int id) {
-            game::player_two.is_active = false;
-        };
-        
-        m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, FOREGROUND, destroyed_func));
     }
 
     return false;

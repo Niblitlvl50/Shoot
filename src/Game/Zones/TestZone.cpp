@@ -112,6 +112,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         m_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
         m_player_daemon = std::make_unique<PlayerDaemon>(player_points, m_event_handler);
         m_player_daemon->SetCamera(camera);
+        m_player_daemon->SpawnPlayer1();
     }
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
@@ -119,7 +120,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddElement(std::make_unique<FPSElement>());
+    hud_overlay->AddElement(std::make_unique<FPSElement>(math::Vector(10, 10)));
     hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_one, math::Vector(10, 0)));
     hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_two, math::Vector(200, 0)));
     
@@ -128,7 +129,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
     AddUpdatable(m_dispatcher);
 
-    m_backgroundMusic->Play();
+    //m_backgroundMusic->Play();
 }
 
 int TestZone::OnUnload()

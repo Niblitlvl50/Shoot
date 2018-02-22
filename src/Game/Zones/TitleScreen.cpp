@@ -52,7 +52,7 @@ namespace
 
         void doUpdate(unsigned int delta)
         {
-            const System::ControllerState& state = System::GetController(0);
+            const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
             const bool a_pressed = IS_TRIGGERED(a) && HAS_CHANGED(a);
             const bool y_pressed = IS_TRIGGERED(y) && HAS_CHANGED(y);
