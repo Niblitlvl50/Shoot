@@ -12,6 +12,7 @@ namespace game
         float scale = 1.0f;
         float rotation = 0.0f;
         const char* sprite_file = nullptr;
+        const char* sound_file = nullptr;
     };
 
     class Explosion : public mono::EntityBase
@@ -25,5 +26,6 @@ namespace game
     private:
 
         mono::ISpritePtr m_sprite;
+        mono::ISoundPtr m_sound;
     };
 }
