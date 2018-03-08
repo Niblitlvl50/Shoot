@@ -26,13 +26,16 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
     if(config.fire_sound)
         m_fireSound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
 
-    m_ooa_sound = mono::AudioFactory::CreateSound("res/sound/ooa_sound.wav", false, false);
-    m_reload_sound = mono::AudioFactory::CreateSound("res/sound/shotgun-reload.wav", false, false);
+    if(config.out_of_ammo_sound)
+        m_ooa_sound = mono::AudioFactory::CreateSound(config.out_of_ammo_sound, false, false);
+    
+    if(config.reload_sound)
+        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, false, false);
 }
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 {
-    if(m_reload_sound->IsPlaying())
+    if(m_reload_sound && m_reload_sound->IsPlaying())
         return WeaponFireResult::RELOADING;
 
     const float rpsHz = 1.0f / m_weaponConfig.rounds_per_second;
@@ -53,8 +56,12 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
         {
             m_currentFireRate = 1.0f;
 
-            m_ooa_sound->Position(position.x, position.y);
-            m_ooa_sound->Play();
+            if(m_ooa_sound)
+            {
+                m_ooa_sound->Position(position.x, position.y);
+                m_ooa_sound->Play();
+            }
+
             return WeaponFireResult::OUT_OF_AMMO;
         }
 
@@ -93,5 +100,7 @@ int Weapon::AmmunitionLeft() const
 void Weapon::Reload()
 {
     m_ammunition = m_weaponConfig.magazine_size;
-    m_reload_sound->Play();
+
+    if(m_reload_sound)
+        m_reload_sound->Play();
 }

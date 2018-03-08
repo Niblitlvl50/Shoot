@@ -38,7 +38,10 @@ namespace game
         float fire_rate_multiplier = 1.0f;
         float max_fire_rate = 1.0f;
         float bullet_force = 1.0f;
+        
         const char* fire_sound = nullptr;
+        const char* out_of_ammo_sound = nullptr;
+        const char* reload_sound = nullptr;
 
         BulletConfiguration bullet_config;
     };
