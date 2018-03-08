@@ -1,6 +1,7 @@
 
 #include "TitleScreen.h"
 #include "ZoneFlow.h"
+#include "Effects/ScreenSparkles.h"
 
 #include "UI/TextEntity.h"
 #include "UI/IconEntity.h"
@@ -163,9 +164,10 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
 
     AddEntity(background2, LayerId::BACKGROUND);
     AddEntity(background1, LayerId::BACKGROUND);
-    AddEntity(title_text, LayerId::FOREGROUND);
-    AddEntity(dont_die_text, LayerId::FOREGROUND);
-    AddEntity(hit_enter_text, LayerId::FOREGROUND);
+    AddEntity(std::make_shared<ScreenSparkles>(math::Vector(viewport.mB.x, viewport.mB.y / 2.0f)), LayerId::BACKGROUND);
+    AddEntity(title_text, LayerId::MIDDLEGROUND);
+    AddEntity(dont_die_text, LayerId::MIDDLEGROUND);
+    AddEntity(hit_enter_text, LayerId::MIDDLEGROUND);
 }
 
 int TitleScreen::OnUnload()
