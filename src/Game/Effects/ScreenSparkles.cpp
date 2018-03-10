@@ -8,15 +8,19 @@
 #include "Random.h"
 
 #include "Math/MathFunctions.h"
+#include "Math/Quad.h"
 
 using namespace game;
 
 namespace
 {
-    void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
     {
-        const float x = 0.0f; //mono::Random(-50.0f, 2.0f);
-        const float y = mono::Random(-50.0f, 50.0f);
+        const math::Quad* viewport = static_cast<const math::Quad*>(context);
+        const float half_height = viewport->mB.y / 2.0f;
+
+        const float x = 0.0f;
+        const float y = mono::Random(-half_height, half_height);
 
         const float velocity_x = mono::Random(-20.0f, -10.0f);
         const float velocity_y = mono::Random(-2.0f, 2.0f);
@@ -32,20 +36,25 @@ namespace
     }
 }
 
-ScreenSparkles::ScreenSparkles(const math::Vector& position)
+ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
+    : m_viewport(viewport)
 {
-    m_position = position;
+    const float x = viewport.mB.x;
+    const float y = viewport.mB.y / 2.0f;
+
+    m_position = math::Vector(x, y);
 
     mono::ParticleEmitter::Configuration emit_config;
     //emit_config.position = math::Vector(200, 100);
-    emit_config.generator = Generator;
     emit_config.emit_rate = 0.2f;
+    emit_config.generator = Generator;
+    emit_config.generator_context = &m_viewport;
 
     mono::ParticleDrawer::Configuration draw_config;
     draw_config.texture = mono::CreateTexture("res/textures/flare.png");
     draw_config.point_size = 12.0f;
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
+    m_pool = std::make_unique<mono::ParticlePool>(500, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
     m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }
@@ -62,5 +71,4 @@ void ScreenSparkles::Update(unsigned int delta)
 {
     m_emitter->doUpdate(delta);
     m_pool->doUpdate(delta);
-    //mRotation += math::ToRadians(0.1) * float(delta);
 }

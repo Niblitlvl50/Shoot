@@ -19,7 +19,7 @@
 
 namespace
 {
-    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
     {
         constexpr int life = 100;
 

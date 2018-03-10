@@ -100,7 +100,7 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<MoveContextUpdater>(m_move_contexts));
     AddUpdatable(std::make_shared<CheckControllerInput>(this));
 
-    auto background1 = std::make_shared<Background>(viewport, mono::Color::HSL(0.1f, 0.3f, 0.5f));
+    auto background1 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.6f, 0.5f));
     auto background2 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.3f, 0.5f));
 
     auto title_text = std::make_shared<TextEntity>("Shoot, Survive!", FontId::PIXELETTE_LARGE, false);
@@ -164,7 +164,7 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
 
     AddEntity(background2, LayerId::BACKGROUND);
     AddEntity(background1, LayerId::BACKGROUND);
-    AddEntity(std::make_shared<ScreenSparkles>(math::Vector(viewport.mB.x, viewport.mB.y / 2.0f)), LayerId::BACKGROUND);
+    AddEntity(std::make_shared<ScreenSparkles>(viewport), LayerId::BACKGROUND);
     AddEntity(title_text, LayerId::MIDDLEGROUND);
     AddEntity(dont_die_text, LayerId::MIDDLEGROUND);
     AddEntity(hit_enter_text, LayerId::MIDDLEGROUND);

@@ -13,7 +13,7 @@ using namespace game;
 
 namespace
 {
-    void SmokeGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    void SmokeGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
     {
         const float x = mono::Random(-2.0f, 2.0f);
         const float y = mono::Random(-2.0f, 2.0f);
@@ -42,7 +42,7 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     draw_config.texture = mono::CreateTexture("res/textures/smoke.png");
     draw_config.point_size = 64.0f;
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
     m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
 }

@@ -56,7 +56,7 @@ void PlayerDaemon::SpawnPlayer1()
 
     m_camera->Follow(m_player_one, math::zeroVec);
 
-    const auto destroyed_func = [this](unsigned int id) {
+    const auto destroyed_func = [](unsigned int id) {
         game::player_one.is_active = false;
     };
 
@@ -74,7 +74,7 @@ void PlayerDaemon::SpawnPlayer2()
 
     game::player_two.is_active = true;
     
-    const auto destroyed_func = [this](unsigned int id) {
+    const auto destroyed_func = [](unsigned int id) {
         game::player_two.is_active = false;
     };
     

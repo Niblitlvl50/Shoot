@@ -103,7 +103,7 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     m_right_booster->SetRotation(math::PI_2());
     m_right_booster->SetPosition(math::Vector(0.6f, 0.0f));
     
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
 
     mono::ParticleDrawer::Configuration particle_config;
     particle_config.point_size = 10.0f;
