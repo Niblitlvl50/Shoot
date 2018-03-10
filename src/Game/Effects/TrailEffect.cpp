@@ -37,12 +37,11 @@ TrailEffect::TrailEffect(const math::Vector& position)
     config.generator = TrailGenerator;
     config.emit_rate = 0.2f;
     
-    mono::ParticleDrawer::Configuration draw_config;
-    draw_config.texture = mono::CreateTexture("res/textures/flare.png");
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
 
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool);
-    m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 }
 
 TrailEffect::~TrailEffect()

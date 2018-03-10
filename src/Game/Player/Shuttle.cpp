@@ -105,10 +105,8 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
 
-    mono::ParticleDrawer::Configuration particle_config;
-    particle_config.texture = mono::CreateTexture("res/textures/flare.png");
-
-    m_particle_drawer = std::make_unique<mono::ParticleDrawer>(particle_config, *m_pool);
+    mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    m_particle_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 
     AddChild(std::make_shared<game::TrailEffect>(m_position));
     AddChild(m_left_booster);

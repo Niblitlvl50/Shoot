@@ -40,12 +40,11 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     emit_config.generator = SmokeGenerator;
     emit_config.emit_rate = 0.1f;
 
-    mono::ParticleDrawer::Configuration draw_config;
-    draw_config.texture = mono::CreateTexture("res/textures/smoke.png");
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
 
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
-    m_drawer = std::make_unique<mono::ParticleDrawer>(draw_config, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 }
 
 SmokeEffect::~SmokeEffect()
