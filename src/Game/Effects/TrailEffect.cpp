@@ -20,9 +20,11 @@ namespace
         constexpr int life = 500;
 
         pool.m_position[index] = position;
-        pool.m_startColor[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.m_endColor[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
-        pool.m_startLife[index] = life;
+        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = 16.0f;
+        pool.m_end_size[index] = 10.0f;
+        pool.m_start_life[index] = life;
         pool.m_life[index] = life;
     }
 }
@@ -37,7 +39,6 @@ TrailEffect::TrailEffect(const math::Vector& position)
     
     mono::ParticleDrawer::Configuration draw_config;
     draw_config.texture = mono::CreateTexture("res/textures/flare.png");
-    draw_config.point_size = 16.0f;
 
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool);

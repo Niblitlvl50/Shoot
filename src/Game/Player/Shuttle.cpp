@@ -106,7 +106,6 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
 
     mono::ParticleDrawer::Configuration particle_config;
-    particle_config.point_size = 10.0f;
     particle_config.texture = mono::CreateTexture("res/textures/flare.png");
 
     m_particle_drawer = std::make_unique<mono::ParticleDrawer>(particle_config, *m_pool);
@@ -131,7 +130,7 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
     renderer.DrawSprite(*m_sprite);
 
     char text[32] = { '\0' };
-    std::snprintf(text, 32, "%zu", m_pool->m_countAlive);
+    std::snprintf(text, 32, "%zu", m_pool->m_count_alive);
 
     constexpr mono::Color::RGBA color(1, 0, 0);
     renderer.DrawText(0, text, math::zeroVec, true, color);

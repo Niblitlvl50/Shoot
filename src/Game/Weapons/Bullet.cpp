@@ -24,9 +24,9 @@ namespace
         constexpr int life = 100;
 
         pool.m_position[index] = position;
-        pool.m_startColor[index] = mono::Color::RGBA(1.0f, 0.5f, 0.5f, 1.0f);
-        pool.m_endColor[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
-        pool.m_startLife[index] = life;
+        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.5f, 0.5f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_life[index] = life;
         pool.m_life[index] = life;
     }
 }

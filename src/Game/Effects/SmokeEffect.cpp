@@ -22,9 +22,11 @@ namespace
 
         pool.m_position[index] = position;
         pool.m_velocity[index] = math::Vector(x, y);
-        pool.m_startColor[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.m_endColor[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 0.1f);
-        pool.m_startLife[index] = life;
+        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = 64.0f;
+        pool.m_end_size[index] = 1.0f;
+        pool.m_start_life[index] = life;
         pool.m_life[index] = life;
     }
 }
@@ -40,7 +42,6 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
 
     mono::ParticleDrawer::Configuration draw_config;
     draw_config.texture = mono::CreateTexture("res/textures/smoke.png");
-    draw_config.point_size = 64.0f;
 
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
