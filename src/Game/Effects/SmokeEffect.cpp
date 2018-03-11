@@ -38,7 +38,9 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     mono::ParticleEmitter::Configuration emit_config;
     //emit_config.position = position;
     emit_config.generator = SmokeGenerator;
-    emit_config.emit_rate = 0.1f;
+    emit_config.burst = true;
+    emit_config.duration = 1.0f;
+    emit_config.emit_rate = 100.0f;
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
 

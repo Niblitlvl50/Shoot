@@ -35,7 +35,8 @@ TrailEffect::TrailEffect(const math::Vector& position)
     mono::ParticleEmitter::Configuration config;
     //config.position = position;
     config.generator = TrailGenerator;
-    config.emit_rate = 0.2f;
+    config.emit_rate = 100.0f;
+    config.duration = -1.0f;
     
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
 

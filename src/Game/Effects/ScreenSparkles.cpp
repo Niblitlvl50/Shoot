@@ -38,7 +38,7 @@ namespace
     }
 }
 
-ScreenSparkles::ScreenSparkles(const math::Quad& viewport, float particle_size)
+ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
     : m_viewport(viewport)
 {
     const float x = viewport.mB.x;
@@ -48,14 +48,16 @@ ScreenSparkles::ScreenSparkles(const math::Quad& viewport, float particle_size)
 
     mono::ParticleEmitter::Configuration emit_config;
     //emit_config.position = math::Vector(200, 100);
-    emit_config.emit_rate = 0.2f;
+    emit_config.duration = -1.0f;
+    emit_config.emit_rate = 100.0f;
+    emit_config.burst = false;
     emit_config.generator = Generator;
     emit_config.generator_context = &m_viewport;
 
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
-
     m_pool = std::make_unique<mono::ParticlePool>(500, mono::DefaultUpdater, nullptr);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
+
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
     m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 }
 

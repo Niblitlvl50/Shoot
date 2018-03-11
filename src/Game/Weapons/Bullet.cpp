@@ -70,7 +70,8 @@ Bullet::Bullet(const BulletConfiguration& config)
     {
         mono::ParticleEmitter::Configuration emitter_config;
         emitter_config.generator = SimpleGenerator;
-        emitter_config.emit_rate = 0.1f;
+        emitter_config.emit_rate = 80.0f;
+        emitter_config.duration = -1.0f;
 
         m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, *config.pool);
     }

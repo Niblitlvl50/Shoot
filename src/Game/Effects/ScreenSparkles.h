@@ -12,7 +12,7 @@ namespace game
     {
     public:
 
-        ScreenSparkles(const math::Quad& viewport, float particle_size);
+        ScreenSparkles(const math::Quad& viewport);
         virtual ~ScreenSparkles();
 
         void Draw(mono::IRenderer& renderer) const override;
