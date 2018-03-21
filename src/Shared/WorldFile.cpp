@@ -29,7 +29,7 @@ bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
     return true;
 }
 
-bool world::ReadWorld(File::FilePtr& file, LevelFileHeader& level)
+bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
 {
     std::vector<byte> bytes;
     File::FileRead(file, bytes);
@@ -94,7 +94,7 @@ bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHea
     return true;
 }
 
-bool world::ReadWorldObjects2(File::FilePtr& file, world::WorldObjectsHeader& objects)
+bool world::ReadWorldObjects2(const File::FilePtr& file, world::WorldObjectsHeader& objects)
 {
     if(!file)
         return false;
@@ -141,7 +141,7 @@ bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject
 {
     nlohmann::json json_object_collection;
     
-    for(auto& object : objects)
+    for(const auto& object : objects)
     {
         nlohmann::json json_object;
 
@@ -169,7 +169,7 @@ bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject
     return true;
 }
 
-bool world::ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& objects)
+bool world::ReadWorldObjects(const File::FilePtr& file, std::vector<WorldObject>& objects)
 {    
     std::vector<byte> file_data;
     File::FileRead(file, file_data);
@@ -179,9 +179,11 @@ bool world::ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& obje
 
     for(const auto& json_object : json_objects)
     {
-        WorldObject object;
+        const std::string& object_name = json_object["name"];
 
-        //object.name = json_object["name"];
+        WorldObject object;
+        std::memset(object.name, 0, 24);
+        std::memcpy(object.name, object_name.data(), 23);
 
         for(auto& json_attribute : json_object["attributes"])
         {
