@@ -88,7 +88,7 @@ bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHea
 
         std::fwrite(&world_object.name, sizeof(char), 24, file.get());
         std::fwrite(&n_attributes, sizeof(int), 1, file.get());
-        std::fwrite(world_object.attributes.data(), sizeof(ID_Attribute), n_attributes, file.get());
+        std::fwrite(world_object.attributes.data(), sizeof(Attribute), n_attributes, file.get());
     }
 
     return true;
@@ -129,8 +129,8 @@ bool world::ReadWorldObjects2(File::FilePtr& file, world::WorldObjectsHeader& ob
 
         world_object.attributes.resize(n_attributes);
 
-        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(ID_Attribute) * n_attributes);
-        offset += sizeof(ID_Attribute) * n_attributes;
+        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(Attribute) * n_attributes);
+        offset += sizeof(Attribute) * n_attributes;
     }
 
     return true;
@@ -153,7 +153,7 @@ bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject
             nlohmann::json json_attribute;
             json_attribute["id"] = attribute.id;
             json_attribute["type"] = static_cast<int>(attribute.attribute.type);
-            json_attribute["data"] = attribute.attribute.data.string_value;
+            json_attribute["data"] = attribute.attribute.string_value;
             attributes.push_back(json_attribute);
         }
 
@@ -185,14 +185,14 @@ bool world::ReadWorldObjects(File::FilePtr& file, std::vector<WorldObject>& obje
 
         for(auto& json_attribute : json_object["attributes"])
         {
-            ID_Attribute attribute;
+            Attribute attribute;
             attribute.id = json_attribute["id"];
                         
             const std::string data = json_attribute["data"];
             attribute.attribute = data.c_str();
             
             const int type = static_cast<int>(json_attribute["type"]);
-            attribute.attribute.type = ObjectAttribute::Type(type);
+            attribute.attribute.type = Variant::Type(type);
             
             object.attributes.push_back(attribute);
         }

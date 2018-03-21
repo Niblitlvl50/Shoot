@@ -14,23 +14,22 @@ using namespace game;
 
 namespace
 {
-    void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
+    void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const math::Quad& viewport)
     {
-        const math::Quad* viewport = static_cast<const math::Quad*>(context);
-        const float half_height = viewport->mB.y / 2.0f;
+        const float half_height = viewport.mB.y / 2.0f;
 
         const float x = 0.0f;
         const float y = mono::Random(-half_height, half_height);
 
-        const float velocity_x = mono::Random(-20.0f, -10.0f);
+        const float velocity_x = mono::Random(-10.0f, -5.0f);
         const float velocity_y = mono::Random(-2.0f, 2.0f);
 
-        const int life = mono::RandomInt(0, 500) + 3000;
+        const int life = mono::RandomInt(0, 500) + 4000;
 
         pool.m_position[index] = position + math::Vector(x, y);
         pool.m_velocity[index] = math::Vector(velocity_x, velocity_y);
         pool.m_start_color[index] = mono::Color::RGBA(0.8f, 0.8f, 1.0f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 1.0f, 0.1f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.5f, 0.5f, 1.0f, 0.5f);
         pool.m_start_size[index] = mono::Random(8.0f, 16.0f);
         pool.m_end_size[index] = mono::Random(2.0f, 6.0f);
         pool.m_start_life[index] = life;
@@ -47,17 +46,17 @@ ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
     m_position = math::Vector(x, y);
 
     mono::ParticleEmitter::Configuration emit_config;
-    //emit_config.position = math::Vector(200, 100);
     emit_config.duration = -1.0f;
     emit_config.emit_rate = 100.0f;
     emit_config.burst = false;
-    emit_config.generator = Generator;
-    emit_config.generator_context = &m_viewport;
+    emit_config.generator = [viewport](const math::Vector& position, mono::ParticlePool& pool, size_t index) {
+        Generator(position, pool, index, viewport);
+    };
 
-    m_pool = std::make_unique<mono::ParticlePool>(500, mono::DefaultUpdater, nullptr);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, *m_pool);
+    m_pool = std::make_unique<mono::ParticlePool>(500, mono::DefaultUpdater);
+    m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool.get());
 
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
     m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 }
 

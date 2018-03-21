@@ -154,9 +154,9 @@ std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const ed
         const math::Vector& position = json_object["position"];
         const float rotation = json_object["rotation"];
 
-        const std::vector<ID_Attribute> attributes = {
-            { world::POSITION_ATTRIBUTE, ObjectAttribute(position) },
-            { world::RADIUS_ATTRIBUTE,   ObjectAttribute(rotation) }
+        const std::vector<Attribute> attributes = {
+            { world::POSITION_ATTRIBUTE, Variant(position) },
+            { world::RADIUS_ATTRIBUTE,   Variant(rotation) }
         };
 
         IObjectProxyPtr proxy = factory.CreateObject(name.c_str());

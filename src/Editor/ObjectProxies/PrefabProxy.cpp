@@ -81,12 +81,12 @@ void PrefabProxy::UpdateUIContext(UIContext& context)
     ImGui::Value("Rotation", rotation);
 }
 
-std::vector<ID_Attribute> PrefabProxy::GetAttributes() const
+std::vector<Attribute> PrefabProxy::GetAttributes() const
 {
-    return std::vector<ID_Attribute>();
+    return std::vector<Attribute>();
 }
 
-void PrefabProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+void PrefabProxy::SetAttributes(const std::vector<Attribute>& attributes)
 { }
 
 void PrefabProxy::Visit(IObjectVisitor& visitor)

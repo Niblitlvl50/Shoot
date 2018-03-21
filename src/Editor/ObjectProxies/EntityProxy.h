@@ -13,7 +13,7 @@ namespace editor
     {
     public:
 
-        EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<ID_Attribute>& attributes);
+        EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<Attribute>& attributes);
 
         virtual const char* Name() const;
         virtual unsigned int Id() const;
@@ -23,13 +23,13 @@ namespace editor
         virtual std::vector<Grabber> GetGrabbers() const;
         virtual std::vector<SnapPoint> GetSnappers() const;
         virtual void UpdateUIContext(UIContext& context);
-        virtual std::vector<ID_Attribute> GetAttributes() const;
-        virtual void SetAttributes(const std::vector<ID_Attribute>& attributes);
+        virtual std::vector<Attribute> GetAttributes() const;
+        virtual void SetAttributes(const std::vector<Attribute>& attributes);
 
         virtual void Visit(IObjectVisitor& visitor);
         
     private:
         std::shared_ptr<SpriteEntity> m_entity;
-        std::vector<ID_Attribute> m_attributes;
+        std::vector<Attribute> m_attributes;
     };
 }

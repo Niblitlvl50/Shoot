@@ -17,7 +17,7 @@
 
 using namespace editor;
 
-EntityProxy::EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<ID_Attribute>& attributes)
+EntityProxy::EntityProxy(const std::shared_ptr<SpriteEntity>& entity, const std::vector<Attribute>& attributes)
     : m_entity(entity),
       m_attributes(attributes)
 { }
@@ -66,7 +66,7 @@ void EntityProxy::UpdateUIContext(UIContext& context)
     const std::string& name = m_entity->Name();
     ImGui::Text("%s", name.c_str());
     
-    for(ID_Attribute& id_attribute : m_attributes)
+    for(Attribute& id_attribute : m_attributes)
         DrawProperty(world::NameFromHash(id_attribute.id), id_attribute.attribute);
 
     math::Vector position;
@@ -79,12 +79,12 @@ void EntityProxy::UpdateUIContext(UIContext& context)
     m_entity->SetRotation(rotation);
 }
 
-std::vector<ID_Attribute> EntityProxy::GetAttributes() const
+std::vector<Attribute> EntityProxy::GetAttributes() const
 {
     return m_attributes;
 }
 
-void EntityProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+void EntityProxy::SetAttributes(const std::vector<Attribute>& attributes)
 {
     math::Vector position;
     float rotation;

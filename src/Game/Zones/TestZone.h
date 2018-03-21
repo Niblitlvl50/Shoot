@@ -75,5 +75,6 @@ namespace game
         std::vector<Healthbar> m_healthbars;
 
         NavmeshContext m_navmesh;
+        std::shared_ptr<class GibSystem> m_gib_system;
     };
 }

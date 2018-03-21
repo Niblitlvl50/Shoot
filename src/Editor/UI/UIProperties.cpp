@@ -3,25 +3,25 @@
 #include "ObjectAttribute.h"
 #include "ImGuiImpl/ImGuiImpl.h"
 
-void editor::DrawProperty(const char* text, ObjectAttribute& attribute)
+void editor::DrawProperty(const char* text, Variant& attribute)
 {
     switch(attribute.type)
     {
-    case ObjectAttribute::Type::INT:
-        ImGui::InputInt(text, &attribute.data.int_value);
+    case Variant::Type::INT:
+        ImGui::InputInt(text, &attribute.int_value);
         break;
-    case ObjectAttribute::Type::FLOAT:
-        ImGui::InputFloat(text, &attribute.data.float_value);
+    case Variant::Type::FLOAT:
+        ImGui::InputFloat(text, &attribute.float_value);
         break;
-    case ObjectAttribute::Type::STRING:
-        ImGui::InputText(text, attribute.data.string_value, 24);
+    case Variant::Type::STRING:
+        ImGui::InputText(text, attribute.string_value, 24);
         break;
-    case ObjectAttribute::Type::POINT:
-        ImGui::Value("X", attribute.data.point_value.x);
+    case Variant::Type::POINT:
+        ImGui::Value("X", attribute.point_value.x);
         ImGui::SameLine();
-        ImGui::Value("Y", attribute.data.point_value.y);
+        ImGui::Value("Y", attribute.point_value.y);
         break;
-    case ObjectAttribute::Type::NONE:
+    case Variant::Type::NONE:
         break;
     }
 }

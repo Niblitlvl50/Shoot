@@ -134,41 +134,26 @@ void game::LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonD
 
 namespace
 {
-    template <typename T>
-    bool FindAttribute(unsigned int id, const std::vector<ID_Attribute>& attributes, T& value)
+    void LoadAttributes(game::SpawnPoint& spawn_point, const std::vector<Attribute>& attributes)
     {
-        const auto find_func = [id](const ID_Attribute& attribute) {
-            return id == attribute.id;
-        };
-
-        const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
-        const bool found_attribute = (it != attributes.end());
-        if(found_attribute)
-            value = it->attribute;
-
-        return found_attribute;
-    }
-
-    void LoadAttributes(game::SpawnPoint& spawn_point, const std::vector<ID_Attribute>& attributes)
-    {
-        FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
-        FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
-        FindAttribute(world::TIME_STAMP_ATTRIBUTE, attributes, spawn_point.time_stamp);
+        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
+        world::FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
+        world::FindAttribute(world::TIME_STAMP_ATTRIBUTE, attributes, spawn_point.time_stamp);
 
         const char* spawn_tags = nullptr;
-        FindAttribute(world::SPAWN_TAG_ATTRIBUTE, attributes, spawn_tags);
+        world::FindAttribute(world::SPAWN_TAG_ATTRIBUTE, attributes, spawn_tags);
 
         if(spawn_tags)
             spawn_point.spawn_tags = mono::SplitString(spawn_tags, ' ');
     }
 
-    void LoadAttributes(game::EnemyPtr& enemy, const std::vector<ID_Attribute>& attributes)
+    void LoadAttributes(game::EnemyPtr& enemy, const std::vector<Attribute>& attributes)
     {
         math::Vector position;
         float rotation = 0.0f;
 
-        FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
-        FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
+        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
+        world::FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
 
         enemy->SetPosition(position);
         enemy->SetRotation(rotation);
@@ -194,13 +179,13 @@ void game::LoadWorldObjects(
         else if(name == "playerpoint")
         {
             math::Vector position;
-            FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
+            world::FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
             player_points.push_back(position);
         }
         else
         {
             math::Vector position;
-            FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
+            world::FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
 
             game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), position, object.attributes);
             if(enemy)

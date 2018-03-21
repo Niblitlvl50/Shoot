@@ -29,7 +29,7 @@ IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
     auto entity = std::make_shared<editor::SpriteEntity>(object_name, def.sprite_file.c_str());
     entity->SetScale(def.scale);
 
-    std::vector<ID_Attribute> attributes;
+    std::vector<Attribute> attributes;
     for(unsigned int hash : def.attribute_types)
         attributes.push_back({hash, world::DefaultAttributeFromHash(hash)});
     

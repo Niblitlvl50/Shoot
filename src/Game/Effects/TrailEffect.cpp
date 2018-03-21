@@ -15,7 +15,7 @@ using namespace game;
 
 namespace
 {
-    void TrailGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
+    void TrailGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
     {
         constexpr int life = 500;
 
@@ -40,8 +40,8 @@ TrailEffect::TrailEffect(const math::Vector& position)
     
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(config, *m_pool);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
+    m_emitter = std::make_unique<mono::ParticleEmitter>(config, m_pool.get());
     m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
 }
 
@@ -56,8 +56,8 @@ void TrailEffect::Draw(mono::IRenderer& renderer) const
 
 void TrailEffect::Update(unsigned int delta)
 {
-    m_emitter->doUpdate(delta);
     m_emitter->SetPosition(m_position);
+    m_emitter->doUpdate(delta);
     m_pool->doUpdate(delta);
 }
 

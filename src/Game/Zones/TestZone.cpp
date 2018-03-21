@@ -6,6 +6,7 @@
 #include "AIKnowledge.h"
 
 #include "Effects/SmokeEffect.h"
+#include "Effects/GibSystem.h"
 #include "Hud/FPSElement.h"
 #include "Hud/PlayerStatsElement.h"
 #include "Hud/Overlay.h"
@@ -129,6 +130,10 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
     AddUpdatable(m_dispatcher);
 
+    m_gib_system = std::make_shared<GibSystem>();
+    AddDrawable(m_gib_system, BACKGROUND);
+    AddUpdatable(m_gib_system);
+
     //m_backgroundMusic->Play();
 }
 
@@ -199,14 +204,8 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
     if(result.health_left <= 0)
     {
         m_damageController.RemoveRecord(entity->Id());
+        m_gib_system->EmitGibsAt(entity->Position(), event.direction);
         SchedulePreFrameTask(std::bind(&TestZone::RemovePhysicsEntity, this, entity));
-
-        game::ExplosionConfiguration config;
-        config.position = entity->Position();
-        config.scale = 1.5f;
-        config.sprite_file = "res/sprites/explosion.sprite";
-
-        AddEntityWithCallback(std::make_shared<Explosion>(config, m_event_handler), FOREGROUND, nullptr);
     }
 
     return true;

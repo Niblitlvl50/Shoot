@@ -96,12 +96,12 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
         m_polygon->SetTexture(avalible_textures[texture_index]);
 }
 
-std::vector<ID_Attribute> PolygonProxy::GetAttributes() const
+std::vector<Attribute> PolygonProxy::GetAttributes() const
 {
-    return std::vector<ID_Attribute>();
+    return std::vector<Attribute>();
 }
 
-void PolygonProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+void PolygonProxy::SetAttributes(const std::vector<Attribute>& attributes)
 { }
 
 void PolygonProxy::Visit(IObjectVisitor& visitor)

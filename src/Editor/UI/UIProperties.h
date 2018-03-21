@@ -1,9 +1,9 @@
 
 #pragma once
 
-class ObjectAttribute;
+class Variant;
 
 namespace editor
 {
-    void DrawProperty(const char* text, ObjectAttribute& attribute);
+    void DrawProperty(const char* text, Variant& attribute);
 }

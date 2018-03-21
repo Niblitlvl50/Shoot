@@ -73,16 +73,16 @@ void JsonSerializer::Accept(EntityProxy* proxy)
 
         switch(attribute.attribute.type)
         {
-        case ObjectAttribute::Type::INT:
+        case Variant::Type::INT:
             json_object["value"] = (int)attribute.attribute;
             break;    
-        case ObjectAttribute::Type::FLOAT:
+        case Variant::Type::FLOAT:
             json_object["value"] = (float)attribute.attribute;
             break;    
-        case ObjectAttribute::Type::STRING:
+        case Variant::Type::STRING:
             json_object["value"] = (const char*)attribute.attribute;
             break;    
-        case ObjectAttribute::Type::POINT:
+        case Variant::Type::POINT:
             json_object["value"] = (math::Vector)attribute.attribute;
             break;
         default:

@@ -22,8 +22,8 @@ namespace editor
         virtual std::vector<Grabber> GetGrabbers() const;
         virtual std::vector<SnapPoint> GetSnappers() const;
         virtual void UpdateUIContext(UIContext& context);
-        virtual std::vector<ID_Attribute> GetAttributes() const;
-        virtual void SetAttributes(const std::vector<ID_Attribute>& attributes);
+        virtual std::vector<Attribute> GetAttributes() const;
+        virtual void SetAttributes(const std::vector<Attribute>& attributes);
         virtual void Visit(IObjectVisitor& visitor);
 
         std::shared_ptr<PolygonEntity> m_polygon;

@@ -2,6 +2,7 @@
 #include "WeaponFactory.h"
 #include "Weapons/Weapon.h"
 #include "Math/MathFwd.h"
+#include "Math/MathFunctions.h"
 
 #include "Explosion.h"
 #include "Physics/IBody.h"
@@ -22,12 +23,16 @@ namespace
     void StandardCollision(
         const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
-        event_handler.DispatchEvent(game::DamageEvent(other, 10));
+        const float direction = math::AngleBetweenPoints(bullet->Position(), other->GetPosition());
+
+        event_handler.DispatchEvent(game::DamageEvent(other, 10, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
 
     void RocketCollision(const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
+        const float direction = math::AngleBetweenPoints(bullet->Position(), other->GetPosition());
+
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
         explosion_config.scale = 2.0f;
@@ -37,7 +42,7 @@ namespace
         const game::SpawnEntityEvent event(
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
         event_handler.DispatchEvent(event);
-        event_handler.DispatchEvent(game::DamageEvent(other, 20));
+        event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
@@ -45,6 +50,8 @@ namespace
     void CacoPlasmaCollision(
         const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
+        const float direction = math::AngleBetweenPoints(bullet->Position(), other->GetPosition());
+
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
         explosion_config.scale = 2.0f;
@@ -54,7 +61,7 @@ namespace
         const game::SpawnEntityEvent event(
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
         event_handler.DispatchEvent(event);
-        event_handler.DispatchEvent(game::DamageEvent(other, 20));
+        event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
 }

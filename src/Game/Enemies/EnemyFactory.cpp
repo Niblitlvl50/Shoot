@@ -56,7 +56,7 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
     return std::make_shared<game::Enemy>(setup);
 }
 
-game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, const std::vector<ID_Attribute>& attributes)
+game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, const std::vector<Attribute>& attributes)
 {
     const char* filename = nullptr;
     const bool found_filename = world::FindAttribute(world::FILEPATH_ATTRIBUTE, attributes, filename);
@@ -83,7 +83,7 @@ game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position, flo
 }
 
 game::EnemyPtr EnemyFactory::CreateFromName(
-    const char* name, const math::Vector& position, const std::vector<ID_Attribute>& attributes)
+    const char* name, const math::Vector& position, const std::vector<Attribute>& attributes)
 {
     if(std::strcmp(name, "cacodemon") == 0)
         return CreateCacoDemon(position);

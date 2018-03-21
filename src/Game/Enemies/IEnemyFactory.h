@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 
-struct ID_Attribute;
+struct Attribute;
 
 namespace game
 {
@@ -25,6 +25,6 @@ namespace game
         virtual EnemyPtr CreateBlackSquare(const math::Vector& position, float trigger_distance) = 0;
 
         virtual EnemyPtr CreateFromName(
-            const char* name, const math::Vector& position, const std::vector<ID_Attribute>& attributes) = 0;
+            const char* name, const math::Vector& position, const std::vector<Attribute>& attributes) = 0;
     };
 }

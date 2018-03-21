@@ -10,7 +10,7 @@ namespace world
 {
     struct HashString
     {
-        HashString(const char* string, const ObjectAttribute& default_attribute)
+        HashString(const char* string, const Variant& default_attribute)
             : hash(mono::Hash(string)),
               string(string),
               default_attribute(default_attribute)
@@ -18,17 +18,17 @@ namespace world
 
         const unsigned int hash;
         const char* string;
-        const ObjectAttribute default_attribute;
+        const Variant default_attribute;
     };
 
     static const std::array<HashString, 7> hash_array = {{
-        HashString("position",          ObjectAttribute(math::zeroVec)),
-        HashString("rotation",          ObjectAttribute(0.0f)),
-        HashString("radius",            ObjectAttribute(1.0f)),
-        HashString("time_stamp",        ObjectAttribute(5)),
-        HashString("spawn_tag",         ObjectAttribute("")),
-        HashString("filepath",          ObjectAttribute("")),
-        HashString("trigger_radius",    ObjectAttribute(10.0f))
+        HashString("position",          Variant(math::zeroVec)),
+        HashString("rotation",          Variant(0.0f)),
+        HashString("radius",            Variant(1.0f)),
+        HashString("time_stamp",        Variant(5)),
+        HashString("spawn_tag",         Variant("")),
+        HashString("filepath",          Variant("")),
+        HashString("trigger_radius",    Variant(10.0f))
     }};
 
     static const unsigned int POSITION_ATTRIBUTE        = hash_array[0].hash;
@@ -50,7 +50,7 @@ namespace world
         return "Unknown hash";
     }
 
-    inline const ObjectAttribute& DefaultAttributeFromHash(unsigned int hash)
+    inline const Variant& DefaultAttributeFromHash(unsigned int hash)
     {
         for(const HashString& hash_string : hash_array)
         {
@@ -58,14 +58,14 @@ namespace world
                 return hash_string.default_attribute;
         }
 
-        static const ObjectAttribute null_attribute;
+        static const Variant null_attribute;
         return null_attribute;
     }
 
     template <typename T>
-    inline bool FindAttribute(unsigned int id, const std::vector<ID_Attribute>& attributes, T& value)
+    inline bool FindAttribute(unsigned int id, const std::vector<Attribute>& attributes, T& value)
     {
-        const auto find_func = [id](const ID_Attribute& attribute) {
+        const auto find_func = [id](const Attribute& attribute) {
             return id == attribute.id;
         };
 
@@ -77,22 +77,9 @@ namespace world
         return found_attribute;
     }
 
-    template <typename T>
-    inline void SetAttribute(unsigned int id, std::vector<ID_Attribute>& attributes, const T& value)
+    inline bool FindAttribute(unsigned int id, std::vector<Attribute>& attributes, Attribute*& output)
     {
-        const auto find_func = [id](const ID_Attribute& attribute) {
-            return id == attribute.id;
-        };
-
-        const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
-        const bool found_attribute = (it != attributes.end());
-        if(found_attribute)
-            it->attribute = value;        
-    }
-
-    inline bool FindAttribute(unsigned int id, std::vector<ID_Attribute>& attributes, ID_Attribute*& output)
-    {
-        const auto find_func = [id](const ID_Attribute& attribute) {
+        const auto find_func = [id](const Attribute& attribute) {
             return id == attribute.id;
         };
 
@@ -104,12 +91,25 @@ namespace world
         return found_attribute;        
     }
 
-    inline void MergeAttributes(
-        std::vector<ID_Attribute>& result_attributes, const std::vector<ID_Attribute>& other_attributes)
+    template <typename T>
+    inline void SetAttribute(unsigned int id, std::vector<Attribute>& attributes, const T& value)
     {
-        for(const ID_Attribute& input : other_attributes)
+        const auto find_func = [id](const Attribute& attribute) {
+            return id == attribute.id;
+        };
+
+        const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
+        const bool found_attribute = (it != attributes.end());
+        if(found_attribute)
+            it->attribute = value;        
+    }
+
+    inline void MergeAttributes(
+        std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes)
+    {
+        for(const Attribute& input : other_attributes)
         {
-            ID_Attribute* attribute = nullptr;
+            Attribute* attribute = nullptr;
             if(FindAttribute(input.id, result_attributes, attribute))
                 attribute->attribute = input.attribute;
         }

@@ -46,7 +46,7 @@ void Spawner::CheckForSpawn()
 
 void Spawner::SpawnObject(const SpawnPoint& spawn_point)
 {
-    const std::vector<ID_Attribute> attributes;
+    const std::vector<Attribute> attributes;
 
     for(const std::string& spawn_tag : spawn_point.spawn_tags)
     {

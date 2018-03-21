@@ -110,12 +110,12 @@ void PathProxy::UpdateUIContext(UIContext& context)
     ImGui::Value("Rotation", m_path->Rotation());
 }
 
-std::vector<ID_Attribute> PathProxy::GetAttributes() const
+std::vector<Attribute> PathProxy::GetAttributes() const
 {
-    return std::vector<ID_Attribute>();
+    return std::vector<Attribute>();
 }
 
-void PathProxy::SetAttributes(const std::vector<ID_Attribute>& attributes)
+void PathProxy::SetAttributes(const std::vector<Attribute>& attributes)
 {
 
 }

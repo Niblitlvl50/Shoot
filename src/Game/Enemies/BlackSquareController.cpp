@@ -76,6 +76,8 @@ void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned i
     if(category != game::CollisionCategory::PLAYER)
         return;
 
+    const float direction = math::AngleBetweenPoints(m_enemy->Position(), body->GetPosition());
+
     game::ExplosionConfiguration explosion_config;
     explosion_config.position = m_enemy->Position();
     explosion_config.scale = 2.0f;
@@ -86,7 +88,7 @@ void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned i
         std::make_shared<game::Explosion>(explosion_config, m_eventHandler), game::FOREGROUND, nullptr);
     
     m_eventHandler.DispatchEvent(event);
-    m_eventHandler.DispatchEvent(game::DamageEvent(body, 20));
+    m_eventHandler.DispatchEvent(game::DamageEvent(body, 20, direction));
     m_eventHandler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
     m_eventHandler.DispatchEvent(game::RemoveEntityEvent(m_enemy->Id()));
 }

@@ -19,7 +19,7 @@
 
 namespace
 {
-    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const void* context)
+    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
     {
         constexpr int life = 100;
 
@@ -73,7 +73,7 @@ Bullet::Bullet(const BulletConfiguration& config)
         emitter_config.emit_rate = 80.0f;
         emitter_config.duration = -1.0f;
 
-        m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, *config.pool);
+        m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, config.pool);
     }
 }
 
@@ -100,7 +100,7 @@ void Bullet::Update(unsigned int delta)
 
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)
-        OnCollideWith(nullptr, 0);
+        OnCollideWith(m_physics.body, 0);
 }
 
 void Bullet::OnCollideWith(const mono::IBodyPtr& body, unsigned int category)

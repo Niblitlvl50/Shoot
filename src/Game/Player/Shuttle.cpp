@@ -103,7 +103,7 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     m_right_booster->SetRotation(math::PI_2());
     m_right_booster->SetPosition(math::Vector(0.6f, 0.0f));
     
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater, nullptr);
+    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
 
     mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
     m_particle_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);

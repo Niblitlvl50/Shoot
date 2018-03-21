@@ -27,7 +27,7 @@ namespace world
     struct WorldObject
     {
         char name[24] = { 0 };
-        std::vector<ID_Attribute> attributes;
+        std::vector<Attribute> attributes;
     };
 
     struct WorldObjectsHeader

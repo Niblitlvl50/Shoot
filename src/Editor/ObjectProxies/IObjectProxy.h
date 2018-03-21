@@ -5,7 +5,7 @@
 #include "Math/MathFwd.h"
 #include <vector>
 
-struct ID_Attribute;
+struct Attribute;
 
 namespace editor
 {
@@ -27,8 +27,8 @@ namespace editor
 
         virtual void UpdateUIContext(struct UIContext& context) = 0;
 
-        virtual std::vector<ID_Attribute> GetAttributes() const = 0;
-        virtual void SetAttributes(const std::vector<ID_Attribute>& attributes) = 0;
+        virtual std::vector<Attribute> GetAttributes() const = 0;
+        virtual void SetAttributes(const std::vector<Attribute>& attributes) = 0;
 
         virtual void Visit(class IObjectVisitor& visitor) = 0;
     };
