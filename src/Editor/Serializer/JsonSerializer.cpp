@@ -69,7 +69,7 @@ void JsonSerializer::Accept(EntityProxy* proxy)
     for(const auto& attribute : proxy->GetAttributes())
     {
         nlohmann::json json_object;
-        json_object["name"] = world::NameFromHash(attribute.id);
+        json_object["name"] = world::AttributeNameFromHash(attribute.id);
 
         switch(attribute.attribute.type)
         {

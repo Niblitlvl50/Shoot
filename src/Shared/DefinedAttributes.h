@@ -8,40 +8,40 @@
 
 namespace world
 {
-    struct HashString
+    struct DefaultAttribute
     {
-        HashString(const char* string, const Variant& default_attribute)
+        DefaultAttribute(const char* string, const Variant& default_value)
             : hash(mono::Hash(string)),
               string(string),
-              default_attribute(default_attribute)
+              default_value(default_value)
         { }
 
         const unsigned int hash;
         const char* string;
-        const Variant default_attribute;
+        const Variant default_value;
     };
 
-    static const std::array<HashString, 7> hash_array = {{
-        HashString("position",          Variant(math::zeroVec)),
-        HashString("rotation",          Variant(0.0f)),
-        HashString("radius",            Variant(1.0f)),
-        HashString("time_stamp",        Variant(5)),
-        HashString("spawn_tag",         Variant("")),
-        HashString("filepath",          Variant("")),
-        HashString("trigger_radius",    Variant(10.0f))
+    static const std::array<DefaultAttribute, 7> default_attributes = {{
+        DefaultAttribute("position",          Variant(math::zeroVec)),
+        DefaultAttribute("rotation",          Variant(0.0f)),
+        DefaultAttribute("radius",            Variant(1.0f)),
+        DefaultAttribute("time_stamp",        Variant(5)),
+        DefaultAttribute("spawn_tag",         Variant("")),
+        DefaultAttribute("filepath",          Variant("")),
+        DefaultAttribute("trigger_radius",    Variant(10.0f))
     }};
 
-    static const unsigned int POSITION_ATTRIBUTE        = hash_array[0].hash;
-    static const unsigned int ROTATION_ATTRIBUTE        = hash_array[1].hash;
-    static const unsigned int RADIUS_ATTRIBUTE          = hash_array[2].hash;
-    static const unsigned int TIME_STAMP_ATTRIBUTE      = hash_array[3].hash;
-    static const unsigned int SPAWN_TAG_ATTRIBUTE       = hash_array[4].hash;
-    static const unsigned int FILEPATH_ATTRIBUTE        = hash_array[5].hash;
-    static const unsigned int TRIGGER_RADIUS_ATTRIBUTE  = hash_array[6].hash;
+    static const unsigned int POSITION_ATTRIBUTE        = default_attributes[0].hash;
+    static const unsigned int ROTATION_ATTRIBUTE        = default_attributes[1].hash;
+    static const unsigned int RADIUS_ATTRIBUTE          = default_attributes[2].hash;
+    static const unsigned int TIME_STAMP_ATTRIBUTE      = default_attributes[3].hash;
+    static const unsigned int SPAWN_TAG_ATTRIBUTE       = default_attributes[4].hash;
+    static const unsigned int FILEPATH_ATTRIBUTE        = default_attributes[5].hash;
+    static const unsigned int TRIGGER_RADIUS_ATTRIBUTE  = default_attributes[6].hash;
     
-    inline const char* NameFromHash(unsigned int hash)
+    inline const char* AttributeNameFromHash(unsigned int hash)
     {
-        for(const HashString& hash_string : hash_array)
+        for(const DefaultAttribute& hash_string : default_attributes)
         {
             if(hash_string.hash == hash)
                 return hash_string.string;
@@ -52,10 +52,10 @@ namespace world
 
     inline const Variant& DefaultAttributeFromHash(unsigned int hash)
     {
-        for(const HashString& hash_string : hash_array)
+        for(const DefaultAttribute& hash_string : default_attributes)
         {
             if(hash_string.hash == hash)
-                return hash_string.default_attribute;
+                return hash_string.default_value;
         }
 
         static const Variant null_attribute;

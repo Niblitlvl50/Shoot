@@ -67,7 +67,7 @@ void EntityProxy::UpdateUIContext(UIContext& context)
     ImGui::Text("%s", name.c_str());
     
     for(Attribute& id_attribute : m_attributes)
-        DrawProperty(world::NameFromHash(id_attribute.id), id_attribute.attribute);
+        DrawProperty(world::AttributeNameFromHash(id_attribute.id), id_attribute.attribute);
 
     math::Vector position;
     float rotation;
