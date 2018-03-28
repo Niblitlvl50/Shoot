@@ -54,6 +54,7 @@ void PlayerDaemon::SpawnPlayer1()
 
     game::player_one.is_active = true;
 
+    m_camera->SetPosition(spawn_point);
     m_camera->Follow(m_player_one, math::zeroVec);
 
     const auto destroyed_func = [](unsigned int id) {
