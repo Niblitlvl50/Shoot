@@ -45,7 +45,7 @@ void PlayerDaemon::SetCamera(const mono::ICameraPtr& camera)
 
 void PlayerDaemon::SpawnPlayer1()
 {
-    const math::Vector& spawn_point = m_player_points.empty() ? math::zeroVec : m_player_points.front();
+    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
 
     m_player_one =
         std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Primary));
@@ -55,7 +55,7 @@ void PlayerDaemon::SpawnPlayer1()
     game::player_one.is_active = true;
 
     m_camera->SetPosition(spawn_point);
-    m_camera->Follow(m_player_one, math::zeroVec);
+    m_camera->Follow(m_player_one, math::ZeroVec);
 
     const auto destroyed_func = [](unsigned int id) {
         game::player_one.is_active = false;
@@ -66,7 +66,7 @@ void PlayerDaemon::SpawnPlayer1()
 
 void PlayerDaemon::SpawnPlayer2()
 {
-    const math::Vector& spawn_point = m_player_points.empty() ? math::zeroVec : m_player_points.front();
+    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
 
     m_player_two =
         std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Secondary));

@@ -37,5 +37,5 @@ void GrabberVisualizer::doDraw(mono::IRenderer& renderer) const
 
 math::Quad GrabberVisualizer::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }

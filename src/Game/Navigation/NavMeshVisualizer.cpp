@@ -55,7 +55,7 @@ void NavmeshVisualizer::doDraw(mono::IRenderer& renderer) const
 
 math::Quad NavmeshVisualizer::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 
 bool NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)

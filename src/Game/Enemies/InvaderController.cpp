@@ -62,7 +62,7 @@ void InvaderController::ToTracking()
     const std::vector<int>& nav_path = game::AStar(*g_navmesh, start, end);
     const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
 
-    m_path = mono::CreatePath(math::zeroVec, points);
+    m_path = mono::CreatePath(math::ZeroVec, points);
     m_current_position = 0.0f;
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f);

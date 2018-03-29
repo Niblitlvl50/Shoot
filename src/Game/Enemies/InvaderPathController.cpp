@@ -42,7 +42,7 @@ namespace
         virtual void Draw(mono::IRenderer& renderer) const
         {
             constexpr mono::Color::RGBA color(1.0f, 0.5f, 1.0f, 1.0f);
-            renderer.DrawPoints({ math::zeroVec }, color, 10.0f);
+            renderer.DrawPoints({ math::ZeroVec }, color, 10.0f);
         }
 
         virtual void Update(unsigned int delta)

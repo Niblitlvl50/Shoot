@@ -95,7 +95,7 @@ void GibSystem::doDraw(mono::IRenderer& renderer) const
 
 math::Quad GibSystem::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 
 void GibSystem::EmitGibsAt(const math::Vector& position, float direction)

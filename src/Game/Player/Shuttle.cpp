@@ -84,7 +84,7 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler,
     m_physics.body = mono::PhysicsFactory::CreateBody(10.0f, INFINITY);
     m_physics.body->SetPosition(m_position);
 
-    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x / 2.0f, math::zeroVec);
+    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x / 2.0f, math::ZeroVec);
     shape->SetElasticity(0.1f);
     shape->SetCollisionFilter(CollisionCategory::PLAYER, PLAYER_MASK);
     
@@ -127,11 +127,10 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
 
-    char text[32] = { '\0' };
-    std::snprintf(text, 32, "%zu", m_pool->m_count_alive);
-
-    constexpr mono::Color::RGBA color(1, 0, 0);
-    renderer.DrawText(0, text, math::zeroVec, true, color);
+    //char text[32] = { '\0' };
+    //std::snprintf(text, 32, "%zu", m_pool->m_count_alive);
+    //constexpr mono::Color::RGBA color(1, 0, 0);
+    //renderer.DrawText(0, text, math::ZeroVec, true, color);
 
     renderer.PushGlobalTransform();
     m_particle_drawer->doDraw(renderer);
@@ -170,7 +169,7 @@ void Shuttle::ApplyRotationForce(float force)
     // First apply the rotational force at an offset of 20 in y axis, then negate the vector
     // and apply it to zero to counter the movement when we only want rotation.
     m_physics.body->ApplyForce(forceVector, math::Vector(0, 20));
-    m_physics.body->ApplyForce(forceVector * -1, math::zeroVec);
+    m_physics.body->ApplyForce(forceVector * -1, math::ZeroVec);
 }
 
 void Shuttle::ApplyThrustForce(float force)
@@ -178,7 +177,7 @@ void Shuttle::ApplyThrustForce(float force)
     const float rotation = Rotation();
     const math::Vector unit(-std::sin(rotation), std::cos(rotation));
 
-    m_physics.body->ApplyForce(unit * force, math::zeroVec);
+    m_physics.body->ApplyForce(unit * force, math::ZeroVec);
 }
 
 void Shuttle::ApplyImpulse(const math::Vector& force)

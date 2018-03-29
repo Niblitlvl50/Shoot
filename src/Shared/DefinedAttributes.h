@@ -22,7 +22,7 @@ namespace world
     };
 
     static const std::array<DefaultAttribute, 7> default_attributes = {{
-        DefaultAttribute("position",          Variant(math::zeroVec)),
+        DefaultAttribute("position",          Variant(math::ZeroVec)),
         DefaultAttribute("rotation",          Variant(0.0f)),
         DefaultAttribute("radius",            Variant(1.0f)),
         DefaultAttribute("time_stamp",        Variant(5)),

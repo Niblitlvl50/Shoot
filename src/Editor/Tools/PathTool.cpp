@@ -31,7 +31,7 @@ public:
 
     virtual math::Quad BoundingBox() const
     {
-        return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+        return math::InfQuad;
     }
 
     const std::vector<math::Vector>& m_points;

@@ -60,6 +60,6 @@ void GridVisualizer::doDraw(mono::IRenderer& renderer) const
 
 math::Quad GridVisualizer::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 

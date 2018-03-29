@@ -21,7 +21,7 @@ Enemy::Enemy(EnemySetup& setup)
     mono::IBodyPtr body = mono::PhysicsFactory::CreateBody(setup.mass, 1.0f);
     body->SetPosition(m_position);
     
-    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(body, setup.size / 2.0f, math::zeroVec);
+    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(body, setup.size / 2.0f, math::ZeroVec);
     shape->SetCollisionFilter(CollisionCategory::ENEMY, ENEMY_MASK);
     
     m_physics.body = body;

@@ -19,7 +19,7 @@ int main(int argc, const char* argv[])
 
     {
         editor::Config config;
-        config.camera_position = math::zeroVec;
+        config.camera_position = math::ZeroVec;
         config.camera_viewport = math::Quad(0, 0, 600.0f, 400.0f);
         config.window_size = math::Vector(1200.0f, 800.0f);
         

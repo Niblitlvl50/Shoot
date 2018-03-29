@@ -13,7 +13,7 @@
 using namespace game;
 
 Camera::Camera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler)
-    : m_offset(math::zeroVec),
+    : m_offset(math::ZeroVec),
       m_viewport(0.0f, 0.0f, width, height),
       m_targetViewport(m_viewport),
       m_controller(window_width, window_height, this, event_handler),

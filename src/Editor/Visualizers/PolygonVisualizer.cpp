@@ -45,7 +45,7 @@ void PolygonVisualizer::doDraw(mono::IRenderer& renderer) const
 
 math::Quad PolygonVisualizer::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 
 
@@ -75,6 +75,6 @@ void PolygonVisualizer2::doDraw(mono::IRenderer& renderer) const
 
 math::Quad PolygonVisualizer2::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 

@@ -35,7 +35,7 @@ public:
 
     virtual math::Quad BoundingBox() const
     {
-        return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+        return math::InfQuad;
     }
 
     const bool& m_painting;
@@ -72,7 +72,7 @@ void PolygonBrushTool::HandleMouseDown(const math::Vector& world_pos, mono::IEnt
 
     m_polygon = std::make_shared<editor::PolygonEntity>();
     m_polygon->SetPosition(world_pos);
-    m_polygon->AddVertex(math::zeroVec);
+    m_polygon->AddVertex(math::ZeroVec);
 
     m_editor->AddPolygon(m_polygon);
     m_editor->AddDrawable(m_visualizer, RenderLayer::OBJECTS);

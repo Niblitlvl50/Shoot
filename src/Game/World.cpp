@@ -57,7 +57,7 @@ namespace
 
         void AddPolygon(const world::PolygonData& polygon)
         {
-            mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_static_physics.body, polygon.vertices, math::zeroVec);
+            mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_static_physics.body, polygon.vertices, math::ZeroVec);
             shape->SetCollisionFilter(game::CollisionCategory::STATIC, game::STATIC_MASK);
             m_static_physics.shapes.push_back(shape);
 
@@ -102,7 +102,7 @@ namespace
 
         virtual math::Quad BoundingBox() const
         {
-            return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+            return math::InfQuad;
         }
 
         unsigned int m_index;

@@ -27,7 +27,7 @@ void UIOverlayDrawer::doDraw(mono::IRenderer& renderer) const
 
 math::Quad UIOverlayDrawer::BoundingBox() const
 {
-    return math::Quad(-math::INF, -math::INF, math::INF, math::INF);
+    return math::InfQuad;
 }
 
 int UIOverlayDrawer::AddElement(std::unique_ptr<UIElement> element)
