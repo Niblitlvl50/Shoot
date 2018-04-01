@@ -2,6 +2,7 @@
 #include "EditorConfig.h"
 #include "System/File.h"
 #include "Math/Serialize.h"
+#include "Rendering/Serialize.h"
 #include "nlohmann_json/json.hpp"
 
 #include <cstdio>
@@ -11,6 +12,8 @@ namespace
     constexpr const char* camera_position = "camera_position";
     constexpr const char* camera_viewport = "camera_viewport";
     constexpr const char* window_size = "window_size";
+    constexpr const char* draw_object_names = "draw_object_names";
+    constexpr const char* background_color = "background_color";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
@@ -20,6 +23,8 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
     json[camera_position] = config.camera_position;
     json[camera_viewport] = config.camera_viewport;
     json[window_size] = config.window_size;
+    json[draw_object_names] = config.draw_object_names;
+    json[background_color] = config.background_color;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -40,9 +45,20 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    config.camera_position = json[camera_position];
-    config.camera_viewport = json[camera_viewport];
-    config.window_size = json[window_size];
+    if(json.count(camera_position) > 0)
+        config.camera_position = json[camera_position];
+    
+    if(json.count(camera_viewport) > 0)
+        config.camera_viewport = json[camera_viewport];
+    
+    if(json.count(window_size) > 0)
+        config.window_size = json[window_size];
+    
+    if(json.count(draw_object_names) > 0)
+        config.draw_object_names = json[draw_object_names];
+    
+    if(json.count(background_color) > 0)
+        config.background_color = json[background_color];
 
     return true;
 }

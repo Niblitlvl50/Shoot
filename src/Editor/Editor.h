@@ -63,6 +63,12 @@ namespace editor
         void ToolsMenuCallback(ToolsMenuOptions index);
         void DropItemCallback(const std::string& id, const math::Vector& position);
 
+        bool DrawObjectNames() const;
+        void EnableDrawObjectNames(bool enable);
+
+        const mono::Color::RGBA& BackgroundColor() const;
+        void SetBackgroundColor(const mono::Color::RGBA& color);
+
     private:
 
         System::IWindow* m_window;

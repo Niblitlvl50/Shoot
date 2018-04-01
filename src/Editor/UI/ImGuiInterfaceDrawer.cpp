@@ -51,8 +51,12 @@ namespace
 
         if(ImGui::BeginMenu("Options"))
         {
-            static ImVec4 color(1.0f, 0.0f, 1.0f, 1.0f);
-            ImGui::ColorEdit3("BG Color", &color.x);
+            if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
+                context.background_color_callback(context.background_color);
+
+            if(ImGui::Checkbox("Draw Object Names", &context.draw_object_names))
+                context.draw_object_names_callback(context.draw_object_names);
+
             ImGui::EndMenu();
         }
 

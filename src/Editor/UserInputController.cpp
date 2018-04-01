@@ -225,6 +225,8 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
         SelectTool(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
     else if(event.key == Keycode::SIX)
         SelectTool(ToolsMenuOptions::PATH_TOOL);
+    else if(event.key == Keycode::N)
+        m_editor->EnableDrawObjectNames(!m_editor->DrawObjectNames());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
     else if(event.key == Keycode::ENTER && event.ctrl)

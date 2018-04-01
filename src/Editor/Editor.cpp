@@ -30,6 +30,7 @@
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
+#include "Visualizers/ObjectNameVisualizer.h"
 
 #include <algorithm>
 
@@ -79,6 +80,8 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
     m_context.editor_menu_callback = std::bind(&Editor::EditorMenuCallback, this, _1);
     m_context.tools_menu_callback = std::bind(&Editor::ToolsMenuCallback, this, _1);
     m_context.drop_callback = std::bind(&Editor::DropItemCallback, this, _1, _2);
+    m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
+    m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
 
     const event::SurfaceChangedEventFunc surface_func = std::bind(&Editor::OnSurfaceChanged, this, _1);
     m_surfaceChangedToken = m_eventHandler.AddListener(surface_func);
@@ -107,10 +110,12 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
     m_userInputController = std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_eventHandler);
 
     AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));
-    AddDrawable(m_guiRenderer, RenderLayer::UI);
+
     AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
-    AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
+    AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
+    AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
+    AddDrawable(m_guiRenderer, RenderLayer::UI);
 }
 
 int Editor::OnUnload()
@@ -332,4 +337,25 @@ void Editor::DropItemCallback(const std::string& id, const math::Vector& positio
     AddEntity(entity, RenderLayer::OBJECTS);
 
     m_proxies.push_back(std::move(proxy));
+}
+
+bool Editor::DrawObjectNames() const
+{
+    return m_context.draw_object_names;
+}
+
+void Editor::EnableDrawObjectNames(bool enable)
+{
+    m_context.draw_object_names = enable;
+}
+
+const mono::Color::RGBA& Editor::BackgroundColor() const
+{
+    return m_context.background_color;
+}
+
+void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
+{
+    m_context.background_color = color;
+    m_window->SetBackgroundColor(color.red, color.green, color.blue);
 }

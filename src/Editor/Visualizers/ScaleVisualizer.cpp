@@ -1,5 +1,6 @@
 
 #include "ScaleVisualizer.h"
+#include "FontIds.h"
 
 #include "Rendering/ICamera.h"
 #include "Rendering/IRenderer.h"
@@ -35,7 +36,7 @@ void ScaleVisualizer::doDraw(mono::IRenderer& renderer) const
     renderer.PushNewProjection(projection);
     renderer.PushNewTransform(transform);
     renderer.DrawLines(points, black_color, 2.0f);
-    renderer.DrawText(0, text, position, true, black_color);
+    renderer.DrawText(FontId::EXTRA_LARGE, text, position, true, black_color);
 }
 
 math::Quad ScaleVisualizer::BoundingBox() const
