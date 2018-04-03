@@ -20,7 +20,6 @@
 #include "Physics/CMFactory.h"
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
-#include "Physics/ConstraintsFactory.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -75,7 +74,7 @@ void InvaderPathController::Initialize(Enemy* enemy)
     m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
 
     m_controlBody = mono::PhysicsFactory::CreateKinematicBody();
-    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 1.0f, 20.0f, 0.5f);
+    m_spring = mono::PhysicsFactory::CreateSpring(m_controlBody, m_enemy->GetPhysics().body, 1.0f, 20.0f, 0.5f);
 
     m_eventHandler.DispatchEvent(SpawnConstraintEvent(m_spring));
     //m_eventHandler.DispatchEvent(SpawnEntityEvent(std::make_shared<DotEntity>(m_point), LayerId::FOREGROUND, nullptr));

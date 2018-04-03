@@ -41,7 +41,7 @@
 using namespace game;
 
 TestZone::TestZone(mono::EventHandler& eventHandler)
-    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.8f),
+    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.5f),
       m_event_handler(eventHandler),
       m_dispatcher(std::make_shared<MessageDispatcher>())
       //m_connection(m_dispatcher.get())

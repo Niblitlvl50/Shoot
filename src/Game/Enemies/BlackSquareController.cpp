@@ -16,7 +16,6 @@
 #include "Physics/CMFactory.h"
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
-#include "Physics/ConstraintsFactory.h"
 #include "EventHandler/EventHandler.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Color.h"
@@ -57,7 +56,7 @@ void BlackSquareController::Initialize(Enemy* enemy)
     mono::IBodyPtr enemy_body = m_enemy->GetPhysics().body;
     enemy_body->SetCollisionHandler(this);
 
-    m_spring = mono::ConstraintsFactory::CreateSpring(m_controlBody, enemy_body, 0.0f, 50.0f, 0.5f);
+    m_spring = mono::PhysicsFactory::CreateSpring(m_controlBody, enemy_body, 0.0f, 50.0f, 0.5f);
     m_eventHandler.DispatchEvent(SpawnConstraintEvent(m_spring));
 
     m_states.TransitionTo(States::SLEEPING);
