@@ -32,6 +32,7 @@
 #include "Visualizers/GrabberVisualizer.h"
 #include "Visualizers/ObjectNameVisualizer.h"
 
+#include "Utils.h"
 #include <algorithm>
 
 namespace
@@ -292,9 +293,7 @@ void Editor::OnDeleteObject()
         return id == proxy->Id();
     };
 
-    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
-    if(it != m_proxies.end())
-        m_proxies.erase(it);
+    mono::remove_if(m_proxies, find_func);
 
     auto entity = FindEntityFromId(id);    
     const auto remove_entity_func = [this, entity] {

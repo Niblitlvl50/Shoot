@@ -8,6 +8,7 @@
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Random.h"
+#include "Utils.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"
@@ -84,8 +85,7 @@ void GibSystem::doUpdate(unsigned int delta)
         return emitter.IsDone();
     };
 
-    const auto it = std::remove_if(m_emitters.begin(), m_emitters.end(), remove_func);
-    m_emitters.erase(it, m_emitters.end());
+    mono::remove_if(m_emitters, remove_func);
 }
 
 void GibSystem::doDraw(mono::IRenderer& renderer) const

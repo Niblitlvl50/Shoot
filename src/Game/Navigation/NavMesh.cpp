@@ -3,6 +3,7 @@
 #include "NavmeshFactory.h"
 #include "Math/MathFunctions.h"
 #include "WorldFile.h"
+#include "Utils.h"
 
 #include <set>
 #include <unordered_map>
@@ -36,8 +37,7 @@ std::vector<math::Vector> game::GenerateMeshPoints(
         return false;
     };
 
-    auto it = std::remove_if(nav_mesh.begin(), nav_mesh.end(), func);
-    nav_mesh.erase(it, nav_mesh.end());
+    mono::remove_if(nav_mesh, func);
 
     return nav_mesh;
 }

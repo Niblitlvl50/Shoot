@@ -3,7 +3,7 @@
 #include "MainMenuOptions.h"
 #include "UIContext.h"
 #include "ObjectProxies/IObjectProxy.h"
-
+#include "Utils.h"
 #include "ImGuiImpl/ImGuiImpl.h"
 
 #include <algorithm>
@@ -227,6 +227,5 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
         return note.time_left <= 0;
     };
 
-    const auto it = std::remove_if(m_context.notifications.begin(), m_context.notifications.end(), remove_notification_func);
-    m_context.notifications.erase(it, m_context.notifications.end());
+    mono::remove_if(m_context.notifications, remove_notification_func);
 }

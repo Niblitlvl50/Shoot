@@ -1,6 +1,7 @@
 
 #include "MoveAction.h"
 #include "Entity/IEntity.h"
+#include "Utils.h"
 #include <algorithm>
 
 void game::UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>& move_contexts)
@@ -40,6 +41,5 @@ void game::UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>
         }
     }
 
-    const auto it = std::remove_if(move_contexts.begin(), move_contexts.end(), remove_func);
-    move_contexts.erase(it, move_contexts.end());
+    mono::remove_if(move_contexts, remove_func);
 }
