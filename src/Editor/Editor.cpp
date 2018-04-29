@@ -30,6 +30,7 @@
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
+#include "Visualizers/SnapperVisualizer.h"
 #include "Visualizers/ObjectNameVisualizer.h"
 
 #include "Utils.h"
@@ -114,6 +115,7 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
 
     AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
+    AddDrawable(std::make_shared<SnapperVisualizer>(m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_guiRenderer, RenderLayer::UI);
@@ -129,6 +131,8 @@ void Editor::Load()
     m_proxies = LoadWorld(m_fileName, m_object_factory);
     for(auto& proxy : m_proxies)
         AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+
+    UpdateSnappers();
 }
 
 void Editor::Save()
@@ -176,18 +180,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
         m_seleced_id = proxy_object->Id();
     }
 
-    m_snap_points.clear();
-
-    for(const auto& proxy : m_proxies)
-    {
-        // Skip the selected one, we dont want that one
-        if(proxy->Id() == m_seleced_id)
-            continue;
-
-        const std::vector<SnapPoint>& snappers = proxy->GetSnappers();
-        m_snap_points.insert(m_snap_points.end(), snappers.begin(), snappers.end());
-    }
-
+    UpdateSnappers();
     UpdateGrabbers();
 }
 
@@ -226,6 +219,17 @@ editor::Grabber* Editor::FindGrabber(const math::Vector& position)
     return nullptr;
 }
 
+void Editor::UpdateSnappers()
+{
+    m_snap_points.clear();
+
+    for(const auto& proxy : m_proxies)
+    {
+        const std::vector<SnapPoint>& snappers = proxy->GetSnappers();
+        m_snap_points.insert(m_snap_points.end(), snappers.begin(), snappers.end());
+    }
+}
+
 void Editor::UpdateGrabbers()
 {
     m_grabbers.clear();
@@ -247,9 +251,9 @@ float Editor::GetPickingDistance() const
     return m_camera->GetViewport().mB.x / size.width * 5.0f;
 }
 
-std::pair<int, math::Vector> Editor::FindSnapPosition(const math::Vector& position) const
+SnapPair Editor::FindSnapPosition(const math::Vector& position) const
 {
-    std::vector<SnapPoint> snappers;
+    std::vector<SnapPoint> selected_snappers;
 
     const unsigned int id = m_seleced_id;
     const auto find_func = [id](const IObjectProxyPtr& proxy) {
@@ -258,31 +262,31 @@ std::pair<int, math::Vector> Editor::FindSnapPosition(const math::Vector& positi
 
     auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
     if(it != m_proxies.end())
-        snappers = (*it)->GetSnappers();
+        selected_snappers = (*it)->GetSnappers();
 
-    int best_index = -1;
+    SnapPair snap_pair;
     float best_distance = math::INF;
-    math::Vector snapped_point = position;
 
-    for(size_t index = 0; index < snappers.size(); ++index)
+    for(const SnapPoint& snap_point : selected_snappers)
     {
-        const SnapPoint& snap_point = snappers[index];
         for(const SnapPoint& other : m_snap_points)
         {
+            if(snap_point.id == other.id)
+                continue;
+
             const float distance = math::Length(snap_point.position - other.position);
             if(distance < 0.2f && distance < best_distance)
             {
-                best_index = index;
                 best_distance = distance;
-                snapped_point = other.position;
+
+                snap_pair.found_snap = true;
+                snap_pair.snap_from = snap_point;
+                snap_pair.snap_to = other;
             }
         }
     }
 
-    if(best_index != -1)
-        snapped_point = position - snapped_point;
-
-    return { best_index, snapped_point };
+    return snap_pair;
 }
 
 void Editor::OnDeleteObject()

@@ -29,13 +29,13 @@ namespace editor
         bool m_painting;
 
         std::shared_ptr<editor::PolygonEntity> m_polygon;
-        math::Vector m_previouslyAddedPoint;
-        math::Vector m_previousPoint;
+        math::Vector m_previously_added_point;
+        math::Vector m_previous_point;
         float m_direction;
 
         class Visualizer;
         std::shared_ptr<Visualizer> m_visualizer;
 
-        std::vector<math::Vector> m_drawnPoints;
+        std::vector<math::Vector> m_drawn_points;
     };
 }

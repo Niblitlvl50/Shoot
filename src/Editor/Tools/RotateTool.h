@@ -25,6 +25,6 @@ namespace editor
     private:
         Editor* m_editor;
         mono::IEntityPtr m_entity;
-        float m_rotationDiff;
+        float m_rotation_diff;
     };
 }

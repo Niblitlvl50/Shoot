@@ -11,7 +11,7 @@ using namespace editor;
 PolygonTool::PolygonTool(Editor* editor)
     : m_editor(editor)
 {
-    m_visualizer = std::make_shared<PolygonVisualizer2>(m_points, m_mousePosition);
+    m_visualizer = std::make_shared<PolygonVisualizer2>(m_points, m_mouse_position);
 }
 
 void PolygonTool::Begin()
@@ -55,5 +55,5 @@ void PolygonTool::HandleMouseUp(const math::Vector& world_pos)
 
 void PolygonTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    m_mousePosition = world_pos;
+    m_mouse_position = world_pos;
 }

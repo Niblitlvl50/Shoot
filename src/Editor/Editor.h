@@ -51,9 +51,11 @@ namespace editor
 
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);
+
+        void UpdateSnappers();
         void UpdateGrabbers();
 
-        std::pair<int, math::Vector> FindSnapPosition(const math::Vector& position) const;
+        SnapPair FindSnapPosition(const math::Vector& position) const;
 
         float GetPickingDistance() const;
 

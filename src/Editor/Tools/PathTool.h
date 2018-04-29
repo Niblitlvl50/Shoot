@@ -26,7 +26,7 @@ namespace editor
     private:
 
         Editor* m_editor;
-        math::Vector m_mousePosition;
+        math::Vector m_mouse_position;
         std::vector<math::Vector> m_points;
 
         class Visualizer;

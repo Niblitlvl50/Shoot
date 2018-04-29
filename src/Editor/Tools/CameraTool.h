@@ -27,6 +27,6 @@ namespace editor
         const System::IWindow* m_window;
 
         bool m_translate;
-        math::Vector m_translateDelta;
+        math::Vector m_translate_delta;
     };
 }

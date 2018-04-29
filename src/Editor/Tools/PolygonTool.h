@@ -27,7 +27,7 @@ namespace editor
         Editor* m_editor;
         std::shared_ptr<class PolygonVisualizer2> m_visualizer;
 
-        math::Vector m_mousePosition;
+        math::Vector m_mouse_position;
         std::vector<math::Vector> m_points;
     };
 }

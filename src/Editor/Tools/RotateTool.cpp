@@ -36,7 +36,7 @@ void RotateTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr
 
     const math::Vector& position = m_entity->Position() + m_entity->BasePoint();
     const float rotation = m_entity->Rotation();
-    m_rotationDiff = rotation - math::AngleBetweenPoints(position, world_pos);
+    m_rotation_diff = rotation - math::AngleBetweenPoints(position, world_pos);
 }
 
 void RotateTool::HandleMouseUp(const math::Vector& world_pos)
@@ -52,8 +52,9 @@ void RotateTool::HandleMousePosition(const math::Vector& world_pos)
     const math::Vector& position = m_entity->Position() + m_entity->BasePoint();
     const float angle = math::AngleBetweenPoints(position, world_pos);
 
-    m_entity->SetRotation(angle + m_rotationDiff);
+    m_entity->SetRotation(angle + m_rotation_diff);
     m_editor->UpdateGrabbers();
+    m_editor->UpdateSnappers();
 }
 
 

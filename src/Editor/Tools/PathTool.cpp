@@ -13,7 +13,7 @@ public:
 
     Visualizer(const std::vector<math::Vector>& points, const math::Vector& mouse_position)
         : m_points(points),
-          m_mousePosition(mouse_position)
+          m_mouse_position(mouse_position)
     { }
 
     virtual void doDraw(mono::IRenderer& renderer) const
@@ -25,7 +25,7 @@ public:
 
         DrawPath(renderer, m_points);
 
-        const std::vector<math::Vector>& line = { m_points.back(), m_mousePosition };
+        const std::vector<math::Vector>& line = { m_points.back(), m_mouse_position };
         renderer.DrawLines(line, line_color, 2.0f);
     }
 
@@ -35,12 +35,12 @@ public:
     }
 
     const std::vector<math::Vector>& m_points;
-    const math::Vector& m_mousePosition;
+    const math::Vector& m_mouse_position;
 };
 
 PathTool::PathTool(Editor* editor)
     : m_editor(editor),
-      m_visualizer(std::make_shared<Visualizer>(m_points, m_mousePosition))
+      m_visualizer(std::make_shared<Visualizer>(m_points, m_mouse_position))
 { }
 
 void PathTool::Begin()
@@ -93,5 +93,5 @@ void PathTool::HandleMouseUp(const math::Vector& world_pos)
 
 void PathTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    m_mousePosition = world_pos;
+    m_mouse_position = world_pos;
 }

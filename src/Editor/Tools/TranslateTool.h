@@ -27,7 +27,7 @@ namespace editor
 
         Editor* m_editor;
         mono::IEntityPtr m_entity;
-        math::Vector m_beginTranslate;
-        math::Vector m_positionDiff;
+        math::Vector m_begin_translate;
+        math::Vector m_position_diff;
     };
 }

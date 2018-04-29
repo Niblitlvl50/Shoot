@@ -23,7 +23,7 @@ bool CameraTool::IsActive() const
 void CameraTool::HandleMouseDown(const math::Vector& screen_position)
 {
     m_translate = true;
-    m_translateDelta = screen_position;
+    m_translate_delta = screen_position;
 }
 
 void CameraTool::HandleMouseUp(const math::Vector& screen_position)
@@ -43,7 +43,7 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
 
     const math::Vector& scale = viewport.mB / window_size;
 
-    math::Vector delta = (screen_position - m_translateDelta);
+    math::Vector delta = (screen_position - m_translate_delta);
     delta.y = -delta.y;
     delta *= scale;
 
@@ -52,7 +52,7 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
 
     m_camera->SetPosition(new_pos);
 
-    m_translateDelta = screen_position;
+    m_translate_delta = screen_position;
 }
 
 void CameraTool::HandleMouseWheel(float x, float y)

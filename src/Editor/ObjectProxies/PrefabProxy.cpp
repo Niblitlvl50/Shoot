@@ -54,11 +54,12 @@ std::vector<Grabber> PrefabProxy::GetGrabbers() const
 
 std::vector<SnapPoint> PrefabProxy::GetSnappers() const
 {
-    math::Matrix matrix = m_prefab->Transformation();
-    math::Inverse(matrix);
+    const math::Matrix& matrix = m_prefab->Transformation();
+    const float rotation = m_prefab->Rotation();
 
-    const auto func = [&matrix](SnapPoint& point) {
+    const auto func = [&matrix, rotation](SnapPoint& point) {
         math::Transform(matrix, point.position);
+        point.normal -= rotation;
     };
 
     std::vector<SnapPoint> snappers = m_prefab->SnapPoints();
