@@ -11,18 +11,11 @@
     ],
     "frames": [
         {
-            "h": 16,
-            "name": "caco_bullet1",
-            "w": 16,
-            "x": 480,
-            "y": 238
-        },
-        {
-            "h": 15,
-            "name": "caco_bullet2",
-            "w": 15,
-            "x": 2,
-            "y": 267
+            "h": 27,
+            "name": "wall_pipes",
+            "w": 81,
+            "x": 300,
+            "y": 239
         }
     ],
     "texture": "res/sprite_atlas.png"
