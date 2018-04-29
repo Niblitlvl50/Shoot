@@ -11,6 +11,7 @@ namespace editor
     {
         math::Vector camera_position;
         math::Quad camera_viewport;
+        math::Vector window_position;
         math::Vector window_size;
 
         bool draw_object_names;

@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
         game::enemy_factory = new game::EnemyFactory(event_handler);
         
         constexpr math::Vector window_size(1280, 800);
-        System::IWindow* window = System::CreateWindow("Game", window_size.x, window_size.y, false);
+        System::IWindow* window = System::CreateWindow("Game", 0, 0, window_size.x, window_size.y, false);
         window->SetBackgroundColor(0.6, 0.6, 0.6);
         
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);

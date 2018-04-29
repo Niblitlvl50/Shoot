@@ -11,6 +11,7 @@ namespace
 {
     constexpr const char* camera_position = "camera_position";
     constexpr const char* camera_viewport = "camera_viewport";
+    constexpr const char* window_position = "window_position";
     constexpr const char* window_size = "window_size";
     constexpr const char* draw_object_names = "draw_object_names";
     constexpr const char* background_color = "background_color";
@@ -22,6 +23,7 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 
     json[camera_position] = config.camera_position;
     json[camera_viewport] = config.camera_viewport;
+    json[window_position] = config.window_position;
     json[window_size] = config.window_size;
     json[draw_object_names] = config.draw_object_names;
     json[background_color] = config.background_color;
@@ -50,6 +52,9 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     
     if(json.count(camera_viewport) > 0)
         config.camera_viewport = json[camera_viewport];
+
+    if(json.count(window_position) > 0)
+        config.window_position = json[window_position];
     
     if(json.count(window_size) > 0)
         config.window_size = json[window_size];
