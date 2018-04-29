@@ -44,6 +44,7 @@ int main(int argc, const char* argv[])
         mono::EventHandler event_eandler;
         auto editor = std::make_shared<editor::Editor>(window, event_eandler, file_name);
         editor->EnableDrawObjectNames(config.draw_object_names);
+        editor->EnableDrawSnappers(config.draw_snappers);
         editor->SetBackgroundColor(config.background_color);
 
         mono::Engine engine(window, camera, event_eandler);
@@ -57,6 +58,7 @@ int main(int argc, const char* argv[])
         config.window_position = math::Vector(position.x, position.y);
         config.window_size = math::Vector(size.width, size.height);
         config.draw_object_names = editor->DrawObjectNames();
+        config.draw_snappers = editor->DrawSnappers();
         config.background_color = editor->BackgroundColor();
 
         editor::SaveConfig("res/editor_config.json", config);

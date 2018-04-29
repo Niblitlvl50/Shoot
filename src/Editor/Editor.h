@@ -68,6 +68,9 @@ namespace editor
         bool DrawObjectNames() const;
         void EnableDrawObjectNames(bool enable);
 
+        bool DrawSnappers() const;
+        void EnableDrawSnappers(bool enable);
+
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
 

@@ -15,6 +15,7 @@ namespace editor
         math::Vector window_size;
 
         bool draw_object_names;
+        bool draw_snappers;
         mono::Color::RGBA background_color;
     };
 

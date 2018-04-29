@@ -83,6 +83,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
     m_context.tools_menu_callback = std::bind(&Editor::ToolsMenuCallback, this, _1);
     m_context.drop_callback = std::bind(&Editor::DropItemCallback, this, _1, _2);
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
+    m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
 
     const event::SurfaceChangedEventFunc surface_func = std::bind(&Editor::OnSurfaceChanged, this, _1);
@@ -115,7 +116,7 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
 
     AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
-    AddDrawable(std::make_shared<SnapperVisualizer>(m_snap_points), RenderLayer::GRABBERS);
+    AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_guiRenderer, RenderLayer::UI);
@@ -350,6 +351,16 @@ bool Editor::DrawObjectNames() const
 void Editor::EnableDrawObjectNames(bool enable)
 {
     m_context.draw_object_names = enable;
+}
+
+bool Editor::DrawSnappers() const
+{
+    return m_context.draw_snappers;
+}
+
+void Editor::EnableDrawSnappers(bool enable)
+{
+    m_context.draw_snappers = enable;;
 }
 
 const mono::Color::RGBA& Editor::BackgroundColor() const

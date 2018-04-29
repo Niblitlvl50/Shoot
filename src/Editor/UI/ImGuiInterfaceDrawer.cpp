@@ -57,6 +57,9 @@ namespace
             if(ImGui::Checkbox("Draw Object Names", &context.draw_object_names))
                 context.draw_object_names_callback(context.draw_object_names);
 
+            if(ImGui::Checkbox("Draw Snappers", &context.draw_snappers))
+                context.draw_snappers_callback(context.draw_snappers);
+
             ImGui::EndMenu();
         }
 

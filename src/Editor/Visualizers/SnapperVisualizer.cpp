@@ -10,12 +10,16 @@
 
 using namespace editor;
 
-SnapperVisualizer::SnapperVisualizer(const std::vector<editor::SnapPoint>& snappers)
-    : m_snappers(snappers)
+SnapperVisualizer::SnapperVisualizer(const bool& draw_snappers, const std::vector<editor::SnapPoint>& snappers)
+    : m_draw_snappers(draw_snappers)
+    , m_snappers(snappers)
 { }
 
 void SnapperVisualizer::doDraw(mono::IRenderer& renderer) const
 {
+    if(!m_draw_snappers)
+        return;
+
     std::vector<math::Vector> points;
     points.reserve(m_snappers.size() * 2);
 

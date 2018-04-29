@@ -227,6 +227,8 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
         SelectTool(ToolsMenuOptions::PATH_TOOL);
     else if(event.key == Keycode::N)
         m_editor->EnableDrawObjectNames(!m_editor->DrawObjectNames());
+    else if(event.key == Keycode::S)
+        m_editor->EnableDrawSnappers(!m_editor->DrawSnappers());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
     else if(event.key == Keycode::ENTER && event.ctrl)

@@ -31,6 +31,7 @@ namespace editor
         // Options
         mono::Color::RGBA background_color;
         bool draw_object_names = false;
+        bool draw_snappers = false;
 
         // Context menu
         bool showContextMenu = false;
@@ -51,6 +52,7 @@ namespace editor
         std::function<void (const std::string& id, const math::Vector& position)> drop_callback;
 
         std::function<void (bool)> draw_object_names_callback;
+        std::function<void (bool)> draw_snappers_callback;
         std::function<void (const mono::Color::RGBA&)> background_color_callback;
     };
 }
