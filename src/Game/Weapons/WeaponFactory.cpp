@@ -24,7 +24,6 @@ namespace
         const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
     {
         const float direction = math::AngleBetweenPoints(bullet->Position(), other->GetPosition());
-
         event_handler.DispatchEvent(game::DamageEvent(other, 10, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
@@ -39,10 +38,10 @@ namespace
         explosion_config.rotation = 0.0f;
         explosion_config.sprite_file = "res/sprites/explosion.sprite";
 
-        const game::SpawnEntityEvent event(
+        const game::SpawnEntityEvent spawn_event(
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
-        event_handler.DispatchEvent(event);
-        event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
+        event_handler.DispatchEvent(spawn_event);
+        event_handler.DispatchEvent(game::DamageEvent(other, 50, direction));
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
@@ -58,9 +57,9 @@ namespace
         explosion_config.rotation = 0.0f;
         explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
 
-        const game::SpawnEntityEvent event(
+        const game::SpawnEntityEvent spawn_event(
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
-        event_handler.DispatchEvent(event);
+        event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
@@ -99,13 +98,13 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.collision_radius = 0.4f;
             bullet_config.scale = 0.4;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_eventHandler));
-            bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
-            //bullet_config.sprite_file = "res/sprites/generic.sprite";
+            //bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
+            bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
             bullet_config.sound_file = nullptr;
 
-            weapon_config.magazine_size = 50;
-            weapon_config.rounds_per_second = 6.0f;
+            weapon_config.magazine_size = 100;
+            weapon_config.rounds_per_second = 10.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 3.0f;
             weapon_config.bullet_force = 30.0f;
@@ -116,10 +115,11 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::ROCKET:
         {
-            bullet_config.life_span = 0.2f;
+            bullet_config.life_span = 2.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
             bullet_config.collision_callback = std::bind(RocketCollision, _1, _2, std::ref(m_eventHandler));
+            bullet_config.scale = 0.5;
             bullet_config.sprite_file = "res/sprites/laser.sprite";
             bullet_config.sound_file = nullptr;
 

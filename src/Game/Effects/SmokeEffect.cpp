@@ -22,10 +22,10 @@ namespace
 
         pool.m_position[index] = position;
         pool.m_velocity[index] = math::Vector(x, y);
-        pool.m_start_color[index] = mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.1f);
-        pool.m_end_color[index] = mono::Color::RGBA(0.6f, 0.6f, 0.6f, 0.5f);
-        pool.m_start_size[index] = 64.0f;
-        pool.m_end_size[index] = 1.0f;
+        pool.m_start_color[index] = mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.8f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.6f, 0.6f, 0.6f, 0.0f);
+        pool.m_start_size[index] = 128.0f;
+        pool.m_end_size[index] = 64.0f;
         pool.m_start_life[index] = life;
         pool.m_life[index] = life;
     }
@@ -40,7 +40,7 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     emit_config.generator = SmokeGenerator;
     emit_config.burst = false;
     emit_config.duration = -1.0f;
-    emit_config.emit_rate = 100.0f;
+    emit_config.emit_rate = 5.0f;
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
 
