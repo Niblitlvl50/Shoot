@@ -254,6 +254,10 @@ float Editor::GetPickingDistance() const
 
 SnapPair Editor::FindSnapPosition(const math::Vector& position) const
 {
+    SnapPair snap_pair;
+    if(!m_context.draw_snappers)
+        return snap_pair;
+
     std::vector<SnapPoint> selected_snappers;
 
     const unsigned int id = m_seleced_id;
@@ -265,7 +269,6 @@ SnapPair Editor::FindSnapPosition(const math::Vector& position) const
     if(it != m_proxies.end())
         selected_snappers = (*it)->GetSnappers();
 
-    SnapPair snap_pair;
     float best_distance = math::INF;
 
     for(const SnapPoint& snap_point : selected_snappers)
@@ -276,7 +279,7 @@ SnapPair Editor::FindSnapPosition(const math::Vector& position) const
                 continue;
 
             const float distance = math::Length(snap_point.position - other.position);
-            if(distance < 0.2f && distance < best_distance)
+            if(distance < 0.1f && distance < best_distance)
             {
                 best_distance = distance;
 

@@ -10,6 +10,7 @@ using namespace editor;
 
 TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
+    , m_was_snapped(false)
 { }
 
 void TranslateTool::Begin()
@@ -53,7 +54,7 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     m_entity->SetPosition(new_pos);
 
     const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);
-    if(snap_pair.found_snap)
+    if(snap_pair.found_snap && !m_was_snapped)
     {
         const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
         const float new_angle = math::NormalizeAngle(snap_pair.snap_from.normal - snap_pair.snap_to.normal - math::PI());
@@ -69,8 +70,10 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
         m_entity->SetPosition(position);
         m_entity->SetRotation(math::NormalizeAngle(new_angle + m_entity->Rotation()));
 
-        //m_position_diff = m_entity->Position() - world_pos;
+        End();
     }
+
+    m_was_snapped = snap_pair.found_snap;
 
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();

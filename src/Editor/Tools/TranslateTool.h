@@ -29,5 +29,7 @@ namespace editor
         mono::IEntityPtr m_entity;
         math::Vector m_begin_translate;
         math::Vector m_position_diff;
+
+        bool m_was_snapped;
     };
 }
