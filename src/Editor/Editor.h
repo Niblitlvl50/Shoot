@@ -9,7 +9,6 @@
 
 #include "UI/MainMenuOptions.h"
 #include "UI/UIContext.h"
-#include "ImGuiImpl/ImGuiInputHandler.h"
 
 #include "ObjectProxies/IObjectProxy.h"
 #include "Grabber.h"
@@ -19,6 +18,7 @@
 #include "ObjectFactory.h"
 
 
+class ImGuiInputHandler;
 class ImGuiRenderer;
 
 namespace editor
@@ -78,7 +78,6 @@ namespace editor
 
         System::IWindow* m_window;
         mono::EventHandler& m_eventHandler;
-        ImGuiInputHandler m_inputHandler;
         const char* m_fileName;
         mono::ICameraPtr m_camera;
 
@@ -86,6 +85,7 @@ namespace editor
         EntityRepository m_entityRepository;
         ObjectFactory m_object_factory;
 
+        std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::shared_ptr<ImGuiRenderer> m_guiRenderer;
         std::shared_ptr<class UserInputController> m_userInputController;
 

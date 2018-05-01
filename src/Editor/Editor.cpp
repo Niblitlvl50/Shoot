@@ -15,6 +15,7 @@
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
 #include "ImGuiImpl/ImGuiRenderer.h"
+#include "ImGuiImpl/ImGuiInputHandler.h"
 #include "Textures.h"
 #include "RenderLayers.h"
 #include "WorldSerializer.h"
@@ -70,7 +71,6 @@ using namespace editor;
 Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const char* file_name)
     : m_window(window),
       m_eventHandler(event_handler),
-      m_inputHandler(event_handler),
       m_fileName(file_name),
       m_object_factory(this),
       m_seleced_id(-1)
@@ -97,6 +97,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
     const System::Size& size = m_window->Size();
     const math::Vector window_size(size.width, size.height);
     m_guiRenderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
+    m_input_handler = std::make_unique<ImGuiInputHandler>(event_handler);
 
     Load();
 }
