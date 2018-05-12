@@ -18,12 +18,12 @@ bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
         const world::PolygonData& polygon = level.polygons[index];
         const int n_vertices = static_cast<int>(polygon.vertices.size());
 
-        std::fwrite(&polygon.position,          sizeof(math::Vector), 1,          file.get());
-        std::fwrite(&polygon.local_offset,      sizeof(math::Vector), 1,          file.get());
-        std::fwrite(&polygon.rotation,          sizeof(float),        1,          file.get());
-        std::fwrite(&polygon.texture,           sizeof(char),        64,          file.get());
-        std::fwrite(&n_vertices,                sizeof(int),          1,          file.get());
-        std::fwrite(polygon.vertices.data(),    sizeof(math::Vector), n_vertices, file.get());
+        std::fwrite(&polygon.position,          sizeof(math::Vector), 1,                            file.get());
+        std::fwrite(&polygon.local_offset,      sizeof(math::Vector), 1,                            file.get());
+        std::fwrite(&polygon.rotation,          sizeof(float),        1,                            file.get());
+        std::fwrite(&polygon.texture,           sizeof(char),         PolygonTextureNameMaxLength,  file.get());
+        std::fwrite(&n_vertices,                sizeof(int),          1,                            file.get());
+        std::fwrite(polygon.vertices.data(),    sizeof(math::Vector), n_vertices,                   file.get());
     }
 
     return true;
@@ -58,8 +58,8 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
         std::memcpy(&polygon.rotation, bytes.data() + offset, sizeof(float));
         offset += sizeof(float);
 
-        std::memcpy(&polygon.texture, bytes.data() + offset, sizeof(char) * 64);
-        offset += sizeof(char) * 64;
+        std::memcpy(&polygon.texture, bytes.data() + offset, sizeof(char) * PolygonTextureNameMaxLength);
+        offset += sizeof(char) * PolygonTextureNameMaxLength;
 
         int n_vertices = 0;
         std::memcpy(&n_vertices,        bytes.data() + offset, sizeof(int));
@@ -86,7 +86,7 @@ bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHea
         const world::WorldObject& world_object = objects_header.objects[index];
         const int n_attributes = static_cast<int>(world_object.attributes.size());
 
-        std::fwrite(&world_object.name, sizeof(char), 24, file.get());
+        std::fwrite(&world_object.name, sizeof(char), WorldObjectNameMaxLength, file.get());
         std::fwrite(&n_attributes, sizeof(int), 1, file.get());
         std::fwrite(world_object.attributes.data(), sizeof(Attribute), n_attributes, file.get());
     }
@@ -120,8 +120,8 @@ bool world::ReadWorldObjects2(const File::FilePtr& file, world::WorldObjectsHead
     {
         world::WorldObject& world_object = objects.objects[index];
         
-        std::memcpy(&world_object.name, bytes.data() + offset, sizeof(char) * 24);
-        offset += sizeof(char) * 24;
+        std::memcpy(&world_object.name, bytes.data() + offset, sizeof(char) * WorldObjectNameMaxLength);
+        offset += sizeof(char) * WorldObjectNameMaxLength;
         
         int n_attributes = 0;
         std::memcpy(&n_attributes, bytes.data() + offset, sizeof(int));
@@ -182,8 +182,8 @@ bool world::ReadWorldObjects(const File::FilePtr& file, std::vector<WorldObject>
         const std::string& object_name = json_object["name"];
 
         WorldObject object;
-        std::memset(object.name, 0, 24);
-        std::memcpy(object.name, object_name.data(), 23);
+        std::memset(object.name, 0, WorldObjectNameMaxLength);
+        std::memcpy(object.name, object_name.data(), WorldObjectNameMaxLength -1);
 
         for(auto& json_attribute : json_object["attributes"])
         {

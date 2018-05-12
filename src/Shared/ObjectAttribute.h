@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <cstring>
 
+constexpr int VariantStringMaxLength = 24;
+
 class Variant
 {
 public:
@@ -76,7 +78,7 @@ public:
         type = Type::STRING;
 
         const size_t length = std::strlen(string);
-        const size_t data_length = std::min(length, size_t(24 - 1));
+        const size_t data_length = std::min(length, size_t(VariantStringMaxLength - 1));
 
         std::memcpy(string_value, string, data_length);
         string_value[data_length] = '\0';
@@ -106,7 +108,7 @@ public:
     {
         int int_value;
         float float_value;
-        char string_value[24];
+        char string_value[VariantStringMaxLength];
         math::Vector point_value;
     };
 };

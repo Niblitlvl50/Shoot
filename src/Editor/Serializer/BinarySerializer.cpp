@@ -32,7 +32,7 @@ void BinarySerializer::Accept(EntityProxy* proxy)
     
     const char* name = proxy->Name();
     const size_t length = std::strlen(name);
-    const size_t data_length = std::min(length, size_t(24) -1);
+    const size_t data_length = std::min(length, size_t(world::WorldObjectNameMaxLength) -1);
 
     std::memcpy(world_object.name, name, data_length);
     world_object.name[data_length] = '\0';

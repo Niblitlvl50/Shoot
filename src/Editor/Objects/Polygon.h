@@ -5,6 +5,8 @@
 #include "Entity/EntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
 
+#include "WorldFile.h"
+
 #include <vector>
 
 namespace editor
@@ -44,7 +46,7 @@ namespace editor
 
         std::vector<math::Vector> m_points;
         std::vector<math::Vector> m_textureCoordinates;
-        char m_texture_name[64];
+        char m_texture_name[world::PolygonTextureNameMaxLength];
     };
 
     void DrawPolygon(mono::IRenderer& renderer,

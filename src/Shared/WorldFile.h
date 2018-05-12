@@ -9,12 +9,15 @@
 
 namespace world
 {
+    constexpr int PolygonTextureNameMaxLength = 64;
+    constexpr int WorldObjectNameMaxLength = 24;
+
     struct PolygonData
     {
         math::Vector position;
         math::Vector local_offset;
         float rotation = 0.0f;
-        char texture[64] = { 0 };
+        char texture[PolygonTextureNameMaxLength] = { 0 };
         std::vector<math::Vector> vertices;
     };
 
@@ -26,7 +29,7 @@ namespace world
 
     struct WorldObject
     {
-        char name[24] = { 0 };
+        char name[WorldObjectNameMaxLength] = { 0 };
         std::vector<Attribute> attributes;
     };
 

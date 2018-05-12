@@ -8,6 +8,7 @@
 #include "Math/MathFwd.h"
 #include "Math/MathFunctions.h"
 
+#include "WorldFile.h"
 #include <cassert>
 #include <cstring>
 
@@ -105,9 +106,9 @@ bool PolygonEntity::IsSelected() const
 void PolygonEntity::SetTexture(const char* texture)
 {
     const std::size_t length = std::strlen(texture);
-    assert(length <= 64);
+    assert(length <= world::PolygonTextureNameMaxLength);
 
-    std::memset(m_texture_name, 0, 64);
+    std::memset(m_texture_name, 0, world::PolygonTextureNameMaxLength);
     std::memcpy(m_texture_name, texture, length);
 
     m_texture = nullptr;

@@ -14,7 +14,7 @@ void editor::DrawProperty(const char* text, Variant& attribute)
         ImGui::InputFloat(text, &attribute.float_value);
         break;
     case Variant::Type::STRING:
-        ImGui::InputText(text, attribute.string_value, 24);
+        ImGui::InputText(text, attribute.string_value, VariantStringMaxLength);
         break;
     case Variant::Type::POINT:
         ImGui::Value("X", attribute.point_value.x);
