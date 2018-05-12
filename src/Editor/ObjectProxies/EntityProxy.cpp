@@ -70,7 +70,7 @@ void EntityProxy::UpdateUIContext(UIContext& context)
         DrawProperty(world::AttributeNameFromHash(id_attribute.id), id_attribute.attribute);
 
     math::Vector position;
-    float rotation;
+    float rotation = m_entity->Rotation();
 
     world::FindAttribute(world::POSITION_ATTRIBUTE, m_attributes, position);
     world::FindAttribute(world::ROTATION_ATTRIBUTE, m_attributes, rotation);
@@ -87,7 +87,7 @@ std::vector<Attribute> EntityProxy::GetAttributes() const
 void EntityProxy::SetAttributes(const std::vector<Attribute>& attributes)
 {
     math::Vector position;
-    float rotation;
+    float rotation = 0.0f;
 
     world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
     world::FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
