@@ -33,6 +33,7 @@
 #include "Visualizers/GrabberVisualizer.h"
 #include "Visualizers/SnapperVisualizer.h"
 #include "Visualizers/ObjectNameVisualizer.h"
+#include "Visualizers/ObjectDetailVisualizer.h"
 
 #include "Utils.h"
 #include <algorithm>
@@ -112,6 +113,7 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
 {
     m_camera = camera;
     m_userInputController = std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_eventHandler);
+    m_object_detail_visualizer = std::make_shared<editor::ObjectDetailVisualizer>();
 
     AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));
 
@@ -120,6 +122,7 @@ void Editor::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
+    AddDrawable(m_object_detail_visualizer, RenderLayer::OBJECTS);
     AddDrawable(m_guiRenderer, RenderLayer::UI);
 }
 
@@ -172,6 +175,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     m_seleced_id = -1;
     m_context.proxy_object = proxy_object;
+    m_object_detail_visualizer->SetObjectProxy(proxy_object);
 
     for(auto& proxy : m_proxies)
         proxy->SetSelected(false);

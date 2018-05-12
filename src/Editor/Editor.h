@@ -88,6 +88,7 @@ namespace editor
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::shared_ptr<ImGuiRenderer> m_guiRenderer;
         std::shared_ptr<class UserInputController> m_userInputController;
+        std::shared_ptr<class ObjectDetailVisualizer> m_object_detail_visualizer;
 
         std::vector<editor::Grabber> m_grabbers;
         std::vector<editor::SnapPoint> m_snap_points;
