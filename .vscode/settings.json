@@ -61,6 +61,7 @@
         "__nullptr": "cpp",
         "__mutex_base": "cpp",
         "mutex": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "variant": "cpp"
     }
 }
