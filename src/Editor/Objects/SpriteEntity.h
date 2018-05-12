@@ -10,7 +10,7 @@ namespace editor
     class SpriteEntity : public mono::EntityBase
     {
     public:
-        SpriteEntity(const char* name, const char* file);
+        SpriteEntity(const char* name, const char* sprite_file);
         
         void SetSelected(bool selected);
         const std::string& Name() const;

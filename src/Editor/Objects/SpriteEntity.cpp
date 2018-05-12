@@ -8,11 +8,11 @@
 
 using namespace editor;
 
-SpriteEntity::SpriteEntity(const char* name, const char* file)
+SpriteEntity::SpriteEntity(const char* name, const char* sprite_file)
     : m_name(name),
       m_selected(false)
 {
-    m_sprite = mono::CreateSprite(file);
+    m_sprite = mono::CreateSprite(sprite_file);
     //m_base_point = math::Vector(0.5, 0.5);
 }
 
