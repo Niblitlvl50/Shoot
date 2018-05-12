@@ -315,7 +315,7 @@ void Editor::OnDeleteObject()
 
     SchedulePreFrameTask(remove_entity_func);
 
-    m_context.proxy_object = nullptr;
+    SelectProxyObject(nullptr);
     m_grabbers.clear();
 }
 
@@ -348,6 +348,7 @@ void Editor::DropItemCallback(const std::string& id, const math::Vector& positio
     
     AddEntity(entity, RenderLayer::OBJECTS);
 
+    SelectProxyObject(proxy.get());
     m_proxies.push_back(std::move(proxy));
 }
 
