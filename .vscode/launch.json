@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Launch game",
+            "name": "C++ game",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/game",
@@ -21,10 +21,13 @@
             }
         },
         {
-            "name": "C++ Launch editor",
+            "name": "C++ editor",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/editor",
+            "args": [
+                "res/world.world"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
