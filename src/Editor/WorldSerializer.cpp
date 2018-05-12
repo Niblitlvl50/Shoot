@@ -41,9 +41,16 @@ std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const e
 
     polygon_data.reserve(level_data.polygons.size());
 
+    const auto check_for_nan = [](const math::Vector& vertex) {
+        return std::isnan(vertex.x) || std::isnan(vertex.y);
+    };
+
     for(const world::PolygonData& polygon : level_data.polygons)
     {
         if(polygon.vertices.empty())
+            continue;
+
+        if(std::any_of(polygon.vertices.begin(), polygon.vertices.end(), check_for_nan))
             continue;
 
         auto proxy = factory.CreatePolygon(
