@@ -41,10 +41,13 @@ void PrefabProxy::SetSelected(bool selected)
     m_prefab->SetSelected(selected);
 }
 
-bool PrefabProxy::Intersects(const math::Vector& position) const
+bool PrefabProxy::Intersects(const math::Vector& world_position) const
 {
-    const math::Quad& bb = m_prefab->BoundingBox();
-    return math::PointInsideQuad(position, bb);
+    const math::Matrix& world_to_local = math::Inverse(m_prefab->Transformation());
+    const math::Vector& local_position = math::Transform(world_to_local, world_position);
+
+    const math::Quad bb(-0.5f, -0.5f, 0.5f, 0.5f);
+    return math::PointInsideQuad(local_position, bb);
 }
 
 std::vector<Grabber> PrefabProxy::GetGrabbers() const
