@@ -39,7 +39,7 @@ PolygonEntity::PolygonEntity(const math::Vector& position, const std::vector<mat
         m_points.push_back(math::Transform(world_to_local, world_point));
 
     RecalculateTextureCoordinates();
-    m_base_point = math::CentroidOfPolygon(m_points);
+    m_pivot_point = math::CentroidOfPolygon(m_points);
 }
 
 void PolygonEntity::Draw(mono::IRenderer& renderer) const
@@ -52,7 +52,7 @@ void PolygonEntity::Draw(mono::IRenderer& renderer) const
         renderer.DrawClosedPolyline(m_points, selected_color, 6.0f);
 
     DrawPolygon(renderer, m_texture, m_points, m_textureCoordinates);
-    renderer.DrawPoints({ m_base_point }, point_color, 4.0f);
+    renderer.DrawPoints({ m_pivot_point }, point_color, 4.0f);
 }
 
 void PolygonEntity::Update(unsigned int delta)
@@ -76,7 +76,7 @@ void PolygonEntity::AddVertex(const math::Vector& local_point)
 {
     m_points.push_back(local_point);
     RecalculateTextureCoordinates();
-    m_base_point = math::CentroidOfPolygon(m_points);
+    m_pivot_point = math::CentroidOfPolygon(m_points);
 }
 
 void PolygonEntity::SetVertex(const math::Vector& world_point, size_t index)

@@ -31,9 +31,9 @@ void SnapperVisualizer::doDraw(mono::IRenderer& renderer) const
     {
         points.push_back(snapper.position);
 
-        const math::Vector& normal_vector = math::VectorFromAngle(snapper.normal);
-        const math::Vector& left_arrow = math::VectorFromAngle(snapper.normal + math::PI() - math::PI_4());
-        const math::Vector& right_arrow = math::VectorFromAngle(snapper.normal + math::PI() + math::PI_4());
+        const math::Vector& normal_vector = math::VectorFromAngle(-snapper.normal);
+        const math::Vector& left_arrow = math::VectorFromAngle(-snapper.normal + math::PI() - math::PI_4());
+        const math::Vector& right_arrow = math::VectorFromAngle(-snapper.normal + math::PI() + math::PI_4());
 
         line_points.push_back(snapper.position);
         line_points.push_back(snapper.position + normal_vector * -0.25f);
