@@ -13,7 +13,7 @@ namespace editor
     std::vector<IObjectProxyPtr> LoadPolygons(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadPaths(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadObjects(const char* file_name, const editor::ObjectFactory& factory);
-    std::vector<IObjectProxyPtr> LoadObjects2(const char* file_name, const editor::ObjectFactory& factory);
+    std::vector<IObjectProxyPtr> LoadObjectsBinary(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadPrefabs(const char* file_name, const editor::ObjectFactory& factory);
 
     std::vector<IObjectProxyPtr> LoadWorld(const char* file_name, const editor::ObjectFactory& factory);    

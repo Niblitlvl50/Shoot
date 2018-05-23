@@ -95,30 +95,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     return paths;
 }
 
-//void editor::SaveObjects(const char* file_name, const std::vector<std::shared_ptr<editor::SpriteEntity>>& objects)
-//{
-//    nlohmann::json json_object_collection;
-//
-//    for(auto& object : objects)
-//    {
-//        nlohmann::json json_object;
-//        json_object["name"] = object->Name();
-//        json_object["position"] = object->Position();
-//        json_object["rotation"] = object->Rotation();
-//
-//        json_object_collection.push_back(json_object);
-//    }
-//
-//    nlohmann::json json;
-//    json["objects"] = json_object_collection;
-//
-//    const std::string& serialized_json = json.dump(4);
-//
-//    File::FilePtr file = File::CreateAsciiFile(file_name);
-//    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-//}
-
-std::vector<IObjectProxyPtr> editor::LoadObjects2(const char* file_name, const editor::ObjectFactory& factory)
+std::vector<IObjectProxyPtr> editor::LoadObjectsBinary(const char* file_name, const editor::ObjectFactory& factory)
 {
     std::vector<IObjectProxyPtr> objects;
 
@@ -127,7 +104,7 @@ std::vector<IObjectProxyPtr> editor::LoadObjects2(const char* file_name, const e
         return objects;
 
     world::WorldObjectsHeader world_header;
-    world::ReadWorldObjects2(file, world_header);
+    world::ReadWorldObjectsBinary(file, world_header);
 
     for(auto& world_object : world_header.objects)
     {
@@ -139,7 +116,6 @@ std::vector<IObjectProxyPtr> editor::LoadObjects2(const char* file_name, const e
 
     return objects;
 }
-
 
 std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const editor::ObjectFactory& factory)
 {
@@ -153,18 +129,44 @@ std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const ed
     File::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const nlohmann::json& json_objects = json["objects"];
 
-    for(const auto& json_object : json_objects)
+    for(const auto& json_object : json["objects"])
     {
         const std::string& name = json_object["name"];
-        const math::Vector& position = json_object["position"];
-        const float rotation = json_object["rotation"];
 
-        const std::vector<Attribute> attributes = {
-            { world::POSITION_ATTRIBUTE, Variant(position) },
-            { world::RADIUS_ATTRIBUTE,   Variant(rotation) }
-        };
+        std::vector<Attribute> attributes;
+
+        for(auto&& json_attribute : json_object["attributes"])
+        {
+            const std::string& attribute_name = json_attribute["name"];
+
+            Attribute attribute;
+            attribute.id = mono::Hash(attribute_name.c_str());
+            attribute.attribute = world::DefaultAttributeFromHash(attribute.id);
+
+            switch(attribute.attribute.type)
+            {
+                case Variant::Type::INT:
+                    attribute.attribute = (int)json_attribute["value"];
+                    break;
+                case Variant::Type::FLOAT:
+                    attribute.attribute = (float)json_attribute["value"];
+                    break;
+                case Variant::Type::STRING:
+                {
+                    const std::string& string_value = json_attribute["value"];
+                    attribute.attribute = string_value.c_str();
+                    break;
+                }
+                case Variant::Type::POINT:
+                    attribute.attribute = (math::Vector)json_attribute["value"];
+                    break;
+                case Variant::Type::NONE:
+                    break;
+            }
+
+            attributes.push_back(std::move(attribute));
+        }
 
         IObjectProxyPtr proxy = factory.CreateObject(name.c_str());
         proxy->SetAttributes(attributes);
@@ -211,7 +213,8 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(const char* file_name, const edit
 {
     std::vector<IObjectProxyPtr> world_objects;
 
-    auto objects = LoadObjects2("res/world.objects.bin", factory);
+    //auto objects_bin = LoadObjectsBinary("res/world.objects.bin", factory);
+    auto objects = LoadObjects("res/world.objects", factory);
     auto paths = LoadPaths("res/world.paths", factory);
     auto polygons = LoadPolygons(file_name, factory);
     auto prefabs = LoadPrefabs("res/world.prefabs", factory);

@@ -22,7 +22,10 @@ using namespace editor;
 
 void JsonSerializer::WriteEntities(const std::string& file_path) const
 {
-    const std::string& serialized_json = m_json_entities.dump(4);
+    nlohmann::json json;
+    json["objects"] = m_json_entities;
+
+    const std::string& serialized_json = json.dump(4);
 
     File::FilePtr file = File::CreateAsciiFile(file_path.c_str());
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());

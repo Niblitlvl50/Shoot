@@ -23,7 +23,7 @@ void BinarySerializer::WritePolygonFile(const std::string& file_name) const
 void BinarySerializer::WriteObjects(const std::string& file_name) const
 {
     File::FilePtr file = File::CreateBinaryFile(file_name.c_str());
-    world::WriteWorldObjects2(file, m_object_data);    
+    world::WriteWorldObjectsBinary(file, m_object_data);    
 }
 
 void BinarySerializer::Accept(EntityProxy* proxy)

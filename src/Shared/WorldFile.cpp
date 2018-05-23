@@ -74,7 +74,7 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
     return true;
 }
 
-bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHeader& objects_header)
+bool world::WriteWorldObjectsBinary(File::FilePtr& file, const world::WorldObjectsHeader& objects_header)
 {
     std::fwrite(&objects_header.version, sizeof(int), 1, file.get());
 
@@ -94,7 +94,7 @@ bool world::WriteWorldObjects2(File::FilePtr& file, const world::WorldObjectsHea
     return true;
 }
 
-bool world::ReadWorldObjects2(const File::FilePtr& file, world::WorldObjectsHeader& objects)
+bool world::ReadWorldObjectsBinary(const File::FilePtr& file, world::WorldObjectsHeader& objects)
 {
     if(!file)
         return false;

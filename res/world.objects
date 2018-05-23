@@ -1,350 +1,348 @@
-[
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -12.4222068786621,
-                    "y": -22.6136093139648
+{
+    "objects": [
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -25.567325592041,
+                        "y": 7.44492721557617
+                    }
+                },
+                {
+                    "name": "spawn_tag",
+                    "value": "blacksquare cacodemon"
+                },
+                {
+                    "name": "time_stamp",
+                    "value": 3
+                },
+                {
+                    "name": "radius",
+                    "value": 5.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "spawn_tag",
-                "value": "blacksquare cacodemon"
-            },
-            {
-                "name": "time_stamp",
-                "value": 3
-            },
-            {
-                "name": "radius",
-                "value": 5.0
-            }
-        ],
-        "name": "spawnpoint"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -44.6009521484375,
-                    "y": 12.9280261993408
+            ],
+            "name": "spawnpoint"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -45.269287109375,
+                        "y": 14.5120487213135
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.143304795026779
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "cacodemon"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -41.6579208374023,
-                    "y": 11.8785877227783
+            ],
+            "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -41.4425354003906,
+                        "y": 14.3290061950684
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": -0.00725317001342773
                 }
-            },
-            {
-                "name": "rotation",
-                "value": -0.0291612148284912
-            }
-        ],
-        "name": "cacodemon"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -0.934688568115234,
-                    "y": -15.0519695281982
+            ],
+            "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -0.934688568115234,
+                        "y": -15.0519695281982
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "filepath",
+                    "value": "smaller_loop"
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "filepath",
-                "value": "smaller_loop"
-            }
-        ],
-        "name": "pathinvader"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -27.0401382446289,
-                    "y": 7.17702484130859
+            ],
+            "name": "pathinvader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -53.0216598510742,
+                        "y": -18.1753616333008
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 4.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "spawn_tag",
-                "value": ""
-            },
-            {
-                "name": "time_stamp",
-                "value": 5
-            },
-            {
-                "name": "radius",
-                "value": 1.0
-            }
-        ],
-        "name": "spawnpoint"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -53.0216598510742,
-                    "y": -18.1753616333008
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -51.1326065063477,
+                        "y": -19.2883529663086
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -50.634391784668,
-                    "y": -15.5642623901367
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -50.2820472717285,
+                        "y": -14.6359157562256
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 5.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -49.8839721679688,
-                    "y": -20.600715637207
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -57.2824401855469,
+                        "y": -19.2630729675293
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -57.2824401855469,
-                    "y": -19.2630729675293
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -55.0110702514648,
+                        "y": -25.5608215332031
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -55.0110702514648,
-                    "y": -25.5608215332031
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -53.0806999206543,
+                        "y": -21.7670783996582
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -53.3250427246094,
-                    "y": -22.0028266906738
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -54.719181060791,
+                        "y": -15.2140960693359
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 3.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -54.719181060791,
-                    "y": -15.2140960693359
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -51.3987655639648,
+                        "y": -25.7792568206787
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -51.3987655639648,
-                    "y": -25.7792568206787
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -78.0633087158203,
+                        "y": -41.3840522766113
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            },
-            {
-                "name": "trigger_radius",
-                "value": 10.0
-            }
-        ],
-        "name": "blacksquare"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -78.0633087158203,
-                    "y": -41.3840522766113
+            ],
+            "name": "invader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -78.0372695922852,
+                        "y": 35.0955352783203
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "invader"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -78.0372695922852,
-                    "y": 35.0955352783203
+            ],
+            "name": "invader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 9.60839080810547,
+                        "y": 73.8775024414062
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "invader"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": 9.60839080810547,
-                    "y": 73.8775024414062
+            ],
+            "name": "invader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 76.8321075439453,
+                        "y": 70.1624755859375
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "invader"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": 76.8321075439453,
-                    "y": 70.1624755859375
+            ],
+            "name": "invader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -32.051139831543,
+                        "y": 10.8017845153809
+                    }
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "invader"
-    },
-    {
-        "attributes": [
-            {
-                "name": "position",
-                "value": {
-                    "x": -30.7492713928223,
-                    "y": 5.34446907043457
+            ],
+            "name": "playerpoint"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -35.5149841308594,
+                        "y": 12.0258197784424
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": -2.93394756317139
                 }
-            },
-            {
-                "name": "rotation",
-                "value": 0.0
-            }
-        ],
-        "name": "playerpoint"
-    }
-]
+            ],
+            "name": "halo_dude"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -42.0734214782715,
+                        "y": 5.87360382080078
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": -0.648396015167236
+                }
+            ],
+            "name": "halo_dude"
+        }
+    ]
+}
