@@ -95,7 +95,6 @@
             },
             "attribute_types": [
                 "position",
-                "rotation",
                 "spawn_tag",
                 "time_stamp",
                 "radius"
@@ -109,9 +108,20 @@
                 "y": 1.0
             },
             "attribute_types": [
+                "position"
+            ]                
+        },
+        {
+            "name": "halo_dude",
+            "sprite": "res/sprites/halo.sprite",
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "attribute_types": [
                 "position",
                 "rotation"
-            ]                
+            ]
         }
     ]
 }
