@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ game",
+            "name": "game",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/game",
@@ -21,7 +21,7 @@
             }
         },
         {
-            "name": "C++ editor",
+            "name": "editor",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/editor",
