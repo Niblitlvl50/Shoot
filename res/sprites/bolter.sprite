@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 22,
-            "name": "laser1",
-            "w": 8,
-            "x": 502,
-            "y": 224
+            "h": 21,
+            "name": "bolter",
+            "w": 30,
+            "x": 480,
+            "y": 250
         }
     ],
     "texture": "res/sprite_atlas.png"

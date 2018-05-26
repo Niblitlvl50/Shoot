@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 22,
-            "name": "laser1",
-            "w": 8,
-            "x": 502,
-            "y": 224
+            "h": 16,
+            "name": "flak_cannon",
+            "w": 36,
+            "x": 2,
+            "y": 269
         }
     ],
     "texture": "res/sprite_atlas.png"

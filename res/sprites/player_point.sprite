@@ -15,7 +15,7 @@
             "name": "player_point",
             "w": 60,
             "x": 247,
-            "y": 138
+            "y": 77
         }
     ],
     "texture": "res/sprite_atlas.png"

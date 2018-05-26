@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 22,
-            "name": "laser1",
-            "w": 8,
-            "x": 502,
-            "y": 224
+            "h": 21,
+            "name": "rocket_launcher",
+            "w": 36,
+            "x": 432,
+            "y": 268
         }
     ],
     "texture": "res/sprite_atlas.png"
