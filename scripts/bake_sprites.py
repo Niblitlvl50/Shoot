@@ -6,7 +6,8 @@ def get_files():
     file_paths = []
     for root, dir, files in os.walk('res/images'):
         for filename in files:
-            file_paths.append(os.path.join(root, filename))
+            if not filename.startswith('.'): # Skip .DS_Store files
+                file_paths.append(os.path.join(root, filename))
 
     return file_paths
 
