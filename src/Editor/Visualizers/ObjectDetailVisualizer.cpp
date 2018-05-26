@@ -21,7 +21,6 @@ ObjectDetailVisualizer::ObjectDetailVisualizer()
 void ObjectDetailVisualizer::SetObjectProxy(IObjectProxy* object_proxy)
 {
     m_object_proxy = object_proxy;
-    //m_object_proxy
 }
 
 void ObjectDetailVisualizer::doDraw(mono::IRenderer& renderer) const
