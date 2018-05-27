@@ -49,16 +49,16 @@ void PlayerDaemon::SpawnPlayer1()
 
     m_player_one =
         std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Primary));
-    m_player_one->SetPlayerInfo(&game::player_one);
+    m_player_one->SetPlayerInfo(&game::g_player_one);
     //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
 
-    game::player_one.is_active = true;
+    game::g_player_one.is_active = true;
 
     m_camera->SetPosition(spawn_point);
     m_camera->Follow(m_player_one, math::ZeroVec);
 
     const auto destroyed_func = [](unsigned int id) {
-        game::player_one.is_active = false;
+        game::g_player_one.is_active = false;
     };
 
     m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, FOREGROUND, destroyed_func));
@@ -70,13 +70,13 @@ void PlayerDaemon::SpawnPlayer2()
 
     m_player_two =
         std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Secondary));
-    m_player_two->SetPlayerInfo(&game::player_two);
+    m_player_two->SetPlayerInfo(&game::g_player_two);
     m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
 
-    game::player_two.is_active = true;
+    game::g_player_two.is_active = true;
     
     const auto destroyed_func = [](unsigned int id) {
-        game::player_two.is_active = false;
+        game::g_player_two.is_active = false;
     };
     
     m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, FOREGROUND, destroyed_func));
@@ -106,13 +106,13 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
         m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_one->Id()));
 
         m_player_one = nullptr;
-        game::player_one.is_active = false;        
+        game::g_player_one.is_active = false;        
     }
     else if(event.id == m_player_two_id)
     {
         m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_two->Id()));
         m_player_two = nullptr;
-        game::player_two.is_active = false;
+        game::g_player_two.is_active = false;
     }
 
     return false;

@@ -27,7 +27,7 @@ namespace
         pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.5f, 0.5f, 1.0f);
         pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
         pool.m_start_size[index] = 10.0f;
-        pool.m_end_size[index] = 10.0f;
+        pool.m_end_size[index] = 5.0f;
         pool.m_start_life[index] = life;
         pool.m_life[index] = life;
     }
@@ -58,6 +58,8 @@ Bullet::Bullet(const BulletConfiguration& config)
     m_sprite = mono::CreateSprite(config.sprite_file);
     m_sprite->SetShade(config.shade);
 
+    m_sound = mono::AudioFactory::CreateNullSound();
+
     if(config.sound_file)
     {
         m_sound = mono::AudioFactory::CreateSound(config.sound_file, true, false);
@@ -71,7 +73,7 @@ Bullet::Bullet(const BulletConfiguration& config)
     {
         mono::ParticleEmitter::Configuration emitter_config;
         emitter_config.generator = SimpleGenerator;
-        emitter_config.emit_rate = 80.0f;
+        emitter_config.emit_rate = 100.0f;
         emitter_config.duration = -1.0f;
 
         m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, config.pool);
@@ -89,9 +91,7 @@ void Bullet::Draw(mono::IRenderer& renderer) const
 void Bullet::Update(unsigned int delta)
 {
     m_sprite->doUpdate(delta);
-
-    if(m_sound)
-        m_sound->Position(m_position.x, m_position.y);
+    m_sound->Position(m_position.x, m_position.y);
 
     if(m_emitter)
     {

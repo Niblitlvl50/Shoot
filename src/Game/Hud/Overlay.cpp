@@ -2,6 +2,7 @@
 #include "Overlay.h"
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
+#include "System/UID.h"
 
 using namespace game;
 
@@ -21,17 +22,17 @@ void UIOverlayDrawer::doDraw(mono::IRenderer& renderer) const
     renderer.PushNewTransform(identity);
     renderer.PushNewProjection(m_projection);
 
-    for(auto& element : m_ui_elements)
-        element->Draw(renderer);
+    EntityBase::doDraw(renderer);
 }
+
+void UIOverlayDrawer::Draw(mono::IRenderer& renderer) const
+{
+}
+
+void UIOverlayDrawer::Update(unsigned int delta)
+{ }
 
 math::Quad UIOverlayDrawer::BoundingBox() const
 {
     return math::InfQuad;
-}
-
-int UIOverlayDrawer::AddElement(std::unique_ptr<UIElement> element)
-{
-    m_ui_elements.push_back(std::move(element));
-    return m_ui_elements.size() -1;
 }

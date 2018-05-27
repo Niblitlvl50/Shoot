@@ -23,6 +23,7 @@ namespace game
         virtual EnemyPtr CreateInvader(const math::Vector& position) = 0;
         virtual EnemyPtr CreatePathInvader(const mono::IPathPtr& path) = 0;
         virtual EnemyPtr CreateBlackSquare(const math::Vector& position, float trigger_distance) = 0;
+        virtual EnemyPtr CreateBeast(const math::Vector& position) = 0;
 
         virtual EnemyPtr CreateFromName(
             const char* name, const math::Vector& position, const std::vector<Attribute>& attributes) = 0;

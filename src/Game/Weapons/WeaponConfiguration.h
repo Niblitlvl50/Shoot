@@ -34,10 +34,12 @@ namespace game
     struct WeaponConfiguration
     {
         int magazine_size = 10;
+        int projectiles_per_fire = 1;
         float rounds_per_second = 1.0f;
         float fire_rate_multiplier = 1.0f;
         float max_fire_rate = 1.0f;
         float bullet_force = 1.0f;
+        float bullet_spread = 0.0f; // In degrees
         
         const char* fire_sound = nullptr;
         const char* out_of_ammo_sound = nullptr;

@@ -127,13 +127,13 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
 
+    renderer.PushGlobalTransform();
+    m_particle_drawer->doDraw(renderer);
+
     //char text[32] = { '\0' };
     //std::snprintf(text, 32, "%zu", m_pool->m_count_alive);
     //constexpr mono::Color::RGBA color(1, 0, 0);
     //renderer.DrawText(0, text, math::ZeroVec, true, color);
-
-    renderer.PushGlobalTransform();
-    m_particle_drawer->doDraw(renderer);
 }
 
 void Shuttle::Update(unsigned int delta)
@@ -143,23 +143,21 @@ void Shuttle::Update(unsigned int delta)
     m_pool->doUpdate(delta);
 
     if(m_fire)
-    {
-        const math::Vector& position_shift = math::VectorFromAngle(m_rotation) * 0.5f;
-        const float direction_shift = math::ToRadians(mono::Random(-4.0f, 4.0f));
-
-        m_weapon->Fire(m_position + position_shift, m_rotation + direction_shift);
-    }
+        m_weapon->Fire(m_position, m_rotation);
 
     if(m_player_info)
     {
         m_player_info->position = m_position;
-        m_player_info->ammunition = m_weapon->AmmunitionLeft();
+        m_player_info->ammunition_left = m_weapon->AmmunitionLeft();
+        m_player_info->ammunition_capacity = m_weapon->MagazineSize();
+        m_player_info->weapon_type = m_weapon_type;
     }
 }
 
 void Shuttle::SelectWeapon(WeaponType weapon)
 {
     m_weapon = weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_pool.get());
+    m_weapon_type = weapon;
 }
 
 void Shuttle::ApplyRotationForce(float force)

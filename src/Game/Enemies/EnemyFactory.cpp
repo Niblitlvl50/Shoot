@@ -8,6 +8,7 @@
 #include "InvaderController.h"
 #include "InvaderPathController.h"
 #include "BlackSquareController.h"
+#include "BeastController.h"
 
 #include "DefinedAttributes.h"
 
@@ -82,6 +83,18 @@ game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position, flo
     return std::make_shared<game::Enemy>(setup);
 }
 
+game::EnemyPtr EnemyFactory::CreateBeast(const math::Vector& position)
+{
+    EnemySetup setup;
+    setup.sprite_file = "res/sprites/beast.sprite";
+    setup.size = 1.0f;
+    setup.mass = 20.0f;
+    setup.position = position;
+    setup.controller = std::make_unique<BeastController>(m_eventHandler);
+
+    return std::make_shared<game::Enemy>(setup);
+}
+
 game::EnemyPtr EnemyFactory::CreateFromName(
     const char* name, const math::Vector& position, const std::vector<Attribute>& attributes)
 {
@@ -96,6 +109,10 @@ game::EnemyPtr EnemyFactory::CreateFromName(
         float trigger_distance = 10.0f;
         world::FindAttribute(world::TRIGGER_RADIUS_ATTRIBUTE, attributes, trigger_distance);
         return CreateBlackSquare(position, trigger_distance);
+    }
+    else if(std::strcmp(name, "beast") == 0)
+    {
+        return CreateBeast(position);
     }
 
     return nullptr;

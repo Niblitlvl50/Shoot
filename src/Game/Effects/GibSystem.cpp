@@ -106,7 +106,7 @@ void GibSystem::EmitGibsAt(const math::Vector& position, float direction)
     emit_config.duration = 1.0f;
     emit_config.emit_rate = 20.0f;
     emit_config.generator = [direction](const math::Vector& position, mono::ParticlePool& pool, size_t index) {
-        GibsGenerator(position, pool, index, direction - math::PI_2());
+        GibsGenerator(position, pool, index, direction);
     };
 
     m_emitters.emplace_back(emit_config, m_pool.get());

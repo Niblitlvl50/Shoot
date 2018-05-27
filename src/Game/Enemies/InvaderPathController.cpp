@@ -99,18 +99,18 @@ void InvaderPathController::doUpdate(unsigned int delta)
         return;
     }
 
-    if(!player_one.is_active)
+    if(!g_player_one.is_active)
         return;
 
     const math::Vector& enemy_position = m_enemy->Position();
-    const bool is_visible = math::PointInsideQuad(enemy_position, camera_viewport);
+    const bool is_visible = math::PointInsideQuad(enemy_position, g_camera_viewport);
     if(!is_visible)
         return;
 
-    const float distance = math::Length(player_one.position - enemy_position);
+    const float distance = math::Length(g_player_one.position - enemy_position);
     if(distance < 7.0f)
     {
-        const float angle = math::AngleBetweenPoints(player_one.position, enemy_position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(g_player_one.position, enemy_position) + math::PI_2();
         m_fireCount += (m_weapon->Fire(enemy_position, angle) == WeaponFireResult::FIRE);
     }
 

@@ -112,12 +112,12 @@ void BlackSquareController::ToHunt()
 
 void BlackSquareController::SleepState(unsigned int delta)
 {
-    if(!player_one.is_active)
+    if(!g_player_one.is_active)
         return;
 
     m_controlBody->SetPosition(m_enemy->Position());
         
-    const float distance = math::Length(player_one.position - m_enemy->Position());
+    const float distance = math::Length(g_player_one.position - m_enemy->Position());
     if(distance < m_triggerDistance)
         m_states.TransitionTo(States::AWAKE);
 }
@@ -131,12 +131,12 @@ void BlackSquareController::AwakeState(unsigned int delta)
 
 void BlackSquareController::HuntState(unsigned int delta)
 {
-    const float angle = math::AngleBetweenPoints(player_one.position, m_enemy->Position()) - math::PI_2();
+    const float angle = math::AngleBetweenPoints(g_player_one.position, m_enemy->Position()) - math::PI_2();
 
-    m_controlBody->SetPosition(player_one.position);
+    m_controlBody->SetPosition(g_player_one.position);
     m_enemy->SetRotation(angle);
 
-    const float distance = math::Length(player_one.position - m_enemy->Position());
-    if(distance > (m_triggerDistance * 2.0f) || !player_one.is_active)
+    const float distance = math::Length(g_player_one.position - m_enemy->Position());
+    if(distance > (m_triggerDistance * 2.0f) || !g_player_one.is_active)
         m_states.TransitionTo(States::SLEEPING);
 }

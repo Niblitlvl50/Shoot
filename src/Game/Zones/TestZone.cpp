@@ -7,8 +7,9 @@
 
 #include "Effects/SmokeEffect.h"
 #include "Effects/GibSystem.h"
+#include "Effects/ParticleExplosion.h"
 #include "Hud/FPSElement.h"
-#include "Hud/PlayerStatsElement.h"
+#include "Hud/WeaponStatusElement.h"
 #include "Hud/Overlay.h"
 #include "Explosion.h"
 
@@ -37,6 +38,7 @@
 
 #include "Audio/AudioFactory.h"
 #include "Physics/IBody.h"
+
 
 using namespace game;
 
@@ -99,7 +101,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects.bin");
 
         world::WorldObjectsHeader world_objects_header;
-        world::ReadWorldObjects2(world_objects_file, world_objects_header);
+        world::ReadWorldObjectsBinary(world_objects_file, world_objects_header);
 
         std::vector<EnemyPtr> enemies;
         std::vector<SpawnPoint> spawn_points;
@@ -121,13 +123,13 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddElement(std::make_unique<FPSElement>(math::Vector(10, 10)));
-    hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_one, math::Vector(10, 0)));
-    hud_overlay->AddElement(std::make_unique<PlayerStatsElement>(player_two, math::Vector(200, 0)));
+    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10, 10)));
+    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f)));
     
-    AddDrawable(hud_overlay, FOREGROUND);
+    AddEntity(hud_overlay, UI);
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
     AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
+    AddEntityWithCallback(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND, nullptr);
     AddUpdatable(m_dispatcher);
 
     m_gib_system = std::make_shared<GibSystem>();

@@ -8,6 +8,7 @@ namespace game
         BACKGROUND,
         MIDDLEGROUND,
         FOREGROUND,
+        BULLETS,
         UI
     };
 }

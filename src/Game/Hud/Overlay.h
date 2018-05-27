@@ -1,35 +1,25 @@
 
 #pragma once
 
-#include "Rendering/IDrawable.h"
+#include "Entity/EntityBase.h"
 #include "Math/Matrix.h"
-
-#include <memory>
-#include <vector>
 
 namespace game
 {
-    class UIElement
-    {
-    public:
-
-        virtual void Draw(mono::IRenderer& renderer) const = 0;
-    };
-
-    class UIOverlayDrawer : public mono::IDrawable
+    class UIOverlayDrawer : public mono::EntityBase
     {
     public:
 
         UIOverlayDrawer();
         ~UIOverlayDrawer();
-        
+
+    private:
+
         void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
         math::Quad BoundingBox() const override;
 
-        int AddElement(std::unique_ptr<UIElement> element);
-        //void RemoveElement(int id);
-
         math::Matrix m_projection;
-        std::vector<std::unique_ptr<UIElement>> m_ui_elements; 
     };
 }

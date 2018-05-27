@@ -1,20 +1,20 @@
 
 #pragma once
 
-#include "Overlay.h"
+#include "Entity/EntityBase.h"
 #include "Utils.h"
-#include "Math/Vector.h"
 
 namespace game
 {
-    class FPSElement : public UIElement
+    class FPSElement : public mono::EntityBase
     {
     public:
 
         FPSElement(const math::Vector& position);
         void Draw(mono::IRenderer& renderer) const override;
+        void Update(unsigned int delta) override;
 
-        const math::Vector m_position;
-        mutable mono::FPSCounter m_counter;        
+    private:
+        mono::FPSCounter m_counter;        
     };
 }

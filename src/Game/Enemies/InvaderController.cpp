@@ -50,14 +50,14 @@ void InvaderController::ToIdle()
 
 void InvaderController::ToTracking()
 {
-    if(!game::player_one.is_active)
+    if(!game::g_player_one.is_active)
     {
         m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
 
     const int start = game::FindClosestIndex(*g_navmesh, m_enemy->Position());
-    const int end = game::FindClosestIndex(*g_navmesh, player_one.position);
+    const int end = game::FindClosestIndex(*g_navmesh, g_player_one.position);
 
     const std::vector<int>& nav_path = game::AStar(*g_navmesh, start, end);
     const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);

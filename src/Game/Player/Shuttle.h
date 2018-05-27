@@ -9,15 +9,13 @@
 #include "Particle/ParticleFwd.h"
 
 #include "Weapons/IWeaponSystem.h"
-
-#include "System/System.h"
+#include "Weapons/WeaponTypes.h"
 
 class SpriteEntity;
 
 namespace game
 {
     struct PlayerInfo;
-    enum class WeaponType;
 
     enum class BoosterPosition
     {
@@ -59,6 +57,7 @@ namespace game
         
         mono::ISpritePtr m_sprite;
         std::unique_ptr<IWeaponSystem> m_weapon;
+        WeaponType m_weapon_type;
         std::shared_ptr<SpriteEntity> m_left_booster;
         std::shared_ptr<SpriteEntity> m_right_booster;
 

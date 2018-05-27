@@ -17,6 +17,7 @@ namespace game
 
         WeaponFireResult Fire(const math::Vector& position, float direction) override;
         int AmmunitionLeft() const override;
+        int MagazineSize() const override;
         void Reload() override;
 
     private:

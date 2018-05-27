@@ -3,6 +3,7 @@
 
 #include "Math/Vector.h"
 #include "Math/Quad.h"
+#include "Weapons/WeaponTypes.h"
 
 namespace game
 {
@@ -10,12 +11,14 @@ namespace game
     {
         bool is_active;
         math::Vector position;
-        int ammunition;
+        int ammunition_left;
+        int ammunition_capacity;
+        WeaponType weapon_type;
     };
 
-    extern PlayerInfo player_one;
-    extern PlayerInfo player_two;
+    extern PlayerInfo g_player_one;
+    extern PlayerInfo g_player_two;
 
-    extern math::Quad camera_viewport;
+    extern math::Quad g_camera_viewport;
     extern struct NavmeshContext* g_navmesh;
 }

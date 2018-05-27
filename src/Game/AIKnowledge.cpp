@@ -1,8 +1,8 @@
 
 #include "AIKnowledge.h"
 
-game::PlayerInfo game::player_one;
-game::PlayerInfo game::player_two;
+game::PlayerInfo game::g_player_one;
+game::PlayerInfo game::g_player_two;
 
-math::Quad game::camera_viewport;
+math::Quad game::g_camera_viewport;
 game::NavmeshContext* game::g_navmesh = nullptr;

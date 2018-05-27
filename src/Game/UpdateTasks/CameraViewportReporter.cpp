@@ -12,5 +12,5 @@ CameraViewportReporter::CameraViewportReporter(const mono::ICameraPtr& camera)
 void CameraViewportReporter::doUpdate(unsigned int delta)
 {
     const math::Quad& viewport = m_camera->GetViewport();
-    camera_viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
+    g_camera_viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
 }

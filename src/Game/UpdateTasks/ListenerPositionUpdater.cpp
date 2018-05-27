@@ -8,5 +8,5 @@ using namespace game;
 
 void ListenerPositionUpdater::doUpdate(unsigned int delta)
 {
-    mono::ListenerPosition(game::player_one.position.x, game::player_one.position.y);
+    mono::ListenerPosition(game::g_player_one.position.x, game::g_player_one.position.y);
 }

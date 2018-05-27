@@ -9,13 +9,13 @@ namespace game
     class WeaponFactory : public IWeaponFactory
     {
     public:
-        WeaponFactory(mono::EventHandler& eventHandler);
+        WeaponFactory(mono::EventHandler& event_handler);
         
         std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction) override;
         std::unique_ptr<IWeaponSystem> CreateWeapon(
             WeaponType weapon, WeaponFaction faction, mono::ParticlePool* pool) override;
 
     private:
-        mono::EventHandler& m_eventHandler;
+        mono::EventHandler& m_event_handler;
     };
 }

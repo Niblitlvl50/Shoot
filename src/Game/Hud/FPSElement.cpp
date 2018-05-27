@@ -11,8 +11,9 @@
 using namespace game;
 
 FPSElement::FPSElement(const math::Vector& position)
-    : m_position(position)
-{ }
+{
+    m_position = position;
+}
 
 void FPSElement::Draw(mono::IRenderer& renderer) const
 {    
@@ -20,7 +21,11 @@ void FPSElement::Draw(mono::IRenderer& renderer) const
     std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
     
     constexpr mono::Color::RGBA color(1, 0, 0, 1);
-    renderer.DrawText(game::PIXELETTE_LARGE, text, m_position, false, color);
+    renderer.DrawText(game::PIXELETTE_LARGE, text, math::ZeroVec, false, color);
+}
 
+void FPSElement::Update(unsigned int delta)
+{
     m_counter++;
 }
+
