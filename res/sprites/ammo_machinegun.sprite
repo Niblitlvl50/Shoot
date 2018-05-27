@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "invader1",
-            "w": 11,
-            "x": 298,
-            "y": 270
+            "h": 38,
+            "name": "ammo_machinegun",
+            "w": 13,
+            "x": 47,
+            "y": 158
         }
     ],
     "texture": "res/sprite_atlas.png"

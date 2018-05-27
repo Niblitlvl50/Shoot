@@ -3,7 +3,11 @@
 
 #include "Rendering/RenderPtrFwd.h"
 #include "Math/Vector.h"
-#include "System/System.h"
+
+namespace System
+{
+    class IWindow;
+}
 
 namespace editor
 {
@@ -27,6 +31,6 @@ namespace editor
         const System::IWindow* m_window;
 
         bool m_translate;
-        math::Vector m_translate_delta;
+        math::Vector m_last_position;
     };
 }

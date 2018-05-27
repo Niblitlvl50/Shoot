@@ -4,6 +4,7 @@
 #include "Rendering/ICamera.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
+#include "System/System.h"
 
 #include <cmath>
 
@@ -23,7 +24,7 @@ bool CameraTool::IsActive() const
 void CameraTool::HandleMouseDown(const math::Vector& screen_position)
 {
     m_translate = true;
-    m_translate_delta = screen_position;
+    m_last_position = screen_position;
 }
 
 void CameraTool::HandleMouseUp(const math::Vector& screen_position)
@@ -37,13 +38,15 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
         return;
 
     const System::Size& size = m_window->Size();
-
-    const math::Quad& viewport = m_camera->GetViewport();
     const math::Vector window_size(size.width, size.height);
+    const float ratio = window_size.x / window_size.y;
+
+    math::Quad viewport = m_camera->GetViewport();
+    viewport.mB.y = viewport.mB.x / ratio;
 
     const math::Vector& scale = viewport.mB / window_size;
 
-    math::Vector delta = (screen_position - m_translate_delta);
+    math::Vector delta = (screen_position - m_last_position);
     delta.y = -delta.y;
     delta *= scale;
 
@@ -52,7 +55,7 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
 
     m_camera->SetPosition(new_pos);
 
-    m_translate_delta = screen_position;
+    m_last_position = screen_position;
 }
 
 void CameraTool::HandleMouseWheel(float x, float y)

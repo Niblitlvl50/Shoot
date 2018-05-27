@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "invader1",
-            "w": 11,
-            "x": 298,
-            "y": 270
+            "h": 27,
+            "name": "frame",
+            "w": 27,
+            "x": 432,
+            "y": 238
         }
     ],
     "texture": "res/sprite_atlas.png"
