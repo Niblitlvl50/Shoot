@@ -19,6 +19,8 @@ namespace game
     public:
 
         InvaderController(mono::EventHandler& event_handler);
+        virtual ~InvaderController();
+
         void Initialize(Enemy* enemy) override;
         void doUpdate(unsigned int delta) override;
 
@@ -29,7 +31,14 @@ namespace game
         void Idle(unsigned int delta);
         void Tracking(unsigned int delta);
         
+        mono::EventHandler& m_event_handler;
+
         Enemy* m_enemy;
+        mono::IBodyPtr m_control_body;
+        mono::IConstraintPtr m_spring;
+
+        std::shared_ptr<class AStarPathDrawer> m_astar_drawer;
+
         mono::IPathPtr m_path;
 
         unsigned int m_idle_timer;

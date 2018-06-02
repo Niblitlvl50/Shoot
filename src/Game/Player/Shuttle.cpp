@@ -73,10 +73,12 @@ public:
 };
 
 
-Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& eventHandler, const System::ControllerState& controller)
-    : m_controller(this, eventHandler, controller),
-      m_fire(false),
-      m_player_info(nullptr)
+Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler, const System::ControllerState& controller)
+    : m_controller(this, event_handler, controller)
+    , m_interaction_controller(this, event_handler)
+    , m_fire(false)
+    , m_total_ammo_left(500)
+    , m_player_info(nullptr)
 {
     m_position = position;
     m_scale = math::Vector(1.0f, 1.0f);
@@ -147,9 +149,11 @@ void Shuttle::Update(unsigned int delta)
 
     if(m_player_info)
     {
+        m_player_info->entity_id = Id();
         m_player_info->position = m_position;
-        m_player_info->ammunition_left = m_weapon->AmmunitionLeft();
-        m_player_info->ammunition_capacity = m_weapon->MagazineSize();
+        m_player_info->magazine_left = m_weapon->AmmunitionLeft();
+        m_player_info->magazine_capacity = m_weapon->MagazineSize();
+        m_player_info->ammunition_left = m_total_ammo_left;
         m_player_info->weapon_type = m_weapon_type;
     }
 }
@@ -195,7 +199,16 @@ void Shuttle::StopFire()
 
 void Shuttle::Reload()
 {
-    m_weapon->Reload();
+    m_total_ammo_left -= m_weapon->MagazineSize() + m_weapon->AmmunitionLeft();
+    m_total_ammo_left = std::max(0, m_total_ammo_left);
+
+    if(m_total_ammo_left != 0)
+        m_weapon->Reload();
+}
+
+void Shuttle::GiveAmmo(int value)
+{
+    m_total_ammo_left += value;
 }
 
 void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)

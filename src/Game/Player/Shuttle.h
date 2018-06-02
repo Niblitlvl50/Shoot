@@ -5,6 +5,7 @@
 #include "Entity/PhysicsEntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
 #include "ShuttleGamepadController.h"
+#include "PlayerInteractionController.h"
 #include "Physics/IBody.h"
 #include "Particle/ParticleFwd.h"
 
@@ -39,6 +40,7 @@ namespace game
         void Fire();
         void StopFire();
         void Reload();
+        void GiveAmmo(int value);
 
         void SetBoosterThrusting(BoosterPosition position, bool enabled);
         void SetShading(const mono::Color::RGBA& shade);
@@ -53,11 +55,14 @@ namespace game
         void Update(unsigned int delta) override;
         
         ShuttleGamepadController m_controller;
+        PlayerInteractionController m_interaction_controller;
         bool m_fire;
         
-        mono::ISpritePtr m_sprite;
         std::unique_ptr<IWeaponSystem> m_weapon;
         WeaponType m_weapon_type;
+        int m_total_ammo_left;
+
+        mono::ISpritePtr m_sprite;
         std::shared_ptr<SpriteEntity> m_left_booster;
         std::shared_ptr<SpriteEntity> m_right_booster;
 

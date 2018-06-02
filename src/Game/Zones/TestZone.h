@@ -8,6 +8,7 @@
 #include "DamageController.h"
 #include "Player/PlayerDaemon.h"
 #include "Hud/Healthbar.h"
+#include "Pickups/Ammo.h"
 
 #include "Navigation/NavMesh.h"
 
@@ -63,7 +64,7 @@ namespace game
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
         
         mono::EventHandler& m_event_handler;
-        std::unique_ptr<Spawner> m_spawner;
+        std::unique_ptr<Spawner> m_enemy_spawner;
         std::unique_ptr<PlayerDaemon> m_player_daemon;
         DamageController m_damageController;
         mono::ISoundPtr m_backgroundMusic;
@@ -76,5 +77,7 @@ namespace game
 
         NavmeshContext m_navmesh;
         std::shared_ptr<class GibSystem> m_gib_system;
+
+        std::vector<Ammo> m_pickups;
     };
 }

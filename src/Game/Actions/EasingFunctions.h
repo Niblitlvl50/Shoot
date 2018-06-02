@@ -11,27 +11,27 @@ namespace game
     // c: change in value
     //
 
-    inline float EaseInCubic(float time, float duration, float b, float c)
+    inline float EaseInCubic(float time, float duration, float start_value, float delta_value)
     {
         time /= duration;
-        return c * time * time * time + b;
+        return delta_value * time * time * time + start_value;
     };
     
-    inline float EaseOutCubic(float time, float duration, float b, float c)
+    inline float EaseOutCubic(float time, float duration, float start_value, float delta_value)
     {
         time /= duration;
         time -= 1.0f;
-        return c * (time * time * time + 1.0f) + b;
+        return delta_value * (time * time * time + 1.0f) + start_value;
     };
 
-    inline float EaseInOutCubic(float time, float duration, float b, float c)
+    inline float EaseInOutCubic(float time, float duration, float start_value, float delta_value)
     {
         time /= duration / 2.0f;
         if(time < 1.0f)
-            return c / 2.0f * time * time * time + b;
+            return delta_value / 2.0f * time * time * time + start_value;
         
         time -= 2.0f;
-        return c / 2.0f * (time * time * time + 2.0f) + b;
+        return delta_value / 2.0f * (time * time * time + 2.0f) + start_value;
     };
 
     using EaseFunction = float (*)(float time, float duration, float start_value, float end_value);    

@@ -11,6 +11,7 @@
 #include "Hud/FPSElement.h"
 #include "Hud/WeaponStatusElement.h"
 #include "Hud/Overlay.h"
+#include "Hud/PickupDrawer.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -35,6 +36,7 @@
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/HealthbarUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
+#include "UpdateTasks/PickupUpdater.h"
 
 #include "Audio/AudioFactory.h"
 #include "Physics/IBody.h"
@@ -82,6 +84,25 @@ TestZone::~TestZone()
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    AddUpdatable(std::make_shared<ListenerPositionUpdater>());
+    AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
+    AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
+    AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, m_event_handler));
+    
+    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
+    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
+    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
+    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f)));
+    AddEntity(hud_overlay, UI);
+    
+    AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
+    AddDrawable(std::make_shared<PickupDrawer>(m_pickups), FOREGROUND);
+    AddUpdatable(m_dispatcher);
+
+    m_gib_system = std::make_shared<GibSystem>();
+    AddDrawable(m_gib_system, BACKGROUND);
+    AddUpdatable(m_gib_system);
+
     {
         File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
         
@@ -112,31 +133,25 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         for(const auto& enemy : enemies)
             AddPhysicsEntityWithCallback(enemy, MIDDLEGROUND, nullptr);
 
-        m_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
-        m_player_daemon = std::make_unique<PlayerDaemon>(player_points, m_event_handler);
-        m_player_daemon->SetCamera(camera);
-        m_player_daemon->SpawnPlayer1();
+        m_enemy_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
+        m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_event_handler);
     }
 
-    AddUpdatable(std::make_shared<ListenerPositionUpdater>());
-    AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
-    AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
-    
-    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10, 10)));
-    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f)));
-    
-    AddEntity(hud_overlay, UI);
-    AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
+     //m_backgroundMusic->Play();   
+
+    // Test stuff...
     AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
     AddEntityWithCallback(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND, nullptr);
-    AddUpdatable(m_dispatcher);
 
-    m_gib_system = std::make_shared<GibSystem>();
-    AddDrawable(m_gib_system, BACKGROUND);
-    AddUpdatable(m_gib_system);
+    Ammo ammo1;
+    ammo1.value = 40;
+    ammo1.position = math::Vector(10, 10);
+    m_pickups.push_back(ammo1);
 
-    //m_backgroundMusic->Play();
+    Ammo ammo2;
+    ammo2.value = 10;
+    ammo2.position = math::Vector(20, 20);
+    m_pickups.push_back(ammo2);
 }
 
 int TestZone::OnUnload()

@@ -10,10 +10,12 @@ namespace game
     struct PlayerInfo
     {
         bool is_active;
+        unsigned int entity_id;
         math::Vector position;
-        int ammunition_left;
-        int ammunition_capacity;
         WeaponType weapon_type;
+        int magazine_left;
+        int magazine_capacity;
+        int ammunition_left;
     };
 
     extern PlayerInfo g_player_one;

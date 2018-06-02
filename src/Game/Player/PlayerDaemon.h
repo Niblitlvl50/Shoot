@@ -19,10 +19,9 @@ namespace game
     public:
 
         PlayerDaemon(
-            const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler);
+            mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler);
         ~PlayerDaemon();
 
-        void SetCamera(const mono::ICameraPtr& camera);
         void SpawnPlayer1();
         void SpawnPlayer2();
 
@@ -31,6 +30,7 @@ namespace game
         bool OnControllerAdded(const event::ControllerAddedEvent& event);
         bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
 
+        mono::ICameraPtr m_camera;
         const std::vector<math::Vector> m_player_points;
         mono::EventHandler& m_event_handler;
 
@@ -41,7 +41,5 @@ namespace game
         int m_player_two_id = -1;
         std::shared_ptr<Shuttle> m_player_one;
         std::shared_ptr<Shuttle> m_player_two;
-        
-        mono::ICameraPtr m_camera;
     };
 }

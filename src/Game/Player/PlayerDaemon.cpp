@@ -19,28 +19,30 @@
 using namespace game;
 
 PlayerDaemon::PlayerDaemon(
-    const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler)
-    : m_player_points(player_points),
-      m_event_handler(event_handler)
+    mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler)
+    : m_camera(camera)
+    , m_player_points(player_points)
+    , m_event_handler(event_handler)
 {
     using namespace std::placeholders;
 
-//    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
-//    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
-//
-//    m_added_token = m_event_handler.AddListener(added_func);
-//    m_removed_token = m_event_handler.AddListener(removed_func);
+    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
+    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
+
+    m_added_token = m_event_handler.AddListener(added_func);
+    m_removed_token = m_event_handler.AddListener(removed_func);
+
+    if(System::IsControllerActive(System::ControllerId::Primary))
+        SpawnPlayer1();
+
+    if(System::IsControllerActive(System::ControllerId::Secondary))
+        SpawnPlayer2();
 }
 
 PlayerDaemon::~PlayerDaemon()
 {
-//    m_event_handler.RemoveListener(m_added_token);
-//    m_event_handler.RemoveListener(m_removed_token);
-}
-
-void PlayerDaemon::SetCamera(const mono::ICameraPtr& camera)
-{
-    m_camera = camera;
+    m_event_handler.RemoveListener(m_added_token);
+    m_event_handler.RemoveListener(m_removed_token);
 }
 
 void PlayerDaemon::SpawnPlayer1()

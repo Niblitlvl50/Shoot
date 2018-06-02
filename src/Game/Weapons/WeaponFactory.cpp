@@ -66,7 +66,6 @@ namespace
 
         const math::Vector& impulse = math::VectorFromAngle(direction) * 100.0f;
         other->ApplyImpulse(impulse, other->GetPosition());
-        //other->ApplyForce(impulse, other->GetPosition());
 
         event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
@@ -187,7 +186,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.sound_file = nullptr;
 
             weapon_config.projectiles_per_fire = 6;
-            weapon_config.magazine_size = 5;
+            weapon_config.magazine_size = 6;
             weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 25.0f;
             weapon_config.bullet_spread = 4.0f;
