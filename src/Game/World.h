@@ -9,6 +9,8 @@
 
 namespace game
 {    
+    struct Ammo;
+    
     void LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons);
     
     void LoadWorldObjects(
@@ -16,5 +18,6 @@ namespace game
         IEnemyFactory* enemy_factory,
         std::vector<game::EnemyPtr>& enemies,
         std::vector<SpawnPoint>& spawn_points,
-        std::vector<math::Vector>& player_points);
+        std::vector<math::Vector>& player_points,
+        std::vector<game::Ammo>& ammo_pickups);
 }

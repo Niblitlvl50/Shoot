@@ -128,7 +128,8 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         std::vector<SpawnPoint> spawn_points;
         std::vector<math::Vector> player_points;
 
-        game::LoadWorldObjects(world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points);
+        game::LoadWorldObjects(
+            world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points, m_pickups);
 
         for(const auto& enemy : enemies)
             AddPhysicsEntityWithCallback(enemy, MIDDLEGROUND, nullptr);
@@ -142,16 +143,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     // Test stuff...
     AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
     AddEntityWithCallback(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND, nullptr);
-
-    Ammo ammo1;
-    ammo1.value = 40;
-    ammo1.position = math::Vector(10, 10);
-    m_pickups.push_back(ammo1);
-
-    Ammo ammo2;
-    ammo2.value = 10;
-    ammo2.position = math::Vector(20, 20);
-    m_pickups.push_back(ammo2);
 }
 
 int TestZone::OnUnload()

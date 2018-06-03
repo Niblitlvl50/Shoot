@@ -2,6 +2,7 @@
 #include "World.h"
 #include "CollisionConfiguration.h"
 #include "Enemies/Enemy.h"
+#include "Pickups/Ammo.h"
 
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
@@ -158,6 +159,12 @@ namespace
         enemy->SetPosition(position);
         enemy->SetRotation(rotation);
     }
+
+    void LoadAttributes(game::Ammo& ammo_pickup, const std::vector<Attribute>& attributes)
+    {
+        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
+        world::FindAttribute(world::AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value);
+    }
 }
 
 void game::LoadWorldObjects(
@@ -165,7 +172,8 @@ void game::LoadWorldObjects(
     IEnemyFactory* enemy_factory,
     std::vector<game::EnemyPtr>& enemies,
     std::vector<SpawnPoint>& spawn_points,
-    std::vector<math::Vector>& player_points)
+    std::vector<math::Vector>& player_points,
+    std::vector<game::Ammo>& ammo_pickups)
 {
     for(const world::WorldObject& object : objects)
     {
@@ -181,6 +189,12 @@ void game::LoadWorldObjects(
             math::Vector position;
             world::FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
             player_points.push_back(position);
+        }
+        else if(name == "ammo_pickup")
+        {
+            game::Ammo ammo_pickup;
+            LoadAttributes(ammo_pickup, object.attributes);
+            ammo_pickups.push_back(ammo_pickup);
         }
         else
         {

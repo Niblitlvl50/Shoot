@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
+#include "Rendering/RenderPtrFwd.h"
 #include <vector>
 
 namespace game
@@ -18,5 +19,6 @@ namespace game
         math::Quad BoundingBox() const override;
 
         const std::vector<Ammo>& m_ammo_pickups;
+        mono::ISpritePtr m_ammo_sprite;
     };
 }

@@ -16,20 +16,19 @@ Explosion::Explosion(const ExplosionConfiguration& config, mono::EventHandler& e
     m_scale = math::Vector(config.scale, config.scale);
     m_rotation = config.rotation;
 
-    if(config.sound_file)
-    {
-        m_sound = mono::AudioFactory::CreateSound(config.sound_file, false, true);
-        m_sound->Position(m_position.x, m_position.y);
-    }
-
-    const auto func = [this, &event_handler] {
-        if(m_sound)
-            m_sound->Play();
+    const auto remove_this_func = [this, &event_handler] {
         event_handler.DispatchEvent(game::RemoveEntityEvent(Id()));
     };
     
     m_sprite = mono::CreateSprite(config.sprite_file);
-    m_sprite->SetAnimation(0, func);
+    m_sprite->SetAnimation(0, remove_this_func);
+
+    if(config.sound_file)
+    {
+        m_sound = mono::AudioFactory::CreateSound(config.sound_file, false, true);
+        m_sound->Position(m_position.x, m_position.y);
+        m_sound->Play();
+    }
 }
 
 void Explosion::Update(unsigned int delta)

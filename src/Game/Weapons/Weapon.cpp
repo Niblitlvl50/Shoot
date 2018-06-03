@@ -36,7 +36,7 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::EventHandler& eventHandl
         m_ooa_sound = mono::AudioFactory::CreateSound(config.out_of_ammo_sound, false, false);
     
     if(config.reload_sound)
-        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, false, false);
+        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, false, true);
 }
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)

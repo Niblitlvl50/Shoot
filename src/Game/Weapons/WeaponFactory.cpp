@@ -105,18 +105,18 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.collision_radius = 0.4f;
             bullet_config.scale = 0.4;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
-            //bullet_config.sprite_file = "res/sprites/fire_bullet.sprite";
             bullet_config.sprite_file = "res/sprites/generic.sprite";
-            bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+            bullet_config.shade = mono::Color::RGBA(0.6f, 0.6f, 0.8f, 1.0f);
             bullet_config.sound_file = nullptr;
 
             weapon_config.magazine_size = 99;
-            weapon_config.rounds_per_second = 10.0f;
+            weapon_config.rounds_per_second = 7.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
-            weapon_config.max_fire_rate = 3.0f;
+            weapon_config.max_fire_rate = 2.0f;
             weapon_config.bullet_force = 30.0f;
             weapon_config.bullet_spread = 2.0f;
-            weapon_config.fire_sound = "res/sound/laser.wav";
+            weapon_config.fire_sound = "res/sound/plasma_fire.wav";
+            weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
 
             break;
         }
@@ -134,7 +134,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
             weapon_config.bullet_force = 20.0f;
-            weapon_config.fire_sound = "res/sound/rocket-shot.wav";
+            weapon_config.fire_sound = "res/sound/rocket_fire2.wav";
+            weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
 
             break;
         }
@@ -190,8 +191,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 25.0f;
             weapon_config.bullet_spread = 4.0f;
-            weapon_config.fire_sound = "res/sound/shotgun-shot.wav";
-            //weapon_config.reload_sound = "res/sound/shotgun-reload.wav";
+            weapon_config.fire_sound = "res/sound/shotgun_fire.wav";
+            weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
             //weapon_config.out_of_ammo_sound = "res/sound/ooa_sound.wav";
 
             break;

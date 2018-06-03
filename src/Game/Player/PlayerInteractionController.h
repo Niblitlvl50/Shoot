@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "MonoPtrFwd.h"
 #include "EventHandler/EventToken.h"
 
 namespace game
@@ -21,7 +22,7 @@ namespace game
     private:
         Shuttle* m_player;
         mono::EventHandler& m_event_handler;
-
+        mono::ISoundPtr m_pickup_sound;
         mono::EventToken<game::PickupEvent> m_pickup_token;
     };
 }
