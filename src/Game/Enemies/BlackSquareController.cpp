@@ -87,7 +87,7 @@ void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned i
         std::make_shared<game::Explosion>(explosion_config, m_eventHandler), game::FOREGROUND, nullptr);
     
     m_eventHandler.DispatchEvent(event);
-    m_eventHandler.DispatchEvent(game::DamageEvent(body, 20, direction));
+    m_eventHandler.DispatchEvent(game::DamageEvent(body, 45, direction));
     m_eventHandler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
     m_eventHandler.DispatchEvent(game::RemoveEntityEvent(m_enemy->Id()));
 }
@@ -125,7 +125,7 @@ void BlackSquareController::SleepState(unsigned int delta)
 void BlackSquareController::AwakeState(unsigned int delta)
 {
     m_awakeStateTimer += delta;
-    if(m_awakeStateTimer > 500)
+    if(m_awakeStateTimer > 300)
         m_states.TransitionTo(States::HUNT);
 }
 
