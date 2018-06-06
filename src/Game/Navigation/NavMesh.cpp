@@ -82,8 +82,7 @@ float Heuristics(const game::NavmeshContext& context, int from, int to)
 {
     const math::Vector& first = context.points[from];
     const math::Vector& second = context.points[to];
-
-    return std::fabs(math::LengthSquared(second - first));
+    return math::Length(first - second);
 }
 
 std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int end)
