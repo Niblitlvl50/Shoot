@@ -51,6 +51,17 @@ void NavmeshVisualizer::doDraw(mono::IRenderer& renderer) const
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawPolyline(m_navigation_points, color, 2.0f);
+
+    std::vector<math::Vector> start_node_points;
+    const game::NavmeshNode& start_node = m_navmesh_context.nodes[m_start];
+
+    start_node_points.push_back(m_navmesh_context.points[start_node.data_index]);
+
+    for(int point_index : start_node.neighbours_index)
+        start_node_points.push_back(m_navmesh_context.points[point_index]);
+
+    constexpr mono::Color::RGBA selected_color(1.0f, 1.0f, 0.0f);
+    renderer.DrawPoints(start_node_points, selected_color, 4.0f);
 }
 
 math::Quad NavmeshVisualizer::BoundingBox() const
