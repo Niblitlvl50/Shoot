@@ -5,6 +5,7 @@
 
 #include "Math/Vector.h"
 #include "EventHandler/EventHandler.h"
+#include "Utils.h"
 
 
 void game::CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& event_handler)
@@ -15,7 +16,7 @@ void game::CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& ev
     const math::Vector& player_one_position = g_player_one.position;
     std::vector<Ammo> pickups_to_dispatch;
 
-    const auto check_for_pickup = [&player_one_position, &pickups_to_dispatch](const Ammo& pickup) {
+    const auto check_for_pickup_and_store = [&player_one_position, &pickups_to_dispatch](const Ammo& pickup) {
         const float distance = math::Length(pickup.position - player_one_position);
         if(distance < 1.0f)
         {
@@ -26,8 +27,7 @@ void game::CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& ev
         return false;
     };
 
-    const auto it = std::remove_if(pickups.begin(), pickups.end(), check_for_pickup);
-    pickups.erase(it, pickups.end());
+    mono::remove_if(pickups, check_for_pickup_and_store);
 
     for(const auto& ammo : pickups_to_dispatch)
         event_handler.DispatchEvent(game::PickupEvent(g_player_one.entity_id, ammo.value));
