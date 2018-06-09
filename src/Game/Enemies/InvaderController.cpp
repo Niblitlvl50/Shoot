@@ -185,7 +185,7 @@ void InvaderController::Tracking(unsigned int delta)
 void InvaderController::Attacking(unsigned int delta)
 {
     const float distance_to_player = math::Length(g_player_one.position - m_enemy->Position());
-    if(distance_to_player > 10.0f)
+    if(distance_to_player > 10.0f || !g_player_one.is_active)
     {
         m_states.TransitionTo(InvaderStates::TRACKING);
         return;

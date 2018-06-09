@@ -21,7 +21,7 @@ namespace world
         const Variant default_value;
     };
 
-    static const std::array<DefaultAttribute, 8> default_attributes = {{
+    static const std::array<DefaultAttribute, 9> default_attributes = {{
         DefaultAttribute("position",          Variant(math::ZeroVec)),
         DefaultAttribute("rotation",          Variant(0.0f)),
         DefaultAttribute("radius",            Variant(1.0f)),
@@ -29,7 +29,8 @@ namespace world
         DefaultAttribute("spawn_tag",         Variant("")),
         DefaultAttribute("filepath",          Variant("")),
         DefaultAttribute("trigger_radius",    Variant(10.0f)),
-        DefaultAttribute("amount",            Variant(10))
+        DefaultAttribute("amount",            Variant(10)),
+        DefaultAttribute("pickup_type",       Variant(0))
     }};
 
     static const unsigned int POSITION_ATTRIBUTE        = default_attributes[0].hash;
@@ -40,6 +41,7 @@ namespace world
     static const unsigned int FILEPATH_ATTRIBUTE        = default_attributes[5].hash;
     static const unsigned int TRIGGER_RADIUS_ATTRIBUTE  = default_attributes[6].hash;
     static const unsigned int AMOUNT_ATTRIBUTE          = default_attributes[7].hash;
+    static const unsigned int PICKUP_TYPE_ATTRIBUTE     = default_attributes[8].hash;
     
     inline const char* AttributeNameFromHash(unsigned int hash)
     {

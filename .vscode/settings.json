@@ -62,6 +62,7 @@
         "__mutex_base": "cpp",
         "mutex": "cpp",
         "cmath": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cstdint": "cpp"
     }
 }

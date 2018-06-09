@@ -163,6 +163,7 @@ namespace
     void LoadAttributes(game::Ammo& ammo_pickup, const std::vector<Attribute>& attributes)
     {
         world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
+        world::FindAttribute(world::PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type);
         world::FindAttribute(world::AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value);
     }
 }

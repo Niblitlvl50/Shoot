@@ -137,36 +137,36 @@
             "h": 67,
             "name": "cacodemon5",
             "w": 63,
-            "x": 379,
-            "y": 2
+            "x": 312,
+            "y": 75
         },
         {
             "h": 67,
             "name": "cacodemon6",
             "w": 63,
-            "x": 312,
-            "y": 75
+            "x": 379,
+            "y": 2
         },
         {
             "h": 67,
             "name": "cacodemon7",
             "w": 63,
             "x": 446,
-            "y": 73
+            "y": 2
         },
         {
             "h": 67,
             "name": "cacodemon8",
             "w": 63,
-            "x": 379,
+            "x": 446,
             "y": 73
         },
         {
             "h": 67,
             "name": "cacodemon9",
             "w": 63,
-            "x": 446,
-            "y": 2
+            "x": 379,
+            "y": 73
         }
     ],
     "texture": "res/sprite_atlas.png"

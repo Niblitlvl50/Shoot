@@ -26,50 +26,50 @@
             "h": 8,
             "name": "explosion1",
             "w": 8,
-            "x": 327,
-            "y": 270
+            "x": 358,
+            "y": 282
         },
         {
             "h": 8,
             "name": "explosion2",
             "w": 8,
-            "x": 339,
+            "x": 373,
             "y": 270
         },
         {
             "h": 10,
             "name": "explosion3",
             "w": 11,
-            "x": 102,
+            "x": 314,
             "y": 270
         },
         {
             "h": 10,
             "name": "explosion4",
             "w": 11,
-            "x": 132,
+            "x": 329,
             "y": 270
         },
         {
             "h": 10,
             "name": "explosion5",
             "w": 10,
-            "x": 298,
+            "x": 344,
             "y": 270
         },
         {
             "h": 10,
             "name": "explosion6",
             "w": 11,
-            "x": 117,
+            "x": 299,
             "y": 270
         },
         {
             "h": 11,
             "name": "explosion7",
             "w": 11,
-            "x": 435,
-            "y": 269
+            "x": 105,
+            "y": 270
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -30,5 +30,5 @@ void game::CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& ev
     mono::remove_if(pickups, check_for_pickup_and_store);
 
     for(const auto& ammo : pickups_to_dispatch)
-        event_handler.DispatchEvent(game::PickupEvent(g_player_one.entity_id, ammo.value));
+        event_handler.DispatchEvent(game::PickupEvent(g_player_one.entity_id, ammo.type, ammo.value));
 }

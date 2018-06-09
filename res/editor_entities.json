@@ -132,6 +132,7 @@
             },
             "attribute_types": [
                 "position",
+                "pickup_type",
                 "amount"
             ]
         }

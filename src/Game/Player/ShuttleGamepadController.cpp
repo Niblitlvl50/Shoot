@@ -59,7 +59,7 @@ void ShuttleGamepadController::Update(unsigned int delta)
         m_shuttle->SelectWeapon(static_cast<WeaponType>(m_current_weapon_index));
     
     const math::Vector force(m_state.left_x, m_state.left_y);
-    m_shuttle->ApplyImpulse(force * 4);
+    m_shuttle->ApplyImpulse(force * 2);
 
     if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
     {

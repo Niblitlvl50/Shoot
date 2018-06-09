@@ -370,6 +370,10 @@
                     }
                 },
                 {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
                     "name": "amount",
                     "value": 10
                 }
@@ -384,6 +388,10 @@
                         "x": -65.3235015869141,
                         "y": -6.77622985839844
                     }
+                },
+                {
+                    "name": "pickup_type",
+                    "value": 0
                 },
                 {
                     "name": "amount",
@@ -418,6 +426,10 @@
                     }
                 },
                 {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
                     "name": "amount",
                     "value": 10
                 }
@@ -434,6 +446,10 @@
                     }
                 },
                 {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
                     "name": "amount",
                     "value": 10
                 }
@@ -448,6 +464,10 @@
                         "x": -45.1525115966797,
                         "y": 24.7488441467285
                     }
+                },
+                {
+                    "name": "pickup_type",
+                    "value": 0
                 },
                 {
                     "name": "amount",

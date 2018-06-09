@@ -7,9 +7,16 @@
 
 namespace game
 {
+    enum class Pickups : int
+    {
+        AMMO,
+        HEALTH
+    };
+
     struct Ammo
     {
         int value;
+        int type;
         math::Vector position;
     };
 

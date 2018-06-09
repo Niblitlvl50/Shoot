@@ -7,8 +7,6 @@
 #include "Physics/CMFactory.h"
 
 #include "Particle/ParticleEmitter.h"
-#include "Particle/ParticlePool.h"
-#include "Particle/ParticleSystemDefaults.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -17,28 +15,12 @@
 #include "Audio/AudioFactory.h"
 #include "Random.h"
 
-namespace
-{
-    void SimpleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
-    {
-        constexpr int life = 100;
-
-        pool.m_position[index] = position;
-        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.5f, 0.5f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
-        pool.m_start_size[index] = 10.0f;
-        pool.m_end_size[index] = 5.0f;
-        pool.m_start_life[index] = life;
-        pool.m_life[index] = life;
-    }
-}
-
 using namespace game;
 
 Bullet::Bullet(const BulletConfiguration& config)
     : m_collisionCallback(config.collision_callback)
 {
-    m_scale = math::Vector(1.0f, 1.0f) * config.scale;
+    m_scale = config.scale;
 
     m_physics.body = mono::PhysicsFactory::CreateBody(1.0f, 1.0f);
     m_physics.body->SetCollisionHandler(this);
@@ -46,7 +28,7 @@ Bullet::Bullet(const BulletConfiguration& config)
 
     mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(
         m_physics.body,
-        config.collision_radius * config.scale,
+        config.collision_radius, //* config.scale,
         math::Vector(0.0f, 0.0f)
     );
 
@@ -56,7 +38,7 @@ Bullet::Bullet(const BulletConfiguration& config)
     m_physics.shapes.push_back(shape);
 
     m_sprite = mono::CreateSprite(config.sprite_file);
-    m_sprite->SetShade(config.shade);
+    m_sprite->SetShade(config.sprite_shade);
 
     m_sound = mono::AudioFactory::CreateNullSound();
 
@@ -70,14 +52,7 @@ Bullet::Bullet(const BulletConfiguration& config)
     m_lifeSpan = life_span * 1000.0f;
 
     if(config.pool)
-    {
-        mono::ParticleEmitter::Configuration emitter_config;
-        emitter_config.generator = SimpleGenerator;
-        emitter_config.emit_rate = 100.0f;
-        emitter_config.duration = -1.0f;
-
-        m_emitter = std::make_unique<mono::ParticleEmitter>(emitter_config, config.pool);
-    }
+        m_emitter = std::make_unique<mono::ParticleEmitter>(config.emitter_config, config.pool);
 }
 
 Bullet::~Bullet()

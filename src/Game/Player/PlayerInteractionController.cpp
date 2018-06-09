@@ -6,6 +6,17 @@
 #include "Audio/AudioFactory.h"
 #include "EventHandler/EventHandler.h"
 
+
+namespace
+{
+    using PickupFunc = void (game::Shuttle::*)(int amount);
+
+    constexpr PickupFunc pickup_func_table[] = {
+        &game::Shuttle::GiveAmmo,
+        &game::Shuttle::GiveHealth
+    };
+}
+
 using namespace game;
 
 PlayerInteractionController::PlayerInteractionController(Shuttle* player, mono::EventHandler& event_handler)
@@ -29,7 +40,8 @@ bool PlayerInteractionController::OnPickup(const game::PickupEvent& event)
     if(event.entity_id != m_player->Id())
         return false;
 
-    m_player->GiveAmmo(event.value);
+    const PickupFunc pickup_func = pickup_func_table[event.type];
+    (m_player->*pickup_func)(event.value);
     m_pickup_sound->Play();
 
     return true;

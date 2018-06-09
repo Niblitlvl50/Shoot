@@ -1,0 +1,31 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                50,
+                1,
+                50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 14,
+            "name": "plasma1",
+            "w": 15,
+            "x": 435,
+            "y": 269
+        },
+        {
+            "h": 13,
+            "name": "plasma2",
+            "w": 13,
+            "x": 282,
+            "y": 267
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

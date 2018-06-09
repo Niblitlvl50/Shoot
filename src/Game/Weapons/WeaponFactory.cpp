@@ -7,6 +7,7 @@
 #include "Explosion.h"
 #include "Physics/IBody.h"
 #include "Entity/IPhysicsEntity.h"
+#include "Particle/ParticlePool.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/DamageEvent.h"
@@ -39,7 +40,7 @@ namespace
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND, nullptr);
         event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::DamageEvent(other, 50, bullet->Rotation()));
-        event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
+        event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
 
@@ -70,6 +71,46 @@ namespace
         event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
+
+    void PlasmaParticleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    {
+        constexpr int life = 100;
+
+        pool.m_position[index] = position;
+        pool.m_start_color[index] = mono::Color::RGBA(0.3f, 0.3f, 1.0f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = 10.0f;
+        pool.m_end_size[index] = 5.0f;
+        pool.m_start_life[index] = life;
+        pool.m_life[index] = life;
+    }
+
+    void RocketParticleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    {
+        constexpr int life = 200;
+
+        pool.m_position[index] = position;
+        pool.m_start_color[index] = mono::Color::RGBA(0.2f, 0.3f, 0.3f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = 24.0f;
+        pool.m_end_size[index] = 16.0f;
+        pool.m_start_life[index] = life;
+        pool.m_life[index] = life;        
+    }
+
+    void FlakParticleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    {
+        constexpr int life = 100;
+
+        pool.m_position[index] = position;
+        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.5f, 0.0f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = 10.0f;
+        pool.m_end_size[index] = 5.0f;
+        pool.m_start_life[index] = life;
+        pool.m_life[index] = life;        
+    }
+    
 }
 
 using namespace game;
@@ -102,18 +143,25 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.collision_radius = 0.4f;
-            bullet_config.scale = 0.4;
+
+            bullet_config.collision_radius = 0.1f;
+            bullet_config.scale = math::Vector(0.5f, 0.5f);
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.sprite_file = "res/sprites/generic.sprite";
-            bullet_config.shade = mono::Color::RGBA(0.6f, 0.6f, 0.8f, 1.0f);
+
+            bullet_config.sprite_file = "res/sprites/plasma.sprite";
+            bullet_config.sprite_shade = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 1.0f);
             bullet_config.sound_file = nullptr;
+
+            bullet_config.emitter_config.duration = -1;
+            bullet_config.emitter_config.emit_rate = 100.0f;
+            bullet_config.emitter_config.burst = false;
+            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 99;
             weapon_config.rounds_per_second = 7.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
-            weapon_config.bullet_force = 30.0f;
+            weapon_config.bullet_force = 20.0f;
             weapon_config.bullet_spread = 2.0f;
             weapon_config.fire_sound = "res/sound/plasma_fire.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
@@ -127,13 +175,18 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
             bullet_config.collision_callback = std::bind(RocketCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.scale = 0.5;
+            bullet_config.scale = math::Vector(0.4f, 0.8f);
             bullet_config.sprite_file = "res/sprites/rocket.sprite";
             bullet_config.sound_file = nullptr;
 
+            bullet_config.emitter_config.duration = -1;
+            bullet_config.emitter_config.emit_rate = 100.0f;
+            bullet_config.emitter_config.burst = false;
+            bullet_config.emitter_config.generator = RocketParticleGenerator;
+
             weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
-            weapon_config.bullet_force = 20.0f;
+            weapon_config.bullet_force = 10.0f;
             weapon_config.fire_sound = "res/sound/rocket_fire2.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
 
@@ -147,8 +200,13 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.collision_radius = 0.5f;
             bullet_config.collision_callback = std::bind(CacoPlasmaCollision, _1, _2, std::ref(m_event_handler));
             bullet_config.sprite_file = "res/sprites/caco_bullet.sprite";
-            bullet_config.scale = 0.5;
+            bullet_config.scale = math::Vector(0.5f, 0.5f);
             bullet_config.sound_file = nullptr;
+
+            bullet_config.emitter_config.duration = -1;
+            bullet_config.emitter_config.emit_rate = 100.0f;
+            bullet_config.emitter_config.burst = false;
+            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 5.0f;
@@ -161,12 +219,17 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.scale = 0.3;
+            bullet_config.scale = math::Vector(0.3f, 0.3f);
             bullet_config.collision_radius = 0.15f;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+            bullet_config.sprite_shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
             bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.sound_file = nullptr;
+
+            bullet_config.emitter_config.duration = -1;
+            bullet_config.emitter_config.emit_rate = 100.0f;
+            bullet_config.emitter_config.burst = false;
+            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 4.0f;
@@ -179,12 +242,19 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.scale = 0.2;
+
+            bullet_config.scale = math::Vector(0.2f, 0.2f);
             bullet_config.collision_radius = 0.15f;
             bullet_config.collision_callback = std::bind(FlakCannonCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.shade = mono::Color::RGBA(0.3f, 0.3f, 0.3f, 1.0f);
+
+            bullet_config.sprite_shade = mono::Color::RGBA(0.3f, 0.3f, 0.3f, 1.0f);
             bullet_config.sprite_file = "res/sprites/generic.sprite";
             bullet_config.sound_file = nullptr;
+
+            bullet_config.emitter_config.duration = -1;
+            bullet_config.emitter_config.emit_rate = 100.0f;
+            bullet_config.emitter_config.burst = false;
+            bullet_config.emitter_config.generator = FlakParticleGenerator;
 
             weapon_config.projectiles_per_fire = 6;
             weapon_config.magazine_size = 6;

@@ -211,6 +211,11 @@ void Shuttle::GiveAmmo(int value)
     m_total_ammo_left += value;
 }
 
+void Shuttle::GiveHealth(int value)
+{
+    
+}
+
 void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
 {
     const int state = enable ? constants::THRUSTING : constants::IDLE;

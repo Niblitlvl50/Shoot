@@ -5,7 +5,9 @@
 #include "Physics/CMFwd.h"
 #include "Rendering/Color.h"
 #include "Particle/ParticleFwd.h"
+#include "Particle/ParticleEmitter.h"
 #include "CollisionConfiguration.h"
+#include "Math/Vector.h"
 
 #include <functional>
 
@@ -17,18 +19,19 @@ namespace game
     {
         float life_span = 1.0f;
         float fuzzy_life_span = 0.0f;
+
         float collision_radius = 0.5f;
-        float scale = 1.0f;
+        math::Vector scale = math::Vector(1.0f, 1.0f);
         CollisionCategory collision_category = CollisionCategory::NONE;
         unsigned int collision_mask = 0;
         BulletImpactCallback collision_callback;
 
-        mono::Color::RGBA shade;
-
+        mono::Color::RGBA sprite_shade;
         const char* sprite_file = nullptr;
         const char* sound_file = nullptr;
 
         mono::ParticlePool* pool = nullptr;
+        mono::ParticleEmitter::Configuration emitter_config;
     };
 
     struct WeaponConfiguration

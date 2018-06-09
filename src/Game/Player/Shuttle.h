@@ -41,6 +41,7 @@ namespace game
         void StopFire();
         void Reload();
         void GiveAmmo(int value);
+        void GiveHealth(int value);
 
         void SetBoosterThrusting(BoosterPosition position, bool enabled);
         void SetShading(const mono::Color::RGBA& shade);
