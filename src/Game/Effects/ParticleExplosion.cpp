@@ -116,9 +116,9 @@ ParticleExplosion::ParticleExplosion(const math::Vector& position)
     m_emitter2 = std::make_unique<mono::ParticleEmitter>(flare_config, m_pool2.get());
     m_emitter3 = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool3.get());
 
-    m_drawer1 = std::make_unique<mono::ParticleDrawer>(smoke_texture, *m_pool1);
-    m_drawer2 = std::make_unique<mono::ParticleDrawer>(flare_texture, *m_pool2);
-    m_drawer3 = std::make_unique<mono::ParticleDrawer>(texture3, *m_pool3);
+    m_drawer1 = std::make_unique<mono::ParticleDrawer>(smoke_texture, mono::BlendMode::ONE, *m_pool1);
+    m_drawer2 = std::make_unique<mono::ParticleDrawer>(flare_texture, mono::BlendMode::ONE, *m_pool2);
+    m_drawer3 = std::make_unique<mono::ParticleDrawer>(texture3, mono::BlendMode::ONE, *m_pool3);
 }
 
 ParticleExplosion::~ParticleExplosion()

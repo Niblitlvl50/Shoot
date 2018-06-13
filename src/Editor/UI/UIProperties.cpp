@@ -1,7 +1,9 @@
 
 #include "UIProperties.h"
 #include "ObjectAttribute.h"
+#include "DefinedAttributes.h"
 #include "ImGuiImpl/ImGuiImpl.h"
+#include "Algorithm.h"
 
 void editor::DrawProperty(const char* text, Variant& attribute)
 {
@@ -25,3 +27,14 @@ void editor::DrawProperty(const char* text, Variant& attribute)
         break;
     }
 }
+
+void editor::DrawProperty(Attribute& attribute)
+{
+    const char* attribute_name = world::AttributeNameFromHash(attribute.id);
+
+    if(attribute.id == world::PICKUP_TYPE_ATTRIBUTE)
+        ImGui::Combo(attribute_name, &attribute.attribute.int_value, world::PickupItems, mono::arraysize(world::PickupItems));
+    else
+        DrawProperty(attribute_name, attribute.attribute);
+}
+

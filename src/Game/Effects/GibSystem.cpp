@@ -8,7 +8,7 @@
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Random.h"
-#include "Utils.h"
+#include "Algorithm.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"
@@ -28,14 +28,14 @@ namespace
 
         const int life = mono::RandomInt(3000, 3500);
         const float velocity_variation = mono::Random(2.0f, 16.0f);
-        const float size = mono::Random(15.0f, 20.0f);
+        const float size = mono::Random(15.0f, 25.0f);
 
         pool.m_position[index] = position;
         pool.m_velocity[index] = velocity * velocity_variation;
-        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
-        //pool.m_start_size[index] = size;
-        //pool.m_end_size[index] = size;
+        pool.m_start_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 1.0f);
+        pool.m_end_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 0.1f);
+        pool.m_start_size[index] = size;
+        pool.m_end_size[index] = size;
         pool.m_size[index] = size;
         pool.m_start_life[index] = life;
         pool.m_life[index] = life;
@@ -68,7 +68,7 @@ GibSystem::GibSystem()
 {
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
     m_pool = std::make_unique<mono::ParticlePool>(1500, GibsUpdater);
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
 }
 
 GibSystem::~GibSystem()
@@ -104,7 +104,7 @@ void GibSystem::EmitGibsAt(const math::Vector& position, float direction)
     emit_config.position = position;
     emit_config.burst = true;
     emit_config.duration = 1.0f;
-    emit_config.emit_rate = 20.0f;
+    emit_config.emit_rate = 30.0f;
     emit_config.generator = [direction](const math::Vector& position, mono::ParticlePool& pool, size_t index) {
         GibsGenerator(position, pool, index, direction);
     };

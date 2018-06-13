@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Entity/EntityBase.h"
-#include "Utils.h"
+#include "FpsCounter.h"
 
 namespace game
 {
@@ -15,6 +15,6 @@ namespace game
         void Update(unsigned int delta) override;
 
     private:
-        mono::FPSCounter m_counter;        
+        mono::FpsCounter m_counter;        
     };
 }

@@ -42,7 +42,7 @@ TrailEffect::TrailEffect(const math::Vector& position)
 
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
     m_emitter = std::make_unique<mono::ParticleEmitter>(config, m_pool.get());
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
 }
 
 TrailEffect::~TrailEffect()

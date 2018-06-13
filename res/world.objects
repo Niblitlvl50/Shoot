@@ -5,8 +5,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": 8.22328948974609,
-                        "y": 16.6914463043213
+                        "x": -68.0396575927734,
+                        "y": -5.99641990661621
                     }
                 },
                 {
@@ -29,8 +29,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -43.8483276367188,
-                        "y": 13.09104347229
+                        "x": -5.32204437255859,
+                        "y": -40.0787124633789
                     }
                 },
                 {
@@ -45,8 +45,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -37.5348930358887,
-                        "y": 13.5295867919922
+                        "x": 2.56032943725586,
+                        "y": -39.2915153503418
                     }
                 },
                 {
@@ -61,8 +61,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -0.934688568115234,
-                        "y": -15.0519695281982
+                        "x": -11.2446403503418,
+                        "y": -26.6979141235352
                     }
                 },
                 {
@@ -305,8 +305,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -32.051139831543,
-                        "y": 10.8017845153809
+                        "x": -35.9471740722656,
+                        "y": 0.648761749267578
                     }
                 }
             ],
@@ -317,8 +317,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -35.6600608825684,
-                        "y": 21.6290512084961
+                        "x": -53.0151252746582,
+                        "y": 0.496280670166016
                     }
                 },
                 {
@@ -333,8 +333,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -33.1459274291992,
-                        "y": 22.300630569458
+                        "x": -53.2164154052734,
+                        "y": -2.61004829406738
                     }
                 },
                 {
@@ -475,6 +475,194 @@
                 }
             ],
             "name": "ammo_pickup"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 11.4276885986328,
+                        "y": -39.5666580200195
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -1.39935302734375,
+                        "y": -42.7667007446289
+                    }
+                },
+                {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
+                    "name": "amount",
+                    "value": 10
+                }
+            ],
+            "name": "ammo_pickup"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 2.05825042724609,
+                        "y": -42.2735900878906
+                    }
+                },
+                {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
+                    "name": "amount",
+                    "value": 10
+                }
+            ],
+            "name": "ammo_pickup"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 6.13328552246094,
+                        "y": -42.6451263427734
+                    }
+                },
+                {
+                    "name": "pickup_type",
+                    "value": 0
+                },
+                {
+                    "name": "amount",
+                    "value": 10
+                }
+            ],
+            "name": "ammo_pickup"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 33.1758193969727,
+                        "y": -39.4384078979492
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
+                }
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 33.4223251342773,
+                        "y": -33.7580604553223
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
+                }
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 37.8667945861816,
+                        "y": -37.9565773010254
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "trigger_radius",
+                    "value": 10.0
+                }
+            ],
+            "name": "blacksquare"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -40.9566192626953,
+                        "y": -40.5748596191406
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -34.6591491699219,
+                        "y": -40.3911514282227
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -51.9675598144531,
+                        "y": 21.5103340148926
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                },
+                {
+                    "name": "filepath",
+                    "value": "loop_1"
+                }
+            ],
+            "name": "pathinvader"
         }
     ]
 }

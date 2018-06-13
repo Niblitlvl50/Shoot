@@ -57,7 +57,7 @@ ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool.get());
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, *m_pool);
+    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
 }
 
 ScreenSparkles::~ScreenSparkles()

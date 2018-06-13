@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "Algorithm.h"
 #include <cstring>
 
 namespace editor
@@ -13,13 +14,11 @@ namespace editor
         "res/textures/brown_stone.png",
         "res/textures/lava1.png",
         "res/textures/lava2.png"
-        };
-
-    constexpr int n_textures = 7;
+    };
 
     inline int FindTextureIndex(const char* texture)
     {
-        for(int index = 0; index < n_textures; ++index)
+        for(unsigned int index = 0; index < mono::arraysize(avalible_textures); ++index)
         {
             const bool found = std::strstr(texture, avalible_textures[index]) != nullptr;
             if(found)

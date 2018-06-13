@@ -3,7 +3,7 @@
 #include "MainMenuOptions.h"
 #include "UIContext.h"
 #include "ObjectProxies/IObjectProxy.h"
-#include "Utils.h"
+#include "Algorithm.h"
 #include "ImGuiImpl/ImGuiImpl.h"
 
 #include <algorithm>

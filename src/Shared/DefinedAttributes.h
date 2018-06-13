@@ -43,6 +43,11 @@ namespace world
     static const unsigned int AMOUNT_ATTRIBUTE          = default_attributes[7].hash;
     static const unsigned int PICKUP_TYPE_ATTRIBUTE     = default_attributes[8].hash;
     
+    constexpr const char* PickupItems[] = {
+        "ammo",
+        "health"
+    };
+
     inline const char* AttributeNameFromHash(unsigned int hash)
     {
         for(const DefaultAttribute& hash_string : default_attributes)
