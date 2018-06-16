@@ -13,6 +13,7 @@ namespace editor
         SpriteEntity(const char* name, const char* sprite_file);
         
         void SetSelected(bool selected);
+        void SetSpriteAnimation(int sprite_id);
         const std::string& Name() const;
         
     private:

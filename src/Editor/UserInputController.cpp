@@ -240,6 +240,10 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
 
         m_isMaximized = !m_isMaximized;
     }
+    else if(event.key == Keycode::D && event.ctrl)
+    {
+        m_editor->DuplicateSelected();
+    }
 
     return false;
 }

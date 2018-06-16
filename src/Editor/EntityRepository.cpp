@@ -95,20 +95,22 @@ bool EntityRepository::LoadDefinitions()
     return LoadEntities(m_entities) && LoadPrefabs(m_prefabs);
 }
 
-const EntityDefinition& EntityRepository::GetDefinitionFromName(const std::string& name) const
+const EntityDefinition* EntityRepository::GetDefinitionFromName(const std::string& name) const
 {
     const auto find_func = [&name](const EntityDefinition& definition) {
         return definition.name == name;
     };
 
-    return *std::find_if(m_entities.begin(), m_entities.end(), find_func);
+    const auto it = std::find_if(m_entities.begin(), m_entities.end(), find_func);    
+    return it != m_entities.end() ? &*it : nullptr;
 }
 
-const PrefabDefinition& EntityRepository::GetPrefabFromName(const std::string& name) const
+const PrefabDefinition* EntityRepository::GetPrefabFromName(const std::string& name) const
 {
     const auto find_func = [&name](const PrefabDefinition& definition) {
         return definition.name == name;
     };
 
-    return *std::find_if(m_prefabs.begin(), m_prefabs.end(), find_func);
+    const auto it = std::find_if(m_prefabs.begin(), m_prefabs.end(), find_func);
+    return it != m_prefabs.end() ? &*it : nullptr;
 }

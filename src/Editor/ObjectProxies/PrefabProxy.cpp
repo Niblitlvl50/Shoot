@@ -23,7 +23,7 @@ PrefabProxy::PrefabProxy(const std::shared_ptr<Prefab>& prefab)
 
 const char* PrefabProxy::Name() const
 {
-    return "prefabobject";
+    return m_prefab->Name().c_str();
 }
 
 unsigned int PrefabProxy::Id() const

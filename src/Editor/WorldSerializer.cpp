@@ -169,9 +169,11 @@ std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const ed
         }
 
         IObjectProxyPtr proxy = factory.CreateObject(name.c_str());
-        proxy->SetAttributes(attributes);
-        
-        objects.push_back(std::move(proxy));
+        if(proxy)
+        {
+            proxy->SetAttributes(attributes);        
+            objects.push_back(std::move(proxy));
+        }
     }
 
     return objects;

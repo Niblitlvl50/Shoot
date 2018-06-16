@@ -32,8 +32,8 @@ namespace editor
 
         bool LoadDefinitions();
 
-        const EntityDefinition& GetDefinitionFromName(const std::string& name) const;
-        const PrefabDefinition& GetPrefabFromName(const std::string& name) const;
+        const EntityDefinition* GetDefinitionFromName(const std::string& name) const;
+        const PrefabDefinition* GetPrefabFromName(const std::string& name) const;
 
         std::vector<EntityDefinition> m_entities;
         std::vector<PrefabDefinition> m_prefabs;

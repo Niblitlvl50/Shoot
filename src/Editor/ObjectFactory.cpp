@@ -24,13 +24,24 @@ ObjectFactory::ObjectFactory(Editor* editor)
 
 IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
 {
-    const EntityDefinition& def = m_repository.GetDefinitionFromName(object_name);
+    IObjectProxyPtr new_object = CreateEntity(object_name);
+    if(new_object)
+        return new_object;
+
+    return CreatePrefab(object_name);
+}
+
+IObjectProxyPtr ObjectFactory::CreateEntity(const char* entity_name) const
+{
+    const EntityDefinition* def = m_repository.GetDefinitionFromName(entity_name);
+    if(!def)
+        return nullptr;
     
-    auto entity = std::make_shared<editor::SpriteEntity>(object_name, def.sprite_file.c_str());
-    entity->SetScale(def.scale);
+    auto entity = std::make_shared<editor::SpriteEntity>(entity_name, def->sprite_file.c_str());
+    entity->SetScale(def->scale);
 
     std::vector<Attribute> attributes;
-    for(unsigned int hash : def.attribute_types)
+    for(unsigned int hash : def->attribute_types)
         attributes.push_back({hash, world::DefaultAttributeFromHash(hash)});
     
     return std::make_unique<EntityProxy>(entity, attributes);
@@ -44,9 +55,12 @@ IObjectProxyPtr ObjectFactory::CreatePath(const std::string& name, const std::ve
 
 IObjectProxyPtr ObjectFactory::CreatePrefab(const std::string& prefab_name) const
 {
-    const PrefabDefinition& def = m_repository.GetPrefabFromName(prefab_name);
-    auto prefab_object = std::make_shared<editor::Prefab>(prefab_name.c_str(), def.sprite_file.c_str(), def.snap_points);
-    prefab_object->SetScale(def.scale);
+    const PrefabDefinition* def = m_repository.GetPrefabFromName(prefab_name);
+    if(!def)
+        return nullptr;
+
+    auto prefab_object = std::make_shared<editor::Prefab>(prefab_name.c_str(), def->sprite_file.c_str(), def->snap_points);
+    prefab_object->SetScale(def->scale);
 
     return std::make_unique<PrefabProxy>(prefab_object);
 }

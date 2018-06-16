@@ -65,6 +65,8 @@ namespace
             context.entity_items.push_back(item);
         }
     }
+
+    constexpr unsigned int NO_SELECTION = std::numeric_limits<unsigned int>::max();
 }
 
 using namespace editor;
@@ -74,7 +76,7 @@ Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const
       m_eventHandler(event_handler),
       m_fileName(file_name),
       m_object_factory(this),
-      m_seleced_id(-1)
+      m_seleced_id(NO_SELECTION)
 {
     using namespace std::placeholders;
 
@@ -173,7 +175,7 @@ void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
-    m_seleced_id = -1;
+    m_seleced_id = NO_SELECTION;
     m_context.proxy_object = proxy_object;
     m_object_detail_visualizer->SetObjectProxy(proxy_object);
 
@@ -381,4 +383,40 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
     m_window->SetBackgroundColor(color.red, color.green, color.blue);
+}
+
+void Editor::DuplicateSelected()
+{
+    if(m_seleced_id == NO_SELECTION)
+        return;
+
+    const unsigned int id = m_seleced_id;
+    const auto find_func = [id](const IObjectProxyPtr& proxy) {
+        return id == proxy->Id();
+    };
+
+    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
+    if(it != m_proxies.end())
+    {
+        const char* name = (*it)->Name();
+        const std::vector<Attribute> attributes = (*it)->GetAttributes();
+        const math::Vector position = (*it)->Entity()->Position();
+
+        IObjectProxyPtr proxy = m_object_factory.CreateObject(name);
+        if(proxy == nullptr)
+        {
+            std::printf("Unable to create object of type: '%s'\n", name);
+            return;
+        }
+
+        proxy->SetAttributes(attributes);
+
+        mono::IEntityPtr entity = proxy->Entity();
+        entity->SetPosition(position + math::Vector(0.5f, 0.5f));
+        
+        AddEntity(entity, RenderLayer::OBJECTS);
+
+        SelectProxyObject(proxy.get());
+        m_proxies.push_back(std::move(proxy));
+    }
 }

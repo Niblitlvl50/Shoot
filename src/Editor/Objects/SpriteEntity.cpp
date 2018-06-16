@@ -13,7 +13,6 @@ SpriteEntity::SpriteEntity(const char* name, const char* sprite_file)
       m_selected(false)
 {
     m_sprite = mono::CreateSprite(sprite_file);
-    //m_base_point = math::Vector(0.5, 0.5);
 }
 
 void SpriteEntity::Draw(mono::IRenderer& renderer) const
@@ -35,6 +34,11 @@ void SpriteEntity::Update(unsigned int delta)
 void SpriteEntity::SetSelected(bool selected)
 {
     m_selected = selected;
+}
+
+void SpriteEntity::SetSpriteAnimation(int sprite_id)
+{
+    m_sprite->SetAnimation(sprite_id);
 }
 
 const std::string& SpriteEntity::Name() const
