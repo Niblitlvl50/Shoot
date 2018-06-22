@@ -24,7 +24,7 @@
             "name": "plasma2",
             "w": 13,
             "x": 496,
-            "y": 326
+            "y": 345
         }
     ],
     "texture": "res/sprite_atlas.png"

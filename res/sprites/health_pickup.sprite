@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "invader1",
-            "w": 11,
-            "x": 433,
-            "y": 347
+            "h": 15,
+            "name": "health_pickup",
+            "w": 14,
+            "x": 496,
+            "y": 326
         }
     ],
     "texture": "res/sprite_atlas.png"
