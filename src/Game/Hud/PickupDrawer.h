@@ -19,6 +19,6 @@ namespace game
         math::Quad BoundingBox() const override;
 
         const std::vector<Ammo>& m_ammo_pickups;
-        mono::ISpritePtr m_ammo_sprite;
+        std::vector<mono::ISpritePtr> m_pickup_sprites;
     };
 }
