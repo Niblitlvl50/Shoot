@@ -14,8 +14,8 @@
             "h": 13,
             "name": "meteorite1",
             "w": 12,
-            "x": 76,
-            "y": 269
+            "x": 496,
+            "y": 343
         }
     ],
     "texture": "res/sprite_atlas.png"

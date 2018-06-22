@@ -14,8 +14,8 @@
             "h": 21,
             "name": "bolter",
             "w": 30,
-            "x": 2,
-            "y": 269
+            "x": 383,
+            "y": 346
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 27,
             "name": "wall_pipes",
             "w": 81,
-            "x": 300,
-            "y": 239
+            "x": 203,
+            "y": 316
         }
     ],
     "texture": "res/sprite_atlas.png"

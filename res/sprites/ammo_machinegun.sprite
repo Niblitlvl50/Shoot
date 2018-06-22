@@ -14,8 +14,8 @@
             "h": 38,
             "name": "ammo_machinegun",
             "w": 13,
-            "x": 47,
-            "y": 158
+            "x": 231,
+            "y": 234
         }
     ],
     "texture": "res/sprite_atlas.png"

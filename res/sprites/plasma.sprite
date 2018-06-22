@@ -16,15 +16,15 @@
             "h": 14,
             "name": "plasma1",
             "w": 15,
-            "x": 435,
-            "y": 269
+            "x": 244,
+            "y": 347
         },
         {
             "h": 13,
             "name": "plasma2",
             "w": 13,
-            "x": 282,
-            "y": 267
+            "x": 496,
+            "y": 326
         }
     ],
     "texture": "res/sprite_atlas.png"

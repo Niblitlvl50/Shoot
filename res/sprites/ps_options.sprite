@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 24,
-            "name": "rocket",
-            "w": 7,
-            "x": 502,
-            "y": 272
+            "h": 85,
+            "name": "ps_options",
+            "w": 95,
+            "x": 2,
+            "y": 2
         }
     ],
     "texture": "res/sprite_atlas.png"
