@@ -223,7 +223,7 @@ void TestZone::AddEntityWithCallback(const mono::IEntityPtr& entity, int layer, 
 {
     const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
     if(damagable)
-        m_damageController.CreateRecord(entity->Id(), nullptr);
+        m_damageController.CreateRecord(entity->Id(), destroyed_func);
 
     PhysicsZone::AddEntity(entity, layer);
 }
