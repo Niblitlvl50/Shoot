@@ -14,8 +14,8 @@
             "h": 57,
             "name": "spawn_point",
             "w": 60,
-            "x": 392,
-            "y": 221
+            "x": 600,
+            "y": 187
         }
     ],
     "texture": "res/sprite_atlas.png"

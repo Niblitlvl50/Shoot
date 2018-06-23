@@ -14,8 +14,8 @@
             "h": 24,
             "name": "rocket",
             "w": 7,
-            "x": 502,
-            "y": 272
+            "x": 87,
+            "y": 249
         }
     ],
     "texture": "res/sprite_atlas.png"

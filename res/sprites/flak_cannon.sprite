@@ -14,8 +14,8 @@
             "h": 16,
             "name": "flak_cannon",
             "w": 36,
-            "x": 185,
-            "y": 347
+            "x": 474,
+            "y": 282
         }
     ],
     "texture": "res/sprite_atlas.png"

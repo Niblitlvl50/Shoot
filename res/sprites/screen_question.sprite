@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 23,
+            "name": "screen_question",
+            "w": 26,
+            "x": 117,
+            "y": 281
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

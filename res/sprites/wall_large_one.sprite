@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 110,
+            "name": "wall_large_one",
+            "w": 131,
+            "x": 55,
+            "y": 2
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

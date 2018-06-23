@@ -24,15 +24,15 @@
             "h": 12,
             "name": "booster1",
             "w": 9,
-            "x": 263,
-            "y": 347
+            "x": 354,
+            "y": 285
         },
         {
             "h": 11,
             "name": "booster2",
             "w": 9,
-            "x": 291,
-            "y": 347
+            "x": 382,
+            "y": 285
         }
     ],
     "texture": "res/sprite_atlas.png"

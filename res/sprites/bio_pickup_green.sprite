@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 21,
+            "name": "bio_pickup_green",
+            "w": 7,
+            "x": 924,
+            "y": 277
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 21,
+            "name": "device_medical",
+            "w": 20,
+            "x": 634,
+            "y": 281
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

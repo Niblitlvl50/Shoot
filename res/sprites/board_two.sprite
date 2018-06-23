@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 37,
+            "name": "board_two",
+            "w": 50,
+            "x": 376,
+            "y": 244
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

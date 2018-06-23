@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 17,
+            "name": "device_random",
+            "w": 27,
+            "x": 935,
+            "y": 281
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

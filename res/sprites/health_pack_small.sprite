@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 15,
+            "name": "health_pack_small",
+            "w": 13,
+            "x": 430,
+            "y": 284
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

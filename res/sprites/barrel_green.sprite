@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 47,
+            "name": "barrel_green",
+            "w": 30,
+            "x": 476,
+            "y": 189
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}
