@@ -55,7 +55,7 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
         
-        ShuttleGamepadController m_controller;
+        ShuttleGamepadController m_gamepad_controller;
         PlayerInteractionController m_interaction_controller;
         bool m_fire;
         

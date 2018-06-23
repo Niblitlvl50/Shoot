@@ -415,8 +415,10 @@ void Editor::DuplicateSelected()
         entity->SetPosition(position + math::Vector(0.5f, 0.5f));
         
         AddEntity(entity, RenderLayer::OBJECTS);
+        IObjectProxy* proxy_pointer = proxy.get();
 
-        SelectProxyObject(proxy.get());
         m_proxies.push_back(std::move(proxy));
+
+        SelectProxyObject(proxy_pointer);
     }
 }

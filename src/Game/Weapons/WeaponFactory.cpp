@@ -105,8 +105,8 @@ namespace
         pool.m_position[index] = position;
         pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.5f, 0.0f, 1.0f);
         pool.m_end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.1f);
-        pool.m_start_size[index] = 10.0f;
-        pool.m_end_size[index] = 5.0f;
+        pool.m_start_size[index] = 15.0f;
+        pool.m_end_size[index] = 10.0f;
         pool.m_start_life[index] = life;
         pool.m_life[index] = life;        
     }

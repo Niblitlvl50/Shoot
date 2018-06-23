@@ -93,7 +93,7 @@ public:
         return *this;
     }
 
-    enum class Type
+    enum class Type : short
     {
         NONE,
         INT,
@@ -118,3 +118,5 @@ struct Attribute
     unsigned int id = 0;
     Variant attribute;
 };
+
+static_assert(sizeof(Attribute) <= 32, "Attribute size is too big!");

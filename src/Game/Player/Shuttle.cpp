@@ -74,7 +74,7 @@ public:
 
 
 Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler, const System::ControllerState& controller)
-    : m_controller(this, event_handler, controller)
+    : m_gamepad_controller(this, event_handler, controller)
     , m_interaction_controller(this, event_handler)
     , m_fire(false)
     , m_total_ammo_left(500)
@@ -123,24 +123,17 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler
 Shuttle::~Shuttle()
 { }
 
-#include <cstdio>
-
 void Shuttle::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
 
     renderer.PushGlobalTransform();
     m_particle_drawer->doDraw(renderer);
-
-    //char text[32] = { '\0' };
-    //std::snprintf(text, 32, "%zu", m_pool->m_count_alive);
-    //constexpr mono::Color::RGBA color(1, 0, 0);
-    //renderer.DrawText(0, text, math::ZeroVec, true, color);
 }
 
 void Shuttle::Update(unsigned int delta)
 {
-    m_controller.Update(delta);
+    m_gamepad_controller.Update(delta);
     m_sprite->doUpdate(delta);
     m_pool->doUpdate(delta);
 
@@ -213,7 +206,7 @@ void Shuttle::GiveAmmo(int value)
 
 void Shuttle::GiveHealth(int value)
 {
-    
+    printf("Give Health!");
 }
 
 void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
