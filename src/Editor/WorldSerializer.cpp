@@ -200,12 +200,14 @@ std::vector<IObjectProxyPtr> editor::LoadPrefabs(const char* file_name, const ed
         const float rotation = json_prefab["rotation"];
 
         IObjectProxyPtr proxy = factory.CreatePrefab(name);
-        auto prefab = proxy->Entity();
-
-        prefab->SetPosition(position);
-        prefab->SetRotation(rotation);
-    
-        prefabs.push_back(std::move(proxy));
+        if(proxy)
+        {
+            auto prefab = proxy->Entity();
+            prefab->SetPosition(position);
+            prefab->SetRotation(rotation);
+        
+            prefabs.push_back(std::move(proxy));
+        }
     }
 
     return prefabs;
