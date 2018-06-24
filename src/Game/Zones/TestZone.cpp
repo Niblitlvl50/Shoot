@@ -4,6 +4,8 @@
 #include "Factories.h"
 #include "Enemies/Enemy.h"
 #include "AIKnowledge.h"
+#include "DamageController.h"
+#include "GameObjects/IGameObjectFactory.h"
 
 #include "Effects/SmokeEffect.h"
 #include "Effects/GibSystem.h"
@@ -44,10 +46,11 @@
 
 using namespace game;
 
-TestZone::TestZone(mono::EventHandler& eventHandler)
-    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.25f),
-      m_event_handler(eventHandler),
-      m_dispatcher(std::make_shared<MessageDispatcher>())
+TestZone::TestZone(const ZoneCreationContext& context)
+    : PhysicsZone(math::Vector(0.0f, 0.0f), 0.25f)
+    , m_event_handler(*context.event_handler)
+    , m_damage_controller(context.damage_controller)
+    , m_dispatcher(std::make_shared<MessageDispatcher>())
       //m_connection(m_dispatcher.get())
 {
     using namespace std::placeholders;
@@ -68,7 +71,7 @@ TestZone::TestZone(mono::EventHandler& eventHandler)
     m_spawnConstraintToken = m_event_handler.AddListener(constraintFunc);
     m_despawnConstraintToken = m_event_handler.AddListener(despawnConstraintFunc);
 
-    m_backgroundMusic = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
+    m_background_music = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
 }
 
 TestZone::~TestZone()
@@ -86,7 +89,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
-    AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, m_damageController, *this));
+    AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, *m_damage_controller, *this));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, m_event_handler));
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
@@ -132,17 +135,23 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
             world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points, m_pickups);
 
         for(const auto& enemy : enemies)
-            AddPhysicsEntityWithCallback(enemy, MIDDLEGROUND, nullptr);
+            AddPhysicsEntity(enemy, MIDDLEGROUND);
 
         m_enemy_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
         m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_event_handler);
     }
 
-     //m_backgroundMusic->Play();   
+    //m_background_music->Play();   
 
     // Test stuff...
-    AddEntityWithCallback(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND, nullptr);
-    AddEntityWithCallback(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND, nullptr);
+
+    std::vector<Attribute> attributes;
+    auto barrel_1 = game::gameobject_factory->CreateGameObject("barrel_red", attributes);
+    barrel_1->SetPosition(math::Vector(-40, 0));
+    AddPhysicsEntity(barrel_1, LayerId::MIDDLEGROUND);
+
+    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
+    AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND);
 }
 
 int TestZone::OnUnload()
@@ -154,13 +163,13 @@ int TestZone::OnUnload()
 
 bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 {
-    AddEntityWithCallback(event.entity, event.layer, event.destroyed_func);
+    AddEntity(event.entity, event.layer);
     return true;
 }
 
 bool TestZone::SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event)
 {
-    AddPhysicsEntityWithCallback(event.entity, event.layer, event.destroyed_func);
+    AddPhysicsEntity(event.entity, event.layer);
     return true;
 }
 
@@ -205,13 +214,13 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
     if(!entity)
         return false;
 
-    const DamageResult& result = m_damageController.ApplyDamage(entity->Id(), event.damage);
+    const DamageResult& result = m_damage_controller->ApplyDamage(entity->Id(), event.damage);
     if(!result.success)
         return false;
 
     if(result.health_left <= 0)
     {
-        m_damageController.RemoveRecord(entity->Id());
+        m_damage_controller->RemoveRecord(entity->Id());
         m_gib_system->EmitGibsAt(entity->Position(), event.direction);
         SchedulePreFrameTask(std::bind(&TestZone::RemovePhysicsEntity, this, entity));
     }
@@ -219,40 +228,16 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
     return true;
 }
 
-void TestZone::AddEntityWithCallback(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
-{
-    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
-    if(damagable)
-        m_damageController.CreateRecord(entity->Id(), destroyed_func);
-
-    PhysicsZone::AddEntity(entity, layer);
-}
-
-void TestZone::AddPhysicsEntityWithCallback(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func)
-{
-    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
-    if(damagable)
-        m_damageController.CreateRecord(entity->Id(), destroyed_func);
-
-    PhysicsZone::AddPhysicsEntity(entity, layer);
-}
-
 void TestZone::RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity)
 {
-    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
-    if(damagable)
-        m_damageController.RemoveRecord(entity->Id());
-
+    m_damage_controller->RemoveRecord(entity->Id());
     PhysicsZone::RemovePhysicsEntity(entity);
 }
 
 void TestZone::RemoveEntity(const mono::IEntityPtr& entity)
 {
+    m_damage_controller->RemoveRecord(entity->Id());
     PhysicsZone::RemoveEntity(entity);
-
-    const bool damagable = entity->HasProperty(EntityProperties::DAMAGABLE);
-    if(damagable)
-        m_damageController.RemoveRecord(entity->Id());
 }
 
 bool TestZone::OnSpawnConstraint(const game::SpawnConstraintEvent& event)

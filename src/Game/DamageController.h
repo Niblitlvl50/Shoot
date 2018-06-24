@@ -21,7 +21,7 @@ namespace game
         int health_left;
     };
 
-    using DestroyedFunction = std::function<void (unsigned int rectord_id)>;
+    using DestroyedFunction = std::function<void (unsigned int id)>;
     
     class DamageController
     {

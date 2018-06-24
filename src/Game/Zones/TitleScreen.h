@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "ZoneCreationContext.h"
 #include "Zone/ZoneBase.h"
 #include "EventHandler/EventToken.h"
 #include "Events/EventFwd.h"
@@ -11,7 +12,7 @@ namespace game
     {
     public:
 
-        TitleScreen(mono::EventHandler& event_handler);
+        TitleScreen(const ZoneCreationContext& context);
         ~TitleScreen();
         
         bool OnKeyUp(const event::KeyUpEvent& event);

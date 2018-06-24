@@ -8,6 +8,9 @@
 #include "AIKnowledge.h"
 #include "FontIds.h"
 
+#include "Factories.h"
+#include "GameObjects/IGameObjectFactory.h"
+
 #include "EventHandler/EventHandler.h"
 #include "Events/ControllerEvent.h"
 #include "Events/QuitEvent.h"
@@ -107,10 +110,18 @@ PlayerDaemon::~PlayerDaemon()
 
 void PlayerDaemon::SpawnPlayer1()
 {
-    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
+    const auto destroyed_func = [this](unsigned int id) {
+        game::g_player_one.is_active = false;
+        const math::Vector death_position = m_player_one->Position();
+        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, death_position);
+        m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
+    };
 
-    m_player_one =
-        std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Primary));
+    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
+    auto player_one = game::gameobject_factory->CreateShuttle(
+        spawn_point, System::GetController(System::ControllerId::Primary), destroyed_func);
+
+    m_player_one = std::static_pointer_cast<Shuttle>(player_one);
     m_player_one->SetPlayerInfo(&game::g_player_one);
     //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
 
@@ -119,33 +130,26 @@ void PlayerDaemon::SpawnPlayer1()
     m_camera->SetPosition(spawn_point);
     m_camera->Follow(m_player_one, math::ZeroVec);
 
-    const auto destroyed_func = [this](unsigned int id) {
-        game::g_player_one.is_active = false;
-
-        const math::Vector death_position = m_player_one->Position();
-        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, death_position);
-        m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, UI, nullptr));
-    };
-
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, FOREGROUND, destroyed_func));
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, LayerId::FOREGROUND));
 }
 
 void PlayerDaemon::SpawnPlayer2()
 {
-    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
+    const auto destroyed_func = [](unsigned int id) {
+        game::g_player_two.is_active = false;
+    };
 
-    m_player_two =
-        std::make_shared<Shuttle>(spawn_point, m_event_handler, System::GetController(System::ControllerId::Secondary));
+    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
+    auto player_two = game::gameobject_factory->CreateShuttle(
+        spawn_point, System::GetController(System::ControllerId::Secondary), destroyed_func);
+
+    m_player_two = std::static_pointer_cast<Shuttle>(player_two);
     m_player_two->SetPlayerInfo(&game::g_player_two);
     m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
 
     game::g_player_two.is_active = true;
 
-    const auto destroyed_func = [](unsigned int id) {
-        game::g_player_two.is_active = false;
-    };
-
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, FOREGROUND, destroyed_func));
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, LayerId::FOREGROUND));
 }
 
 bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)

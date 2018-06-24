@@ -11,14 +11,16 @@
 #include "BeastController.h"
 
 #include "DefinedAttributes.h"
+#include "DamageController.h"
 
 #include <cstring>
 #include <string>
 
 using namespace game;
 
-EnemyFactory::EnemyFactory(mono::EventHandler& event_handler)
-    : m_eventHandler(event_handler)
+EnemyFactory::EnemyFactory(mono::EventHandler& event_handler, game::DamageController& damage_controller)
+    : m_event_handler(event_handler)
+    , m_damage_controller(damage_controller)
 { }
 
 game::EnemyPtr EnemyFactory::CreateCacoDemon(const math::Vector& position)
@@ -28,9 +30,12 @@ game::EnemyPtr EnemyFactory::CreateCacoDemon(const math::Vector& position)
     setup.size = 2.0f;
     setup.mass = 500.0f;
     setup.position = position;
-    setup.controller = std::make_unique<CacoDemonController>(m_eventHandler);
+    setup.controller = std::make_unique<CacoDemonController>(m_event_handler);
 
-    return std::make_shared<game::Enemy>(setup);
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
 }
 
 game::EnemyPtr EnemyFactory::CreateInvader(const math::Vector& position)
@@ -40,9 +45,12 @@ game::EnemyPtr EnemyFactory::CreateInvader(const math::Vector& position)
     setup.size = 1.0f;
     setup.mass = 50.0f;
     setup.position = position;
-    setup.controller = std::make_unique<InvaderController>(m_eventHandler);
+    setup.controller = std::make_unique<InvaderController>(m_event_handler);
 
-    return std::make_shared<game::Enemy>(setup);
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
 }
 
 game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
@@ -52,9 +60,12 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
     setup.size = 1.0f;
     setup.mass = 50.0f;
     setup.position = path->GetGlobalPosition() + path->GetPositionByLength(0.0f);
-    setup.controller = std::make_unique<InvaderPathController>(path, m_eventHandler);
+    setup.controller = std::make_unique<InvaderPathController>(path, m_event_handler);
 
-    return std::make_shared<game::Enemy>(setup);
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
 }
 
 game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, const std::vector<Attribute>& attributes)
@@ -78,9 +89,12 @@ game::EnemyPtr EnemyFactory::CreateBlackSquare(const math::Vector& position, flo
     setup.size = 1.0f;
     setup.mass = 20.0f;
     setup.position = position;
-    setup.controller = std::make_unique<BlackSquareController>(trigger_distance, m_eventHandler);
+    setup.controller = std::make_unique<BlackSquareController>(trigger_distance, m_event_handler);
 
-    return std::make_shared<game::Enemy>(setup);
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
 }
 
 game::EnemyPtr EnemyFactory::CreateBeast(const math::Vector& position)
@@ -90,9 +104,12 @@ game::EnemyPtr EnemyFactory::CreateBeast(const math::Vector& position)
     setup.size = 1.0f;
     setup.mass = 20.0f;
     setup.position = position;
-    setup.controller = std::make_unique<BeastController>(m_eventHandler);
+    setup.controller = std::make_unique<BeastController>(m_event_handler);
 
-    return std::make_shared<game::Enemy>(setup);
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
 }
 
 game::EnemyPtr EnemyFactory::CreateFromName(

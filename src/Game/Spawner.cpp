@@ -56,6 +56,6 @@ void Spawner::SpawnObject(const SpawnPoint& spawn_point)
         const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
 
         EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
-        m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, BACKGROUND, nullptr));
+        m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::BACKGROUND));
     }    
 }

@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "ZoneCreationContext.h"
 #include "Zone/PhysicsZone.h"
 #include "EventHandler/EventToken.h"
 
@@ -33,7 +34,7 @@ namespace game
     {
     public:
         
-        TestZone(mono::EventHandler& eventHandler);
+        TestZone(const ZoneCreationContext& context);
         ~TestZone();
                 
         void OnLoad(mono::ICameraPtr& camera) override;
@@ -49,9 +50,6 @@ namespace game
 
     private:
 
-        void AddEntityWithCallback(const mono::IEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
-        void AddPhysicsEntityWithCallback(const mono::IPhysicsEntityPtr& entity, int layer, DestroyedFunction destroyed_func);
-
         void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity) override;
         void RemoveEntity(const mono::IEntityPtr& entity) override;
 
@@ -64,10 +62,11 @@ namespace game
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
         
         mono::EventHandler& m_event_handler;
+        game::DamageController* m_damage_controller;
+        
         std::unique_ptr<Spawner> m_enemy_spawner;
         std::unique_ptr<PlayerDaemon> m_player_daemon;
-        DamageController m_damageController;
-        mono::ISoundPtr m_backgroundMusic;
+        mono::ISoundPtr m_background_music;
 
         std::shared_ptr<MessageDispatcher> m_dispatcher;
         //RemoteConnection m_connection;

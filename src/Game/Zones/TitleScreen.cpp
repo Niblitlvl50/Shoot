@@ -71,8 +71,8 @@ namespace
     };
 }
 
-TitleScreen::TitleScreen(mono::EventHandler& event_handler)
-    : m_event_handler(event_handler)
+TitleScreen::TitleScreen(const ZoneCreationContext& context)
+    : m_event_handler(*context.event_handler)
 {
     using namespace std::placeholders;
     const event::KeyUpEventFunc& key_callback = std::bind(&TitleScreen::OnKeyUp, this, _1);
