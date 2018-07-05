@@ -75,14 +75,17 @@ void PrefabProxy::UpdateUIContext(UIContext& context)
 {
     const std::string& name = m_prefab->Name();
     const math::Vector& position = m_prefab->Position();
-    const float rotation = m_prefab->Rotation();
+    
+    float rotation = m_prefab->Rotation();
 
     ImGui::Text("%s", name.c_str());
     
     ImGui::Value("X", position.x);
     ImGui::SameLine();
-    ImGui::Value("Y", position.y);
-    ImGui::Value("Rotation", rotation);
+    ImGui::Value("Y", position.y);    
+    ImGui::InputFloat("Rotation", &rotation);
+
+    m_prefab->SetRotation(rotation);
 }
 
 std::vector<Attribute> PrefabProxy::GetAttributes() const

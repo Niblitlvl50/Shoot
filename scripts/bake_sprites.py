@@ -13,8 +13,8 @@ def get_files():
 
 arguments = [
     'spritebaker',
-    '-width', '1024',
-    '-height', '512',
+    '-width', '2048',
+    '-height', '1024',
     '-padding', '2',
     '-bg_color', '255 0 255 0',
     '-trim_images',

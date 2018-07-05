@@ -64,6 +64,21 @@ namespace
             item.tooltip = def.name;
             context.entity_items.push_back(item);
         }
+
+        for(const editor::PrefabDefinition& def : repository.m_prefabs)
+        {
+            const mono::ISpritePtr sprite = mono::CreateSprite(def.sprite_file.c_str());
+            const mono::ITexturePtr sprite_texture = sprite->GetTexture();
+
+            textures.insert(std::make_pair(sprite_texture->Id(), sprite_texture));
+
+            editor::UIEntityItem item;
+            item.texture_id = sprite_texture->Id();
+            item.icon = sprite->GetTextureCoords();
+            item.tooltip = def.name;
+            
+            context.prefab_items.push_back(item);
+        }
     }
 
     constexpr unsigned int NO_SELECTION = std::numeric_limits<unsigned int>::max();

@@ -305,8 +305,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -35.9471740722656,
-                        "y": 0.648761749267578
+                        "x": -31.7930145263672,
+                        "y": 5.95448732376099
                     }
                 }
             ],
@@ -317,40 +317,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -53.0151252746582,
-                        "y": 0.496280670166016
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": -2.93394756317139
-                }
-            ],
-            "name": "halo_dude"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -53.2164154052734,
-                        "y": -2.61004829406738
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": -0.648396015167236
-                }
-            ],
-            "name": "halo_dude"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -53.7956428527832,
-                        "y": 3.25350570678711
+                        "x": -53.7343673706055,
+                        "y": -1.40384292602539
                     }
                 },
                 {
@@ -371,7 +339,7 @@
                 },
                 {
                     "name": "pickup_type",
-                    "value": 0
+                    "value": 1
                 },
                 {
                     "name": "amount",
@@ -391,7 +359,7 @@
                 },
                 {
                     "name": "pickup_type",
-                    "value": 0
+                    "value": 1
                 },
                 {
                     "name": "amount",
@@ -663,6 +631,94 @@
                 }
             ],
             "name": "pathinvader"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -28.7367401123047,
+                        "y": 5.94196557998657
+                    }
+                },
+                {
+                    "name": "spawn_tag",
+                    "value": "blacksquare blacksquare"
+                },
+                {
+                    "name": "time_stamp",
+                    "value": 5
+                },
+                {
+                    "name": "radius",
+                    "value": 1.0
+                }
+            ],
+            "name": "spawnpoint"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -30.9406871795654,
+                        "y": -1.69621849060059
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "barrel_green"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -30.0239944458008,
+                        "y": -1.70772266387939
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "barrel_red"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -41.5652694702148,
+                        "y": -0.642310857772827
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "barrel_red"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": -31.4653263092041,
+                        "y": -1.94250059127808
+                    }
+                },
+                {
+                    "name": "rotation",
+                    "value": 0.0
+                }
+            ],
+            "name": "barrel_green_small"
         }
     ]
 }

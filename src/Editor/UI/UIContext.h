@@ -40,6 +40,7 @@ namespace editor
         // Entity panel + drag n drop
         std::string drag_context;
         std::vector<UIEntityItem> entity_items;
+        std::vector<UIEntityItem> prefab_items;
 
         // Notifications
         std::vector<Notification> notifications;

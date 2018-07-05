@@ -1,36 +1,180 @@
 {
     "prefabs": [
         {
-            "name": "moon",
+            "name": "proto_block_huge",
             "position": {
-                "x": -26.0864582061768,
-                "y": -0.263621628284454
+                "x": -46.934440612793,
+                "y": 0.677634239196777
             },
-            "rotation": 2.34339809417725
+            "rotation": 0.0
         },
         {
-            "name": "moon",
+            "name": "proto_block_huge",
             "position": {
-                "x": -29.5929069519043,
-                "y": -1.21499967575073
+                "x": -42.934440612793,
+                "y": 0.67763364315033
             },
-            "rotation": 0.774194478988647
+            "rotation": 6.28318500518799
         },
         {
-            "name": "wall_pipes",
+            "name": "proto_block_large",
             "position": {
-                "x": -29.5811634063721,
-                "y": -0.220094442367554
+                "x": -39.934440612793,
+                "y": 0.677632093429565
             },
-            "rotation": 6.27078723907471
+            "rotation": 6.28318452835083
         },
         {
-            "name": "wall_pipes",
+            "name": "proto_block_large",
             "position": {
-                "x": -27.5813159942627,
-                "y": -0.244890168309212
+                "x": -39.934440612793,
+                "y": -0.322367489337921
             },
-            "rotation": 6.27078723907471
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -41.5841827392578,
+                "y": -2.77135848999023
+            },
+            "rotation": 6.28318452835083
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -38.4336433410645,
+                "y": -0.322368592023849
+            },
+            "rotation": 0.00159120559692383
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -35.4353370666504,
+                "y": -1.60215377807617
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -34.4353370666504,
+                "y": -1.60215389728546
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -33.4353370666504,
+                "y": -1.60215413570404
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -38.434440612793,
+                "y": 0.67763078212738
+            },
+            "rotation": 6.28318405151367
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -38.4342575073242,
+                "y": -0.812701821327209
+            },
+            "rotation": 0.00159120559692383
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -38.4427185058594,
+                "y": 0.166702389717102
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -49.934440612793,
+                "y": 0.677633762359619
+            },
+            "rotation": 4.76837158203125e-07
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -51.934440612793,
+                "y": 0.677632808685303
+            },
+            "rotation": 4.76837158203125e-07
+        },
+        {
+            "name": "proto_wall_half_straight",
+            "position": {
+                "x": -50.0841827392578,
+                "y": -2.48686218261719
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_half_straight",
+            "position": {
+                "x": -48.0841827392578,
+                "y": -2.48686242103577
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_wall_half_straight",
+            "position": {
+                "x": -46.0841827392578,
+                "y": -2.48686337471008
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -44.0841827392578,
+                "y": -2.48686337471008
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -42.5841789245605,
+                "y": -2.99622583389282
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -42.5841827392578,
+                "y": -2.48686385154724
+            },
+            "rotation": 6.28318500518799
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -40.5841827392578,
+                "y": -2.77135968208313
+            },
+            "rotation": 6.28318405151367
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.5841827392578,
+                "y": -2.77136158943176
+            },
+            "rotation": 6.28318309783936
         }
     ]
 }

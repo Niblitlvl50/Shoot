@@ -118,6 +118,58 @@ namespace
         ImGui::End();
     }
 
+    void DrawPrefabView(editor::UIContext& context)
+    {
+        constexpr int flags =
+            //ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoSavedSettings;
+
+        ImGui::SetNextWindowPos(ImVec2(30 + 135, 40));
+        ImGui::SetNextWindowSize(ImVec2(135, 400));
+
+        ImGui::Begin("Prefabs", nullptr, flags);
+        ImGui::Columns(2, nullptr, false);
+
+        for(size_t index = 0; index < context.prefab_items.size(); ++index)
+        {
+            const UIEntityItem& item = context.prefab_items[index];
+
+            void* texture_id = reinterpret_cast<void*>(item.texture_id);
+            const ImageCoords& icon = QuadToImageCoords(item.icon);
+
+            ImGui::PushID(index);
+            ImGui::ImageButton(texture_id, ImVec2(48.0f, 48.0f), icon.uv1, icon.uv2, 0);
+
+            if(ImGui::IsItemActive() && ImGui::IsMouseDragging())
+                context.drag_context = item.tooltip;
+            else if(ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s", item.tooltip.c_str());
+
+            ImGui::NextColumn();
+            ImGui::PopID();
+        }
+
+        if(!context.drag_context.empty())
+        {
+            if(ImGui::IsMouseDragging())
+            {
+                ImGui::SetTooltip("%s", context.drag_context.c_str());
+            }
+            else if(ImGui::IsMouseReleased(0))
+            {
+                const ImVec2& mouse_pos = ImGui::GetMousePos();
+                context.drop_callback(context.drag_context, math::Vector(mouse_pos.x, mouse_pos.y));
+                context.drag_context.clear();
+            }
+        }
+
+        ImGui::End();
+    }
+
     void DrawSelectionView(editor::UIContext& context)
     {
         if(!context.proxy_object)
@@ -211,6 +263,7 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
 
     DrawMainMenuBar(m_context);
     DrawEntityView(m_context);
+    DrawPrefabView(m_context);
     DrawSelectionView(m_context);    
     DrawContextMenu(m_context);
     DrawNotifications(m_context);

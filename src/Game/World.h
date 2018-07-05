@@ -20,4 +20,6 @@ namespace game
         std::vector<SpawnPoint>& spawn_points,
         std::vector<math::Vector>& player_points,
         std::vector<game::Ammo>& ammo_pickups);
+
+    void LoadPrefabs();
 }

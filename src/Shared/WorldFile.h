@@ -21,10 +21,20 @@ namespace world
         std::vector<math::Vector> vertices;
     };
 
+    struct PrefabData
+    {
+        char name[WorldObjectNameMaxLength] = { 0 };
+        math::Vector position;
+        math::Vector scale;
+        float rotation = 0.0f;
+        std::vector<math::Vector> collision_shape;
+    };
+
     struct LevelFileHeader
     {
         int version = 0;
         std::vector<PolygonData> polygons;
+        std::vector<PrefabData> prefabs;
     };
 
     struct WorldObject

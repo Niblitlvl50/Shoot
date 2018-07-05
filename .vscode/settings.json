@@ -63,6 +63,8 @@
         "mutex": "cpp",
         "cmath": "cpp",
         "variant": "cpp",
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "deque": "cpp",
+        "bitset": "cpp"
     }
 }
