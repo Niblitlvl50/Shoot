@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 136,
+            "name": "wall_half_straight",
+            "w": 256,
+            "x": 522,
+            "y": 369
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

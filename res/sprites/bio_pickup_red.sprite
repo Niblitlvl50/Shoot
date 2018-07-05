@@ -14,8 +14,8 @@
             "h": 21,
             "name": "bio_pickup_red",
             "w": 7,
-            "x": 247,
-            "y": 281
+            "x": 1160,
+            "y": 579
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 57,
             "name": "player_point",
             "w": 60,
-            "x": 664,
-            "y": 187
+            "x": 656,
+            "y": 509
         }
     ],
     "texture": "res/sprite_atlas.png"

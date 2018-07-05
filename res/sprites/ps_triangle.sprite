@@ -14,8 +14,8 @@
             "h": 82,
             "name": "ps_triangle",
             "w": 82,
-            "x": 227,
-            "y": 116
+            "x": 949,
+            "y": 369
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 17,
             "name": "board_small",
             "w": 15,
-            "x": 966,
-            "y": 281
+            "x": 931,
+            "y": 583
         }
     ],
     "texture": "res/sprite_atlas.png"

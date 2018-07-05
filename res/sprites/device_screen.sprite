@@ -14,8 +14,8 @@
             "h": 43,
             "name": "device_screen",
             "w": 33,
-            "x": 43,
-            "y": 202
+            "x": 849,
+            "y": 529
         }
     ],
     "texture": "res/sprite_atlas.png"

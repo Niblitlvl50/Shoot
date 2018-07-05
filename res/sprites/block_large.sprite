@@ -1,0 +1,22 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 182,
+            "name": "block_large",
+            "w": 128,
+            "x": 1890,
+            "y": 278
+        }
+    ],
+    "texture": "res/sprite_atlas.png"
+}

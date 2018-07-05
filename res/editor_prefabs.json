@@ -1,10 +1,10 @@
 {
     "prefabs": [
         {
-            "name": "moon",
-            "sprite": "res/sprites/generic.sprite",
+            "name": "wall_pipes",
+            "sprite": "res/sprites/wall_pipes.sprite",
             "scale": {
-                "x": 1.0,
+                "x": 2.0,
                 "y": 1.0
             },
             "collision_shape": [
@@ -27,26 +27,278 @@
             ],
             "snap_points": [
                 {
-                    "normal": 3.14,
+                    "normal": 0,
                     "position": {
-                        "x": -0.35,
-                        "y": -0.35
+                        "x": 0,
+                        "y": 0.5
                     }
                 },
                 {
-                    "normal": 0.785,
+                    "normal": 3.14,
                     "position": {
-                        "x": 0.35,
-                        "y": 0.35
+                        "x": 0,
+                        "y": -0.5
                     }
-                }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": 0
+                    }
+                }                
             ]
         },
         {
-            "name": "wall_pipes",
-            "sprite": "res/sprites/wall_pipes.sprite",
+            "name": "proto_wall_straight",
+            "sprite": "res/sprites/wall_straight.sprite",
             "scale": {
                 "x": 2.0,
+                "y": 2.0
+            },
+            "collision_shape": [
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0
+                }
+            ],
+            "snap_points": [
+                {
+                    "normal": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0.5
+                    }
+                },
+                {
+                    "normal": 3.14,
+                    "position": {
+                        "x": 0,
+                        "y": -0.5
+                    }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": 0
+                    }
+                }                
+            ]
+        },
+        {
+            "name": "proto_wall_half_straight",
+            "sprite": "res/sprites/wall_half_straight.sprite",
+            "scale": {
+                "x": 2.0,
+                "y": 1.0
+            },
+            "collision_shape": [
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0
+                }
+            ],
+            "snap_points": [
+                {
+                    "normal": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0.5
+                    }
+                },
+                {
+                    "normal": 3.14,
+                    "position": {
+                        "x": 0,
+                        "y": -0.5
+                    }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": 0
+                    }
+                }                
+            ]
+        },
+        {
+            "name": "proto_block_huge",
+            "sprite": "res/sprites/block_huge.sprite",
+            "scale": {
+                "x": 4.0,
+                "y": 4.0
+            },
+            "collision_shape": [
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0
+                }
+            ],
+            "snap_points": [
+                {
+                    "normal": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0.5
+                    }
+                },
+                {
+                    "normal": 3.14,
+                    "position": {
+                        "x": 0,
+                        "y": -0.5
+                    }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": -0.25
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": -0.25
+                    }
+                }                
+            ]
+        },
+        {
+            "name": "proto_block_large",
+            "sprite": "res/sprites/block_large.sprite",
+            "scale": {
+                "x": 2.0,
+                "y": 2.0
+            },
+            "collision_shape": [
+                {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "x": 0.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 1.0
+                },
+                {
+                    "x": 1.0,
+                    "y": 0.0
+                }
+            ],
+            "snap_points": [
+                {
+                    "normal": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0.5
+                    }
+                },
+                {
+                    "normal": 3.14,
+                    "position": {
+                        "x": 0,
+                        "y": -0.5
+                    }
+                },
+                {
+                    "normal": 1.57079632,
+                    "position": {
+                        "x": 0.5,
+                        "y": 0
+                    }
+                },
+                {
+                    "normal": 4.7123889,
+                    "position": {
+                        "x": -0.5,
+                        "y": 0
+                    }
+                }                
+            ]
+        },
+        {
+            "name": "proto_block_small",
+            "sprite": "res/sprites/block_small.sprite",
+            "scale": {
+                "x": 1.0,
                 "y": 1.0
             },
             "collision_shape": [

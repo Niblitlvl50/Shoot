@@ -14,8 +14,8 @@
             "h": 23,
             "name": "screen_right",
             "w": 26,
-            "x": 147,
-            "y": 281
+            "x": 1130,
+            "y": 579
         }
     ],
     "texture": "res/sprite_atlas.png"

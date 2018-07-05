@@ -14,8 +14,8 @@
             "h": 11,
             "name": "ammo_pickup",
             "w": 9,
-            "x": 395,
-            "y": 285
+            "x": 1847,
+            "y": 587
         }
     ],
     "texture": "res/sprite_atlas.png"

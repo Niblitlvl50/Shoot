@@ -14,8 +14,8 @@
             "h": 21,
             "name": "rocket_launcher",
             "w": 36,
-            "x": 207,
-            "y": 281
+            "x": 1953,
+            "y": 580
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 23,
             "name": "screen_suprised",
             "w": 26,
-            "x": 177,
-            "y": 281
+            "x": 522,
+            "y": 579
         }
     ],
     "texture": "res/sprite_atlas.png"

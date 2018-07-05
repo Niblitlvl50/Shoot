@@ -14,8 +14,8 @@
             "h": 22,
             "name": "laser1",
             "w": 8,
-            "x": 912,
-            "y": 277
+            "x": 639,
+            "y": 578
         }
     ],
     "texture": "res/sprite_atlas.png"

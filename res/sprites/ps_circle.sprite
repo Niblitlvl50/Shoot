@@ -14,8 +14,8 @@
             "h": 82,
             "name": "ps_circle",
             "w": 82,
-            "x": 862,
-            "y": 91
+            "x": 1207,
+            "y": 369
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 24,
             "name": "device_computer",
             "w": 27,
-            "x": 987,
-            "y": 273
+            "x": 2004,
+            "y": 578
         }
     ],
     "texture": "res/sprite_atlas.png"

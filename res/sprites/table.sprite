@@ -14,8 +14,8 @@
             "h": 48,
             "name": "table",
             "w": 37,
-            "x": 2,
-            "y": 170
+            "x": 1300,
+            "y": 521
         }
     ],
     "texture": "res/sprite_atlas.png"

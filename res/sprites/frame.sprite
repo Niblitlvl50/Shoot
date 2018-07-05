@@ -14,8 +14,8 @@
             "h": 27,
             "name": "frame",
             "w": 27,
-            "x": 522,
-            "y": 256
+            "x": 1069,
+            "y": 574
         }
     ],
     "texture": "res/sprite_atlas.png"

@@ -14,8 +14,8 @@
             "h": 17,
             "name": "device_random",
             "w": 27,
-            "x": 935,
-            "y": 281
+            "x": 1251,
+            "y": 582
         }
     ],
     "texture": "res/sprite_atlas.png"

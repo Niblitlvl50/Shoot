@@ -127,13 +127,49 @@
             "name": "ammo_pickup",
             "sprite": "res/sprites/ammo_pickup.sprite",
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 0.5,
+                "y": 0.5
             },
             "attribute_types": [
                 "position",
                 "pickup_type",
                 "amount"
+            ]
+        },
+        {
+            "name": "barrel_green",
+            "sprite": "res/sprites/barrel_green.sprite",
+            "scale": {
+                "x": 0.6,
+                "y": 1.0
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
+        },
+        {
+            "name": "barrel_green_small",
+            "sprite": "res/sprites/barrel_green_small.sprite",
+            "scale": {
+                "x": 0.4,
+                "y": 0.5
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
+        },
+        {
+            "name": "barrel_red",
+            "sprite": "res/sprites/barrel_red.sprite",
+            "scale": {
+                "x": 0.6,
+                "y": 1.0
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
             ]
         }
     ]

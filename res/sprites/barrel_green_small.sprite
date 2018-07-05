@@ -14,8 +14,8 @@
             "h": 18,
             "name": "barrel_green_small",
             "w": 14,
-            "x": 658,
-            "y": 281
+            "x": 796,
+            "y": 581
         }
     ],
     "texture": "res/sprite_atlas.png"
