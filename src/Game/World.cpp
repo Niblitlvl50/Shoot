@@ -171,7 +171,9 @@ namespace
 void game::LoadWorldObjects(
     const std::vector<world::WorldObject>& objects,
     IEnemyFactory* enemy_factory,
+    IGameObjectFactory* gameobject_factory,
     std::vector<game::EnemyPtr>& enemies,
+    std::vector<mono::IPhysicsEntityPtr>& gameobjects,
     std::vector<SpawnPoint>& spawn_points,
     std::vector<math::Vector>& player_points,
     std::vector<game::Ammo>& ammo_pickups)
@@ -207,6 +209,14 @@ void game::LoadWorldObjects(
             {
                 LoadAttributes(enemy, object.attributes);
                 enemies.push_back(enemy);
+            }
+            else
+            {
+                mono::IPhysicsEntityPtr gameobject = gameobject_factory->CreateGameObject(name.c_str(), object.attributes);
+                if(gameobject)
+                {
+                    gameobjects.push_back(gameobject);
+                }
             }
         }
     }

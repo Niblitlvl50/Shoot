@@ -6,6 +6,7 @@
 
 #include "Spawner.h"
 #include "Enemies/IEnemyFactory.h"
+#include "GameObjects/IGameObjectFactory.h"
 
 namespace game
 {    
@@ -16,7 +17,9 @@ namespace game
     void LoadWorldObjects(
         const std::vector<world::WorldObject>& objects,
         IEnemyFactory* enemy_factory,
+        IGameObjectFactory* gameobject_factory,
         std::vector<game::EnemyPtr>& enemies,
+        std::vector<mono::IPhysicsEntityPtr>& gameobjects,
         std::vector<SpawnPoint>& spawn_points,
         std::vector<math::Vector>& player_points,
         std::vector<game::Ammo>& ammo_pickups);

@@ -8,6 +8,9 @@
 #include "Events/SpawnEntityEvent.h"
 #include "Events/ShockwaveEvent.h"
 
+#include "ObjectAttribute.h"
+#include "DefinedAttributes.h"
+
 #include <EventHandler/EventHandler.h>
 #include <cstring>
 #include <functional>
@@ -26,6 +29,18 @@ namespace
             std::make_shared<game::Explosion>(explosion_config, event_handler), game::LayerId::FOREGROUND);
         event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
+    }
+
+    void LoadAttributes(std::shared_ptr<game::Barrel>& barrel, const std::vector<Attribute>& attributes)
+    {
+        math::Vector position;
+        float rotation = 0.0f;
+
+        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
+        world::FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
+
+        barrel->SetPosition(position);
+        barrel->SetRotation(rotation);
     }
 }
 
@@ -55,8 +70,9 @@ mono::IPhysicsEntityPtr GameObjectFactory::CreateGameObject(const char* name, co
         config.health = 100;
 
         auto red_barrel = std::make_shared<Barrel>(config);
-        auto callback_func = std::bind(RedBarrelDestroyed, std::placeholders::_1, std::ref(m_event_handler), red_barrel);
+        LoadAttributes(red_barrel, attributes);
 
+        auto callback_func = std::bind(RedBarrelDestroyed, std::placeholders::_1, std::ref(m_event_handler), red_barrel);
         m_damage_controller.CreateRecord(red_barrel->Id(), callback_func);
 
         return red_barrel;
@@ -68,7 +84,10 @@ mono::IPhysicsEntityPtr GameObjectFactory::CreateGameObject(const char* name, co
         config.scale = math::Vector(0.6f, 1.0f);
         config.health = -1;
 
-        return std::make_shared<Barrel>(config);
+        auto green_barrel = std::make_shared<Barrel>(config);
+        LoadAttributes(green_barrel, attributes);
+
+        return green_barrel;
     }
 
     return nullptr;

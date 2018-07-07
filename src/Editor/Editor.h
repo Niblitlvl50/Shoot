@@ -36,6 +36,7 @@ namespace editor
 
         void OnLoad(mono::ICameraPtr& camera) override;
         int OnUnload() override;
+        void Accept(mono::IRenderer& renderer) override;
 
         void Load();
         void Save();

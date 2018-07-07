@@ -53,6 +53,8 @@ namespace game
         void RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity) override;
         void RemoveEntity(const mono::IEntityPtr& entity) override;
 
+        void Accept(mono::IRenderer& renderer) override;
+
         mono::EventToken<game::SpawnEntityEvent> mSpawnEntityToken;
         mono::EventToken<game::SpawnPhysicsEntityEvent> mSpawnPhysicsEntityToken;
         mono::EventToken<game::RemoveEntityEvent> mRemoveEntityByIdToken;

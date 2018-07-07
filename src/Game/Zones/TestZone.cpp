@@ -43,7 +43,6 @@
 #include "Audio/AudioFactory.h"
 #include "Physics/IBody.h"
 
-
 using namespace game;
 
 TestZone::TestZone(const ZoneCreationContext& context)
@@ -128,14 +127,20 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         world::ReadWorldObjectsBinary(world_objects_file, world_objects_header);
 
         std::vector<EnemyPtr> enemies;
+        std::vector<mono::IPhysicsEntityPtr> gameobjects;
         std::vector<SpawnPoint> spawn_points;
         std::vector<math::Vector> player_points;
 
         game::LoadWorldObjects(
-            world_objects_header.objects, enemy_factory, enemies, spawn_points, player_points, m_pickups);
+            world_objects_header.objects,
+            enemy_factory, gameobject_factory,
+            enemies, gameobjects, spawn_points, player_points, m_pickups);
 
         for(const auto& enemy : enemies)
             AddPhysicsEntity(enemy, MIDDLEGROUND);
+
+        for(const auto& gameobject : gameobjects)
+            AddPhysicsEntity(gameobject, MIDDLEGROUND);
 
         m_enemy_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
         m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_event_handler);
@@ -144,14 +149,23 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     //m_background_music->Play();   
 
     // Test stuff...
-
-    std::vector<Attribute> attributes;
-    auto barrel_1 = game::gameobject_factory->CreateGameObject("barrel_red", attributes);
-    barrel_1->SetPosition(math::Vector(-40, 0));
-    AddPhysicsEntity(barrel_1, LayerId::MIDDLEGROUND);
-
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
     AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND);
+}
+
+void TestZone::Accept(mono::IRenderer& renderer)
+{
+    using LayerDrawable = std::pair<int, mono::IDrawablePtr>;
+
+    const auto sort_on_y = [](const LayerDrawable& first, const LayerDrawable& second) {
+        if(first.first == second.first)
+            return first.second->BoundingBox().mA.y > second.second->BoundingBox().mA.y;
+        
+        return first.first < second.first;
+    };
+
+    std::sort(m_drawables.begin(), m_drawables.end(), sort_on_y);
+    PhysicsZone::Accept(renderer);
 }
 
 int TestZone::OnUnload()

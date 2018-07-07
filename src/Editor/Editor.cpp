@@ -148,6 +148,21 @@ int Editor::OnUnload()
     return 0;
 }
 
+void Editor::Accept(mono::IRenderer& renderer)
+{
+    using LayerDrawable = std::pair<int, mono::IDrawablePtr>;
+
+    const auto sort_on_y = [](const LayerDrawable& first, const LayerDrawable& second) {
+        if(first.first == second.first)
+            return first.second->BoundingBox().mA.y > second.second->BoundingBox().mA.y;
+        
+        return first.first < second.first;
+    };
+
+    std::sort(m_drawables.begin(), m_drawables.end(), sort_on_y);
+    ZoneBase::Accept(renderer);
+}
+
 void Editor::Load()
 {
     m_proxies = LoadWorld(m_fileName, m_object_factory);
