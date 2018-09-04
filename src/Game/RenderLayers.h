@@ -6,9 +6,8 @@ namespace game
     enum LayerId
     {
         BACKGROUND,
-        MIDDLEGROUND,
-        FOREGROUND,
-        BULLETS,
+        GAMEOBJECTS,
+        PREFABS,
         UI
     };
 }

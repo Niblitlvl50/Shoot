@@ -12,11 +12,48 @@
 
 #include "ObjectAttribute.h"
 
+#include "System/File.h"
+#include "nlohmann_json/json.hpp"
+
 using namespace game;
 
-Spawner::Spawner(const std::vector<SpawnPoint>& spawn_points, mono::EventHandler& event_handler)
-    : m_spawn_points(spawn_points),
-      m_event_handler(event_handler)
+std::vector<Wave> game::LoadWaveFile(const char* wave_file)
+{
+    std::vector<Wave> waves;
+    File::FilePtr file = File::OpenAsciiFile(wave_file);
+    if(!file)
+        return waves;
+
+    std::vector<byte> file_data;
+    File::FileRead(file, file_data);
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    const nlohmann::json& json_waves = json["waves"];
+    waves.reserve(json_waves.size());
+
+    for(const auto& json_wave : json_waves)
+    {
+        Wave wave_data;
+        wave_data.name = json_wave["name"];
+        json_wave["tags"];
+
+        const nlohmann::json& json_tags = json_wave["tags"];
+        wave_data.tags.reserve(json_tags.size());
+
+        for(const auto& json_tag : json_tags)
+            wave_data.tags.push_back(json_tag);
+
+        waves.push_back(wave_data);
+    }
+
+    return waves;
+}
+
+Spawner::Spawner(
+    const std::vector<SpawnPoint>& spawn_points, const std::vector<Wave>& waves, mono::EventHandler& event_handler)
+    : m_spawn_points(spawn_points)
+    , m_waves(waves)
+    , m_event_handler(event_handler)
 {
     const auto spawn_func = [](void* data) {
         Spawner* spawner = static_cast<Spawner*>(data);

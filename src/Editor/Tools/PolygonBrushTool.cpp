@@ -116,3 +116,6 @@ void PolygonBrushTool::HandleMousePosition(const math::Vector& world_pos)
     m_previous_point = world_pos;
     m_drawn_points.push_back(m_previous_point);
 }
+
+void PolygonBrushTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{ }

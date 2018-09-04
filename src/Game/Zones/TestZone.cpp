@@ -97,8 +97,8 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f)));
     AddEntity(hud_overlay, UI);
     
-    AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), FOREGROUND);
-    AddDrawable(std::make_shared<PickupDrawer>(m_pickups), FOREGROUND);
+    AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), LayerId::GAMEOBJECTS);
+    AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddUpdatable(m_dispatcher);
 
     m_gib_system = std::make_shared<GibSystem>();
@@ -107,10 +107,9 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
 
     {
         File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
-        
         world::LevelFileHeader world_header;
         world::ReadWorld(world_file, world_header);
-        game::LoadWorld(this, world_header.polygons);
+        game::LoadWorld(this, world_header.polygons, world_header.prefabs);
         
         // Nav mesh
         m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, world_header.polygons);
@@ -137,12 +136,13 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
             enemies, gameobjects, spawn_points, player_points, m_pickups);
 
         for(const auto& enemy : enemies)
-            AddPhysicsEntity(enemy, MIDDLEGROUND);
+            AddPhysicsEntity(enemy, LayerId::GAMEOBJECTS);
 
         for(const auto& gameobject : gameobjects)
-            AddPhysicsEntity(gameobject, MIDDLEGROUND);
+            AddPhysicsEntity(gameobject, LayerId::GAMEOBJECTS);
 
-        m_enemy_spawner = std::make_unique<Spawner>(spawn_points, m_event_handler);
+        const std::vector<Wave>& waves = LoadWaveFile("res/waves/wave1.json");
+        m_enemy_spawner = std::make_unique<Spawner>(spawn_points, waves, m_event_handler);
         m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_event_handler);
     }
 

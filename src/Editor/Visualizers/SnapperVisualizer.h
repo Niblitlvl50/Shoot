@@ -4,20 +4,19 @@
 #include "Rendering/IDrawable.h"
 #include <vector>
 
+struct SnapPoint;
+
 namespace editor
 {
-    struct SnapPoint;
-
     class SnapperVisualizer : public mono::IDrawable
     {
     public:
 
-        SnapperVisualizer(const bool& draw_snappers, const std::vector<editor::SnapPoint>& snappers);
+        SnapperVisualizer(const bool& draw_snappers, const std::vector<SnapPoint>& snappers);
         virtual void doDraw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
 
         const bool& m_draw_snappers;
-        const std::vector<editor::SnapPoint>& m_snappers;
+        const std::vector<SnapPoint>& m_snappers;
     };
-
 }

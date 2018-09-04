@@ -81,7 +81,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
             bullet->SetRotation(direction);
             bullet->GetPhysics().body->ApplyImpulse(impulse, position);
 
-            m_eventHandler.DispatchEvent(game::SpawnPhysicsEntityEvent(bullet, LayerId::BULLETS));
+            m_eventHandler.DispatchEvent(game::SpawnPhysicsEntityEvent(bullet, LayerId::GAMEOBJECTS));
         }
 
         m_fireSound->Position(position.x, position.y);

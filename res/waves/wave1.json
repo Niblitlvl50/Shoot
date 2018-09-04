@@ -1,0 +1,24 @@
+{
+    "waves" : [
+        {
+            "name": "wave 1",
+            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+        },
+        {
+            "name": "wave 2",
+            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+        },
+        {
+            "name": "wave 3",
+            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+        },
+        {
+            "name": "wave 4",
+            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+        },
+        {
+            "name": "wave 5",
+            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+        }
+    ]
+}

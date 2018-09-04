@@ -37,7 +37,7 @@ namespace
         explosion_config.sprite_file = "res/sprites/explosion.sprite";
 
         const game::SpawnEntityEvent spawn_event(
-            std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND);
+            std::make_shared<game::Explosion>(explosion_config, event_handler), game::GAMEOBJECTS);
         event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::DamageEvent(other, 50, bullet->Rotation()));
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
@@ -54,7 +54,7 @@ namespace
         explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
 
         const game::SpawnEntityEvent spawn_event(
-            std::make_shared<game::Explosion>(explosion_config, event_handler), game::FOREGROUND);
+            std::make_shared<game::Explosion>(explosion_config, event_handler), game::GAMEOBJECTS);
         event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::DamageEvent(other, 20, bullet->Rotation()));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));

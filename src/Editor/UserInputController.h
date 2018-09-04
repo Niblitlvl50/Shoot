@@ -44,6 +44,7 @@ namespace editor
         bool OnMouseWheel(const event::MouseWheelEvent& event);
         bool OnMultiGesture(const event::MultiGestureEvent& event);
         bool OnKeyDown(const event::KeyDownEvent& event);
+        bool OnKeyUp(const event::KeyUpEvent& event);
 
         System::IWindow* m_window;
         mono::EventHandler& m_eventHandler;
@@ -55,6 +56,7 @@ namespace editor
         mono::EventToken<event::MouseWheelEvent> m_mouseWheelToken;
         mono::EventToken<event::MultiGestureEvent> m_multiGestureToken;
         mono::EventToken<event::KeyDownEvent> m_keyDownToken;
+        mono::EventToken<event::KeyUpEvent> m_key_up_token;
 
         editor::UIContext* m_context;
 

@@ -4,17 +4,17 @@
             "name": "proto_block_huge",
             "position": {
                 "x": -46.934440612793,
-                "y": 0.677634239196777
+                "y": 0.67763614654541
             },
             "rotation": 0.0
         },
         {
             "name": "proto_block_huge",
             "position": {
-                "x": -42.934440612793,
-                "y": 0.67763364315033
+                "x": -46.8455276489258,
+                "y": 21.0973510742188
             },
-            "rotation": 6.28318500518799
+            "rotation": 4.76837158203125e-07
         },
         {
             "name": "proto_block_large",
@@ -22,31 +22,31 @@
                 "x": -39.934440612793,
                 "y": 0.677632093429565
             },
-            "rotation": 6.28318452835083
+            "rotation": 0.0
         },
         {
             "name": "proto_block_large",
             "position": {
-                "x": -39.934440612793,
-                "y": -0.322367489337921
+                "x": -37.8718528747559,
+                "y": -4.93605613708496
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
                 "x": -41.5841827392578,
-                "y": -2.77135848999023
+                "y": -2.48686456680298
             },
-            "rotation": 6.28318452835083
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
-                "x": -38.4336433410645,
-                "y": -0.322368592023849
+                "x": -36.434440612793,
+                "y": 0.677627921104431
             },
-            "rotation": 0.00159120559692383
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
@@ -60,17 +60,33 @@
             "name": "proto_block_small",
             "position": {
                 "x": -34.4353370666504,
-                "y": -1.60215389728546
+                "y": -1.60215377807617
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
                 "x": -33.4353370666504,
-                "y": -1.60215413570404
+                "y": -1.60215365886688
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -37.434440612793,
+                "y": 0.677629351615906
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.3718528747559,
+                "y": -5.58605670928955
+            },
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
@@ -78,103 +94,983 @@
                 "x": -38.434440612793,
                 "y": 0.67763078212738
             },
-            "rotation": 6.28318405151367
+            "rotation": 0.0
         },
         {
-            "name": "proto_block_small",
+            "name": "proto_wall_straight",
             "position": {
-                "x": -38.4342575073242,
-                "y": -0.812701821327209
-            },
-            "rotation": 0.00159120559692383
-        },
-        {
-            "name": "proto_block_small",
-            "position": {
-                "x": -38.4427185058594,
-                "y": 0.166702389717102
+                "x": -46.7259674072266,
+                "y": 6.4754204750061
             },
             "rotation": 0.0
         },
         {
             "name": "proto_wall_straight",
             "position": {
-                "x": -49.934440612793,
-                "y": 0.677633762359619
-            },
-            "rotation": 4.76837158203125e-07
-        },
-        {
-            "name": "proto_wall_straight",
-            "position": {
-                "x": -51.934440612793,
-                "y": 0.677632808685303
-            },
-            "rotation": 4.76837158203125e-07
-        },
-        {
-            "name": "proto_wall_half_straight",
-            "position": {
-                "x": -50.0841827392578,
-                "y": -2.48686218261719
-            },
-            "rotation": 0.0
-        },
-        {
-            "name": "proto_wall_half_straight",
-            "position": {
-                "x": -48.0841827392578,
-                "y": -2.48686242103577
-            },
-            "rotation": 6.28318500518799
-        },
-        {
-            "name": "proto_wall_half_straight",
-            "position": {
-                "x": -46.0841827392578,
-                "y": -2.48686337471008
+                "x": -50.7259674072266,
+                "y": 6.4754204750061
             },
             "rotation": 0.0
         },
         {
             "name": "proto_block_large",
             "position": {
-                "x": -44.0841827392578,
-                "y": -2.48686337471008
+                "x": -49.934440612793,
+                "y": -0.622362911701202
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
-                "x": -42.5841789245605,
-                "y": -2.99622583389282
+                "x": -42.5831489562988,
+                "y": -3.13686370849609
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
                 "x": -42.5841827392578,
-                "y": -2.48686385154724
+                "y": -2.4868643283844
             },
-            "rotation": 6.28318500518799
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
                 "x": -40.5841827392578,
-                "y": -2.77135968208313
+                "y": -2.48686504364014
             },
-            "rotation": 6.28318405151367
+            "rotation": 0.0
         },
         {
             "name": "proto_block_small",
             "position": {
                 "x": -39.5841827392578,
-                "y": -2.77136158943176
+                "y": -2.48686575889587
             },
-            "rotation": 6.28318309783936
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.3718528747559,
+                "y": -4.93605613708496
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -55.434440612793,
+                "y": -1.27236151695251
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -40.5370407104492,
+                "y": -11.195330619812
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -42.0391120910645,
+                "y": -8.59772109985352
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -42.0370407104492,
+                "y": -11.1977195739746
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.5370407104492,
+                "y": -11.1937389373779
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -40.5360069274902,
+                "y": -11.8453311920166
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -45.4323692321777,
+                "y": -1.92156624794006
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -52.934440612793,
+                "y": -0.94573700428009
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -48.4323692321777,
+                "y": -1.92315769195557
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -34.8455276489258,
+                "y": 18.4973526000977
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -38.8455276489258,
+                "y": 19.7973518371582
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -42.8455276489258,
+                "y": 19.7973518371582
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.384147644043,
+                "y": 3.88120079040527
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.384147644043,
+                "y": 6.48120069503784
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3800086975098,
+                "y": 1.28120422363281
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3717269897461,
+                "y": -1.31878256797791
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3800086975098,
+                "y": 9.08119773864746
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3717269897461,
+                "y": 11.6811847686768
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3593063354492,
+                "y": -3.91875290870667
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -26.1662082672119,
+                "y": 10.7287521362305
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -27.1620674133301,
+                "y": 8.12875556945801
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -46.9323692321777,
+                "y": -1.9223620891571
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.5380744934082,
+                "y": -10.5437393188477
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_small",
+            "position": {
+                "x": -39.5380744934082,
+                "y": -9.89373970031738
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.355167388916,
+                "y": -6.51874923706055
+            },
+            "rotation": 0.00159263610839844
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3468856811523,
+                "y": -9.11873626708984
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -57.3468856811523,
+                "y": -10.0937366485596
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -65.3437347412109,
+                "y": -10.1192169189453
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -69.3437118530273,
+                "y": -10.1319599151611
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -73.3437118530273,
+                "y": -10.1319599151611
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -53.3468856811523,
+                "y": -10.0937366485596
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -49.3468856811523,
+                "y": -10.0937366485596
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3344650268555,
+                "y": -11.7187070846558
+            },
+            "rotation": 0.00477790832519531
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -61.3344650268555,
+                "y": -14.3187074661255
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -42.4056129455566,
+                "y": -28.3376083374023
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -38.4056129455566,
+                "y": -28.3376083374023
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -34.4056129455566,
+                "y": -28.3376083374023
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -30.4056129455566,
+                "y": -28.3376083374023
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -27.3626098632812
+            },
+            "rotation": 4.76837158203125e-07
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -28.6626091003418
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -26.0626106262207
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -23.4626121520996
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -24.7626113891602
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -22.1626129150391
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -20.8626136779785
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -18.2626152038574
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -19.562614440918
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -16.9626159667969
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -45.4056129455566,
+                "y": -15.3376159667969
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -41.4056129455566,
+                "y": -15.3376150131226
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -37.4056129455566,
+                "y": -15.3376150131226
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -33.4056129455566,
+                "y": -15.3376169204712
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -29.4056129455566,
+                "y": -15.3376178741455
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -22.1626167297363
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -23.4626159667969
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -24.7626152038574
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -26.062614440918
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -27.3626136779785
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -28.6626129150391
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -20.8626174926758
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -19.5626182556152
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -18.2626190185547
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -27.4056129455566,
+                "y": -16.9626197814941
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_straight",
+            "position": {
+                "x": -25.4056129455566,
+                "y": -15.3376188278198
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -17.1945838928223
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -19.794584274292
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -22.3945846557617
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -24.9945850372314
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -27.5945854187012
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -30.1945858001709
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -32.7945861816406
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -35.3945846557617
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -37.9945831298828
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -40.5945816040039
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -17.0952529907227,
+                "y": -43.194580078125
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -73.6950988769531,
+                "y": -22.007848739624
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -69.6950988769531,
+                "y": -22.007848739624
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -65.6950988769531,
+                "y": -22.007848739624
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -61.6950988769531,
+                "y": -22.007848739624
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -22.9828491210938
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -24.2828483581543
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -25.5828475952148
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -26.8828468322754
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -28.1828460693359
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -74.6950988769531,
+                "y": -29.4828453063965
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -73.6950988769531,
+                "y": -30.4578456878662
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -69.6950988769531,
+                "y": -30.4578456878662
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -65.6950988769531,
+                "y": -30.4578456878662
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_wall_halfstraight",
+            "position": {
+                "x": -61.6950988769531,
+                "y": -30.4578456878662
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -22.9828491210938
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -24.2828483581543
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -25.5828475952148
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -26.8828468322754
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -28.1828460693359
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_large",
+            "position": {
+                "x": -60.6950988769531,
+                "y": -29.4828453063965
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -10.0139923095703,
+                "y": 14.661750793457
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -3.79864501953125,
+                "y": 17.1168060302734
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 23.0219573974609,
+                "y": -9.75662612915039
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 4.42071533203125,
+                "y": 16.7631759643555
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 13.5953369140625,
+                "y": 15.7103500366211
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 22.1683349609375,
+                "y": 12.702278137207
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 25.4772033691406,
+                "y": 5.63331604003906
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 14.4977569580078,
+                "y": 4.88130187988281
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 6.82717895507812,
+                "y": 8.34058380126953
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -1.29461669921875,
+                "y": 9.99501800537109
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": -4.15228271484375,
+                "y": 0.970809936523438
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 3.51829528808594,
+                "y": 1.72282409667969
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 9.68484497070312,
+                "y": -2.33806610107422
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 7.12797546386719,
+                "y": -10.0086441040039
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 0.05902099609375,
+                "y": -8.05339813232422
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 1.26223754882812,
+                "y": -14.2199440002441
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 16.1521911621094,
+                "y": -13.016716003418
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 17.2050170898438,
+                "y": -4.4437141418457
+            },
+            "rotation": 0.0
+        },
+        {
+            "name": "proto_block_huge",
+            "position": {
+                "x": 24.7251892089844,
+                "y": -1.43564605712891
+            },
+            "rotation": 0.0
         }
     ]
 }

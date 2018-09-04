@@ -12,7 +12,8 @@ namespace game
 {    
     struct Ammo;
     
-    void LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons);
+    void LoadWorld(
+        mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons, const std::vector<world::PrefabData>& prefabs);
     
     void LoadWorldObjects(
         const std::vector<world::WorldObject>& objects,

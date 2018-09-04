@@ -22,6 +22,7 @@ namespace editor
         virtual void HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity);
         virtual void HandleMouseUp(const math::Vector& world_pos);
         virtual void HandleMousePosition(const math::Vector& world_pos);
+        virtual void UpdateModifierState(bool ctrl, bool shift, bool alt);
 
         editor::Editor* m_editor = nullptr;
         bool m_active = false;

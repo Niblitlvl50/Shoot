@@ -57,3 +57,6 @@ void PolygonTool::HandleMousePosition(const math::Vector& world_pos)
 {
     m_mouse_position = world_pos;
 }
+
+void PolygonTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{ }

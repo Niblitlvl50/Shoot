@@ -11,6 +11,7 @@ using namespace editor;
 TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
     , m_was_snapped(false)
+    , m_snap_rotate(false)
 { }
 
 void TranslateTool::Begin()
@@ -56,19 +57,32 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);
     if(snap_pair.found_snap && !m_was_snapped)
     {
-        const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
-        const float new_angle = math::NormalizeAngle(snap_pair.snap_from.normal - snap_pair.snap_to.normal - math::PI());
+        if(m_snap_rotate)
+        {
+            const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
+            const float new_angle = math::NormalizeAngle(snap_pair.snap_from.normal - snap_pair.snap_to.normal - math::PI());
 
-        math::Matrix translation;
-        math::Translate(translation, snap_pair.snap_to.position);
+            math::Matrix translation;
+            math::Translate(translation, snap_pair.snap_to.position);
 
-        math::Matrix rotation;
-        math::RotateZ(rotation, new_angle, snap_offset);
+            math::Matrix rotation;
+            math::RotateZ(rotation, new_angle, snap_offset);
 
-        const math::Matrix& transform = translation * rotation;
-        const math::Vector& position = math::Transform(transform, snap_offset);
-        m_entity->SetPosition(position);
-        m_entity->SetRotation(math::NormalizeAngle(new_angle + m_entity->Rotation()));
+            const math::Matrix& transform = translation * rotation;
+            const math::Vector& position = math::Transform(transform, snap_offset);
+            m_entity->SetPosition(position);
+            m_entity->SetRotation(math::NormalizeAngle(new_angle + m_entity->Rotation()));
+        }
+        else
+        {
+            const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
+
+            math::Matrix translation;
+            math::Translate(translation, snap_pair.snap_to.position);
+
+            const math::Vector& position = math::Transform(translation, snap_offset);
+            m_entity->SetPosition(position);
+        }
 
         End();
     }
@@ -77,4 +91,9 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
 
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();
+}
+
+void TranslateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{
+    m_snap_rotate = shift;
 }

@@ -56,6 +56,7 @@ UserInputController::UserInputController(const mono::ICameraPtr& camera,
     const event::MouseWheelEventFunc& mouse_wheel = std::bind(&UserInputController::OnMouseWheel, this, _1);
     const event::MultiGestureEventFunc& multi_gesture = std::bind(&UserInputController::OnMultiGesture, this, _1);
     const event::KeyDownEventFunc& key_down = std::bind(&UserInputController::OnKeyDown, this, _1);
+    const event::KeyUpEventFunc& key_up = std::bind(&UserInputController::OnKeyUp, this, _1);
 
     m_mouseDownToken = m_eventHandler.AddListener(mouse_down);
     m_mouseUpToken = m_eventHandler.AddListener(mouse_up);
@@ -63,6 +64,7 @@ UserInputController::UserInputController(const mono::ICameraPtr& camera,
     m_mouseWheelToken = m_eventHandler.AddListener(mouse_wheel);
     m_multiGestureToken = m_eventHandler.AddListener(multi_gesture);
     m_keyDownToken = m_eventHandler.AddListener(key_down);
+    m_key_up_token = m_eventHandler.AddListener(key_up);
 
     tools[ToolsMenuOptions::POLYGON_TOOL] = {
         &m_polygonTool,
@@ -111,6 +113,7 @@ UserInputController::~UserInputController()
     m_eventHandler.RemoveListener(m_mouseWheelToken);
     m_eventHandler.RemoveListener(m_multiGestureToken);
     m_eventHandler.RemoveListener(m_keyDownToken);
+    m_eventHandler.RemoveListener(m_key_up_token);
 }
 
 void UserInputController::HandleContextMenu(int item_index)
@@ -213,6 +216,8 @@ bool UserInputController::OnMultiGesture(const event::MultiGestureEvent& event)
 
 bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
 {
+    m_activeTool->UpdateModifierState(event.ctrl, event.shift, event.alt);
+
     if(event.key == Keycode::ONE)
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)
@@ -248,3 +253,8 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
     return false;
 }
 
+bool UserInputController::OnKeyUp(const event::KeyUpEvent& event)
+{
+    m_activeTool->UpdateModifierState(event.ctrl, event.shift, event.alt);
+    return false;
+}

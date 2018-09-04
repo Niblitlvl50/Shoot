@@ -5,25 +5,53 @@
 #include "nlohmann_json/json.hpp"
 #include <cstdio>
 
+namespace
+{
+    template <typename T>
+    void ReadValues(T* out_data, const std::vector<byte>& bytes, int& offset, size_t n_values = 1)
+    {
+        std::memcpy(out_data, bytes.data() + offset, sizeof(T) * n_values);
+        offset += (sizeof(T) * n_values);
+    }
+
+    template <typename T>
+    void WriteValues(T* data, FILE* file, size_t n_values = 1)
+    {
+        std::fwrite(data, sizeof(T), n_values, file);
+    }
+}
 
 bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
 {
-    std::fwrite(&level.version, sizeof(int), 1, file.get());
+    WriteValues(&level.version, file.get());
 
     const int n_polygons = static_cast<int>(level.polygons.size());
-    std::fwrite(&n_polygons, sizeof(int), 1, file.get());
+    WriteValues(&n_polygons, file.get());
 
     for(int index = 0; index < n_polygons; ++index)
     {
         const world::PolygonData& polygon = level.polygons[index];
         const int n_vertices = static_cast<int>(polygon.vertices.size());
 
-        std::fwrite(&polygon.position,          sizeof(math::Vector), 1,                            file.get());
-        std::fwrite(&polygon.local_offset,      sizeof(math::Vector), 1,                            file.get());
-        std::fwrite(&polygon.rotation,          sizeof(float),        1,                            file.get());
-        std::fwrite(&polygon.texture,           sizeof(char),         PolygonTextureNameMaxLength,  file.get());
-        std::fwrite(&n_vertices,                sizeof(int),          1,                            file.get());
-        std::fwrite(polygon.vertices.data(),    sizeof(math::Vector), n_vertices,                   file.get());
+        WriteValues(&polygon.position,          file.get());
+        WriteValues(&polygon.local_offset,      file.get());
+        WriteValues(&polygon.rotation,          file.get());
+        WriteValues(&polygon.texture,           file.get());
+        WriteValues(&n_vertices,                file.get());
+        WriteValues(polygon.vertices.data(),    file.get(), n_vertices);
+    }
+
+    const int n_prefabs = static_cast<int>(level.prefabs.size());
+    WriteValues(&n_prefabs, file.get());
+
+    for(int index = 0; index < n_prefabs; ++index)
+    {
+        const world::PrefabData& prefab = level.prefabs[index];
+
+        WriteValues(&prefab.name,       file.get());
+        WriteValues(&prefab.position,   file.get());
+        WriteValues(&prefab.scale,      file.get());
+        WriteValues(&prefab.rotation,   file.get());
     }
 
     return true;
@@ -35,13 +63,10 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
     File::FileRead(file, bytes);
 
     int offset = 0;
-
-    std::memcpy(&level.version,     bytes.data() + offset, sizeof(int));
-    offset += sizeof(int);
-
     int n_polygons = 0;
-    std::memcpy(&n_polygons,        bytes.data() + offset, sizeof(int));
-    offset += sizeof(int);
+
+    ReadValues(&level.version,  bytes, offset);
+    ReadValues(&n_polygons,     bytes, offset);
 
     level.polygons.resize(n_polygons);
 
@@ -49,26 +74,34 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
     {
         world::PolygonData& polygon = level.polygons[index];
 
-        std::memcpy(&polygon.position, bytes.data() + offset, sizeof(math::Vector));
-        offset += sizeof(math::Vector);
-
-        std::memcpy(&polygon.local_offset, bytes.data() + offset, sizeof(math::Vector));
-        offset += sizeof(math::Vector);
-
-        std::memcpy(&polygon.rotation, bytes.data() + offset, sizeof(float));
-        offset += sizeof(float);
-
-        std::memcpy(&polygon.texture, bytes.data() + offset, sizeof(char) * PolygonTextureNameMaxLength);
-        offset += sizeof(char) * PolygonTextureNameMaxLength;
+        ReadValues(&polygon.position,       bytes, offset);
+        ReadValues(&polygon.local_offset,   bytes, offset);
+        ReadValues(&polygon.rotation,       bytes, offset);
+        ReadValues(&polygon.texture,        bytes, offset);
 
         int n_vertices = 0;
-        std::memcpy(&n_vertices,        bytes.data() + offset, sizeof(int));
-        offset += sizeof(int);
-
+        ReadValues(&n_vertices, bytes, offset);
         polygon.vertices.resize(n_vertices);
 
-        std::memcpy(polygon.vertices.data(), bytes.data() + offset, sizeof(math::Vector) * n_vertices);
-        offset += sizeof(math::Vector) * n_vertices;
+        ReadValues(polygon.vertices.data(), bytes, offset, n_vertices);
+    }
+
+    if(level.version < 2)
+        return true;
+
+    int n_prefabs = 0;
+    ReadValues(&n_prefabs, bytes, offset);
+
+    level.prefabs.resize(n_prefabs);
+
+    for(int index = 0; index < n_prefabs; ++index)
+    {
+        world::PrefabData& prefab = level.prefabs[index];
+
+        ReadValues(&prefab.name,        bytes, offset);
+        ReadValues(&prefab.position,    bytes, offset);
+        ReadValues(&prefab.scale,       bytes, offset);
+        ReadValues(&prefab.rotation,    bytes, offset);
     }
 
     return true;
@@ -76,19 +109,19 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
 
 bool world::WriteWorldObjectsBinary(File::FilePtr& file, const world::WorldObjectsHeader& objects_header)
 {
-    std::fwrite(&objects_header.version, sizeof(int), 1, file.get());
+    WriteValues(&objects_header.version, file.get());
 
     const int n_objects = static_cast<int>(objects_header.objects.size());
-    std::fwrite(&n_objects, sizeof(int), 1, file.get());
+    WriteValues(&n_objects, file.get());
 
     for(int index = 0; index < n_objects; ++index)
     {
         const world::WorldObject& world_object = objects_header.objects[index];
         const int n_attributes = static_cast<int>(world_object.attributes.size());
 
-        std::fwrite(&world_object.name, sizeof(char), WorldObjectNameMaxLength, file.get());
-        std::fwrite(&n_attributes, sizeof(int), 1, file.get());
-        std::fwrite(world_object.attributes.data(), sizeof(Attribute), n_attributes, file.get());
+        WriteValues(&world_object.name, file.get());
+        WriteValues(&n_attributes, file.get());
+        WriteValues(world_object.attributes.data(), file.get(), n_attributes);
     }
 
     return true;
@@ -106,13 +139,10 @@ bool world::ReadWorldObjectsBinary(const File::FilePtr& file, world::WorldObject
         return false;
 
     int offset = 0;
-
-    std::memcpy(&objects.version, bytes.data() + offset, sizeof(int));
-    offset += sizeof(int);
-
     int n_objects = 0;
-    std::memcpy(&n_objects, bytes.data() + offset, sizeof(int));
-    offset += sizeof(int);
+
+    ReadValues(&objects.version,    bytes, offset);
+    ReadValues(&n_objects,          bytes, offset);
 
     objects.objects.resize(n_objects);
 
@@ -120,17 +150,12 @@ bool world::ReadWorldObjectsBinary(const File::FilePtr& file, world::WorldObject
     {
         world::WorldObject& world_object = objects.objects[index];
         
-        std::memcpy(&world_object.name, bytes.data() + offset, sizeof(char) * WorldObjectNameMaxLength);
-        offset += sizeof(char) * WorldObjectNameMaxLength;
-        
+        ReadValues(&world_object.name, bytes, offset);
+
         int n_attributes = 0;
-        std::memcpy(&n_attributes, bytes.data() + offset, sizeof(int));
-        offset += sizeof(int);
-
+        ReadValues(&n_attributes, bytes, offset);
         world_object.attributes.resize(n_attributes);
-
-        std::memcpy(world_object.attributes.data(), bytes.data() + offset, sizeof(Attribute) * n_attributes);
-        offset += sizeof(Attribute) * n_attributes;
+        ReadValues(world_object.attributes.data(), bytes, offset, n_attributes);
     }
 
     return true;

@@ -165,9 +165,9 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
     AddEntity(background2, LayerId::BACKGROUND);
     AddEntity(background1, LayerId::BACKGROUND);
     AddEntity(std::make_shared<ScreenSparkles>(viewport), LayerId::BACKGROUND);
-    AddEntity(title_text, LayerId::MIDDLEGROUND);
-    AddEntity(dont_die_text, LayerId::MIDDLEGROUND);
-    AddEntity(hit_enter_text, LayerId::MIDDLEGROUND);
+    AddEntity(title_text, LayerId::GAMEOBJECTS);
+    AddEntity(dont_die_text, LayerId::GAMEOBJECTS);
+    AddEntity(hit_enter_text, LayerId::GAMEOBJECTS);
 }
 
 int TitleScreen::OnUnload()

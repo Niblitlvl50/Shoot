@@ -69,3 +69,6 @@ void PolygonBoxTool::HandleMousePosition(const math::Vector& world_pos)
     m_mouse_position = world_pos;
     m_points = CreatePointsFromPosition(m_mouse_down, world_pos);
 }
+
+void PolygonBoxTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{ }

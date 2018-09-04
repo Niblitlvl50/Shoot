@@ -22,6 +22,7 @@ namespace editor
         virtual void HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity);
         virtual void HandleMouseUp(const math::Vector& world_pos);
         virtual void HandleMousePosition(const math::Vector& world_pos);
+        virtual void UpdateModifierState(bool ctrl, bool shift, bool alt);
 
     private:
 
@@ -31,5 +32,6 @@ namespace editor
         math::Vector m_position_diff;
 
         bool m_was_snapped;
+        bool m_snap_rotate;
     };
 }

@@ -41,13 +41,13 @@ DamageResult DamageController::ApplyDamage(unsigned int record_id, int damage)
 
         result.success = true;
         result.health_left = record.health;
-    }
 
-    if(result.health_left <= 0)
-    {
-        auto it = m_DestroyedFunctions.find(record_id);
-        if(it != m_DestroyedFunctions.end())
-            it->second(record_id);
+        if(result.health_left <= 0)
+        {
+            auto it = m_DestroyedFunctions.find(record_id);
+            if(it != m_DestroyedFunctions.end())
+                it->second(record_id);
+        }
     }
 
     return result;

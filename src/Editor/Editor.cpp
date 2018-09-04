@@ -65,7 +65,7 @@ namespace
             context.entity_items.push_back(item);
         }
 
-        for(const editor::PrefabDefinition& def : repository.m_prefabs)
+        for(const PrefabDefinition& def : repository.m_prefabs)
         {
             const mono::ISpritePtr sprite = mono::CreateSprite(def.sprite_file.c_str());
             const mono::ITexturePtr sprite_texture = sprite->GetTexture();

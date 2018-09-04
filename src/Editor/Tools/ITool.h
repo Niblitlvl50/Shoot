@@ -20,6 +20,7 @@ namespace editor
         virtual void HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity) = 0;
         virtual void HandleMouseUp(const math::Vector& world_pos) = 0;
         virtual void HandleMousePosition(const math::Vector& world_pos) = 0;
+        virtual void UpdateModifierState(bool ctrl, bool shift, bool alt) = 0;
     };
 }
 

@@ -84,7 +84,7 @@ void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned i
     explosion_config.sprite_file = "res/sprites/explosion.sprite";
     
     const game::SpawnEntityEvent event(
-        std::make_shared<game::Explosion>(explosion_config, m_eventHandler), game::FOREGROUND);
+        std::make_shared<game::Explosion>(explosion_config, m_eventHandler), game::GAMEOBJECTS);
     
     m_eventHandler.DispatchEvent(event);
     m_eventHandler.DispatchEvent(game::DamageEvent(body, 45, direction));

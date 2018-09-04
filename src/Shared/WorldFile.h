@@ -9,8 +9,8 @@
 
 namespace world
 {
-    constexpr int PolygonTextureNameMaxLength = 64;
-    constexpr int WorldObjectNameMaxLength = 24;
+    constexpr size_t PolygonTextureNameMaxLength = 64;
+    constexpr size_t WorldObjectNameMaxLength = 24;
 
     struct PolygonData
     {
@@ -27,12 +27,11 @@ namespace world
         math::Vector position;
         math::Vector scale;
         float rotation = 0.0f;
-        std::vector<math::Vector> collision_shape;
     };
 
     struct LevelFileHeader
     {
-        int version = 0;
+        int version = 1;
         std::vector<PolygonData> polygons;
         std::vector<PrefabData> prefabs;
     };

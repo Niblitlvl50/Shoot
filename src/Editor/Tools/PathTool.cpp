@@ -95,3 +95,6 @@ void PathTool::HandleMousePosition(const math::Vector& world_pos)
 {
     m_mouse_position = world_pos;
 }
+
+void PathTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{ }

@@ -18,12 +18,17 @@
 #include "Rendering/BufferFactory.h"
 #include "Rendering/Texture/TextureFactory.h"
 
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteFactory.h"
+
+#include "Math/Matrix.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 #include "StringFunctions.h"
 
 #include "ObjectAttribute.h"
 #include "DefinedAttributes.h"
+#include "Prefabs.h"
 
 #include <algorithm>
 #include <string>
@@ -115,9 +120,51 @@ namespace
 
         std::vector<TerrainDrawData> m_draw_data;
     };
+
+    class StaticPrefab : public mono::PhysicsEntityBase
+    {
+    public:
+
+        StaticPrefab(const math::Vector& position, const PrefabDefinition* prefab_definition)
+        {
+            m_position = position;
+            m_scale = prefab_definition->scale;
+
+            std::vector<math::Vector> collision_polygon;
+            collision_polygon.reserve(prefab_definition->collision_shape.size());
+
+            const math::Matrix& transform = Transformation();
+
+            for(const math::Vector& collision_vertex : prefab_definition->collision_shape)
+                collision_polygon.push_back(math::Transform(transform, collision_vertex));
+
+            m_physics.body = mono::PhysicsFactory::CreateStaticBody();
+
+            mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, collision_polygon, math::ZeroVec);
+            shape->SetCollisionFilter(game::CollisionCategory::STATIC, game::STATIC_MASK);
+            m_physics.shapes.push_back(shape);
+
+            m_sprite = mono::CreateSprite(prefab_definition->sprite_file.c_str());
+        }
+
+        void Draw(mono::IRenderer& renderer) const override
+        {
+            renderer.DrawSprite(*m_sprite);
+        }
+
+        // Overriden so that we dont get any updates that screws up the position
+        void doUpdate(unsigned int delta) override
+        { }
+
+        void Update(unsigned int delta) override
+        { }
+
+        mono::ISpritePtr m_sprite;
+    };
 }
 
-void game::LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons)
+void game::LoadWorld(
+    mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons, const std::vector<world::PrefabData>& prefabs)
 {
     size_t count = 0;
 
@@ -131,6 +178,15 @@ void game::LoadWorld(mono::IPhysicsZone* zone, const std::vector<world::PolygonD
 
     zone->AddDrawable(static_terrain, BACKGROUND);
     zone->AddPhysicsData(static_terrain->m_static_physics);
+
+
+    const std::vector<PrefabDefinition>& prefab_definitions = LoadPrefabDefinitions();
+
+    for(const world::PrefabData& prefab : prefabs)
+    {
+        const PrefabDefinition* prefab_definition = FindPrefabFromName(prefab.name, prefab_definitions);
+        zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(prefab.position, prefab_definition), LayerId::PREFABS);
+    }
 }
 
 namespace

@@ -26,7 +26,7 @@ namespace
         explosion_config.sprite_file = "res/sprites/explosion.sprite";
 
         const game::SpawnEntityEvent spawn_event(
-            std::make_shared<game::Explosion>(explosion_config, event_handler), game::LayerId::FOREGROUND);
+            std::make_shared<game::Explosion>(explosion_config, event_handler), game::LayerId::GAMEOBJECTS);
         event_handler.DispatchEvent(spawn_event);
         event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
     }

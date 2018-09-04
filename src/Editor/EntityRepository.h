@@ -3,6 +3,7 @@
 
 #include "Math/Vector.h"
 #include "SnapPoint.h"
+#include "Prefabs.h"
 
 #include <string>
 #include <vector>
@@ -15,15 +16,6 @@ namespace editor
         std::string sprite_file;
         math::Vector scale;
         std::vector<unsigned int> attribute_types;
-    };
-
-    struct PrefabDefinition
-    {
-        std::string name;
-        std::string sprite_file;
-        math::Vector scale;
-        std::vector<math::Vector> collision_shape;
-        std::vector<SnapPoint> snap_points;
     };
 
     class EntityRepository

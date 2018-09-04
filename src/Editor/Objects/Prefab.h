@@ -6,10 +6,10 @@
 #include <string>
 #include <vector>
 
+struct SnapPoint;
+
 namespace editor
 {
-    struct SnapPoint;
-
     class Prefab : public mono::EntityBase
     {
     public:

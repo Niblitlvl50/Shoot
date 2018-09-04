@@ -65,6 +65,7 @@
         "variant": "cpp",
         "cstdint": "cpp",
         "deque": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "queue": "cpp"
     }
 }

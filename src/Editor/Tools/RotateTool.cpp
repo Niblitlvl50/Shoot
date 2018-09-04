@@ -57,4 +57,6 @@ void RotateTool::HandleMousePosition(const math::Vector& world_pos)
     m_editor->UpdateSnappers();
 }
 
+void RotateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
+{ }
 

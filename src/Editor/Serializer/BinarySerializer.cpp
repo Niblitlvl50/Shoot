@@ -3,15 +3,18 @@
 #include "Objects/Polygon.h"
 #include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/EntityProxy.h"
+#include "ObjectProxies/PrefabProxy.h"
 
 #include "Math/Matrix.h"
 #include "System/File.h"
+
+#include <algorithm>
 
 using namespace editor;
 
 BinarySerializer::BinarySerializer()
 {
-    m_polygon_data.version = 1;    
+    m_polygon_data.version = 2;    
 }
 
 void BinarySerializer::WritePolygonFile(const std::string& file_name) const
@@ -71,5 +74,15 @@ void BinarySerializer::Accept(PolygonProxy* proxy)
 
 void BinarySerializer::Accept(PrefabProxy* proxy)
 {
+    world::PrefabData prefab_data;
 
+    const char* prefab_name = proxy->Name();
+    const std::size_t string_length = std::min(std::strlen(prefab_name), world::WorldObjectNameMaxLength);
+    std::memcpy(prefab_data.name, prefab_name, string_length);
+
+    prefab_data.position = proxy->Entity()->Position();
+    prefab_data.rotation = proxy->Entity()->Rotation();
+    prefab_data.scale = proxy->Entity()->Scale();
+
+    m_polygon_data.prefabs.push_back(prefab_data);
 }

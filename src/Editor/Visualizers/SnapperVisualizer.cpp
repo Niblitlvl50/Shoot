@@ -11,7 +11,7 @@
 
 using namespace editor;
 
-SnapperVisualizer::SnapperVisualizer(const bool& draw_snappers, const std::vector<editor::SnapPoint>& snappers)
+SnapperVisualizer::SnapperVisualizer(const bool& draw_snappers, const std::vector<SnapPoint>& snappers)
     : m_draw_snappers(draw_snappers)
     , m_snappers(snappers)
 { }

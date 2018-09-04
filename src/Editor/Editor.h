@@ -94,7 +94,7 @@ namespace editor
         std::shared_ptr<class ObjectDetailVisualizer> m_object_detail_visualizer;
 
         std::vector<editor::Grabber> m_grabbers;
-        std::vector<editor::SnapPoint> m_snap_points;
+        std::vector<SnapPoint> m_snap_points;
 
         unsigned int m_seleced_id;
         std::vector<IObjectProxyPtr> m_proxies;

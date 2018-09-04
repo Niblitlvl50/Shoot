@@ -130,7 +130,7 @@ void PlayerDaemon::SpawnPlayer1()
     m_camera->SetPosition(spawn_point);
     m_camera->Follow(m_player_one, math::ZeroVec);
 
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, LayerId::FOREGROUND));
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, LayerId::GAMEOBJECTS));
 }
 
 void PlayerDaemon::SpawnPlayer2()
@@ -149,7 +149,7 @@ void PlayerDaemon::SpawnPlayer2()
 
     game::g_player_two.is_active = true;
 
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, LayerId::FOREGROUND));
+    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, LayerId::GAMEOBJECTS));
 }
 
 bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
