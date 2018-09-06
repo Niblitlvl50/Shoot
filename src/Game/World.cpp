@@ -195,13 +195,6 @@ namespace
     {
         world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
         world::FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
-        world::FindAttribute(world::TIME_STAMP_ATTRIBUTE, attributes, spawn_point.time_stamp);
-
-        const char* spawn_tags = nullptr;
-        world::FindAttribute(world::SPAWN_TAG_ATTRIBUTE, attributes, spawn_tags);
-
-        if(spawn_tags)
-            spawn_point.spawn_tags = mono::SplitString(spawn_tags, ' ');
     }
 
     void LoadAttributes(game::EnemyPtr& enemy, const std::vector<Attribute>& attributes)

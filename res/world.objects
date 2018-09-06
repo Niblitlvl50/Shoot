@@ -5,17 +5,9 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -68.7641372680664,
-                        "y": -4.42646980285645
+                        "x": 12.5606079101562,
+                        "y": 63.0799026489258
                     }
-                },
-                {
-                    "name": "spawn_tag",
-                    "value": "blacksquare cacodemon"
-                },
-                {
-                    "name": "time_stamp",
-                    "value": 3
                 },
                 {
                     "name": "radius",
@@ -241,70 +233,6 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -78.3828659057617,
-                        "y": 31.5805931091309
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                }
-            ],
-            "name": "invader"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -78.0372695922852,
-                        "y": 35.0955352783203
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                }
-            ],
-            "name": "invader"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -77.162712097168,
-                        "y": 38.0693855285645
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                }
-            ],
-            "name": "invader"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -75.4630737304688,
-                        "y": 35.5429534912109
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                }
-            ],
-            "name": "invader"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
                         "x": -31.7930145263672,
                         "y": 5.95448732376099
                     }
@@ -367,22 +295,6 @@
                 }
             ],
             "name": "ammo_pickup"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": -75.8635559082031,
-                        "y": 33.1691818237305
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                }
-            ],
-            "name": "invader"
         },
         {
             "attributes": [
@@ -637,17 +549,9 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -36.8279571533203,
-                        "y": -22.0237941741943
+                        "x": -72.7400054931641,
+                        "y": 45.6007537841797
                     }
-                },
-                {
-                    "name": "spawn_tag",
-                    "value": "blacksquare blacksquare"
-                },
-                {
-                    "name": "time_stamp",
-                    "value": 5
                 },
                 {
                     "name": "radius",
@@ -787,6 +691,22 @@
                 }
             ],
             "name": "cacodemon"
+        },
+        {
+            "attributes": [
+                {
+                    "name": "position",
+                    "value": {
+                        "x": 44.7025375366211,
+                        "y": 45.9661026000977
+                    }
+                },
+                {
+                    "name": "radius",
+                    "value": 4.0
+                }
+            ],
+            "name": "spawnpoint"
         }
     ]
 }

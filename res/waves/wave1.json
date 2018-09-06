@@ -2,23 +2,23 @@
     "waves" : [
         {
             "name": "wave 1",
-            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+            "tags": ["invader", "invader", "invader", "invader"]
         },
         {
             "name": "wave 2",
-            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+            "tags": ["invader", "invader", "invader", "invader"]
         },
         {
             "name": "wave 3",
-            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+            "tags": ["invader", "invader", "invader", "invader"]
         },
         {
             "name": "wave 4",
-            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+            "tags": ["invader", "invader", "invader", "invader"]
         },
         {
             "name": "wave 5",
-            "tags": ["invader", "invader", "blacksquare", "cocademon"]
+            "tags": ["invader", "invader", "blacksquare", "cacodemon"]
         }
     ]
 }

@@ -14,6 +14,7 @@
 #include "Hud/WeaponStatusElement.h"
 #include "Hud/Overlay.h"
 #include "Hud/PickupDrawer.h"
+#include "Hud/WaveDrawer.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -99,6 +100,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
+    AddDrawable(std::make_shared<WaveDrawer>(m_event_handler), LayerId::UI);
     AddUpdatable(m_dispatcher);
 
     m_gib_system = std::make_shared<GibSystem>();
@@ -235,6 +237,7 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
     if(result.health_left <= 0)
     {
         m_damage_controller->RemoveRecord(entity->Id());
+        m_enemy_spawner->EntityDestroyed(entity->Id());
         m_gib_system->EmitGibsAt(entity->Position(), event.direction);
         SchedulePreFrameTask(std::bind(&TestZone::RemovePhysicsEntity, this, entity));
     }

@@ -1,6 +1,7 @@
 
 #include "Spawner.h"
 #include "Events/SpawnPhysicsEntityEvent.h"
+#include "Events/WaveEvent.h"
 #include "Random.h"
 #include "RenderLayers.h"
 #include "Factories.h"
@@ -9,6 +10,7 @@
 
 #include "EventHandler/EventHandler.h"
 #include "Math/MathFunctions.h"
+#include "Algorithm.h"
 
 #include "ObjectAttribute.h"
 
@@ -54,6 +56,7 @@ Spawner::Spawner(
     : m_spawn_points(spawn_points)
     , m_waves(waves)
     , m_event_handler(event_handler)
+    , m_wave_index(0)
 {
     const auto spawn_func = [](void* data) {
         Spawner* spawner = static_cast<Spawner*>(data);
@@ -65,34 +68,42 @@ Spawner::Spawner(
 
 void Spawner::CheckForSpawn()
 {
-    m_seconds_elapsed++;
-
-    const auto check_spawn_func = [this](const SpawnPoint& spawn_point) {
-        return (spawn_point.time_stamp < m_seconds_elapsed);
-    };
-
-    auto it = std::remove_if(m_spawn_points.begin(), m_spawn_points.end(), check_spawn_func);
-    if(it != m_spawn_points.end())
+    if(m_wave_index == (int)m_waves.size())
     {
-        for(auto spawn_it = it; spawn_it != m_spawn_points.end(); ++spawn_it)
-            SpawnObject(*spawn_it);
-
-        m_spawn_points.erase(it, m_spawn_points.end());
+        m_event_handler.DispatchEvent(game::HordeCompletedEvent());
+    }
+    else
+    {
+        if(m_current_spawned_ids.empty())
+            SpawnNextWave();
     }
 }
 
-void Spawner::SpawnObject(const SpawnPoint& spawn_point)
+void Spawner::EntityDestroyed(unsigned int spawn_id)
+{
+    mono::remove(m_current_spawned_ids, spawn_id);
+}
+
+void Spawner::SpawnNextWave()
 {
     const std::vector<Attribute> attributes;
+    const Wave& next_wave = m_waves[m_wave_index];
 
-    for(const std::string& spawn_tag : spawn_point.spawn_tags)
+    for(const std::string& spawn_tag : next_wave.tags)
     {
+        const size_t spawn_point_index = mono::Random(0, m_spawn_points.size());
+        const SpawnPoint& spawn_point = m_spawn_points[spawn_point_index];
+
         const float spawn_angle = mono::Random(0.0f, math::PI() * 2.0f);
         const float spawn_radius = mono::Random(0.0f, spawn_point.radius);
-
         const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
 
         EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
         m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::BACKGROUND));
-    }    
+
+        m_current_spawned_ids.push_back(enemy->Id());
+    }
+
+    m_event_handler.DispatchEvent(game::WaveStartedEvent(next_wave.name.c_str(), m_wave_index));
+    ++m_wave_index;
 }

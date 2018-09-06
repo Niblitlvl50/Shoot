@@ -95,8 +95,6 @@
             },
             "attribute_types": [
                 "position",
-                "spawn_tag",
-                "time_stamp",
                 "radius"
             ]
         },

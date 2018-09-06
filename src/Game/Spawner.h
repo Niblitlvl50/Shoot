@@ -12,10 +12,8 @@ namespace game
 {
     struct SpawnPoint
     {
-        int time_stamp = 0;
         float radius = 1.0f;
         math::Vector position;
-        std::vector<std::string> spawn_tags;
     };
 
     struct Wave
@@ -33,16 +31,18 @@ namespace game
         Spawner(
             const std::vector<SpawnPoint>& spawn_points, const std::vector<Wave>& waves, mono::EventHandler& event_handler);
         void CheckForSpawn();
+        void EntityDestroyed(unsigned int spawn_id);
 
     private:
 
-        void SpawnObject(const SpawnPoint& spawn_point);
-        
+        void SpawnNextWave();
+
         std::vector<SpawnPoint> m_spawn_points;
         std::vector<Wave> m_waves;
         mono::EventHandler& m_event_handler;
-
-        int m_seconds_elapsed = 0;
         std::unique_ptr<System::ITimer> m_timer;
+
+        int m_wave_index;
+        std::vector<unsigned int> m_current_spawned_ids;
     };
 }
