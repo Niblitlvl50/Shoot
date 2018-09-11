@@ -3,7 +3,6 @@
 
 #include "Enemy.h"
 #include "StateMachine.h"
-#include "Behaviour/TrackingBehaviour.h"
 
 namespace game
 {
@@ -37,7 +36,7 @@ namespace game
 
         Enemy* m_enemy;
         std::unique_ptr<class IWeaponSystem> m_weapon;
-        TrackingBehaviour m_tracking_behaviour;
+        std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         unsigned int m_idle_timer;
         using InvaderStateMachine = StateMachine<InvaderStates, unsigned int>;

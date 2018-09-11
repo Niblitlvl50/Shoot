@@ -62,30 +62,26 @@ public:
 
 using namespace game;
 
-void TrackingBehaviour::Init(mono::EventHandler& event_handler, Enemy* enemy)
+TrackingBehaviour::TrackingBehaviour(Enemy* enemy, mono::EventHandler& event_handler)
+    : m_enemy(enemy)
+    , m_event_handler(event_handler)
+    , m_tracking_timer(100000)
+    , m_current_position(0.0f)
 {
-    m_tracking_timer = 10000000;
-    m_current_position = 0.0f;
-
-    m_event_handler = &event_handler;
-    m_enemy = enemy;
-
     m_control_body = mono::PhysicsFactory::CreateKinematicBody();
     m_control_body->SetPosition(m_enemy->Position());
 
     m_spring = mono::PhysicsFactory::CreateSpring(m_control_body, m_enemy->GetPhysics().body, 1.0f, 200.0f, 1.5f);
-    m_event_handler->DispatchEvent(SpawnConstraintEvent(m_spring));
+    m_event_handler.DispatchEvent(SpawnConstraintEvent(m_spring));
 
     m_astar_drawer = std::make_shared<AStarPathDrawer>(m_current_position);
-    //m_event_handler->DispatchEvent(SpawnEntityEvent(m_astar_drawer, 4));
+    //m_event_handler.DispatchEvent(SpawnEntityEvent(m_astar_drawer, 4));
 }
 
-void TrackingBehaviour::Exit()
+TrackingBehaviour::~TrackingBehaviour()
 {
-    m_event_handler->DispatchEvent(RemoveEntityEvent(m_astar_drawer->Id()));
-    m_event_handler->DispatchEvent(DespawnConstraintEvent(m_spring));
-    m_event_handler = nullptr;
-    m_enemy = nullptr;
+    m_event_handler.DispatchEvent(RemoveEntityEvent(m_astar_drawer->Id()));
+    m_event_handler.DispatchEvent(DespawnConstraintEvent(m_spring));
 }
 
 TrackingResult TrackingBehaviour::Run(unsigned int delta)

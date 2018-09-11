@@ -1,7 +1,8 @@
 
 #include "InvaderController.h"
-#include "AIKnowledge.h"
 
+#include "AIKnowledge.h"
+#include "Behaviour/TrackingBehaviour.h"
 #include "Factories.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
@@ -27,15 +28,13 @@ InvaderController::InvaderController(mono::EventHandler& event_handler)
 }
 
 InvaderController::~InvaderController()
-{
-    m_tracking_behaviour.Exit();
-}
+{ }
 
 void InvaderController::Initialize(Enemy* enemy)
 {
     m_enemy = enemy;
     m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
-    m_tracking_behaviour.Init(m_event_handler, m_enemy);
+    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(m_enemy, m_event_handler);
     m_states.TransitionTo(InvaderStates::IDLE);
 }
 
@@ -79,7 +78,7 @@ void InvaderController::Tracking(unsigned int delta)
         return;
     }
 
-    const TrackingResult result = m_tracking_behaviour.Run(delta);
+    const TrackingResult result = m_tracking_behaviour->Run(delta);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
         m_states.TransitionTo(InvaderStates::IDLE);
 }
