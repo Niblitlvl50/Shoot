@@ -111,14 +111,16 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
         world::LevelFileHeader world_header;
         world::ReadWorld(world_file, world_header);
-        game::LoadWorld(this, world_header.polygons, world_header.prefabs);
-        
+
+        std::vector<ExcludeZone> exclude_zones;
+        game::LoadWorld(this, world_header.polygons, world_header.prefabs, exclude_zones);
+
         // Nav mesh
-        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, world_header.polygons);
-        m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, world_header.polygons);
+        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, exclude_zones);
+        m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
         game::g_navmesh = &m_navmesh;
         
-        //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, m_event_handler), BACKGROUND);
+        //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, m_event_handler), UI);
     }
 
     {

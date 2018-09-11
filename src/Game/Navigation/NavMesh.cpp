@@ -10,7 +10,7 @@
 #include <cmath>
 
 std::vector<math::Vector> game::GenerateMeshPoints(
-    const math::Vector start, float width, float height, float density, const std::vector<world::PolygonData>& static_polygons)
+    const math::Vector start, float width, float height, float density, const std::vector<ExcludeZone>& exclude_zones)
 {
     const int n_width_points = width / density;
     const int n_height_points = height / density;
@@ -27,10 +27,10 @@ std::vector<math::Vector> game::GenerateMeshPoints(
         }
     }
 
-    const auto func = [&static_polygons](const math::Vector& point) {
-        for(const world::PolygonData& polygon : static_polygons)
+    const auto func = [&exclude_zones](const math::Vector& point) {
+        for(const ExcludeZone& exclude_zone : exclude_zones)
         {
-            if(math::PointInsidePolygon(point, polygon.vertices))
+            if(math::PointInsidePolygon(point, exclude_zone.polygon_vertices))
                 return true;
         }
 
@@ -43,7 +43,7 @@ std::vector<math::Vector> game::GenerateMeshPoints(
 }
 
 std::vector<game::NavmeshNode> game::GenerateMeshNodes(
-    const std::vector<math::Vector>& points,  float connection_distance, const std::vector<world::PolygonData>& static_polygons)
+    const std::vector<math::Vector>& points,  float connection_distance, const std::vector<ExcludeZone>& static_polygons)
 {
     std::vector<game::NavmeshNode> nodes;
     nodes.reserve(points.size());
@@ -68,8 +68,20 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
             if(distance > connection_distance)
                 continue;
 
-            node.neighbours_index[neighbour_count] = inner_index;
-            neighbour_count++;
+            bool intersects_exclude_zone = false;
+
+            for(const ExcludeZone& exclude_zone : static_polygons)
+            {
+                intersects_exclude_zone = math::LineIntersectsPolygon(point, inner_point, exclude_zone.polygon_vertices);
+                if(intersects_exclude_zone)
+                    break;
+            }
+
+            if(!intersects_exclude_zone)
+            {
+                node.neighbours_index[neighbour_count] = inner_index;
+                neighbour_count++;
+            }
         }
 
         nodes.push_back(node);

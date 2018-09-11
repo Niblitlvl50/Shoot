@@ -30,6 +30,8 @@
 #include "DefinedAttributes.h"
 #include "Prefabs.h"
 
+#include "Navigation/NavmeshFactory.h"
+
 #include <algorithm>
 #include <string>
 
@@ -125,18 +127,14 @@ namespace
     {
     public:
 
-        StaticPrefab(const math::Vector& position, const PrefabDefinition* prefab_definition)
+        StaticPrefab(
+            const math::Vector& position,
+            const math::Vector& scale,
+            const char* sprite_file,
+            const std::vector<math::Vector>& collision_polygon)
         {
             m_position = position;
-            m_scale = prefab_definition->scale;
-
-            std::vector<math::Vector> collision_polygon;
-            collision_polygon.reserve(prefab_definition->collision_shape.size());
-
-            const math::Matrix& transform = Transformation();
-
-            for(const math::Vector& collision_vertex : prefab_definition->collision_shape)
-                collision_polygon.push_back(math::Transform(transform, collision_vertex));
+            m_scale = scale;
 
             m_physics.body = mono::PhysicsFactory::CreateStaticBody();
 
@@ -144,7 +142,7 @@ namespace
             shape->SetCollisionFilter(game::CollisionCategory::STATIC, game::STATIC_MASK);
             m_physics.shapes.push_back(shape);
 
-            m_sprite = mono::CreateSprite(prefab_definition->sprite_file.c_str());
+            m_sprite = mono::CreateSprite(sprite_file);
         }
 
         void Draw(mono::IRenderer& renderer) const override
@@ -164,12 +162,21 @@ namespace
 }
 
 void game::LoadWorld(
-    mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons, const std::vector<world::PrefabData>& prefabs)
+    mono::IPhysicsZone* zone,
+    const std::vector<world::PolygonData>& polygons,
+    const std::vector<world::PrefabData>& prefabs,
+    std::vector<ExcludeZone>& exclude_zones)
 {
     size_t count = 0;
 
     for(const world::PolygonData& polygon : polygons)
+    {
         count += polygon.vertices.size();
+
+        ExcludeZone exclude_zone;
+        exclude_zone.polygon_vertices = polygon.vertices;
+        exclude_zones.push_back(exclude_zone);
+    }
 
     auto static_terrain = std::make_shared<StaticTerrainBlock>(count, polygons.size());
 
@@ -179,13 +186,32 @@ void game::LoadWorld(
     zone->AddDrawable(static_terrain, BACKGROUND);
     zone->AddPhysicsData(static_terrain->m_static_physics);
 
-
     const std::vector<PrefabDefinition>& prefab_definitions = LoadPrefabDefinitions();
 
     for(const world::PrefabData& prefab : prefabs)
     {
         const PrefabDefinition* prefab_definition = FindPrefabFromName(prefab.name, prefab_definitions);
-        zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(prefab.position, prefab_definition), LayerId::PREFABS);
+
+        std::vector<math::Vector> collision_polygon;
+        collision_polygon.reserve(prefab_definition->collision_shape.size());
+
+        math::Matrix translation;
+        math::Translate(translation, prefab.position);
+
+        math::Matrix scale;
+        math::ScaleXY(scale, prefab_definition->scale);
+
+        const math::Matrix& transform = translation * scale;
+
+        for(const math::Vector& collision_vertex : prefab_definition->collision_shape)
+            collision_polygon.push_back(math::Transform(transform, collision_vertex));
+
+        zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(
+            prefab.position, prefab_definition->scale, prefab_definition->sprite_file.c_str(), collision_polygon), LayerId::PREFABS);
+    
+        ExcludeZone exclude_zone;
+        exclude_zone.polygon_vertices = collision_polygon;
+        exclude_zones.push_back(exclude_zone);
     }
 }
 

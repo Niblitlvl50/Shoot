@@ -36,16 +36,14 @@ namespace game
         void AwakeState(unsigned int delta);
         void HuntState(unsigned int delta);
 
-        const float m_triggerDistance;
-        mono::EventHandler& m_eventHandler;
+        const float m_trigger_distance;
+        mono::EventHandler& m_event_handler;
+        unsigned int m_awake_state_timer;
 
         using MyStateMachine = StateMachine<States, unsigned int>;
         MyStateMachine m_states;
 
         Enemy* m_enemy;
-        unsigned int m_awakeStateTimer;
-
-        mono::IBodyPtr m_controlBody;
-        mono::IConstraintPtr m_spring;
+        std::unique_ptr<class HomingBehaviour> m_homing_behaviour;
     };
 }

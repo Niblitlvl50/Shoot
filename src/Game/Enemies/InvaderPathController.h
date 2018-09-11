@@ -3,7 +3,6 @@
 
 #include "MonoPtrFwd.h"
 #include "Enemy.h"
-#include "Rendering/Color.h"
 
 namespace game
 {
@@ -13,23 +12,19 @@ namespace game
 
         InvaderPathController(const mono::IPathPtr& path, mono::EventHandler& event_handler);
         ~InvaderPathController();
-        
+
         void Initialize(Enemy* enemy) override;
         void doUpdate(unsigned int delta) override;
 
     private:
 
-        mono::IPathPtr m_path;
-        mono::EventHandler& m_eventHandler;
-        float m_currentPosition;
-        int m_fireCount;
-        int m_fireCooldown;
+        const mono::IPathPtr m_path;
+        mono::EventHandler& m_event_handler;
+        int m_fire_count;
+        int m_fire_cooldown;
 
-        math::Vector m_point;
-
-        mono::IBodyPtr m_controlBody;
-        mono::IConstraintPtr m_spring;
-        std::unique_ptr<class IWeaponSystem> m_weapon;
         Enemy* m_enemy;
+        std::unique_ptr<class PathBehaviour> m_path_behaviour;
+        std::unique_ptr<class IWeaponSystem> m_weapon;
     };
 }

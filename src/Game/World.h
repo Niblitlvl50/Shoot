@@ -11,9 +11,13 @@
 namespace game
 {    
     struct Ammo;
+    struct ExcludeZone;
     
     void LoadWorld(
-        mono::IPhysicsZone* zone, const std::vector<world::PolygonData>& polygons, const std::vector<world::PrefabData>& prefabs);
+        mono::IPhysicsZone* zone,
+        const std::vector<world::PolygonData>& polygons,
+        const std::vector<world::PrefabData>& prefabs,
+        std::vector<ExcludeZone>& exclude_zones);
     
     void LoadWorldObjects(
         const std::vector<world::WorldObject>& objects,
