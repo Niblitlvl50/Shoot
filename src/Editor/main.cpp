@@ -46,6 +46,7 @@ int main(int argc, const char* argv[])
         editor->EnableDrawObjectNames(config.draw_object_names);
         editor->EnableDrawSnappers(config.draw_snappers);
         editor->SetBackgroundColor(config.background_color);
+        editor->SetActivePanelIndex(config.active_panel_index);
 
         mono::Engine engine(window, camera, event_eandler);
         engine.Run(editor);
@@ -60,6 +61,7 @@ int main(int argc, const char* argv[])
         config.draw_object_names = editor->DrawObjectNames();
         config.draw_snappers = editor->DrawSnappers();
         config.background_color = editor->BackgroundColor();
+        config.active_panel_index = editor->ActivePanelIndex();
 
         editor::SaveConfig("res/editor_config.json", config);
     

@@ -66,7 +66,7 @@ namespace
         ImGui::EndMainMenuBar();
     }
 
-    void DrawEntityView(editor::UIContext& context)
+    void DrawObjectView(editor::UIContext& context)
     {
         constexpr int flags =
             //ImGuiWindowFlags_NoTitleBar |
@@ -77,66 +77,26 @@ namespace
             ImGuiWindowFlags_NoSavedSettings;
 
         ImGui::SetNextWindowPos(ImVec2(30, 40));
-        ImGui::SetNextWindowSize(ImVec2(135, 400));
+        ImGui::SetNextWindowSize(ImVec2(135, 600));
 
         ImGui::Begin("Objects", nullptr, flags);
+
+        //const float available_width = ImGui::GetContentRegionAvailWidth();
+        //ImGui::PushItemWidth(400);
+
+        ImGui::RadioButton("Entites", &context.active_panel_index, 0); ImGui::SameLine();
+        ImGui::RadioButton("Prefabs", &context.active_panel_index, 1);
+        //ImGui::PopItemWidth();
+        //ImGui::Spacing();
+
         ImGui::Columns(2, nullptr, false);
 
-        for(size_t index = 0; index < context.entity_items.size(); ++index)
+        const std::vector<UIEntityItem>& objects_to_draw
+            = (context.active_panel_index == 0) ? context.entity_items : context.prefab_items;
+
+        for(size_t index = 0; index < objects_to_draw.size(); ++index)
         {
-            const UIEntityItem& item = context.entity_items[index];
-
-            void* texture_id = reinterpret_cast<void*>(item.texture_id);
-            const ImageCoords& icon = QuadToImageCoords(item.icon);
-
-            ImGui::PushID(index);
-            ImGui::ImageButton(texture_id, ImVec2(48.0f, 48.0f), icon.uv1, icon.uv2, 0);
-
-            if(ImGui::IsItemActive() && ImGui::IsMouseDragging())
-                context.drag_context = item.tooltip;
-            else if(ImGui::IsItemHovered())
-                ImGui::SetTooltip("%s", item.tooltip.c_str());
-
-            ImGui::NextColumn();
-            ImGui::PopID();
-        }
-
-        if(!context.drag_context.empty())
-        {
-            if(ImGui::IsMouseDragging())
-            {
-                ImGui::SetTooltip("%s", context.drag_context.c_str());
-            }
-            else if(ImGui::IsMouseReleased(0))
-            {
-                const ImVec2& mouse_pos = ImGui::GetMousePos();
-                context.drop_callback(context.drag_context, math::Vector(mouse_pos.x, mouse_pos.y));
-                context.drag_context.clear();
-            }
-        }
-
-        ImGui::End();
-    }
-
-    void DrawPrefabView(editor::UIContext& context)
-    {
-        constexpr int flags =
-            //ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
-            ImGuiWindowFlags_NoSavedSettings;
-
-        ImGui::SetNextWindowPos(ImVec2(30 + 135, 40));
-        ImGui::SetNextWindowSize(ImVec2(135, 400));
-
-        ImGui::Begin("Prefabs", nullptr, flags);
-        ImGui::Columns(2, nullptr, false);
-
-        for(size_t index = 0; index < context.prefab_items.size(); ++index)
-        {
-            const UIEntityItem& item = context.prefab_items[index];
+            const UIEntityItem& item = objects_to_draw[index];
 
             void* texture_id = reinterpret_cast<void*>(item.texture_id);
             const ImageCoords& icon = QuadToImageCoords(item.icon);
@@ -188,18 +148,18 @@ namespace
 
     void DrawContextMenu(editor::UIContext& context)
     {
-        if(context.showContextMenu)
+        if(context.show_context_menu)
         {
             ImGui::OpenPopup("context");
-            context.showContextMenu = false;
+            context.show_context_menu = false;
         }
 
         if(ImGui::BeginPopup("context"))
         {
             int menu_index = -1;
-            for(size_t index = 0; index < context.contextMenuItems.size(); ++index)
+            for(size_t index = 0; index < context.context_menu_items.size(); ++index)
             {
-                if(ImGui::Selectable(context.contextMenuItems.at(index).c_str()))
+                if(ImGui::Selectable(context.context_menu_items.at(index).c_str()))
                     menu_index = index;
             }
 
@@ -262,8 +222,7 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
     ImGui::NewFrame();
 
     DrawMainMenuBar(m_context);
-    DrawEntityView(m_context);
-    DrawPrefabView(m_context);
+    DrawObjectView(m_context);
     DrawSelectionView(m_context);    
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
@@ -273,13 +232,8 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
 
     // Update UI stuff below
 
-    const auto update_notification_func = [delta](Notification& note) {
+    const auto remove_notification_func = [delta](Notification& note) {
         note.time_left -= delta;
-    };
-
-    std::for_each(m_context.notifications.begin(), m_context.notifications.end(), update_notification_func);
-
-    const auto remove_notification_func = [](const Notification& note) {
         return note.time_left <= 0;
     };
 

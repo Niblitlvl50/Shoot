@@ -34,11 +34,12 @@ namespace editor
         bool draw_snappers = false;
 
         // Context menu
-        bool showContextMenu = false;
-        std::vector<std::string> contextMenuItems;
+        bool show_context_menu = false;
+        std::vector<std::string> context_menu_items;
 
         // Entity panel + drag n drop
         std::string drag_context;
+        int active_panel_index = 0;
         std::vector<UIEntityItem> entity_items;
         std::vector<UIEntityItem> prefab_items;
 

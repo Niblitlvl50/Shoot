@@ -415,6 +415,16 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
     m_window->SetBackgroundColor(color.red, color.green, color.blue);
 }
 
+int Editor::ActivePanelIndex() const
+{
+    return m_context.active_panel_index;
+}
+
+void Editor::SetActivePanelIndex(int index)
+{
+    m_context.active_panel_index = index;
+}
+
 void Editor::DuplicateSelected()
 {
     if(m_seleced_id == NO_SELECTION)

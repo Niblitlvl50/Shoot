@@ -75,6 +75,9 @@ namespace editor
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
 
+        int ActivePanelIndex() const;
+        void SetActivePanelIndex(int index);
+
         void DuplicateSelected();
 
     private:

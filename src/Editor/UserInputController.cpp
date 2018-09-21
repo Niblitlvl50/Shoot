@@ -130,7 +130,7 @@ void UserInputController::SelectTool(ToolsMenuOptions option)
 
     m_activeTool = tool_data.tool;
     m_context->notifications.push_back(tool_data.notification);
-    m_context->contextMenuItems = tool_data.context_menu;
+    m_context->context_menu_items = tool_data.context_menu;
     m_context->active_tool_index = static_cast<int>(option);
 
     m_activeTool->Begin();
@@ -170,7 +170,7 @@ bool UserInputController::OnMouseUp(const event::MouseUpEvent& event)
     if(event.key == MouseButton::LEFT)
         m_activeTool->HandleMouseUp(math::Vector(event.worldX, event.worldY));
     else if(event.key == MouseButton::RIGHT)
-        m_context->showContextMenu = !m_context->contextMenuItems.empty();
+        m_context->show_context_menu = !m_context->context_menu_items.empty();
 
     m_cameraTool.HandleMouseUp(math::Vector(event.screenX, event.screenY));
 
