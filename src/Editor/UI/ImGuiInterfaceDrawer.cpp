@@ -77,17 +77,14 @@ namespace
             ImGuiWindowFlags_NoSavedSettings;
 
         ImGui::SetNextWindowPos(ImVec2(30, 40));
-        ImGui::SetNextWindowSize(ImVec2(135, 600));
+        //ImGui::SetNextWindowSize(ImVec2(135, 600));
 
         ImGui::Begin("Objects", nullptr, flags);
 
-        //const float available_width = ImGui::GetContentRegionAvailWidth();
-        //ImGui::PushItemWidth(400);
-
         ImGui::RadioButton("Entites", &context.active_panel_index, 0); ImGui::SameLine();
         ImGui::RadioButton("Prefabs", &context.active_panel_index, 1);
-        //ImGui::PopItemWidth();
-        //ImGui::Spacing();
+
+        ImGui::Spacing();
 
         ImGui::Columns(2, nullptr, false);
 
@@ -102,7 +99,8 @@ namespace
             const ImageCoords& icon = QuadToImageCoords(item.icon);
 
             ImGui::PushID(index);
-            ImGui::ImageButton(texture_id, ImVec2(48.0f, 48.0f), icon.uv1, icon.uv2, 0);
+            //ImGui::ImageButton(texture_id, ImVec2(48.0f, 48.0f), icon.uv1, icon.uv2, 0);
+            ImGui::ImageButton(texture_id, ImVec2(64.0f, 64.0f), icon.uv1, icon.uv2, 0);
 
             if(ImGui::IsItemActive() && ImGui::IsMouseDragging())
                 context.drag_context = item.tooltip;

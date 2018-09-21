@@ -13,7 +13,8 @@ namespace editor
         "res/textures/dark_stone.png",
         "res/textures/brown_stone.png",
         "res/textures/lava1.png",
-        "res/textures/lava2.png"
+        "res/textures/lava2.png",
+        "res/textures/white_box_placeholder.png"
     };
 
     inline int FindTextureIndex(const char* texture)

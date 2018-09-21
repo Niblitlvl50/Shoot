@@ -218,7 +218,11 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
 {
     m_activeTool->UpdateModifierState(event.ctrl, event.shift, event.alt);
 
-    if(event.key == Keycode::ONE)
+    if(event.key == Keycode::ONE && event.ctrl)
+        m_editor->SetActivePanelIndex(0);
+    else if(event.key == Keycode::TWO && event.ctrl)
+        m_editor->SetActivePanelIndex(1);
+    else if(event.key == Keycode::ONE)
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)
         SelectTool(ToolsMenuOptions::ROTATE_TOOL);

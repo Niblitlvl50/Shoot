@@ -21,13 +21,13 @@ Prefab::Prefab(const std::string& name, const std::string& sprite_file, const st
 
 void Prefab::Draw(mono::IRenderer& renderer) const
 {
+    renderer.DrawSprite(*m_sprite);
+
     if(m_selected)
     {
         math::Quad bb(-0.5f, -0.5f, 0.5f, 0.5f);
         renderer.DrawQuad(bb, mono::Color::RGBA(0.0f, 1.0f, 0.0f), 2.0f);
     }
-
-    renderer.DrawSprite(*m_sprite);
 }
 
 void Prefab::Update(unsigned int delta)
