@@ -63,7 +63,7 @@ void Camera::doUpdate(unsigned int delta)
         const float ratio_value = m_viewport.mB.y / m_viewport.mB.x;
 
         const math::Vector ratio(1.0f, ratio_value);
-        const math::Vector& xy = -math::VectorFromAngle(rotation) * ratio * 6.0f;
+        const math::Vector& xy = -math::VectorFromAngle(rotation) * ratio * 3.0f;
 
         const math::Vector& targetPosition = m_entity->Position() - (m_viewport.mB * 0.5f) - xy;
         const math::Vector& diff = targetPosition - m_viewport.mA;

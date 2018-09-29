@@ -20,7 +20,6 @@
 #include "Math/Matrix.h"
 
 #include "AIKnowledge.h"
-#include "EntityProperties.h"
 #include "CollisionConfiguration.h"
 
 #include "Factories.h"
@@ -113,8 +112,6 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler
     AddChild(std::make_shared<game::TrailEffect>(m_position));
     AddChild(m_left_booster);
     AddChild(m_right_booster);
-
-    SetProperty(EntityProperties::DAMAGABLE);
     
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);

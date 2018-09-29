@@ -3,7 +3,9 @@
         {
             "frames": [
                 0,
-                -50
+                105,
+                1,
+                92
             ],
             "loop": true,
             "name": "default"

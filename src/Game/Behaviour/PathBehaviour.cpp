@@ -51,6 +51,7 @@ PathBehaviour::PathBehaviour(Enemy* enemy, const mono::IPathPtr& path, mono::Eve
     : m_path(path)
     , m_event_handler(event_handler)
     , m_current_position(0.0f)
+    , m_meter_per_second(2.0f)
 {
     m_control_body = mono::PhysicsFactory::CreateKinematicBody();
     m_spring = mono::PhysicsFactory::CreateSpring(m_control_body, enemy->GetPhysics().body, 1.0f, 20.0f, 0.5f);
@@ -62,13 +63,17 @@ PathBehaviour::PathBehaviour(Enemy* enemy, const mono::IPathPtr& path, mono::Eve
 PathBehaviour::~PathBehaviour()
 {
     m_event_handler.DispatchEvent(DespawnConstraintEvent(m_spring));
-    //m_event_handler.DispatchEvent(SpawnEntityEvent(std::make_shared<DotEntity>(m_point), LayerId::FOREGROUND, nullptr));
+    //m_event_handler.DispatchEvent(DeSpawnEntityEvent());
+}
+
+void PathBehaviour::SetTrackingSpeed(float meter_per_second)
+{
+    m_meter_per_second = meter_per_second;
 }
 
 void PathBehaviour::Run(unsigned int delta)
 {
-    constexpr float speed_mps = 2.0f;
-    m_current_position += speed_mps * float(delta) / 1000.0f;
+    m_current_position += m_meter_per_second * float(delta) / 1000.0f;
 
     const math::Vector& global_position = m_path->GetGlobalPosition();
     const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);

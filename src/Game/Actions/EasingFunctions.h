@@ -11,6 +11,11 @@ namespace game
     // c: change in value
     //
 
+    inline float LinearTween(float time, float duration, float start_value, float delta_value)
+    {
+    	return delta_value * time / duration + start_value;
+    };
+
     inline float EaseInCubic(float time, float duration, float start_value, float delta_value)
     {
         time /= duration;
@@ -34,5 +39,5 @@ namespace game
         return delta_value / 2.0f * (time * time * time + 2.0f) + start_value;
     };
 
-    using EaseFunction = float (*)(float time, float duration, float start_value, float end_value);    
+    using EaseFunction = float (*)(float time, float duration, float start_value, float delta_value);    
 }

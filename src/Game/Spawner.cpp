@@ -99,7 +99,7 @@ void Spawner::SpawnNextWave()
         const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
 
         EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
-        m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::BACKGROUND));
+        m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::GAMEOBJECTS));
 
         m_current_spawned_ids.push_back(enemy->Id());
     }

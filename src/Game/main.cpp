@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
         
-        auto camera = std::make_shared<game::Camera>(32, 20, window_size.x, window_size.y, event_handler);
+        auto camera = std::make_shared<game::Camera>(22, 14, window_size.x, window_size.y, event_handler);
 
         game::ZoneCreationContext zone_context;
         zone_context.event_handler = &event_handler;

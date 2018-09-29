@@ -1,7 +1,6 @@
 
 #include "BeastController.h"
 #include "Enemy.h"
-#include "EntityProperties.h"
 #include "Rendering/Sprite/ISprite.h"
 
 using namespace game;
@@ -22,7 +21,6 @@ BeastController::BeastController(mono::EventHandler& event_handler)
 void BeastController::Initialize(Enemy* enemy)
 {
     m_enemy = enemy;
-    m_enemy->SetProperty(EntityProperties::DAMAGABLE);
     m_states.TransitionTo(BeastStates::IDLE);
 }
 

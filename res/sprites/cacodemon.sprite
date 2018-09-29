@@ -6,7 +6,7 @@
                 817
             ],
             "loop": true,
-            "name": "idle"
+            "name": "death"
         },
         {
             "frames": [
@@ -25,10 +25,12 @@
                 0,
                 100,
                 0,
+                100,
+                0,
                 100
             ],
             "loop": true,
-            "name": "first1"
+            "name": "death"
         },
         {
             "frames": [
@@ -40,7 +42,7 @@
                 628
             ],
             "loop": true,
-            "name": "second"
+            "name": "death"
         },
         {
             "frames": [
@@ -50,7 +52,7 @@
                 100
             ],
             "loop": true,
-            "name": "chew"
+            "name": "death"
         },
         {
             "frames": [
@@ -62,7 +64,7 @@
                 344
             ],
             "loop": true,
-            "name": "attack"
+            "name": "death"
         },
         {
             "frames": [

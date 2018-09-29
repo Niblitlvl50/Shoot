@@ -26,7 +26,6 @@
 #include "Events/DamageEvent.h"
 #include "Events/SpawnConstraintEvent.h"
 
-#include "EntityProperties.h"
 #include "RenderLayers.h"
 
 #include "WorldFile.h"
@@ -104,7 +103,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(m_dispatcher);
 
     m_gib_system = std::make_shared<GibSystem>();
-    AddDrawable(m_gib_system, BACKGROUND);
+    AddDrawable(m_gib_system, BACKGROUND_DECALS);
     AddUpdatable(m_gib_system);
 
     {

@@ -103,7 +103,7 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
     auto background1 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.6f, 0.5f));
     auto background2 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.3f, 0.5f));
 
-    auto title_text = std::make_shared<TextEntity>("Shoot, Survive!", FontId::PIXELETTE_LARGE, false);
+    auto title_text = std::make_shared<TextEntity>("Shoot, Survive!", FontId::PIXELETTE_MEDIUM, false);
     title_text->m_shadow_color = mono::Color::RGBA(0.8, 0.0, 0.8, 1.0);
     title_text->m_text_color = mono::Color::RGBA(0.9, 0.8, 0.8, 1.0f);
     title_text->SetPosition(new_position);

@@ -159,6 +159,56 @@ namespace
 
         mono::ISpritePtr m_sprite;
     };
+
+    class StaticBackground : public mono::IDrawable
+    {
+    public:
+
+        StaticBackground()
+        {
+            const int vertex_count = 4;
+
+            m_texture = mono::CreateTexture("res/textures/white_box_placeholder.png");
+            m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
+            m_texture_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2); 
+
+            constexpr math::Quad background_bb = math::Quad(-100.0f, -100.0f, 100.0f, 100.0f);
+
+            const std::vector<math::Vector> vertices = {
+                math::BottomLeft(background_bb),
+                math::TopLeft(background_bb),
+                math::TopRight(background_bb),
+                math::BottomRight(background_bb)
+            };
+
+            std::vector<math::Vector> texture_coordinates;
+            texture_coordinates.reserve(vertices.size());
+
+            //const math::Vector& repeate = (background_bb.mB - background_bb.mA) / 8.0f;
+            const math::Vector repeate(20.0f, 20.0f);
+                
+            for(const math::Vector& vertex : vertices)
+                texture_coordinates.push_back(math::MapVectorInQuad(vertex, background_bb) * repeate);
+
+            m_vertex_buffer->UpdateData(vertices.data(), 0, vertex_count * 2);
+            m_texture_buffer->UpdateData(texture_coordinates.data(), 0, vertex_count * 2);
+        }
+
+        void doDraw(mono::IRenderer& renderer) const override
+        {
+            renderer.DrawGeometry(m_vertex_buffer.get(), m_texture_buffer.get(), 0, 4, m_texture);
+        }
+
+        math::Quad BoundingBox() const override
+        {
+            return math::InfQuad;
+        }
+
+        std::unique_ptr<mono::IRenderBuffer> m_vertex_buffer;
+        std::unique_ptr<mono::IRenderBuffer> m_texture_buffer;
+
+        mono::ITexturePtr m_texture;
+    };
 }
 
 void game::LoadWorld(
@@ -167,24 +217,24 @@ void game::LoadWorld(
     const std::vector<world::PrefabData>& prefabs,
     std::vector<ExcludeZone>& exclude_zones)
 {
-    size_t count = 0;
-
-    for(const world::PolygonData& polygon : polygons)
-    {
-        count += polygon.vertices.size();
-
-        ExcludeZone exclude_zone;
-        exclude_zone.polygon_vertices = polygon.vertices;
-        exclude_zones.push_back(exclude_zone);
-    }
-
-    auto static_terrain = std::make_shared<StaticTerrainBlock>(count, polygons.size());
-
-    for(const world::PolygonData& polygon : polygons)
-        static_terrain->AddPolygon(polygon);
-
-    zone->AddDrawable(static_terrain, BACKGROUND);
-    zone->AddPhysicsData(static_terrain->m_static_physics);
+//    size_t count = 0;
+//
+//    for(const world::PolygonData& polygon : polygons)
+//    {
+//        count += polygon.vertices.size();
+//
+//        ExcludeZone exclude_zone;
+//        exclude_zone.polygon_vertices = polygon.vertices;
+//        exclude_zones.push_back(exclude_zone);
+//    }
+//
+//    auto static_terrain = std::make_shared<StaticTerrainBlock>(count, polygons.size());
+//
+//    for(const world::PolygonData& polygon : polygons)
+//        static_terrain->AddPolygon(polygon);
+//
+//    zone->AddDrawable(static_terrain, BACKGROUND);
+//    zone->AddPhysicsData(static_terrain->m_static_physics);
 
     const std::vector<PrefabDefinition>& prefab_definitions = LoadPrefabDefinitions();
 
@@ -213,6 +263,8 @@ void game::LoadWorld(
         exclude_zone.polygon_vertices = collision_polygon;
         exclude_zones.push_back(exclude_zone);
     }
+
+    zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
 }
 
 namespace

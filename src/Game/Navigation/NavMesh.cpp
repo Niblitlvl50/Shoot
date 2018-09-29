@@ -204,7 +204,7 @@ std::vector<math::Vector> game::PathToPoints(const game::NavmeshContext& context
 
 int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vector& point)
 {
-    int closest_index;
+    int closest_index = -1;
     float closest_distance = math::INF;
 
     for(int index = 0, end = context.points.size(); index < end; ++index)

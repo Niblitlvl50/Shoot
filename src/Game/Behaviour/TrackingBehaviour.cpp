@@ -67,6 +67,7 @@ TrackingBehaviour::TrackingBehaviour(Enemy* enemy, mono::EventHandler& event_han
     , m_event_handler(event_handler)
     , m_tracking_timer(100000)
     , m_current_position(0.0f)
+    , m_meter_per_second(3.0f)
 {
     m_control_body = mono::PhysicsFactory::CreateKinematicBody();
     m_control_body->SetPosition(m_enemy->Position());
@@ -84,6 +85,11 @@ TrackingBehaviour::~TrackingBehaviour()
     m_event_handler.DispatchEvent(DespawnConstraintEvent(m_spring));
 }
 
+void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
+{
+    m_meter_per_second = meter_per_second;
+}
+
 TrackingResult TrackingBehaviour::Run(unsigned int delta)
 {
     m_tracking_timer += delta;
@@ -97,8 +103,7 @@ TrackingResult TrackingBehaviour::Run(unsigned int delta)
         m_tracking_timer = 0;
     }
 
-    constexpr float speed_mps = 3.0f;
-    m_current_position += speed_mps * float(delta) / 1000.0f;
+    m_current_position += m_meter_per_second * float(delta) / 1000.0f;
     
     if(m_current_position > m_path->Length())
         return TrackingResult::AT_TARGET;
@@ -118,12 +123,14 @@ bool TrackingBehaviour::UpdatePath()
     const int start = game::FindClosestIndex(*g_navmesh, m_enemy->Position());
     const int end = game::FindClosestIndex(*g_navmesh, g_player_one.position);
 
-    if(start == end)
+    if(start == end || start == -1 || end == -1)
         return false;
 
     const std::vector<int>& nav_path = game::AStar(*g_navmesh, start, end);
-    const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
+    if(nav_path.empty())
+        return false;
 
+    const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
     m_path = mono::CreatePath(math::ZeroVec, points);
 
     const float length = math::Length(m_enemy->Position() - m_control_body->GetPosition());

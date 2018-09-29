@@ -209,8 +209,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
-            weapon_config.rounds_per_second = 5.0f;
-            weapon_config.bullet_force = 20.0f;
+            weapon_config.rounds_per_second = 0.7f;
+            weapon_config.bullet_force = 10.0f;
 
             break;
         }
@@ -232,8 +232,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
-            weapon_config.rounds_per_second = 4.0f;
-            weapon_config.bullet_force = 15.0f;
+            weapon_config.rounds_per_second = 2.0f;
+            weapon_config.bullet_force = 10.0f;
 
             break;
         }
