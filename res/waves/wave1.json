@@ -1,23 +1,23 @@
 {
     "waves" : [
         {
-            "name": "wave 1",
+            "name": "Invader Bonanza!",
             "tags": ["invader", "invader", "invader", "invader", "invader", "invader"]
         },
         {
-            "name": "wave 2",
+            "name": "Invader Bonanza, the second comming!",
             "tags": ["invader", "invader", "invader", "invader", "invader", "invader"]
         },
         {
-            "name": "wave 3",
+            "name": "Return of the Invaders",
             "tags": ["invader", "invader", "invader", "invader", "invader", "invader"]
         },
         {
-            "name": "wave 4",
+            "name": "Last one of the Invaders",
             "tags": ["invader", "invader", "invader", "invader", "invader", "invader"]
         },
         {
-            "name": "wave 5",
+            "name": "A mix of everything!",
             "tags": ["invader", "invader", "blacksquare", "cacodemon"]
         }
     ]

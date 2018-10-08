@@ -6,7 +6,7 @@
                 817
             ],
             "loop": true,
-            "name": "death"
+            "name": "idle"
         },
         {
             "frames": [

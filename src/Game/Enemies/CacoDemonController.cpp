@@ -37,7 +37,7 @@ CacoDemonController::~CacoDemonController()
 void CacoDemonController::Initialize(Enemy* enemy)
 {
     m_enemy = enemy;
-    m_enemy->m_sprite->SetAnimation(Animation::ATTACK);
+    m_enemy->m_sprite->SetAnimation(Animation::IDLE);
     m_tracking_behaviour = std::make_unique<TrackingBehaviour>(m_enemy, m_event_handler);
     m_tracking_behaviour->SetTrackingSpeed(1.0f);
 }
