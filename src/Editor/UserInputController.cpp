@@ -222,6 +222,10 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
         m_editor->SetActivePanelIndex(0);
     else if(event.key == Keycode::TWO && event.ctrl)
         m_editor->SetActivePanelIndex(1);
+    else if(event.key == Keycode::D && event.ctrl)
+        m_editor->DuplicateSelected();
+    else if(event.key == Keycode::S && event.ctrl)
+        m_editor->Save();
     else if(event.key == Keycode::ONE)
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)
@@ -248,10 +252,6 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
             m_window->Maximize();
 
         m_isMaximized = !m_isMaximized;
-    }
-    else if(event.key == Keycode::D && event.ctrl)
-    {
-        m_editor->DuplicateSelected();
     }
 
     return false;

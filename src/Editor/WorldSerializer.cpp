@@ -220,19 +220,19 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(const char* file_name, const edit
     //auto objects_bin = LoadObjectsBinary("res/world.objects.bin", factory);
     auto objects = LoadObjects("res/world.objects", factory);
     auto paths = LoadPaths("res/world.paths", factory);
-    auto polygons = LoadPolygons(file_name, factory);
     auto prefabs = LoadPrefabs("res/world.prefabs", factory);
+    auto polygons = LoadPolygons(file_name, factory);
 
     for(auto& proxy : objects)
+        world_objects.push_back(std::move(proxy));
+    
+    for(auto& proxy : prefabs)
         world_objects.push_back(std::move(proxy));
 
     for(auto& proxy : paths)
         world_objects.push_back(std::move(proxy));
-    
-    for(auto& proxy : polygons)
-        world_objects.push_back(std::move(proxy));
 
-    for(auto& proxy : prefabs)
+    for(auto& proxy : polygons)
         world_objects.push_back(std::move(proxy));
 
     return world_objects;    

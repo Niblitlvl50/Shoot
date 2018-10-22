@@ -421,8 +421,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": 4.22339630126953,
-                        "y": -9.77212524414062
+                        "x": 0.578437805175781,
+                        "y": -7.07222557067871
                     }
                 },
                 {
@@ -431,47 +431,7 @@
                 },
                 {
                     "name": "trigger_radius",
-                    "value": 10.0
-                }
-            ],
-            "name": "blacksquare"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": 19.839714050293,
-                        "y": 1.8062858581543
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                },
-                {
-                    "name": "trigger_radius",
-                    "value": 10.0
-                }
-            ],
-            "name": "blacksquare"
-        },
-        {
-            "attributes": [
-                {
-                    "name": "position",
-                    "value": {
-                        "x": 17.8502998352051,
-                        "y": -8.64751815795898
-                    }
-                },
-                {
-                    "name": "rotation",
-                    "value": 0.0
-                },
-                {
-                    "name": "trigger_radius",
-                    "value": 10.0
+                    "value": 5.0
                 }
             ],
             "name": "blacksquare"
@@ -601,8 +561,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": 9.49994659423828,
-                        "y": 2.98411560058594
+                        "x": 8.12703704833984,
+                        "y": -10.5924491882324
                     }
                 },
                 {
@@ -665,8 +625,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": 13.5484085083008,
-                        "y": 11.2417335510254
+                        "x": 11.9724884033203,
+                        "y": 13.6992359161377
                     }
                 },
                 {
@@ -675,7 +635,7 @@
                 },
                 {
                     "name": "trigger_radius",
-                    "value": 10.0
+                    "value": 5.0
                 }
             ],
             "name": "blacksquare"
@@ -685,8 +645,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -5.25321197509766,
-                        "y": 10.3108177185059
+                        "x": -9.04022789001465,
+                        "y": 11.1479225158691
                     }
                 },
                 {
@@ -695,7 +655,7 @@
                 },
                 {
                     "name": "trigger_radius",
-                    "value": 10.0
+                    "value": 5.0
                 }
             ],
             "name": "blacksquare"
@@ -705,8 +665,8 @@
                 {
                     "name": "position",
                     "value": {
-                        "x": -1.17884063720703,
-                        "y": 1.5160026550293
+                        "x": -8.31059646606445,
+                        "y": 1.56674957275391
                     }
                 },
                 {
@@ -715,7 +675,7 @@
                 },
                 {
                     "name": "trigger_radius",
-                    "value": 10.0
+                    "value": 5.0
                 }
             ],
             "name": "blacksquare"

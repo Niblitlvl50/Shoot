@@ -179,6 +179,7 @@ void Editor::Load()
 void Editor::Save()
 {
     SaveWorld(m_fileName, m_proxies);
+    m_context.notifications.emplace_back(m_context.default_icon, "Saved...", 2000);
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
@@ -336,6 +337,9 @@ SnapPair Editor::FindSnapPosition(const math::Vector& position) const
 
 void Editor::OnDeleteObject()
 {
+    if(m_seleced_id == NO_SELECTION)
+        return;
+
     const unsigned int id = m_seleced_id;
 
     const auto find_func = [id](const IObjectProxyPtr& proxy) {

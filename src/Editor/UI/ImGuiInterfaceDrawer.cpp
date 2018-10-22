@@ -20,7 +20,7 @@ namespace
             if(ImGui::MenuItem("Open"))
                 context.editor_menu_callback(EditorMenuOptions::OPEN);
 
-            if(ImGui::MenuItem("Save"))
+            if(ImGui::MenuItem("Save", "Ctrl + S"))
                 context.editor_menu_callback(EditorMenuOptions::SAVE);
 
             if(ImGui::MenuItem("Export"))
