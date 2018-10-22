@@ -31,9 +31,10 @@ namespace world
 
     struct LevelFileHeader
     {
-        int version = 1;
+        int version = 2;
         std::vector<PolygonData> polygons;
         std::vector<PrefabData> prefabs;
+        std::vector<math::Vector> bounds;
     };
 
     struct WorldObject

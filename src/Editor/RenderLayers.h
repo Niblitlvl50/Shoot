@@ -6,6 +6,7 @@ namespace editor
     enum RenderLayer
     {
         BACKGROUND,
+        POLYGONS,
         OBJECTS,
         GRABBERS,
         UI

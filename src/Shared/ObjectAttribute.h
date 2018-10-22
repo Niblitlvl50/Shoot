@@ -119,4 +119,5 @@ struct Attribute
     Variant attribute;
 };
 
-static_assert(sizeof(Attribute) <= 32, "Attribute size is too big!");
+static_assert(sizeof(Variant) == 28, "Variant size is too big!");
+static_assert(sizeof(Attribute) == 32, "Attribute size is too big!");

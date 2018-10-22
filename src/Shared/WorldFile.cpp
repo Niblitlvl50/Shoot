@@ -54,6 +54,10 @@ bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
         WriteValues(&prefab.rotation,   file.get());
     }
 
+    const int n_bounds_vertices = static_cast<int>(level.bounds.size());
+    WriteValues(&n_bounds_vertices, file.get());
+    WriteValues(level.bounds.data(), file.get(), n_bounds_vertices);
+
     return true;
 }
 
@@ -103,6 +107,15 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
         ReadValues(&prefab.scale,       bytes, offset);
         ReadValues(&prefab.rotation,    bytes, offset);
     }
+
+    if(level.version < 3)
+        return true;
+
+    int n_bounds_vertices = 0;
+    ReadValues(&n_bounds_vertices, bytes, offset);
+
+    level.bounds.resize(n_bounds_vertices);
+    ReadValues(level.bounds.data(), bytes, offset, n_bounds_vertices);
 
     return true;
 }

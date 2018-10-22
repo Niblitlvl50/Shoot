@@ -29,7 +29,7 @@
 #include "RenderLayers.h"
 
 #include "WorldFile.h"
-#include "World.h"
+#include "World/World.h"
 
 #include "Navigation/NavMesh.h"
 #include "Navigation/NavmeshFactory.h"
@@ -152,8 +152,8 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     //m_background_music->Play();   
 
     // Test stuff...
-    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), BACKGROUND);
-    AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), BACKGROUND);
+    AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), GAMEOBJECTS);
+    AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), GAMEOBJECTS);
 }
 
 void TestZone::Accept(mono::IRenderer& renderer)

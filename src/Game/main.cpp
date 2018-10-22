@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
         constexpr math::Vector window_size(1280, 800);
         System::IWindow* window = System::CreateWindow("Game", 0, 0, window_size.x, window_size.y, false);
-        window->SetBackgroundColor(0.5, 0.5, 0.5);
+        window->SetBackgroundColor(0.0, 0.0, 0.0);
         
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);

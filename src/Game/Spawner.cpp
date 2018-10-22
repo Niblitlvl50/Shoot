@@ -68,14 +68,16 @@ Spawner::Spawner(
 
 void Spawner::CheckForSpawn()
 {
+    if(!m_current_spawned_ids.empty())
+        return;
+
     if(m_wave_index == (int)m_waves.size())
     {
         m_event_handler.DispatchEvent(game::HordeCompletedEvent());
     }
     else
     {
-        if(m_current_spawned_ids.empty())
-            SpawnNextWave();
+        SpawnNextWave();
     }
 }
 
@@ -89,10 +91,14 @@ void Spawner::SpawnNextWave()
     const std::vector<Attribute> attributes;
     const Wave& next_wave = m_waves[m_wave_index];
 
+    const SpawnPoint& spawn_point_1 = m_spawn_points[mono::Random(0, m_spawn_points.size())];
+    const SpawnPoint& spawn_point_2 = m_spawn_points[mono::Random(0, m_spawn_points.size())];
+
+    bool use_first_point = true;
+
     for(const std::string& spawn_tag : next_wave.tags)
     {
-        const size_t spawn_point_index = mono::Random(0, m_spawn_points.size());
-        const SpawnPoint& spawn_point = m_spawn_points[spawn_point_index];
+        const SpawnPoint& spawn_point = use_first_point ? spawn_point_1 : spawn_point_2;
 
         const float spawn_angle = mono::Random(0.0f, math::PI() * 2.0f);
         const float spawn_radius = mono::Random(0.0f, spawn_point.radius);
@@ -102,6 +108,8 @@ void Spawner::SpawnNextWave()
         m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::GAMEOBJECTS));
 
         m_current_spawned_ids.push_back(enemy->Id());
+
+        use_first_point = !use_first_point;
     }
 
     m_event_handler.DispatchEvent(game::WaveStartedEvent(next_wave.name.c_str(), m_wave_index));

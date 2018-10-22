@@ -167,7 +167,11 @@ void Editor::Load()
 {
     m_proxies = LoadWorld(m_fileName, m_object_factory);
     for(auto& proxy : m_proxies)
-        AddEntity(proxy->Entity(), RenderLayer::OBJECTS);
+    {
+        const bool is_polygon = (strcmp(proxy->Name(), "polygonobject") == 0);
+        const RenderLayer layer = is_polygon ? RenderLayer::POLYGONS : RenderLayer::OBJECTS;
+        AddEntity(proxy->Entity(), layer);
+    }
 
     UpdateSnappers();
 }
@@ -187,7 +191,7 @@ bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
 
 void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
 {
-    AddEntity(polygon, RenderLayer::OBJECTS);
+    AddEntity(polygon, RenderLayer::POLYGONS);
     m_proxies.push_back(std::make_unique<PolygonProxy>(polygon));
 }
 

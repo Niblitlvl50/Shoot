@@ -14,7 +14,7 @@ using namespace editor;
 
 BinarySerializer::BinarySerializer()
 {
-    m_polygon_data.version = 2;    
+    m_polygon_data.version = 3;    
 }
 
 void BinarySerializer::WritePolygonFile(const std::string& file_name) const
