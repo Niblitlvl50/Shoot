@@ -15,12 +15,23 @@
 #include "FontIds.h"
 #include "Zones/ZoneManager.h"
 
+
+#include "Physics/CMFactory.h"
+
 int main(int argc, char* argv[])
 {
     System::Initialize();
 
     mono::InitializeAudio();
     mono::InitializeRender();
+
+    mono::PhysicsInitParams init_params;
+    init_params.n_bodies = 300;
+    init_params.n_circle_shapes = 100;
+    init_params.n_segment_shapes = 100;
+    init_params.n_polygon_shapes = 200;
+
+    mono::PhysicsFactory::Init(init_params);
 
     {
         mono::EventHandler event_handler;
@@ -53,6 +64,7 @@ int main(int argc, char* argv[])
         delete game::gameobject_factory;
     }
 
+    mono::PhysicsFactory::Shutdown();
     mono::ShutdownRender();
     mono::ShutdownAudio();
     System::Shutdown();
