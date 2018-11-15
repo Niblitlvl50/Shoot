@@ -30,6 +30,9 @@ StaticPrefab::StaticPrefab(
     m_sprite = mono::CreateSprite(sprite_file);
 }
 
+StaticPrefab::~StaticPrefab()
+{ }
+
 void StaticPrefab::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);

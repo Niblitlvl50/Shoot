@@ -20,6 +20,8 @@ namespace game
         };
 
         Barrel(const Configuration& config);
+        ~Barrel();
+        
         void Update(unsigned int delta) override;
         void Draw(mono::IRenderer& renderer) const override;
 

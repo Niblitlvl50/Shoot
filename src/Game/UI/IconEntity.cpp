@@ -11,6 +11,9 @@ IconEntity::IconEntity(const char* sprite_file)
     m_sprite = mono::CreateSprite(sprite_file);
 }
 
+IconEntity::~IconEntity()
+{ }
+
 void IconEntity::Update(unsigned int delta)
 {
     m_sprite->doUpdate(delta);

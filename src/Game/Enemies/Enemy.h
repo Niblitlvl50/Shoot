@@ -28,6 +28,7 @@ namespace game
     public:
 
         Enemy(EnemySetup& setup);
+        ~Enemy();
 
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;

@@ -25,6 +25,9 @@ Barrel::Barrel(const Configuration& config)
     m_physics.shapes.push_back(shape);
 }
 
+Barrel::~Barrel()
+{ }
+
 void Barrel::Update(unsigned int delta)
 {
     m_sprite->doUpdate(delta);

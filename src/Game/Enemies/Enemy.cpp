@@ -32,6 +32,9 @@ Enemy::Enemy(EnemySetup& setup)
     m_controller->Initialize(this);
 }
 
+Enemy::~Enemy()
+{ }
+
 void Enemy::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);

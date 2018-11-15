@@ -17,14 +17,8 @@ namespace
         ImGui::BeginMainMenuBar();
         if(ImGui::BeginMenu("Editor"))
         {
-            if(ImGui::MenuItem("Open"))
-                context.editor_menu_callback(EditorMenuOptions::OPEN);
-
             if(ImGui::MenuItem("Save", "Ctrl + S"))
                 context.editor_menu_callback(EditorMenuOptions::SAVE);
-
-            if(ImGui::MenuItem("Export"))
-                context.editor_menu_callback(EditorMenuOptions::EXPORT);
 
             ImGui::EndMenu();
         }

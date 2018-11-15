@@ -3,6 +3,7 @@
 
 #include "Rendering/IDrawable.h"
 #include "Rendering/RenderPtrFwd.h"
+#include "Pickups/Ammo.h"
 #include <vector>
 
 namespace game
@@ -14,11 +15,12 @@ namespace game
     public:
     
         PickupDrawer(const std::vector<Ammo>& ammo_pickups);
+        ~PickupDrawer();
 
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const std::vector<Ammo>& m_ammo_pickups;
-        std::vector<mono::ISpritePtr> m_pickup_sprites;
+        mono::ISpritePtr m_pickup_sprites[Pickups::N_AMMOS];
     };
 }

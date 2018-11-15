@@ -13,6 +13,7 @@ public:
         const math::Vector& scale,
         const char* sprite_file,
         const std::vector<math::Vector>& collision_polygon);
+    ~StaticPrefab();
 
     void Draw(mono::IRenderer& renderer) const override;
 

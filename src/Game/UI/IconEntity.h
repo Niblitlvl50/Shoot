@@ -11,6 +11,8 @@ namespace game
     public:
 
         IconEntity(const char* sprite_file);
+        ~IconEntity();
+        
         void Update(unsigned int delta) override;
         void Draw(mono::IRenderer& renderer) const override;
 

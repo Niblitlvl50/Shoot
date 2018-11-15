@@ -19,6 +19,9 @@ Prefab::Prefab(const std::string& name, const std::string& sprite_file, const st
         snapper.id = Id();
 }
 
+Prefab::~Prefab()
+{ }
+
 void Prefab::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);

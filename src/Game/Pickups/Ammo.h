@@ -7,10 +7,12 @@
 
 namespace game
 {
-    enum class Pickups : int
+    enum Pickups : int
     {
         AMMO,
-        HEALTH
+        HEALTH,
+
+        N_AMMOS
     };
 
     struct Ammo

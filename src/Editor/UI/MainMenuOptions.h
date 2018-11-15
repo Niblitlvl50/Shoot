@@ -5,9 +5,7 @@ namespace editor
 {
     enum class EditorMenuOptions
     {
-        OPEN,
-        SAVE,
-        EXPORT
+        SAVE
     };
 
     enum ToolsMenuOptions

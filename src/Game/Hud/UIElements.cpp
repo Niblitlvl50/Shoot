@@ -44,12 +44,15 @@ UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
         m_sprites.push_back(mono::CreateSprite(sprite_file.c_str()));
 }
 
+UISpriteElement::~UISpriteElement()
+{ }
+
 void UISpriteElement::SetActiveSprite(size_t index)
 {
     m_active_sprite = index;
 }
 
-mono::ISpritePtr UISpriteElement::GetSprite(size_t index)
+const mono::ISpritePtr& UISpriteElement::GetSprite(size_t index) const
 {
     return m_sprites[index];
 }

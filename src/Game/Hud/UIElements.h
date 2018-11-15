@@ -35,9 +35,10 @@ namespace game
     public:
     
         UISpriteElement(const std::vector<std::string>& sprite_files);
+        ~UISpriteElement();
 
         void SetActiveSprite(size_t index);
-        mono::ISpritePtr GetSprite(size_t index);
+        const mono::ISpritePtr& GetSprite(size_t index) const;
 
     private:
 

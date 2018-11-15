@@ -11,6 +11,7 @@ namespace editor
     {
     public:
         SpriteEntity(const char* name, const char* sprite_file);
+        ~SpriteEntity();
         
         void SetSelected(bool selected);
         void SetSpriteAnimation(int sprite_id);
