@@ -29,7 +29,7 @@ void GravityUpdater::doUpdate(unsigned int delta)
     mElapsedTime = 0;
 }
 
-void GravityUpdater::GravityFunc(const mono::IBodyPtr& body)
+void GravityUpdater::GravityFunc(mono::IBody* body)
 {
     math::Vector impulse;
     

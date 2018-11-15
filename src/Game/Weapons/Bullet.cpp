@@ -18,7 +18,7 @@
 using namespace game;
 
 Bullet::Bullet(const BulletConfiguration& config)
-    : m_collisionCallback(config.collision_callback)
+    : m_collision_callback(config.collision_callback)
 {
     m_scale = config.scale;
 
@@ -76,10 +76,10 @@ void Bullet::Update(unsigned int delta)
 
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)
-        OnCollideWith(m_physics.body, 0);
+        OnCollideWith(m_physics.body.get(), 0);
 }
 
-void Bullet::OnCollideWith(const mono::IBodyPtr& body, unsigned int category)
+void Bullet::OnCollideWith(mono::IBody* body, unsigned int category)
 {
-    m_collisionCallback(this, body);
+    m_collision_callback(this, body);
 }

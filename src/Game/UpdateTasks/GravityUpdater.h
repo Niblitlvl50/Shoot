@@ -15,7 +15,7 @@ namespace game
         GravityUpdater(mono::IPhysicsZone* zone, const mono::IEntityPtr& moon1, const mono::IEntityPtr& moon2);
 
         void doUpdate(unsigned int delta) override;
-        void GravityFunc(const mono::IBodyPtr& body);
+        void GravityFunc(mono::IBody* body);
 
     private:
         mono::IPhysicsZone* mZone;

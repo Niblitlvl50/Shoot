@@ -20,7 +20,7 @@ namespace game
 
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
-        void OnCollideWith(const mono::IBodyPtr& body, unsigned int category) override;
+        void OnCollideWith(mono::IBody* body, unsigned int category) override;
 
     private:
         mono::ISpritePtr m_sprite;
@@ -28,7 +28,7 @@ namespace game
 
         std::unique_ptr<mono::ParticleEmitter> m_emitter;
 
-        BulletImpactCallback m_collisionCallback;
+        BulletImpactCallback m_collision_callback;
         int m_lifeSpan;
     };
 }

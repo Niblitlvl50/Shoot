@@ -56,7 +56,7 @@ void BlackSquareController::doUpdate(unsigned int delta)
     m_states.UpdateState(delta);
 }
 
-void BlackSquareController::OnCollideWith(const mono::IBodyPtr& body, unsigned int category)
+void BlackSquareController::OnCollideWith(mono::IBody* body, unsigned int category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
         m_states.TransitionTo(States::AWAKE);

@@ -208,7 +208,7 @@ bool TestZone::OnRemoveEntity(const game::RemoveEntityEvent& event)
 
 bool TestZone::OnShockwaveEvent(const game::ShockwaveEvent& event)
 {
-    const auto shockwave_func = [&event](const mono::IBodyPtr& body) {
+    const auto shockwave_func = [&event](mono::IBody* body) {
         math::Vector unit = body->GetPosition() - event.position;
         const float length = math::Length(unit);
         if(length > 4)

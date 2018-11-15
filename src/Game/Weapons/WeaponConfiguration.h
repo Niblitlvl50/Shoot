@@ -13,7 +13,7 @@
 
 namespace game
 {
-    using BulletImpactCallback = std::function<void (const mono::IPhysicsEntity*, const mono::IBodyPtr&)>;
+    using BulletImpactCallback = std::function<void (const mono::IPhysicsEntity*, mono::IBody*)>;
 
     struct BulletConfiguration
     {

@@ -22,13 +22,13 @@
 namespace
 {
     void StandardCollision(
-        const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+        const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
     {
         event_handler.DispatchEvent(game::DamageEvent(other, 10, bullet->Rotation()));
         event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
     }
 
-    void RocketCollision(const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+    void RocketCollision(const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
     {
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
@@ -45,7 +45,7 @@ namespace
     }
 
     void CacoPlasmaCollision(
-        const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+        const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
     {
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
@@ -61,7 +61,7 @@ namespace
     }
 
     void FlakCannonCollision(
-        const mono::IPhysicsEntity* bullet, const mono::IBodyPtr& other, mono::EventHandler& event_handler)
+        const mono::IPhysicsEntity* bullet, mono::IBody* other, mono::EventHandler& event_handler)
     {
         const float direction = bullet->Rotation();
 

@@ -17,7 +17,7 @@ namespace game
 
         void Initialize(Enemy* enemy) override;
         void doUpdate(unsigned int delta) override;
-        void OnCollideWith(const mono::IBodyPtr& body, unsigned int category) override;
+        void OnCollideWith(mono::IBody* body, unsigned int category) override;
 
     private:
 
