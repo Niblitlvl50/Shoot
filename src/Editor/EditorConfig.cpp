@@ -3,7 +3,7 @@
 #include "System/File.h"
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 #include <cstdio>
 

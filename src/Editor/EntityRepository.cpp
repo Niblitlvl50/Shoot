@@ -5,7 +5,7 @@
 #include "Hash.h"
 #include "Prefabs.h"
 
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 using namespace editor;
 

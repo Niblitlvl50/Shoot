@@ -16,7 +16,7 @@
 
 #include "DefinedAttributes.h"
 
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 using namespace editor;
 

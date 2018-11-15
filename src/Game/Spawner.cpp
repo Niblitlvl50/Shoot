@@ -15,7 +15,7 @@
 #include "ObjectAttribute.h"
 
 #include "System/File.h"
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 using namespace game;
 

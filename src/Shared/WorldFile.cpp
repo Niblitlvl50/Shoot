@@ -2,7 +2,7 @@
 #include "WorldFile.h"
 #include "Math/Serialize.h"
 
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 #include <cstdio>
 
 namespace

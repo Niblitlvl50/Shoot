@@ -4,7 +4,7 @@
 #include "ObjectProxies/IObjectVisitor.h"
 #include "Prefab.h"
 
-#include "nlohmann_json/json.hpp"
+#include "nlohmann/json.hpp"
 
 #include <vector>
 #include <string>
