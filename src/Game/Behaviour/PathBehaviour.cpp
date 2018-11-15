@@ -47,7 +47,7 @@ namespace
 
 using namespace game;
 
-PathBehaviour::PathBehaviour(Enemy* enemy, const mono::IPathPtr& path, mono::EventHandler& event_handler)
+PathBehaviour::PathBehaviour(Enemy* enemy, const mono::IPath* path, mono::EventHandler& event_handler)
     : m_path(path)
     , m_event_handler(event_handler)
     , m_current_position(0.0f)

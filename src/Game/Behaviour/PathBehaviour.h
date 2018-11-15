@@ -11,7 +11,7 @@ namespace game
     {
     public:
 
-        PathBehaviour(class Enemy* enemy, const mono::IPathPtr& path, mono::EventHandler& event_handler);
+        PathBehaviour(class Enemy* enemy, const mono::IPath* path, mono::EventHandler& event_handler);
         ~PathBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
@@ -19,7 +19,7 @@ namespace game
 
     private:
 
-        mono::IPathPtr m_path;
+        const mono::IPath* m_path;
         mono::EventHandler& m_event_handler;
         float m_current_position;
         float m_meter_per_second;

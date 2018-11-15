@@ -7,12 +7,13 @@
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
 
+#include "Paths/IPath.h"
 #include "Math/MathFunctions.h"
 
 using namespace game;
 
-InvaderPathController::InvaderPathController(const mono::IPathPtr& path, mono::EventHandler& event_handler)
-    : m_path(path)
+InvaderPathController::InvaderPathController(mono::IPathPtr& path, mono::EventHandler& event_handler)
+    : m_path(std::move(path))
     , m_event_handler(event_handler)
     , m_fire_count(0)
     , m_fire_cooldown(0)
@@ -24,7 +25,7 @@ InvaderPathController::~InvaderPathController()
 void InvaderPathController::Initialize(Enemy* enemy)
 {
     m_enemy = enemy;
-    m_path_behaviour = std::make_unique<PathBehaviour>(enemy, m_path, m_event_handler);
+    m_path_behaviour = std::make_unique<PathBehaviour>(enemy, m_path.get(), m_event_handler);
     m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
 }
 

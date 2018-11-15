@@ -53,7 +53,7 @@ game::EnemyPtr EnemyFactory::CreateInvader(const math::Vector& position)
     return enemy;
 }
 
-game::EnemyPtr EnemyFactory::CreatePathInvader(const mono::IPathPtr& path)
+game::EnemyPtr EnemyFactory::CreatePathInvader(mono::IPathPtr& path)
 {
     EnemySetup setup;
     setup.sprite_file = "res/sprites/invader.sprite";
@@ -76,7 +76,8 @@ game::EnemyPtr EnemyFactory::CreatePathInvader(const math::Vector& position, con
     if(found_filename && strlen(filename) != 0)
     {
         const std::string& full_filename = std::string("res/paths/") + filename + ".path";
-        return CreatePathInvader(mono::CreatePath(full_filename.c_str()));
+        mono::IPathPtr path = mono::CreatePath(full_filename.c_str());
+        return CreatePathInvader(path);
     }
 
     return nullptr;

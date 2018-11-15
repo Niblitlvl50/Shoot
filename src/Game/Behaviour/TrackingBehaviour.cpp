@@ -28,6 +28,7 @@ public:
 
     AStarPathDrawer(const float& path_position)
         : m_path_position(path_position)
+        , m_path(nullptr)
     { } 
 
     void Update(unsigned int delta)
@@ -50,13 +51,13 @@ public:
         return math::InfQuad;
     }
 
-    void SetPath(const mono::IPathPtr& new_path)
+    void SetPath(const mono::IPath* new_path)
     {
         m_path = new_path;
     }
 
-    mono::IPathPtr m_path;
     const float& m_path_position;
+    const mono::IPath* m_path;
 };
 }
 
@@ -136,7 +137,7 @@ bool TrackingBehaviour::UpdatePath()
     const float length = math::Length(m_enemy->Position() - m_control_body->GetPosition());
     m_current_position = length;
 
-    m_astar_drawer->SetPath(m_path);
+    m_astar_drawer->SetPath(m_path.get());
 
     return true;
 }

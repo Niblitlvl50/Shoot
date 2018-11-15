@@ -10,7 +10,7 @@ namespace game
     {
     public:
 
-        InvaderPathController(const mono::IPathPtr& path, mono::EventHandler& event_handler);
+        InvaderPathController(mono::IPathPtr& path, mono::EventHandler& event_handler);
         ~InvaderPathController();
 
         void Initialize(Enemy* enemy) override;

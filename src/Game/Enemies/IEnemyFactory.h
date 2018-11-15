@@ -21,7 +21,7 @@ namespace game
 
         virtual EnemyPtr CreateCacoDemon(const math::Vector& position) = 0;
         virtual EnemyPtr CreateInvader(const math::Vector& position) = 0;
-        virtual EnemyPtr CreatePathInvader(const mono::IPathPtr& path) = 0;
+        virtual EnemyPtr CreatePathInvader(mono::IPathPtr& path) = 0;
         virtual EnemyPtr CreateBlackSquare(const math::Vector& position, float trigger_distance) = 0;
         virtual EnemyPtr CreateBeast(const math::Vector& position) = 0;
 
