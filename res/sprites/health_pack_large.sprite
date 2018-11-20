@@ -14,8 +14,8 @@
             "h": 14,
             "name": "health_pack_large",
             "w": 21,
-            "x": 1742,
-            "y": 587
+            "x": 1631,
+            "y": 589
         }
     ],
     "texture": "res/sprite_atlas.png"

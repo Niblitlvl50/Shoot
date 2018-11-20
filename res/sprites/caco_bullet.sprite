@@ -16,15 +16,15 @@
             "h": 16,
             "name": "caco_bullet1",
             "w": 16,
-            "x": 990,
-            "y": 583
+            "x": 1777,
+            "y": 587
         },
         {
             "h": 15,
             "name": "caco_bullet2",
             "w": 15,
-            "x": 1010,
-            "y": 583
+            "x": 1813,
+            "y": 587
         }
     ],
     "texture": "res/sprite_atlas.png"

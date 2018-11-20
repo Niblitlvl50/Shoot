@@ -14,8 +14,8 @@
             "h": 82,
             "name": "xbox_one_a",
             "w": 82,
-            "x": 1121,
-            "y": 369
+            "x": 949,
+            "y": 455
         }
     ],
     "texture": "res/sprite_atlas.png"

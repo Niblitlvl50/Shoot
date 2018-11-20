@@ -21,18 +21,18 @@
     ],
     "frames": [
         {
-            "h": 12,
-            "name": "booster1",
-            "w": 9,
-            "x": 1819,
-            "y": 587
-        },
-        {
             "h": 11,
             "name": "booster2",
             "w": 9,
-            "x": 1860,
-            "y": 587
+            "x": 1554,
+            "y": 593
+        },
+        {
+            "h": 12,
+            "name": "booster1",
+            "w": 9,
+            "x": 1618,
+            "y": 590
         }
     ],
     "texture": "res/sprite_atlas.png"

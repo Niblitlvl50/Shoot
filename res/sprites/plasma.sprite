@@ -13,18 +13,18 @@
     ],
     "frames": [
         {
-            "h": 14,
-            "name": "plasma1",
-            "w": 15,
-            "x": 1767,
-            "y": 587
-        },
-        {
             "h": 13,
             "name": "plasma2",
             "w": 13,
-            "x": 1786,
-            "y": 587
+            "x": 1585,
+            "y": 590
+        },
+        {
+            "h": 14,
+            "name": "plasma1",
+            "w": 15,
+            "x": 1656,
+            "y": 589
         }
     ],
     "texture": "res/sprite_atlas.png"
