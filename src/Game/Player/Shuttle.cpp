@@ -203,7 +203,7 @@ void Shuttle::GiveAmmo(int value)
 
 void Shuttle::GiveHealth(int value)
 {
-    printf("Give Health!");
+    printf("Give Health!\n");
 }
 
 void Shuttle::SetBoosterThrusting(BoosterPosition position, bool enable)
