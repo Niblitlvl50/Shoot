@@ -60,7 +60,7 @@ namespace
 
             editor::UIEntityItem item;
             item.texture_id = sprite_texture->Id();
-            item.icon = sprite->GetTextureCoords();
+            item.icon = sprite->GetCurrentFrame().texture_coordinates;
             item.tooltip = def.name;
             context.entity_items.push_back(item);
         }
@@ -74,7 +74,7 @@ namespace
 
             editor::UIEntityItem item;
             item.texture_id = sprite_texture->Id();
-            item.icon = sprite->GetTextureCoords();
+            item.icon = sprite->GetCurrentFrame().texture_coordinates;
             item.tooltip = def.name;
             
             context.prefab_items.push_back(item);
@@ -349,11 +349,7 @@ void Editor::OnDeleteObject()
     mono::remove_if(m_proxies, find_func);
 
     auto entity = FindEntityFromId(id);    
-    const auto remove_entity_func = [this, entity] {
-        RemoveEntity(entity);
-    };
-
-    SchedulePreFrameTask(remove_entity_func);
+    RemoveEntity(entity);
 
     SelectProxyObject(nullptr);
     m_grabbers.clear();

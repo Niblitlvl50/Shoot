@@ -90,6 +90,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, *m_damage_controller, *this));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, m_event_handler));
+    AddUpdatable(m_dispatcher);
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
@@ -100,7 +101,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<WaveDrawer>(m_event_handler), LayerId::UI);
-    AddUpdatable(m_dispatcher);
 
     m_gib_system = std::make_shared<GibSystem>();
     AddDrawable(m_gib_system, BACKGROUND_DECALS);
@@ -195,13 +195,13 @@ bool TestZone::OnRemoveEntity(const game::RemoveEntityEvent& event)
     mono::IPhysicsEntityPtr physics_entity = FindPhysicsEntityFromId(event.id);
     if(physics_entity)
     {
-        SchedulePreFrameTask(std::bind(&TestZone::RemovePhysicsEntity, this, physics_entity));
+        RemovePhysicsEntity(physics_entity);
         return true;
     }
 
     mono::IEntityPtr entity = FindEntityFromId(event.id);
     if(entity)
-        SchedulePreFrameTask(std::bind(&TestZone::RemoveEntity, this, entity));
+        RemoveEntity(entity);
 
     return true;
 }
@@ -240,7 +240,7 @@ bool TestZone::OnDamageEvent(const game::DamageEvent& event)
         m_damage_controller->RemoveRecord(entity->Id());
         m_enemy_spawner->EntityDestroyed(entity->Id());
         m_gib_system->EmitGibsAt(entity->Position(), event.direction);
-        SchedulePreFrameTask(std::bind(&TestZone::RemovePhysicsEntity, this, entity));
+        RemovePhysicsEntity(entity);
     }
 
     return true;
