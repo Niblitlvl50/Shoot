@@ -114,7 +114,7 @@ void PolygonEntity::SetTexture(const char* texture)
     m_texture = nullptr;
 }
 
-const char* PolygonEntity::GetTexture() const
+const char* PolygonEntity::GetTextureName() const
 {
     return m_texture_name;
 }

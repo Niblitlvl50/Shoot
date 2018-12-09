@@ -59,7 +59,7 @@ void BinarySerializer::Accept(PolygonProxy* proxy)
     polygon_data.local_offset = polygon_entity->BasePoint();
     polygon_data.rotation = polygon_entity->Rotation();
 
-    const char* texture = polygon_entity->GetTexture();
+    const char* texture = polygon_entity->GetTextureName();
     const std::size_t string_length = std::strlen(texture);
 
     std::memcpy(polygon_data.texture, texture, string_length);

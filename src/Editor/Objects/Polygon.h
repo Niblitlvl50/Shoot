@@ -28,7 +28,7 @@ namespace editor
         bool IsSelected() const;
         
         void SetTexture(const char* texture);
-        const char* GetTexture() const;
+        const char* GetTextureName() const;
         
         virtual math::Quad BoundingBox() const;
 
