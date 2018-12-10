@@ -16,7 +16,7 @@ int main(int argc, const char* argv[])
     const char* file_name = (argc < 2) ? nullptr : argv[1];
 
     System::Initialize();
-    mono::InitializeRender();
+    mono::InitializeRender(32.0f);
 
     {
         editor::Config config;
@@ -48,7 +48,7 @@ int main(int argc, const char* argv[])
         editor->SetBackgroundColor(config.background_color);
         editor->SetActivePanelIndex(config.active_panel_index);
 
-        mono::Engine engine(window, camera, 32.0f, event_eandler);
+        mono::Engine engine(window, camera, event_eandler);
         engine.Run(editor);
 
         const System::Position& position = window->Position();

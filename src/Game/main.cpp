@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     System::Initialize();
 
     mono::InitializeAudio();
-    mono::InitializeRender();
+    mono::InitializeRender(32.0f);
 
     mono::PhysicsInitParams init_params;
     init_params.n_bodies = 300;

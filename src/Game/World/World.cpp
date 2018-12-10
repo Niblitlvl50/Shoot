@@ -53,16 +53,13 @@ void game::LoadWorld(
         math::Matrix translation;
         math::Translate(translation, prefab.position);
 
-        math::Matrix scale;
-        math::ScaleXY(scale, prefab_definition->scale);
-
-        const math::Matrix& transform = translation * scale;
+        const math::Matrix& transform = translation;
 
         for(const math::Vector& collision_vertex : prefab_definition->collision_shape)
             collision_polygon.push_back(math::Transform(transform, collision_vertex));
 
         zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(
-            prefab.position, prefab_definition->scale, prefab_definition->sprite_file.c_str(), collision_polygon), LayerId::PREFABS);
+            prefab.position, prefab_definition->sprite_file.c_str(), collision_polygon), LayerId::PREFABS);
     
         ExcludeZone exclude_zone;
         exclude_zone.polygon_vertices = collision_polygon;

@@ -17,7 +17,7 @@ namespace
 
 ZoneManager::ZoneManager(
     System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context)
-    : m_engine(window, camera, 32.0f, *zone_context.event_handler)
+    : m_engine(window, camera, *zone_context.event_handler)
     , m_zone_context(zone_context)
 {
     m_zones[TITLE_SCREEN] = LoadZone<game::TitleScreen>;
