@@ -14,9 +14,15 @@
             "h": 85,
             "name": "ps_options",
             "w": 95,
-            "x": 850,
-            "y": 369
+            "x": 1594,
+            "x_offset": 0.0,
+            "y": 2,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -24,23 +24,33 @@
             "h": 30,
             "name": "shuttle1",
             "w": 25,
-            "x": 1677,
-            "y": 554
+            "x": 367,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 26,
             "name": "shuttle0",
             "w": 25,
-            "x": 1924,
-            "y": 577
+            "x": 1421,
+            "x_offset": 0.0,
+            "y": 191,
+            "y_offset": 0.0
         },
         {
             "h": 31,
             "name": "shuttle2",
             "w": 25,
-            "x": 816,
-            "y": 535
+            "x": 338,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -14,9 +14,15 @@
             "h": 24,
             "name": "rocket",
             "w": 7,
-            "x": 751,
-            "y": 561
+            "x": 1904,
+            "x_offset": 0.0,
+            "y": 163,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -14,9 +14,15 @@
             "h": 16,
             "name": "flak_cannon",
             "w": 36,
-            "x": 1737,
-            "y": 587
+            "x": 721,
+            "x_offset": 0.0,
+            "y": 213,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -14,9 +14,15 @@
             "h": 21,
             "name": "device_medical",
             "w": 20,
-            "x": 1227,
-            "y": 582
+            "x": 1153,
+            "x_offset": 0.0,
+            "y": 195,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

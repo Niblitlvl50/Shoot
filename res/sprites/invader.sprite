@@ -14,9 +14,15 @@
             "h": 8,
             "name": "invader1",
             "w": 11,
-            "x": 1435,
-            "y": 595
+            "x": 396,
+            "x_offset": 0.0,
+            "y": 221,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -14,9 +14,15 @@
             "h": 82,
             "name": "ps_cross",
             "w": 82,
-            "x": 1035,
-            "y": 369
+            "x": 1693,
+            "x_offset": 0.0,
+            "y": 88,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

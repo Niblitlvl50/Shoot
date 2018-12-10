@@ -2,11 +2,33 @@
     "animations": [
         {
             "frames": [
-                0,
-                -50
+                6,
+                136,
+                8,
+                136,
+                7,
+                187
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
+        },
+        {
+            "frames": [
+                5,
+                79,
+                4,
+                73,
+                2,
+                79,
+                3,
+                79,
+                1,
+                92,
+                0,
+                79
+            ],
+            "loop": true,
+            "name": "run"
         }
     ],
     "frames": [
@@ -14,65 +36,87 @@
             "h": 17,
             "name": "goblin9",
             "w": 12,
-            "x": 982,
-            "y": 583
+            "x": 690,
+            "x_offset": 0.0,
+            "y": 213,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin8",
             "w": 12,
-            "x": 998,
-            "y": 583
+            "x": 914,
+            "x_offset": 0.0,
+            "y": 212,
+            "y_offset": 0.0
         },
         {
             "h": 18,
             "name": "goblin6",
             "w": 11,
-            "x": 1251,
-            "y": 582
+            "x": 1023,
+            "x_offset": 0.0,
+            "y": 211,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin7",
             "w": 12,
-            "x": 1014,
-            "y": 583
+            "x": 882,
+            "x_offset": 0.0,
+            "y": 212,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin5",
             "w": 11,
-            "x": 1722,
-            "y": 587
+            "x": 706,
+            "x_offset": 0.0,
+            "y": 213,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin4",
             "w": 12,
-            "x": 1706,
-            "y": 587
+            "x": 898,
+            "x_offset": 0.0,
+            "y": 212,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin1",
             "w": 12,
-            "x": 950,
-            "y": 583
+            "x": 930,
+            "x_offset": 0.0,
+            "y": 212,
+            "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin3",
             "w": 12,
-            "x": 966,
-            "y": 583
+            "x": 946,
+            "x_offset": 0.0,
+            "y": 212,
+            "y_offset": 0.0
         },
         {
             "h": 16,
             "name": "goblin2",
             "w": 12,
-            "x": 1797,
-            "y": 587
+            "x": 781,
+            "x_offset": 0.0,
+            "y": 213,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

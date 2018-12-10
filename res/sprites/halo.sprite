@@ -14,44 +14,60 @@
             "h": 29,
             "name": "halo5",
             "w": 27,
-            "x": 1846,
-            "y": 554
+            "x": 629,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 28,
             "name": "halo4",
             "w": 27,
-            "x": 1300,
-            "y": 573
+            "x": 1634,
+            "x_offset": 0.0,
+            "y": 189,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "halo6",
             "w": 27,
-            "x": 720,
-            "y": 561
+            "x": 536,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "halo3",
             "w": 27,
-            "x": 656,
-            "y": 570
+            "x": 598,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "halo2",
             "w": 27,
-            "x": 687,
-            "y": 570
+            "x": 567,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "halo1",
             "w": 26,
-            "x": 816,
-            "y": 570
+            "x": 660,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

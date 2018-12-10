@@ -26,51 +26,69 @@
             "h": 8,
             "name": "explosion1",
             "w": 8,
-            "x": 1694,
-            "y": 588
+            "x": 1243,
+            "x_offset": 0.0,
+            "y": 219,
+            "y_offset": 0.0
         },
         {
             "h": 8,
             "name": "explosion2",
             "w": 8,
-            "x": 1525,
-            "y": 594
+            "x": 411,
+            "x_offset": 0.0,
+            "y": 221,
+            "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "explosion3",
             "w": 11,
-            "x": 1387,
-            "y": 595
+            "x": 1738,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         },
         {
             "h": 11,
             "name": "explosion7",
             "w": 11,
-            "x": 1539,
-            "y": 593
+            "x": 1552,
+            "x_offset": 0.0,
+            "y": 215,
+            "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "explosion6",
             "w": 11,
-            "x": 1510,
-            "y": 594
+            "x": 1678,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "explosion4",
             "w": 11,
-            "x": 1495,
-            "y": 594
+            "x": 1723,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "explosion5",
             "w": 10,
-            "x": 748,
-            "y": 594
+            "x": 1753,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

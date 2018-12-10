@@ -14,9 +14,15 @@
             "h": 42,
             "name": "barrel_red",
             "w": 26,
-            "x": 1069,
-            "y": 528
+            "x": 1559,
+            "x_offset": 0.0,
+            "y": 169,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

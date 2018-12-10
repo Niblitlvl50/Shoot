@@ -3,10 +3,26 @@
         {
             "frames": [
                 0,
-                -50
+                98,
+                1,
+                100,
+                2,
+                100,
+                3,
+                100,
+                4,
+                100
             ],
             "loop": true,
             "name": "default"
+        },
+        {
+            "frames": [
+                0,
+                100
+            ],
+            "loop": false,
+            "name": "new"
         }
     ],
     "frames": [
@@ -14,37 +30,51 @@
             "h": 10,
             "name": "bat3",
             "w": 11,
-            "x": 733,
-            "y": 594
+            "x": 1693,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         },
         {
             "h": 9,
             "name": "bat2",
             "w": 12,
-            "x": 1402,
-            "y": 595
+            "x": 1227,
+            "x_offset": 0.0,
+            "y": 219,
+            "y_offset": 0.0
         },
         {
             "h": 8,
             "name": "bat1",
             "w": 13,
-            "x": 1418,
-            "y": 595
+            "x": 1153,
+            "x_offset": 0.0,
+            "y": 220,
+            "y_offset": 0.0
         },
         {
             "h": 6,
             "name": "bat5",
             "w": 16,
-            "x": 1450,
-            "y": 595
+            "x": 423,
+            "x_offset": 0.0,
+            "y": 221,
+            "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "bat4",
             "w": 11,
-            "x": 718,
-            "y": 594
+            "x": 1708,
+            "x_offset": 0.0,
+            "y": 216,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -11,12 +11,18 @@
     ],
     "frames": [
         {
-            "h": 363,
+            "h": 182,
             "name": "wall_corner_w",
-            "w": 256,
-            "x": 262,
-            "y": 2
+            "w": 128,
+            "x": 398,
+            "x_offset": 0.0,
+            "y": 2,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

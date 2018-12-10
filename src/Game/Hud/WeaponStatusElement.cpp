@@ -32,11 +32,13 @@ WeaponStatusElement::WeaponStatusElement(
     const std::vector<std::string> sprite_files = {
         "res/sprites/bolter.sprite",
         "res/sprites/flak_cannon.sprite",
-        "res/sprites/rocket_launcher.sprite"
+        "res/sprites/rocket_launcher.sprite",
+        "res/sprites/bolter.sprite",
+        "res/sprites/bolter.sprite"
     };
     m_weapon_sprites = std::make_shared<UISpriteElement>(sprite_files);
     m_weapon_sprites->SetPosition(math::ZeroVec);
-    m_weapon_sprites->SetScale(math::Vector(15.0f, 10.0f));
+    m_weapon_sprites->SetScale(math::Vector(10.0f, 10.0f));
 
     const std::vector<std::string> frame_sprites = {
         "res/sprites/frame.sprite"
@@ -44,7 +46,7 @@ WeaponStatusElement::WeaponStatusElement(
 
     m_frame_sprite = std::make_shared<UISpriteElement>(frame_sprites);
     m_frame_sprite->SetPosition(math::Vector(14.0f, 0.0f));
-    m_frame_sprite->SetScale(math::Vector(10.0f, 10.0f));
+    m_frame_sprite->SetScale(math::Vector(15.0f, 10.0f));
 
     AddChild(m_frame_sprite);
     AddChild(m_weapon_sprites);

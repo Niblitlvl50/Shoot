@@ -1,0 +1,46 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 25,
+            "name": "eye_monster1",
+            "w": 35,
+            "x": 1973,
+            "x_offset": 0.0,
+            "y": 200,
+            "y_offset": 0.0
+        },
+        {
+            "h": 24,
+            "name": "eye_monster0",
+            "w": 34,
+            "x": 2012,
+            "x_offset": 0.0,
+            "y": 200,
+            "y_offset": 0.0
+        },
+        {
+            "h": 24,
+            "name": "eye_monster2",
+            "w": 27,
+            "x": 1039,
+            "x_offset": 0.0,
+            "y": 203,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

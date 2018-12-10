@@ -90,86 +90,114 @@
             "h": 65,
             "name": "cacodemon2",
             "w": 63,
-            "x": 589,
-            "y": 509
+            "x": 972,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         },
         {
             "h": 69,
             "name": "cacodemon3",
             "w": 63,
-            "x": 1035,
-            "y": 455
+            "x": 1917,
+            "x_offset": 0.0,
+            "y": 88,
+            "y_offset": 0.0
         },
         {
             "h": 66,
             "name": "cacodemon1",
             "w": 63,
-            "x": 522,
-            "y": 509
+            "x": 905,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         },
         {
             "h": 71,
             "name": "cacodemon4",
             "w": 63,
-            "x": 1293,
-            "y": 446
+            "x": 1850,
+            "x_offset": 0.0,
+            "y": 88,
+            "y_offset": 0.0
         },
         {
             "h": 67,
             "name": "cacodemon5",
             "w": 63,
-            "x": 1169,
-            "y": 455
+            "x": 1396,
+            "x_offset": 0.0,
+            "y": 120,
+            "y_offset": 0.0
         },
         {
             "h": 67,
             "name": "cacodemon7",
             "w": 63,
-            "x": 1890,
-            "y": 464
+            "x": 698,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         },
         {
             "h": 67,
             "name": "cacodemon6",
             "w": 63,
-            "x": 850,
-            "y": 458
+            "x": 765,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         },
         {
             "h": 49,
             "name": "cacodemon12",
             "w": 73,
-            "x": 1102,
-            "y": 526
+            "x": 1103,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         },
         {
             "h": 73,
             "name": "cacodemon10",
             "w": 67,
-            "x": 1293,
-            "y": 369
+            "x": 1779,
+            "x_offset": 0.0,
+            "y": 88,
+            "y_offset": 0.0
         },
         {
             "h": 67,
             "name": "cacodemon8",
             "w": 63,
-            "x": 782,
-            "y": 464
+            "x": 1329,
+            "x_offset": 0.0,
+            "y": 120,
+            "y_offset": 0.0
         },
         {
             "h": 67,
             "name": "cacodemon9",
             "w": 63,
-            "x": 1102,
-            "y": 455
+            "x": 1262,
+            "x_offset": 0.0,
+            "y": 120,
+            "y_offset": 0.0
         },
         {
             "h": 66,
             "name": "cacodemon11",
             "w": 69,
-            "x": 1957,
-            "y": 464
+            "x": 832,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

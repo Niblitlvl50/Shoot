@@ -11,12 +11,18 @@
     ],
     "frames": [
         {
-            "h": 136,
+            "h": 68,
             "name": "wall_half_straight",
-            "w": 256,
-            "x": 522,
-            "y": 369
+            "w": 128,
+            "x": 1526,
+            "x_offset": 0.0,
+            "y": 97,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

@@ -14,9 +14,15 @@
             "h": 37,
             "name": "board_one",
             "w": 50,
-            "x": 1387,
-            "y": 554
+            "x": 48,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

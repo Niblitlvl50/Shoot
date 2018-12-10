@@ -68,121 +68,159 @@
             "h": 40,
             "name": "beast15",
             "w": 41,
-            "x": 2004,
-            "y": 534
+            "x": 1589,
+            "x_offset": 0.0,
+            "y": 169,
+            "y_offset": 0.0
         },
         {
             "h": 26,
             "name": "beast14",
             "w": 43,
-            "x": 1877,
-            "y": 577
+            "x": 1180,
+            "x_offset": 0.0,
+            "y": 194,
+            "y_offset": 0.0
         },
         {
             "h": 36,
             "name": "beast16",
             "w": 40,
-            "x": 1495,
-            "y": 554
+            "x": 156,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 35,
             "name": "beast17",
             "w": 42,
-            "x": 1539,
-            "y": 554
+            "x": 200,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "beast13",
             "w": 44,
-            "x": 1706,
-            "y": 554
+            "x": 396,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 25,
             "name": "beast12",
             "w": 46,
-            "x": 589,
-            "y": 578
+            "x": 1103,
+            "x_offset": 0.0,
+            "y": 195,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "beast10",
             "w": 42,
-            "x": 1754,
-            "y": 554
+            "x": 490,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 32,
             "name": "beast8",
             "w": 42,
-            "x": 1585,
-            "y": 554
+            "x": 246,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 31,
             "name": "beast9",
             "w": 42,
-            "x": 1631,
-            "y": 554
+            "x": 292,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 26,
             "name": "beast11",
             "w": 44,
-            "x": 1179,
-            "y": 577
+            "x": 1373,
+            "x_offset": 0.0,
+            "y": 191,
+            "y_offset": 0.0
         },
         {
             "h": 38,
             "name": "beast4",
             "w": 42,
-            "x": 1341,
-            "y": 554
+            "x": 2,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         },
         {
             "h": 38,
             "name": "beast5",
             "w": 42,
-            "x": 1890,
-            "y": 535
+            "x": 1463,
+            "x_offset": 0.0,
+            "y": 172,
+            "y_offset": 0.0
         },
         {
             "h": 38,
             "name": "beast7",
             "w": 42,
-            "x": 986,
-            "y": 541
+            "x": 1723,
+            "x_offset": 0.0,
+            "y": 174,
+            "y_offset": 0.0
         },
         {
             "h": 42,
             "name": "beast6",
             "w": 43,
-            "x": 1957,
-            "y": 534
+            "x": 1779,
+            "x_offset": 0.0,
+            "y": 165,
+            "y_offset": 0.0
         },
         {
             "h": 38,
             "name": "beast2",
             "w": 42,
-            "x": 940,
-            "y": 541
+            "x": 1677,
+            "x_offset": 0.0,
+            "y": 174,
+            "y_offset": 0.0
         },
         {
             "h": 42,
             "name": "beast3",
             "w": 43,
-            "x": 769,
-            "y": 535
+            "x": 1512,
+            "x_offset": 0.0,
+            "y": 169,
+            "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "beast1",
             "w": 42,
-            "x": 1800,
-            "y": 554
+            "x": 444,
+            "x_offset": 0.0,
+            "y": 188,
+            "y_offset": 0.0
         }
     ],
-    "texture": "res/sprite_atlas.png"
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
 }

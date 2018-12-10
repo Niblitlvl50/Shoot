@@ -67,6 +67,9 @@
         "deque": "cpp",
         "bitset": "cpp",
         "queue": "cpp",
-        "__functional_03": "cpp"
+        "__functional_03": "cpp",
+        "chipmunk_private.h": "c",
+        "chipmunk_structs.h": "c",
+        "any": "cpp"
     }
 }
