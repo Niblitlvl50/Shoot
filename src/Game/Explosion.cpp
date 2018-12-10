@@ -1,5 +1,7 @@
 
 #include "Explosion.h"
+
+#include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
@@ -42,4 +44,13 @@ void Explosion::Update(unsigned int delta)
 void Explosion::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
+}
+
+math::Quad Explosion::BoundingBox() const
+{
+    const mono::SpriteFrame& current_frame = m_sprite->GetCurrentFrame();
+    const math::Vector& sprite_size = current_frame.size / 2.0f;
+    const math::Matrix& transform = Transformation();
+ 
+    return math::Transform(transform, math::Quad(-sprite_size, sprite_size));
 }

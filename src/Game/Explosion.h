@@ -24,6 +24,7 @@ namespace game
         
         void Update(unsigned int delta) override;
         void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
     private:
 

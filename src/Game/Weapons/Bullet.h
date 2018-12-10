@@ -20,6 +20,7 @@ namespace game
 
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
+        math::Quad BoundingBox() const override;
         void OnCollideWith(mono::IBody* body, unsigned int category) override;
 
     private:

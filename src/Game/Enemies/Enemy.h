@@ -32,6 +32,7 @@ namespace game
 
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
+        math::Quad BoundingBox() const override;
 
         std::unique_ptr<IEnemyController> m_controller;
         mono::ISpritePtr m_sprite;

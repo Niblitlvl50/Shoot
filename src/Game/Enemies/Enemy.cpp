@@ -2,6 +2,8 @@
 #include "Enemy.h"
 #include "CollisionConfiguration.h"
 
+#include "Math/Matrix.h"
+
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
 
@@ -44,4 +46,13 @@ void Enemy::Update(unsigned int delta)
 {
     m_sprite->doUpdate(delta);
     m_controller->doUpdate(delta);
+}
+
+math::Quad Enemy::BoundingBox() const
+{
+    const mono::SpriteFrame& current_frame = m_sprite->GetCurrentFrame();
+    const math::Vector& sprite_size = current_frame.size / 2.0f;
+    const math::Matrix& transform = Transformation();
+ 
+    return math::Transform(transform, math::Quad(-sprite_size, sprite_size));
 }

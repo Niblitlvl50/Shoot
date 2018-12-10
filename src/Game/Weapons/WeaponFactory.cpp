@@ -49,7 +49,7 @@ namespace
     {
         game::ExplosionConfiguration explosion_config;
         explosion_config.position = bullet->Position();
-        explosion_config.scale = 2.0f;
+        explosion_config.scale = 1.0f;
         explosion_config.rotation = 0.0f;
         explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
 

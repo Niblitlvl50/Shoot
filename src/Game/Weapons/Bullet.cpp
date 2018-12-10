@@ -2,6 +2,8 @@
 #include "Bullet.h"
 #include "CollisionConfiguration.h"
 
+#include "Math/Matrix.h"
+
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
 #include "Physics/CMFactory.h"
@@ -77,6 +79,15 @@ void Bullet::Update(unsigned int delta)
     m_lifeSpan -= delta;
     if(m_lifeSpan < 0)
         OnCollideWith(m_physics.body.get(), 0);
+}
+
+math::Quad Bullet::BoundingBox() const
+{
+    const mono::SpriteFrame& current_frame = m_sprite->GetCurrentFrame();
+    const math::Vector& sprite_size = current_frame.size / 2.0f;
+    const math::Matrix& transform = Transformation();
+ 
+    return math::Transform(transform, math::Quad(-sprite_size, sprite_size));
 }
 
 void Bullet::OnCollideWith(mono::IBody* body, unsigned int category)
