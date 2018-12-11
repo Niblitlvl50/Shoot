@@ -59,6 +59,8 @@ UIDialog::UIDialog(
 
         option_text->SetPosition(math::Vector(2.0f, -y_shift));
         option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));
+
+        option_icon->SetScale(math::Vector(option.icon_scale, option.icon_scale));
         
         AddChild(option_text);
         AddChild(option_icon);

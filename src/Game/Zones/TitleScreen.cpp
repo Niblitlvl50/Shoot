@@ -121,9 +121,11 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
 
     auto ps_cross = std::make_shared<IconEntity>("res/sprites/ps_cross.sprite");
     ps_cross->SetPosition(math::Vector(3.0f, 0.25f));
+    ps_cross->SetScale(math::Vector(0.4f, 0.4f));
 
     auto xbox_a = std::make_shared<IconEntity>("res/sprites/xbox_one_a.sprite");
     xbox_a->SetPosition(math::Vector(4.65f, 0.25f));
+    xbox_a->SetScale(math::Vector(0.4f, 0.4f));
 
     hit_enter_text->AddChild(ps_cross);
     hit_enter_text->AddChild(xbox_a);

@@ -15,6 +15,7 @@ namespace game
         {
             std::string text;
             std::string icon;
+            float icon_scale = 1.0f;
         };
 
         UIDialog(

@@ -147,6 +147,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.collision_radius = 0.1f;
             bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
 
+            bullet_config.scale = math::Vector(0.5f, 0.5f);
             bullet_config.sprite_file = "res/sprites/plasma.sprite";
             bullet_config.sprite_shade = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 1.0f);
             bullet_config.sound_file = nullptr;

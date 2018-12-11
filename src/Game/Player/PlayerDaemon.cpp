@@ -42,8 +42,8 @@ namespace
             m_position = position;
 
             const std::vector<UIDialog::Option> options = {
-                { "Respawn",    "res/sprites/ps_cross.sprite" },
-                { "Quit",       "res/sprites/ps_triangle.sprite" }
+                { "Respawn",    "res/sprites/ps_cross.sprite",      0.35f },
+                { "Quit",       "res/sprites/ps_triangle.sprite",   0.35f }
             };
 
             constexpr mono::Color::RGBA background_color(0, 0, 0);
