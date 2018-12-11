@@ -7,20 +7,20 @@
 
 namespace game
 {
-    enum Pickups : int
+    enum PickupTypes : int
     {
         AMMO,
         HEALTH,
 
-        N_AMMOS
+        N_PICKUPS
     };
 
-    struct Ammo
+    struct Pickup
     {
         int value;
         int type;
         math::Vector position;
     };
 
-    void CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& event_handler);
+    void CheckPlayerPickups(std::vector<Pickup>& pickups, mono::EventHandler& event_handler);
 }

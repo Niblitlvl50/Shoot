@@ -8,15 +8,15 @@
 #include "Algorithm.h"
 
 
-void game::CheckPlayerPickups(std::vector<Ammo>& pickups, mono::EventHandler& event_handler)
+void game::CheckPlayerPickups(std::vector<Pickup>& pickups, mono::EventHandler& event_handler)
 {
     if(!g_player_one.is_active)
         return;
     
     const math::Vector& player_one_position = g_player_one.position;
-    std::vector<Ammo> pickups_to_dispatch;
+    std::vector<Pickup> pickups_to_dispatch;
 
-    const auto check_for_pickup_and_store = [&player_one_position, &pickups_to_dispatch](const Ammo& pickup) {
+    const auto check_for_pickup_and_store = [&player_one_position, &pickups_to_dispatch](const Pickup& pickup) {
         const float distance = math::Length(pickup.position - player_one_position);
         if(distance < 1.0f)
         {

@@ -7,11 +7,11 @@
 
 using namespace game;
 
-PickupDrawer::PickupDrawer(const std::vector<Ammo>& ammo_pickups)
+PickupDrawer::PickupDrawer(const std::vector<Pickup>& ammo_pickups)
     : m_ammo_pickups(ammo_pickups)
 {
-    m_pickup_sprites[Pickups::AMMO] = mono::CreateSprite("res/sprites/ammo_pickup.sprite");
-    m_pickup_sprites[Pickups::HEALTH] = mono::CreateSprite("res/sprites/health_pickup.sprite");
+    m_pickup_sprites[PickupTypes::AMMO] = mono::CreateSprite("res/sprites/ammo_pickup.sprite");
+    m_pickup_sprites[PickupTypes::HEALTH] = mono::CreateSprite("res/sprites/health_pickup.sprite");
 }
 
 PickupDrawer::~PickupDrawer()
@@ -19,7 +19,7 @@ PickupDrawer::~PickupDrawer()
 
 void PickupDrawer::doDraw(mono::IRenderer& renderer) const
 {
-    for(const Ammo& ammo : m_ammo_pickups)
+    for(const Pickup& ammo : m_ammo_pickups)
         renderer.DrawSprite(*m_pickup_sprites[ammo.type], ammo.position);
 }
 

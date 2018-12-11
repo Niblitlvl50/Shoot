@@ -8,19 +8,19 @@
 
 namespace game
 {
-    struct Ammo;
+    struct Pickup;
 
     class PickupDrawer : public mono::IDrawable
     {
     public:
     
-        PickupDrawer(const std::vector<Ammo>& ammo_pickups);
+        PickupDrawer(const std::vector<Pickup>& ammo_pickups);
         ~PickupDrawer();
 
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        const std::vector<Ammo>& m_ammo_pickups;
-        mono::ISpritePtr m_pickup_sprites[Pickups::N_AMMOS];
+        const std::vector<Pickup>& m_ammo_pickups;
+        mono::ISpritePtr m_pickup_sprites[PickupTypes::N_PICKUPS];
     };
 }

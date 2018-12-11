@@ -10,7 +10,7 @@
 
 namespace game
 {    
-    struct Ammo;
+    struct Pickup;
     struct ExcludeZone;
     
     void LoadWorld(
@@ -27,5 +27,5 @@ namespace game
         std::vector<mono::IPhysicsEntityPtr>& gameobjects,
         std::vector<SpawnPoint>& spawn_points,
         std::vector<math::Vector>& player_points,
-        std::vector<game::Ammo>& ammo_pickups);
+        std::vector<game::Pickup>& ammo_pickups);
 }

@@ -79,6 +79,6 @@ namespace game
         NavmeshContext m_navmesh;
         std::shared_ptr<class GibSystem> m_gib_system;
 
-        std::vector<Ammo> m_pickups;
+        std::vector<Pickup> m_pickups;
     };
 }

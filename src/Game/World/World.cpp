@@ -89,7 +89,7 @@ namespace
         enemy->SetRotation(rotation);
     }
 
-    void LoadAttributes(game::Ammo& ammo_pickup, const std::vector<Attribute>& attributes)
+    void LoadAttributes(game::Pickup& ammo_pickup, const std::vector<Attribute>& attributes)
     {
         world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
         world::FindAttribute(world::PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type);
@@ -105,7 +105,7 @@ void game::LoadWorldObjects(
     std::vector<mono::IPhysicsEntityPtr>& gameobjects,
     std::vector<SpawnPoint>& spawn_points,
     std::vector<math::Vector>& player_points,
-    std::vector<game::Ammo>& ammo_pickups)
+    std::vector<game::Pickup>& ammo_pickups)
 {
     for(const world::WorldObject& object : objects)
     {
@@ -124,7 +124,7 @@ void game::LoadWorldObjects(
         }
         else if(name == "ammo_pickup")
         {
-            game::Ammo ammo_pickup;
+            game::Pickup ammo_pickup;
             LoadAttributes(ammo_pickup, object.attributes);
             ammo_pickups.push_back(ammo_pickup);
         }
