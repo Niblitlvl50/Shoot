@@ -16,6 +16,7 @@ namespace editor
         void SetSelected(bool selected);
         void SetSpriteAnimation(int sprite_id);
         const std::string& Name() const;
+        virtual math::Quad BoundingBox() const;
         
     private:
 

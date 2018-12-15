@@ -45,11 +45,8 @@ void EntityProxy::SetSelected(bool selected)
 
 bool EntityProxy::Intersects(const math::Vector& world_position) const
 {
-    const math::Matrix& world_to_local = math::Inverse(m_entity->Transformation());
-    const math::Vector& local_position = math::Transform(world_to_local, world_position);
-
-    const math::Quad bb(-0.5f, -0.5f, 0.5f, 0.5f);
-    return math::PointInsideQuad(local_position, bb);
+    const math::Quad bb = m_entity->BoundingBox();
+    return math::PointInsideQuad(world_position, bb);
 }
 
 std::vector<Grabber> EntityProxy::GetGrabbers() const

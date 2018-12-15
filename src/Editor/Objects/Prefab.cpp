@@ -5,6 +5,8 @@
 #include "Rendering/Sprite/SpriteFactory.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
+
+#include "Math/Matrix.h"
 #include "Math/Quad.h"
 
 using namespace editor;
@@ -28,7 +30,10 @@ void Prefab::Draw(mono::IRenderer& renderer) const
 
     if(m_selected)
     {
-        math::Quad bb(-0.5f, -0.5f, 0.5f, 0.5f);
+        const mono::SpriteFrame& current_frame = m_sprite->GetCurrentFrame();
+        const math::Vector& sprite_size = current_frame.size / 2.0f;
+        const math::Quad bb = math::Quad(-sprite_size, sprite_size);
+
         renderer.DrawQuad(bb, mono::Color::RGBA(0.0f, 1.0f, 0.0f), 2.0f);
     }
 }
@@ -36,6 +41,15 @@ void Prefab::Draw(mono::IRenderer& renderer) const
 void Prefab::Update(unsigned int delta)
 {
     m_sprite->doUpdate(delta);
+}
+
+math::Quad Prefab::BoundingBox() const
+{
+    const mono::SpriteFrame& current_frame = m_sprite->GetCurrentFrame();
+    const math::Vector& sprite_size = current_frame.size / 2.0f;
+    const math::Matrix& transform = Transformation();
+ 
+    return math::Transform(transform, math::Quad(-sprite_size, sprite_size));
 }
 
 const std::string& Prefab::Name() const
