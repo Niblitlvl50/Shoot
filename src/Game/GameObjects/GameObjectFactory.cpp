@@ -68,6 +68,7 @@ mono::IPhysicsEntityPtr GameObjectFactory::CreateGameObject(const char* name, co
         config.sprite_file = "res/sprites/barrel_red.sprite";
         config.scale = math::Vector(1, 1);
         config.health = 100;
+        config.mass = 50.0f;
 
         auto red_barrel = std::make_shared<Barrel>(config);
         LoadAttributes(red_barrel, attributes);
@@ -83,6 +84,20 @@ mono::IPhysicsEntityPtr GameObjectFactory::CreateGameObject(const char* name, co
         config.sprite_file = "res/sprites/barrel_green.sprite";
         config.scale = math::Vector(1, 1);
         config.health = -1;
+        config.mass = 50.0f;
+
+        auto green_barrel = std::make_shared<Barrel>(config);
+        LoadAttributes(green_barrel, attributes);
+
+        return green_barrel;
+    }
+    else if(std::strcmp(name, "barrel_green_small") == 0)
+    {
+        Barrel::Configuration config;
+        config.sprite_file = "res/sprites/barrel_green_small.sprite";
+        config.scale = math::Vector(1, 1);
+        config.health = -1;
+        config.mass = 40.0f;
 
         auto green_barrel = std::make_shared<Barrel>(config);
         LoadAttributes(green_barrel, attributes);

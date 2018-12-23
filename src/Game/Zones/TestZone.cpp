@@ -62,11 +62,11 @@ TestZone::TestZone(const ZoneCreationContext& context)
     const game::SpawnConstraintFunc& constraintFunc = std::bind(&TestZone::OnSpawnConstraint, this, _1);
     const game::DespawnConstraintFunc& despawnConstraintFunc = std::bind(&TestZone::OnDespawnConstraint, this, _1);
 
-    mSpawnEntityToken = m_event_handler.AddListener(spawnEntityFunc);
-    mSpawnPhysicsEntityToken = m_event_handler.AddListener(spawnPhysicsFunc);
-    mRemoveEntityByIdToken = m_event_handler.AddListener(removeFunc);
-    mShockwaveEventToken = m_event_handler.AddListener(shockwaveFunc);
-    mDamageEventToken = m_event_handler.AddListener(damageFunc);
+    m_spawn_entity_token = m_event_handler.AddListener(spawnEntityFunc);
+    m_spawn_physics_entity_token = m_event_handler.AddListener(spawnPhysicsFunc);
+    m_remove_entity_by_id_token = m_event_handler.AddListener(removeFunc);
+    m_shockwave_event_token = m_event_handler.AddListener(shockwaveFunc);
+    m_damage_event_token = m_event_handler.AddListener(damageFunc);
     m_spawnConstraintToken = m_event_handler.AddListener(constraintFunc);
     m_despawnConstraintToken = m_event_handler.AddListener(despawnConstraintFunc);
 
@@ -75,22 +75,22 @@ TestZone::TestZone(const ZoneCreationContext& context)
 
 TestZone::~TestZone()
 {
-    m_event_handler.RemoveListener(mSpawnEntityToken);
-    m_event_handler.RemoveListener(mSpawnPhysicsEntityToken);
-    m_event_handler.RemoveListener(mRemoveEntityByIdToken);
-    m_event_handler.RemoveListener(mShockwaveEventToken);
-    m_event_handler.RemoveListener(mDamageEventToken);
+    m_event_handler.RemoveListener(m_spawn_entity_token);
+    m_event_handler.RemoveListener(m_spawn_physics_entity_token);
+    m_event_handler.RemoveListener(m_remove_entity_by_id_token);
+    m_event_handler.RemoveListener(m_shockwave_event_token);
+    m_event_handler.RemoveListener(m_damage_event_token);
     m_event_handler.RemoveListener(m_spawnConstraintToken);
     m_event_handler.RemoveListener(m_despawnConstraintToken);
 }
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    AddUpdatable(m_dispatcher);
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, *m_damage_controller, *this));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, m_event_handler));
-    AddUpdatable(m_dispatcher);
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));

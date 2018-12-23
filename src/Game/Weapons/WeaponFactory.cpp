@@ -141,6 +141,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
     {
         case game::WeaponType::STANDARD:
         {
+            bullet_config.mass = 0.5f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
 
@@ -171,6 +172,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::ROCKET_LAUNCHER:
         {
+            bullet_config.mass = 1.0f;
             bullet_config.life_span = 2.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
@@ -194,6 +196,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::CACOPLASMA:
         {
+            bullet_config.mass = 0.5f;
             bullet_config.life_span = 1.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_radius = 0.5f;
@@ -215,6 +218,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::GENERIC:
         {
+            bullet_config.mass = 0.5f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
             bullet_config.collision_radius = 0.15f;
@@ -237,6 +241,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::FLAK_CANON:
         {
+            bullet_config.mass = 0.1f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
 

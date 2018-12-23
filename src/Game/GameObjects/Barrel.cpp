@@ -21,7 +21,7 @@ Barrel::Barrel(const Configuration& config)
 
     const math::Vector& size = m_sprite->GetCurrentFrame().size;
 
-    auto body = mono::PhysicsFactory::CreateBody(25.0f, math::INF);
+    auto body = mono::PhysicsFactory::CreateBody(config.mass, math::INF);
     auto shape = mono::PhysicsFactory::CreateShape(body, size.x, size.y);
     shape->SetCollisionFilter(CollisionCategory::PROPS, PROPS_MASK);
 

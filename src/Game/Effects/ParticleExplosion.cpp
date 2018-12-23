@@ -23,6 +23,7 @@ namespace
 
         pool.m_position[index] = position;
         pool.m_velocity[index] = math::Vector(x, y);
+        pool.m_rotation[index] = 0.0f;
         pool.m_start_color[index] = mono::Color::RGBA(0.8f, 0.8f, 0.8f, 1.0f);
         pool.m_end_color[index] = mono::Color::RGBA(0.6f, 0.6f, 0.6f, 1.0f);
         pool.m_start_size[index] = 164.0f;

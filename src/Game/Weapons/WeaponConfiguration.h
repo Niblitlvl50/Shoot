@@ -19,6 +19,7 @@ namespace game
     {
         float life_span = 1.0f;
         float fuzzy_life_span = 0.0f;
+        float mass = 1.0f;
 
         float collision_radius = 0.5f;
         math::Vector scale = math::Vector(1.0f, 1.0f);

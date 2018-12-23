@@ -16,6 +16,7 @@ namespace game
         {
             std::string sprite_file;
             math::Vector scale;
+            float mass = 10.0f;
             int health = -1;
         };
 

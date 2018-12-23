@@ -20,6 +20,7 @@ namespace
         constexpr int life = 500;
 
         pool.m_position[index] = position;
+        pool.m_rotation[index] = 0.0f;
         pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
         pool.m_end_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
         pool.m_start_size[index] = 16.0f;

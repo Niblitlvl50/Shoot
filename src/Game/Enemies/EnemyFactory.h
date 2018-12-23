@@ -19,6 +19,8 @@ namespace game
         EnemyPtr CreatePathInvader(const math::Vector& position, const std::vector<Attribute>& attributes);
         EnemyPtr CreateBlackSquare(const math::Vector& position, float trigger_distance) override;
         EnemyPtr CreateBeast(const math::Vector& position) override;
+        EnemyPtr CreateBat(const math::Vector& position) override;
+
         EnemyPtr CreateFromName(
             const char* name, const math::Vector& position, const std::vector<Attribute>& attributes) override;
         

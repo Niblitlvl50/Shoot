@@ -31,6 +31,7 @@ namespace
         const float size = mono::Random(15.0f, 25.0f);
 
         pool.m_position[index] = position;
+        pool.m_rotation[index] = 0.0f;
         pool.m_velocity[index] = velocity * velocity_variation;
         pool.m_start_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 1.0f);
         pool.m_end_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 0.1f);

@@ -55,11 +55,11 @@ namespace game
 
         void Accept(mono::IRenderer& renderer) override;
 
-        mono::EventToken<game::SpawnEntityEvent> mSpawnEntityToken;
-        mono::EventToken<game::SpawnPhysicsEntityEvent> mSpawnPhysicsEntityToken;
-        mono::EventToken<game::RemoveEntityEvent> mRemoveEntityByIdToken;
-        mono::EventToken<game::ShockwaveEvent> mShockwaveEventToken;
-        mono::EventToken<game::DamageEvent> mDamageEventToken;
+        mono::EventToken<game::SpawnEntityEvent> m_spawn_entity_token;
+        mono::EventToken<game::SpawnPhysicsEntityEvent> m_spawn_physics_entity_token;
+        mono::EventToken<game::RemoveEntityEvent> m_remove_entity_by_id_token;
+        mono::EventToken<game::ShockwaveEvent> m_shockwave_event_token;
+        mono::EventToken<game::DamageEvent> m_damage_event_token;
         mono::EventToken<game::SpawnConstraintEvent> m_spawnConstraintToken;
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
         

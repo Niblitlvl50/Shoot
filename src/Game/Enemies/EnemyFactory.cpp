@@ -9,6 +9,7 @@
 #include "InvaderPathController.h"
 #include "BlackSquareController.h"
 #include "BeastController.h"
+#include "BatController.h"
 
 #include "DefinedAttributes.h"
 #include "DamageController.h"
@@ -113,6 +114,21 @@ game::EnemyPtr EnemyFactory::CreateBeast(const math::Vector& position)
     return enemy;
 }
 
+game::EnemyPtr EnemyFactory::CreateBat(const math::Vector& position)
+{
+    EnemySetup setup;
+    setup.sprite_file = "res/sprites/bat.sprite";
+    setup.size = 1.0f;
+    setup.mass = 20.0f;
+    setup.position = position;
+    setup.controller = std::make_unique<BatController>(m_event_handler);
+
+    auto enemy = std::make_shared<game::Enemy>(setup);
+    m_damage_controller.CreateRecord(enemy->Id(), nullptr);
+
+    return enemy;
+}
+
 game::EnemyPtr EnemyFactory::CreateFromName(
     const char* name, const math::Vector& position, const std::vector<Attribute>& attributes)
 {
@@ -131,6 +147,10 @@ game::EnemyPtr EnemyFactory::CreateFromName(
     else if(std::strcmp(name, "beast") == 0)
     {
         return CreateBeast(position);
+    }
+    else if(std::strcmp(name, "bat") == 0)
+    {
+        return CreateBat(position);
     }
 
     return nullptr;

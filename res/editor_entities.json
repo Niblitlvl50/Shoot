@@ -169,6 +169,18 @@
                 "position",
                 "rotation"
             ]
+        },
+        {
+            "name": "bat",
+            "sprite": "res/sprites/bat.sprite",
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "attribute_types": [
+                "position",
+                "rotation"
+            ]
         }
     ]
 }

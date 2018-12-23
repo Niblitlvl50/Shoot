@@ -24,7 +24,7 @@ Bullet::Bullet(const BulletConfiguration& config)
 {
     m_scale = config.scale;
 
-    m_physics.body = mono::PhysicsFactory::CreateBody(1.0f, 1.0f);
+    m_physics.body = mono::PhysicsFactory::CreateBody(config.mass, 1.0f);
     m_physics.body->SetCollisionHandler(this);
     m_physics.body->SetNoDamping();
 
