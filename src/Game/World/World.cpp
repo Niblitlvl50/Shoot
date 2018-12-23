@@ -34,12 +34,10 @@ void game::LoadWorld(
     for(const world::PolygonData& polygon : polygons)
         count += polygon.vertices.size();
 
-    auto static_terrain = std::make_shared<StaticTerrainBlock>(count, polygons.size());
-
-    for(const world::PolygonData& polygon : polygons)
-        static_terrain->AddPolygon(polygon);
-
-    zone->AddDrawable(static_terrain, BACKGROUND);
+//    auto static_terrain = std::make_shared<StaticTerrainBlock>(count, polygons.size());
+//    for(const world::PolygonData& polygon : polygons)
+//        static_terrain->AddPolygon(polygon);
+//    zone->AddDrawable(static_terrain, BACKGROUND);
 
     const std::vector<PrefabDefinition>& prefab_definitions = LoadPrefabDefinitions();
 
@@ -59,14 +57,14 @@ void game::LoadWorld(
             collision_polygon.push_back(math::Transform(transform, collision_vertex));
 
         zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(
-            prefab.position, prefab_definition->sprite_file.c_str(), collision_polygon), LayerId::PREFABS);
+            prefab.position, prefab_definition->sprite_file.c_str(), prefab_definition->collision_shape), LayerId::PREFABS);
     
         ExcludeZone exclude_zone;
         exclude_zone.polygon_vertices = collision_polygon;
         exclude_zones.push_back(exclude_zone);
     }
 
-    //zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
+    zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
 }
 
 namespace
