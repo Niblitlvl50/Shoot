@@ -16,7 +16,7 @@
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
 
-#include "Rendering/ICamera.h"
+#include "Camera/ICamera.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "System/System.h"

@@ -2,7 +2,7 @@
 #include "ScaleVisualizer.h"
 #include "FontIds.h"
 
-#include "Rendering/ICamera.h"
+#include "Camera/ICamera.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 

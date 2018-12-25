@@ -1,6 +1,6 @@
 
 #include "GridVisualizer.h"
-#include "Rendering/ICamera.h"
+#include "Camera/ICamera.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Matrix.h"

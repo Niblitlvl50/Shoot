@@ -1,8 +1,8 @@
 
 #pragma once
 
+#include "MonoPtrFwd.h"
 #include "Rendering/IDrawable.h"
-#include "Rendering/RenderPtrFwd.h"
 
 namespace editor
 {

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Rendering/RenderPtrFwd.h"
+#include "MonoPtrFwd.h"
 #include "Math/Vector.h"
 
 namespace System

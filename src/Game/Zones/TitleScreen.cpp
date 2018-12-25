@@ -10,7 +10,7 @@
 #include "Actions/MoveAction.h"
 
 #include "Math/Quad.h"
-#include "Rendering/ICamera.h"
+#include "Camera/ICamera.h"
 #include "Rendering/Color.h"
 
 #include "Events/KeyEvent.h"
