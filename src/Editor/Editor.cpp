@@ -35,7 +35,7 @@
 #include "Visualizers/ObjectNameVisualizer.h"
 #include "Visualizers/ObjectDetailVisualizer.h"
 
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
 #include <algorithm>
 
 namespace

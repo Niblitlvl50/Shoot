@@ -3,7 +3,7 @@
 #include "NavmeshFactory.h"
 #include "Math/MathFunctions.h"
 #include "WorldFile.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
 
 #include <set>
 #include <unordered_map>

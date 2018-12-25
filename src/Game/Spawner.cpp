@@ -2,7 +2,6 @@
 #include "Spawner.h"
 #include "Events/SpawnPhysicsEntityEvent.h"
 #include "Events/WaveEvent.h"
-#include "Random.h"
 #include "RenderLayers.h"
 #include "Factories.h"
 #include "Enemies/IEnemyFactory.h"
@@ -10,7 +9,8 @@
 
 #include "EventHandler/EventHandler.h"
 #include "Math/MathFunctions.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
+#include "Util/Random.h"
 
 #include "ObjectAttribute.h"
 

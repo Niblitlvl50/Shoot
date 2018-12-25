@@ -1,7 +1,7 @@
 
 #include "MoveAction.h"
 #include "Entity/IEntity.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
 #include <algorithm>
 
 void game::UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>& move_contexts)

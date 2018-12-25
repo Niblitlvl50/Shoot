@@ -3,7 +3,7 @@
 #include "ObjectAttribute.h"
 #include "DefinedAttributes.h"
 #include "ImGuiImpl/ImGuiImpl.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
 
 void editor::DrawProperty(const char* text, Variant& attribute)
 {

@@ -8,7 +8,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Audio/ISound.h"
 #include "Audio/AudioFactory.h"
-#include "Random.h"
+#include "Util/Random.h"
 
 #include "Events/SpawnPhysicsEntityEvent.h"
 #include "RenderLayers.h"

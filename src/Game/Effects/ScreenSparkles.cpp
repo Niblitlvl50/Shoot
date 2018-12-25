@@ -5,7 +5,7 @@
 #include "Particle/ParticleDrawer.h"
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
-#include "Random.h"
+#include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"

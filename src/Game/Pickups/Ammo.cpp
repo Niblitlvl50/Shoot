@@ -5,7 +5,7 @@
 
 #include "Math/Vector.h"
 #include "EventHandler/EventHandler.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
 
 
 void game::CheckPlayerPickups(std::vector<Pickup>& pickups, mono::EventHandler& event_handler)

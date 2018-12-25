@@ -7,8 +7,8 @@
 
 #include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
-#include "Random.h"
-#include "Algorithm.h"
+#include "Util/Algorithm.h"
+#include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"

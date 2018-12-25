@@ -17,7 +17,7 @@
 
 #include "Zone/IPhysicsZone.h"
 #include "Math/Matrix.h"
-#include "StringFunctions.h"
+#include "Util/StringFunctions.h"
 
 #include <algorithm>
 #include <string>

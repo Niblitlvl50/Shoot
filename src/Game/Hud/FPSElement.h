@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Entity/EntityBase.h"
-#include "FpsCounter.h"
+#include "Util/FpsCounter.h"
 
 namespace game
 {

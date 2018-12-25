@@ -15,7 +15,7 @@
 #include "Rendering/Sprite/SpriteFactory.h"
 #include "Audio/ISound.h"
 #include "Audio/AudioFactory.h"
-#include "Random.h"
+#include "Util/Random.h"
 
 using namespace game;
 
