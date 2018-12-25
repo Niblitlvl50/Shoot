@@ -14,7 +14,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter")
 
 add_subdirectory("Mono1/")
-include_directories("Mono1/MonoEngine" "Mono1/third_party" "src/Shared")
+include_directories("Mono1/src" "Mono1/third_party" "src/Shared")
 
 # Shared code
 file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
