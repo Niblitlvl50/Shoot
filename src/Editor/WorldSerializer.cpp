@@ -32,7 +32,7 @@ std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const e
     if(!file_name)
         return polygon_data;
 
-    File::FilePtr file = File::OpenBinaryFile(file_name);
+    file::FilePtr file = file::OpenBinaryFile(file_name);
     if(!file)
         return polygon_data;
 
@@ -65,12 +65,12 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
 {
     std::vector<IObjectProxyPtr> paths;
 
-    File::FilePtr file = File::OpenAsciiFile(file_name);
+    file::FilePtr file = file::OpenAsciiFile(file_name);
     if(!file)
         return paths;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const std::vector<std::string>& path_names = json["path_files"];
@@ -99,7 +99,7 @@ std::vector<IObjectProxyPtr> editor::LoadObjectsBinary(const char* file_name, co
 {
     std::vector<IObjectProxyPtr> objects;
 
-    File::FilePtr file = File::OpenBinaryFile(file_name);
+    file::FilePtr file = file::OpenBinaryFile(file_name);
     if(!file)
         return objects;
 
@@ -121,12 +121,12 @@ std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const ed
 {
     std::vector<IObjectProxyPtr> objects;
     
-    File::FilePtr file = File::OpenAsciiFile(file_name);
+    file::FilePtr file = file::OpenAsciiFile(file_name);
     if(!file)
         return objects;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
@@ -183,12 +183,12 @@ std::vector<IObjectProxyPtr> editor::LoadPrefabs(const char* file_name, const ed
 {
     std::vector<IObjectProxyPtr> prefabs;
 
-    File::FilePtr file = File::OpenAsciiFile(file_name);
+    file::FilePtr file = file::OpenAsciiFile(file_name);
     if(!file)
         return prefabs;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const nlohmann::json& json_prefabs = json["prefabs"];

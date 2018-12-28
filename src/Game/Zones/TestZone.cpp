@@ -107,7 +107,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(m_gib_system);
 
     {
-        File::FilePtr world_file = File::OpenBinaryFile("res/world.world");
+        file::FilePtr world_file = file::OpenBinaryFile("res/world.world");
         world::LevelFileHeader world_header;
         world::ReadWorld(world_file, world_header);
 
@@ -123,7 +123,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     }
 
     {
-        File::FilePtr world_objects_file = File::OpenAsciiFile("res/world.objects.bin");
+        file::FilePtr world_objects_file = file::OpenAsciiFile("res/world.objects.bin");
 
         world::WorldObjectsHeader world_objects_header;
         world::ReadWorldObjectsBinary(world_objects_file, world_objects_header);

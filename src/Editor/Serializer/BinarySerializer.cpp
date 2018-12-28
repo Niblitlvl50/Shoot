@@ -19,13 +19,13 @@ BinarySerializer::BinarySerializer()
 
 void BinarySerializer::WritePolygonFile(const std::string& file_name) const
 {
-    File::FilePtr file = File::CreateBinaryFile(file_name.c_str());
+    file::FilePtr file = file::CreateBinaryFile(file_name.c_str());
     world::WriteWorld(file, m_polygon_data);
 }
 
 void BinarySerializer::WriteObjects(const std::string& file_name) const
 {
-    File::FilePtr file = File::CreateBinaryFile(file_name.c_str());
+    file::FilePtr file = file::CreateBinaryFile(file_name.c_str());
     world::WriteWorldObjectsBinary(file, m_object_data);    
 }
 

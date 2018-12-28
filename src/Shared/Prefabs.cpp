@@ -9,12 +9,12 @@ std::vector<PrefabDefinition> LoadPrefabDefinitions()
 {
     std::vector<PrefabDefinition> loaded_prefabs;
 
-    File::FilePtr file = File::OpenAsciiFile("res/editor_prefabs.json");
+    file::FilePtr file = file::OpenAsciiFile("res/editor_prefabs.json");
     if(!file)
         return loaded_prefabs;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     const nlohmann::json& prefabs = json["prefabs"];

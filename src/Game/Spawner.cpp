@@ -22,12 +22,12 @@ using namespace game;
 std::vector<Wave> game::LoadWaveFile(const char* wave_file)
 {
     std::vector<Wave> waves;
-    File::FilePtr file = File::OpenAsciiFile(wave_file);
+    file::FilePtr file = file::OpenAsciiFile(wave_file);
     if(!file)
         return waves;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     const nlohmann::json& json_waves = json["waves"];

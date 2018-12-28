@@ -21,7 +21,7 @@ namespace
     }
 }
 
-bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
+bool world::WriteWorld(file::FilePtr& file, const LevelFileHeader& level)
 {
     WriteValues(&level.version, file.get());
 
@@ -61,10 +61,10 @@ bool world::WriteWorld(File::FilePtr& file, const LevelFileHeader& level)
     return true;
 }
 
-bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
+bool world::ReadWorld(const file::FilePtr& file, LevelFileHeader& level)
 {
     std::vector<byte> bytes;
-    File::FileRead(file, bytes);
+    file::FileRead(file, bytes);
 
     int offset = 0;
     int n_polygons = 0;
@@ -120,7 +120,7 @@ bool world::ReadWorld(const File::FilePtr& file, LevelFileHeader& level)
     return true;
 }
 
-bool world::WriteWorldObjectsBinary(File::FilePtr& file, const world::WorldObjectsHeader& objects_header)
+bool world::WriteWorldObjectsBinary(file::FilePtr& file, const world::WorldObjectsHeader& objects_header)
 {
     WriteValues(&objects_header.version, file.get());
 
@@ -140,13 +140,13 @@ bool world::WriteWorldObjectsBinary(File::FilePtr& file, const world::WorldObjec
     return true;
 }
 
-bool world::ReadWorldObjectsBinary(const File::FilePtr& file, world::WorldObjectsHeader& objects)
+bool world::ReadWorldObjectsBinary(const file::FilePtr& file, world::WorldObjectsHeader& objects)
 {
     if(!file)
         return false;
 
     std::vector<byte> bytes;
-    File::FileRead(file, bytes);
+    file::FileRead(file, bytes);
 
     if(bytes.empty())
         return false;
@@ -175,7 +175,7 @@ bool world::ReadWorldObjectsBinary(const File::FilePtr& file, world::WorldObject
 }
 
 
-bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject>& objects)
+bool world::WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects)
 {
     nlohmann::json json_object_collection;
     
@@ -207,10 +207,10 @@ bool world::WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject
     return true;
 }
 
-bool world::ReadWorldObjects(const File::FilePtr& file, std::vector<WorldObject>& objects)
+bool world::ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>& objects)
 {    
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const nlohmann::json& json_objects = json["objects"];

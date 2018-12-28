@@ -34,7 +34,7 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 
     const std::string& serialized_config = json.dump(4);
 
-    File::FilePtr file = File::CreateAsciiFile(config_file);
+    file::FilePtr file = file::CreateAsciiFile(config_file);
     std::fwrite(serialized_config.data(), serialized_config.length(), sizeof(char), file.get());
 
     return true;
@@ -42,12 +42,12 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 
 bool editor::LoadConfig(const char* config_file, editor::Config& config)
 {
-    File::FilePtr file = File::OpenAsciiFile(config_file);
+    file::FilePtr file = file::OpenAsciiFile(config_file);
     if(!file)
         return false;
 
     std::vector<byte> file_data;
-    File::FileRead(file, file_data);
+    file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 

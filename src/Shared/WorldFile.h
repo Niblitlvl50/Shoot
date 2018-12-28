@@ -49,12 +49,12 @@ namespace world
         std::vector<WorldObject> objects;
     };
 
-    bool WriteWorld(File::FilePtr& file, const LevelFileHeader& level);
-    bool ReadWorld(const File::FilePtr& file, LevelFileHeader& level);
+    bool WriteWorld(file::FilePtr& file, const LevelFileHeader& level);
+    bool ReadWorld(const file::FilePtr& file, LevelFileHeader& level);
 
-    bool WriteWorldObjects(File::FilePtr& file, const std::vector<WorldObject>& objects);
-    bool ReadWorldObjects(const File::FilePtr& file, std::vector<WorldObject>& objects);
+    bool WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects);
+    bool ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>& objects);
 
-    bool WriteWorldObjectsBinary(File::FilePtr& file, const WorldObjectsHeader& objects);
-    bool ReadWorldObjectsBinary(const File::FilePtr& file, WorldObjectsHeader& objects);
+    bool WriteWorldObjectsBinary(file::FilePtr& file, const WorldObjectsHeader& objects);
+    bool ReadWorldObjectsBinary(const file::FilePtr& file, WorldObjectsHeader& objects);
 }

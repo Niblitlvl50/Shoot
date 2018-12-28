@@ -13,12 +13,12 @@ namespace
 {
     bool LoadEntities(std::vector<EntityDefinition>& collection)
     {
-        File::FilePtr file = File::OpenAsciiFile("res/editor_entities.json");
+        file::FilePtr file = file::OpenAsciiFile("res/editor_entities.json");
         if(!file)
             return false;
 
         std::vector<byte> file_data;
-        File::FileRead(file, file_data);
+        file::FileRead(file, file_data);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
 
         const nlohmann::json& entities = json["entities"];
