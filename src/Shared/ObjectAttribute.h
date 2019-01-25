@@ -2,11 +2,12 @@
 #pragma once
 
 #include "Math/Vector.h"
+#include "Rendering/Color.h"
 #include <assert.h>
 #include <algorithm>
 #include <cstring>
 
-constexpr int VariantStringMaxLength = 24;
+constexpr int VariantStringMaxLength = 32;
 
 class Variant
 {
@@ -14,6 +15,11 @@ public:
 
     Variant()
     { }
+
+    Variant(bool value)
+    {
+        *this = value;
+    }
 
     Variant(int value)
     {
@@ -33,6 +39,17 @@ public:
     Variant(const math::Vector& point)
     {
         *this = point;
+    }
+
+    Variant(const mono::Color::RGBA& color)
+    {
+        *this = color;
+    }
+
+    operator bool() const
+    {
+        assert(type == Type::BOOL);
+        return int_value;
     }
 
     operator int() const
@@ -57,6 +74,19 @@ public:
     {
         assert(type == Type::POINT);
         return point_value;
+    }
+
+    operator mono::Color::RGBA() const
+    {
+        assert(type == Type::COLOR);
+        return color_value;
+    }
+
+    Variant& operator = (const bool value)
+    {
+        type = Type::BOOL;
+        int_value = value;
+        return *this;
     }
 
     Variant& operator = (const int value)
@@ -93,13 +123,22 @@ public:
         return *this;
     }
 
+    Variant& operator = (const mono::Color::RGBA& color)
+    {
+        type = Type::COLOR;
+        color_value = color;
+        return *this;
+    }
+
     enum class Type : short
     {
         NONE,
+        BOOL,
         INT,
         FLOAT,
         STRING,
-        POINT
+        POINT,
+        COLOR
     };
 
     Type type = Type::NONE;
@@ -110,14 +149,15 @@ public:
         float float_value;
         char string_value[VariantStringMaxLength];
         math::Vector point_value;
+        mono::Color::RGBA color_value;
     };
 };
 
 struct Attribute
 {
-    unsigned int id = 0;
+    uint32_t id = 0;
     Variant attribute;
 };
 
-static_assert(sizeof(Variant) == 28, "Variant size is too big!");
-static_assert(sizeof(Attribute) == 32, "Attribute size is too big!");
+static_assert(sizeof(Variant) == 36, "Variant size is too big!");
+static_assert(sizeof(Attribute) == 40, "Attribute size is too big!");
