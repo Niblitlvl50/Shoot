@@ -174,7 +174,7 @@ bool world::ReadWorldObjectsBinary(const file::FilePtr& file, world::WorldObject
     return true;
 }
 
-
+/*
 bool world::WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects)
 {
     nlohmann::json json_object_collection;
@@ -242,3 +242,4 @@ bool world::ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>
 
     return true;
 }
+*/

@@ -52,8 +52,8 @@ namespace world
     bool WriteWorld(file::FilePtr& file, const LevelFileHeader& level);
     bool ReadWorld(const file::FilePtr& file, LevelFileHeader& level);
 
-    bool WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects);
-    bool ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>& objects);
+    //bool WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects);
+    //bool ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>& objects);
 
     bool WriteWorldObjectsBinary(file::FilePtr& file, const WorldObjectsHeader& objects);
     bool ReadWorldObjectsBinary(const file::FilePtr& file, WorldObjectsHeader& objects);
