@@ -2,19 +2,19 @@
 #include "TestZone.h"
 
 #include "Factories.h"
-#include "Enemies/Enemy.h"
 #include "AIKnowledge.h"
-#include "DamageController.h"
-#include "GameObjects/IGameObjectFactory.h"
 
 #include "Effects/SmokeEffect.h"
 #include "Effects/GibSystem.h"
 #include "Effects/ParticleExplosion.h"
+#include "Entity/IPhysicsEntity.h"
+
 #include "Hud/FPSElement.h"
 #include "Hud/WeaponStatusElement.h"
 #include "Hud/Overlay.h"
 #include "Hud/PickupDrawer.h"
 #include "Hud/WaveDrawer.h"
+#include "Hud/ConsoleDrawer.h"
 #include "Explosion.h"
 
 #include "EventHandler/EventHandler.h"
@@ -27,6 +27,7 @@
 #include "Events/SpawnConstraintEvent.h"
 
 #include "RenderLayers.h"
+#include "Rendering/RenderSystem.h"
 
 #include "WorldFile.h"
 #include "World/World.h"
@@ -36,21 +37,26 @@
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
-#include "UpdateTasks/HealthbarUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
 #include "UpdateTasks/PickupUpdater.h"
+#include "Network/NetworkReplicator.h"
 
 #include "Audio/AudioFactory.h"
 #include "Physics/IBody.h"
+
+#include "SystemContext.h"
+#include "DamageSystem.h"
+#include "TransformSystem.h"
 
 using namespace game;
 
 TestZone::TestZone(const ZoneCreationContext& context)
     : PhysicsZone(math::Vector(0.0f, 0.0f), 0.25f)
+    , m_game_config(*context.game_config)
     , m_event_handler(*context.event_handler)
-    , m_damage_controller(context.damage_controller)
-    , m_dispatcher(std::make_shared<MessageDispatcher>())
-      //m_connection(m_dispatcher.get())
+    , m_system_context(context.system_context)
+    , m_beacon(17776)
+    , m_dispatcher(std::make_shared<MessageDispatcher>(*context.event_handler))
 {
     using namespace std::placeholders;
     
@@ -70,6 +76,14 @@ TestZone::TestZone(const ZoneCreationContext& context)
     m_spawnConstraintToken = m_event_handler.AddListener(constraintFunc);
     m_despawnConstraintToken = m_event_handler.AddListener(despawnConstraintFunc);
 
+    const std::function<bool (const TextMessage&)> text_func = std::bind(&TestZone::HandleText, this, _1);
+    const std::function<bool (const PositionalMessage&)> positional_func = std::bind(&TestZone::HandlePosMessage, this, _1);
+    const std::function<bool (const SpawnMessage&)> spawn_func = std::bind(&TestZone::HandleSpawnMessage, this, _1);
+
+    m_text_func_token = m_event_handler.AddListener(text_func);
+    m_pos_func_token = m_event_handler.AddListener(positional_func);
+    m_spawn_func_token = m_event_handler.AddListener(spawn_func);
+
     m_background_music = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
 }
 
@@ -82,14 +96,27 @@ TestZone::~TestZone()
     m_event_handler.RemoveListener(m_damage_event_token);
     m_event_handler.RemoveListener(m_spawnConstraintToken);
     m_event_handler.RemoveListener(m_despawnConstraintToken);
+
+    m_event_handler.RemoveListener(m_text_func_token);
+    m_event_handler.RemoveListener(m_pos_func_token);
+    m_event_handler.RemoveListener(m_spawn_func_token);
 }
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    network::ISocketPtr in_socket = network::OpenLoopbackSocket(m_game_config.server_port, false);
+    network::ISocketPtr out_socket = network::OpenLoopbackSocket(6666, false);
+
+    network::Address address;
+    address.host = network::GetLoopbackAddress();
+    address.port = m_game_config.client_port;
+
+    m_remote_connection = 
+        std::make_unique<RemoteConnection>(m_dispatcher.get(), std::move(in_socket), std::move(out_socket), address);
+
     AddUpdatable(m_dispatcher);
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
-    AddUpdatable(std::make_shared<HealthbarUpdater>(m_healthbars, *m_damage_controller, *this));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, m_event_handler));
     
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
@@ -98,9 +125,15 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f)));
     AddEntity(hud_overlay, UI);
     
-    AddDrawable(std::make_shared<HealthbarDrawer>(m_healthbars), LayerId::GAMEOBJECTS);
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+
+    AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<WaveDrawer>(m_event_handler), LayerId::UI);
+
+    m_console_drawer = std::make_shared<ConsoleDrawer>();
+    AddDrawable(m_console_drawer, LayerId::UI);
 
     m_gib_system = std::make_shared<GibSystem>();
     AddDrawable(m_gib_system, BACKGROUND_DECALS);
@@ -115,7 +148,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         game::LoadWorld(this, world_header.polygons, world_header.prefabs, exclude_zones);
 
         // Nav mesh
-        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 200, 150, 3, exclude_zones);
+        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
         m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
         game::g_navmesh = &m_navmesh;
         
@@ -128,25 +161,16 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         world::WorldObjectsHeader world_objects_header;
         world::ReadWorldObjectsBinary(world_objects_file, world_objects_header);
 
-        std::vector<EnemyPtr> enemies;
-        std::vector<mono::IPhysicsEntityPtr> gameobjects;
         std::vector<SpawnPoint> spawn_points;
         std::vector<math::Vector> player_points;
 
         game::LoadWorldObjects(
             world_objects_header.objects,
-            enemy_factory, gameobject_factory,
-            enemies, gameobjects, spawn_points, player_points, m_pickups);
-
-        for(const auto& enemy : enemies)
-            AddPhysicsEntity(enemy, LayerId::GAMEOBJECTS);
-
-        for(const auto& gameobject : gameobjects)
-            AddPhysicsEntity(gameobject, LayerId::GAMEOBJECTS);
+            spawn_points, player_points, m_pickups);
 
         const std::vector<Wave>& waves = LoadWaveFile("res/waves/wave1.json");
         m_enemy_spawner = std::make_unique<Spawner>(spawn_points, waves, m_event_handler);
-        m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_event_handler);
+        m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_system_context, m_event_handler);
     }
 
     //m_background_music->Play();   
@@ -154,6 +178,8 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     // Test stuff...
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), GAMEOBJECTS);
     AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), GAMEOBJECTS);
+
+    //AddUpdatable(std::make_shared<NetworkReplicator>(this, mono::GetSpriteInstances(), m_remote_connection.get()));
 }
 
 void TestZone::Accept(mono::IRenderer& renderer)
@@ -187,6 +213,21 @@ bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 bool TestZone::SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event)
 {
     AddPhysicsEntity(event.entity, event.layer);
+
+    const math::Vector position = event.entity->Position();
+
+    SpawnMessage spawn_message;
+    spawn_message.spawn_type_id = 0;
+    spawn_message.assigned_entity_id = event.entity->Id();
+    spawn_message.x = position.x;
+    spawn_message.y = position.y;
+
+    NetworkMessage network_message;
+    network_message.id = 1;
+    network_message.payload = SerializeMessage(spawn_message);
+
+    m_remote_connection->SendMessage(network_message);
+
     return true;
 }
 
@@ -227,34 +268,33 @@ bool TestZone::OnShockwaveEvent(const game::ShockwaveEvent& event)
 
 bool TestZone::OnDamageEvent(const game::DamageEvent& event)
 {
-    mono::IPhysicsEntityPtr entity = FindPhysicsEntityFromBody(event.body);
-    if(!entity)
-        return false;
+    uint32_t entity_id = 0;
 
-    const DamageResult& result = m_damage_controller->ApplyDamage(entity->Id(), event.damage);
-    if(!result.success)
-        return false;
-
-    if(result.health_left <= 0)
-    {
-        m_damage_controller->RemoveRecord(entity->Id());
-        m_enemy_spawner->EntityDestroyed(entity->Id());
-        m_gib_system->EmitGibsAt(entity->Position(), event.direction);
-        RemovePhysicsEntity(entity);
-    }
+    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+    const DamageResult& result = damage_system->ApplyDamage(entity_id, event.damage);
+    (void)result;
 
     return true;
 }
 
 void TestZone::RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity)
 {
-    m_damage_controller->RemoveRecord(entity->Id());
+    //m_damage_controller->RemoveRecord(entity->Id());
     PhysicsZone::RemovePhysicsEntity(entity);
+
+    DespawnMessage despawn_message;
+    despawn_message.entity_id = entity->Id();
+
+    NetworkMessage network_message;
+    network_message.id = 1;
+    network_message.payload = SerializeMessage(despawn_message);
+
+    m_remote_connection->SendMessage(network_message);
 }
 
 void TestZone::RemoveEntity(const mono::IEntityPtr& entity)
 {
-    m_damage_controller->RemoveRecord(entity->Id());
+    //m_damage_controller->RemoveRecord(entity->Id());
     PhysicsZone::RemoveEntity(entity);
 }
 
@@ -267,5 +307,21 @@ bool TestZone::OnSpawnConstraint(const game::SpawnConstraintEvent& event)
 bool TestZone::OnDespawnConstraint(const game::DespawnConstraintEvent& event)
 {
     PhysicsZone::RemoveConstraint(event.constraint);
+    return true;
+}
+
+bool TestZone::HandleText(const TextMessage& text_message)
+{
+    m_console_drawer->AddText(text_message.text);
+    return true;
+}
+
+bool TestZone::HandlePosMessage(const PositionalMessage& pos_message)
+{
+    return true;
+}
+
+bool TestZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
+{
     return true;
 }

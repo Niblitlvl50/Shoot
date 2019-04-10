@@ -5,12 +5,14 @@
 #include "Math/Quad.h"
 #include "Weapons/WeaponTypes.h"
 
+#include <cstdint>
+
 namespace game
 {
     struct PlayerInfo
     {
         bool is_active;
-        unsigned int entity_id;
+        uint32_t entity_id;
         math::Vector position;
         WeaponType weapon_type;
         int magazine_left;

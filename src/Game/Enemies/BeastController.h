@@ -1,14 +1,28 @@
 
 #pragma once
 
-#include "Enemy.h"
+#include "MonoFwd.h"
+#include "Rendering/RenderFwd.h"
+#include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
 
 namespace game
 {
-    class BeastController : public IEnemyController
+    class BeastController : public IEntityLogic
     {
     public:
+
+        BeastController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        void Update(uint32_t delta_ms) override;
+
+    private:
+
+        void ToIdle();
+        void ToTracking();
+        void ToAttacking();
+        void Idle(uint32_t delta);
+        void Tracking(uint32_t delta);
+        void Attacking(uint32_t delta);
 
         enum class BeastStates
         {
@@ -17,24 +31,9 @@ namespace game
             ATTACKING
         };
 
-        BeastController(mono::EventHandler& event_handler);
-        void Initialize(class Enemy* enemy) override;
-        void doUpdate(unsigned int delta) override;
-
-    private:
-    
-        void ToIdle();
-        void ToTracking();
-        void ToAttacking();
-        void Idle(unsigned int delta);
-        void Tracking(unsigned int delta);
-        void Attacking(unsigned int delta);
-
-        class Enemy* m_enemy;
-
-        using BeastStateMachine = StateMachine<BeastStates, unsigned int>;
+        using BeastStateMachine = StateMachine<BeastStates, uint32_t>;
         BeastStateMachine m_states;
-
-        unsigned int m_timer;
+        uint32_t m_timer;
+        mono::ISprite* m_sprite;
     };
 }

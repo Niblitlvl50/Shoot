@@ -1,6 +1,7 @@
 
 #include "PlayerDaemon.h"
 #include "Shuttle.h"
+#include "ShuttleLogic.h"
 #include "RenderLayers.h"
 #include "Events/SpawnPhysicsEntityEvent.h"
 #include "Events/SpawnEntityEvent.h"
@@ -9,7 +10,12 @@
 #include "FontIds.h"
 
 #include "Factories.h"
-#include "GameObjects/IGameObjectFactory.h"
+#include "Entity/IEntityManager.h"
+
+#include "SystemContext.h"
+#include "DamageSystem.h"
+#include "TransformSystem.h"
+#include "Entity/EntityLogicSystem.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/ControllerEvent.h"
@@ -23,6 +29,8 @@
 #include "Entity/EntityBase.h"
 #include "Hud/UIElements.h"
 #include "Hud/Dialog.h"
+
+#include "Component.h"
 
 #include <functional>
 
@@ -52,7 +60,7 @@ namespace
             AddChild(std::make_shared<UIDialog>("YOU DEAD! Respawn?", options, background_color, text_color));
         }
 
-        void Update(unsigned int delta)
+        void Update(uint32_t delta_ms)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
@@ -82,9 +90,10 @@ namespace
 }
 
 PlayerDaemon::PlayerDaemon(
-    mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler)
+    mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_camera(camera)
     , m_player_points(player_points)
+    , m_system_context(system_context)
     , m_event_handler(event_handler)
 {
     using namespace std::placeholders;
@@ -96,65 +105,78 @@ PlayerDaemon::PlayerDaemon(
     m_removed_token = m_event_handler.AddListener(removed_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
+    {
+        m_player_one_id = System::GetControllerId(System::ControllerId::Primary);
         SpawnPlayer1();
+    }
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
+    {
+        m_player_two_id = System::GetControllerId(System::ControllerId::Secondary);
         SpawnPlayer2();
+    }
 }
 
 PlayerDaemon::~PlayerDaemon()
 {
     m_event_handler.RemoveListener(m_added_token);
     m_event_handler.RemoveListener(m_removed_token);
+
+    if(g_player_one.is_active)
+        game::entity_manager->ReleaseEntity(g_player_one.entity_id);
+
+    if(g_player_two.is_active)
+        game::entity_manager->ReleaseEntity(g_player_two.entity_id);
+}
+
+void PlayerDaemon::SpawnPlayer(
+    game::PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback)
+{
+    mono::Entity player_entity = game::entity_manager->CreateEntity("res/entities/player_entity.entity");
+
+    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    math::Matrix& transform = transform_system->GetTransform(player_entity.id);
+    math::Position(transform, spawn_point);
+
+    game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+    damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
+
+    game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
+    entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
+
+    IEntityLogic* player_logic = new ShuttleLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
+    logic_system->AddLogic(player_entity.id, player_logic);
+
+    m_camera->Follow(player_entity.id, math::ZeroVec);
+
+    player_info->entity_id = player_entity.id;
+    player_info->is_active = true;
 }
 
 void PlayerDaemon::SpawnPlayer1()
 {
-    const auto destroyed_func = [this](unsigned int id) {
+    const auto destroyed_func = [this](uint32_t entity_id) {
         game::g_player_one.is_active = false;
-        const math::Vector death_position = m_player_one->Position();
-        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, death_position);
+        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
         m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
     };
 
-    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
-    auto player_one = game::gameobject_factory->CreateShuttle(
-        spawn_point, System::GetController(System::ControllerId::Primary), destroyed_func);
-
-    m_player_one = std::static_pointer_cast<Shuttle>(player_one);
-    m_player_one->SetPlayerInfo(&game::g_player_one);
-    //m_player_one->SetShading(mono::Color::RGBA(0.5, 1.0f, 0.5f));
-
-    game::g_player_one.is_active = true;
-
-    m_camera->SetPosition(spawn_point);
-    m_camera->Follow(m_player_one, math::ZeroVec);
-
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_one, LayerId::GAMEOBJECTS));
+    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
 }
 
 void PlayerDaemon::SpawnPlayer2()
 {
-    const auto destroyed_func = [](unsigned int id) {
+    const auto destroyed_func = [](uint32_t entity_id) {
         game::g_player_two.is_active = false;
     };
 
-    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
-    auto player_two = game::gameobject_factory->CreateShuttle(
-        spawn_point, System::GetController(System::ControllerId::Secondary), destroyed_func);
-
-    m_player_two = std::static_pointer_cast<Shuttle>(player_two);
-    m_player_two->SetPlayerInfo(&game::g_player_two);
-    m_player_two->SetShading(mono::Color::RGBA(1.0, 0.0f, 0.5f));
-
-    game::g_player_two.is_active = true;
-
-    m_event_handler.DispatchEvent(SpawnPhysicsEntityEvent(m_player_two, LayerId::GAMEOBJECTS));
+    SpawnPlayer(&game::g_player_two, System::GetController(System::ControllerId::Primary), destroyed_func);
 }
 
 bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    if(!m_player_one)
+    if(!game::g_player_one.is_active)
     {
         SpawnPlayer1();
         m_player_one_id = event.id;
@@ -172,16 +194,19 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
 {
     if(event.id == m_player_one_id)
     {
-        m_camera->Unfollow();
-        m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_one->Id()));
+        if(game::g_player_one.is_active)
+            entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
-        m_player_one = nullptr;
+        m_camera->Unfollow();
+        game::g_player_one.entity_id = std::numeric_limits<uint32_t>::max();
         game::g_player_one.is_active = false;
     }
     else if(event.id == m_player_two_id)
     {
-        m_event_handler.DispatchEvent(RemoveEntityEvent(m_player_two->Id()));
-        m_player_two = nullptr;
+        if(game::g_player_two.is_active)
+            entity_manager->ReleaseEntity(game::g_player_two.entity_id);
+
+        game::g_player_two.entity_id = std::numeric_limits<uint32_t>::max();
         game::g_player_two.is_active = false;
     }
 

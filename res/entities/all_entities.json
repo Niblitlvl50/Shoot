@@ -1,0 +1,13 @@
+{
+    "all_entities": [
+        "res/entities/demon_monster.entity",
+        "res/entities/floor_dude.entity",
+        "res/entities/green_blob.entity",
+        "res/entities/physics_floor.entity",
+        "res/entities/pink_blolb.entity",
+        "res/entities/player_bullet.entity",
+        "res/entities/player_bullet22.entity",
+        "res/entities/player_entity.entity",
+        "res/entities/tiny_explosion.entity"
+    ]
+}

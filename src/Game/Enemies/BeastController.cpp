@@ -1,12 +1,18 @@
 
 #include "BeastController.h"
-#include "Enemy.h"
 #include "Rendering/Sprite/ISprite.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+
+#include "SystemContext.h"
 
 using namespace game;
 
-BeastController::BeastController(mono::EventHandler& event_handler)
+BeastController::BeastController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
 {
+    mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_sprite = sprite_system->GetSprite(entity_id);
+
     using namespace std::placeholders;
 
     const std::unordered_map<BeastStates, BeastStateMachine::State>& state_table = {
@@ -15,53 +21,47 @@ BeastController::BeastController(mono::EventHandler& event_handler)
         { BeastStates::ATTACKING, { std::bind(&BeastController::ToAttacking, this), std::bind(&BeastController::Attacking, this, _1) } }
     };
 
-    m_states.SetStateTable(state_table);    
-}
-
-void BeastController::Initialize(Enemy* enemy)
-{
-    m_enemy = enemy;
+    m_states.SetStateTable(state_table);
     m_states.TransitionTo(BeastStates::IDLE);
 }
 
-void BeastController::doUpdate(unsigned int delta)
+void BeastController::Update(uint32_t delta_ms)
 {
-    m_states.UpdateState(delta);
-
-    m_timer += delta;
+    m_states.UpdateState(delta_ms);
+    m_timer += delta_ms;
 }
 
 void BeastController::ToIdle()
 {
-    m_enemy->m_sprite->SetAnimation(3);
+    m_sprite->SetAnimation(3);
     m_timer = 0;
 }
 
 void BeastController::ToTracking()
 {
-    m_enemy->m_sprite->SetAnimation(2);
+    m_sprite->SetAnimation(2);
     m_timer = 0;
 }
 
 void BeastController::ToAttacking()
 {
-    m_enemy->m_sprite->SetAnimation(1);
+    m_sprite->SetAnimation(1);
     m_timer = 0;
 }
 
-void BeastController::Idle(unsigned int delta)
+void BeastController::Idle(uint32_t delta)
 {
     if(m_timer > 1000)
         m_states.TransitionTo(BeastStates::TRACKING);
 }
 
-void BeastController::Tracking(unsigned int delta)
+void BeastController::Tracking(uint32_t delta)
 {
     if(m_timer > 1000)
         m_states.TransitionTo(BeastStates::ATTACKING);
 }
 
-void BeastController::Attacking(unsigned int delta)
+void BeastController::Attacking(uint32_t delta)
 {
     if(m_timer > 1000)
         m_states.TransitionTo(BeastStates::IDLE);

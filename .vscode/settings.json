@@ -70,6 +70,27 @@
         "__functional_03": "cpp",
         "chipmunk_private.h": "c",
         "chipmunk_structs.h": "c",
-        "any": "cpp"
+        "any": "cpp",
+        "filesystem": "cpp",
+        "__debug": "cpp",
+        "__threading_support": "cpp",
+        "cctype": "cpp",
+        "clocale": "cpp",
+        "codecvt": "cpp",
+        "cstdarg": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "iomanip": "cpp",
+        "iostream": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "streambuf": "cpp",
+        "valarray": "cpp",
+        "unordered_set": "cpp"
     }
 }

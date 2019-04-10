@@ -7,20 +7,20 @@
 
 namespace game
 {
-    class Shuttle;
+    class ShuttleLogic;
     struct PickupEvent;
 
     class PlayerInteractionController
     {
     public:
     
-        PlayerInteractionController(Shuttle* player, mono::EventHandler& event_handler);
+        PlayerInteractionController(ShuttleLogic* shuttle_logic, mono::EventHandler& event_handler);
         ~PlayerInteractionController();
 
         bool OnPickup(const game::PickupEvent& event);
 
     private:
-        Shuttle* m_player;
+        ShuttleLogic* m_shuttle_logic;
         mono::EventHandler& m_event_handler;
         mono::ISoundPtr m_pickup_sound;
         mono::EventToken<game::PickupEvent> m_pickup_token;

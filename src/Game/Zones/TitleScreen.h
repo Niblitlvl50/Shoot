@@ -21,6 +21,7 @@ namespace game
         int OnUnload() override;
 
         void Continue();
+        void Remote();
         void Quit();
 
         mono::EventHandler& m_event_handler;

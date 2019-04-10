@@ -16,9 +16,6 @@ namespace editor
 
         ObjectFactory(Editor* editor);
 
-        IObjectProxyPtr CreateObject(const char* object_name) const;
-
-        IObjectProxyPtr CreateEntity(const char* entity_name) const;
         IObjectProxyPtr CreatePath(const std::string& name, const std::vector<math::Vector>& points) const;
         IObjectProxyPtr CreatePrefab(const std::string& prefab_name) const;
         IObjectProxyPtr CreatePolygon(

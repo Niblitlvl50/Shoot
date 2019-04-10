@@ -1,7 +1,10 @@
 
 #pragma once
 
-#include "Enemy.h"
+#include "MonoFwd.h"
+#include "Math/MathFwd.h"
+#include "Rendering/RenderFwd.h"
+#include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
 
 namespace game
@@ -13,33 +16,34 @@ namespace game
         ATTACKING
     };
 
-    class InvaderController : public IEnemyController
+    class InvaderController : public IEntityLogic
     {
     public:
 
-        InvaderController(mono::EventHandler& event_handler);
+        InvaderController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
         virtual ~InvaderController();
 
-        void Initialize(Enemy* enemy) override;
-        void doUpdate(unsigned int delta) override;
+        void Update(uint32_t delta_ms) override;
 
     private:
 
         void ToIdle();
         void ToTracking();
         void ToAttacking();
-        void Idle(unsigned int delta);
-        void Tracking(unsigned int delta);
-        void Attacking(unsigned int delta);
-        
-        mono::EventHandler& m_event_handler;
+        void Idle(uint32_t delta_ms);
+        void Tracking(uint32_t delta_ms);
+        void Attacking(uint32_t delta_ms);
 
-        Enemy* m_enemy;
+        const uint32_t m_entity_id;
+
         std::unique_ptr<class IWeaponSystem> m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
-        unsigned int m_idle_timer;
-        using InvaderStateMachine = StateMachine<InvaderStates, unsigned int>;
+        uint32_t m_idle_timer;
+        using InvaderStateMachine = StateMachine<InvaderStates, uint32_t>;
         InvaderStateMachine m_states;
+
+        mono::ISprite* m_sprite;
+        math::Matrix* m_transform;
     };
 }

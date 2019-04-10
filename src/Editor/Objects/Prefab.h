@@ -3,6 +3,7 @@
 
 #include "Entity/EntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include <string>
 #include <vector>
 

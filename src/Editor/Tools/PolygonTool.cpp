@@ -45,7 +45,7 @@ void PolygonTool::HandleContextMenu(int menu_index)
     }
 }
 
-void PolygonTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void PolygonTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 { }
 
 void PolygonTool::HandleMouseUp(const math::Vector& world_pos)

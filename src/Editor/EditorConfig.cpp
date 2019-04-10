@@ -15,8 +15,8 @@ namespace
     constexpr const char* window_size = "window_size";
     constexpr const char* draw_object_names = "draw_object_names";
     constexpr const char* draw_snappers = "draw_snappers";
+    constexpr const char* draw_outline = "draw_outline";
     constexpr const char* background_color = "background_color";
-    constexpr const char* active_panel_index_id = "active_panel_index";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
@@ -30,7 +30,7 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
     json[draw_object_names] = config.draw_object_names;
     json[draw_snappers] = config.draw_snappers;
     json[background_color] = config.background_color;
-    json[active_panel_index_id] = config.active_panel_index;
+    json[draw_outline] = config.draw_outline;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -72,8 +72,8 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     if(json.count(background_color) > 0)
         config.background_color = json[background_color];
 
-    if(json.count(active_panel_index_id) > 0)
-        config.active_panel_index = json[active_panel_index_id];
+    if(json.count(draw_outline) > 0)
+        config.draw_outline = json[draw_outline];
 
     return true;
 }

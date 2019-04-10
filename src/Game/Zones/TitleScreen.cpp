@@ -57,11 +57,14 @@ namespace
 
             const bool a_pressed = IS_TRIGGERED(a) && HAS_CHANGED(a);
             const bool y_pressed = IS_TRIGGERED(y) && HAS_CHANGED(y);
+            const bool x_pressed = IS_TRIGGERED(x) && HAS_CHANGED(x);
 
             if(a_pressed)
                 m_title_screen->Continue();
             else if(y_pressed)
                 m_title_screen->Quit();
+            else if(x_pressed)
+                m_title_screen->Remote();
 
             m_last_state = state;
         }
@@ -88,6 +91,8 @@ bool TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 {
     if(event.key == Keycode::ENTER)
         Continue();
+    else if(event.key == Keycode::R)
+        Remote();
 
     return false;
 }
@@ -181,6 +186,13 @@ void TitleScreen::Continue()
 {
     printf("continue\n");
     m_exit_zone = TEST_ZONE;
+    m_event_handler.DispatchEvent(event::QuitEvent());
+}
+
+void TitleScreen::Remote()
+{
+    printf("remote\n");
+    m_exit_zone = REMOTE_ZONE;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
 

@@ -16,19 +16,21 @@ namespace editor
     public:
 
         void WriteEntities(const std::string& file_path) const;
+        void WriteComponentEntities(const std::string& file_path) const;
         void WritePathFile(const std::string& file_path) const;
         void WritePrefabs(const std::string& file_path) const;
 
     private:
 
-        void Accept(EntityProxy* proxy) override;
         void Accept(PathProxy* proxy) override;
         void Accept(PolygonProxy* proxy) override;
         void Accept(PrefabProxy* proxy) override;
+        void Accept(ComponentProxy* proxy) override;
 
         std::vector<std::string> m_path_names;
         std::vector<editor::PrefabData> m_prefabs;
 
         nlohmann::json m_json_entities;
+        nlohmann::json m_json_entities_components;
     };
 }

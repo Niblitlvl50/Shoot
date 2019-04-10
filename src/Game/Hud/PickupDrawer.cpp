@@ -2,7 +2,7 @@
 #include "PickupDrawer.h"
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/ISprite.h"
 
 using namespace game;
@@ -10,8 +10,8 @@ using namespace game;
 PickupDrawer::PickupDrawer(const std::vector<Pickup>& ammo_pickups)
     : m_ammo_pickups(ammo_pickups)
 {
-    m_pickup_sprites[PickupTypes::AMMO] = mono::CreateSprite("res/sprites/ammo_pickup.sprite");
-    m_pickup_sprites[PickupTypes::HEALTH] = mono::CreateSprite("res/sprites/health_pickup.sprite");
+    m_pickup_sprites[PickupTypes::AMMO] = mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite");
+    m_pickup_sprites[PickupTypes::HEALTH] = mono::GetSpriteFactory()->CreateSprite("res/sprites/health_pickup.sprite");
 }
 
 PickupDrawer::~PickupDrawer()

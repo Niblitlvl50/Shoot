@@ -7,6 +7,8 @@
 
 #include <vector>
 
+class IEntityManager;
+
 namespace world
 {
     constexpr size_t PolygonTextureNameMaxLength = 64;
@@ -57,4 +59,6 @@ namespace world
 
     bool WriteWorldObjectsBinary(file::FilePtr& file, const WorldObjectsHeader& objects);
     bool ReadWorldObjectsBinary(const file::FilePtr& file, WorldObjectsHeader& objects);
+
+    std::vector<uint32_t> ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager);
 }

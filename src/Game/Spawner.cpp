@@ -4,8 +4,6 @@
 #include "Events/WaveEvent.h"
 #include "RenderLayers.h"
 #include "Factories.h"
-#include "Enemies/IEnemyFactory.h"
-#include "Enemies/Enemy.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Math/MathFunctions.h"
@@ -99,10 +97,10 @@ void Spawner::SpawnNextWave()
         const float spawn_radius = mono::Random(0.0f, spawn_point.radius);
         const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
 
-        EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
-        m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::GAMEOBJECTS));
+        //EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
+        //m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::GAMEOBJECTS));
 
-        m_current_spawned_ids.push_back(enemy->Id());
+        //m_current_spawned_ids.push_back(enemy->Id());
     }
 
     m_event_handler.DispatchEvent(game::WaveStartedEvent(next_wave.name.c_str(), m_wave_index));

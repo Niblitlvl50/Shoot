@@ -5,18 +5,22 @@
 #include "SnapPoint.h"
 #include "UI/UIContext.h"
 #include "Objects/Polygon.h"
-#include "Textures.h"
+#include "Resources.h"
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "ObjectAttribute.h"
+#include "Component.h"
 
 using namespace editor;
 
 PolygonProxy::PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon)
     : m_polygon(polygon)
+{ }
+
+PolygonProxy::~PolygonProxy()
 { }
 
 const char* PolygonProxy::Name() const
@@ -96,13 +100,20 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
         m_polygon->SetTexture(avalible_textures[texture_index]);
 }
 
-std::vector<Attribute> PolygonProxy::GetAttributes() const
+const std::vector<Component>& PolygonProxy::GetComponents() const
 {
-    return std::vector<Attribute>();
+    return m_components;
 }
 
-void PolygonProxy::SetAttributes(const std::vector<Attribute>& attributes)
-{ }
+std::vector<Component>& PolygonProxy::GetComponents()
+{
+    return m_components;
+}
+
+std::unique_ptr<editor::IObjectProxy> PolygonProxy::Clone() const
+{
+    return nullptr;
+}
 
 void PolygonProxy::Visit(IObjectVisitor& visitor)
 {

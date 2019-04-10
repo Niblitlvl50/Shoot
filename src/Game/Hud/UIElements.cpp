@@ -2,7 +2,7 @@
 #include "UIElements.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 
 using namespace game;
 
@@ -41,7 +41,7 @@ UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
     : m_active_sprite(0)
 {
     for(const std::string& sprite_file : sprite_files)
-        m_sprites.push_back(mono::CreateSprite(sprite_file.c_str()));
+        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
 }
 
 UISpriteElement::~UISpriteElement()

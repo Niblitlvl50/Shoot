@@ -14,11 +14,15 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 
 #include "ObjectAttribute.h"
+#include "Component.h"
 
 using namespace editor;
 
 PrefabProxy::PrefabProxy(const std::shared_ptr<Prefab>& prefab)
     : m_prefab(prefab)
+{ }
+
+PrefabProxy::~PrefabProxy()
 { }
 
 const char* PrefabProxy::Name() const
@@ -85,13 +89,20 @@ void PrefabProxy::UpdateUIContext(UIContext& context)
     m_prefab->SetRotation(rotation);
 }
 
-std::vector<Attribute> PrefabProxy::GetAttributes() const
+const std::vector<Component>& PrefabProxy::GetComponents() const
 {
-    return std::vector<Attribute>();
+    return m_components;
 }
 
-void PrefabProxy::SetAttributes(const std::vector<Attribute>& attributes)
-{ }
+std::vector<Component>& PrefabProxy::GetComponents()
+{
+    return m_components;
+}
+
+std::unique_ptr<editor::IObjectProxy> PrefabProxy::Clone() const
+{
+    return nullptr;
+}
 
 void PrefabProxy::Visit(IObjectVisitor& visitor)
 {

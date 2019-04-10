@@ -3,6 +3,7 @@
 
 #include "Entity/EntityBase.h"
 #include "Util/FpsCounter.h"
+#include "Rendering/Color.h"
 
 namespace game
 {
@@ -11,10 +12,12 @@ namespace game
     public:
 
         FPSElement(const math::Vector& position);
+        FPSElement(const math::Vector& position, const mono::Color::RGBA& color);
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
 
     private:
-        mono::FpsCounter m_counter;        
+        mono::FpsCounter m_counter;
+        mono::Color::RGBA m_color;
     };
 }

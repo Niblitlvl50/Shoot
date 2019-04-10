@@ -83,7 +83,7 @@ void PathTool::HandleContextMenu(int menu_index)
     }
 }
 
-void PathTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void PathTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 { }
 
 void PathTool::HandleMouseUp(const math::Vector& world_pos)

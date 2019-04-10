@@ -9,20 +9,25 @@
 #include "EventHandler/EventToken.h"
 #include "Events/EventFwd.h"
 
+namespace mono
+{
+    class TransformSystem;
+}
+
 namespace game
 {
     class Camera : public mono::ICamera
     {
     public:
 
-        Camera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler);
+        Camera(int width, int height, int window_width, int window_height, mono::TransformSystem* transform_system, mono::EventHandler& event_handler);
         ~Camera();
 
         bool OnKeyDown(const event::KeyDownEvent& event);
         
         void doUpdate(unsigned int delta) override;
         
-        void Follow(const mono::IEntityPtr& entity, const math::Vector& offset) override;
+        void Follow(uint32_t entity_id, const math::Vector& offset) override;
         void Unfollow() override;
         math::Quad GetViewport() const override;
         math::Vector GetPosition() const override;
@@ -38,11 +43,11 @@ namespace game
         math::Quad m_targetViewport;
         mono::MouseCameraController m_controller;
 
+        mono::TransformSystem* m_transform_system;
         mono::EventHandler& m_event_handler;
         mono::EventToken<event::KeyDownEvent> m_key_down_token;
         
         bool m_debug_camera;
-
-        mono::IEntityPtr m_entity;
+        uint32_t m_entity_id;
     };
 }

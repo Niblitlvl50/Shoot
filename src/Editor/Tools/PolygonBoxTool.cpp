@@ -47,7 +47,7 @@ bool PolygonBoxTool::IsActive() const
 void PolygonBoxTool::HandleContextMenu(int menu_index)
 { }
 
-void PolygonBoxTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void PolygonBoxTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
     m_active = true;
     m_mouse_down = world_pos;

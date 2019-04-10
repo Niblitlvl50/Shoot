@@ -2,16 +2,21 @@
 #include "WorldSerializer.h"
 #include "Objects/Polygon.h"
 #include "Objects/Path.h"
-#include "Objects/SpriteEntity.h"
 #include "Objects/Prefab.h"
 #include "Math/Matrix.h"
 #include "Math/Serialize.h"
+#include "Rendering/Serialize.h"
 #include "System/File.h"
 #include "WorldFile.h"
 #include "EntityRepository.h"
 
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
+
+#include "Entity/IEntityManager.h"
+#include "ObjectProxies/ComponentProxy.h"
+#include "Component.h"
+#include "Serialize.h"
 
 #include "ObjectProxies/IObjectProxy.h"
 
@@ -95,147 +100,69 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     return paths;
 }
 
-std::vector<IObjectProxyPtr> editor::LoadObjectsBinary(const char* file_name, const editor::ObjectFactory& factory)
+std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name, IEntityManager* entity_manager)
 {
-    std::vector<IObjectProxyPtr> objects;
+    std::vector<IObjectProxyPtr> proxies;
 
-    file::FilePtr file = file::OpenBinaryFile(file_name);
-    if(!file)
-        return objects;
-
-    world::WorldObjectsHeader world_header;
-    world::ReadWorldObjectsBinary(file, world_header);
-
-    for(auto& world_object : world_header.objects)
-    {
-        IObjectProxyPtr proxy = factory.CreateObject(world_object.name);
-        proxy->SetAttributes(world_object.attributes);
-        
-        objects.push_back(std::move(proxy));
-    }
-
-    return objects;
-}
-
-std::vector<IObjectProxyPtr> editor::LoadObjects(const char* file_name, const editor::ObjectFactory& factory)
-{
-    std::vector<IObjectProxyPtr> objects;
-    
     file::FilePtr file = file::OpenAsciiFile(file_name);
     if(!file)
-        return objects;
+        return proxies;
 
     std::vector<byte> file_data;
     file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
+    const nlohmann::json& entities = json["entities"];
 
-    for(const auto& json_object : json["objects"])
+    for(const auto& json_entity : entities)
     {
-        const std::string& name = json_object["name"];
+        const std::string& entity_name = json_entity["name"];
+        mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
 
-        std::vector<Attribute> attributes;
+        std::vector<Component> components;
 
-        for(auto&& json_attribute : json_object["attributes"])
+        for(const auto& json_component : json_entity["components"])
         {
-            const std::string& attribute_name = json_attribute["name"];
+            Component component;
+            component.name = json_component["name"];
+            component.hash = mono::Hash(component.name.c_str());
+            component.properties = (std::vector<Attribute>)json_component["properties"];
 
-            Attribute attribute;
-            attribute.id = mono::Hash(attribute_name.c_str());
-            attribute.attribute = world::DefaultAttributeFromHash(attribute.id);
+            const Component& default_component = DefaultComponentFromHash(component.hash);
+            world::UnionAttributes(component.properties, default_component.properties);
 
-            switch(attribute.attribute.type)
-            {
-                case Variant::Type::INT:
-                    attribute.attribute = (int)json_attribute["value"];
-                    break;
-                case Variant::Type::FLOAT:
-                    attribute.attribute = (float)json_attribute["value"];
-                    break;
-                case Variant::Type::STRING:
-                {
-                    const std::string& string_value = json_attribute["value"];
-                    attribute.attribute = string_value.c_str();
-                    break;
-                }
-                case Variant::Type::POINT:
-                    attribute.attribute = (math::Vector)json_attribute["value"];
-                    break;
-                case Variant::Type::NONE:
-                    break;
-            }
+            entity_manager->AddComponent(new_entity.id, component.hash);
+            entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
 
-            attributes.push_back(std::move(attribute));
+            components.push_back(std::move(component));
         }
 
-        IObjectProxyPtr proxy = factory.CreateObject(name.c_str());
-        if(proxy)
-        {
-            proxy->SetAttributes(attributes);        
-            objects.push_back(std::move(proxy));
-        }
+        const std::string& name = json_entity["name"];
+        auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, name, components, entity_manager);
+        proxies.push_back(std::move(component_proxy));
     }
 
-    return objects;
+    return proxies;
 }
 
-std::vector<IObjectProxyPtr> editor::LoadPrefabs(const char* file_name, const editor::ObjectFactory& factory)
-{
-    std::vector<IObjectProxyPtr> prefabs;
-
-    file::FilePtr file = file::OpenAsciiFile(file_name);
-    if(!file)
-        return prefabs;
-
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
-    const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const nlohmann::json& json_prefabs = json["prefabs"];
-
-    for(const auto& json_prefab : json_prefabs)
-    {
-        const std::string& name = json_prefab["name"];
-        const math::Vector& position = json_prefab["position"];
-        const float rotation = json_prefab["rotation"];
-
-        IObjectProxyPtr proxy = factory.CreatePrefab(name);
-        if(proxy)
-        {
-            auto prefab = proxy->Entity();
-            prefab->SetPosition(position);
-            prefab->SetRotation(rotation);
-        
-            prefabs.push_back(std::move(proxy));
-        }
-    }
-
-    return prefabs;
-}
-
-std::vector<IObjectProxyPtr> editor::LoadWorld(const char* file_name, const editor::ObjectFactory& factory)
+std::vector<IObjectProxyPtr> editor::LoadWorld(const char* file_name, const editor::ObjectFactory& factory, IEntityManager* entity_manager)
 {
     std::vector<IObjectProxyPtr> world_objects;
 
     //auto objects_bin = LoadObjectsBinary("res/world.objects.bin", factory);
-    auto objects = LoadObjects("res/world.objects", factory);
+    auto component_objects = LoadComponentObjects("res/world.components", entity_manager);
+    for(auto& proxy : component_objects)
+        world_objects.push_back(std::move(proxy));
+
     auto paths = LoadPaths("res/world.paths", factory);
-    auto prefabs = LoadPrefabs("res/world.prefabs", factory);
-    auto polygons = LoadPolygons(file_name, factory);
-
-    for(auto& proxy : objects)
-        world_objects.push_back(std::move(proxy));
-    
-    for(auto& proxy : prefabs)
-        world_objects.push_back(std::move(proxy));
-
     for(auto& proxy : paths)
         world_objects.push_back(std::move(proxy));
 
+    auto polygons = LoadPolygons(file_name, factory);
     for(auto& proxy : polygons)
         world_objects.push_back(std::move(proxy));
 
-    return world_objects;    
+    return world_objects;
 }
 
 void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies)
@@ -257,6 +184,7 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
             proxy->Visit(serializer);
     
         serializer.WriteEntities("res/world.objects");
+        serializer.WriteComponentEntities("res/world.components");
         serializer.WritePathFile("res/world.paths");
         serializer.WritePrefabs("res/world.prefabs");
     }

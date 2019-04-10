@@ -3,6 +3,7 @@
 
 #include "Entity/PhysicsEntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 
 class StaticPrefab : public mono::PhysicsEntityBase
 {

@@ -5,7 +5,10 @@ namespace editor
 {
     enum class EditorMenuOptions
     {
-        SAVE
+        NEW,
+        SAVE,
+        IMPORT_ENTITY,
+        EXPORT_ENTITY
     };
 
     enum ToolsMenuOptions

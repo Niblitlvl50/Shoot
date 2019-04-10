@@ -1,0 +1,17 @@
+{
+    "all_textures": [
+        "res/textures/brown_stone.png",
+        "res/textures/dark_stone.png",
+        "res/textures/flare.png",
+        "res/textures/gray_stone.png",
+        "res/textures/lava1.png",
+        "res/textures/lava2.png",
+        "res/textures/placeholder.png",
+        "res/textures/smoke.png",
+        "res/textures/square.png",
+        "res/textures/stone_tileablestone.png",
+        "res/textures/white_box_placeholder.png",
+        "res/textures/white_square.png",
+        "res/textures/x4.png"
+    ]
+}

@@ -3,13 +3,18 @@
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
 #include "Math/Quad.h"
-#include "Entity/IEntity.h"
+#include "TransformSystem.h"
+#include "Component.h"
+
 #include "Editor.h"
 
 using namespace editor;
 
-RotateTool::RotateTool(Editor* editor)
+RotateTool::RotateTool(Editor* editor, mono::TransformSystem* transform_system)
     : m_editor(editor)
+    , m_transform_system(transform_system)
+    , m_entity_id(std::numeric_limits<uint32_t>::max())
+    , m_rotation_diff(0.0f)
 { }
 
 void RotateTool::Begin()
@@ -17,25 +22,28 @@ void RotateTool::Begin()
 
 void RotateTool::End()
 {
-    m_entity = nullptr;
+    m_entity_id = std::numeric_limits<uint32_t>::max();
 }
 
 bool RotateTool::IsActive() const
 {
-    return m_entity != nullptr;
+    return m_entity_id != std::numeric_limits<uint32_t>::max();
 }
 
 void RotateTool::HandleContextMenu(int menu_index)
 { }
 
-void RotateTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void RotateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
-    m_entity = entity;
-    if(!m_entity)
+    m_entity_id = entity_id;
+    if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
-    const math::Vector& position = m_entity->Position() + m_entity->BasePoint();
-    const float rotation = m_entity->Rotation();
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    const math::Vector position = math::GetPosition(transform);
+
+    const float rotation = 0.0f; //m_entity->Rotation();
+
     m_rotation_diff = rotation - math::AngleBetweenPoints(position, world_pos);
 }
 
@@ -46,13 +54,18 @@ void RotateTool::HandleMouseUp(const math::Vector& world_pos)
 
 void RotateTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    if(!m_entity)
+    if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
-    const math::Vector& position = m_entity->Position() + m_entity->BasePoint();
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+
+    const math::Vector position = math::GetPosition(transform);
     const float angle = math::AngleBetweenPoints(position, world_pos);
 
-    m_entity->SetRotation(angle + m_rotation_diff);
+    transform = math::CreateMatrixFromZRotation(angle + m_rotation_diff);
+    math::Position(transform, position);
+
+    m_editor->EntityComponentUpdated(m_entity_id, TRANSFORM_COMPONENT);
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();
 }

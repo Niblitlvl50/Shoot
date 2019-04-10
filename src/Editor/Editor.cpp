@@ -6,23 +6,31 @@
 #include "Rendering/Texture/TextureFactory.h"
 #include "Rendering/Texture/ITexture.h"
 #include "Rendering/Sprite/ISprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/Sprite/SpriteBatchDrawer.h"
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
 #include "EventHandler/EventHandler.h"
 
+#include "SystemContext.h"
+#include "TransformSystem.h"
+
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
 #include "ImGuiImpl/ImGuiRenderer.h"
 #include "ImGuiImpl/ImGuiInputHandler.h"
-#include "Textures.h"
+#include "Resources.h"
 #include "RenderLayers.h"
 #include "WorldSerializer.h"
+#include "Component.h"
 
 #include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/PrefabProxy.h"
+
+#include "ObjectProxies/ComponentProxy.h"
+#include "Entity/IEntityManager.h"
 
 #include "Objects/Polygon.h"
 #include "Objects/Path.h"
@@ -33,9 +41,15 @@
 #include "Visualizers/GrabberVisualizer.h"
 #include "Visualizers/SnapperVisualizer.h"
 #include "Visualizers/ObjectNameVisualizer.h"
-#include "Visualizers/ObjectDetailVisualizer.h"
+#include "Visualizers/SelectionVisualizer.h"
+
+#include "Visualizers/ComponentDrawFuncs.h"
+#include "Visualizers/ComponentDetailVisualizer.h"
+
+#include "Serializer/JsonSerializer.h"
 
 #include "Util/Algorithm.h"
+#include "Math/MathFunctions.h"
 #include <algorithm>
 
 namespace
@@ -43,7 +57,7 @@ namespace
     void SetupIcons(
         editor::UIContext& context,
         editor::EntityRepository& repository,
-        std::unordered_map<unsigned int, mono::ITexturePtr>& textures)
+        std::unordered_map<uint32_t, mono::ITexturePtr>& textures)
     {
         mono::ITexturePtr texture = mono::CreateTexture("res/textures/placeholder.png");
         textures.insert(std::make_pair(texture->Id(), texture));
@@ -51,96 +65,129 @@ namespace
         context.tools_texture_id = texture->Id();
         context.default_icon = math::Quad(0.0f, 0.0f, 1.0f, 1.0f);
 
-        for(const editor::EntityDefinition& def : repository.m_entities)
-        {
-            const mono::ISpritePtr sprite = mono::CreateSprite(def.sprite_file.c_str());
-            const mono::ITexturePtr sprite_texture = sprite->GetTexture();
-
-            textures.insert(std::make_pair(sprite_texture->Id(), sprite_texture));
-
-            editor::UIEntityItem item;
-            item.texture_id = sprite_texture->Id();
-            item.icon = sprite->GetCurrentFrame().texture_coordinates;
-            item.tooltip = def.name;
-            context.entity_items.push_back(item);
-        }
-
         for(const PrefabDefinition& def : repository.m_prefabs)
         {
-            const mono::ISpritePtr sprite = mono::CreateSprite(def.sprite_file.c_str());
+            const mono::ISpritePtr sprite = mono::GetSpriteFactory()->CreateSprite(def.sprite_file.c_str());
             const mono::ITexturePtr sprite_texture = sprite->GetTexture();
-
             textures.insert(std::make_pair(sprite_texture->Id(), sprite_texture));
-
-            editor::UIEntityItem item;
-            item.texture_id = sprite_texture->Id();
-            item.icon = sprite->GetCurrentFrame().texture_coordinates;
-            item.tooltip = def.name;
-            
-            context.prefab_items.push_back(item);
         }
     }
 
-    constexpr unsigned int NO_SELECTION = std::numeric_limits<unsigned int>::max();
+    void SetupComponents(editor::UIContext& context)
+    {
+        for (const Component& component : default_components)
+            context.component_items.push_back({component.hash, component.name});
+    }
+
+    class SyncPoint : public mono::IUpdatable
+    {
+    public:
+        SyncPoint(IEntityManager& entity_manager)
+            : m_entity_manager(entity_manager)
+        { }
+
+        void doUpdate(uint32_t delta_ms) override
+        {
+            m_entity_manager.Sync();
+        }
+
+        IEntityManager& m_entity_manager;
+    };
+
+    constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
 }
 
 using namespace editor;
 
-Editor::Editor(System::IWindow* window, mono::EventHandler& event_handler, const char* file_name)
-    : m_window(window),
-      m_eventHandler(event_handler),
-      m_fileName(file_name),
-      m_object_factory(this),
-      m_seleced_id(NO_SELECTION)
+Editor::Editor(
+    System::IWindow* window,
+    IEntityManager& entity_manager,
+    mono::EventHandler& event_handler,
+    mono::SystemContext& system_context,
+    const char* world_filename)
+    : m_window(window)
+    , m_entity_manager(entity_manager)
+    , m_event_handler(event_handler)
+    , m_system_context(system_context)
+    , m_world_filename(world_filename)
+    , m_object_factory(this)
+    , m_selected_id(NO_SELECTION)
 {
     using namespace std::placeholders;
 
+    m_context.all_proxy_objects = &m_proxies;
+
     m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);
+    m_context.modal_selection_callback = std::bind(&Editor::SelectItemCallback, this, _1);
+
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
+    m_context.select_object_callback = std::bind(&Editor::SelectProxyObject, this, _1);
+
+    m_context.add_component = std::bind(&Editor::AddComponent, this, _1);
+    m_context.delete_component = std::bind(&Editor::DeleteComponent, this, _1);
+
     m_context.editor_menu_callback = std::bind(&Editor::EditorMenuCallback, this, _1);
     m_context.tools_menu_callback = std::bind(&Editor::ToolsMenuCallback, this, _1);
-    m_context.drop_callback = std::bind(&Editor::DropItemCallback, this, _1, _2);
+
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
 
     const event::SurfaceChangedEventFunc surface_func = std::bind(&Editor::OnSurfaceChanged, this, _1);
-    m_surfaceChangedToken = m_eventHandler.AddListener(surface_func);
+    m_surface_changed_token = m_event_handler.AddListener(surface_func);
 
-    m_entityRepository.LoadDefinitions();
+    m_entity_repository.LoadDefinitions();
 
-    std::unordered_map<unsigned int, mono::ITexturePtr> textures;
-    SetupIcons(m_context, m_entityRepository, textures);
+    std::unordered_map<uint32_t, mono::ITexturePtr> textures;
+    SetupIcons(m_context, m_entity_repository, textures);
+    SetupComponents(m_context);
+
+    editor::LoadAllSprites("res/sprites/all_sprite_files.json");
+    editor::LoadAllEntities("res/entities/all_entities.json");
+    editor::LoadAllPaths("res/paths/all_paths.json");
+    editor::LoadAllTextures("res/textures/all_textures.json");
 
     const System::Size& size = m_window->Size();
     const math::Vector window_size(size.width, size.height);
-    m_guiRenderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
+    m_gui_renderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
     m_input_handler = std::make_unique<ImGuiInputHandler>(event_handler);
-
-    Load();
 }
 
 Editor::~Editor()
 {
-    m_eventHandler.RemoveListener(m_surfaceChangedToken);    
+    m_event_handler.RemoveListener(m_surface_changed_token);
     Save();
 }
 
-void Editor::OnLoad(mono::ICameraPtr& camera)
+void Editor::OnLoad(mono::ICameraPtr &camera)
 {
     m_camera = camera;
-    m_userInputController = std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_eventHandler);
-    m_object_detail_visualizer = std::make_shared<editor::ObjectDetailVisualizer>();
 
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    m_user_input_controller =
+        std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, transform_system, m_event_handler);
+
+    ComponentDrawMap draw_funcs;
+    draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
+    draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
+    draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
+
+    m_component_detail_visualizer = std::make_shared<ComponentDetailVisualizer>(draw_funcs, transform_system);
+
+    AddUpdatable(std::make_shared<SyncPoint>(m_entity_manager));
     AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));
 
     AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
+    AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, transform_system), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
-    AddDrawable(m_object_detail_visualizer, RenderLayer::OBJECTS);
-    AddDrawable(m_guiRenderer, RenderLayer::UI);
+    AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
+    AddDrawable(m_gui_renderer, RenderLayer::UI);
+    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
+
+    Load();
 }
 
 int Editor::OnUnload()
@@ -153,9 +200,9 @@ void Editor::Accept(mono::IRenderer& renderer)
     using LayerDrawable = std::pair<int, mono::IDrawablePtr>;
 
     const auto sort_on_y = [](const LayerDrawable& first, const LayerDrawable& second) {
-        if(first.first == second.first)
+        if (first.first == second.first)
             return first.second->BoundingBox().mA.y > second.second->BoundingBox().mA.y;
-        
+
         return first.first < second.first;
     };
 
@@ -165,29 +212,69 @@ void Editor::Accept(mono::IRenderer& renderer)
 
 void Editor::Load()
 {
-    m_proxies = LoadWorld(m_fileName, m_object_factory);
+    /*
+    m_proxies = LoadWorld(m_file_name, m_object_factory);
     for(auto& proxy : m_proxies)
     {
         const bool is_polygon = (strcmp(proxy->Name(), "polygonobject") == 0);
         const RenderLayer layer = is_polygon ? RenderLayer::POLYGONS : RenderLayer::OBJECTS;
         AddEntity(proxy->Entity(), layer);
     }
+    */
 
+    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager);
     UpdateSnappers();
 }
 
 void Editor::Save()
 {
-    SaveWorld(m_fileName, m_proxies);
+    SaveWorld(m_world_filename, m_proxies);
     m_context.notifications.emplace_back(m_context.default_icon, "Saved...", 2000);
+}
+
+void Editor::ExportEntity()
+{
+    IObjectProxy* proxy = FindProxyObject(m_selected_id);
+    if(!proxy)
+        return;
+
+    std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
+    std::replace(filename.begin(), filename.end(), ' ', '_');
+
+    editor::JsonSerializer serializer;
+    proxy->Visit(serializer);
+    serializer.WriteComponentEntities(filename);
+
+    editor::AddNewEntity(filename.c_str());
+    m_context.notifications.emplace_back(m_context.default_icon, "Exported entity...", 2000);
+}
+
+void Editor::ImportEntity()
+{
+    m_context.modal_items = GetAllEntities();
+    m_context.show_modal_item_selection = true;
 }
 
 bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
 {
-    if(event.width > 0 && event.height > 0)
-        m_guiRenderer->SetWindowSize(math::Vector(event.width, event.height));
+    if (event.width > 0 && event.height > 0)
+        m_gui_renderer->SetWindowSize(math::Vector(event.width, event.height));
 
     return false;
+}
+
+void Editor::NewEntity()
+{
+    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {TRANSFORM_COMPONENT});
+    m_proxies.push_back(std::make_unique<ComponentProxy>(new_entity.id, "unnamed", &m_entity_manager));
+
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    math::Matrix& transform = transform_system->GetTransform(new_entity.id);
+
+    const math::Vector camera_position = m_camera->GetPosition();
+    math::Position(transform, camera_position);
+
+    SelectProxyObject(m_proxies.back().get());
 }
 
 void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
@@ -210,18 +297,12 @@ void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
-    m_seleced_id = NO_SELECTION;
-    m_context.proxy_object = proxy_object;
-    m_object_detail_visualizer->SetObjectProxy(proxy_object);
+    m_selected_id = NO_SELECTION;
+    m_context.selected_proxy_object = proxy_object;
+    m_component_detail_visualizer->SetObjectProxy(proxy_object);
 
-    for(auto& proxy : m_proxies)
-        proxy->SetSelected(false);
-
-    if(proxy_object)
-    {
-        proxy_object->SetSelected(true);
-        m_seleced_id = proxy_object->Id();
-    }
+    if (proxy_object)
+        m_selected_id = proxy_object->Id();
 
     UpdateSnappers();
     UpdateGrabbers();
@@ -229,11 +310,42 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
 {
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+
+    std::vector<IObjectProxy*> found_proxies;
     for(auto& proxy : m_proxies)
     {
-        if(proxy->Intersects(position))
-            return proxy.get();
+        const math::Quad& world_bb = transform_system->GetWorldBoundingBox(proxy->Id());
+        if(math::PointInsideQuad(position, world_bb))
+            found_proxies.push_back(proxy.get());
     }
+
+    if(found_proxies.empty())
+        return nullptr;
+
+    const auto sort_on_y = [transform_system](const IObjectProxy* first, const IObjectProxy* second) {
+        const math::Vector& first_position = math::GetPosition(transform_system->GetWorld(first->Id()));
+        const math::Vector& second_position = math::GetPosition(transform_system->GetWorld(second->Id()));
+
+        return first_position.y > second_position.y;
+    };
+
+    std::sort(found_proxies.begin(), found_proxies.end(), sort_on_y);
+    return found_proxies.back();
+}
+
+IObjectProxy* Editor::FindProxyObject(uint32_t proxy_id) const
+{
+    if(proxy_id == NO_SELECTION)
+        return nullptr;
+
+    const auto find_func = [proxy_id](const IObjectProxyPtr& proxy) {
+        return proxy_id == proxy->Id();
+    };
+
+    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
+    if(it != m_proxies.end())
+        return it->get();
 
     return nullptr;
 }
@@ -277,15 +389,9 @@ void Editor::UpdateGrabbers()
 {
     m_grabbers.clear();
 
-    const unsigned int id = m_seleced_id;
-
-    const auto find_func = [id](const IObjectProxyPtr& proxy) {
-        return id == proxy->Id();
-    };
-
-    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
-    if(it != m_proxies.end())
-        m_grabbers = (*it)->GetGrabbers();
+    const IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+        m_grabbers = proxy_object->GetGrabbers();
 }
 
 float Editor::GetPickingDistance() const
@@ -302,14 +408,9 @@ SnapPair Editor::FindSnapPosition(const math::Vector& position) const
 
     std::vector<SnapPoint> selected_snappers;
 
-    const unsigned int id = m_seleced_id;
-    const auto find_func = [id](const IObjectProxyPtr& proxy) {
-        return id == proxy->Id();
-    };
-
-    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
-    if(it != m_proxies.end())
-        selected_snappers = (*it)->GetSnappers();
+    const IObjectProxy *proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+        selected_snappers = proxy_object->GetSnappers();
 
     float best_distance = math::INF;
 
@@ -337,55 +438,91 @@ SnapPair Editor::FindSnapPosition(const math::Vector& position) const
 
 void Editor::OnDeleteObject()
 {
-    if(m_seleced_id == NO_SELECTION)
+    if(m_selected_id == NO_SELECTION)
         return;
 
-    const unsigned int id = m_seleced_id;
-
+    const uint32_t id = m_selected_id;
     const auto find_func = [id](const IObjectProxyPtr& proxy) {
         return id == proxy->Id();
     };
 
     mono::remove_if(m_proxies, find_func);
-
-    auto entity = FindEntityFromId(id);    
-    RemoveEntity(entity);
-
     SelectProxyObject(nullptr);
     m_grabbers.clear();
 }
 
+void Editor::AddComponent(uint32_t component_hash)
+{
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+    {
+        m_entity_manager.AddComponent(m_selected_id, component_hash);
+        std::vector<Component>& components = proxy_object->GetComponents();
+        components.push_back(DefaultComponentFromHash(component_hash));
+    }
+}
+
+void Editor::DeleteComponent(uint32_t index)
+{
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+    {
+        std::vector<Component>& components = proxy_object->GetComponents();
+        m_entity_manager.RemoveComponent(m_selected_id, components[index].hash);
+        components.erase(components.begin() + index);
+    }
+}
+
+void Editor::EntityComponentUpdated(uint32_t entity_id, uint32_t component_hash)
+{
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+    {
+        for(Component& component : proxy_object->GetComponents())
+        {
+            if(component.hash == component_hash)
+            {
+                auto data = m_entity_manager.GetComponentData(entity_id, component_hash);
+                component.properties = data;
+            }
+        }
+    }
+}
+
 void Editor::OnContextMenu(int index)
 {
-    m_userInputController->HandleContextMenu(index);
+    m_user_input_controller->HandleContextMenu(index);
+}
+
+void Editor::SelectItemCallback(int index)
+{
+    const std::string& selected_item = m_context.modal_items[index];
+    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager);
+    if(loaded_objects.empty())
+        return;
+
+    for(auto& object : loaded_objects)
+        m_proxies.push_back(std::move(object));
+
+    SelectProxyObject(m_proxies.back().get());
+    m_context.notifications.emplace_back(m_context.default_icon, "Imported Entity...", 2000);
 }
 
 void Editor::EditorMenuCallback(EditorMenuOptions option)
 {
-    if(option == EditorMenuOptions::SAVE)
+    if(option == EditorMenuOptions::NEW)
+        NewEntity();
+    else if(option == EditorMenuOptions::SAVE)
         Save();
+    else if(option == EditorMenuOptions::IMPORT_ENTITY)
+        ImportEntity();
+    else if(option == EditorMenuOptions::EXPORT_ENTITY)
+        ExportEntity();
 }
 
 void Editor::ToolsMenuCallback(ToolsMenuOptions option)
 {
-    m_userInputController->SelectTool(option);
-}
-
-void Editor::DropItemCallback(const std::string& id, const math::Vector& position)
-{
-    const System::Size& size = m_window->Size();
-    const math::Vector window_size(size.width, size.height);
-    const math::Vector& world_pos = m_camera->ScreenToWorld(position, window_size);
-
-    IObjectProxyPtr proxy = m_object_factory.CreateObject(id.c_str());
-    
-    mono::IEntityPtr entity = proxy->Entity();
-    entity->SetPosition(world_pos);
-    
-    AddEntity(entity, RenderLayer::OBJECTS);
-
-    SelectProxyObject(proxy.get());
-    m_proxies.push_back(std::move(proxy));
+    m_user_input_controller->SelectTool(option);
 }
 
 bool Editor::DrawObjectNames() const
@@ -405,64 +542,47 @@ bool Editor::DrawSnappers() const
 
 void Editor::EnableDrawSnappers(bool enable)
 {
-    m_context.draw_snappers = enable;;
+    m_context.draw_snappers = enable;
 }
 
-const mono::Color::RGBA& Editor::BackgroundColor() const
+bool Editor::DrawOutline() const
+{
+    return m_context.draw_outline;
+}
+
+void Editor::EnableDrawOutline(bool enable)
+{
+    m_context.draw_outline = enable;
+}
+
+const mono::Color::RGBA &Editor::BackgroundColor() const
 {
     return m_context.background_color;
 }
 
-void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
+void Editor::SetBackgroundColor(const mono::Color::RGBA &color)
 {
     m_context.background_color = color;
     m_window->SetBackgroundColor(color.red, color.green, color.blue);
 }
 
-int Editor::ActivePanelIndex() const
-{
-    return m_context.active_panel_index;
-}
-
-void Editor::SetActivePanelIndex(int index)
-{
-    m_context.active_panel_index = index;
-}
-
 void Editor::DuplicateSelected()
 {
-    if(m_seleced_id == NO_SELECTION)
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(!proxy_object)
         return;
 
-    const unsigned int id = m_seleced_id;
-    const auto find_func = [id](const IObjectProxyPtr& proxy) {
-        return id == proxy->Id();
-    };
-
-    auto it = std::find_if(m_proxies.begin(), m_proxies.end(), find_func);
-    if(it != m_proxies.end())
+    IObjectProxyPtr cloned_proxy = proxy_object->Clone();
+    if(cloned_proxy)
     {
-        const char* name = (*it)->Name();
-        const std::vector<Attribute> attributes = (*it)->GetAttributes();
-        const math::Vector position = (*it)->Entity()->Position();
-
-        IObjectProxyPtr proxy = m_object_factory.CreateObject(name);
-        if(proxy == nullptr)
-        {
-            std::printf("Unable to create object of type: '%s'\n", name);
-            return;
-        }
-
-        proxy->SetAttributes(attributes);
-
-        mono::IEntityPtr entity = proxy->Entity();
-        entity->SetPosition(position + math::Vector(0.5f, 0.5f));
+        const uint32_t cloned_entity_id = cloned_proxy->Id();
         
-        AddEntity(entity, RenderLayer::OBJECTS);
-        IObjectProxy* proxy_pointer = proxy.get();
+        mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+        math::Matrix& transform = transform_system->GetTransform(cloned_entity_id);
+        math::Translate(transform, math::Vector(1.0f, 1.0f));
 
-        m_proxies.push_back(std::move(proxy));
-
+        IObjectProxy* proxy_pointer = cloned_proxy.get();
+        m_proxies.push_back(std::move(cloned_proxy));
         SelectProxyObject(proxy_pointer);
     }
 }

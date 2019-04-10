@@ -1,0 +1,120 @@
+{
+    "entities": [
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 7.597418785095215,
+                                "y": 0.7432177066802979
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.6127458810806274,
+                                "green": 0.22549021244049072,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "generic.sprite"
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "variant_type": 2,
+                            "variant_value": 100
+                        }
+                    ]
+                }
+            ],
+            "name": "player_bullet"
+        }
+    ]
+}

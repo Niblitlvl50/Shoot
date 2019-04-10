@@ -1,27 +1,26 @@
 
 #pragma once
 
-#include "Math/Vector.h"
 #include "Rendering/IDrawable.h"
-#include <vector>
+
+namespace mono
+{
+    class TransformSystem;
+}
 
 namespace game
 {
-    struct Healthbar
-    {
-        math::Vector position;
-        float health_percentage;
-        float width;
-    };
+    class DamageSystem;
 
     class HealthbarDrawer : public mono::IDrawable
     {
     public:
-        HealthbarDrawer(const std::vector<Healthbar>& healthbars);
+        HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system);
 
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        const std::vector<Healthbar>& m_healthbars;
+        game::DamageSystem* m_damage_system;
+        mono::TransformSystem* m_transform_system;
     };
 }

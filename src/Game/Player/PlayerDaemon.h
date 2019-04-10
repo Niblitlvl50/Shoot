@@ -9,17 +9,21 @@
 
 #include <vector>
 #include <memory>
+#include <functional>
+
+namespace System
+{
+    struct ControllerState;
+}
 
 namespace game
 {
-    class Shuttle;
-
     class PlayerDaemon
     {
     public:
 
         PlayerDaemon(
-            mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::EventHandler& event_handler);
+            mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::SystemContext* system_context, mono::EventHandler& event_handler);
         ~PlayerDaemon();
 
         void SpawnPlayer1();
@@ -27,11 +31,15 @@ namespace game
 
     private:
 
+        using DestroyedCallback = std::function<void (uint32_t id)>;
+        void SpawnPlayer(struct PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback);
+
         bool OnControllerAdded(const event::ControllerAddedEvent& event);
         bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
 
         mono::ICameraPtr m_camera;
         const std::vector<math::Vector> m_player_points;
+        mono::SystemContext* m_system_context;
         mono::EventHandler& m_event_handler;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
@@ -39,7 +47,5 @@ namespace game
 
         int m_player_one_id = -1;
         int m_player_two_id = -1;
-        std::shared_ptr<Shuttle> m_player_one;
-        std::shared_ptr<Shuttle> m_player_two;
     };
 }

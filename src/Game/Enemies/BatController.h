@@ -1,20 +1,16 @@
 
 #pragma once
 
-#include "Enemy.h"
+#include "MonoFwd.h"
+#include "Entity/IEntityLogic.h"
 
 namespace game
 {
-    class BatController : public IEnemyController
+    class BatController : public IEntityLogic
     {
     public:
 
-        BatController(mono::EventHandler& event_handler);
-        void Initialize(class Enemy* enemy) override;
-        void doUpdate(unsigned int delta) override;
-
-    private:
-
-        Enemy* m_enemy;
+        BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        void Update(uint32_t delta_ms) override;
     };
 }

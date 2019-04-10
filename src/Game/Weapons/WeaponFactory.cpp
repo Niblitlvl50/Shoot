@@ -17,17 +17,29 @@
 
 #include "RenderLayers.h"
 
+#include "SystemContext.h"
+#include "DamageSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Entity/IEntityManager.h"
+
 #include <functional>
 
 namespace
 {
     void StandardCollision(
-        const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
+        uint32_t entity_id,
+        const mono::IBody* other,
+        IEntityManager* entity_manager,
+        game::DamageSystem* damage_system,
+        mono::PhysicsSystem* physics_system)
     {
-        event_handler.DispatchEvent(game::DamageEvent(other, 10, bullet->Rotation()));
-        event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
+        const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
+        if(other_entity_id != std::numeric_limits<uint32_t>::max())
+            damage_system->ApplyDamage(other_entity_id, 10);
+        entity_manager->ReleaseEntity(entity_id);
     }
 
+    /*
     void RocketCollision(const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
     {
         game::ExplosionConfiguration explosion_config;
@@ -110,13 +122,15 @@ namespace
         pool.m_start_life[index] = life;
         pool.m_life[index] = life;        
     }
+    */
     
 }
 
 using namespace game;
 
-WeaponFactory::WeaponFactory(mono::EventHandler& event_handler)
-    : m_event_handler(event_handler)
+WeaponFactory::WeaponFactory(IEntityManager* entity_manager, mono::SystemContext* system_context)
+    : m_entity_manager(entity_manager)
+    , m_system_context(system_context)
 { }
 
 std::unique_ptr<game::IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction)
@@ -128,6 +142,9 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 {
     using namespace std::placeholders;
 
+    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
+
     WeaponConfiguration weapon_config;
     BulletConfiguration& bullet_config = weapon_config.bullet_config;
 
@@ -135,28 +152,23 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
     bullet_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
     bullet_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
     
-    bullet_config.pool = pool;
+    //bullet_config.pool = pool;
 
     switch(weapon)
     {
         case game::WeaponType::STANDARD:
         {
-            bullet_config.mass = 0.5f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-
-            bullet_config.collision_radius = 0.1f;
-            bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
-
-            bullet_config.scale = math::Vector(0.5f, 0.5f);
-            bullet_config.sprite_file = "res/sprites/plasma.sprite";
-            bullet_config.sprite_shade = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 1.0f);
+            bullet_config.collision_callback
+                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
+            bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            bullet_config.emitter_config.duration = -1;
-            bullet_config.emitter_config.emit_rate = 100.0f;
-            bullet_config.emitter_config.burst = false;
-            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
+            //bullet_config.emitter_config.duration = -1;
+            //bullet_config.emitter_config.emit_rate = 100.0f;
+            //bullet_config.emitter_config.burst = false;
+            //bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 99;
             weapon_config.rounds_per_second = 7.0f;
@@ -172,18 +184,17 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::ROCKET_LAUNCHER:
         {
-            bullet_config.mass = 1.0f;
             bullet_config.life_span = 2.0f;
             bullet_config.fuzzy_life_span = 0.3f;
-            bullet_config.collision_radius = 0.5f;
-            bullet_config.collision_callback = std::bind(RocketCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.sprite_file = "res/sprites/rocket.sprite";
+            bullet_config.collision_callback
+                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
+            bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            bullet_config.emitter_config.duration = -1;
-            bullet_config.emitter_config.emit_rate = 100.0f;
-            bullet_config.emitter_config.burst = false;
-            bullet_config.emitter_config.generator = RocketParticleGenerator;
+            //bullet_config.emitter_config.duration = -1;
+            //bullet_config.emitter_config.emit_rate = 100.0f;
+            //bullet_config.emitter_config.burst = false;
+            //bullet_config.emitter_config.generator = RocketParticleGenerator;
 
             weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
@@ -196,18 +207,17 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::CACOPLASMA:
         {
-            bullet_config.mass = 0.5f;
             bullet_config.life_span = 1.0f;
             bullet_config.fuzzy_life_span = 0.3f;
-            bullet_config.collision_radius = 0.5f;
-            bullet_config.collision_callback = std::bind(CacoPlasmaCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.sprite_file = "res/sprites/caco_bullet.sprite";
+            bullet_config.collision_callback
+                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
+            bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            bullet_config.emitter_config.duration = -1;
-            bullet_config.emitter_config.emit_rate = 100.0f;
-            bullet_config.emitter_config.burst = false;
-            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
+            //bullet_config.emitter_config.duration = -1;
+            //bullet_config.emitter_config.emit_rate = 100.0f;
+            //bullet_config.emitter_config.burst = false;
+            //bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 0.7f;
@@ -218,19 +228,17 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::GENERIC:
         {
-            bullet_config.mass = 0.5f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.collision_radius = 0.15f;
-            bullet_config.collision_callback = std::bind(StandardCollision, _1, _2, std::ref(m_event_handler));
-            bullet_config.sprite_shade = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-            bullet_config.sprite_file = "res/sprites/generic.sprite";
+            bullet_config.collision_callback
+                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
+            bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            bullet_config.emitter_config.duration = -1;
-            bullet_config.emitter_config.emit_rate = 100.0f;
-            bullet_config.emitter_config.burst = false;
-            bullet_config.emitter_config.generator = PlasmaParticleGenerator;
+            //bullet_config.emitter_config.duration = -1;
+            //bullet_config.emitter_config.emit_rate = 100.0f;
+            //bullet_config.emitter_config.burst = false;
+            //bullet_config.emitter_config.generator = PlasmaParticleGenerator;
 
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 2.0f;
@@ -241,22 +249,17 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::FLAK_CANON:
         {
-            bullet_config.mass = 0.1f;
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-
-            bullet_config.scale = math::Vector(0.3f, 0.3f);
-            bullet_config.collision_radius = 0.15f;
-            bullet_config.collision_callback = std::bind(FlakCannonCollision, _1, _2, std::ref(m_event_handler));
-
-            bullet_config.sprite_shade = mono::Color::RGBA(0.3f, 0.3f, 0.3f, 1.0f);
-            bullet_config.sprite_file = "res/sprites/generic.sprite";
+            bullet_config.collision_callback
+                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
+            bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            bullet_config.emitter_config.duration = -1;
-            bullet_config.emitter_config.emit_rate = 100.0f;
-            bullet_config.emitter_config.burst = false;
-            bullet_config.emitter_config.generator = FlakParticleGenerator;
+            //bullet_config.emitter_config.duration = -1;
+            //bullet_config.emitter_config.emit_rate = 100.0f;
+            //bullet_config.emitter_config.burst = false;
+            //bullet_config.emitter_config.generator = FlakParticleGenerator;
 
             weapon_config.projectiles_per_fire = 6;
             weapon_config.magazine_size = 6;
@@ -271,5 +274,5 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
         }
     }
 
-    return std::make_unique<game::Weapon>(weapon_config, m_event_handler);
+    return std::make_unique<game::Weapon>(weapon_config, m_entity_manager, m_system_context);
 }

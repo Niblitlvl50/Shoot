@@ -1,9 +1,11 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
-#include "Physics/CMFwd.h"
+#include "MonoFwd.h"
+#include "Physics/PhysicsFwd.h"
 #include "Math/Vector.h"
+
+#include <cstdint>
 
 namespace game
 {
@@ -11,21 +13,22 @@ namespace game
     {
     public:
 
-        PathBehaviour(class Enemy* enemy, const mono::IPath* path, mono::EventHandler& event_handler);
+        PathBehaviour(mono::IBody* body, const mono::IPath* path, mono::PhysicsSystem* physics_system, mono::EventHandler& event_handler);
         ~PathBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
-        void Run(unsigned int delta);
+        void Run(uint32_t delta_ms);
 
     private:
 
         const mono::IPath* m_path;
-        mono::EventHandler& m_event_handler;
+        mono::PhysicsSystem* m_physics_system;
+
         float m_current_position;
         float m_meter_per_second;
 
-        mono::IBodyPtr m_control_body;
-        mono::IConstraintPtr m_spring;
+        mono::IBody* m_control_body;
+        mono::IConstraint* m_spring;
         math::Vector m_point;
     };
 }

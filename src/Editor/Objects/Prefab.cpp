@@ -2,7 +2,7 @@
 #include "Prefab.h"
 #include "SnapPoint.h"
 #include "Rendering/Sprite/ISprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 
@@ -16,7 +16,7 @@ Prefab::Prefab(const std::string& name, const std::string& sprite_file, const st
       m_snap_points(snap_points),
       m_selected(false)
 {
-    m_sprite = mono::CreateSprite(sprite_file.c_str());
+    m_sprite = mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str());
     for(SnapPoint& snapper : m_snap_points)
         snapper.id = Id();
 }

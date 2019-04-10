@@ -5,20 +5,43 @@
 #include "Camera/TraceCamera.h"
 #include "EventHandler/EventHandler.h"
 #include "Engine.h"
+#include "SystemContext.h"
 
 #include "Editor.h"
 #include "EditorConfig.h"
 #include "FontIds.h"
+
+#include "TransformSystem.h"
+#include "EntitySystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+
+#include "Component.h"
+#include "Entity/EntityManager.h"
+#include "Entity/ComponentFunctions.h"
 
 int main(int argc, const char* argv[])
 {
     // This is assumed to be the file argument
     const char* file_name = (argc < 2) ? nullptr : argv[1];
 
+    constexpr size_t max_entities = 500;
+
     System::Initialize();
-    mono::InitializeRender(32.0f);
+
+    mono::RenderInitParams render_params;
+    render_params.pixels_per_meter = 32.0f;
+    mono::InitializeRender(render_params);
 
     {
+        mono::EventHandler event_handler;
+        mono::SystemContext system_context;
+        EntityManager entity_manager(&system_context);
+        RegisterSharedComponents(entity_manager);
+
+        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        system_context.CreateSystem<mono::EntitySystem>(max_entities);
+        system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+
         editor::Config config;
         config.camera_position = math::ZeroVec;
         config.camera_viewport = math::Quad(0, 0, 600.0f, 400.0f);
@@ -30,7 +53,7 @@ int main(int argc, const char* argv[])
         editor::LoadConfig("res/editor_config.json", config);
         
         System::IWindow* window = System::CreateWindow(
-            "Editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, false);
+            "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, false);
         
         mono::ICameraPtr camera = std::make_shared<mono::TraceCamera>(config.window_size.x, config.window_size.y);
         camera->SetPosition(config.camera_position);
@@ -41,15 +64,13 @@ int main(int argc, const char* argv[])
         mono::LoadFont(editor::FontId::LARGE,       "res/pixelette.ttf", 10.0f, 1.0f /  5.0f);
         mono::LoadFont(editor::FontId::EXTRA_LARGE, "res/pixelette.ttf", 10.0f, 1.0f /  1.0f);
 
-        mono::EventHandler event_eandler;
-        auto editor = std::make_shared<editor::Editor>(window, event_eandler, file_name);
+        auto editor = std::make_shared<editor::Editor>(window, entity_manager, event_handler, system_context, file_name);
         editor->EnableDrawObjectNames(config.draw_object_names);
         editor->EnableDrawSnappers(config.draw_snappers);
+        editor->EnableDrawOutline(config.draw_outline);
         editor->SetBackgroundColor(config.background_color);
-        editor->SetActivePanelIndex(config.active_panel_index);
 
-        mono::Engine engine(window, camera, event_eandler);
-        engine.Run(editor);
+        mono::Engine(window, camera, &system_context, event_handler).Run(editor);
 
         const System::Position& position = window->Position();
         const System::Size& size = window->Size();
@@ -60,8 +81,8 @@ int main(int argc, const char* argv[])
         config.window_size = math::Vector(size.width, size.height);
         config.draw_object_names = editor->DrawObjectNames();
         config.draw_snappers = editor->DrawSnappers();
+        config.draw_outline = editor->DrawOutline();
         config.background_color = editor->BackgroundColor();
-        config.active_panel_index = editor->ActivePanelIndex();
 
         editor::SaveConfig("res/editor_config.json", config);
     

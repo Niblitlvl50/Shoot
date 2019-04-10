@@ -2,6 +2,10 @@
 #include "WorldFile.h"
 #include "Math/Serialize.h"
 
+#include "Entity/IEntityManager.h"
+#include "Component.h"
+#include "Serialize.h"
+
 #include "nlohmann/json.hpp"
 #include <cstdio>
 
@@ -174,72 +178,41 @@ bool world::ReadWorldObjectsBinary(const file::FilePtr& file, world::WorldObject
     return true;
 }
 
-/*
-bool world::WriteWorldObjects(file::FilePtr& file, const std::vector<WorldObject>& objects)
+std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager)
 {
-    nlohmann::json json_object_collection;
-    
-    for(const auto& object : objects)
-    {
-        nlohmann::json json_object;
+    std::vector<uint32_t> created_entities;
 
-        json_object["name"] = object.name;
-        nlohmann::json& attributes = json_object["attributes"];
+    file::FilePtr file = file::OpenAsciiFile(file_name);
+    if(!file)
+        return created_entities;
 
-        for(auto& attribute : object.attributes)
-        {
-            nlohmann::json json_attribute;
-            json_attribute["id"] = attribute.id;
-            json_attribute["type"] = static_cast<int>(attribute.attribute.type);
-            json_attribute["data"] = attribute.attribute.string_value;
-            attributes.push_back(json_attribute);
-        }
-
-        json_object_collection.push_back(json_object);
-    }
-
-    nlohmann::json json;
-    json["objects"] = json_object_collection;
-
-    const std::string& serialized_json = json.dump(4);
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-    
-    return true;
-}
-
-bool world::ReadWorldObjects(const file::FilePtr& file, std::vector<WorldObject>& objects)
-{    
     std::vector<byte> file_data;
     file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const nlohmann::json& json_objects = json["objects"];
+    const nlohmann::json& entities = json["entities"];
 
-    for(const auto& json_object : json_objects)
+    for(const auto& json_entity : entities)
     {
-        const std::string& object_name = json_object["name"];
+        const std::string& entity_name = json_entity["name"];
+        mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
 
-        WorldObject object;
-        std::memset(object.name, 0, WorldObjectNameMaxLength);
-        std::memcpy(object.name, object_name.data(), WorldObjectNameMaxLength -1);
-
-        for(auto& json_attribute : json_object["attributes"])
+        for(const auto& json_component : json_entity["components"])
         {
-            Attribute attribute;
-            attribute.id = json_attribute["id"];
-                        
-            const std::string data = json_attribute["data"];
-            attribute.attribute = data.c_str();
-            
-            const int type = static_cast<int>(json_attribute["type"]);
-            attribute.attribute.type = Variant::Type(type);
-            
-            object.attributes.push_back(attribute);
+            Component component;
+            component.name = json_component["name"];
+            component.hash = mono::Hash(component.name.c_str());
+            component.properties = (std::vector<Attribute>)json_component["properties"];
+
+            const Component& default_component = DefaultComponentFromHash(component.hash);
+            world::UnionAttributes(component.properties, default_component.properties);
+
+            entity_manager->AddComponent(new_entity.id, component.hash);
+            entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
         }
 
-        objects.emplace_back(object);
+        created_entities.push_back(new_entity.id);
     }
 
-    return true;
+    return created_entities;
 }
-*/

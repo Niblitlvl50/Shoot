@@ -1,29 +1,28 @@
 
 #include "HomingBehaviour.h"
 
-#include "Enemies/Enemy.h"
-#include "Events/SpawnConstraintEvent.h"
-
-#include "EventHandler/EventHandler.h"
-#include "Physics/CMFactory.h"
+#include "Physics/PhysicsSystem.h"
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
 
+#include "Math/Vector.h"
+
 using namespace game;
 
-HomingBehaviour::HomingBehaviour(Enemy* enemy, mono::EventHandler& event_handler)
-    : m_event_handler(event_handler)
+HomingBehaviour::HomingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system)
+    : m_physics_system(physics_system)
 {
-    m_control_body = mono::PhysicsFactory::CreateKinematicBody();
-    m_control_body->SetPosition(enemy->Position());
+    assert(body->GetType() == mono::BodyType::DYNAMIC);
 
-    m_spring = mono::PhysicsFactory::CreateSpring(m_control_body, enemy->GetPhysics().body, 0.0f, 50.0f, 0.5f);
-    m_event_handler.DispatchEvent(SpawnConstraintEvent(m_spring));
+    m_control_body = m_physics_system->CreateKinematicBody();
+    m_control_body->SetPosition(body->GetPosition());
+    m_spring = m_physics_system->CreateSpring(body, m_control_body, 0.0f, 50.0f, 0.5f);
 }
 
 HomingBehaviour::~HomingBehaviour()
 {
-    m_event_handler.DispatchEvent(DespawnConstraintEvent(m_spring));
+    m_physics_system->ReleaseConstraint(m_spring);
+    m_physics_system->ReleaseKinematicBody(m_control_body);
 }
 
 void HomingBehaviour::SetHomingPosition(const math::Vector& position)

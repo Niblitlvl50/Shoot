@@ -5,11 +5,12 @@
 
 namespace game
 {
-    class DamageController;
-
+    struct Config;
+    
     struct ZoneCreationContext
     {
         mono::EventHandler* event_handler = nullptr;
-        game::DamageController* damage_controller = nullptr;
+        mono::SystemContext* system_context = nullptr;
+        game::Config* game_config = nullptr;
     };
 }

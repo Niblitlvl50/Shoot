@@ -11,7 +11,7 @@
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/Sprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 
 
 StaticPrefab::StaticPrefab(
@@ -28,7 +28,7 @@ StaticPrefab::StaticPrefab(
     shape->SetCollisionFilter(game::CollisionCategory::STATIC, game::STATIC_MASK);
     m_physics.shapes.push_back(shape);
 
-    m_sprite = mono::CreateSprite(sprite_file);
+    m_sprite = mono::GetSpriteFactory()->CreateSprite(sprite_file);
 }
 
 StaticPrefab::~StaticPrefab()

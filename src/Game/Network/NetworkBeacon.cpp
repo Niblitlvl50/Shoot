@@ -6,8 +6,9 @@
 
 using namespace game;
 
-NetworkBeacon::NetworkBeacon()
-    : m_broadcast(true)
+NetworkBeacon::NetworkBeacon(int beacon_port)
+    : m_beacon_port(beacon_port)
+    , m_broadcast(false)
 {
     Start();
 }
@@ -20,9 +21,11 @@ NetworkBeacon::~NetworkBeacon()
 
 void NetworkBeacon::Start()
 {
-    const auto broadcast_func = [](const bool& broadcast) {
-        //Network::ISocketPtr broadcast_socket = Network::OpenBroadcastSocket(17776, false);
-        Network::ISocketPtr broadcast_socket = Network::OpenLoopbackSocket(17776, false);
+    if(m_broadcast)
+        return;
+
+    const auto broadcast_func = [](int beacon_port, const bool& broadcast) {
+        network::ISocketPtr broadcast_socket = network::OpenLoopbackSocket(beacon_port, false);
         if(!broadcast_socket)
             return;
 
@@ -31,11 +34,12 @@ void NetworkBeacon::Start()
         while(broadcast)
         {
             broadcast_socket->Send(data);
-            System::Sleep(1000);
+            System::Sleep(250);
         }
     };
 
-    m_broadcast_thread = std::thread(broadcast_func, std::ref(m_broadcast));
+    m_broadcast = true;
+    m_broadcast_thread = std::thread(broadcast_func, m_beacon_port, std::ref(m_broadcast));
 }
 
 void NetworkBeacon::Stop()

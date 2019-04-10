@@ -16,9 +16,8 @@ namespace editor
 
         bool draw_object_names;
         bool draw_snappers;
+        bool draw_outline;
         mono::Color::RGBA background_color;
-
-        int active_panel_index;
     };
 
     bool SaveConfig(const char* config_file, const Config& config);

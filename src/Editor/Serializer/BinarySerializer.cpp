@@ -2,7 +2,6 @@
 #include "BinarySerializer.h"
 #include "Objects/Polygon.h"
 #include "ObjectProxies/PolygonProxy.h"
-#include "ObjectProxies/EntityProxy.h"
 #include "ObjectProxies/PrefabProxy.h"
 
 #include "Math/Matrix.h"
@@ -27,21 +26,6 @@ void BinarySerializer::WriteObjects(const std::string& file_name) const
 {
     file::FilePtr file = file::CreateBinaryFile(file_name.c_str());
     world::WriteWorldObjectsBinary(file, m_object_data);    
-}
-
-void BinarySerializer::Accept(EntityProxy* proxy)
-{
-    world::WorldObject world_object;
-    
-    const char* name = proxy->Name();
-    const size_t length = std::strlen(name);
-    const size_t data_length = std::min(length, size_t(world::WorldObjectNameMaxLength) -1);
-
-    std::memcpy(world_object.name, name, data_length);
-    world_object.name[data_length] = '\0';
-    world_object.attributes = proxy->GetAttributes();
-
-    m_object_data.objects.push_back(world_object);
 }
 
 void BinarySerializer::Accept(PathProxy* proxy)
@@ -85,4 +69,9 @@ void BinarySerializer::Accept(PrefabProxy* proxy)
     prefab_data.scale = proxy->Entity()->Scale();
 
     m_polygon_data.prefabs.push_back(prefab_data);
+}
+
+void BinarySerializer::Accept(ComponentProxy* proxy)
+{
+
 }

@@ -17,7 +17,7 @@ namespace game
     {
     public:
     
-        NetworkBeacon();
+        NetworkBeacon(int beacon_port);
         ~NetworkBeacon();
 
         void Start();
@@ -25,6 +25,7 @@ namespace game
 
     private:
     
+        int m_beacon_port;
         bool m_broadcast;
         std::thread m_broadcast_thread;
     };

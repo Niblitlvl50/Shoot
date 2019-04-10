@@ -63,7 +63,7 @@ bool PolygonBrushTool::IsActive() const
 void PolygonBrushTool::HandleContextMenu(int menu_index)
 { }
 
-void PolygonBrushTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void PolygonBrushTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
     m_painting = true;
     m_direction = math::INF;

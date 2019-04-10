@@ -1,20 +1,14 @@
 
 #include "BatController.h"
-#include "Enemy.h"
 
 using namespace game;
 
-BatController::BatController(mono::EventHandler& event_handler)
+BatController::BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
 {
 
 }
 
-void BatController::Initialize(Enemy* enemy)
-{
-    m_enemy = enemy;
-}
-
-void BatController::doUpdate(unsigned int delta)
+void BatController::Update(uint32_t delta_ms)
 {
 
 }

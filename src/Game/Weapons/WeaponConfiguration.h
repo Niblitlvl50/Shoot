@@ -2,7 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "Physics/CMFwd.h"
+#include "Physics/PhysicsFwd.h"
 #include "Rendering/Color.h"
 #include "Particle/ParticleFwd.h"
 #include "Particle/ParticleEmitter.h"
@@ -13,26 +13,22 @@
 
 namespace game
 {
-    using BulletImpactCallback = std::function<void (const mono::IPhysicsEntity*, mono::IBody*)>;
+    using BulletImpactCallback = std::function<void (uint32_t entity_id, mono::IBody* collide_with)>;
 
     struct BulletConfiguration
     {
         float life_span = 1.0f;
         float fuzzy_life_span = 0.0f;
-        float mass = 1.0f;
 
-        float collision_radius = 0.5f;
-        math::Vector scale = math::Vector(1.0f, 1.0f);
-        CollisionCategory collision_category = CollisionCategory::NONE;
-        unsigned int collision_mask = 0;
-        BulletImpactCallback collision_callback;
-
-        mono::Color::RGBA sprite_shade;
-        const char* sprite_file = nullptr;
+        const char* entity_file = nullptr;
         const char* sound_file = nullptr;
 
-        mono::ParticlePool* pool = nullptr;
-        mono::ParticleEmitter::Configuration emitter_config;
+        CollisionCategory collision_category = CollisionCategory::STATIC;
+        uint32_t collision_mask = 0;
+        BulletImpactCallback collision_callback;
+
+        //mono::ParticlePool* pool = nullptr;
+        //mono::ParticleEmitter::Configuration emitter_config;
     };
 
     struct WeaponConfiguration

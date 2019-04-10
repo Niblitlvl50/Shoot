@@ -17,6 +17,11 @@
 
 #include "System/System.h"
 
+namespace mono
+{
+    class TransformSystem;
+}
+
 namespace editor
 {
     struct UIContext;
@@ -30,6 +35,7 @@ namespace editor
                             System::IWindow* window,
                             editor::Editor* editor,
                             editor::UIContext* context,
+                            mono::TransformSystem* transform_system,
                             mono::EventHandler& event_handler);
         ~UserInputController();
 
@@ -47,8 +53,9 @@ namespace editor
         bool OnKeyUp(const event::KeyUpEvent& event);
 
         System::IWindow* m_window;
-        mono::EventHandler& m_eventHandler;
+        mono::EventHandler& m_event_handler;
         editor::Editor* m_editor;
+        editor::UIContext* m_context;
 
         mono::EventToken<event::MouseUpEvent> m_mouseUpToken;
         mono::EventToken<event::MouseDownEvent> m_mouseDownToken;
@@ -58,20 +65,18 @@ namespace editor
         mono::EventToken<event::KeyDownEvent> m_keyDownToken;
         mono::EventToken<event::KeyUpEvent> m_key_up_token;
 
-        editor::UIContext* m_context;
-
-        editor::CameraTool m_cameraTool;
-        editor::TranslateTool m_translateTool;
-        editor::RotateTool m_rotateTool;
-        editor::PolygonTool m_polygonTool;
+        editor::CameraTool m_camera_tool;
+        editor::TranslateTool m_translate_tool;
+        editor::RotateTool m_rotate_tool;
+        editor::PolygonTool m_polygon_tool;
         editor::PolygonBoxTool m_polygon_box_tool;
-        editor::PolygonBrushTool m_polygonBrushTool;
-        editor::PathTool m_pathTool;
-        editor::ITool* m_activeTool;
+        editor::PolygonBrushTool m_polygon_brush_tool;
+        editor::PathTool m_path_tool;
+
+        editor::ITool* m_active_tool;
 
         editor::Grabber* m_grabber;
-
-        bool m_isMaximized;
+        bool m_is_maximized;
     };
 }
 

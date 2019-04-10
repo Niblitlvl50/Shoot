@@ -4,7 +4,7 @@
 #include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Events/RemoveEntityEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "Audio/ISound.h"
@@ -21,8 +21,8 @@ Explosion::Explosion(const ExplosionConfiguration& config, mono::EventHandler& e
     const auto remove_this_func = [this, &event_handler] {
         event_handler.DispatchEvent(game::RemoveEntityEvent(Id()));
     };
-    
-    m_sprite = mono::CreateSprite(config.sprite_file);
+
+    m_sprite = mono::GetSpriteFactory()->CreateSprite(config.sprite_file);
     m_sprite->SetAnimation(0, remove_this_func);
 
     if(config.sound_file)

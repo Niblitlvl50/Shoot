@@ -7,6 +7,8 @@ namespace game
     {
         QUIT,
         TITLE_SCREEN,
-        TEST_ZONE
+        TEST_ZONE,
+        REMOTE_ZONE,
+        SYSTEM_TEST_ZONE
     };
 }

@@ -2,7 +2,6 @@
 #include "ObjectFactory.h"
 #include "DefinedAttributes.h"
 
-#include "ObjectProxies/EntityProxy.h"
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/PrefabProxy.h"
@@ -10,7 +9,6 @@
 #include "Objects/Path.h"
 #include "Objects/Polygon.h"
 #include "Objects/Prefab.h"
-#include "Objects/SpriteEntity.h"
 
 #include "Math/Matrix.h"
 
@@ -20,31 +18,6 @@ ObjectFactory::ObjectFactory(Editor* editor)
     : m_editor(editor)
 {
     m_repository.LoadDefinitions();
-}
-
-IObjectProxyPtr ObjectFactory::CreateObject(const char* object_name) const
-{
-    IObjectProxyPtr new_object = CreateEntity(object_name);
-    if(new_object)
-        return new_object;
-
-    return CreatePrefab(object_name);
-}
-
-IObjectProxyPtr ObjectFactory::CreateEntity(const char* entity_name) const
-{
-    const EntityDefinition* def = m_repository.GetDefinitionFromName(entity_name);
-    if(!def)
-        return nullptr;
-    
-    auto entity = std::make_shared<editor::SpriteEntity>(entity_name, def->sprite_file.c_str());
-    entity->SetScale(def->scale);
-
-    std::vector<Attribute> attributes;
-    for(unsigned int hash : def->attribute_types)
-        attributes.push_back({hash, world::DefaultAttributeFromHash(hash)});
-    
-    return std::make_unique<EntityProxy>(entity, attributes);
 }
 
 IObjectProxyPtr ObjectFactory::CreatePath(const std::string& name, const std::vector<math::Vector>& points) const

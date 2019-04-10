@@ -17,8 +17,17 @@ namespace
         ImGui::BeginMainMenuBar();
         if(ImGui::BeginMenu("Editor"))
         {
+            if(ImGui::MenuItem("New", "Ctrl + N"))
+                context.editor_menu_callback(EditorMenuOptions::NEW);
+
             if(ImGui::MenuItem("Save", "Ctrl + S"))
                 context.editor_menu_callback(EditorMenuOptions::SAVE);
+
+            if(ImGui::MenuItem("Import Entity", "Ctrl + Shift + I"))
+                context.editor_menu_callback(EditorMenuOptions::IMPORT_ENTITY);
+
+            if(ImGui::MenuItem("Export Entity", "Ctrl + Shift + E"))
+                context.editor_menu_callback(EditorMenuOptions::EXPORT_ENTITY);
 
             ImGui::EndMenu();
         }
@@ -48,11 +57,13 @@ namespace
             if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
                 context.background_color_callback(context.background_color);
 
-            if(ImGui::Checkbox("Draw Object Names", &context.draw_object_names))
+            if(ImGui::Checkbox("Draw Object Names, N", &context.draw_object_names))
                 context.draw_object_names_callback(context.draw_object_names);
 
-            if(ImGui::Checkbox("Draw Snappers", &context.draw_snappers))
+            if(ImGui::Checkbox("Draw Snappers, S", &context.draw_snappers))
                 context.draw_snappers_callback(context.draw_snappers);
+
+            ImGui::Checkbox("Show Outline, O", &context.draw_outline);
 
             ImGui::EndMenu();
         }
@@ -60,14 +71,17 @@ namespace
         ImGui::EndMainMenuBar();
     }
 
-    void DrawObjectView(editor::UIContext& context)
+    void DrawObjectOutline(editor::UIContext& context)
     {
+        if(!context.draw_outline)
+            return;
+
         constexpr int flags =
-            //ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_AlwaysAutoResize |
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
+            //ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoSavedSettings;
 
         ImGui::SetNextWindowPos(ImVec2(30, 40));
@@ -75,48 +89,17 @@ namespace
 
         ImGui::Begin("Objects", nullptr, flags);
 
-        ImGui::RadioButton("Entites", &context.active_panel_index, 0); ImGui::SameLine();
-        ImGui::RadioButton("Prefabs", &context.active_panel_index, 1);
-
-        ImGui::Spacing();
-
-        ImGui::Columns(2, nullptr, false);
-
-        const std::vector<UIEntityItem>& objects_to_draw
-            = (context.active_panel_index == 0) ? context.entity_items : context.prefab_items;
-
-        for(size_t index = 0; index < objects_to_draw.size(); ++index)
+        for(size_t index = 0; index < context.all_proxy_objects->size(); ++index)
         {
-            const UIEntityItem& item = objects_to_draw[index];
-
-            void* texture_id = reinterpret_cast<void*>(item.texture_id);
-            const ImageCoords& icon = QuadToImageCoords(item.icon);
-
+            const IObjectProxyPtr& proxy = context.all_proxy_objects->at(index);
+            const bool selected = (proxy.get() == context.selected_proxy_object);
+            
             ImGui::PushID(index);
-            //ImGui::ImageButton(texture_id, ImVec2(48.0f, 48.0f), icon.uv1, icon.uv2, 0);
-            ImGui::ImageButton(texture_id, ImVec2(64.0f, 64.0f), icon.uv1, icon.uv2, 0);
 
-            if(ImGui::IsItemActive() && ImGui::IsMouseDragging())
-                context.drag_context = item.tooltip;
-            else if(ImGui::IsItemHovered())
-                ImGui::SetTooltip("%s", item.tooltip.c_str());
+            if(ImGui::Selectable(proxy->Name(), selected))
+                context.select_object_callback(proxy.get());
 
-            ImGui::NextColumn();
             ImGui::PopID();
-        }
-
-        if(!context.drag_context.empty())
-        {
-            if(ImGui::IsMouseDragging())
-            {
-                ImGui::SetTooltip("%s", context.drag_context.c_str());
-            }
-            else if(ImGui::IsMouseReleased(0))
-            {
-                const ImVec2& mouse_pos = ImGui::GetMousePos();
-                context.drop_callback(context.drag_context, math::Vector(mouse_pos.x, mouse_pos.y));
-                context.drag_context.clear();
-            }
         }
 
         ImGui::End();
@@ -124,13 +107,13 @@ namespace
 
     void DrawSelectionView(editor::UIContext& context)
     {
-        if(!context.proxy_object)
+        if(!context.selected_proxy_object)
             return;
 
         constexpr int flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
         ImGui::Begin("Selection", nullptr, ImVec2(250, 120), true, flags);
 
-        context.proxy_object->UpdateUIContext(context);
+        context.selected_proxy_object->UpdateUIContext(context);
 
         if(ImGui::Button("Delete"))
             context.delete_callback();
@@ -202,6 +185,40 @@ namespace
             ImGui::End();
         }
     }
+
+    void DrawFileSelectionDialog(editor::UIContext& context)
+    {
+        constexpr const char* popup_name = "Select something...";
+        if(context.show_modal_item_selection)
+        {
+            ImGui::OpenPopup(popup_name);
+            context.show_modal_item_selection = false;
+        }
+
+        ImGui::SetNextWindowSize(ImVec2(500, -1));
+        if(ImGui::BeginPopupModal(popup_name))
+        {
+            ImGui::Separator();
+
+            int selected_index = -1;
+            for(size_t index = 0; index < context.modal_items.size(); ++index)
+            {
+                const std::string& item = context.modal_items[index];
+                if(ImGui::Selectable(item.c_str()))
+                    selected_index = index;
+            }
+
+            ImGui::Separator();
+
+            if(ImGui::Button("Cancel"))
+                ImGui::CloseCurrentPopup();
+            ImGui::EndPopup();
+
+            if(selected_index != -1)
+                context.modal_selection_callback(selected_index);
+        }
+    }
+
 }
 
 ImGuiInterfaceDrawer::ImGuiInterfaceDrawer(UIContext& context)
@@ -214,10 +231,11 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
     ImGui::NewFrame();
 
     DrawMainMenuBar(m_context);
-    DrawObjectView(m_context);
-    DrawSelectionView(m_context);    
+    DrawObjectOutline(m_context);
+    DrawSelectionView(m_context);
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
+    DrawFileSelectionDialog(m_context);
 
     //ImGui::ShowTestWindow();
     ImGui::Render();

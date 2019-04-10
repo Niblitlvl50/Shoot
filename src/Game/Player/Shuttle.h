@@ -4,6 +4,7 @@
 #include "MonoPtrFwd.h"
 #include "Entity/PhysicsEntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "ShuttleGamepadController.h"
 #include "PlayerInteractionController.h"
 #include "Physics/IBody.h"
@@ -55,8 +56,8 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         void Update(unsigned int delta) override;
         
-        ShuttleGamepadController m_gamepad_controller;
-        PlayerInteractionController m_interaction_controller;
+        //ShuttleGamepadController m_gamepad_controller;
+        //PlayerInteractionController m_interaction_controller;
         bool m_fire;
         
         std::unique_ptr<IWeaponSystem> m_weapon;

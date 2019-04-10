@@ -4,12 +4,17 @@
 #include "Math/Vector.h"
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
+#include "TransformSystem.h"
+#include "Component.h"
+
 #include "Editor.h"
 
 using namespace editor;
 
-TranslateTool::TranslateTool(Editor* editor)
+TranslateTool::TranslateTool(Editor* editor, mono::TransformSystem* transform_system)
     : m_editor(editor)
+    , m_transform_system(transform_system)
+    , m_entity_id(std::numeric_limits<uint32_t>::max())
     , m_was_snapped(false)
     , m_snap_rotate(false)
 { }
@@ -19,25 +24,27 @@ void TranslateTool::Begin()
 
 void TranslateTool::End()
 {
-    m_entity = nullptr;
+    m_entity_id = std::numeric_limits<uint32_t>::max();
 }
 
 bool TranslateTool::IsActive() const
 {
-    return m_entity != nullptr;
+    return m_entity_id != std::numeric_limits<uint32_t>::max();
 }
 
 void TranslateTool::HandleContextMenu(int menu_index)
 { }
 
-void TranslateTool::HandleMouseDown(const math::Vector& world_pos, mono::IEntityPtr entity)
+void TranslateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
-    m_entity = entity;
-    if(!m_entity)
+    m_entity_id = entity_id;
+    if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+
     m_begin_translate = world_pos;
-    m_position_diff = m_entity->Position() - world_pos;
+    m_position_diff = math::GetPosition(transform) - world_pos;
 }
 
 void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
@@ -47,13 +54,16 @@ void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
 
 void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    if(!m_entity)
+    if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
     const math::Vector& delta = m_begin_translate - world_pos;
     const math::Vector& new_pos = m_begin_translate - delta + m_position_diff;
-    m_entity->SetPosition(new_pos);
 
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    math::Position(transform, new_pos);
+
+    /*
     const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);
     if(snap_pair.found_snap && !m_was_snapped)
     {
@@ -88,7 +98,9 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     }
 
     m_was_snapped = snap_pair.found_snap;
+    */
 
+    m_editor->EntityComponentUpdated(m_entity_id, TRANSFORM_COMPONENT);
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();
 }

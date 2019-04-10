@@ -12,12 +12,16 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "ObjectAttribute.h"
+#include "Component.h"
 
 using namespace editor;
 
 PathProxy::PathProxy(const std::shared_ptr<PathEntity>& path, Editor* editor)
     : m_path(path),
       m_editor(editor)
+{ }
+
+PathProxy::~PathProxy()
 { }
 
 const char* PathProxy::Name() const
@@ -110,14 +114,19 @@ void PathProxy::UpdateUIContext(UIContext& context)
     ImGui::Value("Rotation", m_path->Rotation());
 }
 
-std::vector<Attribute> PathProxy::GetAttributes() const
+const std::vector<Component>& PathProxy::GetComponents() const
 {
-    return std::vector<Attribute>();
+    return m_components;
 }
 
-void PathProxy::SetAttributes(const std::vector<Attribute>& attributes)
+std::vector<Component>& PathProxy::GetComponents()
 {
+    return m_components;
+}
 
+std::unique_ptr<editor::IObjectProxy> PathProxy::Clone() const
+{
+    return nullptr;
 }
 
 void PathProxy::Visit(IObjectVisitor& visitor)

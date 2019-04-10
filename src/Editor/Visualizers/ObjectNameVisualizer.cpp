@@ -20,9 +20,13 @@ void ObjectNameVisualizer::doDraw(mono::IRenderer& renderer) const
 
     for(const IObjectProxyPtr& proxy : m_object_proxies)
     {
+        mono::IEntityPtr entity = proxy->Entity();
+        if(!entity)
+            continue;
+
         constexpr math::Vector offset(0.0f, -1.0f);
         constexpr mono::Color::RGBA color;
-        renderer.DrawText(FontId::SMALL, proxy->Name(), proxy->Entity()->Position() + offset, true, color);
+        renderer.DrawText(FontId::SMALL, proxy->Name(), entity->Position() + offset, true, color);
     }
 }
 

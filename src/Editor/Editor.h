@@ -20,6 +20,7 @@
 
 class ImGuiInputHandler;
 class ImGuiRenderer;
+class IEntityManager;
 
 namespace editor
 {
@@ -31,7 +32,14 @@ namespace editor
     {
     public:
 
-        Editor(System::IWindow* window, mono::EventHandler& event_handler, const char* file_name);
+        Editor(
+            System::IWindow* window,
+            IEntityManager& entity_manager,
+            mono::EventHandler& event_handler,
+            mono::SystemContext& system_context,
+            const char* world_filename
+        );
+
         virtual ~Editor();
 
         void OnLoad(mono::ICameraPtr& camera) override;
@@ -40,6 +48,8 @@ namespace editor
 
         void Load();
         void Save();
+        void ImportEntity();
+        void ExportEntity();
 
         bool OnSurfaceChanged(const event::SurfaceChangedEvent& event);
 
@@ -49,6 +59,7 @@ namespace editor
 
         void SelectProxyObject(IObjectProxy* proxy_object);
         IObjectProxy* FindProxyObject(const math::Vector& position);
+        IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
 
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);
@@ -60,11 +71,18 @@ namespace editor
 
         float GetPickingDistance() const;
 
+        void NewEntity();
         void OnDeleteObject();
+
+        void AddComponent(uint32_t component_hash);
+        void DeleteComponent(uint32_t index);
+
+        void EntityComponentUpdated(uint32_t entity_id, uint32_t component_hash);
+
         void OnContextMenu(int index);
+        void SelectItemCallback(int index);
         void EditorMenuCallback(EditorMenuOptions index);
         void ToolsMenuCallback(ToolsMenuOptions index);
-        void DropItemCallback(const std::string& id, const math::Vector& position);
 
         bool DrawObjectNames() const;
         void EnableDrawObjectNames(bool enable);
@@ -72,36 +90,38 @@ namespace editor
         bool DrawSnappers() const;
         void EnableDrawSnappers(bool enable);
 
+        bool DrawOutline() const;
+        void EnableDrawOutline(bool enable);
+
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
-
-        int ActivePanelIndex() const;
-        void SetActivePanelIndex(int index);
 
         void DuplicateSelected();
 
     private:
 
         System::IWindow* m_window;
-        mono::EventHandler& m_eventHandler;
-        const char* m_fileName;
+        IEntityManager& m_entity_manager;
+        mono::EventHandler& m_event_handler;
+        mono::SystemContext& m_system_context;
+        const char* m_world_filename;
+
         mono::ICameraPtr m_camera;
 
         editor::UIContext m_context;
-        EntityRepository m_entityRepository;
+        EntityRepository m_entity_repository;
         ObjectFactory m_object_factory;
 
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
-        std::shared_ptr<ImGuiRenderer> m_guiRenderer;
-        std::shared_ptr<class UserInputController> m_userInputController;
-        std::shared_ptr<class ObjectDetailVisualizer> m_object_detail_visualizer;
+        std::shared_ptr<ImGuiRenderer> m_gui_renderer;
+        std::shared_ptr<class UserInputController> m_user_input_controller;
+        std::shared_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
 
+        uint32_t m_selected_id;
+        std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
         std::vector<SnapPoint> m_snap_points;
-
-        unsigned int m_seleced_id;
-        std::vector<IObjectProxyPtr> m_proxies;
         
-        mono::EventToken<event::SurfaceChangedEvent> m_surfaceChangedToken;
+        mono::EventToken<event::SurfaceChangedEvent> m_surface_changed_token;
     };
 }

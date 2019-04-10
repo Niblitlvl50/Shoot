@@ -1,7 +1,6 @@
 
 #include "World.h"
 #include "CollisionConfiguration.h"
-#include "Enemies/Enemy.h"
 #include "Pickups/Ammo.h"
 
 #include "RenderLayers.h"
@@ -75,18 +74,6 @@ namespace
         world::FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
     }
 
-    void LoadAttributes(game::EnemyPtr& enemy, const std::vector<Attribute>& attributes)
-    {
-        math::Vector position;
-        float rotation = 0.0f;
-
-        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, position);
-        world::FindAttribute(world::ROTATION_ATTRIBUTE, attributes, rotation);
-
-        enemy->SetPosition(position);
-        enemy->SetRotation(rotation);
-    }
-
     void LoadAttributes(game::Pickup& ammo_pickup, const std::vector<Attribute>& attributes)
     {
         world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
@@ -97,10 +84,6 @@ namespace
 
 void game::LoadWorldObjects(
     const std::vector<world::WorldObject>& objects,
-    IEnemyFactory* enemy_factory,
-    IGameObjectFactory* gameobject_factory,
-    std::vector<game::EnemyPtr>& enemies,
-    std::vector<mono::IPhysicsEntityPtr>& gameobjects,
     std::vector<SpawnPoint>& spawn_points,
     std::vector<math::Vector>& player_points,
     std::vector<game::Pickup>& ammo_pickups)
@@ -128,23 +111,6 @@ void game::LoadWorldObjects(
         }
         else
         {
-            math::Vector position;
-            world::FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
-
-            game::EnemyPtr enemy = enemy_factory->CreateFromName(name.c_str(), position, object.attributes);
-            if(enemy)
-            {
-                LoadAttributes(enemy, object.attributes);
-                enemies.push_back(enemy);
-            }
-            else
-            {
-                mono::IPhysicsEntityPtr gameobject = gameobject_factory->CreateGameObject(name.c_str(), object.attributes);
-                if(gameobject)
-                {
-                    gameobjects.push_back(gameobject);
-                }
-            }
         }
     }
 }

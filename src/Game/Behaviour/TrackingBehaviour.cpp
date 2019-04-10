@@ -2,19 +2,16 @@
 #include "TrackingBehaviour.h"
 
 #include "AIKnowledge.h"
-#include "Enemies/Enemy.h"
-#include "Events/SpawnConstraintEvent.h"
-#include "Events/SpawnEntityEvent.h"
-#include "Events/RemoveEntityEvent.h"
-#include "Physics/CMFactory.h"
-#include "Physics/IBody.h"
-#include "Physics/IConstraint.h"
 #include "Navigation/NavMesh.h"
 
-#include "Entity/EntityBase.h"
-#include "EventHandler/EventHandler.h"
 #include "Paths/PathFactory.h"
 #include "Paths/IPath.h"
+
+#include "Physics/IBody.h"
+#include "Physics/IConstraint.h"
+#include "Physics/PhysicsSystem.h"
+
+#include "Entity/EntityBase.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -63,27 +60,27 @@ public:
 
 using namespace game;
 
-TrackingBehaviour::TrackingBehaviour(Enemy* enemy, mono::EventHandler& event_handler)
-    : m_enemy(enemy)
-    , m_event_handler(event_handler)
+TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system)
+    : m_entity_body(body)
+    , m_physics_system(physics_system)
     , m_tracking_timer(100000)
     , m_current_position(0.0f)
     , m_meter_per_second(3.0f)
 {
-    m_control_body = mono::PhysicsFactory::CreateKinematicBody();
-    m_control_body->SetPosition(m_enemy->Position());
+    assert(body->GetType() == mono::BodyType::DYNAMIC);
 
-    m_spring = mono::PhysicsFactory::CreateSpring(m_control_body, m_enemy->GetPhysics().body, 1.0f, 200.0f, 1.5f);
-    m_event_handler.DispatchEvent(SpawnConstraintEvent(m_spring));
+    m_control_body = m_physics_system->CreateKinematicBody();
+    m_control_body->SetPosition(body->GetPosition());
 
+    m_spring = m_physics_system->CreateSpring(m_control_body, body, 1.0f, 200.0f, 1.5f);
     m_astar_drawer = std::make_shared<AStarPathDrawer>(m_current_position);
     //m_event_handler.DispatchEvent(SpawnEntityEvent(m_astar_drawer, 4));
 }
 
 TrackingBehaviour::~TrackingBehaviour()
 {
-    m_event_handler.DispatchEvent(RemoveEntityEvent(m_astar_drawer->Id()));
-    m_event_handler.DispatchEvent(DespawnConstraintEvent(m_spring));
+    m_physics_system->ReleaseKinematicBody(m_control_body);
+    m_physics_system->ReleaseConstraint(m_spring);
 }
 
 void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
@@ -91,9 +88,9 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
-TrackingResult TrackingBehaviour::Run(unsigned int delta)
+TrackingResult TrackingBehaviour::Run(uint32_t delta_ms)
 {
-    m_tracking_timer += delta;
+    m_tracking_timer += delta_ms;
 
     if(m_tracking_timer > 2000)
     {
@@ -104,7 +101,7 @@ TrackingResult TrackingBehaviour::Run(unsigned int delta)
         m_tracking_timer = 0;
     }
 
-    m_current_position += m_meter_per_second * float(delta) / 1000.0f;
+    m_current_position += m_meter_per_second * float(delta_ms) / 1000.0f;
     
     if(m_current_position > m_path->Length())
         return TrackingResult::AT_TARGET;
@@ -121,7 +118,9 @@ bool TrackingBehaviour::UpdatePath()
     if(!game::g_player_one.is_active)
         return false;
 
-    const int start = game::FindClosestIndex(*g_navmesh, m_enemy->Position());
+    const math::Vector position = m_entity_body->GetPosition();
+
+    const int start = game::FindClosestIndex(*g_navmesh, position);
     const int end = game::FindClosestIndex(*g_navmesh, g_player_one.position);
 
     if(start == end || start == -1 || end == -1)
@@ -134,7 +133,7 @@ bool TrackingBehaviour::UpdatePath()
     const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
     m_path = mono::CreatePath(math::ZeroVec, points);
 
-    const float length = math::Length(m_enemy->Position() - m_control_body->GetPosition());
+    const float length = math::Length(position - m_control_body->GetPosition());
     m_current_position = length;
 
     m_astar_drawer->SetPath(m_path.get());

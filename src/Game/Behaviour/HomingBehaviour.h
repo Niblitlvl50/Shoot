@@ -3,7 +3,7 @@
 
 #include "MonoFwd.h"
 #include "Math/MathFwd.h"
-#include "Physics/CMFwd.h"
+#include "Physics/PhysicsFwd.h"
 
 namespace game
 {
@@ -11,15 +11,15 @@ namespace game
     {
     public:
 
-        HomingBehaviour(class Enemy* enemy, mono::EventHandler& event_handler);
+        HomingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system);
         ~HomingBehaviour();
 
         void SetHomingPosition(const math::Vector& position);
 
     private:
 
-        mono::EventHandler& m_event_handler;
-        mono::IBodyPtr m_control_body;
-        mono::IConstraintPtr m_spring;
+        mono::PhysicsSystem* m_physics_system;
+        mono::IBody* m_control_body;
+        mono::IConstraint* m_spring;
     };
 }

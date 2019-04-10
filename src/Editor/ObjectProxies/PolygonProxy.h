@@ -13,6 +13,7 @@ namespace editor
     public:
 
         PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon);
+        ~PolygonProxy();
 
         virtual const char* Name() const;
         virtual unsigned int Id() const;
@@ -22,10 +23,12 @@ namespace editor
         virtual std::vector<Grabber> GetGrabbers() const;
         virtual std::vector<SnapPoint> GetSnappers() const;
         virtual void UpdateUIContext(UIContext& context);
-        virtual std::vector<Attribute> GetAttributes() const;
-        virtual void SetAttributes(const std::vector<Attribute>& attributes);
+        virtual const std::vector<Component>& GetComponents() const;
+        virtual std::vector<Component>& GetComponents();
+        virtual std::unique_ptr<IObjectProxy> Clone() const;
         virtual void Visit(IObjectVisitor& visitor);
 
         std::shared_ptr<PolygonEntity> m_polygon;
+        std::vector<Component> m_components;
     };
 }

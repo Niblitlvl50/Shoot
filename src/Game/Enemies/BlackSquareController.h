@@ -1,23 +1,24 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
+#include "MonoFwd.h"
+#include "Math/MathFwd.h"
+#include "Rendering/RenderFwd.h"
+#include "Entity/IEntityLogic.h"
 #include "Physics/IBody.h"
-#include "Enemy.h"
 #include "StateMachine.h"
 
 namespace game
 {
-    class BlackSquareController : public IEnemyController, public mono::ICollisionHandler
+    class BlackSquareController : public IEntityLogic, public mono::ICollisionHandler
     {
     public:
 
-        BlackSquareController(float trigger_distance, mono::EventHandler& event_handler);
+        BlackSquareController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
         virtual ~BlackSquareController();
 
-        void Initialize(Enemy* enemy) override;
-        void doUpdate(unsigned int delta) override;
-        void OnCollideWith(mono::IBody* body, unsigned int category) override;
+        void Update(uint32_t delta_ms) override;
+        void OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category) override;
 
     private:
 
@@ -32,18 +33,21 @@ namespace game
         void ToAwake();
         void ToHunt();
 
-        void SleepState(unsigned int delta);
-        void AwakeState(unsigned int delta);
-        void HuntState(unsigned int delta);
+        void SleepState(uint32_t delta);
+        void AwakeState(uint32_t delta);
+        void HuntState(uint32_t delta);
 
-        const float m_trigger_distance;
+        const uint32_t m_entity_id;
         mono::EventHandler& m_event_handler;
-        unsigned int m_awake_state_timer;
+        const float m_trigger_distance;
+        uint32_t m_awake_state_timer;
 
-        using MyStateMachine = StateMachine<States, unsigned int>;
+        using MyStateMachine = StateMachine<States, uint32_t>;
         MyStateMachine m_states;
-
-        Enemy* m_enemy;
         std::unique_ptr<class HomingBehaviour> m_homing_behaviour;
+
+        math::Matrix* m_transform;
+        mono::ISprite* m_sprite;
+        mono::IBody* m_body;
     };
 }

@@ -1,0 +1,25 @@
+{
+    "name": "tiny_explosion",
+    "components": [
+        {
+            "name": "sprite",
+            "properties": [
+                {
+                    "id": 1962937316,
+                    "variant_type": 4,
+                    "variant_value": "explosion.sprite"
+                },
+                {
+                    "id": 1031692888,
+                    "variant_type": 6,
+                    "variant_value": {
+                        "red": 0.0,
+                        "green": 1.0,
+                        "blue": 0.0,
+                        "alpha": 1.0
+                    }
+                }
+            ]
+        }
+    ]
+}

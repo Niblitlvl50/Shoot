@@ -1,27 +1,33 @@
 
 #pragma once
 
-#include "Enemy.h"
+#include "MonoFwd.h"
+#include "Math/MathFwd.h"
+#include "Physics/PhysicsFwd.h"
+#include "Entity/IEntityLogic.h"
 #include "Weapons/IWeaponSystem.h"
+
+#include <memory>
 
 namespace game
 {
-    class CacoDemonController : public IEnemyController
+    class CacodemonController : public IEntityLogic
     {
     public:
 
-        CacoDemonController(mono::EventHandler& event_handler);
-        ~CacoDemonController();
+        CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        ~CacodemonController();
 
-        void Initialize(Enemy* enemy) override;
-        void doUpdate(unsigned int delta) override;
+        void Update(uint32_t delta_ms) override;
 
     private:
 
-        mono::EventHandler& m_event_handler;
+        const uint32_t m_entity_id;
+        mono::IBody* m_entity_body;
 
-        Enemy* m_enemy;
         std::unique_ptr<IWeaponSystem> m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
+
+        math::Matrix* m_transform;
     };
 }

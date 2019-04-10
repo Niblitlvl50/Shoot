@@ -3,6 +3,7 @@
 
 #include "Rendering/IDrawable.h"
 #include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Pickups/Ammo.h"
 #include <vector>
 

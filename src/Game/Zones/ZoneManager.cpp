@@ -3,6 +3,8 @@
 #include "ZoneFlow.h"
 #include "TestZone.h"
 #include "TitleScreen.h"
+#include "RemoteZone.h"
+#include "SystemTestZone.h"
 
 using namespace game;
 
@@ -16,25 +18,26 @@ namespace
 }
 
 ZoneManager::ZoneManager(
-    System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context)
-    : m_engine(window, camera, *zone_context.event_handler)
+    System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context, int initial_zone)
+    : m_engine(window, camera, zone_context.system_context, *zone_context.event_handler)
     , m_zone_context(zone_context)
+    , m_active_zone(initial_zone)
 {
     m_zones[TITLE_SCREEN] = LoadZone<game::TitleScreen>;
     m_zones[TEST_ZONE] = LoadZone<game::TestZone>;
+    m_zones[REMOTE_ZONE] = LoadZone<game::RemoteZone>;
+    m_zones[SYSTEM_TEST_ZONE] = LoadZone<game::SystemTestZone>;
 }
 
 void ZoneManager::Run()
 {
-    int active_zone = TITLE_SCREEN;
-
     while(true)
     {
-        mono::IZonePtr zone = m_zones[active_zone](m_zone_context);
-        const int exit_code = m_engine.Run(zone);
-        if(exit_code == QUIT)
+        if(m_active_zone == QUIT)
             break;
 
-        active_zone = exit_code;
+        LoadFunction load_func = m_zones[m_active_zone];
+        mono::IZonePtr zone = load_func(m_zone_context);
+        m_active_zone = m_engine.Run(zone);
     }
 }

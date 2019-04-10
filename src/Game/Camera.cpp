@@ -8,17 +8,27 @@
 #include "Events/EventFuncFwd.h"
 #include "Events/KeyEvent.h"
 
+#include "SystemContext.h"
+#include "TransformSystem.h"
+
 #include <cmath>
 
 using namespace game;
 
-Camera::Camera(int width, int height, int window_width, int window_height, mono::EventHandler& event_handler)
-    : m_offset(math::ZeroVec),
-      m_viewport(0.0f, 0.0f, width, height),
-      m_targetViewport(m_viewport),
-      m_controller(window_width, window_height, this, event_handler),
-      m_event_handler(event_handler),
-      m_debug_camera(false)
+namespace
+{
+    constexpr const uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
+}
+
+Camera::Camera(int width, int height, int window_width, int window_height, mono::TransformSystem* transform_system, mono::EventHandler& event_handler)
+    : m_offset(math::ZeroVec)
+    , m_viewport(0.0f, 0.0f, width, height)
+    , m_targetViewport(m_viewport)
+    , m_controller(window_width, window_height, this, event_handler)
+    , m_transform_system(transform_system)
+    , m_event_handler(event_handler)
+    , m_debug_camera(false)
+    , m_entity_id(NO_ENTITY)
 {
     using namespace std::placeholders;
 
@@ -56,16 +66,19 @@ void Camera::doUpdate(unsigned int delta)
         math::ResizeQuad(m_viewport, change * 0.1f, aspect);
     }
     
-    if(m_entity && !m_debug_camera)
+    if(m_entity_id != NO_ENTITY && !m_debug_camera)
     {
-        const float rotation = m_entity->Rotation();
+        const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+
+        const float rotation = math::GetZRotation(transform);
+        const math::Vector& position = math::GetPosition(transform);
 
         const float ratio_value = m_viewport.mB.y / m_viewport.mB.x;
 
         const math::Vector ratio(1.0f, ratio_value);
         const math::Vector& xy = -math::VectorFromAngle(rotation) * ratio * 3.0f;
 
-        const math::Vector& targetPosition = m_entity->Position() - (m_viewport.mB * 0.5f) - xy;
+        const math::Vector& targetPosition = position - (m_viewport.mB * 0.5f) - xy;
         const math::Vector& diff = targetPosition - m_viewport.mA;
     
         const math::Vector& move = diff * (delta * SPEED);
@@ -73,15 +86,15 @@ void Camera::doUpdate(unsigned int delta)
     }
 }
 
-void Camera::Follow(const mono::IEntityPtr& entity, const math::Vector& offset)
+void Camera::Follow(uint32_t entity_id, const math::Vector& offset)
 {
-    m_entity = entity;
+    m_entity_id = entity_id;
     m_offset = offset;
 }
 
 void Camera::Unfollow()
 {
-    m_entity = nullptr;    
+    m_entity_id = NO_ENTITY;
 }
 
 math::Quad Camera::GetViewport() const

@@ -1,7 +1,7 @@
 
 #include "PlayerInteractionController.h"
 #include "Events/PickupEvent.h"
-#include "Player/Shuttle.h"
+#include "Player/ShuttleLogic.h"
 
 #include "Audio/AudioFactory.h"
 #include "EventHandler/EventHandler.h"
@@ -9,18 +9,18 @@
 
 namespace
 {
-    using PickupFunc = void (game::Shuttle::*)(int amount);
+    using PickupFunc = void (game::ShuttleLogic::*)(int amount);
 
     constexpr PickupFunc pickup_func_table[] = {
-        &game::Shuttle::GiveAmmo,
-        &game::Shuttle::GiveHealth
+        &game::ShuttleLogic::GiveAmmo,
+        &game::ShuttleLogic::GiveHealth
     };
 }
 
 using namespace game;
 
-PlayerInteractionController::PlayerInteractionController(Shuttle* player, mono::EventHandler& event_handler)
-    : m_player(player)
+PlayerInteractionController::PlayerInteractionController(ShuttleLogic* shuttle_logic, mono::EventHandler& event_handler)
+    : m_shuttle_logic(shuttle_logic)
     , m_event_handler(event_handler)
 {
     using namespace std::placeholders;
@@ -37,11 +37,11 @@ PlayerInteractionController::~PlayerInteractionController()
 
 bool PlayerInteractionController::OnPickup(const game::PickupEvent& event)
 {
-    if(event.entity_id != m_player->Id())
+    if(event.entity_id != m_shuttle_logic->EntityId())
         return false;
 
     const PickupFunc pickup_func = pickup_func_table[event.type];
-    (m_player->*pickup_func)(event.value);
+    (m_shuttle_logic->*pickup_func)(event.value);
     m_pickup_sound->Play();
 
     return true;

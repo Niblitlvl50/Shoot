@@ -19,6 +19,12 @@ namespace editor
         std::string tooltip;
     };
 
+    struct UIComponentItem
+    {
+        uint32_t hash;
+        std::string name;
+    };
+
     struct UIContext
     {
         // User tools
@@ -26,7 +32,10 @@ namespace editor
         int tools_texture_id = 0;
         math::Quad default_icon;
         
-        class IObjectProxy* proxy_object = nullptr;
+        // Objects
+        bool draw_outline = false;
+        class IObjectProxy* selected_proxy_object = nullptr;
+        std::vector<std::unique_ptr<IObjectProxy>>* all_proxy_objects = nullptr;
 
         // Options
         mono::Color::RGBA background_color;
@@ -37,18 +46,25 @@ namespace editor
         bool show_context_menu = false;
         std::vector<std::string> context_menu_items;
 
-        // Entity panel + drag n drop
-        std::string drag_context;
-        int active_panel_index = 0;
-        std::vector<UIEntityItem> entity_items;
-        std::vector<UIEntityItem> prefab_items;
+        // Components
+        std::vector<UIComponentItem> component_items;
+
+        // Item selection
+        bool show_modal_item_selection = false;
+        std::vector<std::string> modal_items;
 
         // Notifications
         std::vector<Notification> notifications;
 
         // Callbacks
         std::function<void ()> delete_callback;
+        
+        std::function<void (uint32_t component_hash)> add_component;
+        std::function<void (uint32_t index)> delete_component;
+        std::function<void (IObjectProxy*)> select_object_callback;
+        
         std::function<void (int)> context_menu_callback;
+        std::function<void (int)> modal_selection_callback;
         std::function<void (EditorMenuOptions option)> editor_menu_callback;
         std::function<void (ToolsMenuOptions option)> tools_menu_callback;
         std::function<void (const std::string& id, const math::Vector& position)> drop_callback;

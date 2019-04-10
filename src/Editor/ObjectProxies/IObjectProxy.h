@@ -6,6 +6,7 @@
 #include <vector>
 
 struct Attribute;
+struct Component;
 struct SnapPoint;
 
 namespace editor
@@ -18,7 +19,7 @@ namespace editor
         { }
 
         virtual const char* Name() const = 0;
-        virtual unsigned int Id() const = 0;
+        virtual uint32_t Id() const = 0;
         virtual mono::IEntityPtr Entity() = 0;
 
         virtual void SetSelected(bool selected) = 0;
@@ -28,9 +29,10 @@ namespace editor
 
         virtual void UpdateUIContext(struct UIContext& context) = 0;
 
-        virtual std::vector<Attribute> GetAttributes() const = 0;
-        virtual void SetAttributes(const std::vector<Attribute>& attributes) = 0;
+        virtual const std::vector<Component>& GetComponents() const = 0;
+        virtual std::vector<Component>& GetComponents() = 0;
 
+        virtual std::unique_ptr<IObjectProxy> Clone() const = 0;
         virtual void Visit(class IObjectVisitor& visitor) = 0;
     };
 }

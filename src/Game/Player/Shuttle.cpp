@@ -8,7 +8,7 @@
 #include "Entity/EntityBase.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
-#include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Rendering/Color.h"
 
@@ -48,7 +48,7 @@ public:
 
     SpriteEntity(const char* sprite_file)
     {
-        m_sprite = mono::CreateSprite(sprite_file);
+        m_sprite = mono::GetSpriteFactory()->CreateSprite(sprite_file);
     }
 
     virtual void Draw(mono::IRenderer& renderer) const
@@ -73,9 +73,9 @@ public:
 
 
 Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler, const System::ControllerState& controller)
-    : m_gamepad_controller(this, event_handler, controller)
-    , m_interaction_controller(this, event_handler)
-    , m_fire(false)
+    :// m_gamepad_controller(this, event_handler, controller)
+    //, m_interaction_controller(this, event_handler)
+     m_fire(false)
     , m_total_ammo_left(500)
     , m_player_info(nullptr)
 {
@@ -91,7 +91,7 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler
     
     m_physics.shapes.push_back(shape);
 
-    m_sprite = mono::CreateSprite("res/sprites/shuttle.sprite");
+    m_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/shuttle.sprite");
     m_sprite->SetAnimation(constants::IDLE);
 
     m_left_booster = std::make_shared<SpriteEntity>("res/sprites/booster.sprite");
@@ -130,7 +130,7 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
 
 void Shuttle::Update(unsigned int delta)
 {
-    m_gamepad_controller.Update(delta);
+    //m_gamepad_controller.Update(delta);
     m_sprite->doUpdate(delta);
     m_pool->doUpdate(delta);
 

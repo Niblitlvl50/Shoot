@@ -1,0 +1,5 @@
+{
+    "beacon_port": 2000,
+    "client_port": 2001,
+    "server_port": 2002
+}
