@@ -174,7 +174,7 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
             Component component;
             component.name = json_component["name"];
             component.hash = mono::Hash(component.name.c_str());
-            component.properties = (std::vector<Attribute>)json_component["properties"];
+            component.properties = static_cast<const std::vector<Attribute>>(json_component["properties"]);
 
             const Component& default_component = DefaultComponentFromHash(component.hash);
             world::UnionAttributes(component.properties, default_component.properties);
