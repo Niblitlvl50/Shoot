@@ -9,6 +9,7 @@
 #include <functional>
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace editor
 {
