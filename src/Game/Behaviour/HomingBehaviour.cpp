@@ -7,6 +7,8 @@
 
 #include "Math/Vector.h"
 
+#include <cassert>
+
 using namespace game;
 
 HomingBehaviour::HomingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system)
