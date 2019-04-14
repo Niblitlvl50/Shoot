@@ -124,7 +124,9 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
             Component component;
             component.name = json_component["name"];
             component.hash = mono::Hash(component.name.c_str());
-            component.properties = (std::vector<Attribute>)json_component["properties"];
+
+            for(const nlohmann::json& property : json_component["properties"])
+                component.properties.push_back(property);
 
             const Component& default_component = DefaultComponentFromHash(component.hash);
             world::UnionAttributes(component.properties, default_component.properties);

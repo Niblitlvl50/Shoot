@@ -7,6 +7,8 @@
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
 
+#include <memory>
+
 namespace game
 {
     enum class InvaderStates

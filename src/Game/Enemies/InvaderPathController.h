@@ -5,6 +5,8 @@
 #include "Math/MathFwd.h"
 #include "Entity/IEntityLogic.h"
 
+#include <memory>
+
 namespace game
 {
     class InvaderPathController : public IEntityLogic

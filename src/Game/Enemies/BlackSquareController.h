@@ -8,6 +8,8 @@
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
+#include <memory>
+
 namespace game
 {
     class BlackSquareController : public IEntityLogic, public mono::ICollisionHandler
