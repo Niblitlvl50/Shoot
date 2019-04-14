@@ -3,6 +3,9 @@
 #include "IEntityLogic.h"
 #include "Hash.h"
 
+#include <algorithm>
+#include <cassert>
+
 using namespace game;
 
 EntityLogicSystem::EntityLogicSystem(size_t n_entities)
