@@ -8,14 +8,19 @@
 struct Component;
 class IEntityManager;
 
+namespace mono
+{
+    class TransformSystem;
+}
+
 namespace editor
 {
     class ComponentProxy : public IObjectProxy
     {
     public:
 
-        ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager);
-        ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager);
+        ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager, mono::TransformSystem* transform_system);
+        ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager, mono::TransformSystem* transform_system);
         ~ComponentProxy();
     
         const char* Name() const override;
@@ -32,6 +37,11 @@ namespace editor
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
 
+        float GetRotation() const override;
+        void SetRotation(float rotation) override;
+        math::Vector GetPosition() const override;
+        void SetPosition(const math::Vector& position) override;
+
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(class IObjectVisitor& visitor) override;
 
@@ -41,5 +51,6 @@ namespace editor
         std::string m_name;
         std::vector<Component> m_components;
         IEntityManager* m_entity_manager;
+        mono::TransformSystem* m_transform_system;
     };
 }

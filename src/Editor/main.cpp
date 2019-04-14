@@ -1,5 +1,6 @@
 
 #include "System/System.h"
+#include "System/UID.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "Camera/TraceCamera.h"
@@ -27,6 +28,7 @@ int main(int argc, const char* argv[])
     constexpr size_t max_entities = 500;
 
     System::Initialize();
+    System::SetUIDOffset(max_entities +1);
 
     mono::RenderInitParams render_params;
     render_params.pixels_per_meter = 32.0f;

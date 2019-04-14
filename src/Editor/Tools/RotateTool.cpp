@@ -3,16 +3,16 @@
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
 #include "Math/Quad.h"
-#include "TransformSystem.h"
 #include "Component.h"
 
 #include "Editor.h"
 
+#include <limits>
+
 using namespace editor;
 
-RotateTool::RotateTool(Editor* editor, mono::TransformSystem* transform_system)
+RotateTool::RotateTool(Editor* editor)
     : m_editor(editor)
-    , m_transform_system(transform_system)
     , m_entity_id(std::numeric_limits<uint32_t>::max())
     , m_rotation_diff(0.0f)
 { }
@@ -39,8 +39,8 @@ void RotateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_
     if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
-    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    const math::Vector position = math::GetPosition(transform);
+    IObjectProxy* proxy = m_editor->FindProxyObject(entity_id);
+    const math::Vector position = proxy->GetPosition();
 
     const float rotation = 0.0f; //m_entity->Rotation();
 
@@ -57,13 +57,11 @@ void RotateTool::HandleMousePosition(const math::Vector& world_pos)
     if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
-    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    IObjectProxy* proxy = m_editor->FindProxyObject(m_entity_id);
 
-    const math::Vector position = math::GetPosition(transform);
+    const math::Vector position = proxy->GetPosition();
     const float angle = math::AngleBetweenPoints(position, world_pos);
-
-    transform = math::CreateMatrixFromZRotation(angle + m_rotation_diff);
-    math::Position(transform, position);
+    proxy->SetRotation(angle + m_rotation_diff);
 
     m_editor->EntityComponentUpdated(m_entity_id, TRANSFORM_COMPONENT);
     m_editor->UpdateGrabbers();

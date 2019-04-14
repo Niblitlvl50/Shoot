@@ -12,6 +12,7 @@
 #include "TransformSystem.h"
 
 #include <cmath>
+#include <limits>
 
 using namespace game;
 

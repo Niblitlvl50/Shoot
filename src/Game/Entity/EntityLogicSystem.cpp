@@ -44,6 +44,11 @@ const char* EntityLogicSystem::Name() const
     return "entitylogicsystem";
 }
 
+uint32_t EntityLogicSystem::Capacity() const
+{
+    return m_logics.size();
+}
+
 void EntityLogicSystem::Update(uint32_t delta_ms)
 {
     for(IEntityLogic* logic : m_logics)

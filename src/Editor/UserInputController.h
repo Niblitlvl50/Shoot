@@ -17,11 +17,6 @@
 
 #include "System/System.h"
 
-namespace mono
-{
-    class TransformSystem;
-}
-
 namespace editor
 {
     struct UIContext;
@@ -35,7 +30,6 @@ namespace editor
                             System::IWindow* window,
                             editor::Editor* editor,
                             editor::UIContext* context,
-                            mono::TransformSystem* transform_system,
                             mono::EventHandler& event_handler);
         ~UserInputController();
 

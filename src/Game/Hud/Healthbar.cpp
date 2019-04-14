@@ -9,6 +9,8 @@
 
 #include "System/System.h"
 
+#include <limits>
+
 using namespace game;
 
 namespace

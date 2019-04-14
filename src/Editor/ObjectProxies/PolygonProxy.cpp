@@ -110,6 +110,26 @@ std::vector<Component>& PolygonProxy::GetComponents()
     return m_components;
 }
 
+float PolygonProxy::GetRotation() const
+{
+    return m_polygon->Rotation();
+}
+
+void PolygonProxy::SetRotation(float rotation)
+{
+    m_polygon->SetRotation(rotation);
+}
+
+math::Vector PolygonProxy::GetPosition() const
+{
+    return m_polygon->Position();
+}
+
+void PolygonProxy::SetPosition(const math::Vector& position)
+{
+    m_polygon->SetPosition(position);
+}
+
 std::unique_ptr<editor::IObjectProxy> PolygonProxy::Clone() const
 {
     return nullptr;

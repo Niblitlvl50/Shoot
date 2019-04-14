@@ -20,6 +20,7 @@ namespace game
 
         uint32_t Id() const override;
         const char* Name() const override;
+        uint32_t Capacity() const override;
         void Update(uint32_t delta_ms) override;
 
         std::vector<IEntityLogic*> m_logics;

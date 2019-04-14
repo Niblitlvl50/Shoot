@@ -49,6 +49,7 @@
 #include "Util/Algorithm.h"
 #include "Math/MathFunctions.h"
 #include <algorithm>
+#include <limits>
 
 namespace
 {
@@ -152,7 +153,7 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     m_user_input_controller =
-        std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, transform_system, m_event_handler);
+        std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
 
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
@@ -184,7 +185,7 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     }
     */
 
-    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager);
+    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system);
     for(IObjectProxyPtr& proxy : m_proxies)
     {
         auto entity = proxy->Entity();
@@ -240,10 +241,11 @@ bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
 
 void Editor::NewEntity()
 {
-    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {TRANSFORM_COMPONENT});
-    m_proxies.push_back(std::make_unique<ComponentProxy>(new_entity.id, "unnamed", &m_entity_manager));
-
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+ 
+    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {TRANSFORM_COMPONENT});
+    m_proxies.push_back(std::make_unique<ComponentProxy>(new_entity.id, "unnamed", &m_entity_manager, transform_system));
+
     math::Matrix& transform = transform_system->GetTransform(new_entity.id);
 
     const math::Vector camera_position = m_camera->GetPosition();
@@ -270,8 +272,14 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     m_context.selected_proxy_object = proxy_object;
     m_component_detail_visualizer->SetObjectProxy(proxy_object);
 
-    if (proxy_object)
+    for(auto& proxy : m_proxies)
+        proxy->SetSelected(false);
+
+    if(proxy_object)
+    {
         m_selected_id = proxy_object->Id();
+        proxy_object->SetSelected(true);
+    }
 
     UpdateSnappers();
     UpdateGrabbers();
@@ -279,22 +287,20 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
 {
-    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-
     std::vector<IObjectProxy*> found_proxies;
-    for(auto& proxy : m_proxies)
+    for(const auto& proxy : m_proxies)
     {
-        const math::Quad& world_bb = transform_system->GetWorldBoundingBox(proxy->Id());
-        if(math::PointInsideQuad(position, world_bb))
+        const bool intersects = proxy->Intersects(position);
+        if(intersects)
             found_proxies.push_back(proxy.get());
     }
 
     if(found_proxies.empty())
         return nullptr;
 
-    const auto sort_on_y = [transform_system](const IObjectProxy* first, const IObjectProxy* second) {
-        const math::Vector& first_position = math::GetPosition(transform_system->GetWorld(first->Id()));
-        const math::Vector& second_position = math::GetPosition(transform_system->GetWorld(second->Id()));
+    const auto sort_on_y = [](const IObjectProxy* first, const IObjectProxy* second) {
+        const math::Vector& first_position = first->GetPosition();
+        const math::Vector& second_position = second->GetPosition();
 
         return first_position.y > second_position.y;
     };
@@ -410,6 +416,11 @@ void Editor::OnDeleteObject()
     if(m_selected_id == NO_SELECTION)
         return;
 
+    IObjectProxy* proxy = FindProxyObject(m_selected_id);
+    mono::IEntityPtr entity = proxy->Entity();
+    if(entity)
+        RemoveEntity(entity);
+
     const uint32_t id = m_selected_id;
     const auto find_func = [id](const IObjectProxyPtr& proxy) {
         return id == proxy->Id();
@@ -465,8 +476,10 @@ void Editor::OnContextMenu(int index)
 
 void Editor::SelectItemCallback(int index)
 {
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+
     const std::string& selected_item = m_context.modal_items[index];
-    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager);
+    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager, transform_system);
     if(loaded_objects.empty())
         return;
 

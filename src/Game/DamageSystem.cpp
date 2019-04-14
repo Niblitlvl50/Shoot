@@ -2,7 +2,8 @@
 #include "DamageSystem.h"
 #include "Entity/IEntityManager.h"
 #include "Hash.h"
-#include <numeric>
+#include <limits>
+#include <cassert>
 
 using namespace game;
 
@@ -89,6 +90,11 @@ uint32_t DamageSystem::Id() const
 const char* DamageSystem::Name() const
 {
     return "damagesystem";
+}
+
+uint32_t DamageSystem::Capacity() const
+{
+    return m_damage_records.size();
 }
 
 void DamageSystem::Update(uint32_t delta_ms)

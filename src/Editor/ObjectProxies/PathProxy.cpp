@@ -79,7 +79,7 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
     const auto& local_points = m_path->m_points;
 
     std::vector<Grabber> grabbers;
-    grabbers.reserve(local_points.size() + 1);
+    grabbers.reserve(local_points.size());
 
     for(size_t index = 0; index < local_points.size(); ++index)
     {
@@ -88,11 +88,6 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
         grab.callback = std::bind(&PathEntity::SetVertex, m_path, _1, index);
         grabbers.push_back(grab);
     }
-
-    Grabber transform_grabber;
-    transform_grabber.position = m_path->Position();
-    transform_grabber.callback = std::bind(&PathEntity::SetPosition, m_path, _1);
-    grabbers.push_back(transform_grabber);
 
     return grabbers;
 }
@@ -127,6 +122,26 @@ const std::vector<Component>& PathProxy::GetComponents() const
 std::vector<Component>& PathProxy::GetComponents()
 {
     return m_components;
+}
+
+float PathProxy::GetRotation() const
+{
+    return m_path->Rotation();
+}
+
+void PathProxy::SetRotation(float rotation)
+{
+    m_path->SetRotation(rotation);
+}
+
+math::Vector PathProxy::GetPosition() const
+{
+    return m_path->Position();
+}
+
+void PathProxy::SetPosition(const math::Vector& position)
+{
+    m_path->SetPosition(position);
 }
 
 std::unique_ptr<editor::IObjectProxy> PathProxy::Clone() const

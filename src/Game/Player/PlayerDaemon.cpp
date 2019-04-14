@@ -33,6 +33,7 @@
 #include "Component.h"
 
 #include <functional>
+#include <limits>
 
 using namespace game;
 

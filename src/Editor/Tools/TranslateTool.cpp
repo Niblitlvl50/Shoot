@@ -9,11 +9,12 @@
 
 #include "Editor.h"
 
+#include <limits>
+
 using namespace editor;
 
-TranslateTool::TranslateTool(Editor* editor, mono::TransformSystem* transform_system)
+TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
-    , m_transform_system(transform_system)
     , m_entity_id(std::numeric_limits<uint32_t>::max())
     , m_was_snapped(false)
     , m_snap_rotate(false)
@@ -41,10 +42,11 @@ void TranslateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t enti
     if(m_entity_id == std::numeric_limits<uint32_t>::max())
         return;
 
-    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    IObjectProxy* proxy = m_editor->FindProxyObject(entity_id);
+    const math::Vector object_position = proxy->GetPosition();
 
     m_begin_translate = world_pos;
-    m_position_diff = math::GetPosition(transform) - world_pos;
+    m_position_diff = object_position - world_pos;
 }
 
 void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
@@ -60,8 +62,9 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     const math::Vector& delta = m_begin_translate - world_pos;
     const math::Vector& new_pos = m_begin_translate - delta + m_position_diff;
 
-    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    math::Position(transform, new_pos);
+    IObjectProxy* proxy = m_editor->FindProxyObject(m_entity_id);
+    proxy->SetPosition(new_pos);
+
 
     /*
     const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);

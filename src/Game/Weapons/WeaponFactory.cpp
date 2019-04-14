@@ -23,6 +23,7 @@
 #include "Entity/IEntityManager.h"
 
 #include <functional>
+#include <limits>
 
 namespace
 {

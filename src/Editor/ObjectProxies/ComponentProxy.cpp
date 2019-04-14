@@ -7,15 +7,18 @@
 #include "Component.h"
 #include "UI/UIProperties.h"
 #include "IObjectVisitor.h"
+#include "Math/MathFunctions.h"
 
 #include "Entity/IEntityManager.h"
+#include "TransformSystem.h"
 
 using namespace editor;
 
-ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager)
+ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
     , m_entity_manager(entity_manager)
+    , m_transform_system(transform_system)
 {
     m_components = {
         DefaultComponentFromHash(TRANSFORM_COMPONENT),
@@ -28,11 +31,12 @@ ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEnt
     }
 }
 
-ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager)
+ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
     , m_components(components)
     , m_entity_manager(entity_manager)
+    , m_transform_system(transform_system)
 { }
 
 ComponentProxy::~ComponentProxy()
@@ -62,7 +66,8 @@ void ComponentProxy::SetSelected(bool selected)
 
 bool ComponentProxy::Intersects(const math::Vector& position) const
 {
-    return false;
+    const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
+    return math::PointInsideQuad(position, world_bb);
 }
 
 std::vector<Grabber> ComponentProxy::GetGrabbers() const
@@ -97,6 +102,32 @@ std::vector<Component>& ComponentProxy::GetComponents()
     return m_components;
 }
 
+float ComponentProxy::GetRotation() const
+{
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    return math::GetZRotation(transform);
+}
+
+void ComponentProxy::SetRotation(float rotation)
+{
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    const math::Vector position = math::GetPosition(transform);
+    transform = math::CreateMatrixFromZRotation(rotation);
+    math::Position(transform, position);
+}
+
+math::Vector ComponentProxy::GetPosition() const
+{
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    return math::GetPosition(transform);
+}
+
+void ComponentProxy::SetPosition(const math::Vector& position)
+{
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    math::Position(transform, position);
+}
+
 std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
 {
     const std::vector<uint32_t> empty_components;
@@ -108,7 +139,7 @@ std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
         m_entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
     }
 
-    return std::make_unique<ComponentProxy>(new_entity.id, "unnamed", m_components, m_entity_manager);
+    return std::make_unique<ComponentProxy>(new_entity.id, "unnamed", m_components, m_entity_manager, m_transform_system);
 }
 
 void ComponentProxy::Visit(IObjectVisitor& visitor)

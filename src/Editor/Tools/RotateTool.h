@@ -4,11 +4,6 @@
 #include "ITool.h"
 #include <memory>
 
-namespace mono
-{
-    class TransformSystem;
-}
-
 namespace editor
 {
     class Editor;
@@ -17,7 +12,7 @@ namespace editor
     {
     public:
 
-        RotateTool(Editor* editor, mono::TransformSystem* transform_system);
+        RotateTool(Editor* editor);
 
         virtual void Begin();
         virtual void End();
@@ -30,7 +25,6 @@ namespace editor
 
     private:
         Editor* m_editor;
-        mono::TransformSystem* m_transform_system;
         uint32_t m_entity_id;
         float m_rotation_diff;
     };

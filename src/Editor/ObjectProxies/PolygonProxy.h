@@ -15,18 +15,22 @@ namespace editor
         PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon);
         ~PolygonProxy();
 
-        virtual const char* Name() const;
-        virtual unsigned int Id() const;
-        virtual mono::IEntityPtr Entity();
-        virtual void SetSelected(bool selected);
-        virtual bool Intersects(const math::Vector& position) const;
-        virtual std::vector<Grabber> GetGrabbers() const;
-        virtual std::vector<SnapPoint> GetSnappers() const;
-        virtual void UpdateUIContext(UIContext& context);
-        virtual const std::vector<Component>& GetComponents() const;
-        virtual std::vector<Component>& GetComponents();
-        virtual std::unique_ptr<IObjectProxy> Clone() const;
-        virtual void Visit(IObjectVisitor& visitor);
+        const char* Name() const override;
+        unsigned int Id() const override;
+        mono::IEntityPtr Entity() override;
+        void SetSelected(bool selected) override;
+        bool Intersects(const math::Vector& position) const override;
+        std::vector<Grabber> GetGrabbers() const override;
+        std::vector<SnapPoint> GetSnappers() const override;
+        void UpdateUIContext(UIContext& context) override;
+        const std::vector<Component>& GetComponents() const override;
+        std::vector<Component>& GetComponents() override;
+        float GetRotation() const override;
+        void SetRotation(float rotation) override;
+        math::Vector GetPosition() const override;
+        void SetPosition(const math::Vector& position) override;
+        std::unique_ptr<IObjectProxy> Clone() const override;
+        void Visit(IObjectVisitor& visitor) override;
 
         std::shared_ptr<PolygonEntity> m_polygon;
         std::vector<Component> m_components;

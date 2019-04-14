@@ -10,6 +10,7 @@
 #include "Util/Algorithm.h"
 
 #include <cstdio>
+#include <limits>
 
 void editor::DrawName(std::string& name)
 {

@@ -33,6 +33,12 @@ namespace editor
         virtual const std::vector<Component>& GetComponents() const = 0;
         virtual std::vector<Component>& GetComponents() = 0;
 
+        virtual float GetRotation() const = 0;
+        virtual void SetRotation(float rotation) = 0;
+
+        virtual math::Vector GetPosition() const = 0;
+        virtual void SetPosition(const math::Vector& position) = 0;
+
         virtual std::unique_ptr<IObjectProxy> Clone() const = 0;
         virtual void Visit(class IObjectVisitor& visitor) = 0;
     };

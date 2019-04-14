@@ -1,5 +1,4 @@
 
-
 #include "UserInputController.h"
 #include "Editor.h"
 #include "Grabber.h"
@@ -13,6 +12,7 @@
 
 #include "UI/ImGuiInterfaceDrawer.h"
 
+#include <limits>
 
 namespace
 {
@@ -33,15 +33,14 @@ UserInputController::UserInputController(
     System::IWindow* window,
     editor::Editor* editor,
     editor::UIContext* context,
-    mono::TransformSystem* transform_system,
     mono::EventHandler& event_handler)
     : m_window(window),
       m_event_handler(event_handler),
       m_editor(editor),
       m_context(context),
       m_camera_tool(camera, window),
-      m_translate_tool(editor, transform_system),
-      m_rotate_tool(editor, transform_system),
+      m_translate_tool(editor),
+      m_rotate_tool(editor),
       m_polygon_tool(editor),
       m_polygon_box_tool(editor),
       m_polygon_brush_tool(editor),

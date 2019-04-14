@@ -18,7 +18,7 @@ namespace editor
     {
     public:
 
-        TranslateTool(Editor* editor, mono::TransformSystem* transform_system);
+        TranslateTool(Editor* editor);
 
         virtual void Begin();
         virtual void End();
@@ -32,7 +32,6 @@ namespace editor
     private:
 
         Editor* m_editor;
-        mono::TransformSystem* m_transform_system;
         uint32_t m_entity_id;
         math::Vector m_begin_translate;
         math::Vector m_position_diff;
