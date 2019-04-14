@@ -7,6 +7,7 @@
 #include "System/File.h"
 
 #include <algorithm>
+#include <cstring>
 
 using namespace editor;
 

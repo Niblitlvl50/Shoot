@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdlib.h>
+#include <cstring>
 
 using byte = unsigned char;
 

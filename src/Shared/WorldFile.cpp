@@ -8,6 +8,7 @@
 
 #include "nlohmann/json.hpp"
 #include <cstdio>
+#include <cstring>
 
 namespace
 {
