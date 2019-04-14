@@ -14,7 +14,6 @@ namespace game
     void LoadWorld(
         mono::IPhysicsZone* zone,
         const std::vector<world::PolygonData>& polygons,
-        const std::vector<world::PrefabData>& prefabs,
         std::vector<ExcludeZone>& exclude_zones);
     
     void LoadWorldObjects(

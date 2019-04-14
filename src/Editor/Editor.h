@@ -14,7 +14,6 @@
 #include "Grabber.h"
 #include "SnapPoint.h"
 
-#include "EntityRepository.h"
 #include "ObjectFactory.h"
 
 
@@ -26,7 +25,6 @@ namespace editor
 {
     class PathEntity;
     class PolygonEntity;
-    class Prefab;
 
     class Editor : public mono::ZoneBase
     {
@@ -44,9 +42,7 @@ namespace editor
 
         void OnLoad(mono::ICameraPtr& camera) override;
         int OnUnload() override;
-        void Accept(mono::IRenderer& renderer) override;
 
-        void Load();
         void Save();
         void ImportEntity();
         void ExportEntity();
@@ -55,7 +51,6 @@ namespace editor
 
         void AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon);
         void AddPath(const std::shared_ptr<editor::PathEntity>& path);
-        void AddPrefab(const std::shared_ptr<editor::Prefab>& prefab);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
         IObjectProxy* FindProxyObject(const math::Vector& position);
@@ -109,7 +104,6 @@ namespace editor
         mono::ICameraPtr m_camera;
 
         editor::UIContext m_context;
-        EntityRepository m_entity_repository;
         ObjectFactory m_object_factory;
 
         std::unique_ptr<ImGuiInputHandler> m_input_handler;

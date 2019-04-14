@@ -73,7 +73,7 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
         world::ReadWorld(world_file, world_header);
 
         std::vector<ExcludeZone> exclude_zones;
-        game::LoadWorld(this, world_header.polygons, world_header.prefabs, exclude_zones);
+        game::LoadWorld(this, world_header.polygons, exclude_zones);
     }
 }
 

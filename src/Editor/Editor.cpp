@@ -27,14 +27,12 @@
 
 #include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/PathProxy.h"
-#include "ObjectProxies/PrefabProxy.h"
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "Entity/IEntityManager.h"
 
 #include "Objects/Polygon.h"
 #include "Objects/Path.h"
-#include "Objects/Prefab.h"
 
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
@@ -56,7 +54,6 @@ namespace
 {
     void SetupIcons(
         editor::UIContext& context,
-        editor::EntityRepository& repository,
         std::unordered_map<uint32_t, mono::ITexturePtr>& textures)
     {
         mono::ITexturePtr texture = mono::CreateTexture("res/textures/placeholder.png");
@@ -64,13 +61,6 @@ namespace
 
         context.tools_texture_id = texture->Id();
         context.default_icon = math::Quad(0.0f, 0.0f, 1.0f, 1.0f);
-
-        for(const PrefabDefinition& def : repository.m_prefabs)
-        {
-            const mono::ISpritePtr sprite = mono::GetSpriteFactory()->CreateSprite(def.sprite_file.c_str());
-            const mono::ITexturePtr sprite_texture = sprite->GetTexture();
-            textures.insert(std::make_pair(sprite_texture->Id(), sprite_texture));
-        }
     }
 
     void SetupComponents(editor::UIContext& context)
@@ -136,10 +126,8 @@ Editor::Editor(
     const event::SurfaceChangedEventFunc surface_func = std::bind(&Editor::OnSurfaceChanged, this, _1);
     m_surface_changed_token = m_event_handler.AddListener(surface_func);
 
-    m_entity_repository.LoadDefinitions();
-
     std::unordered_map<uint32_t, mono::ITexturePtr> textures;
-    SetupIcons(m_context, m_entity_repository, textures);
+    SetupIcons(m_context, textures);
     SetupComponents(m_context);
 
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
@@ -156,7 +144,6 @@ Editor::Editor(
 Editor::~Editor()
 {
     m_event_handler.RemoveListener(m_surface_changed_token);
-    Save();
 }
 
 void Editor::OnLoad(mono::ICameraPtr &camera)
@@ -187,31 +174,6 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     AddDrawable(m_gui_renderer, RenderLayer::UI);
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
 
-    Load();
-}
-
-int Editor::OnUnload()
-{
-    return 0;
-}
-
-void Editor::Accept(mono::IRenderer& renderer)
-{
-    using LayerDrawable = std::pair<int, mono::IDrawablePtr>;
-
-    const auto sort_on_y = [](const LayerDrawable& first, const LayerDrawable& second) {
-        if (first.first == second.first)
-            return first.second->BoundingBox().mA.y > second.second->BoundingBox().mA.y;
-
-        return first.first < second.first;
-    };
-
-    std::sort(m_drawables.begin(), m_drawables.end(), sort_on_y);
-    ZoneBase::Accept(renderer);
-}
-
-void Editor::Load()
-{
     /*
     m_proxies = LoadWorld(m_file_name, m_object_factory);
     for(auto& proxy : m_proxies)
@@ -223,7 +185,20 @@ void Editor::Load()
     */
 
     m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager);
+    for(IObjectProxyPtr& proxy : m_proxies)
+    {
+        auto entity = proxy->Entity();
+        if(entity)
+            AddEntity(entity, RenderLayer::OBJECTS);
+    }
+
     UpdateSnappers();
+}
+
+int Editor::OnUnload()
+{
+    Save();
+    return 0;
 }
 
 void Editor::Save()
@@ -287,12 +262,6 @@ void Editor::AddPath(const std::shared_ptr<editor::PathEntity>& path)
 {
     AddEntity(path, RenderLayer::OBJECTS);
     m_proxies.push_back(std::make_unique<PathProxy>(path, this));
-}
-
-void Editor::AddPrefab(const std::shared_ptr<editor::Prefab>& prefab)
-{
-    AddEntity(prefab, RenderLayer::OBJECTS);
-    m_proxies.push_back(std::make_unique<PrefabProxy>(prefab));
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)

@@ -12,7 +12,6 @@ namespace editor
 
         virtual void Accept(class PathProxy* proxy) = 0;
         virtual void Accept(class PolygonProxy* proxy) = 0;
-        virtual void Accept(class PrefabProxy* proxy) = 0;
         virtual void Accept(class ComponentProxy* proxy) = 0;
     };
 }

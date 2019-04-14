@@ -4,10 +4,10 @@
 #include "Rendering/IDrawable.h"
 #include <vector>
 
-struct SnapPoint;
-
 namespace editor
 {
+    struct SnapPoint;
+
     class SnapperVisualizer : public mono::IDrawable
     {
     public:

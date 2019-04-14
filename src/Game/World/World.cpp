@@ -6,7 +6,6 @@
 #include "RenderLayers.h"
 #include "ObjectAttribute.h"
 #include "DefinedAttributes.h"
-#include "Prefabs.h"
 
 #include "StaticTerrainBlock.h"
 #include "StaticPrefab.h"
@@ -25,7 +24,6 @@
 void game::LoadWorld(
     mono::IPhysicsZone* zone,
     const std::vector<world::PolygonData>& polygons,
-    const std::vector<world::PrefabData>& prefabs,
     std::vector<ExcludeZone>& exclude_zones)
 {
     size_t count = 0;
@@ -37,31 +35,6 @@ void game::LoadWorld(
 //    for(const world::PolygonData& polygon : polygons)
 //        static_terrain->AddPolygon(polygon);
 //    zone->AddDrawable(static_terrain, BACKGROUND);
-
-    const std::vector<PrefabDefinition>& prefab_definitions = LoadPrefabDefinitions();
-
-    for(const world::PrefabData& prefab : prefabs)
-    {
-        const PrefabDefinition* prefab_definition = FindPrefabFromName(prefab.name, prefab_definitions);
-
-        std::vector<math::Vector> collision_polygon;
-        collision_polygon.reserve(prefab_definition->collision_shape.size());
-
-        math::Matrix translation;
-        math::Translate(translation, prefab.position);
-
-        const math::Matrix& transform = translation;
-
-        for(const math::Vector& collision_vertex : prefab_definition->collision_shape)
-            collision_polygon.push_back(math::Transform(transform, collision_vertex));
-
-        zone->AddPhysicsEntity(std::make_shared<StaticPrefab>(
-            prefab.position, prefab_definition->sprite_file.c_str(), prefab_definition->collision_shape), LayerId::PREFABS);
-    
-        ExcludeZone exclude_zone;
-        exclude_zone.polygon_vertices = collision_polygon;
-        exclude_zones.push_back(exclude_zone);
-    }
 
     zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
 }

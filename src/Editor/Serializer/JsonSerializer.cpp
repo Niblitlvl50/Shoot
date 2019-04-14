@@ -3,11 +3,9 @@
 
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/PolygonProxy.h"
-#include "ObjectProxies/PrefabProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
 
 #include "Objects/Path.h"
-#include "Objects/Prefab.h"
 
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
@@ -57,29 +55,6 @@ void JsonSerializer::WritePathFile(const std::string& file_path) const
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
 }
 
-void JsonSerializer::WritePrefabs(const std::string& file_path) const
-{
-    nlohmann::json json_prefabs_list;
-
-    for(const auto& prefab_data : m_prefabs)
-    {
-        nlohmann::json json_prefab;
-        json_prefab["name"] = prefab_data.name;
-        json_prefab["position"] = prefab_data.position;
-        json_prefab["rotation"] = prefab_data.rotation;
-    
-        json_prefabs_list.push_back(json_prefab);
-    }
-
-    nlohmann::json json;
-    json["prefabs"] = json_prefabs_list;
-
-    const std::string& serialized_json = json.dump(4);
-    
-    file::FilePtr file = file::CreateAsciiFile(file_path.c_str());
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-}
-
 void JsonSerializer::Accept(PathProxy* proxy)
 {
     auto path = proxy->m_path;
@@ -93,16 +68,6 @@ void JsonSerializer::Accept(PathProxy* proxy)
 void JsonSerializer::Accept(PolygonProxy* proxy)
 {
 
-}
-
-void JsonSerializer::Accept(PrefabProxy* proxy)
-{
-    PrefabData data;
-    data.name = proxy->m_prefab->Name();
-    data.position = proxy->m_prefab->Position();
-    data.rotation = proxy->m_prefab->Rotation();
-
-    m_prefabs.push_back(data);
 }
 
 void JsonSerializer::Accept(ComponentProxy* proxy)

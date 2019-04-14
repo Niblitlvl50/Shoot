@@ -2,8 +2,6 @@
 #pragma once
 
 #include "ObjectProxies/IObjectProxy.h"
-#include "EntityRepository.h"
-
 #include <string>
 
 namespace editor
@@ -17,7 +15,6 @@ namespace editor
         ObjectFactory(Editor* editor);
 
         IObjectProxyPtr CreatePath(const std::string& name, const std::vector<math::Vector>& points) const;
-        IObjectProxyPtr CreatePrefab(const std::string& prefab_name) const;
         IObjectProxyPtr CreatePolygon(
             const math::Vector& position,
             const math::Vector& base_point,
@@ -28,6 +25,5 @@ namespace editor
     private:
 
         Editor* m_editor;
-        EntityRepository m_repository;
     };
 }

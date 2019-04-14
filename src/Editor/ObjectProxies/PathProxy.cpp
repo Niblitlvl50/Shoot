@@ -26,7 +26,7 @@ PathProxy::~PathProxy()
 
 const char* PathProxy::Name() const
 {
-    return "pathobject";
+    return m_path->m_name.c_str();
 }
 
 unsigned int PathProxy::Id() const
@@ -79,7 +79,7 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
     const auto& local_points = m_path->m_points;
 
     std::vector<Grabber> grabbers;
-    grabbers.reserve(local_points.size());
+    grabbers.reserve(local_points.size() + 1);
 
     for(size_t index = 0; index < local_points.size(); ++index)
     {
@@ -88,6 +88,11 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
         grab.callback = std::bind(&PathEntity::SetVertex, m_path, _1, index);
         grabbers.push_back(grab);
     }
+
+    Grabber transform_grabber;
+    transform_grabber.position = m_path->Position();
+    transform_grabber.callback = std::bind(&PathEntity::SetPosition, m_path, _1);
+    grabbers.push_back(transform_grabber);
 
     return grabbers;
 }

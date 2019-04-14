@@ -2,13 +2,11 @@
 #include "WorldSerializer.h"
 #include "Objects/Polygon.h"
 #include "Objects/Path.h"
-#include "Objects/Prefab.h"
 #include "Math/Matrix.h"
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
 #include "System/File.h"
 #include "WorldFile.h"
-#include "EntityRepository.h"
 
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
@@ -186,6 +184,5 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
         serializer.WriteEntities("res/world.objects");
         serializer.WriteComponentEntities("res/world.components");
         serializer.WritePathFile("res/world.paths");
-        serializer.WritePrefabs("res/world.prefabs");
     }
 }

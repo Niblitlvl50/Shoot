@@ -2,7 +2,6 @@
 #include "BinarySerializer.h"
 #include "Objects/Polygon.h"
 #include "ObjectProxies/PolygonProxy.h"
-#include "ObjectProxies/PrefabProxy.h"
 
 #include "Math/Matrix.h"
 #include "System/File.h"
@@ -54,21 +53,6 @@ void BinarySerializer::Accept(PolygonProxy* proxy)
         polygon_data.vertices.push_back(math::Transform(local_to_world, vertex));
 
     m_polygon_data.polygons.push_back(polygon_data);
-}
-
-void BinarySerializer::Accept(PrefabProxy* proxy)
-{
-    world::PrefabData prefab_data;
-
-    const char* prefab_name = proxy->Name();
-    const std::size_t string_length = std::min(std::strlen(prefab_name), world::WorldObjectNameMaxLength);
-    std::memcpy(prefab_data.name, prefab_name, string_length);
-
-    prefab_data.position = proxy->Entity()->Position();
-    prefab_data.rotation = proxy->Entity()->Rotation();
-    prefab_data.scale = proxy->Entity()->Scale();
-
-    m_polygon_data.prefabs.push_back(prefab_data);
 }
 
 void BinarySerializer::Accept(ComponentProxy* proxy)

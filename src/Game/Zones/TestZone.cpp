@@ -145,7 +145,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
         world::ReadWorld(world_file, world_header);
 
         std::vector<ExcludeZone> exclude_zones;
-        game::LoadWorld(this, world_header.polygons, world_header.prefabs, exclude_zones);
+        game::LoadWorld(this, world_header.polygons, exclude_zones);
 
         // Nav mesh
         m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);

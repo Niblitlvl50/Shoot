@@ -45,19 +45,6 @@ bool world::WriteWorld(file::FilePtr& file, const LevelFileHeader& level)
         WriteValues(polygon.vertices.data(),    file.get(), n_vertices);
     }
 
-    const int n_prefabs = static_cast<int>(level.prefabs.size());
-    WriteValues(&n_prefabs, file.get());
-
-    for(int index = 0; index < n_prefabs; ++index)
-    {
-        const world::PrefabData& prefab = level.prefabs[index];
-
-        WriteValues(&prefab.name,       file.get());
-        WriteValues(&prefab.position,   file.get());
-        WriteValues(&prefab.scale,      file.get());
-        WriteValues(&prefab.rotation,   file.get());
-    }
-
     const int n_bounds_vertices = static_cast<int>(level.bounds.size());
     WriteValues(&n_bounds_vertices, file.get());
     WriteValues(level.bounds.data(), file.get(), n_bounds_vertices);
@@ -96,21 +83,6 @@ bool world::ReadWorld(const file::FilePtr& file, LevelFileHeader& level)
 
     if(level.version < 2)
         return true;
-
-    int n_prefabs = 0;
-    ReadValues(&n_prefabs, bytes, offset);
-
-    level.prefabs.resize(n_prefabs);
-
-    for(int index = 0; index < n_prefabs; ++index)
-    {
-        world::PrefabData& prefab = level.prefabs[index];
-
-        ReadValues(&prefab.name,        bytes, offset);
-        ReadValues(&prefab.position,    bytes, offset);
-        ReadValues(&prefab.scale,       bytes, offset);
-        ReadValues(&prefab.rotation,    bytes, offset);
-    }
 
     if(level.version < 3)
         return true;

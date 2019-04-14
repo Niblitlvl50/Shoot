@@ -149,14 +149,18 @@ bool UserInputController::OnMouseDown(const event::MouseDownEvent& event)
         // Check for grabbers first
         m_grabber = m_editor->FindGrabber(world_position);
         if(m_grabber)
-            return true;
+        {
+            handled = true;
+        }
+        else
+        {
+            IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
+            m_editor->SelectProxyObject(proxy);
 
-        IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
-        m_editor->SelectProxyObject(proxy);
-
-        const uint32_t entity_id = (proxy != nullptr) ? proxy->Id() : std::numeric_limits<uint32_t>::max();
-        m_active_tool->HandleMouseDown(world_position, entity_id);
-        handled = m_active_tool->IsActive();
+            const uint32_t entity_id = (proxy != nullptr) ? proxy->Id() : std::numeric_limits<uint32_t>::max();
+            m_active_tool->HandleMouseDown(world_position, entity_id);
+            handled = m_active_tool->IsActive();
+        }
     }
 
     if(!handled)

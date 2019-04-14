@@ -7,10 +7,11 @@
 
 struct Attribute;
 struct Component;
-struct SnapPoint;
 
 namespace editor
 {
+    struct SnapPoint;
+    
     class IObjectProxy
     {
     public:
