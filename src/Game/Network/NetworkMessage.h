@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <cstring>
+#include <cstdint>
 
 using byte = unsigned char;
 
