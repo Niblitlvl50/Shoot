@@ -16,6 +16,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
 
+#include <cassert>
 
 namespace game
 {

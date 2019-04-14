@@ -175,7 +175,7 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
             component.name = json_component["name"];
             component.hash = mono::Hash(component.name.c_str());
 
-            for(const Attribute& property : json_component["properties"])
+            for(const nlohmann::json& property : json_component["properties"])
                 component.properties.push_back(property);
 
             const Component& default_component = DefaultComponentFromHash(component.hash);

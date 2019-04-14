@@ -14,6 +14,7 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 
+#include <cassert>
 
 namespace
 {
