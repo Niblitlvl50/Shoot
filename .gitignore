@@ -4,6 +4,7 @@
 .vscode/c_cpp_properties.json
 .vscode/**/*.bin
 .vscode/**/*.ipch
+.vscode/ipch/*
 CMakeCache.txt
 cmake_install.cmake
 Makefile
