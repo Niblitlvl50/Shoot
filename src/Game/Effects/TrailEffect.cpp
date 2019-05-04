@@ -55,11 +55,11 @@ void TrailEffect::Draw(mono::IRenderer& renderer) const
     m_drawer->doDraw(renderer);
 }
 
-void TrailEffect::Update(unsigned int delta)
+void TrailEffect::Update(const mono::UpdateContext& update_context)
 {
     m_emitter->SetPosition(m_position);
-    m_emitter->doUpdate(delta);
-    m_pool->doUpdate(delta);
+    m_emitter->doUpdate(update_context);
+    m_pool->doUpdate(update_context);
 }
 
 math::Quad TrailEffect::BoundingBox() const

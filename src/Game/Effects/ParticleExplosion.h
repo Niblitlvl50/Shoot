@@ -14,7 +14,7 @@ namespace game
         virtual ~ParticleExplosion();
 
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         std::unique_ptr<mono::ParticlePool> m_pool1;
         std::unique_ptr<mono::ParticlePool> m_pool2;

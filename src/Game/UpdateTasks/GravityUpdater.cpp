@@ -17,11 +17,11 @@ GravityUpdater::GravityUpdater(mono::IPhysicsZone* zone, const mono::IEntityPtr&
     , mElapsedTime(0)
 { }
 
-void GravityUpdater::doUpdate(unsigned int delta)
+void GravityUpdater::doUpdate(const mono::UpdateContext& update_context)
 {
     using namespace std::placeholders;
 
-    mElapsedTime += delta;
+    mElapsedTime += update_context.delta_ms;
     if(mElapsedTime < 16)
         return;
     

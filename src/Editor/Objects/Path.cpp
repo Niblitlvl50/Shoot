@@ -65,7 +65,7 @@ void PathEntity::Draw(mono::IRenderer& renderer) const
     renderer.DrawPoints( { m_pivot_point }, arrow_color, 4.0f);
 }
 
-void PathEntity::Update(unsigned int delta)
+void PathEntity::Update(const mono::UpdateContext& update_context)
 { }
 
 math::Quad PathEntity::BoundingBox() const

@@ -77,7 +77,7 @@ namespace
             : m_entity_manager(entity_manager)
         { }
 
-        void doUpdate(uint32_t delta_ms) override
+        void doUpdate(const mono::UpdateContext& update_context) override
         {
             m_entity_manager.Sync();
         }

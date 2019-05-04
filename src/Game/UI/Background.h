@@ -12,7 +12,7 @@ namespace game
     public:
         Background(const math::Quad& viewport, const mono::Color::HSL& color);
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
         const math::Quad m_viewport;

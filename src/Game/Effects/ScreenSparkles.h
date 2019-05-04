@@ -16,7 +16,7 @@ namespace game
         virtual ~ScreenSparkles();
 
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         const math::Quad m_viewport;
 

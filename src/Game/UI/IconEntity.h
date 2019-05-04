@@ -14,7 +14,7 @@ namespace game
         IconEntity(const char* sprite_file);
         ~IconEntity();
         
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
         void Draw(mono::IRenderer& renderer) const override;
 
         mono::ISpritePtr m_sprite;

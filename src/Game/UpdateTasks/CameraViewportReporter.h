@@ -10,7 +10,7 @@ namespace game
     {
     public:
         CameraViewportReporter(const mono::ICameraPtr& camera);
-        void doUpdate(unsigned int delta) override;
+        void doUpdate(const mono::UpdateContext& update_context) override;
 
     private:
         const mono::ICameraPtr& m_camera;

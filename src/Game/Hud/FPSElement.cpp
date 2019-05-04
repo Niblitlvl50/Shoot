@@ -27,7 +27,7 @@ void FPSElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(game::PIXELETTE_LARGE, text, math::ZeroVec, false, m_color);
 }
 
-void FPSElement::Update(unsigned int delta)
+void FPSElement::Update(const mono::UpdateContext& update_context)
 {
     m_counter++;
 }

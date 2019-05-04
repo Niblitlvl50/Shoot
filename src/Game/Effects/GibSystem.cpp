@@ -75,12 +75,12 @@ GibSystem::GibSystem()
 GibSystem::~GibSystem()
 { }
 
-void GibSystem::doUpdate(unsigned int delta)
+void GibSystem::doUpdate(const mono::UpdateContext& update_context)
 {
     for(auto&& emitter : m_emitters)
-        emitter.doUpdate(delta);
+        emitter.doUpdate(update_context);
 
-    m_pool->doUpdate(delta);
+    m_pool->doUpdate(update_context);
 
     const auto remove_func = [](const mono::ParticleEmitter& emitter) {
         return emitter.IsDone();

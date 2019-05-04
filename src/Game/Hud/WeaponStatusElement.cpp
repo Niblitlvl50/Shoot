@@ -56,7 +56,7 @@ WeaponStatusElement::WeaponStatusElement(
 void WeaponStatusElement::Draw(mono::IRenderer& renderer) const
 { }
 
-void WeaponStatusElement::Update(unsigned int delta)
+void WeaponStatusElement::Update(const mono::UpdateContext& update_context)
 {
     char text[32] = { '\0' };
     std::snprintf(text, 32, "%2u / %3u", m_player_info.magazine_left, m_player_info.ammunition_left);
@@ -67,11 +67,11 @@ void WeaponStatusElement::Update(unsigned int delta)
     if(m_player_info.is_active && m_timer < 1.0f)
     {
         m_position.x = EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-        m_timer += float(delta) / 1000.0f;
+        m_timer += float(update_context.delta_ms) / 1000.0f;
     }
     else if(!m_player_info.is_active && m_timer > 0.0f)
     {
         m_position.x = EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-        m_timer -= float(delta) / 1000.0f;
+        m_timer -= float(update_context.delta_ms) / 1000.0f;
     }
 }

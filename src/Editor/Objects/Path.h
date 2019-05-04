@@ -21,7 +21,7 @@ namespace editor
         void SetVertex(const math::Vector& world_point, size_t index);
 
         virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
+        virtual void Update(const mono::UpdateContext& update_context);
         virtual math::Quad BoundingBox() const;
 
         std::string m_name;

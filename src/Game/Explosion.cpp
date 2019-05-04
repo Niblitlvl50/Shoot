@@ -36,9 +36,9 @@ Explosion::Explosion(const ExplosionConfiguration& config, mono::EventHandler& e
 Explosion::~Explosion()
 { }
 
-void Explosion::Update(unsigned int delta)
+void Explosion::Update(const mono::UpdateContext& update_context)
 {
-    m_sprite->doUpdate(delta);
+    m_sprite->doUpdate(update_context);
 }
 
 void Explosion::Draw(mono::IRenderer& renderer) const

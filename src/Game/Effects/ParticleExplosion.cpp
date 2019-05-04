@@ -132,13 +132,13 @@ void ParticleExplosion::Draw(mono::IRenderer& renderer) const
     //m_drawer3->doDraw(renderer);
 }
 
-void ParticleExplosion::Update(unsigned int delta)
+void ParticleExplosion::Update(const mono::UpdateContext& update_context)
 {
-    m_emitter1->doUpdate(delta);
-    m_emitter2->doUpdate(delta);
-    m_emitter3->doUpdate(delta);
+    m_emitter1->doUpdate(update_context);
+    m_emitter2->doUpdate(update_context);
+    m_emitter3->doUpdate(update_context);
 
-    m_pool1->doUpdate(delta);
-    m_pool2->doUpdate(delta);
-    m_pool3->doUpdate(delta);
+    m_pool1->doUpdate(update_context);
+    m_pool2->doUpdate(update_context);
+    m_pool3->doUpdate(update_context);
 }

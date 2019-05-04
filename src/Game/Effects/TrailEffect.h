@@ -14,7 +14,7 @@ namespace game
         virtual ~TrailEffect();
 
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
         math::Quad BoundingBox() const override;
 
         const math::Vector& m_position;

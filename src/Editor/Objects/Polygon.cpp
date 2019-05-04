@@ -55,7 +55,7 @@ void PolygonEntity::Draw(mono::IRenderer& renderer) const
     renderer.DrawPoints({ m_pivot_point }, point_color, 4.0f);
 }
 
-void PolygonEntity::Update(unsigned int delta)
+void PolygonEntity::Update(const mono::UpdateContext& update_context)
 {
     if(!m_texture)
         m_texture = mono::CreateTexture(m_texture_name);

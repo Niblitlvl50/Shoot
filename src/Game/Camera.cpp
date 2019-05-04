@@ -54,7 +54,7 @@ bool Camera::OnKeyDown(const event::KeyDownEvent& event)
     return true;
 }
 
-void Camera::doUpdate(unsigned int delta)
+void Camera::doUpdate(const mono::UpdateContext& update_context)
 {
     constexpr float SPEED = 0.005f;
     
@@ -82,7 +82,7 @@ void Camera::doUpdate(unsigned int delta)
         const math::Vector& targetPosition = position - (m_viewport.mB * 0.5f) - xy;
         const math::Vector& diff = targetPosition - m_viewport.mA;
     
-        const math::Vector& move = diff * (delta * SPEED);
+        const math::Vector& move = diff * (update_context.delta_ms * SPEED);
         m_viewport.mA += move;
     }
 }

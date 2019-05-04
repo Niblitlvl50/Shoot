@@ -14,5 +14,5 @@ void Background::Draw(mono::IRenderer& renderer) const
     renderer.DrawFilledQuad(m_viewport, mono::Color::ToRGBA(m_color));
 }
 
-void Background::Update(unsigned int delta)
+void Background::Update(const mono::UpdateContext& update_context)
 { }

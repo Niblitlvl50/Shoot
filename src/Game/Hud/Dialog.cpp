@@ -69,7 +69,7 @@ UIDialog::UIDialog(
     }
 }
 
-void UIDialog::Update(unsigned int delta)
+void UIDialog::Update(const mono::UpdateContext& update_context)
 {}
 
 void UIDialog::Draw(mono::IRenderer& renderer) const

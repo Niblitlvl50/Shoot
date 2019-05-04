@@ -17,7 +17,7 @@ namespace game
 
         PhysicsStatsElement(mono::PhysicsSystem* physics_system, const math::Vector& position, const mono::Color::RGBA& color);
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(uint32_t delta_ms) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
 

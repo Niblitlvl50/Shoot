@@ -17,7 +17,7 @@ namespace game
         WeaponStatusElement(
             const PlayerInfo& player_info, const math::Vector& position, const math::Vector& offscreen_position);
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
 

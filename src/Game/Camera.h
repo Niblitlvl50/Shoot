@@ -25,7 +25,7 @@ namespace game
 
         bool OnKeyDown(const event::KeyDownEvent& event);
         
-        void doUpdate(unsigned int delta) override;
+        void doUpdate(const mono::UpdateContext& update_context) override;
         
         void Follow(uint32_t entity_id, const math::Vector& offset) override;
         void Unfollow() override;

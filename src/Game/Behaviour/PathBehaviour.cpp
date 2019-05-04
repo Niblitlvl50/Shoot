@@ -28,17 +28,17 @@ namespace
             m_scale = math::Vector(10, 10);
         }
 
-        virtual void Draw(mono::IRenderer& renderer) const
+        void Draw(mono::IRenderer& renderer) const override
         {
             constexpr mono::Color::RGBA color(1.0f, 0.5f, 1.0f, 1.0f);
             renderer.DrawPoints({ math::ZeroVec }, color, 10.0f);
         }
 
-        virtual void Update(unsigned int delta)
+        void Update(const mono::UpdateContext& update_context) override
         {
             m_position = m_point;
         }
-        
+
         const math::Vector& m_point;
     };
 }

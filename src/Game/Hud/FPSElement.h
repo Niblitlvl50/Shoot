@@ -14,7 +14,7 @@ namespace game
         FPSElement(const math::Vector& position);
         FPSElement(const math::Vector& position, const mono::Color::RGBA& color);
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
         mono::FpsCounter m_counter;

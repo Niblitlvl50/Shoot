@@ -225,9 +225,9 @@ ImGuiInterfaceDrawer::ImGuiInterfaceDrawer(UIContext& context)
     : m_context(context)
 { }
 
-void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
+void ImGuiInterfaceDrawer::doUpdate(const mono::UpdateContext& update_context)
 {
-    ImGui::GetIO().DeltaTime = float(delta) / 1000.0f;
+    ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
     ImGui::NewFrame();
 
     DrawMainMenuBar(m_context);
@@ -242,8 +242,8 @@ void ImGuiInterfaceDrawer::doUpdate(unsigned int delta)
 
     // Update UI stuff below
 
-    const auto remove_notification_func = [delta](Notification& note) {
-        note.time_left -= delta;
+    const auto remove_notification_func = [update_context](Notification& note) {
+        note.time_left -= update_context.delta_ms;
         return note.time_left <= 0;
     };
 

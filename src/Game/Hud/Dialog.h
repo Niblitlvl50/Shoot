@@ -26,7 +26,7 @@ namespace game
 
     private:
 
-        void Update(unsigned int delta);
+        void Update(const mono::UpdateContext& update_context);
         void Draw(mono::IRenderer& renderer) const;
 
         const std::vector<Option> m_options;

@@ -88,8 +88,8 @@ void ScreenSparkles::Draw(mono::IRenderer& renderer) const
     m_drawer->doDraw(renderer);
 }
 
-void ScreenSparkles::Update(unsigned int delta)
+void ScreenSparkles::Update(const mono::UpdateContext& update_context)
 {
-    m_emitter->doUpdate(delta);
-    m_pool->doUpdate(delta);
+    m_emitter->doUpdate(update_context);
+    m_pool->doUpdate(update_context);
 }

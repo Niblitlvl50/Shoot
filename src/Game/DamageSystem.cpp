@@ -97,9 +97,9 @@ uint32_t DamageSystem::Capacity() const
     return m_damage_records.size();
 }
 
-void DamageSystem::Update(uint32_t delta_ms)
+void DamageSystem::Update(const mono::UpdateContext& update_context)
 {
-    m_elapsed_time += delta_ms;
+    m_elapsed_time += update_context.delta_ms;
 
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {

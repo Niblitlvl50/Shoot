@@ -52,11 +52,11 @@ uint32_t EntityLogicSystem::Capacity() const
     return m_logics.size();
 }
 
-void EntityLogicSystem::Update(uint32_t delta_ms)
+void EntityLogicSystem::Update(const mono::UpdateContext& update_context)
 {
     for(IEntityLogic* logic : m_logics)
     {
         if(logic)
-            logic->Update(delta_ms);
+            logic->Update(update_context.delta_ms);
     }
 }

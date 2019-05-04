@@ -14,7 +14,7 @@ namespace game
         virtual ~SmokeEffect();
 
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         std::unique_ptr<mono::ParticlePool> m_pool;
         std::unique_ptr<mono::ParticleEmitter> m_emitter;

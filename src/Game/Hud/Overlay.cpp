@@ -29,7 +29,7 @@ void UIOverlayDrawer::Draw(mono::IRenderer& renderer) const
 {
 }
 
-void UIOverlayDrawer::Update(unsigned int delta)
+void UIOverlayDrawer::Update(const mono::UpdateContext& update_context)
 { }
 
 math::Quad UIOverlayDrawer::BoundingBox() const

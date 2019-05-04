@@ -35,7 +35,7 @@ namespace editor
     private:
 
         virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(unsigned int delta);
+        virtual void Update(const mono::UpdateContext& update_context);
 
         math::Quad LocalBoundingBox() const;
 

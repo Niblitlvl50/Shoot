@@ -29,7 +29,7 @@ public:
         , m_path(nullptr)
     { } 
 
-    void Update(unsigned int delta)
+    void Update(const mono::UpdateContext& update_context)
     { }
 
     void Draw(mono::IRenderer& renderer) const

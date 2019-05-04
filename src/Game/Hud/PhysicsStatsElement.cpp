@@ -31,7 +31,7 @@ void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(game::PIXELETTE_LARGE, text, math::ZeroVec, false, m_color);
 }
 
-void PhysicsStatsElement::Update(uint32_t delta_ms)
+void PhysicsStatsElement::Update(const mono::UpdateContext& update_context)
 {
 
 }

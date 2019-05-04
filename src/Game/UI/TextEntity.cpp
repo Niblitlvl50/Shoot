@@ -16,7 +16,7 @@ void TextEntity::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(m_font, m_text.c_str(), math::ZeroVec, m_centered, m_text_color);
 }
 
-void TextEntity::Update(unsigned int delta)
+void TextEntity::Update(const mono::UpdateContext& update_context)
 {
 
 }

@@ -23,7 +23,7 @@ namespace game
         Explosion(const ExplosionConfiguration& config, mono::EventHandler& event_handler);
         ~Explosion();
         
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
