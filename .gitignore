@@ -8,6 +8,8 @@
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+left_game.log
+right_game.log
 bin/
 build/
 CMakeFiles/
