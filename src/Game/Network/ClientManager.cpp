@@ -35,8 +35,6 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     m_server_beacon_token = m_event_handler->AddListener(server_beacon_func);
     m_server_quit_token = m_event_handler->AddListener(server_quit_func);
     m_connect_accepted_token = m_event_handler->AddListener(connect_accepted_func);
-
-    m_server_address = network::GetBroadcastAddress(m_game_config->server_port);
 }
 
 ClientManager::~ClientManager()
@@ -84,7 +82,11 @@ void ClientManager::doUpdate(const mono::UpdateContext& update_context)
 bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
+    {
+        std::printf("Server beacond %s\n", network::AddressToString(message.sender_address).c_str());
+        m_server_address = message.sender_address;
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
+    }
 
     return true;
 }
@@ -146,7 +148,7 @@ void ClientManager::ToFailed()
 void ClientManager::Searching(const mono::UpdateContext& update_context)
 {
     m_search_timer += update_context.delta_ms;
-    if(m_search_timer >= 2000)
+    if(m_search_timer >= 15000)
         m_states.TransitionTo(ClientStatus::FAILED);
 }
 

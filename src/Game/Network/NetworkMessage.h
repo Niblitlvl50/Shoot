@@ -126,7 +126,6 @@ namespace game
         constexpr size_t payload_type_size = sizeof(size_t);
         constexpr size_t message_size = sizeof(T);
 
-        deserialized_message.sender_address = message.address;
         const std::vector<byte>& payload = message.payload;
 
         uint32_t message_type = 0;
@@ -148,6 +147,7 @@ namespace game
         }
 
         std::memcpy(&deserialized_message, payload.data() + message_type_size + payload_type_size, message_size);
+        deserialized_message.sender_address = message.address;
         return true;
     }
 
