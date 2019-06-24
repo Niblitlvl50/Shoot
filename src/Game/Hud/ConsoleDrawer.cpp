@@ -9,11 +9,11 @@
 
 using namespace game;
 
-void ConsoleDrawer::AddText(const std::string& text)
+void ConsoleDrawer::AddText(const std::string& text, uint32_t life_time_ms)
 {
     TextItem item;
     item.text = text;
-    item.life = System::GetMilliseconds();
+    item.life = System::GetMilliseconds() + life_time_ms;
 
     m_text_items.push_back(item);
 }
@@ -21,20 +21,20 @@ void ConsoleDrawer::AddText(const std::string& text)
 void ConsoleDrawer::doDraw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 20.0f, 0.0f, 16.0f, 0.0f, 10.0f);
+
     renderer.PushNewProjection(projection);
     renderer.PushNewTransform(math::Matrix());
 
     math::Vector current_pos;
-    mono::Color::RGBA color(1, 0, 0);
 
     for(const TextItem& item : m_text_items)
     {
-        renderer.DrawText(0, item.text.c_str(), current_pos, false, color);
+        renderer.DrawText(0, item.text.c_str(), current_pos, false, mono::Color::RED);
         current_pos.y += 1.0f;
     }
 
     const auto check_for_removal = [](const TextItem& item) {
-        return (System::GetMilliseconds() - item.life) > 1500;
+        return System::GetMilliseconds() > item.life;
     };
 
     mono::remove_if(m_text_items, check_for_removal);

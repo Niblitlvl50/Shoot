@@ -62,6 +62,7 @@ mono::Entity EntityManager::CreateEntity(const char* name, const std::vector<uin
     for(uint32_t component : components)
         AddComponent(new_entity.id, component);
 
+    m_spawn_events.push_back({ true, new_entity.id });
     return new_entity;
 }
 
@@ -84,6 +85,7 @@ mono::Entity EntityManager::CreateEntity(const char* entity_file)
             SetComponentData(new_entity.id, component_hash, component.properties);
     }
 
+    m_spawn_events.push_back({ true, new_entity.id });
     return new_entity;
 }
 
@@ -171,6 +173,18 @@ void EntityManager::RegisterComponent(
 void EntityManager::ReleaseEntity(uint32_t entity_id)
 {
     m_entities_to_release.insert(entity_id);
+    m_spawn_events.push_back({ false, entity_id });
+}
+
+const std::vector<EntityManager::SpawnEvent>& EntityManager::GetSpawnEvents() const
+{
+    return m_spawn_events;
+}
+
+void EntityManager::Sync()
+{
+    DefferedRelease();
+    m_spawn_events.clear();
 }
 
 void EntityManager::DefferedRelease()

@@ -14,7 +14,6 @@
 
 #include "Network/RemoteConnection.h"
 #include "Network/MessageDispatcher.h"
-#include "Network/NetworkBeacon.h"
 
 #include "GameConfig.h"
 
@@ -50,7 +49,6 @@ namespace game
         bool OnDespawnConstraint(const game::DespawnConstraintEvent& event);
 
         bool HandleText(const TextMessage& text_message);
-        bool HandlePosMessage(const PositionalMessage& pos_message);
         bool HandleSpawnMessage(const SpawnMessage& spawn_message);
 
     private:
@@ -69,7 +67,6 @@ namespace game
         mono::EventToken<game::DespawnConstraintEvent> m_despawnConstraintToken;
 
         mono::EventToken<game::TextMessage> m_text_func_token;
-        mono::EventToken<game::PositionalMessage> m_pos_func_token;
         mono::EventToken<game::SpawnMessage> m_spawn_func_token;
 
         const game::Config m_game_config;
@@ -80,7 +77,6 @@ namespace game
         std::unique_ptr<PlayerDaemon> m_player_daemon;
         mono::ISoundPtr m_background_music;
 
-        NetworkBeacon m_beacon;
         std::shared_ptr<MessageDispatcher> m_dispatcher;
         std::unique_ptr<RemoteConnection> m_remote_connection;
 

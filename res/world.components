@@ -141,14 +141,14 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 1.391402244567871,
-                                "y": -8.798393249511719
+                                "x": 1.1207151412963867,
+                                "y": -9.407442092895508
                             }
                         },
                         {
                             "id": 564937055,
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.07100656628608704
                         }
                     ]
                 },
@@ -548,8 +548,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -8.302465438842773,
-                                "y": 1.3652963638305664
+                                "x": 10.016412734985352,
+                                "y": -29.638019561767578
                             }
                         },
                         {
@@ -602,7 +602,7 @@
                         {
                             "id": 3749132497,
                             "variant_type": 3,
-                            "variant_value": 10.0
+                            "variant_value": 50.0
                         },
                         {
                             "id": 3447918833,
@@ -668,7 +668,7 @@
                         {
                             "id": 3006530277,
                             "variant_type": 4,
-                            "variant_value": "res/paths/center_loop.path"
+                            "variant_value": "res/paths/smaller_loop.path"
                         }
                     ]
                 }
@@ -2201,7 +2201,7 @@
                     ]
                 }
             ],
-            "name": "unnamed"
+            "name": "tiny_board_blue"
         },
         {
             "components": [
@@ -2261,7 +2261,7 @@
                     ]
                 }
             ],
-            "name": "unnamed"
+            "name": "tiny_board"
         },
         {
             "components": [
@@ -2624,7 +2624,7 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "x": -12.33310604095459,
-                                "y": -7.348597526550293
+                                "y": -7.506050109863281
                             }
                         },
                         {
@@ -2731,7 +2731,7 @@
                     ]
                 }
             ],
-            "name": "unnamed"
+            "name": "left"
         },
         {
             "components": [
@@ -2851,7 +2851,7 @@
                     ]
                 }
             ],
-            "name": "unnamed"
+            "name": "gun"
         },
         {
             "components": [

@@ -1,5 +1,6 @@
 {
-    "beacon_port": 2000,
     "client_port": 2001,
-    "server_port": 2002
+    "server_port": 2002,
+    "port_range_start": 21000,
+    "port_range_end": 22000
 }

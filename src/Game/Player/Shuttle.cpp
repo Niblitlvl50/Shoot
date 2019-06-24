@@ -2,7 +2,6 @@
 #include "Shuttle.h"
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
-#include "Physics/CMFactory.h"
 #include "Util/Random.h"
 
 #include "Entity/EntityBase.h"
@@ -57,9 +56,9 @@ public:
             renderer.DrawSprite(*m_sprite);
     }
 
-    virtual void Update(unsigned int delta)
+    virtual void Update(const mono::UpdateContext& update_context)
     {
-        m_sprite->doUpdate(delta);
+        m_sprite->doUpdate(update_context);
     }
 
     void SetAnimation(int animation_id)
@@ -82,14 +81,14 @@ Shuttle::Shuttle(const math::Vector& position, mono::EventHandler& event_handler
     m_position = position;
     m_scale = math::Vector(1.0f, 1.0f);
     
-    m_physics.body = mono::PhysicsFactory::CreateBody(10.0f, INFINITY);
-    m_physics.body->SetPosition(m_position);
+//    m_physics.body = mono::PhysicsFactory::CreateBody(10.0f, INFINITY);
+//    m_physics.body->SetPosition(m_position);
 
-    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x / 2.0f, math::ZeroVec);
-    shape->SetElasticity(0.1f);
-    shape->SetCollisionFilter(CollisionCategory::PLAYER, PLAYER_MASK);
+//    mono::IShapePtr shape = mono::PhysicsFactory::CreateShape(m_physics.body, m_scale.x / 2.0f, math::ZeroVec);
+//    shape->SetElasticity(0.1f);
+//    shape->SetCollisionFilter(CollisionCategory::PLAYER, PLAYER_MASK);
     
-    m_physics.shapes.push_back(shape);
+//    m_physics.shapes.push_back(shape);
 
     m_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/shuttle.sprite");
     m_sprite->SetAnimation(constants::IDLE);
@@ -128,11 +127,11 @@ void Shuttle::Draw(mono::IRenderer& renderer) const
     m_particle_drawer->doDraw(renderer);
 }
 
-void Shuttle::Update(unsigned int delta)
+void Shuttle::Update(const mono::UpdateContext& update_context)
 {
     //m_gamepad_controller.Update(delta);
-    m_sprite->doUpdate(delta);
-    m_pool->doUpdate(delta);
+    m_sprite->doUpdate(update_context);
+    m_pool->doUpdate(update_context);
 
     if(m_fire)
         m_weapon->Fire(m_position, m_rotation);

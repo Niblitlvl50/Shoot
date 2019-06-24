@@ -1,66 +1,112 @@
 
 #pragma once
 
+#include "Math/Matrix.h"
+#include "Rendering/Color.h"
+#include "System/Network.h"
+#include "System/System.h"
+
 #include <vector>
 #include <stdlib.h>
 #include <cstring>
 #include <cstdint>
+#include <cstdio>
+
 
 using byte = unsigned char;
+
+#define DECLARE_NETWORK_MESSAGE() \
+    static constexpr uint32_t message_type  = __COUNTER__; \
+    uint32_t message_id; \
+    network::Address sender_address; 
 
 namespace game
 {
     struct NetworkMessage
     {
-        uint32_t id;
+        network::Address address;
         std::vector<byte> payload;
+    };
+
+    struct ServerBeaconMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+    };
+
+    struct ServerQuitMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+    };
+
+    struct PingMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+        uint32_t local_time_stamp;
+    };
+
+    struct ConnectMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+    };
+
+    struct ConnectAcceptedMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+    };
+
+    struct DisconnectMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+    };
+
+    struct HeartBeatMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
     };
 
     struct TextMessage
     {
-        static constexpr uint32_t message_id = 0;
+        DECLARE_NETWORK_MESSAGE();
         char text[256] = { 0 };
     };
 
-    struct PositionalMessage
+    struct TransformMessage
     {
-        static constexpr uint32_t message_id = 1;
-
+        DECLARE_NETWORK_MESSAGE();
         uint32_t entity_id;
-        float x;
-        float y;
-        float rotation;
+        math::Matrix transform;
     };
 
     struct SpawnMessage
     {
-        static constexpr uint32_t message_id = 2;
-
-        uint32_t spawn_type_id;
-        uint32_t assigned_entity_id;
-        float x;
-        float y;
+        DECLARE_NETWORK_MESSAGE();
+        uint32_t entity_id;
+        bool spawn;
     };
 
-    struct DespawnMessage
+    struct SpriteMessage
     {
-        static constexpr uint32_t message_id = 3;
+        DECLARE_NETWORK_MESSAGE();
         uint32_t entity_id;
-    };
-
-    struct AnimationMessage
-    {
-        static constexpr uint32_t message_id = 4;
-        uint32_t entity_id;
+        uint32_t filename_hash;
+        mono::Color::RGBA shade;
+        int vertical_direction;
+        int horizontal_direction; 
         int animation_id;
+    };
+
+    struct RemoteInputMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+        System::ControllerState controller_state;
     };
 
     template <typename T>
     inline std::vector<byte> SerializeMessage(const T& message)
     {
-        constexpr size_t type_hash = T::message_id;
+        constexpr uint32_t type_hash = T::message_type;
 
-        constexpr size_t id_type_size = sizeof(size_t);
+        constexpr size_t id_type_size = sizeof(uint32_t);
         constexpr size_t payload_type_size = sizeof(size_t);
         constexpr size_t message_size = sizeof(T);
         
@@ -74,35 +120,44 @@ namespace game
     }
 
     template <typename T>
-    inline bool DeserializeMessage(const std::vector<byte>& message, T& deserialized_message)
+    inline bool DeserializeMessage(const NetworkMessage& message, T& deserialized_message)
     {
-        constexpr size_t id_type_size = sizeof(T::message_id);
+        constexpr size_t message_type_size = sizeof(T::message_type);
         constexpr size_t payload_type_size = sizeof(size_t);
         constexpr size_t message_size = sizeof(T);
 
-        uint32_t message_id = 0;
-        std::memcpy(&message_id, message.data(), id_type_size);
+        deserialized_message.sender_address = message.address;
+        const std::vector<byte>& payload = message.payload;
 
-        if(T::message_id != message_id)
+        uint32_t message_type = 0;
+        std::memcpy(&message_type, payload.data(), message_type_size);
+
+        if(T::message_type != message_type)
+        {
+            std::printf("Message id missmatch!\n");
             return false;
+        }
 
         size_t payload_size = 0;
-        std::memcpy(&payload_size, message.data() + id_type_size, payload_type_size);
+        std::memcpy(&payload_size, payload.data() + message_type_size, payload_type_size);
 
         if(payload_size != message_size)
+        {
+            std::printf("Payload size missmatch! %zu / %zu\n", payload_size, message_size);
             return false;
+        }
 
-        std::memcpy(&deserialized_message, message.data() + id_type_size + payload_type_size, message_size);
+        std::memcpy(&deserialized_message, payload.data() + message_type_size + payload_type_size, message_size);
         return true;
     }
 
     inline uint32_t PeekMessageType(const std::vector<byte>& message)
     {
-        constexpr size_t id_type_size = sizeof(uint32_t);
+        constexpr size_t message_type_size = sizeof(uint32_t);
 
-        uint32_t message_id = 0;
-        std::memcpy(&message_id, message.data(), id_type_size);
+        uint32_t message_type = 0;
+        std::memcpy(&message_type, message.data(), message_type_size);
     
-        return message_id;
+        return message_type;
     }
 }

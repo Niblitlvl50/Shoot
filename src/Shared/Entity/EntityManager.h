@@ -37,10 +37,8 @@ public:
     bool SetComponentData(uint32_t entity_id, uint32_t component_hash, const std::vector<Attribute>& properties) override;
     std::vector<Attribute> GetComponentData(uint32_t entity_id, uint32_t component_hash) const override;
     void ReleaseEntity(uint32_t entity_id) override;
-    void Sync() override
-    {
-        DefferedRelease();
-    }
+    const std::vector<SpawnEvent>& GetSpawnEvents() const override;
+    void Sync() override;
 
     void RegisterComponent(
         uint32_t component_hash,
@@ -66,4 +64,5 @@ private:
     };
 
     std::unordered_map<uint32_t, ComponentFuncs> m_component_factories;
+    std::vector<SpawnEvent> m_spawn_events;
 };

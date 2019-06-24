@@ -1,20 +1,15 @@
 
 #include "SystemTestZone.h"
 
-#include "Math/Matrix.h"
-
 #include "EventHandler/EventHandler.h"
 #include "Events/SpawnConstraintEvent.h"
 #include "Events/GameEventFuncFwd.h"
 
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
-#include "Rendering/Sprite/SpriteFactory.h"
-#include "Rendering/Sprite/Sprite.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
-#include "Physics/IBody.h"
 
 #include "SystemContext.h"
 #include "TransformSystem.h"
@@ -31,9 +26,14 @@
 #include "Hud/WaveDrawer.h"
 #include "Hud/ConsoleDrawer.h"
 #include "Hud/Healthbar.h"
+#include "Hud/NetworkStatusDrawer.h"
 
 #include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
+
+#include "Network/ServerManager.h"
+#include "Network/NetworkReplicator.h"
+#include "Network/NetworkMessage.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
@@ -54,44 +54,9 @@ using namespace game;
 
 namespace
 {
-    class FloorColisions : public mono::ICollisionHandler
-    {
-    public:
-        FloorColisions(mono::SystemContext* system_context)
-            : m_sprite_system(system_context->GetSystem<mono::SpriteSystem>())
-            , m_transform_system(system_context->GetSystem<mono::TransformSystem>())
-            , m_physics_system(system_context->GetSystem<mono::PhysicsSystem>())
-            , m_damage_system(system_context->GetSystem<game::DamageSystem>())
-        { }
-
-        void OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
-        {
-            const uint32_t entity_id = m_physics_system->GetIdFromBody(body);
-            m_damage_system->ApplyDamage(entity_id, 122);
-
-            mono::Entity explosion_entity = entity_manager->CreateEntity("res/entities/tiny_explosion.entity");
-
-            math::Matrix& transform = m_transform_system->GetTransform(explosion_entity.id);
-            math::Identity(transform);
-            math::Translate(transform, collision_point);
-
-            const auto destroy_func = [explosion_entity] {
-                entity_manager->ReleaseEntity(explosion_entity.id);
-            };
-
-            mono::ISprite* sprite = m_sprite_system->GetSprite(explosion_entity.id);
-            sprite->SetAnimation(0, destroy_func);
-        }
-
-        mono::SpriteSystem* m_sprite_system;
-        mono::TransformSystem* m_transform_system;
-        const mono::PhysicsSystem* m_physics_system;
-        game::DamageSystem* m_damage_system;
-    };
-
     class SyncPoint : public mono::IUpdatable
     {
-        void doUpdate(uint32_t delta_ms)
+        void doUpdate(const mono::UpdateContext& update_context)
         {
             entity_manager->Sync();
         }
@@ -101,33 +66,43 @@ namespace
 SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     : m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
+    , m_game_config(*context.game_config)
 {
-        using namespace std::placeholders;
+    using namespace std::placeholders;
 
     const game::SpawnConstraintFunc& spawn_constraint_func = std::bind(&SystemTestZone::SpawnConstraint, this, _1);
     const game::DespawnConstraintFunc& despawn_constraint_func = std::bind(&SystemTestZone::DespawnConstraint, this, _1);
+    const std::function<bool (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
 
     m_spawn_constraint_token = m_event_handler->AddListener(spawn_constraint_func);
     m_despawn_constraint_token = m_event_handler->AddListener(despawn_constraint_func);
+    m_text_func_token = m_event_handler->AddListener(text_func);
 }
 
 SystemTestZone::~SystemTestZone()
 {
     m_event_handler->RemoveListener(m_spawn_constraint_token);
     m_event_handler->RemoveListener(m_despawn_constraint_token);
+    m_event_handler->RemoveListener(m_text_func_token);
 }
 
 void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    // Syncing should be done first in the frame.
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+
+    // Network and syncing should be done first in the frame.
+    m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
+    AddUpdatable(m_server_manager);
+    AddUpdatable(std::make_shared<NetworkReplicator>(transform_system, sprite_system, entity_manager, m_server_manager.get()));
     AddUpdatable(std::make_shared<SyncPoint>());
+
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, *m_event_handler));
-
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<WaveDrawer>(*m_event_handler), LayerId::UI);
-
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
 
@@ -142,9 +117,6 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 
         m_loaded_entities.push_back(new_entity.id);
     }
-
-    //mono::IBody* floor_body = physics_system->GetBody(floor_entity.id);
-    //floor_body->SetCollisionHandler(new FloorColisions(m_system_context));
 
     const std::vector<uint32_t>& loaded_entities = world::ReadWorldComponentObjects("res/world.components", entity_manager);
     m_loaded_entities.insert(m_loaded_entities.end(), loaded_entities.begin(), loaded_entities.end());
@@ -162,15 +134,8 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     std::vector<math::Vector> player_points;
     m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_system_context, *m_event_handler);
 
-    auto sprite_drawer = std::make_shared<mono::SpriteBatchDrawer>(m_system_context);
-    AddDrawable(sprite_drawer, GAMEOBJECTS);
-
-    auto physics_debug_drawer = std::make_shared<mono::PhysicsDebugDrawer>(physics_system);
-    AddDrawable(physics_debug_drawer, UI);
-
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-
+    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
+    //AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(physics_system), UI);
     AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
 
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
@@ -178,7 +143,8 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<PhysicsStatsElement>(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
-    AddEntity(hud_overlay, UI);
+    hud_overlay->AddChild(std::make_shared<ServerStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+    AddEntity(hud_overlay, LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()
@@ -187,7 +153,6 @@ int SystemTestZone::OnUnload()
         entity_manager->ReleaseEntity(entity_id);
 
     entity_manager->Sync();
-
     return 0;
 }
 
@@ -198,5 +163,11 @@ bool SystemTestZone::SpawnConstraint(const game::SpawnConstraintEvent& event)
 
 bool SystemTestZone::DespawnConstraint(const game::DespawnConstraintEvent& event)
 {
+    return true;
+}
+
+bool SystemTestZone::HandleText(const TextMessage& text_message)
+{
+    m_console_drawer->AddText(text_message.text, 1500);
     return true;
 }

@@ -8,7 +8,6 @@
 #include "DefinedAttributes.h"
 
 #include "StaticTerrainBlock.h"
-#include "StaticPrefab.h"
 #include "StaticBackground.h"
 
 #include "Navigation/NavmeshFactory.h"

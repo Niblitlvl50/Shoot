@@ -32,6 +32,4 @@ void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
 }
 
 void PhysicsStatsElement::Update(const mono::UpdateContext& update_context)
-{
-
-}
+{ }

@@ -11,7 +11,6 @@
 #include "Weapons/WeaponFactory.h"
 #include "FontIds.h"
 #include "Zones/ZoneManager.h"
-#include "Physics/CMFactory.h"
 #include "GameConfig.h"
 
 
@@ -27,6 +26,8 @@
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
 #include "Entity/EntityLogicFactory.h"
+
+#include "SpriteResources.h"
 
 namespace
 {
@@ -85,27 +86,21 @@ int main(int argc, char* argv[])
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
 
+    game::LoadAllSprites("res/sprites/all_sprite_files.json");
+
     System::Initialize();
-    network::Initialize();
+    network::Initialize(game_config.port_range_start, game_config.port_range_end);
     mono::InitializeAudio();
 
     mono::RenderInitParams render_params;
     render_params.pixels_per_meter = 32.0f;
     mono::InitializeRender(render_params);
 
-    mono::PhysicsInitParams physics_params;
-    physics_params.n_bodies = max_entities;
-    physics_params.n_circle_shapes = 500;
-    physics_params.n_segment_shapes = 500;
-    physics_params.n_polygon_shapes = 500;
-
     mono::PhysicsSystemInitParams physics_system_params;
     physics_system_params.n_bodies = max_entities;
     physics_system_params.n_circle_shapes = max_entities;
     physics_system_params.n_segment_shapes = max_entities;
     physics_system_params.n_polygon_shapes = max_entities;
-
-    mono::PhysicsFactory::Init(physics_params);
 
     {
         mono::SystemContext system_context;
@@ -137,6 +132,7 @@ int main(int argc, char* argv[])
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
+        mono::LoadFont(game::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
         
         auto camera = std::make_shared<game::Camera>(22, 14, window_size.x, window_size.y, transform_system, event_handler);
 
@@ -151,7 +147,6 @@ int main(int argc, char* argv[])
         delete window;
     }
 
-    mono::PhysicsFactory::Shutdown();
     mono::ShutdownRender();
     mono::ShutdownAudio();
 

@@ -29,7 +29,7 @@ namespace game
 
     class Shuttle : public mono::PhysicsEntityBase
     {
-    public:
+    private:
         
         Shuttle(
             const math::Vector& postiion, mono::EventHandler& eventHandler, const System::ControllerState& controller);
@@ -54,7 +54,7 @@ namespace game
         void ApplyThrustForce(float force);
 
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(unsigned int delta) override;
+        void Update(const mono::UpdateContext& update_context) override;
         
         //ShuttleGamepadController m_gamepad_controller;
         //PlayerInteractionController m_interaction_controller;

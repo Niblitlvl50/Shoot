@@ -5,9 +5,10 @@
 
 namespace
 {
-    constexpr const char* beacon_port = "beacon_port";
     constexpr const char* client_port = "client_port";
     constexpr const char* server_port = "server_port";
+    constexpr const char* port_range_start = "port_range_start";
+    constexpr const char* port_range_end = "port_range_end";
 }
 
 bool game::LoadConfig(const char* config_file, game::Config& config)
@@ -21,14 +22,17 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    if(json.count(beacon_port) > 0)
-        config.beacon_port = json[beacon_port];
-
     if(json.count(client_port) > 0)
         config.client_port = json[client_port];
 
     if(json.count(server_port) > 0)
         config.server_port = json[server_port];
+
+    if(json.count(port_range_start) > 0)
+        config.port_range_start = json[port_range_start];
+
+    if(json.count(port_range_end) > 0)
+        config.port_range_end = json[port_range_end];
 
     return true;
 }

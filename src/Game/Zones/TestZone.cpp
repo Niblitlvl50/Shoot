@@ -55,7 +55,6 @@ TestZone::TestZone(const ZoneCreationContext& context)
     , m_game_config(*context.game_config)
     , m_event_handler(*context.event_handler)
     , m_system_context(context.system_context)
-    , m_beacon(17776)
     , m_dispatcher(std::make_shared<MessageDispatcher>(*context.event_handler))
 {
     using namespace std::placeholders;
@@ -77,11 +76,9 @@ TestZone::TestZone(const ZoneCreationContext& context)
     m_despawnConstraintToken = m_event_handler.AddListener(despawnConstraintFunc);
 
     const std::function<bool (const TextMessage&)> text_func = std::bind(&TestZone::HandleText, this, _1);
-    const std::function<bool (const PositionalMessage&)> positional_func = std::bind(&TestZone::HandlePosMessage, this, _1);
     const std::function<bool (const SpawnMessage&)> spawn_func = std::bind(&TestZone::HandleSpawnMessage, this, _1);
 
     m_text_func_token = m_event_handler.AddListener(text_func);
-    m_pos_func_token = m_event_handler.AddListener(positional_func);
     m_spawn_func_token = m_event_handler.AddListener(spawn_func);
 
     m_background_music = mono::AudioFactory::CreateSound("res/sound/ingame_phoenix.wav", true, true);
@@ -98,21 +95,14 @@ TestZone::~TestZone()
     m_event_handler.RemoveListener(m_despawnConstraintToken);
 
     m_event_handler.RemoveListener(m_text_func_token);
-    m_event_handler.RemoveListener(m_pos_func_token);
     m_event_handler.RemoveListener(m_spawn_func_token);
 }
 
 void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    network::ISocketPtr in_socket = network::OpenLoopbackSocket(m_game_config.server_port, false);
-    network::ISocketPtr out_socket = network::OpenLoopbackSocket(6666, false);
-
-    network::Address address;
-    address.host = network::GetLoopbackAddress();
-    address.port = m_game_config.client_port;
-
-    m_remote_connection = 
-        std::make_unique<RemoteConnection>(m_dispatcher.get(), std::move(in_socket), std::move(out_socket), address);
+    network::ISocketPtr in_socket; // = network::CreateUDPSocket(m_game_config.server_port, network::SocketType::NON_BLOCKING);
+    network::ISocketPtr out_socket; // = network::CreateUDPSocket(6666, network::SocketType::NON_BLOCKING);
+    m_remote_connection = std::make_unique<RemoteConnection>(m_dispatcher.get(), std::move(in_socket));
 
     AddUpdatable(m_dispatcher);
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
@@ -178,8 +168,6 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
     // Test stuff...
     AddEntity(std::make_shared<SmokeEffect>(math::Vector(-10.0f, 10.0f)), GAMEOBJECTS);
     AddEntity(std::make_shared<ParticleExplosion>(math::Vector(-20.0f, 10.0f)), GAMEOBJECTS);
-
-    //AddUpdatable(std::make_shared<NetworkReplicator>(this, mono::GetSpriteInstances(), m_remote_connection.get()));
 }
 
 void TestZone::Accept(mono::IRenderer& renderer)
@@ -213,21 +201,6 @@ bool TestZone::SpawnEntity(const game::SpawnEntityEvent& event)
 bool TestZone::SpawnPhysicsEntity(const game::SpawnPhysicsEntityEvent& event)
 {
     AddPhysicsEntity(event.entity, event.layer);
-
-    const math::Vector position = event.entity->Position();
-
-    SpawnMessage spawn_message;
-    spawn_message.spawn_type_id = 0;
-    spawn_message.assigned_entity_id = event.entity->Id();
-    spawn_message.x = position.x;
-    spawn_message.y = position.y;
-
-    NetworkMessage network_message;
-    network_message.id = 1;
-    network_message.payload = SerializeMessage(spawn_message);
-
-    m_remote_connection->SendMessage(network_message);
-
     return true;
 }
 
@@ -281,15 +254,6 @@ void TestZone::RemovePhysicsEntity(const mono::IPhysicsEntityPtr& entity)
 {
     //m_damage_controller->RemoveRecord(entity->Id());
     PhysicsZone::RemovePhysicsEntity(entity);
-
-    DespawnMessage despawn_message;
-    despawn_message.entity_id = entity->Id();
-
-    NetworkMessage network_message;
-    network_message.id = 1;
-    network_message.payload = SerializeMessage(despawn_message);
-
-    m_remote_connection->SendMessage(network_message);
 }
 
 void TestZone::RemoveEntity(const mono::IEntityPtr& entity)
@@ -312,12 +276,7 @@ bool TestZone::OnDespawnConstraint(const game::DespawnConstraintEvent& event)
 
 bool TestZone::HandleText(const TextMessage& text_message)
 {
-    m_console_drawer->AddText(text_message.text);
-    return true;
-}
-
-bool TestZone::HandlePosMessage(const PositionalMessage& pos_message)
-{
+    m_console_drawer->AddText(text_message.text, 1500);
     return true;
 }
 

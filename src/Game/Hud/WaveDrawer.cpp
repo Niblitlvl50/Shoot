@@ -38,9 +38,7 @@ void WaveDrawer::doDraw(mono::IRenderer& renderer) const
     renderer.PushNewProjection(projection);
 
     constexpr math::Vector position(100.0f, 90.0f);
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f);
-
-    renderer.DrawText(game::FontId::PIXELETTE_LARGE, m_current_text.c_str(), position, true, color);
+    renderer.DrawText(game::FontId::PIXELETTE_LARGE, m_current_text.c_str(), position, true, mono::Color::RED);
 }
 
 math::Quad WaveDrawer::BoundingBox() const

@@ -7,6 +7,7 @@ namespace game
     {
         PIXELETTE_SMALL,
         PIXELETTE_MEDIUM,
-        PIXELETTE_LARGE
+        PIXELETTE_LARGE,
+        PIXELETTE_MEGA
     };
 }

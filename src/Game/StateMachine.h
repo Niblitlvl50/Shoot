@@ -52,6 +52,6 @@ public:
 
 private:
 
-    StateId m_active_state;
+    StateId m_active_state{};
     std::unordered_map<StateId, State> m_states;
 };

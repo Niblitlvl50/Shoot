@@ -13,7 +13,7 @@ namespace game
     {
     public:
 
-        void AddText(const std::string& text);
+        void AddText(const std::string& text, uint32_t life_time_ms);
 
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -23,7 +23,7 @@ namespace game
         struct TextItem
         {
             std::string text;
-            int life;
+            uint32_t life;
         };
 
         mutable std::vector<TextItem> m_text_items;

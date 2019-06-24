@@ -2,19 +2,22 @@
 #pragma once
 
 #include "ZoneCreationContext.h"
-//#include "Zone/ZoneBase.h"
 #include "Zone/PhysicsZone.h"
 #include "GameConfig.h"
 #include "EventHandler/EventToken.h"
 
+namespace network
+{
+    struct Address;
+}
 
 namespace game
 {
     struct TextMessage;
-    struct PositionalMessage;
+    struct TransformMessage;
     struct SpawnMessage;
-    struct DespawnMessage;
-    struct AnimationMessage;
+    struct SpriteMessage;
+    struct PingMessage;
 
     class RemoteZone : public mono::PhysicsZone
     {
@@ -27,27 +30,26 @@ namespace game
         int OnUnload() override;
 
         bool HandleText(const TextMessage& text_message);
-        bool HandlePosMessage(const PositionalMessage& pos_message);
+        bool HandleTransformMessage(const TransformMessage& transform_message);
         bool HandleSpawnMessage(const SpawnMessage& spawn_message);
-        bool HandleDespawnMessage(const DespawnMessage& despawn_message);
-        bool HandleAnimMessage(const AnimationMessage& anim_message);
+        bool HandleSpriteMessage(const SpriteMessage& sprite_message);
+        bool HandlePingMessage(const PingMessage& ping_message);
 
     private:
 
-        void Accept(mono::IRenderer& renderer) override;
-
+        mono::SystemContext* m_system_context;
         mono::EventHandler& m_event_handler;
         const game::Config m_game_config;
 
-        std::shared_ptr<class MessageDispatcher> m_dispatcher;
-        std::unique_ptr<class RemoteConnection> m_connection;
+        std::shared_ptr<class ClientManager> m_client_manager;
 
         mono::EventToken<game::TextMessage> m_text_token;
-        mono::EventToken<game::PositionalMessage> m_pos_token;
+        mono::EventToken<game::TransformMessage> m_transform_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
-        mono::EventToken<game::DespawnMessage> m_despawn_token;
-        mono::EventToken<game::AnimationMessage> m_anim_token;
+        mono::EventToken<game::SpriteMessage> m_sprite_token;
+        mono::EventToken<game::PingMessage> m_ping_token;
 
         std::shared_ptr<class ConsoleDrawer> m_console_drawer;
+        std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;
     };
 }

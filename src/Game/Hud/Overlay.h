@@ -11,7 +11,6 @@ namespace game
     public:
 
         UIOverlayDrawer();
-        ~UIOverlayDrawer();
 
     private:
 

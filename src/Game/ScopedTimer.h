@@ -2,6 +2,7 @@
 #pragma once
 
 #include "System/System.h"
+#include <cstdio>
 
 namespace game
 {
@@ -16,8 +17,8 @@ namespace game
 
         ~ScopedTimer()
         {
-            const uint64_t delta = System::GetPerformanceCounter() - m_start_time;
-            std::printf("%s: %llums\n", m_scope_context, delta);
+            const float delta_ms = float(System::GetPerformanceCounter() - m_start_time) / System::GetPerformanceFrequency();
+            std::printf("%s: %f ms\n", m_scope_context, delta_ms);
         }
 
         const uint64_t m_start_time;
@@ -36,11 +37,18 @@ namespace game
 
         ~ScopedTimerCallback()
         {
-            const uint64_t delta = System::GetPerformanceCounter() - m_start_time;
-            m_callback(delta);
+            const float delta_ms = float(System::GetPerformanceCounter() - m_start_time) / System::GetPerformanceFrequency();
+            m_callback(delta_ms);
         }
 
         const uint64_t m_start_time;
         T m_callback;
     };
 }
+
+#define CONCAT(x, y) x##y
+#define UNIQUE_NAME(prefix, line) CONCAT(prefix, line)
+
+#define SCOPED_TIMER_AUTO() \
+    const game::ScopedTimer UNIQUE_NAME(scoped_timer, __LINE__)(__PRETTY_FUNCTION__);
+

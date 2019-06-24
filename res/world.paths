@@ -1,3 +1,7 @@
 {
-    "path_files": []
+    "path_files": [
+        "res/paths/center_loop.path",
+        "res/paths/smaller_loop.path",
+        "res/paths/tiny_loop.path"
+    ]
 }

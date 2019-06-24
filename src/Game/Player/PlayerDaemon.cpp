@@ -21,6 +21,7 @@
 #include "Events/ControllerEvent.h"
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
+#include "Events/PlayerConnectedEvent.h"
 
 #include "Camera/ICamera.h"
 #include "Rendering/Color.h"
@@ -29,6 +30,8 @@
 #include "Entity/EntityBase.h"
 #include "Hud/UIElements.h"
 #include "Hud/Dialog.h"
+
+#include "Network/NetworkMessage.h"
 
 #include "Component.h"
 
@@ -61,7 +64,7 @@ namespace
             AddChild(std::make_shared<UIDialog>("YOU DEAD! Respawn?", options, background_color, text_color));
         }
 
-        void Update(uint32_t delta_ms)
+        void Update(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
@@ -105,6 +108,15 @@ PlayerDaemon::PlayerDaemon(
     m_added_token = m_event_handler.AddListener(added_func);
     m_removed_token = m_event_handler.AddListener(removed_func);
 
+    const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
+    const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
+
+    m_player_connected_token = m_event_handler.AddListener(connected_func);
+    m_player_disconnected_token = m_event_handler.AddListener(disconnected_func);
+
+    const std::function<bool (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
+    m_remote_input_token = m_event_handler.AddListener(remote_input_func);
+
     if(System::IsControllerActive(System::ControllerId::Primary))
     {
         m_player_one_id = System::GetControllerId(System::ControllerId::Primary);
@@ -122,6 +134,10 @@ PlayerDaemon::~PlayerDaemon()
 {
     m_event_handler.RemoveListener(m_added_token);
     m_event_handler.RemoveListener(m_removed_token);
+
+    m_event_handler.RemoveListener(m_player_connected_token);
+    m_event_handler.RemoveListener(m_player_disconnected_token);
+    m_event_handler.RemoveListener(m_remote_input_token);
 
     if(g_player_one.is_active)
         game::entity_manager->ReleaseEntity(g_player_one.entity_id);
@@ -157,13 +173,13 @@ void PlayerDaemon::SpawnPlayer(
 
 void PlayerDaemon::SpawnPlayer1()
 {
-    const auto destroyed_func = [this](uint32_t entity_id) {
-        game::g_player_one.is_active = false;
-        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
-        m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
-    };
-
-    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
+//    const auto destroyed_func = [this](uint32_t entity_id) {
+//        game::g_player_one.is_active = false;
+//        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
+//        m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
+//    };
+//
+//    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
 }
 
 void PlayerDaemon::SpawnPlayer2()
@@ -209,6 +225,105 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
 
         game::g_player_two.entity_id = std::numeric_limits<uint32_t>::max();
         game::g_player_two.is_active = false;
+    }
+
+    return false;
+}
+
+bool PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
+{
+    auto it = m_remote_players.find(event.id);
+    if(it != m_remote_players.end())
+        return true;
+
+    std::printf("Player connected, %u\n", event.id);
+
+    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.id];
+
+    const auto remote_player_destroyed = [](uint32_t entity_id) {
+
+    };
+
+    SpawnPlayer(&remote_player_data.player_info, remote_player_data.controller_state, remote_player_destroyed);
+
+    return true;
+}
+
+bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
+{
+    auto it = m_remote_players.find(event.id);
+    if(it != m_remote_players.end())
+    {
+        game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
+        m_remote_players.erase(it);
+    }
+
+    return true;
+}
+
+bool PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
+{
+    std::printf("Got remote input! %u\n", event.sender_address.host);
+    
+    auto it = m_remote_players.find(event.sender_address.host);
+    if(it != m_remote_players.end())
+    {
+        std::printf("Applying input! %f\n", event.controller_state.left_x);
+        it->second.controller_state = event.controller_state;
+    }
+
+    return true;
+}
+
+
+ClientPlayerDaemon::ClientPlayerDaemon(mono::EventHandler& event_handler)
+    : m_event_handler(event_handler)
+{
+    using namespace std::placeholders;
+
+    const event::ControllerAddedFunc& added_func = std::bind(&ClientPlayerDaemon::OnControllerAdded, this, _1);
+    const event::ControllerRemovedFunc& removed_func = std::bind(&ClientPlayerDaemon::OnControllerRemoved, this, _1);
+
+    m_added_token = m_event_handler.AddListener(added_func);
+    m_removed_token = m_event_handler.AddListener(removed_func);
+
+    if(System::IsControllerActive(System::ControllerId::Primary))
+    {
+        m_player_one_id = System::GetControllerId(System::ControllerId::Primary);
+        SpawnPlayer1();
+    }
+}
+
+ClientPlayerDaemon::~ClientPlayerDaemon()
+{
+    m_event_handler.RemoveListener(m_added_token);
+    m_event_handler.RemoveListener(m_removed_token);
+}
+
+void ClientPlayerDaemon::SpawnPlayer1()
+{
+    std::printf("Spawn player 1\n");
+    //game::g_player_one.entity_id = player_entity.id;
+    game::g_player_one.is_active = true;
+}
+
+bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+{
+    if(!game::g_player_one.is_active)
+    {
+        SpawnPlayer1();
+        m_player_one_id = event.id;
+    }
+
+    return false;
+}
+
+bool ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
+{
+    if(event.id == m_player_one_id)
+    {
+        game::g_player_one.entity_id = std::numeric_limits<uint32_t>::max();
+        game::g_player_one.is_active = false;
     }
 
     return false;

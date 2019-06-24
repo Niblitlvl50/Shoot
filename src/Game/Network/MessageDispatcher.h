@@ -18,10 +18,9 @@ namespace game
 
         MessageDispatcher(mono::EventHandler& event_handler);
         void PushNewMessage(const NetworkMessage& message);
+        void doUpdate(const mono::UpdateContext& update_context) override;
 
     private:
-
-        void doUpdate(unsigned int delta);
 
         mono::EventHandler& m_event_handler;
         std::mutex m_message_mutex;
