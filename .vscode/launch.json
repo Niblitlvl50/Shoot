@@ -6,6 +6,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/game",
+            "args": [
+                "--zone",
+                "4"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
