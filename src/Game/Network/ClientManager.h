@@ -4,10 +4,10 @@
 #include "MonoFwd.h"
 #include "IUpdatable.h"
 #include "EventHandler/EventToken.h"
+#include "System/Network.h"
 
 #include "Network/INetworkPipe.h"
 #include "Network/ClientStatus.h"
-#include "Network/RemoteConnection.h"
 #include "Network/MessageDispatcher.h"
 #include "StateMachine.h"
 
@@ -34,6 +34,8 @@ namespace game
         void Disconnect();
 
         ClientStatus GetConnectionStatus() const;
+        uint32_t GetTotalSent() const;
+        uint32_t GetTotalReceived() const;
 
     private:
 
@@ -55,7 +57,7 @@ namespace game
         mono::EventHandler* m_event_handler;
         const game::Config* m_game_config;
         MessageDispatcher m_dispatcher;
-        std::unique_ptr<RemoteConnection> m_remote_connection;
+        std::unique_ptr<class RemoteConnection> m_remote_connection;
 
         int m_socket_port;
         uint32_t m_search_timer;

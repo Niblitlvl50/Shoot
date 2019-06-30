@@ -263,9 +263,9 @@ bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
 
 bool PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
 {
-    std::printf("Got remote input! %u\n", event.sender_address.host);
+    std::printf("Got remote input! %u\n", event.header.sender.host);
     
-    auto it = m_remote_players.find(event.sender_address.host);
+    auto it = m_remote_players.find(event.header.sender.host);
     if(it != m_remote_players.end())
     {
         std::printf("Applying input! %f\n", event.controller_state.left_x);

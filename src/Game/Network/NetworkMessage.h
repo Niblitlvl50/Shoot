@@ -17,11 +17,16 @@ using byte = unsigned char;
 
 #define DECLARE_NETWORK_MESSAGE() \
     static constexpr uint32_t message_type  = __COUNTER__; \
-    uint32_t message_id; \
-    network::Address sender_address; 
+    NetworkMessageHeader header;
 
 namespace game
 {
+    struct NetworkMessageHeader
+    {
+        uint32_t id;
+        network::Address sender;
+    };
+
     struct NetworkMessage
     {
         network::Address address;
@@ -147,7 +152,7 @@ namespace game
         }
 
         std::memcpy(&deserialized_message, payload.data() + message_type_size + payload_type_size, message_size);
-        deserialized_message.sender_address = message.address;
+        deserialized_message.header.sender = message.address;
         return true;
     }
 

@@ -52,16 +52,28 @@ ClientStatus ClientManager::GetConnectionStatus() const
     return m_states.ActiveState();
 }
 
+uint32_t ClientManager::GetTotalSent() const
+{
+    return m_remote_connection->GetTotalSent();
+}
+
+uint32_t ClientManager::GetTotalReceived() const
+{
+    return m_remote_connection->GetTotalReceived();
+}
+
 void ClientManager::SendMessage(const NetworkMessage& message)
 {
-    NetworkMessage out_message = message;
-    out_message.address = m_server_address;
-    m_remote_connection->SendMessage(out_message);
+    // Nice! I dont have to do a copy!
+    const_cast<NetworkMessage&>(message).address = m_server_address;
+    m_remote_connection->SendMessage(message);
 }
 
 void ClientManager::SendMessageTo(const NetworkMessage& message, const network::Address& address)
 {
-
+    // Nice! I dont have to do a copy!
+    const_cast<NetworkMessage&>(message).address = address;
+    m_remote_connection->SendMessage(message);
 }
 
 void ClientManager::Disconnect()
@@ -83,8 +95,8 @@ bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
     {
-        std::printf("Server beacond %s\n", network::AddressToString(message.sender_address).c_str());
-        m_server_address = message.sender_address;
+        std::printf("Server beacond %s\n", network::AddressToString(message.header.sender).c_str());
+        m_server_address = message.header.sender;
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
     }
 
@@ -154,16 +166,16 @@ void ClientManager::Searching(const mono::UpdateContext& update_context)
 
 void ClientManager::Connected(const mono::UpdateContext& update_context)
 {
-    const bool is_tenth_frame = (update_context.frame_count % 10) == 0;
-    if(is_tenth_frame)
+    const bool is_thirtieth_frame = (update_context.frame_count % 30) == 0;
+    if(is_thirtieth_frame)
     {
         NetworkMessage message;
         message.payload = SerializeMessage(HeartBeatMessage());
         SendMessage(message);
     }
 
-    const bool is_thirtieth_frame = (update_context.frame_count % 30) == 0;
-    if(is_thirtieth_frame)
+    const bool is_sixtieth_frame = (update_context.frame_count % 60) == 0;
+    if(is_sixtieth_frame)
     {
         PingMessage ping_message;
         ping_message.local_time_stamp = System::GetMilliseconds();

@@ -148,7 +148,7 @@ bool RemoteZone::HandlePingMessage(const PingMessage& ping_message)
 {
     const uint32_t ping = System::GetMilliseconds() - ping_message.local_time_stamp;
     const std::string ping_text = "Ping " + std::to_string(ping);
-    m_console_drawer->AddText(ping_text, 200);
+    m_console_drawer->AddText(ping_text, 900);
 
     return true;
 }

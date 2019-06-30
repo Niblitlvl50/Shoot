@@ -32,12 +32,16 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
 
     network::ISocketPtr socket;
     if(game_config->server_port == 0)
+    {
         socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING);
+        m_out_address = network::GetBroadcastAddress(socket->Port());
+    }
     else
+    {
         socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING, game_config->server_port);
+        m_out_address = network::GetBroadcastAddress(game_config->client_port);
+    }
 
-    //m_out_address = network::GetBroadcastAddress(socket->Port());
-    m_out_address = network::GetBroadcastAddress(game_config->client_port);
     m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
 }
 
@@ -54,14 +58,16 @@ ServerManager::~ServerManager()
 
 void ServerManager::SendMessage(const NetworkMessage& message)
 {
-    NetworkMessage out_message = message;
-    out_message.address = m_out_address;
-    m_remote_connection->SendMessage(out_message);
+    // Nice! I dont have to do a copy!
+    const_cast<NetworkMessage&>(message).address = m_out_address;
+    m_remote_connection->SendMessage(message);
 }
 
 void ServerManager::SendMessageTo(const NetworkMessage& message, const network::Address& address)
 {
-
+    // Nice! I dont have to do a copy!
+    const_cast<NetworkMessage&>(message).address = address;
+    m_remote_connection->SendMessage(message);
 }
 
 void ServerManager::QuitServer()
@@ -82,36 +88,44 @@ std::vector<ClientData> ServerManager::GetConnectedClients() const
     return connected_clients;
 }
 
+uint32_t ServerManager::GetTotalSent() const
+{
+    return m_remote_connection->GetTotalSent();
+}
+
+uint32_t ServerManager::GetTotalReceived() const
+{
+    return m_remote_connection->GetTotalReceived();
+}
+
 bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 {
     NetworkMessage message;
-    //message.address = ping_message.sender_address;
     message.payload = SerializeMessage(ping_message);
-    SendMessage(message);
+    SendMessageTo(message, ping_message.header.sender);
 
     return true;
 }
 
 bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 {
-    const std::string& address_string = network::AddressToString(message.sender_address);
+    const std::string& address_string = network::AddressToString(message.header.sender);
     std::printf("connected client: %s\n", address_string.c_str());
 
     ClientData client_data;
-    client_data.address = message.sender_address;
+    client_data.address = message.header.sender;
     client_data.heartbeat_timestamp = System::GetMilliseconds();
 
-    const auto insert_result = m_connected_clients.insert(std::make_pair(message.sender_address, client_data));
+    const auto insert_result = m_connected_clients.insert(std::make_pair(message.header.sender, client_data));
     if(insert_result.second)
     {
         std::printf("ServerManager|Client connected!\n");
 
         NetworkMessage reply_message;
-        //reply_message.address = message.sender_address;
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
-        SendMessage(reply_message);
+        SendMessageTo(reply_message, message.header.sender);
 
-        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.sender_address.host));
+        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.header.sender.host));
     }
     else
     {
@@ -124,15 +138,15 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 bool ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
     std::printf("ServerManager|Disconnect client\n");
-    m_connected_clients.erase(message.sender_address);
-    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender_address.host));
+    m_connected_clients.erase(message.header.sender);
+    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.header.sender.host));
 
     return false;
 }
 
 bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
 {
-    auto client_it = m_connected_clients.find(message.sender_address);
+    auto client_it = m_connected_clients.find(message.header.sender);
     if(client_it != m_connected_clients.end())
         client_it->second.heartbeat_timestamp = System::GetMilliseconds();
     else
@@ -143,7 +157,7 @@ bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
 
 void ServerManager::PurgeZombieClients()
 {
-    constexpr uint32_t client_timeout = 2000;
+    constexpr uint32_t client_timeout = 5000;
     const uint32_t current_time = System::GetMilliseconds();
 
     std::vector<network::Address> dead_clients;

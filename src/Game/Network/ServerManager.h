@@ -58,6 +58,8 @@ namespace game
 
         void QuitServer();
         std::vector<ClientData> GetConnectedClients() const;
+        uint32_t GetTotalSent() const;
+        uint32_t GetTotalReceived() const;
 
     private:
 

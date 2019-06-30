@@ -8,9 +8,11 @@ using namespace game;
 
 RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISocketPtr socket)
     : m_stop(false)
+    , m_total_sent(0)
+    , m_total_received(0)
 {
     const auto comm_func = []
-        (network::ISocketPtr socket, OutgoingMessages* out_messages, MessageDispatcher* dispatcher, bool& stop) {
+        (network::ISocketPtr socket, OutgoingMessages* out_messages, MessageDispatcher* dispatcher, uint32_t& total_received, bool& stop) {
         
         NetworkMessage message;
         message.payload.resize(1024, '\0');
@@ -22,7 +24,8 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
 
             {
                 std::lock_guard<std::mutex> lock(out_messages->message_mutex);
-                sent_messages = !out_messages->unhandled_messages.empty();
+                received_messages = !out_messages->unhandled_messages.empty();
+
                 for(const NetworkMessage& message : out_messages->unhandled_messages)
                     socket->Send(message.payload, message.address);
 
@@ -36,6 +39,7 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
                 {
                     dispatcher->PushNewMessage(message);
                     received_messages = true;
+                    ++total_received;
                 }
             }
 
@@ -44,7 +48,8 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
         }
     };
 
-    m_comm_thread = std::thread(comm_func, std::move(socket), &m_messages, dispatcher, std::ref(m_stop));
+    m_comm_thread =
+        std::thread(comm_func, std::move(socket), &m_messages, dispatcher, std::ref(m_total_received), std::ref(m_stop));
 }
 
 RemoteConnection::~RemoteConnection()
@@ -57,4 +62,15 @@ void RemoteConnection::SendMessage(const NetworkMessage& message)
 {
     std::lock_guard<std::mutex> lock(m_messages.message_mutex);
     m_messages.unhandled_messages.push_back(message);
+    ++m_total_sent;
+}
+
+uint32_t RemoteConnection::GetTotalSent() const
+{
+    return m_total_sent;
+}
+
+uint32_t RemoteConnection::GetTotalReceived() const
+{
+    return m_total_received;
 }
