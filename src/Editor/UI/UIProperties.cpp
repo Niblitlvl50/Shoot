@@ -1,7 +1,6 @@
 
 #include "UIProperties.h"
 #include "ObjectAttribute.h"
-#include "DefinedAttributes.h"
 #include "Component.h"
 #include "Resources.h"
 #include "EntityLogicTypes.h"
@@ -57,29 +56,29 @@ bool editor::DrawProperty(const char* text, Variant& attribute)
 
 bool editor::DrawProperty(Attribute& attribute)
 {
-    const char* attribute_name = world::AttributeNameFromHash(attribute.id);
+    const char* attribute_name = AttributeNameFromHash(attribute.id);
 
-    if(attribute.id == world::PICKUP_TYPE_ATTRIBUTE)
+    if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, editor::pickup_items, mono::arraysize(editor::pickup_items));
     }
-    else if(attribute.id == world::ENTITY_BEHAVIOUR_ATTRIBUTE)
+    else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, entity_logic_strings, mono::arraysize(entity_logic_strings));
     }
-    else if(attribute.id == world::BODY_TYPE_ATTRIBUTE)
+    else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, body_types, mono::arraysize(body_types));
     }
-    else if(attribute.id == world::FACTION_ATTRIBUTE)
+    else if(attribute.id == FACTION_ATTRIBUTE)
     {
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, faction_types, mono::arraysize(faction_types));
     }
-    else if(attribute.id == world::SPRITE_ATTRIBUTE)
+    else if(attribute.id == SPRITE_ATTRIBUTE)
     {
         const bool combo_opened = ImGui::BeginCombo(attribute_name, attribute.attribute, ImGuiComboFlags_HeightLarge);
         if(!combo_opened)
@@ -100,7 +99,7 @@ bool editor::DrawProperty(Attribute& attribute)
         ImGui::EndCombo();
         return value_changed;
     }
-    else if(attribute.id == world::PATH_FILE_ATTRIBUTE)
+    else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {
         const bool combo_opened = ImGui::BeginCombo(attribute_name, attribute.attribute, ImGuiComboFlags_HeightLarge);
         if(!combo_opened)
@@ -132,17 +131,17 @@ void editor::AddDynamicProperties(Component& component)
     if(component.hash == BEHAVIOUR_COMPONENT)
     {
         int logic_type;
-        const bool found_logic = world::FindAttribute(world::ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type);
+        const bool found_logic = FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type);
         if(found_logic)
         {
             if(EntityLogicType(logic_type) == EntityLogicType::INVADER_PATH)
             {
                 const char* dummy_string = nullptr;
-                const bool has_path_file = world::FindAttribute(world::PATH_FILE_ATTRIBUTE, component.properties, dummy_string);
+                const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string);
                 if(!has_path_file)
                 {
                     component.properties.push_back(
-                        { world::PATH_FILE_ATTRIBUTE, world::DefaultAttributeFromHash(world::PATH_FILE_ATTRIBUTE) }
+                        { PATH_FILE_ATTRIBUTE, DefaultAttributeFromHash(PATH_FILE_ATTRIBUTE) }
                     );
                 }
             }

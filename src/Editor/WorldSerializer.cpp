@@ -20,7 +20,6 @@
 
 #include "nlohmann/json.hpp"
 
-#include "DefinedAttributes.h"
 #include "ObjectFactory.h"
 
 #include "Serializer/JsonSerializer.h"
@@ -129,7 +128,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
                 component.properties.push_back(property);
 
             const Component& default_component = DefaultComponentFromHash(component.hash);
-            world::UnionAttributes(component.properties, default_component.properties);
+            UnionAttributes(component.properties, default_component.properties);
 
             entity_manager->AddComponent(new_entity.id, component.hash);
             entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);

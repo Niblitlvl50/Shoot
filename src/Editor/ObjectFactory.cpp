@@ -1,6 +1,5 @@
 
 #include "ObjectFactory.h"
-#include "DefinedAttributes.h"
 
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/PolygonProxy.h"

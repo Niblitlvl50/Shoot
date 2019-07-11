@@ -11,10 +11,11 @@ using namespace game;
 namespace
 {
     template <typename T>
-    bool HandleMessage(const NetworkMessage& network_message, mono::EventHandler& event_handler)
+    bool HandleMessage(const byte_view& network_message, const network::Address& sender, mono::EventHandler& event_handler)
     {
         T decoded_message;
         const bool success = DeserializeMessage(network_message, decoded_message);
+        decoded_message.header.sender = sender;
         if(success)
             event_handler.DispatchEvent(decoded_message);
         return success;
@@ -56,18 +57,24 @@ void MessageDispatcher::doUpdate(const mono::UpdateContext& update_context)
 
     for(const NetworkMessage& network_message : m_unhandled_messages)
     {
-        const uint32_t message_type = PeekMessageType(network_message.payload);
-
-        auto handler_it = m_handlers.find(message_type);
-        if(handler_it == m_handlers.end())
+        const std::vector<byte_view>& n_messages = UnpackMessageBuffer(network_message.payload);
+        for(size_t index = 0; index < n_messages.size(); ++index)
         {
-            std::printf("network|Failed to find a message for message type: %u\n", message_type);
-            continue;
-        }
+            const byte_view& message_view = n_messages[index];
+            const uint32_t message_type = PeekMessageType(message_view);
 
-        const bool handled_message = handler_it->second(network_message, m_event_handler);
-        if(!handled_message)
-            std::printf("network|Failed to deserialize network message with id %u\n", message_type);
+            const auto handler_it = m_handlers.find(message_type);
+            if(handler_it == m_handlers.end())
+            {
+                std::printf(
+                    "network|Failed to find a handler for message of type: %u, message: %lu/%lu\n", message_type, index, n_messages.size());
+                continue;
+            }
+
+            const bool handled_message = handler_it->second(message_view, network_message.address, m_event_handler);
+            if(!handled_message)
+                std::printf("network|Failed to deserialize message of type: %u\n", message_type);
+        }
     }
 
     m_unhandled_messages.clear();

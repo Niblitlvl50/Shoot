@@ -41,7 +41,14 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "command": "./bin/game",
+            "command": "./bin/game_exe",
+            "args": [ ],
+            "problemMatcher": []
+        },
+        {
+            "taskName": "game test",
+            "type": "process",
+            "command": "./bin/game_test_exe",
             "args": [ ],
             "problemMatcher": []
         },

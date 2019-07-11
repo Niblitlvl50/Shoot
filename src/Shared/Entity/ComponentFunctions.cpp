@@ -27,8 +27,8 @@ bool UpdateTransform(mono::Entity& entity, const std::vector<Attribute>& propert
     math::Vector position;
     float rotation = 0.0f;
     const bool success =
-        world::FindAttribute(world::POSITION_ATTRIBUTE, properties, position) &&
-        world::FindAttribute(world::ROTATION_ATTRIBUTE, properties, rotation);
+        FindAttribute(POSITION_ATTRIBUTE, properties, position) &&
+        FindAttribute(ROTATION_ATTRIBUTE, properties, rotation);
     if(!success)
     {
         std::printf("Missing transform parameters, unable to update component\n");
@@ -49,8 +49,8 @@ std::vector<Attribute> GetTransform(const mono::Entity& entity, mono::SystemCont
     const math::Matrix& transform = transform_system->GetTransform(entity.id);
 
     return {
-       { world::POSITION_ATTRIBUTE, math::GetPosition(transform) },
-       { world::ROTATION_ATTRIBUTE, math::GetZRotation(transform) }
+       { POSITION_ATTRIBUTE, math::GetPosition(transform) },
+       { ROTATION_ATTRIBUTE, math::GetZRotation(transform) }
     };
 }
 
@@ -73,11 +73,11 @@ bool UpdateSprite(mono::Entity& entity, const std::vector<Attribute>& properties
     mono::SpriteComponents sprite_args;
 
     const bool success = 
-        world::FindAttribute(world::SPRITE_ATTRIBUTE, properties, sprite_args.sprite_file) &&
-        world::FindAttribute(world::COLOR_ATTRIBUTE, properties, sprite_args.shade) &&
-        world::FindAttribute(world::ANIMATION_ATTRIBUTE, properties, sprite_args.animation_id) &&
-        world::FindAttribute(world::FLIP_VERTICAL_ATTRIBUTE, properties, sprite_args.flip_vertical) &&
-        world::FindAttribute(world::FLIP_HORIZONTAL_ATTRIBUTE, properties, sprite_args.flip_horizontal);
+        FindAttribute(SPRITE_ATTRIBUTE, properties, sprite_args.sprite_file) &&
+        FindAttribute(COLOR_ATTRIBUTE, properties, sprite_args.shade) &&
+        FindAttribute(ANIMATION_ATTRIBUTE, properties, sprite_args.animation_id) &&
+        FindAttribute(FLIP_VERTICAL_ATTRIBUTE, properties, sprite_args.flip_vertical) &&
+        FindAttribute(FLIP_HORIZONTAL_ATTRIBUTE, properties, sprite_args.flip_horizontal);
 
     if(!success)
     {

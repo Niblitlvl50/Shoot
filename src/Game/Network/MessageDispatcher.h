@@ -4,14 +4,19 @@
 #include "MonoFwd.h"
 #include "IUpdatable.h"
 
+#include "NetworkMessage.h"
+
 #include <vector>
 #include <unordered_map>
 #include <mutex>
 
+namespace network
+{
+    struct Address;
+}
+
 namespace game
 {
-    struct NetworkMessage;
-
     class MessageDispatcher : public mono::IUpdatable
     {
     public:
@@ -26,7 +31,7 @@ namespace game
         std::mutex m_message_mutex;
         std::vector<NetworkMessage> m_unhandled_messages;
 
-        using MessageFunc = bool(*)(const NetworkMessage& message, mono::EventHandler& event_handler);
+        using MessageFunc = bool(*)(const byte_view& message, const network::Address& sender, mono::EventHandler& event_handler);
         std::unordered_map<uint32_t, MessageFunc> m_handlers;
     };
 }

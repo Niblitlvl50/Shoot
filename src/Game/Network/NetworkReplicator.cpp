@@ -2,6 +2,7 @@
 #include "NetworkReplicator.h"
 #include "INetworkPipe.h"
 #include "NetworkMessage.h"
+#include "BatchedMessageSender.h"
 
 #include "TransformSystem.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -26,30 +27,28 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
 
+    BatchedMessageSender batch_sender(m_remote_connection);
+
     for(const IEntityManager::SpawnEvent& spawn_event : m_entity_manager->GetSpawnEvents())
     {
         SpawnMessage spawn_message;
         spawn_message.entity_id = spawn_event.entity_id;
         spawn_message.spawn = spawn_event.spawned;
 
-        NetworkMessage message;
-        message.payload = SerializeMessage(spawn_message);
-        m_remote_connection->SendMessage(message);
+        batch_sender.SendMessage(spawn_message);
     }
 
-    const auto transform_func = [this](const math::Matrix& transform, uint32_t id) {
+    const auto transform_func = [&batch_sender](const math::Matrix& transform, uint32_t id) {
         TransformMessage transform_message;
         transform_message.entity_id = id;
         transform_message.transform = transform;
 
-        NetworkMessage message;
-        message.payload = SerializeMessage(transform_message);
-        m_remote_connection->SendMessage(message);
+        batch_sender.SendMessage(transform_message);
     };
 
     m_transform_system->ForEachTransform(transform_func);
 
-    const auto sprite_func = [](mono::ISprite* sprite, uint32_t id, void* context) {
+    const auto sprite_func = [&batch_sender](mono::ISprite* sprite, uint32_t id) {
         SpriteMessage sprite_message;
         sprite_message.entity_id = id;
         sprite_message.filename_hash = sprite->GetSpriteHash();
@@ -58,11 +57,7 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         sprite_message.horizontal_direction = (int)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();
 
-        INetworkPipe* network_pipe = static_cast<INetworkPipe*>(context);
-
-        NetworkMessage message;
-        message.payload = SerializeMessage(sprite_message);
-        network_pipe->SendMessage(message);
+        batch_sender.SendMessage(sprite_message);
     };
 
     m_sprite_system->RunForEachSprite(sprite_func, m_remote_connection);

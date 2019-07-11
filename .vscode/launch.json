@@ -5,10 +5,31 @@
             "name": "game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/game",
+            "program": "${workspaceRoot}/bin/game_exe",
             "args": [
                 "--zone",
                 "4"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb"
+            }
+        },
+        {
+            "name": "game test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/game_test_exe",
+            "args": [
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

@@ -37,7 +37,7 @@ namespace
         int y = 0;
         int width = 1000;
         int height = 625;
-        int start_zone = 3;
+        int start_zone = 1;
         const char* game_config = "res/game_config.json";
     };
 

@@ -41,9 +41,9 @@ namespace
     {
         mono::BodyComponent body_args;
 
-        const bool found_type = world::FindAttribute(world::BODY_TYPE_ATTRIBUTE, properties, (int&)body_args.type);
-        const bool found_mass = world::FindAttribute(world::MASS_ATTRIBUTE, properties, body_args.mass);
-        const bool found_inertia = world::FindAttribute(world::INERTIA_ATTRIBUTE, properties, body_args.inertia);
+        const bool found_type = FindAttribute(BODY_TYPE_ATTRIBUTE, properties, (int&)body_args.type);
+        const bool found_mass = FindAttribute(MASS_ATTRIBUTE, properties, body_args.mass);
+        const bool found_inertia = FindAttribute(INERTIA_ATTRIBUTE, properties, body_args.inertia);
 
         const bool found_all = found_type && found_mass && found_inertia;
         if(!found_all)
@@ -86,9 +86,9 @@ namespace
         int faction = 0;
         mono::CircleComponent shape_params;
 
-        const bool found_faction = world::FindAttribute(world::FACTION_ATTRIBUTE, properties, faction);
-        const bool found_radius = world::FindAttribute(world::RADIUS_ATTRIBUTE, properties, shape_params.radius);
-        const bool found_position = world::FindAttribute(world::POSITION_ATTRIBUTE, properties, shape_params.offset);
+        const bool found_faction = FindAttribute(FACTION_ATTRIBUTE, properties, faction);
+        const bool found_radius = FindAttribute(RADIUS_ATTRIBUTE, properties, shape_params.radius);
+        const bool found_position = FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset);
 
         const bool found_all = found_faction && found_radius && found_position;
         if(!found_all)
@@ -118,10 +118,10 @@ namespace
         int faction;
         mono::BoxComponent shape_params;
 
-        const bool found_faction = world::FindAttribute(world::FACTION_ATTRIBUTE, properties, faction);
-        const bool found_width = world::FindAttribute(world::WIDTH_ATTRIBUTE, properties, shape_params.width);
-        const bool found_height = world::FindAttribute(world::HEIGHT_ATTRIBUTE, properties, shape_params.height);
-        const bool found_position = world::FindAttribute(world::POSITION_ATTRIBUTE, properties, shape_params.offset);
+        const bool found_faction = FindAttribute(FACTION_ATTRIBUTE, properties, faction);
+        const bool found_width = FindAttribute(WIDTH_ATTRIBUTE, properties, shape_params.width);
+        const bool found_height = FindAttribute(HEIGHT_ATTRIBUTE, properties, shape_params.height);
+        const bool found_position = FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset);
 
         const bool found_all = found_faction && found_width && found_height && found_position;
         if(!found_all)
@@ -153,10 +153,10 @@ namespace
         int faction;
         mono::SegmentComponent shape_params;
 
-        const bool found_faction = world::FindAttribute(world::FACTION_ATTRIBUTE, properties, faction);
-        const bool found_radius = world::FindAttribute(world::RADIUS_ATTRIBUTE, properties, shape_params.radius);
-        const bool found_start = world::FindAttribute(world::START_ATTRIBUTE, properties, shape_params.start);
-        const bool found_end = world::FindAttribute(world::END_ATTRIBUTE, properties, shape_params.end);
+        const bool found_faction = FindAttribute(FACTION_ATTRIBUTE, properties, faction);
+        const bool found_radius = FindAttribute(RADIUS_ATTRIBUTE, properties, shape_params.radius);
+        const bool found_start = FindAttribute(START_ATTRIBUTE, properties, shape_params.start);
+        const bool found_end = FindAttribute(END_ATTRIBUTE, properties, shape_params.end);
 
         const bool found_all = found_faction && found_radius && found_start && found_end;
         if(!found_all)
@@ -200,7 +200,7 @@ namespace
     bool UpdateHealth(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int health;
-        if(!world::FindAttribute(world::HEALTH_ATTRIBUTE, properties, health))
+        if(!FindAttribute(HEALTH_ATTRIBUTE, properties, health))
         {
             std::printf("Missing health parameters, will not update component.\n");
             return false;
@@ -230,7 +230,7 @@ namespace
     bool UpdateEntityLogic(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int logic_type_value;
-        const bool found_property = world::FindAttribute(world::ENTITY_BEHAVIOUR_ATTRIBUTE, properties, logic_type_value);
+        const bool found_property = FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, properties, logic_type_value);
         if(!found_property)
             return false;
 
@@ -240,7 +240,7 @@ namespace
         if(logic_type == EntityLogicType::INVADER_PATH)
         {
             const char* path_file = nullptr;
-            const bool found_path_property = world::FindAttribute(world::PATH_FILE_ATTRIBUTE, properties, path_file);
+            const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file);
             if(!found_path_property)
                 return false;
 

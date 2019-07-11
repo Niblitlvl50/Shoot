@@ -14,7 +14,6 @@
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
 
-#include "DefinedAttributes.h"
 #include "Component.h"
 #include "Serialize.h"
 

@@ -24,7 +24,7 @@ include_directories("Mono1/src" "Mono1/third_party" "src/Shared")
 file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
 add_library(shared STATIC ${shared_source_files})
 
-# Editor
+# Editor exe
 file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
 add_executable(editor ${editor_source_files})
 add_dependencies(editor mono shared imgui)
@@ -33,8 +33,19 @@ target_link_libraries(editor mono shared)
 
 # Game
 file(GLOB_RECURSE game_source_files "src/Game/*.cpp")
-add_executable(game ${game_source_files})
-add_dependencies(game mono shared)
+list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
+add_library(game STATIC ${game_source_files})
 target_include_directories(game PRIVATE "src/Game")
-target_link_libraries(game mono shared)
 
+# Game exe
+file(GLOB_RECURSE game_exe_source_files "src/Game/main.cpp")
+add_executable(game_exe ${game_exe_source_files})
+add_dependencies(game_exe game mono shared)
+target_link_libraries(game_exe game shared mono)
+
+# Game test exe
+file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
+add_executable(game_test_exe ${game_test_source_files})
+add_dependencies(game_test_exe game shared mono)
+target_include_directories(game_test_exe PRIVATE "src/game" "mono1/third_party/gtest-1.7.0/include")
+target_link_libraries(game_test_exe gtest game shared mono)

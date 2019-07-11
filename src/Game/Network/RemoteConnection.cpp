@@ -15,7 +15,7 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
         (network::ISocketPtr socket, OutgoingMessages* out_messages, MessageDispatcher* dispatcher, uint32_t& total_received, bool& stop) {
         
         NetworkMessage message;
-        message.payload.resize(1024, '\0');
+        message.payload.resize(NetworkMessageBufferSize);
 
         while(!stop)
         {
@@ -34,8 +34,9 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
             
             {
                 std::fill(message.payload.begin(), message.payload.begin() + message.payload.size(), '\0');
-                const bool got_data = socket->Receive(message.payload, &message.address);
-                if(got_data)
+
+                const int bytes_received = socket->Receive(message.payload, &message.address);
+                if(bytes_received > 0)
                 {
                     dispatcher->PushNewMessage(message);
                     received_messages = true;

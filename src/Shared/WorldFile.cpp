@@ -180,7 +180,7 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
                 component.properties.push_back(property);
 
             const Component& default_component = DefaultComponentFromHash(component.hash);
-            world::UnionAttributes(component.properties, default_component.properties);
+            UnionAttributes(component.properties, default_component.properties);
 
             entity_manager->AddComponent(new_entity.id, component.hash);
             entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);

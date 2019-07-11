@@ -5,7 +5,8 @@
 
 #include "RenderLayers.h"
 #include "ObjectAttribute.h"
-#include "DefinedAttributes.h"
+// #include "DefinedAttributes.h"
+#include "Component.h"
 
 #include "StaticTerrainBlock.h"
 #include "StaticBackground.h"
@@ -42,15 +43,15 @@ namespace
 {
     void LoadAttributes(game::SpawnPoint& spawn_point, const std::vector<Attribute>& attributes)
     {
-        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, spawn_point.position);
-        world::FindAttribute(world::RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
+        FindAttribute(POSITION_ATTRIBUTE, attributes, spawn_point.position);
+        FindAttribute(RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
     }
 
     void LoadAttributes(game::Pickup& ammo_pickup, const std::vector<Attribute>& attributes)
     {
-        world::FindAttribute(world::POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
-        world::FindAttribute(world::PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type);
-        world::FindAttribute(world::AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value);
+        FindAttribute(POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
+        FindAttribute(PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type);
+        FindAttribute(AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value);
     }
 }
 
@@ -72,7 +73,7 @@ void game::LoadWorldObjects(
         else if(name == "playerpoint")
         {
             math::Vector position;
-            world::FindAttribute(world::POSITION_ATTRIBUTE, object.attributes, position);
+            FindAttribute(POSITION_ATTRIBUTE, object.attributes, position);
             player_points.push_back(position);
         }
         else if(name == "ammo_pickup")
