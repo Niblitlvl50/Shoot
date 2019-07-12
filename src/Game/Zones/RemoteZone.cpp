@@ -108,7 +108,9 @@ bool RemoteZone::HandleTransformMessage(const TransformMessage& transform_messag
 {
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     math::Matrix& transform = transform_system->GetTransform(transform_message.entity_id);
-    transform = transform_message.transform;
+    
+    transform = math::CreateMatrixFromZRotation(transform_message.rotation);
+    math::Position(transform, transform_message.position);
 
     return false;
 }

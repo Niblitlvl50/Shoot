@@ -5,8 +5,9 @@ namespace game
 {
     struct Config
     {
-        int client_port = 0;
-        int server_port = 0;
+        bool use_port_range = true;
+        int client_port = 2100;
+        int server_port = 2101;
         int port_range_start = 21000;
         int port_range_end = 22000;
     };

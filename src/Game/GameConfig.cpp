@@ -5,6 +5,7 @@
 
 namespace
 {
+    constexpr const char* use_port_range = "use_port_range";
     constexpr const char* client_port = "client_port";
     constexpr const char* server_port = "server_port";
     constexpr const char* port_range_start = "port_range_start";
@@ -21,6 +22,9 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
     file::FileRead(file, file_data);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    if(json.count(use_port_range) > 0)
+        config.use_port_range = json[use_port_range];
 
     if(json.count(client_port) > 0)
         config.client_port = json[client_port];

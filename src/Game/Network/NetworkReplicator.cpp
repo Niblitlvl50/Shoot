@@ -41,7 +41,8 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
     const auto transform_func = [&batch_sender](const math::Matrix& transform, uint32_t id) {
         TransformMessage transform_message;
         transform_message.entity_id = id;
-        transform_message.transform = transform;
+        transform_message.position = math::GetPosition(transform);
+        transform_message.rotation = math::GetZRotation(transform);
 
         batch_sender.SendMessage(transform_message);
     };

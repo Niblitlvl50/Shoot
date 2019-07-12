@@ -58,8 +58,7 @@ namespace game
 
         void QuitServer();
         std::vector<ClientData> GetConnectedClients() const;
-        uint32_t GetTotalSent() const;
-        uint32_t GetTotalReceived() const;
+        const struct ConnectionStats& GetConnectionStats() const;
 
     private:
 
@@ -77,6 +76,7 @@ namespace game
         MessageDispatcher m_dispatcher;
         std::unique_ptr<class RemoteConnection> m_remote_connection;
         network::Address m_out_address;
+        network::Address m_server_address;
         uint32_t m_beacon_timer;
 
         std::unordered_map<network::Address, ClientData> m_connected_clients;

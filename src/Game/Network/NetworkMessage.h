@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Math/Matrix.h"
+#include "Math/Vector.h"
 #include "Rendering/Color.h"
 #include "System/Network.h"
 #include "System/System.h"
@@ -23,7 +23,7 @@ using byte_view = std::basic_string_view<byte>;
 
 namespace game
 {
-    constexpr uint32_t NetworkMessageBufferSize = 1024;
+    constexpr uint32_t NetworkMessageBufferSize = 512;
 
     struct NetworkMessageHeader
     {
@@ -83,7 +83,8 @@ namespace game
     {
         DECLARE_NETWORK_MESSAGE();
         uint32_t entity_id;
-        math::Matrix transform;
+        math::Vector position;
+        float rotation;
     };
 
     struct SpawnMessage
@@ -113,9 +114,15 @@ namespace game
     template <typename T>
     inline bool DeserializeMessage(const byte_view& message, T& deserialized_message)
     {
-        //constexpr size_t payload_type_size = sizeof(size_t);
         constexpr size_t message_type_size = sizeof(T::message_type);
         constexpr size_t message_size = sizeof(T);
+        constexpr size_t type_and_message_size = message_type_size + message_size;
+
+        if(message.size() != type_and_message_size)
+        {
+            std::printf("Payload size missmatch! %zu / %zu\n", message.size(), type_and_message_size);
+            return false;
+        }
 
         uint32_t message_type = 0;
         std::memcpy(&message_type, message.data(), message_type_size);
@@ -125,17 +132,6 @@ namespace game
             std::printf("Message id missmatch!\n");
             return false;
         }
-
-        /*
-        size_t payload_size = 0;
-        std::memcpy(&payload_size, message.data(), payload_type_size);
-
-        if(payload_size != message_size)
-        {
-            std::printf("Payload size missmatch! %zu / %zu\n", payload_size, message_size);
-            return false;
-        }
-        */
 
         std::memcpy(&deserialized_message, message.data() + message_type_size, message_size);
         return true;
@@ -169,37 +165,6 @@ namespace game
         PRINT_NETWORK_MESSAGE_SIZE(SpriteMessage);
         PRINT_NETWORK_MESSAGE_SIZE(RemoteInputMessage);
     }
-
-/*
-    template <typename T>
-    inline bool SerializeMessageToBuffer(const T& message, std::vector<byte>& message_buffer)
-    {
-        constexpr size_t type_hash_size = sizeof(T::message_type);
-        constexpr size_t payload_type_size = sizeof(size_t);
-        constexpr size_t message_size = sizeof(T);
-        
-        constexpr size_t total_size_needed = type_hash_size + payload_type_size + message_size;
-        const size_t avalible_space = message_buffer.capacity() - message_buffer.size();
-
-        // +1 for the separator
-        if((total_size_needed +1) > avalible_space)
-            return false;
-
-        const size_t current_size = message_buffer.size();
-        message_buffer.resize(current_size + total_size_needed, '\0');
-        message_buffer.push_back(NetworkMessageSeparator);
-
-        const uint32_t type_hash_offset     = current_size;
-        const uint32_t payload_size_offset  = current_size + type_hash_size;
-        const uint32_t message_offset       = current_size + type_hash_size + payload_type_size;
-
-        std::memcpy(message_buffer.data() + type_hash_offset,       &T::message_type,   type_hash_size);
-        std::memcpy(message_buffer.data() + payload_size_offset,    &message_size,      payload_type_size);
-        std::memcpy(message_buffer.data() + message_offset,         &message,           message_size);
-
-        return true;
-    }
-*/
 
     inline void PrepareMessageBuffer(std::vector<byte>& message_buffer)
     {

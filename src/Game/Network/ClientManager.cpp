@@ -52,14 +52,9 @@ ClientStatus ClientManager::GetConnectionStatus() const
     return m_states.ActiveState();
 }
 
-uint32_t ClientManager::GetTotalSent() const
+const ConnectionStats& ClientManager::GetConnectionStats() const
 {
-    return m_remote_connection->GetTotalSent();
-}
-
-uint32_t ClientManager::GetTotalReceived() const
-{
-    return m_remote_connection->GetTotalReceived();
+    return m_remote_connection->GetConnectionStats();
 }
 
 void ClientManager::SendMessage(const NetworkMessage& message)
@@ -95,7 +90,6 @@ bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
     {
-        std::printf("Server beacond %s\n", network::AddressToString(message.header.sender).c_str());
         m_server_address = message.header.sender;
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
     }
@@ -124,7 +118,7 @@ void ClientManager::ToSearching()
     do
     {
         unsigned short client_port = m_game_config->client_port;
-        if(client_port == 0)
+        if(m_game_config->use_port_range)
         {
             client_port = m_socket_port++;
             if(m_socket_port > m_game_config->port_range_end)
@@ -139,7 +133,7 @@ void ClientManager::ToSearching()
 
 void ClientManager::ToFoundServer()
 {
-    std::printf("network|Found server\n");
+    std::printf("network|Found server at %s\n", network::AddressToString(m_server_address).c_str());
 
     NetworkMessage message;
     message.payload = SerializeMessage(ConnectMessage());
@@ -153,7 +147,7 @@ void ClientManager::ToConnected()
 
 void ClientManager::ToFailed()
 {
-    std::printf("network|Failed to found a server\n");
+    std::printf("network|Failed to find a server\n");
     m_failed_timer = 0;
 }
 

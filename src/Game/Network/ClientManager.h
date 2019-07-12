@@ -34,8 +34,7 @@ namespace game
         void Disconnect();
 
         ClientStatus GetConnectionStatus() const;
-        uint32_t GetTotalSent() const;
-        uint32_t GetTotalReceived() const;
+        const struct ConnectionStats& GetConnectionStats() const;
 
     private:
 

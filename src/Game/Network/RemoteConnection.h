@@ -2,6 +2,7 @@
 #pragma once
 
 #include "NetworkMessage.h"
+#include "ConnectionStats.h"
 #include "System/Network.h"
 #include <thread>
 #include <mutex>
@@ -17,13 +18,14 @@ namespace game
         ~RemoteConnection();
 
         void SendMessage(const NetworkMessage& message);
-        uint32_t GetTotalSent() const;
-        uint32_t GetTotalReceived() const;
+        const ConnectionStats& GetConnectionStats() const;
 
     private:
 
         bool m_stop;
+        network::ISocketPtr m_socket;
         std::thread m_comm_thread;
+        std::thread m_send_thread;
 
         struct OutgoingMessages
         {
@@ -31,7 +33,6 @@ namespace game
             std::vector<NetworkMessage> unhandled_messages;
         } m_messages;
 
-        uint32_t m_total_sent;
-        uint32_t m_total_received;
+        ConnectionStats m_stats;
     };
 }

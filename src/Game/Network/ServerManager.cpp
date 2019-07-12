@@ -31,7 +31,7 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
 
     network::ISocketPtr socket;
-    if(game_config->server_port == 0)
+    if(game_config->use_port_range)
     {
         socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING);
         m_out_address = network::GetBroadcastAddress(socket->Port());
@@ -42,6 +42,7 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
         m_out_address = network::GetBroadcastAddress(game_config->client_port);
     }
 
+    m_server_address = network::GetBroadcastAddress(socket->Port());
     m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
 }
 
@@ -88,14 +89,9 @@ std::vector<ClientData> ServerManager::GetConnectedClients() const
     return connected_clients;
 }
 
-uint32_t ServerManager::GetTotalSent() const
+const ConnectionStats& ServerManager::GetConnectionStats() const
 {
-    return m_remote_connection->GetTotalSent();
-}
-
-uint32_t ServerManager::GetTotalReceived() const
-{
-    return m_remote_connection->GetTotalReceived();
+    return m_remote_connection->GetConnectionStats();
 }
 
 bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
@@ -109,9 +105,6 @@ bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 
 bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 {
-    const std::string& address_string = network::AddressToString(message.header.sender);
-    std::printf("connected client: %s\n", address_string.c_str());
-
     ClientData client_data;
     client_data.address = message.header.sender;
     client_data.heartbeat_timestamp = System::GetMilliseconds();
@@ -119,7 +112,8 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
     const auto insert_result = m_connected_clients.insert(std::make_pair(message.header.sender, client_data));
     if(insert_result.second)
     {
-        std::printf("ServerManager|Client connected!\n");
+        const std::string& address_string = network::AddressToString(message.header.sender);
+        std::printf("ServerManager|Client connected: %s\n", address_string.c_str());
 
         NetworkMessage reply_message;
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
@@ -171,7 +165,7 @@ void ServerManager::PurgeZombieClients()
 
     for(const auto& key : dead_clients)
     {
-        std::printf("Network|Purging client '%s'\n", network::AddressToString(key).c_str());
+        std::printf("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
 
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key.host));

@@ -1,4 +1,5 @@
 {
+    "use_port_range": false,
     "client_port": 2001,
     "server_port": 2002,
     "port_range_start": 21000,

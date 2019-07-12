@@ -102,7 +102,7 @@ void TestZone::OnLoad(mono::ICameraPtr& camera)
 {
     network::ISocketPtr in_socket; // = network::CreateUDPSocket(m_game_config.server_port, network::SocketType::NON_BLOCKING);
     network::ISocketPtr out_socket; // = network::CreateUDPSocket(6666, network::SocketType::NON_BLOCKING);
-    m_remote_connection = std::make_unique<RemoteConnection>(m_dispatcher.get(), std::move(in_socket));
+    //m_remote_connection = std::make_unique<RemoteConnection>(m_dispatcher.get(), std::move(in_socket));
 
     AddUpdatable(m_dispatcher);
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
