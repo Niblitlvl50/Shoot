@@ -21,7 +21,10 @@ NetworkReplicator::NetworkReplicator(
     , m_sprite_system(sprite_system)
     , m_entity_manager(entity_manager)
     , m_remote_connection(remote_connection)
-{ }
+{
+    std::memset(&m_transform_messages, 0, std::size(m_transform_messages) * sizeof(TransformMessage));
+    std::memset(&m_sprite_messages, 0, std::size(m_sprite_messages) * sizeof(SpriteMessage));
+}
 
 void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 {
@@ -38,18 +41,23 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         batch_sender.SendMessage(spawn_message);
     }
 
-    const auto transform_func = [&batch_sender](const math::Matrix& transform, uint32_t id) {
+    const auto transform_func = [this, &batch_sender](const math::Matrix& transform, uint32_t id) {
         TransformMessage transform_message;
         transform_message.entity_id = id;
         transform_message.position = math::GetPosition(transform);
         transform_message.rotation = math::GetZRotation(transform);
 
-        batch_sender.SendMessage(transform_message);
+        const bool same = std::memcmp(&m_transform_messages[id], &transform_message, sizeof(TransformMessage)) == 0;
+        if(!same)
+        {
+            batch_sender.SendMessage(transform_message);
+            m_transform_messages[id] = transform_message;
+        }
     };
 
     m_transform_system->ForEachTransform(transform_func);
 
-    const auto sprite_func = [&batch_sender](mono::ISprite* sprite, uint32_t id) {
+    const auto sprite_func = [this, &batch_sender](mono::ISprite* sprite, uint32_t id) {
         SpriteMessage sprite_message;
         sprite_message.entity_id = id;
         sprite_message.filename_hash = sprite->GetSpriteHash();
@@ -58,7 +66,12 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         sprite_message.horizontal_direction = (int)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();
 
-        batch_sender.SendMessage(sprite_message);
+        const bool same = std::memcmp(&m_sprite_messages[id], &sprite_message, sizeof(SpriteMessage)) == 0;
+        if(!same)
+        {
+            batch_sender.SendMessage(sprite_message);
+            m_sprite_messages[id] = sprite_message;
+        }
     };
 
     m_sprite_system->RunForEachSprite(sprite_func, m_remote_connection);

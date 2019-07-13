@@ -2,6 +2,7 @@
 #pragma once
 
 #include "IUpdatable.h"
+#include "NetworkMessage.h"
 
 class IEntityManager;
 
@@ -33,6 +34,9 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         IEntityManager* m_entity_manager;
         INetworkPipe* m_remote_connection;
+
+        TransformMessage m_transform_messages[500];
+        SpriteMessage m_sprite_messages[500];
     };
 
     class ClientReplicator : public mono::IUpdatable
