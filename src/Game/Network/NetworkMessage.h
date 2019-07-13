@@ -2,15 +2,11 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Rendering/Color.h"
 #include "System/Network.h"
 #include "System/System.h"
 
 #include <vector>
-#include <stdlib.h>
-#include <cstring>
 #include <cstdint>
-#include <cstdio>
 #include <string_view>
 
 
@@ -23,11 +19,10 @@ using byte_view = std::basic_string_view<byte>;
 
 namespace game
 {
-    constexpr uint32_t NetworkMessageBufferSize = 512;
+    constexpr uint32_t NetworkMessageBufferSize = 1024;
 
     struct NetworkMessageHeader
     {
-        uint32_t id;
         network::Address sender;
     };
 
@@ -99,10 +94,10 @@ namespace game
         DECLARE_NETWORK_MESSAGE();
         uint32_t entity_id;
         uint32_t filename_hash;
-        mono::Color::RGBA shade;
-        short vertical_direction;
-        short horizontal_direction; 
+        uint32_t hex_color;
         short animation_id;
+        bool vertical_direction;
+        bool horizontal_direction; 
     };
 
     struct RemoteInputMessage

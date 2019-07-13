@@ -53,7 +53,7 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         SpriteMessage sprite_message;
         sprite_message.entity_id = id;
         sprite_message.filename_hash = sprite->GetSpriteHash();
-        sprite_message.shade = sprite->GetShade();
+        sprite_message.hex_color = mono::Color::ToHex(sprite->GetShade());
         sprite_message.vertical_direction = (int)sprite->GetVerticalDirection();
         sprite_message.horizontal_direction = (int)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();

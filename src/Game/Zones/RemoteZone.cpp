@@ -138,7 +138,7 @@ bool RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
 
     mono::Sprite* sprite = sprite_system->GetSprite(sprite_message.entity_id);
 
-    sprite->SetShade(sprite_message.shade);
+    sprite->SetShade(mono::Color::ToRGBA(sprite_message.hex_color));
     sprite->SetAnimation(sprite_message.animation_id);
     sprite->SetHorizontalDirection(mono::HorizontalDirection(sprite_message.horizontal_direction));
     sprite->SetVerticalDirection(mono::VerticalDirection(sprite_message.vertical_direction));
