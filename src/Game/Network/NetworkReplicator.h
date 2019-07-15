@@ -8,6 +8,7 @@ class IEntityManager;
 
 namespace mono
 {
+    class EntitySystem;
     class TransformSystem;
     class SpriteSystem;
 }
@@ -21,6 +22,7 @@ namespace game
     public:
 
         NetworkReplicator(
+            mono::EntitySystem* entity_system,
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
             IEntityManager* entity_manager,
@@ -30,6 +32,7 @@ namespace game
 
     private:
 
+        mono::EntitySystem* m_entity_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
         IEntityManager* m_entity_manager;

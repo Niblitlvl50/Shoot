@@ -14,7 +14,7 @@
 
 namespace
 {
-    std::vector<ComponentData> LoadEntityFile(const char* entity_file)
+    EntityData LoadEntityFile(const char* entity_file)
     {
         file::FilePtr file = file::OpenAsciiFile(entity_file);
         if(!file)
@@ -28,7 +28,9 @@ namespace
         //const nlohmann::json& entities = json["entities"];
         const nlohmann::json& first_entity = json["entities"][0];
 
-        std::vector<ComponentData> entity_components;
+        EntityData entity_data;
+        entity_data.entity_name = first_entity.value("name", "Unnamed");
+        entity_data.entity_properties = first_entity.value("entity_properties", 0);
 
         for(const nlohmann::json& component : first_entity["components"])
         {
@@ -38,10 +40,10 @@ namespace
             for(const nlohmann::json& property : component["properties"])
                 component_data.properties.push_back(property);
 
-            entity_components.push_back(std::move(component_data));
+            entity_data.entity_components.push_back(std::move(component_data));
         }
 
-        return entity_components;
+        return entity_data;
     }
 }
 
@@ -77,8 +79,11 @@ mono::Entity EntityManager::CreateEntity(const char* entity_file)
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::Entity& new_entity = entity_system->AllocateEntity();
 
-    const std::vector<ComponentData>& entity_components = m_cached_entities[entity_hash];
-    for(const ComponentData& component : entity_components)
+    const EntityData& entity_data = m_cached_entities[entity_hash];
+    entity_system->SetName(new_entity.id, entity_data.entity_name);
+    new_entity.properties = entity_data.entity_properties;
+
+    for(const ComponentData& component : entity_data.entity_components)
     {
         const uint32_t component_hash = mono::Hash(component.name.c_str());
         if(AddComponent(new_entity.id, component_hash))
@@ -155,6 +160,21 @@ std::vector<Attribute> EntityManager::GetComponentData(uint32_t entity_id, uint3
     return { };
 }
 
+void EntityManager::SetEntityProperties(uint32_t entity_id, uint32_t properties)
+{
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    entity.properties = properties;
+}
+
+uint32_t EntityManager::GetEntityProperties(uint32_t entity_id) const
+{
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+    mono::Entity& entity = entity_system->GetEntity(entity_id);
+
+    return entity.properties;
+}
+
 void EntityManager::RegisterComponent(
     uint32_t component_hash,
     ComponentCreateFunc create_component,
@@ -183,11 +203,11 @@ const std::vector<EntityManager::SpawnEvent>& EntityManager::GetSpawnEvents() co
 
 void EntityManager::Sync()
 {
-    DefferedRelease();
+    DeferredRelease();
     m_spawn_events.clear();
 }
 
-void EntityManager::DefferedRelease()
+void EntityManager::DeferredRelease()
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
 

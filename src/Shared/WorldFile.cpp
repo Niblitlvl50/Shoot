@@ -168,7 +168,10 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
     for(const auto& json_entity : entities)
     {
         const std::string& entity_name = json_entity["name"];
+        const uint32_t entity_properties = json_entity["entity_properties"];
+
         mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
+        entity_manager->SetEntityProperties(new_entity.id, entity_properties);
 
         for(const auto& json_component : json_entity["components"])
         {

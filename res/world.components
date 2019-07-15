@@ -58,6 +58,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "tiny_goblin"
         },
         {
@@ -129,6 +130,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "beastie boy"
         },
         {
@@ -245,6 +247,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "cacodemon_laughing"
         },
         {
@@ -305,6 +308,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "green whiteboard"
         },
         {
@@ -426,6 +430,7 @@
                     ]
                 }
             ],
+            "entity_properties": 7,
             "name": "exploding barrel"
         },
         {
@@ -536,6 +541,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "unnamed"
         },
         {
@@ -673,6 +679,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "everything"
         },
         {
@@ -815,6 +822,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "floor_dude"
         },
         {
@@ -931,6 +939,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "black_square"
         },
         {
@@ -1041,6 +1050,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "left_wall"
         },
         {
@@ -1151,6 +1161,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "right_wall"
         },
         {
@@ -1261,6 +1272,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "bottom_wall"
         },
         {
@@ -1371,6 +1383,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "top_wall"
         },
         {
@@ -1481,6 +1494,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "huge_box"
         },
         {
@@ -1591,6 +1605,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -1701,6 +1716,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -1811,6 +1827,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -1921,6 +1938,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2031,6 +2049,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2141,6 +2160,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2201,6 +2221,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "tiny_board_blue"
         },
         {
@@ -2261,6 +2282,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "tiny_board"
         },
         {
@@ -2321,6 +2343,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2381,6 +2404,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2491,6 +2515,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2551,6 +2576,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "cross"
         },
         {
@@ -2611,6 +2637,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2671,6 +2698,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "questionmark"
         },
         {
@@ -2731,6 +2759,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "left"
         },
         {
@@ -2791,6 +2820,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2851,6 +2881,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "gun"
         },
         {
@@ -2911,6 +2942,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -2971,6 +3003,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "unnamed"
         },
         {
@@ -3098,6 +3131,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "bat"
         },
         {
@@ -3225,6 +3259,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "bat"
         },
         {
@@ -3352,6 +3387,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "unnamed"
         },
         {
@@ -3479,6 +3515,7 @@
                     ]
                 }
             ],
+            "entity_properties": 1,
             "name": "unnamed"
         }
     ]

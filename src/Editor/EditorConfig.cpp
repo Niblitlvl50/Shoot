@@ -9,28 +9,28 @@
 
 namespace
 {
-    constexpr const char* camera_position = "camera_position";
-    constexpr const char* camera_viewport = "camera_viewport";
-    constexpr const char* window_position = "window_position";
-    constexpr const char* window_size = "window_size";
-    constexpr const char* draw_object_names = "draw_object_names";
-    constexpr const char* draw_snappers = "draw_snappers";
-    constexpr const char* draw_outline = "draw_outline";
-    constexpr const char* background_color = "background_color";
+    constexpr const char* camera_position_key = "camera_position";
+    constexpr const char* camera_viewport_key = "camera_viewport";
+    constexpr const char* window_position_key = "window_position";
+    constexpr const char* window_size_key = "window_size";
+    constexpr const char* draw_object_names_key = "draw_object_names";
+    constexpr const char* draw_snappers_key = "draw_snappers";
+    constexpr const char* draw_outline_key = "draw_outline";
+    constexpr const char* background_color_key = "background_color";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 {
     nlohmann::json json;
 
-    json[camera_position] = config.camera_position;
-    json[camera_viewport] = config.camera_viewport;
-    json[window_position] = config.window_position;
-    json[window_size] = config.window_size;
-    json[draw_object_names] = config.draw_object_names;
-    json[draw_snappers] = config.draw_snappers;
-    json[background_color] = config.background_color;
-    json[draw_outline] = config.draw_outline;
+    json[camera_position_key]   = config.camera_position;
+    json[camera_viewport_key]   = config.camera_viewport;
+    json[window_position_key]   = config.window_position;
+    json[window_size_key]       = config.window_size;
+    json[draw_object_names_key] = config.draw_object_names;
+    json[draw_snappers_key]     = config.draw_snappers;
+    json[background_color_key]  = config.background_color;
+    json[draw_outline_key]      = config.draw_outline;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -51,29 +51,14 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    if(json.count(camera_position) > 0)
-        config.camera_position = json[camera_position];
-    
-    if(json.count(camera_viewport) > 0)
-        config.camera_viewport = json[camera_viewport];
-
-    if(json.count(window_position) > 0)
-        config.window_position = json[window_position];
-    
-    if(json.count(window_size) > 0)
-        config.window_size = json[window_size];
-    
-    if(json.count(draw_object_names) > 0)
-        config.draw_object_names = json[draw_object_names];
-    
-    if(json.count(draw_snappers) > 0)
-        config.draw_snappers = json[draw_snappers];
-
-    if(json.count(background_color) > 0)
-        config.background_color = json[background_color];
-
-    if(json.count(draw_outline) > 0)
-        config.draw_outline = json[draw_outline];
+    config.camera_position      = json.value(camera_position_key, config.camera_position);
+    config.camera_viewport      = json.value(camera_viewport_key, config.camera_viewport);
+    config.window_position      = json.value(window_position_key, config.window_position);
+    config.window_size          = json.value(window_size_key, config.window_size);
+    config.draw_object_names    = json.value(draw_object_names_key, config.draw_object_names);
+    config.draw_snappers        = json.value(draw_snappers_key, config.draw_snappers);
+    config.background_color     = json.value(background_color_key, config.background_color);
+    config.draw_outline         = json.value(draw_outline_key, config.draw_outline);
 
     return true;
 }

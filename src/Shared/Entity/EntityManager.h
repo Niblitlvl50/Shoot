@@ -23,6 +23,13 @@ struct ComponentData
     std::vector<Attribute> properties;
 };
 
+struct EntityData
+{
+    std::string entity_name;
+    uint32_t entity_properties;
+    std::vector<ComponentData> entity_components;
+};
+
 class EntityManager : public IEntityManager
 {
 public:
@@ -32,10 +39,15 @@ public:
 
     mono::Entity CreateEntity(const char* name, const std::vector<uint32_t>& components) override;
     mono::Entity CreateEntity(const char* entity_file) override;
+
     bool AddComponent(uint32_t entity_id, uint32_t component_hash) override;
     bool RemoveComponent(uint32_t entity_id, uint32_t component_hash) override;
     bool SetComponentData(uint32_t entity_id, uint32_t component_hash, const std::vector<Attribute>& properties) override;
     std::vector<Attribute> GetComponentData(uint32_t entity_id, uint32_t component_hash) const override;
+
+    void SetEntityProperties(uint32_t entity_id, uint32_t properties) override;
+    uint32_t GetEntityProperties(uint32_t entity_id) const override;
+
     void ReleaseEntity(uint32_t entity_id) override;
     const std::vector<SpawnEvent>& GetSpawnEvents() const override;
     void Sync() override;
@@ -49,11 +61,11 @@ public:
 
 private:
 
-    void DefferedRelease();
+    void DeferredRelease();
 
     mono::SystemContext* m_system_context;
     std::unordered_set<uint32_t> m_entities_to_release;
-    std::unordered_map<uint32_t, std::vector<ComponentData>> m_cached_entities;
+    std::unordered_map<uint32_t, EntityData> m_cached_entities;
 
     struct ComponentFuncs
     {

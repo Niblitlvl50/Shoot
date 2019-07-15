@@ -21,29 +21,38 @@ ServerStatusDrawer::ServerStatusDrawer(const math::Vector& position, const class
 void ServerStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
     const ConnectionStats& stats = m_server_manager->GetConnectionStats();
-    const float mb_sent = float(stats.total_byte_sent) / 100000.0f;
-    const float mb_received = float(stats.total_byte_received) / 100000.0f;
+
+    const float mb_sent = float(stats.total_byte_sent) / 100'000;
+    const float mb_received = float(stats.total_byte_received) / 100'000;
+    const float kb_sent_per_frame = float(stats.total_byte_sent) / 100 / float(m_total_frame_count);
+    const float kb_received_per_frame = float(stats.total_byte_received) / 100 / float(m_total_frame_count);
 
     char text_buffer[256] = { '\0' };
     std::snprintf(text_buffer, std::size(text_buffer), "%u/%u", stats.total_sent, stats.total_received);
-    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(230.0f, 0.0f), false, mono::Color::BLACK);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, 0.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
-    std::snprintf(text_buffer, std::size(text_buffer), "%.2fmb / %.2fmb", mb_sent, mb_received);
-    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(230.0f, -5.0f), false, mono::Color::BLACK);
+    std::snprintf(text_buffer, std::size(text_buffer), "total: %.2fmb / %.2fmb", mb_sent, mb_received);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, -5.0f), false, mono::Color::BLACK);
 
-    float y = -10.0f;
+    std::memset(text_buffer, 0, std::size(text_buffer));
+    std::snprintf(text_buffer, std::size(text_buffer), "frame: %.2fkb / %.2fkb", kb_sent_per_frame, kb_received_per_frame);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, -10.0f), false, mono::Color::BLACK);
+
+    float y = -15.0f;
 
     for(const ClientData& client : m_server_manager->GetConnectedClients())
     {
         const std::string& address = network::AddressToString(client.address);
-        renderer.DrawText(FontId::PIXELETTE_MEGA, address.c_str(), math::Vector(230.0f, y), false, mono::Color::BLACK);
+        renderer.DrawText(FontId::PIXELETTE_MEGA, address.c_str(), math::Vector(210.0f, y), false, mono::Color::BLACK);
         y -= 5.0f;
     }
 }
 
 void ServerStatusDrawer::Update(const mono::UpdateContext& context)
-{ }
+{
+    m_total_frame_count = context.frame_count;
+}
 
 
 ClientStatusDrawer::ClientStatusDrawer(const math::Vector& position, const ClientManager* client_manager)
@@ -55,15 +64,22 @@ ClientStatusDrawer::ClientStatusDrawer(const math::Vector& position, const Clien
 void ClientStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
     const char* client_status = ClientStatusToString(m_client_manager->GetConnectionStatus());
-    renderer.DrawText(FontId::PIXELETTE_MEGA, client_status, math::Vector(250.0f, 0.0f), false, mono::Color::MAGENTA);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, client_status, math::Vector(230.0f, 0.0f), false, mono::Color::BLACK);
 
     const ConnectionStats& stats = m_client_manager->GetConnectionStats();
+    const float mb_sent = float(stats.total_byte_sent) / 100000.0f;
+    const float mb_received = float(stats.total_byte_received) / 100000.0f;
 
     char text_buffer[256] = { '\0' };
-    std::snprintf(
-        text_buffer, mono::arraysize(text_buffer), "%u/%u", stats.total_sent, stats.total_received);
-    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(250.0f, 5.0f), false, mono::Color::MAGENTA);
+    std::snprintf(text_buffer, std::size(text_buffer), "%u/%u", stats.total_sent, stats.total_received);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(230.0f, 5.0f), false, mono::Color::BLACK);
+
+    std::memset(text_buffer, 0, std::size(text_buffer));
+    std::snprintf(text_buffer, std::size(text_buffer), "%.2fmb / %.2fmb", mb_sent, mb_received);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(230.0f, 10.0f), false, mono::Color::BLACK);
 }
 
 void ClientStatusDrawer::Update(const mono::UpdateContext& context)
-{ }
+{
+    m_total_frame_count = context.frame_count;
+}

@@ -12,8 +12,8 @@
 #include "Physics/PhysicsDebugDrawer.h"
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
 #include "EntitySystem.h"
+#include "TransformSystem.h"
 #include "Util/Random.h"
 
 #include "AIKnowledge.h"
@@ -88,6 +88,7 @@ SystemTestZone::~SystemTestZone()
 
 void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
@@ -95,7 +96,8 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
-    AddUpdatable(std::make_shared<NetworkReplicator>(transform_system, sprite_system, entity_manager, m_server_manager.get()));
+    AddUpdatable(
+        std::make_shared<NetworkReplicator>(entity_system, transform_system, sprite_system, entity_manager, m_server_manager.get()));
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());

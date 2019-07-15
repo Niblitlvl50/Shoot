@@ -17,6 +17,7 @@ using namespace editor;
 ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
+    , m_entity_properties(0)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
 {
@@ -34,6 +35,7 @@ ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEnt
 ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
+    , m_entity_properties(0)
     , m_components(components)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
@@ -83,6 +85,7 @@ std::vector<SnapPoint> ComponentProxy::GetSnappers() const
 void ComponentProxy::UpdateUIContext(UIContext& context)
 {
     DrawName(m_name);
+    DrawEntityProperty(m_entity_properties);
     
     const int modified_index = DrawComponents(context, m_components);
     if(modified_index != -1)
@@ -100,6 +103,16 @@ const std::vector<Component>& ComponentProxy::GetComponents() const
 std::vector<Component>& ComponentProxy::GetComponents()
 {
     return m_components;
+}
+
+uint32_t ComponentProxy::GetEntityProperties() const
+{
+    return m_entity_properties;
+}
+
+void ComponentProxy::SetEntityProperties(uint32_t properties)
+{
+    m_entity_properties = properties;
 }
 
 float ComponentProxy::GetRotation() const

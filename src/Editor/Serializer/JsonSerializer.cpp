@@ -90,6 +90,7 @@ void JsonSerializer::Accept(ComponentProxy* proxy)
 
     nlohmann::json json_entity;
     json_entity["name"] = proxy->Name();
+    json_entity["entity_properties"] = proxy->GetEntityProperties();
     json_entity["components"] = json_components;
 
     m_json_entities_components.push_back(json_entity);

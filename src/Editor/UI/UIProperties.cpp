@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Resources.h"
 #include "EntityLogicTypes.h"
+#include "Entity/EntityProperties.h"
 #include "UIContext.h"
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "Util/Algorithm.h"
@@ -17,6 +18,41 @@ void editor::DrawName(std::string& name)
     std::snprintf(text_buffer, VariantStringMaxLength, "%s", name.c_str());
     if(ImGui::InputText("", text_buffer, VariantStringMaxLength))
         name = text_buffer;
+}
+
+void editor::DrawEntityProperty(uint32_t& properties)
+{
+    std::string button_text = "[none]";
+
+    if(properties != 0)
+    {
+        button_text.clear();
+        for(EntityProperties prop : all_entity_properties)
+        {
+            if(properties & prop)
+            {
+                button_text += EntityPropertyToString(prop);
+                button_text += "|";
+            }
+        }
+
+        button_text.pop_back();
+    }
+
+    const bool pushed = ImGui::Button(button_text.c_str());
+    if(pushed)
+        ImGui::OpenPopup("entity_properties_select");
+
+    if(ImGui::BeginPopup("entity_properties_select"))
+    {
+        for(EntityProperties prop : all_entity_properties)
+        {
+            if(ImGui::Selectable(EntityPropertyToString(prop), properties & prop, ImGuiSelectableFlags_DontClosePopups))
+                properties ^= prop;
+        }
+
+        ImGui::EndPopup();
+    }
 }
 
 bool editor::DrawProperty(const char* text, Variant& attribute)

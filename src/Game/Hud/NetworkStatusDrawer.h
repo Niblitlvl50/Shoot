@@ -14,6 +14,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         const ServerManager* m_server_manager;
+        uint32_t m_total_frame_count;
     };
 
     class ClientStatusDrawer : public mono::EntityBase
@@ -25,5 +26,6 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         const ClientManager* m_client_manager;
+        uint32_t m_total_frame_count;
     };
 }
