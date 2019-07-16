@@ -12,7 +12,6 @@
 #include "Physics/PhysicsDebugDrawer.h"
 
 #include "SystemContext.h"
-#include "EntitySystem.h"
 #include "TransformSystem.h"
 #include "Util/Random.h"
 
@@ -88,8 +87,8 @@ SystemTestZone::~SystemTestZone()
 
 void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 {
-    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
@@ -97,7 +96,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
     AddUpdatable(
-        std::make_shared<NetworkReplicator>(entity_system, transform_system, sprite_system, entity_manager, m_server_manager.get()));
+        std::make_shared<NetworkReplicator>(transform_system, physics_system, sprite_system, entity_manager, m_server_manager.get()));
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
@@ -107,8 +106,6 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<WaveDrawer>(*m_event_handler), LayerId::UI);
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
-
-    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
 
     for(int index = 0; index < 250; ++index)
     {

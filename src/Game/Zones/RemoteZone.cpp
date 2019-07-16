@@ -28,6 +28,7 @@
 
 #include "SystemContext.h"
 #include "TransformSystem.h"
+#include "PositionPredictionSystem.h"
 
 #include "Player/PlayerDaemon.h"
 
@@ -39,16 +40,17 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     , m_event_handler(*context.event_handler)
     , m_game_config(*context.game_config)
 {
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    m_system_context->CreateSystem<PositionPredictionSystem>(context.num_entities, transform_system, context.event_handler);
+
     using namespace std::placeholders;
 
     const std::function<bool (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
-    const std::function<bool (const TransformMessage&)> transform_func = std::bind(&RemoteZone::HandleTransformMessage, this, _1);
     const std::function<bool (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<bool (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
     const std::function<bool (const PingMessage&)> ping_func = std::bind(&RemoteZone::HandlePingMessage, this, _1);
 
     m_text_token = m_event_handler.AddListener(text_func);
-    m_transform_token = m_event_handler.AddListener(transform_func);
     m_spawn_token = m_event_handler.AddListener(spawn_func);
     m_sprite_token = m_event_handler.AddListener(sprite_func);
     m_ping_token = m_event_handler.AddListener(ping_func);
@@ -57,7 +59,6 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
 RemoteZone::~RemoteZone()
 {
     m_event_handler.RemoveListener(m_text_token);
-    m_event_handler.RemoveListener(m_transform_token);
     m_event_handler.RemoveListener(m_spawn_token);
     m_event_handler.RemoveListener(m_sprite_token);
     m_event_handler.RemoveListener(m_ping_token);
@@ -102,17 +103,6 @@ bool RemoteZone::HandleText(const TextMessage& text_message)
 {
     m_console_drawer->AddText(text_message.text, 1500);
     return true;
-}
-
-bool RemoteZone::HandleTransformMessage(const TransformMessage& transform_message)
-{
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    math::Matrix& transform = transform_system->GetTransform(transform_message.entity_id);
-    
-    transform = math::CreateMatrixFromZRotation(transform_message.rotation);
-    math::Position(transform, transform_message.position);
-
-    return false;
 }
 
 bool RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)

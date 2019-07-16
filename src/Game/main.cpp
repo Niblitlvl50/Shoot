@@ -103,8 +103,8 @@ int main(int argc, char* argv[])
     physics_system_params.n_polygon_shapes = max_entities;
 
     {
-        mono::SystemContext system_context;
         mono::EventHandler event_handler;
+        mono::SystemContext system_context;
 
         EntityManager entity_manager(&system_context);
         game::RegisterGameComponents(entity_manager);
@@ -137,6 +137,7 @@ int main(int argc, char* argv[])
         auto camera = std::make_shared<game::Camera>(22, 14, window_size.x, window_size.y, transform_system, event_handler);
 
         game::ZoneCreationContext zone_context;
+        zone_context.num_entities = max_entities;
         zone_context.event_handler = &event_handler;
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;

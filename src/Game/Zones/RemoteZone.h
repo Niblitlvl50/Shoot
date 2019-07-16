@@ -14,7 +14,6 @@ namespace network
 namespace game
 {
     struct TextMessage;
-    struct TransformMessage;
     struct SpawnMessage;
     struct SpriteMessage;
     struct PingMessage;
@@ -30,7 +29,6 @@ namespace game
         int OnUnload() override;
 
         bool HandleText(const TextMessage& text_message);
-        bool HandleTransformMessage(const TransformMessage& transform_message);
         bool HandleSpawnMessage(const SpawnMessage& spawn_message);
         bool HandleSpriteMessage(const SpriteMessage& sprite_message);
         bool HandlePingMessage(const PingMessage& ping_message);
@@ -44,7 +42,6 @@ namespace game
         std::shared_ptr<class ClientManager> m_client_manager;
 
         mono::EventToken<game::TextMessage> m_text_token;
-        mono::EventToken<game::TransformMessage> m_transform_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;
         mono::EventToken<game::PingMessage> m_ping_token;

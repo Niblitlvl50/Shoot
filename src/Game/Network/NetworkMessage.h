@@ -79,6 +79,7 @@ namespace game
         DECLARE_NETWORK_MESSAGE();
         uint32_t entity_id;
         math::Vector position;
+        math::Vector velocity;
         float rotation;
     };
 
