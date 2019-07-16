@@ -80,9 +80,9 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 
         const TransformMessage& last_transform_message = m_transform_messages[id];
         const bool same =
-            math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.01f) &&
-            math::IsPrettyMuchEquals(last_transform_message.velocity, transform_message.velocity, 0.01f) &&
-            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.01f);
+            math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
+            math::IsPrettyMuchEquals(last_transform_message.velocity, transform_message.velocity, 0.001f) &&
+            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
         if(!same)
         {
             batch_sender.SendMessage(transform_message);
@@ -92,7 +92,7 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
     };
 
 
-    if(m_replicate_timer >= 60)
+    if(m_replicate_timer >= 50)
     {
         m_transform_system->ForEachTransform(transform_func);
         m_replicate_timer = 0;
@@ -120,10 +120,10 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         }
     };
 
-    m_sprite_system->RunForEachSprite(sprite_func, m_remote_connection);
+    m_sprite_system->ForEachSprite(sprite_func);
 
-    std::printf(
-        "transforms %d/%d, sprites %d/%d\n", replicated_transforms, total_transforms, replicated_sprites, total_sprites);
+//    std::printf(
+//        "transforms %d/%d, sprites %d/%d\n", replicated_transforms, total_transforms, replicated_sprites, total_sprites);
 }
 
 
