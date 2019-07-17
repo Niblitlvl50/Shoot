@@ -17,7 +17,7 @@ namespace game
 
         ~ScopedTimer()
         {
-            const float delta_ms = float(System::GetPerformanceCounter() - m_start_time) / System::GetPerformanceFrequency();
+            const float delta_ms = float(System::GetPerformanceCounter() - m_start_time) * 1000.0f / System::GetPerformanceFrequency();
             std::printf("%s: %f ms\n", m_scope_context, delta_ms);
         }
 

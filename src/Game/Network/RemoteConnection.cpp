@@ -4,30 +4,38 @@
 
 #include <algorithm>
 
+#include "huffandpuff/huffman.h"
+
 using namespace game;
 
-RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISocketPtr socket)
-    : m_stop(false)
-    , m_socket(std::move(socket))
+namespace
 {
-    m_stats = { 0, 0, 0, 0 };
+    void ReceiveFunc(
+        network::ISocket* socket, MessageDispatcher* dispatcher, ConnectionStats& connection_stats, bool& stop)
+    {
+        unsigned char huffbuf_heap[HUFFHEAP_SIZE];
+        std::vector<byte> message_buffer(NetworkMessageBufferSize, '\0');
 
-    const auto comm_func = []
-        (network::ISocket* socket, MessageDispatcher* dispatcher, uint32_t& total_received, uint32_t& total_byte_received, bool& stop) {
-        
         NetworkMessage message;
         message.payload.resize(NetworkMessageBufferSize);
 
         while(!stop)
         {
-            std::fill(message.payload.begin(), message.payload.begin() + message.payload.size(), '\0');
-
-            const int bytes_received = socket->Receive(message.payload, &message.address);
+            const int bytes_received = socket->Receive(message_buffer, &message.address);
             if(bytes_received > 0)
             {
+                std::fill(message.payload.begin(), message.payload.begin() + message.payload.size(), '\0');
+
+                const unsigned long decompressed_size = huffman_decompress(
+                    message_buffer.data(), bytes_received, message.payload.data(), message.payload.size(), huffbuf_heap);
+
+                assert(decompressed_size != 0);
+
+                connection_stats.total_packages_received++;
+                connection_stats.total_byte_received += decompressed_size;
+                connection_stats.total_compressed_byte_received += bytes_received;
+
                 dispatcher->PushNewMessage(message);
-                total_byte_received += bytes_received;
-                ++total_received;
             }
             else
             {
@@ -36,8 +44,13 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
         }
     };
 
-    const auto send_func = []
-        (network::ISocket* socket, OutgoingMessages* out_messages, uint32_t& total_sent, uint32_t& total_byte_sent, bool& stop) {
+    void SendFunc(
+        network::ISocket* socket, RemoteConnection::OutgoingMessages* out_messages, ConnectionStats& connection_stats, bool& stop)
+    {
+        unsigned char huffbuf_heap[HUFFHEAP_SIZE];
+
+        std::vector<byte> compressed_bytes;
+        compressed_bytes.resize(NetworkMessageBufferSize, '\0');
 
         while(!stop)
         {
@@ -47,10 +60,14 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
                 std::lock_guard<std::mutex> lock(out_messages->message_mutex);
                 for(const NetworkMessage& message : out_messages->unhandled_messages)
                 {
-                    if(socket->Send(message.payload, message.address))
+                    const unsigned long compressed_size = huffman_compress(
+                        message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
+
+                    if(socket->Send(compressed_bytes.data(), compressed_size, message.address))
                     {
-                        total_sent++;
-                        total_byte_sent += message.payload.size();
+                        connection_stats.total_packages_sent++;
+                        connection_stats.total_byte_sent += message.payload.size();
+                        connection_stats.total_compressed_byte_sent += compressed_size;
                     }
                 }
 
@@ -61,13 +78,20 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
             if(no_messages)
                 std::this_thread::yield();
         }
-    };
+    }
+}
 
-    m_comm_thread = std::thread(
-        comm_func, m_socket.get(), dispatcher, std::ref(m_stats.total_received), std::ref(m_stats.total_byte_received), std::ref(m_stop));
+RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISocketPtr socket)
+    : m_stop(false)
+    , m_socket(std::move(socket))
+{
+    m_stats = { 0, 0, 0, 0, 0, 0 };
 
-    m_send_thread = std::thread(
-        send_func, m_socket.get(), &m_messages, std::ref(m_stats.total_sent), std::ref(m_stats.total_byte_sent), std::ref(m_stop));
+    m_comm_thread =
+        std::thread(ReceiveFunc, m_socket.get(), dispatcher, std::ref(m_stats), std::ref(m_stop));
+
+    m_send_thread =
+        std::thread(SendFunc, m_socket.get(), &m_messages, std::ref(m_stats), std::ref(m_stop));
 }
 
 RemoteConnection::~RemoteConnection()

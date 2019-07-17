@@ -213,7 +213,6 @@ namespace game
         return true;
     }
 
-
     template <typename T>
     inline std::vector<byte> SerializeMessage(const T& message)
     {

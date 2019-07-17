@@ -20,9 +20,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter")
 add_subdirectory("Mono1/")
 include_directories("Mono1/src" "Mono1/third_party" "src/Shared")
 
-# Shared code
+# Shared lib
 file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
 add_library(shared STATIC ${shared_source_files})
+
+# Game lib
+file(GLOB_RECURSE game_source_files "src/Game/*.cpp")
+list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
+add_library(game STATIC ${game_source_files})
+target_include_directories(game PRIVATE "src/Game")
 
 # Editor exe
 file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
@@ -30,12 +36,6 @@ add_executable(editor ${editor_source_files})
 add_dependencies(editor mono shared imgui)
 target_include_directories(editor PRIVATE "src/Editor")
 target_link_libraries(editor mono shared)
-
-# Game
-file(GLOB_RECURSE game_source_files "src/Game/*.cpp")
-list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
-add_library(game STATIC ${game_source_files})
-target_include_directories(game PRIVATE "src/Game")
 
 # Game exe
 file(GLOB_RECURSE game_exe_source_files "src/Game/main.cpp")

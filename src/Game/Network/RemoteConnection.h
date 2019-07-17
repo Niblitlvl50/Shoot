@@ -20,6 +20,12 @@ namespace game
         void SendMessage(const NetworkMessage& message);
         const ConnectionStats& GetConnectionStats() const;
 
+        struct OutgoingMessages
+        {
+            std::mutex message_mutex;
+            std::vector<NetworkMessage> unhandled_messages;
+        };
+
     private:
 
         bool m_stop;
@@ -27,12 +33,7 @@ namespace game
         std::thread m_comm_thread;
         std::thread m_send_thread;
 
-        struct OutgoingMessages
-        {
-            std::mutex message_mutex;
-            std::vector<NetworkMessage> unhandled_messages;
-        } m_messages;
-
+        OutgoingMessages m_messages;
         ConnectionStats m_stats;
     };
 }

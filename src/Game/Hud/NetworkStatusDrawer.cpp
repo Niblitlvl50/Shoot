@@ -22,13 +22,15 @@ void ServerStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
     const ConnectionStats& stats = m_server_manager->GetConnectionStats();
 
-    const float mb_sent = float(stats.total_byte_sent) / 100'000;
-    const float mb_received = float(stats.total_byte_received) / 100'000;
-    const float kb_sent_per_frame = float(stats.total_byte_sent) / 100 / float(m_total_frame_count);
-    const float kb_received_per_frame = float(stats.total_byte_received) / 100 / float(m_total_frame_count);
+    const float mb_sent = float(stats.total_compressed_byte_sent) / 100'000;
+    const float mb_received = float(stats.total_compressed_byte_received) / 100'000;
+    const float kb_sent_per_frame = float(stats.total_compressed_byte_sent) / 100 / float(m_total_frame_count);
+    const float kb_received_per_frame = float(stats.total_compressed_byte_received) / 100 / float(m_total_frame_count);
+
+    const float compression_rate = (1.0f - float(stats.total_compressed_byte_sent) / float(stats.total_byte_sent)) * 100.0f;
 
     char text_buffer[256] = { '\0' };
-    std::snprintf(text_buffer, std::size(text_buffer), "%u/%u", stats.total_sent, stats.total_received);
+    std::snprintf(text_buffer, std::size(text_buffer), "packages: %u/%u", stats.total_packages_sent, stats.total_packages_received);
     renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, 0.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
@@ -39,7 +41,11 @@ void ServerStatusDrawer::Draw(mono::IRenderer& renderer) const
     std::snprintf(text_buffer, std::size(text_buffer), "frame: %.2fkb / %.2fkb", kb_sent_per_frame, kb_received_per_frame);
     renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, -10.0f), false, mono::Color::BLACK);
 
-    float y = -15.0f;
+    std::memset(text_buffer, 0, std::size(text_buffer));
+    std::snprintf(text_buffer, std::size(text_buffer), "compression rate: %.1f%%", compression_rate);
+    renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(210.0f, -15.0f), false, mono::Color::BLACK);
+
+    float y = -25.0f;
 
     for(const ClientData& client : m_server_manager->GetConnectedClients())
     {
@@ -71,7 +77,7 @@ void ClientStatusDrawer::Draw(mono::IRenderer& renderer) const
     const float mb_received = float(stats.total_byte_received) / 100000.0f;
 
     char text_buffer[256] = { '\0' };
-    std::snprintf(text_buffer, std::size(text_buffer), "%u/%u", stats.total_sent, stats.total_received);
+    std::snprintf(text_buffer, std::size(text_buffer), "%u/%u", stats.total_packages_sent, stats.total_packages_received);
     renderer.DrawText(FontId::PIXELETTE_MEGA, text_buffer, math::Vector(230.0f, 5.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
