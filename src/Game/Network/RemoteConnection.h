@@ -30,7 +30,7 @@ namespace game
 
         bool m_stop;
         network::ISocketPtr m_socket;
-        std::thread m_comm_thread;
+        std::thread m_receive_thread;
         std::thread m_send_thread;
 
         OutgoingMessages m_messages;

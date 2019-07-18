@@ -28,8 +28,11 @@ namespace game
     private:
 
         mono::EventHandler& m_event_handler;
+
         std::mutex m_message_mutex;
-        std::vector<NetworkMessage> m_unhandled_messages;
+        std::vector<NetworkMessage>* m_push_messages;
+        std::vector<NetworkMessage> m_message_buffer_1;
+        std::vector<NetworkMessage> m_message_buffer_2;
 
         using MessageFunc = bool(*)(const byte_view& message, const network::Address& sender, mono::EventHandler& event_handler);
         std::unordered_map<uint32_t, MessageFunc> m_handlers;

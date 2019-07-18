@@ -27,6 +27,7 @@ namespace
 
 MessageDispatcher::MessageDispatcher(mono::EventHandler& event_handler)
     : m_event_handler(event_handler)
+    , m_push_messages(&m_message_buffer_1)
 {
     REGISTER_MESSAGE_HANDLER(ServerBeaconMessage);
     REGISTER_MESSAGE_HANDLER(ServerQuitMessage);
@@ -46,16 +47,20 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler& event_handler)
 void MessageDispatcher::PushNewMessage(const NetworkMessage& message)
 {
     std::lock_guard<std::mutex> lock(m_message_mutex);
-    m_unhandled_messages.push_back(message);
+    m_push_messages->push_back(message);
 }
 
 void MessageDispatcher::doUpdate(const mono::UpdateContext& update_context)
 {
-    //SCOPED_TIMER_AUTO();
+    std::vector<NetworkMessage>* unhandled_messages;
 
-    std::lock_guard<std::mutex> lock(m_message_mutex);
+    {
+        std::lock_guard<std::mutex> lock(m_message_mutex);
+        unhandled_messages = m_push_messages;
+        m_push_messages = (m_push_messages == &m_message_buffer_1) ? &m_message_buffer_2 : &m_message_buffer_1;
+    }
 
-    for(const NetworkMessage& network_message : m_unhandled_messages)
+    for(const NetworkMessage& network_message : *unhandled_messages)
     {
         const std::vector<byte_view>& n_messages = UnpackMessageBuffer(network_message.payload);
         for(size_t index = 0; index < n_messages.size(); ++index)
@@ -77,5 +82,5 @@ void MessageDispatcher::doUpdate(const mono::UpdateContext& update_context)
         }
     }
 
-    m_unhandled_messages.clear();
+    unhandled_messages->clear();
 }

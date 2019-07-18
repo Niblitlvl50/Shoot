@@ -63,11 +63,18 @@ namespace
                     const unsigned long compressed_size = huffman_compress(
                         message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
 
-                    if(socket->Send(compressed_bytes.data(), compressed_size, message.address))
+                    if(compressed_size == 0)
+                        std::printf("RemoteConnection|Failed to compress message.\n");
+                    else if(compressed_size > message.payload.size())
+                        std::printf("RemoteConnection|Compressed size is more than uncompressed!!!\n");
+                    else
                     {
-                        connection_stats.total_packages_sent++;
-                        connection_stats.total_byte_sent += message.payload.size();
-                        connection_stats.total_compressed_byte_sent += compressed_size;
+                        if(socket->Send(compressed_bytes.data(), compressed_size, message.address))
+                        {
+                            connection_stats.total_packages_sent++;
+                            connection_stats.total_byte_sent += message.payload.size();
+                            connection_stats.total_compressed_byte_sent += compressed_size;
+                        }
                     }
                 }
 
@@ -86,18 +93,14 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
     , m_socket(std::move(socket))
 {
     m_stats = { 0, 0, 0, 0, 0, 0 };
-
-    m_comm_thread =
-        std::thread(ReceiveFunc, m_socket.get(), dispatcher, std::ref(m_stats), std::ref(m_stop));
-
-    m_send_thread =
-        std::thread(SendFunc, m_socket.get(), &m_messages, std::ref(m_stats), std::ref(m_stop));
+    m_receive_thread = std::thread(ReceiveFunc, m_socket.get(), dispatcher, std::ref(m_stats), std::ref(m_stop));
+    m_send_thread = std::thread(SendFunc, m_socket.get(), &m_messages, std::ref(m_stats), std::ref(m_stop));
 }
 
 RemoteConnection::~RemoteConnection()
 {
     m_stop = true;
-    m_comm_thread.join();
+    m_receive_thread.join();
     m_send_thread.join();
 }
 
