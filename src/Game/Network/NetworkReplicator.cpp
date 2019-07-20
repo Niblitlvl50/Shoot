@@ -88,16 +88,11 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         transform_message.position = math::GetPosition(transform);
         transform_message.rotation = math::GetZRotation(transform);
 
-        //const mono::IBody* body = m_physics_system->GetBody(id);
-        //if(body)
-        //    transform_message.velocity = body->GetVelocity();
-
         total_transforms++;
 
         const TransformMessage& last_transform_message = m_transform_messages[id];
         const bool same =
             math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
-            //math::IsPrettyMuchEquals(last_transform_message.velocity, transform_message.velocity, 0.001f) &&
             math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
         if(!same || true)
         {

@@ -42,7 +42,8 @@ namespace game
             uint32_t timestamp_new;
             math::Vector position_old;
             math::Vector position_new;
-            float rotation;
+            float rotation_old;
+            float rotation_new;
         };
 
         std::vector<PredictionData> m_prediction_data;

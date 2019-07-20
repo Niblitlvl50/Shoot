@@ -7,6 +7,8 @@
 #include "TransformSystem.h"
 #include "Math/Matrix.h"
 
+#include <algorithm>
+
 using namespace game;
 
 PositionPredictionSystem::PositionPredictionSystem(
@@ -53,25 +55,27 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
     {
         PredictionData& prediction_data = m_prediction_data[index];
 
+        math::Vector predicted_position = prediction_data.position_new;
+        float predicted_rotation = prediction_data.rotation_new;
+
         if(prediction_data.timestamp_old != 0)
         {
             prediction_data.time += update_context.delta_ms;
 
             const uint32_t delta_time = prediction_data.timestamp_new - prediction_data.timestamp_old;
-            const float t = float(prediction_data.time) / float(delta_time);
+            const float t = std::clamp(float(prediction_data.time) / float(delta_time), 0.0f, 1.0f);
 
             const math::Vector& delta_position = prediction_data.position_new - prediction_data.position_old;
-            const math::Vector predicted_position = prediction_data.position_old + (delta_position * t);
+            predicted_position = prediction_data.position_old + (delta_position * t);
 
-            math::Matrix& transform = m_transform_system->GetTransform(index);
-            transform = math::CreateMatrixFromZRotation(prediction_data.rotation);
-            math::Position(transform, predicted_position);
+            const float delta_rotation = prediction_data.rotation_new - prediction_data.rotation_old;
+            predicted_rotation = prediction_data.rotation_old + (delta_rotation * t);
+
         }
-        else if(prediction_data.timestamp_new != 0)
-        {
-            math::Matrix& transform = m_transform_system->GetTransform(index);
-            math::Position(transform, prediction_data.position_new);
-        }
+
+        math::Matrix& transform = m_transform_system->GetTransform(index);
+        transform = math::CreateMatrixFromZRotation(predicted_rotation);
+        math::Position(transform, predicted_position);
     }
 }
 
@@ -89,7 +93,8 @@ bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
         prediction_data.position_old = prediction_data.position_new;
         prediction_data.position_new = transform_message.position;
 
-        prediction_data.rotation = transform_message.rotation;
+        prediction_data.rotation_old = prediction_data.rotation_new;
+        prediction_data.rotation_new = transform_message.rotation;
     }
 
     return false;
