@@ -8,6 +8,7 @@
 #include "Hud/ConsoleDrawer.h"
 #include "Hud/Overlay.h"
 #include "Hud/NetworkStatusDrawer.h"
+#include "Hud/FPSElement.h"
 
 #include "WorldFile.h"
 #include "World/World.h"
@@ -48,12 +49,10 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     const std::function<bool (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
     const std::function<bool (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<bool (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
-    const std::function<bool (const PingMessage&)> ping_func = std::bind(&RemoteZone::HandlePingMessage, this, _1);
 
     m_text_token = m_event_handler.AddListener(text_func);
     m_spawn_token = m_event_handler.AddListener(spawn_func);
     m_sprite_token = m_event_handler.AddListener(sprite_func);
-    m_ping_token = m_event_handler.AddListener(ping_func);
 }
 
 RemoteZone::~RemoteZone()
@@ -61,29 +60,29 @@ RemoteZone::~RemoteZone()
     m_event_handler.RemoveListener(m_text_token);
     m_event_handler.RemoveListener(m_spawn_token);
     m_event_handler.RemoveListener(m_sprite_token);
-    m_event_handler.RemoveListener(m_ping_token);
 }
 
 void RemoteZone::OnLoad(mono::ICameraPtr& camera)
 {
     m_client_manager = std::make_shared<ClientManager>(&m_event_handler, &m_game_config);
+    m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
+
     AddUpdatable(m_client_manager);
     AddUpdatable(std::make_shared<ClientReplicator>(m_client_manager.get()));
 
-    auto sprite_drawer = std::make_shared<mono::SpriteBatchDrawer>(m_system_context);
-    AddDrawable(sprite_drawer, GAMEOBJECTS);
+    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
+
+    const PositionPredictionSystem* prediction_system = m_system_context->GetSystem<PositionPredictionSystem>();
+    AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
 
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
 
-    m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
-
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
     hud_overlay->AddChild(std::make_shared<ClientStatusDrawer>(math::Vector(10.0f, 10.0f), m_client_manager.get()));
-    AddEntity(hud_overlay, UI);
+    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
+    AddEntity(hud_overlay, LayerId::UI);
 
-    const PositionPredictionSystem* prediction_system = m_system_context->GetSystem<PositionPredictionSystem>();
-    AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), GAMEOBJECTS_DEBUG);
 /*
     {
         file::FilePtr world_file = file::OpenBinaryFile("res/world.world");
@@ -135,15 +134,6 @@ bool RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
     sprite->SetAnimation(sprite_message.animation_id);
     sprite->SetHorizontalDirection(mono::HorizontalDirection(sprite_message.horizontal_direction));
     sprite->SetVerticalDirection(mono::VerticalDirection(sprite_message.vertical_direction));
-
-    return true;
-}
-
-bool RemoteZone::HandlePingMessage(const PingMessage& ping_message)
-{
-    const uint32_t ping = System::GetMilliseconds() - ping_message.local_time_stamp;
-    const std::string ping_text = "Ping " + std::to_string(ping);
-    m_console_drawer->AddText(ping_text, 900);
 
     return true;
 }

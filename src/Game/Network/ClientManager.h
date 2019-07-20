@@ -20,6 +20,7 @@ namespace game
     struct ServerBeaconMessage;
     struct ServerQuitMessage;
     struct ConnectAcceptedMessage;
+    struct PingMessage;
 
     class ClientManager : public mono::IUpdatable, public INetworkPipe
     {
@@ -35,6 +36,7 @@ namespace game
 
         ClientStatus GetConnectionStatus() const;
         const struct ConnectionStats& GetConnectionStats() const;
+        uint32_t GetServerPing() const;
 
     private:
 
@@ -43,6 +45,7 @@ namespace game
         bool HandleServerBeacon(const ServerBeaconMessage& message);
         bool HandleServerQuit(const ServerQuitMessage& message);
         bool HandleConnectAccepted(const ConnectAcceptedMessage& message);
+        bool HandlePing(const PingMessage& message);
 
         void ToSearching();
         void ToFoundServer();
@@ -68,8 +71,10 @@ namespace game
         mono::EventToken<ServerBeaconMessage> m_server_beacon_token;
         mono::EventToken<ServerQuitMessage> m_server_quit_token;
         mono::EventToken<ConnectAcceptedMessage> m_connect_accepted_token;
+        mono::EventToken<PingMessage> m_ping_token;
 
         network::Address m_server_address;
         network::Address m_client_address;
+        uint32_t m_server_ping;
     };
 }

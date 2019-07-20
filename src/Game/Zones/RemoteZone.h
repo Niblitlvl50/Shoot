@@ -16,7 +16,6 @@ namespace game
     struct TextMessage;
     struct SpawnMessage;
     struct SpriteMessage;
-    struct PingMessage;
 
     class RemoteZone : public mono::PhysicsZone
     {
@@ -31,7 +30,6 @@ namespace game
         bool HandleText(const TextMessage& text_message);
         bool HandleSpawnMessage(const SpawnMessage& spawn_message);
         bool HandleSpriteMessage(const SpriteMessage& sprite_message);
-        bool HandlePingMessage(const PingMessage& ping_message);
 
     private:
 
@@ -44,7 +42,6 @@ namespace game
         mono::EventToken<game::TextMessage> m_text_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;
-        mono::EventToken<game::PingMessage> m_ping_token;
 
         std::shared_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;

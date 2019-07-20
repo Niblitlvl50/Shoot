@@ -14,6 +14,7 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     , m_game_config(game_config)
     , m_dispatcher(*event_handler)
     , m_socket_port(game_config->port_range_start)
+    , m_server_ping(0)
 {
     using namespace std::placeholders;
 
@@ -31,10 +32,12 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     const std::function<bool (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
     const std::function<bool (const ServerQuitMessage&)> server_quit_func = std::bind(&ClientManager::HandleServerQuit, this, _1);
     const std::function<bool (const ConnectAcceptedMessage&)> connect_accepted_func = std::bind(&ClientManager::HandleConnectAccepted, this, _1);
+    const std::function<bool (const PingMessage&)> ping_func = std::bind(&ClientManager::HandlePing, this, _1);
 
     m_server_beacon_token = m_event_handler->AddListener(server_beacon_func);
     m_server_quit_token = m_event_handler->AddListener(server_quit_func);
     m_connect_accepted_token = m_event_handler->AddListener(connect_accepted_func);
+    m_ping_token = m_event_handler->AddListener(ping_func);
 }
 
 ClientManager::~ClientManager()
@@ -45,6 +48,7 @@ ClientManager::~ClientManager()
     m_event_handler->RemoveListener(m_server_beacon_token);
     m_event_handler->RemoveListener(m_server_quit_token);
     m_event_handler->RemoveListener(m_connect_accepted_token);
+    m_event_handler->RemoveListener(m_ping_token);
 }
 
 ClientStatus ClientManager::GetConnectionStatus() const
@@ -55,6 +59,11 @@ ClientStatus ClientManager::GetConnectionStatus() const
 const ConnectionStats& ClientManager::GetConnectionStats() const
 {
     return m_remote_connection->GetConnectionStats();
+}
+
+uint32_t ClientManager::GetServerPing() const
+{
+    return m_server_ping;
 }
 
 void ClientManager::SendMessage(const NetworkMessage& message)
@@ -110,6 +119,12 @@ bool ClientManager::HandleConnectAccepted(const ConnectAcceptedMessage& message)
 {
     m_states.TransitionTo(ClientStatus::CONNECTED);
     return true;
+}
+
+bool ClientManager::HandlePing(const PingMessage& message)
+{
+    m_server_ping = System::GetMilliseconds() - message.local_time_stamp;
+    return false;
 }
 
 void ClientManager::ToSearching()
