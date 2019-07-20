@@ -64,9 +64,16 @@ namespace
                         message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
 
                     if(compressed_size == 0)
+                    {
                         std::printf("RemoteConnection|Failed to compress message.\n");
+                    }
                     else if(compressed_size > message.payload.size())
-                        std::printf("RemoteConnection|Compressed size is more than uncompressed!!!\n");
+                    {
+                        std::printf(
+                            "RemoteConnection|Compressed size(%lu) is more than uncompressed(%lu)!!!\n",
+                            compressed_size,
+                            message.payload.size());
+                    }
                     else
                     {
                         if(socket->Send(compressed_bytes.data(), compressed_size, message.address))

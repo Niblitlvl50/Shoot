@@ -9,7 +9,7 @@ TEST(Network, SingleSerialize)
     const network::Address test_address = network::MakeAddress("127.0.0.1", 99);
 
     game::PingMessage ping_message;
-    ping_message.header.sender = test_address;
+    ping_message.sender = test_address;
     ping_message.local_time_stamp = 42;
 
     const std::vector<byte>& message_bytes = game::SerializeMessage(ping_message);
@@ -21,8 +21,8 @@ TEST(Network, SingleSerialize)
     EXPECT_TRUE(game::DeserializeMessage(message_views[0], deserialized_ping_message));
 
     EXPECT_EQ(42u, deserialized_ping_message.local_time_stamp);
-    EXPECT_EQ(test_address.host, deserialized_ping_message.header.sender.host);
-    EXPECT_EQ(test_address.port, deserialized_ping_message.header.sender.port);
+    EXPECT_EQ(test_address.host, deserialized_ping_message.sender.host);
+    EXPECT_EQ(test_address.port, deserialized_ping_message.sender.port);
 }
 
 TEST(Network, BatchSerialize)
@@ -82,17 +82,13 @@ TEST(Network, BatchSerialize)
 
 TEST(Network, SerializeText)
 {
-    const network::Address test_address = network::MakeAddress("127.0.0.1", 99);
-
     std::vector<byte> message_buffer;
     game::PrepareMessageBuffer(message_buffer);
 
     game::TextMessage text_message1;
-    text_message1.header.sender = test_address;
     std::sprintf(text_message1.text, "hello world!");
 
     game::TextMessage text_message2;
-    text_message2.header.sender = test_address;
     std::sprintf(text_message2.text, "Goodbye cansas!");
 
     EXPECT_TRUE(game::SerializeMessageToBuffer(text_message1, message_buffer));
@@ -107,11 +103,6 @@ TEST(Network, SerializeText)
     EXPECT_TRUE(game::DeserializeMessage(message_views[0], deserialized_text1));
     EXPECT_TRUE(game::DeserializeMessage(message_views[1], deserialized_text2));
 
-    EXPECT_EQ(test_address.host, deserialized_text1.header.sender.host);
-    EXPECT_EQ(test_address.port, deserialized_text1.header.sender.port);
     EXPECT_STREQ("hello world!", deserialized_text1.text);
-
-    EXPECT_EQ(test_address.host, deserialized_text2.header.sender.host);
-    EXPECT_EQ(test_address.port, deserialized_text2.header.sender.port);
     EXPECT_STREQ("Goodbye cansas!", deserialized_text2.text);
 }

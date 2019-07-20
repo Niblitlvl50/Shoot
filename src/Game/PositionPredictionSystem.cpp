@@ -16,9 +16,11 @@ PositionPredictionSystem::PositionPredictionSystem(
 {
     m_prediction_data.resize(num_records);
     for(PredictionData& data : m_prediction_data)
-        data.is_predicting = false;
-
-    m_keyframe_data.reserve(128);
+    {
+        data.time = 0;
+        data.timestamp_old = 0;
+        data.timestamp_new = 0;
+    }
 
     using namespace std::placeholders;
     std::function<bool (const TransformMessage&)> transform_func = std::bind(&PositionPredictionSystem::HandlePredicitonMessage, this, _1);
@@ -49,38 +51,78 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
 {
     for(size_t index = 0; index < m_prediction_data.size(); ++index)
     {
-        const PredictionData& prediciton_data = m_prediction_data[index];
-        if(prediciton_data.is_predicting)
+        PredictionData& prediction_data = m_prediction_data[index];
+
+        if(prediction_data.timestamp_old != 0)
+        {
+            prediction_data.time += update_context.delta_ms;
+
+            const uint32_t delta_time = prediction_data.timestamp_new - prediction_data.timestamp_old;
+            const float t = float(prediction_data.time) / float(delta_time);
+
+            const math::Vector& delta_position = prediction_data.position_new - prediction_data.position_old;
+            const math::Vector predicted_position = prediction_data.position_old + (delta_position * t);
+
+            math::Matrix& transform = m_transform_system->GetTransform(index);
+            transform = math::CreateMatrixFromZRotation(prediction_data.rotation);
+            math::Position(transform, predicted_position);
+        }
+        else if(prediction_data.timestamp_new != 0)
         {
             math::Matrix& transform = m_transform_system->GetTransform(index);
-
-            const math::Vector& new_position =
-                math::GetPosition(transform) + (prediciton_data.velocity * float(update_context.delta_ms) / 1000.0f);
-
-            math::Position(transform, new_position);
+            math::Position(transform, prediction_data.position_new);
         }
     }
-
-    for(const KeyframeData& keyframe : m_keyframe_data)
-    {
-        math::Matrix& transform = m_transform_system->GetTransform(keyframe.entity_id);
-        transform = math::CreateMatrixFromZRotation(keyframe.rotation);
-        math::Position(transform, keyframe.position);
-    }
-
-    m_keyframe_data.clear();
 }
 
 bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
 {
-    m_prediction_data[transform_message.entity_id].is_predicting = true;
-    m_prediction_data[transform_message.entity_id].velocity = transform_message.velocity;
+    PredictionData& prediction_data = m_prediction_data[transform_message.entity_id];
 
-    KeyframeData keyframe;
-    keyframe.entity_id = transform_message.entity_id;
-    keyframe.position = transform_message.position;
-    keyframe.rotation = transform_message.rotation;
-    m_keyframe_data.push_back(keyframe);
+    if(transform_message.timestamp > prediction_data.timestamp_new)
+    {
+        prediction_data.time = 0;
+
+        prediction_data.timestamp_old = prediction_data.timestamp_new;
+        prediction_data.timestamp_new = transform_message.timestamp;
+
+        prediction_data.position_old = prediction_data.position_new;
+        prediction_data.position_new = transform_message.position;
+
+        prediction_data.rotation = transform_message.rotation;
+    }
 
     return false;
+}
+
+
+
+#include "Math/Quad.h"
+#include "Rendering/IRenderer.h"
+#include "Rendering/Color.h"
+
+PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictionSystem* prediction_system)
+    : m_prediction_system(prediction_system)
+{ }
+
+void PredictionSystemDebugDrawer::doDraw(mono::IRenderer& renderer) const
+{
+    std::vector<math::Vector> end_points;
+    std::vector<math::Vector> line_points;
+
+    for(const auto& prediction : m_prediction_system->m_prediction_data)
+    {
+        end_points.push_back(prediction.position_new);
+
+        line_points.push_back(prediction.position_old);
+        line_points.push_back(prediction.position_new);
+    }
+    
+    renderer.DrawLines(line_points, mono::Color::BLUE, 2.0f);
+    renderer.DrawPoints(end_points, mono::Color::GREEN, 4.0f);
+}
+
+math::Quad PredictionSystemDebugDrawer::BoundingBox() const
+{
+    return math::InfQuad;
 }

@@ -15,7 +15,6 @@ namespace
     {
         T decoded_message;
         const bool success = DeserializeMessage(network_message, decoded_message);
-        decoded_message.header.sender = sender;
         if(success)
             event_handler.DispatchEvent(decoded_message);
         return success;

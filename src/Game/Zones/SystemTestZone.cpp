@@ -96,7 +96,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
     AddUpdatable(
-        std::make_shared<NetworkReplicator>(transform_system, physics_system, sprite_system, entity_manager, m_server_manager.get()));
+        std::make_shared<NetworkReplicator>(transform_system, sprite_system, entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());

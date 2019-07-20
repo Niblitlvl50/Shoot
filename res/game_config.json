@@ -3,5 +3,6 @@
     "client_port": 2001,
     "server_port": 2002,
     "port_range_start": 21000,
-    "port_range_end": 22000
+    "port_range_end": 22000,
+    "server_replication_interval": 500
 }

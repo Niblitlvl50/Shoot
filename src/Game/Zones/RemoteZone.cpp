@@ -78,6 +78,12 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
 
+    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
+    hud_overlay->AddChild(std::make_shared<ClientStatusDrawer>(math::Vector(10.0f, 10.0f), m_client_manager.get()));
+    AddEntity(hud_overlay, UI);
+
+    const PositionPredictionSystem* prediction_system = m_system_context->GetSystem<PositionPredictionSystem>();
+    AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), GAMEOBJECTS_DEBUG);
 /*
     {
         file::FilePtr world_file = file::OpenBinaryFile("res/world.world");
@@ -89,9 +95,6 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
     }
     */
 
-    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddChild(std::make_shared<ClientStatusDrawer>(math::Vector(10.0f, 10.0f), m_client_manager.get()));
-    AddEntity(hud_overlay, UI);
 }
 
 int RemoteZone::OnUnload()

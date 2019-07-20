@@ -10,6 +10,7 @@ namespace game
         int server_port = 2101;
         int port_range_start = 21000;
         int port_range_end = 22000;
+        int server_replication_interval = 100; 
     };
 
     bool LoadConfig(const char* config_file, Config& config);

@@ -70,5 +70,6 @@ namespace game
         mono::EventToken<ConnectAcceptedMessage> m_connect_accepted_token;
 
         network::Address m_server_address;
+        network::Address m_client_address;
     };
 }

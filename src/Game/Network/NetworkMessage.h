@@ -15,16 +15,10 @@ using byte_view = std::basic_string_view<byte>;
 
 #define DECLARE_NETWORK_MESSAGE() \
     static constexpr uint32_t message_type  = __COUNTER__; \
-    NetworkMessageHeader header;
 
 namespace game
 {
     constexpr uint32_t NetworkMessageBufferSize = 1024;
-
-    struct NetworkMessageHeader
-    {
-        network::Address sender;
-    };
 
     struct NetworkMessage
     {
@@ -35,6 +29,7 @@ namespace game
     struct ServerBeaconMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        network::Address sender;
     };
 
     struct ServerQuitMessage
@@ -46,26 +41,31 @@ namespace game
     {
         DECLARE_NETWORK_MESSAGE();
         uint32_t local_time_stamp;
+        network::Address sender;
     };
 
     struct ConnectMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        network::Address sender;
     };
 
     struct ConnectAcceptedMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        network::Address sender;
     };
 
     struct DisconnectMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        network::Address sender;
     };
 
     struct HeartBeatMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        network::Address sender;
     };
 
     struct TextMessage
@@ -77,9 +77,9 @@ namespace game
     struct TransformMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        uint32_t timestamp;
         uint32_t entity_id;
         math::Vector position;
-        math::Vector velocity;
         float rotation;
     };
 
@@ -98,12 +98,13 @@ namespace game
         uint32_t hex_color;
         short animation_id;
         bool vertical_direction;
-        bool horizontal_direction; 
+        bool horizontal_direction;
     };
 
     struct RemoteInputMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        uint32_t id;
         System::ControllerState controller_state;
     };
 
@@ -147,7 +148,6 @@ namespace game
 
         std::printf("Network message sizes\n");
 
-        PRINT_NETWORK_MESSAGE_SIZE(NetworkMessageHeader);
         PRINT_NETWORK_MESSAGE_SIZE(ServerBeaconMessage);
         PRINT_NETWORK_MESSAGE_SIZE(ServerQuitMessage);
         PRINT_NETWORK_MESSAGE_SIZE(PingMessage);

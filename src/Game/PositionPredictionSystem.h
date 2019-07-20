@@ -7,6 +7,8 @@
 #include "Math/Vector.h"
 #include <vector>
 
+#include "Rendering/IDrawable.h"
+
 namespace mono
 {
     class TransformSystem;
@@ -31,22 +33,30 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         mono::EventHandler* m_event_handler;
+        mono::EventToken<TransformMessage> m_transform_token;
 
         struct PredictionData
         {
-            bool is_predicting;
-            math::Vector velocity;
-        };
-
-        struct KeyframeData
-        {
-            uint32_t entity_id;
-            math::Vector position;
+            uint32_t time;
+            uint32_t timestamp_old;
+            uint32_t timestamp_new;
+            math::Vector position_old;
+            math::Vector position_new;
             float rotation;
         };
 
         std::vector<PredictionData> m_prediction_data;
-        std::vector<KeyframeData> m_keyframe_data;
-        mono::EventToken<TransformMessage> m_transform_token;
+    };
+
+
+    class PredictionSystemDebugDrawer : public mono::IDrawable
+    {
+    public:
+
+        PredictionSystemDebugDrawer(const PositionPredictionSystem* prediction_system);
+        void doDraw(mono::IRenderer& renderer) const;
+        math::Quad BoundingBox() const;
+
+        const PositionPredictionSystem* m_prediction_system;
     };
 }

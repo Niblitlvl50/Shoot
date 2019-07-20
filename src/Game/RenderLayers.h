@@ -8,7 +8,7 @@ namespace game
         BACKGROUND,
         BACKGROUND_DECALS,
         GAMEOBJECTS,
-        PREFABS,
+        GAMEOBJECTS_DEBUG,
         UI
     };
 }

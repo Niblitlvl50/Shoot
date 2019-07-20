@@ -6,8 +6,6 @@
 
 #include "EntitySystem.h"
 #include "TransformSystem.h"
-#include "Physics/PhysicsSystem.h"
-#include "Physics/IBody.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 
@@ -25,27 +23,24 @@ using namespace game;
 
 NetworkReplicator::NetworkReplicator(
     mono::TransformSystem* transform_system,
-    mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     IEntityManager* entity_manager,
-    INetworkPipe* remote_connection)
+    INetworkPipe* remote_connection,
+    uint32_t replication_interval)
     : m_transform_system(transform_system)
-    , m_physics_system(physics_system)
     , m_sprite_system(sprite_system)
     , m_entity_manager(entity_manager)
     , m_remote_connection(remote_connection)
+    , m_replication_interval(replication_interval)
+    , m_replicate_timer(0)
 {
     std::memset(&m_transform_messages, 0, std::size(m_transform_messages) * sizeof(TransformMessage));
     std::memset(&m_sprite_messages, 0, std::size(m_sprite_messages) * sizeof(SpriteMessage));
-
-    m_replicate_timer = 0;
 }
 
 void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
-
-    m_replicate_timer += update_context.delta_ms;
 
     int total_transforms = 0;
     int replicated_transforms = 0;
@@ -64,26 +59,47 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         batch_sender.SendMessage(spawn_message);
     }
 
+    uint32_t start_id = 0;
+    uint32_t end_id = 512;
+
+/*
+    if(update_context.frame_count % 2 == 0)
+    {
+        start_id = 0;
+        end_id = 512 / 2;
+    }
+    else
+    {
+        start_id = 512 / 2;
+        end_id = 512;
+    }
+ */
+
     const auto transform_func =
-        [this, &total_transforms, &replicated_transforms, &batch_sender](const math::Matrix& transform, uint32_t id) {
+        [this, &total_transforms, &replicated_transforms, &batch_sender, start_id, end_id, &update_context]
+            (const math::Matrix& transform, uint32_t id) {
+
+        if(id < start_id || id > end_id)
+            return;
 
         TransformMessage transform_message;
+        transform_message.timestamp = update_context.total_time;
         transform_message.entity_id = id;
         transform_message.position = math::GetPosition(transform);
         transform_message.rotation = math::GetZRotation(transform);
 
-        const mono::IBody* body = m_physics_system->GetBody(id);
-        if(body)
-            transform_message.velocity = body->GetVelocity();
+        //const mono::IBody* body = m_physics_system->GetBody(id);
+        //if(body)
+        //    transform_message.velocity = body->GetVelocity();
 
         total_transforms++;
 
         const TransformMessage& last_transform_message = m_transform_messages[id];
         const bool same =
             math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
-            math::IsPrettyMuchEquals(last_transform_message.velocity, transform_message.velocity, 0.001f) &&
+            //math::IsPrettyMuchEquals(last_transform_message.velocity, transform_message.velocity, 0.001f) &&
             math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
-        if(!same)
+        if(!same || true)
         {
             batch_sender.SendMessage(transform_message);
             m_transform_messages[id] = transform_message;
@@ -91,12 +107,12 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         }
     };
 
-
-    if(m_replicate_timer >= 50)
+    m_replicate_timer += update_context.delta_ms;
+    if(m_replicate_timer > m_replication_interval)
     {
         m_transform_system->ForEachTransform(transform_func);
         m_replicate_timer = 0;
-    }   
+    }
 
     const auto sprite_func =
         [this, &total_sprites, &replicated_sprites, &batch_sender](mono::ISprite* sprite, uint32_t id) {
@@ -105,8 +121,8 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         sprite_message.entity_id = id;
         sprite_message.filename_hash = sprite->GetSpriteHash();
         sprite_message.hex_color = mono::Color::ToHex(sprite->GetShade());
-        sprite_message.vertical_direction = (int)sprite->GetVerticalDirection();
-        sprite_message.horizontal_direction = (int)sprite->GetHorizontalDirection();
+        sprite_message.vertical_direction = (short)sprite->GetVerticalDirection();
+        sprite_message.horizontal_direction = (short)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();
 
         total_sprites++;

@@ -18,6 +18,8 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     , m_dispatcher(*event_handler)
     , m_beacon_timer(0)
 {
+    PrintNetworkMessageSize();
+
     using namespace std::placeholders;
 
     const std::function<bool (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
@@ -98,7 +100,7 @@ bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 {
     NetworkMessage message;
     message.payload = SerializeMessage(ping_message);
-    SendMessageTo(message, ping_message.header.sender);
+    SendMessageTo(message, ping_message.sender);
 
     return true;
 }
@@ -106,20 +108,20 @@ bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 {
     ClientData client_data;
-    client_data.address = message.header.sender;
+    client_data.address = message.sender;
     client_data.heartbeat_timestamp = System::GetMilliseconds();
 
-    const auto insert_result = m_connected_clients.insert(std::make_pair(message.header.sender, client_data));
+    const auto insert_result = m_connected_clients.insert(std::make_pair(message.sender, client_data));
     if(insert_result.second)
     {
-        const std::string& address_string = network::AddressToString(message.header.sender);
+        const std::string& address_string = network::AddressToString(message.sender);
         std::printf("ServerManager|Client connected: %s\n", address_string.c_str());
 
         NetworkMessage reply_message;
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
-        SendMessageTo(reply_message, message.header.sender);
+        SendMessageTo(reply_message, message.sender);
 
-        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.header.sender.host));
+        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.sender.host));
     }
     else
     {
@@ -132,15 +134,15 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 bool ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
     std::printf("ServerManager|Disconnect client\n");
-    m_connected_clients.erase(message.header.sender);
-    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.header.sender.host));
+    m_connected_clients.erase(message.sender);
+    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender.host));
 
     return false;
 }
 
 bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
 {
-    auto client_it = m_connected_clients.find(message.header.sender);
+    auto client_it = m_connected_clients.find(message.sender);
     if(client_it != m_connected_clients.end())
         client_it->second.heartbeat_timestamp = System::GetMilliseconds();
     else
@@ -181,8 +183,11 @@ void ServerManager::doUpdate(const mono::UpdateContext& update_context)
 
     if(m_beacon_timer >= 100)
     {
+        ServerBeaconMessage beacon_message;
+        beacon_message.sender = m_server_address;
+
         NetworkMessage message;
-        message.payload = SerializeMessage(ServerBeaconMessage());
+        message.payload = SerializeMessage(beacon_message);
         SendMessage(message);
 
         m_beacon_timer = 0;
