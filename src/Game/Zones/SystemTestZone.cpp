@@ -142,7 +142,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<PhysicsStatsElement>(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
-    hud_overlay->AddChild(std::make_shared<ServerStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+    hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
     AddEntity(hud_overlay, LayerId::UI);
 }
 

@@ -31,6 +31,7 @@ namespace game
 
         void SendMessage(const struct NetworkMessage& message) override;
         void SendMessageTo(const NetworkMessage& message, const network::Address& address) override;
+        ConnectionInfo GetConnectionInfo() const override;
 
         void Disconnect();
 

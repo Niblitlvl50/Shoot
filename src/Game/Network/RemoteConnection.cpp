@@ -67,15 +67,16 @@ namespace
                     {
                         std::printf("RemoteConnection|Failed to compress message.\n");
                     }
-                    else if(compressed_size > message.payload.size())
-                    {
-                        std::printf(
-                            "RemoteConnection|Compressed size(%lu) is more than uncompressed(%lu)!!!\n",
-                            compressed_size,
-                            message.payload.size());
-                    }
                     else
                     {
+                        if(compressed_size > message.payload.size())
+                        {
+                            std::printf(
+                                "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!!\n",
+                                compressed_size,
+                                message.payload.size());
+                        }
+
                         if(socket->Send(compressed_bytes.data(), compressed_size, message.address))
                         {
                             connection_stats.total_packages_sent++;

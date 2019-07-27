@@ -4,6 +4,8 @@
 #include "IUpdatable.h"
 #include "NetworkMessage.h"
 
+#include <queue>
+
 class IEntityManager;
 
 namespace mono
@@ -36,12 +38,26 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         IEntityManager* m_entity_manager;
         INetworkPipe* m_remote_connection;
-
-        TransformMessage m_transform_messages[500];
-        SpriteMessage m_sprite_messages[500];
-
         uint32_t m_replication_interval;
-        uint32_t m_replicate_timer;
+        uint32_t m_keyframe_index;
+
+        struct TransformData
+        {
+            int time_to_replicate;
+            math::Vector position;
+            float rotation;
+        } m_transform_data[500];
+
+        struct SpriteData
+        {
+            int time_to_replicate;
+            uint32_t hex_color;
+            short animation_id;
+            bool vertical_direction;
+            bool horizontal_direction;
+        } m_sprite_data[500];
+
+        std::queue<NetworkMessage> m_message_queue;
     };
 
     class ClientReplicator : public mono::IUpdatable

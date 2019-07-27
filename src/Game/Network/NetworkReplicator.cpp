@@ -32,15 +32,31 @@ NetworkReplicator::NetworkReplicator(
     , m_entity_manager(entity_manager)
     , m_remote_connection(remote_connection)
     , m_replication_interval(replication_interval)
-    , m_replicate_timer(0)
 {
-    std::memset(&m_transform_messages, 0, std::size(m_transform_messages) * sizeof(TransformMessage));
-    std::memset(&m_sprite_messages, 0, std::size(m_sprite_messages) * sizeof(SpriteMessage));
+    std::memset(&m_transform_data, 0, std::size(m_transform_data) * sizeof(TransformData));
+    std::memset(&m_sprite_data, 0, std::size(m_sprite_data) * sizeof(SpriteData));
+
+    const float replication_delta = float(replication_interval) / 500.0f;
+
+    for(int index = 0; index < 500; ++index)
+    {
+        TransformData& transform_data = m_transform_data[index];
+        transform_data.time_to_replicate = replication_delta * index;
+
+        SpriteData& sprite_data = m_sprite_data[index];
+        sprite_data.time_to_replicate = replication_delta * index;
+    }
+
+    m_keyframe_index = 0;
 }
 
 void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
+
+    m_keyframe_index++;
+    if(m_keyframe_index > 500)
+        m_keyframe_index = 0;
 
     int total_transforms = 0;
     int replicated_transforms = 0;
@@ -48,7 +64,7 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
     int total_sprites = 0;
     int replicated_sprites = 0;
 
-    BatchedMessageSender batch_sender(m_remote_connection);
+    BatchedMessageSender batch_sender(m_message_queue);
 
     for(const IEntityManager::SpawnEvent& spawn_event : m_entity_manager->GetSpawnEvents())
     {
@@ -59,28 +75,8 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
         batch_sender.SendMessage(spawn_message);
     }
 
-    uint32_t start_id = 0;
-    uint32_t end_id = 512;
-
-/*
-    if(update_context.frame_count % 2 == 0)
-    {
-        start_id = 0;
-        end_id = 512 / 2;
-    }
-    else
-    {
-        start_id = 512 / 2;
-        end_id = 512;
-    }
- */
-
     const auto transform_func =
-        [this, &total_transforms, &replicated_transforms, &batch_sender, start_id, end_id, &update_context]
-            (const math::Matrix& transform, uint32_t id) {
-
-        if(id < start_id || id > end_id)
-            return;
+        [this, &total_transforms, &replicated_transforms, &batch_sender, &update_context](const math::Matrix& transform, uint32_t id) {
 
         TransformMessage transform_message;
         transform_message.timestamp = update_context.total_time;
@@ -90,27 +86,31 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 
         total_transforms++;
 
-        const TransformMessage& last_transform_message = m_transform_messages[id];
+        TransformData& last_transform_message = m_transform_data[id];
+        last_transform_message.time_to_replicate -= update_context.delta_ms;
+
+        const bool time_to_replicate = (last_transform_message.time_to_replicate < 0);
         const bool same =
             math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
             math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
-        if(!same || true)
+        const bool keyframe = (m_keyframe_index == id);
+
+        if((time_to_replicate && !same) || keyframe)
         {
             batch_sender.SendMessage(transform_message);
-            m_transform_messages[id] = transform_message;
+
+            last_transform_message.position = transform_message.position;
+            last_transform_message.rotation = transform_message.rotation;
+            last_transform_message.time_to_replicate = m_replication_interval;
+
             replicated_transforms++;
-        }
+       }
     };
 
-    m_replicate_timer += update_context.delta_ms;
-    if(m_replicate_timer > m_replication_interval)
-    {
-        m_transform_system->ForEachTransform(transform_func);
-        m_replicate_timer = 0;
-    }
+    m_transform_system->ForEachTransform(transform_func);
 
     const auto sprite_func =
-        [this, &total_sprites, &replicated_sprites, &batch_sender](mono::ISprite* sprite, uint32_t id) {
+        [this, &total_sprites, &replicated_sprites, &batch_sender, &update_context](mono::ISprite* sprite, uint32_t id) {
 
         SpriteMessage sprite_message;
         sprite_message.entity_id = id;
@@ -122,19 +122,41 @@ void NetworkReplicator::doUpdate(const mono::UpdateContext& update_context)
 
         total_sprites++;
 
-        const bool same = std::memcmp(&m_sprite_messages[id], &sprite_message, sizeof(SpriteMessage)) == 0;
-        if(!same)
+        SpriteData& last_sprite_data = m_sprite_data[id];
+        last_sprite_data.time_to_replicate -= update_context.delta_ms;
+
+        const bool time_to_replicate = (last_sprite_data.time_to_replicate < 0);
+        const bool same =
+            last_sprite_data.animation_id == sprite_message.animation_id &&
+            last_sprite_data.hex_color == sprite_message.hex_color &&
+            last_sprite_data.vertical_direction == sprite_message.vertical_direction &&
+            last_sprite_data.horizontal_direction == sprite_message.horizontal_direction;
+        const bool keyframe = (m_keyframe_index == id);
+
+        if((time_to_replicate && !same) || keyframe)
         {
             batch_sender.SendMessage(sprite_message);
-            m_sprite_messages[id] = sprite_message;
+            
+            last_sprite_data.animation_id = sprite_message.animation_id;
+            last_sprite_data.hex_color = sprite_message.hex_color;
+            last_sprite_data.vertical_direction = sprite_message.vertical_direction;
+            last_sprite_data.horizontal_direction = sprite_message.horizontal_direction;
+            last_sprite_data.time_to_replicate = m_replication_interval;
+
             replicated_sprites++;
         }
     };
 
     m_sprite_system->ForEachSprite(sprite_func);
 
-//    std::printf(
-//        "transforms %d/%d, sprites %d/%d\n", replicated_transforms, total_transforms, replicated_sprites, total_sprites);
+    for(int index = 0; index < 5 && !m_message_queue.empty(); ++index)
+    {
+        m_remote_connection->SendMessage(m_message_queue.front());
+        m_message_queue.pop();
+    }
+
+    std::printf(
+        "keyframe %u, transforms %d/%d, sprites %d/%d\n", m_keyframe_index, replicated_transforms, total_transforms, replicated_sprites, total_sprites);
 }
 
 

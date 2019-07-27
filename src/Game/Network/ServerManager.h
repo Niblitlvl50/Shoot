@@ -55,6 +55,7 @@ namespace game
 
         void SendMessage(const NetworkMessage& message) override;
         void SendMessageTo(const NetworkMessage& message, const network::Address& address) override;
+        ConnectionInfo GetConnectionInfo() const override;
 
         void QuitServer();
         std::vector<ClientData> GetConnectedClients() const;

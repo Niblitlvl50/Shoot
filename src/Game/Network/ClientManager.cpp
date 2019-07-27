@@ -80,6 +80,15 @@ void ClientManager::SendMessageTo(const NetworkMessage& message, const network::
     m_remote_connection->SendMessage(message);
 }
 
+ConnectionInfo ClientManager::GetConnectionInfo() const
+{
+    ConnectionInfo info;
+    info.stats = m_remote_connection->GetConnectionStats();
+    info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
+
+    return info;
+}
+
 void ClientManager::Disconnect()
 {
     DisconnectMessage disconnect_message;

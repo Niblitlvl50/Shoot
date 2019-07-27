@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "INetworkPipe.h"
 #include "NetworkMessage.h"
 
 namespace game
@@ -10,35 +9,35 @@ namespace game
     {
     public:
 
-        BatchedMessageSender(game::INetworkPipe* network_pipe)
-            : m_network_pipe(network_pipe)
+        BatchedMessageSender(std::queue<NetworkMessage>& out_messages)
+            : m_out_messages(out_messages)
         {
-            PrepareMessageBuffer(m_out_message.payload);
+            PrepareMessageBuffer(m_network_message.payload);
         }
 
         ~BatchedMessageSender()
         {
-            if(!m_out_message.payload.empty())
-                m_network_pipe->SendMessage(m_out_message);
+            if(!m_network_message.payload.empty())
+                m_out_messages.push(m_network_message);
         }
 
         template <typename T>
         void SendMessage(const T& message)
         {
-            const bool success = SerializeMessageToBuffer(message, m_out_message.payload);
+            const bool success = SerializeMessageToBuffer(message, m_network_message.payload);
             if(!success)
             {
-                m_network_pipe->SendMessage(m_out_message);
-                m_out_message.payload.clear();
-                PrepareMessageBuffer(m_out_message.payload);
-            
-                SerializeMessageToBuffer(message, m_out_message.payload);
+                m_out_messages.push(m_network_message);
+
+                m_network_message.payload.clear();
+                PrepareMessageBuffer(m_network_message.payload);
+                SerializeMessageToBuffer(message, m_network_message.payload);
             }
         }
 
     private:
 
-        game::INetworkPipe* m_network_pipe;
-        NetworkMessage m_out_message;
+        std::queue<NetworkMessage>& m_out_messages;
+        NetworkMessage m_network_message;
     };
 }

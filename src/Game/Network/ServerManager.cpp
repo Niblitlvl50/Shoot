@@ -73,6 +73,17 @@ void ServerManager::SendMessageTo(const NetworkMessage& message, const network::
     m_remote_connection->SendMessage(message);
 }
 
+ConnectionInfo ServerManager::GetConnectionInfo() const
+{
+    ConnectionInfo info;
+    info.stats = m_remote_connection->GetConnectionStats();
+
+    for(const auto& pair : m_connected_clients)
+        info.additional_info.push_back(network::AddressToString(pair.first));
+
+    return info;
+}
+
 void ServerManager::QuitServer()
 {
     NetworkMessage message;

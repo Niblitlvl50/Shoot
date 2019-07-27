@@ -70,7 +70,6 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
 
             const float delta_rotation = prediction_data.rotation_new - prediction_data.rotation_old;
             predicted_rotation = prediction_data.rotation_old + (delta_rotation * t);
-
         }
 
         math::Matrix& transform = m_transform_system->GetTransform(index);
@@ -85,12 +84,26 @@ bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
 
     if(transform_message.timestamp > prediction_data.timestamp_new)
     {
+        const math::Matrix& transform = m_transform_system->GetTransform(transform_message.entity_id);
+        const math::Vector& actual_position = math::GetPosition(transform);
+
+        math::Vector new_old_position = prediction_data.position_new;
+        const float distance_to_actual_position = math::Length(actual_position - new_old_position);
+        if(distance_to_actual_position < 0.5f)
+        {
+            new_old_position = actual_position;
+        }
+        else
+        {
+            std::printf("Using new incomming position as old, meaning the prediction has gone too far.\n");
+        }
+
         prediction_data.time = 0;
 
         prediction_data.timestamp_old = prediction_data.timestamp_new;
         prediction_data.timestamp_new = transform_message.timestamp;
 
-        prediction_data.position_old = prediction_data.position_new;
+        prediction_data.position_old = new_old_position;
         prediction_data.position_new = transform_message.position;
 
         prediction_data.rotation_old = prediction_data.rotation_new;

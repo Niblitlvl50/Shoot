@@ -1027,7 +1027,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 6
                         },
                         {
                             "id": 2508680735,
@@ -1138,7 +1138,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 6
                         },
                         {
                             "id": 2508680735,
@@ -1249,7 +1249,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 6
                         },
                         {
                             "id": 2508680735,
@@ -1285,8 +1285,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 18.803512573242188,
-                                "y": 46.87628173828125
+                                "x": 19.489334106445313,
+                                "y": 37.04621124267578
                             }
                         },
                         {
@@ -1360,7 +1360,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 6
                         },
                         {
                             "id": 2508680735,
