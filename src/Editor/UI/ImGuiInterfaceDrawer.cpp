@@ -237,7 +237,7 @@ void ImGuiInterfaceDrawer::doUpdate(const mono::UpdateContext& update_context)
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
-    //ImGui::ShowTestWindow();
+    //ImGui::ShowDemoWindow();
     ImGui::Render();
 
     // Update UI stuff below
