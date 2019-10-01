@@ -39,7 +39,7 @@
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/CameraViewportReporter.h"
 #include "UpdateTasks/PickupUpdater.h"
-#include "Network/NetworkReplicator.h"
+#include "Network/ClientReplicator.h"
 
 #include "Audio/AudioFactory.h"
 #include "Physics/IBody.h"
@@ -55,7 +55,7 @@ TestZone::TestZone(const ZoneCreationContext& context)
     , m_game_config(*context.game_config)
     , m_event_handler(*context.event_handler)
     , m_system_context(context.system_context)
-    , m_dispatcher(std::make_shared<MessageDispatcher>(*context.event_handler))
+    , m_dispatcher(std::make_shared<MessageDispatcher>(context.event_handler))
 {
     using namespace std::placeholders;
     

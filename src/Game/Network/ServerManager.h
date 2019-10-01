@@ -8,6 +8,8 @@
 #include "Network/INetworkPipe.h"
 #include "MessageDispatcher.h"
 
+#include "Math/Quad.h"
+
 #include <unordered_map>
 #include <memory>
 
@@ -37,13 +39,14 @@ namespace game
     struct ConnectMessage;
     struct DisconnectMessage;
     struct HeartBeatMessage;
+    struct ViewportMessage;
 
     struct Config;
 
     struct ClientData
     {
-        network::Address address;
         uint32_t heartbeat_timestamp;
+        math::Quad viewport;
     };
 
     class ServerManager : public mono::IUpdatable, public INetworkPipe
@@ -58,7 +61,7 @@ namespace game
         ConnectionInfo GetConnectionInfo() const override;
 
         void QuitServer();
-        std::vector<ClientData> GetConnectedClients() const;
+        const std::unordered_map<network::Address, ClientData>& GetConnectedClients() const;
         const struct ConnectionStats& GetConnectionStats() const;
 
     private:
@@ -69,6 +72,7 @@ namespace game
         bool HandleConnectMessage(const ConnectMessage& message);
         bool HandleDisconnectMessage(const DisconnectMessage& message);
         bool HandleHeartBeatMessage(const HeartBeatMessage& message);
+        bool HandleViewportMessage(const ViewportMessage& message);
 
         void doUpdate(const mono::UpdateContext& update_context) override;
 
@@ -76,7 +80,7 @@ namespace game
         const game::Config* m_game_config;
         MessageDispatcher m_dispatcher;
         std::unique_ptr<class RemoteConnection> m_remote_connection;
-        network::Address m_out_address;
+        network::Address m_broadcast_address;
         network::Address m_server_address;
         uint32_t m_beacon_timer;
 
@@ -86,5 +90,6 @@ namespace game
         mono::EventToken<ConnectMessage> m_connect_token;
         mono::EventToken<DisconnectMessage> m_disconnect_token;
         mono::EventToken<HeartBeatMessage> m_heartbeat_token;
+        mono::EventToken<ViewportMessage> m_viewport_token;
     };
 }

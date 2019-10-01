@@ -37,6 +37,8 @@ namespace game
 
         ClientStatus GetConnectionStatus() const;
         const struct ConnectionStats& GetConnectionStats() const;
+        const network::Address& GetClientAddress() const;
+        const network::Address& GetServerAddress() const;
         uint32_t GetServerPing() const;
 
     private:

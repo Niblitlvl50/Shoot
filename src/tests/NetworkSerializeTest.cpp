@@ -3,6 +3,7 @@
 
 #include "System/Network.h"
 #include "Network/NetworkMessage.h"
+#include "Network/NetworkSerialize.h"
 
 TEST(Network, SingleSerialize)
 {
@@ -27,7 +28,7 @@ TEST(Network, SingleSerialize)
 
 TEST(Network, BatchSerialize)
 {
-    EXPECT_EQ(1024u, game::NetworkMessageBufferSize);
+    EXPECT_EQ(1024u, game::NetworkMessageBufferTotalSize);
 
     game::PingMessage ping_message1;
     ping_message1.local_time_stamp = 777;
@@ -49,12 +50,11 @@ TEST(Network, BatchSerialize)
     EXPECT_TRUE(game::SerializeMessageToBuffer(text_message1, message_buffer));
     EXPECT_TRUE(game::SerializeMessageToBuffer(text_message2, message_buffer));
 
-    uint32_t batch_id = -1;
-    uint32_t batch_n_messages = 0;
-    game::GetMessageBufferHeader(message_buffer, batch_id, batch_n_messages);
+    const game::NetworkMessageHeader header = game::GetMessageBufferHeader(message_buffer);
 
-    EXPECT_EQ(0u, batch_id);
-    EXPECT_EQ(4u, batch_n_messages);
+    EXPECT_EQ(0u, header.id);
+    //EXPECT_EQ(0, header.is_buffer_compressed);
+    EXPECT_EQ(4u, header.n_messages);
 
     const std::vector<byte_view> message_views = game::UnpackMessageBuffer(message_buffer);
     EXPECT_EQ(4u, message_views.size());

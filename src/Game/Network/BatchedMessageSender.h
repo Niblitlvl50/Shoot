@@ -9,10 +9,11 @@ namespace game
     {
     public:
 
-        BatchedMessageSender(std::queue<NetworkMessage>& out_messages)
+        BatchedMessageSender(const network::Address& address, std::queue<NetworkMessage>& out_messages)
             : m_out_messages(out_messages)
         {
             PrepareMessageBuffer(m_network_message.payload);
+            m_network_message.address = address;
         }
 
         ~BatchedMessageSender()

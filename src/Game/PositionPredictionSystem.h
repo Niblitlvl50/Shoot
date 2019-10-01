@@ -38,12 +38,15 @@ namespace game
         struct PredictionData
         {
             uint32_t time;
-            uint32_t timestamp_old;
-            uint32_t timestamp_new;
-            math::Vector position_old;
-            math::Vector position_new;
-            float rotation_old;
-            float rotation_new;
+            uint32_t timestamp_start;
+            uint32_t timestamp_end;
+            math::Vector position_start;
+            math::Vector position_end;
+            float rotation_start;
+            float rotation_end;
+
+            // For debug
+            float t;
         };
 
         std::vector<PredictionData> m_prediction_data;

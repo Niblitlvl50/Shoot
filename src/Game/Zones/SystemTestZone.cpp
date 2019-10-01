@@ -12,6 +12,7 @@
 #include "Physics/PhysicsDebugDrawer.h"
 
 #include "SystemContext.h"
+#include "EntitySystem.h"
 #include "TransformSystem.h"
 #include "Util/Random.h"
 
@@ -26,12 +27,13 @@
 #include "Hud/ConsoleDrawer.h"
 #include "Hud/Healthbar.h"
 #include "Hud/NetworkStatusDrawer.h"
+#include "Hud/ClientViewportVisualizer.h"
 
 #include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "Network/ServerManager.h"
-#include "Network/NetworkReplicator.h"
+#include "Network/ServerReplicator.h"
 #include "Network/NetworkMessage.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
@@ -48,6 +50,8 @@
 #include "Player/PlayerDaemon.h"
 
 #include "WorldFile.h"
+
+#include "Camera/ICamera.h"
 
 using namespace game;
 
@@ -72,10 +76,12 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     const game::SpawnConstraintFunc& spawn_constraint_func = std::bind(&SystemTestZone::SpawnConstraint, this, _1);
     const game::DespawnConstraintFunc& despawn_constraint_func = std::bind(&SystemTestZone::DespawnConstraint, this, _1);
     const std::function<bool (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
+    const std::function<bool (const RemoteCameraMessage&)> camera_func = std::bind(&SystemTestZone::HandleRemoteCamera, this, _1);
 
     m_spawn_constraint_token = m_event_handler->AddListener(spawn_constraint_func);
     m_despawn_constraint_token = m_event_handler->AddListener(despawn_constraint_func);
     m_text_func_token = m_event_handler->AddListener(text_func);
+    m_camera_func_token = m_event_handler->AddListener(camera_func);
 }
 
 SystemTestZone::~SystemTestZone()
@@ -83,10 +89,14 @@ SystemTestZone::~SystemTestZone()
     m_event_handler->RemoveListener(m_spawn_constraint_token);
     m_event_handler->RemoveListener(m_despawn_constraint_token);
     m_event_handler->RemoveListener(m_text_func_token);
+    m_event_handler->RemoveListener(m_camera_func_token);
 }
 
 void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    m_camera = camera;
+
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
@@ -96,12 +106,14 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
     AddUpdatable(
-        std::make_shared<NetworkReplicator>(transform_system, sprite_system, entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
+        std::make_shared<ServerReplicator>(entity_system, transform_system, sprite_system, entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, *m_event_handler));
+
+    AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<WaveDrawer>(*m_event_handler), LayerId::UI);
     m_console_drawer = std::make_shared<ConsoleDrawer>();
@@ -130,8 +142,8 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
         //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), UI);
     }
 
-    std::vector<math::Vector> player_points;
-    m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_system_context, *m_event_handler);
+    //std::vector<math::Vector> player_points;
+    //m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_system_context, *m_event_handler);
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
     //AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(physics_system), UI);
@@ -168,5 +180,12 @@ bool SystemTestZone::DespawnConstraint(const game::DespawnConstraintEvent& event
 bool SystemTestZone::HandleText(const TextMessage& text_message)
 {
     m_console_drawer->AddText(text_message.text, 1500);
+    return true;
+}
+
+bool SystemTestZone::HandleRemoteCamera(const RemoteCameraMessage& message)
+{
+    //m_camera->SetPosition(message.position);
+    //m_camera->SetViewport(message.viewport);
     return true;
 }

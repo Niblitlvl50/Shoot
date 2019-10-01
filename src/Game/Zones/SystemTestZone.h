@@ -28,6 +28,9 @@ namespace game
         bool SpawnConstraint(const game::SpawnConstraintEvent& event);
         bool DespawnConstraint(const game::DespawnConstraintEvent& event);
         bool HandleText(const struct TextMessage& text_message);
+        bool HandleRemoteCamera(const struct RemoteCameraMessage& message);
+
+        mono::ICameraPtr m_camera;
 
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
@@ -45,5 +48,6 @@ namespace game
         mono::EventToken<game::SpawnConstraintEvent> m_spawn_constraint_token;
         mono::EventToken<game::DespawnConstraintEvent> m_despawn_constraint_token;
         mono::EventToken<game::TextMessage> m_text_func_token;
+        mono::EventToken<game::RemoteCameraMessage> m_camera_func_token;
     };
 }

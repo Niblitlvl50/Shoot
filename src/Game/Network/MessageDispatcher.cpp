@@ -1,6 +1,7 @@
 
 #include "MessageDispatcher.h"
 #include "NetworkMessage.h"
+#include "NetworkSerialize.h"
 
 #include "EventHandler/EventHandler.h"
 
@@ -11,12 +12,12 @@ using namespace game;
 namespace
 {
     template <typename T>
-    bool HandleMessage(const byte_view& network_message, const network::Address& sender, mono::EventHandler& event_handler)
+    bool HandleMessage(const byte_view& network_message, const network::Address& sender, mono::EventHandler* event_handler)
     {
         T decoded_message;
         const bool success = DeserializeMessage(network_message, decoded_message);
         if(success)
-            event_handler.DispatchEvent(decoded_message);
+            event_handler->DispatchEvent(decoded_message);
         return success;
     }
 }
@@ -24,7 +25,7 @@ namespace
 #define REGISTER_MESSAGE_HANDLER(message) \
     m_handlers[message::message_type] = HandleMessage<message>;
 
-MessageDispatcher::MessageDispatcher(mono::EventHandler& event_handler)
+MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     : m_event_handler(event_handler)
     , m_push_messages(&m_message_buffer_1)
 {
@@ -41,6 +42,8 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler& event_handler)
     REGISTER_MESSAGE_HANDLER(SpawnMessage);
     REGISTER_MESSAGE_HANDLER(SpriteMessage);
     REGISTER_MESSAGE_HANDLER(RemoteInputMessage);
+    REGISTER_MESSAGE_HANDLER(RemoteCameraMessage);
+    REGISTER_MESSAGE_HANDLER(ViewportMessage);
 }
 
 void MessageDispatcher::PushNewMessage(const NetworkMessage& message)

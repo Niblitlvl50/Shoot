@@ -1,6 +1,7 @@
 
 #include "RemoteConnection.h"
 #include "MessageDispatcher.h"
+#include "NetworkSerialize.h"
 
 #include <algorithm>
 
@@ -14,10 +15,10 @@ namespace
         network::ISocket* socket, MessageDispatcher* dispatcher, ConnectionStats& connection_stats, bool& stop)
     {
         unsigned char huffbuf_heap[HUFFHEAP_SIZE];
-        std::vector<byte> message_buffer(NetworkMessageBufferSize, '\0');
+        std::vector<byte> message_buffer(NetworkMessageBufferTotalSize, '\0');
 
         NetworkMessage message;
-        message.payload.resize(NetworkMessageBufferSize);
+        message.payload.resize(NetworkMessageBufferTotalSize);
 
         while(!stop)
         {
@@ -50,15 +51,16 @@ namespace
         unsigned char huffbuf_heap[HUFFHEAP_SIZE];
 
         std::vector<byte> compressed_bytes;
-        compressed_bytes.resize(NetworkMessageBufferSize, '\0');
+        compressed_bytes.resize(NetworkMessageBufferTotalSize, '\0');
 
         while(!stop)
         {
             bool no_messages = true;
 
             {
-                std::lock_guard<std::mutex> lock(out_messages->message_mutex);
-                for(const NetworkMessage& message : out_messages->unhandled_messages)
+                const std::lock_guard<std::mutex> lock(out_messages->message_mutex);
+
+                for(const RemoteConnection::Message& message : out_messages->unhandled_messages)
                 {
                     const unsigned long compressed_size = huffman_compress(
                         message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
@@ -66,18 +68,25 @@ namespace
                     if(compressed_size == 0)
                     {
                         std::printf("RemoteConnection|Failed to compress message.\n");
+                        continue;
                     }
-                    else
-                    {
-                        if(compressed_size > message.payload.size())
-                        {
-                            std::printf(
-                                "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!!\n",
-                                compressed_size,
-                                message.payload.size());
-                        }
 
-                        if(socket->Send(compressed_bytes.data(), compressed_size, message.address))
+                    if(compressed_size > message.payload.size())
+                    {
+                        /*
+                        const float compression_ratio = float(compressed_size) / float(message.payload.size());
+                        std::printf(
+                            "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu\n",
+                            compressed_size,
+                            message.payload.size(), 
+                            compression_ratio,
+                            compressed_size - message.payload.size());
+                            */
+                    }
+
+                    for(const network::Address& address : message.addresses)
+                    {
+                        if(socket->Send(compressed_bytes.data(), compressed_size, address))
                         {
                             connection_stats.total_packages_sent++;
                             connection_stats.total_byte_sent += message.payload.size();
@@ -99,6 +108,7 @@ namespace
 RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISocketPtr socket)
     : m_stop(false)
     , m_socket(std::move(socket))
+    , m_sequence_id(0)
 {
     m_stats = { 0, 0, 0, 0, 0, 0 };
     m_receive_thread = std::thread(ReceiveFunc, m_socket.get(), dispatcher, std::ref(m_stats), std::ref(m_stop));
@@ -112,10 +122,24 @@ RemoteConnection::~RemoteConnection()
     m_send_thread.join();
 }
 
-void RemoteConnection::SendMessage(const NetworkMessage& message)
+void RemoteConnection::SendData(const std::vector<byte>& data, const network::Address& target)
+{
+    const std::vector<network::Address> addresses = { target };
+    SendData(data, addresses);
+}
+
+void RemoteConnection::SendData(const std::vector<byte>& data, const std::vector<network::Address>& addresses)
 {
     std::lock_guard<std::mutex> lock(m_messages.message_mutex);
-    m_messages.unhandled_messages.push_back(message);
+
+    ++m_sequence_id;
+
+    std::vector<byte>& mutable_data = const_cast<std::vector<byte>&>(data);
+    NetworkMessageHeader header = GetMessageBufferHeader(mutable_data);
+    header.id = m_sequence_id;
+    SetMessageBufferHeader(mutable_data, header);
+
+    m_messages.unhandled_messages.push_back({ data, addresses });
 }
 
 const ConnectionStats& RemoteConnection::GetConnectionStats() const

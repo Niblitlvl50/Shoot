@@ -129,6 +129,7 @@ int main(int argc, char* argv[])
         System::IWindow* window = System::CreateWindow("game", options.x, options.y, window_size.x, window_size.y, false);
         window->SetBackgroundColor(0.7, 0.7, 0.7);
         
+        mono::LoadFont(game::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);

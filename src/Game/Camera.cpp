@@ -66,8 +66,11 @@ void Camera::doUpdate(const mono::UpdateContext& update_context)
         const float aspect = m_viewport.mB.x / m_viewport.mB.y;
         math::ResizeQuad(m_viewport, change * 0.1f, aspect);
     }
+
+    if(m_debug_camera)
+        return;
     
-    if(m_entity_id != NO_ENTITY && !m_debug_camera)
+    if(m_entity_id != NO_ENTITY)
     {
         const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
 

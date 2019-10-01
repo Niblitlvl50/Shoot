@@ -17,13 +17,20 @@ namespace game
         RemoteConnection(class MessageDispatcher* dispatcher, network::ISocketPtr socket);
         ~RemoteConnection();
 
-        void SendMessage(const NetworkMessage& message);
+        void SendData(const std::vector<byte>& data, const network::Address& target);
+        void SendData(const std::vector<byte>& data, const std::vector<network::Address>& addresses);
         const ConnectionStats& GetConnectionStats() const;
+
+        struct Message
+        {
+            std::vector<byte> payload;
+            std::vector<network::Address> addresses;
+        };
 
         struct OutgoingMessages
         {
             std::mutex message_mutex;
-            std::vector<NetworkMessage> unhandled_messages;
+            std::vector<Message> unhandled_messages;
         };
 
     private:
@@ -35,5 +42,7 @@ namespace game
 
         OutgoingMessages m_messages;
         ConnectionStats m_stats;
+
+        uint32_t m_sequence_id;
     };
 }

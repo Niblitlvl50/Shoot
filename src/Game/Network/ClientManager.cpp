@@ -12,11 +12,23 @@ using namespace game;
 ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Config* game_config)
     : m_event_handler(event_handler)
     , m_game_config(game_config)
-    , m_dispatcher(*event_handler)
+    , m_dispatcher(event_handler)
     , m_socket_port(game_config->port_range_start)
     , m_server_ping(0)
 {
+    PrintNetworkMessageSize();
+
     using namespace std::placeholders;
+
+    const std::function<bool (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
+    const std::function<bool (const ServerQuitMessage&)> server_quit_func = std::bind(&ClientManager::HandleServerQuit, this, _1);
+    const std::function<bool (const ConnectAcceptedMessage&)> connect_accepted_func = std::bind(&ClientManager::HandleConnectAccepted, this, _1);
+    const std::function<bool (const PingMessage&)> ping_func = std::bind(&ClientManager::HandlePing, this, _1);
+
+    m_server_beacon_token = m_event_handler->AddListener(server_beacon_func);
+    m_server_quit_token = m_event_handler->AddListener(server_quit_func);
+    m_connect_accepted_token = m_event_handler->AddListener(connect_accepted_func);
+    m_ping_token = m_event_handler->AddListener(ping_func);
 
     const std::unordered_map<ClientStatus, ClientStateMachine::State>& state_table = {
         { ClientStatus::DISCONNECTED,   { nullptr, nullptr} },
@@ -28,16 +40,6 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
 
     m_states.SetStateTable(state_table);
     m_states.TransitionTo(ClientStatus::SEARCHING);
-
-    const std::function<bool (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
-    const std::function<bool (const ServerQuitMessage&)> server_quit_func = std::bind(&ClientManager::HandleServerQuit, this, _1);
-    const std::function<bool (const ConnectAcceptedMessage&)> connect_accepted_func = std::bind(&ClientManager::HandleConnectAccepted, this, _1);
-    const std::function<bool (const PingMessage&)> ping_func = std::bind(&ClientManager::HandlePing, this, _1);
-
-    m_server_beacon_token = m_event_handler->AddListener(server_beacon_func);
-    m_server_quit_token = m_event_handler->AddListener(server_quit_func);
-    m_connect_accepted_token = m_event_handler->AddListener(connect_accepted_func);
-    m_ping_token = m_event_handler->AddListener(ping_func);
 }
 
 ClientManager::~ClientManager()
@@ -61,6 +63,16 @@ const ConnectionStats& ClientManager::GetConnectionStats() const
     return m_remote_connection->GetConnectionStats();
 }
 
+const network::Address& ClientManager::GetClientAddress() const
+{
+    return m_client_address;
+}
+
+const network::Address& ClientManager::GetServerAddress() const
+{
+    return m_server_address;
+}
+
 uint32_t ClientManager::GetServerPing() const
 {
     return m_server_ping;
@@ -68,16 +80,12 @@ uint32_t ClientManager::GetServerPing() const
 
 void ClientManager::SendMessage(const NetworkMessage& message)
 {
-    // Nice! I dont have to do a copy!
-    const_cast<NetworkMessage&>(message).address = m_server_address;
-    m_remote_connection->SendMessage(message);
+    m_remote_connection->SendData(message.payload, m_server_address);
 }
 
 void ClientManager::SendMessageTo(const NetworkMessage& message, const network::Address& address)
 {
-    // Nice! I dont have to do a copy!
-    const_cast<NetworkMessage&>(message).address = address;
-    m_remote_connection->SendMessage(message);
+    m_remote_connection->SendData(message.payload, address);
 }
 
 ConnectionInfo ClientManager::GetConnectionInfo() const
@@ -111,7 +119,7 @@ bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
     {
-        m_server_address = message.sender;
+        m_server_address = message.server_address;
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
     }
 
@@ -141,10 +149,12 @@ void ClientManager::ToSearching()
     std::printf("network|Searching for server\n");
     m_search_timer = 0;
 
+    m_remote_connection.reset();
+
     network::ISocketPtr socket;
     do
     {
-        unsigned short client_port = m_game_config->client_port;
+        uint16_t client_port = m_game_config->client_port;
         if(m_game_config->use_port_range)
         {
             client_port = m_socket_port++;

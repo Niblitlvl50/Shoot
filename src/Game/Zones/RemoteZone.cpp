@@ -15,7 +15,7 @@
 #include "Navigation/NavmeshFactory.h"
 
 #include "Network/NetworkMessage.h"
-#include "Network/NetworkReplicator.h"
+#include "Network/ClientReplicator.h"
 #include "Network/ClientManager.h"
 
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
@@ -68,7 +68,7 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
 
     AddUpdatable(m_client_manager);
-    AddUpdatable(std::make_shared<ClientReplicator>(m_client_manager.get()));
+    AddUpdatable(std::make_shared<ClientReplicator>(camera.get(), m_client_manager.get()));
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
 

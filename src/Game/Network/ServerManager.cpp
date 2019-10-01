@@ -15,7 +15,7 @@ using namespace game;
 ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Config* game_config)
     : m_event_handler(event_handler)
     , m_game_config(game_config)
-    , m_dispatcher(*event_handler)
+    , m_dispatcher(event_handler)
     , m_beacon_timer(0)
 {
     PrintNetworkMessageSize();
@@ -26,22 +26,24 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     const std::function<bool (const ConnectMessage&)> connect_func = std::bind(&ServerManager::HandleConnectMessage, this, _1);
     const std::function<bool (const DisconnectMessage&)> disconnect_func = std::bind(&ServerManager::HandleDisconnectMessage, this, _1);
     const std::function<bool (const HeartBeatMessage&)> heartbeat_func = std::bind(&ServerManager::HandleHeartBeatMessage, this, _1);
+    const std::function<bool (const ViewportMessage&)> viewport_func = std::bind(&ServerManager::HandleViewportMessage, this, _1);
 
     m_ping_func_token = m_event_handler->AddListener(ping_func);
     m_connect_token = m_event_handler->AddListener(connect_func);
     m_disconnect_token = m_event_handler->AddListener(disconnect_func);
     m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
+    m_viewport_token = m_event_handler->AddListener(viewport_func);
 
     network::ISocketPtr socket;
     if(game_config->use_port_range)
     {
         socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING);
-        m_out_address = network::GetBroadcastAddress(socket->Port());
+        m_broadcast_address = network::GetBroadcastAddress(socket->Port());
     }
     else
     {
         socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING, game_config->server_port);
-        m_out_address = network::GetBroadcastAddress(game_config->client_port);
+        m_broadcast_address = network::GetBroadcastAddress(game_config->client_port);
     }
 
     m_server_address = network::GetBroadcastAddress(socket->Port());
@@ -57,20 +59,17 @@ ServerManager::~ServerManager()
     m_event_handler->RemoveListener(m_connect_token);
     m_event_handler->RemoveListener(m_disconnect_token);
     m_event_handler->RemoveListener(m_heartbeat_token);
+    m_event_handler->RemoveListener(m_viewport_token);
 }
 
 void ServerManager::SendMessage(const NetworkMessage& message)
 {
-    // Nice! I dont have to do a copy!
-    const_cast<NetworkMessage&>(message).address = m_out_address;
-    m_remote_connection->SendMessage(message);
+    m_remote_connection->SendData(message.payload, message.address);
 }
 
 void ServerManager::SendMessageTo(const NetworkMessage& message, const network::Address& address)
 {
-    // Nice! I dont have to do a copy!
-    const_cast<NetworkMessage&>(message).address = address;
-    m_remote_connection->SendMessage(message);
+    m_remote_connection->SendData(message.payload, address);
 }
 
 ConnectionInfo ServerManager::GetConnectionInfo() const
@@ -91,15 +90,9 @@ void ServerManager::QuitServer()
     SendMessage(message);
 }
 
-std::vector<ClientData> ServerManager::GetConnectedClients() const
+const std::unordered_map<network::Address, ClientData>& ServerManager::GetConnectedClients() const
 {
-    std::vector<ClientData> connected_clients;
-    connected_clients.reserve(m_connected_clients.size());
-
-    for(const auto& pair : m_connected_clients)
-        connected_clients.push_back(pair.second);
-
-    return connected_clients;
+    return m_connected_clients;
 }
 
 const ConnectionStats& ServerManager::GetConnectionStats() const
@@ -119,7 +112,6 @@ bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 {
     ClientData client_data;
-    client_data.address = message.sender;
     client_data.heartbeat_timestamp = System::GetMilliseconds();
 
     const auto insert_result = m_connected_clients.insert(std::make_pair(message.sender, client_data));
@@ -162,6 +154,17 @@ bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
     return false;
 }
 
+bool ServerManager::HandleViewportMessage(const ViewportMessage& message)
+{
+    auto client_it = m_connected_clients.find(message.sender);
+    if(client_it != m_connected_clients.end())
+        client_it->second.viewport = message.viewport;
+    else
+        std::printf("ServerManager|Client not found in collection\n");
+
+    return false;
+}
+
 void ServerManager::PurgeZombieClients()
 {
     constexpr uint32_t client_timeout = 5000;
@@ -195,11 +198,11 @@ void ServerManager::doUpdate(const mono::UpdateContext& update_context)
     if(m_beacon_timer >= 100)
     {
         ServerBeaconMessage beacon_message;
-        beacon_message.sender = m_server_address;
+        beacon_message.server_address = m_server_address;
 
         NetworkMessage message;
         message.payload = SerializeMessage(beacon_message);
-        SendMessage(message);
+        SendMessageTo(message, m_broadcast_address);
 
         m_beacon_timer = 0;
     }
