@@ -41,7 +41,7 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "command": "./bin/game_exe",
+            "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [ ],
             "problemMatcher": []
         },
