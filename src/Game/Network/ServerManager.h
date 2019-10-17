@@ -83,6 +83,7 @@ namespace game
         network::Address m_broadcast_address;
         network::Address m_server_address;
         uint32_t m_beacon_timer;
+        uint32_t m_server_time;
 
         std::unordered_map<network::Address, ClientData> m_connected_clients;
 

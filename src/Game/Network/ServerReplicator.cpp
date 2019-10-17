@@ -112,6 +112,10 @@ void ServerReplicator::ReplicateTransforms(
         last_transform_message.time_to_replicate -= update_context.delta_ms;
 
         const bool keyframe = false; //(id >= m_keyframe_low && id < m_keyframe_high);
+        const bool time_to_replicate = (last_transform_message.time_to_replicate < 0);
+
+        if(!time_to_replicate && !keyframe)
+            return;
 
         if(!keyframe)
         {
@@ -128,18 +132,20 @@ void ServerReplicator::ReplicateTransforms(
         transform_message.entity_id = id;
         transform_message.position = math::GetPosition(transform);
         transform_message.rotation = math::GetZRotation(transform);
+        transform_message.settled = 
+            math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
+            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
 
-        const bool time_to_replicate = (last_transform_message.time_to_replicate < 0);
-        const bool same = false;
-//            math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
-//            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
+        const bool same_as_last_time = false;
+            //transform_message.settled && (last_transform_message.settled == transform_message.settled);
 
-        if((time_to_replicate && !same) || keyframe)
+        if(!same_as_last_time || keyframe)
         {
             batched_sender.SendMessage(transform_message);
 
             last_transform_message.position = transform_message.position;
             last_transform_message.rotation = transform_message.rotation;
+            last_transform_message.settled = transform_message.settled;
             last_transform_message.time_to_replicate = m_replication_interval;
 
             replicated_transforms++;

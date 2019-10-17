@@ -79,7 +79,7 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(m_console_drawer, LayerId::UI);
 
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(5.0f, 30.0f), m_client_manager.get()));
+    hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_client_manager.get()));
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     AddEntity(hud_overlay, LayerId::UI);
 

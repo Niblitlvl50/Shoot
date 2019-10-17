@@ -28,7 +28,8 @@ namespace game
     struct PingMessage
     {
         DECLARE_NETWORK_MESSAGE();
-        uint32_t local_time_stamp;
+        uint32_t server_time;
+        uint32_t local_time;
         network::Address sender;
     };
 
@@ -69,6 +70,7 @@ namespace game
         uint32_t entity_id;
         math::Vector position;
         float rotation;
+        bool settled;
     };
 
     struct SpawnMessage

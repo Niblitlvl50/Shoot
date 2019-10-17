@@ -19,7 +19,7 @@ namespace
 
 ZoneManager::ZoneManager(
     System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context, int initial_zone)
-    : m_engine(window, camera, zone_context.system_context, *zone_context.event_handler)
+    : m_engine(window, camera, zone_context.system_context, zone_context.event_handler)
     , m_zone_context(zone_context)
     , m_active_zone(initial_zone)
 {
@@ -38,6 +38,6 @@ void ZoneManager::Run()
 
         LoadFunction load_func = m_zones[m_active_zone];
         mono::IZonePtr zone = load_func(m_zone_context);
-        m_active_zone = m_engine.Run(zone);
+        m_active_zone = m_engine.Run(zone.get());
     }
 }

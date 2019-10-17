@@ -72,7 +72,7 @@ int main(int argc, const char* argv[])
         editor->EnableDrawOutline(config.draw_outline);
         editor->SetBackgroundColor(config.background_color);
 
-        mono::Engine(window, camera, &system_context, event_handler).Run(editor);
+        mono::Engine(window, camera, &system_context, &event_handler).Run(editor.get());
 
         const System::Position& position = window->Position();
         const System::Size& size = window->Size();

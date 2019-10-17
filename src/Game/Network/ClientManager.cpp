@@ -15,6 +15,7 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     , m_dispatcher(event_handler)
     , m_socket_port(game_config->port_range_start)
     , m_server_ping(0)
+    , m_server_time(0)
 {
     PrintNetworkMessageSize();
 
@@ -78,6 +79,11 @@ uint32_t ClientManager::GetServerPing() const
     return m_server_ping;
 }
 
+uint32_t ClientManager::GetServerTime() const
+{
+    return m_server_time;
+}
+
 void ClientManager::SendMessage(const NetworkMessage& message)
 {
     m_remote_connection->SendData(message.payload, m_server_address);
@@ -93,6 +99,8 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     ConnectionInfo info;
     info.stats = m_remote_connection->GetConnectionStats();
     info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
+    info.additional_info.push_back(std::to_string(m_server_time));
+    info.additional_info.push_back(std::to_string(m_client_time));
 
     return info;
 }
@@ -113,6 +121,8 @@ void ClientManager::doUpdate(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
     m_dispatcher.doUpdate(update_context);
+
+    m_client_time = update_context.total_time;
 }
 
 bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
@@ -140,7 +150,8 @@ bool ClientManager::HandleConnectAccepted(const ConnectAcceptedMessage& message)
 
 bool ClientManager::HandlePing(const PingMessage& message)
 {
-    m_server_ping = System::GetMilliseconds() - message.local_time_stamp;
+    m_server_ping = System::GetMilliseconds() - message.local_time;
+    m_server_time = message.server_time;
     return false;
 }
 
@@ -217,7 +228,7 @@ void ClientManager::Connected(const mono::UpdateContext& update_context)
     {
         PingMessage ping_message;
         ping_message.sender = m_client_address;
-        ping_message.local_time_stamp = System::GetMilliseconds();
+        ping_message.local_time = System::GetMilliseconds();
 
         NetworkMessage message;
         message.payload = SerializeMessage(ping_message);

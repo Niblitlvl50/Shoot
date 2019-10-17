@@ -102,9 +102,12 @@ const ConnectionStats& ServerManager::GetConnectionStats() const
 
 bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
 {
+    PingMessage local_ping_message = ping_message;
+    local_ping_message.server_time = m_server_time;
+
     NetworkMessage message;
-    message.payload = SerializeMessage(ping_message);
-    SendMessageTo(message, ping_message.sender);
+    message.payload = SerializeMessage(local_ping_message);
+    SendMessageTo(message, local_ping_message.sender);
 
     return true;
 }
@@ -190,12 +193,14 @@ void ServerManager::PurgeZombieClients()
 
 void ServerManager::doUpdate(const mono::UpdateContext& update_context)
 {
+    m_server_time = update_context.total_time;
+
     PurgeZombieClients();
     m_dispatcher.doUpdate(update_context);
 
     m_beacon_timer += update_context.delta_ms;
 
-    if(m_beacon_timer >= 100)
+    if(m_beacon_timer >= 500)
     {
         ServerBeaconMessage beacon_message;
         beacon_message.server_address = m_server_address;

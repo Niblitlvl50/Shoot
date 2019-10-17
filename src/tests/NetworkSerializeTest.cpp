@@ -11,7 +11,7 @@ TEST(Network, SingleSerialize)
 
     game::PingMessage ping_message;
     ping_message.sender = test_address;
-    ping_message.local_time_stamp = 42;
+    ping_message.local_time = 42;
 
     const std::vector<byte>& message_bytes = game::SerializeMessage(ping_message);
     const std::vector<byte_view>& message_views = game::UnpackMessageBuffer(message_bytes);
@@ -21,7 +21,7 @@ TEST(Network, SingleSerialize)
     game::PingMessage deserialized_ping_message;
     EXPECT_TRUE(game::DeserializeMessage(message_views[0], deserialized_ping_message));
 
-    EXPECT_EQ(42u, deserialized_ping_message.local_time_stamp);
+    EXPECT_EQ(42u, deserialized_ping_message.local_time);
     EXPECT_EQ(test_address.host, deserialized_ping_message.sender.host);
     EXPECT_EQ(test_address.port, deserialized_ping_message.sender.port);
 }
@@ -31,10 +31,10 @@ TEST(Network, BatchSerialize)
     EXPECT_EQ(1024u, game::NetworkMessageBufferTotalSize);
 
     game::PingMessage ping_message1;
-    ping_message1.local_time_stamp = 777;
+    ping_message1.local_time = 777;
 
     game::PingMessage ping_message2;
-    ping_message2.local_time_stamp = 666;
+    ping_message2.local_time = 666;
 
     game::TextMessage text_message1;
     std::sprintf(text_message1.text, "hello world!");
@@ -74,8 +74,8 @@ TEST(Network, BatchSerialize)
     EXPECT_TRUE(game::DeserializeMessage(message_views[2], deserialized_text1));
     EXPECT_TRUE(game::DeserializeMessage(message_views[3], deserialized_text2));
 
-    EXPECT_EQ(777u, deserialized_ping1.local_time_stamp);
-    EXPECT_EQ(666u, deserialized_ping2.local_time_stamp);
+    EXPECT_EQ(777u, deserialized_ping1.local_time);
+    EXPECT_EQ(666u, deserialized_ping2.local_time);
     EXPECT_STREQ("hello world!", deserialized_text1.text);
     EXPECT_STREQ("Goodbye cruel world!", deserialized_text2.text);
 }
