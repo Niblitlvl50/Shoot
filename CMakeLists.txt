@@ -9,8 +9,8 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 17)
 
-# set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Release)
 
 # Disable debug checks for Chipmunk
 add_compile_definitions(NDEBUG)
@@ -37,9 +37,13 @@ add_dependencies(editor mono shared imgui)
 target_include_directories(editor PRIVATE "src/Editor")
 target_link_libraries(editor mono shared)
 
+
+set(osx_bundle_icons osx/icons.icns)
+set_source_files_properties(${osx_bundle_icons} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+
 # Game exe
 file(GLOB_RECURSE game_exe_source_files "src/Game/main.cpp")
-add_executable(game_exe ${game_exe_source_files})
+add_executable(game_exe MACOSX_BUNDLE ${osx_bundle_icons} ${game_exe_source_files})
 add_dependencies(game_exe game mono shared)
 target_link_libraries(game_exe game shared mono)
 
