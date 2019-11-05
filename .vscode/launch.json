@@ -5,10 +5,8 @@
             "name": "game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/game_exe",
+            "program": "${workspaceRoot}/bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
-                "--zone",
-                "4"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

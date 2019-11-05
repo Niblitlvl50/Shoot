@@ -1,6 +1,7 @@
 
 #include "PositionPredictionSystem.h"
 #include "Network/NetworkMessage.h"
+#include "Network/ClientManager.h"
 
 #include "Hash.h"
 #include "EventHandler/EventHandler.h"
@@ -12,16 +13,23 @@
 using namespace game;
 
 PositionPredictionSystem::PositionPredictionSystem(
-    size_t num_records, mono::TransformSystem* transform_system, mono::EventHandler* event_handler)
-    : m_transform_system(transform_system)
+    size_t num_records,
+    const ClientManager* client_manager,
+    mono::TransformSystem* transform_system,
+    mono::EventHandler* event_handler)
+    : m_client_manager(client_manager)
+    , m_transform_system(transform_system)
     , m_event_handler(event_handler)
 {
     m_prediction_data.resize(num_records);
-    for(PredictionData& data : m_prediction_data)
+    for(PredictionData& prediction_data : m_prediction_data)
     {
-        data.time = 0;
-        data.timestamp_start = 0;
-        data.timestamp_end = 0;
+        for(RemoteTransform& transform : prediction_data.prediction_buffer)
+        {
+            transform.timestamp = 0;
+            transform.position = math::ZeroVec;
+            transform.rotation = 0.0f;
+        }
     }
 
     using namespace std::placeholders;
@@ -51,76 +59,65 @@ uint32_t PositionPredictionSystem::Capacity() const
 
 void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
 {
+    const int server_time = m_client_manager->GetServerTimePredicted();
+    if(server_time <= 0)
+        return;
+
+    const auto find_remote_transform = [server_time](const RemoteTransform& remote_transform) {
+        return server_time < int(remote_transform.timestamp);
+    };
+
     for(size_t index = 0; index < m_prediction_data.size(); ++index)
-    //for(size_t index = 0; index < 1; ++index)
     {
-        PredictionData& prediction_data = m_prediction_data[index];
+        PredictionData& prediction_data  = m_prediction_data[index];
 
-        math::Vector predicted_position = prediction_data.position_end;
-        float predicted_rotation = prediction_data.rotation_end;
+        const auto& prediction_buffer = prediction_data.prediction_buffer;
+        if(prediction_buffer.back().timestamp == 0)
+            continue;
 
-        if(prediction_data.timestamp_start != 0)
-        {
-            prediction_data.time += update_context.delta_ms;
+        const auto it = std::find_if(prediction_buffer.begin(), prediction_buffer.end(), find_remote_transform);
+        if(it == prediction_buffer.end())
+            continue;
 
-            const uint32_t delta_time = prediction_data.timestamp_end - prediction_data.timestamp_start;
-            const float t = float(prediction_data.time) / float(delta_time);
-            prediction_data.t = t;
+        const RemoteTransform& from = *(it -1);
+        const RemoteTransform& to = *it;
 
-            /*
-            const char* prefix = t > 1.0f ? " ----> " : "";
-            std::printf(
-                "%s T: %f | prediction time: %u, start: %u, end: %u, delta: %u\n",
-                prefix,
-                t,
-                prediction_data.time,
-                prediction_data.timestamp_start,
-                prediction_data.timestamp_end,
-                delta_time);
-            */
+        const float local_t = float(server_time - from.timestamp);
+        const float to_from_t = float(to.timestamp - from.timestamp);
+        const float t = local_t / to_from_t; 
 
-            // This perhaps
-            // entity.x = x0 + (x1 - x0) * (render_timestamp - t0) / (t1 - t0);
+        const math::Vector& delta_position = to.position - from.position;
+        const math::Vector& predicted_position = from.position + (delta_position * t);
 
-            // const float t =
-            // prediction_data.position_start + (delta_position * (update_context.total_time - prediction_data.timestamp_start) / delta_time);
-
-            const math::Vector& delta_position = prediction_data.position_end - prediction_data.position_start;
-            predicted_position = prediction_data.position_start + (delta_position * t);
-
-            const float delta_rotation = prediction_data.rotation_end - prediction_data.rotation_start;
-            predicted_rotation = prediction_data.rotation_start + (delta_rotation * t);
-        }
+        const float delta_rotation = to.rotation - from.rotation;
+        const float predicted_rotation = from.rotation + (delta_rotation * t);
 
         math::Matrix& transform = m_transform_system->GetTransform(index);
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
+
+        prediction_data.predicted_position = predicted_position;
     }
 }
 
 bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
 {
     PredictionData& prediction_data = m_prediction_data[transform_message.entity_id];
+    auto& prediction_buffer = prediction_data.prediction_buffer;
 
-    if(transform_message.timestamp > prediction_data.timestamp_end)
+    if(prediction_buffer.back().timestamp < transform_message.timestamp)
     {
-        const math::Matrix& transform = m_transform_system->GetTransform(transform_message.entity_id);
-        const math::Vector& actual_position = math::GetPosition(transform);
+        // Rotate left
+        std::rotate(prediction_buffer.begin(), prediction_buffer.begin() + 1, prediction_buffer.end());
 
-        prediction_data.time = 0;
-
-        prediction_data.timestamp_start = prediction_data.timestamp_end;
-        prediction_data.timestamp_end = transform_message.timestamp;
-
-        prediction_data.position_start = actual_position;
-        prediction_data.position_end = transform_message.position;
-
-        prediction_data.rotation_start = prediction_data.rotation_end;
-        prediction_data.rotation_end = transform_message.rotation;
+        RemoteTransform& remote_transform = prediction_buffer.back();
+        remote_transform.timestamp = transform_message.timestamp;
+        remote_transform.position = transform_message.position;
+        remote_transform.rotation = transform_message.rotation;
     }
     else
     {
-        std::printf("PositionReplicationSystem|Old transform message, will dump.\n");
+        std::printf("Old transform message, will skip\n");
     }
 
     return false;
@@ -138,24 +135,22 @@ PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictio
 
 void PredictionSystemDebugDrawer::doDraw(mono::IRenderer& renderer) const
 {
-    std::vector<math::Vector> end_points;
-    std::vector<math::Vector> over_predicted_points;
     std::vector<math::Vector> line_points;
+    std::vector<math::Vector> first_points;
+    std::vector<math::Vector> predicted_positions;
 
     for(const auto& prediction_data : m_prediction_system->m_prediction_data)
     {
-        if(prediction_data.t > 1.0f)
-            over_predicted_points.push_back(prediction_data.position_end);
-        else
-            end_points.push_back(prediction_data.position_end);
+        for(const auto& remote_transform : prediction_data.prediction_buffer)
+            line_points.push_back(remote_transform.position);
 
-        line_points.push_back(prediction_data.position_start);
-        line_points.push_back(prediction_data.position_end);
+        first_points.push_back(prediction_data.prediction_buffer.back().position);
+        predicted_positions.push_back(prediction_data.predicted_position);
     }
     
-    renderer.DrawLines(line_points, mono::Color::BLUE, 2.0f);
-    renderer.DrawPoints(end_points, mono::Color::GREEN, 4.0f);
-    renderer.DrawPoints(over_predicted_points, mono::Color::RED, 6.0f);
+    renderer.DrawPoints(line_points, mono::Color::GREEN, 4.0f);
+    renderer.DrawPoints(first_points, mono::Color::RED, 6.0f);
+    renderer.DrawPoints(predicted_positions, mono::Color::CYAN, 6.0f);
 }
 
 math::Quad PredictionSystemDebugDrawer::BoundingBox() const

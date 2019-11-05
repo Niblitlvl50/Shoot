@@ -30,6 +30,7 @@ namespace game
         struct OutgoingMessages
         {
             std::mutex message_mutex;
+            std::condition_variable message_signal;
             std::vector<Message> unhandled_messages;
         };
 

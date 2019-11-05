@@ -184,21 +184,18 @@ int TitleScreen::OnUnload()
 
 void TitleScreen::Continue()
 {
-    printf("continue\n");
     m_exit_zone = TEST_ZONE;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
 
 void TitleScreen::Remote()
 {
-    printf("remote\n");
     m_exit_zone = REMOTE_ZONE;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
 
 void TitleScreen::Quit()
 {
-    printf("quit\n");
     m_exit_zone = QUIT;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }

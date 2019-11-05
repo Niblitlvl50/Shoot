@@ -41,9 +41,6 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     , m_event_handler(*context.event_handler)
     , m_game_config(*context.game_config)
 {
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    m_system_context->CreateSystem<PositionPredictionSystem>(context.num_entities, transform_system, context.event_handler);
-
     using namespace std::placeholders;
 
     const std::function<bool (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
@@ -67,12 +64,14 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
     m_client_manager = std::make_shared<ClientManager>(&m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
 
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    const PositionPredictionSystem* prediction_system =
+        m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, &m_event_handler);
+
     AddUpdatable(m_client_manager);
     AddUpdatable(std::make_shared<ClientReplicator>(camera.get(), m_client_manager.get()));
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
-
-    const PositionPredictionSystem* prediction_system = m_system_context->GetSystem<PositionPredictionSystem>();
     AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
 
     m_console_drawer = std::make_shared<ConsoleDrawer>();

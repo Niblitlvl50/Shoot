@@ -16,6 +16,7 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     , m_socket_port(game_config->port_range_start)
     , m_server_ping(0)
     , m_server_time(0)
+    , m_server_time_predicted(0)
 {
     PrintNetworkMessageSize();
 
@@ -46,7 +47,6 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
 ClientManager::~ClientManager()
 {
     Disconnect();
-    std::this_thread::yield();
 
     m_event_handler->RemoveListener(m_server_beacon_token);
     m_event_handler->RemoveListener(m_server_quit_token);
@@ -84,6 +84,11 @@ uint32_t ClientManager::GetServerTime() const
     return m_server_time;
 }
 
+uint32_t ClientManager::GetServerTimePredicted() const
+{
+    return m_server_time_predicted - m_game_config->client_time_offset;
+}
+
 void ClientManager::SendMessage(const NetworkMessage& message)
 {
     m_remote_connection->SendData(message.payload, m_server_address);
@@ -98,20 +103,19 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
 {
     ConnectionInfo info;
     info.stats = m_remote_connection->GetConnectionStats();
+    info.additional_info.push_back(network::AddressToString(m_client_address));
     info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
-    info.additional_info.push_back(std::to_string(m_server_time));
     info.additional_info.push_back(std::to_string(m_client_time));
+    info.additional_info.push_back(std::to_string(m_server_time));
+    info.additional_info.push_back(std::to_string(m_server_time_predicted));
 
     return info;
 }
 
 void ClientManager::Disconnect()
 {
-    DisconnectMessage disconnect_message;
-    disconnect_message.sender = m_client_address;
-
     NetworkMessage message;
-    message.payload = SerializeMessage(disconnect_message);
+    message.payload = SerializeMessage(DisconnectMessage());
     SendMessage(message);
 
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
@@ -123,13 +127,14 @@ void ClientManager::doUpdate(const mono::UpdateContext& update_context)
     m_dispatcher.doUpdate(update_context);
 
     m_client_time = update_context.total_time;
+    m_server_time_predicted += update_context.delta_ms;
 }
 
 bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
     {
-        m_server_address = message.server_address;
+        m_server_address = message.sender;
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
     }
 
@@ -152,6 +157,7 @@ bool ClientManager::HandlePing(const PingMessage& message)
 {
     m_server_ping = System::GetMilliseconds() - message.local_time;
     m_server_time = message.server_time;
+    m_server_time_predicted = message.server_time;
     return false;
 }
 
@@ -173,7 +179,7 @@ void ClientManager::ToSearching()
                 m_socket_port = m_game_config->port_range_start;
         }
 
-        socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING, client_port);
+        socket = network::CreateUDPSocket(network::SocketType::BLOCKING, client_port);
     } while(!socket);
 
     m_client_address = network::MakeAddress(network::GetLocalhostName().c_str(), socket->Port());
@@ -184,11 +190,8 @@ void ClientManager::ToFoundServer()
 {
     std::printf("network|Found server at %s\n", network::AddressToString(m_server_address).c_str());
 
-    ConnectMessage connect_message;
-    connect_message.sender = m_client_address;
-
     NetworkMessage message;
-    message.payload = SerializeMessage(connect_message);
+    message.payload = SerializeMessage(ConnectMessage());
     SendMessage(message);
 }
 
@@ -215,11 +218,8 @@ void ClientManager::Connected(const mono::UpdateContext& update_context)
     const bool is_thirtieth_frame = (update_context.frame_count % 30) == 0;
     if(is_thirtieth_frame)
     {
-        HeartBeatMessage heartbeat_message;
-        heartbeat_message.sender = m_client_address;
-
         NetworkMessage message;
-        message.payload = SerializeMessage(heartbeat_message);
+        message.payload = SerializeMessage(HeartBeatMessage());
         SendMessage(message);
     }
 
@@ -227,7 +227,6 @@ void ClientManager::Connected(const mono::UpdateContext& update_context)
     if(is_sixtieth_frame)
     {
         PingMessage ping_message;
-        ping_message.sender = m_client_address;
         ping_message.local_time = System::GetMilliseconds();
 
         NetworkMessage message;

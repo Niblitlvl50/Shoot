@@ -41,6 +41,7 @@ namespace game
         const network::Address& GetServerAddress() const;
         uint32_t GetServerPing() const;
         uint32_t GetServerTime() const;
+        uint32_t GetServerTimePredicted() const;
 
     private:
 
@@ -81,6 +82,7 @@ namespace game
         network::Address m_client_address;
         uint32_t m_server_ping;
         uint32_t m_server_time;
+        uint32_t m_server_time_predicted;
         uint32_t m_client_time;
     };
 }

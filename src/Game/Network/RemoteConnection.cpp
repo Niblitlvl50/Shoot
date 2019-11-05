@@ -38,10 +38,6 @@ namespace
 
                 dispatcher->PushNewMessage(message);
             }
-            else
-            {
-                std::this_thread::yield();
-            }
         }
     };
 
@@ -55,52 +51,45 @@ namespace
 
         while(!stop)
         {
-            bool no_messages = true;
+            std::unique_lock<std::mutex> lock(out_messages->message_mutex);
+            out_messages->message_signal.wait(lock);
 
+            for(const RemoteConnection::Message& message : out_messages->unhandled_messages)
             {
-                const std::lock_guard<std::mutex> lock(out_messages->message_mutex);
+                const unsigned long compressed_size = huffman_compress(
+                    message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
 
-                for(const RemoteConnection::Message& message : out_messages->unhandled_messages)
+                if(compressed_size == 0)
                 {
-                    const unsigned long compressed_size = huffman_compress(
-                        message.payload.data(), message.payload.size(), compressed_bytes.data(), compressed_bytes.size(), huffbuf_heap);
-
-                    if(compressed_size == 0)
-                    {
-                        std::printf("RemoteConnection|Failed to compress message.\n");
-                        continue;
-                    }
-
-                    if(compressed_size > message.payload.size())
-                    {
-                        /*
-                        const float compression_ratio = float(compressed_size) / float(message.payload.size());
-                        std::printf(
-                            "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu\n",
-                            compressed_size,
-                            message.payload.size(), 
-                            compression_ratio,
-                            compressed_size - message.payload.size());
-                            */
-                    }
-
-                    for(const network::Address& address : message.addresses)
-                    {
-                        if(socket->Send(compressed_bytes.data(), compressed_size, address))
-                        {
-                            connection_stats.total_packages_sent++;
-                            connection_stats.total_byte_sent += message.payload.size();
-                            connection_stats.total_compressed_byte_sent += compressed_size;
-                        }
-                    }
+                    std::printf("RemoteConnection|Failed to compress message.\n");
+                    continue;
                 }
 
-                no_messages = out_messages->unhandled_messages.empty();
-                out_messages->unhandled_messages.clear();
+                if(compressed_size > message.payload.size())
+                {
+                    /*
+                    const float compression_ratio = float(compressed_size) / float(message.payload.size());
+                    std::printf(
+                        "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu\n",
+                        compressed_size,
+                        message.payload.size(), 
+                        compression_ratio,
+                        compressed_size - message.payload.size());
+                        */
+                }
+
+                for(const network::Address& address : message.addresses)
+                {
+                    if(socket->Send(compressed_bytes.data(), compressed_size, address))
+                    {
+                        connection_stats.total_packages_sent++;
+                        connection_stats.total_byte_sent += message.payload.size();
+                        connection_stats.total_compressed_byte_sent += compressed_size;
+                    }
+                }
             }
 
-            if(no_messages)
-                std::this_thread::yield();
+            out_messages->unhandled_messages.clear();
         }
     }
 }
@@ -118,6 +107,8 @@ RemoteConnection::RemoteConnection(MessageDispatcher* dispatcher, network::ISock
 RemoteConnection::~RemoteConnection()
 {
     m_stop = true;
+    m_messages.message_signal.notify_one();
+
     m_receive_thread.join();
     m_send_thread.join();
 }
@@ -130,16 +121,20 @@ void RemoteConnection::SendData(const std::vector<byte>& data, const network::Ad
 
 void RemoteConnection::SendData(const std::vector<byte>& data, const std::vector<network::Address>& addresses)
 {
-    std::lock_guard<std::mutex> lock(m_messages.message_mutex);
+    {
+        std::lock_guard<std::mutex> lock(m_messages.message_mutex);
 
-    ++m_sequence_id;
+        ++m_sequence_id;
 
-    std::vector<byte>& mutable_data = const_cast<std::vector<byte>&>(data);
-    NetworkMessageHeader header = GetMessageBufferHeader(mutable_data);
-    header.id = m_sequence_id;
-    SetMessageBufferHeader(mutable_data, header);
+        std::vector<byte>& mutable_data = const_cast<std::vector<byte>&>(data);
+        NetworkMessageHeader header = GetMessageBufferHeader(mutable_data);
+        header.id = m_sequence_id;
+        SetMessageBufferHeader(mutable_data, header);
 
-    m_messages.unhandled_messages.push_back({ data, addresses });
+        m_messages.unhandled_messages.push_back({ data, addresses });
+    }
+
+    m_messages.message_signal.notify_one();
 }
 
 const ConnectionStats& RemoteConnection::GetConnectionStats() const

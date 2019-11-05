@@ -20,22 +20,36 @@ namespace
             event_handler->DispatchEvent(decoded_message);
         return success;
     }
+
+    template <typename T>
+    bool HandleMessageAndSender(const byte_view& network_message, const network::Address& sender, mono::EventHandler* event_handler)
+    {
+        T decoded_message;
+        const bool success = DeserializeMessage(network_message, decoded_message);
+        decoded_message.sender = sender;
+        if(success)
+            event_handler->DispatchEvent(decoded_message);
+        return success;
+    }
 }
 
 #define REGISTER_MESSAGE_HANDLER(message) \
     m_handlers[message::message_type] = HandleMessage<message>;
 
+#define REGISTER_MESSAGE_HANDLER_WITH_SENDER(message) \
+    m_handlers[message::message_type] = HandleMessageAndSender<message>;
+
 MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     : m_event_handler(event_handler)
     , m_push_messages(&m_message_buffer_1)
 {
-    REGISTER_MESSAGE_HANDLER(ServerBeaconMessage);
     REGISTER_MESSAGE_HANDLER(ServerQuitMessage);
-    REGISTER_MESSAGE_HANDLER(PingMessage);
-    REGISTER_MESSAGE_HANDLER(ConnectMessage);
-    REGISTER_MESSAGE_HANDLER(ConnectAcceptedMessage);
-    REGISTER_MESSAGE_HANDLER(DisconnectMessage);
-    REGISTER_MESSAGE_HANDLER(HeartBeatMessage);
+    REGISTER_MESSAGE_HANDLER(ServerBeaconMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(PingMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(ConnectMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(ConnectAcceptedMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(DisconnectMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(HeartBeatMessage);
 
     REGISTER_MESSAGE_HANDLER(TextMessage);
     REGISTER_MESSAGE_HANDLER(TransformMessage);
@@ -43,7 +57,7 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     REGISTER_MESSAGE_HANDLER(SpriteMessage);
     REGISTER_MESSAGE_HANDLER(RemoteInputMessage);
     REGISTER_MESSAGE_HANDLER(RemoteCameraMessage);
-    REGISTER_MESSAGE_HANDLER(ViewportMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(ViewportMessage);
 }
 
 void MessageDispatcher::PushNewMessage(const NetworkMessage& message)

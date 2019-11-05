@@ -37,12 +37,12 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     network::ISocketPtr socket;
     if(game_config->use_port_range)
     {
-        socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING);
+        socket = network::CreateUDPSocket(network::SocketType::BLOCKING);
         m_broadcast_address = network::GetBroadcastAddress(socket->Port());
     }
     else
     {
-        socket = network::CreateUDPSocket(network::SocketType::NON_BLOCKING, game_config->server_port);
+        socket = network::CreateUDPSocket(network::SocketType::BLOCKING, game_config->server_port);
         m_broadcast_address = network::GetBroadcastAddress(game_config->client_port);
     }
 
@@ -53,7 +53,6 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
 ServerManager::~ServerManager()
 {
     QuitServer();
-    std::this_thread::yield();
 
     m_event_handler->RemoveListener(m_ping_func_token);
     m_event_handler->RemoveListener(m_connect_token);
@@ -76,9 +75,12 @@ ConnectionInfo ServerManager::GetConnectionInfo() const
 {
     ConnectionInfo info;
     info.stats = m_remote_connection->GetConnectionStats();
+    info.additional_info.push_back(network::AddressToString(m_server_address));
 
     for(const auto& pair : m_connected_clients)
         info.additional_info.push_back(network::AddressToString(pair.first));
+
+    info.additional_info.push_back(std::to_string(m_server_time));
 
     return info;
 }
@@ -186,7 +188,6 @@ void ServerManager::PurgeZombieClients()
     {
         std::printf("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
-
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key.host));
     }
 }
@@ -203,7 +204,7 @@ void ServerManager::doUpdate(const mono::UpdateContext& update_context)
     if(m_beacon_timer >= 500)
     {
         ServerBeaconMessage beacon_message;
-        beacon_message.server_address = m_server_address;
+        beacon_message.sender = m_server_address;
 
         NetworkMessage message;
         message.payload = SerializeMessage(beacon_message);

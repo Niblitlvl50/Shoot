@@ -6,6 +6,7 @@
 #include "EventHandler/EventToken.h"
 #include "Math/Vector.h"
 #include <vector>
+#include <array>
 
 #include "Rendering/IDrawable.h"
 
@@ -16,12 +17,17 @@ namespace mono
 
 namespace game
 {
+    class ClientManager;
+
     class PositionPredictionSystem : public mono::IGameSystem
     {
     public:
         
         PositionPredictionSystem(
-            size_t num_records, mono::TransformSystem* transform_system, mono::EventHandler* event_handler);
+            size_t num_records,
+            const ClientManager* client_manager,
+            mono::TransformSystem* transform_system,
+            mono::EventHandler* event_handler);
         ~PositionPredictionSystem();
 
         uint32_t Id() const override;
@@ -31,22 +37,22 @@ namespace game
 
         bool HandlePredicitonMessage(const struct TransformMessage& transform_message);
 
+        const ClientManager* m_client_manager;
         mono::TransformSystem* m_transform_system;
         mono::EventHandler* m_event_handler;
         mono::EventToken<TransformMessage> m_transform_token;
 
+        struct RemoteTransform
+        {
+            uint32_t timestamp;
+            math::Vector position;
+            float rotation;
+        };
+
         struct PredictionData
         {
-            uint32_t time;
-            uint32_t timestamp_start;
-            uint32_t timestamp_end;
-            math::Vector position_start;
-            math::Vector position_end;
-            float rotation_start;
-            float rotation_end;
-
-            // For debug
-            float t;
+            math::Vector predicted_position;
+            std::array<RemoteTransform, 8> prediction_buffer;
         };
 
         std::vector<PredictionData> m_prediction_data;

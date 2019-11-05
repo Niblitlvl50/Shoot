@@ -77,18 +77,19 @@ namespace
     }
 }
 
+
 int main(int argc, char* argv[])
 {
     constexpr size_t max_entities = 500;
-
     const Options options = ParseCommandline(argc, argv);
+
+    System::Initialize();
 
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
 
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
 
-    System::Initialize();
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     mono::InitializeAudio();
 

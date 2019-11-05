@@ -17,7 +17,7 @@ namespace game
     struct ServerBeaconMessage
     {
         DECLARE_NETWORK_MESSAGE();
-        network::Address server_address;
+        network::Address sender;
     };
 
     struct ServerQuitMessage

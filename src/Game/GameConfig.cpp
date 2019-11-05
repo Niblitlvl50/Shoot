@@ -20,6 +20,7 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
     config.port_range_start             = json.value("port_range_start", config.port_range_start);
     config.port_range_end               = json.value("port_range_end", config.port_range_end);
     config.server_replication_interval  = json.value("server_replication_interval", config.server_replication_interval);
+    config.client_time_offset           = json.value("client_time_offset", config.client_time_offset);
 
     return true;
 }
