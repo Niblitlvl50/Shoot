@@ -18,6 +18,10 @@ ClientReplicator::ClientReplicator(mono::ICamera* camera, ClientManager* remote_
 
 void ClientReplicator::doUpdate(const mono::UpdateContext& update_context)
 {
+    const ClientStatus client_status = m_remote_connection->GetConnectionStatus();
+    if(client_status != ClientStatus::CONNECTED)
+        return;
+
     if(game::g_player_one.is_active)
     {
         RemoteInputMessage remote_input;
