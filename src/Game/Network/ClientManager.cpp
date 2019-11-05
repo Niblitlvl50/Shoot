@@ -105,9 +105,9 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     info.stats = m_remote_connection->GetConnectionStats();
     info.additional_info.push_back(network::AddressToString(m_client_address));
     info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
-    info.additional_info.push_back(std::to_string(m_client_time));
-    info.additional_info.push_back(std::to_string(m_server_time));
-    info.additional_info.push_back(std::to_string(m_server_time_predicted));
+    info.additional_info.push_back("client: " + std::to_string(m_client_time));
+    info.additional_info.push_back("server: " + std::to_string(m_server_time));
+    info.additional_info.push_back("predicted: " + std::to_string(m_server_time_predicted));
 
     return info;
 }

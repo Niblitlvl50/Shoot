@@ -75,12 +75,15 @@ ConnectionInfo ServerManager::GetConnectionInfo() const
 {
     ConnectionInfo info;
     info.stats = m_remote_connection->GetConnectionStats();
-    info.additional_info.push_back(network::AddressToString(m_server_address));
+    info.additional_info.push_back("server: " + network::AddressToString(m_server_address));
 
+    info.additional_info.push_back("");
+    info.additional_info.push_back("clients");
     for(const auto& pair : m_connected_clients)
         info.additional_info.push_back(network::AddressToString(pair.first));
 
-    info.additional_info.push_back(std::to_string(m_server_time));
+    info.additional_info.push_back("");
+    info.additional_info.push_back("server time: " + std::to_string(m_server_time));
 
     return info;
 }
