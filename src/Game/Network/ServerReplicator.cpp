@@ -119,7 +119,8 @@ void ServerReplicator::ReplicateTransforms(
 
         if(!keyframe)
         {
-            const math::Quad& client_bb = math::ResizeQuad(client_viewport, 5.0f); // Expand by 5 meter to send positions before in sight
+             // Expand by 5 meter to send positions before in sight
+            const math::Quad& client_bb = math::ResizeQuad(client_viewport, 5.0f);
             const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(id);
 
             const bool overlaps = math::QuadOverlaps(client_bb, world_bb);
@@ -136,8 +137,8 @@ void ServerReplicator::ReplicateTransforms(
             math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
             math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
 
-        const bool same_as_last_time = false;
-            //transform_message.settled && (last_transform_message.settled == transform_message.settled);
+        const bool same_as_last_time =
+            transform_message.settled && (last_transform_message.settled == transform_message.settled);
 
         if(!same_as_last_time || keyframe)
         {
@@ -151,8 +152,6 @@ void ServerReplicator::ReplicateTransforms(
             replicated_transforms++;
        }
     };
-
-    //m_transform_system->ForEachTransform(transform_func);
 
     for(uint32_t entity_id : entities)
         transform_func(m_transform_system->GetTransform(entity_id), entity_id);
@@ -203,8 +202,6 @@ void ServerReplicator::ReplicateSprites(
             replicated_sprites++;
         }
     };
-
-    //m_sprite_system->ForEachSprite(sprite_func);
 
     for(uint32_t entity_id : entities)
         sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
