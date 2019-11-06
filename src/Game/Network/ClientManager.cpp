@@ -33,11 +33,11 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     m_ping_token = m_event_handler->AddListener(ping_func);
 
     const std::unordered_map<ClientStatus, ClientStateMachine::State>& state_table = {
-        { ClientStatus::DISCONNECTED,   { nullptr, nullptr} },
-        { ClientStatus::SEARCHING,      { std::bind(&ClientManager::ToSearching,   this), std::bind(&ClientManager::Searching, this, _1) } },
-        { ClientStatus::FOUND_SERVER,   { std::bind(&ClientManager::ToFoundServer, this), nullptr } },
-        { ClientStatus::CONNECTED,      { std::bind(&ClientManager::ToConnected,   this), std::bind(&ClientManager::Connected, this, _1) } },
-        { ClientStatus::FAILED,         { std::bind(&ClientManager::ToFailed,      this), std::bind(&ClientManager::Failed,    this, _1) } }
+        { ClientStatus::DISCONNECTED,   { std::bind(&ClientManager::ToDisconnected, this), nullptr} },
+        { ClientStatus::SEARCHING,      { std::bind(&ClientManager::ToSearching,    this), std::bind(&ClientManager::Searching, this, _1) } },
+        { ClientStatus::FOUND_SERVER,   { std::bind(&ClientManager::ToFoundServer,  this), nullptr } },
+        { ClientStatus::CONNECTED,      { std::bind(&ClientManager::ToConnected,    this), std::bind(&ClientManager::Connected, this, _1) } },
+        { ClientStatus::FAILED,         { std::bind(&ClientManager::ToFailed,       this), std::bind(&ClientManager::Failed,    this, _1) } }
     };
 
     m_states.SetStateTable(state_table);
@@ -198,6 +198,11 @@ void ClientManager::ToFoundServer()
 void ClientManager::ToConnected()
 {
     std::printf("network|Server accepted connection\n");
+}
+
+void ClientManager::ToDisconnected()
+{
+    std::printf("network|Server quit\n");
 }
 
 void ClientManager::ToFailed()

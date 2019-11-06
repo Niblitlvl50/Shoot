@@ -111,7 +111,7 @@ void ServerReplicator::ReplicateTransforms(
         TransformData& last_transform_message = m_transform_data[id];
         last_transform_message.time_to_replicate -= update_context.delta_ms;
 
-        const bool keyframe = false; //(id >= m_keyframe_low && id < m_keyframe_high);
+        const bool keyframe = (id >= m_keyframe_low && id < m_keyframe_high);
         const bool time_to_replicate = (last_transform_message.time_to_replicate < 0);
 
         if(!time_to_replicate && !keyframe)

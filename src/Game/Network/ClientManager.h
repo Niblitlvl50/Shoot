@@ -55,6 +55,7 @@ namespace game
         void ToSearching();
         void ToFoundServer();
         void ToConnected();
+        void ToDisconnected();
         void ToFailed();
 
         void Searching(const mono::UpdateContext& update_context);
