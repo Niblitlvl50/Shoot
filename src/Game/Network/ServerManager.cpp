@@ -6,6 +6,7 @@
 #include "Events/PlayerConnectedEvent.h"
 
 #include "System/Network.h"
+#include "System/System.h"
 
 #include <functional>
 #include <thread>
@@ -126,7 +127,7 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
     if(insert_result.second)
     {
         const std::string& address_string = network::AddressToString(message.sender);
-        std::printf("ServerManager|Client connected: %s\n", address_string.c_str());
+        System::Log("ServerManager|Client connected: %s\n", address_string.c_str());
 
         NetworkMessage reply_message;
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
@@ -136,7 +137,7 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
     }
     else
     {
-        std::printf("ServerManager|Client already in collection\n");
+        System::Log("ServerManager|Client already in collection\n");
     }
 
     return false;
@@ -144,7 +145,7 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
 
 bool ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
-    std::printf("ServerManager|Disconnect client\n");
+    System::Log("ServerManager|Disconnect client\n");
     m_connected_clients.erase(message.sender);
     m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender.host));
 
@@ -157,7 +158,7 @@ bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
     if(client_it != m_connected_clients.end())
         client_it->second.heartbeat_timestamp = System::GetMilliseconds();
     else
-        std::printf("ServerManager|Client not found in collection\n");
+        System::Log("ServerManager|Client not found in collection\n");
 
     return false;
 }
@@ -168,7 +169,7 @@ bool ServerManager::HandleViewportMessage(const ViewportMessage& message)
     if(client_it != m_connected_clients.end())
         client_it->second.viewport = message.viewport;
     else
-        std::printf("ServerManager|Client not found in collection\n");
+        System::Log("ServerManager|Client not found in collection\n");
 
     return false;
 }
@@ -189,7 +190,7 @@ void ServerManager::PurgeZombieClients()
 
     for(const auto& key : dead_clients)
     {
-        std::printf("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
+        System::Log("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key.host));
     }

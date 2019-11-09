@@ -156,7 +156,7 @@ void ServerReplicator::ReplicateTransforms(
     for(uint32_t entity_id : entities)
         transform_func(m_transform_system->GetTransform(entity_id), entity_id);
 
-    //std::printf(
+    //System::Log(
     //    "keyframe %u - %u, transforms %d/%d\n", m_keyframe_low, m_keyframe_high, replicated_transforms, total_transforms);
 }
 
@@ -206,6 +206,6 @@ void ServerReplicator::ReplicateSprites(
     for(uint32_t entity_id : entities)
         sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
 
-//    std::printf(
+//    System::Log(
 //        "keyframe %u - %u, transforms %d/%d, sprites %d/%d\n", m_keyframe_low, m_keyframe_high, replicated_transforms, total_transforms, replicated_sprites, total_sprites);
 }

@@ -2,6 +2,7 @@
 #include "RemoteConnection.h"
 #include "MessageDispatcher.h"
 #include "NetworkSerialize.h"
+#include "System/System.h"
 
 #include <algorithm>
 
@@ -61,7 +62,7 @@ namespace
 
                 if(compressed_size == 0)
                 {
-                    std::printf("RemoteConnection|Failed to compress message.\n");
+                    System::Log("RemoteConnection|Failed to compress message.\n");
                     continue;
                 }
 
@@ -69,7 +70,7 @@ namespace
                 {
                     /*
                     const float compression_ratio = float(compressed_size) / float(message.payload.size());
-                    std::printf(
+                    System::Log(
                         "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu\n",
                         compressed_size,
                         message.payload.size(), 

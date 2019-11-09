@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
 
     constexpr size_t max_entities = 500;
 
-    System::Initialize();
+    System::Initialize(System::InitializeContext());
     System::SetUIDOffset(max_entities +1);
 
     mono::RenderInitParams render_params;

@@ -1,5 +1,6 @@
 
 #include "Component.h"
+#include "System/System.h"
 
 extern const std::array<DefaultAttribute, 24> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
@@ -105,7 +106,7 @@ const Variant& DefaultAttributeFromHash(uint32_t hash)
     }
 
     const char* attribute_name = AttributeNameFromHash(hash);
-    std::printf("Unable to find default attribute for hash: %u (%s)\n", hash, attribute_name);
+    System::Log("Component|Unable to find default attribute for hash: %u (%s)\n", hash, attribute_name);
     static const Variant null_attribute;
     return null_attribute;
 }

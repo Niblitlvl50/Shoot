@@ -34,6 +34,7 @@
 #include "Network/NetworkMessage.h"
 
 #include "Component.h"
+#include "System/System.h"
 
 #include <functional>
 #include <limits>
@@ -236,7 +237,7 @@ bool PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
     if(it != m_remote_players.end())
         return true;
 
-    std::printf("Player connected, %u\n", event.id);
+    System::Log("PlayerDaemon|Player connected, %u\n", event.id);
 
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.id];
 
@@ -263,12 +264,12 @@ bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
 
 bool PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
 {
-    std::printf("Got remote input! %u\n", event.id);
+    System::Log("PlayerDaemon|Got remote input! %u\n", event.id);
     
     auto it = m_remote_players.find(event.id);
     if(it != m_remote_players.end())
     {
-        std::printf("Applying input! %f\n", event.controller_state.left_x);
+        System::Log("PlayerDaemon|Applying input! %f\n", event.controller_state.left_x);
         it->second.controller_state = event.controller_state;
     }
 
@@ -302,7 +303,7 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
 
 void ClientPlayerDaemon::SpawnPlayer1()
 {
-    std::printf("Spawn player 1\n");
+    System::Log("PlayerDaemon|Spawn player 1\n");
     //game::g_player_one.entity_id = player_entity.id;
     game::g_player_one.is_active = true;
 }

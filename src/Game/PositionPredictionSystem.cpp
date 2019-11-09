@@ -7,7 +7,7 @@
 #include "EventHandler/EventHandler.h"
 #include "TransformSystem.h"
 #include "Math/Matrix.h"
-
+#include "System/System.h"
 #include <algorithm>
 
 using namespace game;
@@ -117,7 +117,7 @@ bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
     }
     else
     {
-        std::printf("Old transform message, will skip\n");
+        System::Log("network|Old transform message, will skip\n");
     }
 
     return false;

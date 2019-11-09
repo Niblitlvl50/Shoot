@@ -16,6 +16,8 @@
 #include "Component.h"
 #include "CollisionConfiguration.h"
 
+#include "System/System.h"
+
 namespace
 {
     bool CreatePhysics(mono::Entity& entity, mono::SystemContext* context)
@@ -48,13 +50,13 @@ namespace
         const bool found_all = found_type && found_mass && found_inertia;
         if(!found_all)
         {
-            std::printf("Missing physics parameters, will not update body for entity: %u\n", entity.id);
+            System::Log("GameComponentFuncs|Missing physics parameters, will not update body for entity: %u\n", entity.id);
             if(!found_type)
-                std::printf("Missing type\n");
+                System::Log("GameComponentFuncs|Missing type\n");
             if(!found_mass)
-                std::printf("Missing mass\n");
+                System::Log("GameComponentFuncs|Missing mass\n");
             if(!found_inertia)
-                std::printf("Missing inertia\n");
+                System::Log("GameComponentFuncs|Missing inertia\n");
 
             return false;
         }
@@ -93,13 +95,13 @@ namespace
         const bool found_all = found_faction && found_radius && found_position;
         if(!found_all)
         {
-            std::printf("Unable to find paramenters for circle shape, entity: %u\n", entity.id);
+            System::Log("GameComponentFuncs|Unable to find paramenters for circle shape, entity: %u\n", entity.id);
             if(!found_faction)
-                std::printf("Faction missing\n");
+                System::Log("GameComponentFuncs|Faction missing\n");
             if(!found_radius)
-                std::printf("Radius missing\n");
+                System::Log("GameComponentFuncs|Radius missing\n");
             if(!found_position)
-                std::printf("Position missing\n");
+                System::Log("GameComponentFuncs|Position missing\n");
 
             return false;
         }
@@ -126,15 +128,15 @@ namespace
         const bool found_all = found_faction && found_width && found_height && found_position;
         if(!found_all)
         {
-            std::printf("Unable to find paramenters for box shape, entity: %u\n", entity.id);
+            System::Log("GameComponentFuncs|Unable to find paramenters for box shape, entity: %u\n", entity.id);
             if(!found_faction)
-                std::printf("Faction missing\n");
+                System::Log("GameComponentFuncs|Faction missing\n");
             if(!found_width)
-                std::printf("Width missing\n");
+                System::Log("GameComponentFuncs|Width missing\n");
             if(!found_height)
-                std::printf("Height missing\n");
+                System::Log("GameComponentFuncs|Height missing\n");
             if(!found_position)
-                std::printf("Position missing\n");
+                System::Log("GameComponentFuncs|Position missing\n");
 
             return false;
         }
@@ -161,15 +163,15 @@ namespace
         const bool found_all = found_faction && found_radius && found_start && found_end;
         if(!found_all)
         {
-            std::printf("Unable to find paramenters for segment shape, entity: %u\n", entity.id);
+            System::Log("GameComponentFuncs|Unable to find paramenters for segment shape, entity: %u\n", entity.id);
             if(!found_faction)
-                std::printf("Faction missing\n");
+                System::Log("GameComponentFuncs|Faction missing\n");
             if(!found_radius)
-                std::printf("Radius missing\n");
+                System::Log("GameComponentFuncs|Radius missing\n");
             if(!found_start)
-                std::printf("Start missing\n");
+                System::Log("GameComponentFuncs|Start missing\n");
             if(!found_end)
-                std::printf("End missing\n");
+                System::Log("GameComponentFuncs|End missing\n");
 
             return false;
         }
@@ -202,7 +204,7 @@ namespace
         int health;
         if(!FindAttribute(HEALTH_ATTRIBUTE, properties, health))
         {
-            std::printf("Missing health parameters, will not update component.\n");
+            System::Log("GameComponentFuncs|Missing health parameters, will not update component.\n");
             return false;
         }
 

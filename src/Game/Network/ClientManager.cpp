@@ -6,6 +6,7 @@
 
 #include "EventHandler/EventHandler.h"
 #include "System/Network.h"
+#include "System/System.h"
 
 using namespace game;
 
@@ -109,6 +110,9 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     info.additional_info.push_back("server: " + std::to_string(m_server_time));
     info.additional_info.push_back("predicted: " + std::to_string(m_server_time_predicted));
 
+    if(GetConnectionStatus() == ClientStatus::CONNECTED)
+        info.additional_info.push_back("ping: " + std::to_string(m_server_ping));
+
     return info;
 }
 
@@ -163,7 +167,7 @@ bool ClientManager::HandlePing(const PingMessage& message)
 
 void ClientManager::ToSearching()
 {
-    std::printf("network|Searching for server\n");
+    System::Log("network|Searching for server\n");
     m_search_timer = 0;
 
     m_remote_connection.reset();
@@ -188,7 +192,7 @@ void ClientManager::ToSearching()
 
 void ClientManager::ToFoundServer()
 {
-    std::printf("network|Found server at %s\n", network::AddressToString(m_server_address).c_str());
+    System::Log("network|Found server at %s\n", network::AddressToString(m_server_address).c_str());
 
     NetworkMessage message;
     message.payload = SerializeMessage(ConnectMessage());
@@ -197,17 +201,17 @@ void ClientManager::ToFoundServer()
 
 void ClientManager::ToConnected()
 {
-    std::printf("network|Server accepted connection\n");
+    System::Log("network|Server accepted connection\n");
 }
 
 void ClientManager::ToDisconnected()
 {
-    std::printf("network|Server quit\n");
+    System::Log("network|Server quit\n");
 }
 
 void ClientManager::ToFailed()
 {
-    std::printf("network|Failed to find a server\n");
+    System::Log("network|Failed to find a server\n");
     m_failed_timer = 0;
 }
 
@@ -220,16 +224,16 @@ void ClientManager::Searching(const mono::UpdateContext& update_context)
 
 void ClientManager::Connected(const mono::UpdateContext& update_context)
 {
-    const bool is_thirtieth_frame = (update_context.frame_count % 30) == 0;
-    if(is_thirtieth_frame)
+    const bool is_tenth_frame = (update_context.frame_count % 10) == 0;
+    if(is_tenth_frame)
     {
         NetworkMessage message;
         message.payload = SerializeMessage(HeartBeatMessage());
         SendMessage(message);
     }
 
-    const bool is_sixtieth_frame = (update_context.frame_count % 60) == 0;
-    if(is_sixtieth_frame)
+    const bool is_fifth_frame = (update_context.frame_count % 5) == 0;
+    if(is_fifth_frame)
     {
         PingMessage ping_message;
         ping_message.local_time = System::GetMilliseconds();

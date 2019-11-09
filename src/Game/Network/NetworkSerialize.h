@@ -2,6 +2,7 @@
 #pragma once
 
 #include "System/Network.h"
+#include "System/System.h"
 
 #include <vector>
 #include <cstdint>
@@ -47,7 +48,7 @@ namespace game
 
         if(message.size() != type_and_message_size)
         {
-            std::printf("Payload size missmatch! %zu / %zu\n", message.size(), type_and_message_size);
+            System::Log("NetworkSerialize|Payload size missmatch! %zu / %zu\n", message.size(), type_and_message_size);
             return false;
         }
 
@@ -56,7 +57,7 @@ namespace game
 
         if(T::message_type != message_type)
         {
-            std::printf("Message id missmatch!\n");
+            System::Log("NetworkSerialize|Message id missmatch!\n");
             return false;
         }
 

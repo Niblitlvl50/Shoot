@@ -1,5 +1,6 @@
 
 #include "System/System.h"
+#include "System/File.h"
 #include "System/Network.h"
 #include "Audio/AudioSystem.h"
 #include "Rendering/RenderSystem.h"
@@ -39,6 +40,7 @@ namespace
         int height = 625;
         int start_zone = 1;
         const char* game_config = "res/game_config.json";
+        const char* log_file = nullptr;
     };
 
     Options ParseCommandline(int argc, char* argv[])
@@ -71,19 +73,25 @@ namespace
                 assert((index + 1) < argc);
                 options.game_config = argv[++index];
             }
+            else if(strcmp("--log-file", arg) == 0)
+            {
+                assert((index + 1) < argc);
+                options.log_file = argv[++index];
+            }
         }
 
         return options;
     }
 }
 
-
 int main(int argc, char* argv[])
 {
     constexpr size_t max_entities = 500;
     const Options options = ParseCommandline(argc, argv);
 
-    System::Initialize();
+    System::InitializeContext system_context;
+    system_context.log_file = options.log_file;
+    System::Initialize(system_context);
 
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
