@@ -45,7 +45,7 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     , m_push_messages(&m_message_buffer_1)
 {
     REGISTER_MESSAGE_HANDLER(ServerQuitMessage);
-    REGISTER_MESSAGE_HANDLER(ServerBeaconMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(ServerBeaconMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(PingMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(ConnectMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(ConnectAcceptedMessage);

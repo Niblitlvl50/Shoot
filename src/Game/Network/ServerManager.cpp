@@ -47,7 +47,7 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
         m_broadcast_address = network::GetBroadcastAddress(game_config->client_port);
     }
 
-    m_server_address = network::GetBroadcastAddress(socket->Port());
+    m_server_address = network::MakeAddress(network::GetLocalhostName().c_str(), socket->Port());
     m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
 }
 
@@ -207,11 +207,8 @@ void ServerManager::doUpdate(const mono::UpdateContext& update_context)
 
     if(m_beacon_timer >= 500)
     {
-        ServerBeaconMessage beacon_message;
-        beacon_message.sender = m_server_address;
-
         NetworkMessage message;
-        message.payload = SerializeMessage(beacon_message);
+        message.payload = SerializeMessage(ServerBeaconMessage());
         SendMessageTo(message, m_broadcast_address);
 
         m_beacon_timer = 0;

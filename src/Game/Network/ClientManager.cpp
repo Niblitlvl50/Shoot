@@ -224,7 +224,7 @@ void ClientManager::Searching(const mono::UpdateContext& update_context)
 
 void ClientManager::Connected(const mono::UpdateContext& update_context)
 {
-    const bool is_tenth_frame = (update_context.frame_count % 10) == 0;
+    const bool is_tenth_frame = (update_context.frame_count % 30) == 0;
     if(is_tenth_frame)
     {
         NetworkMessage message;
@@ -232,11 +232,12 @@ void ClientManager::Connected(const mono::UpdateContext& update_context)
         SendMessage(message);
     }
 
-    const bool is_fifth_frame = (update_context.frame_count % 5) == 0;
+    const bool is_fifth_frame = (update_context.frame_count % 15) == 0;
     if(is_fifth_frame)
     {
         PingMessage ping_message;
         ping_message.local_time = System::GetMilliseconds();
+        ping_message.server_time = 0;
 
         NetworkMessage message;
         message.payload = SerializeMessage(ping_message);

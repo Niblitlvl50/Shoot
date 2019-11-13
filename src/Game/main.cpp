@@ -40,7 +40,7 @@ namespace
         int height = 625;
         int start_zone = 1;
         const char* game_config = "res/game_config.json";
-        const char* log_file = nullptr;
+        const char* log_file = "game_log.txt";
     };
 
     Options ParseCommandline(int argc, char* argv[])
