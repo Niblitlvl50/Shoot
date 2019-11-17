@@ -9,6 +9,7 @@ namespace editor
         POLYGONS,
         OBJECTS,
         GRABBERS,
-        UI
+        UI,
+        IMGUI
     };
 }

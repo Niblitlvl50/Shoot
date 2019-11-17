@@ -2,7 +2,6 @@
 #include "SystemTestZone.h"
 
 #include "EventHandler/EventHandler.h"
-#include "Events/SpawnConstraintEvent.h"
 #include "Events/GameEventFuncFwd.h"
 
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -73,21 +72,15 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
 {
     using namespace std::placeholders;
 
-    const game::SpawnConstraintFunc& spawn_constraint_func = std::bind(&SystemTestZone::SpawnConstraint, this, _1);
-    const game::DespawnConstraintFunc& despawn_constraint_func = std::bind(&SystemTestZone::DespawnConstraint, this, _1);
     const std::function<bool (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
     const std::function<bool (const RemoteCameraMessage&)> camera_func = std::bind(&SystemTestZone::HandleRemoteCamera, this, _1);
 
-    m_spawn_constraint_token = m_event_handler->AddListener(spawn_constraint_func);
-    m_despawn_constraint_token = m_event_handler->AddListener(despawn_constraint_func);
     m_text_func_token = m_event_handler->AddListener(text_func);
     m_camera_func_token = m_event_handler->AddListener(camera_func);
 }
 
 SystemTestZone::~SystemTestZone()
 {
-    m_event_handler->RemoveListener(m_spawn_constraint_token);
-    m_event_handler->RemoveListener(m_despawn_constraint_token);
     m_event_handler->RemoveListener(m_text_func_token);
     m_event_handler->RemoveListener(m_camera_func_token);
 }
@@ -165,16 +158,6 @@ int SystemTestZone::OnUnload()
 
     entity_manager->Sync();
     return 0;
-}
-
-bool SystemTestZone::SpawnConstraint(const game::SpawnConstraintEvent& event)
-{
-    return true;
-}
-
-bool SystemTestZone::DespawnConstraint(const game::DespawnConstraintEvent& event)
-{
-    return true;
 }
 
 bool SystemTestZone::HandleText(const TextMessage& text_message)

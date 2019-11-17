@@ -8,7 +8,8 @@ namespace editor
         NEW,
         SAVE,
         IMPORT_ENTITY,
-        EXPORT_ENTITY
+        EXPORT_ENTITY,
+        DUPLICATE
     };
 
     enum ToolsMenuOptions

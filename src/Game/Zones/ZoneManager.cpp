@@ -1,7 +1,6 @@
 
 #include "ZoneManager.h"
 #include "ZoneFlow.h"
-#include "TestZone.h"
 #include "TitleScreen.h"
 #include "RemoteZone.h"
 #include "SystemTestZone.h"
@@ -24,7 +23,6 @@ ZoneManager::ZoneManager(
     , m_active_zone(initial_zone)
 {
     m_zones[TITLE_SCREEN] = LoadZone<game::TitleScreen>;
-    //m_zones[TEST_ZONE] = LoadZone<game::TestZone>;
     m_zones[TEST_ZONE] = LoadZone<game::SystemTestZone>;
     m_zones[REMOTE_ZONE] = LoadZone<game::RemoteZone>;
 }

@@ -53,6 +53,7 @@ namespace editor
         void AddPath(const std::shared_ptr<editor::PathEntity>& path);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
+        void TeleportToProxyObject(IObjectProxy* proxy_object);
         IObjectProxy* FindProxyObject(const math::Vector& position);
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
 

@@ -113,6 +113,7 @@ Editor::Editor(
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.select_object_callback = std::bind(&Editor::SelectProxyObject, this, _1);
+    m_context.teleport_to_object_callback = std::bind(&Editor::TeleportToProxyObject, this, _1);
 
     m_context.add_component = std::bind(&Editor::AddComponent, this, _1);
     m_context.delete_component = std::bind(&Editor::DeleteComponent, this, _1);
@@ -172,18 +173,8 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, transform_system), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
-    AddDrawable(m_gui_renderer, RenderLayer::UI);
+    AddDrawable(m_gui_renderer, RenderLayer::IMGUI);
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
-
-    /*
-    m_proxies = LoadWorld(m_file_name, m_object_factory);
-    for(auto& proxy : m_proxies)
-    {
-        const bool is_polygon = (strcmp(proxy->Name(), "polygonobject") == 0);
-        const RenderLayer layer = is_polygon ? RenderLayer::POLYGONS : RenderLayer::OBJECTS;
-        AddEntity(proxy->Entity(), layer);
-    }
-    */
 
     m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system);
     for(IObjectProxyPtr& proxy : m_proxies)
@@ -283,6 +274,12 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 
     UpdateSnappers();
     UpdateGrabbers();
+}
+
+void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
+{
+    const math::Vector& proxy_position = proxy_object->GetPosition();
+    m_camera->SetPosition(proxy_position);
 }
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
@@ -487,6 +484,7 @@ void Editor::SelectItemCallback(int index)
         m_proxies.push_back(std::move(object));
 
     SelectProxyObject(m_proxies.back().get());
+    TeleportToProxyObject(m_proxies.back().get());
     m_context.notifications.emplace_back(m_context.default_icon, "Imported Entity...", 2000);
 }
 
@@ -500,6 +498,8 @@ void Editor::EditorMenuCallback(EditorMenuOptions option)
         ImportEntity();
     else if(option == EditorMenuOptions::EXPORT_ENTITY)
         ExportEntity();
+    else if(option == EditorMenuOptions::DUPLICATE)
+        DuplicateSelected();
 }
 
 void Editor::ToolsMenuCallback(ToolsMenuOptions option)
@@ -537,12 +537,12 @@ void Editor::EnableDrawOutline(bool enable)
     m_context.draw_outline = enable;
 }
 
-const mono::Color::RGBA &Editor::BackgroundColor() const
+const mono::Color::RGBA& Editor::BackgroundColor() const
 {
     return m_context.background_color;
 }
 
-void Editor::SetBackgroundColor(const mono::Color::RGBA &color)
+void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
     m_window->SetBackgroundColor(color.red, color.green, color.blue);

@@ -17,7 +17,7 @@ namespace
         ImGui::BeginMainMenuBar();
         if(ImGui::BeginMenu("Editor"))
         {
-            if(ImGui::MenuItem("New", "Ctrl + N"))
+            if(ImGui::MenuItem("New Entity", "Ctrl + N"))
                 context.editor_menu_callback(EditorMenuOptions::NEW);
 
             if(ImGui::MenuItem("Save", "Ctrl + S"))
@@ -28,6 +28,9 @@ namespace
 
             if(ImGui::MenuItem("Export Entity", "Ctrl + Shift + E"))
                 context.editor_menu_callback(EditorMenuOptions::EXPORT_ENTITY);
+
+            if(ImGui::MenuItem("Duplicate Entity", "Ctrl + D"))
+                context.editor_menu_callback(EditorMenuOptions::DUPLICATE);
 
             ImGui::EndMenu();
         }
@@ -96,8 +99,14 @@ namespace
             
             ImGui::PushID(index);
 
-            if(ImGui::Selectable(proxy->Name(), selected))
-                context.select_object_callback(proxy.get());
+            if(ImGui::Selectable(proxy->Name(), selected, ImGuiSelectableFlags_AllowDoubleClick))
+            {
+                const bool is_double_click = ImGui::IsMouseDoubleClicked(0);
+                if(is_double_click)
+                    context.teleport_to_object_callback(proxy.get());
+                else
+                    context.select_object_callback(proxy.get());
+            }
 
             ImGui::PopID();
         }

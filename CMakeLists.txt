@@ -43,7 +43,7 @@ target_include_directories(game PRIVATE "src/Game")
 
 # Editor exe
 file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
-add_executable(editor ${editor_source_files})
+add_executable(editor MACOSX_BUNDLE ${editor_source_files})
 add_dependencies(editor mono shared imgui)
 target_include_directories(editor PRIVATE "src/Editor")
 target_link_libraries(editor mono shared)

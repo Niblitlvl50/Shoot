@@ -55,7 +55,7 @@
         {
             "taskName": "editor",
             "type": "process",
-            "command": "./bin/editor",
+            "command": "./bin/editor.app/Contents/MacOS/editor",
             "args": ["res/world.world"],
             "problemMatcher": []
         }

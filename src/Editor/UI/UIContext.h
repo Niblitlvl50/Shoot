@@ -63,6 +63,7 @@ namespace editor
         std::function<void (uint32_t component_hash)> add_component;
         std::function<void (uint32_t index)> delete_component;
         std::function<void (IObjectProxy*)> select_object_callback;
+        std::function<void (IObjectProxy*)> teleport_to_object_callback;
         
         std::function<void (int)> context_menu_callback;
         std::function<void (int)> modal_selection_callback;

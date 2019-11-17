@@ -109,7 +109,7 @@
                         {
                             "id": 3779456605,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 910774975,
@@ -321,8 +321,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -0.7529382705688477,
-                                "y": 1.0919349193572998
+                                "x": -0.7879323959350586,
+                                "y": 0.7419993877410889
                             }
                         },
                         {
@@ -542,7 +542,7 @@
                 }
             ],
             "entity_properties": 1,
-            "name": "unnamed"
+            "name": "green_barrel"
         },
         {
             "components": [
@@ -2638,7 +2638,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "unnamed"
+            "name": "meh"
         },
         {
             "components": [
@@ -2821,7 +2821,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "unnamed"
+            "name": "surprised"
         },
         {
             "components": [
@@ -2943,7 +2943,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "unnamed"
+            "name": "first_aid"
         },
         {
             "components": [
@@ -3004,7 +3004,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "unnamed"
+            "name": "first_aid"
         },
         {
             "components": [
@@ -3388,7 +3388,7 @@
                 }
             ],
             "entity_properties": 1,
-            "name": "unnamed"
+            "name": "bat"
         },
         {
             "components": [
@@ -3516,6 +3516,67 @@
                 }
             ],
             "entity_properties": 1,
+            "name": "bat"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 2,
             "name": "unnamed"
         }
     ]

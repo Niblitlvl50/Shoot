@@ -1,11 +1,7 @@
 
 #include "PlayerDaemon.h"
-#include "Shuttle.h"
 #include "ShuttleLogic.h"
 #include "RenderLayers.h"
-#include "Events/SpawnPhysicsEntityEvent.h"
-#include "Events/SpawnEntityEvent.h"
-#include "Events/RemoveEntityEvent.h"
 #include "AIKnowledge.h"
 #include "FontIds.h"
 
@@ -22,6 +18,7 @@
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/PlayerConnectedEvent.h"
+#include "Events/RemoveEntityEvent.h"
 
 #include "Camera/ICamera.h"
 #include "Rendering/Color.h"

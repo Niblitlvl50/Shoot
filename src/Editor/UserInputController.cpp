@@ -224,15 +224,15 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
     m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
 
     if(event.key == Keycode::D && event.ctrl)
-        m_editor->DuplicateSelected();
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::DUPLICATE);
     else if(event.key == Keycode::N && event.ctrl)
-        m_editor->NewEntity();
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::NEW);
     else if(event.key == Keycode::S && event.ctrl)
-        m_editor->Save();
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::SAVE);
     else if(event.key == Keycode::I && event.ctrl && event.shift)
-        m_editor->ImportEntity();
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::IMPORT_ENTITY);
     else if(event.key == Keycode::E && event.ctrl && event.shift)
-        m_editor->ExportEntity();
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::EXPORT_ENTITY);
     else if(event.key == Keycode::ONE)
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)

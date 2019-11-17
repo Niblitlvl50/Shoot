@@ -1,0 +1,46 @@
+System
+	SDL version: 2.0.10
+	resouce directory: /Users/niklasdamberg/Programming/Shoot/bin/game_exe.app/Contents/Resources/
+Network
+	port range: 21000 - 22000
+	localhost: Niblits-MacBook-Pro.local
+	broadcast: 10.0.1.255
+	loopback: 127.0.0.1
+OpenAL
+	vendor: Apple Computer Inc.
+	device: Built-in Output
+	renderer: Software
+	version: 1.1
+Render
+	pixels per meter: 32.000000
+Physics
+	chipmunk version: 7.0.1
+	bodies: 500
+	shapes: circle 500, segment 500, polygon 500
+	joints: pivot 100, gear 100
+	springs: damped 100
+OpenGL
+	vendor: NVIDIA Corporation
+	renderer: NVIDIA GeForce GT 650M OpenGL Engine
+	version: 2.1 NVIDIA-14.0.31 355.11.11.10.10.143
+	glsl: 1.20
+TextureFactory|Unable to find 'res/sprite_atlas.png' in cache
+TextureFactory|Unable to find 'res/textures/x4.png' in cache
+Network message sizes
+	0 ServerBeaconMessage 8
+	1 ServerQuitMessage 1
+	2 PingMessage 16
+	3 ConnectMessage 8
+	4 ConnectAcceptedMessage 8
+	5 DisconnectMessage 8
+	6 HeartBeatMessage 8
+	7 TextMessage 256
+	8 TransformMessage 24
+	9 SpawnMessage 8
+	10 SpriteMessage 16
+	11 RemoteInputMessage 48
+	12 RemoteCameraMessage 24
+	13 ViewportMessage 24
+network|Created socket on port 2002
+TextureFactory|Unable to find 'res/sprite_atlas.png' in cache
+network|Failed to send data(65)
