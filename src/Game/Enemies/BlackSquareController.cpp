@@ -26,7 +26,7 @@
 #include "Math/MathFunctions.h"
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 using namespace game;
 

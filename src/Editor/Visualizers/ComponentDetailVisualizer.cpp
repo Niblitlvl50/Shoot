@@ -4,7 +4,7 @@
 #include "ObjectProxies/IObjectProxy.h"
 
 #include "Math/Quad.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include "ObjectAttribute.h"
 #include "Component.h"

@@ -133,7 +133,7 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
         SendMessageTo(reply_message, message.sender);
 
-        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.sender.host));
+        m_event_handler->DispatchEvent(PlayerConnectedEvent(message.sender));
     }
     else
     {
@@ -147,7 +147,7 @@ bool ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
     System::Log("ServerManager|Disconnect client\n");
     m_connected_clients.erase(message.sender);
-    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender.host));
+    m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender));
 
     return false;
 }
@@ -192,7 +192,7 @@ void ServerManager::PurgeZombieClients()
     {
         System::Log("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
-        m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key.host));
+        m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key));
     }
 }
 

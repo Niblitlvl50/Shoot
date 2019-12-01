@@ -1,21 +1,23 @@
 
 #pragma once
 
+#include "System/Network.h"
+
 namespace game
 {
     struct PlayerConnectedEvent
     {
-        PlayerConnectedEvent(uint32_t id)
-            : id(id)
+        PlayerConnectedEvent(const network::Address& address)
+            : address(address)
         { }
-        const uint32_t id;
+        const network::Address address;
     };
 
     struct PlayerDisconnectedEvent
     {
-        PlayerDisconnectedEvent(uint32_t id)
-            : id(id)
+        PlayerDisconnectedEvent(const network::Address& address)
+            : address(address)
         { }
-        const uint32_t id;
+        const network::Address address;
     };
 }

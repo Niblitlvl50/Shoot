@@ -10,7 +10,7 @@
 #include "Math/MathFunctions.h"
 
 #include "Entity/IEntityManager.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 using namespace editor;
 

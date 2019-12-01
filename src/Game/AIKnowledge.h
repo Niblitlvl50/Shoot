@@ -25,4 +25,6 @@ namespace game
 
     extern math::Quad g_camera_viewport;
     extern struct NavmeshContext* g_navmesh;
+
+    void InitializeAIKnowledge();
 }

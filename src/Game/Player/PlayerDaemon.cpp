@@ -6,11 +6,12 @@
 #include "FontIds.h"
 
 #include "Factories.h"
+#include "Entity.h"
 #include "Entity/IEntityManager.h"
 
 #include "SystemContext.h"
 #include "DamageSystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Entity/EntityLogicSystem.h"
 
 #include "EventHandler/EventHandler.h"
@@ -29,12 +30,13 @@
 #include "Hud/Dialog.h"
 
 #include "Network/NetworkMessage.h"
+#include "Network/INetworkPipe.h"
+#include "Network/NetworkSerialize.h"
 
 #include "Component.h"
 #include "System/System.h"
 
 #include <functional>
-#include <limits>
 
 using namespace game;
 
@@ -92,8 +94,13 @@ namespace
 }
 
 PlayerDaemon::PlayerDaemon(
-    mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+    mono::ICameraPtr camera,
+    INetworkPipe* remote_connection,
+    const std::vector<math::Vector>& player_points,
+    mono::SystemContext* system_context,
+    mono::EventHandler& event_handler)
     : m_camera(camera)
+    , m_remote_connection(remote_connection)
     , m_player_points(player_points)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
@@ -103,8 +110,8 @@ PlayerDaemon::PlayerDaemon(
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
 
-    m_added_token = m_event_handler.AddListener(added_func);
-    m_removed_token = m_event_handler.AddListener(removed_func);
+    //m_added_token = m_event_handler.AddListener(added_func);
+    //m_removed_token = m_event_handler.AddListener(removed_func);
 
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
@@ -144,6 +151,19 @@ PlayerDaemon::~PlayerDaemon()
         game::entity_manager->ReleaseEntity(g_player_two.entity_id);
 }
 
+std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
+{
+    std::vector<uint32_t> ids;
+
+    if(g_player_one.is_active)
+        ids.push_back(g_player_one.entity_id);
+
+    for(const auto& pair : m_remote_players)
+        ids.push_back(pair.second.player_info.entity_id);
+
+    return ids;
+}
+
 void PlayerDaemon::SpawnPlayer(
     game::PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback)
 {
@@ -171,13 +191,13 @@ void PlayerDaemon::SpawnPlayer(
 
 void PlayerDaemon::SpawnPlayer1()
 {
-//    const auto destroyed_func = [this](uint32_t entity_id) {
-//        game::g_player_one.is_active = false;
-//        auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
-//        m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
-//    };
-//
-//    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
+    const auto destroyed_func = [](uint32_t entity_id) {
+        game::g_player_one.is_active = false;
+        //auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
+        //m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
+    };
+
+    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
 }
 
 void PlayerDaemon::SpawnPlayer2()
@@ -213,7 +233,7 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
             entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
         m_camera->Unfollow();
-        game::g_player_one.entity_id = std::numeric_limits<uint32_t>::max();
+        game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
     }
     else if(event.id == m_player_two_id)
@@ -221,7 +241,7 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
         if(game::g_player_two.is_active)
             entity_manager->ReleaseEntity(game::g_player_two.entity_id);
 
-        game::g_player_two.entity_id = std::numeric_limits<uint32_t>::max();
+        game::g_player_two.entity_id = mono::INVALID_ID;
         game::g_player_two.is_active = false;
     }
 
@@ -230,26 +250,35 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
 
 bool PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
 {
-    auto it = m_remote_players.find(event.id);
+    auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
         return true;
 
-    System::Log("PlayerDaemon|Player connected, %u\n", event.id);
+    System::Log("PlayerDaemon|Player connected, %s\n", network::AddressToString(event.address).c_str());
 
-    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.id];
+    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
 
     const auto remote_player_destroyed = [](uint32_t entity_id) {
-
+        //game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
+        //m_remote_players.erase(it);
     };
 
     SpawnPlayer(&remote_player_data.player_info, remote_player_data.controller_state, remote_player_destroyed);
+
+    ClientPlayerSpawned client_spawned_message;
+    client_spawned_message.client_entity_id = remote_player_data.player_info.entity_id;
+
+    NetworkMessage reply_message;
+    reply_message.payload = SerializeMessage(client_spawned_message);
+
+    m_remote_connection->SendMessageTo(reply_message, event.address);
 
     return true;
 }
 
 bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
 {
-    auto it = m_remote_players.find(event.id);
+    auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
     {
         game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
@@ -261,33 +290,31 @@ bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
 
 bool PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
 {
-    System::Log("PlayerDaemon|Got remote input! %u\n", event.id);
-    
-    auto it = m_remote_players.find(event.id);
+    auto it = m_remote_players.find(event.sender);
     if(it != m_remote_players.end())
-    {
-        System::Log("PlayerDaemon|Applying input! %f\n", event.controller_state.left_x);
         it->second.controller_state = event.controller_state;
-    }
 
     return true;
 }
 
 
-ClientPlayerDaemon::ClientPlayerDaemon(mono::EventHandler& event_handler)
-    : m_event_handler(event_handler)
+ClientPlayerDaemon::ClientPlayerDaemon(mono::ICameraPtr camera, mono::EventHandler& event_handler)
+    : m_camera(camera)
+    , m_event_handler(event_handler)
 {
     using namespace std::placeholders;
 
     const event::ControllerAddedFunc& added_func = std::bind(&ClientPlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&ClientPlayerDaemon::OnControllerRemoved, this, _1);
+    const std::function<bool (const ClientPlayerSpawned&)>& client_spawned = std::bind(&ClientPlayerDaemon::ClientSpawned, this, _1);
 
     m_added_token = m_event_handler.AddListener(added_func);
     m_removed_token = m_event_handler.AddListener(removed_func);
+    m_client_spawned_token = m_event_handler.AddListener(client_spawned);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
     {
-        m_player_one_id = System::GetControllerId(System::ControllerId::Primary);
+        m_player_one_controller_id = System::GetControllerId(System::ControllerId::Primary);
         SpawnPlayer1();
     }
 }
@@ -296,13 +323,16 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
 {
     m_event_handler.RemoveListener(m_added_token);
     m_event_handler.RemoveListener(m_removed_token);
+    m_event_handler.RemoveListener(m_client_spawned_token);
+
+    m_camera->Unfollow();
 }
 
 void ClientPlayerDaemon::SpawnPlayer1()
 {
     System::Log("PlayerDaemon|Spawn player 1\n");
     //game::g_player_one.entity_id = player_entity.id;
-    game::g_player_one.is_active = true;
+    //game::g_player_one.is_active = true;
 }
 
 bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
@@ -310,7 +340,7 @@ bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& ev
     if(!game::g_player_one.is_active)
     {
         SpawnPlayer1();
-        m_player_one_id = event.id;
+        m_player_one_controller_id = event.id;
     }
 
     return false;
@@ -318,11 +348,22 @@ bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& ev
 
 bool ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
-    if(event.id == m_player_one_id)
+    if(event.id == m_player_one_controller_id)
     {
-        game::g_player_one.entity_id = std::numeric_limits<uint32_t>::max();
+        game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
+        m_camera->Unfollow();
     }
+
+    return false;
+}
+
+bool ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
+{
+    game::g_player_one.entity_id = message.client_entity_id;
+    game::g_player_one.is_active = true;
+
+    m_camera->Follow(g_player_one.entity_id, math::ZeroVec);
 
     return false;
 }

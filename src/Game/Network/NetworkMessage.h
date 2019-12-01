@@ -45,6 +45,12 @@ namespace game
         network::Address sender;
     };
 
+    struct ClientPlayerSpawned
+    {
+        DECLARE_NETWORK_MESSAGE();
+        uint32_t client_entity_id;
+    };
+
     struct DisconnectMessage
     {
         DECLARE_NETWORK_MESSAGE();
@@ -70,6 +76,7 @@ namespace game
         uint32_t entity_id;
         math::Vector position;
         float rotation;
+        short parent_transform;
         bool settled;
     };
 
@@ -94,7 +101,7 @@ namespace game
     struct RemoteInputMessage
     {
         DECLARE_NETWORK_MESSAGE();
-        uint32_t id;
+        network::Address sender;
         System::ControllerState controller_state;
     };
 
@@ -124,6 +131,7 @@ namespace game
         PRINT_NETWORK_MESSAGE_SIZE(PingMessage);
         PRINT_NETWORK_MESSAGE_SIZE(ConnectMessage);
         PRINT_NETWORK_MESSAGE_SIZE(ConnectAcceptedMessage);
+        PRINT_NETWORK_MESSAGE_SIZE(ClientPlayerSpawned);
         PRINT_NETWORK_MESSAGE_SIZE(DisconnectMessage);
         PRINT_NETWORK_MESSAGE_SIZE(HeartBeatMessage);
         PRINT_NETWORK_MESSAGE_SIZE(TextMessage);

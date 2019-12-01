@@ -4,7 +4,7 @@
 #include "Math/Vector.h"
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Component.h"
 
 #include "Editor.h"

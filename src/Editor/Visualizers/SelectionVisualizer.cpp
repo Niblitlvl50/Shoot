@@ -3,7 +3,7 @@
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include <limits>
 

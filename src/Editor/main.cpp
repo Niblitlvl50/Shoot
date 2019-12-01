@@ -12,7 +12,7 @@
 #include "EditorConfig.h"
 #include "FontIds.h"
 
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 

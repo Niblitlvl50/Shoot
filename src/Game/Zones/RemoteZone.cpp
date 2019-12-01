@@ -28,7 +28,7 @@
 #include "Math/Quad.h"
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "PositionPredictionSystem.h"
 
 #include "Player/PlayerDaemon.h"
@@ -62,7 +62,7 @@ RemoteZone::~RemoteZone()
 void RemoteZone::OnLoad(mono::ICameraPtr& camera)
 {
     m_client_manager = std::make_shared<ClientManager>(&m_event_handler, &m_game_config);
-    m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_event_handler);
+    m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera, m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     const PositionPredictionSystem* prediction_system =

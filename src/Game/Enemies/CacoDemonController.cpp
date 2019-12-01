@@ -14,7 +14,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include <cmath>
 

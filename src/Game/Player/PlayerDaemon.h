@@ -7,6 +7,7 @@
 #include "EventHandler/EventToken.h"
 #include "Math/Vector.h"
 #include "System/System.h"
+#include "System/Network.h"
 
 #include "Events/GameEventFuncFwd.h"
 #include "AIKnowledge.h"
@@ -23,18 +24,26 @@ namespace System
 
 namespace game
 {
+    class INetworkPipe;
     struct RemoteInputMessage;
+    struct ClientPlayerSpawned;
 
     class PlayerDaemon
     {
     public:
 
         PlayerDaemon(
-            mono::ICameraPtr camera, const std::vector<math::Vector>& player_points, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+            mono::ICameraPtr camera,
+            INetworkPipe* remote_connection,
+            const std::vector<math::Vector>& player_points,
+            mono::SystemContext* system_context,
+            mono::EventHandler& event_handler);
         ~PlayerDaemon();
 
         void SpawnPlayer1();
         void SpawnPlayer2();
+
+        std::vector<uint32_t> GetPlayerIds() const;
 
     private:
 
@@ -49,6 +58,7 @@ namespace game
         bool RemoteInput(const RemoteInputMessage& event);
 
         mono::ICameraPtr m_camera;
+        INetworkPipe* m_remote_connection;
         const std::vector<math::Vector> m_player_points;
         mono::SystemContext* m_system_context;
         mono::EventHandler& m_event_handler;
@@ -68,25 +78,28 @@ namespace game
             PlayerInfo player_info;
             System::ControllerState controller_state;
         };
-        std::unordered_map<uint32_t, RemotePlayerData> m_remote_players;
+        std::unordered_map<network::Address, RemotePlayerData> m_remote_players;
     };
 
     class ClientPlayerDaemon
     {
     public:
 
-        ClientPlayerDaemon(mono::EventHandler& event_handler);
+        ClientPlayerDaemon(mono::ICameraPtr camera, mono::EventHandler& event_handler);
         ~ClientPlayerDaemon();
 
         void SpawnPlayer1();
 
         bool OnControllerAdded(const event::ControllerAddedEvent& event);
         bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
+        bool ClientSpawned(const ClientPlayerSpawned& message);
 
+        mono::ICameraPtr m_camera;
         mono::EventHandler& m_event_handler;
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
+        mono::EventToken<ClientPlayerSpawned> m_client_spawned_token;
 
-        int m_player_one_id = -1;
+        int m_player_one_controller_id = -1;
     };
 }

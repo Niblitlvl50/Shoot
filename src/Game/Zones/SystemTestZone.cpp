@@ -12,7 +12,8 @@
 
 #include "SystemContext.h"
 #include "EntitySystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
+#include "TransformSystem/TransformSystemDrawer.h"
 #include "Util/Random.h"
 
 #include "AIKnowledge.h"
@@ -49,8 +50,9 @@
 #include "Player/PlayerDaemon.h"
 
 #include "WorldFile.h"
-
+#include "Entity/EntityProperties.h"
 #include "Camera/ICamera.h"
+#include "GameMode/CaptureTheFlagLogic.h"
 
 using namespace game;
 
@@ -112,6 +114,9 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
 
+    std::vector<math::Vector> player_points;
+    m_player_daemon = std::make_unique<PlayerDaemon>(camera, m_server_manager.get(), player_points, m_system_context, *m_event_handler);
+
     for(int index = 0; index < 250; ++index)
     {
         mono::Entity new_entity = entity_manager->CreateEntity("res/entities/pink_blolb.entity");
@@ -125,6 +130,32 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     const std::vector<uint32_t>& loaded_entities = world::ReadWorldComponentObjects("res/world.components", entity_manager);
     m_loaded_entities.insert(m_loaded_entities.end(), loaded_entities.begin(), loaded_entities.end());
 
+    uint32_t red_flag = -1, red_dropzone = -1;
+    uint32_t blue_flag = -1, blue_dropzone = -1;
+
+    for(uint32_t id : loaded_entities)
+    {
+        const uint32_t properties = entity_manager->GetEntityProperties(id);
+        if(properties & EntityProperties::RED_FLAG)
+            red_flag = id;
+        else if(properties & EntityProperties::BLUE_FLAG)
+            blue_flag = id;
+        else if(properties & EntityProperties::RED_DROPZONE)
+            red_dropzone = id;
+        else if(properties & EntityProperties::BLUE_DROPZONE)
+            blue_dropzone = id;
+    }
+
+    if(red_flag != mono::INVALID_ID && blue_flag != mono::INVALID_ID && red_dropzone != mono::INVALID_ID && blue_dropzone != mono::INVALID_ID)
+    {
+        const std::vector<FlagDropzonePair> flags = {
+            { red_flag, red_dropzone},
+            { blue_flag, blue_dropzone }
+        };
+
+        AddUpdatable(std::make_shared<CaptureTheFlagLogic>(flags, transform_system, m_player_daemon.get()));
+    }
+
     {
         // Nav mesh
         std::vector<ExcludeZone> exclude_zones;
@@ -135,11 +166,10 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
         //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), UI);
     }
 
-    //std::vector<math::Vector> player_points;
-    //m_player_daemon = std::make_unique<PlayerDaemon>(camera, player_points, m_system_context, *m_event_handler);
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
     //AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(physics_system), UI);
+    AddDrawable(std::make_shared<mono::TransformSystemDrawer>(transform_system), UI);
     AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
 
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();

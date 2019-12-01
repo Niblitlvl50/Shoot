@@ -3,7 +3,7 @@
 
 #include "SystemContext.h"
 #include "EntitySystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Factories.h"
 
 #include "DamageSystem.h"

@@ -52,11 +52,12 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(DisconnectMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(HeartBeatMessage);
 
+    REGISTER_MESSAGE_HANDLER(ClientPlayerSpawned);
     REGISTER_MESSAGE_HANDLER(TextMessage);
     REGISTER_MESSAGE_HANDLER(TransformMessage);
     REGISTER_MESSAGE_HANDLER(SpawnMessage);
     REGISTER_MESSAGE_HANDLER(SpriteMessage);
-    REGISTER_MESSAGE_HANDLER(RemoteInputMessage);
+    REGISTER_MESSAGE_HANDLER_WITH_SENDER(RemoteInputMessage);
     REGISTER_MESSAGE_HANDLER(RemoteCameraMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(ViewportMessage);
 }

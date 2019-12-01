@@ -5,7 +5,7 @@
 #include "SystemContext.h"
 #include "EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include "Entity/EntityManager.h"
 

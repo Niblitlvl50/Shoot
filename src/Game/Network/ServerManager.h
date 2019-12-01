@@ -13,26 +13,6 @@
 #include <unordered_map>
 #include <memory>
 
-namespace std
-{
-    template <>
-    struct hash<network::Address>
-    {
-        size_t operator()(const network::Address& key) const
-        {
-            return key.host ^ key.port;
-        }
-    };
-}
-
-namespace network
-{
-    inline bool operator == (const network::Address& left, const network::Address& right)
-    {
-        return left.host == right.host && left.port == right.port;
-    }
-}
-
 namespace game
 {
     struct PingMessage;

@@ -13,10 +13,11 @@
 #include "FontIds.h"
 #include "Zones/ZoneManager.h"
 #include "GameConfig.h"
+#include "AIKnowledge.h"
 
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -95,7 +96,6 @@ int main(int argc, char* argv[])
 
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
-
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
 
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
@@ -110,6 +110,8 @@ int main(int argc, char* argv[])
     physics_system_params.n_circle_shapes = max_entities;
     physics_system_params.n_segment_shapes = max_entities;
     physics_system_params.n_polygon_shapes = max_entities;
+
+    game::InitializeAIKnowledge();
 
     {
         mono::EventHandler event_handler;

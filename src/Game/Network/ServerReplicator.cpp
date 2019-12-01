@@ -6,7 +6,7 @@
 #include "BatchedMessageSender.h"
 
 #include "EntitySystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
@@ -131,6 +131,7 @@ void ServerReplicator::ReplicateTransforms(
         TransformMessage transform_message;
         transform_message.timestamp = update_context.total_time;
         transform_message.entity_id = id;
+        transform_message.parent_transform = m_transform_system->GetParent(id);
         transform_message.position = math::GetPosition(transform);
         transform_message.rotation = math::GetZRotation(transform);
         transform_message.settled = 

@@ -5,7 +5,7 @@
 
 #include "Hash.h"
 #include "EventHandler/EventHandler.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Math/Matrix.h"
 #include "System/System.h"
 #include <algorithm>
@@ -92,11 +92,13 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
         const float delta_rotation = to.rotation - from.rotation;
         const float predicted_rotation = from.rotation + (delta_rotation * t);
 
+        prediction_data.predicted_position = predicted_position;
+
         math::Matrix& transform = m_transform_system->GetTransform(index);
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
 
-        prediction_data.predicted_position = predicted_position;
+        //m_transform_system->ChildTransform(index, from.parent_transform);
     }
 }
 
@@ -114,6 +116,7 @@ bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
         remote_transform.timestamp = transform_message.timestamp;
         remote_transform.position = transform_message.position;
         remote_transform.rotation = transform_message.rotation;
+        remote_transform.parent_transform = transform_message.parent_transform;
     }
     else
     {

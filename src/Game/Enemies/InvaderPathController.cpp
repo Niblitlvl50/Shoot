@@ -11,7 +11,7 @@
 #include "Math/MathFunctions.h"
 
 #include "SystemContext.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
 
 using namespace game;

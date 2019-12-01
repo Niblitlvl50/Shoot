@@ -5,7 +5,7 @@
 #include "Math/Quad.h"
 
 #include "DamageSystem.h"
-#include "TransformSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include "System/System.h"
 
