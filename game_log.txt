@@ -32,15 +32,16 @@ Network message sizes
 	2 PingMessage 16
 	3 ConnectMessage 8
 	4 ConnectAcceptedMessage 8
-	5 DisconnectMessage 8
-	6 HeartBeatMessage 8
-	7 TextMessage 256
-	8 TransformMessage 24
-	9 SpawnMessage 8
-	10 SpriteMessage 16
-	11 RemoteInputMessage 48
-	12 RemoteCameraMessage 24
-	13 ViewportMessage 24
+	5 ClientPlayerSpawned 4
+	6 DisconnectMessage 8
+	7 HeartBeatMessage 8
+	8 TextMessage 256
+	9 TransformMessage 24
+	10 SpawnMessage 8
+	11 SpriteMessage 16
+	12 RemoteInputMessage 52
+	13 RemoteCameraMessage 24
+	14 ViewportMessage 24
 network|Created socket on port 2002
 TextureFactory|Unable to find 'res/sprite_atlas.png' in cache
 network|Failed to send data(65)

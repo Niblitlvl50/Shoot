@@ -10,6 +10,7 @@ cmake_install.cmake
 Makefile
 left_game.log
 right_game.log
+game_log.txt
 bin/
 build/
 CMakeFiles/

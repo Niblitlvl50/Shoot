@@ -5,5 +5,5 @@
     "port_range_start": 21000,
     "port_range_end": 22000,
     "server_replication_interval": 50,
-    "client_time_offset": 200
+    "client_time_offset": 100
 }
