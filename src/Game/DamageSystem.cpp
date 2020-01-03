@@ -11,7 +11,7 @@ DamageSystem::DamageSystem(size_t num_records, IEntityManager* entity_manager)
     : m_entity_manager(entity_manager)
     , m_elapsed_time(0)
     , m_damage_records(num_records)
-    , m_destroyed_callbacks(num_records, nullptr)
+    , m_destroyed_callbacks(num_records)
     , m_active(num_records, false)
 { }
 
@@ -30,21 +30,24 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     return &new_record;
 }
 
-DamageRecord* DamageSystem::CreateRecord(uint32_t id, DestroyedCallback destroyed_callback)
+uint32_t DamageSystem::SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback)
 {
-    m_destroyed_callbacks[id] = destroyed_callback;
-    return CreateRecord(id);
+    const size_t free_index = FindFreeCallbackIndex(id);
+    assert(free_index != std::numeric_limits<size_t>::max());
+    m_destroyed_callbacks[id][free_index] = destroyed_callback;
+    return free_index;
 }
 
-void DamageSystem::SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback)
+void DamageSystem::RemoveCallback(uint32_t id, uint32_t callback_id)
 {
-    assert(m_destroyed_callbacks[id] == nullptr);
-    m_destroyed_callbacks[id] = destroyed_callback;
+    m_destroyed_callbacks[id][callback_id] = nullptr;
 }
 
 void DamageSystem::ReleaseRecord(uint32_t id)
 {
-    m_destroyed_callbacks[id] = nullptr;
+    for(auto& callback : m_destroyed_callbacks[id])
+        callback = nullptr;
+
     m_active[id] = false;
 }
 
@@ -69,9 +72,11 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage)
 
     if(result.health_left <= 0)
     {
-        DestroyedCallback callback = m_destroyed_callbacks[id];
-        if(callback)
-            callback(id);
+        for(const auto& callback : m_destroyed_callbacks[id])
+        {
+            if(callback)
+                callback(id);
+        }
     }
 
     return result;
@@ -110,4 +115,16 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         if(damage_record.health <= 0)
             m_entity_manager->ReleaseEntity(entity_id);
     }
+}
+
+size_t DamageSystem::FindFreeCallbackIndex(uint32_t id) const
+{
+    const DestroyedCallbacks& callbacks = m_destroyed_callbacks[id];
+    for(size_t index = 0; index < callbacks.size(); ++index)
+    {
+        if(callbacks[index] == nullptr)
+            return index;
+    }
+
+    return std::numeric_limits<size_t>::max();
 }

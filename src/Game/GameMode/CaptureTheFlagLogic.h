@@ -4,6 +4,8 @@
 #include "IUpdatable.h"
 #include "Math/Vector.h"
 
+#include "CaptureTheFlagScore.h"
+
 #include <vector>
 #include <cstdint>
 
@@ -15,6 +17,7 @@ namespace mono
 namespace game
 {
     class PlayerDaemon;
+    class DamageSystem;
 
     struct FlagDropzonePair
     {
@@ -26,8 +29,16 @@ namespace game
     {
     public:
         CaptureTheFlagLogic(
-            const std::vector<FlagDropzonePair>& flags, mono::TransformSystem* transform_system, const PlayerDaemon* player_daemon);
+            const std::vector<FlagDropzonePair>& flags,
+            mono::TransformSystem* transform_system,
+            game::DamageSystem* damage_system,
+            const PlayerDaemon* player_daemon);
+        
         void doUpdate(const mono::UpdateContext& update_context) override;
+
+        const CaptureTheFlagScore& Score() const;
+        void ResetScore();
+        void DropFlag(uint32_t flag_owner_entity_id);
 
     private:
 
@@ -42,15 +53,21 @@ namespace game
             uint32_t flag_entity_id;
             uint32_t dropzone_entity_id;
             uint32_t owning_entity_id;
+            uint32_t callback_handle;
+
             math::Vector spawn_position;
             FlagState state;
+            int score;
         };
 
-        void CheckForPickup(const std::vector<uint32_t>& player_ids, FlagData& flag) const;
-        void CheckForFlagDrop(FlagData& flag) const;
+        void CheckForPickup(const std::vector<uint32_t>& player_ids, FlagData& flag);
+        void CheckForFlagDrop(FlagData& flag);
         
         std::vector<FlagData> m_flags;
         mono::TransformSystem* m_transform_system;
+        game::DamageSystem* m_damage_system;
         const PlayerDaemon* m_player_daemon;
+
+        CaptureTheFlagScore m_score;
     };
 }

@@ -4,6 +4,7 @@
 #include "IGameSystem.h"
 #include <vector>
 #include <functional>
+#include <array>
 
 class IEntityManager;
 
@@ -31,8 +32,8 @@ namespace game
         DamageSystem(size_t num_records, IEntityManager* entity_manager);
 
         DamageRecord* CreateRecord(uint32_t id);
-        DamageRecord* CreateRecord(uint32_t id, DestroyedCallback destroyed_callback);
-        void SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback);
+        uint32_t SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback);
+        void RemoveCallback(uint32_t id, uint32_t callback_id);
         void ReleaseRecord(uint32_t id);
 
         DamageRecord* GetDamageRecord(uint32_t id);
@@ -41,7 +42,7 @@ namespace game
         const std::vector<DamageRecord>& GetDamageRecords() const;
 
         template <typename T>
-        inline void ForEeachRecord(T&& func)
+        inline void ForEeach(T&& func)
         {
             for(size_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
             {
@@ -57,11 +58,15 @@ namespace game
 
     private:
 
+        size_t FindFreeCallbackIndex(uint32_t id) const;
+
         IEntityManager* m_entity_manager;
         uint32_t m_elapsed_time;
         
         std::vector<DamageRecord> m_damage_records;
-        std::vector<DestroyedCallback> m_destroyed_callbacks;
+
+        using DestroyedCallbacks = std::array<DestroyedCallback, 8>;
+        std::vector<DestroyedCallbacks> m_destroyed_callbacks;
         std::vector<bool> m_active;
     };
 }

@@ -53,6 +53,7 @@
 #include "Entity/EntityProperties.h"
 #include "Camera/ICamera.h"
 #include "GameMode/CaptureTheFlagLogic.h"
+#include "GameMode/CaptureTheFlagHud.h"
 
 using namespace game;
 
@@ -153,7 +154,9 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
             { blue_flag, blue_dropzone }
         };
 
-        AddUpdatable(std::make_shared<CaptureTheFlagLogic>(flags, transform_system, m_player_daemon.get()));
+        auto capture_the_flag = std::make_shared<CaptureTheFlagLogic>(flags, transform_system, damage_system, m_player_daemon.get());
+        AddUpdatable(capture_the_flag);
+        AddDrawable(std::make_shared<CaptureTheFlagHud>(capture_the_flag->Score()), LayerId::UI);
     }
 
     {

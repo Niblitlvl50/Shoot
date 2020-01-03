@@ -5,6 +5,7 @@
 #include "Zone/PhysicsZone.h"
 #include "GameConfig.h"
 #include "EventHandler/EventToken.h"
+#include "GameMode/CaptureTheFlagScore.h"
 
 namespace network
 {
@@ -45,5 +46,7 @@ namespace game
 
         std::shared_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;
+
+        CaptureTheFlagScore m_ctf_score;
     };
 }

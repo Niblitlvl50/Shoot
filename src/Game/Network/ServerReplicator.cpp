@@ -43,6 +43,9 @@ ServerReplicator::ServerReplicator(
     std::memset(&m_transform_data, 0, std::size(m_transform_data) * sizeof(TransformData));
     std::memset(&m_sprite_data, 0, std::size(m_sprite_data) * sizeof(SpriteData));
 
+    for(TransformData& transform_data : m_transform_data)
+        transform_data.parent_transform = std::numeric_limits<uint32_t>::max();
+
     m_keyframe_low = 0;
     m_keyframe_high = KEYFRAME_INTERVAL;
 }
@@ -136,7 +139,8 @@ void ServerReplicator::ReplicateTransforms(
         transform_message.rotation = math::GetZRotation(transform);
         transform_message.settled = 
             math::IsPrettyMuchEquals(last_transform_message.position, transform_message.position, 0.001f) &&
-            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f);
+            math::IsPrettyMuchEquals(last_transform_message.rotation, transform_message.rotation, 0.001f) &&
+            last_transform_message.parent_transform == transform_message.parent_transform;
 
         const bool same_as_last_time =
             transform_message.settled && (last_transform_message.settled == transform_message.settled);
@@ -147,6 +151,7 @@ void ServerReplicator::ReplicateTransforms(
 
             last_transform_message.position = transform_message.position;
             last_transform_message.rotation = transform_message.rotation;
+            last_transform_message.parent_transform = transform_message.parent_transform;
             last_transform_message.settled = transform_message.settled;
             last_transform_message.time_to_replicate = m_replication_interval;
 

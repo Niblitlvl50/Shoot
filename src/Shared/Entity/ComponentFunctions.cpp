@@ -3,7 +3,6 @@
 #include "System/System.h"
 
 #include "SystemContext.h"
-#include "EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
@@ -82,7 +81,7 @@ bool UpdateSprite(mono::Entity& entity, const std::vector<Attribute>& properties
 
     if(!success)
     {
-        System::Log("ComponentFunctions|Missing sprite parameters, unagle to update component\n");
+        System::Log("ComponentFunctions|Missing sprite parameters, unable to update component\n");
         //return false;
     }
 

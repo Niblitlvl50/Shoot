@@ -32,6 +32,7 @@
 #include "PositionPredictionSystem.h"
 
 #include "Player/PlayerDaemon.h"
+#include "GameMode/CaptureTheFlagHud.h"
 
 using namespace game;
 
@@ -50,6 +51,9 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     m_text_token = m_event_handler.AddListener(text_func);
     m_spawn_token = m_event_handler.AddListener(spawn_func);
     m_sprite_token = m_event_handler.AddListener(sprite_func);
+
+    m_ctf_score.red = 0;
+    m_ctf_score.blue = 0;
 }
 
 RemoteZone::~RemoteZone()
@@ -73,6 +77,8 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(std::make_shared<CaptureTheFlagHud>(m_ctf_score), LayerId::UI);
+
 
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);

@@ -77,7 +77,7 @@ void HealthbarDrawer::doDraw(mono::IRenderer& renderer) const
         healthbars.push_back(bar);
     };
 
-    m_damage_system->ForEeachRecord(collect_func);
+    m_damage_system->ForEeach(collect_func);
 
     constexpr float line_width = 4.0f;
     constexpr mono::Color::RGBA background_color(0.5f, 0.5f, 0.5f, 1.5f);

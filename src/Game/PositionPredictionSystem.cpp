@@ -98,7 +98,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
 
-        //m_transform_system->ChildTransform(index, from.parent_transform);
+        m_transform_system->ChildTransform(index, from.parent_transform);
     }
 }
 

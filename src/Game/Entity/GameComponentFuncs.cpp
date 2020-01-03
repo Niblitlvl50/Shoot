@@ -2,7 +2,6 @@
 #include "GameComponentFuncs.h"
 
 #include "SystemContext.h"
-#include "EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Factories.h"
 

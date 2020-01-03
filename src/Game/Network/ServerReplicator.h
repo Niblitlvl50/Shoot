@@ -58,6 +58,7 @@ namespace game
             int time_to_replicate;
             math::Vector position;
             float rotation;
+            short parent_transform;
             bool settled;
         } m_transform_data[500];
 

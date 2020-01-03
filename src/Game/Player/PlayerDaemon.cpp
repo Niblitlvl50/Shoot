@@ -175,7 +175,9 @@ void PlayerDaemon::SpawnPlayer(
     math::Position(transform, spawn_point);
 
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-    damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
+
+    // No need to store the callback id, when destroyed this callback will be cleared up.
+    const uint32_t callback_id = damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
 
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
     entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
