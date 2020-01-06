@@ -74,7 +74,7 @@ void ShuttleLogic::Reload()
 
 void ShuttleLogic::SelectWeapon(WeaponType weapon)
 {
-    m_weapon = weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER); //, m_pool.get());
+    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER); //, m_pool.get());
     m_weapon_type = weapon;
 }
 

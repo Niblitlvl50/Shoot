@@ -11,12 +11,12 @@
     ],
     "frames": [
         {
-            "h": 136,
-            "name": "wall_half_corner_w",
-            "w": 128,
-            "x": 698,
+            "h": 8,
+            "name": "flak_bullet",
+            "w": 8,
+            "x": 411,
             "x_offset": 0.0,
-            "y": 2,
+            "y": 221,
             "y_offset": 0.0
         }
     ],

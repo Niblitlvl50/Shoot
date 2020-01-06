@@ -1,6 +1,6 @@
 
 #include "Factories.h"
 
-game::IWeaponFactory* game::weapon_factory = nullptr;
-game::EntityLogicFactory* game::logic_factory = nullptr;
-IEntityManager* game::entity_manager = nullptr;
+game::IWeaponFactory* game::g_weapon_factory = nullptr;
+game::EntityLogicFactory* game::g_logic_factory = nullptr;
+IEntityManager* game::g_entity_manager = nullptr;

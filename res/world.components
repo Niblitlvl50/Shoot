@@ -321,8 +321,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -0.7879323959350586,
-                                "y": 0.7419993877410889
+                                "x": -7.049361228942871,
+                                "y": -1.00227952003479
                             }
                         },
                         {
@@ -430,7 +430,7 @@
                     ]
                 }
             ],
-            "entity_properties": 7,
+            "entity_properties": 5,
             "name": "exploding barrel"
         },
         {
@@ -443,50 +443,14 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 7.4137163162231445,
-                                "y": 11.983405113220215
+                                "x": 4.991820335388184,
+                                "y": 15.47301959991455
                             }
                         },
                         {
                             "id": 564937055,
                             "variant_type": 3,
                             "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "barrel_green.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
                         }
                     ]
                 }
@@ -3478,8 +3442,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -10.690630912780762,
-                                "y": 15.384542465209961
+                                "x": -10.663052558898926,
+                                "y": 15.4711332321167
                             }
                         },
                         {
@@ -3488,167 +3452,9 @@
                             "variant_value": -0.0
                         }
                     ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "xbox_one_a.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
                 }
             ],
-            "entity_properties": 8,
-            "name": "red_dropzone"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 7.669561386108398,
-                                "y": 14.939828872680664
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "xbox_one_a.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 0.0,
-                                "red": 0.0588231086730957
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 16,
-            "name": "blue_dropzone"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": -10.454716682434082,
-                                "y": 11.903393745422363
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "barrel_green.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 0.029412031173706055,
-                                "red": 0.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": true
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 4,
+            "entity_properties": 2,
             "name": "blue_flag"
         }
     ]

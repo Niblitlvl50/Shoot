@@ -96,12 +96,10 @@ namespace
 PlayerDaemon::PlayerDaemon(
     mono::ICameraPtr camera,
     INetworkPipe* remote_connection,
-    const std::vector<math::Vector>& player_points,
     mono::SystemContext* system_context,
     mono::EventHandler& event_handler)
     : m_camera(camera)
     , m_remote_connection(remote_connection)
-    , m_player_points(player_points)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
 {
@@ -145,10 +143,10 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler.RemoveListener(m_remote_input_token);
 
     if(g_player_one.is_active)
-        game::entity_manager->ReleaseEntity(g_player_one.entity_id);
+        game::g_entity_manager->ReleaseEntity(g_player_one.entity_id);
 
     if(g_player_two.is_active)
-        game::entity_manager->ReleaseEntity(g_player_two.entity_id);
+        game::g_entity_manager->ReleaseEntity(g_player_two.entity_id);
 }
 
 std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
@@ -167,20 +165,20 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 void PlayerDaemon::SpawnPlayer(
     game::PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback)
 {
-    mono::Entity player_entity = game::entity_manager->CreateEntity("res/entities/player_entity.entity");
+    mono::Entity player_entity = game::g_entity_manager->CreateEntity("res/entities/player_entity.entity");
 
-    const math::Vector& spawn_point = m_player_points.empty() ? math::ZeroVec : m_player_points.front();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     math::Matrix& transform = transform_system->GetTransform(player_entity.id);
-    math::Position(transform, spawn_point);
+    math::Position(transform, math::ZeroVec);
 
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
     // No need to store the callback id, when destroyed this callback will be cleared up.
     const uint32_t callback_id = damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
+    (void)callback_id;
 
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
-    entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
+    game::g_entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
     IEntityLogic* player_logic = new ShuttleLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
@@ -232,7 +230,7 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
     if(event.id == m_player_one_id)
     {
         if(game::g_player_one.is_active)
-            entity_manager->ReleaseEntity(game::g_player_one.entity_id);
+            g_entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
         m_camera->Unfollow();
         game::g_player_one.entity_id = mono::INVALID_ID;
@@ -241,7 +239,7 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
     else if(event.id == m_player_two_id)
     {
         if(game::g_player_two.is_active)
-            entity_manager->ReleaseEntity(game::g_player_two.entity_id);
+            g_entity_manager->ReleaseEntity(game::g_player_two.entity_id);
 
         game::g_player_two.entity_id = mono::INVALID_ID;
         game::g_player_two.is_active = false;
@@ -283,7 +281,7 @@ bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
     {
-        game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
+        game::g_entity_manager->ReleaseEntity(it->second.player_info.entity_id);
         m_remote_players.erase(it);
     }
 

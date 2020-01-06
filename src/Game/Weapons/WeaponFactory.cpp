@@ -4,22 +4,15 @@
 #include "Math/MathFwd.h"
 #include "Math/MathFunctions.h"
 
-#include "Explosion.h"
 #include "Physics/IBody.h"
-#include "Entity/IPhysicsEntity.h"
 #include "Particle/ParticlePool.h"
-
-#include "EventHandler/EventHandler.h"
-#include "Events/DamageEvent.h"
-#include "Events/SpawnEntityEvent.h"
-#include "Events/RemoveEntityEvent.h"
-#include "Events/ShockwaveEvent.h"
-
-#include "RenderLayers.h"
 
 #include "SystemContext.h"
 #include "DamageSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Entity/IEntityManager.h"
 
 #include <functional>
@@ -27,12 +20,28 @@
 
 namespace
 {
-    void StandardCollision(
-        uint32_t entity_id,
-        const mono::IBody* other,
+    void SpawnEntityWithAnimation(
+        const char* entity_file,
+        int animation_id,
+        uint32_t position_at_transform_id,
         IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system)
+        mono::TransformSystem* transform_system,
+        mono::SpriteSystem* sprite_system)
+    {
+        const mono::Entity spawned_entity = entity_manager->CreateEntity(entity_file);
+        math::Matrix& entity_transform = transform_system->GetTransform(spawned_entity.id);
+        entity_transform = transform_system->GetWorld(position_at_transform_id);
+
+        mono::Sprite* spawned_entity_sprite = sprite_system->GetSprite(spawned_entity.id);
+
+        const auto remove_entity_callback = [spawned_entity, entity_manager]() {
+            entity_manager->ReleaseEntity(spawned_entity.id);
+        };
+        spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
+    }
+
+    void StandardCollision(
+        uint32_t entity_id, const mono::IBody* other, IEntityManager* entity_manager, game::DamageSystem* damage_system, mono::PhysicsSystem* physics_system)
     {
         const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
         if(other_entity_id != std::numeric_limits<uint32_t>::max())
@@ -40,51 +49,34 @@ namespace
         entity_manager->ReleaseEntity(entity_id);
     }
 
-    /*
-    void RocketCollision(const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
+    void RocketCollision(
+        uint32_t entity_id,
+        const mono::IBody* other,
+        IEntityManager* entity_manager,
+        game::DamageSystem* damage_system,
+        mono::PhysicsSystem* physics_system,
+        mono::SpriteSystem* sprite_system,
+        mono::TransformSystem* transform_system)
     {
-        game::ExplosionConfiguration explosion_config;
-        explosion_config.position = bullet->Position();
-        explosion_config.scale = 2.0f;
-        explosion_config.rotation = 0.0f;
-        explosion_config.sprite_file = "res/sprites/explosion.sprite";
-
-        const game::SpawnEntityEvent spawn_event(
-            std::make_shared<game::Explosion>(explosion_config, event_handler), game::GAMEOBJECTS);
-        event_handler.DispatchEvent(spawn_event);
-        event_handler.DispatchEvent(game::DamageEvent(other, 50, bullet->Rotation()));
-        event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
-        event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
+        StandardCollision(entity_id, other, entity_manager, damage_system, physics_system);
+        SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+        //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
     }
 
     void CacoPlasmaCollision(
-        const mono::IPhysicsEntity* bullet, const mono::IBody* other, mono::EventHandler& event_handler)
+        uint32_t entity_id,
+        const mono::IBody* other,
+        IEntityManager* entity_manager,
+        game::DamageSystem* damage_system,
+        mono::PhysicsSystem* physics_system,
+        mono::SpriteSystem* sprite_system,
+        mono::TransformSystem* transform_system)
     {
-        game::ExplosionConfiguration explosion_config;
-        explosion_config.position = bullet->Position();
-        explosion_config.scale = 1.0f;
-        explosion_config.rotation = 0.0f;
-        explosion_config.sprite_file = "res/sprites/caco_explosion.sprite";
-
-        const game::SpawnEntityEvent spawn_event(
-            std::make_shared<game::Explosion>(explosion_config, event_handler), game::GAMEOBJECTS);
-        event_handler.DispatchEvent(spawn_event);
-        event_handler.DispatchEvent(game::DamageEvent(other, 20, bullet->Rotation()));
-        event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
+        StandardCollision(entity_id, other, entity_manager, damage_system, physics_system);
+        SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
     }
 
-    void FlakCannonCollision(
-        const mono::IPhysicsEntity* bullet, mono::IBody* other, mono::EventHandler& event_handler)
-    {
-        const float direction = bullet->Rotation();
-
-        const math::Vector& impulse = math::VectorFromAngle(direction) * 100.0f;
-        other->ApplyImpulse(impulse, other->GetPosition());
-
-        event_handler.DispatchEvent(game::DamageEvent(other, 20, direction));
-        event_handler.DispatchEvent(game::RemoveEntityEvent(bullet->Id()));
-    }
-
+    /*
     void PlasmaParticleGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
     {
         constexpr int life = 100;
@@ -145,6 +137,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     WeaponConfiguration weapon_config;
     BulletConfiguration& bullet_config = weapon_config.bullet_config;
@@ -163,7 +157,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.fuzzy_life_span = 0;
             bullet_config.collision_callback
                 = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
-            bullet_config.entity_file = "res/entities/green_blob.entity";
+            bullet_config.entity_file = "res/entities/plasma_bullet.entity";
             bullet_config.sound_file = nullptr;
 
             //bullet_config.emitter_config.duration = -1;
@@ -188,8 +182,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.life_span = 2.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_callback
-                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
-            bullet_config.entity_file = "res/entities/green_blob.entity";
+                = std::bind(RocketCollision, _1, _2, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
+            bullet_config.entity_file = "res/entities/rocket_bullet.entity";
             bullet_config.sound_file = nullptr;
 
             //bullet_config.emitter_config.duration = -1;
@@ -211,8 +205,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.life_span = 1.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_callback
-                = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
-            bullet_config.entity_file = "res/entities/green_blob.entity";
+                = std::bind(CacoPlasmaCollision, _1, _2, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
+            bullet_config.entity_file = "res/entities/caco_bullet.entity";
             bullet_config.sound_file = nullptr;
 
             //bullet_config.emitter_config.duration = -1;
@@ -254,7 +248,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.fuzzy_life_span = 0;
             bullet_config.collision_callback
                 = std::bind(StandardCollision, _1, _2, m_entity_manager, damage_system, physics_system);
-            bullet_config.entity_file = "res/entities/green_blob.entity";
+            bullet_config.entity_file = "res/entities/flak_bullet.entity";
             bullet_config.sound_file = nullptr;
 
             //bullet_config.emitter_config.duration = -1;

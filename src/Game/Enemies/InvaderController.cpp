@@ -23,7 +23,7 @@ using namespace game;
 InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
-    m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
+    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
 
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* entity_body = physics_system->GetBody(entity_id);

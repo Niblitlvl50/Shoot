@@ -35,7 +35,6 @@ namespace game
         PlayerDaemon(
             mono::ICameraPtr camera,
             INetworkPipe* remote_connection,
-            const std::vector<math::Vector>& player_points,
             mono::SystemContext* system_context,
             mono::EventHandler& event_handler);
         ~PlayerDaemon();
@@ -59,7 +58,6 @@ namespace game
 
         mono::ICameraPtr m_camera;
         INetworkPipe* m_remote_connection;
-        const std::vector<math::Vector> m_player_points;
         mono::SystemContext* m_system_context;
         mono::EventHandler& m_event_handler;
 

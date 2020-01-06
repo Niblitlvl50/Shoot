@@ -9,9 +9,12 @@
 #include <vector>
 #include <cstdint>
 
+class IEntityManager;
+
 namespace mono
 {
     class TransformSystem;
+    class SpriteSystem;
 }
 
 namespace game
@@ -19,20 +22,16 @@ namespace game
     class PlayerDaemon;
     class DamageSystem;
 
-    struct FlagDropzonePair
-    {
-        uint32_t flag_entity_id;
-        uint32_t dropzone_entity_id;
-    };
-
     class CaptureTheFlagLogic : public mono::IUpdatable
     {
     public:
         CaptureTheFlagLogic(
-            const std::vector<FlagDropzonePair>& flags,
+            const std::vector<uint32_t>& flags,
             mono::TransformSystem* transform_system,
+            mono::SpriteSystem* sprite_system,
             game::DamageSystem* damage_system,
-            const PlayerDaemon* player_daemon);
+            const PlayerDaemon* player_daemon,
+            IEntityManager* entity_manager);
         
         void doUpdate(const mono::UpdateContext& update_context) override;
 
@@ -67,6 +66,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         game::DamageSystem* m_damage_system;
         const PlayerDaemon* m_player_daemon;
+        IEntityManager* m_entity_manager;
 
         CaptureTheFlagScore m_score;
     };

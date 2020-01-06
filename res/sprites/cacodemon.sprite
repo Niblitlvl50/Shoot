@@ -126,25 +126,25 @@
             "h": 67,
             "name": "cacodemon5",
             "w": 63,
-            "x": 1396,
-            "x_offset": 0.0,
-            "y": 120,
-            "y_offset": 0.0
-        },
-        {
-            "h": 67,
-            "name": "cacodemon7",
-            "w": 63,
-            "x": 698,
+            "x": 765,
             "x_offset": 0.0,
             "y": 142,
             "y_offset": 0.0
         },
         {
             "h": 67,
+            "name": "cacodemon7",
+            "w": 63,
+            "x": 1329,
+            "x_offset": 0.0,
+            "y": 120,
+            "y_offset": 0.0
+        },
+        {
+            "h": 67,
             "name": "cacodemon6",
             "w": 63,
-            "x": 765,
+            "x": 698,
             "x_offset": 0.0,
             "y": 142,
             "y_offset": 0.0
@@ -171,7 +171,7 @@
             "h": 67,
             "name": "cacodemon8",
             "w": 63,
-            "x": 1329,
+            "x": 1396,
             "x_offset": 0.0,
             "y": 120,
             "y_offset": 0.0

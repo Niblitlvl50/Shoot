@@ -245,11 +245,11 @@ namespace
             if(!found_path_property)
                 return false;
 
-            entity_logic = game::logic_factory->CreatePathInvaderLogic(path_file, entity.id);
+            entity_logic = game::g_logic_factory->CreatePathInvaderLogic(path_file, entity.id);
         }
         else
         {
-            entity_logic = game::logic_factory->CreateLogic(logic_type, entity.id);
+            entity_logic = game::g_logic_factory->CreateLogic(logic_type, entity.id);
         }
 
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();

@@ -63,7 +63,7 @@ namespace
     {
         void doUpdate(const mono::UpdateContext& update_context)
         {
-            entity_manager->Sync();
+            g_entity_manager->Sync();
         }
     };
 }
@@ -102,7 +102,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
     AddUpdatable(
-        std::make_shared<ServerReplicator>(entity_system, transform_system, sprite_system, entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
+        std::make_shared<ServerReplicator>(entity_system, transform_system, sprite_system, g_entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
@@ -115,12 +115,11 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
 
-    std::vector<math::Vector> player_points;
-    m_player_daemon = std::make_unique<PlayerDaemon>(camera, m_server_manager.get(), player_points, m_system_context, *m_event_handler);
+    m_player_daemon = std::make_unique<PlayerDaemon>(camera, m_server_manager.get(), m_system_context, *m_event_handler);
 
     for(int index = 0; index < 250; ++index)
     {
-        mono::Entity new_entity = entity_manager->CreateEntity("res/entities/pink_blolb.entity");
+        mono::Entity new_entity = g_entity_manager->CreateEntity("res/entities/pink_blolb.entity");
         const math::Vector position = math::Vector(mono::Random(0.0f, 22.0f), mono::Random(0.0f, 24.0f));
         mono::IBody* body = physics_system->GetBody(new_entity.id);
         body->SetPosition(position);
@@ -128,33 +127,22 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
         m_loaded_entities.push_back(new_entity.id);
     }
 
-    const std::vector<uint32_t>& loaded_entities = world::ReadWorldComponentObjects("res/world.components", entity_manager);
+    const std::vector<uint32_t>& loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
     m_loaded_entities.insert(m_loaded_entities.end(), loaded_entities.begin(), loaded_entities.end());
 
-    uint32_t red_flag = -1, red_dropzone = -1;
-    uint32_t blue_flag = -1, blue_dropzone = -1;
+    std::vector<uint32_t> ctf_flags;
 
     for(uint32_t id : loaded_entities)
     {
-        const uint32_t properties = entity_manager->GetEntityProperties(id);
-        if(properties & EntityProperties::RED_FLAG)
-            red_flag = id;
-        else if(properties & EntityProperties::BLUE_FLAG)
-            blue_flag = id;
-        else if(properties & EntityProperties::RED_DROPZONE)
-            red_dropzone = id;
-        else if(properties & EntityProperties::BLUE_DROPZONE)
-            blue_dropzone = id;
+        const uint32_t properties = g_entity_manager->GetEntityProperties(id);
+        if(properties & EntityProperties::CTF_FLAG)
+            ctf_flags.push_back(id);
     }
 
-    if(red_flag != mono::INVALID_ID && blue_flag != mono::INVALID_ID && red_dropzone != mono::INVALID_ID && blue_dropzone != mono::INVALID_ID)
+    if(ctf_flags.size() >= 2)
     {
-        const std::vector<FlagDropzonePair> flags = {
-            { red_flag, red_dropzone},
-            { blue_flag, blue_dropzone }
-        };
-
-        auto capture_the_flag = std::make_shared<CaptureTheFlagLogic>(flags, transform_system, damage_system, m_player_daemon.get());
+        auto capture_the_flag =
+            std::make_shared<CaptureTheFlagLogic>(ctf_flags, transform_system, sprite_system, damage_system, m_player_daemon.get(), g_entity_manager);
         AddUpdatable(capture_the_flag);
         AddDrawable(std::make_shared<CaptureTheFlagHud>(capture_the_flag->Score()), LayerId::UI);
     }
@@ -187,9 +175,9 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 int SystemTestZone::OnUnload()
 {
     for(uint32_t entity_id : m_loaded_entities)
-        entity_manager->ReleaseEntity(entity_id);
+        g_entity_manager->ReleaseEntity(entity_id);
 
-    entity_manager->Sync();
+    g_entity_manager->Sync();
     return 0;
 }
 

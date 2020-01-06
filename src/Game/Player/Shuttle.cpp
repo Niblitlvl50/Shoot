@@ -149,7 +149,7 @@ void Shuttle::Update(const mono::UpdateContext& update_context)
 
 void Shuttle::SelectWeapon(WeaponType weapon)
 {
-    m_weapon = weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_pool.get());
+    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_pool.get());
     m_weapon_type = weapon;
 }
 

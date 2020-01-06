@@ -124,9 +124,9 @@ int main(int argc, char* argv[])
         game::WeaponFactory weapon_factory(&entity_manager, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
 
-        game::weapon_factory = &weapon_factory;
-        game::logic_factory = &logic_factory;
-        game::entity_manager = &entity_manager;
+        game::g_weapon_factory = &weapon_factory;
+        game::g_logic_factory = &logic_factory;
+        game::g_entity_manager = &entity_manager;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
 

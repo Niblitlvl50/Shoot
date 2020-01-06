@@ -8,31 +8,64 @@
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
 
 #include "FontIds.h"
+
+#include "Entity/IEntityManager.h"
+
+#include <iostream>
 
 using namespace game;
 
 CaptureTheFlagLogic::CaptureTheFlagLogic(
-    const std::vector<FlagDropzonePair>& flags,
+    const std::vector<uint32_t>& flags,
     mono::TransformSystem* transform_system,
+    mono::SpriteSystem* sprite_system,
     game::DamageSystem* damage_system,
-    const PlayerDaemon* player_daemon)
+    const PlayerDaemon* player_daemon,
+    IEntityManager* entity_manager)
     : m_transform_system(transform_system)
     , m_damage_system(damage_system)
     , m_player_daemon(player_daemon)
+    , m_entity_manager(entity_manager)
 {
     m_flags.reserve(flags.size());
 
-    for(const FlagDropzonePair& pair : flags)
+    constexpr mono::Color::RGBA dropzone_shades[] = {
+        mono::Color::RED,
+        mono::Color::BLUE,
+        mono::Color::GREEN
+    };
+
+    std::vector<uint32_t> dropzones = flags;
+    std::rotate(dropzones.begin(), dropzones.begin() + 1, dropzones.end());
+
+    for(size_t index = 0; index < flags.size(); ++index)
     {
-        const math::Matrix& original_transform = transform_system->GetWorld(pair.flag_entity_id);
+        const uint32_t flag_id = flags[index];
+        const uint32_t dropzone_id = dropzones[index];
+
+        const mono::Entity flag_entity = m_entity_manager->CreateEntity("res/entities/flag.entity");
+        const math::Matrix& flag_world_transform = transform_system->GetWorld(flag_id);
+        math::Matrix& flag_transform = m_transform_system->GetTransform(flag_entity.id);
+        flag_transform = flag_world_transform;
+
+        const mono::Entity dropzone_entity = m_entity_manager->CreateEntity("res/entities/dropzone.entity");
+        const math::Matrix& dropzone_world_transform = transform_system->GetWorld(dropzone_id);
+        math::Matrix& dropzone_transform = m_transform_system->GetTransform(dropzone_entity.id);
+        dropzone_transform = dropzone_world_transform;
+
+        const size_t shade_index = index % std::size(dropzone_shades);
+        mono::Sprite* dropzone_sprite = sprite_system->GetSprite(dropzone_entity.id);
+        dropzone_sprite->SetShade(dropzone_shades[shade_index]);
 
         FlagData flag_data;
         flag_data.state = FlagState::NONE;
-        flag_data.flag_entity_id = pair.flag_entity_id;
-        flag_data.dropzone_entity_id = pair.dropzone_entity_id;
-        flag_data.spawn_position = math::GetPosition(original_transform);
+        flag_data.flag_entity_id = flag_entity.id;
+        flag_data.dropzone_entity_id = dropzone_entity.id;
+        flag_data.spawn_position = math::GetPosition(flag_world_transform);
         flag_data.owning_entity_id = -1;
         flag_data.callback_handle = -1;
         flag_data.score = 0;
@@ -60,7 +93,7 @@ void CaptureTheFlagLogic::doUpdate(const mono::UpdateContext& update_context)
             CheckForFlagDrop(flag);
     }
 
-    if(m_flags.size() == 2)
+    if(m_flags.size() >= 2)
     {
         m_score.red = m_flags[0].score;
         m_score.blue = m_flags[1].score;

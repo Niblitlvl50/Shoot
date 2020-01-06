@@ -25,7 +25,7 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
     m_transform = &transform_system->GetTransform(entity_id);
 
     //m_path_behaviour = std::make_unique<PathBehaviour>(enemy, m_path.get(), m_event_handler);
-    m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
+    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
 }
 
 InvaderPathController::InvaderPathController(uint32_t entity_id, mono::IPathPtr path, mono::SystemContext* system_context, mono::EventHandler& event_handler)
@@ -40,7 +40,7 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::IPathPtr 
     mono::IBody* entity_body = physics_system->GetBody(entity_id);
 
     m_path_behaviour = std::make_unique<PathBehaviour>(entity_body, m_path.get(), physics_system, event_handler);
-    m_weapon = weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
+    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY);
 }
 
 InvaderPathController::~InvaderPathController()

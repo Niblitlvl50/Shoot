@@ -6,18 +6,12 @@
 enum EntityProperties : uint32_t
 {
     REPLICATE = 1,
-    RED_FLAG = 2,
-    BLUE_FLAG = 4,
-    RED_DROPZONE = 8,
-    BLUE_DROPZONE = 16,
+    CTF_FLAG = 2,
 };
 
 constexpr EntityProperties all_entity_properties[] = {
     EntityProperties::REPLICATE,
-    EntityProperties::RED_FLAG,
-    EntityProperties::BLUE_FLAG,
-    EntityProperties::RED_DROPZONE,
-    EntityProperties::BLUE_DROPZONE,
+    EntityProperties::CTF_FLAG,
 };
 
 inline const char* EntityPropertyToString(EntityProperties property)
@@ -26,14 +20,8 @@ inline const char* EntityPropertyToString(EntityProperties property)
     {
     case REPLICATE:
         return "Replicate";
-    case RED_FLAG:
-        return "Red Flag";
-    case BLUE_FLAG:
-        return "Blue Flag";
-    case RED_DROPZONE:
-        return "Red Dropzone";
-    case BLUE_DROPZONE:
-        return "Blue Dropzone";
+    case CTF_FLAG:
+        return "CTF Flag";
     }
 
     return "Unknown";

@@ -28,6 +28,7 @@
         "res/sprites/explosion.sprite",
         "res/sprites/eye_monster.sprite",
         "res/sprites/fire_bullet.sprite",
+        "res/sprites/flak_bullet.sprite",
         "res/sprites/flak_cannon.sprite",
         "res/sprites/frame.sprite",
         "res/sprites/generic.sprite",

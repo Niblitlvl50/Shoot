@@ -34,7 +34,7 @@ namespace
 CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
-    m_weapon = weapon_factory->CreateWeapon(WeaponType::CACOPLASMA, WeaponFaction::ENEMY);
+    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::CACOPLASMA, WeaponFaction::ENEMY);
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
