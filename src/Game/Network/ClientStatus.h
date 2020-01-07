@@ -27,5 +27,7 @@ namespace game
         case ClientStatus::FAILED:
             return "Failed";
         }
+
+        return "Unknown";
     };
 }
