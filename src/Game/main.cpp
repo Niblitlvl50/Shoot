@@ -31,6 +31,8 @@
 
 #include "SpriteResources.h"
 
+#include <cassert>
+
 namespace
 {
     struct Options

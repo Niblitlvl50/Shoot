@@ -5,6 +5,7 @@
 #include "System/System.h"
 
 #include <algorithm>
+#include <cassert>
 
 #include "huffandpuff/huffman.h"
 
