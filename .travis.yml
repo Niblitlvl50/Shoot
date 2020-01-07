@@ -19,6 +19,7 @@ matrix:
         sources: 
           - ubuntu-toolchain-r-test
         packages:
+          - libgl1-mesa-dev
           - libopenal-dev
 
   - os: linux
@@ -28,6 +29,7 @@ matrix:
         sources:
           - ubuntu-toolchain-r-test
         packages:
+          - libgl1-mesa-dev
           - libopenal-dev
 
 # Disabled until Travis CI supports newer xcode images, im using std::any and it is not fully supported yet. 
