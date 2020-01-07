@@ -119,10 +119,10 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
     g_score[start] = 0;
     f_score[start] = Heuristics(context, start, end);
     
-    auto find_lowest_f = [&f_score](const std::set<int>& open_set) {
+    const auto find_lowest_f = [&f_score](const std::set<int>& open_set) {
         
         float lowest_f = math::INF;
-        int lowest_index;
+        int lowest_index = 0;
         
         for(int open_node : open_set)
         {
