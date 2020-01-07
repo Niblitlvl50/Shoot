@@ -1,8 +1,9 @@
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include "huffandpuff/huffman.h"
 #include "Util/Random.h"
+
 #include <vector>
 
 TEST(Huffandpuff, Huffman)

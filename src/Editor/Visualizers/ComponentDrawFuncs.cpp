@@ -12,7 +12,7 @@
 void editor::DrawCircleShapeDetails(
     mono::IRenderer& renderer, const math::Vector& position, const std::vector<Attribute>& component_properties)
 {
-    float radius_value;
+    float radius_value = 1.0f;
     math::Vector offset;
 
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius_value);
@@ -25,8 +25,8 @@ void editor::DrawCircleShapeDetails(
 void editor::DrawBoxShapeDetails(
     mono::IRenderer& renderer, const math::Vector& position, const std::vector<Attribute>& component_properties)
 {
-    float width;
-    float height;
+    float width = 1.0f;
+    float height = 1.0f;
     math::Vector offset;
 
     FindAttribute(WIDTH_ATTRIBUTE, component_properties, width);
@@ -48,7 +48,7 @@ void editor::DrawSegmentShapeDetails(
 {
     math::Vector start;
     math::Vector end;
-    float radius;
+    float radius = 1.0f;
 
     FindAttribute(START_ATTRIBUTE, component_properties, start);
     FindAttribute(END_ATTRIBUTE, component_properties, end);
