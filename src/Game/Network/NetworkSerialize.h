@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstdint>
 #include <string_view>
+#include <cstring>
 
 using byte = uint8_t;
 using byte_view = std::basic_string_view<byte>;
