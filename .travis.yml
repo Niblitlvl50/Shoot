@@ -39,3 +39,4 @@ matrix:
 script:
 
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER . && make
+  - ./bin/game_test_exe
