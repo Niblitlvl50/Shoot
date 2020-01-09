@@ -8,6 +8,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/ImGui.h"
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
@@ -18,7 +19,6 @@
 
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
-#include "ImGuiImpl/ImGuiRenderer.h"
 #include "ImGuiImpl/ImGuiInputHandler.h"
 #include "Resources.h"
 #include "RenderLayers.h"
@@ -53,14 +53,9 @@
 
 namespace
 {
-    void SetupIcons(
-        editor::UIContext& context,
-        std::unordered_map<uint32_t, mono::ITexturePtr>& textures)
+    void SetupIcons(editor::UIContext& context)
     {
-        mono::ITexturePtr texture = mono::CreateTexture("res/textures/placeholder.png");
-        textures.insert(std::make_pair(texture->Id(), texture));
-
-        context.tools_texture_id = texture->Id();
+        context.tools_texture_id = mono::LoadImGuiTexture("res/textures/placeholder.png");
         context.default_icon = math::Quad(0.0f, 0.0f, 1.0f, 1.0f);
     }
 
@@ -125,32 +120,24 @@ Editor::Editor(
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
 
-    const event::SurfaceChangedEventFunc surface_func = std::bind(&Editor::OnSurfaceChanged, this, _1);
-    m_surface_changed_token = m_event_handler.AddListener(surface_func);
-
-    std::unordered_map<uint32_t, mono::ITexturePtr> textures;
-    SetupIcons(m_context, textures);
+    SetupIcons(m_context);
     SetupComponents(m_context);
 
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllPaths("res/paths/all_paths.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
-
-    const System::Size& size = m_window->Size();
-    const math::Vector window_size(size.width, size.height);
-    m_gui_renderer = std::make_shared<ImGuiRenderer>("res/editor_imgui.ini", window_size, textures);
-    m_input_handler = std::make_unique<ImGuiInputHandler>(event_handler);
 }
 
 Editor::~Editor()
-{
-    m_event_handler.RemoveListener(m_surface_changed_token);
-}
+{ }
 
 void Editor::OnLoad(mono::ICameraPtr &camera)
 {
     m_camera = camera;
+
+    mono::SetImGuiConfig("res/editor_imgui.ini");
+    m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     m_user_input_controller =
@@ -173,7 +160,6 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, transform_system), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
-    AddDrawable(m_gui_renderer, RenderLayer::IMGUI);
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
 
     m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system);
@@ -220,14 +206,6 @@ void Editor::ImportEntity()
 {
     m_context.modal_items = GetAllEntities();
     m_context.show_modal_item_selection = true;
-}
-
-bool Editor::OnSurfaceChanged(const event::SurfaceChangedEvent& event)
-{
-    if (event.width > 0 && event.height > 0)
-        m_gui_renderer->SetWindowSize(math::Vector(event.width, event.height));
-
-    return false;
 }
 
 void Editor::NewEntity()

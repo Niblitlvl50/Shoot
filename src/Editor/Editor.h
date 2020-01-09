@@ -5,7 +5,6 @@
 
 #include "Zone/ZoneBase.h"
 #include "Events/EventFwd.h"
-#include "EventHandler/EventToken.h"
 
 #include "UI/MainMenuOptions.h"
 #include "UI/UIContext.h"
@@ -46,8 +45,6 @@ namespace editor
         void Save();
         void ImportEntity();
         void ExportEntity();
-
-        bool OnSurfaceChanged(const event::SurfaceChangedEvent& event);
 
         void AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon);
         void AddPath(const std::shared_ptr<editor::PathEntity>& path);
@@ -116,7 +113,5 @@ namespace editor
         std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
         std::vector<SnapPoint> m_snap_points;
-        
-        mono::EventToken<event::SurfaceChangedEvent> m_surface_changed_token;
     };
 }
