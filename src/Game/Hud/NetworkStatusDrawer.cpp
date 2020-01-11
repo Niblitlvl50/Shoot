@@ -10,6 +10,8 @@
 #include "System/Network.h"
 #include "Util/Algorithm.h"
 
+#include "GameDebug.h"
+
 using namespace game;
 
 NetworkStatusDrawer::NetworkStatusDrawer(const math::Vector& position, const INetworkPipe* network_pipe)
@@ -20,6 +22,9 @@ NetworkStatusDrawer::NetworkStatusDrawer(const math::Vector& position, const INe
 
 void NetworkStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_network_stats)
+        return;
+
     const ConnectionInfo& info = m_network_pipe->GetConnectionInfo();
     const ConnectionStats& stats = info.stats;
 

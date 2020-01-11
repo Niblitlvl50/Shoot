@@ -6,6 +6,8 @@
 #include "Rendering/Color.h"
 #include "Math/Vector.h"
 
+#include "GameDebug.h"
+
 #include <cstdio>
 
 using namespace game;
@@ -21,7 +23,10 @@ FPSElement::FPSElement(const math::Vector& position, const mono::Color::RGBA& co
 }
 
 void FPSElement::Draw(mono::IRenderer& renderer) const
-{    
+{
+    if(!game::g_draw_fps)
+        return;
+
     char text[32] = { '\0' };
     std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
     renderer.DrawText(game::PIXELETTE_MEGA, text, math::ZeroVec, false, m_color);

@@ -54,6 +54,9 @@
 #include "Camera/ICamera.h"
 #include "GameMode/CaptureTheFlagLogic.h"
 #include "GameMode/CaptureTheFlagHud.h"
+#include "GameDebug.h"
+
+#include "ImGuiImpl/ImGuiInputHandler.h"
 
 using namespace game;
 
@@ -90,6 +93,8 @@ SystemTestZone::~SystemTestZone()
 
 void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 {
+    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
+
     m_camera = camera;
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
@@ -109,7 +114,6 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, *m_event_handler));
 
-    AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<WaveDrawer>(*m_event_handler), LayerId::UI);
     m_console_drawer = std::make_shared<ConsoleDrawer>();
@@ -147,29 +151,31 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
         AddDrawable(std::make_shared<CaptureTheFlagHud>(capture_the_flag->Score()), LayerId::UI);
     }
 
-    {
-        // Nav mesh
-        std::vector<ExcludeZone> exclude_zones;
-        m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
-        m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
-        game::g_navmesh = &m_navmesh;
-        
-        //AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), UI);
-    }
-
+    // Nav mesh
+    std::vector<ExcludeZone> exclude_zones;
+    m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
+    m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
+    game::g_navmesh = &m_navmesh;
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
-    //AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(physics_system), UI);
-    AddDrawable(std::make_shared<mono::TransformSystemDrawer>(transform_system), UI);
     AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
 
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
     hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
+
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<PhysicsStatsElement>(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+
     AddEntity(hud_overlay, LayerId::UI);
+
+    // Debug
+    AddUpdatable(std::make_shared<DebugUpdater>(m_event_handler));
+    AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
+    AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), LayerId::UI);
+    AddDrawable(std::make_shared<mono::TransformSystemDrawer>(game::g_draw_transformsystem, transform_system), LayerId::UI);
+    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, physics_system), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()

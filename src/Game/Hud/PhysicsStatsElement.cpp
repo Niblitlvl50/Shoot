@@ -6,7 +6,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-
+#include "GameDebug.h"
 #include <cstdio>
 
 using namespace game;
@@ -20,6 +20,9 @@ PhysicsStatsElement::PhysicsStatsElement(mono::PhysicsSystem* physics_system, co
 
 void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_physics_stats)
+        return;
+    
     const mono::PhysicsSystemStats& stats = m_physics_system->GetStats();
 
     char text_1[512] = { 0 };

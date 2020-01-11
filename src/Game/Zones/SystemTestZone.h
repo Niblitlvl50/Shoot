@@ -8,6 +8,8 @@
 
 #include "GameConfig.h"
 
+class ImGuiInputHandler;
+
 namespace game
 {
     struct SpawnConstraintEvent;
@@ -28,6 +30,7 @@ namespace game
         bool HandleText(const struct TextMessage& text_message);
         bool HandleRemoteCamera(const struct RemoteCameraMessage& message);
 
+        std::unique_ptr<ImGuiInputHandler> m_debug_input;
         mono::ICameraPtr m_camera;
 
         mono::SystemContext* m_system_context;

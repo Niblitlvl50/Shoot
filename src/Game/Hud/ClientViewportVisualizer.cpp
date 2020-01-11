@@ -6,6 +6,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "System/Network.h"
+#include "GameDebug.h"
 
 using namespace game;
 
@@ -15,6 +16,9 @@ ClientViewportVisualizer::ClientViewportVisualizer(const std::unordered_map<netw
 
 void ClientViewportVisualizer::doDraw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_client_viewport)
+        return;
+
     for(const auto& client_data : m_client_data)
     {
         //const std::string& address = network::AddressToString(client_data.first);

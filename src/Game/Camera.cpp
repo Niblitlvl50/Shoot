@@ -51,7 +51,7 @@ bool Camera::OnKeyDown(const event::KeyDownEvent& event)
         m_debug_camera ? m_controller.Enable() : m_controller.Disable();
     }
 
-    return true;
+    return false;
 }
 
 void Camera::doUpdate(const mono::UpdateContext& update_context)

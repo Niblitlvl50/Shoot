@@ -11,6 +11,7 @@
 #include "Events/MouseEvent.h"
 
 #include "NavMesh.h"
+#include "GameDebug.h"
 
 using namespace game;
 
@@ -43,6 +44,9 @@ NavmeshVisualizer::~NavmeshVisualizer()
 
 void NavmeshVisualizer::doDraw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_navmesh)
+        return;
+
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
 
