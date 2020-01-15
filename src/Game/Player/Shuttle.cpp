@@ -1,4 +1,5 @@
 
+/*
 #include "Shuttle.h"
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
@@ -241,3 +242,4 @@ void Shuttle::SetPlayerInfo(PlayerInfo* info)
 {
     m_player_info = info;
 }
+*/

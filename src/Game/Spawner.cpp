@@ -1,6 +1,5 @@
 
 #include "Spawner.h"
-#include "Events/SpawnPhysicsEntityEvent.h"
 #include "Events/WaveEvent.h"
 #include "RenderLayers.h"
 #include "Factories.h"

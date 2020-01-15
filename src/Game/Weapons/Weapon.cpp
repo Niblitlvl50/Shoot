@@ -10,7 +10,6 @@
 #include "Audio/AudioFactory.h"
 #include "Util/Random.h"
 
-#include "Events/SpawnPhysicsEntityEvent.h"
 #include "RenderLayers.h"
 
 #include "SystemContext.h"

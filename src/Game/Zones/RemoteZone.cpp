@@ -37,8 +37,7 @@
 using namespace game;
 
 RemoteZone::RemoteZone(const ZoneCreationContext& context)
-    : PhysicsZone(math::ZeroVec, 0.0f)
-    , m_system_context(context.system_context)
+    : m_system_context(context.system_context)
     , m_event_handler(*context.event_handler)
     , m_game_config(*context.game_config)
 {

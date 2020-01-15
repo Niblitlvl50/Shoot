@@ -9,9 +9,6 @@
 
 #include "EventHandler/EventHandler.h"
 
-#include "Events/DamageEvent.h"
-#include "Events/SpawnEntityEvent.h"
-#include "Events/RemoveEntityEvent.h"
 #include "Events/ShockwaveEvent.h"
 
 #include "Physics/IBody.h"
@@ -86,13 +83,12 @@ void BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector&
     explosion_config.rotation = 0.0f;
     explosion_config.sprite_file = "res/sprites/explosion.sprite";
     
-    const game::SpawnEntityEvent event(
-        std::make_shared<game::Explosion>(explosion_config, m_event_handler), game::GAMEOBJECTS);
-    
-    m_event_handler.DispatchEvent(event);
-    m_event_handler.DispatchEvent(game::DamageEvent(body, 45, direction));
+    //const game::SpawnEntityEvent event(
+    //    std::make_shared<game::Explosion>(explosion_config, m_event_handler), game::GAMEOBJECTS);
+    //m_event_handler.DispatchEvent(event);
+    //m_event_handler.DispatchEvent(game::DamageEvent(body, 45, direction));
     m_event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
-    m_event_handler.DispatchEvent(game::RemoveEntityEvent(m_entity_id));
+    //m_event_handler.DispatchEvent(game::RemoveEntityEvent(m_entity_id));
 }
 
 void BlackSquareController::ToSleep()

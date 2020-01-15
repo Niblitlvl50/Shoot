@@ -1,8 +1,10 @@
 
 #pragma once
 
+/*
+
 #include "MonoPtrFwd.h"
-#include "Entity/PhysicsEntityBase.h"
+#include "Entity/EntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "ShuttleGamepadController.h"
@@ -75,3 +77,4 @@ namespace game
     };
 }
 
+*/

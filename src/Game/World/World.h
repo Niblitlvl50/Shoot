@@ -12,7 +12,7 @@ namespace game
     struct ExcludeZone;
     
     void LoadWorld(
-        mono::IPhysicsZone* zone,
+        //mono::IPhysicsZone* zone,
         const std::vector<world::PolygonData>& polygons,
         std::vector<ExcludeZone>& exclude_zones);
     

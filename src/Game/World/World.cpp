@@ -13,7 +13,7 @@
 
 #include "Navigation/NavmeshFactory.h"
 
-#include "Zone/IPhysicsZone.h"
+//#include "Zone/IPhysicsZone.h"
 #include "Math/Matrix.h"
 #include "Util/StringFunctions.h"
 
@@ -22,7 +22,7 @@
 
 
 void game::LoadWorld(
-    mono::IPhysicsZone* zone,
+    //mono::IPhysicsZone* zone,
     const std::vector<world::PolygonData>& polygons,
     std::vector<ExcludeZone>& exclude_zones)
 {
@@ -36,7 +36,7 @@ void game::LoadWorld(
 //        static_terrain->AddPolygon(polygon);
 //    zone->AddDrawable(static_terrain, BACKGROUND);
 
-    zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
+    //zone->AddDrawable(std::make_unique<StaticBackground>(), BACKGROUND);
 }
 
 namespace

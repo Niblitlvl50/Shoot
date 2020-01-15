@@ -1,6 +1,5 @@
 
 #include "GravityUpdater.h"
-#include "Zone/IPhysicsZone.h"
 #include "Entity/IEntity.h"
 #include "Math/Vector.h"
 #include "Physics/IBody.h"
@@ -10,9 +9,8 @@
 
 using namespace game;
 
-GravityUpdater::GravityUpdater(mono::IPhysicsZone* zone, const mono::IEntityPtr& moon1, const mono::IEntityPtr& moon2)
-    : mZone(zone)
-    , mMoon1(moon1)
+GravityUpdater::GravityUpdater(/*mono::IPhysicsZone* zone, */const mono::IEntityPtr& moon1, const mono::IEntityPtr& moon2)
+    : mMoon1(moon1)
     , mMoon2(moon2)
     , mElapsedTime(0)
 { }
@@ -25,7 +23,7 @@ void GravityUpdater::doUpdate(const mono::UpdateContext& update_context)
     if(mElapsedTime < 16)
         return;
     
-    mZone->ForEachBody(std::bind(&GravityUpdater::GravityFunc, this, _1));
+    //mZone->ForEachBody(std::bind(&GravityUpdater::GravityFunc, this, _1));
     mElapsedTime = 0;
 }
 

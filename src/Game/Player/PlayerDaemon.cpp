@@ -19,7 +19,6 @@
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/PlayerConnectedEvent.h"
-#include "Events/RemoveEntityEvent.h"
 
 #include "Camera/ICamera.h"
 #include "Rendering/Color.h"
@@ -74,7 +73,7 @@ namespace
             if(a_pressed)
             {
                 m_player_daemon->SpawnPlayer1();
-                m_event_handler.DispatchEvent(RemoveEntityEvent(Id()));
+                //m_event_handler.DispatchEvent(RemoveEntityEvent(Id()));
             }
             else if(y_pressed)
             {

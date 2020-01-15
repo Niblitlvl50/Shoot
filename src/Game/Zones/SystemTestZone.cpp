@@ -121,9 +121,11 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 
     m_player_daemon = std::make_unique<PlayerDaemon>(camera, m_server_manager.get(), m_system_context, *m_event_handler);
 
+    m_loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
+
     for(int index = 0; index < 250; ++index)
     {
-        mono::Entity new_entity = g_entity_manager->CreateEntity("res/entities/pink_blolb.entity");
+        const mono::Entity new_entity = g_entity_manager->CreateEntity("res/entities/pink_blolb.entity");
         const math::Vector position = math::Vector(mono::Random(0.0f, 22.0f), mono::Random(0.0f, 24.0f));
         mono::IBody* body = physics_system->GetBody(new_entity.id);
         body->SetPosition(position);
@@ -131,12 +133,9 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
         m_loaded_entities.push_back(new_entity.id);
     }
 
-    const std::vector<uint32_t>& loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
-    m_loaded_entities.insert(m_loaded_entities.end(), loaded_entities.begin(), loaded_entities.end());
-
     std::vector<uint32_t> ctf_flags;
 
-    for(uint32_t id : loaded_entities)
+    for(uint32_t id : m_loaded_entities)
     {
         const uint32_t properties = g_entity_manager->GetEntityProperties(id);
         if(properties & EntityProperties::CTF_FLAG)

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ZoneCreationContext.h"
-#include "Zone/PhysicsZone.h"
+#include "Zone/ZoneBase.h"
 #include "GameConfig.h"
 #include "EventHandler/EventToken.h"
 #include "GameMode/CaptureTheFlagScore.h"
@@ -18,7 +18,7 @@ namespace game
     struct SpawnMessage;
     struct SpriteMessage;
 
-    class RemoteZone : public mono::PhysicsZone
+    class RemoteZone : public mono::ZoneBase
     {
     public:
     
