@@ -1,6 +1,6 @@
 
 #include "MoveAction.h"
-#include "Entity/IEntity.h"
+#include "Zone/IEntity.h"
 #include "Util/Algorithm.h"
 #include <algorithm>
 

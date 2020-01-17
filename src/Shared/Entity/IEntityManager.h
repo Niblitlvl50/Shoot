@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Entity.h"
+#include "EntitySystem/Entity.h"
 
 #include <cstdint>
 #include <vector>

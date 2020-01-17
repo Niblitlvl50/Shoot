@@ -11,13 +11,12 @@
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSystem.h"
 
+#include <cassert>
+
+/*
 #include "Entity/EntityBase.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "Rendering/Sprite/ISprite.h"
-
-#include <cassert>
-
 namespace game
 {
 class AStarPathDrawer : public mono::EntityBase
@@ -58,6 +57,7 @@ public:
     const mono::IPath* m_path;
 };
 }
+*/
 
 using namespace game;
 
@@ -74,8 +74,7 @@ TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* phy
     m_control_body->SetPosition(body->GetPosition());
 
     m_spring = m_physics_system->CreateSpring(m_control_body, body, 1.0f, 200.0f, 1.5f);
-    m_astar_drawer = std::make_shared<AStarPathDrawer>(m_current_position);
-    //m_event_handler.DispatchEvent(SpawnEntityEvent(m_astar_drawer, 4));
+    //m_astar_drawer = std::make_shared<AStarPathDrawer>(m_current_position);
 }
 
 TrackingBehaviour::~TrackingBehaviour()
@@ -137,7 +136,7 @@ bool TrackingBehaviour::UpdatePath()
     const float length = math::Length(position - m_control_body->GetPosition());
     m_current_position = length;
 
-    m_astar_drawer->SetPath(m_path.get());
+    //m_astar_drawer->SetPath(m_path.get());
 
     return true;
 }

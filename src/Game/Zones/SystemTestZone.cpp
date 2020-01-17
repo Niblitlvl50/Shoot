@@ -11,7 +11,7 @@
 #include "Physics/PhysicsDebugDrawer.h"
 
 #include "SystemContext.h"
-#include "EntitySystem.h"
+#include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 #include "Util/Random.h"

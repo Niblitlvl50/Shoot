@@ -4,7 +4,7 @@
 #include "IEntityManager.h"
 
 #include "MonoFwd.h"
-#include "EntitySystem.h"
+#include "EntitySystem/EntitySystem.h"
 #include "ObjectAttribute.h"
 
 #include <string>

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Rendering/RenderPtrFwd.h"
 
 #include "WorldFile.h"

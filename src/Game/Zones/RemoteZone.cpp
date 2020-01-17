@@ -23,7 +23,7 @@
 #include "Rendering/Sprite/Sprite.h"
 
 #include "EventHandler/EventHandler.h"
-#include "Entity/IEntity.h"
+//#include "Entity/IEntity.h"
 #include "Math/Vector.h"
 #include "Math/Quad.h"
 

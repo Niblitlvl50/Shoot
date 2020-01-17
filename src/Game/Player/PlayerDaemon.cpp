@@ -6,7 +6,7 @@
 #include "FontIds.h"
 
 #include "Factories.h"
-#include "Entity.h"
+#include "EntitySystem/Entity.h"
 #include "Entity/IEntityManager.h"
 
 #include "SystemContext.h"
@@ -24,7 +24,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "System/System.h"
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Hud/UIElements.h"
 #include "Hud/Dialog.h"
 

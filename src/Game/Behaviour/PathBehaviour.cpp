@@ -1,47 +1,13 @@
 
 #include "PathBehaviour.h"
 
-#include "AIKnowledge.h"
-
 #include "Paths/IPath.h"
 
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSystem.h"
 
-#include "Entity/EntityBase.h"
-#include "Rendering/Color.h"
-#include "Rendering/IRenderer.h"
-#include "Rendering/Sprite/ISprite.h"
-
 #include <cassert>
-
-namespace
-{
-    class DotEntity : public mono::EntityBase
-    {
-    public:
-
-        DotEntity(const math::Vector& point)
-            : m_point(point)
-        {
-            m_scale = math::Vector(10, 10);
-        }
-
-        void Draw(mono::IRenderer& renderer) const override
-        {
-            constexpr mono::Color::RGBA color(1.0f, 0.5f, 1.0f, 1.0f);
-            renderer.DrawPoints({ math::ZeroVec }, color, 10.0f);
-        }
-
-        void Update(const mono::UpdateContext& update_context) override
-        {
-            m_position = m_point;
-        }
-
-        const math::Vector& m_point;
-    };
-}
 
 using namespace game;
 
@@ -56,8 +22,6 @@ PathBehaviour::PathBehaviour(
 
     m_control_body = m_physics_system->CreateKinematicBody();
     m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, 1.0f, 20.0f, 0.5f);
-
-    //m_event_handler.DispatchEvent(SpawnEntityEvent(std::make_shared<DotEntity>(m_point), LayerId::FOREGROUND, nullptr));
 }
 
 PathBehaviour::~PathBehaviour()

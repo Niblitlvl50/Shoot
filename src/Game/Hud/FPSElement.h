@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Util/FpsCounter.h"
 #include "Rendering/Color.h"
 

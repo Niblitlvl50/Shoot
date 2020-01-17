@@ -2,7 +2,7 @@
 #pragma once
 
 #include "FontIds.h"
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Rendering/Color.h"
 
 #include <string>

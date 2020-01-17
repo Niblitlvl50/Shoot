@@ -18,7 +18,7 @@
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem.h"
+#include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Entity/EntityManager.h"

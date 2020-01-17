@@ -13,7 +13,7 @@
 #include "FontIds.h"
 
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem.h"
+#include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 
 #include "Component.h"

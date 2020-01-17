@@ -3,7 +3,7 @@
 
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 
 namespace game
 {

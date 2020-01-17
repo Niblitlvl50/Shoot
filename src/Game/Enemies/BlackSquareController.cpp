@@ -3,8 +3,6 @@
 
 #include "AIKnowledge.h"
 #include "Behaviour/HomingBehaviour.h"
-#include "Explosion.h"
-#include "RenderLayers.h"
 #include "CollisionConfiguration.h"
 
 #include "EventHandler/EventHandler.h"
@@ -75,19 +73,10 @@ void BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector&
         return;
 
     const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const float direction = math::AngleBetweenPoints(entity_position, body->GetPosition());
+    //const float direction = math::AngleBetweenPoints(entity_position, body->GetPosition());
 
-    game::ExplosionConfiguration explosion_config;
-    explosion_config.position = entity_position;
-    explosion_config.scale = 2.0f;
-    explosion_config.rotation = 0.0f;
-    explosion_config.sprite_file = "res/sprites/explosion.sprite";
-    
-    //const game::SpawnEntityEvent event(
-    //    std::make_shared<game::Explosion>(explosion_config, m_event_handler), game::GAMEOBJECTS);
-    //m_event_handler.DispatchEvent(event);
     //m_event_handler.DispatchEvent(game::DamageEvent(body, 45, direction));
-    m_event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 100));
+    m_event_handler.DispatchEvent(game::ShockwaveEvent(entity_position, 100));
     //m_event_handler.DispatchEvent(game::RemoveEntityEvent(m_entity_id));
 }
 

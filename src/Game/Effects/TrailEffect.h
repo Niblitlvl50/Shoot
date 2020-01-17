@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Particle/ParticleFwd.h"
 
 namespace game

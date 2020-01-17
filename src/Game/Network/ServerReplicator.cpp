@@ -5,7 +5,7 @@
 #include "NetworkMessage.h"
 #include "BatchedMessageSender.h"
 
-#include "EntitySystem.h"
+#include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"

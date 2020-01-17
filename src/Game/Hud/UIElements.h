@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Entity/EntityBase.h"
+#include "Zone/EntityBase.h"
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
 #include "Rendering/RenderPtrFwd.h"

@@ -2,7 +2,7 @@
 #include "ObjectNameVisualizer.h"
 #include "FontIds.h"
 #include "Math/Quad.h"
-#include "Entity/IEntity.h"
+#include "Zone/IEntity.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 
