@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ObjectAttribute.h"
-#include "Hash.h"
+#include "Util/Hash.h"
 #include <string>
 #include <vector>
 #include <algorithm>

@@ -1,7 +1,7 @@
 
 #include "EntityLogicSystem.h"
 #include "IEntityLogic.h"
-#include "Hash.h"
+#include "Util/Hash.h"
 
 #include <algorithm>
 #include <cassert>

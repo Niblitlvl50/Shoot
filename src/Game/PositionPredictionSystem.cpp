@@ -3,7 +3,7 @@
 #include "Network/NetworkMessage.h"
 #include "Network/ClientManager.h"
 
-#include "Hash.h"
+#include "Util/Hash.h"
 #include "EventHandler/EventHandler.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Math/Matrix.h"

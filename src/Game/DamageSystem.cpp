@@ -1,7 +1,7 @@
 
 #include "DamageSystem.h"
 #include "Entity/IEntityManager.h"
-#include "Hash.h"
+#include "Util/Hash.h"
 #include <limits>
 #include <cassert>
 
