@@ -1,0 +1,28 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 67,
+            "name": "duck",
+            "w": 68,
+            "x": 1105,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

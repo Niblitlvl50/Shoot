@@ -14,27 +14,27 @@
             "h": 25,
             "name": "eye_monster1",
             "w": 35,
-            "x": 1973,
+            "x": 867,
             "x_offset": 0.0,
-            "y": 200,
+            "y": 213,
             "y_offset": 0.0
         },
         {
             "h": 24,
             "name": "eye_monster0",
             "w": 34,
-            "x": 2012,
+            "x": 906,
             "x_offset": 0.0,
-            "y": 200,
+            "y": 213,
             "y_offset": 0.0
         },
         {
             "h": 24,
             "name": "eye_monster2",
             "w": 27,
-            "x": 1070,
+            "x": 1920,
             "x_offset": 0.0,
-            "y": 203,
+            "y": 221,
             "y_offset": 0.0
         }
     ],

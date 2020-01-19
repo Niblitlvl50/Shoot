@@ -5,10 +5,25 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 
 #include "Factories.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
+
+#include <cmath>
+
+namespace
+{
+    enum AnimationId
+    {
+        STANDING,
+        DUCKING,
+        WALKING,
+        CLIMBING
+    };
+}
 
 using namespace game;
 
@@ -24,9 +39,11 @@ ShuttleLogic::ShuttleLogic(
     , m_interaction_controller(this, event_handler)
     , m_fire(false)
     , m_total_ammo_left(500)
+    , m_aim_direction(0.0f)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
@@ -41,10 +58,20 @@ void ShuttleLogic::Update(uint32_t delta_ms)
     const math::Vector& position = math::GetPosition(transform);
 
     if(m_fire)
-    {
-        const float rotation = math::GetZRotation(transform);
-        m_weapon->Fire(position, rotation);
-    }
+        m_weapon->Fire(position, m_aim_direction);
+
+    const math::Vector& delta_position = m_last_position - position;
+    const mono::HorizontalDirection horizontal =
+        delta_position.x > 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+    //const mono::VerticalDirection vertical = 
+    //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    sprite->SetAnimation(WALKING);
+    sprite->SetHorizontalDirection(horizontal);
+    //sprite->SetVerticalDirection(vertical);
+
+    m_last_position = position;
 
     m_player_info->position = position;
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
@@ -88,8 +115,9 @@ void ShuttleLogic::ApplyImpulse(const math::Vector& force)
 
 void ShuttleLogic::SetRotation(float rotation)
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    body->SetAngle(rotation);
+    m_aim_direction = rotation;
+    //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    //body->SetAngle(rotation);
 }
 
 void ShuttleLogic::GiveAmmo(int value)

@@ -24,25 +24,25 @@
             "h": 30,
             "name": "shuttle1",
             "w": 25,
-            "x": 367,
+            "x": 1570,
             "x_offset": 0.0,
-            "y": 188,
+            "y": 191,
             "y_offset": 0.0
         },
         {
             "h": 26,
             "name": "shuttle0",
             "w": 25,
-            "x": 1421,
+            "x": 788,
             "x_offset": 0.0,
-            "y": 191,
+            "y": 213,
             "y_offset": 0.0
         },
         {
             "h": 31,
             "name": "shuttle2",
             "w": 25,
-            "x": 338,
+            "x": 664,
             "x_offset": 0.0,
             "y": 188,
             "y_offset": 0.0

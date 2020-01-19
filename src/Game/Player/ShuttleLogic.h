@@ -6,6 +6,7 @@
 #include "PlayerInteractionController.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/WeaponTypes.h"
+#include "Math/Vector.h"
 
 #include "MonoFwd.h"
 
@@ -13,6 +14,7 @@ namespace mono
 {
     class TransformSystem;
     class PhysicsSystem;
+    class SpriteSystem;
 }
 
 namespace game
@@ -51,8 +53,11 @@ namespace game
         int m_total_ammo_left;
         std::unique_ptr<IWeaponSystem> m_weapon;
         WeaponType m_weapon_type;
+        float m_aim_direction;
+        math::Vector m_last_position;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::SpriteSystem* m_sprite_system;
     };
 }

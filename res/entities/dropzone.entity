@@ -28,7 +28,7 @@
                         {
                             "id": 910774975,
                             "variant_type": 4,
-                            "variant_value": "ps_cross.sprite"
+                            "variant_value": "dropzone.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -40,8 +40,8 @@
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.9999899864196777,
-                                "green": 0.9999899864196777,
+                                "blue": 1.0,
+                                "green": 1.0,
                                 "red": 1.0
                             }
                         },

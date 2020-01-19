@@ -25,6 +25,7 @@
         "res/sprites/device_medical.sprite",
         "res/sprites/device_random.sprite",
         "res/sprites/device_screen.sprite",
+        "res/sprites/dropzone.sprite",
         "res/sprites/explosion.sprite",
         "res/sprites/eye_monster.sprite",
         "res/sprites/fire_bullet.sprite",
@@ -70,6 +71,7 @@
         "res/sprites/wall_pipes.sprite",
         "res/sprites/wall_straight.sprite",
         "res/sprites/wall_straight_n.sprite",
-        "res/sprites/xbox_one_a.sprite"
+        "res/sprites/xbox_one_a.sprite",
+        "res/sprites/yellow_alien.sprite"
     ]
 }

@@ -85,7 +85,7 @@
                         {
                             "id": 230313139,
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.25
                         },
                         {
                             "id": 2471448074,
@@ -98,7 +98,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 5
                         }
                     ]
                 },

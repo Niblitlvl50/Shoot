@@ -1,9 +1,11 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace game
 {
-    enum CollisionCategory
+    enum CollisionCategory : uint32_t
     {
         NONE = 0,
         PLAYER = 1,
@@ -14,38 +16,38 @@ namespace game
         STATIC = 32,
     };
 
-    constexpr unsigned int STATIC_MASK =
+    constexpr uint32_t STATIC_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::PLAYER_BULLET |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
         CollisionCategory::PROPS;
 
-    constexpr unsigned int PLAYER_MASK =
+    constexpr uint32_t PLAYER_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
-    constexpr unsigned int PLAYER_BULLET_MASK =
+    constexpr uint32_t PLAYER_BULLET_MASK =
         CollisionCategory::ENEMY |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
-    constexpr unsigned int ENEMY_MASK =
+    constexpr uint32_t ENEMY_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::PLAYER_BULLET |
         CollisionCategory::ENEMY |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
-    constexpr unsigned int ENEMY_BULLET_MASK =
+    constexpr uint32_t ENEMY_BULLET_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
-    constexpr unsigned int PROPS_MASK =
+    constexpr uint32_t PROPS_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::PLAYER_BULLET |
         CollisionCategory::ENEMY |
@@ -61,11 +63,12 @@ namespace game
     };
 
     constexpr FactionPair faction_lookup_table[] = {
-        { CollisionCategory::STATIC,        STATIC_MASK },
+        { CollisionCategory::NONE,          0 },
         { CollisionCategory::PLAYER,        PLAYER_MASK },
         { CollisionCategory::PLAYER_BULLET, PLAYER_BULLET_MASK },
         { CollisionCategory::ENEMY,         ENEMY_MASK },
         { CollisionCategory::ENEMY_BULLET,  ENEMY_BULLET_MASK },
         { CollisionCategory::PROPS,         PROPS_MASK },
+        { CollisionCategory::STATIC,        STATIC_MASK },
     };
 }

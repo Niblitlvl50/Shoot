@@ -143,14 +143,14 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 1.1207151412963867,
-                                "y": -9.407442092895508
+                                "x": 1.8460445404052734,
+                                "y": -9.246109962463379
                             }
                         },
                         {
                             "id": 564937055,
                             "variant_type": 3,
-                            "variant_value": 0.07100656628608704
+                            "variant_value": -0.0
                         }
                     ]
                 },
@@ -243,6 +243,17 @@
                             "id": 2951636756,
                             "variant_type": 2,
                             "variant_value": 3
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "variant_type": 2,
+                            "variant_value": 100
                         }
                     ]
                 }
@@ -486,7 +497,7 @@
                         {
                             "id": 910774975,
                             "variant_type": 4,
-                            "variant_value": "ammo_pickup.sprite"
+                            "variant_value": "meteorite.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -498,9 +509,9 @@
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
+                                "blue": 0.7647058963775635,
                                 "green": 1.0,
-                                "red": 1.0
+                                "red": 0.8408303260803223
                             }
                         },
                         {
@@ -537,35 +548,6 @@
                     ]
                 },
                 {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -591,10 +573,34 @@
                             "variant_value": "res/paths/smaller_loop.path"
                         }
                     ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 230313139,
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "name": "everything"
+            "name": "path_follower"
         },
         {
             "components": [
@@ -666,7 +672,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 1
+                            "variant_value": 6
                         }
                     ]
                 },
@@ -849,6 +855,17 @@
                             "id": 2951636756,
                             "variant_type": 2,
                             "variant_value": 2
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "variant_type": 2,
+                            "variant_value": 100
                         }
                     ]
                 }
@@ -3245,7 +3262,7 @@
                         {
                             "id": 3749132497,
                             "variant_type": 3,
-                            "variant_value": 10.0
+                            "variant_value": 50.0
                         },
                         {
                             "id": 3447918833,

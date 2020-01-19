@@ -16,16 +16,16 @@
             "h": 43,
             "name": "fire_bullet1",
             "w": 15,
-            "x": 1954,
+            "x": 1965,
             "x_offset": 0.0,
-            "y": 161,
+            "y": 174,
             "y_offset": 0.0
         },
         {
             "h": 43,
             "name": "fire_bullet2",
             "w": 15,
-            "x": 1658,
+            "x": 1237,
             "x_offset": 0.0,
             "y": 142,
             "y_offset": 0.0
