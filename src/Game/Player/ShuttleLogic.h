@@ -21,6 +21,15 @@ namespace game
 {
     struct PlayerInfo;
 
+    enum class PlayerAnimation
+    {
+        IDLE,
+        DUCK,
+        WALK_LEFT,
+        WALK_RIGHT,
+        WALK_UP
+    };
+
     class ShuttleLogic : public IEntityLogic
     {
     public:
@@ -40,6 +49,7 @@ namespace game
         void SelectWeapon(WeaponType weapon);
         void ApplyImpulse(const math::Vector& force);
         void SetRotation(float rotation);
+        void SetAnimation(PlayerAnimation animation);
         void GiveAmmo(int value);
         void GiveHealth(int value);
         uint32_t EntityId() const;
@@ -54,7 +64,6 @@ namespace game
         std::unique_ptr<IWeaponSystem> m_weapon;
         WeaponType m_weapon_type;
         float m_aim_direction;
-        math::Vector m_last_position;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;

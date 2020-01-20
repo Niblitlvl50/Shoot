@@ -70,13 +70,13 @@ void ShuttleGamepadController::Update(uint32_t delta_ms)
         m_shuttle_logic->SetRotation(rotation);
     }
     
-    //const bool leftBoosterOn = (force.x > 0.0f);
-    //const bool rightBoosterOn = (force.x < 0.0f);
-    //const bool mainBoosterOn = (force.y > 0.0f);
-    
-    //m_shuttle->SetBoosterThrusting(game::BoosterPosition::LEFT, leftBoosterOn);
-    //m_shuttle->SetBoosterThrusting(game::BoosterPosition::RIGHT, rightBoosterOn);
-    //m_shuttle_logic->SetBoosterThrusting(game::BoosterPosition::MAIN, mainBoosterOn || leftBoosterOn || rightBoosterOn);
+    PlayerAnimation animation = PlayerAnimation::IDLE;
+    if(force.x > 0.0f)
+        animation = PlayerAnimation::WALK_RIGHT;
+    else if(force.x < 0.0f)
+        animation = PlayerAnimation::WALK_LEFT;
+
+    m_shuttle_logic->SetAnimation(animation);
     
     const bool b = IS_TRIGGERED(b);
     const bool b_changed = HAS_CHANGED(b);

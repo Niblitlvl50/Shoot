@@ -60,19 +60,6 @@ void ShuttleLogic::Update(uint32_t delta_ms)
     if(m_fire)
         m_weapon->Fire(position, m_aim_direction);
 
-    const math::Vector& delta_position = m_last_position - position;
-    const mono::HorizontalDirection horizontal =
-        delta_position.x > 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
-    //const mono::VerticalDirection vertical = 
-    //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
-
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-    sprite->SetAnimation(WALKING);
-    sprite->SetHorizontalDirection(horizontal);
-    //sprite->SetVerticalDirection(vertical);
-
-    m_last_position = position;
-
     m_player_info->position = position;
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->magazine_capacity = m_weapon->MagazineSize();
@@ -118,6 +105,39 @@ void ShuttleLogic::SetRotation(float rotation)
     m_aim_direction = rotation;
     //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     //body->SetAngle(rotation);
+}
+
+void ShuttleLogic::SetAnimation(PlayerAnimation animation)
+{
+    //const mono::VerticalDirection vertical = 
+    //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+
+    switch(animation)
+    {
+        case PlayerAnimation::IDLE:
+            sprite->SetAnimation(STANDING);
+            break;
+        case PlayerAnimation::DUCK:
+            sprite->SetAnimation(DUCKING);
+            break;
+        case PlayerAnimation::WALK_LEFT:
+        case PlayerAnimation::WALK_RIGHT:
+        {
+            sprite->SetAnimation(WALKING);
+            const auto direction = 
+                (animation == PlayerAnimation::WALK_LEFT) ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+            sprite->SetHorizontalDirection(direction);
+            break;
+        }
+        case PlayerAnimation::WALK_UP:
+            sprite->SetAnimation(CLIMBING);
+            break;
+    };
+
+    //sprite->SetHorizontalDirection(horizontal);
+    //sprite->SetVerticalDirection(vertical);
 }
 
 void ShuttleLogic::GiveAmmo(int value)
