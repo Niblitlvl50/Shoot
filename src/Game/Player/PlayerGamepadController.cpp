@@ -1,6 +1,6 @@
 
-#include "ShuttleGamepadController.h"
-#include "ShuttleLogic.h"
+#include "PlayerGamepadController.h"
+#include "PlayerLogic.h"
 #include "Weapons/WeaponTypes.h"
 
 #include "Events/TimeScaleEvent.h"
@@ -29,14 +29,14 @@ namespace
 }
 
 
-ShuttleGamepadController::ShuttleGamepadController(
-    game::ShuttleLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller)
+PlayerGamepadController::PlayerGamepadController(
+    game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller)
     : m_shuttle_logic(shuttle_logic),
       m_event_handler(event_handler),
       m_state(controller)
 { }
 
-void ShuttleGamepadController::Update(uint32_t delta_ms)
+void PlayerGamepadController::Update(uint32_t delta_ms)
 {
     const bool fire = (m_state.a || m_state.right_trigger > 0.25f);
     if(fire)

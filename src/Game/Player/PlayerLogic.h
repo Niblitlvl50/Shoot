@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Entity/IEntityLogic.h"
-#include "ShuttleGamepadController.h"
+#include "PlayerGamepadController.h"
 #include "PlayerInteractionController.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/WeaponTypes.h"
@@ -30,11 +30,11 @@ namespace game
         WALK_UP
     };
 
-    class ShuttleLogic : public IEntityLogic
+    class PlayerLogic : public IEntityLogic
     {
     public:
 
-        ShuttleLogic(
+        PlayerLogic(
             uint32_t entity_id,
             PlayerInfo* player_info,
             mono::EventHandler& event_handler,
@@ -56,7 +56,7 @@ namespace game
 
         const uint32_t m_entity_id;
         PlayerInfo* m_player_info;
-        ShuttleGamepadController m_gamepad_controller;
+        PlayerGamepadController m_gamepad_controller;
         PlayerInteractionController m_interaction_controller;
 
         bool m_fire;

@@ -1,5 +1,5 @@
 
-#include "ShuttleLogic.h"
+#include "PlayerLogic.h"
 #include "AIKnowledge.h"
 
 #include "SystemContext.h"
@@ -27,7 +27,7 @@ namespace
 
 using namespace game;
 
-ShuttleLogic::ShuttleLogic(
+PlayerLogic::PlayerLogic(
     uint32_t entity_id,
     PlayerInfo* player_info,
     mono::EventHandler& event_handler,
@@ -49,7 +49,7 @@ ShuttleLogic::ShuttleLogic(
     SelectWeapon(WeaponType::STANDARD);
 }
 
-void ShuttleLogic::Update(uint32_t delta_ms)
+void PlayerLogic::Update(uint32_t delta_ms)
 {
     m_gamepad_controller.Update(delta_ms);
     //m_pool->doUpdate(delta_ms);
@@ -67,17 +67,17 @@ void ShuttleLogic::Update(uint32_t delta_ms)
     m_player_info->weapon_type = m_weapon_type;
 }
 
-void ShuttleLogic::Fire()
+void PlayerLogic::Fire()
 {
     m_fire = true;
 }
 
-void ShuttleLogic::StopFire()
+void PlayerLogic::StopFire()
 {
     m_fire = false;
 }
 
-void ShuttleLogic::Reload()
+void PlayerLogic::Reload()
 {
     m_total_ammo_left -= m_weapon->MagazineSize() + m_weapon->AmmunitionLeft();
     m_total_ammo_left = std::max(0, m_total_ammo_left);
@@ -86,13 +86,13 @@ void ShuttleLogic::Reload()
         m_weapon->Reload();
 }
 
-void ShuttleLogic::SelectWeapon(WeaponType weapon)
+void PlayerLogic::SelectWeapon(WeaponType weapon)
 {
     m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER); //, m_pool.get());
     m_weapon_type = weapon;
 }
 
-void ShuttleLogic::ApplyImpulse(const math::Vector& force)
+void PlayerLogic::ApplyImpulse(const math::Vector& force)
 {
     const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
@@ -100,14 +100,14 @@ void ShuttleLogic::ApplyImpulse(const math::Vector& force)
     body->ApplyImpulse(force, math::GetPosition(transform));
 }
 
-void ShuttleLogic::SetRotation(float rotation)
+void PlayerLogic::SetRotation(float rotation)
 {
     m_aim_direction = rotation;
     //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     //body->SetAngle(rotation);
 }
 
-void ShuttleLogic::SetAnimation(PlayerAnimation animation)
+void PlayerLogic::SetAnimation(PlayerAnimation animation)
 {
     //const mono::VerticalDirection vertical = 
     //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
@@ -140,17 +140,17 @@ void ShuttleLogic::SetAnimation(PlayerAnimation animation)
     //sprite->SetVerticalDirection(vertical);
 }
 
-void ShuttleLogic::GiveAmmo(int value)
+void PlayerLogic::GiveAmmo(int value)
 {
     m_total_ammo_left += value;
 }
 
-void ShuttleLogic::GiveHealth(int value)
+void PlayerLogic::GiveHealth(int value)
 {
     printf("Give Health!\n");
 }
 
-uint32_t ShuttleLogic::EntityId() const
+uint32_t PlayerLogic::EntityId() const
 {
     return m_entity_id;
 }

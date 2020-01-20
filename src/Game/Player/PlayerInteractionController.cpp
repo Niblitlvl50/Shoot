@@ -1,7 +1,7 @@
 
 #include "PlayerInteractionController.h"
 #include "Events/PickupEvent.h"
-#include "Player/ShuttleLogic.h"
+#include "Player/PlayerLogic.h"
 
 #include "Audio/AudioFactory.h"
 #include "EventHandler/EventHandler.h"
@@ -9,17 +9,17 @@
 
 namespace
 {
-    using PickupFunc = void (game::ShuttleLogic::*)(int amount);
+    using PickupFunc = void (game::PlayerLogic::*)(int amount);
 
     constexpr PickupFunc pickup_func_table[] = {
-        &game::ShuttleLogic::GiveAmmo,
-        &game::ShuttleLogic::GiveHealth
+        &game::PlayerLogic::GiveAmmo,
+        &game::PlayerLogic::GiveHealth
     };
 }
 
 using namespace game;
 
-PlayerInteractionController::PlayerInteractionController(ShuttleLogic* shuttle_logic, mono::EventHandler& event_handler)
+PlayerInteractionController::PlayerInteractionController(PlayerLogic* shuttle_logic, mono::EventHandler& event_handler)
     : m_shuttle_logic(shuttle_logic)
     , m_event_handler(event_handler)
 {

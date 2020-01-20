@@ -1,6 +1,6 @@
 
 #include "PlayerDaemon.h"
-#include "ShuttleLogic.h"
+#include "PlayerLogic.h"
 #include "RenderLayers.h"
 #include "AIKnowledge.h"
 #include "FontIds.h"
@@ -179,7 +179,7 @@ void PlayerDaemon::SpawnPlayer(
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
     game::g_entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
-    IEntityLogic* player_logic = new ShuttleLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
     m_camera->Follow(player_entity.id, math::ZeroVec);

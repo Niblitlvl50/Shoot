@@ -6,19 +6,19 @@
 
 namespace game
 {
-    class ShuttleLogic;
+    class PlayerLogic;
     
-    class ShuttleGamepadController
+    class PlayerGamepadController
     {
     public:
         
-        ShuttleGamepadController(
-            game::ShuttleLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller);
+        PlayerGamepadController(
+            game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller);
         void Update(uint32_t delta_ms);
         
     private:
         
-        game::ShuttleLogic* m_shuttle_logic;
+        game::PlayerLogic* m_shuttle_logic;
         mono::EventHandler& m_event_handler;
 
         const System::ControllerState& m_state;
