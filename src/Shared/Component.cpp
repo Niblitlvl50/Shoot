@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "System/System.h"
 
-extern const std::array<DefaultAttribute, 24> default_attributes = {{
+extern const std::array<DefaultAttribute, 25> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -18,6 +18,7 @@ extern const std::array<DefaultAttribute, 24> default_attributes = {{
     DefaultAttribute("body_type",           Variant(0)),
     DefaultAttribute("mass",                Variant(10.0f)),
     DefaultAttribute("inertia",             Variant(1.0f)),
+    DefaultAttribute("prevent_rotation",    Variant(false)),
 
     DefaultAttribute("faction",             Variant(0)),
     DefaultAttribute("width",               Variant(1.0f)),
@@ -50,25 +51,27 @@ extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[9].hash
 extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[10].hash;
 extern const uint32_t MASS_ATTRIBUTE                = default_attributes[11].hash;
 extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[12].hash;
+extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[13].hash;
 
-extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[13].hash;
-extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[14].hash;
-extern const uint32_t HEIGHT_ATTRIBUTE              = default_attributes[15].hash;
-extern const uint32_t START_ATTRIBUTE               = default_attributes[16].hash;
-extern const uint32_t END_ATTRIBUTE                 = default_attributes[17].hash;
+extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[14].hash;
+extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[15].hash;
+extern const uint32_t HEIGHT_ATTRIBUTE              = default_attributes[16].hash;
+extern const uint32_t START_ATTRIBUTE               = default_attributes[17].hash;
+extern const uint32_t END_ATTRIBUTE                 = default_attributes[18].hash;
 
-extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[18].hash;
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[19].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[20].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[21].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[22].hash;
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[23].hash;
+extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[19].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[20].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[21].hash;
+extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[22].hash;
+extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[23].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[24].hash;
+
 
 
 extern const std::array<Component, 8> default_components = {
     MakeDefaultComponent("transform",           { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
     MakeDefaultComponent("sprite",              { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
-    MakeDefaultComponent("physics",             { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE } ),
+    MakeDefaultComponent("physics",             { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeDefaultComponent("circle_shape",        { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("box_shape",           { FACTION_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("segment_shape",       { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),

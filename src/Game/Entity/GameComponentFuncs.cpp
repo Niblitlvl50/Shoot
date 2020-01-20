@@ -45,8 +45,11 @@ namespace
         const bool found_type = FindAttribute(BODY_TYPE_ATTRIBUTE, properties, (int&)body_args.type);
         const bool found_mass = FindAttribute(MASS_ATTRIBUTE, properties, body_args.mass);
         const bool found_inertia = FindAttribute(INERTIA_ATTRIBUTE, properties, body_args.inertia);
+        
+        bool prevent_rotation = false;
+        const bool found_prevent_rotation = FindAttribute(PREVENT_ROTATION_ATTRIBUTE, properties, prevent_rotation);
 
-        const bool found_all = found_type && found_mass && found_inertia;
+        const bool found_all = found_type && found_mass && found_inertia && found_prevent_rotation;
         if(!found_all)
         {
             System::Log("GameComponentFuncs|Missing physics parameters, will not update body for entity: %u\n", entity.id);
@@ -56,9 +59,14 @@ namespace
                 System::Log("GameComponentFuncs|Missing mass\n");
             if(!found_inertia)
                 System::Log("GameComponentFuncs|Missing inertia\n");
+            if(!found_prevent_rotation)
+                System::Log("GameComponentFuncs|Missing prevent rotation\n");
 
             return false;
         }
+
+        if(prevent_rotation)
+            body_args.inertia = math::INF;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
         mono::IBody* body = physics_system->GetBody(entity.id);

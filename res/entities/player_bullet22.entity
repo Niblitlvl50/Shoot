@@ -10,8 +10,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 2.4641332626342773,
-                                "y": -12.270751953125
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -75,6 +75,11 @@
                             "id": 3836179294,
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -85,7 +90,7 @@
                         {
                             "id": 230313139,
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.25
                         },
                         {
                             "id": 2471448074,
@@ -114,6 +119,7 @@
                     ]
                 }
             ],
+            "entity_properties": 0,
             "name": "player_bullet22"
         }
     ]

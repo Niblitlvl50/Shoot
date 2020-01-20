@@ -75,6 +75,11 @@
                             "id": 3447918833,
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },

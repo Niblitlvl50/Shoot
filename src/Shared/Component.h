@@ -22,7 +22,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-extern const std::array<DefaultAttribute, 24> default_attributes;
+extern const std::array<DefaultAttribute, 25> default_attributes;
 
 extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
@@ -39,6 +39,7 @@ extern const uint32_t AMOUNT_ATTRIBUTE;
 extern const uint32_t BODY_TYPE_ATTRIBUTE;
 extern const uint32_t MASS_ATTRIBUTE;
 extern const uint32_t INERTIA_ATTRIBUTE;
+extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
 extern const uint32_t WIDTH_ATTRIBUTE;
