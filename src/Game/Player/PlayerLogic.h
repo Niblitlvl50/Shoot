@@ -41,6 +41,8 @@ namespace game
             const System::ControllerState& controller,
             mono::SystemContext* system_context);
 
+        ~PlayerLogic();
+
         void Update(uint32_t delta_ms) override;
 
         void Fire();
@@ -55,6 +57,7 @@ namespace game
         uint32_t EntityId() const;
 
         const uint32_t m_entity_id;
+        uint32_t m_weapon_entity_id;
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
         PlayerInteractionController m_interaction_controller;

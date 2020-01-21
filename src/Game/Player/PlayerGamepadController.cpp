@@ -66,7 +66,7 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
     if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
     {
         const math::Vector direction(m_state.right_x, m_state.right_y);
-        const float rotation = math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2();
+        const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
         m_shuttle_logic->SetRotation(rotation);
     }
     

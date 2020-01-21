@@ -12,6 +12,9 @@
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
 
+#include "Entity/IEntityManager.h"
+#include "Math/MathFunctions.h"
+
 #include <cmath>
 
 namespace
@@ -47,6 +50,15 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
+
+    const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
+    m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
+    m_weapon_entity_id = weapon_entity.id;
+}
+
+PlayerLogic::~PlayerLogic()
+{
+    g_entity_manager->ReleaseEntity(m_weapon_entity_id);
 }
 
 void PlayerLogic::Update(uint32_t delta_ms)
@@ -55,7 +67,7 @@ void PlayerLogic::Update(uint32_t delta_ms)
     //m_pool->doUpdate(delta_ms);
 
     const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform);
+    const math::Vector& position = math::GetPosition(transform) + math::Vector(0.0f, -0.2f);
 
     if(m_fire)
         m_weapon->Fire(position, m_aim_direction);
@@ -103,8 +115,14 @@ void PlayerLogic::ApplyImpulse(const math::Vector& force)
 void PlayerLogic::SetRotation(float rotation)
 {
     m_aim_direction = rotation;
-    //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    //body->SetAngle(rotation);
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity_id);
+    const auto direction = (rotation < math::PI()) ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
+    sprite->SetVerticalDirection(direction);
+
+    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity_id);
+    weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
+    math::Translate(weapon_transform, math::Vector(0.0f, -0.3f));
 }
 
 void PlayerLogic::SetAnimation(PlayerAnimation animation)
