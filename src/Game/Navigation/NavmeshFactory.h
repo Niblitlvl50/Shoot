@@ -3,11 +3,6 @@
 
 #include "NavmeshData.h"
 
-namespace world
-{
-    struct PolygonData;
-}
-
 namespace game
 {
     struct ExcludeZone
