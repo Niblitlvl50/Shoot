@@ -25,8 +25,11 @@ namespace game
         void Quit();
 
         mono::EventHandler& m_event_handler;
+        mono::SystemContext* m_system_context;
         mono::EventToken<event::KeyUpEvent> m_key_token;
         std::vector<struct MoveActionContext> m_move_contexts;
         int m_exit_zone = 0;
+
+        std::unique_ptr<class ScreenSparkles> m_sparkles;
     };
 }

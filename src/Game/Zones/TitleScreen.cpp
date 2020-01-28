@@ -18,6 +18,9 @@
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
 
+#include "SystemContext.h"
+#include "Particle/ParticleSystem.h"
+#include "Particle/ParticleSystemDrawer.h"
 #include "System/System.h"
 
 using namespace game;
@@ -76,6 +79,7 @@ namespace
 
 TitleScreen::TitleScreen(const ZoneCreationContext& context)
     : m_event_handler(*context.event_handler)
+    , m_system_context(context.system_context)
 {
     using namespace std::placeholders;
     const event::KeyUpEventFunc& key_callback = std::bind(&TitleScreen::OnKeyUp, this, _1);
@@ -99,6 +103,8 @@ bool TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 
 void TitleScreen::OnLoad(mono::ICameraPtr& camera)
 {
+    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
+
     const math::Quad& viewport = camera->GetViewport();
     const math::Vector new_position(viewport.mB.x + (viewport.mB.x / 2.0f), viewport.mB.y / 3.0f);
 
@@ -171,10 +177,14 @@ void TitleScreen::OnLoad(mono::ICameraPtr& camera)
 
     AddEntity(background2, LayerId::BACKGROUND);
     AddEntity(background1, LayerId::BACKGROUND);
-    AddEntity(std::make_shared<ScreenSparkles>(viewport), LayerId::BACKGROUND);
+
+    AddDrawable(std::make_shared<mono::ParticleSystemDrawer>(particle_system), LayerId::GAMEOBJECTS);
+
     AddEntity(title_text, LayerId::GAMEOBJECTS);
     AddEntity(dont_die_text, LayerId::GAMEOBJECTS);
     AddEntity(hit_enter_text, LayerId::GAMEOBJECTS);
+
+    m_sparkles = std::make_unique<ScreenSparkles>(particle_system, viewport);
 }
 
 int TitleScreen::OnUnload()

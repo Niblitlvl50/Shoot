@@ -1,21 +1,19 @@
 
 #include "ScreenSparkles.h"
-//#include "Particle/ParticlePool.h"
-//#include "Particle/ParticleEmitter.h"
-//#include "Particle/ParticleDrawer.h"
-//#include "Particle/ParticleSystemDefaults.h"
+#include "Particle/ParticleSystem.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"
+#include "Factories.h"
+#include "Entity/IEntityManager.h"
 
 using namespace game;
 
-/*
 namespace
 {
-    void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const math::Quad& viewport)
+    void Generator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, const math::Quad& viewport)
     {
         const float half_height = viewport.mB.y / 2.0f;
 
@@ -30,70 +28,56 @@ namespace
 
         const int life = mono::RandomInt(0, 500) + 5000;
 
-        pool.m_position[index] = position + math::Vector(x, y);
-        pool.m_velocity[index] = math::Vector(velocity_x, velocity_y);
-        pool.m_rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
-        pool.m_angular_velocity[index] = angular_velocity;
-        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
-        pool.m_start_size[index] = mono::Random(58.0f, 76.0f);
-        pool.m_end_size[index] = mono::Random(2.0f, 6.0f);
-        pool.m_start_life[index] = life;
-        pool.m_life[index] = life;
+        pool.position[index] = position + math::Vector(x, y);
+        pool.velocity[index] = math::Vector(velocity_x, velocity_y);
+        pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
+        pool.angular_velocity[index] = angular_velocity;
+        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
+        pool.start_size[index] = mono::Random(58.0f, 76.0f);
+        pool.end_size[index] = mono::Random(2.0f, 6.0f);
+        pool.start_life[index] = life;
+        pool.life[index] = life;
     }
 
-    void SparklesUpdater(mono::ParticlePool& pool, size_t count, unsigned int delta)
+    void SparklesUpdater(mono::ParticlePoolComponent& pool, size_t count, unsigned int delta)
     {
         const float float_delta = float(delta) / 1000.0f;
 
         for(size_t index = 0; index < count; ++index)
         {
-            const float t = 1.0f - float(pool.m_life[index]) / float(pool.m_start_life[index]);
+            const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
 
-            pool.m_position[index] += pool.m_velocity[index] * float_delta;
-            pool.m_color[index] = mono::Color::Lerp(pool.m_start_color[index], pool.m_end_color[index], t);
-            pool.m_size[index] = (1.0f - t) * pool.m_start_size[index] + t * pool.m_end_size[index];
-            pool.m_rotation[index] += pool.m_angular_velocity[index] * float_delta;
+            pool.position[index] += pool.velocity[index] * float_delta;
+            pool.color[index] = mono::Color::Lerp(pool.start_color[index], pool.end_color[index], t);
+            pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
+            pool.rotation[index] += pool.angular_velocity[index] * float_delta;
         }
     }
 }
-*/
 
-ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
-    : m_viewport(viewport)
+ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Quad& viewport)
+    : m_particle_system(particle_system)
 {
     const float x = viewport.mB.x;
     const float y = viewport.mB.y / 2.0f;
 
-    m_position = math::Vector(x, y);
-
-/*
-    mono::ParticleEmitter::Configuration emit_config;
-    emit_config.duration = -1.0f;
-    emit_config.emit_rate = 100.0f;
-    emit_config.burst = false;
-    emit_config.generator = [viewport](const math::Vector& position, mono::ParticlePool& pool, size_t index) {
-        Generator(position, pool, index, viewport);
-    };
-
-    m_pool = std::make_unique<mono::ParticlePool>(500, SparklesUpdater);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool.get());
+    mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
+    particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/x4.png");
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::SOURCE_ALPHA, *m_pool);
-    */
+    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);
+
+    const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
+        Generator(position, pool, index, viewport);
+    };
+    particle_system->AttachEmitter(sparkles_entity.id, math::Vector(x, y), -1.0f, 100.0f, false, false, generator_proxy);
+
+    m_particle_entity = sparkles_entity.id;
 }
 
 ScreenSparkles::~ScreenSparkles()
-{ }
-
-void ScreenSparkles::Draw(mono::IRenderer& renderer) const
 {
-    //m_drawer->doDraw(renderer);
-}
-
-void ScreenSparkles::Update(const mono::UpdateContext& update_context)
-{
-    //m_emitter->doUpdate(update_context);
-    //m_pool->Update(update_context);
+    m_particle_system->ReleasePool(m_particle_entity);
+    g_entity_manager->ReleaseEntity(m_particle_entity);
 }
