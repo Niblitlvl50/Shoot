@@ -12,6 +12,7 @@ class IEntityManager;
 namespace mono
 {
     class PhysicsSystem;
+    class ParticleSystem;
 }
 
 namespace game
@@ -23,6 +24,7 @@ namespace game
     public:
 
         Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager, mono::SystemContext* system_context);
+        ~Weapon();
 
         WeaponFireResult Fire(const math::Vector& position, float direction) override;
         int AmmunitionLeft() const override;
@@ -42,6 +44,9 @@ namespace game
         mono::ISoundPtr m_reload_sound;
 
         mono::PhysicsSystem* m_physics_system;
+        mono::ParticleSystem* m_particle_system;
         EntityLogicSystem* m_logic_system;
+
+        uint32_t m_particle_entity_id;
     };
 }

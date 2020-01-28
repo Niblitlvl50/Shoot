@@ -2,10 +2,10 @@
 #include "ParticleExplosion.h"
 #include "Actions/EasingFunctions.h"
 
-#include "Particle/ParticlePool.h"
-#include "Particle/ParticleEmitter.h"
-#include "Particle/ParticleDrawer.h"
-#include "Particle/ParticleSystemDefaults.h"
+//#include "Particle/ParticlePool.h"
+//#include "Particle/ParticleEmitter.h"
+//#include "Particle/ParticleDrawer.h"
+//#include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Random.h"
 
@@ -13,6 +13,7 @@
 
 using namespace game;
 
+/*
 namespace
 {
     void SmokeGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
@@ -82,11 +83,13 @@ namespace
         pool.m_life[index] = life;
     }
 }
+*/
 
 ParticleExplosion::ParticleExplosion(const math::Vector& position)
 {
     m_position = position;
 
+/*
     mono::ParticleEmitter::Configuration smoke_config;
     smoke_config.generator = SmokeGenerator;
     smoke_config.burst = true;
@@ -120,6 +123,7 @@ ParticleExplosion::ParticleExplosion(const math::Vector& position)
     m_drawer1 = std::make_unique<mono::ParticleDrawer>(smoke_texture, mono::BlendMode::ONE, *m_pool1);
     m_drawer2 = std::make_unique<mono::ParticleDrawer>(flare_texture, mono::BlendMode::ONE, *m_pool2);
     m_drawer3 = std::make_unique<mono::ParticleDrawer>(texture3, mono::BlendMode::ONE, *m_pool3);
+    */
 }
 
 ParticleExplosion::~ParticleExplosion()
@@ -127,18 +131,20 @@ ParticleExplosion::~ParticleExplosion()
 
 void ParticleExplosion::Draw(mono::IRenderer& renderer) const
 {
-    m_drawer1->doDraw(renderer);
+    //m_drawer1->doDraw(renderer);
     //m_drawer2->doDraw(renderer);
     //m_drawer3->doDraw(renderer);
 }
 
 void ParticleExplosion::Update(const mono::UpdateContext& update_context)
 {
+    /*
     m_emitter1->doUpdate(update_context);
     m_emitter2->doUpdate(update_context);
     m_emitter3->doUpdate(update_context);
 
-    m_pool1->doUpdate(update_context);
-    m_pool2->doUpdate(update_context);
-    m_pool3->doUpdate(update_context);
+    m_pool1->Update(update_context);
+    m_pool2->Update(update_context);
+    m_pool3->Update(update_context);
+    */
 }

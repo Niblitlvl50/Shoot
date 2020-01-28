@@ -1,13 +1,9 @@
 
 #pragma once
 
-#include "MonoFwd.h"
 #include "Physics/PhysicsFwd.h"
-#include "Rendering/Color.h"
 #include "Particle/ParticleFwd.h"
-#include "Particle/ParticleEmitter.h"
 #include "CollisionConfiguration.h"
-#include "Math/Vector.h"
 
 #include <functional>
 
@@ -26,9 +22,6 @@ namespace game
         CollisionCategory collision_category = CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
-
-        //mono::ParticlePool* pool = nullptr;
-        //mono::ParticleEmitter::Configuration emitter_config;
     };
 
     struct WeaponConfiguration

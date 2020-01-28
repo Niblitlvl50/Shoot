@@ -1,9 +1,9 @@
 
 #include "ScreenSparkles.h"
-#include "Particle/ParticlePool.h"
-#include "Particle/ParticleEmitter.h"
-#include "Particle/ParticleDrawer.h"
-#include "Particle/ParticleSystemDefaults.h"
+//#include "Particle/ParticlePool.h"
+//#include "Particle/ParticleEmitter.h"
+//#include "Particle/ParticleDrawer.h"
+//#include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Random.h"
 
@@ -12,6 +12,7 @@
 
 using namespace game;
 
+/*
 namespace
 {
     void Generator(const math::Vector& position, mono::ParticlePool& pool, size_t index, const math::Quad& viewport)
@@ -56,6 +57,7 @@ namespace
         }
     }
 }
+*/
 
 ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
     : m_viewport(viewport)
@@ -65,6 +67,7 @@ ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
 
     m_position = math::Vector(x, y);
 
+/*
     mono::ParticleEmitter::Configuration emit_config;
     emit_config.duration = -1.0f;
     emit_config.emit_rate = 100.0f;
@@ -78,6 +81,7 @@ ScreenSparkles::ScreenSparkles(const math::Quad& viewport)
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/x4.png");
     m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::SOURCE_ALPHA, *m_pool);
+    */
 }
 
 ScreenSparkles::~ScreenSparkles()
@@ -85,11 +89,11 @@ ScreenSparkles::~ScreenSparkles()
 
 void ScreenSparkles::Draw(mono::IRenderer& renderer) const
 {
-    m_drawer->doDraw(renderer);
+    //m_drawer->doDraw(renderer);
 }
 
 void ScreenSparkles::Update(const mono::UpdateContext& update_context)
 {
-    m_emitter->doUpdate(update_context);
-    m_pool->doUpdate(update_context);
+    //m_emitter->doUpdate(update_context);
+    //m_pool->Update(update_context);
 }

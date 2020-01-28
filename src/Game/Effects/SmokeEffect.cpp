@@ -1,9 +1,9 @@
 
 #include "SmokeEffect.h"
-#include "Particle/ParticlePool.h"
-#include "Particle/ParticleEmitter.h"
-#include "Particle/ParticleDrawer.h"
-#include "Particle/ParticleSystemDefaults.h"
+//#include "Particle/ParticlePool.h"
+//#include "Particle/ParticleEmitter.h"
+//#include "Particle/ParticleDrawer.h"
+//#include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Random.h"
 
@@ -11,6 +11,7 @@
 
 using namespace game;
 
+/*
 namespace
 {
     void SmokeGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
@@ -31,11 +32,13 @@ namespace
         pool.m_life[index] = life;
     }
 }
+*/
 
 SmokeEffect::SmokeEffect(const math::Vector& position)
 {
     m_position = position;
 
+/*
     mono::ParticleEmitter::Configuration emit_config;
     //emit_config.position = position;
     emit_config.generator = SmokeGenerator;
@@ -48,6 +51,7 @@ SmokeEffect::SmokeEffect(const math::Vector& position)
     m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
     m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool.get());
     m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
+    */
 }
 
 SmokeEffect::~SmokeEffect()
@@ -55,12 +59,12 @@ SmokeEffect::~SmokeEffect()
 
 void SmokeEffect::Draw(mono::IRenderer& renderer) const
 {
-    m_drawer->doDraw(renderer);
+    //m_drawer->doDraw(renderer);
 }
 
 void SmokeEffect::Update(const mono::UpdateContext& update_context)
 {
-    m_emitter->doUpdate(update_context);
-    m_pool->doUpdate(update_context);
+    //m_emitter->doUpdate(update_context);
+    //m_pool->Update(update_context);
     //mRotation += math::ToRadians(0.1) * float(delta);
 }

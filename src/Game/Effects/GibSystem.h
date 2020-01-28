@@ -26,9 +26,8 @@ namespace game
 
     private:
 
-        std::unique_ptr<mono::ParticlePool> m_pool;
-        std::unique_ptr<mono::ParticleDrawer> m_drawer;
-
-        std::vector<mono::ParticleEmitter> m_emitters;
+        //std::unique_ptr<mono::ParticlePool> m_pool;
+        //std::unique_ptr<mono::ParticleDrawer> m_drawer;
+        //std::vector<mono::ParticleEmitter> m_emitters;
     };
 }

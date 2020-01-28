@@ -5,6 +5,11 @@
 #include "Particle/ParticleFwd.h"
 #include <memory>
 
+namespace mono
+{
+    struct ParticlePool;
+}
+
 namespace game
 {
     class IWeaponSystem;

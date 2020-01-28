@@ -19,6 +19,8 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
+#include "Particle/ParticleSystem.h"
+#include "Rendering/Texture/TextureFactory.h"
 
 #include "Component.h"
 
@@ -48,7 +50,22 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
         m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, false, true);
 
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+
+    mono::Entity particle_entity = m_entity_manager->CreateEntity("particle_entity", {});
+    m_particle_system->AllocatePool(particle_entity.id, 50, mono::DefaultUpdater);
+
+    mono::ITexturePtr texture = mono::CreateTexture("res/textures/x4.png");
+    m_particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
+
+    m_particle_entity_id = particle_entity.id;
+}
+
+Weapon::~Weapon()
+{
+    m_particle_system->ReleasePool(m_particle_entity_id);
+    m_entity_manager->ReleaseEntity(m_particle_entity_id);
 }
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
@@ -105,6 +122,8 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
             body->SetVelocity(impulse);
             //body->ApplyImpulse(impulse, position);
         }
+
+        m_particle_system->AttachEmitter(m_particle_entity_id, position, 1.0f, 20.0f, true, true, mono::DefaultGenerator);
 
         m_fire_sound->Position(position.x, position.y);
         m_fire_sound->Play();

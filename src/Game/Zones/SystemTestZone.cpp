@@ -10,6 +10,9 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
 
+#include "Particle/ParticleSystem.h"
+#include "Particle/ParticleSystemDrawer.h"
+
 #include "SystemContext.h"
 #include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
@@ -101,6 +104,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
     // Network and syncing should be done first in the frame.
@@ -151,12 +155,23 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     }
 
     // Nav mesh
+
+    for(uint32_t id : m_loaded_entities)
+    {
+        mono::IBody* body = physics_system->GetBody(id);
+        if(!body)
+            continue;
+
+        //body->
+    }
+
     std::vector<ExcludeZone> exclude_zones;
     m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
     m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
     game::g_navmesh = &m_navmesh;
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(std::make_shared<mono::ParticleSystemDrawer>(particle_system), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
 
     auto hud_overlay = std::make_shared<UIOverlayDrawer>();

@@ -1,11 +1,11 @@
 
 #include "GibSystem.h"
 
-#include "Particle/ParticlePool.h"
-#include "Particle/ParticleEmitter.h"
-#include "Particle/ParticleDrawer.h"
+//#include "Particle/ParticlePool.h"
+//#include "Particle/ParticleEmitter.h"
+//#include "Particle/ParticleDrawer.h"
 
-#include "Particle/ParticleSystemDefaults.h"
+//#include "Particle/ParticleSystemDefaults.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Algorithm.h"
 #include "Util/Random.h"
@@ -17,6 +17,7 @@
 
 using namespace game;
 
+/*
 namespace
 {
     void GibsGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, float direction)
@@ -64,12 +65,13 @@ namespace
         }
     }
 }
+*/
 
 GibSystem::GibSystem()
 {
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
-    m_pool = std::make_unique<mono::ParticlePool>(1500, GibsUpdater);
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
+    //const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    //m_pool = std::make_unique<mono::ParticlePool>(1500, GibsUpdater);
+    //m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
 }
 
 GibSystem::~GibSystem()
@@ -77,21 +79,23 @@ GibSystem::~GibSystem()
 
 void GibSystem::doUpdate(const mono::UpdateContext& update_context)
 {
+    /*
     for(auto&& emitter : m_emitters)
         emitter.doUpdate(update_context);
 
-    m_pool->doUpdate(update_context);
+    m_pool->Update(update_context);
 
     const auto remove_func = [](const mono::ParticleEmitter& emitter) {
         return emitter.IsDone();
     };
 
     mono::remove_if(m_emitters, remove_func);
+    */
 }
 
 void GibSystem::doDraw(mono::IRenderer& renderer) const
 {
-    m_drawer->doDraw(renderer);
+    //m_drawer->doDraw(renderer);
 }
 
 math::Quad GibSystem::BoundingBox() const
@@ -101,6 +105,7 @@ math::Quad GibSystem::BoundingBox() const
 
 void GibSystem::EmitGibsAt(const math::Vector& position, float direction)
 {
+    /*
     mono::ParticleEmitter::Configuration emit_config;
     emit_config.position = position;
     emit_config.burst = true;
@@ -111,6 +116,7 @@ void GibSystem::EmitGibsAt(const math::Vector& position, float direction)
     };
 
     m_emitters.emplace_back(emit_config, m_pool.get());
+    */
 }
 
 void GibSystem::EmitBloodAt(const math::Vector& position, float direction)

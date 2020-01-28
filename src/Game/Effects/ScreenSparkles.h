@@ -20,8 +20,8 @@ namespace game
 
         const math::Quad m_viewport;
 
-        std::unique_ptr<mono::ParticlePool> m_pool;
-        std::unique_ptr<mono::ParticleEmitter> m_emitter;
-        std::unique_ptr<mono::ParticleDrawer> m_drawer;
+        //std::unique_ptr<mono::ParticlePool> m_pool;
+        //std::unique_ptr<mono::ParticleEmitter> m_emitter;
+        //std::unique_ptr<mono::ParticleDrawer> m_drawer;
     };
 }

@@ -16,8 +16,8 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        std::unique_ptr<mono::ParticlePool> m_pool;
-        std::unique_ptr<mono::ParticleEmitter> m_emitter;
-        std::unique_ptr<mono::ParticleDrawer> m_drawer;
+        //std::unique_ptr<mono::ParticlePool> m_pool;
+        //std::unique_ptr<mono::ParticleEmitter> m_emitter;
+        //std::unique_ptr<mono::ParticleDrawer> m_drawer;
     };
 }
