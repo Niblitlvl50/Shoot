@@ -1,52 +1,90 @@
 
 #include "MuzzleFlash.h"
 
-//#include "Particle/ParticlePool.h"
-//#include "Particle/ParticleEmitter.h"
-//#include "Particle/ParticleDrawer.h"
-//#include "Particle/ParticleSystemDefaults.h"
+#include "Particle/ParticleSystem.h"
 #include "Rendering/Texture/TextureFactory.h"
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
+#include "Actions/EasingFunctions.h"
+#include "Factories.h"
+#include "Entity/IEntityManager.h"
 
 using namespace game;
 
-MuzzleFlash::MuzzleFlash(const math::Vector& position)
+namespace
 {
-    //m_position = position;
+    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, float direction)
+    {
+        constexpr float ten_degrees = math::ToRadians(10.0f);
 
-/*
-    mono::ParticleEmitter::Configuration emit_config;
-    emit_config.position = position;
-    emit_config.generator = mono::DefaultGenerator;
-    emit_config.burst = false;
-    emit_config.duration = -1.0f;
-    emit_config.emit_rate = 5.0f;
+        const float direction_variation = mono::Random(-ten_degrees, ten_degrees);
+        const math::Vector& velocity = math::VectorFromAngle(direction + direction_variation);
 
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/smoke.png");
+        const int life = mono::RandomInt(100, 250);
+        const float velocity_variation = mono::Random(2.0f, 16.0f);
+        const float size = mono::Random(4.0f, 6.0f);
 
-    m_pool = std::make_unique<mono::ParticlePool>(100, mono::DefaultUpdater);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(emit_config, m_pool.get());
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
-    */
+        pool.position[index] = position;
+        pool.rotation[index] = 0.0f;
+        pool.velocity[index] = velocity * velocity_variation;
+        pool.start_color[index] = mono::Color::RGBA(0.5f, 1.0f, 0.0f, 1.0f);
+        pool.end_color[index] = mono::Color::RGBA(0.5f, 1.0f, 0.0f, 0.1f);
+        pool.start_size[index] = size;
+        pool.end_size[index] = size;
+        pool.size[index] = size;
+        pool.start_life[index] = life;
+        pool.life[index] = life;
+    }
+
+    void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
+    {
+        const float float_delta = float(delta_ms) / 1000.0f;
+
+        for(size_t index = 0; index < count; ++index)
+        {
+            const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
+            const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
+            const float duration = float(pool.start_life[index]); // / 1000.0f;
+
+            pool.velocity[index] *= 0.90;
+            pool.position[index] += pool.velocity[index] * float_delta;
+            //pool.m_size[index] = pool.m_start_size[index];
+
+            const float alpha1 = pool.start_color[index].alpha;
+            const float alpha2 = pool.end_color[index].alpha;
+            
+            pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
+            pool.color[index].alpha = game::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
+        }
+    }    
+}
+
+MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system)
+    : m_particle_system(particle_system)
+{
+    mono::Entity particle_entity = g_entity_manager->CreateEntity("muzzleflash", {});
+    particle_system->AllocatePool(particle_entity.id, 500, GibsUpdater);
+
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
+
+    m_particle_entity = particle_entity.id;
 }
 
 MuzzleFlash::~MuzzleFlash()
-{ }
-
-void MuzzleFlash::Draw(mono::IRenderer& renderer) const
 {
-    //m_drawer->doDraw(renderer);
+    m_particle_system->ReleasePool(m_particle_entity);
+    g_entity_manager->ReleaseEntity(m_particle_entity);
 }
 
-void MuzzleFlash::Update(const mono::UpdateContext& update_context)
+void MuzzleFlash::EmittAt(const math::Vector& position, float direction)
 {
-    //m_emitter->doUpdate(update_context);
-}
+    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
+        GibsGenerator(position, pool, index, direction);
+    };
 
-void MuzzleFlash::SetPosition(const math::Vector& position)
-{
-    //m_emitter->SetPosition(position);
+    m_particle_system->AttachEmitter(
+        m_particle_entity, position, 0.5f, 30.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, generator_proxy);
 }
 

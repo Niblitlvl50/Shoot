@@ -1,73 +1,53 @@
 
 #include "TrailEffect.h"
-//#include "Particle/ParticlePool.h"
-//#include "Particle/ParticleEmitter.h"
-//#include "Particle/ParticleDrawer.h"
-//#include "Particle/ParticleSystemDefaults.h"
+#include "Particle/ParticleSystem.h"
 #include "Rendering/Texture/TextureFactory.h"
-#include "Rendering/IRenderer.h"
 #include "Math/Matrix.h"
-#include "Math/Quad.h"
+#include "TransformSystem/TransformSystem.h"
 
-#include <limits>
+#include "Factories.h"
+#include "Entity/IEntityManager.h"
 
 using namespace game;
 
-/*
 namespace
 {
-    void TrailGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index)
+    void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
     {
         constexpr int life = 500;
 
-        pool.m_position[index] = position;
-        pool.m_rotation[index] = 0.0f;
-        pool.m_start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
-        pool.m_start_size[index] = 16.0f;
-        pool.m_end_size[index] = 10.0f;
-        pool.m_start_life[index] = life;
-        pool.m_life[index] = life;
+        pool.position[index] = position;
+        pool.rotation[index] = 0.0f;
+        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.end_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.1f);
+        pool.start_size[index] = 16.0f;
+        pool.end_size[index] = 10.0f;
+        pool.start_life[index] = life;
+        pool.life[index] = life;
     }
 }
-*/
 
-TrailEffect::TrailEffect(const math::Vector& position)
-    : m_position(position)
+TrailEffect::TrailEffect(mono::TransformSystem* transform_system, mono::ParticleSystem* particle_system, uint32_t follow_id)
+    : m_particle_system(particle_system)
 {
-    /*
-    mono::ParticleEmitter::Configuration config;
-    //config.position = position;
-    config.generator = TrailGenerator;
-    config.emit_rate = 100.0f;
-    config.duration = -1.0f;
-    
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    mono::Entity particle_entity = g_entity_manager->CreateEntity("traileffect", {});
+    particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
-    m_pool = std::make_unique<mono::ParticlePool>(1000, mono::DefaultUpdater);
-    m_emitter = std::make_unique<mono::ParticleEmitter>(config, m_pool.get());
-    m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
-    */
+    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
+
+    const auto generator_proxy = [transform_system, follow_id](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
+        const math::Matrix& world_transform = transform_system->GetWorld(follow_id);
+        TrailGenerator(math::GetPosition(world_transform), pool, index);
+    };
+
+    m_particle_system->AttachEmitter(particle_entity.id, math::ZeroVec, -1.0f, 100.0f, mono::EmitterType::CONTINOUS, generator_proxy);
+
+    m_particle_entity = particle_entity.id;
 }
 
 TrailEffect::~TrailEffect()
-{ }
-
-void TrailEffect::Draw(mono::IRenderer& renderer) const
 {
-    renderer.PushGlobalTransform();
-    //m_drawer->doDraw(renderer);
-}
-
-void TrailEffect::Update(const mono::UpdateContext& update_context)
-{
-    //m_emitter->SetPosition(m_position);
-    //m_emitter->doUpdate(update_context);
-    //m_pool->Update(update_context);
-}
-
-math::Quad TrailEffect::BoundingBox() const
-{
-    constexpr float inf = std::numeric_limits<float>::infinity();
-    return math::Quad(-inf, -inf, inf, inf);
+    m_particle_system->ReleasePool(m_particle_entity);
+    g_entity_manager->ReleaseEntity(m_particle_entity);
 }

@@ -68,6 +68,8 @@ namespace game
         WeaponType m_weapon_type;
         float m_aim_direction;
 
+        std::unique_ptr<class TrailEffect> m_trail_effect;
+
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;

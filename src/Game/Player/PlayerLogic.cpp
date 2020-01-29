@@ -7,6 +7,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Particle/ParticleSystem.h"
 
 #include "Factories.h"
 #include "Weapons/IWeaponSystem.h"
@@ -14,6 +15,8 @@
 
 #include "Entity/IEntityManager.h"
 #include "Math/MathFunctions.h"
+
+#include "Effects/TrailEffect.h"
 
 #include <cmath>
 
@@ -47,6 +50,7 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
@@ -54,6 +58,8 @@ PlayerLogic::PlayerLogic(
     const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
     m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
     m_weapon_entity_id = weapon_entity.id;
+
+    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
 }
 
 PlayerLogic::~PlayerLogic()

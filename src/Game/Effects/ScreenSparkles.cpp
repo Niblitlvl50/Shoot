@@ -71,7 +71,7 @@ ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math
     const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
         Generator(position, pool, index, viewport);
     };
-    particle_system->AttachEmitter(sparkles_entity.id, math::Vector(x, y), -1.0f, 100.0f, false, false, generator_proxy);
+    particle_system->AttachEmitter(sparkles_entity.id, math::Vector(x, y), -1.0f, 100.0f, mono::EmitterType::CONTINOUS, generator_proxy);
 
     m_particle_entity = sparkles_entity.id;
 }

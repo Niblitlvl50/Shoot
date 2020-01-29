@@ -47,6 +47,6 @@ namespace game
         mono::ParticleSystem* m_particle_system;
         EntityLogicSystem* m_logic_system;
 
-        uint32_t m_particle_entity_id;
+        std::unique_ptr<class MuzzleFlash> m_muzzle_flash;
     };
 }
