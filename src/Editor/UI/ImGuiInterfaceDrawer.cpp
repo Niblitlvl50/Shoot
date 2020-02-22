@@ -71,6 +71,8 @@ namespace
             ImGui::EndMenu();
         }
 
+        ImGui::SameLine(ImGui::GetWindowWidth() -160);
+        ImGui::TextDisabled("mouse: %.2f %.2f", context.world_mouse_position.x, context.world_mouse_position.y);
         ImGui::EndMainMenuBar();
     }
 

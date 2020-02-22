@@ -28,6 +28,8 @@ namespace editor
 
     struct UIContext
     {
+        math::Vector world_mouse_position;
+
         // User tools
         int active_tool_index = 0;
         int tools_texture_id = 0;

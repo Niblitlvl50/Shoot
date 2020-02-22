@@ -1,7 +1,7 @@
 
 #include "ScreenSparkles.h"
 #include "Particle/ParticleSystem.h"
-#include "Rendering/Texture/TextureFactory.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
@@ -65,7 +65,7 @@ ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math
     mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
 
-    const mono::ITexturePtr texture = mono::CreateTexture("res/textures/x4.png");
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/x4.png");
     particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
     const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {

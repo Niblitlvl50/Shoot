@@ -204,6 +204,7 @@ bool UserInputController::OnMouseMove(const event::MouseMotionEvent& event)
             m_camera_tool.HandleMousePosition(screen_position);
     }
 
+    m_context->world_mouse_position = world_position;
     return true;
 }
 

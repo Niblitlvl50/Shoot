@@ -5,7 +5,7 @@
 #include "Math/Quad.h"
 #include "Rendering/BufferFactory.h"
 #include "Rendering/IRenderer.h"
-#include "Rendering/Texture/TextureFactory.h"
+#include "Rendering/Texture/ITextureFactory.h"
 
 #include <vector>
 
@@ -14,7 +14,7 @@ StaticBackground::StaticBackground()
 {
     const int vertex_count = 4;
 
-    m_texture = mono::CreateTexture("res/textures/white_box_placeholder.png");
+    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/white_box_placeholder.png");
     m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
     m_texture_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2); 
 

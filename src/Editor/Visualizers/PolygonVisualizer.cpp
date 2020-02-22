@@ -3,7 +3,7 @@
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
-#include "Rendering/Texture/TextureFactory.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "Objects/Polygon.h"
 
 using namespace editor;
@@ -12,7 +12,7 @@ PolygonVisualizer2::PolygonVisualizer2(const std::vector<math::Vector>& points, 
     : m_points(points),
       m_mousePosition(mouse_position)
 {
-    m_texture = mono::CreateTexture("res/textures/placeholder.png");
+    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/placeholder.png");
 }
 
 void PolygonVisualizer2::doDraw(mono::IRenderer& renderer) const

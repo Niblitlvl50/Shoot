@@ -3,8 +3,6 @@
 
 #include "Camera/ICamera.h"
 
-#include "Rendering/Texture/TextureFactory.h"
-#include "Rendering/Texture/ITexture.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"

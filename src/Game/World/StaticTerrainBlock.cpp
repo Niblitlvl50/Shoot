@@ -3,7 +3,7 @@
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/BufferFactory.h"
-#include "Rendering/Texture/TextureFactory.h"
+#include "Rendering/Texture/ITextureFactory.h"
 
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
@@ -38,7 +38,7 @@ void StaticTerrainBlock::AddPolygon(const world::PolygonData& polygon)
     TerrainDrawData draw_data;
     draw_data.offset = m_index;
     draw_data.count = polygon.vertices.size();
-    draw_data.texture = mono::CreateTexture(polygon.texture);
+    draw_data.texture = mono::GetTextureFactory()->CreateTexture(polygon.texture);
 
     m_draw_data.emplace_back(draw_data);
 

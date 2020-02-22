@@ -2,7 +2,7 @@
 #include "Polygon.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "Rendering/Texture/TextureFactory.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "Math/Quad.h"
 #include "Math/Matrix.h"
 #include "Math/MathFwd.h"
@@ -58,7 +58,7 @@ void PolygonEntity::Draw(mono::IRenderer& renderer) const
 void PolygonEntity::Update(const mono::UpdateContext& update_context)
 {
     if(!m_texture)
-        m_texture = mono::CreateTexture(m_texture_name);
+        m_texture = mono::GetTextureFactory()->CreateTexture(m_texture_name);
 }
 
 math::Quad PolygonEntity::BoundingBox() const

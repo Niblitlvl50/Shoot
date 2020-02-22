@@ -21,7 +21,6 @@
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
 #include "Particle/ParticleSystem.h"
-#include "Rendering/Texture/TextureFactory.h"
 
 #include "Component.h"
 
