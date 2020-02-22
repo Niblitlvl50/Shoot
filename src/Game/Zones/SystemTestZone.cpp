@@ -31,6 +31,7 @@
 #include "Hud/Healthbar.h"
 #include "Hud/NetworkStatusDrawer.h"
 #include "Hud/ClientViewportVisualizer.h"
+#include "Hud/ParticleStatusDrawer.h"
 
 #include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
@@ -181,6 +182,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<PhysicsStatsElement>(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
     hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+    hud_overlay->AddChild(std::make_shared<ParticleStatusDrawer>(particle_system, math::Vector(2, 190)));
 
     AddEntity(hud_overlay, LayerId::UI);
 
@@ -189,7 +191,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(std::make_shared<mono::TransformSystemDrawer>(game::g_draw_transformsystem, transform_system), LayerId::UI);
-    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, physics_system), LayerId::UI);
+    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()

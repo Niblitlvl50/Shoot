@@ -50,30 +50,38 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
-    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
 
-    // Make sure we have a weapon
-    SelectWeapon(WeaponType::STANDARD);
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
 
     const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
     m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
     m_weapon_entity_id = weapon_entity.id;
 
-    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
+    const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", {});
+    m_transform_system->ChildTransform(weapon_fire_offset_entity.id, m_weapon_entity_id);
+    m_weapon_fire_offset_entity_id = weapon_fire_offset_entity.id;
+
+    const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(-0.4f, 0.1f));
+    m_transform_system->SetTransform(m_weapon_fire_offset_entity_id, fire_offset);
+
+    // Make sure we have a weapon
+    SelectWeapon(WeaponType::STANDARD);
+    SetRotation(0.0f);
 }
 
 PlayerLogic::~PlayerLogic()
 {
     g_entity_manager->ReleaseEntity(m_weapon_entity_id);
+    g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
 }
 
 void PlayerLogic::Update(uint32_t delta_ms)
 {
     m_gamepad_controller.Update(delta_ms);
-    //m_pool->doUpdate(delta_ms);
 
-    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform) + math::Vector(0.0f, -0.2f);
+    const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
+    const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
 
     if(m_fire)
         m_weapon->Fire(position, m_aim_direction);
@@ -106,7 +114,7 @@ void PlayerLogic::Reload()
 
 void PlayerLogic::SelectWeapon(WeaponType weapon)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER); //, m_pool.get());
+    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER);
     m_weapon_type = weapon;
 }
 
@@ -126,9 +134,10 @@ void PlayerLogic::SetRotation(float rotation)
     const auto direction = (rotation < math::PI()) ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
     sprite->SetVerticalDirection(direction);
 
-    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity_id);
-    weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
+    math::Matrix weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
     math::Translate(weapon_transform, math::Vector(0.0f, -0.3f));
+
+    m_transform_system->SetTransform(m_weapon_entity_id, weapon_transform);
 }
 
 void PlayerLogic::SetAnimation(PlayerAnimation animation)

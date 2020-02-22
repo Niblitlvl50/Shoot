@@ -16,20 +16,20 @@ namespace
 {
     void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, float direction)
     {
-        constexpr float ten_degrees = math::ToRadians(10.0f);
+        constexpr float ten_degrees = math::ToRadians(20.0f);
 
         const float direction_variation = mono::Random(-ten_degrees, ten_degrees);
         const math::Vector& velocity = math::VectorFromAngle(direction + direction_variation);
 
-        const int life = mono::RandomInt(100, 250);
-        const float velocity_variation = mono::Random(2.0f, 16.0f);
-        const float size = mono::Random(4.0f, 6.0f);
+        const int life = mono::RandomInt(100, 150);
+        const float velocity_variation = mono::Random(10.0f, 16.0f);
+        const float size = mono::Random(2.0f, 6.0f);
 
         pool.position[index] = position;
         pool.rotation[index] = 0.0f;
         pool.velocity[index] = velocity * velocity_variation;
-        pool.start_color[index] = mono::Color::RGBA(0.5f, 1.0f, 0.0f, 1.0f);
-        pool.end_color[index] = mono::Color::RGBA(0.5f, 1.0f, 0.0f, 0.1f);
+        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.8f, 0.0f, 1.0f);
+        pool.end_color[index] = mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f);
         pool.start_size[index] = size;
         pool.end_size[index] = size;
         pool.size[index] = size;

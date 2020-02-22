@@ -58,6 +58,8 @@ namespace game
 
         const uint32_t m_entity_id;
         uint32_t m_weapon_entity_id;
+        uint32_t m_weapon_fire_offset_entity_id;
+        
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
         PlayerInteractionController m_interaction_controller;

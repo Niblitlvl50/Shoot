@@ -32,7 +32,7 @@ namespace
         pool.velocity[index] = math::Vector(velocity_x, velocity_y);
         pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
         pool.angular_velocity[index] = angular_velocity;
-        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.start_color[index] = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 1.0f);
         pool.end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
         pool.start_size[index] = mono::Random(58.0f, 76.0f);
         pool.end_size[index] = mono::Random(2.0f, 6.0f);
@@ -40,18 +40,18 @@ namespace
         pool.life[index] = life;
     }
 
-    void SparklesUpdater(mono::ParticlePoolComponent& pool, size_t count, unsigned int delta)
+    void SparklesUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
     {
-        const float float_delta = float(delta) / 1000.0f;
+        const float delta_seconds = float(delta_ms) / 1000.0f;
 
         for(size_t index = 0; index < count; ++index)
         {
             const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
 
-            pool.position[index] += pool.velocity[index] * float_delta;
+            pool.position[index] += pool.velocity[index] * delta_seconds;
             pool.color[index] = mono::Color::Lerp(pool.start_color[index], pool.end_color[index], t);
             pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
-            pool.rotation[index] += pool.angular_velocity[index] * float_delta;
+            pool.rotation[index] += pool.angular_velocity[index] * delta_seconds;
         }
     }
 }
@@ -59,14 +59,14 @@ namespace
 ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Quad& viewport)
     : m_particle_system(particle_system)
 {
-    const float x = viewport.mB.x;
+    const float x = viewport.mB.x + 1.0f;
     const float y = viewport.mB.y / 2.0f;
 
     mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
 
     const mono::ITexturePtr texture = mono::CreateTexture("res/textures/x4.png");
-    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);
+    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
     const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
         Generator(position, pool, index, viewport);
