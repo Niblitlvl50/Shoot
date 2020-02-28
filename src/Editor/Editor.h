@@ -50,6 +50,7 @@ namespace editor
         void AddPath(const std::shared_ptr<editor::PathEntity>& path);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
+        void PreselectProxyObject(IObjectProxy* proxy_object);
         void TeleportToProxyObject(IObjectProxy* proxy_object);
         IObjectProxy* FindProxyObject(const math::Vector& position);
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
@@ -110,6 +111,7 @@ namespace editor
         std::shared_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
 
         uint32_t m_selected_id;
+        uint32_t m_preselected_id;
         std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
         std::vector<SnapPoint> m_snap_points;

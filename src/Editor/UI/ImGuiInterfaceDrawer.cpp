@@ -110,6 +110,9 @@ namespace
                     context.select_object_callback(proxy.get());
             }
 
+            if(ImGui::IsItemHovered())
+                context.preselect_object_callback(proxy.get());
+
             ImGui::PopID();
         }
 

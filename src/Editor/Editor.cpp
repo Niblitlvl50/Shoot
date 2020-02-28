@@ -96,6 +96,7 @@ Editor::Editor(
     , m_world_filename(world_filename)
     , m_object_factory(this)
     , m_selected_id(NO_SELECTION)
+    , m_preselected_id(NO_SELECTION)
 {
     using namespace std::placeholders;
 
@@ -106,6 +107,7 @@ Editor::Editor(
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.select_object_callback = std::bind(&Editor::SelectProxyObject, this, _1);
+    m_context.preselect_object_callback = std::bind(&Editor::PreselectProxyObject, this, _1);
     m_context.teleport_to_object_callback = std::bind(&Editor::TeleportToProxyObject, this, _1);
 
     m_context.add_component = std::bind(&Editor::AddComponent, this, _1);
@@ -155,7 +157,7 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
-    AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, transform_system), RenderLayer::UI);
+    AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
@@ -252,10 +254,36 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     UpdateGrabbers();
 }
 
+void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
+{
+    if(proxy_object)
+    {
+        proxy_object->SetSelected(true);
+        m_preselected_id = proxy_object->Id();
+    }
+    else
+    {
+        m_preselected_id = NO_SELECTION;
+    }
+}
+
 void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
 {
     const math::Vector& proxy_position = proxy_object->GetPosition();
     m_camera->SetPosition(proxy_position);
+
+    const uint32_t id = proxy_object->Id();
+
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    const math::Quad bb = transform_system->GetWorldBoundingBox(id);
+    const float length_squared = math::Length(math::TopLeft(bb) - math::BottomRight(bb)) * 4;
+
+    const math::Quad viewport = m_camera->GetViewport();
+    const float ratio = math::Width(viewport) * math::Height(viewport);
+
+    const float height = length_squared * ratio;
+
+    m_camera->SetTargetViewport(math::Quad(0, 0, length_squared, height));
 }
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
