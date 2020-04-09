@@ -145,7 +145,7 @@ void editor::DrawPolygon(mono::IRenderer& renderer,
                          const std::vector<math::Vector>& points,
                          const std::vector<math::Vector>& texture_coords)
 {
-    std::vector<unsigned short> indices;
+    std::vector<uint16_t> indices;
     for(size_t index = 0; index < points.size(); ++index)
         indices.push_back(index);
 

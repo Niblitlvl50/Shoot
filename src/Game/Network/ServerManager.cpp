@@ -23,11 +23,11 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
 
     using namespace std::placeholders;
 
-    const std::function<bool (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
-    const std::function<bool (const ConnectMessage&)> connect_func = std::bind(&ServerManager::HandleConnectMessage, this, _1);
-    const std::function<bool (const DisconnectMessage&)> disconnect_func = std::bind(&ServerManager::HandleDisconnectMessage, this, _1);
-    const std::function<bool (const HeartBeatMessage&)> heartbeat_func = std::bind(&ServerManager::HandleHeartBeatMessage, this, _1);
-    const std::function<bool (const ViewportMessage&)> viewport_func = std::bind(&ServerManager::HandleViewportMessage, this, _1);
+    const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
+    const std::function<mono::EventResult (const ConnectMessage&)> connect_func = std::bind(&ServerManager::HandleConnectMessage, this, _1);
+    const std::function<mono::EventResult (const DisconnectMessage&)> disconnect_func = std::bind(&ServerManager::HandleDisconnectMessage, this, _1);
+    const std::function<mono::EventResult (const HeartBeatMessage&)> heartbeat_func = std::bind(&ServerManager::HandleHeartBeatMessage, this, _1);
+    const std::function<mono::EventResult (const ViewportMessage&)> viewport_func = std::bind(&ServerManager::HandleViewportMessage, this, _1);
 
     m_ping_func_token = m_event_handler->AddListener(ping_func);
     m_connect_token = m_event_handler->AddListener(connect_func);
@@ -106,7 +106,7 @@ const ConnectionStats& ServerManager::GetConnectionStats() const
     return m_remote_connection->GetConnectionStats();
 }
 
-bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
+mono::EventResult ServerManager::HandlePingMessage(const PingMessage& ping_message)
 {
     PingMessage local_ping_message = ping_message;
     local_ping_message.server_time = m_server_time;
@@ -115,10 +115,10 @@ bool ServerManager::HandlePingMessage(const PingMessage& ping_message)
     message.payload = SerializeMessage(local_ping_message);
     SendMessageTo(message, local_ping_message.sender);
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
+mono::EventResult ServerManager::HandleConnectMessage(const ConnectMessage& message)
 {
     ClientData client_data;
     client_data.heartbeat_timestamp = System::GetMilliseconds();
@@ -140,19 +140,19 @@ bool ServerManager::HandleConnectMessage(const ConnectMessage& message)
         System::Log("ServerManager|Client already in collection\n");
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
+mono::EventResult ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
     System::Log("ServerManager|Disconnect client\n");
     m_connected_clients.erase(message.sender);
     m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender));
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
+mono::EventResult ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
 {
     auto client_it = m_connected_clients.find(message.sender);
     if(client_it != m_connected_clients.end())
@@ -160,10 +160,10 @@ bool ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& message)
     else
         System::Log("ServerManager|Client not found in collection\n");
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool ServerManager::HandleViewportMessage(const ViewportMessage& message)
+mono::EventResult ServerManager::HandleViewportMessage(const ViewportMessage& message)
 {
     auto client_it = m_connected_clients.find(message.sender);
     if(client_it != m_connected_clients.end())
@@ -171,7 +171,7 @@ bool ServerManager::HandleViewportMessage(const ViewportMessage& message)
     else
         System::Log("ServerManager|Client not found in collection\n");
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
 void ServerManager::PurgeZombieClients()

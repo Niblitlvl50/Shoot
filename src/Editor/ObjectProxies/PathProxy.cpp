@@ -26,7 +26,7 @@ PathProxy::~PathProxy()
 
 const char* PathProxy::Name() const
 {
-    return m_path->m_name.c_str();
+    return m_path->GetName().c_str();
 }
 
 unsigned int PathProxy::Id() const
@@ -56,7 +56,7 @@ bool PathProxy::Intersects(const math::Vector& world_position) const
 
         float min_distance = math::INF;
 
-        const auto& local_points = m_path->m_points;
+        const auto& local_points = m_path->GetPoints();
         for(size_t index = 0; index < local_points.size() -1; ++index)
         {
             const math::Vector& line_point = math::ClosestPointOnLine(local_points[index], local_points[index+1], local_position);
@@ -76,7 +76,7 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
     using namespace std::placeholders;
 
     const math::Matrix& local_to_world = m_path->Transformation();
-    const auto& local_points = m_path->m_points;
+    const auto& local_points = m_path->GetPoints();
 
     std::vector<Grabber> grabbers;
     grabbers.reserve(local_points.size());
@@ -99,7 +99,7 @@ std::vector<SnapPoint> PathProxy::GetSnappers() const
 
 void PathProxy::UpdateUIContext(UIContext& context)
 {
-    const std::string& name = m_path->m_name;
+    const std::string& name = m_path->GetName();
     const math::Vector& position = m_path->Position();
 
     char buffer[100] = { 0 };

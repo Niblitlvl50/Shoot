@@ -137,13 +137,13 @@ void UserInputController::SelectTool(ToolsMenuOptions option)
     m_active_tool->Begin();
 }
 
-bool UserInputController::OnMouseDown(const event::MouseDownEvent& event)
+mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& event)
 {
     bool handled = false;
 
     if(event.key == MouseButton::LEFT)
     {
-        const math::Vector world_position(event.worldX, event.worldY);
+        const math::Vector world_position(event.world_x, event.world_y);
 
         // Check for grabbers first
         m_grabber = m_editor->FindGrabber(world_position);
@@ -163,29 +163,29 @@ bool UserInputController::OnMouseDown(const event::MouseDownEvent& event)
     }
 
     if(!handled)
-        m_camera_tool.HandleMouseDown(math::Vector(event.screenX, event.screenY));
+        m_camera_tool.HandleMouseDown(math::Vector(event.screen_x, event.screen_y));
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool UserInputController::OnMouseUp(const event::MouseUpEvent& event)
+mono::EventResult UserInputController::OnMouseUp(const event::MouseUpEvent& event)
 {
     m_grabber = nullptr;
 
     if(event.key == MouseButton::LEFT)
-        m_active_tool->HandleMouseUp(math::Vector(event.worldX, event.worldY));
+        m_active_tool->HandleMouseUp(math::Vector(event.world_x, event.world_y));
     else if(event.key == MouseButton::RIGHT)
         m_context->show_context_menu = !m_context->context_menu_items.empty();
 
-    m_camera_tool.HandleMouseUp(math::Vector(event.screenX, event.screenY));
+    m_camera_tool.HandleMouseUp(math::Vector(event.screen_x, event.screen_y));
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool UserInputController::OnMouseMove(const event::MouseMotionEvent& event)
+mono::EventResult UserInputController::OnMouseMove(const event::MouseMotionEvent& event)
 {
-    const math::Vector world_position(event.worldX, event.worldY);
-    const math::Vector screen_position(event.screenX, event.screenY);
+    const math::Vector world_position(event.world_x, event.world_y);
+    const math::Vector screen_position(event.screen_x, event.screen_y);
 
     m_editor->SelectGrabber(world_position);
 
@@ -208,22 +208,22 @@ bool UserInputController::OnMouseMove(const event::MouseMotionEvent& event)
     m_editor->PreselectProxyObject(proxy);
 
     m_context->world_mouse_position = world_position;
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool UserInputController::OnMouseWheel(const event::MouseWheelEvent& event)
+mono::EventResult UserInputController::OnMouseWheel(const event::MouseWheelEvent& event)
 {
     m_camera_tool.HandleMouseWheel(event.x, event.y);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool UserInputController::OnMultiGesture(const event::MultiGestureEvent& event)
+mono::EventResult UserInputController::OnMultiGesture(const event::MultiGestureEvent& event)
 {
     m_camera_tool.HandleMultiGesture(math::Vector(event.x, event.y), event.distance);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
+mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& event)
 {
     m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
 
@@ -266,12 +266,32 @@ bool UserInputController::OnKeyDown(const event::KeyDownEvent& event)
 
         m_is_maximized = !m_is_maximized;
     }
+    else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)
+    {
+        const uint32_t selected_object_id = m_editor->GetSelectedObjectId();
+        const IObjectProxy* proxy = m_editor->FindProxyObject(selected_object_id);
+        if(proxy)
+        {
+            math::Vector new_position = proxy->GetPosition();
 
-    return false;
+            if(event.key == Keycode::LEFT)
+                new_position.x -= 1;
+            else if(event.key == Keycode::RIGHT)
+                new_position.x += 1;
+            else if(event.key == Keycode::UP)
+                new_position.y += 1;
+            else if(event.key == Keycode::DOWN)
+                new_position.y -= 1;
+
+            m_translate_tool.MoveObject(selected_object_id, new_position);
+        }
+    }
+
+    return mono::EventResult::PASS_ON;
 }
 
-bool UserInputController::OnKeyUp(const event::KeyUpEvent& event)
+mono::EventResult UserInputController::OnKeyUp(const event::KeyUpEvent& event)
 {
     m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
-    return false;
+    return mono::EventResult::PASS_ON;
 }

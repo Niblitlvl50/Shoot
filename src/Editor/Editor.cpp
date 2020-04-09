@@ -77,8 +77,6 @@ namespace
 
         IEntityManager& m_entity_manager;
     };
-
-    constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
 }
 
 using namespace editor;
@@ -324,6 +322,11 @@ IObjectProxy* Editor::FindProxyObject(uint32_t proxy_id) const
         return it->get();
 
     return nullptr;
+}
+
+uint32_t Editor::GetSelectedObjectId() const
+{
+    return m_selected_id;
 }
 
 void Editor::SelectGrabber(const math::Vector& position)

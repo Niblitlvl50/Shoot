@@ -54,6 +54,7 @@
 #include "Player/PlayerDaemon.h"
 
 #include "WorldFile.h"
+#include "World/StaticBackground.h"
 #include "Entity/EntityProperties.h"
 #include "Camera/ICamera.h"
 #include "GameMode/CaptureTheFlagLogic.h"
@@ -82,8 +83,8 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
 {
     using namespace std::placeholders;
 
-    const std::function<bool (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
-    const std::function<bool (const RemoteCameraMessage&)> camera_func = std::bind(&SystemTestZone::HandleRemoteCamera, this, _1);
+    const std::function<mono::EventResult (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
+    const std::function<mono::EventResult (const RemoteCameraMessage&)> camera_func = std::bind(&SystemTestZone::HandleRemoteCamera, this, _1);
 
     m_text_func_token = m_event_handler->AddListener(text_func);
     m_camera_func_token = m_event_handler->AddListener(camera_func);
@@ -171,6 +172,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
     game::g_navmesh = &m_navmesh;
 
+    AddDrawable(std::make_shared<StaticBackground>(), LayerId::BACKGROUND);
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<mono::ParticleSystemDrawer>(particle_system), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
@@ -191,7 +193,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
     AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(std::make_shared<mono::TransformSystemDrawer>(game::g_draw_transformsystem, transform_system), LayerId::UI);
-    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system), LayerId::UI);
+    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()
@@ -203,15 +205,15 @@ int SystemTestZone::OnUnload()
     return 0;
 }
 
-bool SystemTestZone::HandleText(const TextMessage& text_message)
+mono::EventResult SystemTestZone::HandleText(const TextMessage& text_message)
 {
     m_console_drawer->AddText(text_message.text, 1500);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool SystemTestZone::HandleRemoteCamera(const RemoteCameraMessage& message)
+mono::EventResult SystemTestZone::HandleRemoteCamera(const RemoteCameraMessage& message)
 {
     //m_camera->SetPosition(message.position);
     //m_camera->SetViewport(message.viewport);
-    return true;
+    return mono::EventResult::HANDLED;
 }

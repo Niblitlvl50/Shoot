@@ -38,13 +38,13 @@ namespace editor
 
     private:
 
-        bool OnMouseDown(const event::MouseDownEvent& event);
-        bool OnMouseUp(const event::MouseUpEvent& event);
-        bool OnMouseMove(const event::MouseMotionEvent& event);
-        bool OnMouseWheel(const event::MouseWheelEvent& event);
-        bool OnMultiGesture(const event::MultiGestureEvent& event);
-        bool OnKeyDown(const event::KeyDownEvent& event);
-        bool OnKeyUp(const event::KeyUpEvent& event);
+        mono::EventResult OnMouseDown(const event::MouseDownEvent& event);
+        mono::EventResult OnMouseUp(const event::MouseUpEvent& event);
+        mono::EventResult OnMouseMove(const event::MouseMotionEvent& event);
+        mono::EventResult OnMouseWheel(const event::MouseWheelEvent& event);
+        mono::EventResult OnMultiGesture(const event::MultiGestureEvent& event);
+        mono::EventResult OnKeyDown(const event::KeyDownEvent& event);
+        mono::EventResult OnKeyUp(const event::KeyUpEvent& event);
 
         System::IWindow* m_window;
         mono::EventHandler& m_event_handler;

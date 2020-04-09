@@ -71,12 +71,22 @@ CaptureTheFlagLogic::CaptureTheFlagLogic(
         flag_data.score = 0;
 
         m_flags.push_back(flag_data);
-
-        printf("flag spwn position: %f %f\n", flag_data.spawn_position.x, flag_data.spawn_position.y);
     }
 
     m_score.red = 0;
     m_score.blue = 0;
+}
+
+void CaptureTheFlagLogic::Start()
+{
+    const std::vector<uint32_t>& player_ids = m_player_daemon->GetPlayerIds();
+    if(player_ids.empty())
+        return;
+}
+
+void CaptureTheFlagLogic::End()
+{
+
 }
 
 void CaptureTheFlagLogic::doUpdate(const mono::UpdateContext& update_context)

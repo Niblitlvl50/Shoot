@@ -24,7 +24,7 @@ namespace game
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        bool OnMouseUp(const event::MouseUpEvent& event);        
+        mono::EventResult OnMouseUp(const event::MouseUpEvent& event);
 
         const NavmeshContext& m_navmesh_context;
         mono::EventHandler& m_event_handler;

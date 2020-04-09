@@ -43,9 +43,9 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
 {
     using namespace std::placeholders;
 
-    const std::function<bool (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
-    const std::function<bool (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
-    const std::function<bool (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
+    const std::function<mono::EventResult (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
+    const std::function<mono::EventResult (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
+    const std::function<mono::EventResult (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
 
     m_text_token = m_event_handler.AddListener(text_func);
     m_spawn_token = m_event_handler.AddListener(spawn_func);
@@ -105,23 +105,23 @@ int RemoteZone::OnUnload()
     return 0;
 }
 
-bool RemoteZone::HandleText(const TextMessage& text_message)
+mono::EventResult RemoteZone::HandleText(const TextMessage& text_message)
 {
     m_console_drawer->AddText(text_message.text, 1500);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
+mono::EventResult RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
 {
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
 
     if(!spawn_message.spawn)
         sprite_system->ReleaseSprite(spawn_message.entity_id);
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
+mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
 {
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     const bool is_allocated = sprite_system->IsAllocated(sprite_message.entity_id);
@@ -139,5 +139,5 @@ bool RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
     sprite->SetHorizontalDirection(mono::HorizontalDirection(sprite_message.horizontal_direction));
     sprite->SetVerticalDirection(mono::VerticalDirection(sprite_message.vertical_direction));
 
-    return true;
+    return mono::EventResult::HANDLED;
 }

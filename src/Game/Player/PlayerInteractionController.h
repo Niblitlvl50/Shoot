@@ -17,7 +17,7 @@ namespace game
         PlayerInteractionController(PlayerLogic* shuttle_logic, mono::EventHandler& event_handler);
         ~PlayerInteractionController();
 
-        bool OnPickup(const game::PickupEvent& event);
+        mono::EventResult OnPickup(const game::PickupEvent& event);
 
     private:
         PlayerLogic* m_shuttle_logic;

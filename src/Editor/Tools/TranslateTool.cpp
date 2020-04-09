@@ -62,9 +62,7 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     const math::Vector& delta = m_begin_translate - world_pos;
     const math::Vector& new_pos = m_begin_translate - delta + m_position_diff;
 
-    IObjectProxy* proxy = m_editor->FindProxyObject(m_entity_id);
-    proxy->SetPosition(new_pos);
-
+    MoveObject(m_entity_id, new_pos);
 
     /*
     const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);
@@ -103,12 +101,21 @@ void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
     m_was_snapped = snap_pair.found_snap;
     */
 
-    m_editor->EntityComponentUpdated(m_entity_id, TRANSFORM_COMPONENT);
-    m_editor->UpdateGrabbers();
-    m_editor->UpdateSnappers();
 }
 
 void TranslateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
 {
     m_snap_rotate = shift;
+}
+
+void TranslateTool::MoveObject(uint32_t entity_id, const math::Vector& new_position)
+{
+    IObjectProxy* proxy = m_editor->FindProxyObject(entity_id);
+    if(!proxy)
+        return;
+
+    proxy->SetPosition(new_position);
+    m_editor->EntityComponentUpdated(entity_id, TRANSFORM_COMPONENT);
+    m_editor->UpdateGrabbers();
+    m_editor->UpdateSnappers();
 }

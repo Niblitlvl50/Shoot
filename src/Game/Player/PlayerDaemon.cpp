@@ -116,7 +116,7 @@ PlayerDaemon::PlayerDaemon(
     m_player_connected_token = m_event_handler.AddListener(connected_func);
     m_player_disconnected_token = m_event_handler.AddListener(disconnected_func);
 
-    const std::function<bool (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
+    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
     m_remote_input_token = m_event_handler.AddListener(remote_input_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
@@ -208,7 +208,7 @@ void PlayerDaemon::SpawnPlayer2()
     SpawnPlayer(&game::g_player_two, System::GetController(System::ControllerId::Primary), destroyed_func);
 }
 
-bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     if(!game::g_player_one.is_active)
     {
@@ -221,10 +221,10 @@ bool PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
         m_player_two_id = event.id;
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
+mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
     if(event.id == m_player_one_id)
     {
@@ -244,14 +244,14 @@ bool PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& even
         game::g_player_two.is_active = false;
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
+mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
-        return true;
+        return mono::EventResult::HANDLED;
 
     System::Log("PlayerDaemon|Player connected, %s\n", network::AddressToString(event.address).c_str());
 
@@ -272,10 +272,10 @@ bool PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
 
     m_remote_connection->SendMessageTo(reply_message, event.address);
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
+mono::EventResult PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
@@ -284,16 +284,16 @@ bool PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
         m_remote_players.erase(it);
     }
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
+mono::EventResult PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
 {
     auto it = m_remote_players.find(event.sender);
     if(it != m_remote_players.end())
         it->second.controller_state = event.controller_state;
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
 
@@ -305,7 +305,7 @@ ClientPlayerDaemon::ClientPlayerDaemon(mono::ICameraPtr camera, mono::EventHandl
 
     const event::ControllerAddedFunc& added_func = std::bind(&ClientPlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&ClientPlayerDaemon::OnControllerRemoved, this, _1);
-    const std::function<bool (const ClientPlayerSpawned&)>& client_spawned = std::bind(&ClientPlayerDaemon::ClientSpawned, this, _1);
+    const std::function<mono::EventResult (const ClientPlayerSpawned&)>& client_spawned = std::bind(&ClientPlayerDaemon::ClientSpawned, this, _1);
 
     m_added_token = m_event_handler.AddListener(added_func);
     m_removed_token = m_event_handler.AddListener(removed_func);
@@ -334,7 +334,7 @@ void ClientPlayerDaemon::SpawnPlayer1()
     //game::g_player_one.is_active = true;
 }
 
-bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+mono::EventResult ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     if(!game::g_player_one.is_active)
     {
@@ -342,10 +342,10 @@ bool ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& ev
         m_player_one_controller_id = event.id;
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
+mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
     if(event.id == m_player_one_controller_id)
     {
@@ -354,15 +354,15 @@ bool ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent
         m_camera->Unfollow();
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
+mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
 {
     game::g_player_one.entity_id = message.client_entity_id;
     game::g_player_one.is_active = true;
 
     m_camera->Follow(g_player_one.entity_id, math::ZeroVec);
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }

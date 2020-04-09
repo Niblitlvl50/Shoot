@@ -16,8 +16,8 @@ WaveDrawer::WaveDrawer(mono::EventHandler& event_handler)
     : m_event_handler(event_handler)
 {
     using namespace std::placeholders;
-    const std::function<bool (const WaveStartedEvent&)>& wave_started_func = std::bind(&WaveDrawer::WaveStarted, this, _1);
-    const std::function<bool (const HordeCompletedEvent&)>& horde_completed_func = std::bind(&WaveDrawer::HordeCompleted, this, _1);
+    const std::function<mono::EventResult (const WaveStartedEvent&)>& wave_started_func = std::bind(&WaveDrawer::WaveStarted, this, _1);
+    const std::function<mono::EventResult (const HordeCompletedEvent&)>& horde_completed_func = std::bind(&WaveDrawer::HordeCompleted, this, _1);
 
     m_wave_started_token = m_event_handler.AddListener(wave_started_func);
     m_horde_completed_token = m_event_handler.AddListener(horde_completed_func);
@@ -46,16 +46,16 @@ math::Quad WaveDrawer::BoundingBox() const
     return math::InfQuad;
 }
 
-bool WaveDrawer::WaveStarted(const WaveStartedEvent& event)
+mono::EventResult WaveDrawer::WaveStarted(const WaveStartedEvent& event)
 {
     char buffer[64] = { '\0' };
     std::snprintf(buffer, 64, "Wave %d, %s", event.wave_index +1, event.wave_name);
     m_current_text = buffer;
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
-bool WaveDrawer::HordeCompleted(const HordeCompletedEvent& event)
+mono::EventResult WaveDrawer::HordeCompleted(const HordeCompletedEvent& event)
 {
     m_current_text = "Horde Completed!";
-    return false;
+    return mono::EventResult::PASS_ON;
 }

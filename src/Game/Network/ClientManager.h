@@ -47,10 +47,10 @@ namespace game
 
         void doUpdate(const mono::UpdateContext& update_context) override;
 
-        bool HandleServerBeacon(const ServerBeaconMessage& message);
-        bool HandleServerQuit(const ServerQuitMessage& message);
-        bool HandleConnectAccepted(const ConnectAcceptedMessage& message);
-        bool HandlePing(const PingMessage& message);
+        mono::EventResult HandleServerBeacon(const ServerBeaconMessage& message);
+        mono::EventResult HandleServerQuit(const ServerQuitMessage& message);
+        mono::EventResult HandleConnectAccepted(const ConnectAcceptedMessage& message);
+        mono::EventResult HandlePing(const PingMessage& message);
 
         void ToSearching();
         void ToFoundServer();

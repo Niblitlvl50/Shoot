@@ -91,14 +91,14 @@ TitleScreen::~TitleScreen()
     m_event_handler.RemoveListener(m_key_token);
 }
 
-bool TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
+mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 {
     if(event.key == Keycode::ENTER)
         Continue();
     else if(event.key == Keycode::R)
         Remote();
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
 void TitleScreen::OnLoad(mono::ICameraPtr& camera)

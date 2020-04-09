@@ -14,6 +14,7 @@ namespace game
         ENEMY_BULLET = 8,
         PROPS = 16,
         STATIC = 32,
+        ALL = (~(uint32_t)0)
     };
 
     constexpr uint32_t STATIC_MASK =

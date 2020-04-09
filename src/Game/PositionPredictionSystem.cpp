@@ -33,7 +33,7 @@ PositionPredictionSystem::PositionPredictionSystem(
     }
 
     using namespace std::placeholders;
-    std::function<bool (const TransformMessage&)> transform_func = std::bind(&PositionPredictionSystem::HandlePredicitonMessage, this, _1);
+    std::function<mono::EventResult (const TransformMessage&)> transform_func = std::bind(&PositionPredictionSystem::HandlePredicitonMessage, this, _1);
     m_transform_token = m_event_handler->AddListener(transform_func);
 }
 
@@ -102,7 +102,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
-bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
+mono::EventResult PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
 {
     PredictionData& prediction_data = m_prediction_data[transform_message.entity_id];
     auto& prediction_buffer = prediction_data.prediction_buffer;
@@ -123,7 +123,7 @@ bool PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
         System::Log("network|Old transform message, will skip\n");
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
 

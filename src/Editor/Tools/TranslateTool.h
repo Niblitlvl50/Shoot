@@ -29,6 +29,8 @@ namespace editor
         virtual void HandleMousePosition(const math::Vector& world_pos);
         virtual void UpdateModifierState(bool ctrl, bool shift, bool alt);
 
+        void MoveObject(uint32_t entity_id, const math::Vector& new_position);
+
     private:
 
         Editor* m_editor;

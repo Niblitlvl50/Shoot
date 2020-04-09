@@ -23,10 +23,10 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
 
     using namespace std::placeholders;
 
-    const std::function<bool (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
-    const std::function<bool (const ServerQuitMessage&)> server_quit_func = std::bind(&ClientManager::HandleServerQuit, this, _1);
-    const std::function<bool (const ConnectAcceptedMessage&)> connect_accepted_func = std::bind(&ClientManager::HandleConnectAccepted, this, _1);
-    const std::function<bool (const PingMessage&)> ping_func = std::bind(&ClientManager::HandlePing, this, _1);
+    const std::function<mono::EventResult (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
+    const std::function<mono::EventResult (const ServerQuitMessage&)> server_quit_func = std::bind(&ClientManager::HandleServerQuit, this, _1);
+    const std::function<mono::EventResult (const ConnectAcceptedMessage&)> connect_accepted_func = std::bind(&ClientManager::HandleConnectAccepted, this, _1);
+    const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ClientManager::HandlePing, this, _1);
 
     m_server_beacon_token = m_event_handler->AddListener(server_beacon_func);
     m_server_quit_token = m_event_handler->AddListener(server_quit_func);
@@ -134,7 +134,7 @@ void ClientManager::doUpdate(const mono::UpdateContext& update_context)
     m_server_time_predicted += update_context.delta_ms;
 }
 
-bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
+mono::EventResult ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
 {
     if(m_states.ActiveState() == ClientStatus::SEARCHING)
     {
@@ -142,27 +142,27 @@ bool ClientManager::HandleServerBeacon(const ServerBeaconMessage& message)
         m_states.TransitionTo(ClientStatus::FOUND_SERVER);
     }
 
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool ClientManager::HandleServerQuit(const ServerQuitMessage& message)
+mono::EventResult ClientManager::HandleServerQuit(const ServerQuitMessage& message)
 {
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool ClientManager::HandleConnectAccepted(const ConnectAcceptedMessage& message)
+mono::EventResult ClientManager::HandleConnectAccepted(const ConnectAcceptedMessage& message)
 {
     m_states.TransitionTo(ClientStatus::CONNECTED);
-    return true;
+    return mono::EventResult::HANDLED;
 }
 
-bool ClientManager::HandlePing(const PingMessage& message)
+mono::EventResult ClientManager::HandlePing(const PingMessage& message)
 {
     m_server_ping = System::GetMilliseconds() - message.local_time;
     m_server_time = message.server_time;
     m_server_time_predicted = message.server_time;
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
 void ClientManager::ToSearching()

@@ -35,6 +35,8 @@ namespace game
         
         void doUpdate(const mono::UpdateContext& update_context) override;
 
+        void Start();
+        void End();
         const CaptureTheFlagScore& Score() const;
         void ResetScore();
         void DropFlag(uint32_t flag_owner_entity_id);
@@ -63,6 +65,7 @@ namespace game
         void CheckForFlagDrop(FlagData& flag);
         
         std::vector<FlagData> m_flags;
+
         mono::TransformSystem* m_transform_system;
         game::DamageSystem* m_damage_system;
         const PlayerDaemon* m_player_daemon;

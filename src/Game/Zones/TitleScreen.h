@@ -15,7 +15,7 @@ namespace game
         TitleScreen(const ZoneCreationContext& context);
         ~TitleScreen();
         
-        bool OnKeyUp(const event::KeyUpEvent& event);
+        mono::EventResult OnKeyUp(const event::KeyUpEvent& event);
 
         void OnLoad(mono::ICameraPtr& camera) override;
         int OnUnload() override;

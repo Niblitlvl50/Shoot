@@ -35,7 +35,7 @@ namespace game
         uint32_t Capacity() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        bool HandlePredicitonMessage(const struct TransformMessage& transform_message);
+        mono::EventResult HandlePredicitonMessage(const struct TransformMessage& transform_message);
 
         const ClientManager* m_client_manager;
         mono::TransformSystem* m_transform_system;

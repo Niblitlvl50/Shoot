@@ -9,7 +9,21 @@
 
 namespace game
 {
-    using BulletImpactCallback = std::function<void (uint32_t entity_id, mono::IBody* collide_with)>;
+    enum BulletCollisionFlag
+    {
+        APPLY_DAMAGE = 1,
+        DESTROY_THIS = 2,
+    };
+
+    using BulletImpactCallback = std::function<void (uint32_t entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with)>;
+
+    enum class BulletCollisionBehaviour
+    {
+        NORMAL,
+        BOUNCE,
+        JUMPER,
+        PASS_THROUGH
+    };
 
     struct BulletConfiguration
     {
@@ -19,6 +33,7 @@ namespace game
         const char* entity_file = nullptr;
         const char* sound_file = nullptr;
 
+        BulletCollisionBehaviour bullet_behaviour = BulletCollisionBehaviour::NORMAL;
         CollisionCategory collision_category = CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;

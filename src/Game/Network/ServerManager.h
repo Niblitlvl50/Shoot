@@ -48,11 +48,11 @@ namespace game
 
         void PurgeZombieClients();
 
-        bool HandlePingMessage(const PingMessage& ping_message);
-        bool HandleConnectMessage(const ConnectMessage& message);
-        bool HandleDisconnectMessage(const DisconnectMessage& message);
-        bool HandleHeartBeatMessage(const HeartBeatMessage& message);
-        bool HandleViewportMessage(const ViewportMessage& message);
+        mono::EventResult HandlePingMessage(const PingMessage& ping_message);
+        mono::EventResult HandleConnectMessage(const ConnectMessage& message);
+        mono::EventResult HandleDisconnectMessage(const DisconnectMessage& message);
+        mono::EventResult HandleHeartBeatMessage(const HeartBeatMessage& message);
+        mono::EventResult HandleViewportMessage(const ViewportMessage& message);
 
         void doUpdate(const mono::UpdateContext& update_context) override;
 

@@ -19,8 +19,8 @@ namespace game
         void doDraw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        bool WaveStarted(const struct WaveStartedEvent& event);
-        bool HordeCompleted(const struct HordeCompletedEvent& event);
+        mono::EventResult WaveStarted(const struct WaveStartedEvent& event);
+        mono::EventResult HordeCompleted(const struct HordeCompletedEvent& event);
 
     private:
         mono::EventHandler& m_event_handler;

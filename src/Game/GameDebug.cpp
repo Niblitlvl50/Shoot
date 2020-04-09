@@ -50,7 +50,7 @@ game::DebugUpdater::DebugUpdater(mono::EventHandler* event_handler)
     const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
             m_draw = !m_draw;
-        return false;
+        return mono::EventResult::PASS_ON;
     };
 
     m_keyup_token = m_event_handler->AddListener(key_up_func);

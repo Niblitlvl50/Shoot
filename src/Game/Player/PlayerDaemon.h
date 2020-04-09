@@ -49,12 +49,12 @@ namespace game
         using DestroyedCallback = std::function<void (uint32_t id)>;
         void SpawnPlayer(struct PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback);
 
-        bool OnControllerAdded(const event::ControllerAddedEvent& event);
-        bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
+        mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
+        mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
 
-        bool PlayerConnected(const PlayerConnectedEvent& event);
-        bool PlayerDisconnected(const PlayerDisconnectedEvent& event);
-        bool RemoteInput(const RemoteInputMessage& event);
+        mono::EventResult PlayerConnected(const PlayerConnectedEvent& event);
+        mono::EventResult PlayerDisconnected(const PlayerDisconnectedEvent& event);
+        mono::EventResult RemoteInput(const RemoteInputMessage& event);
 
         mono::ICameraPtr m_camera;
         INetworkPipe* m_remote_connection;
@@ -88,9 +88,9 @@ namespace game
 
         void SpawnPlayer1();
 
-        bool OnControllerAdded(const event::ControllerAddedEvent& event);
-        bool OnControllerRemoved(const event::ControllerRemovedEvent& event);
-        bool ClientSpawned(const ClientPlayerSpawned& message);
+        mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
+        mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
+        mono::EventResult ClientSpawned(const ClientPlayerSpawned& message);
 
         mono::ICameraPtr m_camera;
         mono::EventHandler& m_event_handler;

@@ -42,7 +42,7 @@ Camera::~Camera()
     m_event_handler.RemoveListener(m_key_down_token);
 }
 
-bool Camera::OnKeyDown(const event::KeyDownEvent& event)
+mono::EventResult Camera::OnKeyDown(const event::KeyDownEvent& event)
 {
     const bool toggle_camera = (event.key == Keycode::D);
     if(toggle_camera)
@@ -51,7 +51,7 @@ bool Camera::OnKeyDown(const event::KeyDownEvent& event)
         m_debug_camera ? m_controller.Enable() : m_controller.Disable();
     }
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }
 
 void Camera::doUpdate(const mono::UpdateContext& update_context)

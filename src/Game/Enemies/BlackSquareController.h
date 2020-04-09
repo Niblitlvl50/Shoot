@@ -20,7 +20,7 @@ namespace game
         virtual ~BlackSquareController();
 
         void Update(uint32_t delta_ms) override;
-        void OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category) override;
+        mono::CollisionResolve OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category) override;
 
     private:
 

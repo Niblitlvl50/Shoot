@@ -23,7 +23,7 @@ namespace game
         Camera(int width, int height, int window_width, int window_height, mono::TransformSystem* transform_system, mono::EventHandler& event_handler);
         ~Camera();
 
-        bool OnKeyDown(const event::KeyDownEvent& event);
+        mono::EventResult OnKeyDown(const event::KeyDownEvent& event);
         
         void doUpdate(const mono::UpdateContext& update_context) override;
         

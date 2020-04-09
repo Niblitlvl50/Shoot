@@ -25,6 +25,8 @@ namespace editor
     class PathEntity;
     class PolygonEntity;
 
+    constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
+
     class Editor : public mono::ZoneBase
     {
     public:
@@ -54,6 +56,7 @@ namespace editor
         void TeleportToProxyObject(IObjectProxy* proxy_object);
         IObjectProxy* FindProxyObject(const math::Vector& position);
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
+        uint32_t GetSelectedObjectId() const;
 
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);

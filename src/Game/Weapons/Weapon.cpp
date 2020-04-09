@@ -41,13 +41,13 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
     m_reload_sound = mono::AudioFactory::CreateNullSound();
 
     if(config.fire_sound)
-        m_fire_sound = mono::AudioFactory::CreateSound(config.fire_sound, false, false);
+        m_fire_sound = mono::AudioFactory::CreateSound(config.fire_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
 
     if(config.out_of_ammo_sound)
-        m_ooa_sound = mono::AudioFactory::CreateSound(config.out_of_ammo_sound, false, false);
+        m_ooa_sound = mono::AudioFactory::CreateSound(config.out_of_ammo_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
     
     if(config.reload_sound)
-        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, false, true);
+        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
 
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
@@ -97,7 +97,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
             const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
 
             mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_weapon_config.bullet_config.entity_file);
-            BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.bullet_config);
+            BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.bullet_config, m_physics_system);
 
             m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
             m_logic_system->AddLogic(bullet_entity.id, bullet_logic);

@@ -27,8 +27,8 @@ namespace game
 
     private:
 
-        bool HandleText(const struct TextMessage& text_message);
-        bool HandleRemoteCamera(const struct RemoteCameraMessage& message);
+        mono::EventResult HandleText(const struct TextMessage& text_message);
+        mono::EventResult HandleRemoteCamera(const struct RemoteCameraMessage& message);
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
         mono::ICameraPtr m_camera;

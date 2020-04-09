@@ -64,20 +64,22 @@ void BlackSquareController::Update(uint32_t delta_ms)
     m_states.UpdateState(delta_ms);
 }
 
-void BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category)
+mono::CollisionResolve BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
         m_states.TransitionTo(States::AWAKE);
 
-    if(category != game::CollisionCategory::PLAYER)
-        return;
+    if(category == game::CollisionCategory::PLAYER)
+    {
+        const math::Vector& entity_position = math::GetPosition(*m_transform);
+        //const float direction = math::AngleBetweenPoints(entity_position, body->GetPosition());
 
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
-    //const float direction = math::AngleBetweenPoints(entity_position, body->GetPosition());
+        //m_event_handler.DispatchEvent(game::DamageEvent(body, 45, direction));
+        m_event_handler.DispatchEvent(game::ShockwaveEvent(entity_position, 100));
+        //m_event_handler.DispatchEvent(game::RemoveEntityEvent(m_entity_id));
+    }
 
-    //m_event_handler.DispatchEvent(game::DamageEvent(body, 45, direction));
-    m_event_handler.DispatchEvent(game::ShockwaveEvent(entity_position, 100));
-    //m_event_handler.DispatchEvent(game::RemoveEntityEvent(m_entity_id));
+    return mono::CollisionResolve::NORMAL;
 }
 
 void BlackSquareController::ToSleep()

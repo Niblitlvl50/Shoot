@@ -73,9 +73,9 @@ math::Quad NavmeshVisualizer::BoundingBox() const
     return math::InfQuad;
 }
 
-bool NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
+mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
 {
-    const math::Vector position(event.worldX, event.worldY);
+    const math::Vector position(event.world_x, event.world_y);
 
     if(event.key == MouseButton::LEFT)
         m_start = game::FindClosestIndex(m_navmesh_context, position);
@@ -87,5 +87,5 @@ bool NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
     for(int index : game::AStar(m_navmesh_context, m_start, m_end))
         m_navigation_points.push_back(m_navmesh_context.points[index]);
 
-    return false;
+    return mono::EventResult::PASS_ON;
 }

@@ -28,9 +28,9 @@ namespace game
         void OnLoad(mono::ICameraPtr& camera) override;
         int OnUnload() override;
 
-        bool HandleText(const TextMessage& text_message);
-        bool HandleSpawnMessage(const SpawnMessage& spawn_message);
-        bool HandleSpriteMessage(const SpriteMessage& sprite_message);
+        mono::EventResult HandleText(const TextMessage& text_message);
+        mono::EventResult HandleSpawnMessage(const SpawnMessage& spawn_message);
+        mono::EventResult HandleSpriteMessage(const SpriteMessage& sprite_message);
 
     private:
 
