@@ -27,13 +27,16 @@ namespace game
         
         void doUpdate(const mono::UpdateContext& update_context) override;
         
-        void Follow(uint32_t entity_id, const math::Vector& offset) override;
-        void Unfollow() override;
-        math::Quad GetViewport() const override;
-        math::Vector GetPosition() const override;
+        void Follow(uint32_t entity_id, const math::Vector& offset);
+        void Unfollow();
+
         void SetViewport(const math::Quad& viewport) override;
         void SetTargetViewport(const math::Quad& target) override;
+        math::Quad GetViewport() const override;
+
         void SetPosition(const math::Vector& position) override;
+        math::Vector GetPosition() const override;
+
         math::Vector ScreenToWorld(const math::Vector& screen_pos, const math::Vector& window_size) const override;
 
     private:

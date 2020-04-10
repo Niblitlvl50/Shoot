@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
 #include "Rendering/IDrawable.h"
 
 namespace editor
@@ -10,10 +9,7 @@ namespace editor
     {
     public:
 
-        ScaleVisualizer(const mono::ICameraPtr& camera);
         virtual void doDraw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
-        
-        const mono::ICameraPtr& m_camera;
     };
 }

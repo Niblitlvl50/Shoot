@@ -101,8 +101,10 @@ mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
     return mono::EventResult::PASS_ON;
 }
 
-void TitleScreen::OnLoad(mono::ICameraPtr& camera)
+void TitleScreen::OnLoad(mono::ICamera* camera)
 {
+    camera->SetViewport(math::Quad(0, 0, 22, 14));
+
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
 
     const math::Quad& viewport = camera->GetViewport();

@@ -60,6 +60,7 @@
 #include "GameMode/CaptureTheFlagLogic.h"
 #include "GameMode/CaptureTheFlagHud.h"
 #include "GameDebug.h"
+#include "GameDebugDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -96,11 +97,12 @@ SystemTestZone::~SystemTestZone()
     m_event_handler->RemoveListener(m_camera_func_token);
 }
 
-void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
+void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
-    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
-
+    camera->SetViewport(math::Quad(0, 0, 22, 14));
     m_camera = camera;
+
+    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
@@ -190,6 +192,7 @@ void SystemTestZone::OnLoad(mono::ICameraPtr& camera)
 
     // Debug
     AddUpdatable(std::make_shared<DebugUpdater>(m_event_handler));
+    AddDrawable(std::make_shared<GameDebugDrawer>(), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(std::make_shared<mono::TransformSystemDrawer>(game::g_draw_transformsystem, transform_system), LayerId::UI);

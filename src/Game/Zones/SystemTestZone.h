@@ -22,7 +22,7 @@ namespace game
         SystemTestZone(const ZoneCreationContext& context);
         ~SystemTestZone();
 
-        void OnLoad(mono::ICameraPtr& camera) override;
+        void OnLoad(mono::ICamera* camera) override;
         int OnUnload() override;
 
     private:
@@ -31,7 +31,7 @@ namespace game
         mono::EventResult HandleRemoteCamera(const struct RemoteCameraMessage& message);
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
-        mono::ICameraPtr m_camera;
+        mono::ICamera* m_camera;
 
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;

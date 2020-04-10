@@ -10,7 +10,7 @@
 
 using namespace editor;
 
-CameraTool::CameraTool(const mono::ICameraPtr& camera, const System::IWindow* window)
+CameraTool::CameraTool(mono::ICamera* camera, const System::IWindow* window)
     : m_camera(camera),
       m_window(window),
       m_translate(false)

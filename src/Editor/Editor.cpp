@@ -1,6 +1,6 @@
 
 #include "Editor.h"
-
+#include "EditorConfig.h"
 #include "Camera/ICamera.h"
 
 #include "Rendering/Sprite/ISprite.h"
@@ -86,11 +86,13 @@ Editor::Editor(
     IEntityManager& entity_manager,
     mono::EventHandler& event_handler,
     mono::SystemContext& system_context,
+    Config& editor_config,
     const char* world_filename)
     : m_window(window)
     , m_entity_manager(entity_manager)
     , m_event_handler(event_handler)
     , m_system_context(system_context)
+    , m_editor_config(editor_config)
     , m_world_filename(world_filename)
     , m_object_factory(this)
     , m_selected_id(NO_SELECTION)
@@ -130,8 +132,15 @@ Editor::Editor(
 Editor::~Editor()
 { }
 
-void Editor::OnLoad(mono::ICameraPtr &camera)
+void Editor::OnLoad(mono::ICamera* camera)
 {
+    EnableDrawObjectNames(m_editor_config.draw_object_names);
+    EnableDrawSnappers(m_editor_config.draw_snappers);
+    EnableDrawOutline(m_editor_config.draw_outline);
+    SetBackgroundColor(m_editor_config.background_color);
+    camera->SetPosition(m_editor_config.camera_position);
+    camera->SetViewport(m_editor_config.camera_viewport);
+
     m_camera = camera;
 
     mono::SetImGuiConfig("res/editor_imgui.ini");
@@ -139,7 +148,7 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     m_user_input_controller =
-        std::make_shared<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
+        std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
 
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
@@ -154,7 +163,7 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
     AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
     AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
-    AddDrawable(std::make_shared<ScaleVisualizer>(camera), RenderLayer::UI);
+    AddDrawable(std::make_shared<ScaleVisualizer>(), RenderLayer::UI);
     AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
     AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
@@ -173,6 +182,13 @@ void Editor::OnLoad(mono::ICameraPtr &camera)
 
 int Editor::OnUnload()
 {
+    m_editor_config.camera_position = m_camera->GetPosition();
+    m_editor_config.camera_viewport = m_camera->GetViewport();
+    m_editor_config.draw_object_names = DrawObjectNames();
+    m_editor_config.draw_snappers = DrawSnappers();
+    m_editor_config.draw_outline = DrawOutline();
+    m_editor_config.background_color = BackgroundColor();
+
     Save();
     return 0;
 }

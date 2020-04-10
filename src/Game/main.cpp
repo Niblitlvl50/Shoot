@@ -7,14 +7,12 @@
 #include "Rendering/Text/TextFunctions.h"
 #include "EventHandler/EventHandler.h"
 
-#include "Camera.h"
 #include "Factories.h"
 #include "Weapons/WeaponFactory.h"
 #include "FontIds.h"
 #include "Zones/ZoneManager.h"
 #include "GameConfig.h"
 #include "AIKnowledge.h"
-
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -149,8 +147,6 @@ int main(int argc, char* argv[])
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
         mono::LoadFont(game::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
-        
-        auto camera = std::make_shared<game::Camera>(22, 14, window_size.x, window_size.y, transform_system, event_handler);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;
@@ -158,7 +154,7 @@ int main(int argc, char* argv[])
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;
 
-        game::ZoneManager zone_manager(window, camera, zone_context, options.start_zone);
+        game::ZoneManager zone_manager(window, zone_context, options.start_zone);
         zone_manager.Run();
 
         delete window;
@@ -172,4 +168,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-

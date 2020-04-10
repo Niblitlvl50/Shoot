@@ -18,6 +18,7 @@
 #include "Network/ClientReplicator.h"
 #include "Network/ClientManager.h"
 
+#include "Camera/ICamera.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
@@ -62,8 +63,10 @@ RemoteZone::~RemoteZone()
     m_event_handler.RemoveListener(m_sprite_token);
 }
 
-void RemoteZone::OnLoad(mono::ICameraPtr& camera)
+void RemoteZone::OnLoad(mono::ICamera* camera)
 {
+    camera->SetViewport(math::Quad(0, 0, 22, 14));
+
     m_client_manager = std::make_shared<ClientManager>(&m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera, m_event_handler);
 
@@ -72,7 +75,7 @@ void RemoteZone::OnLoad(mono::ICameraPtr& camera)
         m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, &m_event_handler);
 
     AddUpdatable(m_client_manager);
-    AddUpdatable(std::make_shared<ClientReplicator>(camera.get(), m_client_manager.get()));
+    AddUpdatable(std::make_shared<ClientReplicator>(camera, m_client_manager.get()));
 
     AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
     AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), LayerId::GAMEOBJECTS_DEBUG);

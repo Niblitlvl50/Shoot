@@ -24,6 +24,7 @@ namespace editor
 {
     class PathEntity;
     class PolygonEntity;
+    struct Config;
 
     constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
 
@@ -36,12 +37,13 @@ namespace editor
             IEntityManager& entity_manager,
             mono::EventHandler& event_handler,
             mono::SystemContext& system_context,
+            Config& editor_config,
             const char* world_filename
         );
 
         virtual ~Editor();
 
-        void OnLoad(mono::ICameraPtr& camera) override;
+        void OnLoad(mono::ICamera* camera) override;
         int OnUnload() override;
 
         void Save();
@@ -101,16 +103,17 @@ namespace editor
         IEntityManager& m_entity_manager;
         mono::EventHandler& m_event_handler;
         mono::SystemContext& m_system_context;
+        Config& m_editor_config;
         const char* m_world_filename;
 
-        mono::ICameraPtr m_camera;
+        mono::ICamera* m_camera;
 
         editor::UIContext m_context;
         ObjectFactory m_object_factory;
 
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::shared_ptr<ImGuiRenderer> m_gui_renderer;
-        std::shared_ptr<class UserInputController> m_user_input_controller;
+        std::unique_ptr<class UserInputController> m_user_input_controller;
         std::shared_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
 
         uint32_t m_selected_id;

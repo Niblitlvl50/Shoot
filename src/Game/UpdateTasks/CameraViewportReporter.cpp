@@ -5,7 +5,7 @@
 
 using namespace game;
 
-CameraViewportReporter::CameraViewportReporter(const mono::ICameraPtr& camera)
+CameraViewportReporter::CameraViewportReporter(const mono::ICamera* camera)
     : m_camera(camera)
 { }
 

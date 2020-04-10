@@ -93,7 +93,7 @@ namespace
 }
 
 PlayerDaemon::PlayerDaemon(
-    mono::ICameraPtr camera,
+    mono::ICamera* camera,
     INetworkPipe* remote_connection,
     mono::SystemContext* system_context,
     mono::EventHandler& event_handler)
@@ -182,7 +182,7 @@ void PlayerDaemon::SpawnPlayer(
     IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
-    m_camera->Follow(player_entity.id, math::ZeroVec);
+    //m_camera->Follow(player_entity.id, math::ZeroVec);
 
     player_info->entity_id = player_entity.id;
     player_info->is_active = true;
@@ -231,7 +231,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
         if(game::g_player_one.is_active)
             g_entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
-        m_camera->Unfollow();
+        //m_camera->Unfollow();
         game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
     }
@@ -297,7 +297,7 @@ mono::EventResult PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
 }
 
 
-ClientPlayerDaemon::ClientPlayerDaemon(mono::ICameraPtr camera, mono::EventHandler& event_handler)
+ClientPlayerDaemon::ClientPlayerDaemon(mono::ICamera* camera, mono::EventHandler& event_handler)
     : m_camera(camera)
     , m_event_handler(event_handler)
 {
@@ -324,7 +324,7 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
     m_event_handler.RemoveListener(m_removed_token);
     m_event_handler.RemoveListener(m_client_spawned_token);
 
-    m_camera->Unfollow();
+    //m_camera->Unfollow();
 }
 
 void ClientPlayerDaemon::SpawnPlayer1()
@@ -351,7 +351,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::Controlle
     {
         game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
-        m_camera->Unfollow();
+        //m_camera->Unfollow();
     }
 
     return mono::EventResult::PASS_ON;
@@ -362,7 +362,7 @@ mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& m
     game::g_player_one.entity_id = message.client_entity_id;
     game::g_player_one.is_active = true;
 
-    m_camera->Follow(g_player_one.entity_id, math::ZeroVec);
+    //m_camera->Follow(g_player_one.entity_id, math::ZeroVec);
 
     return mono::EventResult::PASS_ON;
 }

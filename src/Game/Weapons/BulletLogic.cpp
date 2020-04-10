@@ -11,6 +11,10 @@
 
 #include "System/System.h"
 
+#include "IDebugDrawer.h"
+#include "Factories.h"
+#include "Rendering/Color.h"
+
 using namespace game;
 
 BulletLogic::BulletLogic(uint32_t entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system)
@@ -77,6 +81,9 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
                 const float bullet_velocity = math::Length(bullet_body->GetVelocity());
                 bullet_body->SetVelocity(unit_direction * bullet_velocity);
                 m_jumps_left--;
+
+                g_debug_drawer->DrawPoint(found_body_position, 4.0f, mono::Color::MAGENTA);
+                g_debug_drawer->DrawLine(bullet_position, bullet_position + unit_direction, 2.0f, mono::Color::MAGENTA);
             }
         }
     }

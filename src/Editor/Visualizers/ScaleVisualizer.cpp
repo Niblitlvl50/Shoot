@@ -2,7 +2,6 @@
 #include "ScaleVisualizer.h"
 #include "FontIds.h"
 
-#include "Camera/ICamera.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 
@@ -13,16 +12,12 @@
 
 using namespace editor;
 
-ScaleVisualizer::ScaleVisualizer(const mono::ICameraPtr& camera)
-    : m_camera(camera)
-{ }
-
 void ScaleVisualizer::doDraw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
     constexpr math::Matrix transform;
 
-    const math::Quad& viewport = m_camera->GetViewport();
+    const math::Quad& viewport = renderer.GetViewport();
     const float scale = viewport.mB.x / 1200.0f * 200.0f;
 
     char text[100];

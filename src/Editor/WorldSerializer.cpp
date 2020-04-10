@@ -87,7 +87,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
 
     for(const std::string& file : path_names)
     {
-        std::shared_ptr<mono::IPath> path = mono::CreatePath(file.c_str());
+        mono::IPathPtr path = mono::CreatePath(file.c_str());
         auto proxy = factory.CreatePath(get_name(file), path->GetPathPoints());
         proxy->Entity()->SetPosition(path->GetGlobalPosition());
 

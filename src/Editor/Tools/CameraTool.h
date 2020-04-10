@@ -15,7 +15,7 @@ namespace editor
     {
     public:
 
-        CameraTool(const mono::ICameraPtr& camera, const System::IWindow* window);
+        CameraTool(mono::ICamera* camera, const System::IWindow* window);
 
         bool IsActive() const;
         void HandleMouseDown(const math::Vector& screen_position);
@@ -27,7 +27,7 @@ namespace editor
 
     private:
     
-        mono::ICameraPtr m_camera;
+        mono::ICamera* m_camera;
         const System::IWindow* m_window;
 
         bool m_translate;

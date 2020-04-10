@@ -17,7 +17,7 @@ namespace game
         
         mono::EventResult OnKeyUp(const event::KeyUpEvent& event);
 
-        void OnLoad(mono::ICameraPtr& camera) override;
+        void OnLoad(mono::ICamera* camera) override;
         int OnUnload() override;
 
         void Continue();

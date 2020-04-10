@@ -12,7 +12,7 @@ namespace game
     {
     public:
 
-        ZoneManager(System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context, int initial_zone);
+        ZoneManager(System::IWindow* window, const ZoneCreationContext& zone_context, int initial_zone);
         void Run();
 
     private:

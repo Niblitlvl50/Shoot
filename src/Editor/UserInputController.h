@@ -26,7 +26,7 @@ namespace editor
     {
     public:
 
-        UserInputController(const mono::ICameraPtr& camera,
+        UserInputController(mono::ICamera* camera,
                             System::IWindow* window,
                             editor::Editor* editor,
                             editor::UIContext* context,

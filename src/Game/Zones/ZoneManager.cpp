@@ -12,13 +12,13 @@ namespace
     template <typename T>
     mono::IZonePtr LoadZone(const ZoneCreationContext& zone_context)
     {
-        return std::make_shared<T>(zone_context);
+        return std::make_unique<T>(zone_context);
     }
 }
 
 ZoneManager::ZoneManager(
-    System::IWindow* window, const mono::ICameraPtr& camera, const ZoneCreationContext& zone_context, int initial_zone)
-    : m_engine(window, camera, zone_context.system_context, zone_context.event_handler)
+    System::IWindow* window, const ZoneCreationContext& zone_context, int initial_zone)
+    : m_engine(window, zone_context.system_context, zone_context.event_handler)
     , m_zone_context(zone_context)
     , m_active_zone(initial_zone)
 {
