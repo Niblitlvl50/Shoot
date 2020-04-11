@@ -1,5 +1,5 @@
 
-#include "CameraViewportReporter.h"
+#include "GameCamera.h"
 #include "Camera/ICamera.h"
 #include "AIKnowledge.h"
 

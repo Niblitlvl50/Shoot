@@ -41,7 +41,7 @@
 #include "Network/NetworkMessage.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
-#include "UpdateTasks/CameraViewportReporter.h"
+#include "UpdateTasks/GameCamera.h"
 #include "UpdateTasks/PickupUpdater.h"
 
 #include "Pickups/Ammo.h"

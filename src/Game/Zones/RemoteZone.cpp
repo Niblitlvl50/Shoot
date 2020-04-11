@@ -19,7 +19,7 @@
 #include "Network/ClientManager.h"
 
 #include "Camera/ICamera.h"
-#include "UpdateTasks/CameraViewportReporter.h"
+#include "UpdateTasks/GameCamera.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"

@@ -8,7 +8,7 @@
 #include "Factories.h"
 #include "EntitySystem/Entity.h"
 #include "Entity/IEntityManager.h"
-#include "UpdateTasks/CameraViewportReporter.h"
+#include "UpdateTasks/GameCamera.h"
 
 #include "SystemContext.h"
 #include "DamageSystem.h"
