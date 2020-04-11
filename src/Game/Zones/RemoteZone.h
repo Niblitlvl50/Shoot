@@ -38,6 +38,7 @@ namespace game
         mono::EventHandler& m_event_handler;
         const game::Config m_game_config;
 
+        std::shared_ptr<class GameCamera> m_game_camera;
         std::shared_ptr<class ClientManager> m_client_manager;
 
         mono::EventToken<game::TextMessage> m_text_token;

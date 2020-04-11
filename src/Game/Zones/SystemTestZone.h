@@ -38,6 +38,7 @@ namespace game
         const game::Config m_game_config;
 
         std::vector<uint32_t> m_loaded_entities;
+        std::shared_ptr<class GameCamera> m_game_camera;
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::shared_ptr<class ConsoleDrawer> m_console_drawer;
         std::vector<struct Pickup> m_pickups;

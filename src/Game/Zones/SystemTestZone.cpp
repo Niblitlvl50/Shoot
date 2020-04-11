@@ -111,6 +111,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
+    m_game_camera = std::make_shared<GameCamera>(camera, transform_system, *m_event_handler);
+
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager);
@@ -119,7 +121,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(std::make_shared<SyncPoint>());
 
     AddUpdatable(std::make_shared<ListenerPositionUpdater>());
-    AddUpdatable(std::make_shared<CameraViewportReporter>(camera));
+    AddUpdatable(m_game_camera);
     AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, *m_event_handler));
 
     AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
@@ -127,7 +129,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     m_console_drawer = std::make_shared<ConsoleDrawer>();
     AddDrawable(m_console_drawer, LayerId::UI);
 
-    m_player_daemon = std::make_unique<PlayerDaemon>(camera, m_server_manager.get(), m_system_context, *m_event_handler);
+    m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
 
     m_loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
 
