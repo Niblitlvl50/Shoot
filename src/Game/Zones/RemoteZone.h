@@ -38,14 +38,14 @@ namespace game
         mono::EventHandler& m_event_handler;
         const game::Config m_game_config;
 
-        std::shared_ptr<class GameCamera> m_game_camera;
-        std::shared_ptr<class ClientManager> m_client_manager;
+        std::unique_ptr<class GameCamera> m_game_camera;
+        std::unique_ptr<class ClientManager> m_client_manager;
 
         mono::EventToken<game::TextMessage> m_text_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;
 
-        std::shared_ptr<class ConsoleDrawer> m_console_drawer;
+        std::unique_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;
 
         CaptureTheFlagScore m_ctf_score;

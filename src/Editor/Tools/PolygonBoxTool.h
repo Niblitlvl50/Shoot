@@ -15,6 +15,7 @@ namespace editor
     public:
 
         PolygonBoxTool(editor::Editor* editor);
+        ~PolygonBoxTool();
 
         virtual void Begin();
         virtual void End();
@@ -28,7 +29,7 @@ namespace editor
         editor::Editor* m_editor = nullptr;
         bool m_active = false;
 
-        std::shared_ptr<class PolygonVisualizer2> m_visualizer;
+        std::unique_ptr<class PolygonVisualizer2> m_visualizer;
         
         math::Vector m_mouse_down;
         math::Vector m_mouse_position;

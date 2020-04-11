@@ -3,7 +3,8 @@
 
 #include "Rendering/IDrawable.h"
 #include "Rendering/IRenderBuffer.h"
-#include "Rendering/RenderPtrFwd.h"
+#include "Rendering/RenderFwd.h"
+#include "Rendering/Texture/ITextureFactory.h"
 
 class StaticBackground : public mono::IDrawable
 {

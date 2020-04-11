@@ -17,7 +17,6 @@
 
 
 class ImGuiInputHandler;
-class ImGuiRenderer;
 class IEntityManager;
 
 namespace editor
@@ -50,8 +49,8 @@ namespace editor
         void ImportEntity();
         void ExportEntity();
 
-        void AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon);
-        void AddPath(const std::shared_ptr<editor::PathEntity>& path);
+        void AddPolygon(std::unique_ptr<editor::PolygonEntity> polygon);
+        void AddPath(std::unique_ptr<editor::PathEntity> path);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);
@@ -112,9 +111,8 @@ namespace editor
         ObjectFactory m_object_factory;
 
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
-        std::shared_ptr<ImGuiRenderer> m_gui_renderer;
         std::unique_ptr<class UserInputController> m_user_input_controller;
-        std::shared_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
+        std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
 
         uint32_t m_selected_id;
         uint32_t m_preselected_id;

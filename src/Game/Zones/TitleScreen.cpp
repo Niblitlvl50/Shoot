@@ -110,33 +110,33 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     const math::Quad& viewport = camera->GetViewport();
     const math::Vector new_position(viewport.mB.x + (viewport.mB.x / 2.0f), viewport.mB.y / 3.0f);
 
-    AddUpdatable(std::make_shared<MoveContextUpdater>(m_move_contexts));
-    AddUpdatable(std::make_shared<CheckControllerInput>(this));
+    AddUpdatable(new MoveContextUpdater(m_move_contexts));
+    AddUpdatable(new CheckControllerInput(this));
 
-    auto background1 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.6f, 0.5f));
-    auto background2 = std::make_shared<Background>(viewport, mono::Color::HSL(0.6f, 0.3f, 0.5f));
+    auto background1 = new Background(viewport, mono::Color::HSL(0.6f, 0.6f, 0.5f));
+    auto background2 = new Background(viewport, mono::Color::HSL(0.6f, 0.3f, 0.5f));
 
-    auto title_text = std::make_shared<TextEntity>("Shoot, Survive!", FontId::PIXELETTE_MEDIUM, false);
+    auto title_text = new TextEntity("Shoot, Survive!", FontId::PIXELETTE_MEDIUM, false);
     title_text->m_shadow_color = mono::Color::RGBA(0.8, 0.0, 0.8, 1.0);
     title_text->m_text_color = mono::Color::RGBA(0.9, 0.8, 0.8, 1.0f);
     title_text->SetPosition(new_position);
 
     const math::Vector dont_die_position(viewport.mB.x * 2.0f, viewport.mB.y / 4.0f);
 
-    auto dont_die_text = std::make_shared<TextEntity>("...dont die.", FontId::PIXELETTE_SMALL, false);
+    auto dont_die_text = new TextEntity("...dont die.", FontId::PIXELETTE_SMALL, false);
     dont_die_text->m_shadow_color = mono::Color::RGBA(0.8, 0.0, 0.8, 1.0);
     dont_die_text->m_text_color = mono::Color::RGBA(0.9, 0.9, 0.0, 1.0f);
     dont_die_text->SetPosition(dont_die_position);
 
-    auto hit_enter_text = std::make_shared<TextEntity>("Hit enter, or   /", FontId::PIXELETTE_SMALL, true);
+    auto hit_enter_text = new TextEntity("Hit enter, or   /", FontId::PIXELETTE_SMALL, true);
     hit_enter_text->m_shadow_color = mono::Color::RGBA(0.3, 0.3, 0.3, 1);
     hit_enter_text->SetPosition(math::Vector(viewport.mB.x / 2.0f, 2.0f));
 
-    auto ps_cross = std::make_shared<IconEntity>("res/sprites/ps_cross.sprite");
+    auto ps_cross = new IconEntity("res/sprites/ps_cross.sprite");
     ps_cross->SetPosition(math::Vector(3.0f, 0.25f));
     ps_cross->SetScale(math::Vector(0.4f, 0.4f));
 
-    auto xbox_a = std::make_shared<IconEntity>("res/sprites/xbox_one_a.sprite");
+    auto xbox_a = new IconEntity("res/sprites/xbox_one_a.sprite");
     xbox_a->SetPosition(math::Vector(4.65f, 0.25f));
     xbox_a->SetScale(math::Vector(0.4f, 0.4f));
 
@@ -180,7 +180,7 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     AddEntity(background2, LayerId::BACKGROUND);
     AddEntity(background1, LayerId::BACKGROUND);
 
-    AddDrawable(std::make_shared<mono::ParticleSystemDrawer>(particle_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
 
     AddEntity(title_text, LayerId::GAMEOBJECTS);
     AddEntity(dont_die_text, LayerId::GAMEOBJECTS);

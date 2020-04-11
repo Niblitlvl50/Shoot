@@ -155,19 +155,19 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
 
-    m_component_detail_visualizer = std::make_shared<ComponentDetailVisualizer>(draw_funcs, transform_system);
+    m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
-    AddUpdatable(std::make_shared<SyncPoint>(m_entity_manager));
-    AddUpdatable(std::make_shared<editor::ImGuiInterfaceDrawer>(m_context));
+    AddUpdatable(new SyncPoint(m_entity_manager));
+    AddUpdatable(new editor::ImGuiInterfaceDrawer(m_context));
 
-    AddDrawable(std::make_shared<GridVisualizer>(), RenderLayer::BACKGROUND);
-    AddDrawable(std::make_shared<GrabberVisualizer>(m_grabbers), RenderLayer::GRABBERS);
-    AddDrawable(std::make_shared<SnapperVisualizer>(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
-    AddDrawable(std::make_shared<ScaleVisualizer>(), RenderLayer::UI);
-    AddDrawable(std::make_shared<SelectionVisualizer>(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
-    AddDrawable(std::make_shared<ObjectNameVisualizer>(m_context.draw_object_names, m_proxies), RenderLayer::UI);
-    AddDrawable(m_component_detail_visualizer, RenderLayer::UI);
-    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(&m_system_context), RenderLayer::OBJECTS);
+    AddDrawable(new GridVisualizer(), RenderLayer::BACKGROUND);
+    AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
+    AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
+    AddDrawable(new ScaleVisualizer(), RenderLayer::UI);
+    AddDrawable(new SelectionVisualizer(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
+    AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
+    AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
+    AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
 
     m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system);
     for(IObjectProxyPtr& proxy : m_proxies)
@@ -237,16 +237,16 @@ void Editor::NewEntity()
     SelectProxyObject(m_proxies.back().get());
 }
 
-void Editor::AddPolygon(const std::shared_ptr<editor::PolygonEntity>& polygon)
+void Editor::AddPolygon(std::unique_ptr<editor::PolygonEntity> polygon)
 {
-    AddEntity(polygon, RenderLayer::POLYGONS);
-    m_proxies.push_back(std::make_unique<PolygonProxy>(polygon));
+    AddEntity(polygon.get(), RenderLayer::POLYGONS);
+    m_proxies.push_back(std::make_unique<PolygonProxy>(std::move(polygon)));
 }
 
-void Editor::AddPath(const std::shared_ptr<editor::PathEntity>& path)
+void Editor::AddPath(std::unique_ptr<editor::PathEntity> path)
 {
-    AddEntity(path, RenderLayer::OBJECTS);
-    m_proxies.push_back(std::make_unique<PathProxy>(path, this));
+    AddEntity(path.get(), RenderLayer::OBJECTS);
+    m_proxies.push_back(std::make_unique<PathProxy>(std::move(path), this));
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
@@ -437,7 +437,7 @@ void Editor::OnDeleteObject()
         return;
 
     IObjectProxy* proxy = FindProxyObject(m_selected_id);
-    mono::IEntityPtr entity = proxy->Entity();
+    mono::IEntity* entity = proxy->Entity();
     if(entity)
         RemoveEntity(entity);
 

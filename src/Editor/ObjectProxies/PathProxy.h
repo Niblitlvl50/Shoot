@@ -13,12 +13,12 @@ namespace editor
     {
     public:
 
-        PathProxy(const std::shared_ptr<PathEntity>& path, Editor* editor);
+        PathProxy(std::unique_ptr<PathEntity> path, Editor* editor);
         ~PathProxy();
 
         const char* Name() const override;
         unsigned int Id() const override;
-        mono::IEntityPtr Entity() override;
+        mono::IEntity* Entity() override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
         std::vector<Grabber> GetGrabbers() const override;
@@ -33,7 +33,7 @@ namespace editor
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(IObjectVisitor& visitor) override;
         
-        std::shared_ptr<PathEntity> m_path;
+        std::unique_ptr<PathEntity> m_path;
         Editor* m_editor;
 
         std::vector<Component> m_components;

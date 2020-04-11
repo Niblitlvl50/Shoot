@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
-#include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "Math/Vector.h"
 #include <vector>
 
@@ -20,6 +20,6 @@ namespace editor
 
         const std::vector<math::Vector>& m_points;
         const math::Vector& m_mousePosition;
-        mono::ITexturePtr m_texture;        
+        mono::ITexturePtr m_texture;
     };
 }

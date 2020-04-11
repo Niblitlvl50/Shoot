@@ -24,6 +24,8 @@ public:
           m_points(drawn_points)
     { }
 
+    ~Visualizer() = default;
+
     virtual void doDraw(mono::IRenderer& renderer) const
     {
         if(!m_painting)
@@ -46,8 +48,10 @@ PolygonBrushTool::PolygonBrushTool(Editor* editor)
     : m_editor(editor),
       m_painting(false)
 {
-    m_visualizer = std::make_shared<PolygonBrushTool::Visualizer>(m_painting, m_drawn_points);
+    m_visualizer = std::make_unique<PolygonBrushTool::Visualizer>(m_painting, m_drawn_points);
 }
+
+PolygonBrushTool::~PolygonBrushTool() = default;
 
 void PolygonBrushTool::Begin()
 { }
@@ -70,20 +74,22 @@ void PolygonBrushTool::HandleMouseDown(const math::Vector& world_pos, uint32_t e
     m_previous_point = world_pos;
     m_previously_added_point = world_pos;
 
-    m_polygon = std::make_shared<editor::PolygonEntity>();
-    m_polygon->SetPosition(world_pos);
-    m_polygon->AddVertex(math::ZeroVec);
+    std::unique_ptr<editor::PolygonEntity> polygon_entity = std::make_unique<editor::PolygonEntity>();
+    polygon_entity->SetPosition(world_pos);
+    polygon_entity->AddVertex(math::ZeroVec);
 
-    m_editor->AddPolygon(m_polygon);
-    m_editor->AddDrawable(m_visualizer, RenderLayer::OBJECTS);
+    m_polygon_entity = polygon_entity.get();
+
+    m_editor->AddPolygon(std::move(polygon_entity));
+    m_editor->AddDrawable(m_visualizer.get(), RenderLayer::OBJECTS);
 }
 
 void PolygonBrushTool::HandleMouseUp(const math::Vector& world_pos)
 {
-    m_editor->RemoveDrawable(m_visualizer);
+    m_editor->RemoveDrawable(m_visualizer.get());
 
     m_painting = false;
-    m_polygon = nullptr;
+    m_polygon_entity = nullptr;
     m_drawn_points.clear();
 }
 
@@ -106,8 +112,8 @@ void PolygonBrushTool::HandleMousePosition(const math::Vector& world_pos)
 
     if(angle > threashold && distance > 1.0f)
     {
-        const math::Vector& position = m_polygon->Position();
-        m_polygon->AddVertex(m_previous_point - position);
+        const math::Vector& position = m_polygon_entity->Position();
+        m_polygon_entity->AddVertex(m_previous_point - position);
 
         m_previously_added_point = m_previous_point;
         m_direction = math::AngleBetweenPoints(m_previously_added_point, world_pos);

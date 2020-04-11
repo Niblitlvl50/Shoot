@@ -16,6 +16,8 @@ public:
           m_mouse_position(mouse_position)
     { }
 
+    ~Visualizer() = default;
+
     virtual void doDraw(mono::IRenderer& renderer) const
     {
         if(m_points.empty())
@@ -40,17 +42,19 @@ public:
 
 PathTool::PathTool(Editor* editor)
     : m_editor(editor),
-      m_visualizer(std::make_shared<Visualizer>(m_points, m_mouse_position))
+      m_visualizer(std::make_unique<Visualizer>(m_points, m_mouse_position))
 { }
+
+PathTool::~PathTool() = default;
 
 void PathTool::Begin()
 {
-    m_editor->AddDrawable(m_visualizer, 0);
+    m_editor->AddDrawable(m_visualizer.get(), 0);
 }
 
 void PathTool::End()
 {
-    m_editor->RemoveDrawable(m_visualizer);
+    m_editor->RemoveDrawable(m_visualizer.get());
 }
 
 bool PathTool::IsActive() const
@@ -71,10 +75,10 @@ void PathTool::HandleContextMenu(int menu_index)
         for(math::Vector& point : m_points)
             point -= position;
 
-        auto path_entity = std::make_shared<editor::PathEntity>("New path", m_points);
+        auto path_entity = std::make_unique<editor::PathEntity>("New path", m_points);
         path_entity->SetPosition(position);
 
-        m_editor->AddPath(path_entity);
+        m_editor->AddPath(std::move(path_entity));
         m_points.clear();
     }
     else if(menu_index == 1)

@@ -9,7 +9,7 @@
 
 using namespace game;
 
-GravityUpdater::GravityUpdater(/*mono::IPhysicsZone* zone, */const mono::IEntityPtr& moon1, const mono::IEntityPtr& moon2)
+GravityUpdater::GravityUpdater(mono::IEntity* moon1, mono::IEntity* moon2)
     : mMoon1(moon1)
     , mMoon2(moon2)
     , mElapsedTime(0)

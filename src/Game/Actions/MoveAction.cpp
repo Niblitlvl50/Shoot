@@ -4,7 +4,7 @@
 #include "Util/Algorithm.h"
 #include <algorithm>
 
-void game::UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>& move_contexts)
+void game::UpdateMoveContexts(uint32_t delta, std::vector<MoveActionContext>& move_contexts)
 {
     for(MoveActionContext& move_context : move_contexts)
     {
@@ -43,7 +43,7 @@ void game::UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>
     mono::remove_if(move_contexts, remove_func);
 }
 
-void game::UpdateRotateContexts(unsigned int delta, std::vector<RotateActionContext>& rotate_contexts)
+void game::UpdateRotateContexts(uint32_t delta, std::vector<RotateActionContext>& rotate_contexts)
 {
     for(RotateActionContext& rotate_context : rotate_contexts)
     {

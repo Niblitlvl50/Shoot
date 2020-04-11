@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "MonoPtrFwd.h"
+#include "MonoFwd.h"
 #include "EasingFunctions.h"
 
 #include <vector>
@@ -19,7 +19,7 @@ namespace game
         int counter = 0;
         int duration = 0;
 
-        mono::IEntityPtr entity;
+        mono::IEntity* entity;
         math::Vector start_position;
         math::Vector end_position;
     };
@@ -32,12 +32,12 @@ namespace game
         int counter = 0;
         int duration = 0;
 
-        mono::IEntityPtr entity;
+        mono::IEntity* entity;
         float start_rotation;
         float min_rotation;
         float max_rotation;
     };
 
-    void UpdateMoveContexts(unsigned int delta, std::vector<MoveActionContext>& move_contexts);
-    void UpdateRotateContexts(unsigned int delta, std::vector<RotateActionContext>& rotate_contexts);
+    void UpdateMoveContexts(uint32_t delta_ms, std::vector<MoveActionContext>& move_contexts);
+    void UpdateRotateContexts(uint32_t delta_ms, std::vector<RotateActionContext>& rotate_contexts);
 }

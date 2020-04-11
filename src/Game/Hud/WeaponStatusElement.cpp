@@ -25,7 +25,7 @@ WeaponStatusElement::WeaponStatusElement(
 {
     m_position = offscreen_position;
 
-    m_ammo_text = std::make_shared<UITextElement>(FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
+    m_ammo_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
     m_ammo_text->SetPosition(math::Vector(11.0f, -1.5f));
     m_ammo_text->SetScale(math::Vector(6.0f, 6.0f));
 
@@ -36,7 +36,7 @@ WeaponStatusElement::WeaponStatusElement(
         "res/sprites/bolter.sprite",
         "res/sprites/bolter.sprite"
     };
-    m_weapon_sprites = std::make_shared<UISpriteElement>(sprite_files);
+    m_weapon_sprites = std::make_unique<UISpriteElement>(sprite_files);
     m_weapon_sprites->SetPosition(math::ZeroVec);
     m_weapon_sprites->SetScale(math::Vector(10.0f, 10.0f));
 
@@ -44,13 +44,13 @@ WeaponStatusElement::WeaponStatusElement(
         "res/sprites/frame.sprite"
     };
 
-    m_frame_sprite = std::make_shared<UISpriteElement>(frame_sprites);
+    m_frame_sprite = std::make_unique<UISpriteElement>(frame_sprites);
     m_frame_sprite->SetPosition(math::Vector(14.0f, 0.0f));
     m_frame_sprite->SetScale(math::Vector(15.0f, 10.0f));
 
-    AddChild(m_frame_sprite);
-    AddChild(m_weapon_sprites);
-    AddChild(m_ammo_text);
+    AddChild(m_frame_sprite.get());
+    AddChild(m_weapon_sprites.get());
+    AddChild(m_ammo_text.get());
 }
 
 void WeaponStatusElement::Draw(mono::IRenderer& renderer) const

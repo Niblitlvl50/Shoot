@@ -20,7 +20,7 @@ void ObjectNameVisualizer::doDraw(mono::IRenderer& renderer) const
 
     for(const IObjectProxyPtr& proxy : m_object_proxies)
     {
-        mono::IEntityPtr entity = proxy->Entity();
+        mono::IEntity* entity = proxy->Entity();
         if(!entity)
             continue;
 

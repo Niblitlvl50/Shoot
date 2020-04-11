@@ -36,6 +36,6 @@ namespace game
         mono::IBody* m_control_body;
         mono::IConstraint* m_spring;
         mono::IPathPtr m_path;
-        std::shared_ptr<class AStarPathDrawer> m_astar_drawer;
+        //std::shared_ptr<class AStarPathDrawer> m_astar_drawer;
     };
 }

@@ -111,26 +111,25 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
-    m_game_camera = std::make_shared<GameCamera>(camera, transform_system, *m_event_handler);
+    m_game_camera = std::make_unique<GameCamera>(camera, transform_system, *m_event_handler);
 
     // Network and syncing should be done first in the frame.
-    m_server_manager = std::make_shared<ServerManager>(m_event_handler, &m_game_config);
-    AddUpdatable(m_server_manager);
+    m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
+    AddUpdatable(m_server_manager.get());
     AddUpdatable(
-        std::make_shared<ServerReplicator>(entity_system, transform_system, sprite_system, g_entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
-    AddUpdatable(std::make_shared<SyncPoint>());
+        new ServerReplicator(entity_system, transform_system, sprite_system, g_entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
+    AddUpdatable(new SyncPoint());
 
-    AddUpdatable(std::make_shared<ListenerPositionUpdater>());
-    AddUpdatable(m_game_camera);
-    AddUpdatable(std::make_shared<PickupUpdater>(m_pickups, *m_event_handler));
+    AddUpdatable(new ListenerPositionUpdater());
+    AddUpdatable(m_game_camera.get());
+    AddUpdatable(new PickupUpdater(m_pickups, *m_event_handler));
 
-    AddDrawable(std::make_shared<PickupDrawer>(m_pickups), LayerId::GAMEOBJECTS);
-    AddDrawable(std::make_shared<WaveDrawer>(*m_event_handler), LayerId::UI);
-    m_console_drawer = std::make_shared<ConsoleDrawer>();
-    AddDrawable(m_console_drawer, LayerId::UI);
+    AddDrawable(new PickupDrawer(m_pickups), LayerId::GAMEOBJECTS);
+    AddDrawable(new WaveDrawer(*m_event_handler), LayerId::UI);
+    m_console_drawer = std::make_unique<ConsoleDrawer>();
+    AddDrawable(m_console_drawer.get(), LayerId::UI);
 
     m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
-
     m_loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
 
     for(int index = 0; index < 250; ++index)
@@ -154,10 +153,10 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
     if(ctf_flags.size() >= 2)
     {
-        auto capture_the_flag =
-            std::make_shared<CaptureTheFlagLogic>(ctf_flags, transform_system, sprite_system, damage_system, m_player_daemon.get(), g_entity_manager);
+        auto* capture_the_flag =
+            new CaptureTheFlagLogic(ctf_flags, transform_system, sprite_system, damage_system, m_player_daemon.get(), g_entity_manager);
         AddUpdatable(capture_the_flag);
-        AddDrawable(std::make_shared<CaptureTheFlagHud>(capture_the_flag->Score()), LayerId::UI);
+        AddDrawable(new CaptureTheFlagHud(capture_the_flag->Score()), LayerId::UI);
     }
 
     // Nav mesh
@@ -176,29 +175,29 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
     game::g_navmesh = &m_navmesh;
 
-    AddDrawable(std::make_shared<StaticBackground>(), LayerId::BACKGROUND);
-    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
-    AddDrawable(std::make_shared<mono::ParticleSystemDrawer>(particle_system), LayerId::GAMEOBJECTS);
-    AddDrawable(std::make_shared<HealthbarDrawer>(damage_system, transform_system), LayerId::UI);
+    AddDrawable(new StaticBackground(), LayerId::BACKGROUND);
+    AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new HealthbarDrawer(damage_system, transform_system), LayerId::UI);
 
-    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
-    hud_overlay->AddChild(std::make_shared<WeaponStatusElement>(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
+    auto hud_overlay = new UIOverlayDrawer();
+    hud_overlay->AddChild(new WeaponStatusElement(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
+    hud_overlay->AddChild(new WeaponStatusElement(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
 
-    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
-    hud_overlay->AddChild(std::make_shared<PhysicsStatsElement>(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
-    hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_server_manager.get()));
-    hud_overlay->AddChild(std::make_shared<ParticleStatusDrawer>(particle_system, math::Vector(2, 190)));
+    hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
+    hud_overlay->AddChild(new PhysicsStatsElement(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
+    hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+    hud_overlay->AddChild(new ParticleStatusDrawer(particle_system, math::Vector(2, 190)));
 
     AddEntity(hud_overlay, LayerId::UI);
 
     // Debug
-    AddUpdatable(std::make_shared<DebugUpdater>(m_event_handler));
-    AddDrawable(std::make_shared<GameDebugDrawer>(), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(std::make_shared<ClientViewportVisualizer>(m_server_manager->GetConnectedClients()), LayerId::UI);
-    AddDrawable(std::make_shared<NavmeshVisualizer>(m_navmesh, *m_event_handler), LayerId::UI);
-    AddDrawable(std::make_shared<mono::TransformSystemDrawer>(game::g_draw_transformsystem, transform_system), LayerId::UI);
-    AddDrawable(std::make_shared<mono::PhysicsDebugDrawer>(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
+    AddUpdatable(new DebugUpdater(m_event_handler));
+    AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new ClientViewportVisualizer(m_server_manager->GetConnectedClients()), LayerId::UI);
+    AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
+    AddDrawable(new mono::TransformSystemDrawer(game::g_draw_transformsystem, transform_system), LayerId::UI);
+    AddDrawable(new mono::PhysicsDebugDrawer(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()

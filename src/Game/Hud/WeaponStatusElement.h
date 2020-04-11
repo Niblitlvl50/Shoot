@@ -26,8 +26,8 @@ namespace game
         const math::Vector m_offscreen_position;
         float m_timer;
 
-        std::shared_ptr<class UITextElement> m_ammo_text;
-        std::shared_ptr<class UISpriteElement> m_weapon_sprites;
-        std::shared_ptr<class UISpriteElement> m_frame_sprite;
+        std::unique_ptr<class UITextElement> m_ammo_text;
+        std::unique_ptr<class UISpriteElement> m_weapon_sprites;
+        std::unique_ptr<class UISpriteElement> m_frame_sprite;
     };    
 }

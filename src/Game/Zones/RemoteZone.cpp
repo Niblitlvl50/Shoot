@@ -69,29 +69,28 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     camera->SetViewport(math::Quad(0, 0, 22, 14));
-    m_game_camera = std::make_shared<GameCamera>(camera, transform_system, m_event_handler);
+    m_game_camera = std::make_unique<GameCamera>(camera, transform_system, m_event_handler);
 
-    m_client_manager = std::make_shared<ClientManager>(&m_event_handler, &m_game_config);
+    m_client_manager = std::make_unique<ClientManager>(&m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_game_camera.get(), m_event_handler);
 
     const PositionPredictionSystem* prediction_system =
         m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, &m_event_handler);
 
-    AddUpdatable(m_game_camera);
-    AddUpdatable(m_client_manager);
-    AddUpdatable(std::make_shared<ClientReplicator>(camera, m_client_manager.get()));
+    AddUpdatable(m_game_camera.get());
+    AddUpdatable(m_client_manager.get());
+    AddUpdatable(new ClientReplicator(camera, m_client_manager.get()));
 
-    AddDrawable(std::make_shared<mono::SpriteBatchDrawer>(m_system_context), LayerId::GAMEOBJECTS);
-    AddDrawable(std::make_shared<PredictionSystemDebugDrawer>(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(std::make_shared<CaptureTheFlagHud>(m_ctf_score), LayerId::UI);
+    AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new CaptureTheFlagHud(m_ctf_score), LayerId::UI);
 
+    m_console_drawer = std::make_unique<ConsoleDrawer>();
+    AddDrawable(m_console_drawer.get(), LayerId::UI);
 
-    m_console_drawer = std::make_shared<ConsoleDrawer>();
-    AddDrawable(m_console_drawer, LayerId::UI);
-
-    auto hud_overlay = std::make_shared<UIOverlayDrawer>();
-    hud_overlay->AddChild(std::make_shared<NetworkStatusDrawer>(math::Vector(2.0f, 190.0f), m_client_manager.get()));
-    hud_overlay->AddChild(std::make_shared<FPSElement>(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
+    auto hud_overlay = new UIOverlayDrawer();
+    hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_client_manager.get()));
+    hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     AddEntity(hud_overlay, LayerId::UI);
 
 /*

@@ -61,7 +61,7 @@ namespace
             constexpr mono::Color::RGBA background_color(0, 0, 0);
             constexpr mono::Color::RGBA text_color(1, 0, 0);
 
-            AddChild(std::make_shared<UIDialog>("YOU DEAD! Respawn?", options, background_color, text_color));
+            AddChild(new UIDialog("YOU DEAD! Respawn?", options, background_color, text_color));
         }
 
         void Update(const mono::UpdateContext& update_context)

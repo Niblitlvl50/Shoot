@@ -38,11 +38,8 @@ UIDialog::UIDialog(
     const math::Vector top_right = description_text_size + padding;
     const math::Quad dialog_size(bottom_left, top_right);
 
-    auto background = std::make_shared<UISquareElement>(dialog_size, background_color, text_color, 0.1f);
-    auto description_text = std::make_shared<UITextElement>(font_id, description, false, text_color);
-
-    AddChild(background);
-    AddChild(description_text);
+    AddChild(new UISquareElement(dialog_size, background_color, text_color, 0.1f));
+    AddChild(new UITextElement(font_id, description, false, text_color));
 
     float y_shift = description_text_size.y + padding.y;
 
@@ -54,8 +51,8 @@ UIDialog::UIDialog(
             option.icon
         };
 
-        auto option_text = std::make_shared<UITextElement>(font_id, option.text, false, text_color);
-        auto option_icon = std::make_shared<UISpriteElement>(option_sprites);
+        auto option_text = new UITextElement(font_id, option.text, false, text_color);
+        auto option_icon = new UISpriteElement(option_sprites);
 
         option_text->SetPosition(math::Vector(2.0f, -y_shift));
         option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));

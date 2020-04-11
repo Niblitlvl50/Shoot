@@ -16,8 +16,8 @@
 
 using namespace editor;
 
-PolygonProxy::PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon)
-    : m_polygon(polygon)
+PolygonProxy::PolygonProxy(std::unique_ptr<PolygonEntity> polygon)
+    : m_polygon(std::move(polygon))
 { }
 
 PolygonProxy::~PolygonProxy()
@@ -33,9 +33,9 @@ unsigned int PolygonProxy::Id() const
     return m_polygon->Id();
 }
 
-mono::IEntityPtr PolygonProxy::Entity()
+mono::IEntity* PolygonProxy::Entity()
 {
-    return m_polygon;
+    return m_polygon.get();
 }
 
 void PolygonProxy::SetSelected(bool selected)
@@ -73,7 +73,7 @@ std::vector<Grabber> PolygonProxy::GetGrabbers() const
     {
         Grabber grabber;
         grabber.position = math::Transform(local_to_world, local_vertices[index]);
-        grabber.callback = std::bind(&PolygonEntity::SetVertex, m_polygon, _1, index);
+        grabber.callback = std::bind(&PolygonEntity::SetVertex, m_polygon.get(), _1, index);
         grabbers.push_back(grabber);
     }
 

@@ -15,6 +15,7 @@ namespace editor
     public:
 
         PathTool(Editor* editor);
+        ~PathTool();
 
         virtual void Begin();
         virtual void End();
@@ -32,6 +33,6 @@ namespace editor
         std::vector<math::Vector> m_points;
 
         class Visualizer;
-        std::shared_ptr<Visualizer> m_visualizer;
+        std::unique_ptr<Visualizer> m_visualizer;
     };
 }

@@ -12,12 +12,12 @@ namespace editor
     {
     public:
 
-        PolygonProxy(const std::shared_ptr<PolygonEntity>& polygon);
+        PolygonProxy(std::unique_ptr<PolygonEntity> polygon);
         ~PolygonProxy();
 
         const char* Name() const override;
         unsigned int Id() const override;
-        mono::IEntityPtr Entity() override;
+        mono::IEntity* Entity() override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
         std::vector<Grabber> GetGrabbers() const override;
@@ -32,7 +32,7 @@ namespace editor
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(IObjectVisitor& visitor) override;
 
-        std::shared_ptr<PolygonEntity> m_polygon;
+        std::unique_ptr<PolygonEntity> m_polygon;
         std::vector<Component> m_components;
     };
 }

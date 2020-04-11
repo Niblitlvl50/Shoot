@@ -56,7 +56,7 @@ uint32_t ComponentProxy::Id() const
     return m_entity_id;
 }
 
-mono::IEntityPtr ComponentProxy::Entity()
+mono::IEntity* ComponentProxy::Entity()
 {
     return nullptr;
 }

@@ -3,7 +3,7 @@
 
 #include "Math/Vector.h"
 #include "Zone/EntityBase.h"
-#include "Rendering/RenderPtrFwd.h"
+#include "Rendering/Texture/ITextureFactory.h"
 
 #include "WorldFile.h"
 

@@ -26,17 +26,19 @@ namespace
 PolygonBoxTool::PolygonBoxTool(editor::Editor* editor)
     : m_editor(editor)
 {
-    m_visualizer = std::make_shared<PolygonVisualizer2>(m_points, m_mouse_position);    
+    m_visualizer = std::make_unique<PolygonVisualizer2>(m_points, m_mouse_position);
 }
+
+PolygonBoxTool::~PolygonBoxTool() = default;
 
 void PolygonBoxTool::Begin()
 {
-    m_editor->AddDrawable(m_visualizer, RenderLayer::OBJECTS);    
+    m_editor->AddDrawable(m_visualizer.get(), RenderLayer::OBJECTS);
 }
 
 void PolygonBoxTool::End()
 {
-    m_editor->RemoveDrawable(m_visualizer);    
+    m_editor->RemoveDrawable(m_visualizer.get());
 }
 
 bool PolygonBoxTool::IsActive() const
@@ -58,9 +60,7 @@ void PolygonBoxTool::HandleMouseUp(const math::Vector& world_pos)
     m_active = false;
 
     const auto& polygon_points = CreatePointsFromPosition(m_mouse_down, world_pos);
-    auto polygon = std::make_shared<PolygonEntity>(m_mouse_down, polygon_points);
-
-    m_editor->AddPolygon(polygon);
+    m_editor->AddPolygon(std::make_unique<PolygonEntity>(m_mouse_down, polygon_points));
     m_points.clear();
 }
 

@@ -16,8 +16,8 @@
 
 using namespace editor;
 
-PathProxy::PathProxy(const std::shared_ptr<PathEntity>& path, Editor* editor)
-    : m_path(path),
+PathProxy::PathProxy(std::unique_ptr<PathEntity> path, Editor* editor)
+    : m_path(std::move(path)),
       m_editor(editor)
 { }
 
@@ -34,9 +34,9 @@ unsigned int PathProxy::Id() const
     return m_path->Id();
 }
 
-mono::IEntityPtr PathProxy::Entity()
+mono::IEntity* PathProxy::Entity()
 {
-    return m_path;
+    return m_path.get();
 }
 
 void PathProxy::SetSelected(bool selected)
@@ -85,7 +85,7 @@ std::vector<Grabber> PathProxy::GetGrabbers() const
     {
         Grabber grab;
         grab.position = math::Transform(local_to_world, local_points[index]);
-        grab.callback = std::bind(&PathEntity::SetVertex, m_path, _1, index);
+        grab.callback = std::bind(&PathEntity::SetVertex, m_path.get(), _1, index);
         grabbers.push_back(grab);
     }
 

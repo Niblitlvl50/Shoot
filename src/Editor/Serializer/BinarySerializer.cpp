@@ -35,7 +35,7 @@ void BinarySerializer::Accept(PathProxy* proxy)
 
 void BinarySerializer::Accept(PolygonProxy* proxy)
 {
-    auto polygon_entity = proxy->m_polygon;
+    const auto& polygon_entity = proxy->m_polygon;
 
     world::PolygonData polygon_data;
 

@@ -16,6 +16,7 @@ namespace editor
     public:
 
         PolygonBrushTool(Editor* editor);
+        ~PolygonBrushTool();
 
         virtual void Begin();
         virtual void End();
@@ -29,13 +30,13 @@ namespace editor
         Editor* m_editor;
         bool m_painting;
 
-        std::shared_ptr<editor::PolygonEntity> m_polygon;
+        editor::PolygonEntity* m_polygon_entity;
         math::Vector m_previously_added_point;
         math::Vector m_previous_point;
         float m_direction;
 
         class Visualizer;
-        std::shared_ptr<Visualizer> m_visualizer;
+        std::unique_ptr<Visualizer> m_visualizer;
 
         std::vector<math::Vector> m_drawn_points;
     };
