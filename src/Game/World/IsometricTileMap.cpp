@@ -88,18 +88,18 @@ game::IsometricDrawContext game::CreateIsometricDrawContext(const TileMap& tilem
 {
     game::IsometricDrawContext context;
 
-    for(const TileLayer& layer : tilemap.tile_layers)
-    {
+    // for(const TileLayer& layer : tilemap.tile_layers)
+    // {
 
-    }
+    // }
 
     return context;
 }
 
 void game::DrawTilemap(mono::IRenderer& renderer, const TileMap& tilemap, const std::vector<TileSet>& tilesets)
 {
-    for(const TileLayer& layer : tilemap.tile_layers)
-    {
+    // for(const TileLayer& layer : tilemap.tile_layers)
+    // {
 
-    }
+    // }
 }

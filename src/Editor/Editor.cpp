@@ -182,6 +182,15 @@ void Editor::OnLoad(mono::ICamera* camera)
 
 int Editor::OnUnload()
 {
+    RemoveDrawable(m_component_detail_visualizer.get());
+
+    for(IObjectProxyPtr& proxy : m_proxies)
+    {
+        auto entity = proxy->Entity();
+        if(entity)
+            RemoveEntity(entity);
+    }
+
     m_editor_config.camera_position = m_camera->GetPosition();
     m_editor_config.camera_viewport = m_camera->GetViewport();
     m_editor_config.draw_object_names = DrawObjectNames();

@@ -180,7 +180,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system), LayerId::UI);
 
-    auto hud_overlay = new UIOverlayDrawer();
+    UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
     hud_overlay->AddChild(new WeaponStatusElement(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
     hud_overlay->AddChild(new WeaponStatusElement(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
 
@@ -206,6 +206,11 @@ int SystemTestZone::OnUnload()
         g_entity_manager->ReleaseEntity(entity_id);
 
     g_entity_manager->Sync();
+
+    RemoveUpdatable(m_game_camera.get());
+    RemoveDrawable(m_console_drawer.get());
+    RemoveUpdatable(m_server_manager.get());
+
     return 0;
 }
 

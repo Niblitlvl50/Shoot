@@ -53,6 +53,13 @@ WeaponStatusElement::WeaponStatusElement(
     AddChild(m_ammo_text.get());
 }
 
+WeaponStatusElement::~WeaponStatusElement()
+{
+    RemoveChild(m_frame_sprite.get());
+    RemoveChild(m_weapon_sprites.get());
+    RemoveChild(m_ammo_text.get());
+}
+
 void WeaponStatusElement::Draw(mono::IRenderer& renderer) const
 { }
 

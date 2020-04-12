@@ -16,6 +16,7 @@ namespace game
 
         WeaponStatusElement(
             const PlayerInfo& player_info, const math::Vector& position, const math::Vector& offscreen_position);
+        ~WeaponStatusElement();
         void Draw(mono::IRenderer& renderer) const override;
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -29,5 +30,5 @@ namespace game
         std::unique_ptr<class UITextElement> m_ammo_text;
         std::unique_ptr<class UISpriteElement> m_weapon_sprites;
         std::unique_ptr<class UISpriteElement> m_frame_sprite;
-    };    
+    };
 }
