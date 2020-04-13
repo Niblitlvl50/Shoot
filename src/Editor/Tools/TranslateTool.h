@@ -38,7 +38,7 @@ namespace editor
         math::Vector m_begin_translate;
         math::Vector m_position_diff;
 
-        bool m_was_snapped;
+        // bool m_was_snapped;
         bool m_snap_rotate;
     };
 }

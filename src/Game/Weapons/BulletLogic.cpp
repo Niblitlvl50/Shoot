@@ -36,7 +36,7 @@ BulletLogic::BulletLogic(uint32_t entity_id, const BulletConfiguration& config, 
 
     m_physics_system = physics_system;
     m_bullet_behaviour = config.bullet_behaviour;
-    m_jumps_left = 2;
+    m_jumps_left = 3;
 }
 
 void BulletLogic::Update(uint32_t delta_ms)

@@ -16,7 +16,7 @@ using namespace editor;
 TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
     , m_entity_id(std::numeric_limits<uint32_t>::max())
-    , m_was_snapped(false)
+    // , m_was_snapped(false)
     , m_snap_rotate(false)
 { }
 
