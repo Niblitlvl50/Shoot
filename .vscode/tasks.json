@@ -4,12 +4,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build",
+            "label": "build",
+            "type": "shell",
             "command": "make",
             "args": [
                 "-j8"
             ],
-            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -17,25 +20,31 @@
             "problemMatcher": []
         },
         {
-            "taskName": "clean",
+            "label": "clean",
             "command": "make",
             "args": [
                 "clean"
             ],
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
             "type": "process",
             "problemMatcher": []
         },
         {
-            "taskName": "cmake",
+            "label": "cmake",
             "command": "cmake",
             "args": [
-                "."
+                "../"
             ],
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
             "type": "process",
             "problemMatcher": []
         },
         {
-            "taskName": "game",
+            "label": "game",
             "type": "process",
             "group": {
                 "kind": "test",
@@ -46,14 +55,14 @@
             "problemMatcher": []
         },
         {
-            "taskName": "game test",
+            "label": "game test",
             "type": "process",
             "command": "./bin/game_test_exe",
             "args": [ ],
             "problemMatcher": []
         },
         {
-            "taskName": "editor",
+            "label": "editor",
             "type": "process",
             "command": "./bin/editor.app/Contents/MacOS/editor",
             "args": ["res/world.world"],
