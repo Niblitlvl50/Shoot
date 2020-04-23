@@ -7,6 +7,8 @@
 #include "EventHandler/EventToken.h"
 #include "GameMode/CaptureTheFlagScore.h"
 
+#include <memory>
+
 namespace network
 {
     struct Address;
