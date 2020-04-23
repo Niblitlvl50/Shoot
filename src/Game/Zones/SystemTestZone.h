@@ -8,6 +8,8 @@
 
 #include "GameConfig.h"
 
+#include <memory>
+
 class ImGuiInputHandler;
 
 namespace game
