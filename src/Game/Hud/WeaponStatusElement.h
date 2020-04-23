@@ -5,6 +5,7 @@
 #include "Math/Vector.h"
 
 #include <vector>
+#include <memory>
 
 namespace game
 {

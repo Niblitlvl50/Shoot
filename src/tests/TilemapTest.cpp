@@ -2,7 +2,7 @@
 #include "World/IsometricTileMap.h"
 #include <gtest/gtest.h>
 
-TEST(TilemapTest, LoadMap)
+TEST(TilemapTest, DISABLED_LoadMap)
 {
     const game::TileMap tilemap = game::LoadTilemap("res/tilemaps/prototype_map.json");
 
@@ -34,7 +34,7 @@ TEST(TilemapTest, LoadMap)
     ASSERT_EQ(last_tileset.tileset_file, "another_tileset.json");
 }
 
-TEST(TilemapTest, LoadTileSet)
+TEST(TilemapTest, DISABLED_LoadTileSet)
 {
     const game::TileSet tileset = game::LoadTileset("res/tilemaps/prototype_tileset.json");
 
