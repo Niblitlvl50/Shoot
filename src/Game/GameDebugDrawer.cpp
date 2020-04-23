@@ -40,7 +40,9 @@ void GameDebugDrawer::doDraw(mono::IRenderer& renderer) const
     for(DebugLine& line : m_debug_lines)
     {
         const std::vector<math::Vector> line_points = { line.start, line.end };
-        renderer.DrawLines(line_points, line.color, line.width);
+        mono::Color::RGBA color = line.color;
+        color.alpha = 1.0f - float(line.timestamp) / 5000.0f;
+        renderer.DrawLines(line_points, color, line.width);
 
         line.timestamp += renderer.GetDeltaTimeMS();
     }
