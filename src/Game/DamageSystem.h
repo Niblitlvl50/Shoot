@@ -13,6 +13,7 @@ namespace game
     struct DamageRecord
     {
         int health;
+        int full_health;
         int multipier;
         uint32_t strong_against;
         uint32_t weak_against;

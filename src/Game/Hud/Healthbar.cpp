@@ -73,7 +73,7 @@ void HealthbarDrawer::doDraw(mono::IRenderer& renderer) const
         Healthbar bar;
         bar.position = position - math::Vector(0.0f, scale.y / 2.0f + 0.5f);
         bar.width = scale.x;
-        bar.health_percentage = float(record.health) / 100.0f;
+        bar.health_percentage = float(record.health) / float(record.full_health);
         healthbars.push_back(bar);
     };
 

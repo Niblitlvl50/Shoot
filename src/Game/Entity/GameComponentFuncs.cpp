@@ -218,6 +218,7 @@ namespace
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity.id);
         damage_record->health = health;
+        damage_record->full_health = health;
 
         return true;
     }
