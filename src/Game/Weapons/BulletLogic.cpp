@@ -5,6 +5,7 @@
 #include "Audio/ISound.h"
 #include "Audio/AudioFactory.h"
 #include "Util/Random.h"
+#include "Math/MathFunctions.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CMSpace.h"
@@ -14,6 +15,8 @@
 #include "IDebugDrawer.h"
 #include "Factories.h"
 #include "Rendering/Color.h"
+
+#include <cmath>
 
 using namespace game;
 
@@ -64,26 +67,49 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
 
             m_jump_ids.push_back(colliding_id);
 
-            const mono::QueryFilter query_filter = [this](uint32_t entity_id) {
-                // If it does not exist in the vector we accept this entity.
-                return (std::find(m_jump_ids.begin(), m_jump_ids.end(), entity_id) == m_jump_ids.end());
+            mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
+            const math::Vector bullet_position = bullet_body->GetPosition();
+            const math::Vector bullet_velocity = bullet_body->GetVelocity();
+            const math::Vector bullet_velocity_normalized = math::Normalize(bullet_body->GetVelocity());
+            const float bullet_velocity_length = math::Length(bullet_velocity);
+
+            const mono::QueryFilter query_filter = [this, &bullet_position, &bullet_velocity_normalized](uint32_t entity_id, const math::Vector& point) {
+
+                const bool already_processed = (std::find(m_jump_ids.begin(), m_jump_ids.end(), entity_id) != m_jump_ids.end());
+                if(already_processed)
+                    return false;
+
+                const math::Vector local_point = point - bullet_position;
+                const float dot_product = math::Dot(local_point, bullet_velocity_normalized);
+                if(dot_product < 0.0f) // if its less than zero its behind the bullet
+                    return false;
+
+                const float radians = math::AngleBetweenPoints(local_point, bullet_velocity_normalized);
+                const float degrees = math::ToDegrees(radians);
+                printf("%.2f\n", degrees);
+
+                const math::Vector normalized_local_point = math::Normalize(local_point);
+                g_debug_drawer->DrawLine(point, point + bullet_velocity_normalized, 2.0f, mono::Color::RED);
+                g_debug_drawer->DrawLine(point, point + normalized_local_point, 2.0f, mono::Color::GREEN);
+
+                //const float base_radians = math::AngleFromVector(bullet_velocity_normalized);
+                //const float radians = math::AngleBetweenPoints(local_point, bullet_velocity_normalized);
+                //const float degrees = math::ToDegrees(base_radians - radians);
+                //printf("base angle %.2f, angle %.2f, calculated %.2f\n", math::ToDegrees(base_radians), math::ToDegrees(radians), degrees);
+
+                return (std::fabs(degrees) < 45.0f);
             };
+
+            printf("\n");
 
             const mono::IBody* found_body = space->QueryNearest(collision_point, 10.0f, game::CollisionCategory::ENEMY, query_filter);
             if(found_body)
             {
-                mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
-                const math::Vector bullet_position = bullet_body->GetPosition();
-
                 const math::Vector found_body_position = found_body->GetPosition();
                 const math::Vector unit_direction = math::Normalize(found_body_position - bullet_position);
 
-                const float bullet_velocity = math::Length(bullet_body->GetVelocity());
-                bullet_body->SetVelocity(unit_direction * bullet_velocity);
+                bullet_body->SetVelocity(unit_direction * bullet_velocity_length);
                 m_jumps_left--;
-
-                g_debug_drawer->DrawPoint(found_body_position, 4.0f, mono::Color::MAGENTA);
-                g_debug_drawer->DrawLine(bullet_position, bullet_position + unit_direction, 2.0f, mono::Color::MAGENTA);
             }
         }
     }
