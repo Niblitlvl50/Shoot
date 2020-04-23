@@ -18,6 +18,7 @@ EntityLogicSystem::~EntityLogicSystem()
         return logic == nullptr;
     };
 
+    (void)all_is_nullptr;
     assert(std::all_of(m_logics.begin(), m_logics.end(), all_is_nullptr));
 }
 

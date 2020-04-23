@@ -88,13 +88,14 @@ void Spawner::SpawnNextWave()
     const std::vector<Attribute> attributes;
     const Wave& next_wave = m_waves[m_wave_index];
 
-    const SpawnPoint& spawn_point = m_spawn_points[mono::Random(0, m_spawn_points.size())];
+    // const SpawnPoint& spawn_point = m_spawn_points[mono::Random(0, m_spawn_points.size())];
 
     for(const std::string& spawn_tag : next_wave.tags)
     {
-        const float spawn_angle = mono::Random(0.0f, math::PI() * 2.0f);
-        const float spawn_radius = mono::Random(0.0f, spawn_point.radius);
-        const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
+        (void)spawn_tag;
+        // const float spawn_angle = mono::Random(0.0f, math::PI() * 2.0f);
+        // const float spawn_radius = mono::Random(0.0f, spawn_point.radius);
+        // const math::Vector& spawn_offset = math::VectorFromAngle(spawn_angle) * spawn_radius;
 
         //EnemyPtr enemy = enemy_factory->CreateFromName(spawn_tag.c_str(), spawn_point.position + spawn_offset, attributes);
         //m_event_handler.DispatchEvent(game::SpawnPhysicsEntityEvent(enemy, LayerId::GAMEOBJECTS));
