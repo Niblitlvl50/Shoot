@@ -14,6 +14,7 @@
 #include "Tools/RotateTool.h"
 #include "Tools/CameraTool.h"
 #include "Tools/PathTool.h"
+#include "Tools/MeasureTool.h"
 
 #include "System/System.h"
 
@@ -66,6 +67,7 @@ namespace editor
         editor::PolygonBoxTool m_polygon_box_tool;
         editor::PolygonBrushTool m_polygon_brush_tool;
         editor::PathTool m_path_tool;
+        editor::MeasureTool m_measure_tool;
 
         editor::ITool* m_active_tool;
 

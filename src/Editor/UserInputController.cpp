@@ -34,20 +34,21 @@ UserInputController::UserInputController(
     editor::Editor* editor,
     editor::UIContext* context,
     mono::EventHandler& event_handler)
-    : m_window(window),
-      m_event_handler(event_handler),
-      m_editor(editor),
-      m_context(context),
-      m_camera_tool(camera, window),
-      m_translate_tool(editor),
-      m_rotate_tool(editor),
-      m_polygon_tool(editor),
-      m_polygon_box_tool(editor),
-      m_polygon_brush_tool(editor),
-      m_path_tool(editor),
-      m_active_tool(nullptr),
-      m_grabber(nullptr),
-      m_is_maximized(false)
+    : m_window(window)
+    , m_event_handler(event_handler)
+    , m_editor(editor)
+    , m_context(context)
+    , m_camera_tool(camera, window)
+    , m_translate_tool(editor)
+    , m_rotate_tool(editor)
+    , m_polygon_tool(editor)
+    , m_polygon_box_tool(editor)
+    , m_polygon_brush_tool(editor)
+    , m_path_tool(editor)
+    , m_measure_tool(editor)
+    , m_active_tool(nullptr)
+    , m_grabber(nullptr)
+    , m_is_maximized(false)
 {
     using namespace std::placeholders;
 
@@ -103,6 +104,12 @@ UserInputController::UserInputController(
         { "Create path", "Undo last" }
     };
 
+    tools[ToolsMenuOptions::MEASURE_TOOL] = {
+        &m_measure_tool,
+        Notification(m_context->default_icon, "Measure tool", 2000),
+        {}
+    };
+
     SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
 }
 
@@ -124,10 +131,14 @@ void UserInputController::HandleContextMenu(int item_index)
 
 void UserInputController::SelectTool(ToolsMenuOptions option)
 {
-    if(m_active_tool)
-        m_active_tool->End();
-
     const ToolData& tool_data = tools[option];
+    if(m_active_tool)
+    {
+        if(m_active_tool == tool_data.tool)
+            return;
+
+        m_active_tool->End();
+    }
 
     m_active_tool = tool_data.tool;
     m_context->notifications.push_back(tool_data.notification);
@@ -249,6 +260,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         SelectTool(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
     else if(event.key == Keycode::SIX)
         SelectTool(ToolsMenuOptions::PATH_TOOL);
+    else if(event.key == Keycode::M)
+        SelectTool(ToolsMenuOptions::MEASURE_TOOL);
     else if(event.key == Keycode::N)
         m_editor->EnableDrawObjectNames(!m_editor->DrawObjectNames());
     else if(event.key == Keycode::S)
@@ -293,5 +306,15 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
 mono::EventResult UserInputController::OnKeyUp(const event::KeyUpEvent& event)
 {
     m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
+
+    switch(event.key)
+    {
+        case Keycode::M:
+            SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
+            break;
+        default:
+            break;
+    }
+
     return mono::EventResult::PASS_ON;
 }

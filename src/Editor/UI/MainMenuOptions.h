@@ -20,6 +20,7 @@ namespace editor
         POLYGON_BOX_TOOL,
         POLYGON_BRUSH_TOOL,
         PATH_TOOL,
+        MEASURE_TOOL,
         N_TOOLS
     };
 }
