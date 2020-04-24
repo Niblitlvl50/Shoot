@@ -75,7 +75,10 @@ PathEntity::PathEntity(const std::string& name)
         { 18, 8 },
     };
 
-    m_ctx = parsl_create_context({ .thickness = 0.1, .curves_max_flatness = 0.25 });
+    parsl_config config;
+    config.thickness = 0.1;
+    config.curves_max_flatness = 0.25;
+    m_ctx = parsl_create_context(config);
 }
 
 PathEntity::PathEntity(const std::string& name, const std::vector<math::Vector>& local_points)
