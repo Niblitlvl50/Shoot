@@ -1,9 +1,10 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
+#include "MonoFwd.h"
 #include "Math/MathFwd.h"
 #include <vector>
+#include <memory>
 
 struct Attribute;
 struct Component;

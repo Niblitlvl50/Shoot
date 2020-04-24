@@ -15,6 +15,7 @@
 
 #include "ObjectFactory.h"
 
+#include <memory>
 
 class ImGuiInputHandler;
 class IEntityManager;

@@ -12,6 +12,7 @@
 #include "StateMachine.h"
 
 #include <cstdint>
+#include <memory>
 
 namespace game
 {

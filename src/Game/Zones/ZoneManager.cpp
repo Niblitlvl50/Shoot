@@ -10,7 +10,7 @@ using namespace game;
 namespace
 {
     template <typename T>
-    mono::IZonePtr LoadZone(const ZoneCreationContext& zone_context)
+    game::IZonePtr LoadZone(const ZoneCreationContext& zone_context)
     {
         return std::make_unique<T>(zone_context);
     }
@@ -35,7 +35,7 @@ void ZoneManager::Run()
             break;
 
         LoadFunction load_func = m_zones[m_active_zone];
-        mono::IZonePtr zone = load_func(m_zone_context);
+        game::IZonePtr zone = load_func(m_zone_context);
         m_active_zone = m_engine.Run(zone.get());
     }
 }

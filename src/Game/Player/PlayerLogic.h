@@ -10,6 +10,8 @@
 
 #include "MonoFwd.h"
 
+#include <memory>
+
 namespace mono
 {
     class TransformSystem;

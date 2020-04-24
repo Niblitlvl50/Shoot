@@ -6,6 +6,8 @@
 #include "EventHandler/EventToken.h"
 #include "Events/EventFwd.h"
 
+#include <memory>
+
 namespace game
 {
     class TitleScreen : public mono::ZoneBase

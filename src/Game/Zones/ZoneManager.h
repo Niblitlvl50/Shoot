@@ -2,12 +2,14 @@
 #pragma once
 
 #include "ZoneCreationContext.h"
-#include "MonoPtrFwd.h"
+#include "MonoFwd.h"
 #include "Engine.h"
 #include <unordered_map>
 
 namespace game
 {
+    using IZonePtr = std::unique_ptr<mono::IZone>;
+
     class ZoneManager
     {
     public:
@@ -21,7 +23,7 @@ namespace game
         ZoneCreationContext m_zone_context;
         int m_active_zone;
 
-        using LoadFunction = mono::IZonePtr(*)(const ZoneCreationContext& zone_context);
+        using LoadFunction = game::IZonePtr(*)(const ZoneCreationContext& zone_context);
         std::unordered_map<int, LoadFunction> m_zones;
     };
 }
