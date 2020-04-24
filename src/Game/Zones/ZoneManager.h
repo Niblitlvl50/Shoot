@@ -4,7 +4,9 @@
 #include "ZoneCreationContext.h"
 #include "MonoFwd.h"
 #include "Engine.h"
+
 #include <unordered_map>
+#include <memory>
 
 namespace game
 {
