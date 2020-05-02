@@ -20,6 +20,7 @@
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/PlayerConnectedEvent.h"
+#include "Events/ScoreEvent.h"
 
 #include "Camera/ICamera.h"
 #include "Rendering/Color.h"
@@ -113,12 +114,15 @@ PlayerDaemon::PlayerDaemon(
 
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
+    const ScoreFunc& score_func = std::bind(&PlayerDaemon::PLayerScore, this, _1);
 
     m_player_connected_token = m_event_handler.AddListener(connected_func);
     m_player_disconnected_token = m_event_handler.AddListener(disconnected_func);
 
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
     m_remote_input_token = m_event_handler.AddListener(remote_input_func);
+
+    m_score_token = m_event_handler.AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
     {
@@ -141,6 +145,7 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler.RemoveListener(m_player_connected_token);
     m_event_handler.RemoveListener(m_player_disconnected_token);
     m_event_handler.RemoveListener(m_remote_input_token);
+    m_event_handler.RemoveListener(m_score_token);
 
     if(g_player_one.is_active)
         game::g_entity_manager->ReleaseEntity(g_player_one.entity_id);
@@ -295,6 +300,16 @@ mono::EventResult PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
         it->second.controller_state = event.controller_state;
 
     return mono::EventResult::HANDLED;
+}
+
+mono::EventResult PlayerDaemon::PLayerScore(const ScoreEvent& event)
+{
+    if(g_player_one.entity_id == event.entity_id)
+        g_player_one.score += event.score;
+    else if(g_player_two.entity_id == event.entity_id)
+        g_player_two.score += event.score;
+
+    return mono::EventResult::PASS_ON;
 }
 
 

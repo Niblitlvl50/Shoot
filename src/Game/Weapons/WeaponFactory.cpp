@@ -50,7 +50,7 @@ namespace
     {
         const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
         if(other_entity_id != std::numeric_limits<uint32_t>::max() && flags & game::BulletCollisionFlag::APPLY_DAMAGE)
-            damage_system->ApplyDamage(other_entity_id, 10, 0);
+            damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
 
         if(flags & game::BulletCollisionFlag::DESTROY_THIS)
             entity_manager->ReleaseEntity(entity_id);

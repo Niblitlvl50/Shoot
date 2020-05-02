@@ -20,6 +20,7 @@ namespace game
     private:
 
         const PlayerInfo& m_player_info;
+        int m_current_score;
         // const math::Vector m_screen_position;
         // const math::Vector m_offscreen_position;
         // float m_timer;
