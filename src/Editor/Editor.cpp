@@ -288,6 +288,8 @@ void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
     {
         m_preselected_id = NO_SELECTION;
     }
+    
+    m_context.preselected_proxy_object = proxy_object;
 }
 
 void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)

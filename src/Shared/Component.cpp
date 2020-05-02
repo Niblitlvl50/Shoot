@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "System/System.h"
 
-extern const std::array<DefaultAttribute, 25> default_attributes = {{
+extern const std::array<DefaultAttribute, 26> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -27,6 +27,7 @@ extern const std::array<DefaultAttribute, 25> default_attributes = {{
     DefaultAttribute("end",                 Variant(math::ZeroVec)),
 
     DefaultAttribute("health",              Variant(100)),
+    DefaultAttribute("score",               Variant(90)),
 
     DefaultAttribute("sprite_file",         Variant("")),
     DefaultAttribute("animation",           Variant(0)),
@@ -60,11 +61,12 @@ extern const uint32_t START_ATTRIBUTE               = default_attributes[17].has
 extern const uint32_t END_ATTRIBUTE                 = default_attributes[18].hash;
 
 extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[19].hash;
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[20].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[21].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[22].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[23].hash;
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[24].hash;
+extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[20].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[21].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[22].hash;
+extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[23].hash;
+extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[24].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[25].hash;
 
 
 
@@ -75,7 +77,7 @@ extern const std::array<Component, 8> default_components = {
     MakeDefaultComponent("circle_shape",        { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("box_shape",           { FACTION_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("segment_shape",       { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
-    MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE } ),
+    MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE } ),
     MakeDefaultComponent("entity_behaviour",    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
 };
 

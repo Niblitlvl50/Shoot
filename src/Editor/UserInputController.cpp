@@ -286,15 +286,16 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         if(proxy)
         {
             math::Vector new_position = proxy->GetPosition();
+            const float offset = event.shift ? 0.5f : 1.0f;
 
             if(event.key == Keycode::LEFT)
-                new_position.x -= 1;
+                new_position.x -= offset;
             else if(event.key == Keycode::RIGHT)
-                new_position.x += 1;
+                new_position.x += offset;
             else if(event.key == Keycode::UP)
-                new_position.y += 1;
+                new_position.y += offset;
             else if(event.key == Keycode::DOWN)
-                new_position.y -= 1;
+                new_position.y -= offset;
 
             m_translate_tool.MoveObject(selected_object_id, new_position);
         }

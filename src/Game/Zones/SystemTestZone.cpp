@@ -22,6 +22,7 @@
 #include "AIKnowledge.h"
 
 #include "Hud/WeaponStatusElement.h"
+#include "Hud/PlayerScoreElement.h"
 #include "Hud/Overlay.h"
 #include "Hud/FPSElement.h"
 #include "Hud/PhysicsStatsElement.h"
@@ -183,6 +184,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
     hud_overlay->AddChild(new WeaponStatusElement(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
     hud_overlay->AddChild(new WeaponStatusElement(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
+    hud_overlay->AddChild(new PlayerScoreElement(g_player_one, math::Vector(20.0f, 20.0f)));
 
     hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     hud_overlay->AddChild(new PhysicsStatsElement(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));

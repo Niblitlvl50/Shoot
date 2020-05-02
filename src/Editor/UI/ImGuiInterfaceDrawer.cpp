@@ -86,18 +86,23 @@ namespace
             ImGuiWindowFlags_AlwaysAutoResize |
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove |
-            //ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoSavedSettings;
 
+        const float window_height = ImGui::GetIO().DisplaySize.y;
         ImGui::SetNextWindowPos(ImVec2(30, 40));
-        //ImGui::SetNextWindowSize(ImVec2(135, 600));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(155, 50), ImVec2(155, window_height - 60));
 
         ImGui::Begin("Objects", nullptr, flags);
+
+        
+
+        //const bool open = ImGui::TreeNode("object_tree");
+        //if(open)
 
         for(size_t index = 0; index < context.all_proxy_objects->size(); ++index)
         {
             const IObjectProxyPtr& proxy = context.all_proxy_objects->at(index);
-            const bool selected = (proxy.get() == context.selected_proxy_object);
+            const bool selected = (proxy.get() == context.selected_proxy_object) || (proxy.get() == context.preselected_proxy_object);
             
             ImGui::PushID(index);
 
@@ -115,6 +120,8 @@ namespace
 
             ImGui::PopID();
         }
+            
+            //ImGui::TreePop();
 
         ImGui::End();
     }
@@ -125,8 +132,7 @@ namespace
             return;
 
         constexpr int flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
-        ImGui::Begin("Selection", nullptr, ImVec2(250, 120), true, flags);
-
+        ImGui::Begin("Selection", nullptr, flags);
         context.selected_proxy_object->UpdateUIContext(context);
 
         if(ImGui::Button("Delete"))
@@ -191,8 +197,10 @@ namespace
             std::sprintf(window_id, "overlay: %zu", index);
 
             ImGui::SetNextWindowPos(ImVec2(window_position - 10, index * 60 + 30));
+            ImGui::SetNextWindowSize(window_size);
+            ImGui::SetNextWindowBgAlpha(window_alpha);
 
-            ImGui::Begin(window_id, nullptr, window_size, window_alpha, notification_window_flags);
+            ImGui::Begin(window_id, nullptr, notification_window_flags);
             ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
             ImGui::SameLine();
             ImGui::TextColored(tint, "%s", note.text.c_str());

@@ -1,14 +1,17 @@
 
 #include "DamageSystem.h"
 #include "Entity/IEntityManager.h"
+#include "EventHandler/EventHandler.h"
+#include "Events/ScoreEvent.h"
 #include "Util/Hash.h"
 #include <limits>
 #include <cassert>
 
 using namespace game;
 
-DamageSystem::DamageSystem(size_t num_records, IEntityManager* entity_manager)
+DamageSystem::DamageSystem(size_t num_records, IEntityManager* entity_manager, mono::EventHandler* event_handler)
     : m_entity_manager(entity_manager)
+    , m_event_handler(event_handler)
     , m_elapsed_time(0)
     , m_damage_records(num_records)
     , m_destroyed_callbacks(num_records)
@@ -25,7 +28,7 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     new_record.strong_against = 0;
     new_record.weak_against = 0;
     new_record.multipier = 1;
-    new_record.last_damaged_timestamp = std::numeric_limits<unsigned int>::max();
+    new_record.last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
 
     return &new_record;
 }
@@ -57,7 +60,7 @@ DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
     return &m_damage_records[id];
 }
 
-DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage)
+DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage)
 {
     DamageResult result = { 0 };
 
@@ -77,6 +80,8 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage)
             if(callback)
                 callback(id);
         }
+
+        m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, damage_record.score));
     }
 
     return result;

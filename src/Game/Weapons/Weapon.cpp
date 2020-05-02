@@ -97,7 +97,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
             const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
 
             mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_weapon_config.bullet_config.entity_file);
-            BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.bullet_config, m_physics_system);
+            BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.owner_id, m_weapon_config.bullet_config, m_physics_system);
 
             m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
             m_logic_system->AddLogic(bullet_entity.id, bullet_logic);

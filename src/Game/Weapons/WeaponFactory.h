@@ -12,10 +12,7 @@ namespace game
     {
     public:
         WeaponFactory(IEntityManager* entity_manager, mono::SystemContext* system_context);
-        
-        std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction) override;
-        std::unique_ptr<IWeaponSystem> CreateWeapon(
-            WeaponType weapon, WeaponFaction faction, mono::ParticlePool* pool) override;
+        std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner) override;
 
     private:
         IEntityManager* m_entity_manager;

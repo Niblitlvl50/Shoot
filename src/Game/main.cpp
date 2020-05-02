@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, &event_handler);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
         const math::Vector window_size = math::Vector(options.width, options.height);

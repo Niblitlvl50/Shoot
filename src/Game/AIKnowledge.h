@@ -18,6 +18,7 @@ namespace game
         int magazine_left;
         int magazine_capacity;
         int ammunition_left;
+        int score;
     };
 
     extern PlayerInfo g_player_one;

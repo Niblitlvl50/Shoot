@@ -89,5 +89,26 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
     if(quit)
         m_event_handler.DispatchEvent(event::QuitEvent());
 
+    const bool left_triggered = IS_TRIGGERED(left);
+    const bool right_triggered = IS_TRIGGERED(right);
+    const bool up_triggered = IS_TRIGGERED(up);
+    const bool down_triggered = IS_TRIGGERED(down);
+
+    if(left_triggered || right_triggered || up_triggered || down_triggered)
+    {
+        BlinkDirection direction;
+
+        if(left_triggered)
+            direction = BlinkDirection::LEFT;
+        else if(right_triggered)
+            direction = BlinkDirection::RIGHT;
+        else if(up_triggered)
+            direction = BlinkDirection::UP;
+        else
+            direction = BlinkDirection::DOWN;
+
+        m_shuttle_logic->Blink(direction);
+    }
+
     m_last_state = m_state;
 }

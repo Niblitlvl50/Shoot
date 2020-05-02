@@ -114,7 +114,7 @@ void PlayerLogic::Reload()
 
 void PlayerLogic::SelectWeapon(WeaponType weapon)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER);
+    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
     m_weapon_type = weapon;
 }
 
@@ -181,6 +181,31 @@ void PlayerLogic::GiveAmmo(int value)
 void PlayerLogic::GiveHealth(int value)
 {
     printf("Give Health!\n");
+}
+
+void PlayerLogic::Blink(BlinkDirection direction)
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    const math::Vector position = body->GetPosition();
+
+    math::Vector blink_offset;
+    switch(direction)
+    {
+    case BlinkDirection::LEFT:
+        blink_offset.x = -1.0f;
+        break;
+    case BlinkDirection::RIGHT:
+        blink_offset.x = 1.0f;
+        break;
+    case BlinkDirection::UP:
+        blink_offset.y = 1.0f;
+        break;
+    case BlinkDirection::DOWN:
+        blink_offset.y = -1.0f;
+        break;
+    }
+
+    body->SetPosition(position + blink_offset);
 }
 
 uint32_t PlayerLogic::EntityId() const

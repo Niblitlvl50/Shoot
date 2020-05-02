@@ -32,6 +32,14 @@ namespace game
         WALK_UP
     };
 
+    enum class BlinkDirection
+    {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+    };
+
     class PlayerLogic : public IEntityLogic
     {
     public:
@@ -56,6 +64,8 @@ namespace game
         void SetAnimation(PlayerAnimation animation);
         void GiveAmmo(int value);
         void GiveHealth(int value);
+        void Blink(BlinkDirection direction);
+
         uint32_t EntityId() const;
 
         const uint32_t m_entity_id;

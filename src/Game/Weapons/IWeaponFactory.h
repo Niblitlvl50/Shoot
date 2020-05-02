@@ -2,13 +2,8 @@
 #pragma once
 
 #include "WeaponTypes.h"
-#include "Particle/ParticleFwd.h"
 #include <memory>
-
-namespace mono
-{
-    struct ParticlePool;
-}
+#include <cstdint>
 
 namespace game
 {
@@ -20,8 +15,6 @@ namespace game
         virtual ~IWeaponFactory()
         { }
 
-        virtual std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction) = 0;
-        virtual std::unique_ptr<IWeaponSystem> CreateWeapon(
-            WeaponType weapon, WeaponFaction faction, mono::ParticlePool* pool) = 0;
+        virtual std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id) = 0;
     };
 }

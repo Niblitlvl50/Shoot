@@ -15,7 +15,12 @@ namespace game
         DESTROY_THIS = 2,
     };
 
-    using BulletImpactCallback = std::function<void (uint32_t entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with)>;
+    // entity_id is the bullet that collides with something
+    // owner_entity_id is the owner of this bullet
+    // imact_flags is what to do on impact
+    // collide_with is the body that the bullet collides with
+    using BulletImpactCallback =
+        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with)>;
 
     enum class BulletCollisionBehaviour
     {
@@ -41,6 +46,7 @@ namespace game
 
     struct WeaponConfiguration
     {
+        uint32_t owner_id = 0;
         int magazine_size = 10;
         int projectiles_per_fire = 1;
         float rounds_per_second = 1.0f;

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "IGameSystem.h"
+#include "MonoFwd.h"
 #include <vector>
 #include <functional>
 #include <array>
@@ -15,6 +16,7 @@ namespace game
         int health;
         int full_health;
         int multipier;
+        int score;
         uint32_t strong_against;
         uint32_t weak_against;
         uint32_t last_damaged_timestamp;
@@ -30,7 +32,7 @@ namespace game
     class DamageSystem : public mono::IGameSystem
     {
     public:
-        DamageSystem(size_t num_records, IEntityManager* entity_manager);
+        DamageSystem(size_t num_records, IEntityManager* entity_manager, mono::EventHandler* event_handler);
 
         DamageRecord* CreateRecord(uint32_t id);
         uint32_t SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback);
@@ -39,7 +41,7 @@ namespace game
 
         DamageRecord* GetDamageRecord(uint32_t id);
 
-        DamageResult ApplyDamage(uint32_t id, int damage);
+        DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
         const std::vector<DamageRecord>& GetDamageRecords() const;
 
         template <typename T>
@@ -62,6 +64,7 @@ namespace game
         size_t FindFreeCallbackIndex(uint32_t id) const;
 
         IEntityManager* m_entity_manager;
+        mono::EventHandler* m_event_handler;
         uint32_t m_elapsed_time;
         
         std::vector<DamageRecord> m_damage_records;

@@ -20,8 +20,10 @@
 
 using namespace game;
 
-BulletLogic::BulletLogic(uint32_t entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system)
+BulletLogic::BulletLogic(
+    uint32_t entity_id, uint32_t owner_entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system)
     : m_entity_id(entity_id)
+    , m_owner_entity_id(owner_entity_id)
     , m_collision_callback(config.collision_callback)
 {
     const float life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
@@ -48,7 +50,7 @@ void BulletLogic::Update(uint32_t delta_ms)
 
     m_life_span -= delta_ms;
     if(m_life_span < 0)
-        m_collision_callback(m_entity_id, BulletCollisionFlag::DESTROY_THIS, nullptr);
+        m_collision_callback(m_entity_id, m_owner_entity_id, BulletCollisionFlag::DESTROY_THIS, nullptr);
 }
 
 mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, const math::Vector& collision_point, uint32_t categories)
@@ -114,6 +116,6 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
         collision_flags = BulletCollisionFlag(collision_flags & ~BulletCollisionFlag::DESTROY_THIS);
     }
 
-    m_collision_callback(m_entity_id, collision_flags, colliding_body);
+    m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, colliding_body);
     return resolve_type;
 }

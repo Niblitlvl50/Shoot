@@ -26,6 +26,12 @@ namespace editor
         std::string name;
     };
 
+    struct UIFolder
+    {
+        std::string name;
+        std::vector<uint32_t> proxy_ids;
+    };
+
     struct UIContext
     {
         math::Vector world_mouse_position;
@@ -38,7 +44,9 @@ namespace editor
         // Objects
         bool draw_outline = false;
         class IObjectProxy* selected_proxy_object = nullptr;
+        class IObjectProxy* preselected_proxy_object = nullptr;
         std::vector<std::unique_ptr<IObjectProxy>>* all_proxy_objects = nullptr;
+        std::vector<UIFolder> folders;
 
         // Options
         mono::Color::RGBA background_color;
@@ -72,7 +80,6 @@ namespace editor
         std::function<void (int)> modal_selection_callback;
         std::function<void (EditorMenuOptions option)> editor_menu_callback;
         std::function<void (ToolsMenuOptions option)> tools_menu_callback;
-        std::function<void (const std::string& id, const math::Vector& position)> drop_callback;
 
         std::function<void (bool)> draw_object_names_callback;
         std::function<void (bool)> draw_snappers_callback;

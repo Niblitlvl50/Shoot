@@ -215,10 +215,18 @@ namespace
             return false;
         }
 
+        int score;
+        if(!FindAttribute(SCORE_ATTRIBUTE, properties, score))
+        {
+            System::Log("GameComponentFuncs|Missing score parameter, will not update component.\n");
+            return false;
+        }
+
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity.id);
         damage_record->health = health;
         damage_record->full_health = health;
+        damage_record->score = score;
 
         return true;
     }

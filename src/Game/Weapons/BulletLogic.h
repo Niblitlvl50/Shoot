@@ -15,11 +15,13 @@ namespace game
     {
     public:
 
-        BulletLogic(uint32_t entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system);
+        BulletLogic(uint32_t entity_id, uint32_t owner_entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system);
         void Update(uint32_t delta_ms) override;
         mono::CollisionResolve OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override;
 
         const uint32_t m_entity_id;
+        const uint32_t m_owner_entity_id;
+
         BulletImpactCallback m_collision_callback;
         int m_life_span;
         mono::ISoundPtr m_sound;

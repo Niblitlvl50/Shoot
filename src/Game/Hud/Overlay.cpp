@@ -2,7 +2,6 @@
 #include "Overlay.h"
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
-#include "System/UID.h"
 
 using namespace game;
 
