@@ -3,9 +3,9 @@
 #include "ZoneFlow.h"
 #include "Effects/ScreenSparkles.h"
 
-#include "UI/TextEntity.h"
-#include "UI/IconEntity.h"
-#include "UI/Background.h"
+#include "Hud/UI/TextEntity.h"
+#include "Hud/UI/IconEntity.h"
+#include "Hud/UI/Background.h"
 #include "RenderLayers.h"
 #include "Actions/MoveAction.h"
 

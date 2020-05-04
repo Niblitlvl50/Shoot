@@ -5,10 +5,10 @@
 #include "SpriteResources.h"
 #include "RenderLayers.h"
 
-#include "Hud/ConsoleDrawer.h"
+#include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Overlay.h"
-#include "Hud/NetworkStatusDrawer.h"
-#include "Hud/FPSElement.h"
+#include "Hud/Debug/NetworkStatusDrawer.h"
+#include "Hud/Debug/FPSElement.h"
 
 #include "WorldFile.h"
 #include "World/World.h"
