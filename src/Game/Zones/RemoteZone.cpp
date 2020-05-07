@@ -108,6 +108,9 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
 
 int RemoteZone::OnUnload()
 {
+    RemoveUpdatable(m_game_camera.get());
+    RemoveUpdatable(m_client_manager.get());
+    RemoveDrawable(m_console_drawer.get());
     return 0;
 }
 
