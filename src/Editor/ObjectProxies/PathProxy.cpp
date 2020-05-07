@@ -114,6 +114,11 @@ void PathProxy::UpdateUIContext(UIContext& context)
     ImGui::Value("Rotation", m_path->Rotation());
 }
 
+std::string PathProxy::GetFolder() const
+{
+    return "PATHS";
+}
+
 const std::vector<Component>& PathProxy::GetComponents() const
 {
     return m_components;

@@ -19,10 +19,22 @@ namespace editor
     {
     public:
 
-        ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager, mono::TransformSystem* transform_system);
-        ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager, mono::TransformSystem* transform_system);
+        ComponentProxy(
+            uint32_t entity_id,
+            const std::string& name,
+            IEntityManager* entity_manager,
+            mono::TransformSystem* transform_system);
+        
+        ComponentProxy(
+            uint32_t entity_id,
+            const std::string& name,
+            const std::string& folder,
+            const std::vector<Component>& components,
+            IEntityManager* entity_manager,
+            mono::TransformSystem* transform_system);
+        
         ~ComponentProxy();
-    
+
         const char* Name() const override;
         uint32_t Id() const override;
         mono::IEntity* Entity() override;
@@ -33,6 +45,9 @@ namespace editor
         std::vector<SnapPoint> GetSnappers() const override;
 
         void UpdateUIContext(struct UIContext& context) override;
+
+        void SetFolder(const std::string& folder);
+        std::string GetFolder() const override;
 
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
@@ -52,6 +67,7 @@ namespace editor
 
         const uint32_t m_entity_id;
         std::string m_name;
+        std::string m_folder;
         uint32_t m_entity_properties;
         std::vector<Component> m_components;
         IEntityManager* m_entity_manager;

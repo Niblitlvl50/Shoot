@@ -100,6 +100,11 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
         m_polygon->SetTexture(avalible_textures[texture_index]);
 }
 
+std::string PolygonProxy::GetFolder() const
+{
+    return "POLYGONS";
+}
+
 const std::vector<Component>& PolygonProxy::GetComponents() const
 {
     return m_components;

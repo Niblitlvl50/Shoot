@@ -139,7 +139,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
         const std::string entity_folder = json_entity.value("folder", ""); 
         const uint32_t entity_props = json_entity.value("entity_properties", 0);
 
-        auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, entity_name, components, entity_manager, transform_system);
+        auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, entity_name, entity_folder, components, entity_manager, transform_system);
         component_proxy->SetEntityProperties(entity_props);
 
         proxies.push_back(std::move(component_proxy));

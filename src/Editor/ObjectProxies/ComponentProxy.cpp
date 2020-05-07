@@ -14,7 +14,11 @@
 
 using namespace editor;
 
-ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
+ComponentProxy::ComponentProxy(
+    uint32_t entity_id,
+    const std::string& name,
+    IEntityManager* entity_manager,
+    mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
     , m_entity_properties(0)
@@ -32,9 +36,16 @@ ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, IEnt
     }
 }
 
-ComponentProxy::ComponentProxy(uint32_t entity_id, const std::string& name, const std::vector<Component>& components, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
+ComponentProxy::ComponentProxy(
+    uint32_t entity_id,
+    const std::string& name,
+    const std::string& folder,
+    const std::vector<Component>& components,
+    IEntityManager* entity_manager,
+    mono::TransformSystem* transform_system)
     : m_entity_id(entity_id)
     , m_name(name)
+    , m_folder(folder)
     , m_entity_properties(0)
     , m_components(components)
     , m_entity_manager(entity_manager)
@@ -85,6 +96,7 @@ std::vector<SnapPoint> ComponentProxy::GetSnappers() const
 void ComponentProxy::UpdateUIContext(UIContext& context)
 {
     DrawName(m_name);
+    DrawFolder(m_folder);
     DrawEntityProperty(m_entity_properties);
     
     const int modified_index = DrawComponents(context, m_components);
@@ -93,6 +105,16 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
         Component& modified_component = m_components[modified_index];
         m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
     }
+}
+
+void ComponentProxy::SetFolder(const std::string& folder)
+{
+    m_folder = folder;
+}
+
+std::string ComponentProxy::GetFolder() const
+{
+    return m_folder;
 }
 
 const std::vector<Component>& ComponentProxy::GetComponents() const
@@ -152,7 +174,7 @@ std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
         m_entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
     }
 
-    return std::make_unique<ComponentProxy>(new_entity.id, "unnamed", m_components, m_entity_manager, m_transform_system);
+    return std::make_unique<ComponentProxy>(new_entity.id, "unnamed", m_folder, m_components, m_entity_manager, m_transform_system);
 }
 
 void ComponentProxy::Visit(IObjectVisitor& visitor)

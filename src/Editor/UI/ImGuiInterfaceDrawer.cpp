@@ -7,6 +7,7 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 
 #include <algorithm>
+#include <map>
 
 using namespace editor;
 
@@ -81,6 +82,18 @@ namespace
         if(!context.draw_outline)
             return;
 
+        std::map<std::string, std::vector<IObjectProxy*>> folder_to_proxies;
+        std::vector<IObjectProxy*> orphan_proxies;
+
+        for(const IObjectProxyPtr& proxy : *context.all_proxy_objects)
+        {
+            const std::string folder = proxy->GetFolder();
+            if(folder.empty())
+                orphan_proxies.push_back(proxy.get());
+            else
+                folder_to_proxies[folder].push_back(proxy.get());
+        }
+
         constexpr int flags =
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_AlwaysAutoResize |
@@ -94,34 +107,44 @@ namespace
 
         ImGui::Begin("Objects", nullptr, flags);
 
-        
+        int id = 0;
 
-        //const bool open = ImGui::TreeNode("object_tree");
-        //if(open)
-
-        for(size_t index = 0; index < context.all_proxy_objects->size(); ++index)
+        const auto add_selectables = [&id, &context](const std::vector<IObjectProxy*>& proxies)
         {
-            const IObjectProxyPtr& proxy = context.all_proxy_objects->at(index);
-            const bool selected = (proxy.get() == context.selected_proxy_object) || (proxy.get() == context.preselected_proxy_object);
-            
-            ImGui::PushID(index);
-
-            if(ImGui::Selectable(proxy->Name(), selected, ImGuiSelectableFlags_AllowDoubleClick))
+            for(IObjectProxy* proxy : proxies)
             {
-                const bool is_double_click = ImGui::IsMouseDoubleClicked(0);
-                if(is_double_click)
-                    context.teleport_to_object_callback(proxy.get());
-                else
-                    context.select_object_callback(proxy.get());
+                const bool selected =
+                    (proxy == context.selected_proxy_object) || (proxy == context.preselected_proxy_object);
+                
+                ImGui::PushID(id++);
+
+                if(ImGui::Selectable(proxy->Name(), selected, ImGuiSelectableFlags_AllowDoubleClick))
+                {
+                    const bool is_double_click = ImGui::IsMouseDoubleClicked(0);
+                    if(is_double_click)
+                        context.teleport_to_object_callback(proxy);
+                    else
+                        context.select_object_callback(proxy);
+                }
+
+                if(ImGui::IsItemHovered())
+                    context.preselect_object_callback(proxy);
+
+                ImGui::PopID();
             }
+        };
 
-            if(ImGui::IsItemHovered())
-                context.preselect_object_callback(proxy.get());
-
-            ImGui::PopID();
+        for(const auto& pair : folder_to_proxies)
+        {
+            const bool open = ImGui::TreeNode(pair.first.c_str());
+            if(open)
+            {
+                add_selectables(pair.second);
+                ImGui::TreePop();
+            }
         }
-            
-            //ImGui::TreePop();
+
+        add_selectables(orphan_proxies);
 
         ImGui::End();
     }
@@ -259,7 +282,7 @@ void ImGuiInterfaceDrawer::doUpdate(const mono::UpdateContext& update_context)
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
-    //ImGui::ShowDemoWindow();
+    // ImGui::ShowDemoWindow();
     ImGui::Render();
 
     // Update UI stuff below

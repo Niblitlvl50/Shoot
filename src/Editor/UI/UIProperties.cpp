@@ -16,8 +16,16 @@ void editor::DrawName(std::string& name)
 {
     char text_buffer[VariantStringMaxLength] = { 0 };
     std::snprintf(text_buffer, VariantStringMaxLength, "%s", name.c_str());
-    if(ImGui::InputText("", text_buffer, VariantStringMaxLength))
+    if(ImGui::InputText("name", text_buffer, VariantStringMaxLength))
         name = text_buffer;
+}
+
+void editor::DrawFolder(std::string& folder)
+{
+    char text_buffer[VariantStringMaxLength] = { 0 };
+    std::snprintf(text_buffer, VariantStringMaxLength, "%s", folder.c_str());
+    if(ImGui::InputText("folder", text_buffer, VariantStringMaxLength))
+        folder = text_buffer;
 }
 
 void editor::DrawEntityProperty(uint32_t& properties)

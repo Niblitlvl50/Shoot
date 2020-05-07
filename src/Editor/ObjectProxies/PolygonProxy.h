@@ -23,6 +23,7 @@ namespace editor
         std::vector<Grabber> GetGrabbers() const override;
         std::vector<SnapPoint> GetSnappers() const override;
         void UpdateUIContext(UIContext& context) override;
+        std::string GetFolder() const override;
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
         float GetRotation() const override;

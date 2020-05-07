@@ -28,6 +28,7 @@ namespace editor
         virtual std::vector<struct SnapPoint> GetSnappers() const = 0;
 
         virtual void UpdateUIContext(struct UIContext& context) = 0;
+        virtual std::string GetFolder() const = 0;
 
         virtual const std::vector<Component>& GetComponents() const = 0;
         virtual std::vector<Component>& GetComponents() = 0;

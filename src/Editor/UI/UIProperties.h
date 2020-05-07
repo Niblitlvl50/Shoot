@@ -12,6 +12,7 @@ struct Component;
 namespace editor
 {
     void DrawName(std::string& name);
+    void DrawFolder(std::string& folder);
     void DrawEntityProperty(uint32_t& properties);
     bool DrawProperty(const char* text, Variant& attribute);
     bool DrawProperty(Attribute& attribute);
