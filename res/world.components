@@ -59,6 +59,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "tiny_goblin"
         },
         {
@@ -131,6 +132,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "beastie boy"
         },
         {
@@ -258,6 +260,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "cacodemon_laughing"
         },
         {
@@ -319,6 +322,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "green whiteboard"
         },
         {
@@ -451,6 +455,7 @@
                 }
             ],
             "entity_properties": 5,
+            "folder": "",
             "name": "exploding barrel"
         },
         {
@@ -476,6 +481,7 @@
                 }
             ],
             "entity_properties": 2,
+            "folder": "",
             "name": "red_flag"
         },
         {
@@ -619,6 +625,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "path_follower"
         },
         {
@@ -746,6 +753,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "black_square"
         },
         {
@@ -862,6 +870,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Walls",
             "name": "left_wall"
         },
         {
@@ -978,6 +987,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Walls",
             "name": "right_wall"
         },
         {
@@ -1094,6 +1104,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Walls",
             "name": "bottom_wall"
         },
         {
@@ -1210,6 +1221,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Walls",
             "name": "top_wall"
         },
         {
@@ -1326,6 +1338,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "huge_box"
         },
         {
@@ -1442,6 +1455,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -1558,6 +1572,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -1674,6 +1689,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -1790,6 +1806,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -1906,6 +1923,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -2022,6 +2040,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -2083,6 +2102,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "tiny_board_blue"
         },
         {
@@ -2144,6 +2164,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "tiny_board"
         },
         {
@@ -2205,6 +2226,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "unnamed"
         },
         {
@@ -2266,6 +2288,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "unnamed"
         },
         {
@@ -2382,6 +2405,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -2443,6 +2467,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "cross"
         },
         {
@@ -2504,6 +2529,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "meh"
         },
         {
@@ -2565,6 +2591,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "questionmark"
         },
         {
@@ -2626,6 +2653,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "left"
         },
         {
@@ -2687,6 +2715,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "surprised"
         },
         {
@@ -2748,6 +2777,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "gun"
         },
         {
@@ -2809,6 +2839,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "first_aid"
         },
         {
@@ -2870,6 +2901,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "first_aid"
         },
         {
@@ -3008,6 +3040,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "bat"
         },
         {
@@ -3146,6 +3179,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "bat"
         },
         {
@@ -3284,6 +3318,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "bat"
         },
         {
@@ -3422,6 +3457,7 @@
                 }
             ],
             "entity_properties": 1,
+            "folder": "Enemies",
             "name": "bat"
         },
         {
@@ -3447,6 +3483,7 @@
                 }
             ],
             "entity_properties": 2,
+            "folder": "",
             "name": "blue_flag"
         },
         {
@@ -3563,6 +3600,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -3679,6 +3717,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -3795,6 +3834,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -3911,6 +3951,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         },
         {
@@ -4027,387 +4068,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "unnamed"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": -15.0,
-                                "y": 29.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.6127458810806274,
-                                "green": 0.22549021244049072,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "generic.sprite"
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 5000.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "variant_type": 3,
-                            "variant_value": 0.25
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "variant_type": 2,
-                            "variant_value": 500
-                        },
-                        {
-                            "id": 3526332565,
-                            "variant_type": 2,
-                            "variant_value": 90
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 1,
-            "name": "pink blolb"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": -12.0,
-                                "y": 29.04013442993164
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.6127458810806274,
-                                "green": 0.22549021244049072,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "generic.sprite"
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 5000.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "variant_type": 3,
-                            "variant_value": 0.25
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "variant_type": 2,
-                            "variant_value": 500
-                        },
-                        {
-                            "id": 3526332565,
-                            "variant_type": 2,
-                            "variant_value": 90
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "unnamed"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": -17.0,
-                                "y": 30.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.6127458810806274,
-                                "green": 0.22549021244049072,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "generic.sprite"
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 5000.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "variant_type": 3,
-                            "variant_value": 0.25
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "variant_type": 2,
-                            "variant_value": 500
-                        },
-                        {
-                            "id": 3526332565,
-                            "variant_type": 2,
-                            "variant_value": 90
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
+            "folder": "Environment",
             "name": "unnamed"
         }
     ]
