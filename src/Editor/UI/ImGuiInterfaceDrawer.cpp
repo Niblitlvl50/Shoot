@@ -154,7 +154,20 @@ namespace
         if(!context.selected_proxy_object)
             return;
 
-        constexpr int flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
+        constexpr int flags =
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_AlwaysAutoResize;
+
+        const float window_width = ImGui::GetIO().DisplaySize.x;
+        const float window_height = ImGui::GetIO().DisplaySize.y;
+
+        const float selection_width = 300;
+
+        ImGui::SetNextWindowPos(ImVec2(window_width - selection_width - 30, 40));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 50), ImVec2(selection_width, window_height - 60));
+
         ImGui::Begin("Selection", nullptr, flags);
         context.selected_proxy_object->UpdateUIContext(context);
 
