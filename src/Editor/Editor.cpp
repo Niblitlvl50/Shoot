@@ -301,7 +301,7 @@ void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     const math::Quad bb = transform_system->GetWorldBoundingBox(id);
-    const float length_squared = math::Length(math::TopLeft(bb) - math::BottomRight(bb)) * 4;
+    const float length_squared = math::Length(math::TopLeft(bb) - math::BottomRight(bb)) * 8;
 
     const math::Quad viewport = m_camera->GetViewport();
     const float ratio = math::Width(viewport) * math::Height(viewport);
@@ -309,6 +309,13 @@ void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
     const float height = length_squared * ratio;
 
     m_camera->SetTargetViewport(math::Quad(0, 0, length_squared, height));
+}
+
+void Editor::TeleportToSelectedProxyObject()
+{
+    IObjectProxy* proxy = FindProxyObject(m_selected_id);
+    if(proxy)
+        TeleportToProxyObject(proxy);
 }
 
 IObjectProxy* Editor::FindProxyObject(const math::Vector& position)

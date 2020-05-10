@@ -98,8 +98,9 @@ namespace
         const bool found_faction = FindAttribute(FACTION_ATTRIBUTE, properties, faction);
         const bool found_radius = FindAttribute(RADIUS_ATTRIBUTE, properties, shape_params.radius);
         const bool found_position = FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset);
+        const bool found_sensor = FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor);
 
-        const bool found_all = found_faction && found_radius && found_position;
+        const bool found_all = found_faction && found_radius && found_position && found_sensor;
         if(!found_all)
         {
             System::Log("GameComponentFuncs|Unable to find paramenters for circle shape, entity: %u\n", entity.id);
@@ -109,6 +110,8 @@ namespace
                 System::Log("GameComponentFuncs|Radius missing\n");
             if(!found_position)
                 System::Log("GameComponentFuncs|Position missing\n");
+            if(!found_sensor)
+                System::Log("GameComponentFuncs|Sensor missing\n");
 
             return false;
         }
@@ -131,8 +134,9 @@ namespace
         const bool found_width = FindAttribute(WIDTH_ATTRIBUTE, properties, shape_params.width);
         const bool found_height = FindAttribute(HEIGHT_ATTRIBUTE, properties, shape_params.height);
         const bool found_position = FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset);
+        const bool found_sensor = FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor);
 
-        const bool found_all = found_faction && found_width && found_height && found_position;
+        const bool found_all = found_faction && found_width && found_height && found_position && found_sensor;
         if(!found_all)
         {
             System::Log("GameComponentFuncs|Unable to find paramenters for box shape, entity: %u\n", entity.id);
@@ -144,6 +148,8 @@ namespace
                 System::Log("GameComponentFuncs|Height missing\n");
             if(!found_position)
                 System::Log("GameComponentFuncs|Position missing\n");
+            if(!found_sensor)
+                System::Log("GameComponentFuncs|Sensor missing\n");
 
             return false;
         }
@@ -166,8 +172,9 @@ namespace
         const bool found_radius = FindAttribute(RADIUS_ATTRIBUTE, properties, shape_params.radius);
         const bool found_start = FindAttribute(START_ATTRIBUTE, properties, shape_params.start);
         const bool found_end = FindAttribute(END_ATTRIBUTE, properties, shape_params.end);
+        const bool found_sensor = FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor);
 
-        const bool found_all = found_faction && found_radius && found_start && found_end;
+        const bool found_all = found_faction && found_radius && found_start && found_end && found_sensor;
         if(!found_all)
         {
             System::Log("GameComponentFuncs|Unable to find paramenters for segment shape, entity: %u\n", entity.id);
@@ -179,6 +186,8 @@ namespace
                 System::Log("GameComponentFuncs|Start missing\n");
             if(!found_end)
                 System::Log("GameComponentFuncs|End missing\n");
+            if(!found_sensor)
+                System::Log("GameComponentFuncs|Sensor missing\n");
 
             return false;
         }

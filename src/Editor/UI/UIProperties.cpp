@@ -211,10 +211,6 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
         ImGui::PushID(index);
 
         ImGui::TextDisabled("%s", component.name.c_str());
-        ImGui::SameLine(230.0f);
-
-        if(ImGui::SmallButton("Delete"))
-            ui_context.delete_component(index);
 
         for(Attribute& property : component.properties)
         {
@@ -222,12 +218,23 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
                 modified_index = index;
         }
 
+        ImGui::Spacing();
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
+        if(ImGui::Button("Delete"))
+            ui_context.delete_component(index);
+        ImGui::PopStyleVar();
+        ImGui::PopStyleColor();
+
         ImGui::PopID();
         ImGui::Separator();
     }
     
+    ImGui::Spacing();
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
     if(ImGui::Button("Add Component"))
         ImGui::OpenPopup("select_component");
+    ImGui::PopStyleVar();
 
     constexpr uint32_t NOTHING_SELECTED = std::numeric_limits<uint32_t>::max();
     uint32_t selected_component_hash = NOTHING_SELECTED;

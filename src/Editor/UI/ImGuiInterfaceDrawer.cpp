@@ -166,13 +166,10 @@ namespace
         const float selection_width = 300;
 
         ImGui::SetNextWindowPos(ImVec2(window_width - selection_width - 30, 40));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 50), ImVec2(selection_width, window_height - 60));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 150), ImVec2(selection_width, window_height - 60));
 
         ImGui::Begin("Selection", nullptr, flags);
         context.selected_proxy_object->UpdateUIContext(context);
-
-        if(ImGui::Button("Delete"))
-            context.delete_callback();
 
         ImGui::End();
     }
@@ -295,7 +292,7 @@ void ImGuiInterfaceDrawer::doUpdate(const mono::UpdateContext& update_context)
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
-    // ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
     ImGui::Render();
 
     // Update UI stuff below

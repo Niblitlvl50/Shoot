@@ -56,6 +56,7 @@ namespace editor
         void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);
         void TeleportToProxyObject(IObjectProxy* proxy_object);
+        void TeleportToSelectedProxyObject();
         IObjectProxy* FindProxyObject(const math::Vector& position);
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
         uint32_t GetSelectedObjectId() const;
