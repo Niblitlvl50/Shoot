@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "System/System.h"
 
-extern const std::array<DefaultAttribute, 27> default_attributes = {{
+extern const std::array<DefaultAttribute, 28> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -36,6 +36,7 @@ extern const std::array<DefaultAttribute, 27> default_attributes = {{
     DefaultAttribute("flip_horizontal",     Variant(false)),
 
     DefaultAttribute("behaviour",           Variant(0)),
+    DefaultAttribute("spawn_score",         Variant(10)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -70,9 +71,10 @@ extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[24].has
 extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[25].hash;
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[26].hash;
 
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[27].hash;
 
 
-extern const std::array<Component, 8> default_components = {
+extern const std::array<Component, 9> default_components = {
     MakeDefaultComponent("transform",           { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
     MakeDefaultComponent("sprite",              { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
     MakeDefaultComponent("physics",             { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
@@ -81,6 +83,7 @@ extern const std::array<Component, 8> default_components = {
     MakeDefaultComponent("segment_shape",       { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
     MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE } ),
     MakeDefaultComponent("entity_behaviour",    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
+    MakeDefaultComponent("spawn_point",         { SPAWN_SCORE_ATTRIBUTE } ),
 };
 
 extern const uint32_t TRANSFORM_COMPONENT       = default_components[0].hash;
@@ -91,6 +94,7 @@ extern const uint32_t BOX_SHAPE_COMPONENT       = default_components[4].hash;
 extern const uint32_t SEGMENT_SHAPE_COMPONENT   = default_components[5].hash;
 extern const uint32_t HEALTH_COMPONENT          = default_components[6].hash;
 extern const uint32_t BEHAVIOUR_COMPONENT       = default_components[7].hash;
+extern const uint32_t SPAWN_POINT_COMPONENT     = default_components[8].hash;
 
 
 const char* AttributeNameFromHash(uint32_t hash)

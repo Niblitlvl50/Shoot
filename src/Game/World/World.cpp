@@ -43,15 +43,15 @@ namespace
 {
     void LoadAttributes(game::SpawnPoint& spawn_point, const std::vector<Attribute>& attributes)
     {
-        FindAttribute(POSITION_ATTRIBUTE, attributes, spawn_point.position);
-        FindAttribute(RADIUS_ATTRIBUTE, attributes, spawn_point.radius);
+        FindAttribute(POSITION_ATTRIBUTE, attributes, spawn_point.position, FallbackMode::SET_DEFAULT);
+        FindAttribute(RADIUS_ATTRIBUTE, attributes, spawn_point.radius, FallbackMode::SET_DEFAULT);
     }
 
     void LoadAttributes(game::Pickup& ammo_pickup, const std::vector<Attribute>& attributes)
     {
-        FindAttribute(POSITION_ATTRIBUTE, attributes, ammo_pickup.position);
-        FindAttribute(PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type);
-        FindAttribute(AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value);
+        FindAttribute(POSITION_ATTRIBUTE, attributes, ammo_pickup.position, FallbackMode::SET_DEFAULT);
+        FindAttribute(PICKUP_TYPE_ATTRIBUTE, attributes, ammo_pickup.type, FallbackMode::SET_DEFAULT);
+        FindAttribute(AMOUNT_ATTRIBUTE, attributes, ammo_pickup.value, FallbackMode::SET_DEFAULT);
     }
 }
 
@@ -73,7 +73,7 @@ void game::LoadWorldObjects(
         else if(name == "playerpoint")
         {
             math::Vector position;
-            FindAttribute(POSITION_ATTRIBUTE, object.attributes, position);
+            FindAttribute(POSITION_ATTRIBUTE, object.attributes, position, FallbackMode::SET_DEFAULT);
             player_points.push_back(position);
         }
         else if(name == "ammo_pickup")

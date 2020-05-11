@@ -4,34 +4,34 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Quad.h"
+#include "Math/MathFunctions.h"
 
-// #include "DefinedAttributes.h"
 #include "Component.h"
 
 
 void editor::DrawCircleShapeDetails(
-    mono::IRenderer& renderer, const math::Vector& position, const std::vector<Attribute>& component_properties)
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
     float radius_value = 1.0f;
     math::Vector offset;
 
-    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius_value);
-    FindAttribute(POSITION_ATTRIBUTE, component_properties, offset);
+    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius_value, FallbackMode::SET_DEFAULT);
+    FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawCircle(position + offset, std::max(radius_value, 0.1f), 20, 1.0f, color);
 }
 
 void editor::DrawBoxShapeDetails(
-    mono::IRenderer& renderer, const math::Vector& position, const std::vector<Attribute>& component_properties)
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
     float width = 1.0f;
     float height = 1.0f;
     math::Vector offset;
 
-    FindAttribute(WIDTH_ATTRIBUTE, component_properties, width);
-    FindAttribute(HEIGHT_ATTRIBUTE, component_properties, height);
-    FindAttribute(POSITION_ATTRIBUTE, component_properties, offset);
+    FindAttribute(WIDTH_ATTRIBUTE, component_properties, width, FallbackMode::SET_DEFAULT);
+    FindAttribute(HEIGHT_ATTRIBUTE, component_properties, height, FallbackMode::SET_DEFAULT);
+    FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
     const math::Vector half_size = math::Vector(width, height) / 2.0f;
 
@@ -44,15 +44,15 @@ void editor::DrawBoxShapeDetails(
 }
 
 void editor::DrawSegmentShapeDetails(
-    mono::IRenderer& renderer, const math::Vector& position, const std::vector<Attribute>& component_properties)
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
     math::Vector start;
     math::Vector end;
     float radius = 1.0f;
 
-    FindAttribute(START_ATTRIBUTE, component_properties, start);
-    FindAttribute(END_ATTRIBUTE, component_properties, end);
-    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius);
+    FindAttribute(START_ATTRIBUTE, component_properties, start, FallbackMode::SET_DEFAULT);
+    FindAttribute(END_ATTRIBUTE, component_properties, end, FallbackMode::SET_DEFAULT);
+    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
 
     const std::vector<math::Vector> line = {
         start + position,
@@ -61,4 +61,14 @@ void editor::DrawSegmentShapeDetails(
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawLines(line, color, std::max(radius, 1.0f));
+}
+
+void editor::DrawSpawnPointDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    const math::Vector unit_vector = math::VectorFromAngle(rotation);
+
+    renderer.DrawCircle(position, 1.0f, 8, 5.0f, mono::Color::BLUE);
+    renderer.DrawLines(
+        { position, position + unit_vector * 1.5f }, mono::Color::BLUE, 3.0f);
 }

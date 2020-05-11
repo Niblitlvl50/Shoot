@@ -31,12 +31,13 @@ void ComponentDetailVisualizer::doDraw(mono::IRenderer& renderer) const
 
     const math::Matrix& entity_transform = m_transform_system->GetTransform(entity_id);
     const math::Vector& position = math::GetPosition(entity_transform);
+    const float rotation = math::GetZRotation(entity_transform);
 
     for(const Component& component : m_object_proxy->GetComponents())
     {
         const auto it = m_component_draw_funcs.find(component.hash);
         if(it != m_component_draw_funcs.end())
-            it->second(renderer, position, component.properties);
+            it->second(renderer, position, rotation, component.properties);
     }
 }
 

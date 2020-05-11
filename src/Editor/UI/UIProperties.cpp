@@ -175,13 +175,14 @@ void editor::AddDynamicProperties(Component& component)
     if(component.hash == BEHAVIOUR_COMPONENT)
     {
         int logic_type;
-        const bool found_logic = FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type);
+        const bool found_logic =
+            FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
         if(found_logic)
         {
             if(EntityLogicType(logic_type) == EntityLogicType::INVADER_PATH)
             {
                 const char* dummy_string = nullptr;
-                const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string);
+                const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string, FallbackMode::REQUIRE_ATTRIBUTE);
                 if(!has_path_file)
                 {
                     component.properties.push_back(
