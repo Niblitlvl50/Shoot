@@ -14,27 +14,6 @@
 
 using namespace editor;
 
-ComponentProxy::ComponentProxy(
-    uint32_t entity_id,
-    const std::string& name,
-    IEntityManager* entity_manager,
-    mono::TransformSystem* transform_system)
-    : m_entity_id(entity_id)
-    , m_name(name)
-    , m_entity_properties(0)
-    , m_entity_manager(entity_manager)
-    , m_transform_system(transform_system)
-{
-    m_components = {
-        DefaultComponentFromHash(TRANSFORM_COMPONENT),
-    };
-
-    for(const Component& component : m_components)
-    {
-        entity_manager->AddComponent(entity_id, component.hash);
-        entity_manager->SetComponentData(entity_id, component.hash, component.properties);
-    }
-}
 
 ComponentProxy::ComponentProxy(
     uint32_t entity_id,
@@ -50,7 +29,13 @@ ComponentProxy::ComponentProxy(
     , m_components(components)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
-{ }
+{
+    for(const Component& component : m_components)
+    {
+        entity_manager->AddComponent(entity_id, component.hash);
+        entity_manager->SetComponentData(entity_id, component.hash, component.properties);
+    }
+}
 
 ComponentProxy::~ComponentProxy()
 {
@@ -97,7 +82,7 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
 {
     DrawName(m_name);
     DrawFolder(m_folder);
-    DrawEntityProperty(m_entity_properties);
+    //DrawEntityProperty(m_entity_properties);
     
     const int modified_index = DrawComponents(context, m_components);
     if(modified_index != -1)
@@ -168,13 +153,9 @@ std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
     const std::vector<uint32_t> empty_components;
     mono::Entity new_entity = m_entity_manager->CreateEntity("", empty_components);
 
-    for(const Component& component : m_components)
-    {
-        m_entity_manager->AddComponent(new_entity.id, component.hash);
-        m_entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
-    }
-
-    return std::make_unique<ComponentProxy>(new_entity.id, "unnamed", m_folder, m_components, m_entity_manager, m_transform_system);
+    const std::string cloned_name = Name() + std::string(" (cloned)");
+    return std::make_unique<ComponentProxy>(
+        new_entity.id, cloned_name, m_folder, m_components, m_entity_manager, m_transform_system);
 }
 
 void ComponentProxy::Visit(IObjectVisitor& visitor)

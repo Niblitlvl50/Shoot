@@ -235,15 +235,17 @@ void Editor::ImportEntity()
 void Editor::NewEntity()
 {
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
- 
-    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {TRANSFORM_COMPONENT});
-    m_proxies.push_back(std::make_unique<ComponentProxy>(new_entity.id, "unnamed", &m_entity_manager, transform_system));
+    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {});
 
-    math::Matrix& transform = transform_system->GetTransform(new_entity.id);
+    const std::vector<Component> components = {
+        DefaultComponentFromHash(TRANSFORM_COMPONENT)
+    };
 
-    const math::Vector camera_position = m_camera->GetPosition();
-    math::Position(transform, camera_position);
+    auto proxy = std::make_unique<ComponentProxy>(
+        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system);
+    proxy->SetPosition(m_camera->GetPosition());
 
+    m_proxies.push_back(std::move(proxy));
     SelectProxyObject(m_proxies.back().get());
 }
 

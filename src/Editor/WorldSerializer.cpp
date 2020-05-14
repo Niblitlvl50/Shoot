@@ -130,9 +130,6 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
             const Component& default_component = DefaultComponentFromHash(component.hash);
             UnionAttributes(component.properties, default_component.properties);
 
-            entity_manager->AddComponent(new_entity.id, component.hash);
-            entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
-
             components.push_back(std::move(component));
         }
 

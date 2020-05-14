@@ -12,11 +12,20 @@
 #include <cstdio>
 #include <limits>
 
+std::string PrettifyString(const std::string& text)
+{
+    std::string out_string = text;
+    std::replace(out_string.begin(), out_string.end(), '_', ' ');
+    out_string[0] = std::toupper(out_string[0]);
+
+    return out_string;
+}
+
 void editor::DrawName(std::string& name)
 {
     char text_buffer[VariantStringMaxLength] = { 0 };
     std::snprintf(text_buffer, VariantStringMaxLength, "%s", name.c_str());
-    if(ImGui::InputText("name", text_buffer, VariantStringMaxLength))
+    if(ImGui::InputText("Name", text_buffer, VariantStringMaxLength))
         name = text_buffer;
 }
 
@@ -24,7 +33,7 @@ void editor::DrawFolder(std::string& folder)
 {
     char text_buffer[VariantStringMaxLength] = { 0 };
     std::snprintf(text_buffer, VariantStringMaxLength, "%s", folder.c_str());
-    if(ImGui::InputText("folder", text_buffer, VariantStringMaxLength))
+    if(ImGui::InputText("Folder", text_buffer, VariantStringMaxLength))
         folder = text_buffer;
 }
 
@@ -100,7 +109,8 @@ bool editor::DrawProperty(const char* text, Variant& attribute)
 
 bool editor::DrawProperty(Attribute& attribute)
 {
-    const char* attribute_name = AttributeNameFromHash(attribute.id);
+    const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
+    const char* attribute_name = text.c_str();
 
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
@@ -202,16 +212,32 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 {
     int modified_index = -1;
 
-    ImGui::Separator();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+    if(ImGui::Button("Add Component", ImVec2(285, 0)))
+        ImGui::OpenPopup("select_component");
+    ImGui::PopStyleVar();
 
     for(size_t index = 0; index < components.size(); ++index)
     {
+        ImGui::Separator();
+        ImGui::Spacing();
+
         Component& component = components[index];
         AddDynamicProperties(component);
 
         ImGui::PushID(index);
 
-        ImGui::TextDisabled("%s", component.name.c_str());
+        const std::string name = PrettifyString(component.name);
+        ImGui::TextDisabled("%s", name.c_str());
+        ImGui::SameLine(245);
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
+        if(ImGui::Button("Delete"))
+            ui_context.delete_component(index);
+        ImGui::PopStyleVar();
+        ImGui::PopStyleColor();
 
         for(Attribute& property : component.properties)
         {
@@ -220,23 +246,9 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
         }
 
         ImGui::Spacing();
-        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
-        if(ImGui::Button("Delete"))
-            ui_context.delete_component(index);
-        ImGui::PopStyleVar();
-        ImGui::PopStyleColor();
-
         ImGui::PopID();
-        ImGui::Separator();
     }
     
-    ImGui::Spacing();
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-    if(ImGui::Button("Add Component"))
-        ImGui::OpenPopup("select_component");
-    ImGui::PopStyleVar();
-
     constexpr uint32_t NOTHING_SELECTED = std::numeric_limits<uint32_t>::max();
     uint32_t selected_component_hash = NOTHING_SELECTED;
 
@@ -252,8 +264,6 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 
     if(selected_component_hash != NOTHING_SELECTED)
         ui_context.add_component(selected_component_hash);
-
-    ImGui::SameLine();
 
     return modified_index;
 }
