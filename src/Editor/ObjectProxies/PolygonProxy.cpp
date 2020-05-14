@@ -13,11 +13,13 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "ObjectAttribute.h"
 #include "Component.h"
+#include "UI/UIProperties.h"
 
 using namespace editor;
 
-PolygonProxy::PolygonProxy(std::unique_ptr<PolygonEntity> polygon)
-    : m_polygon(std::move(polygon))
+PolygonProxy::PolygonProxy(const std::string& name, std::unique_ptr<PolygonEntity> polygon)
+    : m_name(name)
+    , m_polygon(std::move(polygon))
 { }
 
 PolygonProxy::~PolygonProxy()
@@ -25,7 +27,7 @@ PolygonProxy::~PolygonProxy()
 
 const char* PolygonProxy::Name() const
 {
-    return "polygonobject";
+    return m_name.c_str();
 }
 
 unsigned int PolygonProxy::Id() const
@@ -91,6 +93,7 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
     const float rotation = m_polygon->Rotation();
     int texture_index = FindTextureIndex(m_polygon->GetTextureName());
 
+    editor::DrawName(m_name);
     ImGui::Value("X", position.x);
     ImGui::SameLine();
     ImGui::Value("Y", position.y);

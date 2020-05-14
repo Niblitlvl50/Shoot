@@ -35,6 +35,36 @@ ComponentProxy::ComponentProxy(
         entity_manager->AddComponent(entity_id, component.hash);
         entity_manager->SetComponentData(entity_id, component.hash, component.properties);
     }
+
+/*
+    const auto body_before_shapes = [](const Component& left, const Component& right) {
+
+        const auto is_shape_component = [](uint32_t hash) {
+            return 
+                hash == CIRCLE_SHAPE_COMPONENT ||
+                hash == BOX_SHAPE_COMPONENT ||
+                hash == SEGMENT_SHAPE_COMPONENT;
+        };
+
+        if(left.hash == TRANSFORM_COMPONENT)
+            return true;
+        else if(right.hash == TRANSFORM_COMPONENT)
+            return false;
+
+        if(left.hash == PHYSICS_COMPONENT && is_shape_component(right.hash))
+        {
+            return true;
+        }
+        else if(right.hash == PHYSICS_COMPONENT && is_shape_component(left.hash))
+        {
+            return false;
+        }
+
+        return false;
+    };
+
+    std::sort(m_components.begin(), m_components.end(), body_before_shapes);
+    */
 }
 
 ComponentProxy::~ComponentProxy()
@@ -150,9 +180,7 @@ void ComponentProxy::SetPosition(const math::Vector& position)
 
 std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
 {
-    const std::vector<uint32_t> empty_components;
-    mono::Entity new_entity = m_entity_manager->CreateEntity("", empty_components);
-
+    const mono::Entity new_entity = m_entity_manager->CreateEntity("", {});
     const std::string cloned_name = Name() + std::string(" (cloned)");
     return std::make_unique<ComponentProxy>(
         new_entity.id, cloned_name, m_folder, m_components, m_entity_manager, m_transform_system);

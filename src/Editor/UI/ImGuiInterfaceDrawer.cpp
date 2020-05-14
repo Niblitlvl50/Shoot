@@ -136,6 +136,7 @@ namespace
 
         for(const auto& pair : folder_to_proxies)
         {
+            //ImGui::SetNextItemOpen(true);
             const bool open = ImGui::TreeNode(pair.first.c_str());
             if(open)
             {
@@ -166,7 +167,7 @@ namespace
         const float selection_width = 300;
 
         ImGui::SetNextWindowPos(ImVec2(window_width - selection_width - 30, 40));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 150), ImVec2(selection_width, window_height - 60));
+        ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 50), ImVec2(selection_width, window_height - 60));
 
         ImGui::Begin("Selection", nullptr, flags);
         context.selected_proxy_object->UpdateUIContext(context);

@@ -3,6 +3,7 @@
 
 #include "IObjectProxy.h"
 #include <memory>
+#include <string>
 
 namespace editor
 {
@@ -12,7 +13,7 @@ namespace editor
     {
     public:
 
-        PolygonProxy(std::unique_ptr<PolygonEntity> polygon);
+        PolygonProxy(const std::string& name, std::unique_ptr<PolygonEntity> polygon);
         ~PolygonProxy();
 
         const char* Name() const override;
@@ -33,6 +34,7 @@ namespace editor
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(IObjectVisitor& visitor) override;
 
+        std::string m_name;
         std::unique_ptr<PolygonEntity> m_polygon;
         std::vector<Component> m_components;
     };

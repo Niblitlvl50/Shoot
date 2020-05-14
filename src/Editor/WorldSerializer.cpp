@@ -23,44 +23,37 @@
 #include "ObjectFactory.h"
 
 #include "Serializer/JsonSerializer.h"
-#include "Serializer/BinarySerializer.h"
 
 #include <algorithm>
 
 std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const editor::ObjectFactory& factory)
 {
-    std::vector<IObjectProxyPtr> polygon_data;
+    std::vector<IObjectProxyPtr> proxies;
 
-    if(!file_name)
-        return polygon_data;
-
-    file::FilePtr file = file::OpenBinaryFile(file_name);
+    file::FilePtr file = file::OpenAsciiFile(file_name);
     if(!file)
-        return polygon_data;
+        return proxies;
 
-    world::LevelFileHeader level_data;
-    world::ReadWorld(file, level_data);
+    std::vector<byte> file_data;
+    file::FileRead(file, file_data);
 
-    polygon_data.reserve(level_data.polygons.size());
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    const nlohmann::json& polygons = json["polygons"];
 
-    const auto check_for_nan = [](const math::Vector& vertex) {
-        return std::isnan(vertex.x) || std::isnan(vertex.y);
-    };
-
-    for(const world::PolygonData& polygon : level_data.polygons)
+    for(const auto& json_polygon : polygons)
     {
-        if(polygon.vertices.empty())
-            continue;
+        const std::string name = json_polygon["name"];
+        const math::Vector position = json_polygon["position"];
+        const math::Vector base_point = json_polygon["base_point"];
+        const float rotation = json_polygon["rotation"];
+        const std::string texture = json_polygon["texture"];
+        const std::vector<math::Vector> vertices = json_polygon["vertices"];
 
-        if(std::any_of(polygon.vertices.begin(), polygon.vertices.end(), check_for_nan))
-            continue;
-
-        auto proxy = factory.CreatePolygon(
-            polygon.position, polygon.local_offset, polygon.rotation, polygon.vertices, polygon.texture);
-        polygon_data.push_back(std::move(proxy));
+        auto proxy = factory.CreatePolygon(name, position, base_point, rotation, vertices, texture);
+        proxies.push_back(std::move(proxy));
     }
 
-    return polygon_data;
+    return proxies;
 }
 
 std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const editor::ObjectFactory& factory)
@@ -150,7 +143,6 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(
 {
     std::vector<IObjectProxyPtr> world_objects;
 
-    //auto objects_bin = LoadObjectsBinary("res/world.objects.bin", factory);
     auto component_objects = LoadComponentObjects("res/world.components", entity_manager, transform_system);
     for(auto& proxy : component_objects)
         world_objects.push_back(std::move(proxy));
@@ -159,7 +151,7 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(
     for(auto& proxy : paths)
         world_objects.push_back(std::move(proxy));
 
-    auto polygons = LoadPolygons(file_name, factory);
+    auto polygons = LoadPolygons("res/world.polygons", factory);
     for(auto& proxy : polygons)
         world_objects.push_back(std::move(proxy));
 
@@ -168,24 +160,13 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(
 
 void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies)
 {
-    {
-        BinarySerializer serializer;
-        
-        for(auto& proxy : proxies)
-            proxy->Visit(serializer);
-        
-        serializer.WritePolygonFile(file_name);
-        serializer.WriteObjects("res/world.objects.bin");
-    }
-
-    {
-        JsonSerializer serializer;
-        
-        for(auto& proxy : proxies)
-            proxy->Visit(serializer);
+    JsonSerializer serializer;
     
-        serializer.WriteEntities("res/world.objects");
-        serializer.WriteComponentEntities("res/world.components");
-        serializer.WritePathFile("res/world.paths");
-    }
+    for(auto& proxy : proxies)
+        proxy->Visit(serializer);
+
+    serializer.WriteEntities("res/world.objects");
+    serializer.WriteComponentEntities("res/world.components");
+    serializer.WritePathFile("res/world.paths");
+    serializer.WritePolygons("res/world.polygons");
 }

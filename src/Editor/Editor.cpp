@@ -252,7 +252,7 @@ void Editor::NewEntity()
 void Editor::AddPolygon(std::unique_ptr<editor::PolygonEntity> polygon)
 {
     AddEntity(polygon.get(), RenderLayer::POLYGONS);
-    m_proxies.push_back(std::make_unique<PolygonProxy>(std::move(polygon)));
+    m_proxies.push_back(std::make_unique<PolygonProxy>("unnamed", std::move(polygon)));
 }
 
 void Editor::AddPath(std::unique_ptr<editor::PathEntity> path)

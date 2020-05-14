@@ -17,6 +17,7 @@ namespace editor
         void WriteEntities(const std::string& file_path) const;
         void WriteComponentEntities(const std::string& file_path) const;
         void WritePathFile(const std::string& file_path) const;
+        void WritePolygons(const std::string& file_path) const;
 
     private:
 
@@ -27,5 +28,6 @@ namespace editor
         std::vector<std::string> m_path_names;
         nlohmann::json m_json_entities;
         nlohmann::json m_json_entities_components;
+        nlohmann::json m_json_polygons;
     };
 }

@@ -16,6 +16,7 @@ namespace editor
 
         IObjectProxyPtr CreatePath(const std::string& name, const std::vector<math::Vector>& points) const;
         IObjectProxyPtr CreatePolygon(
+            const std::string& name,
             const math::Vector& position,
             const math::Vector& base_point,
             float rotation,

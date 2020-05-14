@@ -23,6 +23,7 @@ IObjectProxyPtr ObjectFactory::CreatePath(const std::string& name, const std::ve
 }
 
 IObjectProxyPtr ObjectFactory::CreatePolygon(
+    const std::string& name,
     const math::Vector& position,
     const math::Vector& base_point,
     float rotation,
@@ -41,5 +42,5 @@ IObjectProxyPtr ObjectFactory::CreatePolygon(
     for(const math::Vector& vertex : vertices)
         polygon_entity->AddVertex(math::Transform(world_to_local, vertex));
 
-    return std::make_unique<PolygonProxy>(std::move(polygon_entity));
+    return std::make_unique<PolygonProxy>(name, std::move(polygon_entity));
 }
