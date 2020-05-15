@@ -76,7 +76,7 @@ namespace game
         uint32_t entity_id;
         math::Vector position;
         float rotation;
-        short parent_transform;
+        uint32_t parent_transform;
         bool settled;
     };
 
