@@ -2,11 +2,29 @@
     "animations": [
         {
             "frames": [
-                0,
+                4,
                 -50
             ],
             "loop": true,
-            "name": "default"
+            "name": "stone_face"
+        },
+        {
+            "frames": [
+                1,
+                622,
+                3,
+                527,
+                4,
+                659,
+                3,
+                710,
+                0,
+                464,
+                2,
+                231
+            ],
+            "loop": true,
+            "name": "look_around"
         }
     ],
     "frames": [

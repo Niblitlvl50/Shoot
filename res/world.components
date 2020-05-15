@@ -3,6 +3,25 @@
         {
             "components": [
                 {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 5.086001396179199,
+                                "y": -8.290899276733398
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -35,25 +54,6 @@
                             "id": 910774975,
                             "variant_type": 4,
                             "variant_value": "goblin.sprite"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 5.279147148132324,
-                                "y": -11.342601776123047
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
                         }
                     ]
                 }
@@ -145,8 +145,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 1.7965049743652344,
-                                "y": -7.060694694519043
+                                "x": -0.9139738082885742,
+                                "y": -7.215580463409424
                             }
                         },
                         {
@@ -165,8 +165,8 @@
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999899864196777,
                                 "red": 1.0
                             }
                         },
@@ -183,7 +183,7 @@
                         {
                             "id": 3779456605,
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 910774975,
@@ -239,6 +239,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -450,6 +455,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -457,32 +467,6 @@
             "entity_properties": 5,
             "folder": "",
             "name": "exploding barrel"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 4.991820335388184,
-                                "y": 15.47301959991455
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 2,
-            "folder": "",
-            "name": "red_flag"
         },
         {
             "components": [
@@ -542,32 +526,6 @@
                     ]
                 },
                 {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 50.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -600,6 +558,32 @@
                     ]
                 },
                 {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 50.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 3996803839,
                     "name": "circle_shape",
                     "properties": [
@@ -620,6 +604,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -732,6 +721,11 @@
                             "id": 776086107,
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -766,14 +760,108 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -32.890926361083984,
-                                "y": 3.1881351470947266
+                                "x": -42.88344192504883,
+                                "y": 0.6437931060791016
                             }
                         },
                         {
                             "id": 564937055,
                             "variant_type": 3,
                             "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 100.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 100.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 100.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 50.0,
+                                "y": 50.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -814,26 +902,34 @@
                     ]
                 },
                 {
-                    "hash": 2267225250,
-                    "name": "physics",
+                    "hash": 103600384,
+                    "name": "box_shape",
                     "properties": [
                         {
-                            "id": 3836179294,
+                            "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 2
+                            "variant_value": 6
                         },
                         {
-                            "id": 3749132497,
+                            "id": 2508680735,
                             "variant_type": 3,
-                            "variant_value": 10.0
+                            "variant_value": 100.0
                         },
                         {
-                            "id": 3447918833,
+                            "id": 3585981250,
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 2.0
                         },
                         {
-                            "id": 1995093780,
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 50.0,
+                                "y": -50.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
                             "variant_type": 1,
                             "variant_value": false
                         }
@@ -865,6 +961,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -872,357 +973,6 @@
             "entity_properties": 0,
             "folder": "Walls",
             "name": "left_wall"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 67.18603515625,
-                                "y": 4.0111083984375
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "barrel_red.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 100.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Walls",
-            "name": "right_wall"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 17.4122314453125,
-                                "y": -42.87443923950195
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "barrel_red.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 120.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Walls",
-            "name": "bottom_wall"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 19.489334106445313,
-                                "y": 37.04621124267578
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "barrel_red.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 120.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Walls",
-            "name": "top_wall"
         },
         {
             "components": [
@@ -1333,6 +1083,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -1450,6 +1205,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -1567,6 +1327,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -1684,6 +1449,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -1801,6 +1571,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -1918,6 +1693,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -2035,6 +1815,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -2400,6 +2185,11 @@
                                 "x": 0.0,
                                 "y": -1.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -3008,6 +2798,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3147,6 +2942,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3286,6 +3086,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3425,6 +3230,11 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3470,32 +3280,6 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -10.663052558898926,
-                                "y": 15.4711332321167
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 2,
-            "folder": "",
-            "name": "blue_flag"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
                                 "x": 17.885948181152344,
                                 "y": -7.646023750305176
                             }
@@ -3503,7 +3287,7 @@
                         {
                             "id": 564937055,
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -3595,6 +3379,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -3712,6 +3501,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -3829,6 +3623,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -3946,6 +3745,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -4063,6 +3867,11 @@
                                 "x": 0.0,
                                 "y": -0.699999988079071
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -4070,6 +3879,314 @@
             "entity_properties": 0,
             "folder": "Environment",
             "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": -5.00295877456665,
+                                "y": -5.392630100250244
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_huge.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999933242797852,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 4.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 4.300000190734863
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.699999988079071
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 15.832935333251953,
+                                "y": -2.4365100860595703
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": 2.1131558418273926
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "variant_type": 2,
+                            "variant_value": 16
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Spawning",
+            "name": "spawn_point_1"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 3.0743017196655273,
+                                "y": -9.069503784179688
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "barrel_green.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 0.8999999761581421
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 1.2000000476837158
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.10000000149011612
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "variant_type": 2,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 3526332565,
+                            "variant_type": 2,
+                            "variant_value": 10
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "exploding_stuff",
+            "name": "green_exploding_barrel"
         }
     ]
 }
