@@ -11,7 +11,6 @@
 #include "Hud/Debug/FPSElement.h"
 
 #include "WorldFile.h"
-#include "World/World.h"
 #include "Navigation/NavmeshFactory.h"
 
 #include "Network/NetworkMessage.h"
@@ -92,18 +91,6 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
     hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_client_manager.get()));
     hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     AddEntity(hud_overlay, LayerId::UI);
-
-/*
-    {
-        file::FilePtr world_file = file::OpenBinaryFile("res/world.world");
-        world::LevelFileHeader world_header;
-        world::ReadWorld(world_file, world_header);
-
-        std::vector<ExcludeZone> exclude_zones;
-        game::LoadWorld(this, world_header.polygons, exclude_zones);
-    }
-    */
-
 }
 
 int RemoteZone::OnUnload()
