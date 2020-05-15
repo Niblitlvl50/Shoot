@@ -1,0 +1,64 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 60,
+            "name": "doomguy1",
+            "w": 48,
+            "x": 1997,
+            "x_offset": 0.0,
+            "y": 66,
+            "y_offset": 0.0
+        },
+        {
+            "h": 58,
+            "name": "doomguy3",
+            "w": 48,
+            "x": 1997,
+            "x_offset": 0.0,
+            "y": 130,
+            "y_offset": 0.0
+        },
+        {
+            "h": 60,
+            "name": "doomguy2",
+            "w": 48,
+            "x": 1997,
+            "x_offset": 0.0,
+            "y": 2,
+            "y_offset": 0.0
+        },
+        {
+            "h": 58,
+            "name": "doomguy5",
+            "w": 48,
+            "x": 1173,
+            "x_offset": 0.0,
+            "y": 142,
+            "y_offset": 0.0
+        },
+        {
+            "h": 58,
+            "name": "doomguy4",
+            "w": 48,
+            "x": 1599,
+            "x_offset": 0.0,
+            "y": 120,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

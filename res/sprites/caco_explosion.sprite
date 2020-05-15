@@ -18,27 +18,27 @@
             "h": 42,
             "name": "caco_explosion2",
             "w": 50,
-            "x": 1720,
+            "x": 134,
             "x_offset": 0.0,
-            "y": 177,
+            "y": 188,
             "y_offset": 0.0
         },
         {
             "h": 47,
             "name": "caco_explosion3",
             "w": 53,
-            "x": 1663,
+            "x": 2,
             "x_offset": 0.0,
-            "y": 172,
+            "y": 188,
             "y_offset": 0.0
         },
         {
             "h": 48,
             "name": "caco_explosion1",
             "w": 45,
-            "x": 1997,
+            "x": 1715,
             "x_offset": 0.0,
-            "y": 2,
+            "y": 177,
             "y_offset": 0.0
         }
     ],
