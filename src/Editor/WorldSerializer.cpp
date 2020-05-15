@@ -107,7 +107,10 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
     for(const auto& json_entity : entities)
     {
         const std::string& entity_name = json_entity["name"];
+        const uint32_t entity_properties = json_entity.value("entity_properties", 0);
+
         mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
+        entity_manager->SetEntityProperties(new_entity.id, entity_properties);
 
         std::vector<Component> components;
 
@@ -127,10 +130,9 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
         }
 
         const std::string entity_folder = json_entity.value("folder", ""); 
-        const uint32_t entity_props = json_entity.value("entity_properties", 0);
 
         auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, entity_name, entity_folder, components, entity_manager, transform_system);
-        component_proxy->SetEntityProperties(entity_props);
+        component_proxy->SetEntityProperties(entity_properties);
 
         proxies.push_back(std::move(component_proxy));
     }
