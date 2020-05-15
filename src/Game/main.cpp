@@ -23,6 +23,7 @@
 #include "Entity/EntityLogicSystem.h"
 #include "DamageSystem.h"
 #include "Particle/ParticleSystem.h"
+#include "Spawner.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
@@ -132,11 +133,12 @@ int main(int argc, char* argv[])
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
 
         system_context.CreateSystem<mono::EntitySystem>(max_entities);
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, &event_handler);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
+        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, &event_handler);
+        system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
 
         const math::Vector window_size = math::Vector(options.width, options.height);
         System::IWindow* window = System::CreateWindow("game", options.x, options.y, window_size.x, window_size.y, false);

@@ -48,11 +48,20 @@ PlayerUIElement::PlayerUIElement(
     m_frame_sprite->SetPosition(math::Vector(14.0f, 0.0f));
     m_frame_sprite->SetScale(math::Vector(15.0f, 10.0f));
 
+    const std::vector<std::string> mugshot_sprites = {
+        "res/sprites/doomguy.sprite"
+    };
+    m_mugshot_sprite = std::make_unique<UISpriteElement>(mugshot_sprites);
+    m_mugshot_sprite->SetPosition(math::Vector(10.0f, 10.0f));
+    m_mugshot_sprite->SetScale(math::Vector(8.0f, 8.0f));
+    m_mugshot_sprite->GetSprite(0)->SetAnimation(1);
+
     m_score_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "", false, mono::Color::BLUE);
     m_score_text->SetPosition(math::Vector(14.0f, 10.0f));
 
     AddChild(m_frame_sprite.get());
     AddChild(m_weapon_sprites.get());
+    AddChild(m_mugshot_sprite.get());
     AddChild(m_ammo_text.get());
     AddChild(m_score_text.get());
 }
@@ -61,6 +70,7 @@ PlayerUIElement::~PlayerUIElement()
 {
     RemoveChild(m_frame_sprite.get());
     RemoveChild(m_weapon_sprites.get());
+    RemoveChild(m_mugshot_sprite.get());
     RemoveChild(m_ammo_text.get());
     RemoveChild(m_score_text.get());
 }

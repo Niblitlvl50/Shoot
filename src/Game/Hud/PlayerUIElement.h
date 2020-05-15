@@ -32,6 +32,7 @@ namespace game
         std::unique_ptr<class UITextElement> m_ammo_text;
         std::unique_ptr<class UISpriteElement> m_weapon_sprites;
         std::unique_ptr<class UISpriteElement> m_frame_sprite;
+        std::unique_ptr<class UISpriteElement> m_mugshot_sprite;
 
         std::unique_ptr<class UITextElement> m_score_text;
     };
