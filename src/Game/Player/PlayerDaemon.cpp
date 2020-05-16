@@ -106,11 +106,11 @@ PlayerDaemon::PlayerDaemon(
 {
     using namespace std::placeholders;
 
-    // const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
-    // const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
+    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
+    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
 
-    //m_added_token = m_event_handler.AddListener(added_func);
-    //m_removed_token = m_event_handler.AddListener(removed_func);
+    m_added_token = m_event_handler.AddListener(added_func);
+    m_removed_token = m_event_handler.AddListener(removed_func);
 
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);

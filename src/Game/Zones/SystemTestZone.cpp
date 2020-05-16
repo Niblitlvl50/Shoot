@@ -181,7 +181,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new HealthbarDrawer(damage_system, transform_system), LayerId::UI);
 
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-50.0f, 10.0f)));
+    hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(10.0f, 10.0f), math::Vector(-100.0f, 10.0f)));
     hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 10.0f), math::Vector(320.0f, 10.0f)));
 
     // Debug ui

@@ -210,9 +210,12 @@ void EntityManager::Sync()
 
 void EntityManager::DeferredRelease()
 {
+    std::unordered_set<uint32_t> local_entities_to_release = m_entities_to_release;
+    m_entities_to_release.clear();
+
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
 
-    for(uint32_t entity_id : m_entities_to_release)
+    for(uint32_t entity_id : local_entities_to_release)
     {
         mono::Entity& entity = entity_system->GetEntity(entity_id);
         for(uint32_t component_hash : entity.components)
@@ -224,6 +227,4 @@ void EntityManager::DeferredRelease()
 
         entity_system->ReleaseEntity(entity_id);
     }
-
-    m_entities_to_release.clear();
 }
