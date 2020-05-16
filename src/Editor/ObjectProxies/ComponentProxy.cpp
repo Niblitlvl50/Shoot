@@ -152,6 +152,18 @@ void ComponentProxy::SetEntityProperties(uint32_t properties)
     m_entity_properties = properties;
 }
 
+math::Vector ComponentProxy::GetPosition() const
+{
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    return math::GetPosition(transform);
+}
+
+void ComponentProxy::SetPosition(const math::Vector& position)
+{
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    math::Position(transform, position);
+}
+
 float ComponentProxy::GetRotation() const
 {
     const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
@@ -166,16 +178,9 @@ void ComponentProxy::SetRotation(float rotation)
     math::Position(transform, position);
 }
 
-math::Vector ComponentProxy::GetPosition() const
+math::Quad ComponentProxy::GetBoundingBox() const
 {
-    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    return math::GetPosition(transform);
-}
-
-void ComponentProxy::SetPosition(const math::Vector& position)
-{
-    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    math::Position(transform, position);
+    return m_transform_system->GetWorldBoundingBox(m_entity_id);
 }
 
 std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const

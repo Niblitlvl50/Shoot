@@ -27,10 +27,13 @@ namespace editor
         std::string GetFolder() const override;
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
-        float GetRotation() const override;
-        void SetRotation(float rotation) override;
+
         math::Vector GetPosition() const override;
         void SetPosition(const math::Vector& position) override;
+        float GetRotation() const override;
+        void SetRotation(float rotation) override;
+        math::Quad GetBoundingBox() const override;
+
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(IObjectVisitor& visitor) override;
         

@@ -149,6 +149,11 @@ void PathProxy::SetPosition(const math::Vector& position)
     m_path->SetPosition(position);
 }
 
+math::Quad PathProxy::GetBoundingBox() const
+{
+    return m_path->BoundingBox();
+}
+
 std::unique_ptr<editor::IObjectProxy> PathProxy::Clone() const
 {
     return nullptr;

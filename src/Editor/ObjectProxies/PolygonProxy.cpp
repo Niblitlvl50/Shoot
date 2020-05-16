@@ -138,6 +138,11 @@ void PolygonProxy::SetPosition(const math::Vector& position)
     m_polygon->SetPosition(position);
 }
 
+math::Quad PolygonProxy::GetBoundingBox() const
+{
+    return m_polygon->BoundingBox();
+}
+
 std::unique_ptr<editor::IObjectProxy> PolygonProxy::Clone() const
 {
     return nullptr;

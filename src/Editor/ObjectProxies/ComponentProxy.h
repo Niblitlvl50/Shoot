@@ -49,10 +49,11 @@ namespace editor
         uint32_t GetEntityProperties() const;
         void SetEntityProperties(uint32_t properties);
 
-        float GetRotation() const override;
-        void SetRotation(float rotation) override;
         math::Vector GetPosition() const override;
         void SetPosition(const math::Vector& position) override;
+        float GetRotation() const override;
+        void SetRotation(float rotation) override;
+        math::Quad GetBoundingBox() const override;
 
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(class IObjectVisitor& visitor) override;
