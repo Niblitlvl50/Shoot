@@ -186,9 +186,8 @@ math::Quad ComponentProxy::GetBoundingBox() const
 std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
 {
     const mono::Entity new_entity = m_entity_manager->CreateEntity("", {});
-    const std::string cloned_name = Name() + std::string(" (cloned)");
     return std::make_unique<ComponentProxy>(
-        new_entity.id, cloned_name, m_folder, m_components, m_entity_manager, m_transform_system);
+        new_entity.id, Name(), m_folder, m_components, m_entity_manager, m_transform_system);
 }
 
 void ComponentProxy::Visit(IObjectVisitor& visitor)

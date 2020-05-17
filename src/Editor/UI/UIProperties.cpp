@@ -256,7 +256,8 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
     {
         for(const UIComponentItem& component_item : ui_context.component_items)
         {
-            if(ImGui::Selectable(component_item.name.c_str()))
+            const std::string name = PrettifyString(component_item.name);
+            if(ImGui::Selectable(name.c_str()))
                 selected_component_hash = component_item.hash;
         }
         ImGui::EndPopup();
