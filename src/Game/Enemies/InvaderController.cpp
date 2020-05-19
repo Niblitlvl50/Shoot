@@ -78,7 +78,14 @@ void InvaderController::ToAttacking()
 void InvaderController::Idle(uint32_t delta_ms)
 {
     m_idle_timer += delta_ms;
-    if(m_idle_timer > 2000 && g_player_one.is_active)
+
+    if(!g_player_one.is_active)
+        return;
+
+    const math::Vector& position = math::GetPosition(*m_transform);
+    const float distance_to_player = std::fabs(math::Length(position - g_player_one.position));
+
+    if(m_idle_timer > 2000 && distance_to_player < 5)
         m_states.TransitionTo(InvaderStates::TRACKING);
 }
 

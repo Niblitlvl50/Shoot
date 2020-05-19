@@ -57,10 +57,13 @@ void CacodemonController::Update(uint32_t delta_ms)
     if(!g_player_one.is_active)
         return;
 
-    const TrackingResult result = m_tracking_behaviour->Run(delta_ms);
-
     const math::Vector& position = math::GetPosition(*m_transform);
-    const float rotation = math::GetZRotation(*m_transform);
+    const float distance_to_player = std::fabs(math::Length(g_player_one.position - position));
+    const float tracking_speed = (distance_to_player > 5.0f) ? 0.0f : 1.0f;
+    m_tracking_behaviour->SetTrackingSpeed(tracking_speed);
+
+
+    const TrackingResult result = m_tracking_behaviour->Run(delta_ms);
     
     if(result == TrackingResult::TRACKING)
     {
@@ -71,6 +74,8 @@ void CacodemonController::Update(uint32_t delta_ms)
     const bool is_visible = math::PointInsideQuad(position, g_camera_viewport);
     if(is_visible)
     {
+        const float rotation = math::GetZRotation(*m_transform);
+    
         const WeaponFireResult fire_result = m_weapon->Fire(position, rotation);
         if(fire_result == WeaponFireResult::OUT_OF_AMMO)
             m_weapon->Reload();
