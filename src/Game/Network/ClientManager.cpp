@@ -125,10 +125,10 @@ void ClientManager::Disconnect()
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
 }
 
-void ClientManager::doUpdate(const mono::UpdateContext& update_context)
+void ClientManager::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
-    m_dispatcher.doUpdate(update_context);
+    m_dispatcher.Update(update_context);
 
     m_client_time = update_context.total_time;
     m_server_time_predicted += update_context.delta_ms;

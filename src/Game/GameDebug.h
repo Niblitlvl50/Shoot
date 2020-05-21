@@ -25,7 +25,7 @@ namespace game
     public:
         DebugUpdater(mono::EventHandler* event_handler);
         ~DebugUpdater();
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
         mono::EventHandler* m_event_handler;

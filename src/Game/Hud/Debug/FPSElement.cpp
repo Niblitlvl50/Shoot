@@ -22,7 +22,7 @@ FPSElement::FPSElement(const math::Vector& position, const mono::Color::RGBA& co
     m_position = position;
 }
 
-void FPSElement::Draw(mono::IRenderer& renderer) const
+void FPSElement::EntityDraw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_fps)
         return;
@@ -32,7 +32,7 @@ void FPSElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(game::PIXELETTE_MEGA, text, math::ZeroVec, false, m_color);
 }
 
-void FPSElement::Update(const mono::UpdateContext& update_context)
+void FPSElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
     m_counter++;
 }

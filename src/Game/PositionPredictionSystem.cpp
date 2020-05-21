@@ -136,7 +136,7 @@ PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictio
     : m_prediction_system(prediction_system)
 { }
 
-void PredictionSystemDebugDrawer::doDraw(mono::IRenderer& renderer) const
+void PredictionSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
 {
     std::vector<math::Vector> line_points;
     std::vector<math::Vector> first_points;

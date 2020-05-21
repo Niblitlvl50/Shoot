@@ -281,7 +281,7 @@ ImGuiInterfaceDrawer::ImGuiInterfaceDrawer(UIContext& context)
     : m_context(context)
 { }
 
-void ImGuiInterfaceDrawer::doUpdate(const mono::UpdateContext& update_context)
+void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
 {
     ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
     ImGui::NewFrame();

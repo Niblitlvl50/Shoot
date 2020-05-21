@@ -75,10 +75,10 @@ PlayerUIElement::~PlayerUIElement()
     RemoveChild(m_score_text.get());
 }
 
-void PlayerUIElement::Draw(mono::IRenderer& renderer) const
+void PlayerUIElement::EntityDraw(mono::IRenderer& renderer) const
 { }
 
-void PlayerUIElement::Update(const mono::UpdateContext& update_context)
+void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
     if(m_player_info.score != m_current_score)
     {

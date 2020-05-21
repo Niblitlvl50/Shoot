@@ -14,9 +14,9 @@ namespace game
 
     private:
 
-        void doDraw(mono::IRenderer& renderer) const override;
         void Draw(mono::IRenderer& renderer) const override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void EntityDraw(mono::IRenderer& renderer) const override;
+        void EntityUpdate(const mono::UpdateContext& update_context) override;
         math::Quad BoundingBox() const override;
 
         math::Matrix m_projection;

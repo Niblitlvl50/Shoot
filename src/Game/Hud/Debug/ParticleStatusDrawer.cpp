@@ -18,7 +18,7 @@ ParticleStatusDrawer::ParticleStatusDrawer(const mono::ParticleSystem* particle_
     m_position = position;
 }
 
-void ParticleStatusDrawer::Draw(mono::IRenderer& renderer) const
+void ParticleStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_particle_stats)
         return;
@@ -30,5 +30,5 @@ void ParticleStatusDrawer::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(game::PIXELETTE_MEGA, text, math::ZeroVec, false, mono::Color::BLACK);
 }
 
-void ParticleStatusDrawer::Update(const mono::UpdateContext& update_context)
+void ParticleStatusDrawer::EntityUpdate(const mono::UpdateContext& update_context)
 { }

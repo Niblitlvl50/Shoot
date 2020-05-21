@@ -26,8 +26,8 @@ namespace game
 
     private:
 
-        void Update(const mono::UpdateContext& update_context);
-        void Draw(mono::IRenderer& renderer) const;
+        void EntityUpdate(const mono::UpdateContext& update_context);
+        void EntityDraw(mono::IRenderer& renderer) const;
 
         const std::vector<Option> m_options;
     };

@@ -17,8 +17,8 @@ namespace game
         PlayerUIElement(
             const PlayerInfo& player_info, const math::Vector& position, const math::Vector& offscreen_position);
         ~PlayerUIElement();
-        void Draw(mono::IRenderer& renderer) const override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void EntityDraw(mono::IRenderer& renderer) const override;
+        void EntityUpdate(const mono::UpdateContext& update_context) override;
 
     private:
 

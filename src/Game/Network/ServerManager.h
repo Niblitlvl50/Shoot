@@ -54,7 +54,7 @@ namespace game
         mono::EventResult HandleHeartBeatMessage(const HeartBeatMessage& message);
         mono::EventResult HandleViewportMessage(const ViewportMessage& message);
 
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         mono::EventHandler* m_event_handler;
         const game::Config* m_game_config;

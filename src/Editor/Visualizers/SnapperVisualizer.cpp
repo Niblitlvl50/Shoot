@@ -16,7 +16,7 @@ SnapperVisualizer::SnapperVisualizer(const bool& draw_snappers, const std::vecto
     , m_snappers(snappers)
 { }
 
-void SnapperVisualizer::doDraw(mono::IRenderer& renderer) const
+void SnapperVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(!m_draw_snappers)
         return;

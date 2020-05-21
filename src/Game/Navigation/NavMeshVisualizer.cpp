@@ -39,10 +39,10 @@ NavmeshVisualizer::NavmeshVisualizer(const NavmeshContext& context, mono::EventH
 
 NavmeshVisualizer::~NavmeshVisualizer()
 {
-    m_event_handler.RemoveListener(m_mouse_up_token);    
+    m_event_handler.RemoveListener(m_mouse_up_token);
 }
 
-void NavmeshVisualizer::doDraw(mono::IRenderer& renderer) const
+void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_navmesh)
         return;

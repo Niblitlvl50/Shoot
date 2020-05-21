@@ -11,7 +11,7 @@ namespace editor
     {
     public:
         ImGuiInterfaceDrawer(UIContext& context);
-        virtual void doUpdate(const mono::UpdateContext& update_context);
+        virtual void Update(const mono::UpdateContext& update_context);
     
     private:
         UIContext& m_context;

@@ -95,7 +95,7 @@ PathEntity::~PathEntity()
     parsl_destroy_context(m_ctx);
 }
 
-void PathEntity::Draw(mono::IRenderer& renderer) const
+void PathEntity::EntityDraw(mono::IRenderer& renderer) const
 {
     std::vector<math::Vector> curve_points;
     std::vector<math::Vector> control_points;
@@ -126,7 +126,7 @@ void PathEntity::Draw(mono::IRenderer& renderer) const
         renderer.DrawTrianges(m_position_buffer.get(), m_color_buffer.get(), m_index_buffer.get(), m_num_triangles * 3);
 }
 
-void PathEntity::Update(const mono::UpdateContext& update_context)
+void PathEntity::EntityUpdate(const mono::UpdateContext& update_context)
 { }
 
 math::Quad PathEntity::BoundingBox() const

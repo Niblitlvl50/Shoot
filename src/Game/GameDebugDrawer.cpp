@@ -27,7 +27,7 @@ GameDebugDrawer::~GameDebugDrawer()
     game::g_debug_drawer = nullptr;
 }
 
-void GameDebugDrawer::doDraw(mono::IRenderer& renderer) const
+void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 {
     for(DebugPoint& point : m_debug_points)
     {

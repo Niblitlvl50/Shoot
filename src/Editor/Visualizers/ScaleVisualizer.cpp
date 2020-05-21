@@ -12,7 +12,7 @@
 
 using namespace editor;
 
-void ScaleVisualizer::doDraw(mono::IRenderer& renderer) const
+void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
     constexpr math::Matrix transform;

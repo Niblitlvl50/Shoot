@@ -59,12 +59,12 @@ SmokeEffect::~SmokeEffect()
 
 void SmokeEffect::Draw(mono::IRenderer& renderer) const
 {
-    //m_drawer->doDraw(renderer);
+    //m_drawer->Draw(renderer);
 }
 
 void SmokeEffect::Update(const mono::UpdateContext& update_context)
 {
-    //m_emitter->doUpdate(update_context);
+    //m_emitter->Update(update_context);
     //m_pool->Update(update_context);
     //mRotation += math::ToRadians(0.1) * float(delta);
 }

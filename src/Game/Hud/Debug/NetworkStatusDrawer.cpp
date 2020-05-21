@@ -20,7 +20,7 @@ NetworkStatusDrawer::NetworkStatusDrawer(const math::Vector& position, const INe
     m_position = position;
 }
 
-void NetworkStatusDrawer::Draw(mono::IRenderer& renderer) const
+void NetworkStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_network_stats)
         return;
@@ -60,7 +60,7 @@ void NetworkStatusDrawer::Draw(mono::IRenderer& renderer) const
     }
 }
 
-void NetworkStatusDrawer::Update(const mono::UpdateContext& context)
+void NetworkStatusDrawer::EntityUpdate(const mono::UpdateContext& context)
 {
     m_total_frame_count = context.frame_count;
 }

@@ -15,7 +15,7 @@ CaptureTheFlagHud::CaptureTheFlagHud(const CaptureTheFlagScore& score)
     : m_score(score)
 { }
 
-void CaptureTheFlagHud::doDraw(mono::IRenderer& renderer) const
+void CaptureTheFlagHud::Draw(mono::IRenderer& renderer) const
 {
     constexpr math::Matrix identity;
     const math::Matrix& projection = math::Ortho(0.0f, 200.0f, 0.0f, 100.0f, -10.0f, 10.0f);

@@ -29,7 +29,6 @@ namespace game
 
     private:
 
-        mono::EventResult HandleText(const struct TextMessage& text_message);
         mono::EventResult HandleRemoteCamera(const struct RemoteCameraMessage& message);
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
@@ -42,13 +41,11 @@ namespace game
         std::vector<uint32_t> m_loaded_entities;
         std::unique_ptr<class GameCamera> m_game_camera;
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
-        std::unique_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ServerManager> m_server_manager;
         std::vector<struct Pickup> m_pickups;
 
         NavmeshContext m_navmesh;
 
-        mono::EventToken<game::TextMessage> m_text_func_token;
         mono::EventToken<game::RemoteCameraMessage> m_camera_func_token;
     };
 }

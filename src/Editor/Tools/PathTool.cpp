@@ -18,7 +18,7 @@ public:
 
     ~Visualizer() = default;
 
-    virtual void doDraw(mono::IRenderer& renderer) const
+    virtual void Draw(mono::IRenderer& renderer) const
     {
         if(m_points.empty())
             return;

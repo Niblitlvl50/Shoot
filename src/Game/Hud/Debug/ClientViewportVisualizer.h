@@ -21,7 +21,7 @@ namespace game
 
         ClientViewportVisualizer(const std::unordered_map<network::Address, ClientData>& client_data);
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const std::unordered_map<network::Address, ClientData>& m_client_data;

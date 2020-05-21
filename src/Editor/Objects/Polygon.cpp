@@ -42,7 +42,7 @@ PolygonEntity::PolygonEntity(const math::Vector& position, const std::vector<mat
     m_pivot_point = math::CentroidOfPolygon(m_points);
 }
 
-void PolygonEntity::Draw(mono::IRenderer& renderer) const
+void PolygonEntity::EntityDraw(mono::IRenderer& renderer) const
 {
     if(!m_texture)
         return;
@@ -55,7 +55,7 @@ void PolygonEntity::Draw(mono::IRenderer& renderer) const
     renderer.DrawPoints({ m_pivot_point }, point_color, 4.0f);
 }
 
-void PolygonEntity::Update(const mono::UpdateContext& update_context)
+void PolygonEntity::EntityUpdate(const mono::UpdateContext& update_context)
 {
     if(!m_texture)
         m_texture = mono::GetTextureFactory()->CreateTexture(m_texture_name);

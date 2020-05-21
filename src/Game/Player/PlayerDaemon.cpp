@@ -65,7 +65,7 @@ namespace
             AddChild(new UIDialog("YOU DEAD! Respawn?", options, background_color, text_color));
         }
 
-        void Update(const mono::UpdateContext& update_context)
+        void EntityUpdate(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
@@ -85,7 +85,7 @@ namespace
             m_last_state = state;
         }
 
-        void Draw(mono::IRenderer& renderer) const
+        void EntityDraw(mono::IRenderer& renderer) const
         { }
 
         PlayerDaemon* m_player_daemon;

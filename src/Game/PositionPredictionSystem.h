@@ -65,7 +65,7 @@ namespace game
     public:
 
         PredictionSystemDebugDrawer(const PositionPredictionSystem* prediction_system);
-        void doDraw(mono::IRenderer& renderer) const;
+        void Draw(mono::IRenderer& renderer) const;
         math::Quad BoundingBox() const;
 
         const PositionPredictionSystem* m_prediction_system;

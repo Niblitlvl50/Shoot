@@ -14,7 +14,7 @@ namespace editor
 
         GrabberVisualizer(const std::vector<editor::Grabber>& grabbers);
 
-        virtual void doDraw(mono::IRenderer& renderer) const;
+        virtual void Draw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
 
         const std::vector<editor::Grabber>& m_grabbers;

@@ -15,7 +15,7 @@ GravityUpdater::GravityUpdater(mono::IEntity* moon1, mono::IEntity* moon2)
     , mElapsedTime(0)
 { }
 
-void GravityUpdater::doUpdate(const mono::UpdateContext& update_context)
+void GravityUpdater::Update(const mono::UpdateContext& update_context)
 {
     using namespace std::placeholders;
 

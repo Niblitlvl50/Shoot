@@ -13,7 +13,7 @@ ObjectNameVisualizer::ObjectNameVisualizer(const bool& enabled, const std::vecto
     , m_object_proxies(object_proxies)
 { }
 
-void ObjectNameVisualizer::doDraw(mono::IRenderer& renderer) const
+void ObjectNameVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(!m_enabled)
         return;

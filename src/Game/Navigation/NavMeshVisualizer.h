@@ -21,7 +21,7 @@ namespace game
 
     private:
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         mono::EventResult OnMouseUp(const event::MouseUpEvent& event);

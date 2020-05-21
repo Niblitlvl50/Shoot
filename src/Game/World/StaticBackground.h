@@ -11,7 +11,7 @@ class StaticBackground : public mono::IDrawable
 public:
 
     StaticBackground();
-    void doDraw(mono::IRenderer& renderer) const override;
+    void Draw(mono::IRenderer& renderer) const override;
     math::Quad BoundingBox() const override;
 
     std::unique_ptr<mono::IRenderBuffer> m_vertex_buffer;

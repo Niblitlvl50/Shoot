@@ -50,7 +50,7 @@ HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::Transf
     , m_transform_system(transform_system)
 { }
 
-void HealthbarDrawer::doDraw(mono::IRenderer& renderer) const
+void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 {
     constexpr uint32_t max_uint = std::numeric_limits<uint32_t>::max();
     const uint32_t now = System::GetMilliseconds();

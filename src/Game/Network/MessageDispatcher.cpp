@@ -68,7 +68,7 @@ void MessageDispatcher::PushNewMessage(const NetworkMessage& message)
     m_push_messages->push_back(message);
 }
 
-void MessageDispatcher::doUpdate(const mono::UpdateContext& update_context)
+void MessageDispatcher::Update(const mono::UpdateContext& update_context)
 {
     std::vector<NetworkMessage>* unhandled_messages;
 

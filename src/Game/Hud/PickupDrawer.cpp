@@ -17,7 +17,7 @@ PickupDrawer::PickupDrawer(const std::vector<Pickup>& ammo_pickups)
 PickupDrawer::~PickupDrawer()
 { }
 
-void PickupDrawer::doDraw(mono::IRenderer& renderer) const
+void PickupDrawer::Draw(mono::IRenderer& renderer) const
 {
     for(const Pickup& ammo : m_ammo_pickups)
         renderer.DrawSprite(*m_pickup_sprites[ammo.type], ammo.position);

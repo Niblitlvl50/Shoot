@@ -33,7 +33,7 @@ namespace game
             const PlayerDaemon* player_daemon,
             IEntityManager* entity_manager);
         
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         void Start();
         void End();

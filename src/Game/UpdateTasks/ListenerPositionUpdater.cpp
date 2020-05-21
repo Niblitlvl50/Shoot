@@ -6,7 +6,7 @@
 
 using namespace game;
 
-void ListenerPositionUpdater::doUpdate(const mono::UpdateContext& update_context)
+void ListenerPositionUpdater::Update(const mono::UpdateContext& update_context)
 {
     mono::ListenerPosition(game::g_player_one.position.x, game::g_player_one.position.y);
 }

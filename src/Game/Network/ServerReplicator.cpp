@@ -50,7 +50,7 @@ ServerReplicator::ServerReplicator(
     m_keyframe_high = KEYFRAME_INTERVAL;
 }
 
-void ServerReplicator::doUpdate(const mono::UpdateContext& update_context)
+void ServerReplicator::Update(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
 

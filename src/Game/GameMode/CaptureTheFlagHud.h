@@ -12,7 +12,7 @@ namespace game
 
         CaptureTheFlagHud(const CaptureTheFlagScore& score);
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const CaptureTheFlagScore& m_score;

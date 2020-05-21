@@ -22,8 +22,8 @@ namespace game
 
     private:
 
-        void Draw(mono::IRenderer& renderer) const;
-        void Update(const mono::UpdateContext& update_context);
+        void EntityDraw(mono::IRenderer& renderer) const;
+        void EntityUpdate(const mono::UpdateContext& update_context);
 
         int m_font_id;
         std::string m_text;
@@ -43,8 +43,8 @@ namespace game
 
     private:
 
-        void Draw(mono::IRenderer& renderer) const;
-        void Update(const mono::UpdateContext& update_context);
+        void EntityDraw(mono::IRenderer& renderer) const;
+        void EntityUpdate(const mono::UpdateContext& update_context);
 
         size_t m_active_sprite;
         std::vector<mono::ISpritePtr> m_sprites;
@@ -59,8 +59,8 @@ namespace game
 
     private:
 
-        void Draw(mono::IRenderer& renderer) const;
-        void Update(const mono::UpdateContext& update_context);
+        void EntityDraw(mono::IRenderer& renderer) const;
+        void EntityUpdate(const mono::UpdateContext& update_context);
 
         const math::Quad m_square;
         const mono::Color::RGBA m_color;

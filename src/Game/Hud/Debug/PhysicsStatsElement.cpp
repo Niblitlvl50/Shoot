@@ -18,7 +18,7 @@ PhysicsStatsElement::PhysicsStatsElement(mono::PhysicsSystem* physics_system, co
     m_position = position;
 }
 
-void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
+void PhysicsStatsElement::EntityDraw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_physics_stats)
         return;
@@ -38,5 +38,5 @@ void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawText(game::PIXELETTE_MEGA, text_3, math::Vector(0.0f, -10.0f), false, m_color);
 }
 
-void PhysicsStatsElement::Update(const mono::UpdateContext& update_context)
+void PhysicsStatsElement::EntityUpdate(const mono::UpdateContext& update_context)
 { }

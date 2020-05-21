@@ -16,7 +16,7 @@ SelectionVisualizer::SelectionVisualizer(
     , m_transform_system(transform_system)
 { }
 
-void SelectionVisualizer::doDraw(mono::IRenderer& renderer) const
+void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(m_preselection_id != std::numeric_limits<uint32_t>::max() && m_preselection_id < m_transform_system->Capacity())
     {

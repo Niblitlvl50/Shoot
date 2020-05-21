@@ -15,7 +15,7 @@ namespace editor
 
         ObjectNameVisualizer(const bool& enabled, const std::vector<IObjectProxyPtr>& object_proxies);
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const bool& m_enabled;

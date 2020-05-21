@@ -16,7 +16,7 @@ namespace game
         WaveDrawer(mono::EventHandler& event_handler);
         ~WaveDrawer();
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         mono::EventResult WaveStarted(const struct WaveStartedEvent& event);

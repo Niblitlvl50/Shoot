@@ -77,11 +77,11 @@ GibSystem::GibSystem()
 GibSystem::~GibSystem()
 { }
 
-void GibSystem::doUpdate(const mono::UpdateContext& update_context)
+void GibSystem::Update(const mono::UpdateContext& update_context)
 {
     /*
     for(auto&& emitter : m_emitters)
-        emitter.doUpdate(update_context);
+        emitter.Update(update_context);
 
     m_pool->Update(update_context);
 
@@ -93,9 +93,9 @@ void GibSystem::doUpdate(const mono::UpdateContext& update_context)
     */
 }
 
-void GibSystem::doDraw(mono::IRenderer& renderer) const
+void GibSystem::Draw(mono::IRenderer& renderer) const
 {
-    //m_drawer->doDraw(renderer);
+    //m_drawer->Draw(renderer);
 }
 
 math::Quad GibSystem::BoundingBox() const

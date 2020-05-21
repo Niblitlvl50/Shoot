@@ -15,8 +15,8 @@ namespace game
 
         TextEntity(const std::string& text, FontId font, bool centered);
 
-        void Draw(mono::IRenderer& renderer) const override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void EntityDraw(mono::IRenderer& renderer) const override;
+        void EntityUpdate(const mono::UpdateContext& update_context) override;
 
         const std::string m_text;
         const FontId m_font;

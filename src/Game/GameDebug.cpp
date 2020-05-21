@@ -61,7 +61,7 @@ game::DebugUpdater::~DebugUpdater()
     m_event_handler->RemoveListener(m_keyup_token);
 }
 
-void game::DebugUpdater::doUpdate(const mono::UpdateContext& update_context)
+void game::DebugUpdater::Update(const mono::UpdateContext& update_context)
 {
     ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
     ImGui::NewFrame();

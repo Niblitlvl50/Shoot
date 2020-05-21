@@ -16,7 +16,7 @@ ClientReplicator::ClientReplicator(mono::ICamera* camera, ClientManager* remote_
     , m_replicate_timer(0)
 { }
 
-void ClientReplicator::doUpdate(const mono::UpdateContext& update_context)
+void ClientReplicator::Update(const mono::UpdateContext& update_context)
 {
     const ClientStatus client_status = m_remote_connection->GetConnectionStatus();
     if(client_status != ClientStatus::CONNECTED)

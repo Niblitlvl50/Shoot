@@ -38,7 +38,7 @@ namespace
             : m_contexts(contexts)
         { }
 
-        void doUpdate(const mono::UpdateContext& update_context)
+        void Update(const mono::UpdateContext& update_context)
         {
             game::UpdateMoveContexts(update_context.delta_ms, m_contexts);
         }
@@ -54,7 +54,7 @@ namespace
             : m_title_screen(title_screen)
         { }
 
-        void doUpdate(const mono::UpdateContext& update_context)
+        void Update(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 

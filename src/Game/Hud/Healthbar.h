@@ -17,7 +17,7 @@ namespace game
     public:
         HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system);
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         game::DamageSystem* m_damage_system;

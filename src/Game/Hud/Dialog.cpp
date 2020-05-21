@@ -66,9 +66,9 @@ UIDialog::UIDialog(
     }
 }
 
-void UIDialog::Update(const mono::UpdateContext& update_context)
+void UIDialog::EntityUpdate(const mono::UpdateContext& update_context)
 {}
 
-void UIDialog::Draw(mono::IRenderer& renderer) const
+void UIDialog::EntityDraw(mono::IRenderer& renderer) const
 {}
 

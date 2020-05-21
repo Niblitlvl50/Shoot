@@ -14,8 +14,8 @@ namespace game
         GibSystem();
         ~GibSystem();
 
-        void doUpdate(const mono::UpdateContext& update_context) override;
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Update(const mono::UpdateContext& update_context) override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         void EmitGibsAt(const math::Vector& position, float direction);

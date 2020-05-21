@@ -17,7 +17,7 @@ namespace editor
 
         SelectionVisualizer(
             const uint32_t& selection_id, const uint32_t& preselection_id, mono::TransformSystem* transform_system);
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
     private:

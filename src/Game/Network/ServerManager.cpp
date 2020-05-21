@@ -196,12 +196,12 @@ void ServerManager::PurgeZombieClients()
     }
 }
 
-void ServerManager::doUpdate(const mono::UpdateContext& update_context)
+void ServerManager::Update(const mono::UpdateContext& update_context)
 {
     m_server_time = update_context.total_time;
 
     PurgeZombieClients();
-    m_dispatcher.doUpdate(update_context);
+    m_dispatcher.Update(update_context);
 
     m_beacon_timer += update_context.delta_ms;
 

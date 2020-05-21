@@ -12,7 +12,7 @@ namespace game
     public:
         GravityUpdater(mono::IEntity* moon1, mono::IEntity* moon2);
 
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
         void GravityFunc(mono::IBody* body);
 
     private:

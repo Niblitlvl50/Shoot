@@ -28,12 +28,12 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
     m_color = new_color;
 }
 
-void UITextElement::Draw(mono::IRenderer& renderer) const
+void UITextElement::EntityDraw(mono::IRenderer& renderer) const
 {
     renderer.DrawText(m_font_id, m_text.c_str(), math::ZeroVec, m_centered, m_color);
 }
 
-void UITextElement::Update(const mono::UpdateContext& update_context)
+void UITextElement::EntityUpdate(const mono::UpdateContext& update_context)
 { }
 
 
@@ -57,15 +57,15 @@ const mono::ISpritePtr& UISpriteElement::GetSprite(size_t index) const
     return m_sprites[index];
 }
 
-void UISpriteElement::Draw(mono::IRenderer& renderer) const
+void UISpriteElement::EntityDraw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprites[m_active_sprite]);
 }
 
-void UISpriteElement::Update(const mono::UpdateContext& update_context)
+void UISpriteElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
     for(auto& sprite : m_sprites)
-        sprite->doUpdate(update_context);
+        sprite->Update(update_context);
 }
 
 UISquareElement::UISquareElement(const math::Quad& square, const mono::Color::RGBA& color)
@@ -80,7 +80,7 @@ UISquareElement::UISquareElement(
     , m_border_width(border_width)
 { }
 
-void UISquareElement::Draw(mono::IRenderer& renderer) const
+void UISquareElement::EntityDraw(mono::IRenderer& renderer) const
 {
     if(m_border_width > 0.0f)
     {
@@ -96,5 +96,5 @@ void UISquareElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawFilledQuad(m_square, m_color);
 }
 
-void UISquareElement::Update(const mono::UpdateContext& update_context)
+void UISquareElement::EntityUpdate(const mono::UpdateContext& update_context)
 { }

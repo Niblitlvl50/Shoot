@@ -11,7 +11,7 @@ namespace game
     {
     public:
         PickupUpdater(std::vector<struct Pickup>& pickups, mono::EventHandler& event_handler);
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
         std::vector<struct Pickup>& m_pickups;

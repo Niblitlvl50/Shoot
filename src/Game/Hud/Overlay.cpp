@@ -7,22 +7,23 @@ using namespace game;
 
 UIOverlayDrawer::UIOverlayDrawer()
 {
-    m_projection = math::Ortho(0.0f, 300.0f, 0.0f, 200.0f, -10.0f, 10.0f);
+    //m_projection = math::Ortho(0.0f, 300.0f, 0.0f, 200.0f, -10.0f, 10.0f);
+    m_projection = math::Ortho(0.0f, 200.0f, 0.0f, 300.0f, -10.0f, 10.0f);
 }
 
-void UIOverlayDrawer::doDraw(mono::IRenderer& renderer) const
+void UIOverlayDrawer::Draw(mono::IRenderer& renderer) const
 {
     constexpr math::Matrix identity;
     renderer.PushNewTransform(identity);
     renderer.PushNewProjection(m_projection);
 
-    EntityBase::doDraw(renderer);
+    EntityBase::Draw(renderer);
 }
 
-void UIOverlayDrawer::Draw(mono::IRenderer& renderer) const
+void UIOverlayDrawer::EntityDraw(mono::IRenderer& renderer) const
 { }
 
-void UIOverlayDrawer::Update(const mono::UpdateContext& update_context)
+void UIOverlayDrawer::EntityUpdate(const mono::UpdateContext& update_context)
 { }
 
 math::Quad UIOverlayDrawer::BoundingBox() const

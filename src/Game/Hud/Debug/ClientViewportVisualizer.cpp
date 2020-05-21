@@ -14,7 +14,7 @@ ClientViewportVisualizer::ClientViewportVisualizer(const std::unordered_map<netw
     : m_client_data(client_data)
 { }
 
-void ClientViewportVisualizer::doDraw(mono::IRenderer& renderer) const
+void ClientViewportVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_client_viewport)
         return;

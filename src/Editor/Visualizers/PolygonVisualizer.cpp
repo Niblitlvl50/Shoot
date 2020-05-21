@@ -15,7 +15,7 @@ PolygonVisualizer2::PolygonVisualizer2(const std::vector<math::Vector>& points, 
     m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/placeholder.png");
 }
 
-void PolygonVisualizer2::doDraw(mono::IRenderer& renderer) const
+void PolygonVisualizer2::Draw(mono::IRenderer& renderer) const
 {
     if(m_points.empty())
         return;

@@ -89,7 +89,7 @@ void CaptureTheFlagLogic::End()
 
 }
 
-void CaptureTheFlagLogic::doUpdate(const mono::UpdateContext& update_context)
+void CaptureTheFlagLogic::Update(const mono::UpdateContext& update_context)
 {
     const std::vector<uint32_t>& player_ids = m_player_daemon->GetPlayerIds();
     if(player_ids.empty())

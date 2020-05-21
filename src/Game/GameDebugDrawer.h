@@ -18,7 +18,7 @@ namespace game
         GameDebugDrawer();
         ~GameDebugDrawer();
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         void DrawPoint(const math::Vector& position, float size, const mono::Color::RGBA& color) override;

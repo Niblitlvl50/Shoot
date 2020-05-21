@@ -18,7 +18,7 @@ void ConsoleDrawer::AddText(const std::string& text, uint32_t life_time_ms)
     m_text_items.push_back(item);
 }
 
-void ConsoleDrawer::doDraw(mono::IRenderer& renderer) const
+void ConsoleDrawer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 20.0f, 0.0f, 16.0f, 0.0f, 10.0f);
 

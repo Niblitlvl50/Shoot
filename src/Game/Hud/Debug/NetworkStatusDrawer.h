@@ -10,8 +10,8 @@ namespace game
     public:
 
         NetworkStatusDrawer(const math::Vector& position, const class INetworkPipe* network_pipe);
-        void Draw(mono::IRenderer& renderer) const override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void EntityDraw(mono::IRenderer& renderer) const override;
+        void EntityUpdate(const mono::UpdateContext& update_context) override;
 
         const INetworkPipe* m_network_pipe;
         uint32_t m_total_frame_count;

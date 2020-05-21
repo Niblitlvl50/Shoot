@@ -131,17 +131,17 @@ ParticleExplosion::~ParticleExplosion()
 
 void ParticleExplosion::Draw(mono::IRenderer& renderer) const
 {
-    //m_drawer1->doDraw(renderer);
-    //m_drawer2->doDraw(renderer);
-    //m_drawer3->doDraw(renderer);
+    //m_drawer1->Draw(renderer);
+    //m_drawer2->Draw(renderer);
+    //m_drawer3->Draw(renderer);
 }
 
 void ParticleExplosion::Update(const mono::UpdateContext& update_context)
 {
     /*
-    m_emitter1->doUpdate(update_context);
-    m_emitter2->doUpdate(update_context);
-    m_emitter3->doUpdate(update_context);
+    m_emitter1->Update(update_context);
+    m_emitter2->Update(update_context);
+    m_emitter3->Update(update_context);
 
     m_pool1->Update(update_context);
     m_pool2->Update(update_context);

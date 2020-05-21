@@ -70,7 +70,7 @@ namespace
             : m_entity_manager(entity_manager)
         { }
 
-        void doUpdate(const mono::UpdateContext& update_context) override
+        void Update(const mono::UpdateContext& update_context) override
         {
             m_entity_manager.Sync();
         }

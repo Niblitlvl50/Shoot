@@ -17,6 +17,7 @@
 #include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
+
 #include "Util/Random.h"
 
 #include "AIKnowledge.h"
@@ -24,7 +25,6 @@
 #include "Hud/PlayerUIElement.h"
 #include "Hud/Overlay.h"
 #include "Hud/PickupDrawer.h"
-#include "Hud/WaveDrawer.h"
 #include "Hud/Healthbar.h"
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
@@ -44,21 +44,15 @@
 #include "UpdateTasks/GameCamera.h"
 #include "UpdateTasks/PickupUpdater.h"
 
-#include "Pickups/Ammo.h"
-
 #include "Entity/IEntityManager.h"
 #include "Factories.h"
-#include "DamageSystem.h"
 
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
-
+#include "DamageSystem.h"
 #include "WorldFile.h"
 #include "World/StaticBackground.h"
-#include "Entity/EntityProperties.h"
 #include "Camera/ICamera.h"
-#include "GameMode/CaptureTheFlagLogic.h"
-#include "GameMode/CaptureTheFlagHud.h"
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
 
@@ -70,7 +64,7 @@ namespace
 {
     class SyncPoint : public mono::IUpdatable
     {
-        void doUpdate(const mono::UpdateContext& update_context)
+        void Update(const mono::UpdateContext& update_context)
         {
             g_entity_manager->Sync();
         }
@@ -83,23 +77,19 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     , m_game_config(*context.game_config)
 {
     using namespace std::placeholders;
-
-    const std::function<mono::EventResult (const TextMessage&)> text_func = std::bind(&SystemTestZone::HandleText, this, _1);
     const std::function<mono::EventResult (const RemoteCameraMessage&)> camera_func = std::bind(&SystemTestZone::HandleRemoteCamera, this, _1);
-
-    m_text_func_token = m_event_handler->AddListener(text_func);
     m_camera_func_token = m_event_handler->AddListener(camera_func);
 }
 
 SystemTestZone::~SystemTestZone()
 {
-    m_event_handler->RemoveListener(m_text_func_token);
     m_event_handler->RemoveListener(m_camera_func_token);
 }
 
 void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
-    camera->SetViewport(math::Quad(0, 0, 22, 14));
+    //camera->SetViewport(math::Quad(0, 0, 22, 14));
+    camera->SetViewport(math::Quad(0, 0, 10, 16));
     m_camera = camera;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
@@ -123,15 +113,12 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(new ListenerPositionUpdater());
     AddUpdatable(m_game_camera.get());
     AddUpdatable(new PickupUpdater(m_pickups, *m_event_handler));
-
     AddDrawable(new PickupDrawer(m_pickups), LayerId::GAMEOBJECTS);
-    AddDrawable(new WaveDrawer(*m_event_handler), LayerId::UI);
-    m_console_drawer = std::make_unique<ConsoleDrawer>();
-    AddDrawable(m_console_drawer.get(), LayerId::UI);
 
     m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
     m_loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
 
+/*
     for(int index = 0; index < 250; ++index)
     {
         const mono::Entity new_entity = g_entity_manager->CreateEntity("res/entities/pink_blolb.entity");
@@ -141,35 +128,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
         m_loaded_entities.push_back(new_entity.id);
     }
-
-    std::vector<uint32_t> ctf_flags;
-
-    for(uint32_t id : m_loaded_entities)
-    {
-        const uint32_t properties = g_entity_manager->GetEntityProperties(id);
-        if(properties & EntityProperties::CTF_FLAG)
-            ctf_flags.push_back(id);
-    }
-
-    if(ctf_flags.size() >= 2)
-    {
-        auto* capture_the_flag =
-            new CaptureTheFlagLogic(ctf_flags, transform_system, sprite_system, damage_system, m_player_daemon.get(), g_entity_manager);
-        AddUpdatable(capture_the_flag);
-        AddDrawable(new CaptureTheFlagHud(capture_the_flag->Score()), LayerId::UI);
-    }
+    */
 
     // Nav mesh
-
-    for(uint32_t id : m_loaded_entities)
-    {
-        mono::IBody* body = physics_system->GetBody(id);
-        if(!body)
-            continue;
-
-        //body->
-    }
-
     std::vector<ExcludeZone> exclude_zones;
     m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
     m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
@@ -209,16 +170,9 @@ int SystemTestZone::OnUnload()
     g_entity_manager->Sync();
 
     RemoveUpdatable(m_game_camera.get());
-    RemoveDrawable(m_console_drawer.get());
     RemoveUpdatable(m_server_manager.get());
 
     return 0;
-}
-
-mono::EventResult SystemTestZone::HandleText(const TextMessage& text_message)
-{
-    m_console_drawer->AddText(text_message.text, 1500);
-    return mono::EventResult::HANDLED;
 }
 
 mono::EventResult SystemTestZone::HandleRemoteCamera(const RemoteCameraMessage& message)

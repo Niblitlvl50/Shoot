@@ -37,7 +37,7 @@ namespace game
             uint32_t replication_interval);
 
     private:
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         void ReplicateSpawns(BatchedMessageSender& batched_sender);
         void ReplicateTransforms(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context);

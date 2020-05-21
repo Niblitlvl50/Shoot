@@ -18,7 +18,7 @@ namespace game
         PickupDrawer(const std::vector<Pickup>& ammo_pickups);
         ~PickupDrawer();
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const std::vector<Pickup>& m_ammo_pickups;

@@ -74,7 +74,7 @@ void StaticTerrainBlock::AddPolygon(const world::PolygonData& polygon)
     m_vertex_buffer_2->UpdateData(new_vertices.data(), 0, new_vertices.size() * 2);
 }
 
-void StaticTerrainBlock::doDraw(mono::IRenderer& renderer) const
+void StaticTerrainBlock::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawTrianges(m_vertex_buffer_2.get(), m_color_buffer_2.get(), m_index_buffer.get(), m_vertices);
 

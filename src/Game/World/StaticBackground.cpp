@@ -40,7 +40,7 @@ StaticBackground::StaticBackground()
     m_texture_buffer->UpdateData(texture_coordinates.data(), 0, vertex_count * 2);
 }
 
-void StaticBackground::doDraw(mono::IRenderer& renderer) const
+void StaticBackground::Draw(mono::IRenderer& renderer) const
 {
     renderer.DrawGeometry(m_vertex_buffer.get(), m_texture_buffer.get(), 0, 4, m_texture);
 }

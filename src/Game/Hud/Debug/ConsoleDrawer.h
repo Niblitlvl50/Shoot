@@ -15,7 +15,7 @@ namespace game
 
         void AddText(const std::string& text, uint32_t life_time_ms);
 
-        void doDraw(mono::IRenderer& renderer) const override;
+        void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
     private:

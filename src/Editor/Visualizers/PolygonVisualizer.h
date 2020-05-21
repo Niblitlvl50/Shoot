@@ -13,7 +13,7 @@ namespace editor
     public:
 
         PolygonVisualizer2(const std::vector<math::Vector>& points, const math::Vector& mouse_position);
-        virtual void doDraw(mono::IRenderer& renderer) const;
+        virtual void Draw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
 
     private:

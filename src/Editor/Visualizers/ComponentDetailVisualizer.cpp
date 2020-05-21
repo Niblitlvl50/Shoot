@@ -22,7 +22,7 @@ void ComponentDetailVisualizer::SetObjectProxy(IObjectProxy* object_proxy)
     m_object_proxy = object_proxy;
 }
 
-void ComponentDetailVisualizer::doDraw(mono::IRenderer& renderer) const
+void ComponentDetailVisualizer::Draw(mono::IRenderer& renderer) const
 {
     if(!m_object_proxy)
         return;

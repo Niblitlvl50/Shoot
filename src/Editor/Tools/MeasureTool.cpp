@@ -23,7 +23,7 @@ public:
         , m_end_position(end_position)
     { }
 
-    void doDraw(mono::IRenderer& renderer) const override
+    void Draw(mono::IRenderer& renderer) const override
     {
         if(!m_active)
             return;

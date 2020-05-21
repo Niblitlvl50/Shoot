@@ -15,8 +15,8 @@ namespace game
     public:
 
         ParticleStatusDrawer(const mono::ParticleSystem* particle_system, const math::Vector& position);
-        void Draw(mono::IRenderer& renderer) const override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void EntityDraw(mono::IRenderer& renderer) const override;
+        void EntityUpdate(const mono::UpdateContext& update_context) override;
 
         const mono::ParticleSystem* m_particle_system;
     };

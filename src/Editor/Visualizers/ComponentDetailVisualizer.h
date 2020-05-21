@@ -29,7 +29,7 @@ namespace editor
         ComponentDetailVisualizer(const ComponentDrawMap& draw_funcs, const mono::TransformSystem* transform_system);
         void SetObjectProxy(IObjectProxy* object_proxy);
 
-        virtual void doDraw(mono::IRenderer& renderer) const;
+        virtual void Draw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
 
     private:

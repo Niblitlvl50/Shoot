@@ -29,8 +29,8 @@ namespace editor
         void SetVertex(const math::Vector& world_point, size_t index);
         const std::vector<math::Vector>& GetPoints() const;
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual void Update(const mono::UpdateContext& update_context);
+        virtual void EntityDraw(mono::IRenderer& renderer) const;
+        virtual void EntityUpdate(const mono::UpdateContext& update_context);
         virtual math::Quad BoundingBox() const;
 
         void UpdateMesh();

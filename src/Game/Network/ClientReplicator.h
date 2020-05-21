@@ -19,7 +19,7 @@ namespace game
     public:
 
         ClientReplicator(mono::ICamera* camera, ClientManager* remote_connection);
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
 

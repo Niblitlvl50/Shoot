@@ -46,7 +46,7 @@ namespace game
 
     private:
 
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         mono::EventResult HandleServerBeacon(const ServerBeaconMessage& message);
         mono::EventResult HandleServerQuit(const ServerQuitMessage& message);

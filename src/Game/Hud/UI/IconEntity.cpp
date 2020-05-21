@@ -14,12 +14,12 @@ IconEntity::IconEntity(const char* sprite_file)
 IconEntity::~IconEntity()
 { }
 
-void IconEntity::Update(const mono::UpdateContext& update_context)
+void IconEntity::EntityUpdate(const mono::UpdateContext& update_context)
 {
-    m_sprite->doUpdate(update_context);
+    m_sprite->Update(update_context);
 }
 
-void IconEntity::Draw(mono::IRenderer& renderer) const
+void IconEntity::EntityDraw(mono::IRenderer& renderer) const
 {
     renderer.DrawSprite(*m_sprite);
 }

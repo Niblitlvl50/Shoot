@@ -21,7 +21,7 @@ namespace game
         GameCamera(mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler& event_handler);
         ~GameCamera();
 
-        void doUpdate(const mono::UpdateContext& update_context) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         void Follow(uint32_t entity_id, const math::Vector& offset);
         void Unfollow();

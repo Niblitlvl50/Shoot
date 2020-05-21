@@ -9,7 +9,7 @@ PickupUpdater::PickupUpdater(std::vector<Pickup>& pickups, mono::EventHandler& e
     , m_event_handler(event_handler)
 { }
 
-void PickupUpdater::doUpdate(const mono::UpdateContext& update_context)
+void PickupUpdater::Update(const mono::UpdateContext& update_context)
 {
     CheckPlayerPickups(m_pickups, m_event_handler);
 }
