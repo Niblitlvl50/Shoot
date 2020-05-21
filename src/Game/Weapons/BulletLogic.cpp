@@ -44,11 +44,11 @@ BulletLogic::BulletLogic(
     m_jumps_left = 3;
 }
 
-void BulletLogic::Update(uint32_t delta_ms)
+void BulletLogic::Update(const mono::UpdateContext& update_context)
 {
     m_sound->Position(0.0f, 0.0f);
 
-    m_life_span -= delta_ms;
+    m_life_span -= update_context.delta_ms;
     if(m_life_span < 0)
         m_collision_callback(m_entity_id, m_owner_entity_id, BulletCollisionFlag::DESTROY_THIS, nullptr);
 }

@@ -19,7 +19,7 @@ namespace game
         BlackSquareController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
         virtual ~BlackSquareController();
 
-        void Update(uint32_t delta_ms) override;
+        void Update(const mono::UpdateContext& update_context) override;
         mono::CollisionResolve OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category) override;
 
     private:

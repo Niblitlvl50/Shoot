@@ -58,6 +58,6 @@ void EntityLogicSystem::Update(const mono::UpdateContext& update_context)
     for(IEntityLogic* logic : m_logics)
     {
         if(logic)
-            logic->Update(update_context.delta_ms);
+            logic->Update(update_context);
     }
 }

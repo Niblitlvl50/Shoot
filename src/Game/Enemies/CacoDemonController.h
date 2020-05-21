@@ -18,7 +18,7 @@ namespace game
         CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
         ~CacodemonController();
 
-        void Update(uint32_t delta_ms) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
     private:
 

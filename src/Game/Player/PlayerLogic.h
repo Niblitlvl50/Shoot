@@ -53,7 +53,7 @@ namespace game
 
         ~PlayerLogic();
 
-        void Update(uint32_t delta_ms) override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         void Fire();
         void StopFire();

@@ -46,13 +46,13 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::IPathPtr 
 InvaderPathController::~InvaderPathController()
 { }
 
-void InvaderPathController::Update(uint32_t delta_ms)
+void InvaderPathController::Update(const mono::UpdateContext& update_context)
 {
-    m_path_behaviour->Run(delta_ms);
+    m_path_behaviour->Run(update_context.delta_ms);
 
     if(m_fire_cooldown > 0)
     {
-        m_fire_cooldown -= delta_ms;
+        m_fire_cooldown -= update_context.delta_ms;
         return;
     }
 

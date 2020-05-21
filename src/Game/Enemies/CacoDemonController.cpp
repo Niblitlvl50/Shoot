@@ -52,7 +52,7 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
 CacodemonController::~CacodemonController()
 { }
 
-void CacodemonController::Update(uint32_t delta_ms)
+void CacodemonController::Update(const mono::UpdateContext& update_context)
 {
     if(!g_player_one.is_active)
         return;
@@ -63,7 +63,7 @@ void CacodemonController::Update(uint32_t delta_ms)
     m_tracking_behaviour->SetTrackingSpeed(tracking_speed);
 
 
-    const TrackingResult result = m_tracking_behaviour->Run(delta_ms);
+    const TrackingResult result = m_tracking_behaviour->Run(update_context.delta_ms);
     
     if(result == TrackingResult::TRACKING)
     {

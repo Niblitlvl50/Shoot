@@ -59,9 +59,9 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
 BlackSquareController::~BlackSquareController()
 { }
 
-void BlackSquareController::Update(uint32_t delta_ms)
+void BlackSquareController::Update(const mono::UpdateContext& update_context)
 {
-    m_states.UpdateState(delta_ms);
+    m_states.UpdateState(update_context.delta_ms);
 }
 
 mono::CollisionResolve BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category)

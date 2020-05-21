@@ -25,10 +25,10 @@ BeastController::BeastController(uint32_t entity_id, mono::SystemContext* system
     m_states.TransitionTo(BeastStates::IDLE);
 }
 
-void BeastController::Update(uint32_t delta_ms)
+void BeastController::Update(const mono::UpdateContext& update_context)
 {
-    m_states.UpdateState(delta_ms);
-    m_timer += delta_ms;
+    m_states.UpdateState(update_context.delta_ms);
+    m_timer += update_context.delta_ms;
 }
 
 void BeastController::ToIdle()

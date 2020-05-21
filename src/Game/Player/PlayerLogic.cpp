@@ -76,9 +76,9 @@ PlayerLogic::~PlayerLogic()
     g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
 }
 
-void PlayerLogic::Update(uint32_t delta_ms)
+void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
-    m_gamepad_controller.Update(delta_ms);
+    m_gamepad_controller.Update(update_context.delta_ms);
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);

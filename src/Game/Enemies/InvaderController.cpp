@@ -51,9 +51,9 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
 InvaderController::~InvaderController()
 { }
 
-void InvaderController::Update(uint32_t delta_ms)
+void InvaderController::Update(const mono::UpdateContext& update_context)
 {
-    m_states.UpdateState(delta_ms);
+    m_states.UpdateState(update_context.delta_ms);
 }
 
 void InvaderController::ToIdle()

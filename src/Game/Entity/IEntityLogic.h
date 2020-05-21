@@ -1,15 +1,12 @@
 
 #pragma once
 
+#include "IUpdatable.h"
 #include <cstdint>
 
 namespace game
 {
-    class IEntityLogic
+    class IEntityLogic : public mono::IUpdatable
     {
-    public:
-
-        virtual ~IEntityLogic() = default;
-        virtual void Update(uint32_t delta_ms) = 0;
     };
 }

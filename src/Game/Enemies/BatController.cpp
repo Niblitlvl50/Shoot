@@ -8,7 +8,7 @@ BatController::BatController(uint32_t entity_id, mono::SystemContext* system_con
 
 }
 
-void BatController::Update(uint32_t delta_ms)
+void BatController::Update(const mono::UpdateContext& update_context)
 {
 
 }
