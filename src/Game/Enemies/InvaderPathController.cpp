@@ -68,7 +68,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
     if(distance < 7.0f)
     {
         const float angle = math::AngleBetweenPoints(g_player_one.position, enemy_position) + math::PI_2();
-        m_fire_count += (m_weapon->Fire(enemy_position, angle) == WeaponFireResult::FIRE);
+        m_fire_count += (m_weapon->Fire(enemy_position, angle, update_context.total_time) == WeaponFireResult::FIRE);
     }
 
     if(m_fire_count == 5)

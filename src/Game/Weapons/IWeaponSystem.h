@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Math/MathFwd.h"
+#include <cstdint>
 
 namespace game
 {
@@ -20,7 +21,7 @@ namespace game
         virtual ~IWeaponSystem()
         { }
 
-        virtual WeaponFireResult Fire(const math::Vector& position, float direction) = 0;
+        virtual WeaponFireResult Fire(const math::Vector& position, float direction, uint32_t timestamp) = 0;
         virtual int AmmunitionLeft() const = 0;
         virtual int MagazineSize() const = 0;
         virtual void Reload() = 0;

@@ -76,7 +76,7 @@ void CacodemonController::Update(const mono::UpdateContext& update_context)
     {
         const float rotation = math::GetZRotation(*m_transform);
     
-        const WeaponFireResult fire_result = m_weapon->Fire(position, rotation);
+        const WeaponFireResult fire_result = m_weapon->Fire(position, rotation, update_context.total_time);
         if(fire_result == WeaponFireResult::OUT_OF_AMMO)
             m_weapon->Reload();
     }

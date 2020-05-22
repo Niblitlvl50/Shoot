@@ -53,7 +53,7 @@ InvaderController::~InvaderController()
 
 void InvaderController::Update(const mono::UpdateContext& update_context)
 {
-    m_states.UpdateState(update_context.delta_ms);
+    m_states.UpdateState(update_context);
 }
 
 void InvaderController::ToIdle()
@@ -75,9 +75,9 @@ void InvaderController::ToAttacking()
 
 }
 
-void InvaderController::Idle(uint32_t delta_ms)
+void InvaderController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += delta_ms;
+    m_idle_timer += update_context.delta_ms;
 
     if(!g_player_one.is_active)
         return;
@@ -89,7 +89,7 @@ void InvaderController::Idle(uint32_t delta_ms)
         m_states.TransitionTo(InvaderStates::TRACKING);
 }
 
-void InvaderController::Tracking(uint32_t delta_ms)
+void InvaderController::Tracking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = math::Length(g_player_one.position - position);
@@ -99,12 +99,12 @@ void InvaderController::Tracking(uint32_t delta_ms)
         return;
     }
 
-    const TrackingResult result = m_tracking_behaviour->Run(delta_ms);
+    const TrackingResult result = m_tracking_behaviour->Run(update_context.delta_ms);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
         m_states.TransitionTo(InvaderStates::IDLE);
 }
 
-void InvaderController::Attacking(uint32_t delta_ms)
+void InvaderController::Attacking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = math::Length(g_player_one.position - position);
@@ -115,5 +115,5 @@ void InvaderController::Attacking(uint32_t delta_ms)
     }
 
     const float angle = math::AngleBetweenPoints(g_player_one.position, position) + math::PI_2();
-    m_weapon->Fire(position, angle);
+    m_weapon->Fire(position, angle, update_context.total_time);
 }

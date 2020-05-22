@@ -32,9 +32,9 @@ namespace game
         void ToIdle();
         void ToTracking();
         void ToAttacking();
-        void Idle(uint32_t delta_ms);
-        void Tracking(uint32_t delta_ms);
-        void Attacking(uint32_t delta_ms);
+        void Idle(const mono::UpdateContext& update_context);
+        void Tracking(const mono::UpdateContext& update_context);
+        void Attacking(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
 
@@ -42,7 +42,7 @@ namespace game
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         uint32_t m_idle_timer;
-        using InvaderStateMachine = StateMachine<InvaderStates, uint32_t>;
+        using InvaderStateMachine = StateMachine<InvaderStates, const mono::UpdateContext&>;
         InvaderStateMachine m_states;
 
         mono::ISprite* m_sprite;

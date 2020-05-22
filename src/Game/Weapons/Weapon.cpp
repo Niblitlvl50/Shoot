@@ -4,7 +4,6 @@
 
 #include "Math/Vector.h"
 #include "Math/MathFunctions.h"
-#include "System/System.h"
 
 #include "Audio/ISound.h"
 #include "Audio/AudioFactory.h"
@@ -60,7 +59,7 @@ Weapon::~Weapon()
 {
 }
 
-WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
+WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
     if(m_reload_sound && m_reload_sound->IsPlaying())
         return WeaponFireResult::RELOADING;
@@ -68,8 +67,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
     const float rpsHz = 1.0f / m_weapon_config.rounds_per_second;
     const uint32_t weapon_delta = rpsHz * 1000.0f;
 
-    const uint32_t now = System::GetMilliseconds();
-    const uint32_t delta = now - m_last_fire_timestamp;
+    const uint32_t delta = timestamp - m_last_fire_timestamp;
     const uint32_t modified_delta = delta * m_current_fire_rate;
 
     if(delta > weapon_delta)
@@ -77,7 +75,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction)
 
     if(modified_delta > weapon_delta)
     {
-        m_last_fire_timestamp = now;
+        m_last_fire_timestamp = timestamp;
         
         if(m_ammunition == 0)
         {

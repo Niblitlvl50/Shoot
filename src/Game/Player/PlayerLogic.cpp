@@ -84,7 +84,7 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
 
     if(m_fire)
-        m_weapon->Fire(position, m_aim_direction);
+        m_weapon->Fire(position, m_aim_direction, update_context.total_time);
 
     m_player_info->position = position;
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();

@@ -26,7 +26,7 @@ namespace game
         Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager, mono::SystemContext* system_context);
         ~Weapon();
 
-        WeaponFireResult Fire(const math::Vector& position, float direction) override;
+        WeaponFireResult Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
         void Reload() override;
