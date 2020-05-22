@@ -18,6 +18,8 @@
 
 #include "Math/MathFunctions.h"
 
+#include <cmath>
+
 using namespace game;
 
 InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
