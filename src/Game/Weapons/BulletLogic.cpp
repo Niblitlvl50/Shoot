@@ -46,7 +46,7 @@ BulletLogic::BulletLogic(
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
 {
-    m_sound->Position(0.0f, 0.0f);
+    //m_sound->Position(0.0f, 0.0f);
 
     m_life_span -= update_context.delta_ms;
     if(m_life_span < 0)
@@ -107,13 +107,12 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
     }
 
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
-    BulletCollisionFlag collision_flags =
-        BulletCollisionFlag(BulletCollisionFlag::APPLY_DAMAGE | BulletCollisionFlag::DESTROY_THIS);
+    BulletCollisionFlag collision_flags = BulletCollisionFlag(APPLY_DAMAGE | DESTROY_THIS);
 
     if(m_jumps_left > 0 && m_bullet_behaviour == BulletCollisionBehaviour::JUMPER)
     {
         resolve_type = mono::CollisionResolve::IGNORE;
-        collision_flags = BulletCollisionFlag(collision_flags & ~BulletCollisionFlag::DESTROY_THIS);
+        collision_flags = BulletCollisionFlag(collision_flags & ~DESTROY_THIS);
     }
 
     m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, colliding_body);

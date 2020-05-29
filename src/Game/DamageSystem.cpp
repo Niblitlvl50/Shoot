@@ -1,22 +1,34 @@
 
 #include "DamageSystem.h"
+#include "Effects/GibSystem.h"
 #include "Entity/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
+#include "Particle/ParticleSystem.h"
 #include "Events/ScoreEvent.h"
+#include "TransformSystem/TransformSystem.h"
 #include "Util/Hash.h"
 #include <limits>
 #include <cassert>
 
 using namespace game;
 
-DamageSystem::DamageSystem(size_t num_records, IEntityManager* entity_manager, mono::EventHandler* event_handler)
+DamageSystem::DamageSystem(
+    size_t num_records,
+    IEntityManager* entity_manager,
+    mono::ParticleSystem* particle_system,
+    mono::TransformSystem* transform_system,
+    mono::EventHandler* event_handler)
     : m_entity_manager(entity_manager)
+    , m_particle_system(particle_system)
+    , m_transform_system(transform_system)
     , m_event_handler(event_handler)
     , m_elapsed_time(0)
     , m_damage_records(num_records)
     , m_destroyed_callbacks(num_records)
     , m_active(num_records, false)
-{ }
+{
+    m_damage_effect = std::make_unique<DamageEffect>(m_particle_system);
+}
 
 DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 {
@@ -83,6 +95,10 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 
         m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, damage_record.score));
     }
+
+    const math::Matrix& world_transform = m_transform_system->GetWorld(id);
+    const math::Vector& world_position = math::GetPosition(world_transform);
+    m_damage_effect->EmitGibsAt(world_position, 0.0f);
 
     return result;
 }

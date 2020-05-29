@@ -1,4 +1,9 @@
 
 #pragma once
 
-void RegisterSharedComponents(class EntityManager& entity_manager);
+class EntityManager;
+
+namespace shared
+{
+    void RegisterSharedComponents(EntityManager& entity_manager);
+}

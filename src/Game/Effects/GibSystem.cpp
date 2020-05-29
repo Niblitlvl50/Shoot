@@ -1,49 +1,42 @@
 
 #include "GibSystem.h"
 
-//#include "Particle/ParticlePool.h"
-//#include "Particle/ParticleEmitter.h"
-//#include "Particle/ParticleDrawer.h"
-
-//#include "Particle/ParticleSystemDefaults.h"
-//#include "Rendering/Texture/TextureFactory.h"
-#include "Util/Algorithm.h"
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
-#include "Math/Quad.h"
-
 #include "Actions/EasingFunctions.h"
+
+#include "Particle/ParticleSystem.h"
+#include "Factories.h"
+#include "Entity/IEntityManager.h"
 
 using namespace game;
 
-/*
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePool& pool, size_t index, float direction)
+    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
     {
-        constexpr float ten_degrees = math::ToRadians(10.0f);
+        const float x = mono::Random(-4.0f, 4.0f);
+        const float y = mono::Random(-4.0f, 4.0f);
+        const float life = mono::Random(0.0f, 250.0f);
 
-        const float direction_variation = mono::Random(-ten_degrees, ten_degrees);
-        const math::Vector& velocity = math::VectorFromAngle(direction + direction_variation);
+        pool.position[index] = position;
+        pool.velocity[index] = math::Vector(x, y);
+        pool.rotation[index] = 0.0f;
+        //pool.m_color[index];
+        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        pool.end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 0.1f);
 
-        const int life = mono::RandomInt(3000, 3500);
-        const float velocity_variation = mono::Random(2.0f, 16.0f);
-        const float size = mono::Random(15.0f, 25.0f);
+        pool.size[index] = 10.0f;
+        pool.start_size[index] = 15.0f;
+        pool.end_size[index] = 10.0f;
 
-        pool.m_position[index] = position;
-        pool.m_rotation[index] = 0.0f;
-        pool.m_velocity[index] = velocity * velocity_variation;
-        pool.m_start_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 1.0f);
-        pool.m_end_color[index] = mono::Color::RGBA(0.5f, 0.0f, 0.0f, 0.1f);
-        pool.m_start_size[index] = size;
-        pool.m_end_size[index] = size;
-        pool.m_size[index] = size;
-        pool.m_start_life[index] = life;
-        pool.m_life[index] = life;
+        pool.start_life[index] = 100 + life;
+        pool.life[index] = 100 + life;
     }
 
-    void GibsUpdater(mono::ParticlePool& pool, size_t count, unsigned int delta)
+/*
+    void DamageParticleUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
     {
         const float float_delta = float(delta) / 1000.0f;
 
@@ -64,62 +57,34 @@ namespace
             pool.m_color[index].alpha = game::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
         }
     }
-}
 */
-
-GibSystem::GibSystem()
-{
-    //const mono::ITexturePtr texture = mono::CreateTexture("res/textures/flare.png");
-    //m_pool = std::make_unique<mono::ParticlePool>(1500, GibsUpdater);
-    //m_drawer = std::make_unique<mono::ParticleDrawer>(texture, mono::BlendMode::ONE, *m_pool);
 }
 
-GibSystem::~GibSystem()
-{ }
-
-void GibSystem::Update(const mono::UpdateContext& update_context)
+DamageEffect::DamageEffect(mono::ParticleSystem* particle_system)
+    : m_particle_system(particle_system)
 {
-    /*
-    for(auto&& emitter : m_emitters)
-        emitter.Update(update_context);
+    mono::Entity particle_entity = g_entity_manager->CreateEntity("DamageEffect", {});
+    particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
-    m_pool->Update(update_context);
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/flare.png");
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
 
-    const auto remove_func = [](const mono::ParticleEmitter& emitter) {
-        return emitter.IsDone();
-    };
-
-    mono::remove_if(m_emitters, remove_func);
-    */
+    m_particle_entity = particle_entity.id;
 }
 
-void GibSystem::Draw(mono::IRenderer& renderer) const
+DamageEffect::~DamageEffect()
 {
-    //m_drawer->Draw(renderer);
+    m_particle_system->ReleasePool(m_particle_entity);
+    g_entity_manager->ReleaseEntity(m_particle_entity);
 }
 
-math::Quad GibSystem::BoundingBox() const
+void DamageEffect::EmitGibsAt(const math::Vector& position, float direction)
 {
-    return math::InfQuad;
+    m_particle_system->AttachEmitter(
+        m_particle_entity, position, 0.25f, 30.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, GibsGenerator);
 }
 
-void GibSystem::EmitGibsAt(const math::Vector& position, float direction)
-{
-    /*
-    mono::ParticleEmitter::Configuration emit_config;
-    emit_config.position = position;
-    emit_config.burst = true;
-    emit_config.duration = 1.0f;
-    emit_config.emit_rate = 30.0f;
-    emit_config.generator = [direction](const math::Vector& position, mono::ParticlePool& pool, size_t index) {
-        GibsGenerator(position, pool, index, direction);
-    };
-
-    m_emitters.emplace_back(emit_config, m_pool.get());
-    */
-}
-
-void GibSystem::EmitBloodAt(const math::Vector& position, float direction)
+void DamageEffect::EmitBloodAt(const math::Vector& position, float direction)
 {
 
 }

@@ -44,6 +44,7 @@ PlayerLogic::PlayerLogic(
     , m_gamepad_controller(this, event_handler, controller)
     , m_interaction_controller(this, event_handler)
     , m_fire(false)
+    , m_secondary_fire(false)
     , m_total_ammo_left(500)
     , m_aim_direction(0.0f)
 {
@@ -67,6 +68,7 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
+    SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
     SetRotation(0.0f);
 }
 
@@ -85,6 +87,12 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_fire)
         m_weapon->Fire(position, m_aim_direction, update_context.total_time);
+
+    if(m_secondary_fire)
+    {
+        m_secondary_weapon->Fire(position, m_aim_direction, update_context.total_time);
+        m_secondary_fire = false;
+    }
 
     m_player_info->position = position;
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
@@ -110,12 +118,24 @@ void PlayerLogic::Reload()
 
     if(m_total_ammo_left != 0)
         m_weapon->Reload();
+
+    m_secondary_weapon->Reload();
+}
+
+void PlayerLogic::SecondaryFire()
+{
+    m_secondary_fire = true;
 }
 
 void PlayerLogic::SelectWeapon(WeaponType weapon)
 {
     m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
     m_weapon_type = weapon;
+}
+
+void PlayerLogic::SelectSecondaryWeapon(WeaponType weapon)
+{
+    m_secondary_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
 }
 
 void PlayerLogic::ApplyImpulse(const math::Vector& force)

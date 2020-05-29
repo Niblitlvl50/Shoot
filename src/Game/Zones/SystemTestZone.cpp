@@ -89,7 +89,8 @@ SystemTestZone::~SystemTestZone()
 void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
     //camera->SetViewport(math::Quad(0, 0, 22, 14));
-    camera->SetViewport(math::Quad(0, 0, 10, 16));
+    //camera->SetViewport(math::Quad(0, 0, 10, 16));
+    camera->SetViewport(math::Quad(0, 0, 9, 16));
     m_camera = camera;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);

@@ -4,7 +4,6 @@
 #include "Weapons/WeaponTypes.h"
 
 #include "Events/TimeScaleEvent.h"
-#include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "System/System.h"
 
@@ -44,6 +43,10 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
     else
         m_shuttle_logic->StopFire();
 
+    const bool secondary_fire = IS_TRIGGERED(y);
+    if(secondary_fire)
+        m_shuttle_logic->SecondaryFire();
+
     const bool reload = IS_TRIGGERED(x) && HAS_CHANGED(x);
     if(reload)
         m_shuttle_logic->Reload();
@@ -63,12 +66,12 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
     const math::Vector force(m_state.left_x, m_state.left_y);
     m_shuttle_logic->ApplyImpulse(force * 2);
 
-    if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
-    {
-        const math::Vector direction(m_state.right_x, m_state.right_y);
-        const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
-        m_shuttle_logic->SetRotation(rotation);
-    }
+    //if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
+    //{
+    //    const math::Vector direction(m_state.right_x, m_state.right_y);
+    //    const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
+    //    m_shuttle_logic->SetRotation(rotation);
+    //}
     
     PlayerAnimation animation = PlayerAnimation::IDLE;
     if(force.x > 0.0f)
@@ -84,10 +87,6 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
         m_event_handler.DispatchEvent(event::TimeScaleEvent(0.5f));
     else if(b_changed)
         m_event_handler.DispatchEvent(event::TimeScaleEvent(1.0f));
-
-    const bool quit = IS_TRIGGERED(y);
-    if(quit)
-        m_event_handler.DispatchEvent(event::QuitEvent());
 
     const bool left_triggered = IS_TRIGGERED(left);
     const bool right_triggered = IS_TRIGGERED(right);

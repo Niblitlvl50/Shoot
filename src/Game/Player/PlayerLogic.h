@@ -58,7 +58,12 @@ namespace game
         void Fire();
         void StopFire();
         void Reload();
+
+        void SecondaryFire();
+
         void SelectWeapon(WeaponType weapon);
+        void SelectSecondaryWeapon(WeaponType weapon);
+        
         void ApplyImpulse(const math::Vector& force);
         void SetRotation(float rotation);
         void SetAnimation(PlayerAnimation animation);
@@ -77,9 +82,11 @@ namespace game
         PlayerInteractionController m_interaction_controller;
 
         bool m_fire;
+        bool m_secondary_fire;
         int m_total_ammo_left;
-        std::unique_ptr<IWeaponSystem> m_weapon;
         WeaponType m_weapon_type;
+        std::unique_ptr<IWeaponSystem> m_weapon;
+        std::unique_ptr<IWeaponSystem> m_secondary_weapon;
         float m_aim_direction;
 
         std::unique_ptr<class TrailEffect> m_trail_effect;

@@ -41,7 +41,7 @@ namespace
         int y = 0;
         //int width = 1000;
         //int height = 625;
-        int width = 400;
+        int width = 360;
         int height = 640;
         int start_zone = 1;
         const char* game_config = "res/game_config.json";
@@ -118,30 +118,6 @@ int main(int argc, char* argv[])
     game::InitializeAIKnowledge();
 
     {
-        mono::EventHandler event_handler;
-        mono::SystemContext system_context;
-
-        EntityManager entity_manager(&system_context);
-        game::RegisterGameComponents(entity_manager);
-        RegisterSharedComponents(entity_manager);
-
-        game::WeaponFactory weapon_factory(&entity_manager, &system_context);
-        game::EntityLogicFactory logic_factory(&system_context, event_handler);
-
-        game::g_weapon_factory = &weapon_factory;
-        game::g_logic_factory = &logic_factory;
-        game::g_entity_manager = &entity_manager;
-
-        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-
-        system_context.CreateSystem<mono::EntitySystem>(max_entities);
-        system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
-        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, &event_handler);
-        system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
-
         const math::Vector window_size = math::Vector(options.width, options.height);
         System::IWindow* window = System::CreateWindow("game", options.x, options.y, window_size.x, window_size.y, false);
         window->SetBackgroundColor(0.7, 0.7, 0.7);
@@ -151,6 +127,30 @@ int main(int argc, char* argv[])
         mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
         mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
         mono::LoadFont(game::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
+
+        mono::EventHandler event_handler;
+        mono::SystemContext system_context;
+
+        EntityManager entity_manager(&system_context);
+        game::RegisterGameComponents(entity_manager);
+        shared::RegisterSharedComponents(entity_manager);
+
+        game::WeaponFactory weapon_factory(&entity_manager, &system_context);
+        game::EntityLogicFactory logic_factory(&system_context, event_handler);
+
+        game::g_weapon_factory = &weapon_factory;
+        game::g_logic_factory = &logic_factory;
+        game::g_entity_manager = &entity_manager;
+
+        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
+
+        system_context.CreateSystem<mono::EntitySystem>(max_entities);
+        system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
+        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, particle_system, transform_system, &event_handler);
+        system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

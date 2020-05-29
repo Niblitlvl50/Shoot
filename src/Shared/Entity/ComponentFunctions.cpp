@@ -89,7 +89,7 @@ bool UpdateSprite(mono::Entity& entity, const std::vector<Attribute>& properties
     return success;
 }
  
-void RegisterSharedComponents(EntityManager& entity_manager)
+void shared::RegisterSharedComponents(EntityManager& entity_manager)
 {
     entity_manager.RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
     entity_manager.RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);

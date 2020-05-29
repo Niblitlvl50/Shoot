@@ -1,24 +1,25 @@
 
 #pragma once
 
-#include "IUpdatable.h"
-#include "Rendering/IDrawable.h"
-#include "Particle/ParticleFwd.h"
+#include "MonoFwd.h"
+#include "Math/MathFwd.h"
+#include <cstdint>
 
 namespace game
 {
-    class GibSystem : public mono::IDrawable, public mono::IUpdatable
+    class DamageEffect
     {
     public:
 
-        GibSystem();
-        ~GibSystem();
-
-        void Update(const mono::UpdateContext& update_context) override;
-        void Draw(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        DamageEffect(mono::ParticleSystem* particle_system);
+        ~DamageEffect();
 
         void EmitGibsAt(const math::Vector& position, float direction);
         void EmitBloodAt(const math::Vector& position, float direction);
+
+    private:
+
+        mono::ParticleSystem* m_particle_system;
+        uint32_t m_particle_entity;
     };
 }

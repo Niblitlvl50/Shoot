@@ -12,9 +12,7 @@ namespace game
     class IWeaponFactory
     {
     public:
-        virtual ~IWeaponFactory()
-        { }
-
+        virtual ~IWeaponFactory() = default;
         virtual std::unique_ptr<IWeaponSystem> CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id) = 0;
     };
 }

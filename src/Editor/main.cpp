@@ -41,7 +41,7 @@ int main(int argc, const char* argv[])
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
         EntityManager entity_manager(&system_context);
-        RegisterSharedComponents(entity_manager);
+        shared::RegisterSharedComponents(entity_manager);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::EntitySystem>(max_entities);
@@ -67,6 +67,8 @@ int main(int argc, const char* argv[])
         config.window_size = math::Vector(size.width, size.height);
 
         editor::SaveConfig("res/editor_config.json", config);
+
+        system_context.DestroySystems();
     
         delete window;
     }
