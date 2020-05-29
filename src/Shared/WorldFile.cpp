@@ -7,6 +7,7 @@
 #include "Serialize.h"
 
 #include "System/File.h"
+#include "System/System.h"
 
 #include "nlohmann/json.hpp"
 #include <cstdio>
@@ -47,8 +48,10 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
             const Component& default_component = DefaultComponentFromHash(component.hash);
             UnionAttributes(component.properties, default_component.properties);
 
-            entity_manager->AddComponent(new_entity.id, component.hash);
-            entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
+            const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
+            const bool set_component_result = entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
+            if(!add_component_result || !set_component_result)
+                System::Log("Failed to setup component with name '%s' for entity named '%s'\n", component.name.c_str(), entity_name.c_str());
         }
 
         created_entities.push_back(new_entity.id);

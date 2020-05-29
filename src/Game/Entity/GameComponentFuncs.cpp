@@ -193,7 +193,7 @@ namespace
         {
             const char* path_file = nullptr;
             const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file, FallbackMode::REQUIRE_ATTRIBUTE);
-            if(!found_path_property)
+            if(!found_path_property || strlen(path_file) == 0)
                 return false;
 
             entity_logic = game::g_logic_factory->CreatePathInvaderLogic(path_file, entity.id);
