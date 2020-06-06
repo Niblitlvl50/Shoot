@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "System/System.h"
 
-extern const std::array<DefaultAttribute, 28> default_attributes = {{
+extern const std::array<DefaultAttribute, 29> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -29,6 +29,7 @@ extern const std::array<DefaultAttribute, 28> default_attributes = {{
 
     DefaultAttribute("health",              Variant(100)),
     DefaultAttribute("score",               Variant(90)),
+    DefaultAttribute("boss_health",         Variant(false)),
 
     DefaultAttribute("sprite_file",         Variant("")),
     DefaultAttribute("animation",           Variant(0)),
@@ -65,13 +66,15 @@ extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[19].has
 
 extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[20].hash;
 extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[21].hash;
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[22].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[23].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[24].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[25].hash;
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[26].hash;
+extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[22].hash;
 
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[27].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[23].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[24].hash;
+extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[25].hash;
+extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[26].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[27].hash;
+
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[28].hash;
 
 
 extern const std::array<Component, 9> default_components = {
@@ -81,7 +84,7 @@ extern const std::array<Component, 9> default_components = {
     MakeDefaultComponent("circle_shape",        { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("box_shape",           { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeDefaultComponent("segment_shape",       { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
-    MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE } ),
+    MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeDefaultComponent("entity_behaviour",    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeDefaultComponent("spawn_point",         { SPAWN_SCORE_ATTRIBUTE } ),
 };

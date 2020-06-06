@@ -19,7 +19,7 @@ void editor::DrawCircleShapeDetails(
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-    renderer.DrawCircle(position + offset, std::max(radius_value, 0.1f), 20, 1.0f, color);
+    renderer.DrawCircle(position + offset, std::max(radius_value, 0.0001f), 20, 1.0f, color);
 }
 
 void editor::DrawBoxShapeDetails(

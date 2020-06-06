@@ -22,7 +22,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-extern const std::array<DefaultAttribute, 28> default_attributes;
+extern const std::array<DefaultAttribute, 29> default_attributes;
 
 extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
@@ -50,6 +50,7 @@ extern const uint32_t SENSOR_ATTRIBUTE;
 
 extern const uint32_t HEALTH_ATTRIBUTE;
 extern const uint32_t SCORE_ATTRIBUTE;
+extern const uint32_t BOSS_HEALTH_ATTRIBUTE;
 
 extern const uint32_t SPRITE_ATTRIBUTE;
 extern const uint32_t ANIMATION_ATTRIBUTE;

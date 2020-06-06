@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 #include <array>
+#include <memory>
 
 class IEntityManager;
 
@@ -20,6 +21,7 @@ namespace game
         uint32_t strong_against;
         uint32_t weak_against;
         uint32_t last_damaged_timestamp;
+        bool is_boss;
     };
 
     struct DamageResult

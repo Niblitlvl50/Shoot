@@ -49,12 +49,10 @@ GridVisualizer::GridVisualizer()
 void GridVisualizer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
-    constexpr math::Matrix transform;
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
 
     constexpr mono::Color::RGBA gray_color(1.0f, 1.0f, 1.0f, 0.2f);
-
-    renderer.PushNewProjection(projection);
-    renderer.PushNewTransform(transform);
     renderer.DrawLines(m_gridVertices, gray_color, 1.0f);
 }
 
@@ -62,4 +60,3 @@ math::Quad GridVisualizer::BoundingBox() const
 {
     return math::InfQuad;
 }
-

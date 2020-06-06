@@ -31,11 +31,10 @@ WaveDrawer::~WaveDrawer()
 
 void WaveDrawer::Draw(mono::IRenderer& renderer) const
 {
-    constexpr math::Matrix identity;
     const math::Matrix& projection = math::Ortho(0.0f, 200.0f, 0.0f, 100.0f, -10.0f, 10.0f);    
 
-    renderer.PushNewTransform(identity);
-    renderer.PushNewProjection(projection);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
 
     constexpr math::Vector position(100.0f, 90.0f);
     renderer.DrawText(game::FontId::PIXELETTE_LARGE, m_current_text.c_str(), position, true, mono::Color::RED);

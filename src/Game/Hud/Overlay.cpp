@@ -13,9 +13,8 @@ UIOverlayDrawer::UIOverlayDrawer()
 
 void UIOverlayDrawer::Draw(mono::IRenderer& renderer) const
 {
-    constexpr math::Matrix identity;
-    renderer.PushNewTransform(identity);
-    renderer.PushNewProjection(m_projection);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(m_projection, &renderer);
 
     EntityBase::Draw(renderer);
 }

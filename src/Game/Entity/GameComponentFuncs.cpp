@@ -156,11 +156,15 @@ namespace
         int score;
         FindAttribute(SCORE_ATTRIBUTE, properties, score, FallbackMode::SET_DEFAULT);
 
+        bool is_boss_health;
+        FindAttribute(BOSS_HEALTH_ATTRIBUTE, properties, is_boss_health, FallbackMode::SET_DEFAULT);
+
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity.id);
         damage_record->health = health;
         damage_record->full_health = health;
         damage_record->score = score;
+        damage_record->is_boss = is_boss_health;
 
         return true;
     }

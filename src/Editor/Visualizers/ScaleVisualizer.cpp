@@ -15,7 +15,6 @@ using namespace editor;
 void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
-    constexpr math::Matrix transform;
 
     const math::Quad& viewport = renderer.GetViewport();
     const float scale = viewport.mB.x / 1200.0f * 200.0f;
@@ -27,9 +26,10 @@ void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
     const std::vector<math::Vector> points = { math::Vector(950, 25), math::Vector(1150, 25) };
 
     constexpr mono::Color::RGBA black_color(0.0f, 0.0f, 0.0f, 0.5f);
-    
-    renderer.PushNewProjection(projection);
-    renderer.PushNewTransform(transform);
+
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+
     renderer.DrawLines(points, black_color, 2.0f);
     renderer.DrawText(FontId::EXTRA_LARGE, text, position, true, black_color);
 }
