@@ -111,7 +111,7 @@ void JsonSerializer::Accept(ComponentProxy* proxy)
         
         nlohmann::json json_component;
         json_component["hash"] = component.hash;
-        json_component["name"] = component.name;
+        json_component["name"] = ComponentNameFromHash(component.hash);
         json_component["properties"] = component_properties;
 
         json_components.push_back(json_component);

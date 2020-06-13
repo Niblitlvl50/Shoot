@@ -74,7 +74,7 @@ namespace game
         mono::ParticleSystem* m_particle_system;
         mono::TransformSystem* m_transform_system;
         mono::EventHandler* m_event_handler;
-        uint32_t m_elapsed_time;
+        uint32_t m_timestamp;
         
         std::vector<DamageRecord> m_damage_records;
 

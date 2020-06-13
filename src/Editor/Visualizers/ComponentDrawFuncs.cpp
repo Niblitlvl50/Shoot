@@ -7,6 +7,7 @@
 #include "Math/MathFunctions.h"
 
 #include "Component.h"
+#include "FontIds.h"
 
 
 void editor::DrawCircleShapeDetails(
@@ -71,4 +72,12 @@ void editor::DrawSpawnPointDetails(
     renderer.DrawCircle(position, 1.0f, 8, 5.0f, mono::Color::BLUE);
     renderer.DrawLines(
         { position, position + unit_vector * 1.5f }, mono::Color::BLUE, 3.0f);
+}
+
+void editor::DrawTriggerComponentDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    const char* name = nullptr;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    renderer.DrawText(FontId::SMALL, name, position, true, mono::Color::BLUE);
 }

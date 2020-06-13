@@ -6,6 +6,7 @@
 #include "Factories.h"
 
 #include "DamageSystem.h"
+#include "TriggerSystem.h"
 #include "Spawner.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
@@ -236,6 +237,51 @@ namespace
         spawn_system->SetSpawnPointData(entity.id, spawn_point);
         return true;
     }
+
+    bool CreateTrigger(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateTrigger(entity.id);
+        return true;
+    }
+    
+    bool ReleaseTrigger(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseTrigger(entity.id);
+        return true;
+    }
+    
+    bool UpdateTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int faction;
+        float radius;
+        const char* trigger_name = nullptr;
+
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        FindAttribute(TRIGGER_RADIUS_ATTRIBUTE, properties, radius, FallbackMode::SET_DEFAULT);
+        FindAttribute(FACTION_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
+
+        const game::FactionPair& faction_pair = game::faction_lookup_table[faction];
+
+        game::TriggerComponent trigger_component;
+        trigger_component.trigger_hash = mono::Hash(trigger_name);
+        //trigger_component.collision_category = faction_pair.category;
+        //trigger_component.collision_mask = faction_pair.mask;
+        //trigger_component.radius = radius;
+
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->SetTriggerData(entity.id, trigger_component);
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(EntityManager& entity_manager)
@@ -247,4 +293,5 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(HEALTH_COMPONENT, CreateHealth, ReleaseHealth, UpdateHealth);
     entity_manager.RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager.RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
+    entity_manager.RegisterComponent(TRIGGER_COMPONENT, CreateTrigger, ReleaseTrigger, UpdateTrigger);
 }

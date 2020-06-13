@@ -100,8 +100,8 @@
                     ]
                 },
                 {
-                    "hash": 103600384,
-                    "name": "box_shape",
+                    "hash": 3996803839,
+                    "name": "circle_shape",
                     "properties": [
                         {
                             "id": 776086107,
@@ -109,14 +109,14 @@
                             "variant_value": 1
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 1.0
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         },
                         {
-                            "id": 3585981250,
+                            "id": 230313139,
                             "variant_type": 3,
-                            "variant_value": 1.2000000476837158
+                            "variant_value": 0.25
                         },
                         {
                             "id": 2471448074,
@@ -130,6 +130,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "player_entity"
         }
     ]

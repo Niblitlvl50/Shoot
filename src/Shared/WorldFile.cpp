@@ -38,20 +38,20 @@ std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IE
 
         for(const auto& json_component : json_entity["components"])
         {
-            Component component;
-            component.name = json_component["name"];
-            component.hash = mono::Hash(component.name.c_str());
+            const uint32_t component_hash = json_component["hash"];
+            const std::string component_name = json_component["name"];
 
+            std::vector<Attribute> loaded_properties;
             for(const nlohmann::json& property : json_component["properties"])
-                component.properties.push_back(property);
+                loaded_properties.push_back(property);
 
-            const Component& default_component = DefaultComponentFromHash(component.hash);
-            UnionAttributes(component.properties, default_component.properties);
+            Component component = DefaultComponentFromHash(component_hash);
+            MergeAttributes(component.properties, loaded_properties);
 
             const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
             const bool set_component_result = entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
             if(!add_component_result || !set_component_result)
-                System::Log("Failed to setup component with name '%s' for entity named '%s'\n", component.name.c_str(), entity_name.c_str());
+                System::Log("Failed to setup component with name '%s' for entity named '%s'\n", ComponentNameFromHash(component.hash), entity_name.c_str());
         }
 
         created_entities.push_back(new_entity.id);

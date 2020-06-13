@@ -60,7 +60,7 @@ namespace
     void SetupComponents(editor::UIContext& context)
     {
         for (const Component& component : default_components)
-            context.component_items.push_back({component.hash, component.name});
+            context.component_items.push_back({component.hash, ComponentNameFromHash(component.hash)});
     }
 
     class SyncPoint : public mono::IUpdatable
@@ -155,6 +155,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
+    draw_funcs[TRIGGER_COMPONENT] = editor::DrawTriggerComponentDetails;
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
@@ -474,8 +475,18 @@ void Editor::AddComponent(uint32_t component_hash)
     if(proxy_object)
     {
         m_entity_manager.AddComponent(m_selected_id, component_hash);
+
+        Component new_component = DefaultComponentFromHash(component_hash);
         std::vector<Component>& components = proxy_object->GetComponents();
-        components.push_back(DefaultComponentFromHash(component_hash));
+
+        if(new_component.depends_on != NULL_COMPONENT)
+        {
+            const Component* found_dependency = FindComponentFromHash(new_component.depends_on, components);
+            if(!found_dependency)
+                components.push_back(DefaultComponentFromHash(new_component.depends_on));
+        }
+
+        components.push_back(new_component);
     }
 }
 

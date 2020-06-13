@@ -1,10 +1,12 @@
 
 #include "Healthbar.h"
+#include "FontIds.h"
+#include "DamageSystem.h"
+
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Quad.h"
-
-#include "DamageSystem.h"
+#include "Util/Algorithm.h"
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
 
@@ -18,6 +20,7 @@ namespace
     {
         math::Vector position;
         float health_percentage;
+        float width;
         uint32_t last_damaged_timestamp;
         std::string name;
     };
@@ -29,7 +32,7 @@ namespace
 
         for(const Healthbar& bar : healthbars)
         {
-            const math::Vector shift_vector(1.0f / 2.0f, 0.0f);
+            const math::Vector shift_vector(bar.width / 2.0f, 0.0f);
 
             const math::Vector& left = bar.position - shift_vector;
             const math::Vector& right = bar.position + shift_vector;
@@ -76,7 +79,8 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         
         if(record.is_boss)
         {
-            bar.position = math::TopCenter(viewport);
+            bar.position = math::TopCenter(viewport) + math::Vector(0.0f, -1.0f);
+            bar.width = math::Width(viewport) * 0.9f;
             boss_healthbars.push_back(bar);
         }
         else
@@ -85,6 +89,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
             const math::Vector& position = math::GetPosition(transform);
 
             bar.position = position - math::Vector(0.0f, 1.0f / 2.0f + 0.5f);
+            bar.width = 1.0f;
             healthbars.push_back(bar);
         }
     };
@@ -108,19 +113,23 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         return;
 
     const auto sort_on_timestamp = [](const Healthbar& first, const Healthbar& second) {
-        return first.last_damaged_timestamp < second.last_damaged_timestamp;
+        return first.last_damaged_timestamp > second.last_damaged_timestamp;
     };
-
     std::sort(boss_healthbars.begin(), boss_healthbars.end(), sort_on_timestamp);
+    boss_healthbars.erase(boss_healthbars.begin() +1, boss_healthbars.end());
 
     const std::vector<math::Vector>& boss_background_lines = GenerateHealthbarVertices(boss_healthbars, true);
     const std::vector<math::Vector>& boss_healthbar_lines = GenerateHealthbarVertices(boss_healthbars, false);
 
-    {
-        const mono::ScopedTransform scope = mono::MakeTransformScope(math::Matrix(), &renderer);
-        renderer.DrawLines(boss_background_lines, background_color, line_width);
-        renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width);
-    }
+    const math::Matrix projection = math::Ortho(viewport.mA.x, viewport.mB.x, viewport.mA.y, viewport.mB.y, -10.0f, 10.0f);
+    const mono::ScopedTransform scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
+    renderer.DrawLines(boss_background_lines, background_color, line_width);
+    renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width);
+
+    const Healthbar& boss_healthbar = boss_healthbars.back();
+    renderer.DrawText(
+        FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
 }
 
 math::Quad HealthbarDrawer::BoundingBox() const

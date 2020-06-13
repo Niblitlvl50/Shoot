@@ -3,26 +3,9 @@
 
 #include "ObjectAttribute.h"
 #include "Util/Hash.h"
-#include <string>
+
 #include <vector>
 #include <algorithm>
-#include <array>
-
-
-struct DefaultAttribute
-{
-    DefaultAttribute(const char* string, const Variant& default_value)
-        : hash(mono::Hash(string))
-        , string(string)
-        , default_value(default_value)
-    { }
-
-    const uint32_t hash;
-    const char* string;
-    const Variant default_value;
-};
-
-extern const std::array<DefaultAttribute, 29> default_attributes;
 
 extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
@@ -59,6 +42,7 @@ extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE;
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -107,16 +91,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
         it->attribute = value;
 }
 
-
-struct Component
-{
-    uint32_t hash;
-    std::string name;
-    std::vector<Attribute> properties;
-};
-
-extern const std::array<Component, 9> default_components;
-
+extern const uint32_t NULL_COMPONENT;
 extern const uint32_t TRANSFORM_COMPONENT;
 extern const uint32_t SPRITE_COMPONENT;
 extern const uint32_t PHYSICS_COMPONENT;
@@ -126,7 +101,18 @@ extern const uint32_t SEGMENT_SHAPE_COMPONENT;
 extern const uint32_t HEALTH_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
+extern const uint32_t TRIGGER_COMPONENT;
 
-Component MakeDefaultComponent(const char* name, const std::vector<uint32_t>& properties);
+struct Component
+{
+    uint32_t hash;
+    uint32_t depends_on;
+    std::vector<Attribute> properties;
+};
+
+extern const std::array<Component, 10> default_components;
+
+const char* ComponentNameFromHash(uint32_t hash);
 Component DefaultComponentFromHash(uint32_t hash);
+Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components);
 void StripUnknownProperties(Component& component);

@@ -1,15 +1,31 @@
 
 #include "Component.h"
+#include "Util/Hash.h"
 #include "System/System.h"
 
-extern const std::array<DefaultAttribute, 29> default_attributes = {{
+#include <array>
+
+struct DefaultAttribute
+{
+    DefaultAttribute(const char* string, const Variant& default_value)
+        : hash(mono::Hash(string))
+        , string(string)
+        , default_value(default_value)
+    { }
+
+    const uint32_t hash;
+    const char* string;
+    const Variant default_value;
+};
+
+const std::array<DefaultAttribute, 30> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
     DefaultAttribute("time_stamp",          Variant(5)),
     DefaultAttribute("spawn_tag",           Variant("")),
     DefaultAttribute("path_file",           Variant("")),
-    DefaultAttribute("trigger_radius",      Variant(10.0f)),
+    DefaultAttribute("trigger_radius",      Variant(1.0f)),
     DefaultAttribute("color",               Variant(mono::Color::WHITE)),
 
     DefaultAttribute("pickup_type",         Variant(0)),
@@ -38,6 +54,7 @@ extern const std::array<DefaultAttribute, 29> default_attributes = {{
 
     DefaultAttribute("behaviour",           Variant(0)),
     DefaultAttribute("spawn_score",         Variant(10)),
+    DefaultAttribute("trigger_name",        Variant("")),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -75,30 +92,70 @@ extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[26].has
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[27].hash;
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[28].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[29].hash;
 
 
-extern const std::array<Component, 9> default_components = {
-    MakeDefaultComponent("transform",           { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeDefaultComponent("sprite",              { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
-    MakeDefaultComponent("physics",             { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
-    MakeDefaultComponent("circle_shape",        { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeDefaultComponent("box_shape",           { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeDefaultComponent("segment_shape",       { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
-    MakeDefaultComponent("health",              { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
-    MakeDefaultComponent("entity_behaviour",    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
-    MakeDefaultComponent("spawn_point",         { SPAWN_SCORE_ATTRIBUTE } ),
+extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
+extern const uint32_t TRANSFORM_COMPONENT       = mono::Hash("transform");
+extern const uint32_t SPRITE_COMPONENT          = mono::Hash("sprite");
+extern const uint32_t PHYSICS_COMPONENT         = mono::Hash("physics");
+extern const uint32_t CIRCLE_SHAPE_COMPONENT    = mono::Hash("circle_shape");
+extern const uint32_t BOX_SHAPE_COMPONENT       = mono::Hash("box_shape");
+extern const uint32_t SEGMENT_SHAPE_COMPONENT   = mono::Hash("segment_shape");
+extern const uint32_t HEALTH_COMPONENT          = mono::Hash("health");
+extern const uint32_t BEHAVIOUR_COMPONENT       = mono::Hash("entity_behaviour");
+extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
+extern const uint32_t TRIGGER_COMPONENT         = mono::Hash("trigger");
+
+const char* ComponentNameFromHash(uint32_t hash)
+{
+    if(hash == NULL_COMPONENT)
+        return "null";
+    else if(hash == TRANSFORM_COMPONENT)
+        return "transform";
+    else if(hash == SPRITE_COMPONENT)
+        return "sprite";
+    else if(hash == PHYSICS_COMPONENT)
+        return "physics";
+    else if(hash == CIRCLE_SHAPE_COMPONENT)
+        return "circle_shape";
+    else if(hash == BOX_SHAPE_COMPONENT)
+        return "box_shape";
+    else if(hash == SEGMENT_SHAPE_COMPONENT)
+        return "segment_shape";
+    else if(hash == HEALTH_COMPONENT)
+        return "health";
+    else if(hash == BEHAVIOUR_COMPONENT)
+        return "entity_behaviour";
+    else if(hash == SPAWN_POINT_COMPONENT)
+        return "spawn_point";
+    else if(hash == TRIGGER_COMPONENT)
+        return "trigger";
+
+    return "Unknown";
+}
+
+Component MakeComponent(uint32_t hash, uint32_t depends_on, const std::vector<uint32_t>& properties)
+{
+    std::vector<Attribute> attributes;
+    for(uint32_t property_hash : properties)
+        attributes.push_back({ property_hash, DefaultAttributeFromHash(property_hash) });
+
+    return { hash, depends_on, std::move(attributes) };
+}
+
+const std::array<Component, 10> default_components = {
+    MakeComponent(TRANSFORM_COMPONENT,       NULL_COMPONENT,    { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,          NULL_COMPONENT,    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(PHYSICS_COMPONENT,         NULL_COMPONENT,    { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
+    MakeComponent(CIRCLE_SHAPE_COMPONENT,    PHYSICS_COMPONENT, { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(BOX_SHAPE_COMPONENT,       PHYSICS_COMPONENT, { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,   PHYSICS_COMPONENT, { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
+    MakeComponent(HEALTH_COMPONENT,          NULL_COMPONENT,    { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
+    MakeComponent(BEHAVIOUR_COMPONENT,       NULL_COMPONENT,    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
+    MakeComponent(SPAWN_POINT_COMPONENT,     NULL_COMPONENT,    { SPAWN_SCORE_ATTRIBUTE } ),
+    MakeComponent(TRIGGER_COMPONENT,         PHYSICS_COMPONENT, { TRIGGER_NAME_ATTRIBUTE } ),
 };
-
-extern const uint32_t TRANSFORM_COMPONENT       = default_components[0].hash;
-extern const uint32_t SPRITE_COMPONENT          = default_components[1].hash;
-extern const uint32_t PHYSICS_COMPONENT         = default_components[2].hash;
-extern const uint32_t CIRCLE_SHAPE_COMPONENT    = default_components[3].hash;
-extern const uint32_t BOX_SHAPE_COMPONENT       = default_components[4].hash;
-extern const uint32_t SEGMENT_SHAPE_COMPONENT   = default_components[5].hash;
-extern const uint32_t HEALTH_COMPONENT          = default_components[6].hash;
-extern const uint32_t BEHAVIOUR_COMPONENT       = default_components[7].hash;
-extern const uint32_t SPAWN_POINT_COMPONENT     = default_components[8].hash;
-
 
 const char* AttributeNameFromHash(uint32_t hash)
 {
@@ -161,15 +218,6 @@ void UnionAttributes(std::vector<Attribute>& result_attributes, const std::vecto
     }
 }
 
-Component MakeDefaultComponent(const char* name, const std::vector<uint32_t>& properties)
-{
-    std::vector<Attribute> attributes;
-    for(uint32_t property_hash : properties)
-        attributes.push_back({ property_hash, DefaultAttributeFromHash(property_hash) });
-
-    return { mono::Hash(name), name, std::move(attributes) };
-}
-
 Component DefaultComponentFromHash(uint32_t hash)
 {
     const auto find_template = [hash](const Component& component_template) {
@@ -180,7 +228,24 @@ Component DefaultComponentFromHash(uint32_t hash)
     if(it != default_components.end())
         return *it;
 
+    const char* component_name = ComponentNameFromHash(hash);
+    System::Log("Component|Unable to find default component for hash: %u (%s)\n", hash, component_name);
+
     return Component();
+}
+
+Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components)
+{
+    const auto find_by_hash = [hash](const Component& component)
+    {
+        return component.hash == hash;
+    };
+
+    auto it = std::find_if(components.begin(), components.end(), find_by_hash);
+    if(it != components.end())
+        return &*it;
+
+    return nullptr;
 }
 
 void StripUnknownProperties(Component& component)

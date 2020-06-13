@@ -23,6 +23,8 @@
 
 #include "Component.h"
 
+#include "System/System.h"
+
 #include <cmath>
 #include <algorithm>
 
@@ -61,7 +63,7 @@ Weapon::~Weapon()
 
 WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    if(m_reload_sound && m_reload_sound->IsPlaying())
+    if(m_reload_sound->IsPlaying())
         return WeaponFireResult::RELOADING;
 
     const float rpsHz = 1.0f / m_weapon_config.rounds_per_second;
@@ -73,60 +75,59 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
     if(delta > weapon_delta)
         m_current_fire_rate = 1.0f;
 
-    if(modified_delta > weapon_delta)
+    if(modified_delta < weapon_delta)
+        return WeaponFireResult::NONE;
+
+    m_last_fire_timestamp = timestamp;
+    
+    if(m_ammunition == 0)
     {
-        m_last_fire_timestamp = timestamp;
-        
-        if(m_ammunition == 0)
-        {
-            m_current_fire_rate = 1.0f;
-            m_ooa_sound->Position(position.x, position.y);
-            m_ooa_sound->Play();
+        m_current_fire_rate = 1.0f;
+        m_ooa_sound->Position(position.x, position.y);
+        m_ooa_sound->Play();
 
-            return WeaponFireResult::OUT_OF_AMMO;
-        }
-
-        for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
-        {
-            const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread, m_weapon_config.bullet_spread));
-
-            const float force_multiplier = mono::Random(0.8f, 1.2f);
-            const math::Vector& unit = math::VectorFromAngle(bullet_direction);
-            const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
-
-            mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_weapon_config.bullet_config.entity_file);
-            BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.owner_id, m_weapon_config.bullet_config, m_physics_system);
-
-            m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
-            m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
-
-            mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
-            body->SetPosition(position);
-            body->SetAngle(bullet_direction);
-            body->SetCollisionHandler(bullet_logic);
-
-            std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
-            for(mono::IShape* shape : shapes)
-                shape->SetCollisionFilter(m_weapon_config.bullet_config.collision_category, m_weapon_config.bullet_config.collision_mask);
-
-            body->SetVelocity(impulse);
-            //body->ApplyImpulse(impulse, position);
-        }
-
-        m_muzzle_flash->EmittAt(position, direction);
-
-        m_fire_sound->Position(position.x, position.y);
-        m_fire_sound->Play();
-
-        m_current_fire_rate *= m_weapon_config.fire_rate_multiplier;
-        m_current_fire_rate = std::min(m_current_fire_rate, m_weapon_config.max_fire_rate);
-
-        m_ammunition--;
-
-        return WeaponFireResult::FIRE;
+        return WeaponFireResult::OUT_OF_AMMO;
     }
 
-    return WeaponFireResult::NONE;
+    for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
+    {
+        const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread, m_weapon_config.bullet_spread));
+
+        const float force_multiplier = mono::Random(0.8f, 1.2f);
+        const math::Vector& unit = math::VectorFromAngle(bullet_direction);
+        const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
+
+        mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_weapon_config.bullet_config.entity_file);
+        BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_weapon_config.owner_id, m_weapon_config.bullet_config, m_physics_system);
+
+        m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
+        m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
+
+        mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
+        body->SetPosition(position);
+        body->SetAngle(bullet_direction);
+        body->SetCollisionHandler(bullet_logic);
+
+        std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
+        for(mono::IShape* shape : shapes)
+            shape->SetCollisionFilter(m_weapon_config.bullet_config.collision_category, m_weapon_config.bullet_config.collision_mask);
+
+        System::Log("impulse: %f\n", math::Length(impulse));
+        body->SetVelocity(impulse);
+        //body->ApplyImpulse(impulse, position);
+    }
+
+    m_muzzle_flash->EmittAt(position, direction);
+
+    m_fire_sound->Position(position.x, position.y);
+    m_fire_sound->Play();
+
+    m_current_fire_rate *= m_weapon_config.fire_rate_multiplier;
+    m_current_fire_rate = std::min(m_current_fire_rate, m_weapon_config.max_fire_rate);
+
+    m_ammunition--;
+
+    return WeaponFireResult::FIRE;
 }
 
 int Weapon::AmmunitionLeft() const

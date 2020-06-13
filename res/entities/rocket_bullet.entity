@@ -95,12 +95,12 @@
                         {
                             "id": 2508680735,
                             "variant_type": 3,
-                            "variant_value": 0.20000000298023224
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 3585981250,
                             "variant_type": 3,
-                            "variant_value": 0.7699999809265137
+                            "variant_value": 0.6000000238418579
                         },
                         {
                             "id": 2471448074,
@@ -109,11 +109,17 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "rocket_bullet"
         }
     ]

@@ -116,16 +116,15 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
 
         for(const auto& json_component : json_entity["components"])
         {
-            Component component;
-            component.name = json_component["name"];
-            component.hash = mono::Hash(component.name.c_str());
-
+            const uint32_t component_hash = json_component["hash"];
+            const std::string component_name = json_component["name"];
+            
+            std::vector<Attribute> loaded_attributes;
             for(const nlohmann::json& property : json_component["properties"])
-                component.properties.push_back(property);
+                loaded_attributes.push_back(property);
 
-            const Component& default_component = DefaultComponentFromHash(component.hash);
-            UnionAttributes(component.properties, default_component.properties);
-
+            Component component = DefaultComponentFromHash(component_hash);
+            MergeAttributes(component.properties, loaded_attributes);
             components.push_back(std::move(component));
         }
 

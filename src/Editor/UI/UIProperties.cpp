@@ -229,7 +229,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 
         ImGui::PushID(index);
 
-        const std::string name = PrettifyString(component.name);
+        const std::string name = PrettifyString(ComponentNameFromHash(component.hash));
         ImGui::TextDisabled("%s", name.c_str());
         ImGui::SameLine(245);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);

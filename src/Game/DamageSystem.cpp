@@ -22,7 +22,7 @@ DamageSystem::DamageSystem(
     , m_particle_system(particle_system)
     , m_transform_system(transform_system)
     , m_event_handler(event_handler)
-    , m_elapsed_time(0)
+    , m_timestamp(0)
     , m_damage_records(num_records)
     , m_destroyed_callbacks(num_records)
     , m_active(num_records, false)
@@ -81,7 +81,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 
     DamageRecord& damage_record = m_damage_records[id];
     damage_record.health -= damage * damage_record.multipier;
-    damage_record.last_damaged_timestamp = m_elapsed_time;
+    damage_record.last_damaged_timestamp = m_timestamp;
 
     result.health_left = damage_record.health;
 
@@ -125,7 +125,7 @@ uint32_t DamageSystem::Capacity() const
 
 void DamageSystem::Update(const mono::UpdateContext& update_context)
 {
-    m_elapsed_time += update_context.delta_ms;
+    m_timestamp = update_context.total_time;
 
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {

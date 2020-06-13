@@ -54,6 +54,8 @@ namespace game
         float max_fire_rate = 1.0f;
         float bullet_force = 1.0f;
         float bullet_spread = 0.0f; // In degrees
+
+        float reload_time = 1.0f;
         
         const char* fire_sound = nullptr;
         const char* out_of_ammo_sound = nullptr;
