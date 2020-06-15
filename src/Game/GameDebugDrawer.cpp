@@ -1,6 +1,7 @@
 
 #include "GameDebugDrawer.h"
 #include "Math/Quad.h"
+#include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
 #include "Util/Algorithm.h"
 
@@ -40,15 +41,38 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
     for(DebugLine& line : m_debug_lines)
     {
         const std::vector<math::Vector> line_points = { line.start, line.end };
-        mono::Color::RGBA color = line.color;
-        color.alpha = 1.0f - float(line.timestamp) / 5000.0f;
-        renderer.DrawLines(line_points, color, line.width);
+        renderer.DrawLines(line_points, line.color, line.width);
 
+        line.color.alpha = 1.0f - float(line.timestamp) / 5000.0f;
         line.timestamp += renderer.GetDeltaTimeMS();
+    }
+
+    for(DebugText& text : m_debug_texts_world)
+    {
+        renderer.DrawText(0, text.text.c_str(), text.position, true, text.color);
+
+        text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
+        text.timestamp += renderer.GetDeltaTimeMS();
+    }
+
+    const math::Quad viewport = renderer.GetViewport();
+    const math::Matrix projection = math::Ortho(0.0f, math::Width(viewport), 0.0f, math::Height(viewport), -10.0f, 10.0f);
+
+    mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+    mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+
+    for(DebugText& text : m_debug_texts_screen)
+    {
+        renderer.DrawText(0, text.text.c_str(), text.position, true, text.color);
+
+        text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
+        text.timestamp += renderer.GetDeltaTimeMS();
     }
 
     mono::remove_if(m_debug_points, remove_if_5<DebugPoint>);
     mono::remove_if(m_debug_lines, remove_if_5<DebugLine>);
+    mono::remove_if(m_debug_texts_world, remove_if_5<DebugText>);
+    mono::remove_if(m_debug_texts_screen, remove_if_5<DebugText>);
 }
 
 math::Quad GameDebugDrawer::BoundingBox() const
@@ -66,4 +90,16 @@ void GameDebugDrawer::DrawLine(const math::Vector& start_position, const math::V
 {
     const DebugLine new_line = { start_position, end_position, color, width, 0 };
     m_debug_lines.push_back(new_line);
+}
+
+void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
+{
+    const DebugText new_text = { position, color, 0, text };
+    m_debug_texts_screen.push_back(new_text);
+}
+
+void GameDebugDrawer::DrawWorldText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
+{
+    const DebugText new_text = { position, color, 0, text };
+    m_debug_texts_world.push_back(new_text);
 }

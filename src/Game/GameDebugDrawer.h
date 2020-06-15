@@ -8,6 +8,7 @@
 #include "Rendering/Color.h"
 
 #include <vector>
+#include <string>
 
 namespace game
 {
@@ -23,6 +24,8 @@ namespace game
 
         void DrawPoint(const math::Vector& position, float size, const mono::Color::RGBA& color) override;
         void DrawLine(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color) override;
+        void DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
+        void DrawWorldText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
 
         struct DebugPoint
         {
@@ -41,7 +44,17 @@ namespace game
             uint32_t timestamp;
         };
 
+        struct DebugText
+        {
+            math::Vector position;
+            mono::Color::RGBA color;
+            uint32_t timestamp;
+            std::string text;
+        };
+
         mutable std::vector<DebugPoint> m_debug_points;
         mutable std::vector<DebugLine> m_debug_lines;
+        mutable std::vector<DebugText> m_debug_texts_world;
+        mutable std::vector<DebugText> m_debug_texts_screen;
     };
 }
