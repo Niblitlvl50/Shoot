@@ -47,7 +47,7 @@
             "name": "editor",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/editor",
+            "program": "${workspaceRoot}/bin/editor.app/Contents/MacOS/editor",
             "args": [
                 "res/world.world"
             ],

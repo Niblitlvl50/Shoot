@@ -5,8 +5,8 @@
     "tasks": [
         {
             "label": "build",
-            "type": "shell",
             "command": "make",
+            "type": "process",
             "args": [
                 "-j8"
             ],
@@ -51,7 +51,9 @@
                 "isDefault": true
             },
             "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
-            "args": [ ],
+            "args": [
+                "--position", "500", "0",
+            ],
             "problemMatcher": []
         },
         {
