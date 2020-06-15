@@ -22,6 +22,7 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "DamageSystem.h"
+#include "TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "Spawner.h"
 
@@ -144,13 +145,14 @@ int main(int argc, char* argv[])
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
+        mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
 
         system_context.CreateSystem<mono::EntitySystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, particle_system, transform_system, &event_handler);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
+        system_context.CreateSystem<game::TriggerSystem>(max_entities, physics_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

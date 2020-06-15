@@ -106,7 +106,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
         body->SetPosition(position);
         body->SetAngle(bullet_direction);
-        body->SetCollisionHandler(bullet_logic);
+        body->AddCollisionHandler(bullet_logic);
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
         for(mono::IShape* shape : shapes)

@@ -40,7 +40,7 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
 
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_body = physics_system->GetBody(entity_id);
-    m_body->SetCollisionHandler(this);
+    m_body->AddCollisionHandler(this);
 
     m_homing_behaviour = std::make_unique<HomingBehaviour>(m_body, physics_system);
 

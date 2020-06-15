@@ -8,6 +8,8 @@
 #include "System/System.h"
 #include "Util/Algorithm.h"
 
+#include "Component.h"
+
 #include "nlohmann/json.hpp"
 
 #include <algorithm>
@@ -109,7 +111,7 @@ bool EntityManager::AddComponent(uint32_t entity_id, uint32_t component_hash)
         return success;
     }
 
-    System::Log("EntityManager|There is no component registered with hash '%ul'\n", component_hash);
+    System::Log("EntityManager|There is no component registered with hash '%ul', %s\n", component_hash, ComponentNameFromHash(component_hash));
     return false;
 }
 
@@ -127,7 +129,7 @@ bool EntityManager::RemoveComponent(uint32_t entity_id, uint32_t component_hash)
         return success;
     }
 
-    System::Log("EntityManager|Unable to remove component with hash: %ul\n", component_hash);
+    System::Log("EntityManager|Unable to remove component with hash: %ul, %s\n", component_hash, ComponentNameFromHash(component_hash));
     return false;
 }
 
@@ -140,7 +142,7 @@ bool EntityManager::SetComponentData(uint32_t entity_id, uint32_t component_hash
     if(factory_it != m_component_factories.end())
         return factory_it->second.update(entity, properties, m_system_context);
 
-    System::Log("EntityManager|Unable to update component with hash: %ul\n", component_hash);
+    System::Log("EntityManager|Unable to update component with hash: %ul, %s\n", component_hash, ComponentNameFromHash(component_hash));
     return false;
 }
 
@@ -157,7 +159,7 @@ std::vector<Attribute> EntityManager::GetComponentData(uint32_t entity_id, uint3
             return factory_it->second.get(entity, m_system_context);
     }
 
-    System::Log("EntityManager|Unable to get component with hash: %ul\n", component_hash);
+    System::Log("EntityManager|Unable to get component with hash: %ul, %s\n", component_hash, ComponentNameFromHash(component_hash));
     return { };
 }
 
