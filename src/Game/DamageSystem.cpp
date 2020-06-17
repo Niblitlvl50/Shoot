@@ -138,6 +138,11 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
+void DamageSystem::Destroy()
+{
+    m_damage_effect = nullptr;
+}
+
 size_t DamageSystem::FindFreeCallbackIndex(uint32_t id) const
 {
     const DestroyedCallbacks& callbacks = m_destroyed_callbacks[id];

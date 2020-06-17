@@ -144,10 +144,11 @@ int main(int argc, char* argv[])
         game::g_entity_manager = &entity_manager;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        system_context.CreateSystem<mono::EntitySystem>(max_entities);
+
         mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
 
-        system_context.CreateSystem<mono::EntitySystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, particle_system, transform_system, &event_handler);
@@ -162,6 +163,8 @@ int main(int argc, char* argv[])
 
         game::ZoneManager zone_manager(window, zone_context, options.start_zone);
         zone_manager.Run();
+
+        system_context.DestroySystems();
 
         delete window;
     }
