@@ -5,6 +5,7 @@
 #include "Util/Hash.h"
 
 #include <vector>
+#include <array>
 #include <algorithm>
 
 extern const uint32_t POSITION_ATTRIBUTE;
