@@ -8,6 +8,8 @@
 #include "Factories.h"
 #include "IDebugDrawer.h"
 
+#include <cassert>
+
 using namespace game;
 
 namespace
