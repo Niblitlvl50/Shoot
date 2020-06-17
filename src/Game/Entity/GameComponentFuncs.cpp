@@ -17,6 +17,7 @@
 #include "Component.h"
 #include "CollisionConfiguration.h"
 
+#include "Util/Hash.h"
 #include "System/System.h"
 
 namespace
