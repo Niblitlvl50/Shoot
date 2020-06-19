@@ -17,6 +17,8 @@ namespace
     constexpr const char* draw_snappers_key = "draw_snappers";
     constexpr const char* draw_outline_key = "draw_outline";
     constexpr const char* background_color_key = "background_color";
+    constexpr const char* snap_to_grid_key = "snap_to_grid";
+    constexpr const char* grid_size_key = "grid_size";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
@@ -31,6 +33,8 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
     json[draw_snappers_key]     = config.draw_snappers;
     json[background_color_key]  = config.background_color;
     json[draw_outline_key]      = config.draw_outline;
+    json[snap_to_grid_key]      = config.snap_to_grid;
+    json[grid_size_key]         = config.grid_size;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -59,6 +63,8 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     config.draw_snappers        = json.value(draw_snappers_key, config.draw_snappers);
     config.background_color     = json.value(background_color_key, config.background_color);
     config.draw_outline         = json.value(draw_outline_key, config.draw_outline);
+    config.snap_to_grid         = json.value(snap_to_grid_key, config.snap_to_grid);
+    config.grid_size            = json.value(grid_size_key, config.grid_size);
 
     return true;
 }

@@ -96,6 +96,10 @@ namespace editor
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
 
+        bool SnapToGrid() const;
+        void EnableSnapToGrid(bool enable);
+        math::Vector GridSize() const;
+
         void DuplicateSelected();
 
     private:

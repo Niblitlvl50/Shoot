@@ -53,8 +53,35 @@ namespace
 {
     void SetupIcons(editor::UIContext& context)
     {
-        context.tools_texture_id = mono::LoadImGuiTexture("res/textures/placeholder.png");
-        context.default_icon = math::Quad(0.0f, 0.0f, 1.0f, 1.0f);
+        context.ui_icons[editor::placeholder_texture] = {
+            (int)mono::LoadImGuiTexture(editor::placeholder_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
+
+        context.ui_icons[editor::export_texture] = {
+            (int)mono::LoadImGuiTexture(editor::export_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
+
+        context.ui_icons[editor::import_texture] = {
+            (int)mono::LoadImGuiTexture(editor::import_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
+
+        context.ui_icons[editor::information_texture] = {
+            (int)mono::LoadImGuiTexture(editor::information_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
+
+        context.ui_icons[editor::save_texture] = {
+            (int)mono::LoadImGuiTexture(editor::save_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
+
+        context.ui_icons[editor::wrench_texture] = {
+            (int)mono::LoadImGuiTexture(editor::wrench_texture),
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+        };
     }
 
     void SetupComponents(editor::UIContext& context)
@@ -138,8 +165,11 @@ void Editor::OnLoad(mono::ICamera* camera)
     EnableDrawSnappers(m_editor_config.draw_snappers);
     EnableDrawOutline(m_editor_config.draw_outline);
     SetBackgroundColor(m_editor_config.background_color);
+    EnableSnapToGrid(m_editor_config.snap_to_grid);
     camera->SetPosition(m_editor_config.camera_position);
     camera->SetViewport(m_editor_config.camera_viewport);
+
+    m_context.grid_size = m_editor_config.grid_size;
 
     m_camera = camera;
 
@@ -171,7 +201,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
 
-    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system);
+    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);
     for(IObjectProxyPtr& proxy : m_proxies)
     {
         auto entity = proxy->Entity();
@@ -199,6 +229,8 @@ int Editor::OnUnload()
     m_editor_config.draw_snappers = DrawSnappers();
     m_editor_config.draw_outline = DrawOutline();
     m_editor_config.background_color = BackgroundColor();
+    m_editor_config.snap_to_grid = SnapToGrid();
+    m_editor_config.grid_size = m_context.grid_size;
 
     Save();
     return 0;
@@ -207,7 +239,7 @@ int Editor::OnUnload()
 void Editor::Save()
 {
     SaveWorld(m_world_filename, m_proxies);
-    m_context.notifications.emplace_back(m_context.default_icon, "Saved...", 2000);
+    m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }
 
 void Editor::ExportEntity()
@@ -224,7 +256,7 @@ void Editor::ExportEntity()
     serializer.WriteComponentEntities(filename);
 
     editor::AddNewEntity(filename.c_str());
-    m_context.notifications.emplace_back(m_context.default_icon, "Exported entity...", 2000);
+    m_context.notifications.emplace_back(export_texture, "Exported entity...", 2000);
 }
 
 void Editor::ImportEntity()
@@ -243,7 +275,7 @@ void Editor::NewEntity()
     };
 
     auto proxy = std::make_unique<ComponentProxy>(
-        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system);
+        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(m_camera->GetPosition());
 
     m_proxies.push_back(std::move(proxy));
@@ -527,7 +559,7 @@ void Editor::SelectItemCallback(int index)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
 
     const std::string& selected_item = m_context.modal_items[index];
-    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager, transform_system);
+    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager, transform_system, this);
     if(loaded_objects.empty())
         return;
 
@@ -536,7 +568,7 @@ void Editor::SelectItemCallback(int index)
 
     SelectProxyObject(m_proxies.back().get());
     TeleportToProxyObject(m_proxies.back().get());
-    m_context.notifications.emplace_back(m_context.default_icon, "Imported Entity...", 2000);
+    m_context.notifications.emplace_back(import_texture, "Imported Entity...", 2000);
 }
 
 void Editor::EditorMenuCallback(EditorMenuOptions option)
@@ -597,6 +629,25 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
     m_window->SetBackgroundColor(color.red, color.green, color.blue);
+}
+
+bool Editor::SnapToGrid() const
+{
+    return m_context.snap_to_grid;
+}
+
+void Editor::EnableSnapToGrid(bool enable)
+{
+    m_context.snap_to_grid = enable;
+
+    char text_buffer[128];
+    std::snprintf(text_buffer, std::size(text_buffer), "Snap to Grid: %s", enable ? "Enabled" : "Disabled");
+    m_context.notifications.push_back({information_texture, text_buffer, 1000});
+}
+
+math::Vector Editor::GridSize() const
+{
+    return m_context.grid_size;
 }
 
 void Editor::DuplicateSelected()

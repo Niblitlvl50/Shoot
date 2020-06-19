@@ -69,6 +69,9 @@ namespace
 
             ImGui::Checkbox("Show Outline, O", &context.draw_outline);
 
+            ImGui::Checkbox("Snap to Grid, G", &context.snap_to_grid);
+            ImGui::InputFloat2("Grid Size", &context.grid_size.x);
+
             ImGui::EndMenu();
         }
 
@@ -209,11 +212,11 @@ namespace
 
         const ImVec2 window_size = ImVec2(160.0f, 50.0f);
         const float window_position = ImGui::GetIO().DisplaySize.x - window_size.x;
-        void* texture_id = reinterpret_cast<void*>(context.tools_texture_id);
 
         for(size_t index = 0; index < context.notifications.size(); ++index)
         {
             Notification& note = context.notifications[index];
+            auto icon_it = context.ui_icons.find(note.icon);
 
             float window_alpha = 0.6f;
             ImColor tint = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -225,8 +228,6 @@ namespace
                 tint.Value.w *= alpha_scale;
             }
 
-            const ImageCoords& icon = QuadToImageCoords(note.icon);
-
             char window_id[16];
             std::sprintf(window_id, "overlay: %zu", index);
 
@@ -235,9 +236,16 @@ namespace
             ImGui::SetNextWindowBgAlpha(window_alpha);
 
             ImGui::Begin(window_id, nullptr, notification_window_flags);
-            ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
-            ImGui::SameLine();
-            ImGui::TextColored(tint, "%s", note.text.c_str());
+
+            if(icon_it != context.ui_icons.end())
+            {
+                void* texture_id = reinterpret_cast<void*>(icon_it->second.texture_id);
+                const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_coordinates);
+                ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
+                ImGui::SameLine();
+            }
+
+            ImGui::TextWrapped("%s", note.text.c_str());
             ImGui::End();
         }
     }

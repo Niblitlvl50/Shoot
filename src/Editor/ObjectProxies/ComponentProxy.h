@@ -15,6 +15,8 @@ namespace mono
 
 namespace editor
 {
+    class Editor;
+
     class ComponentProxy : public IObjectProxy
     {
     public:
@@ -25,7 +27,8 @@ namespace editor
             const std::string& folder,
             const std::vector<Component>& components,
             IEntityManager* entity_manager,
-            mono::TransformSystem* transform_system);
+            mono::TransformSystem* transform_system,
+            Editor* editor);
         
         ~ComponentProxy();
 
@@ -67,5 +70,6 @@ namespace editor
         std::vector<Component> m_components;
         IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
+        Editor* m_editor;
     };
 }

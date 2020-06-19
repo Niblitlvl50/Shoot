@@ -70,44 +70,44 @@ UserInputController::UserInputController(
 
     tools[ToolsMenuOptions::POLYGON_TOOL] = {
         &m_polygon_tool,
-        Notification(m_context->default_icon, "Polygon tool", 2000),
+        Notification(editor::wrench_texture, "Polygon tool", 2000),
         { "Create polygon", "Undo last" }
     };
 
     tools[ToolsMenuOptions::POLYGON_BOX_TOOL] = {
         &m_polygon_box_tool,
-        Notification(m_context->default_icon, "Polygon Box", 2000),
+        Notification(editor::wrench_texture, "Polygon Box", 2000),
         { }
     };
 
     tools[ToolsMenuOptions::POLYGON_BRUSH_TOOL] = {
         &m_polygon_brush_tool,
-        Notification(m_context->default_icon, "Polygon Brush", 2000),
+        Notification(editor::wrench_texture, "Polygon Brush", 2000),
         { }
     };
 
     tools[ToolsMenuOptions::TRANSLATE_TOOL] = {
         &m_translate_tool,
-        Notification(m_context->default_icon, "Translate tool", 2000),
+        Notification(editor::wrench_texture, "Translate tool", 2000),
         { }
     };
 
     tools[ToolsMenuOptions::ROTATE_TOOL] = {
         &m_rotate_tool,
-        Notification(m_context->default_icon, "Rotate tool", 2000),
+        Notification(editor::wrench_texture, "Rotate tool", 2000),
         { }
     };
 
     tools[ToolsMenuOptions::PATH_TOOL] = {
         &m_path_tool,
-        Notification(m_context->default_icon, "Path tool", 2000),
+        Notification(editor::wrench_texture, "Path tool", 2000),
         { "Create path", "Undo last" }
     };
 
     tools[ToolsMenuOptions::MEASURE_TOOL] = {
         &m_measure_tool,
-        Notification(m_context->default_icon, "Measure tool", 2000),
-        {}
+        Notification(editor::wrench_texture, "Measure tool", 2000),
+        { }
     };
 
     SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
@@ -270,6 +270,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawSnappers(!m_editor->DrawSnappers());
     else if(event.key == Keycode::O)
         m_editor->EnableDrawOutline(!m_editor->DrawOutline());
+    else if(event.key == Keycode::G)
+        m_editor->EnableSnapToGrid(!m_editor->SnapToGrid());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
     else if(event.key == Keycode::ENTER && event.ctrl)

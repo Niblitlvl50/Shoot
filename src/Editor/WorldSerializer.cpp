@@ -90,7 +90,8 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     return paths;
 }
 
-std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
+std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
+    const char* file_name, IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
 {
     std::vector<IObjectProxyPtr> proxies;
 
@@ -130,7 +131,8 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
 
         const std::string entity_folder = json_entity.value("folder", ""); 
 
-        auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, entity_name, entity_folder, components, entity_manager, transform_system);
+        auto component_proxy =
+            std::make_unique<ComponentProxy>(new_entity.id, entity_name, entity_folder, components, entity_manager, transform_system, editor);
         component_proxy->SetEntityProperties(entity_properties);
 
         proxies.push_back(std::move(component_proxy));
@@ -140,11 +142,11 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(const char* file_name,
 }
 
 std::vector<IObjectProxyPtr> editor::LoadWorld(
-    const char* file_name, const editor::ObjectFactory& factory, IEntityManager* entity_manager, mono::TransformSystem* transform_system)
+    const char* file_name, const editor::ObjectFactory& factory, IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
 {
     std::vector<IObjectProxyPtr> world_objects;
 
-    auto component_objects = LoadComponentObjects("res/world.components", entity_manager, transform_system);
+    auto component_objects = LoadComponentObjects("res/world.components", entity_manager, transform_system, editor);
     for(auto& proxy : component_objects)
         world_objects.push_back(std::move(proxy));
 

@@ -10,9 +10,17 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <unordered_map>
 
 namespace editor
 {
+    constexpr const char* placeholder_texture = "res/textures/placeholder.png";
+    constexpr const char* export_texture = "res/textures/icons/export.png";
+    constexpr const char* import_texture = "res/textures/icons/import.png";
+    constexpr const char* information_texture = "res/textures/icons/information.png";
+    constexpr const char* save_texture = "res/textures/icons/save.png";
+    constexpr const char* wrench_texture = "res/textures/icons/wrench.png";
+
     struct UIEntityItem
     {
         int texture_id = 0;
@@ -32,14 +40,20 @@ namespace editor
         std::vector<uint32_t> proxy_ids;
     };
 
+    struct UIIcon
+    {
+        int texture_id;
+        math::Quad uv_coordinates;
+    };
+
     struct UIContext
     {
         math::Vector world_mouse_position;
 
         // User tools
         int active_tool_index = 0;
-        int tools_texture_id = 0;
-        math::Quad default_icon;
+
+        std::unordered_map<std::string, UIIcon> ui_icons;
         
         // Objects
         bool draw_outline = false;
@@ -52,6 +66,8 @@ namespace editor
         mono::Color::RGBA background_color;
         bool draw_object_names = false;
         bool draw_snappers = false;
+        bool snap_to_grid = false;
+        math::Vector grid_size;
 
         // Context menu
         bool show_context_menu = false;
