@@ -69,7 +69,7 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(mono::IBody* body, c
     if(m_states.ActiveState() == States::SLEEPING)
         m_states.TransitionTo(States::AWAKE);
 
-    if(category == game::CollisionCategory::PLAYER)
+    if(category == shared::CollisionCategory::PLAYER)
     {
         const math::Vector& entity_position = math::GetPosition(*m_transform);
         //const float direction = math::AngleBetweenPoints(entity_position, body->GetPosition());

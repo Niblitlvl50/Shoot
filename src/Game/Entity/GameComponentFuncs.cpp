@@ -87,7 +87,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const game::FactionPair& faction_pair = game::faction_lookup_table[faction];
+        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -107,7 +107,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const game::FactionPair& faction_pair = game::faction_lookup_table[faction];
+        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -127,7 +127,7 @@ namespace
         FindAttribute(END_ATTRIBUTE, properties, shape_params.end, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const game::FactionPair& faction_pair = game::faction_lookup_table[faction];
+        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -255,10 +255,7 @@ namespace
     
     bool UpdateTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        int faction;
-        float radius;
         const char* trigger_name = nullptr;
-
         const bool found_trigger_name =
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
 
@@ -268,16 +265,12 @@ namespace
             return false;
         }
 
-        FindAttribute(TRIGGER_RADIUS_ATTRIBUTE, properties, radius, FallbackMode::SET_DEFAULT);
-        FindAttribute(FACTION_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
-
-        const game::FactionPair& faction_pair = game::faction_lookup_table[faction];
+        uint32_t faction;
+        FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
         game::TriggerComponent trigger_component;
         trigger_component.trigger_hash = mono::Hash(trigger_name);
-        //trigger_component.collision_category = faction_pair.category;
-        //trigger_component.collision_mask = faction_pair.mask;
-        //trigger_component.radius = radius;
+        trigger_component.collision_mask = faction;
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->SetTriggerData(entity.id, trigger_component);

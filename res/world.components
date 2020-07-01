@@ -10,8 +10,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 5.086001396179199,
-                                "y": -8.290899276733398
+                                "x": 6.0,
+                                "y": -8.0
                             }
                         },
                         {
@@ -72,8 +72,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -3.0696353912353516,
-                                "y": -9.498381614685059
+                                "x": -3.0,
+                                "y": -10.0
                             }
                         },
                         {
@@ -145,8 +145,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -0.9139738082885742,
-                                "y": -7.215580463409424
+                                "x": -1.0,
+                                "y": -8.0
                             }
                         },
                         {
@@ -345,8 +345,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -7.049361228942871,
-                                "y": -1.00227952003479
+                                "x": -8.0,
+                                "y": -1.0
                             }
                         },
                         {
@@ -488,8 +488,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 10.016412734985352,
-                                "y": -29.638019561767578
+                                "x": 4.0,
+                                "y": -24.0
                             }
                         },
                         {
@@ -1582,14 +1582,14 @@
                         {
                             "id": 3585981250,
                             "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "variant_value": 4.0
                         },
                         {
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.699999988079071
+                                "y": -0.4000000059604645
                             }
                         }
                     ]
@@ -3315,130 +3315,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 17.885948181152344,
-                                "y": -7.646023750305176
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "variant_type": 4,
-                            "variant_value": "block_huge.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "variant_type": 6,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.9999899864196777,
-                                "green": 1.0,
-                                "red": 0.9999952912330627
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "variant_type": 1,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 2209756795,
-                            "variant_type": 1,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
-                        },
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": -0.699999988079071
-                            }
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Environment",
-            "name": "unnamed"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "variant_type": 5,
-                            "variant_value": {
-                                "x": 25.0,
-                                "y": -15.0
+                                "x": 28.0,
+                                "y": -11.0
                             }
                         },
                         {
@@ -3559,8 +3437,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 16.86499786376953,
-                                "y": -14.0686616897583
+                                "x": 20.0,
+                                "y": -11.0
                             }
                         },
                         {
@@ -3681,8 +3559,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 23.0,
-                                "y": -14.0
+                                "x": 24.0,
+                                "y": -11.0
                             }
                         },
                         {
@@ -3803,8 +3681,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 24.703784942626953,
-                                "y": -7.821199893951416
+                                "x": 16.0,
+                                "y": -11.0
                             }
                         },
                         {
@@ -4084,8 +3962,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 3.0743017196655273,
-                                "y": -9.069503784179688
+                                "x": 3.0,
+                                "y": -10.0
                             }
                         },
                         {
@@ -4164,7 +4042,7 @@
                         {
                             "id": 776086107,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 3
                         },
                         {
                             "id": 2209756795,
@@ -4238,8 +4116,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 4.837923049926758,
-                                "y": 6.79206657409668
+                                "x": 5.0,
+                                "y": 7.0
                             }
                         },
                         {
@@ -4353,6 +4231,11 @@
                             "id": 2603146703,
                             "variant_type": 4,
                             "variant_value": "test"
+                        },
+                        {
+                            "id": 3614677686,
+                            "variant_type": 2,
+                            "variant_value": 2
                         }
                     ]
                 }
@@ -4371,8 +4254,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -6.622467994689941,
-                                "y": 5.246823310852051
+                                "x": -7.0,
+                                "y": 5.0
                             }
                         },
                         {
@@ -4509,8 +4392,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -3.3115592002868652,
-                                "y": 5.674594402313232
+                                "x": -3.0,
+                                "y": 5.0
                             }
                         },
                         {
@@ -4641,6 +4524,982 @@
             "entity_properties": 0,
             "folder": "Healthbar Test",
             "name": "red_barrel_boss"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 11.0,
+                                "y": -20.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 2.1500000953674316
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 13.0,
+                                "y": -20.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 2.1500000953674316
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 13.0,
+                                "y": -21.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 2.1500000953674316
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 11.0,
+                                "y": -21.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 2.1500000953674316
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 19.0,
+                                "y": -20.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 1.149999976158142
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 20.0,
+                                "y": -20.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 1.149999976158142
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 21.0,
+                                "y": -20.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 1.149999976158142
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 15.0,
+                                "y": -22.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "variant_type": 4,
+                            "variant_value": "block_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 1.0,
+                                "red": 0.9999952912330627
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "variant_type": 1,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2508680735,
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3585981250,
+                            "variant_type": 3,
+                            "variant_value": 1.149999976158142
+                        },
+                        {
+                            "id": 2471448074,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "Environment",
+            "name": "unnamed"
         }
     ]
 }

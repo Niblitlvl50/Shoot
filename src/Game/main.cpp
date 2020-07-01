@@ -119,8 +119,7 @@ int main(int argc, char* argv[])
     game::InitializeAIKnowledge();
 
     {
-        const math::Vector window_size = math::Vector(options.width, options.height);
-        System::IWindow* window = System::CreateWindow("game", options.x, options.y, window_size.x, window_size.y, false);
+        System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, System::WindowOptions::NONE);
         window->SetBackgroundColor(0.7, 0.7, 0.7);
         
         mono::LoadFont(game::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);

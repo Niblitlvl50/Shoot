@@ -25,6 +25,7 @@ extern const uint32_t INERTIA_ATTRIBUTE;
 extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
+extern const uint32_t FACTION_PICKER_ATTRIBUTE;
 extern const uint32_t WIDTH_ATTRIBUTE;
 extern const uint32_t HEIGHT_ATTRIBUTE;
 extern const uint32_t START_ATTRIBUTE;

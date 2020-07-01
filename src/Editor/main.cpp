@@ -51,7 +51,7 @@ int main(int argc, const char* argv[])
         editor::LoadConfig("res/editor_config.json", config);
         
         System::IWindow* window = System::CreateWindow(
-            "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, false);
+            "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::NONE);
 
         mono::LoadFont(editor::FontId::SMALL,       "res/pixelette.ttf", 10.0f, 1.0f / 15.0f);
         mono::LoadFont(editor::FontId::MEDIUM,      "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);

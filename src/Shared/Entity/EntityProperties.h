@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <vector>
 #include <cstdint>
 
 enum EntityProperties : uint32_t
@@ -9,12 +10,12 @@ enum EntityProperties : uint32_t
     CTF_FLAG = 2,
 };
 
-constexpr EntityProperties all_entity_properties[] = {
+static const std::vector<uint32_t> all_entity_properties = {
     EntityProperties::REPLICATE,
     EntityProperties::CTF_FLAG,
 };
 
-inline const char* EntityPropertyToString(EntityProperties property)
+inline const char* EntityPropertyToString(uint32_t property)
 {
     switch(property)
     {

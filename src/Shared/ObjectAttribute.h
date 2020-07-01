@@ -16,32 +16,37 @@ public:
     Variant()
     { }
 
-    Variant(bool value)
+    explicit Variant(bool value)
     {
         *this = value;
     }
 
-    Variant(int value)
+    explicit Variant(int value)
     {
         *this = value;
     }
 
-    Variant(float value)
+    explicit Variant(uint32_t value)
     {
         *this = value;
     }
 
-    Variant(const char* string)
+    explicit Variant(float value)
+    {
+        *this = value;
+    }
+
+    explicit Variant(const char* string)
     {
         *this = string;
     }
 
-    Variant(const math::Vector& point)
+    explicit Variant(const math::Vector& point)
     {
         *this = point;
     }
 
-    Variant(const mono::Color::RGBA& color)
+    explicit Variant(const mono::Color::RGBA& color)
     {
         *this = color;
     }
@@ -56,6 +61,12 @@ public:
     {
         assert(type == Type::INT);
         return int_value;
+    }
+
+    operator uint32_t() const
+    {
+        assert(tyep == Type::UINT);
+        return uint_value;
     }
 
     operator float() const
@@ -93,6 +104,13 @@ public:
     {
         type = Type::INT;
         int_value = value;
+        return *this;
+    }
+
+    Variant& operator = (const uint32_t value)
+    {
+        type = Type::UINT;
+        uint_value = value;
         return *this;
     }
 
@@ -138,7 +156,8 @@ public:
         FLOAT,
         STRING,
         POINT,
-        COLOR
+        COLOR,
+        UINT,
     };
 
     Type type = Type::NONE;
@@ -146,6 +165,7 @@ public:
     union
     {
         int int_value;
+        uint32_t uint_value;
         float float_value;
         char string_value[VariantStringMaxLength];
         math::Vector point_value;

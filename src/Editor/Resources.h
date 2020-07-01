@@ -43,7 +43,7 @@ namespace editor
 
     inline int FindTextureIndex(const char* texture)
     {
-        for(uint32_t index = 0; index < mono::arraysize(avalible_textures); ++index)
+        for(uint32_t index = 0; index < std::size(avalible_textures); ++index)
         {
             const bool found = std::strstr(texture, avalible_textures[index]) != nullptr;
             if(found)

@@ -10,6 +10,7 @@
 #include "Math/MathFunctions.h"
 
 #include "Entity/IEntityManager.h"
+#include "Entity/EntityProperties.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "Editor.h"
@@ -86,7 +87,7 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
 {
     DrawName(m_name);
     DrawFolder(m_folder);
-    //DrawEntityProperty(m_entity_properties);
+    //DrawBitfieldProperty(m_entity_properties, all_entity_properties, EntityPropertyToString);
     
     const int modified_index = DrawComponents(context, m_components);
     if(modified_index != -1)

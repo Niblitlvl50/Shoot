@@ -22,6 +22,9 @@ inline void to_json(nlohmann::json& json, const Attribute& attribute)
     case Variant::Type::INT:
         json["variant_value"] = attribute.attribute.int_value;
         break;
+    case Variant::Type::UINT:
+        json["variant_value"] = attribute.attribute.uint_value;
+        break;
     case Variant::Type::FLOAT:
         json["variant_value"] = attribute.attribute.float_value;
         break;
@@ -51,6 +54,9 @@ inline void from_json(const nlohmann::json& json, Attribute& attribute)
         break;
     case Variant::Type::INT:
         attribute.attribute = json["variant_value"].get<int>();
+        break;
+    case Variant::Type::UINT:
+        attribute.attribute = json["variant_value"].get<uint32_t>();
         break;
     case Variant::Type::FLOAT:
         attribute.attribute = json["variant_value"].get<float>();

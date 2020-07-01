@@ -2,12 +2,13 @@
 #include "UIProperties.h"
 #include "ObjectAttribute.h"
 #include "Component.h"
-#include "Resources.h"
-#include "EntityLogicTypes.h"
-#include "Entity/EntityProperties.h"
 #include "UIContext.h"
+#include "Resources.h"
+
+#include "EntityLogicTypes.h"
+#include "CollisionConfiguration.h"
+
 #include "ImGuiImpl/ImGuiImpl.h"
-#include "Util/Algorithm.h"
 
 #include <cstdio>
 #include <limits>
@@ -37,42 +38,7 @@ void editor::DrawFolder(std::string& folder)
         folder = text_buffer;
 }
 
-void editor::DrawEntityProperty(uint32_t& properties)
-{
-    std::string button_text = "[none]";
-
-    if(properties != 0)
-    {
-        button_text.clear();
-        for(EntityProperties prop : all_entity_properties)
-        {
-            if(properties & prop)
-            {
-                button_text += EntityPropertyToString(prop);
-                button_text += "|";
-            }
-        }
-
-        button_text.pop_back();
-    }
-
-    const bool pushed = ImGui::Button(button_text.c_str());
-    if(pushed)
-        ImGui::OpenPopup("entity_properties_select");
-
-    if(ImGui::BeginPopup("entity_properties_select"))
-    {
-        for(EntityProperties prop : all_entity_properties)
-        {
-            if(ImGui::Selectable(EntityPropertyToString(prop), properties & prop, ImGuiSelectableFlags_DontClosePopups))
-                properties ^= prop;
-        }
-
-        ImGui::EndPopup();
-    }
-}
-
-bool editor::DrawProperty(const char* text, Variant& attribute)
+bool editor::DrawGenericProperty(const char* text, Variant& attribute)
 {
     switch(attribute.type)
     {
@@ -85,6 +51,9 @@ bool editor::DrawProperty(const char* text, Variant& attribute)
     }
     case Variant::Type::INT:
         return ImGui::InputInt(text, &attribute.int_value);
+    case Variant::Type::UINT:
+        //Imgui::InputU
+        return false;
     case Variant::Type::FLOAT:
         return ImGui::InputFloat(text, &attribute.float_value);
     case Variant::Type::STRING:
@@ -115,22 +84,27 @@ bool editor::DrawProperty(Attribute& attribute)
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, editor::pickup_items, mono::arraysize(editor::pickup_items));
+            attribute_name, &attribute.attribute.int_value, editor::pickup_items, std::size(editor::pickup_items));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, entity_logic_strings, mono::arraysize(entity_logic_strings));
+            attribute_name, &attribute.attribute.int_value, entity_logic_strings, std::size(entity_logic_strings));
     }
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, body_types, mono::arraysize(body_types));
+            attribute_name, &attribute.attribute.int_value, body_types, std::size(body_types));
     }
     else if(attribute.id == FACTION_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, faction_types, mono::arraysize(faction_types));
+            attribute_name, &attribute.attribute.int_value, faction_types, std::size(faction_types));
+    }
+    else if(attribute.id == FACTION_PICKER_ATTRIBUTE)
+    {
+        return DrawBitfieldProperty(
+            attribute.attribute.uint_value, shared::all_collision_categories, shared::CollisionCategoryToString);
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
@@ -176,7 +150,7 @@ bool editor::DrawProperty(Attribute& attribute)
     }
     else
     {
-        return DrawProperty(attribute_name, attribute.attribute);
+        return DrawGenericProperty(attribute_name, attribute.attribute);
     }
 }
 
@@ -267,4 +241,43 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
         ui_context.add_component(selected_component_hash);
 
     return modified_index;
+}
+
+bool editor::DrawBitfieldProperty(uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)
+{
+    std::string button_text = "[none]";
+
+    if(value != 0)
+    {
+        button_text.clear();
+        for(uint32_t prop : flags)
+        {
+            if(value & prop)
+            {
+                button_text += flag_to_string(prop);
+                button_text += "|";
+            }
+        }
+
+        button_text.pop_back();
+    }
+
+    const bool pushed = ImGui::Button(button_text.c_str());
+    if(pushed)
+        ImGui::OpenPopup("entity_properties_select");
+
+    const uint32_t initial_value = value;
+
+    if(ImGui::BeginPopup("entity_properties_select"))
+    {
+        for(uint32_t prop : flags)
+        {
+            if(ImGui::Selectable(flag_to_string(prop), value & prop, ImGuiSelectableFlags_DontClosePopups))
+                value ^= prop;
+        }
+
+        ImGui::EndPopup();
+    }
+
+    return initial_value != value;
 }

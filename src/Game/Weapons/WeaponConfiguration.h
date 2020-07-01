@@ -39,7 +39,7 @@ namespace game
         const char* sound_file = nullptr;
 
         BulletCollisionBehaviour bullet_behaviour = BulletCollisionBehaviour::NORMAL;
-        CollisionCategory collision_category = CollisionCategory::STATIC;
+        shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
     };

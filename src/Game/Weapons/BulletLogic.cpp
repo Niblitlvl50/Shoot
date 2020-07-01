@@ -92,7 +92,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
                 return (radians < math::ToRadians(45.0f));
             };
 
-            const mono::IBody* found_body = space->QueryNearest(collision_point, 5.0f, game::CollisionCategory::ENEMY, query_filter);
+            const mono::IBody* found_body = space->QueryNearest(collision_point, 5.0f, shared::CollisionCategory::ENEMY, query_filter);
             if(found_body)
             {
                 const math::Vector found_body_position = found_body->GetPosition();

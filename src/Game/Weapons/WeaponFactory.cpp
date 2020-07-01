@@ -109,8 +109,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
     BulletConfiguration& bullet_config = weapon_config.bullet_config;
 
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
-    bullet_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
-    bullet_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
+    bullet_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
+    bullet_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
 
     switch(weapon)
     {

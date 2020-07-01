@@ -23,15 +23,15 @@ namespace
         const float velocity_x = mono::Random(-5.0f, -3.0f);
         const float velocity_y = mono::Random(-1.0f, 1.0f);
 
-        const float sign = mono::RandomInt(0, 1) == 0 ? 1.0f : -1.0f;
-        const float angular_velocity = mono::Random(0.3f, 1.0f) * sign;
+        //const float sign = mono::RandomInt(0, 1) == 0 ? 1.0f : -1.0f;
+        //const float angular_velocity = mono::Random(0.3f, 1.0f) * sign;
 
         const int life = mono::RandomInt(0, 500) + 5000;
 
         pool.position[index] = position + math::Vector(x, y);
         pool.velocity[index] = math::Vector(velocity_x, velocity_y);
-        pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
-        pool.angular_velocity[index] = angular_velocity;
+        //pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
+        //pool.angular_velocity[index] = angular_velocity;
         pool.start_color[index] = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 1.0f);
         pool.end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
         pool.start_size[index] = mono::Random(58.0f, 76.0f);
@@ -65,7 +65,9 @@ ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math
     mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
 
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/x4.png");
+    //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/x4.png");
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/heart.png");
+    //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
     particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
     const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {

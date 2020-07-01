@@ -2,8 +2,9 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
-namespace game
+namespace shared
 {
     enum CollisionCategory : uint32_t
     {
@@ -71,5 +72,40 @@ namespace game
         { CollisionCategory::ENEMY_BULLET,  ENEMY_BULLET_MASK },
         { CollisionCategory::PROPS,         PROPS_MASK },
         { CollisionCategory::STATIC,        STATIC_MASK },
+    };
+
+    static const std::vector<uint32_t> all_collision_categories = {
+        CollisionCategory::PLAYER,
+        CollisionCategory::PLAYER_BULLET,
+        CollisionCategory::ENEMY,
+        CollisionCategory::ENEMY_BULLET,
+        CollisionCategory::PROPS,
+        CollisionCategory::STATIC,
+        //CollisionCategory::ALL,
+    };
+
+    inline const char* CollisionCategoryToString(uint32_t category)
+    {
+        switch(category)
+        {
+        case CollisionCategory::NONE:
+            return "None";
+        case CollisionCategory::PLAYER:
+            return "Player";
+        case CollisionCategory::PLAYER_BULLET:
+            return "Player Bullet";
+        case CollisionCategory::ENEMY:
+            return "Enemy";
+        case CollisionCategory::ENEMY_BULLET:
+            return "Enemy Bullet";
+        case CollisionCategory::PROPS:
+            return "Props";
+        case CollisionCategory::STATIC:
+            return "Static";
+        case CollisionCategory::ALL:
+            return "All";
+        };
+
+        return "Unknown";
     };
 }

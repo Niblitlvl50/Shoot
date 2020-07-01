@@ -73,6 +73,10 @@ void TriggerSystem::ReleaseTrigger(uint32_t entity_id)
 void TriggerSystem::SetTriggerData(uint32_t entity_id, const TriggerComponent& component_data)
 {
     m_triggers[entity_id] = component_data;
+
+    std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
+    for(mono::IShape* shape : shapes)
+        shape->SetCollisionMask(component_data.collision_mask);
 }
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback)

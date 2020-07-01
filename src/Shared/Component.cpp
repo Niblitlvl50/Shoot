@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 30> default_attributes = {{
+const std::array<DefaultAttribute, 31> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -37,6 +37,7 @@ const std::array<DefaultAttribute, 30> default_attributes = {{
     DefaultAttribute("prevent_rotation",    Variant(false)),
 
     DefaultAttribute("faction",             Variant(0)),
+    DefaultAttribute("faction_picker",      Variant(0)),
     DefaultAttribute("width",               Variant(1.0f)),
     DefaultAttribute("height",              Variant(1.0f)),
     DefaultAttribute("start",               Variant(math::ZeroVec)),
@@ -75,24 +76,26 @@ extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[12].has
 extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[13].hash;
 
 extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[14].hash;
-extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[15].hash;
-extern const uint32_t HEIGHT_ATTRIBUTE              = default_attributes[16].hash;
-extern const uint32_t START_ATTRIBUTE               = default_attributes[17].hash;
-extern const uint32_t END_ATTRIBUTE                 = default_attributes[18].hash;
-extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[19].hash;
+extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[15].hash;
 
-extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[20].hash;
-extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[21].hash;
-extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[22].hash;
+extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[16].hash;
+extern const uint32_t HEIGHT_ATTRIBUTE              = default_attributes[17].hash;
+extern const uint32_t START_ATTRIBUTE               = default_attributes[18].hash;
+extern const uint32_t END_ATTRIBUTE                 = default_attributes[19].hash;
+extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[20].hash;
 
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[23].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[24].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[25].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[26].hash;
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[27].hash;
+extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[21].hash;
+extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[22].hash;
+extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[23].hash;
 
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[28].hash;
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[29].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[24].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[25].hash;
+extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[26].hash;
+extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[27].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[28].hash;
+
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[29].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[30].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -154,7 +157,7 @@ const std::array<Component, 10> default_components = {
     MakeComponent(HEALTH_COMPONENT,          NULL_COMPONENT,    { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,       NULL_COMPONENT,    { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeComponent(SPAWN_POINT_COMPONENT,     NULL_COMPONENT,    { SPAWN_SCORE_ATTRIBUTE } ),
-    MakeComponent(TRIGGER_COMPONENT,         PHYSICS_COMPONENT, { TRIGGER_NAME_ATTRIBUTE } ),
+    MakeComponent(TRIGGER_COMPONENT,         PHYSICS_COMPONENT, { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

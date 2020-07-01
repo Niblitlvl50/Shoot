@@ -20,6 +20,7 @@ namespace game
     {
         uint32_t trigger_hash;
         uint32_t untrigger_hash;
+        uint32_t collision_mask;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id)>;

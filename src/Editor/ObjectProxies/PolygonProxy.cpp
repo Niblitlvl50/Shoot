@@ -99,7 +99,7 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
     ImGui::Value("Y", position.y);
     ImGui::Value("Rotation", rotation);
 
-    if(ImGui::Combo("Texture", &texture_index, avalible_textures, mono::arraysize(avalible_textures)))
+    if(ImGui::Combo("Texture", &texture_index, avalible_textures, std::size(avalible_textures)))
         m_polygon->SetTexture(avalible_textures[texture_index]);
 }
 
