@@ -103,7 +103,7 @@ mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 
 void TitleScreen::OnLoad(mono::ICamera* camera)
 {
-    camera->SetViewport(math::Quad(0, 0, 22, 14));
+    camera->SetViewport(math::Quad(0, 0, 14, 23));
 
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
 
