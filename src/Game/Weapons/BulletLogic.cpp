@@ -118,3 +118,8 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
     m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, colliding_body);
     return resolve_type;
 }
+
+void BulletLogic::OnSeparateFrom(mono::IBody* body)
+{
+
+}

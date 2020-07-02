@@ -26,8 +26,13 @@ namespace
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_component->trigger_hash);
+            m_trigger_system->EmitTrigger(m_trigger_component->trigger_hash, TriggerState::ENTER);
             return mono::CollisionResolve::IGNORE;
+        }
+
+        void OnSeparateFrom(mono::IBody* body) override
+        {
+            m_trigger_system->EmitTrigger(m_trigger_component->trigger_hash, TriggerState::EXIT);
         }
 
         TriggerComponent* m_trigger_component;
@@ -97,9 +102,9 @@ void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callba
     m_trigger_callbacks[trigger_hash][callback_id] = nullptr;
 }
 
-void TriggerSystem::EmitTrigger(uint32_t trigger_hash)
+void TriggerSystem::EmitTrigger(uint32_t trigger_hash, TriggerState state)
 {
-    m_triggers_to_emit.push_back(trigger_hash);
+    m_triggers_to_emit.push_back({ trigger_hash, state });
 }
 
 uint32_t TriggerSystem::Id() const
@@ -119,16 +124,18 @@ uint32_t TriggerSystem::Capacity() const
 
 void TriggerSystem::Update(const mono::UpdateContext& update_context)
 {
-    for(uint32_t hash : m_triggers_to_emit)
+    for(const EmitData& emit_data : m_triggers_to_emit)
     {
-        const auto it = m_trigger_callbacks.find(hash);
+        const auto it = m_trigger_callbacks.find(emit_data.hash);
         if(it != m_trigger_callbacks.end())
         {
             for(TriggerCallback callback : it->second)
-                callback(hash);
+                callback(emit_data.hash, emit_data.state);
         }
 
-        game::g_debug_drawer->DrawScreenText("test", math::Vector(1, 1), mono::Color::BLACK);
+        const bool enter = (emit_data.state == TriggerState::ENTER);
+        const std::string suffix = enter ? "Enter" : "Exit";
+        game::g_debug_drawer->DrawScreenText(suffix.c_str(), math::Vector(1, 1), mono::Color::BLACK);
     }
 
     m_triggers_to_emit.clear();

@@ -23,7 +23,7 @@
 
 #include "Component.h"
 
-#include "System/System.h"
+//#include "System/System.h"
 
 #include <cmath>
 #include <algorithm>
@@ -112,7 +112,7 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
         for(mono::IShape* shape : shapes)
             shape->SetCollisionFilter(m_weapon_config.bullet_config.collision_category, m_weapon_config.bullet_config.collision_mask);
 
-        System::Log("impulse: %f\n", math::Length(impulse));
+        //System::Log("impulse: %f\n", math::Length(impulse));
         body->SetVelocity(impulse);
         //body->ApplyImpulse(impulse, position);
     }

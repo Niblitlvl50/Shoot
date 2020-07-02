@@ -82,6 +82,11 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(mono::IBody* body, c
     return mono::CollisionResolve::NORMAL;
 }
 
+void BlackSquareController::OnSeparateFrom(mono::IBody* body)
+{
+
+}
+
 void BlackSquareController::ToSleep()
 {
     m_sprite->SetShade(mono::Color::RGBA(0.0f, 0.0f, 0.0f, 1.0f));

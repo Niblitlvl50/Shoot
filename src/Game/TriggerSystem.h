@@ -16,14 +16,19 @@
 
 namespace game
 {
+    enum class TriggerState
+    {
+        ENTER,
+        EXIT
+    };
+
     struct TriggerComponent
     {
         uint32_t trigger_hash;
-        uint32_t untrigger_hash;
         uint32_t collision_mask;
     };
 
-    using TriggerCallback = std::function<void (uint32_t trigger_id)>;
+    using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
 
     class TriggerSystem : public mono::IGameSystem
     {
@@ -38,7 +43,7 @@ namespace game
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);
 
-        void EmitTrigger(uint32_t trigger_hash);
+        void EmitTrigger(uint32_t trigger_hash, TriggerState state);
 
         uint32_t Id() const override;
         const char* Name() const override;
@@ -57,6 +62,11 @@ namespace game
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
 
-        std::vector<uint32_t> m_triggers_to_emit;
+        struct EmitData
+        {
+            uint32_t hash;
+            TriggerState state;
+        };
+        std::vector<EmitData> m_triggers_to_emit;
     };
 }
