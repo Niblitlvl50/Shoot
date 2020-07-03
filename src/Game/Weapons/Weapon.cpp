@@ -20,6 +20,7 @@
 #include "Physics/IBody.h"
 #include "Physics/IShape.h"
 #include "Particle/ParticleSystem.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include "Component.h"
 
@@ -50,6 +51,7 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
     if(config.reload_sound)
         m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
 
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
@@ -102,6 +104,9 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
+
+        math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
+        math::Position(transform, position);
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
         body->SetPosition(position);

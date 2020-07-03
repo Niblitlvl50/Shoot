@@ -43,6 +43,7 @@ namespace game
         mono::ISoundPtr m_ooa_sound;
         mono::ISoundPtr m_reload_sound;
 
+        mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::ParticleSystem* m_particle_system;
         EntityLogicSystem* m_logic_system;
