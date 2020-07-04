@@ -1,6 +1,6 @@
 
 #include "DamageSystem.h"
-#include "Effects/GibSystem.h"
+#include "Effects/DamageEffect.h"
 #include "Entity/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Particle/ParticleSystem.h"

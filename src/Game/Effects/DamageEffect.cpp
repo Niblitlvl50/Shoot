@@ -1,5 +1,5 @@
 
-#include "GibSystem.h"
+#include "DamageEffect.h"
 
 #include "Util/Random.h"
 
