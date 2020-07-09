@@ -149,7 +149,7 @@ void editor::DrawPolygon(mono::IRenderer& renderer,
     for(size_t index = 0; index < points.size(); ++index)
         indices.push_back(index);
 
-    renderer.DrawGeometry(points, texture_coords, indices, texture);
+    renderer.DrawGeometry(points, texture_coords, indices, texture.get());
     renderer.DrawClosedPolyline(points, line_color, 2.0f);
     renderer.DrawPoints(points, point_color, 4.0f);
 }

@@ -42,7 +42,7 @@ StaticBackground::StaticBackground()
 
 void StaticBackground::Draw(mono::IRenderer& renderer) const
 {
-    renderer.DrawGeometry(m_vertex_buffer.get(), m_texture_buffer.get(), 0, 4, m_texture);
+    renderer.DrawGeometry(m_vertex_buffer.get(), m_texture_buffer.get(), 0, 4, m_texture.get());
 }
 
 math::Quad StaticBackground::BoundingBox() const

@@ -81,7 +81,7 @@ void StaticTerrainBlock::Draw(mono::IRenderer& renderer) const
     for(const TerrainDrawData& draw_data : m_draw_data)
     {
         renderer.DrawGeometry(
-            m_vertex_buffer.get(), m_texture_buffer.get(), draw_data.offset, draw_data.count, draw_data.texture);
+            m_vertex_buffer.get(), m_texture_buffer.get(), draw_data.offset, draw_data.count, draw_data.texture.get());
         renderer.DrawPolyline(
             m_vertex_buffer.get(), m_color_buffer.get(), draw_data.offset, draw_data.count);
     }

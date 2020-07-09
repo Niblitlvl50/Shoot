@@ -119,8 +119,10 @@ int main(int argc, char* argv[])
     game::InitializeAIKnowledge();
 
     {
-        System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, System::WindowOptions::NONE);
-        window->SetBackgroundColor(0.7, 0.7, 0.7);
+        //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
+        const System::WindowOptions window_options = System::WindowOptions::NONE;
+        System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, window_options);
+        //window->SetBackgroundColor(0.7, 0.7, 0.7);
         
         mono::LoadFont(game::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);

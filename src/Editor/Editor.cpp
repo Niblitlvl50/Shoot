@@ -628,7 +628,7 @@ const mono::Color::RGBA& Editor::BackgroundColor() const
 void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
-    m_window->SetBackgroundColor(color.red, color.green, color.blue);
+    //m_window->SetBackgroundColor(color.red, color.green, color.blue);
 }
 
 bool Editor::SnapToGrid() const
