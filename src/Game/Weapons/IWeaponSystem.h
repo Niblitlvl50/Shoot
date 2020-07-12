@@ -6,7 +6,7 @@
 
 namespace game
 {
-    enum class WeaponFireResult
+    enum class WeaponState
     {
         NONE,
         FIRE,
@@ -21,9 +21,10 @@ namespace game
         virtual ~IWeaponSystem()
         { }
 
-        virtual WeaponFireResult Fire(const math::Vector& position, float direction, uint32_t timestamp) = 0;
+        virtual WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) = 0;
+        virtual void Reload(uint32_t timestamp) = 0;
         virtual int AmmunitionLeft() const = 0;
         virtual int MagazineSize() const = 0;
-        virtual void Reload() = 0;
+        virtual WeaponState GetState() const = 0;
     };
 }

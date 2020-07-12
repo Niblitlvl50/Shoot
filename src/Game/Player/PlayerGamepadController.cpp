@@ -35,7 +35,7 @@ PlayerGamepadController::PlayerGamepadController(
       m_state(controller)
 { }
 
-void PlayerGamepadController::Update(uint32_t delta_ms)
+void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {
     const bool fire = (m_state.a || m_state.right_trigger > 0.25f);
     if(fire)
@@ -49,7 +49,7 @@ void PlayerGamepadController::Update(uint32_t delta_ms)
 
     const bool reload = IS_TRIGGERED(x) && HAS_CHANGED(x);
     if(reload)
-        m_shuttle_logic->Reload();
+        m_shuttle_logic->Reload(update_context.total_time);
 
     const bool left_shoulder = IS_TRIGGERED(left_shoulder);
     const bool right_shoulder = IS_TRIGGERED(right_shoulder);

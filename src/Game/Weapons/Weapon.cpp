@@ -35,6 +35,7 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
     : m_weapon_config(config)
     , m_entity_manager(entity_manager)
     , m_last_fire_timestamp(0)
+    , m_last_reload_timestamp(0)
     , m_current_fire_rate(1.0f)
     , m_ammunition(config.magazine_size)
 {
@@ -60,16 +61,16 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
 }
 
 Weapon::~Weapon()
-{
-}
+{ }
 
-WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
+WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    if(m_reload_sound->IsPlaying())
-        return WeaponFireResult::RELOADING;
+    const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
+    if(m_state == WeaponState::RELOADING && reload_delta < (m_weapon_config.reload_time * 1000.0f))
+        return m_state;
 
-    const float rpsHz = 1.0f / m_weapon_config.rounds_per_second;
-    const uint32_t weapon_delta = rpsHz * 1000.0f;
+    const float rps_hz = 1.0f / m_weapon_config.rounds_per_second;
+    const uint32_t weapon_delta = rps_hz * 1000.0f;
 
     const uint32_t delta = timestamp - m_last_fire_timestamp;
     const uint32_t modified_delta = delta * m_current_fire_rate;
@@ -78,7 +79,10 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
         m_current_fire_rate = 1.0f;
 
     if(modified_delta < weapon_delta)
-        return WeaponFireResult::NONE;
+    {
+        m_state = WeaponState::NONE;
+        return m_state;
+    }
 
     m_last_fire_timestamp = timestamp;
     
@@ -88,7 +92,8 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
         m_ooa_sound->Position(position.x, position.y);
         m_ooa_sound->Play();
 
-        return WeaponFireResult::OUT_OF_AMMO;
+        m_state = WeaponState::OUT_OF_AMMO;
+        return m_state;
     }
 
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
@@ -132,7 +137,16 @@ WeaponFireResult Weapon::Fire(const math::Vector& position, float direction, uin
 
     m_ammunition--;
 
-    return WeaponFireResult::FIRE;
+    m_state = WeaponState::FIRE;
+    return m_state;
+}
+
+void Weapon::Reload(uint32_t timestamp)
+{
+    m_last_reload_timestamp = timestamp;
+    m_ammunition = m_weapon_config.magazine_size;
+    m_state = WeaponState::RELOADING;
+    m_reload_sound->Play();
 }
 
 int Weapon::AmmunitionLeft() const
@@ -145,8 +159,7 @@ int Weapon::MagazineSize() const
     return m_weapon_config.magazine_size;
 }
 
-void Weapon::Reload()
+WeaponState Weapon::GetState() const
 {
-    m_ammunition = m_weapon_config.magazine_size;
-    m_reload_sound->Play();
+    return m_state;
 }

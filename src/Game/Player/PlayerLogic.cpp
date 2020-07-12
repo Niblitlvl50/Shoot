@@ -80,7 +80,7 @@ PlayerLogic::~PlayerLogic()
 
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
-    m_gamepad_controller.Update(update_context.delta_ms);
+    m_gamepad_controller.Update(update_context);
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
@@ -111,15 +111,15 @@ void PlayerLogic::StopFire()
     m_fire = false;
 }
 
-void PlayerLogic::Reload()
+void PlayerLogic::Reload(uint32_t timestamp)
 {
     m_total_ammo_left -= m_weapon->MagazineSize() + m_weapon->AmmunitionLeft();
     m_total_ammo_left = std::max(0, m_total_ammo_left);
 
     if(m_total_ammo_left != 0)
-        m_weapon->Reload();
+        m_weapon->Reload(timestamp);
 
-    m_secondary_weapon->Reload();
+    m_secondary_weapon->Reload(timestamp);
 }
 
 void PlayerLogic::SecondaryFire()

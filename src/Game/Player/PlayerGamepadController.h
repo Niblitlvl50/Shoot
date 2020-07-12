@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "IUpdatable.h"
 #include "System/System.h"
 
 namespace game
@@ -14,7 +15,7 @@ namespace game
         
         PlayerGamepadController(
             game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller);
-        void Update(uint32_t delta_ms);
+        void Update(const mono::UpdateContext& update_context);
         
     private:
         

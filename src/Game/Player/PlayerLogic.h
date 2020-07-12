@@ -57,7 +57,7 @@ namespace game
 
         void Fire();
         void StopFire();
-        void Reload();
+        void Reload(uint32_t timestamp);
 
         void SecondaryFire();
 

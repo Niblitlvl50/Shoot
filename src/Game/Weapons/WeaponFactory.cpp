@@ -124,6 +124,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.entity_file = "res/entities/plasma_bullet.entity";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 99;
             weapon_config.rounds_per_second = 7.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
@@ -145,6 +146,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.entity_file = "res/entities/rocket_bullet.entity";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
             weapon_config.bullet_force = 10.0f;
@@ -163,6 +165,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.entity_file = "res/entities/caco_bullet.entity";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 0.7f;
             weapon_config.bullet_force = 10.0f;
@@ -179,8 +182,9 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
+            weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 40;
-            weapon_config.rounds_per_second = 2.0f;
+            weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 10.0f;
 
             break;
@@ -197,6 +201,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
             weapon_config.projectiles_per_fire = 6;
             weapon_config.magazine_size = 6;
+            weapon_config.reload_time = 1.0f;
             weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 25.0f;
             weapon_config.bullet_spread = 4.0f;
