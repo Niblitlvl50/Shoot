@@ -55,6 +55,10 @@ PlayerUIElement::PlayerUIElement(
     m_ammo_text->SetPosition(math::Vector(41.0f, 8.5f));
     m_ammo_text->SetScale(math::Vector(6.0f, 6.0f));
 
+    m_weapon_state_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
+    m_weapon_state_text->SetPosition(math::Vector(81.0f, 8.5f));
+    m_weapon_state_text->SetScale(math::Vector(6.0f, 6.0f));
+
     m_score_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "", false, mono::Color::BLUE);
     m_score_text->SetPosition(math::Vector(5.0f, 290.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
@@ -63,6 +67,7 @@ PlayerUIElement::PlayerUIElement(
     AddChild(m_weapon_sprites.get());
     AddChild(m_frame_sprite.get());
     AddChild(m_ammo_text.get());
+    AddChild(m_weapon_state_text.get());
     AddChild(m_score_text.get());
 }
 
@@ -72,6 +77,7 @@ PlayerUIElement::~PlayerUIElement()
     RemoveChild(m_weapon_sprites.get());
     RemoveChild(m_mugshot_sprite.get());
     RemoveChild(m_ammo_text.get());
+    RemoveChild(m_weapon_state_text.get());
     RemoveChild(m_score_text.get());
 }
 
@@ -96,6 +102,7 @@ void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
 
     m_ammo_text->SetText(ammo_text);
     m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
+    m_weapon_state_text->SetText(WeaponStateToString(m_player_info.weapon_state));
 
     if(m_player_info.is_active && m_timer < 1.0f)
     {

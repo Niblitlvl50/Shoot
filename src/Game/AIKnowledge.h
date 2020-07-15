@@ -4,6 +4,7 @@
 #include "Math/Vector.h"
 #include "Math/Quad.h"
 #include "Weapons/WeaponTypes.h"
+#include "Weapons/WeaponState.h"
 
 #include <cstdint>
 
@@ -15,6 +16,7 @@ namespace game
         uint32_t entity_id;
         math::Vector position;
         WeaponType weapon_type;
+        WeaponState weapon_state;
         int magazine_left;
         int magazine_capacity;
         int ammunition_left;

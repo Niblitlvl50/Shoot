@@ -130,7 +130,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
             weapon_config.bullet_force = 20.0f;
-            weapon_config.bullet_spread = 2.0f;
+            weapon_config.bullet_spread_degrees = 2.0f;
             weapon_config.fire_sound = "res/sound/plasma_fire.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
 
@@ -204,7 +204,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.reload_time = 1.0f;
             weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 25.0f;
-            weapon_config.bullet_spread = 4.0f;
+            weapon_config.bullet_spread_degrees = 4.0f;
             weapon_config.fire_sound = "res/sound/shotgun_fire.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
             //weapon_config.out_of_ammo_sound = "res/sound/ooa_sound.wav";

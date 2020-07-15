@@ -1,19 +1,12 @@
 
 #pragma once
 
+#include "WeaponState.h"
 #include "Math/MathFwd.h"
 #include <cstdint>
 
 namespace game
 {
-    enum class WeaponState
-    {
-        NONE,
-        FIRE,
-        RELOADING,
-        OUT_OF_AMMO
-    };
-
     class IWeaponSystem
     {
     public:

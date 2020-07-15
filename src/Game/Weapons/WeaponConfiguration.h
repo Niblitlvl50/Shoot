@@ -53,7 +53,7 @@ namespace game
         float fire_rate_multiplier = 1.0f;
         float max_fire_rate = 1.0f;
         float bullet_force = 1.0f;
-        float bullet_spread = 0.0f; // In degrees
+        float bullet_spread_degrees = 0.0f;
 
         float reload_time = 1.0f;
         

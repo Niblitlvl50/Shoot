@@ -38,6 +38,7 @@ Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager
     , m_last_reload_timestamp(0)
     , m_current_fire_rate(1.0f)
     , m_ammunition(config.magazine_size)
+    , m_state(WeaponState::IDLE)
 {
     m_fire_sound = mono::AudioFactory::CreateNullSound();
     m_ooa_sound = mono::AudioFactory::CreateNullSound();
@@ -80,7 +81,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
     if(modified_delta < weapon_delta)
     {
-        m_state = WeaponState::NONE;
+        m_state = WeaponState::IDLE;
         return m_state;
     }
 
@@ -98,7 +99,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
-        const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread, m_weapon_config.bullet_spread));
+        const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
 
         const float force_multiplier = mono::Random(0.8f, 1.2f);
         const math::Vector& unit = math::VectorFromAngle(bullet_direction);

@@ -87,8 +87,12 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = std::fabs(math::Length(position - g_player_one.position));
 
-    if(m_idle_timer > 2000 && distance_to_player < 5)
-        m_states.TransitionTo(InvaderStates::TRACKING);
+    if(m_idle_timer > 2000 && distance_to_player < 3)
+        m_states.TransitionTo(InvaderStates::ATTACKING);
+
+
+    //if(m_idle_timer > 2000 && distance_to_player < 5)
+    //    m_states.TransitionTo(InvaderStates::TRACKING);
 }
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
@@ -110,9 +114,10 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = math::Length(g_player_one.position - position);
-    if(distance_to_player > 10.0f || !g_player_one.is_active)
+    if(distance_to_player > 5.0f || !g_player_one.is_active)
     {
-        m_states.TransitionTo(InvaderStates::TRACKING);
+        //m_states.TransitionTo(InvaderStates::TRACKING);
+        m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
 
