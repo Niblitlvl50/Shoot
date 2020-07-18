@@ -24,6 +24,7 @@
 #include "DamageSystem.h"
 #include "TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
+#include "Pickups/PickupSystem.h"
 #include "Spawner.h"
 
 #include "Entity/ComponentFunctions.h"
@@ -155,6 +156,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, particle_system, transform_system, &event_handler);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, physics_system);
+        system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

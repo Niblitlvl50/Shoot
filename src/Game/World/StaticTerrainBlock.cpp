@@ -33,7 +33,7 @@ StaticTerrainBlock::StaticTerrainBlock(size_t vertex_count, size_t polygon_count
     m_color_buffer_2->UpdateData(temp_buffer2.data(), 0, temp_buffer2.size());
 }
 
-void StaticTerrainBlock::AddPolygon(const world::PolygonData& polygon)
+void StaticTerrainBlock::AddPolygon(const shared::PolygonData& polygon)
 {
     TerrainDrawData draw_data;
     draw_data.offset = m_index;

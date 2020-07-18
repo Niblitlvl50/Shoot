@@ -14,7 +14,7 @@
 #include <cstring>
 
 
-std::vector<uint32_t> world::ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager)
+std::vector<uint32_t> shared::ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager)
 {
     std::vector<uint32_t> created_entities;
 

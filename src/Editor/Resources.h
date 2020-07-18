@@ -9,11 +9,6 @@
 
 namespace editor
 {
-    constexpr const char* pickup_items[] = {
-        "ammo",
-        "health"
-    };
-
     constexpr const char* body_types[] = {
         "Dynamic",
         "Kinetic",

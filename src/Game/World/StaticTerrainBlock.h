@@ -23,7 +23,7 @@ public:
 
     StaticTerrainBlock(size_t vertex_count, size_t polygon_count);
 
-    void AddPolygon(const world::PolygonData& polygon);
+    void AddPolygon(const shared::PolygonData& polygon);
     void Draw(mono::IRenderer& renderer) const override;
     math::Quad BoundingBox() const override;
 

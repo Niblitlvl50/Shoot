@@ -117,7 +117,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new PickupDrawer(m_pickups), LayerId::GAMEOBJECTS);
 
     m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
-    m_loaded_entities = world::ReadWorldComponentObjects("res/world.components", g_entity_manager);
+    m_loaded_entities = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager);
 
 /*
     for(int index = 0; index < 250; ++index)

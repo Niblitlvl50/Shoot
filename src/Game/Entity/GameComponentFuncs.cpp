@@ -7,12 +7,14 @@
 
 #include "DamageSystem.h"
 #include "TriggerSystem.h"
+#include "Pickups/PickupSystem.h"
 #include "Spawner.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"
 
 #include "Physics/PhysicsSystem.h"
+#include "Pickups/PickupSystem.h"
 
 #include "Component.h"
 #include "CollisionConfiguration.h"
@@ -194,8 +196,8 @@ namespace
 
         game::IEntityLogic* entity_logic = nullptr;
 
-        const EntityLogicType logic_type = EntityLogicType(logic_type_value);
-        if(logic_type == EntityLogicType::INVADER_PATH)
+        const shared::EntityLogicType logic_type = shared::EntityLogicType(logic_type_value);
+        if(logic_type == shared::EntityLogicType::INVADER_PATH)
         {
             const char* path_file = nullptr;
             const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -276,6 +278,32 @@ namespace
         trigger_system->SetTriggerData(entity.id, trigger_component);
         return true;
     }
+
+    bool CreatePickup(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->AllocatePickup(entity.id);
+        return true;
+    }
+
+    bool ReleasePickup(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->ReleasePickup(entity.id);
+        return true;
+    }
+
+    bool UpdatePickup(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        game::Pickup pickup;
+        FindAttribute(PICKUP_TYPE_ATTRIBUTE, properties, (uint32_t&)pickup.type, FallbackMode::SET_DEFAULT);
+        FindAttribute(AMOUNT_ATTRIBUTE, properties, pickup.amount, FallbackMode::SET_DEFAULT);
+
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->SetPickupData(entity.id, pickup);
+
+        return false;
+    }
 }
 
 void game::RegisterGameComponents(EntityManager& entity_manager)
@@ -288,4 +316,5 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager.RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
     entity_manager.RegisterComponent(TRIGGER_COMPONENT, CreateTrigger, ReleaseTrigger, UpdateTrigger);
+    entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
 }

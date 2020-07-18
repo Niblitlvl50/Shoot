@@ -7,6 +7,7 @@
 
 #include "EntityLogicTypes.h"
 #include "CollisionConfiguration.h"
+#include "PickupTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -84,12 +85,12 @@ bool editor::DrawProperty(Attribute& attribute)
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, editor::pickup_items, std::size(editor::pickup_items));
+            attribute_name, &attribute.attribute.int_value, shared::pickup_items, std::size(shared::pickup_items));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, entity_logic_strings, std::size(entity_logic_strings));
+            attribute_name, &attribute.attribute.int_value, shared::entity_logic_strings, std::size(shared::entity_logic_strings));
     }
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
@@ -163,7 +164,7 @@ void editor::AddDynamicProperties(Component& component)
             FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
         if(found_logic)
         {
-            if(EntityLogicType(logic_type) == EntityLogicType::INVADER_PATH)
+            if(shared::EntityLogicType(logic_type) == shared::EntityLogicType::INVADER_PATH)
             {
                 const char* dummy_string = nullptr;
                 const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string, FallbackMode::REQUIRE_ATTRIBUTE);

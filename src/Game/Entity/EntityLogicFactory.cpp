@@ -40,7 +40,7 @@ EntityLogicFactory::EntityLogicFactory(mono::SystemContext* system_context, mono
     , m_event_handler(event_handler)
 { }
 
-IEntityLogic* EntityLogicFactory::CreateLogic(EntityLogicType type, uint32_t entity_id)
+IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, uint32_t entity_id)
 {
     return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 }

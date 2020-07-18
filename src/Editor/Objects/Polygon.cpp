@@ -106,9 +106,9 @@ bool PolygonEntity::IsSelected() const
 void PolygonEntity::SetTexture(const char* texture)
 {
     const std::size_t length = std::strlen(texture);
-    assert(length <= world::PolygonTextureNameMaxLength);
+    assert(length <= shared::PolygonTextureNameMaxLength);
 
-    std::memset(m_texture_name, 0, world::PolygonTextureNameMaxLength);
+    std::memset(m_texture_name, 0, shared::PolygonTextureNameMaxLength);
     std::memcpy(m_texture_name, texture, length);
 
     m_texture = nullptr;

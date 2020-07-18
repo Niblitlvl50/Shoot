@@ -7,7 +7,7 @@
 
 class IEntityManager;
 
-namespace world
+namespace shared
 {
     constexpr size_t PolygonTextureNameMaxLength = 64;
 
