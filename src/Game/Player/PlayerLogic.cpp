@@ -17,6 +17,7 @@
 #include "Math/MathFunctions.h"
 
 #include "Effects/TrailEffect.h"
+#include "Pickups/PickupSystem.h"
 
 #include <cmath>
 
@@ -42,7 +43,6 @@ PlayerLogic::PlayerLogic(
     : m_entity_id(entity_id)
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
-    , m_interaction_controller(this, event_handler)
     , m_fire(false)
     , m_secondary_fire(false)
     , m_total_ammo_left(500)
@@ -51,6 +51,20 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_pickup_system = system_context->GetSystem<PickupSystem>();
+
+    const PickupCallback pickup_callback = [this](shared::PickupType type, int amount) {
+        switch(type)
+        {
+        case shared::PickupType::AMMO:
+            m_total_ammo_left += amount;
+            break;
+        case shared::PickupType::HEALTH:
+            break;
+        };
+    };
+
+    m_pickup_system->RegisterPickupTarget(m_entity_id, pickup_callback);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
@@ -74,6 +88,8 @@ PlayerLogic::PlayerLogic(
 
 PlayerLogic::~PlayerLogic()
 {
+    m_pickup_system->UnregisterPickupTarget(m_entity_id);
+
     g_entity_manager->ReleaseEntity(m_weapon_entity_id);
     g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
 }
@@ -194,16 +210,6 @@ void PlayerLogic::SetAnimation(PlayerAnimation animation)
     //sprite->SetVerticalDirection(vertical);
 }
 
-void PlayerLogic::GiveAmmo(int value)
-{
-    m_total_ammo_left += value;
-}
-
-void PlayerLogic::GiveHealth(int value)
-{
-    printf("Give Health!\n");
-}
-
 void PlayerLogic::Blink(BlinkDirection direction)
 {
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
@@ -228,9 +234,3 @@ void PlayerLogic::Blink(BlinkDirection direction)
 
     body->SetPosition(position + blink_offset);
 }
-
-uint32_t PlayerLogic::EntityId() const
-{
-    return m_entity_id;
-}
-

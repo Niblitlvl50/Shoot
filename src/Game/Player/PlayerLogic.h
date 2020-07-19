@@ -3,7 +3,6 @@
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerGamepadController.h"
-#include "PlayerInteractionController.h"
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/WeaponTypes.h"
 #include "Math/Vector.h"
@@ -11,13 +10,6 @@
 #include "MonoFwd.h"
 
 #include <memory>
-
-namespace mono
-{
-    class TransformSystem;
-    class PhysicsSystem;
-    class SpriteSystem;
-}
 
 namespace game
 {
@@ -67,11 +59,7 @@ namespace game
         void ApplyImpulse(const math::Vector& force);
         void SetRotation(float rotation);
         void SetAnimation(PlayerAnimation animation);
-        void GiveAmmo(int value);
-        void GiveHealth(int value);
         void Blink(BlinkDirection direction);
-
-        uint32_t EntityId() const;
 
         const uint32_t m_entity_id;
         uint32_t m_weapon_entity_id;
@@ -79,7 +67,6 @@ namespace game
         
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
-        PlayerInteractionController m_interaction_controller;
 
         bool m_fire;
         bool m_secondary_fire;
@@ -94,5 +81,6 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
+        class PickupSystem* m_pickup_system;
     };
 }
