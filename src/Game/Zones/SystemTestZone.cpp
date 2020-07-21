@@ -24,7 +24,6 @@
 
 #include "Hud/PlayerUIElement.h"
 #include "Hud/Overlay.h"
-#include "Hud/PickupDrawer.h"
 #include "Hud/Healthbar.h"
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
@@ -42,7 +41,6 @@
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/GameCamera.h"
-#include "UpdateTasks/PickupUpdater.h"
 
 #include "Entity/IEntityManager.h"
 #include "Factories.h"
@@ -113,8 +111,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
     AddUpdatable(new ListenerPositionUpdater());
     AddUpdatable(m_game_camera.get());
-    AddUpdatable(new PickupUpdater(m_pickups, *m_event_handler));
-    AddDrawable(new PickupDrawer(m_pickups), LayerId::GAMEOBJECTS);
 
     m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
     m_loaded_entities = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager);

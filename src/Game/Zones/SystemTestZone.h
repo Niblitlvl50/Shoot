@@ -42,7 +42,6 @@ namespace game
         std::unique_ptr<class GameCamera> m_game_camera;
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class ServerManager> m_server_manager;
-        std::vector<struct Pickup> m_pickups;
 
         NavmeshContext m_navmesh;
 
