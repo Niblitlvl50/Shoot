@@ -4,7 +4,7 @@
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
-#include "Actions/EasingFunctions.h"
+#include "Math/EasingFunctions.h"
 
 #include "Particle/ParticleSystem.h"
 #include "Factories.h"

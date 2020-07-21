@@ -3,7 +3,7 @@
 
 #include "Math/Vector.h"
 #include "MonoFwd.h"
-#include "EasingFunctions.h"
+#include "Math/EasingFunctions.h"
 
 #include <vector>
 #include <functional>
@@ -12,7 +12,7 @@ namespace game
 {
     struct MoveActionContext
     {
-        EaseFunction ease_func = nullptr;
+        math::EaseFunction ease_func = nullptr;
         std::function<void ()> callback = nullptr;
 
         bool ping_pong = false;
@@ -26,7 +26,7 @@ namespace game
 
     struct RotateActionContext
     {
-        EaseFunction ease_function = nullptr;
+        math::EaseFunction ease_function = nullptr;
 
         bool ping_pong = false;
         int counter = 0;

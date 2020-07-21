@@ -4,7 +4,7 @@
 #include "AIKnowledge.h"
 #include "FontIds.h"
 #include "UIElements.h"
-#include "Actions/EasingFunctions.h"
+#include "Math/EasingFunctions.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
@@ -106,12 +106,12 @@ void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
 
     if(m_player_info.is_active && m_timer < 1.0f)
     {
-        m_position.x = EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+        m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
         m_timer += float(update_context.delta_ms) / 1000.0f;
     }
     else if(!m_player_info.is_active && m_timer > 0.0f)
     {
-        m_position.x = EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+        m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
         m_timer -= float(update_context.delta_ms) / 1000.0f;
     }
 }

@@ -148,28 +148,28 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     title_text_animation.duration = 500;
     title_text_animation.start_position = new_position;
     title_text_animation.end_position = math::Vector(1.0f, new_position.y);
-    title_text_animation.ease_func = EaseOutCubic;
+    title_text_animation.ease_func = math::EaseOutCubic;
 
     game::MoveActionContext dont_die_animation;
     dont_die_animation.entity = dont_die_text;
     dont_die_animation.duration = 1000;
     dont_die_animation.start_position = dont_die_position;
     dont_die_animation.end_position = math::Vector(5.0f, dont_die_position.y);
-    dont_die_animation.ease_func = EaseOutCubic;
+    dont_die_animation.ease_func = math::EaseOutCubic;
 
     game::MoveActionContext background_animation;
     background_animation.entity = background1;
     background_animation.duration = 1000;
     background_animation.start_position = math::Vector(new_position.x, 0.0f);
     background_animation.end_position = math::Vector(0.0f, 0.0f);
-    background_animation.ease_func = EaseInOutCubic;
+    background_animation.ease_func = math::EaseInOutCubic;
 
     game::MoveActionContext hit_enter_animation;
     hit_enter_animation.entity = hit_enter_text;
     hit_enter_animation.duration = 800;
     hit_enter_animation.start_position = hit_enter_text->Position();
     hit_enter_animation.end_position = hit_enter_text->Position() + math::Vector(0.0f, 0.4f);
-    hit_enter_animation.ease_func = EaseInOutCubic;
+    hit_enter_animation.ease_func = math::EaseInOutCubic;
     hit_enter_animation.ping_pong = true;
 
     m_move_contexts.push_back(title_text_animation);

@@ -6,7 +6,7 @@
 #include "Util/Random.h"
 
 #include "Math/MathFunctions.h"
-#include "Actions/EasingFunctions.h"
+#include "Math/EasingFunctions.h"
 #include "Factories.h"
 #include "Entity/IEntityManager.h"
 
@@ -55,7 +55,7 @@ namespace
             const float alpha2 = pool.end_color[index].alpha;
             
             pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-            pool.color[index].alpha = game::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
+            pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
         }
     }    
 }
