@@ -1,5 +1,5 @@
 
-#include "Spawner.h"
+#include "SpawnSystem.h"
 #include "Util/Hash.h"
 
 #include <cassert>

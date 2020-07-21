@@ -25,7 +25,7 @@
 #include "TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "Pickups/PickupSystem.h"
-#include "Spawner.h"
+#include "SpawnSystem.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
