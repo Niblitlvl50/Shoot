@@ -8,12 +8,14 @@ namespace shared
     enum class PickupType : uint32_t
     {
         AMMO,
-        HEALTH
+        HEALTH,
+        SCORE,
     };
 
     constexpr const char* pickup_items[] = {
         "Ammo",
-        "Health"
+        "Health",
+        "Score",
     };
 
     inline const char* PickupTypeToString(PickupType pickup_type)

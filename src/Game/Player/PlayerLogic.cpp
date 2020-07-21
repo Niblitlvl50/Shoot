@@ -60,6 +60,10 @@ PlayerLogic::PlayerLogic(
             m_total_ammo_left += amount;
             break;
         case shared::PickupType::HEALTH:
+            std::printf("Got Health! (%d)\n", amount);
+            break;
+        case shared::PickupType::SCORE:
+            m_player_info->score += amount;
             break;
         };
     };

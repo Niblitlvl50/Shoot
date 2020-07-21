@@ -41,6 +41,7 @@ PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, IEnt
 {
     m_pickups.resize(n);
     m_active.resize(n, false);
+    m_collision_handlers.resize(n);
 }
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)

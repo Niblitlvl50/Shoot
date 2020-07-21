@@ -302,7 +302,7 @@ namespace
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
         pickup_system->SetPickupData(entity.id, pickup);
 
-        return false;
+        return true;
     }
 }
 
