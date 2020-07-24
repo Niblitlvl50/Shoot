@@ -52,6 +52,16 @@
                     "name": "segment_shape",
                     "properties": [
                         {
+                            "id": 776086107,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
                             "id": 1697318111,
                             "variant_type": 5,
                             "variant_value": {
@@ -71,11 +81,6 @@
                             "id": 230313139,
                             "variant_type": 3,
                             "variant_value": 1.0
-                        },
-                        {
-                            "id": 776086107,
-                            "variant_type": 2,
-                            "variant_value": 0
                         }
                     ]
                 },
@@ -117,6 +122,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "floor_dude"
         }
     ]

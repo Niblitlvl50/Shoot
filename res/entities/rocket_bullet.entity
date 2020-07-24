@@ -93,6 +93,11 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 2209756795,
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2508680735,
                             "variant_type": 3,
                             "variant_value": 0.10000000149011612
@@ -109,11 +114,6 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
-                        },
-                        {
-                            "id": 2209756795,
-                            "variant_type": 1,
-                            "variant_value": false
                         }
                     ]
                 }

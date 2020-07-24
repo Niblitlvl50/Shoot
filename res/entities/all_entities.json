@@ -2,14 +2,12 @@
     "all_entities": [
         "res/entities/caco_bullet.entity",
         "res/entities/caco_explosion.entity",
-        "res/entities/demon_monster.entity",
         "res/entities/dropzone.entity",
         "res/entities/explosion.entity",
         "res/entities/flag.entity",
         "res/entities/flak_bullet.entity",
         "res/entities/floor_dude.entity",
         "res/entities/green_blob.entity",
-        "res/entities/physics_floor.entity",
         "res/entities/pink_blolb.entity",
         "res/entities/plasma_bullet.entity",
         "res/entities/player_bullet.entity",
@@ -17,7 +15,6 @@
         "res/entities/player_entity.entity",
         "res/entities/player_weapon.entity",
         "res/entities/rocket_bullet.entity",
-        "res/entities/score_100.entity",
-        "res/entities/tiny_explosion.entity"
+        "res/entities/score_100.entity"
     ]
 }

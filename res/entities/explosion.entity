@@ -59,6 +59,7 @@
                 }
             ],
             "entity_properties": 0,
+            "folder": "",
             "name": "explosion"
         }
     ]
