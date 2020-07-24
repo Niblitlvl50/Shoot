@@ -30,4 +30,6 @@ namespace game
     extern struct NavmeshContext* g_navmesh;
 
     void InitializeAIKnowledge();
+
+    bool IsPlayer(uint32_t entity_id);
 }
