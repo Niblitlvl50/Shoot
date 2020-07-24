@@ -17,6 +17,7 @@
         "res/entities/player_entity.entity",
         "res/entities/player_weapon.entity",
         "res/entities/rocket_bullet.entity",
+        "res/entities/score_100.entity",
         "res/entities/tiny_explosion.entity"
     ]
 }
