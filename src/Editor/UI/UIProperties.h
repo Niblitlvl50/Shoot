@@ -21,6 +21,6 @@ namespace editor
     void DrawEntityProperty(uint32_t& properties);
 
     using FlagToStringFunc = const char*(*)(uint32_t flag);
-    bool DrawBitfieldProperty(uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string);
+    bool DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string);
 
 }

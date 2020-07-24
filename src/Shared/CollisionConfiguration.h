@@ -31,8 +31,8 @@ namespace shared
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
         CollisionCategory::PROPS |
-        CollisionCategory::STATIC |
-        CollisionCategory::PICKUPS;
+        CollisionCategory::PICKUPS |
+        CollisionCategory::STATIC;
 
     constexpr uint32_t PLAYER_BULLET_MASK =
         CollisionCategory::ENEMY |
@@ -70,7 +70,7 @@ namespace shared
     };
 
     constexpr FactionPair faction_lookup_table[] = {
-        { CollisionCategory::NONE,          0 },
+        //{ CollisionCategory::NONE,          0 },
         { CollisionCategory::PLAYER,        PLAYER_MASK },
         { CollisionCategory::PLAYER_BULLET, PLAYER_BULLET_MASK },
         { CollisionCategory::ENEMY,         ENEMY_MASK },

@@ -111,7 +111,7 @@ bool editor::DrawProperty(Attribute& attribute)
     else if(attribute.id == FACTION_PICKER_ATTRIBUTE)
     {
         return DrawBitfieldProperty(
-            attribute.attribute.uint_value, shared::all_collision_categories, shared::CollisionCategoryToString);
+            attribute_name, attribute.attribute.uint_value, shared::all_collision_categories, shared::CollisionCategoryToString);
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
@@ -270,7 +270,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
     return modified_index;
 }
 
-bool editor::DrawBitfieldProperty(uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)
+bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)
 {
     std::string button_text = "[none]";
 
@@ -289,7 +289,10 @@ bool editor::DrawBitfieldProperty(uint32_t& value, const std::vector<uint32_t>& 
         button_text.pop_back();
     }
 
-    const bool pushed = ImGui::Button(button_text.c_str());
+    const float item_width = ImGui::CalcItemWidth();
+    const bool pushed = ImGui::Button(button_text.c_str(), ImVec2(item_width, 0));
+    ImGui::SameLine();
+    ImGui::Text("%s", name);
     if(pushed)
         ImGui::OpenPopup("entity_properties_select");
 
