@@ -15,16 +15,6 @@ namespace editor
         "Static"
     };
 
-    constexpr const char* faction_types[] = {
-        "None",
-        "Player",
-        "Player Bullet",
-        "Enemy",
-        "Enemy Bullet",
-        "Props",
-        "Static",
-    };
-
     static const char* avalible_textures[] = {
         "res/textures/placeholder.png",
         "res/textures/stone_tileable.png",

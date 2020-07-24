@@ -123,7 +123,6 @@ int main(int argc, char* argv[])
         //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
         const System::WindowOptions window_options = System::WindowOptions::NONE;
         System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, window_options);
-        //window->SetBackgroundColor(0.7, 0.7, 0.7);
         
         mono::LoadFont(game::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
         mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
@@ -153,7 +152,8 @@ int main(int argc, char* argv[])
 
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
-        system_context.CreateSystem<game::DamageSystem>(max_entities, &entity_manager, particle_system, transform_system, &event_handler);
+        system_context.CreateSystem<game::DamageSystem>(
+            max_entities, &entity_manager, particle_system, transform_system, physics_system, &event_handler);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, physics_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, &entity_manager);

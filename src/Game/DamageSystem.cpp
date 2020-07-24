@@ -1,5 +1,7 @@
 
 #include "DamageSystem.h"
+#include "AIKnowledge.h"
+
 #include "Effects/DamageEffect.h"
 #include "Entity/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -10,6 +12,11 @@
 #include <limits>
 #include <cassert>
 
+
+#include "Math/MathFunctions.h"
+#include "Util/Random.h"
+#include "Physics/PhysicsSystem.h"
+
 using namespace game;
 
 DamageSystem::DamageSystem(
@@ -17,10 +24,12 @@ DamageSystem::DamageSystem(
     IEntityManager* entity_manager,
     mono::ParticleSystem* particle_system,
     mono::TransformSystem* transform_system,
+    mono::PhysicsSystem* physics_system,
     mono::EventHandler* event_handler)
     : m_entity_manager(entity_manager)
     , m_particle_system(particle_system)
     , m_transform_system(transform_system)
+    , m_physics_system(physics_system)
     , m_event_handler(event_handler)
     , m_timestamp(0)
     , m_damage_records(num_records)
@@ -134,7 +143,28 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
 
         DamageRecord& damage_record = m_damage_records[entity_id];
         if(damage_record.health <= 0)
+        {
+            const bool is_player = IsPlayer(entity_id);
+            if(!is_player)
+            {
+                const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
+                const math::Vector& world_position = math::GetPosition(world_transform);
+
+                for(int index = 0; index < 5; ++index)
+                {
+                    const mono::Entity spawned_entity = m_entity_manager->CreateEntity("res/entities/score_100.entity");
+
+                    const float radians = mono::Random(0.0f, math::PI() * 2.0f);
+                    const math::Vector impulse_normal = math::VectorFromAngle(radians);
+
+                    m_physics_system->PositionBody(spawned_entity.id, world_position);
+                    mono::IBody* body = m_physics_system->GetBody(spawned_entity.id);
+                    body->ApplyLocalImpulse(impulse_normal, math::ZeroVec);
+                }
+            }
+
             m_entity_manager->ReleaseEntity(entity_id);
+        }
     }
 }
 

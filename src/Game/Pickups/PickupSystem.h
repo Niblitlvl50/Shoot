@@ -6,6 +6,7 @@
 
 #include "PickupTypes.h"
 #include "Physics/PhysicsFwd.h"
+#include "Audio/AudioFactory.h"
 
 #include <vector>
 #include <memory>
@@ -46,6 +47,8 @@ namespace game
 
     private:
 
+        void PlayPickupSound(shared::PickupType type);
+
         mono::PhysicsSystem* m_physics_system;
         IEntityManager* m_entity_manager;
 
@@ -61,5 +64,7 @@ namespace game
         };
 
         std::vector<PickupToTarget> m_pickups_to_process;
+
+        mono::ISoundPtr m_pickup_sound;
     };
 }

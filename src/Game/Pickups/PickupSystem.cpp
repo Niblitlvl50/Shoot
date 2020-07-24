@@ -1,5 +1,6 @@
 
 #include "PickupSystem.h"
+
 #include "Util/Hash.h"
 #include "Physics/PhysicsSystem.h"
 
@@ -42,6 +43,10 @@ PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, IEnt
     m_pickups.resize(n);
     m_active.resize(n, false);
     m_collision_handlers.resize(n);
+
+    m_pickup_sound =
+        mono::AudioFactory::CreateSound("res/sound/item_pickup.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+    m_pickup_sound->Position(0.0f, 0.0f);
 }
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)
@@ -116,10 +121,22 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
         {
             const Pickup& pickup_data = m_pickups[pickup.pickup_id];
             it->second(pickup_data.type, pickup_data.amount);
+
+            PlayPickupSound(pickup_data.type);
         }
 
         m_entity_manager->ReleaseEntity(pickup.pickup_id);
     }
 
     m_pickups_to_process.clear();
+}
+
+void PickupSystem::PlayPickupSound(shared::PickupType type)
+{
+    switch(type)
+    {
+    default:
+        m_pickup_sound->Play();
+        break;
+    };
 }

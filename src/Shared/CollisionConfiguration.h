@@ -14,7 +14,8 @@ namespace shared
         ENEMY = 4,
         ENEMY_BULLET = 8,
         PROPS = 16,
-        STATIC = 32,
+        PICKUPS = 32,
+        STATIC = 64,
         ALL = (~(uint32_t)0)
     };
 
@@ -30,7 +31,8 @@ namespace shared
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
         CollisionCategory::PROPS |
-        CollisionCategory::STATIC;
+        CollisionCategory::STATIC |
+        CollisionCategory::PICKUPS;
 
     constexpr uint32_t PLAYER_BULLET_MASK =
         CollisionCategory::ENEMY |
@@ -57,6 +59,9 @@ namespace shared
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
+    constexpr uint32_t PICKUPS_MASK =
+        CollisionCategory::PLAYER;
+
 
     struct FactionPair
     {
@@ -71,6 +76,7 @@ namespace shared
         { CollisionCategory::ENEMY,         ENEMY_MASK },
         { CollisionCategory::ENEMY_BULLET,  ENEMY_BULLET_MASK },
         { CollisionCategory::PROPS,         PROPS_MASK },
+        { CollisionCategory::PICKUPS,       PICKUPS_MASK },
         { CollisionCategory::STATIC,        STATIC_MASK },
     };
 
@@ -80,6 +86,7 @@ namespace shared
         CollisionCategory::ENEMY,
         CollisionCategory::ENEMY_BULLET,
         CollisionCategory::PROPS,
+        CollisionCategory::PICKUPS,
         CollisionCategory::STATIC,
         //CollisionCategory::ALL,
     };
@@ -100,6 +107,8 @@ namespace shared
             return "Enemy Bullet";
         case CollisionCategory::PROPS:
             return "Props";
+        case CollisionCategory::PICKUPS:
+            return "Pickups";
         case CollisionCategory::STATIC:
             return "Static";
         case CollisionCategory::ALL:

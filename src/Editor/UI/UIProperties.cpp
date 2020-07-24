@@ -99,8 +99,14 @@ bool editor::DrawProperty(Attribute& attribute)
     }
     else if(attribute.id == FACTION_ATTRIBUTE)
     {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::CollisionCategoryToString(shared::all_collision_categories[idx]);
+            return true;
+        };
+
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, faction_types, std::size(faction_types));
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::all_collision_categories));
     }
     else if(attribute.id == FACTION_PICKER_ATTRIBUTE)
     {
@@ -109,6 +115,25 @@ bool editor::DrawProperty(Attribute& attribute)
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
+        std::vector<std::string> all_sprites = editor::GetAllSprites();
+        const auto it = std::find(all_sprites.begin(), all_sprites.end(), (const char*)attribute.attribute);
+        int selected_index = std::distance(all_sprites.begin(), it);
+
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            const std::vector<std::string>& strings = *(const std::vector<std::string>*)data;
+            (*out_text) = strings[idx].c_str();
+            return true;
+        };
+
+
+        //int selected_index = 0;
+        const bool changed = ImGui::Combo(attribute_name, &selected_index, item_proxy, &all_sprites, all_sprites.size(), ImGuiComboFlags_HeightLarge);
+        if(changed)
+            attribute.attribute = all_sprites[selected_index].c_str();
+
+        return changed;
+/*
         const bool combo_opened = ImGui::BeginCombo(attribute_name, attribute.attribute, ImGuiComboFlags_HeightLarge);
         if(!combo_opened)
             return false;
@@ -127,6 +152,7 @@ bool editor::DrawProperty(Attribute& attribute)
 
         ImGui::EndCombo();
         return value_changed;
+        */
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {
