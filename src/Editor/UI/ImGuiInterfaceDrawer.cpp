@@ -33,6 +33,9 @@ namespace
             if(ImGui::MenuItem("Duplicate Entity", "Ctrl + D"))
                 context.editor_menu_callback(EditorMenuOptions::DUPLICATE);
 
+            if(ImGui::MenuItem("Re Export Entiites"))
+                context.editor_menu_callback(EditorMenuOptions::REEXPORTENTITIES);
+
             ImGui::EndMenu();
         }
 

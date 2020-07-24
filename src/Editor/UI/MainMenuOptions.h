@@ -9,7 +9,8 @@ namespace editor
         SAVE,
         IMPORT_ENTITY,
         EXPORT_ENTITY,
-        DUPLICATE
+        DUPLICATE,
+        REEXPORTENTITIES,
     };
 
     enum ToolsMenuOptions

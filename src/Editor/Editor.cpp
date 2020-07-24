@@ -583,6 +583,8 @@ void Editor::EditorMenuCallback(EditorMenuOptions option)
         ExportEntity();
     else if(option == EditorMenuOptions::DUPLICATE)
         DuplicateSelected();
+    else if(option == EditorMenuOptions::REEXPORTENTITIES)
+        ReExportEntities();
 }
 
 void Editor::ToolsMenuCallback(ToolsMenuOptions option)
@@ -668,5 +670,28 @@ void Editor::DuplicateSelected()
         IObjectProxy* proxy_pointer = cloned_proxy.get();
         m_proxies.push_back(std::move(cloned_proxy));
         SelectProxyObject(proxy_pointer);
+    }
+}
+
+void Editor::ReExportEntities()
+{
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+
+    const std::vector<std::string>& all_entities = GetAllEntities();
+
+    for(auto entity_file : all_entities)
+    {
+        std::vector<IObjectProxyPtr> loaded_objects =
+            LoadComponentObjects(entity_file.c_str(), &m_entity_manager, transform_system, this);
+
+        for(IObjectProxyPtr& proxy : loaded_objects)
+        {
+            std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
+            std::replace(filename.begin(), filename.end(), ' ', '_');
+
+            editor::JsonSerializer serializer;
+            proxy->Visit(serializer);
+            serializer.WriteComponentEntities(filename);
+        }
     }
 }

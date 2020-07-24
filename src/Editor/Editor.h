@@ -101,6 +101,7 @@ namespace editor
         math::Vector GridSize() const;
 
         void DuplicateSelected();
+        void ReExportEntities();
 
     private:
 
