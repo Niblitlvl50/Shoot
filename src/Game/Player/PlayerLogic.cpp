@@ -104,6 +104,7 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
+    const float direction = math::GetZRotation(transform);
 
     if(m_fire)
         m_player_info->weapon_state = m_weapon->Fire(position, m_aim_direction, update_context.total_time);
@@ -114,7 +115,12 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
         m_secondary_fire = false;
     }
 
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+
     m_player_info->position = position;
+    m_player_info->velocity = body->GetVelocity();
+    m_player_info->direction = direction;
+
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->magazine_capacity = m_weapon->MagazineSize();
     m_player_info->ammunition_left = m_total_ammo_left;

@@ -15,6 +15,8 @@ namespace game
         bool is_active;
         uint32_t entity_id;
         math::Vector position;
+        math::Vector velocity;
+        float direction;
         WeaponType weapon_type;
         WeaponState weapon_state;
         int magazine_left;

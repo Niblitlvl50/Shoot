@@ -1,6 +1,8 @@
 
 #include "SystemTestZone.h"
 
+#include "Audio/AudioDebugDrawer.h"
+
 #include "EventHandler/EventHandler.h"
 #include "Events/GameEventFuncFwd.h"
 
@@ -157,6 +159,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(new mono::TransformSystemDrawer(game::g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
+    AddDrawable(new mono::AudioDebugDrawer(game::g_draw_audio), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()
