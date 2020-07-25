@@ -111,32 +111,11 @@
                             }
                         }
                     ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "variant_type": 2,
-                            "variant_value": 500
-                        },
-                        {
-                            "id": 3526332565,
-                            "variant_type": 2,
-                            "variant_value": 90
-                        },
-                        {
-                            "id": 1989672395,
-                            "variant_type": 1,
-                            "variant_value": false
-                        }
-                    ]
                 }
             ],
             "entity_properties": 1,
             "folder": "",
-            "name": "pink blolb"
+            "name": "pink_blolb"
         }
     ]
 }
