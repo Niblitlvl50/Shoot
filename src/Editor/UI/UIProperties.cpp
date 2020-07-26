@@ -126,33 +126,11 @@ bool editor::DrawProperty(Attribute& attribute)
             return true;
         };
 
-
-        //int selected_index = 0;
         const bool changed = ImGui::Combo(attribute_name, &selected_index, item_proxy, &all_sprites, all_sprites.size(), ImGuiComboFlags_HeightLarge);
         if(changed)
             attribute.attribute = all_sprites[selected_index].c_str();
 
         return changed;
-/*
-        const bool combo_opened = ImGui::BeginCombo(attribute_name, attribute.attribute, ImGuiComboFlags_HeightLarge);
-        if(!combo_opened)
-            return false;
-
-        bool value_changed = false;
-        const std::vector<std::string>& all_sprites = editor::GetAllSprites();
-        for(size_t index = 0; index < all_sprites.size(); ++index)
-        {
-            const bool item_selected = ImGui::Selectable(all_sprites[index].c_str());
-            if(item_selected)
-            {
-                value_changed = true;
-                attribute.attribute = all_sprites[index].c_str();
-            }
-        }
-
-        ImGui::EndCombo();
-        return value_changed;
-        */
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {
