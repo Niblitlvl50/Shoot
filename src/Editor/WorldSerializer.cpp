@@ -146,7 +146,7 @@ std::vector<IObjectProxyPtr> editor::LoadWorld(
 {
     std::vector<IObjectProxyPtr> world_objects;
 
-    auto component_objects = LoadComponentObjects("res/world.components", entity_manager, transform_system, editor);
+    auto component_objects = LoadComponentObjects(file_name, entity_manager, transform_system, editor);
     for(auto& proxy : component_objects)
         world_objects.push_back(std::move(proxy));
 
@@ -168,8 +168,7 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
     for(auto& proxy : proxies)
         proxy->Visit(serializer);
 
-    serializer.WriteEntities("res/world.objects");
-    serializer.WriteComponentEntities("res/world.components");
+    serializer.WriteComponentEntities(file_name);
     serializer.WritePathFile("res/world.paths");
     serializer.WritePolygons("res/world.polygons");
 }
