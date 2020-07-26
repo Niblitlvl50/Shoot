@@ -21,6 +21,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Entity/ModificationSystem.h"
 #include "DamageSystem.h"
 #include "TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
@@ -149,14 +150,16 @@ int main(int argc, char* argv[])
 
         mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
+        mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
 
-        system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+        game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(max_entities, physics_system);
+
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<game::DamageSystem>(
             max_entities, &entity_manager, particle_system, transform_system, physics_system, &event_handler);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
-        system_context.CreateSystem<game::TriggerSystem>(max_entities, physics_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, &entity_manager);
+        system_context.CreateSystem<game::ModificationSystem>(max_entities, trigger_system, sprite_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

@@ -104,6 +104,7 @@ extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
 extern const uint32_t TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
+extern const uint32_t ANIMATION_COMPONENT;
 
 struct Component
 {
@@ -112,7 +113,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 11>;
+using ComponentArray = std::array<Component, 12>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

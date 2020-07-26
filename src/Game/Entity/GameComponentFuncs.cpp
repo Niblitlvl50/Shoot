@@ -12,6 +12,7 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"
+#include "Entity/ModificationSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -304,6 +305,42 @@ namespace
 
         return true;
     }
+
+    bool CreateAnimation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AllocateAnimationComponent(entity.id);
+        return true;
+    }
+
+    bool ReleaseAnimation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->ReleaseAnimationComponent(entity.id);
+        return true;
+    }
+
+    bool UpdateAnimation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        const char* trigger_name = nullptr;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        game::AnimationComponent animation;
+        animation.trigger_hash = mono::Hash(trigger_name);
+        FindAttribute(ANIMATION_ATTRIBUTE, properties, animation.animation_index, FallbackMode::SET_DEFAULT);
+
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->UpdateAnimationComponent(entity.id, animation);
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(EntityManager& entity_manager)
@@ -317,4 +354,5 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
     entity_manager.RegisterComponent(TRIGGER_COMPONENT, CreateTrigger, ReleaseTrigger, UpdateTrigger);
     entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
+    entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
 }
