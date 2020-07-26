@@ -10,8 +10,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 6.0,
-                                "y": -8.0
+                                "x": 3.0,
+                                "y": 8.0
                             }
                         },
                         {
@@ -33,7 +33,7 @@
                         {
                             "id": 3779456605,
                             "variant_type": 2,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 1031692888,
@@ -54,6 +54,22 @@
                             "id": 1775175667,
                             "variant_type": 1,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3779456605,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "variant_type": 4,
+                            "variant_value": "test"
+                        },
+                        {
+                            "id": 3779456605,
+                            "variant_type": 2,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -9481,7 +9497,7 @@
                         {
                             "id": 910774975,
                             "variant_type": 4,
-                            "variant_value": "health_pickup.sprite"
+                            "variant_value": "health_pack_large.sprite"
                         },
                         {
                             "id": 3779456605,
