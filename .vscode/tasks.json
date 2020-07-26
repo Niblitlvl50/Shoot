@@ -67,7 +67,10 @@
             "label": "editor",
             "type": "process",
             "command": "./bin/editor.app/Contents/MacOS/editor",
-            "args": ["res/world.world"],
+            "args": [
+                "res/world.components"
+                // "res/empty_world.components"
+            ],
             "problemMatcher": []
         }
     ]
