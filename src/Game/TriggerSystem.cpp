@@ -130,7 +130,10 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
         if(it != m_trigger_callbacks.end())
         {
             for(TriggerCallback callback : it->second)
-                callback(emit_data.hash, emit_data.state);
+            {
+                if(callback)
+                    callback(emit_data.hash, emit_data.state);
+            }
         }
 
         const bool enter = (emit_data.state == TriggerState::ENTER);
