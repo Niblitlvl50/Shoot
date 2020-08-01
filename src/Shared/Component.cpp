@@ -259,6 +259,11 @@ Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& componen
     return nullptr;
 }
 
+const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components)
+{
+    return FindComponentFromHash(hash, (std::vector<Component>&)components);
+}
+
 void StripUnknownProperties(Component& component)
 {
     const Component& template_component = DefaultComponentFromHash(component.hash);

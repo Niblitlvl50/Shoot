@@ -14,7 +14,7 @@ namespace editor
     void DrawName(std::string& name);
     void DrawFolder(std::string& folder);
     bool DrawGenericProperty(const char* text, Variant& attribute);
-    bool DrawProperty(Attribute& attribute, const std::vector<Attribute>& all_attributes);
+    bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components);
     void AddDynamicProperties(Component& component);
     int DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
 

@@ -119,4 +119,5 @@ extern const ComponentArray default_components;
 const char* ComponentNameFromHash(uint32_t hash);
 Component DefaultComponentFromHash(uint32_t hash);
 Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components);
+const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components);
 void StripUnknownProperties(Component& component);

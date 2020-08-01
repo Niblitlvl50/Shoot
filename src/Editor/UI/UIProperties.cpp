@@ -81,7 +81,7 @@ bool editor::DrawGenericProperty(const char* text, Variant& attribute)
     return false;
 }
 
-bool editor::DrawProperty(Attribute& attribute, const std::vector<Attribute>& all_attributes)
+bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components)
 {
     const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
     const char* attribute_name = text.c_str();
@@ -130,9 +130,11 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Attribute>& al
     }
     else if(attribute.id == ANIMATION_ATTRIBUTE)
     {
+        const Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, all_components);
+
         const char* sprite_file = nullptr;
 
-        const bool success = FindAttribute(SPRITE_ATTRIBUTE, all_attributes, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
+        const bool success = FindAttribute(SPRITE_ATTRIBUTE, sprite_component->properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!success)
             return false;
 
@@ -232,7 +234,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 
         for(Attribute& property : component.properties)
         {
-            if(DrawProperty(property, component.properties))
+            if(DrawProperty(property, components))
                 modified_index = index;
         }
 
