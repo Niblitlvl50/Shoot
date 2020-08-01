@@ -11,8 +11,12 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
+#include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/Sprite/SpriteData.h"
+
 #include <cstdio>
 #include <limits>
+#include <algorithm>
 
 std::string PrettifyString(const std::string& text)
 {
@@ -77,7 +81,7 @@ bool editor::DrawGenericProperty(const char* text, Variant& attribute)
     return false;
 }
 
-bool editor::DrawProperty(Attribute& attribute)
+bool editor::DrawProperty(Attribute& attribute, const std::vector<Attribute>& all_attributes)
 {
     const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
     const char* attribute_name = text.c_str();
@@ -115,43 +119,51 @@ bool editor::DrawProperty(Attribute& attribute)
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
-        std::vector<std::string> all_sprites = editor::GetAllSprites();
-        const auto it = std::find(all_sprites.begin(), all_sprites.end(), (const char*)attribute.attribute);
-        int selected_index = std::distance(all_sprites.begin(), it);
+        const std::vector<std::string> all_sprites = editor::GetAllSprites();
 
-        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
-        {
-            const std::vector<std::string>& strings = *(const std::vector<std::string>*)data;
-            (*out_text) = strings[idx].c_str();
-            return true;
-        };
-
-        const bool changed = ImGui::Combo(attribute_name, &selected_index, item_proxy, &all_sprites, all_sprites.size(), ImGuiComboFlags_HeightLarge);
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, attribute.attribute, all_sprites, out_index);
         if(changed)
-            attribute.attribute = all_sprites[selected_index].c_str();
+            attribute.attribute = all_sprites[out_index].c_str();
 
+        return changed;
+    }
+    else if(attribute.id == ANIMATION_ATTRIBUTE)
+    {
+        const char* sprite_file = nullptr;
+
+        const bool success = FindAttribute(SPRITE_ATTRIBUTE, all_attributes, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!success)
+            return false;
+
+        char sprite_filename[1024] = { 0 };
+        std::sprintf(sprite_filename, "res/sprites/%s", sprite_file);
+        const mono::SpriteData* sprite_data = mono::GetSpriteFactory()->GetSpriteDataForFile(sprite_filename);
+        if(!sprite_data)
+            return false;
+
+        std::vector<std::string> animation_names;
+
+        for(const auto& animation : sprite_data->animations)
+            animation_names.push_back(animation.name);
+
+        int out_index = 0;
+        const bool changed =
+            DrawStringPicker(attribute_name, animation_names[(int)attribute.attribute].c_str(), animation_names, out_index);
+        if(changed)
+            attribute.attribute = out_index;
         return changed;
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {
-        const bool combo_opened = ImGui::BeginCombo(attribute_name, attribute.attribute, ImGuiComboFlags_HeightLarge);
-        if(!combo_opened)
-            return false;
-
-        bool value_changed = false;
         const std::vector<std::string>& all_paths = editor::GetAllPaths();
-        for(size_t index = 0; index < all_paths.size(); ++index)
-        {
-            const bool item_selected = ImGui::Selectable(all_paths[index].c_str());
-            if(item_selected)
-            {
-                value_changed = true;
-                attribute.attribute = all_paths[index].c_str();
-            }
-        }
 
-        ImGui::EndCombo();
-        return value_changed;
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, attribute.attribute, all_paths, out_index);
+        if(changed)
+            attribute.attribute = all_paths[out_index].c_str();
+        
+        return changed;
     }
     else
     {
@@ -220,7 +232,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 
         for(Attribute& property : component.properties)
         {
-            if(DrawProperty(property))
+            if(DrawProperty(property, component.properties))
                 modified_index = index;
         }
 
@@ -288,4 +300,21 @@ bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::
     }
 
     return initial_value != value;
+}
+
+bool editor::DrawStringPicker(
+    const char* name, const char* current_value, const std::vector<std::string>& all_strings, int& out_index)
+{
+    const auto it = std::find(all_strings.begin(), all_strings.end(), current_value);
+    out_index = std::distance(all_strings.begin(), it);
+
+    const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+    {
+        const std::vector<std::string>& strings = *(const std::vector<std::string>*)data;
+        (*out_text) = strings[idx].c_str();
+        return true;
+    };
+
+    return ImGui::Combo(
+        name, &out_index, item_proxy, (void*)&all_strings, all_strings.size(), ImGuiComboFlags_HeightLarge);
 }
