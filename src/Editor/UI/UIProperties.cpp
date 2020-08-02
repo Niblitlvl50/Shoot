@@ -250,7 +250,16 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
         for(const UIComponentItem& component_item : ui_context.component_items)
         {
             const std::string name = PrettifyString(component_item.name);
-            if(ImGui::Selectable(name.c_str()))
+            
+            ImGuiSelectableFlags flags = 0;
+            if(!component_item.allow_multiple)
+            {
+                const bool has_component = FindComponentFromHash(component_item.hash, components) != nullptr;
+                if(has_component)
+                    flags |= ImGuiSelectableFlags_Disabled;
+            }
+
+            if(ImGui::Selectable(name.c_str(), false, flags))
                 selected_component_hash = component_item.hash;
         }
         ImGui::EndPopup();

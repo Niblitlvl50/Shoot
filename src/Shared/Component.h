@@ -110,6 +110,7 @@ struct Component
 {
     uint32_t hash;
     uint32_t depends_on;
+    bool allow_multiple;
     std::vector<Attribute> properties;
 };
 

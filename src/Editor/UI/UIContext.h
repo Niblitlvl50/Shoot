@@ -31,6 +31,7 @@ namespace editor
     struct UIComponentItem
     {
         uint32_t hash;
+        bool allow_multiple;
         std::string name;
     };
 
