@@ -185,7 +185,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
-    draw_funcs[TRIGGER_COMPONENT] = editor::DrawTriggerComponentDetails;
+    draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawTriggerComponentDetails;
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 

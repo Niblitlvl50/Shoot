@@ -8,7 +8,6 @@
 
 #include <cstdint>
 #include <vector>
-#include <string>
 #include <array>
 #include <unordered_map>
 #include <functional>
@@ -24,8 +23,19 @@ namespace game
 
     struct TriggerComponent
     {
+        uint32_t death_trigger_id;
+        std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
+    };
+
+    struct ShapeTrigger
+    {
         uint32_t trigger_hash;
         uint32_t collision_mask;
+    };
+
+    struct DeathTrigger
+    {
+        uint32_t trigger_hash;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
@@ -34,11 +44,13 @@ namespace game
     {
     public:
 
-        TriggerSystem(size_t n_triggers, mono::PhysicsSystem* physics_system);
+        TriggerSystem(size_t n_triggers, class DamageSystem* damage_system, mono::PhysicsSystem* physics_system);
 
         TriggerComponent* AllocateTrigger(uint32_t entity_id);
         void ReleaseTrigger(uint32_t entity_id);
-        void SetTriggerData(uint32_t entity_id, const TriggerComponent& component_data);
+
+        void AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask);
+        void AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);
@@ -53,10 +65,9 @@ namespace game
     private:
 
         std::vector<TriggerComponent> m_triggers;
-        std::vector<std::unique_ptr<mono::ICollisionHandler>> m_collision_handlers;
         std::vector<bool> m_active;
-        std::vector<std::string> m_debug_names;
 
+        class DamageSystem* m_damage_system;
         mono::PhysicsSystem* m_physics_system;
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;

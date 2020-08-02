@@ -108,7 +108,8 @@ extern const uint32_t SEGMENT_SHAPE_COMPONENT   = mono::Hash("segment_shape");
 extern const uint32_t HEALTH_COMPONENT          = mono::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT       = mono::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
-extern const uint32_t TRIGGER_COMPONENT         = mono::Hash("trigger");
+extern const uint32_t SHAPE_TRIGGER_COMPONENT   = mono::Hash("shape_trigger");
+extern const uint32_t DEATH_TRIGGER_COMPONENT   = mono::Hash("death_trigger");
 extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("animation");
 
@@ -134,8 +135,10 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "entity_behaviour";
     else if(hash == SPAWN_POINT_COMPONENT)
         return "spawn_point";
-    else if(hash == TRIGGER_COMPONENT)
-        return "trigger";
+    else if(hash == SHAPE_TRIGGER_COMPONENT)
+        return "shape_trigger";
+    else if(hash == DEATH_TRIGGER_COMPONENT)
+        return "death_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
@@ -163,7 +166,8 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false, { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false, { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false, { SPAWN_SCORE_ATTRIBUTE } ),
-    MakeComponent(TRIGGER_COMPONENT,        PHYSICS_COMPONENT,  false, { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false, { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
+    MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false, { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false, { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,  { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
 };

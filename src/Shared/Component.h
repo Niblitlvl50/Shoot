@@ -102,7 +102,8 @@ extern const uint32_t SEGMENT_SHAPE_COMPONENT;
 extern const uint32_t HEALTH_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
-extern const uint32_t TRIGGER_COMPONENT;
+extern const uint32_t SHAPE_TRIGGER_COMPONENT;
+extern const uint32_t DEATH_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 
@@ -114,7 +115,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 12>;
+using ComponentArray = std::array<Component, 13>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

@@ -1,5 +1,6 @@
 
 #include "TriggerSystem.h"
+#include "DamageSystem.h"
 #include "Util/Hash.h"
 #include "Physics/IShape.h"
 #include "Physics/PhysicsSystem.h"
@@ -18,70 +19,103 @@ namespace
     {
     public:
 
-        TriggerHandler(TriggerComponent* trigger_component, TriggerSystem* trigger_system)
-            : m_trigger_component(trigger_component)
+        TriggerHandler(uint32_t trigger_hash, TriggerSystem* trigger_system)
+            : m_trigger_hash(trigger_hash)
             , m_trigger_system(trigger_system)
         { }
 
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_component->trigger_hash, TriggerState::ENTER);
+            m_trigger_system->EmitTrigger(m_trigger_hash, TriggerState::ENTER);
             return mono::CollisionResolve::IGNORE;
         }
 
         void OnSeparateFrom(mono::IBody* body) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_component->trigger_hash, TriggerState::EXIT);
+            m_trigger_system->EmitTrigger(m_trigger_hash, TriggerState::EXIT);
         }
 
-        TriggerComponent* m_trigger_component;
+        uint32_t m_trigger_hash;
         TriggerSystem* m_trigger_system;
     };
+
+    constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
 }
 
-TriggerSystem::TriggerSystem(size_t n_triggers, mono::PhysicsSystem* physics_system)
+TriggerSystem::TriggerSystem(size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system)
     : m_triggers(n_triggers)
-    , m_collision_handlers(n_triggers)
     , m_active(n_triggers, false)
+    , m_damage_system(damage_system)
     , m_physics_system(physics_system)
 { }
 
 TriggerComponent* TriggerSystem::AllocateTrigger(uint32_t entity_id)
 {
-    assert(!m_active[entity_id]);
     m_active[entity_id] = true;
-    TriggerComponent* allocated_trigger = &m_triggers[entity_id];
 
-    mono::IBody* body = m_physics_system->GetBody(entity_id);
-    if(body)
-    {
-        auto handler = std::make_unique<TriggerHandler>(allocated_trigger, this);
-        body->AddCollisionHandler(handler.get());
-        m_collision_handlers[entity_id] = std::move(handler);
-    }
+    TriggerComponent* allocated_trigger = &m_triggers[entity_id];
+    allocated_trigger->death_trigger_id = NO_CALLBACK_SET;
+    allocated_trigger->shape_trigger_handler = nullptr;
 
     return allocated_trigger;
 }
 
 void TriggerSystem::ReleaseTrigger(uint32_t entity_id)
 {
-    auto& handler = m_collision_handlers[entity_id];
-    mono::IBody* body = m_physics_system->GetBody(entity_id);
-    if(body)
-        body->RemoveCollisionHandler(handler.get());
+    TriggerComponent& allocated_trigger = m_triggers[entity_id];
+    if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
+    {
+        m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
+        allocated_trigger.death_trigger_id = NO_CALLBACK_SET;
+    }
+
+    if(allocated_trigger.shape_trigger_handler)
+    {
+        mono::IBody* body = m_physics_system->GetBody(entity_id);
+        if(body)
+            body->RemoveCollisionHandler(allocated_trigger.shape_trigger_handler.get());
+
+        allocated_trigger.shape_trigger_handler = nullptr;
+    }
 
     m_active[entity_id] = false;
-    m_collision_handlers[entity_id] = nullptr;
 }
 
-void TriggerSystem::SetTriggerData(uint32_t entity_id, const TriggerComponent& component_data)
+void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask)
 {
-    m_triggers[entity_id] = component_data;
+    TriggerComponent& allocated_trigger = m_triggers[entity_id];
 
-    std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
-    for(mono::IShape* shape : shapes)
-        shape->SetCollisionMask(component_data.collision_mask);
+    mono::IBody* body = m_physics_system->GetBody(entity_id);
+    if(body)
+    {
+        if(allocated_trigger.shape_trigger_handler)
+            body->RemoveCollisionHandler(allocated_trigger.shape_trigger_handler.get());
+
+        allocated_trigger.shape_trigger_handler = std::make_unique<TriggerHandler>(trigger_hash, this);
+        body->AddCollisionHandler(allocated_trigger.shape_trigger_handler.get());
+
+        std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
+        for(mono::IShape* shape : shapes)
+        {
+            if(shape->IsSensor())
+                shape->SetCollisionMask(collision_mask);
+        }
+    }
+}
+
+void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
+{
+    TriggerComponent& allocated_trigger = m_triggers[entity_id];
+
+    if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
+        m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
+
+    const DestroyedCallback callback = [this, trigger_hash](uint32_t id) {
+        EmitTrigger(trigger_hash, TriggerState::ENTER);
+    };
+
+    allocated_trigger.death_trigger_id = m_damage_system->SetDestroyedCallback(entity_id, callback);
 }
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback)
@@ -137,8 +171,8 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
         }
 
         const bool enter = (emit_data.state == TriggerState::ENTER);
-        const std::string suffix = enter ? "Enter" : "Exit";
-        game::g_debug_drawer->DrawScreenText(suffix.c_str(), math::Vector(1, 1), mono::Color::BLACK);
+        const char* suffix = enter ? "Enter" : "Exit";
+        game::g_debug_drawer->DrawScreenText(suffix, math::Vector(1, 1), mono::Color::BLACK);
     }
 
     m_triggers_to_emit.clear();
