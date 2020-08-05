@@ -132,7 +132,7 @@ void ServerReplicator::ReplicateTransforms(
         }
 
         TransformMessage transform_message;
-        transform_message.timestamp = update_context.total_time;
+        transform_message.timestamp = update_context.timestamp;
         transform_message.entity_id = id;
         transform_message.parent_transform = m_transform_system->GetParent(id);
         transform_message.position = math::GetPosition(transform);

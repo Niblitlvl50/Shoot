@@ -122,5 +122,5 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
     }
 
     const float angle = math::AngleBetweenPoints(g_player_one.position, position) + math::PI_2();
-    m_weapon->Fire(position, angle, update_context.total_time);
+    m_weapon->Fire(position, angle, update_context.timestamp);
 }

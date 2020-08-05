@@ -130,7 +130,7 @@ void ClientManager::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
     m_dispatcher.Update(update_context);
 
-    m_client_time = update_context.total_time;
+    m_client_time = update_context.timestamp;
     m_server_time_predicted += update_context.delta_ms;
 }
 

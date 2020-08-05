@@ -198,7 +198,7 @@ void ServerManager::PurgeZombieClients()
 
 void ServerManager::Update(const mono::UpdateContext& update_context)
 {
-    m_server_time = update_context.total_time;
+    m_server_time = update_context.timestamp;
 
     PurgeZombieClients();
     m_dispatcher.Update(update_context);

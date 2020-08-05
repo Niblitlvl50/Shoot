@@ -134,7 +134,7 @@ uint32_t DamageSystem::Capacity() const
 
 void DamageSystem::Update(const mono::UpdateContext& update_context)
 {
-    m_timestamp = update_context.total_time;
+    m_timestamp = update_context.timestamp;
 
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {

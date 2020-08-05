@@ -49,7 +49,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 
     const bool reload = IS_TRIGGERED(x) && HAS_CHANGED(x);
     if(reload)
-        m_shuttle_logic->Reload(update_context.total_time);
+        m_shuttle_logic->Reload(update_context.timestamp);
 
     const bool left_shoulder = IS_TRIGGERED(left_shoulder);
     const bool right_shoulder = IS_TRIGGERED(right_shoulder);

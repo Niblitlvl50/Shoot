@@ -107,11 +107,11 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     const float direction = math::GetZRotation(transform);
 
     if(m_fire)
-        m_player_info->weapon_state = m_weapon->Fire(position, m_aim_direction, update_context.total_time);
+        m_player_info->weapon_state = m_weapon->Fire(position, m_aim_direction, update_context.timestamp);
 
     if(m_secondary_fire)
     {
-        m_secondary_weapon->Fire(position, m_aim_direction, update_context.total_time);
+        m_secondary_weapon->Fire(position, m_aim_direction, update_context.timestamp);
         m_secondary_fire = false;
     }
 
