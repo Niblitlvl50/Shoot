@@ -149,6 +149,9 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         for(const auto& animation : sprite_data->animations)
             animation_names.push_back(animation.name);
 
+        // Make sure the animation index is within avalible ones
+        attribute.attribute = std::min((int)attribute.attribute, (int)sprite_data->animations.size() -1);
+
         int out_index = 0;
         const bool changed =
             DrawStringPicker(attribute_name, animation_names[(int)attribute.attribute].c_str(), animation_names, out_index);

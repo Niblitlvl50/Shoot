@@ -81,3 +81,24 @@ void editor::DrawTriggerComponentDetails(
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.DrawText(FontId::SMALL, name, position, true, mono::Color::BLUE);
 }
+
+void editor::DrawSetTranslationDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    math::Vector delta_position;
+    FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
+
+    renderer.DrawLines({ position, position + delta_position }, mono::Color::BLUE, 3.0f);
+}
+
+void editor::DrawSetRotationDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    float delta_rotation;
+    FindAttribute(ROTATION_ATTRIBUTE, component_properties, delta_rotation, FallbackMode::SET_DEFAULT);
+
+    const math::Vector start_vector = math::VectorFromAngle(rotation);
+    const math::Vector end_vector = math::VectorFromAngle(rotation + delta_rotation);
+
+    renderer.DrawClosedPolyline({ position, position + start_vector, position + end_vector }, mono::Color::CYAN, 2.0f);
+}

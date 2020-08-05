@@ -329,15 +329,11 @@ namespace
 
     bool CreateAnimation(mono::Entity& entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AllocateAnimationComponent(entity.id);
         return true;
     }
 
     bool ReleaseAnimation(mono::Entity& entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->ReleaseAnimationComponent(entity.id);
         return true;
     }
 
@@ -353,12 +349,77 @@ namespace
             return false;
         }
 
-        game::AnimationComponent animation;
-        animation.trigger_hash = mono::Hash(trigger_name);
-        FindAttribute(ANIMATION_ATTRIBUTE, properties, animation.animation_index, FallbackMode::SET_DEFAULT);
+        uint32_t animation_index;
+        FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->UpdateAnimationComponent(entity.id, animation);
+        modification_system->AddAnimationComponent(entity.id, mono::Hash(trigger_name), animation_index);
+
+        return true;
+    }
+
+    bool CreateTranslation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool ReleaseTranslation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool UpdateTranslation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        const char* trigger_name = nullptr;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        math::Vector translation;
+        float duration;
+        FindAttribute(POSITION_ATTRIBUTE, properties, translation, FallbackMode::SET_DEFAULT);
+        FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
+
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AddTranslationComponent(entity.id, mono::Hash(trigger_name), duration, translation);
+
+        return true;
+    }
+
+    bool CreateRotation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool ReleaseRotation(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool UpdateRotation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        const char* trigger_name = nullptr;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        float rotation;
+        float duration;
+        FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
+        FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
+
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AddRotationComponent(entity.id, mono::Hash(trigger_name), duration, rotation);
 
         return true;
     }
@@ -377,4 +438,6 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(DEATH_TRIGGER_COMPONENT, CreateDeathTrigger, ReleaseDeathTrigger, UpdateDeathTrigger);
     entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
+    entity_manager.RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);
+    entity_manager.RegisterComponent(ROTATION_COMPONENT, CreateRotation, ReleaseRotation, UpdateRotation);
 }

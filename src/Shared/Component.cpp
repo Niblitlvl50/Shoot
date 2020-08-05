@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 31> default_attributes = {{
+const std::array<DefaultAttribute, 32> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -56,6 +56,7 @@ const std::array<DefaultAttribute, 31> default_attributes = {{
     DefaultAttribute("behaviour",           Variant(0)),
     DefaultAttribute("spawn_score",         Variant(10)),
     DefaultAttribute("trigger_name",        Variant("")),
+    DefaultAttribute("duration",            Variant(1.0f)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -96,6 +97,7 @@ extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[28].has
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[29].hash;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[30].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[31].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -111,7 +113,10 @@ extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT   = mono::Hash("shape_trigger");
 extern const uint32_t DEATH_TRIGGER_COMPONENT   = mono::Hash("death_trigger");
 extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
-extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("animation");
+extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("set_animation");
+extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
+extern const uint32_t ROTATION_COMPONENT        = mono::Hash("set_rotation");
+
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -143,6 +148,10 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
         return "set_animation";
+    else if(hash == TRANSLATION_COMPONENT)
+        return "set_translation";
+    else if(hash == ROTATION_COMPONENT)
+        return "set_rotation";
 
     return "Unknown";
 }
@@ -157,19 +166,21 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 }
 
 const ComponentArray default_components = {
-    MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false, { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false, { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
-    MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false, { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
-    MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,  { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,  { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,  { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
-    MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false, { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
-    MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false, { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
-    MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false, { SPAWN_SCORE_ATTRIBUTE } ),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false, { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
-    MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false, { TRIGGER_NAME_ATTRIBUTE } ),
-    MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false, { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
-    MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,  { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
+    MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
+    MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
+    MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
+    MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
+    MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false,  { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
+    MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
+    MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
+    MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
+    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

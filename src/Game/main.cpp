@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, &entity_manager);
-        system_context.CreateSystem<game::ModificationSystem>(max_entities, trigger_system, sprite_system);
+        system_context.CreateSystem<game::ModificationSystem>(max_entities, trigger_system, transform_system, sprite_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

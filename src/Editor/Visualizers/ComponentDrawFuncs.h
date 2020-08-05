@@ -19,4 +19,9 @@ namespace editor
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawTriggerComponentDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
+
+    void DrawSetTranslationDetails(
+        mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
+    void DrawSetRotationDetails(
+        mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
 }

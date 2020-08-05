@@ -45,6 +45,8 @@ extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 
+extern const uint32_t DURATION_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
 bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& output);
@@ -106,6 +108,8 @@ extern const uint32_t SHAPE_TRIGGER_COMPONENT;
 extern const uint32_t DEATH_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
+extern const uint32_t TRANSLATION_COMPONENT;
+extern const uint32_t ROTATION_COMPONENT;
 
 struct Component
 {
@@ -115,7 +119,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 13>;
+using ComponentArray = std::array<Component, 15>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);
