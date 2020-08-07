@@ -503,24 +503,35 @@ void Editor::OnDeleteObject()
     m_grabbers.clear();
 }
 
-void Editor::AddComponent(uint32_t component_hash)
+namespace
 {
-    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
-    if(proxy_object)
+    void add_component_recursivly(uint32_t component_hash, std::vector<Component>& components)
     {
-        m_entity_manager.AddComponent(m_selected_id, component_hash);
-
         Component new_component = DefaultComponentFromHash(component_hash);
-        std::vector<Component>& components = proxy_object->GetComponents();
 
         if(new_component.depends_on != NULL_COMPONENT)
         {
             const Component* found_dependency = FindComponentFromHash(new_component.depends_on, components);
             if(!found_dependency)
-                components.push_back(DefaultComponentFromHash(new_component.depends_on));
+                add_component_recursivly(new_component.depends_on, components);
         }
 
-        components.push_back(new_component);
+        components.push_back(std::move(new_component));
+    };
+}
+
+void Editor::AddComponent(uint32_t component_hash)
+{
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    if(proxy_object)
+    {
+        std::vector<Component>& components = proxy_object->GetComponents();
+        const size_t num_components = components.size();
+
+        add_component_recursivly(component_hash, components);
+
+        for(size_t index = num_components; index < components.size(); ++index)
+            m_entity_manager.AddComponent(m_selected_id, components[index].hash);
     }
 }
 
