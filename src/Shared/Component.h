@@ -46,6 +46,7 @@ extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 
 extern const uint32_t DURATION_ATTRIBUTE;
+extern const uint32_t EASING_FUNC_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

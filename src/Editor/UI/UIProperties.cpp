@@ -8,6 +8,7 @@
 #include "EntityLogicTypes.h"
 #include "CollisionConfiguration.h"
 #include "PickupTypes.h"
+#include "Math/EasingFunctions.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -150,7 +151,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
             animation_names.push_back(animation.name);
 
         // Make sure the animation index is within avalible ones
-        attribute.attribute = std::min((int)attribute.attribute, (int)sprite_data->animations.size() -1);
+        attribute.attribute = std::min((int)attribute.attribute, (int)sprite_data->animations.size() - 1);
 
         int out_index = 0;
         const bool changed =
@@ -169,6 +170,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
             attribute.attribute = all_paths[out_index].c_str();
         
         return changed;
+    }
+    else if(attribute.id == EASING_FUNC_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = math::EasingFuncTypeToString(math::EasingFuncType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(math::easing_function_strings));
     }
     else
     {

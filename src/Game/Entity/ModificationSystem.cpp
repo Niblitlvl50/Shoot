@@ -75,7 +75,8 @@ void ModificationSystem::AddAnimationComponent(uint32_t container_id, uint32_t t
     container.modifications.push_back(type);
 }
 
-void ModificationSystem::AddTranslationComponent(uint32_t container_id, uint32_t trigger_hash, float duration, const math::Vector& translation_delta)
+void ModificationSystem::AddTranslationComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, const math::Vector& translation_delta)
 {
     if(!IsContainerAllocated(container_id))
         AllocateContainer(container_id);
@@ -85,7 +86,7 @@ void ModificationSystem::AddTranslationComponent(uint32_t container_id, uint32_t
     type->trigger_hash = trigger_hash;
     type->duration = duration;
     type->duration_counter = 0.0f;
-    type->ease_function = math::EaseInOutCubic;
+    type->ease_function = func;
     type->is_initialized = false;
     type->type = ModificationType::Type::TRANSLATION;
     
@@ -102,7 +103,8 @@ void ModificationSystem::AddTranslationComponent(uint32_t container_id, uint32_t
     container.modifications.push_back(type);
 }
 
-void ModificationSystem::AddRotationComponent(uint32_t container_id, uint32_t trigger_hash, float duration, float rotation_delta)
+void ModificationSystem::AddRotationComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, float rotation_delta)
 {
     if(!IsContainerAllocated(container_id))
         AllocateContainer(container_id);
@@ -112,7 +114,7 @@ void ModificationSystem::AddRotationComponent(uint32_t container_id, uint32_t tr
     type->trigger_hash = trigger_hash;
     type->duration = duration;
     type->duration_counter = 0.0f;
-    type->ease_function = math::EaseInOutCubic;
+    type->ease_function = func;
     type->is_initialized = false;
     type->type = ModificationType::Type::ROTATION;
 
@@ -179,6 +181,7 @@ void ModificationSystem::Update(const mono::UpdateContext& update_context)
             );
 
             math::Position(transform, new_position);
+            m_transform_system->SetTransformState(type->target_id, mono::TransformState::CLIENT);
             break;
         }
         case ModificationType::Type::ROTATION:
@@ -197,6 +200,7 @@ void ModificationSystem::Update(const mono::UpdateContext& update_context)
 
             transform = math::CreateMatrixFromZRotation(new_rotation);
             math::Position(transform, position);
+            m_transform_system->SetTransformState(type->target_id, mono::TransformState::CLIENT);
             break;
         }
         }
