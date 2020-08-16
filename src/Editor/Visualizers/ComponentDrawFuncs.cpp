@@ -34,11 +34,9 @@ void editor::DrawBoxShapeDetails(
     FindAttribute(HEIGHT_ATTRIBUTE, component_properties, height, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
-    const math::Vector half_size = math::Vector(width, height) / 2.0f;
-
     math::Quad box;
-    box.mA = position + offset - half_size;
-    box.mB = position + offset + half_size;
+    box.mA = position + offset;
+    box.mB = position + offset + math::Vector(width, height);
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawQuad(box, color, 1.0f);
