@@ -80,6 +80,20 @@ void editor::DrawTriggerComponentDetails(
     renderer.DrawText(FontId::SMALL, name, position, true, mono::Color::BLUE);
 }
 
+void editor::DrawAreaTriggerComponentDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    math::Vector width_height;
+    FindAttribute(WIDTH_ATTRIBUTE, component_properties, width_height.x, FallbackMode::SET_DEFAULT);
+    FindAttribute(HEIGHT_ATTRIBUTE, component_properties, width_height.y, FallbackMode::SET_DEFAULT);
+
+    renderer.DrawFilledQuad(math::Quad(position, position + width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
+
+    const char* name = nullptr;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    renderer.DrawText(FontId::SMALL, name, position + width_height / 2.0f, true, mono::Color::BLUE);
+}
+
 void editor::DrawSetTranslationDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {

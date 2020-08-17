@@ -186,6 +186,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
     draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawTriggerComponentDetails;
+    draw_funcs[AREA_TRIGGER_COMPONENT] = editor::DrawAreaTriggerComponentDetails;
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
 

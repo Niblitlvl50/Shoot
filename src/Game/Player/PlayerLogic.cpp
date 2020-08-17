@@ -19,6 +19,8 @@
 #include "Effects/TrailEffect.h"
 #include "Pickups/PickupSystem.h"
 
+#include "Component.h"
+
 #include <cmath>
 
 namespace
@@ -77,11 +79,11 @@ PlayerLogic::PlayerLogic(
     m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
     m_weapon_entity_id = weapon_entity.id;
 
-    const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", {});
+    const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", { TRANSFORM_COMPONENT });
     m_transform_system->ChildTransform(weapon_fire_offset_entity.id, m_weapon_entity_id);
     m_weapon_fire_offset_entity_id = weapon_fire_offset_entity.id;
 
-    const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(-0.4f, 0.1f));
+    const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(0.4f, 0.1f));
     m_transform_system->SetTransform(m_weapon_fire_offset_entity_id, fire_offset);
 
     // Make sure we have a weapon
@@ -182,7 +184,7 @@ void PlayerLogic::SetRotation(float rotation)
     sprite->SetVerticalDirection(direction);
 
     math::Matrix weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
-    math::Translate(weapon_transform, math::Vector(0.0f, -0.3f));
+    math::Translate(weapon_transform, math::Vector(0.25f, 1.0f));
 
     m_transform_system->SetTransform(m_weapon_entity_id, weapon_transform);
 }

@@ -3,6 +3,8 @@
 
 #include "IGameSystem.h"
 #include "MonoFwd.h"
+#include "Math/Quad.h"
+#include "Util/ObjectPool.h"
 
 #include "Physics/PhysicsFwd.h"
 
@@ -17,6 +19,7 @@ namespace game
 {
     enum class TriggerState
     {
+        NONE,
         ENTER,
         EXIT
     };
@@ -24,6 +27,7 @@ namespace game
     struct TriggerComponent
     {
         uint32_t death_trigger_id;
+        uint32_t area_trigger_id;
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
 
@@ -36,6 +40,15 @@ namespace game
     struct DeathTrigger
     {
         uint32_t trigger_hash;
+    };
+
+    struct AreaEntityTrigger
+    {
+        uint32_t entity_id;
+        uint32_t trigger_hash;
+        math::Quad world_bb;
+        uint32_t faction;
+        int n_entities;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
@@ -51,6 +64,7 @@ namespace game
 
         void AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask);
         void AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash);
+        void AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);
@@ -64,6 +78,8 @@ namespace game
 
     private:
 
+        void UpdateAreaEntityTriggers(const mono::UpdateContext& update_context);
+
         std::vector<TriggerComponent> m_triggers;
         std::vector<bool> m_active;
 
@@ -72,6 +88,10 @@ namespace game
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
+
+        mono::ObjectPool<AreaEntityTrigger> m_area_triggers;
+        std::vector<AreaEntityTrigger*> m_active_area_triggers;
+        uint32_t m_area_trigger_timer;
 
         struct EmitData
         {

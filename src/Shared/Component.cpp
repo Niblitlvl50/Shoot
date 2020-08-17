@@ -114,6 +114,7 @@ extern const uint32_t BEHAVIOUR_COMPONENT       = mono::Hash("entity_behaviour")
 extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT   = mono::Hash("shape_trigger");
 extern const uint32_t DEATH_TRIGGER_COMPONENT   = mono::Hash("death_trigger");
+extern const uint32_t AREA_TRIGGER_COMPONENT    = mono::Hash("area_entity_trigger");
 extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
@@ -146,6 +147,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "shape_trigger";
     else if(hash == DEATH_TRIGGER_COMPONENT)
         return "death_trigger";
+    else if(hash == AREA_TRIGGER_COMPONENT)
+        return "area_entity_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
@@ -179,6 +182,7 @@ const ComponentArray default_components = {
     MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
     MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false,  { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
     MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
+    MakeComponent(AREA_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
     MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
     MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),

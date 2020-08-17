@@ -243,19 +243,19 @@ namespace
         return true;
     }
 
-    bool CreateTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateShapeTrigger(mono::Entity& entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AllocateTrigger(entity.id);
         return true;
     }
     
-    bool ReleaseTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseShapeTrigger(mono::Entity& entity, mono::SystemContext* context)
     {
         return true;
     }
     
-    bool UpdateTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateShapeTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -299,6 +299,43 @@ namespace
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddDeathTrigger(entity.id, mono::Hash(trigger_name));
+        return true;
+    }
+
+    bool CreateAreaTrigger(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool ReleaseAreaTrigger(mono::Entity& entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool UpdateAreaTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        const char* trigger_name = nullptr;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+            return false;
+
+        float width;
+        float height;
+        uint32_t faction;
+
+        FindAttribute(WIDTH_ATTRIBUTE, properties, width, FallbackMode::SET_DEFAULT);
+        FindAttribute(HEIGHT_ATTRIBUTE, properties, height, FallbackMode::SET_DEFAULT);
+        FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
+
+        mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
+        const math::Matrix& world_transform = transform_system->GetWorld(entity.id);
+
+        const math::Quad world_bb = math::Transform(world_transform, math::Quad(0.0f, 0.0f, width, height));
+
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AddAreaEntityTrigger(entity.id, mono::Hash(trigger_name), world_bb, faction, 0);
+
         return true;
     }
 
@@ -441,8 +478,9 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(HEALTH_COMPONENT, CreateHealth, ReleaseHealth, UpdateHealth);
     entity_manager.RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager.RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
-    entity_manager.RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateTrigger, ReleaseTrigger, UpdateTrigger);
+    entity_manager.RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateShapeTrigger, ReleaseShapeTrigger, UpdateShapeTrigger);
     entity_manager.RegisterComponent(DEATH_TRIGGER_COMPONENT, CreateDeathTrigger, ReleaseDeathTrigger, UpdateDeathTrigger);
+    entity_manager.RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);
     entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager.RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);
