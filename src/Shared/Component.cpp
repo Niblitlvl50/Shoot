@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 33> default_attributes = {{
+const std::array<DefaultAttribute, 34> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -52,6 +52,7 @@ const std::array<DefaultAttribute, 33> default_attributes = {{
     DefaultAttribute("animation",           Variant(0)),
     DefaultAttribute("flip_vertical",       Variant(false)),
     DefaultAttribute("flip_horizontal",     Variant(false)),
+    DefaultAttribute("sprite_layer",        Variant(0)),
 
     DefaultAttribute("behaviour",           Variant(0)),
     DefaultAttribute("spawn_score",         Variant(10)),
@@ -94,12 +95,13 @@ extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[24].has
 extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[25].hash;
 extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[26].hash;
 extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[27].hash;
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[28].hash;
+extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[28].hash;
 
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[29].hash;
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[30].hash;
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[31].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[32].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[29].hash;
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[30].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[31].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[32].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[33].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -172,7 +174,7 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 
 const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, WIDTH_ATTRIBUTE, HEIGHT_ATTRIBUTE, POSITION_ATTRIBUTE } ),

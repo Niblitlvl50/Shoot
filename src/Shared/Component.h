@@ -40,6 +40,7 @@ extern const uint32_t SPRITE_ATTRIBUTE;
 extern const uint32_t ANIMATION_ATTRIBUTE;
 extern const uint32_t FLIP_VERTICAL_ATTRIBUTE;
 extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE;
+extern const uint32_t SPRITE_LAYER_ATTRIBUTE;
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
