@@ -100,14 +100,14 @@
                         {
                             "id": 230313139,
                             "variant_type": 3,
-                            "variant_value": 0.25
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
+                                "x": 0.25,
+                                "y": 0.25
                             }
                         }
                     ]
