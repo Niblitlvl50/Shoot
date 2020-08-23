@@ -314,8 +314,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -7.2518229484558105,
-                                "y": -8.85836124420166
+                                "x": -5.100000858306885,
+                                "y": -6.105179786682129
                             }
                         },
                         {
@@ -362,7 +362,7 @@
                         {
                             "id": 2565644130,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -495,14 +495,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 1.2000000476837158
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -889,14 +887,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 100.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -923,14 +919,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 100.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -998,14 +992,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 100.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1032,14 +1024,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 100.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1159,14 +1149,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1286,14 +1274,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1413,14 +1399,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1540,14 +1524,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1667,14 +1649,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1794,14 +1774,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1921,14 +1899,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 5.699999809265137
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -1955,8 +1931,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -5.254909515380859,
-                                "y": -8.920431137084961
+                                "x": -3.703594207763672,
+                                "y": -6.868691444396973
                             }
                         },
                         {
@@ -2003,7 +1979,7 @@
                         {
                             "id": 2565644130,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -2022,8 +1998,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -5.948409557342529,
-                                "y": -8.92532730102539
+                                "x": -5.5230488777160645,
+                                "y": -6.773502349853516
                             }
                         },
                         {
@@ -2070,7 +2046,7 @@
                         {
                             "id": 2565644130,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -2316,14 +2292,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 3.700000047683716
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -2685,8 +2659,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": -9.132882118225098,
-                                "y": -7.421006202697754
+                                "x": -8.93271255493164,
+                                "y": -7.120752334594727
                             }
                         },
                         {
@@ -3133,14 +3107,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 1.25
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3289,14 +3261,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3416,14 +3386,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 1.25
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3572,14 +3540,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 4.25
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3699,14 +3665,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3826,14 +3790,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.8999999761581421
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 1.2000000476837158
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -3985,14 +3947,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4321,14 +4281,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 1.100000023841858
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4459,14 +4417,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4586,14 +4542,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4713,14 +4667,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4840,14 +4792,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -4967,14 +4917,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 1.149999976158142
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5094,14 +5042,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 1.149999976158142
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5221,14 +5167,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5348,14 +5292,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5475,14 +5417,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5602,14 +5542,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5729,14 +5667,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5856,14 +5792,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -5983,14 +5917,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6110,14 +6042,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6237,14 +6167,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6364,14 +6292,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6491,14 +6417,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6618,14 +6542,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6745,14 +6667,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6872,14 +6792,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -6999,14 +6917,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7126,14 +7042,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 2.1500000953674316
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7269,14 +7183,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7412,14 +7324,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7555,14 +7465,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7698,14 +7606,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7841,14 +7747,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -7984,14 +7888,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8127,14 +8029,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8270,14 +8170,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8413,14 +8311,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8556,14 +8452,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8699,14 +8593,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8842,14 +8734,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -8985,14 +8875,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -9128,14 +9016,12 @@
                             "variant_value": true
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10044,14 +9930,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10171,14 +10055,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10298,14 +10180,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10425,14 +10305,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10552,14 +10430,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10679,14 +10555,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10806,14 +10680,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -10933,14 +10805,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11060,14 +10930,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11187,14 +11055,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11314,14 +11180,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11441,14 +11305,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11568,14 +11430,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11695,14 +11555,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.300000190734863
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -11854,14 +11712,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 0.5
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -12002,14 +11858,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 0.5
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -12150,14 +12004,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 0.5
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -12298,14 +12150,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 0.5
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -12332,8 +12182,8 @@
                             "id": 2471448074,
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 22.172725677490234,
-                                "y": -16.69483184814453
+                                "x": 21.99366569519043,
+                                "y": -16.971981048583984
                             }
                         },
                         {
@@ -12353,19 +12203,27 @@
                             "variant_value": "open_door"
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 4.0
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 4.0
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 4.0
+                            }
                         },
                         {
                             "id": 3614677686,
                             "variant_type": 2,
                             "variant_value": 16
+                        },
+                        {
+                            "id": 2561222109,
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4072664358,
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -13463,14 +13321,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
@@ -13545,7 +13401,7 @@
                         {
                             "id": 2565644130,
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -13611,14 +13467,12 @@
                             "variant_value": false
                         },
                         {
-                            "id": 2508680735,
-                            "variant_type": 3,
-                            "variant_value": 0.800000011920929
-                        },
-                        {
-                            "id": 3585981250,
-                            "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "id": 597743964,
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 0.800000011920929,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 2471448074,
