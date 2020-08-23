@@ -9,6 +9,7 @@
 #include "CollisionConfiguration.h"
 #include "PickupTypes.h"
 #include "Math/EasingFunctions.h"
+#include "TriggerTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -181,6 +182,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(math::easing_function_strings));
+    }
+    else if(attribute.id == LOGIC_OP_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::AreaTriggerOpToString(shared::AreaTriggerOperation(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
     }
     else
     {

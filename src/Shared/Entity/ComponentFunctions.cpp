@@ -10,21 +10,21 @@
 
 #include "Component.h"
 
-bool CreateTransform(mono::Entity& entity, mono::SystemContext* context)
+bool CreateTransform(mono::Entity* entity, mono::SystemContext* context)
 {
     // No need to do anything, transform system is just a passive system.
     return true;
 }
 
-bool ReleaseTransform(mono::Entity& entity, mono::SystemContext* context)
+bool ReleaseTransform(mono::Entity* entity, mono::SystemContext* context)
 {
     mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-    transform_system->UnchildTransform(entity.id);
+    transform_system->UnchildTransform(entity->id);
 
     return true;
 }
 
-bool UpdateTransform(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+bool UpdateTransform(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
 {
     math::Vector position;
     float rotation = 0.0f;
@@ -32,17 +32,17 @@ bool UpdateTransform(mono::Entity& entity, const std::vector<Attribute>& propert
     FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
 
     mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-    math::Matrix& transform = transform_system->GetTransform(entity.id);
+    math::Matrix& transform = transform_system->GetTransform(entity->id);
     transform = math::CreateMatrixFromZRotation(rotation);
     math::Position(transform, position);
 
     return true;
 }
 
-std::vector<Attribute> GetTransform(const mono::Entity& entity, mono::SystemContext* context)
+std::vector<Attribute> GetTransform(const mono::Entity* entity, mono::SystemContext* context)
 {
     mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-    const math::Matrix& transform = transform_system->GetTransform(entity.id);
+    const math::Matrix& transform = transform_system->GetTransform(entity->id);
 
     return {
        { POSITION_ATTRIBUTE, Variant(math::GetPosition(transform)) },
@@ -50,21 +50,21 @@ std::vector<Attribute> GetTransform(const mono::Entity& entity, mono::SystemCont
     };
 }
 
-bool CreateSprite(mono::Entity& entity, mono::SystemContext* context)
+bool CreateSprite(mono::Entity* entity, mono::SystemContext* context)
 {
     mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
-    sprite_system->AllocateSprite(entity.id);
+    sprite_system->AllocateSprite(entity->id);
     return true;
 }
 
-bool ReleaseSprite(mono::Entity& entity, mono::SystemContext* context)
+bool ReleaseSprite(mono::Entity* entity, mono::SystemContext* context)
 {
     mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
-    sprite_system->ReleaseSprite(entity.id);
+    sprite_system->ReleaseSprite(entity->id);
     return true;
 }
 
-bool UpdateSprite(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
 {
     mono::SpriteComponents sprite_args;
 
@@ -86,7 +86,7 @@ bool UpdateSprite(mono::Entity& entity, const std::vector<Attribute>& properties
     sprite_args.sprite_file = sprite_file;
 
     mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
-    sprite_system->SetSpriteData(entity.id, sprite_args);
+    sprite_system->SetSpriteData(entity->id, sprite_args);
     return success;
 }
  

@@ -26,17 +26,15 @@ void editor::DrawCircleShapeDetails(
 void editor::DrawBoxShapeDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
-    float width = 1.0f;
-    float height = 1.0f;
+    math::Vector width_height;
     math::Vector offset;
 
-    FindAttribute(WIDTH_ATTRIBUTE, component_properties, width, FallbackMode::SET_DEFAULT);
-    FindAttribute(HEIGHT_ATTRIBUTE, component_properties, height, FallbackMode::SET_DEFAULT);
+    FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
     math::Quad box;
     box.mA = position + offset;
-    box.mB = position + offset + math::Vector(width, height);
+    box.mB = position + offset + width_height;
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawQuad(box, color, 1.0f);
@@ -84,8 +82,7 @@ void editor::DrawAreaTriggerComponentDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
     math::Vector width_height;
-    FindAttribute(WIDTH_ATTRIBUTE, component_properties, width_height.x, FallbackMode::SET_DEFAULT);
-    FindAttribute(HEIGHT_ATTRIBUTE, component_properties, width_height.y, FallbackMode::SET_DEFAULT);
+    FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
 
     renderer.DrawFilledQuad(math::Quad(position, position + width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
 

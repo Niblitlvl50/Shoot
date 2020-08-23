@@ -62,13 +62,13 @@ EntityManager::~EntityManager()
 mono::Entity EntityManager::CreateEntity(const char* name, const std::vector<uint32_t>& components)
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& new_entity = entity_system->AllocateEntity();
-    entity_system->SetName(new_entity.id, name);
+    mono::Entity* new_entity = entity_system->AllocateEntity();
+    entity_system->SetName(new_entity->id, name);
     for(uint32_t component : components)
-        AddComponent(new_entity.id, component);
+        AddComponent(new_entity->id, component);
 
-    m_spawn_events.push_back({ true, new_entity.id });
-    return new_entity;
+    m_spawn_events.push_back({ true, new_entity->id });
+    return *new_entity;
 }
 
 mono::Entity EntityManager::CreateEntity(const char* entity_file)
@@ -80,34 +80,34 @@ mono::Entity EntityManager::CreateEntity(const char* entity_file)
         m_cached_entities[entity_hash] = LoadEntityFile(entity_file);
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& new_entity = entity_system->AllocateEntity();
+    mono::Entity* new_entity = entity_system->AllocateEntity();
 
     const EntityData& entity_data = m_cached_entities[entity_hash];
-    entity_system->SetName(new_entity.id, entity_data.entity_name);
-    new_entity.properties = entity_data.entity_properties;
+    entity_system->SetName(new_entity->id, entity_data.entity_name);
+    new_entity->properties = entity_data.entity_properties;
 
     for(const ComponentData& component : entity_data.entity_components)
     {
         const uint32_t component_hash = mono::Hash(component.name.c_str());
-        if(AddComponent(new_entity.id, component_hash))
-            SetComponentData(new_entity.id, component_hash, component.properties);
+        if(AddComponent(new_entity->id, component_hash))
+            SetComponentData(new_entity->id, component_hash, component.properties);
     }
 
-    m_spawn_events.push_back({ true, new_entity.id });
-    return new_entity;
+    m_spawn_events.push_back({ true, new_entity->id });
+    return *new_entity;
 }
 
 bool EntityManager::AddComponent(uint32_t entity_id, uint32_t component_hash)
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
 
     const auto factory_it = m_component_factories.find(component_hash);
     if(factory_it != m_component_factories.end())
     {
         const bool success = factory_it->second.create(entity, m_system_context);
         if(success)
-            entity.components.push_back(component_hash);
+            entity->components.push_back(component_hash);
         return success;
     }
 
@@ -118,14 +118,14 @@ bool EntityManager::AddComponent(uint32_t entity_id, uint32_t component_hash)
 bool EntityManager::RemoveComponent(uint32_t entity_id, uint32_t component_hash)
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
 
     const auto factory_it = m_component_factories.find(component_hash);
     if(factory_it != m_component_factories.end())
     {
         const bool success = factory_it->second.release(entity, m_system_context);
         if(success)
-            mono::remove(entity.components, component_hash);
+            mono::remove(entity->components, component_hash);
         return success;
     }
 
@@ -136,7 +136,7 @@ bool EntityManager::RemoveComponent(uint32_t entity_id, uint32_t component_hash)
 bool EntityManager::SetComponentData(uint32_t entity_id, uint32_t component_hash, const std::vector<Attribute>& properties)
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
 
     const auto factory_it = m_component_factories.find(component_hash);
     if(factory_it != m_component_factories.end())
@@ -149,7 +149,7 @@ bool EntityManager::SetComponentData(uint32_t entity_id, uint32_t component_hash
 std::vector<Attribute> EntityManager::GetComponentData(uint32_t entity_id, uint32_t component_hash) const
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
 
     const auto factory_it = m_component_factories.find(component_hash);
     if(factory_it != m_component_factories.end())
@@ -166,16 +166,16 @@ std::vector<Attribute> EntityManager::GetComponentData(uint32_t entity_id, uint3
 void EntityManager::SetEntityProperties(uint32_t entity_id, uint32_t properties)
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
-    entity.properties = properties;
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
+    entity->properties = properties;
 }
 
 uint32_t EntityManager::GetEntityProperties(uint32_t entity_id) const
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::Entity& entity = entity_system->GetEntity(entity_id);
+    mono::Entity* entity = entity_system->GetEntity(entity_id);
 
-    return entity.properties;
+    return entity->properties;
 }
 
 void EntityManager::RegisterComponent(
@@ -219,8 +219,8 @@ void EntityManager::DeferredRelease()
 
     for(uint32_t entity_id : local_entities_to_release)
     {
-        mono::Entity& entity = entity_system->GetEntity(entity_id);
-        for(uint32_t component_hash : entity.components)
+        mono::Entity* entity = entity_system->GetEntity(entity_id);
+        for(uint32_t component_hash : entity->components)
         {
             const auto factory_it = m_component_factories.find(component_hash);
             if(factory_it != m_component_factories.end())

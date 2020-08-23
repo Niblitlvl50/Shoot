@@ -26,7 +26,7 @@
 
 namespace
 {
-    bool CreatePhysics(mono::Entity& entity, mono::SystemContext* context)
+    bool CreatePhysics(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::BodyComponent body_params;
         body_params.mass = 1.0f;
@@ -34,18 +34,18 @@ namespace
         body_params.type = mono::BodyType::DYNAMIC;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        physics_system->AllocateBody(entity.id, body_params);
+        physics_system->AllocateBody(entity->id, body_params);
         return true;
     }
 
-    bool ReleasePhysics(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleasePhysics(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        physics_system->ReleaseBody(entity.id);
+        physics_system->ReleaseBody(entity->id);
         return true;
     }
 
-    bool UpdatePhysics(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePhysics(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         mono::BodyComponent body_args;
 
@@ -60,28 +60,28 @@ namespace
             body_args.inertia = math::INF;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        mono::IBody* body = physics_system->GetBody(entity.id);
+        mono::IBody* body = physics_system->GetBody(entity->id);
         body->SetMass(body_args.mass);
         body->SetMoment(body_args.inertia);
         body->SetType(body_args.type);
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-        const math::Matrix& transform = transform_system->GetTransform(entity.id);
+        const math::Matrix& transform = transform_system->GetTransform(entity->id);
         body->SetPosition(math::GetPosition(transform));
         return true;
     }
 
-    bool CreateShape(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateShape(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseShape(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseShape(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateCircleShape(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCircleShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int faction = 0;
         mono::CircleComponent shape_params;
@@ -96,18 +96,17 @@ namespace
         shape_params.mask = faction_pair.mask;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        physics_system->AddShape(entity.id, shape_params);
+        physics_system->AddShape(entity->id, shape_params);
         return true;
     }
 
-    bool UpdateBoxShape(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateBoxShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         mono::BoxComponent shape_params;
 
         FindAttribute(FACTION_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
-        FindAttribute(WIDTH_ATTRIBUTE, properties, shape_params.width, FallbackMode::SET_DEFAULT);
-        FindAttribute(HEIGHT_ATTRIBUTE, properties, shape_params.height, FallbackMode::SET_DEFAULT);
+        FindAttribute(SIZE_ATTRIBUTE, properties, shape_params.size, FallbackMode::SET_DEFAULT);
         FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
@@ -116,11 +115,11 @@ namespace
         shape_params.mask = faction_pair.mask;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        physics_system->AddShape(entity.id, shape_params);
+        physics_system->AddShape(entity->id, shape_params);
         return true;
     }
 
-    bool UpdateSegmentShape(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSegmentShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         mono::SegmentComponent shape_params;
@@ -136,25 +135,25 @@ namespace
         shape_params.mask = faction_pair.mask;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
-        physics_system->AddShape(entity.id, shape_params);
+        physics_system->AddShape(entity->id, shape_params);
         return true;
     }
 
-    bool CreateHealth(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateHealth(mono::Entity* entity, mono::SystemContext* context)
     {
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
-        damage_system->CreateRecord(entity.id);
+        damage_system->CreateRecord(entity->id);
         return true;
     }
 
-    bool ReleaseHealth(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseHealth(mono::Entity* entity, mono::SystemContext* context)
     {
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
-        damage_system->ReleaseRecord(entity.id);
+        damage_system->ReleaseRecord(entity->id);
         return true;
     }
 
-    bool UpdateHealth(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateHealth(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int health;
         FindAttribute(HEALTH_ATTRIBUTE, properties, health, FallbackMode::SET_DEFAULT);
@@ -166,7 +165,7 @@ namespace
         FindAttribute(BOSS_HEALTH_ATTRIBUTE, properties, is_boss_health, FallbackMode::SET_DEFAULT);
 
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
-        game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity.id);
+        game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity->id);
         damage_record->health = health;
         damage_record->full_health = health;
         damage_record->score = score;
@@ -175,21 +174,21 @@ namespace
         return true;
     }
 
-    bool CreateEntityLogic(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateEntityLogic(mono::Entity* entity, mono::SystemContext* context)
     {
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
         (void)logic_system;
         return true;
     }
 
-    bool ReleaseEntityLogic(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseEntityLogic(mono::Entity* entity, mono::SystemContext* context)
     {
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
-        logic_system->ReleaseLogic(entity.id);
+        logic_system->ReleaseLogic(entity->id);
         return true;
     }
 
-    bool UpdateEntityLogic(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateEntityLogic(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int logic_type_value;
         const bool found_property = FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, properties, logic_type_value, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -206,56 +205,56 @@ namespace
             if(!found_path_property || strlen(path_file) == 0)
                 return false;
 
-            entity_logic = game::g_logic_factory->CreatePathInvaderLogic(path_file, entity.id);
+            entity_logic = game::g_logic_factory->CreatePathInvaderLogic(path_file, entity->id);
         }
         else
         {
-            entity_logic = game::g_logic_factory->CreateLogic(logic_type, entity.id);
+            entity_logic = game::g_logic_factory->CreateLogic(logic_type, entity->id);
         }
 
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
-        logic_system->AddLogic(entity.id, entity_logic);
+        logic_system->AddLogic(entity->id, entity_logic);
 
         return true;
     }
 
-    bool CreateSpawnPoint(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateSpawnPoint(mono::Entity* entity, mono::SystemContext* context)
     {
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
-        spawn_system->AllocateSpawnPoint(entity.id);
+        spawn_system->AllocateSpawnPoint(entity->id);
         return true;
     }
 
-    bool ReleaseSpawnPoint(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseSpawnPoint(mono::Entity* entity, mono::SystemContext* context)
     {
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
-        spawn_system->ReleaseSpawnPoint(entity.id);
+        spawn_system->ReleaseSpawnPoint(entity->id);
         return true;
     }
 
-    bool UpdateSpawnPoint(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         game::SpawnSystem::SpawnPoint spawn_point;
         FindAttribute(SPAWN_SCORE_ATTRIBUTE, properties, spawn_point.spawn_score, FallbackMode::SET_DEFAULT);
 
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
-        spawn_system->SetSpawnPointData(entity.id, spawn_point);
+        spawn_system->SetSpawnPointData(entity->id, spawn_point);
         return true;
     }
 
-    bool CreateShapeTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AllocateTrigger(entity.id);
+        trigger_system->AllocateTrigger(entity->id);
         return true;
     }
     
-    bool ReleaseShapeTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
     
-    bool UpdateShapeTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateShapeTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -271,21 +270,21 @@ namespace
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity.id, mono::Hash(trigger_name), faction);
+        trigger_system->AddShapeTrigger(entity->id, mono::Hash(trigger_name), faction);
         return true;
     }
 
-    bool CreateDeathTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseDeathTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateDeathTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDeathTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -298,21 +297,21 @@ namespace
         }
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddDeathTrigger(entity.id, mono::Hash(trigger_name));
+        trigger_system->AddDeathTrigger(entity->id, mono::Hash(trigger_name));
         return true;
     }
 
-    bool CreateAreaTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseAreaTrigger(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateAreaTrigger(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateAreaTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -320,62 +319,60 @@ namespace
         if(!found_trigger_name)
             return false;
 
-        float width;
-        float height;
+        math::Vector size;
         uint32_t faction;
 
-        FindAttribute(WIDTH_ATTRIBUTE, properties, width, FallbackMode::SET_DEFAULT);
-        FindAttribute(HEIGHT_ATTRIBUTE, properties, height, FallbackMode::SET_DEFAULT);
+        FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-        const math::Matrix& world_transform = transform_system->GetWorld(entity.id);
+        const math::Matrix& world_transform = transform_system->GetWorld(entity->id);
 
-        const math::Quad world_bb = math::Transform(world_transform, math::Quad(0.0f, 0.0f, width, height));
+        const math::Quad world_bb = math::Transform(world_transform, math::Quad(0.0f, 0.0f, size.x, size.y));
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddAreaEntityTrigger(entity.id, mono::Hash(trigger_name), world_bb, faction, 0);
+        trigger_system->AddAreaEntityTrigger(entity->id, mono::Hash(trigger_name), world_bb, faction, 0);
 
         return true;
     }
 
-    bool CreatePickup(mono::Entity& entity, mono::SystemContext* context)
+    bool CreatePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
-        pickup_system->AllocatePickup(entity.id);
+        pickup_system->AllocatePickup(entity->id);
         return true;
     }
 
-    bool ReleasePickup(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleasePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
-        pickup_system->ReleasePickup(entity.id);
+        pickup_system->ReleasePickup(entity->id);
         return true;
     }
 
-    bool UpdatePickup(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePickup(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         game::Pickup pickup;
         FindAttribute(PICKUP_TYPE_ATTRIBUTE, properties, (uint32_t&)pickup.type, FallbackMode::SET_DEFAULT);
         FindAttribute(AMOUNT_ATTRIBUTE, properties, pickup.amount, FallbackMode::SET_DEFAULT);
 
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
-        pickup_system->SetPickupData(entity.id, pickup);
+        pickup_system->SetPickupData(entity->id, pickup);
 
         return true;
     }
 
-    bool CreateAnimation(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseAnimation(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateAnimation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -391,22 +388,22 @@ namespace
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AddAnimationComponent(entity.id, mono::Hash(trigger_name), animation_index);
+        modification_system->AddAnimationComponent(entity->id, mono::Hash(trigger_name), animation_index);
 
         return true;
     }
 
-    bool CreateTranslation(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseTranslation(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateTranslation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTranslation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -427,22 +424,22 @@ namespace
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddTranslationComponent(
-            entity.id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], translation);
+            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], translation);
 
         return true;
     }
 
-    bool CreateRotation(mono::Entity& entity, mono::SystemContext* context)
+    bool CreateRotation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool ReleaseRotation(mono::Entity& entity, mono::SystemContext* context)
+    bool ReleaseRotation(mono::Entity* entity, mono::SystemContext* context)
     {
         return true;
     }
 
-    bool UpdateRotation(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRotation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         const char* trigger_name = nullptr;
         const bool found_trigger_name =
@@ -463,7 +460,7 @@ namespace
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddRotationComponent(
-            entity.id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], rotation);
+            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], rotation);
 
         return true;
     }

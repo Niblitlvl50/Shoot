@@ -140,6 +140,7 @@ void TriggerSystem::AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_ha
     area_trigger->faction = faction;
     area_trigger->world_bb = world_bb;
     area_trigger->n_entities = n_entities;
+    area_trigger->operation = shared::AreaTriggerOperation::LESS_THAN;
 
     m_active_area_triggers.push_back(area_trigger);
 }
@@ -224,18 +225,33 @@ void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_c
     {
         const std::vector<mono::IBody*> found_bodies
             = m_physics_system->GetSpace()->QueryBox(area_trigger->world_bb, area_trigger->faction);
-        if(found_bodies.size() <= (size_t)area_trigger->n_entities)
+        const int n_found_bodies = found_bodies.size();
+
+        bool emit_trigger = false;
+
+        switch(area_trigger->operation)
+        {
+        case shared::AreaTriggerOperation::EQUAL_TO:
+            emit_trigger = (n_found_bodies == area_trigger->n_entities);
+            break;
+        case shared::AreaTriggerOperation::LESS_THAN:
+            emit_trigger = (n_found_bodies < area_trigger->n_entities);
+            break;
+        case shared::AreaTriggerOperation::GREATER_THAN:
+            emit_trigger = (n_found_bodies > area_trigger->n_entities);
+            break;
+        }
+
+        if(emit_trigger)
         {
             EmitTrigger(area_trigger->trigger_hash, TriggerState::NONE);
 
             TriggerComponent& allocated_trigger = m_triggers[area_trigger->entity_id];
             allocated_trigger.area_trigger_id = NO_CALLBACK_SET;
             m_area_triggers.ReleasePoolData(area_trigger);
-
-            return true;
         }
 
-        return false;
+        return emit_trigger;
     };
 
     mono::remove_if(m_active_area_triggers, update_area_trigger_func);

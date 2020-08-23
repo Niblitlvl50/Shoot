@@ -12,10 +12,10 @@
 #include <unordered_set>
 #include <unordered_map>
 
-using ComponentCreateFunc = bool(*)(mono::Entity& entity, mono::SystemContext* context);
-using ComponentReleaseFunc = bool(*)(mono::Entity& entity, mono::SystemContext* context);
-using ComponentUpdateFunc = bool(*)(mono::Entity& entity, const std::vector<Attribute>& properties, mono::SystemContext* context);
-using ComponentGetFunc = std::vector<Attribute>(*)(const mono::Entity& entity, mono::SystemContext* context);
+using ComponentCreateFunc = bool(*)(mono::Entity* entity, mono::SystemContext* context);
+using ComponentReleaseFunc = bool(*)(mono::Entity* entity, mono::SystemContext* context);
+using ComponentUpdateFunc = bool(*)(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context);
+using ComponentGetFunc = std::vector<Attribute>(*)(const mono::Entity* entity, mono::SystemContext* context);
 
 struct ComponentData
 {

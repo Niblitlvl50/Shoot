@@ -10,6 +10,7 @@
 extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
 extern const uint32_t RADIUS_ATTRIBUTE;
+extern const uint32_t SIZE_ATTRIBUTE;
 extern const uint32_t TIME_STAMP_ATTRIBUTE;
 extern const uint32_t SPAWN_TAG_ATTRIBUTE;
 extern const uint32_t PATH_FILE_ATTRIBUTE;
@@ -26,8 +27,8 @@ extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
 extern const uint32_t FACTION_PICKER_ATTRIBUTE;
-extern const uint32_t WIDTH_ATTRIBUTE;
-extern const uint32_t HEIGHT_ATTRIBUTE;
+extern const uint32_t WIDTH_ATTRIBUTE_unused;
+extern const uint32_t HEIGHT_ATTRIBUTE_unused;
 extern const uint32_t START_ATTRIBUTE;
 extern const uint32_t END_ATTRIBUTE;
 extern const uint32_t SENSOR_ATTRIBUTE;
@@ -48,6 +49,8 @@ extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 
 extern const uint32_t DURATION_ATTRIBUTE;
 extern const uint32_t EASING_FUNC_ATTRIBUTE;
+extern const uint32_t LOGIC_OP_ATTRIBUTE;
+extern const uint32_t N_ENTITIES_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

@@ -6,6 +6,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/ImGui.h"
 
 #include "Events/EventFuncFwd.h"
@@ -28,6 +29,7 @@
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "Entity/IEntityManager.h"
+#include "EntitySystem/EntitySystem.h"
 
 #include "Objects/Polygon.h"
 #include "Objects/Path.h"
@@ -366,7 +368,27 @@ IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
     if(found_proxies.empty())
         return nullptr;
 
-    const auto sort_on_y = [](const IObjectProxy* first, const IObjectProxy* second) {
+    mono::EntitySystem* entity_system = m_system_context.GetSystem<mono::EntitySystem>();
+    const mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
+
+    const auto sort_on_y = [entity_system, sprite_system](const IObjectProxy* first, const IObjectProxy* second) {
+
+        const mono::Entity* first_entity = entity_system->GetEntity(first->Id());
+        const mono::Entity* second_entity = entity_system->GetEntity(second->Id());
+
+        if(first_entity && second_entity)
+        {
+            const bool first_has_sprite = entity_system->HasComponent(first_entity, SPRITE_COMPONENT);
+            const bool second_has_sprite = entity_system->HasComponent(second_entity, SPRITE_COMPONENT);
+            if(first_has_sprite && second_has_sprite)
+            {
+                const int first_sprite_layer = sprite_system->GetSpriteLayer(first_entity->id);
+                const int second_sprite_layer = sprite_system->GetSpriteLayer(second_entity->id);
+                if(first_sprite_layer != second_sprite_layer)
+                    return first_sprite_layer < second_sprite_layer;
+            }
+        }
+
         const math::Vector& first_position = first->GetPosition();
         const math::Vector& second_position = second->GetPosition();
 

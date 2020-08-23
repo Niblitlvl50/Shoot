@@ -7,6 +7,7 @@
 #include "Util/ObjectPool.h"
 
 #include "Physics/PhysicsFwd.h"
+#include "TriggerTypes.h"
 
 #include <cstdint>
 #include <vector>
@@ -49,6 +50,7 @@ namespace game
         math::Quad world_bb;
         uint32_t faction;
         int n_entities;
+        shared::AreaTriggerOperation operation;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
