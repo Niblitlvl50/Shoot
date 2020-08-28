@@ -5,6 +5,7 @@
 #include "Audio/AudioSystem.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextFunctions.h"
+#include "Rendering/Text/TextSystem.h"
 #include "EventHandler/EventHandler.h"
 
 #include "Factories.h"
@@ -151,6 +152,7 @@ int main(int argc, char* argv[])
         mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(
             max_entities, &entity_manager, particle_system, transform_system, physics_system, &event_handler);

@@ -1,13 +1,11 @@
 
 #include "TitleScreen.h"
 #include "ZoneFlow.h"
+#include "Factories.h"
 #include "Effects/ScreenSparkles.h"
+#include "GameDebugDrawer.h"
 
-#include "Hud/UI/TextEntity.h"
-#include "Hud/UI/IconEntity.h"
-#include "Hud/UI/Background.h"
 #include "RenderLayers.h"
-#include "Actions/MoveAction.h"
 
 #include "Math/Quad.h"
 #include "Camera/ICamera.h"
@@ -21,7 +19,14 @@
 #include "SystemContext.h"
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
+#include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/Text/TextSystem.h"
+#include "Rendering/Text/TextBatchDrawer.h"
+#include "TransformSystem/TransformSystem.h"
 #include "System/System.h"
+
+#include "Entity/IEntityManager.h"
+#include "WorldFile.h"
 
 using namespace game;
 
@@ -30,22 +35,6 @@ using namespace game;
 
 namespace
 {
-    class MoveContextUpdater : public mono::IUpdatable
-    {
-    public:
-
-        MoveContextUpdater(std::vector<MoveActionContext>& contexts)
-            : m_contexts(contexts)
-        { }
-
-        void Update(const mono::UpdateContext& update_context)
-        {
-            game::UpdateMoveContexts(update_context.delta_ms, m_contexts);
-        }
-
-        std::vector<MoveActionContext>& m_contexts;
-    };
-
     class CheckControllerInput : public mono::IUpdatable
     {
     public:
@@ -106,91 +95,27 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     camera->SetViewport(math::Quad(0, 0, 14, 23));
 
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
+    mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     const math::Quad& viewport = camera->GetViewport();
-    const math::Vector new_position(viewport.mB.x + (viewport.mB.x / 2.0f), viewport.mB.y / 3.0f);
-
-    AddUpdatable(new MoveContextUpdater(m_move_contexts));
     AddUpdatable(new CheckControllerInput(this));
 
-    auto background1 = new Background(viewport, mono::Color::HSL(0.6f, 0.6f, 0.5f));
-    auto background2 = new Background(viewport, mono::Color::HSL(0.6f, 0.3f, 0.5f));
-
-    auto title_text = new TextEntity("Shoot, Survive!", FontId::PIXELETTE_MEDIUM, false);
-    title_text->m_shadow_color = mono::Color::RGBA(0.8, 0.0, 0.8, 1.0);
-    title_text->m_text_color = mono::Color::RGBA(0.9, 0.8, 0.8, 1.0f);
-    title_text->SetPosition(new_position);
-
-    const math::Vector dont_die_position(viewport.mB.x * 2.0f, viewport.mB.y / 4.0f);
-
-    auto dont_die_text = new TextEntity("...dont die.", FontId::PIXELETTE_SMALL, false);
-    dont_die_text->m_shadow_color = mono::Color::RGBA(0.8, 0.0, 0.8, 1.0);
-    dont_die_text->m_text_color = mono::Color::RGBA(0.9, 0.9, 0.0, 1.0f);
-    dont_die_text->SetPosition(dont_die_position);
-
-    auto hit_enter_text = new TextEntity("Hit enter, or   /", FontId::PIXELETTE_SMALL, true);
-    hit_enter_text->m_shadow_color = mono::Color::RGBA(0.3, 0.3, 0.3, 1);
-    hit_enter_text->SetPosition(math::Vector(viewport.mB.x / 2.0f, 2.0f));
-
-    auto ps_cross = new IconEntity("res/sprites/ps_cross.sprite");
-    ps_cross->SetPosition(math::Vector(3.0f, 0.25f));
-    ps_cross->SetScale(math::Vector(0.4f, 0.4f));
-
-    auto xbox_a = new IconEntity("res/sprites/xbox_one_a.sprite");
-    xbox_a->SetPosition(math::Vector(4.65f, 0.25f));
-    xbox_a->SetScale(math::Vector(0.4f, 0.4f));
-
-    hit_enter_text->AddChild(ps_cross);
-    hit_enter_text->AddChild(xbox_a);
-
-    game::MoveActionContext title_text_animation;
-    title_text_animation.entity = title_text;
-    title_text_animation.duration = 500;
-    title_text_animation.start_position = new_position;
-    title_text_animation.end_position = math::Vector(1.0f, new_position.y);
-    title_text_animation.ease_func = math::EaseOutCubic;
-
-    game::MoveActionContext dont_die_animation;
-    dont_die_animation.entity = dont_die_text;
-    dont_die_animation.duration = 1000;
-    dont_die_animation.start_position = dont_die_position;
-    dont_die_animation.end_position = math::Vector(5.0f, dont_die_position.y);
-    dont_die_animation.ease_func = math::EaseOutCubic;
-
-    game::MoveActionContext background_animation;
-    background_animation.entity = background1;
-    background_animation.duration = 1000;
-    background_animation.start_position = math::Vector(new_position.x, 0.0f);
-    background_animation.end_position = math::Vector(0.0f, 0.0f);
-    background_animation.ease_func = math::EaseInOutCubic;
-
-    game::MoveActionContext hit_enter_animation;
-    hit_enter_animation.entity = hit_enter_text;
-    hit_enter_animation.duration = 800;
-    hit_enter_animation.start_position = hit_enter_text->Position();
-    hit_enter_animation.end_position = hit_enter_text->Position() + math::Vector(0.0f, 0.4f);
-    hit_enter_animation.ease_func = math::EaseInOutCubic;
-    hit_enter_animation.ping_pong = true;
-
-    m_move_contexts.push_back(title_text_animation);
-    m_move_contexts.push_back(dont_die_animation);
-    m_move_contexts.push_back(background_animation);
-    m_move_contexts.push_back(hit_enter_animation);
-
-    AddEntity(background2, LayerId::BACKGROUND);
-    AddEntity(background1, LayerId::BACKGROUND);
-
+    AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
-
-    AddEntity(title_text, LayerId::GAMEOBJECTS);
-    AddEntity(dont_die_text, LayerId::GAMEOBJECTS);
-    AddEntity(hit_enter_text, LayerId::GAMEOBJECTS);
+    AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
 
     m_sparkles = std::make_unique<ScreenSparkles>(particle_system, viewport);
+    m_loaded_entities = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager);
 }
 
 int TitleScreen::OnUnload()
 {
+    for(uint32_t entity_id : m_loaded_entities)
+        g_entity_manager->ReleaseEntity(entity_id);
+
+    g_entity_manager->Sync();
     return m_exit_zone;
 }
 

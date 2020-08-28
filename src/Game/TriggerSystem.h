@@ -29,6 +29,7 @@ namespace game
     {
         uint32_t death_trigger_id;
         uint32_t area_trigger_id;
+        uint32_t time_trigger_id;
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
 
@@ -53,6 +54,13 @@ namespace game
         shared::AreaTriggerOperation operation;
     };
 
+    struct TimeTrigger
+    {
+        uint32_t entity_id;
+        uint32_t trigger_hash;
+        float timeout_ms;
+    };
+
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
 
     class TriggerSystem : public mono::IGameSystem
@@ -67,6 +75,7 @@ namespace game
         void AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask);
         void AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash);
         void AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities);
+        void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);
@@ -81,6 +90,7 @@ namespace game
     private:
 
         void UpdateAreaEntityTriggers(const mono::UpdateContext& update_context);
+        void UpdateTimeTriggers(const mono::UpdateContext& update_context);
 
         std::vector<TriggerComponent> m_triggers;
         std::vector<bool> m_active;
@@ -94,6 +104,9 @@ namespace game
         mono::ObjectPool<AreaEntityTrigger> m_area_triggers;
         std::vector<AreaEntityTrigger*> m_active_area_triggers;
         uint32_t m_area_trigger_timer;
+
+        mono::ObjectPool<TimeTrigger> m_time_triggers;
+        std::vector<TimeTrigger*> m_active_time_triggers;
 
         struct EmitData
         {

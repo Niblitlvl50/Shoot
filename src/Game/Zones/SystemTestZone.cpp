@@ -8,6 +8,8 @@
 
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/Text/TextSystem.h"
+#include "Rendering/Text/TextBatchDrawer.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
@@ -99,6 +101,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
 
@@ -137,6 +140,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
     AddDrawable(new StaticBackground(), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
 

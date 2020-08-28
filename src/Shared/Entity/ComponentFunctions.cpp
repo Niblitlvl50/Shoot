@@ -4,6 +4,7 @@
 
 #include "SystemContext.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Text/TextSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "Entity/EntityManager.h"
@@ -89,9 +90,43 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     sprite_system->SetSpriteData(entity->id, sprite_args);
     return success;
 }
- 
+
+bool CreateText(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::TextSystem* text_system = context->GetSystem<mono::TextSystem>();
+    text_system->AllocateText(entity->id);
+    return true;
+}
+
+bool ReleaseText(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::TextSystem* text_system = context->GetSystem<mono::TextSystem>();
+    text_system->ReleaseText(entity->id);
+    return true;
+}
+
+bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+{
+    const char* text_data = nullptr;
+    FindAttribute(TEXT_ATTRIBUTE, properties, text_data, FallbackMode::SET_DEFAULT);
+
+    mono::TextComponent text_component;
+    text_component.text = text_data;
+    text_component.centered = false;
+
+    FindAttribute(FONT_ID_ATTRIBUTE, properties, text_component.font_id, FallbackMode::SET_DEFAULT);
+    FindAttribute(COLOR_ATTRIBUTE, properties, text_component.tint, FallbackMode::SET_DEFAULT);
+    FindAttribute(TEXT_SHADOW_ATTRIBUTE, properties, text_component.draw_shadow, FallbackMode::SET_DEFAULT);
+
+    mono::TextSystem* text_system = context->GetSystem<mono::TextSystem>();
+    text_system->SetTextData(entity->id, text_component);
+
+    return true;
+}
+
 void shared::RegisterSharedComponents(EntityManager& entity_manager)
 {
     entity_manager.RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
     entity_manager.RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);
+    entity_manager.RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
 }

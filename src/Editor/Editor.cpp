@@ -8,6 +8,8 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/ImGui.h"
+#include "Rendering/Text/TextSystem.h"
+#include "Rendering/Text/TextBatchDrawer.h"
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
@@ -179,6 +181,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
     m_user_input_controller =
         std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
 
@@ -205,6 +208,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
     m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);
     for(IObjectProxyPtr& proxy : m_proxies)

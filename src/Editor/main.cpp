@@ -3,6 +3,7 @@
 #include "System/UID.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextFunctions.h"
+#include "Rendering/Text/TextSystem.h"
 #include "EventHandler/EventHandler.h"
 #include "Engine.h"
 #include "SystemContext.h"
@@ -46,6 +47,7 @@ int main(int argc, const char* argv[])
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::EntitySystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
         editor::Config config;
         editor::LoadConfig("res/editor_config.json", config);

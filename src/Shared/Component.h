@@ -52,6 +52,10 @@ extern const uint32_t EASING_FUNC_ATTRIBUTE;
 extern const uint32_t LOGIC_OP_ATTRIBUTE;
 extern const uint32_t N_ENTITIES_ATTRIBUTE;
 
+extern const uint32_t FONT_ID_ATTRIBUTE;
+extern const uint32_t TEXT_ATTRIBUTE;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
 bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& output);
@@ -102,6 +106,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
 extern const uint32_t NULL_COMPONENT;
 extern const uint32_t TRANSFORM_COMPONENT;
 extern const uint32_t SPRITE_COMPONENT;
+extern const uint32_t TEXT_COMPONENT;
 extern const uint32_t PHYSICS_COMPONENT;
 extern const uint32_t CIRCLE_SHAPE_COMPONENT;
 extern const uint32_t BOX_SHAPE_COMPONENT;
@@ -112,6 +117,7 @@ extern const uint32_t SPAWN_POINT_COMPONENT;
 extern const uint32_t SHAPE_TRIGGER_COMPONENT;
 extern const uint32_t DEATH_TRIGGER_COMPONENT;
 extern const uint32_t AREA_TRIGGER_COMPONENT;
+extern const uint32_t TIME_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
@@ -125,7 +131,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 16>;
+using ComponentArray = std::array<Component, 18>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

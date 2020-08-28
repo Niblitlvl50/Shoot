@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 37> default_attributes = {{
+const std::array<DefaultAttribute, 40> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -61,7 +61,10 @@ const std::array<DefaultAttribute, 37> default_attributes = {{
     DefaultAttribute("duration",            Variant(1.0f)),
     DefaultAttribute("easing_func",         Variant(0)),
     DefaultAttribute("logic_op",            Variant(0)),
-    DefaultAttribute("Num Entities",        Variant(0)),
+    DefaultAttribute("num_entities",        Variant(0)),
+    DefaultAttribute("font_id",             Variant(0)),
+    DefaultAttribute("text",                Variant("")),
+    DefaultAttribute("text_shadow",         Variant(false)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -109,10 +112,15 @@ extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[34].has
 extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[35].hash;
 extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[36].hash;
 
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[37].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[38].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].hash;
+
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
 extern const uint32_t TRANSFORM_COMPONENT       = mono::Hash("transform");
 extern const uint32_t SPRITE_COMPONENT          = mono::Hash("sprite");
+extern const uint32_t TEXT_COMPONENT            = mono::Hash("text");
 extern const uint32_t PHYSICS_COMPONENT         = mono::Hash("physics");
 extern const uint32_t CIRCLE_SHAPE_COMPONENT    = mono::Hash("circle_shape");
 extern const uint32_t BOX_SHAPE_COMPONENT       = mono::Hash("box_shape");
@@ -123,6 +131,7 @@ extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT   = mono::Hash("shape_trigger");
 extern const uint32_t DEATH_TRIGGER_COMPONENT   = mono::Hash("death_trigger");
 extern const uint32_t AREA_TRIGGER_COMPONENT    = mono::Hash("area_entity_trigger");
+extern const uint32_t TIME_TRIGGER_COMPONENT    = mono::Hash("time_trigger");
 extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
@@ -137,6 +146,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "transform";
     else if(hash == SPRITE_COMPONENT)
         return "sprite";
+    else if(hash == TEXT_COMPONENT)
+        return "text";
     else if(hash == PHYSICS_COMPONENT)
         return "physics";
     else if(hash == CIRCLE_SHAPE_COMPONENT)
@@ -157,6 +168,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "death_trigger";
     else if(hash == AREA_TRIGGER_COMPONENT)
         return "area_entity_trigger";
+    else if(hash == TIME_TRIGGER_COMPONENT)
+        return "time_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
@@ -181,6 +194,7 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
     MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE } ),
+    MakeComponent(TEXT_COMPONENT,           NULL_COMPONENT,     false,  { FONT_ID_ATTRIBUTE, TEXT_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE } ),
@@ -191,6 +205,7 @@ const ComponentArray default_components = {
     MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false,  { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
     MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(AREA_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE } ),
+    MakeComponent(TIME_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE } ),
     MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
     MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),

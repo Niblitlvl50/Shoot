@@ -336,6 +336,33 @@ namespace
         return true;
     }
 
+    bool CreateTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool ReleaseTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool UpdateTimeTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        const char* trigger_name = nullptr;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+            return false;
+
+        float timeout_ms;
+        FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
+
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AddTimeTrigger(entity->id, mono::Hash(trigger_name), timeout_ms);
+
+        return true;
+    }
+
     bool CreatePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
@@ -478,6 +505,7 @@ void game::RegisterGameComponents(EntityManager& entity_manager)
     entity_manager.RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateShapeTrigger, ReleaseShapeTrigger, UpdateShapeTrigger);
     entity_manager.RegisterComponent(DEATH_TRIGGER_COMPONENT, CreateDeathTrigger, ReleaseDeathTrigger, UpdateDeathTrigger);
     entity_manager.RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);
+    entity_manager.RegisterComponent(TIME_TRIGGER_COMPONENT, CreateTimeTrigger, ReleaseTimeTrigger, UpdateTimeTrigger);
     entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager.RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);

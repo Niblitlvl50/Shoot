@@ -92,6 +92,7 @@ void ModificationSystem::AddTranslationComponent(
     
     type->translation.delta_x = translation_delta.x;
     type->translation.delta_y = translation_delta.y;
+    type->translation.ping_pong = false;
 
     const TriggerCallback callback = [this, type](uint32_t trigger_hash, TriggerState state) {
         m_active_modifications.push_back(type);

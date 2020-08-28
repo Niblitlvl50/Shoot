@@ -17,6 +17,7 @@ namespace game
        float start_y;
        float delta_x;
        float delta_y;
+       bool ping_pong;
    };
 
    struct RotationComponent
