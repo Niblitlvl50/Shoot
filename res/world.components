@@ -1,4 +1,14 @@
 {
+    "metadata": {
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 9.0,
+            "y": 16.0
+        }
+    },
     "entities": [
         {
             "components": [

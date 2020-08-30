@@ -92,13 +92,17 @@ mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 
 void TitleScreen::OnLoad(mono::ICamera* camera)
 {
-    camera->SetViewport(math::Quad(0, 0, 14, 23));
+    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager);
+    const math::Quad viewport(
+        leveldata.metadata.camera_position, leveldata.metadata.camera_position + leveldata.metadata.camera_size);
+
+    camera->SetViewport(viewport);
+    m_loaded_entities = leveldata.loaded_entities;
 
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
-    const math::Quad& viewport = camera->GetViewport();
     AddUpdatable(new CheckControllerInput(this));
 
     AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
@@ -107,7 +111,6 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
 
     m_sparkles = std::make_unique<ScreenSparkles>(particle_system, viewport);
-    m_loaded_entities = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager);
 }
 
 int TitleScreen::OnUnload()

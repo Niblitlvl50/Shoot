@@ -71,6 +71,7 @@ namespace
                 context.draw_snappers_callback(context.draw_snappers);
 
             ImGui::Checkbox("Show Outline, O", &context.draw_outline);
+            ImGui::Checkbox("Show Level Metadata, L", &context.draw_level_metadata);
 
             ImGui::Checkbox("Snap to Grid, G", &context.snap_to_grid);
             ImGui::InputFloat2("Grid Size", &context.grid_size.x);
@@ -177,6 +178,34 @@ namespace
 
         ImGui::Begin("Selection", nullptr, flags);
         context.selected_proxy_object->UpdateUIContext(context);
+
+        ImGui::End();
+    }
+
+    void DrawLevelMetadata(editor::UIContext& context)
+    {
+        if(!context.draw_level_metadata)
+            return;
+
+        constexpr int flags =
+            //ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoSavedSettings;
+
+        const float metadata_width = 310;
+        const float window_width = ImGui::GetIO().DisplaySize.x;
+
+        ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
+        ImGui::SetNextWindowPos(ImVec2(window_width / 2.0f - metadata_width / 2.0f, 40));
+
+        ImGui::Begin("Level Metadata", nullptr, flags);
+
+        ImGui::TextDisabled("Camera");
+        ImGui::InputFloat2("Position", &context.camera_position.x);
+        ImGui::InputFloat2("Size", &context.camera_size.x);
 
         ImGui::End();
     }
@@ -300,6 +329,7 @@ void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
     DrawMainMenuBar(m_context);
     DrawObjectOutline(m_context);
     DrawSelectionView(m_context);
+    DrawLevelMetadata(m_context);
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);

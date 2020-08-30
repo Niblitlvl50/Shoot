@@ -38,6 +38,7 @@
 
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
+#include "Visualizers/GameCameraVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
 #include "Visualizers/SnapperVisualizer.h"
 #include "Visualizers/ObjectNameVisualizer.h"
@@ -207,6 +208,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new SelectionVisualizer(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
+    AddDrawable(new GameCameraVisualizer(m_context.camera_position, m_context.camera_size), RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
@@ -277,7 +279,7 @@ void Editor::ImportEntity()
 void Editor::NewEntity()
 {
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", {});
+    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", { TRANSFORM_COMPONENT });
 
     const std::vector<Component> components = {
         DefaultComponentFromHash(TRANSFORM_COMPONENT)

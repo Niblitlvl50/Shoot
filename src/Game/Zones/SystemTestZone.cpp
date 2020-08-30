@@ -90,9 +90,14 @@ SystemTestZone::~SystemTestZone()
 
 void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
-    //camera->SetViewport(math::Quad(0, 0, 22, 14));
-    //camera->SetViewport(math::Quad(0, 0, 10, 16));
-    camera->SetViewport(math::Quad(0, 0, 9, 16));
+    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager);
+    m_loaded_entities = leveldata.loaded_entities;
+
+    const math::Quad viewport(
+        leveldata.metadata.camera_position, leveldata.metadata.camera_position + leveldata.metadata.camera_size);
+
+    camera->SetViewport(viewport);
+    //camera->SetViewport(math::Quad(0, 0, 9, 16));
     m_camera = camera;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
@@ -118,19 +123,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(m_game_camera.get());
 
     m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
-    m_loaded_entities = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager);
-
-/*
-    for(int index = 0; index < 250; ++index)
-    {
-        const mono::Entity new_entity = g_entity_manager->CreateEntity("res/entities/pink_blolb.entity");
-        const math::Vector position = math::Vector(mono::Random(0.0f, 22.0f), mono::Random(0.0f, 24.0f));
-        mono::IBody* body = physics_system->GetBody(new_entity.id);
-        body->SetPosition(position);
-
-        m_loaded_entities.push_back(new_entity.id);
-    }
-    */
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;

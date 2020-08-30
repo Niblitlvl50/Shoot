@@ -55,6 +55,11 @@ namespace editor
         int active_tool_index = 0;
 
         std::unordered_map<std::string, UIIcon> ui_icons;
+
+        // Level metadata
+        bool draw_level_metadata = true;
+        math::Vector camera_position;
+        math::Vector camera_size;
         
         // Objects
         bool draw_outline = false;
@@ -88,18 +93,18 @@ namespace editor
         std::function<void ()> delete_callback;
         
         std::function<void (uint32_t component_hash)> add_component;
-        std::function<void (uint32_t index)> delete_component;
-        std::function<void (IObjectProxy*)> select_object_callback;
-        std::function<void (IObjectProxy*)> preselect_object_callback;
-        std::function<void (IObjectProxy*)> teleport_to_object_callback;
+        std::function<void (uint32_t component_index)> delete_component;
+        std::function<void (IObjectProxy* proxy)> select_object_callback;
+        std::function<void (IObjectProxy* proxy)> preselect_object_callback;
+        std::function<void (IObjectProxy* proxy)> teleport_to_object_callback;
         
         std::function<void (int)> context_menu_callback;
         std::function<void (int)> modal_selection_callback;
         std::function<void (EditorMenuOptions option)> editor_menu_callback;
         std::function<void (ToolsMenuOptions option)> tools_menu_callback;
 
-        std::function<void (bool)> draw_object_names_callback;
-        std::function<void (bool)> draw_snappers_callback;
-        std::function<void (const mono::Color::RGBA&)> background_color_callback;
+        std::function<void (bool new_value)> draw_object_names_callback;
+        std::function<void (bool new_value)> draw_snappers_callback;
+        std::function<void (const mono::Color::RGBA& color)> background_color_callback;
     };
 }

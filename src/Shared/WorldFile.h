@@ -20,5 +20,17 @@ namespace shared
         std::vector<math::Vector> vertices;
     };
 
-    std::vector<uint32_t> ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager);
+    struct LevelMetadata
+    {
+        math::Vector camera_position;
+        math::Vector camera_size;
+    };
+
+    struct LevelData
+    {
+        LevelMetadata metadata;
+        std::vector<uint32_t> loaded_entities;
+    };
+
+    LevelData ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager);
 }
