@@ -35,11 +35,13 @@ ComponentProxy::ComponentProxy(
     , m_transform_system(transform_system)
     , m_editor(editor)
 {
+    /*
     for(const Component& component : m_components)
     {
         entity_manager->AddComponent(entity_id, component.hash);
         entity_manager->SetComponentData(entity_id, component.hash, component.properties);
     }
+    */
 }
 
 ComponentProxy::~ComponentProxy()
@@ -171,8 +173,16 @@ math::Quad ComponentProxy::GetBoundingBox() const
 std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
 {
     const mono::Entity new_entity = m_entity_manager->CreateEntity("", {});
-    return std::make_unique<ComponentProxy>(
+    auto proxy = std::make_unique<ComponentProxy>(
         new_entity.id, Name(), m_folder, m_components, m_entity_manager, m_transform_system, m_editor);
+
+    for(const Component& component : m_components)
+    {
+        m_entity_manager->AddComponent(new_entity.id, component.hash);
+        m_entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
+    }
+
+    return proxy;
 }
 
 void ComponentProxy::Visit(IObjectVisitor& visitor)

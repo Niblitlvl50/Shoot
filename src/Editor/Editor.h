@@ -93,6 +93,9 @@ namespace editor
         bool DrawOutline() const;
         void EnableDrawOutline(bool enable);
 
+        bool DrawLevelMetadata() const;
+        void EnableDrawLevelMetadata(bool enable);
+
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
 

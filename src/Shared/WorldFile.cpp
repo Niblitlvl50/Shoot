@@ -14,7 +14,8 @@
 #include <cstring>
 
 
-shared::LevelData shared::ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager)
+shared::LevelData shared::ReadWorldComponentObjects(
+    const char* file_name, IEntityManager* entity_manager, EntityCreationCallback callback)
 {
     LevelData level_data;
 
@@ -36,6 +37,7 @@ shared::LevelData shared::ReadWorldComponentObjects(const char* file_name, IEnti
     for(const auto& json_entity : entities)
     {
         const std::string& entity_name = json_entity["name"];
+        const std::string& entity_folder = json_entity.value("folder", ""); 
         const uint32_t entity_properties = json_entity["entity_properties"];
 
         mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
@@ -57,8 +59,6 @@ shared::LevelData shared::ReadWorldComponentObjects(const char* file_name, IEnti
             components.push_back(std::move(component));
         }
 
-        const std::string entity_folder = json_entity.value("folder", ""); 
-
         for(const Component& component : components)
         {
             const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
@@ -68,6 +68,9 @@ shared::LevelData shared::ReadWorldComponentObjects(const char* file_name, IEnti
         }
 
         level_data.loaded_entities.push_back(new_entity.id);
+
+        if(callback)
+            callback(new_entity, entity_folder, components);
     }
 
     return level_data;

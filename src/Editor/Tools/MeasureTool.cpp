@@ -44,7 +44,7 @@ public:
 
         char text_buffer[512] = { 0 };
         std::sprintf(text_buffer, "%.2f", radius);
-        renderer.DrawText(FontId::SMALL, text_buffer, m_start_position - math::Vector(0.0f, 0.5f), true, mono::Color::BLUE);
+        renderer.DrawText(FontId::PIXELETTE_SMALL, text_buffer, m_start_position - math::Vector(0.0f, 0.5f), true, mono::Color::BLUE);
     }
 
     math::Quad BoundingBox() const override

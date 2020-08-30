@@ -5,9 +5,10 @@ namespace editor
 {
     enum FontId
     {
-        SMALL,
-        MEDIUM,
-        LARGE,
-        EXTRA_LARGE
+        PIXELETTE_TINY,
+        PIXELETTE_SMALL,
+        PIXELETTE_MEDIUM,
+        PIXELETTE_LARGE,
+        PIXELETTE_MEGA
     };
 }

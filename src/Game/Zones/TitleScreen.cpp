@@ -92,9 +92,8 @@ mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
 
 void TitleScreen::OnLoad(mono::ICamera* camera)
 {
-    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager);
-    const math::Quad viewport(
-        leveldata.metadata.camera_position, leveldata.metadata.camera_position + leveldata.metadata.camera_size);
+    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager, nullptr);
+    const math::Quad viewport(leveldata.metadata.camera_position, leveldata.metadata.camera_size);
 
     camera->SetViewport(viewport);
     m_loaded_entities = leveldata.loaded_entities;

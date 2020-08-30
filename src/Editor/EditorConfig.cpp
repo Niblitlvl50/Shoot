@@ -16,6 +16,7 @@ namespace
     constexpr const char* draw_object_names_key = "draw_object_names";
     constexpr const char* draw_snappers_key = "draw_snappers";
     constexpr const char* draw_outline_key = "draw_outline";
+    constexpr const char* draw_level_metadata_key = "draw_level_metadata";
     constexpr const char* background_color_key = "background_color";
     constexpr const char* snap_to_grid_key = "snap_to_grid";
     constexpr const char* grid_size_key = "grid_size";
@@ -25,16 +26,17 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
 {
     nlohmann::json json;
 
-    json[camera_position_key]   = config.camera_position;
-    json[camera_viewport_key]   = config.camera_viewport;
-    json[window_position_key]   = config.window_position;
-    json[window_size_key]       = config.window_size;
-    json[draw_object_names_key] = config.draw_object_names;
-    json[draw_snappers_key]     = config.draw_snappers;
-    json[background_color_key]  = config.background_color;
-    json[draw_outline_key]      = config.draw_outline;
-    json[snap_to_grid_key]      = config.snap_to_grid;
-    json[grid_size_key]         = config.grid_size;
+    json[camera_position_key]       = config.camera_position;
+    json[camera_viewport_key]       = config.camera_viewport;
+    json[window_position_key]       = config.window_position;
+    json[window_size_key]           = config.window_size;
+    json[draw_object_names_key]     = config.draw_object_names;
+    json[draw_snappers_key]         = config.draw_snappers;
+    json[background_color_key]      = config.background_color;
+    json[draw_outline_key]          = config.draw_outline;
+    json[draw_level_metadata_key]   = config.draw_metadata;
+    json[snap_to_grid_key]          = config.snap_to_grid;
+    json[grid_size_key]             = config.grid_size;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -63,6 +65,7 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     config.draw_snappers        = json.value(draw_snappers_key, config.draw_snappers);
     config.background_color     = json.value(background_color_key, config.background_color);
     config.draw_outline         = json.value(draw_outline_key, config.draw_outline);
+    config.draw_metadata        = json.value(draw_level_metadata_key, config.draw_metadata);
     config.snap_to_grid         = json.value(snap_to_grid_key, config.snap_to_grid);
     config.grid_size            = json.value(grid_size_key, config.grid_size);
 

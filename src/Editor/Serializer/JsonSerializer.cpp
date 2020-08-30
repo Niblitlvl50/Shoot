@@ -23,9 +23,14 @@
 
 using namespace editor;
 
-void JsonSerializer::WriteComponentEntities(const std::string& file_path) const
+void JsonSerializer::WriteComponentEntities(const std::string& file_path, const shared::LevelMetadata& level_metadata) const
 {
+    nlohmann::json json_metadata;
+    json_metadata["camera_position"] = level_metadata.camera_position;
+    json_metadata["camera_size"] = level_metadata.camera_size;
+
     nlohmann::json json;
+    json["metadata"] = json_metadata;
     json["entities"] = m_json_entities_components;
 
     const std::string& serialized_json = json.dump(4);

@@ -1,14 +1,4 @@
 {
-    "metadata": {
-        "camera_position": {
-            "x": 0.0,
-            "y": 0.0
-        },
-        "camera_size": {
-            "x": 14.0,
-            "y": 23.0
-        }
-    },
     "entities": [
         {
             "components": [
@@ -231,7 +221,7 @@
                             "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 8.0,
+                                "x": 6.0,
                                 "y": 5.0
                             }
                         },
@@ -306,7 +296,7 @@
                             "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 12.0,
+                                "x": 9.5,
                                 "y": 5.0
                             }
                         },
@@ -381,7 +371,7 @@
                             "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 1.0,
+                                "x": 1.5,
                                 "y": 6.0
                             }
                         },
@@ -444,7 +434,7 @@
                             "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 11.0,
+                                "x": 9.0,
                                 "y": 6.0
                             }
                         },
@@ -464,7 +454,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 2,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 3185987134,
@@ -496,5 +486,15 @@
             "folder": "",
             "name": "slash"
         }
-    ]
+    ],
+    "metadata": {
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 14.0,
+            "y": 23.0
+        }
+    }
 }

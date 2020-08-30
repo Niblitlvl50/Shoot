@@ -4,8 +4,15 @@
 #include "Math/Vector.h"
 #include <vector>
 #include <cstdint>
+#include <functional>
 
 class IEntityManager;
+struct Component;
+
+namespace mono
+{
+    struct Entity;
+}
 
 namespace shared
 {
@@ -32,5 +39,7 @@ namespace shared
         std::vector<uint32_t> loaded_entities;
     };
 
-    LevelData ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager);
+    using EntityCreationCallback
+        = std::function<void (const mono::Entity& entity, const std::string& folder, const std::vector<Component>& components)>;
+    LevelData ReadWorldComponentObjects(const char* file_name, IEntityManager* entity_manager, EntityCreationCallback callback);
 }

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ObjectProxies/IObjectVisitor.h"
+#include "WorldFile.h"
 
 #include "nlohmann/json.hpp"
 
@@ -14,7 +15,7 @@ namespace editor
     {
     public:
 
-        void WriteComponentEntities(const std::string& file_path) const;
+        void WriteComponentEntities(const std::string& file_path, const shared::LevelMetadata& level_metadata) const;
         void WritePathFile(const std::string& file_path) const;
         void WritePolygons(const std::string& file_path) const;
 

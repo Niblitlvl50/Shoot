@@ -90,11 +90,10 @@ SystemTestZone::~SystemTestZone()
 
 void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
-    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager);
+    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager, nullptr);
     m_loaded_entities = leveldata.loaded_entities;
 
-    const math::Quad viewport(
-        leveldata.metadata.camera_position, leveldata.metadata.camera_position + leveldata.metadata.camera_size);
+    const math::Quad viewport(leveldata.metadata.camera_position, leveldata.metadata.camera_size);
 
     camera->SetViewport(viewport);
     //camera->SetViewport(math::Quad(0, 0, 9, 16));

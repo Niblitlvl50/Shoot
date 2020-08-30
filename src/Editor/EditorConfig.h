@@ -17,6 +17,7 @@ namespace editor
         bool draw_object_names = false;
         bool draw_snappers = false;
         bool draw_outline = false;
+        bool draw_metadata = false;
         mono::Color::RGBA background_color = mono::Color::RGBA(0.07f, 0.07f, 0.07f, 1.0f);
 
         bool snap_to_grid = false;

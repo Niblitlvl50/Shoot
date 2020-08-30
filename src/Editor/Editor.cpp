@@ -169,6 +169,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     EnableDrawObjectNames(m_editor_config.draw_object_names);
     EnableDrawSnappers(m_editor_config.draw_snappers);
     EnableDrawOutline(m_editor_config.draw_outline);
+    EnableDrawLevelMetadata(m_editor_config.draw_metadata);
     SetBackgroundColor(m_editor_config.background_color);
     EnableSnapToGrid(m_editor_config.snap_to_grid);
     camera->SetPosition(m_editor_config.camera_position);
@@ -212,13 +213,18 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
-    m_proxies = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);
+    editor::World world = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);
+    m_proxies = std::move(world.loaded_proxies);
+
     for(IObjectProxyPtr& proxy : m_proxies)
     {
         auto entity = proxy->Entity();
         if(entity)
             AddEntity(entity, RenderLayer::OBJECTS);
     }
+
+    m_context.camera_position = world.leveldata.metadata.camera_position;
+    m_context.camera_size = world.leveldata.metadata.camera_size;
 
     UpdateSnappers();
 }
@@ -239,6 +245,7 @@ int Editor::OnUnload()
     m_editor_config.draw_object_names = DrawObjectNames();
     m_editor_config.draw_snappers = DrawSnappers();
     m_editor_config.draw_outline = DrawOutline();
+    m_editor_config.draw_metadata = DrawLevelMetadata();
     m_editor_config.background_color = BackgroundColor();
     m_editor_config.snap_to_grid = SnapToGrid();
     m_editor_config.grid_size = m_context.grid_size;
@@ -249,7 +256,11 @@ int Editor::OnUnload()
 
 void Editor::Save()
 {
-    SaveWorld(m_world_filename, m_proxies);
+    shared::LevelMetadata metadata;
+    metadata.camera_position = m_context.camera_position;
+    metadata.camera_size = m_context.camera_size;
+
+    SaveWorld(m_world_filename, m_proxies, metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }
 
@@ -264,7 +275,9 @@ void Editor::ExportEntity()
 
     editor::JsonSerializer serializer;
     proxy->Visit(serializer);
-    serializer.WriteComponentEntities(filename);
+
+    shared::LevelMetadata metadata;
+    serializer.WriteComponentEntities(filename, metadata);
 
     editor::AddNewEntity(filename.c_str());
     m_context.notifications.emplace_back(export_texture, "Exported entity...", 2000);
@@ -664,6 +677,16 @@ void Editor::EnableDrawOutline(bool enable)
     m_context.draw_outline = enable;
 }
 
+bool Editor::DrawLevelMetadata() const
+{
+    return m_context.draw_level_metadata;
+}
+
+void Editor::EnableDrawLevelMetadata(bool enable)
+{
+    m_context.draw_level_metadata = enable;
+}
+
 const mono::Color::RGBA& Editor::BackgroundColor() const
 {
     return m_context.background_color;
@@ -733,7 +756,9 @@ void Editor::ReExportEntities()
 
             editor::JsonSerializer serializer;
             proxy->Visit(serializer);
-            serializer.WriteComponentEntities(filename);
+
+            shared::LevelMetadata metadata;
+            serializer.WriteComponentEntities(filename, metadata);
         }
     }
 }
