@@ -23,7 +23,7 @@ const std::array<DefaultAttribute, 40> default_attributes = {{
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
     DefaultAttribute("size",                Variant(math::Vector(1.0f, 1.0f))),
-    DefaultAttribute("time_stamp",          Variant(5)),
+    DefaultAttribute("time_stamp",          Variant(1000)),
     DefaultAttribute("spawn_tag",           Variant("")),
     DefaultAttribute("path_file",           Variant("")),
     DefaultAttribute("trigger_radius",      Variant(1.0f)),

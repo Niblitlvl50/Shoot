@@ -8,14 +8,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 20.0,
-                                "y": 3.0
+                                "x": 17.0,
+                                "y": 11.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -27,16 +29,19 @@
                     "properties": [
                         {
                             "id": 3902434344,
+                            "name": "font_id",
                             "variant_type": 2,
                             "variant_value": 1
                         },
                         {
                             "id": 3185987134,
+                            "name": "text",
                             "variant_type": 4,
                             "variant_value": "...Dont die!"
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -47,6 +52,7 @@
                         },
                         {
                             "id": 124392387,
+                            "name": "text_shadow",
                             "variant_type": 1,
                             "variant_value": true
                         }
@@ -58,16 +64,19 @@
                     "properties": [
                         {
                             "id": 2603146703,
+                            "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "move_shoot"
                         },
                         {
                             "id": 799079693,
+                            "name": "duration",
                             "variant_type": 3,
                             "variant_value": 1.5
                         },
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": -14.0,
@@ -76,6 +85,7 @@
                         },
                         {
                             "id": 1453830135,
+                            "name": "easing_func",
                             "variant_type": 2,
                             "variant_value": 2
                         }
@@ -94,14 +104,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 15.0,
-                                "y": 5.0
+                                "y": 12.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -113,16 +125,19 @@
                     "properties": [
                         {
                             "id": 3902434344,
+                            "name": "font_id",
                             "variant_type": 2,
                             "variant_value": 2
                         },
                         {
                             "id": 3185987134,
+                            "name": "text",
                             "variant_type": 4,
                             "variant_value": "Shoot, survive!"
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -133,6 +148,7 @@
                         },
                         {
                             "id": 124392387,
+                            "name": "text_shadow",
                             "variant_type": 1,
                             "variant_value": true
                         }
@@ -144,13 +160,15 @@
                     "properties": [
                         {
                             "id": 2603146703,
+                            "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "move_shoot"
                         },
                         {
                             "id": 3027259768,
+                            "name": "time_stamp",
                             "variant_type": 2,
-                            "variant_value": 500
+                            "variant_value": 1000
                         }
                     ]
                 },
@@ -160,16 +178,19 @@
                     "properties": [
                         {
                             "id": 2603146703,
+                            "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "move_shoot"
                         },
                         {
                             "id": 799079693,
+                            "name": "duration",
                             "variant_type": 3,
                             "variant_value": 1.0
                         },
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": -14.0,
@@ -178,6 +199,7 @@
                         },
                         {
                             "id": 1453830135,
+                            "name": "easing_func",
                             "variant_type": 2,
                             "variant_value": 2
                         }
@@ -196,14 +218,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 8.0,
-                                "y": -1.0
+                                "y": 5.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -215,16 +239,19 @@
                     "properties": [
                         {
                             "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 4,
                             "variant_value": "xbox_one_a.sprite"
                         },
                         {
                             "id": 3779456605,
+                            "name": "animation",
                             "variant_type": 2,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -235,16 +262,19 @@
                         },
                         {
                             "id": 2313652925,
+                            "name": "flip_vertical",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
+                            "name": "flip_horizontal",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 2565644130,
+                            "name": "sprite_layer",
                             "variant_type": 2,
                             "variant_value": 0
                         }
@@ -263,14 +293,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 12.0,
-                                "y": -1.0
+                                "y": 5.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -282,16 +314,19 @@
                     "properties": [
                         {
                             "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 4,
                             "variant_value": "ps_cross.sprite"
                         },
                         {
                             "id": 3779456605,
+                            "name": "animation",
                             "variant_type": 2,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -302,16 +337,19 @@
                         },
                         {
                             "id": 2313652925,
+                            "name": "flip_vertical",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
+                            "name": "flip_horizontal",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 2565644130,
+                            "name": "sprite_layer",
                             "variant_type": 2,
                             "variant_value": 0
                         }
@@ -330,14 +368,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 1.0,
-                                "y": 0.0
+                                "y": 6.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -349,16 +389,19 @@
                     "properties": [
                         {
                             "id": 3902434344,
+                            "name": "font_id",
                             "variant_type": 2,
                             "variant_value": 1
                         },
                         {
                             "id": 3185987134,
+                            "name": "text",
                             "variant_type": 4,
                             "variant_value": "Hit enter, or"
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -369,6 +412,7 @@
                         },
                         {
                             "id": 124392387,
+                            "name": "text_shadow",
                             "variant_type": 1,
                             "variant_value": true
                         }
@@ -387,14 +431,16 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 11.0,
-                                "y": 0.0
+                                "y": 6.0
                             }
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
                         }
@@ -406,16 +452,19 @@
                     "properties": [
                         {
                             "id": 3902434344,
+                            "name": "font_id",
                             "variant_type": 2,
                             "variant_value": 1
                         },
                         {
                             "id": 3185987134,
+                            "name": "text",
                             "variant_type": 4,
                             "variant_value": "/"
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -426,6 +475,7 @@
                         },
                         {
                             "id": 124392387,
+                            "name": "text_shadow",
                             "variant_type": 1,
                             "variant_value": true
                         }

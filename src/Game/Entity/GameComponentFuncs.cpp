@@ -354,7 +354,7 @@ namespace
         if(!found_trigger_name)
             return false;
 
-        float timeout_ms;
+        int timeout_ms;
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();

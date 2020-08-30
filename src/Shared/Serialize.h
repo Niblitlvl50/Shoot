@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ObjectAttribute.h"
+#include "Component.h"
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
 #include "nlohmann/json.hpp"
@@ -9,6 +10,7 @@
 inline void to_json(nlohmann::json& json, const Attribute& attribute)
 {
     json["id"] = attribute.id;
+    json["name"] = AttributeNameFromHash(attribute.id);
     json["variant_type"] = attribute.attribute.type;
 
     switch(attribute.attribute.type)
