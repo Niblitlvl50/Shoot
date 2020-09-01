@@ -445,13 +445,15 @@ namespace
         math::Vector translation;
         float duration;
         int ease_func_index;
+        int animation_mode;
         FindAttribute(POSITION_ATTRIBUTE, properties, translation, FallbackMode::SET_DEFAULT);
         FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
+        FindAttribute(ANIMATION_TYPE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddTranslationComponent(
-            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], translation);
+            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), translation);
 
         return true;
     }
@@ -481,13 +483,15 @@ namespace
         float rotation;
         float duration;
         int ease_func_index;
+        int animation_mode;
         FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
         FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
+        FindAttribute(ANIMATION_TYPE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddRotationComponent(
-            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], rotation);
+            entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), rotation);
 
         return true;
     }

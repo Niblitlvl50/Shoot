@@ -62,7 +62,9 @@ void ModificationSystem::AddAnimationComponent(uint32_t container_id, uint32_t t
     type->duration_counter = 0.0f;
     type->ease_function = math::EaseInOutCubic;
     type->is_initialized = true;
+    type->animation_mode = shared::AnimationMode::DEFAULT;
     type->type = ModificationType::Type::ANIMATION;
+
     type->animation_index = animation_index;
 
     const TriggerCallback callback = [this, type](uint32_t trigger_id, TriggerState state) {
@@ -76,7 +78,7 @@ void ModificationSystem::AddAnimationComponent(uint32_t container_id, uint32_t t
 }
 
 void ModificationSystem::AddTranslationComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, const math::Vector& translation_delta)
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta)
 {
     if(!IsContainerAllocated(container_id))
         AllocateContainer(container_id);
@@ -88,11 +90,11 @@ void ModificationSystem::AddTranslationComponent(
     type->duration_counter = 0.0f;
     type->ease_function = func;
     type->is_initialized = false;
+    type->animation_mode = mode;
     type->type = ModificationType::Type::TRANSLATION;
     
     type->translation.delta_x = translation_delta.x;
     type->translation.delta_y = translation_delta.y;
-    type->translation.ping_pong = false;
 
     const TriggerCallback callback = [this, type](uint32_t trigger_hash, TriggerState state) {
         m_active_modifications.push_back(type);
@@ -105,7 +107,7 @@ void ModificationSystem::AddTranslationComponent(
 }
 
 void ModificationSystem::AddRotationComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, float rotation_delta)
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta)
 {
     if(!IsContainerAllocated(container_id))
         AllocateContainer(container_id);
@@ -117,6 +119,7 @@ void ModificationSystem::AddRotationComponent(
     type->duration_counter = 0.0f;
     type->ease_function = func;
     type->is_initialized = false;
+    type->animation_mode = mode;
     type->type = ModificationType::Type::ROTATION;
 
     type->rotation.delta_rotation = rotation_delta;
@@ -210,7 +213,27 @@ void ModificationSystem::Update(const mono::UpdateContext& update_context)
     }
 
     const auto remove_if_done = [](ModificationType* type) {
-        return (type->duration - type->duration_counter) <= 0.0f;
+        
+        const bool is_done = (type->duration - type->duration_counter) <= 0.0f;
+        if(is_done && type->animation_mode == shared::AnimationMode::PING_PONG)
+        {
+            type->is_initialized = false;
+            type->duration_counter = 0.0f;
+            
+            if(type->type == ModificationType::Type::ROTATION)
+            {
+                type->rotation.delta_rotation = -type->rotation.delta_rotation;
+            }
+            else if(type->type == ModificationType::Type::TRANSLATION)
+            {
+                type->translation.delta_x = -type->translation.delta_x;
+                type->translation.delta_y = -type->translation.delta_y;
+            }
+
+            return false;
+        }
+
+        return is_done;
     };
     mono::remove_if(m_active_modifications, remove_if_done);
 }

@@ -200,12 +200,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::AnimationTypeToString(shared::AnimationType(idx));
+            (*out_text) = shared::AnimationModeToString(shared::AnimationMode(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::animation_type_items));
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::animation_mode_items));
     }
     else if(attribute.id == FONT_ID_ATTRIBUTE)
     {

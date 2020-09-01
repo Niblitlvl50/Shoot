@@ -69,6 +69,12 @@
                             "variant_value": "move_shoot"
                         },
                         {
+                            "id": 3985364630,
+                            "name": "animation_type",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
@@ -183,6 +189,12 @@
                             "variant_value": "move_shoot"
                         },
                         {
+                            "id": 3985364630,
+                            "name": "animation_type",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
@@ -277,6 +289,60 @@
                             "name": "sprite_layer",
                             "variant_type": 2,
                             "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2130936338,
+                    "name": "set_rotation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 4,
+                            "variant_value": "rotate!"
+                        },
+                        {
+                            "id": 3985364630,
+                            "name": "animation_type",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 3.140000104904175
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        }
+                    ]
+                },
+                {
+                    "hash": 1848570119,
+                    "name": "time_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 4,
+                            "variant_value": "rotate!"
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 2,
+                            "variant_value": 1000
                         }
                     ]
                 }

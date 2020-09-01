@@ -5,21 +5,21 @@
 
 namespace shared
 {
-    enum class AnimationType : uint32_t
+    enum class AnimationMode : uint32_t
     {
         DEFAULT,
         PING_PONG,
         NEVER_ENDING,
     };
 
-    constexpr const char* animation_type_items[] = {
+    constexpr const char* animation_mode_items[] = {
         "Default",
         "Ping Pong",
         "Never Ending",
     };
 
-    inline const char* AnimationTypeToString(AnimationType animation_type)
+    inline const char* AnimationModeToString(AnimationMode animation_mode)
     {
-        return animation_type_items[static_cast<uint32_t>(animation_type)];
+        return animation_mode_items[static_cast<uint32_t>(animation_mode)];
     }
 }

@@ -7,6 +7,8 @@
 #include "Math/Vector.h"
 #include "Math/EasingFunctions.h"
 
+#include "AnimationTypes.h"
+
 #include <vector>
 
 namespace game
@@ -17,7 +19,6 @@ namespace game
        float start_y;
        float delta_x;
        float delta_y;
-       bool ping_pong;
    };
 
    struct RotationComponent
@@ -36,6 +37,7 @@ namespace game
         float duration_counter;
 
         math::EaseFunction ease_function;
+        shared::AnimationMode animation_mode;
 
         bool is_initialized;
 
@@ -73,8 +75,10 @@ namespace game
         bool IsContainerAllocated(uint32_t id);
 
         void AddAnimationComponent(uint32_t container_id, uint32_t trigger_hash, uint32_t animation_index);
-        void AddTranslationComponent(uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, const math::Vector& translation_delta);
-        void AddRotationComponent(uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, float rotation_delta);
+        void AddTranslationComponent(
+            uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta);
+        void AddRotationComponent(
+            uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta);
 
         uint32_t Id() const override;
         const char* Name() const override;
