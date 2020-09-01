@@ -27,8 +27,8 @@ extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
 extern const uint32_t FACTION_PICKER_ATTRIBUTE;
-extern const uint32_t WIDTH_ATTRIBUTE_unused;
-extern const uint32_t HEIGHT_ATTRIBUTE_unused;
+extern const uint32_t UNUSED_1;
+extern const uint32_t UNUSED_2;
 extern const uint32_t START_ATTRIBUTE;
 extern const uint32_t END_ATTRIBUTE;
 extern const uint32_t SENSOR_ATTRIBUTE;
@@ -55,6 +55,8 @@ extern const uint32_t N_ENTITIES_ATTRIBUTE;
 extern const uint32_t FONT_ID_ATTRIBUTE;
 extern const uint32_t TEXT_ATTRIBUTE;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
+
+extern const uint32_t ANIMATION_TYPE_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

@@ -10,6 +10,8 @@
 #include "PickupTypes.h"
 #include "Math/EasingFunctions.h"
 #include "TriggerTypes.h"
+#include "AnimationTypes.h"
+#include "FontIds.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -193,6 +195,28 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
+    }
+    else if(attribute.id == ANIMATION_TYPE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::AnimationTypeToString(shared::AnimationType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::animation_type_items));
+    }
+    else if(attribute.id == FONT_ID_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::FontIdToString(shared::FontId(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::font_id_strings));
     }
     else
     {

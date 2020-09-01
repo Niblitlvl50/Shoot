@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 40> default_attributes = {{
+const std::array<DefaultAttribute, 41> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -39,8 +39,8 @@ const std::array<DefaultAttribute, 40> default_attributes = {{
 
     DefaultAttribute("faction",             Variant(0)),
     DefaultAttribute("faction_picker",      Variant(0)),
-    DefaultAttribute("width",               Variant(1.0f)),
-    DefaultAttribute("height",              Variant(1.0f)),
+    DefaultAttribute("UNUSED",              Variant(1.0f)),
+    DefaultAttribute("UNUSED",              Variant(1.0f)),
     DefaultAttribute("start",               Variant(math::ZeroVec)),
     DefaultAttribute("end",                 Variant(math::ZeroVec)),
     DefaultAttribute("sensor",              Variant(false)),
@@ -65,6 +65,7 @@ const std::array<DefaultAttribute, 40> default_attributes = {{
     DefaultAttribute("font_id",             Variant(0)),
     DefaultAttribute("text",                Variant("")),
     DefaultAttribute("text_shadow",         Variant(false)),
+    DefaultAttribute("animation_type",      Variant(0)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -88,8 +89,8 @@ extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[14].has
 extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[15].hash;
 extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[16].hash;
 
-extern const uint32_t WIDTH_ATTRIBUTE_unused        = default_attributes[17].hash;
-extern const uint32_t HEIGHT_ATTRIBUTE_unused       = default_attributes[18].hash;
+extern const uint32_t UNUSED_1                      = default_attributes[17].hash;
+extern const uint32_t UNUSED_2                      = default_attributes[18].hash;
 extern const uint32_t START_ATTRIBUTE               = default_attributes[19].hash;
 extern const uint32_t END_ATTRIBUTE                 = default_attributes[20].hash;
 extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[21].hash;
@@ -115,6 +116,7 @@ extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[36].has
 extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[37].hash;
 extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[38].hash;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].hash;
+extern const uint32_t ANIMATION_TYPE_ATTRIBUTE      = default_attributes[40].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -208,8 +210,8 @@ const ComponentArray default_components = {
     MakeComponent(TIME_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE } ),
     MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
-    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
-    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_TYPE_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_TYPE_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)
