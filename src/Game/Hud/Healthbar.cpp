@@ -129,7 +129,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
     const Healthbar& boss_healthbar = boss_healthbars.back();
     renderer.DrawText(
-        FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
+        shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
 }
 
 math::Quad HealthbarDrawer::BoundingBox() const

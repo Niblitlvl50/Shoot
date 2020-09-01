@@ -51,15 +51,15 @@ PlayerUIElement::PlayerUIElement(
     m_frame_sprite->SetPosition(math::Vector(54.0f, 10.0f));
     m_frame_sprite->SetScale(math::Vector(55.0f, 10.0f));
 
-    m_ammo_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
+    m_ammo_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
     m_ammo_text->SetPosition(math::Vector(41.0f, 8.5f));
     m_ammo_text->SetScale(math::Vector(6.0f, 6.0f));
 
-    m_weapon_state_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
+    m_weapon_state_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
     m_weapon_state_text->SetPosition(math::Vector(81.0f, 8.5f));
     m_weapon_state_text->SetScale(math::Vector(6.0f, 6.0f));
 
-    m_score_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "", false, mono::Color::BLUE);
+    m_score_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::BLUE);
     m_score_text->SetPosition(math::Vector(5.0f, 290.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 

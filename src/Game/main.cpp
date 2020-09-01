@@ -126,11 +126,11 @@ int main(int argc, char* argv[])
         const System::WindowOptions window_options = System::WindowOptions::NONE;
         System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, window_options);
         
-        mono::LoadFont(game::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
-        mono::LoadFont(game::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
-        mono::LoadFont(game::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
-        mono::LoadFont(game::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
-        mono::LoadFont(game::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
+        mono::LoadFont(shared::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
 
         mono::EventHandler event_handler;
         mono::SystemContext system_context;

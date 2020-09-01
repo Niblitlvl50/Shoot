@@ -75,7 +75,7 @@ void editor::DrawTriggerComponentDetails(
 {
     const char* name = nullptr;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -88,7 +88,7 @@ void editor::DrawAreaTriggerComponentDetails(
 
     const char* name = nullptr;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(FontId::PIXELETTE_SMALL, name, position + width_height / 2.0f, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position + width_height / 2.0f, true, mono::Color::BLUE);
 }
 
 void editor::DrawSetTranslationDetails(

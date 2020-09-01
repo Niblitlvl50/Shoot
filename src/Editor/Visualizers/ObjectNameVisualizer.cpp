@@ -22,7 +22,7 @@ void ObjectNameVisualizer::Draw(mono::IRenderer& renderer) const
     {
         constexpr math::Vector offset(0.0f, -1.0f);
         constexpr mono::Color::RGBA color;
-        renderer.DrawText(FontId::PIXELETTE_SMALL, proxy->Name(), proxy->GetPosition() + offset, true, color);
+        renderer.DrawText(shared::FontId::PIXELETTE_SMALL, proxy->Name(), proxy->GetPosition() + offset, true, color);
     }
 }
 

@@ -25,7 +25,7 @@ WeaponStatusElement::WeaponStatusElement(
 {
     m_position = offscreen_position;
 
-    m_ammo_text = std::make_unique<UITextElement>(FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
+    m_ammo_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
     m_ammo_text->SetPosition(math::Vector(11.0f, -1.5f));
     m_ammo_text->SetScale(math::Vector(6.0f, 6.0f));
 

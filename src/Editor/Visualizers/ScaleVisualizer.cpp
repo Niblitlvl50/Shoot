@@ -31,7 +31,7 @@ void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
     const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
 
     renderer.DrawLines(points, black_color, 2.0f);
-    renderer.DrawText(FontId::PIXELETTE_MEGA, text, position, true, black_color);
+    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text, position, true, black_color);
 }
 
 math::Quad ScaleVisualizer::BoundingBox() const

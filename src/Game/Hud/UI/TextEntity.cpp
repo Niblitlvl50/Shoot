@@ -4,7 +4,7 @@
 
 using namespace game;
 
-TextEntity::TextEntity(const std::string& text, FontId font, bool centered)
+TextEntity::TextEntity(const std::string& text, shared::FontId font, bool centered)
     : m_text(text)
     , m_font(font)
     , m_centered(centered)

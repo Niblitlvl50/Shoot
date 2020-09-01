@@ -33,9 +33,9 @@ void PhysicsStatsElement::EntityDraw(mono::IRenderer& renderer) const
     std::snprintf(text_2, 512, "circles %u segments %u polygons %u", stats.circle_shapes, stats.segment_shapes, stats.polygon_shapes);
     std::snprintf(text_3, 512, "pivots %u gears %u springs %u", stats.pivot_joints, stats.gear_joints, stats.damped_springs);
 
-    renderer.DrawText(game::PIXELETTE_MEGA, text_1, math::ZeroVec, false, m_color);
-    renderer.DrawText(game::PIXELETTE_MEGA, text_2, math::Vector(0.0f, -5.0f), false, m_color);
-    renderer.DrawText(game::PIXELETTE_MEGA, text_3, math::Vector(0.0f, -10.0f), false, m_color);
+    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_1, math::ZeroVec, false, m_color);
+    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_2, math::Vector(0.0f, -5.0f), false, m_color);
+    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_3, math::Vector(0.0f, -10.0f), false, m_color);
 }
 
 void PhysicsStatsElement::EntityUpdate(const mono::UpdateContext& update_context)

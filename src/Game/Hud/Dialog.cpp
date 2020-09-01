@@ -26,7 +26,7 @@ UIDialog::UIDialog(
     const mono::Color::RGBA& background_color,
     const mono::Color::RGBA& text_color)
 {
-    constexpr int font_id = FontId::PIXELETTE_SMALL;
+    constexpr int font_id = shared::FontId::PIXELETTE_SMALL;
     constexpr math::Vector padding(0.5f, 0.5f);
     constexpr float option_spacing = 0.3f;
 

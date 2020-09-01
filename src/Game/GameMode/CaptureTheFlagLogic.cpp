@@ -11,8 +11,6 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 
-#include "FontIds.h"
-
 #include "Entity/IEntityManager.h"
 
 #include <iostream>

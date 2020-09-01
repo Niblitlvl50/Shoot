@@ -55,11 +55,11 @@ int main(int argc, const char* argv[])
         System::IWindow* window = System::CreateWindow(
             "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::NONE);
 
-        mono::LoadFont(editor::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
-        mono::LoadFont(editor::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
-        mono::LoadFont(editor::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
-        mono::LoadFont(editor::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
-        mono::LoadFont(editor::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
+        mono::LoadFont(shared::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
+        mono::LoadFont(shared::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
 
         auto editor = std::make_unique<editor::Editor>(window, entity_manager, event_handler, system_context, config, file_name);
         mono::Engine(window, &system_context, &event_handler).Run(editor.get());
