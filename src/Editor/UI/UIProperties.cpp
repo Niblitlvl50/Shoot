@@ -10,7 +10,7 @@
 #include "PickupTypes.h"
 #include "Math/EasingFunctions.h"
 #include "TriggerTypes.h"
-#include "AnimationTypes.h"
+#include "AnimationModes.h"
 #include "FontIds.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"

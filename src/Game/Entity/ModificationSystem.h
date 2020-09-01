@@ -7,7 +7,7 @@
 #include "Math/Vector.h"
 #include "Math/EasingFunctions.h"
 
-#include "AnimationTypes.h"
+#include "AnimationModes.h"
 
 #include <vector>
 
