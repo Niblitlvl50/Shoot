@@ -37,7 +37,7 @@ namespace game
         float duration_counter;
 
         math::EaseFunction ease_function;
-        shared::AnimationMode animation_mode;
+        shared::AnimationMode animation_flags;
 
         bool is_initialized;
 

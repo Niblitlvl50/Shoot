@@ -449,7 +449,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, translation, FallbackMode::SET_DEFAULT);
         FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
-        FindAttribute(ANIMATION_TYPE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
+        FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddTranslationComponent(
@@ -487,7 +487,7 @@ namespace
         FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
         FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
-        FindAttribute(ANIMATION_TYPE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
+        FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
         game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
         modification_system->AddRotationComponent(

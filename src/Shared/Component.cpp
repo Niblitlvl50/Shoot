@@ -65,7 +65,7 @@ const std::array<DefaultAttribute, 41> default_attributes = {{
     DefaultAttribute("font_id",             Variant(0)),
     DefaultAttribute("text",                Variant("")),
     DefaultAttribute("text_shadow",         Variant(false)),
-    DefaultAttribute("animation_type",      Variant(0)),
+    DefaultAttribute("animation_mode",      Variant(0)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -116,7 +116,7 @@ extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[36].has
 extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[37].hash;
 extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[38].hash;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].hash;
-extern const uint32_t ANIMATION_TYPE_ATTRIBUTE      = default_attributes[40].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[40].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -210,8 +210,8 @@ const ComponentArray default_components = {
     MakeComponent(TIME_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE } ),
     MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
-    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_TYPE_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
-    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_TYPE_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

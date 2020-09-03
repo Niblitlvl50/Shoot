@@ -56,7 +56,7 @@ extern const uint32_t FONT_ID_ATTRIBUTE;
 extern const uint32_t TEXT_ATTRIBUTE;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
 
-extern const uint32_t ANIMATION_TYPE_ATTRIBUTE;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

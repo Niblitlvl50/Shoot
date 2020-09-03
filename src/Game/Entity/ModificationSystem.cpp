@@ -62,7 +62,7 @@ void ModificationSystem::AddAnimationComponent(uint32_t container_id, uint32_t t
     type->duration_counter = 0.0f;
     type->ease_function = math::EaseInOutCubic;
     type->is_initialized = true;
-    type->animation_mode = shared::AnimationMode::DEFAULT;
+    type->animation_flags = shared::AnimationMode(0);
     type->type = ModificationType::Type::ANIMATION;
 
     type->animation_index = animation_index;
@@ -90,17 +90,24 @@ void ModificationSystem::AddTranslationComponent(
     type->duration_counter = 0.0f;
     type->ease_function = func;
     type->is_initialized = false;
-    type->animation_mode = mode;
+    type->animation_flags = mode;
     type->type = ModificationType::Type::TRANSLATION;
+    type->callback_id = NO_CALLBACK_SET;
     
     type->translation.delta_x = translation_delta.x;
     type->translation.delta_y = translation_delta.y;
 
-    const TriggerCallback callback = [this, type](uint32_t trigger_hash, TriggerState state) {
+    if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
+    {
+        const TriggerCallback callback = [this, type](uint32_t trigger_id, TriggerState state) {
+            m_active_modifications.push_back(type);
+        };
+        type->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+    }
+    else
+    {
         m_active_modifications.push_back(type);
-    };
-
-    type->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+    }
 
     ModificationContainer& container = m_containers[container_id];
     container.modifications.push_back(type);
@@ -119,15 +126,23 @@ void ModificationSystem::AddRotationComponent(
     type->duration_counter = 0.0f;
     type->ease_function = func;
     type->is_initialized = false;
-    type->animation_mode = mode;
+    type->animation_flags = mode;
     type->type = ModificationType::Type::ROTATION;
+    type->callback_id = NO_CALLBACK_SET;
 
     type->rotation.delta_rotation = rotation_delta;
 
-    const TriggerCallback callback = [this, type](uint32_t trigger_id, TriggerState state) {
+    if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
+    {
+        const TriggerCallback callback = [this, type](uint32_t trigger_id, TriggerState state) {
+            m_active_modifications.push_back(type);
+        };
+        type->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+    }
+    else
+    {
         m_active_modifications.push_back(type);
-    };
-    type->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+    }
 
     ModificationContainer& container = m_containers[container_id];
     container.modifications.push_back(type);
@@ -212,10 +227,10 @@ void ModificationSystem::Update(const mono::UpdateContext& update_context)
         type->duration_counter += (float(update_context.delta_ms) / 1000.0f);
     }
 
-    const auto remove_if_done = [](ModificationType* type) {
-        
+    const auto remove_if_done = [](ModificationType* type)
+    {
         const bool is_done = (type->duration - type->duration_counter) <= 0.0f;
-        if(is_done && type->animation_mode == shared::AnimationMode::PING_PONG)
+        if(is_done && (type->animation_flags & shared::AnimationMode::PING_PONG))
         {
             type->is_initialized = false;
             type->duration_counter = 0.0f;
@@ -235,5 +250,6 @@ void ModificationSystem::Update(const mono::UpdateContext& update_context)
 
         return is_done;
     };
+
     mono::remove_if(m_active_modifications, remove_if_done);
 }
