@@ -25,26 +25,20 @@ namespace game
         EXIT
     };
 
-    struct TriggerComponent
-    {
-        uint32_t death_trigger_id;
-        uint32_t area_trigger_id;
-        uint32_t time_trigger_id;
-        std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
-    };
-
-    struct ShapeTrigger
+    struct ShapeTriggerComponent
     {
         uint32_t trigger_hash;
         uint32_t collision_mask;
+        std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
 
-    struct DeathTrigger
+    struct DeathTriggerComponent
     {
         uint32_t trigger_hash;
+        uint32_t death_trigger_id;
     };
 
-    struct AreaEntityTrigger
+    struct AreaEntityTriggerComponent
     {
         uint32_t entity_id;
         uint32_t trigger_hash;
@@ -54,11 +48,12 @@ namespace game
         shared::AreaTriggerOperation operation;
     };
 
-    struct TimeTrigger
+    struct TimeTriggerComponent
     {
         uint32_t entity_id;
         uint32_t trigger_hash;
         float timeout_ms;
+        uint32_t time_trigger_id;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
@@ -69,12 +64,20 @@ namespace game
 
         TriggerSystem(size_t n_triggers, class DamageSystem* damage_system, mono::PhysicsSystem* physics_system);
 
-        TriggerComponent* AllocateTrigger(uint32_t entity_id);
-        void ReleaseTrigger(uint32_t entity_id);
-
+        ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
+        void ReleaseShapeTrigger(uint32_t entity_id);
         void AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask);
+
+        DeathTriggerComponent* AllocateDeathTrigger(uint32_t entity_id);
+        void ReleaseDeathTrigger(uint32_t entity_id);
         void AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash);
+
+        AreaEntityTriggerComponent* AllocateAreaTrigger(uint32_t entity_id);
+        void ReleaseAreaTrigger(uint32_t entity_id);
         void AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities);
+
+        TimeTriggerComponent* AllocateTimeTrigger(uint32_t entity_id);
+        void ReleaseTimeTrigger(uint32_t entity_id);
         void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
@@ -92,21 +95,24 @@ namespace game
         void UpdateAreaEntityTriggers(const mono::UpdateContext& update_context);
         void UpdateTimeTriggers(const mono::UpdateContext& update_context);
 
-        std::vector<TriggerComponent> m_triggers;
-        std::vector<bool> m_active;
-
         class DamageSystem* m_damage_system;
         mono::PhysicsSystem* m_physics_system;
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
 
-        mono::ObjectPool<AreaEntityTrigger> m_area_triggers;
-        std::vector<AreaEntityTrigger*> m_active_area_triggers;
+        std::vector<ShapeTriggerComponent> m_shape_triggers;
+        std::vector<bool> m_active_shape_triggers;
+
+        std::vector<DeathTriggerComponent> m_death_triggers;
+        std::vector<bool> m_active_death_triggers;
+
+        std::vector<AreaEntityTriggerComponent> m_area_triggers;
+        std::vector<bool> m_active_area_triggers;
         uint32_t m_area_trigger_timer;
 
-        mono::ObjectPool<TimeTrigger> m_time_triggers;
-        std::vector<TimeTrigger*> m_active_time_triggers;
+        std::vector<TimeTriggerComponent> m_time_triggers;
+        std::vector<bool> m_active_time_triggers;
 
         struct EmitData
         {

@@ -245,12 +245,14 @@ namespace
     bool CreateShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AllocateTrigger(entity->id);
+        trigger_system->AllocateShapeTrigger(entity->id);
         return true;
     }
     
     bool ReleaseShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseShapeTrigger(entity->id);
         return true;
     }
     
@@ -276,11 +278,15 @@ namespace
 
     bool CreateDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateDeathTrigger(entity->id);
         return true;
     }
 
     bool ReleaseDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseDeathTrigger(entity->id);
         return true;
     }
 
@@ -303,11 +309,15 @@ namespace
 
     bool CreateAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateAreaTrigger(entity->id);
         return true;
     }
 
     bool ReleaseAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseAreaTrigger(entity->id);
         return true;
     }
 
@@ -338,11 +348,15 @@ namespace
 
     bool CreateTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateTimeTrigger(entity->id);
         return true;
     }
 
     bool ReleaseTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseTimeTrigger(entity->id);
         return true;
     }
 
@@ -391,11 +405,15 @@ namespace
 
     bool CreateAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AllocateSpriteAnimation(entity->id);
         return true;
     }
 
     bool ReleaseAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->ReleaseSpriteAnimation(entity->id);
         return true;
     }
 
@@ -422,11 +440,15 @@ namespace
 
     bool CreateTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AllocateTranslationAnimation(entity->id);
         return true;
     }
 
     bool ReleaseTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->ReleaseTranslationAnimation(entity->id);
         return true;
     }
 
@@ -460,11 +482,15 @@ namespace
 
     bool CreateRotation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->AllocateRotationAnimation(entity->id);
         return true;
     }
 
     bool ReleaseRotation(mono::Entity* entity, mono::SystemContext* context)
     {
+        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
+        modification_system->ReleaseRotationAnimation(entity->id);
         return true;
     }
 

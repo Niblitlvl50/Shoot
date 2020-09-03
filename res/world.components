@@ -3522,16 +3522,16 @@
                     "name": "set_translation",
                     "properties": [
                         {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "open_door"
-                        },
-                        {
-                            "id": 3985364630,
-                            "name": "animation_type",
-                            "variant_type": 2,
-                            "variant_value": 0
                         },
                         {
                             "id": 799079693,
@@ -3843,16 +3843,16 @@
                     "name": "set_translation",
                     "properties": [
                         {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "open_door"
-                        },
-                        {
-                            "id": 3985364630,
-                            "name": "animation_type",
-                            "variant_type": 2,
-                            "variant_value": 0
                         },
                         {
                             "id": 799079693,
@@ -7548,16 +7548,16 @@
                     "name": "set_rotation",
                     "properties": [
                         {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "on_rotate"
-                        },
-                        {
-                            "id": 3985364630,
-                            "name": "animation_type",
-                            "variant_type": 2,
-                            "variant_value": 1
                         },
                         {
                             "id": 799079693,
@@ -7584,16 +7584,16 @@
                     "name": "set_translation",
                     "properties": [
                         {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 4,
                             "variant_value": "on_translate"
-                        },
-                        {
-                            "id": 3985364630,
-                            "name": "animation_type",
-                            "variant_type": 2,
-                            "variant_value": 0
                         },
                         {
                             "id": 799079693,

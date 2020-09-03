@@ -47,65 +47,52 @@ namespace
 }
 
 TriggerSystem::TriggerSystem(size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system)
-    : m_triggers(n_triggers)
-    , m_active(n_triggers, false)
-    , m_damage_system(damage_system)
+    : m_damage_system(damage_system)
     , m_physics_system(physics_system)
-    , m_area_triggers(100)
-    , m_area_trigger_timer(0)
-    , m_time_triggers(50)
-{ }
-
-TriggerComponent* TriggerSystem::AllocateTrigger(uint32_t entity_id)
 {
-    m_active[entity_id] = true;
+    m_shape_triggers.resize(n_triggers);
+    m_active_shape_triggers.resize(n_triggers, false);
 
-    TriggerComponent* allocated_trigger = &m_triggers[entity_id];
-    allocated_trigger->death_trigger_id = NO_CALLBACK_SET;
-    allocated_trigger->area_trigger_id = NO_CALLBACK_SET;
-    allocated_trigger->time_trigger_id = NO_CALLBACK_SET;
+    m_death_triggers.resize(n_triggers);
+    m_active_death_triggers.resize(n_triggers, false);
+
+    m_area_triggers.resize(n_triggers);
+    m_active_area_triggers.resize(n_triggers, false);
+    m_area_trigger_timer = 0;
+
+    m_time_triggers.resize(n_triggers);
+    m_active_time_triggers.resize(n_triggers, false);
+}
+
+ShapeTriggerComponent* TriggerSystem::AllocateShapeTrigger(uint32_t entity_id)
+{
+    m_active_shape_triggers[entity_id] = true;
+
+    ShapeTriggerComponent* allocated_trigger = &m_shape_triggers[entity_id];
     allocated_trigger->shape_trigger_handler = nullptr;
 
     return allocated_trigger;
 }
 
-void TriggerSystem::ReleaseTrigger(uint32_t entity_id)
+void TriggerSystem::ReleaseShapeTrigger(uint32_t entity_id)
 {
-    TriggerComponent& allocated_trigger = m_triggers[entity_id];
-    if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
-    {
-        m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
-        allocated_trigger.death_trigger_id = NO_CALLBACK_SET;
-    }
+    ShapeTriggerComponent* allocated_trigger = &m_shape_triggers[entity_id];
 
-    if(allocated_trigger.area_trigger_id != NO_CALLBACK_SET)
-    {
-        m_area_triggers.ReleasePoolData(allocated_trigger.area_trigger_id);
-        allocated_trigger.area_trigger_id = NO_CALLBACK_SET;
-    }
-
-    if(allocated_trigger.time_trigger_id != NO_CALLBACK_SET)
-    {
-        m_time_triggers.ReleasePoolData(allocated_trigger.time_trigger_id);
-        allocated_trigger.time_trigger_id = NO_CALLBACK_SET;
-    }
-
-    if(allocated_trigger.shape_trigger_handler)
+    if(allocated_trigger->shape_trigger_handler)
     {
         mono::IBody* body = m_physics_system->GetBody(entity_id);
         if(body)
-            body->RemoveCollisionHandler(allocated_trigger.shape_trigger_handler.get());
+            body->RemoveCollisionHandler(allocated_trigger->shape_trigger_handler.get());
 
-        allocated_trigger.shape_trigger_handler = nullptr;
+        allocated_trigger->shape_trigger_handler = nullptr;
     }
 
-    m_active[entity_id] = false;
+    m_active_shape_triggers[entity_id] = false;
 }
 
 void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask)
 {
-    TriggerComponent& allocated_trigger = m_triggers[entity_id];
-
+    ShapeTriggerComponent& allocated_trigger = m_shape_triggers[entity_id];
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     if(body)
     {
@@ -124,9 +111,29 @@ void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, u
     }
 }
 
+DeathTriggerComponent* TriggerSystem::AllocateDeathTrigger(uint32_t entity_id)
+{
+    m_active_death_triggers[entity_id] = true;
+
+    DeathTriggerComponent* allocated_trigger = &m_death_triggers[entity_id];
+    allocated_trigger->death_trigger_id = NO_CALLBACK_SET;
+
+    return allocated_trigger;
+}
+
+void TriggerSystem::ReleaseDeathTrigger(uint32_t entity_id)
+{
+    DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
+ 
+    m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
+    allocated_trigger.death_trigger_id = NO_CALLBACK_SET;
+
+    m_active_death_triggers[entity_id] = false;
+}
+
 void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
 {
-    TriggerComponent& allocated_trigger = m_triggers[entity_id];
+    DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
 
     if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
         m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
@@ -138,31 +145,50 @@ void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
     allocated_trigger.death_trigger_id = m_damage_system->SetDestroyedCallback(entity_id, callback);
 }
 
+AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_id)
+{
+    m_active_area_triggers[entity_id] = true;
+
+    AreaEntityTriggerComponent* allocated_trigger = &m_area_triggers[entity_id];
+    return allocated_trigger;
+}
+
+void TriggerSystem::ReleaseAreaTrigger(uint32_t entity_id)
+{
+    //AreaEntityTriggerComponent& allocated_trigger = m_area_triggers[entity_id];
+    m_active_area_triggers[entity_id] = false;
+}
+
 void TriggerSystem::AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities)
 {
-    TriggerComponent& allocated_trigger = m_triggers[entity_id];
+    AreaEntityTriggerComponent& area_trigger = m_area_triggers[entity_id];
 
-    AreaEntityTrigger* area_trigger = m_area_triggers.GetPoolData(&allocated_trigger.area_trigger_id);
-    area_trigger->entity_id = entity_id;
-    area_trigger->trigger_hash = trigger_hash;
-    area_trigger->faction = faction;
-    area_trigger->world_bb = world_bb;
-    area_trigger->n_entities = n_entities;
-    area_trigger->operation = shared::AreaTriggerOperation::LESS_THAN;
+    area_trigger.entity_id = entity_id;
+    area_trigger.trigger_hash = trigger_hash;
+    area_trigger.faction = faction;
+    area_trigger.world_bb = world_bb;
+    area_trigger.n_entities = n_entities;
+    area_trigger.operation = shared::AreaTriggerOperation::LESS_THAN;
+}
 
-    m_active_area_triggers.push_back(area_trigger);
+TimeTriggerComponent* TriggerSystem::AllocateTimeTrigger(uint32_t entity_id)
+{
+    m_active_time_triggers[entity_id] = true;
+    return &m_time_triggers[entity_id];
+}
+
+void TriggerSystem::ReleaseTimeTrigger(uint32_t entity_id)
+{
+    m_active_time_triggers[entity_id] = false;
 }
 
 void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms)
 {
-    TriggerComponent& allocated_trigger = m_triggers[entity_id];
+    TimeTriggerComponent& time_trigger = m_time_triggers[entity_id];
 
-    TimeTrigger* time_trigger = m_time_triggers.GetPoolData(&allocated_trigger.time_trigger_id);
-    time_trigger->entity_id = entity_id;
-    time_trigger->trigger_hash = trigger_hash;
-    time_trigger->timeout_ms = timeout_ms;
-
-    m_active_time_triggers.push_back(time_trigger);
+    time_trigger.entity_id = entity_id;
+    time_trigger.trigger_hash = trigger_hash;
+    time_trigger.timeout_ms = timeout_ms;
 }
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback)
@@ -200,7 +226,7 @@ const char* TriggerSystem::Name() const
 
 uint32_t TriggerSystem::Capacity() const
 {
-    return m_triggers.capacity();
+    return m_shape_triggers.capacity();
 }
 
 void TriggerSystem::Update(const mono::UpdateContext& update_context)
@@ -243,60 +269,55 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
 void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_context)
 {
-    const auto update_area_trigger_func = [this](const AreaEntityTrigger* area_trigger)
+    for(uint32_t index = 0; index < m_active_area_triggers.size(); ++index)
     {
-        const std::vector<mono::IBody*> found_bodies
-            = m_physics_system->GetSpace()->QueryBox(area_trigger->world_bb, area_trigger->faction);
-        const int n_found_bodies = found_bodies.size();
-
-        bool emit_trigger = false;
-
-        switch(area_trigger->operation)
+        if(m_active_area_triggers[index])
         {
-        case shared::AreaTriggerOperation::EQUAL_TO:
-            emit_trigger = (n_found_bodies == area_trigger->n_entities);
-            break;
-        case shared::AreaTriggerOperation::LESS_THAN:
-            emit_trigger = (n_found_bodies < area_trigger->n_entities);
-            break;
-        case shared::AreaTriggerOperation::GREATER_THAN:
-            emit_trigger = (n_found_bodies > area_trigger->n_entities);
-            break;
+            AreaEntityTriggerComponent& area_trigger = m_area_triggers[index];
+
+            const std::vector<mono::IBody*> found_bodies
+                = m_physics_system->GetSpace()->QueryBox(area_trigger.world_bb, area_trigger.faction);
+            const int n_found_bodies = found_bodies.size();
+
+            bool emit_trigger = false;
+
+            switch(area_trigger.operation)
+            {
+            case shared::AreaTriggerOperation::EQUAL_TO:
+                emit_trigger = (n_found_bodies == area_trigger.n_entities);
+                break;
+            case shared::AreaTriggerOperation::LESS_THAN:
+                emit_trigger = (n_found_bodies < area_trigger.n_entities);
+                break;
+            case shared::AreaTriggerOperation::GREATER_THAN:
+                emit_trigger = (n_found_bodies > area_trigger.n_entities);
+                break;
+            }
+
+            if(emit_trigger)
+            {
+                EmitTrigger(area_trigger.trigger_hash, TriggerState::NONE);
+                m_active_area_triggers[index] = false;
+            }
         }
-
-        if(emit_trigger)
-        {
-            EmitTrigger(area_trigger->trigger_hash, TriggerState::NONE);
-
-            TriggerComponent& allocated_trigger = m_triggers[area_trigger->entity_id];
-            allocated_trigger.area_trigger_id = NO_CALLBACK_SET;
-            m_area_triggers.ReleasePoolData(area_trigger);
-        }
-
-        return emit_trigger;
-    };
-
-    mono::remove_if(m_active_area_triggers, update_area_trigger_func);
+    }
 }
 
 void TriggerSystem::UpdateTimeTriggers(const mono::UpdateContext& update_context)
 {
-    const auto update_time_trigger_func = [this, &update_context](TimeTrigger* time_trigger)
+    for(uint32_t index = 0; index < m_active_time_triggers.size(); ++index)
     {
-        time_trigger->timeout_ms -= update_context.delta_ms;
-        const bool emit_trigger = (time_trigger->timeout_ms < 0.0f);
-
-        if(emit_trigger)
+        if(m_active_time_triggers[index])
         {
-            EmitTrigger(time_trigger->trigger_hash, TriggerState::NONE);
+            TimeTriggerComponent& time_trigger = m_time_triggers[index];
+            time_trigger.timeout_ms -= update_context.delta_ms;
 
-            TriggerComponent& allocated_trigger = m_triggers[time_trigger->entity_id];
-            allocated_trigger.time_trigger_id = NO_CALLBACK_SET;
-            m_time_triggers.ReleasePoolData(time_trigger);
+            const bool emit_trigger = (time_trigger.timeout_ms < 0.0f);
+            if(emit_trigger)
+            {
+                EmitTrigger(time_trigger.trigger_hash, TriggerState::NONE);
+                m_active_time_triggers[index] = false;
+            }
         }
-
-        return emit_trigger;
-    };
-
-    mono::remove_if(m_active_time_triggers, update_time_trigger_func);
+    }
 }

@@ -13,21 +13,16 @@
 
 namespace game
 {
-   struct TranslationComponent
-   {
-       float start_x;
-       float start_y;
-       float delta_x;
-       float delta_y;
-   };
+    struct SpriteAnimationComponent
+    {
+        uint32_t target_id;
+        uint32_t trigger_hash;
+        uint32_t callback_id;
 
-   struct RotationComponent
-   {
-       float start_rotation;
-       float delta_rotation;
-   };
+        uint32_t animation_index;
+    };
 
-    struct ModificationType
+    struct TranslateAnimationComponent
     {
         uint32_t target_id;
         uint32_t trigger_hash;
@@ -41,26 +36,28 @@ namespace game
 
         bool is_initialized;
 
-        enum class Type : short
-        {
-            ANIMATION,
-            ROTATION,
-            TRANSLATION,
-        };
-
-        Type type = Type::ANIMATION;
-
-        union
-        {
-            uint32_t animation_index;
-            RotationComponent rotation;
-            TranslationComponent translation;
-        };
+        float start_x;
+        float start_y;
+        float delta_x;
+        float delta_y;
     };
 
-    struct ModificationContainer
+    struct RotationAnimationComponent
     {
-        std::vector<const ModificationType*> modifications;
+        uint32_t target_id;
+        uint32_t trigger_hash;
+        uint32_t callback_id;
+
+        float duration;
+        float duration_counter;
+
+        math::EaseFunction ease_function;
+        shared::AnimationMode animation_flags;
+
+        bool is_initialized;
+
+        float start_rotation;
+        float delta_rotation;
     };
 
     class ModificationSystem : public mono::IGameSystem
@@ -70,13 +67,17 @@ namespace game
         ModificationSystem(
             uint32_t n, class TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system);
 
-        void AllocateContainer(uint32_t id);
-        void ReleaseContainer(uint32_t id);
-        bool IsContainerAllocated(uint32_t id);
+        SpriteAnimationComponent* AllocateSpriteAnimation(uint32_t entity_id);
+        void ReleaseSpriteAnimation(uint32_t entity_id);
+        void AddAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index);
 
-        void AddAnimationComponent(uint32_t container_id, uint32_t trigger_hash, uint32_t animation_index);
+        TranslateAnimationComponent* AllocateTranslationAnimation(uint32_t entity_id);
+        void ReleaseTranslationAnimation(uint32_t entity_id);
         void AddTranslationComponent(
             uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta);
+
+        RotationAnimationComponent* AllocateRotationAnimation(uint32_t entity_id);
+        void ReleaseRotationAnimation(uint32_t entity_id);
         void AddRotationComponent(
             uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta);
 
@@ -89,10 +90,17 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
 
-        std::vector<ModificationContainer> m_containers;
-        std::vector<bool> m_active_containers;
-        mono::ObjectPool<ModificationType> m_modification_components;
+        std::vector<SpriteAnimationComponent> m_sprite_components;
+        std::vector<bool> m_active_sprite_components;
 
-        std::vector<ModificationType*> m_active_modifications;
+        std::vector<TranslateAnimationComponent> m_translation_components;
+        std::vector<bool> m_active_translation_components;
+
+        std::vector<RotationAnimationComponent> m_rotation_components;
+        std::vector<bool> m_active_rotation_components;
+
+        std::vector<SpriteAnimationComponent*> m_sprite_anims_to_process;
+        std::vector<TranslateAnimationComponent*> m_translation_anims_to_process;
+        std::vector<RotationAnimationComponent*> m_rotation_anims_to_process;
     };
 }
