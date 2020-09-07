@@ -163,7 +163,6 @@ void TriggerSystem::AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_ha
 {
     AreaEntityTriggerComponent& area_trigger = m_area_triggers[entity_id];
 
-    area_trigger.entity_id = entity_id;
     area_trigger.trigger_hash = trigger_hash;
     area_trigger.faction = faction;
     area_trigger.world_bb = world_bb;
@@ -182,13 +181,14 @@ void TriggerSystem::ReleaseTimeTrigger(uint32_t entity_id)
     m_active_time_triggers[entity_id] = false;
 }
 
-void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms)
+void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms, bool repeating)
 {
     TimeTriggerComponent& time_trigger = m_time_triggers[entity_id];
 
-    time_trigger.entity_id = entity_id;
     time_trigger.trigger_hash = trigger_hash;
     time_trigger.timeout_ms = timeout_ms;
+    time_trigger.timeout_counter_ms = timeout_ms;
+    time_trigger.repeating = repeating;
 }
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback)
@@ -310,13 +310,16 @@ void TriggerSystem::UpdateTimeTriggers(const mono::UpdateContext& update_context
         if(m_active_time_triggers[index])
         {
             TimeTriggerComponent& time_trigger = m_time_triggers[index];
-            time_trigger.timeout_ms -= update_context.delta_ms;
+            time_trigger.timeout_counter_ms -= update_context.delta_ms;
 
-            const bool emit_trigger = (time_trigger.timeout_ms < 0.0f);
+            const bool emit_trigger = (time_trigger.timeout_counter_ms < 0.0f);
             if(emit_trigger)
             {
                 EmitTrigger(time_trigger.trigger_hash, TriggerState::NONE);
-                m_active_time_triggers[index] = false;
+                if(time_trigger.repeating)
+                    time_trigger.timeout_counter_ms = time_trigger.timeout_ms;
+                else
+                    m_active_time_triggers[index] = false;
             }
         }
     }

@@ -57,6 +57,7 @@ extern const uint32_t TEXT_ATTRIBUTE;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
 
 extern const uint32_t ANIMATION_MODE_ATTRIBUTE;
+extern const uint32_t REPEATING_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

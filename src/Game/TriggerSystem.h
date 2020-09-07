@@ -40,7 +40,6 @@ namespace game
 
     struct AreaEntityTriggerComponent
     {
-        uint32_t entity_id;
         uint32_t trigger_hash;
         math::Quad world_bb;
         uint32_t faction;
@@ -50,10 +49,10 @@ namespace game
 
     struct TimeTriggerComponent
     {
-        uint32_t entity_id;
         uint32_t trigger_hash;
         float timeout_ms;
-        uint32_t time_trigger_id;
+        float timeout_counter_ms;
+        bool repeating;
     };
 
     using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
@@ -78,7 +77,7 @@ namespace game
 
         TimeTriggerComponent* AllocateTimeTrigger(uint32_t entity_id);
         void ReleaseTimeTrigger(uint32_t entity_id);
-        void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms);
+        void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms, bool repeating);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);

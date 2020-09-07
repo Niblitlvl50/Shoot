@@ -369,10 +369,12 @@ namespace
             return false;
 
         int timeout_ms;
+        bool repeating;
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
+        FindAttribute(REPEATING_ATTRIBUTE, properties, repeating, FallbackMode::SET_DEFAULT);
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddTimeTrigger(entity->id, mono::Hash(trigger_name), timeout_ms);
+        trigger_system->AddTimeTrigger(entity->id, mono::Hash(trigger_name), timeout_ms, repeating);
 
         return true;
     }
