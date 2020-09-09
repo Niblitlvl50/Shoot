@@ -635,6 +635,141 @@
             "entity_properties": 0,
             "folder": "",
             "name": "slash"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "x": 6.234706878662109,
+                                "y": 9.338066101074219
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 4,
+                            "variant_value": "doomguy.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 6,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2313652925,
+                            "name": "flip_vertical",
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "name": "flip_horizontal",
+                            "variant_type": 1,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2130936338,
+                    "name": "set_rotation",
+                    "properties": [
+                        {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 4,
+                            "variant_value": "rotate_doom"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 0.25
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.8999999761581421
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        }
+                    ]
+                },
+                {
+                    "hash": 1848570119,
+                    "name": "time_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 4,
+                            "variant_value": "rotate_doom"
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 2,
+                            "variant_value": 5000
+                        },
+                        {
+                            "id": 2374006294,
+                            "name": "repeating",
+                            "variant_type": 1,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "rotating_thing"
         }
     ],
     "metadata": {
