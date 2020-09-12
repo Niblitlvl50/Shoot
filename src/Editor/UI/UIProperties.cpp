@@ -335,9 +335,11 @@ bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::
         button_text.pop_back();
     }
 
+    const ImGuiStyle& style = ImGui::GetStyle();
+
     const float item_width = ImGui::CalcItemWidth();
     const bool pushed = ImGui::Button(button_text.c_str(), ImVec2(item_width, 0));
-    ImGui::SameLine();
+    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
     ImGui::Text("%s", name);
     if(pushed)
         ImGui::OpenPopup("entity_properties_select");
