@@ -8,6 +8,7 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
                                 "x": 0.0,
@@ -16,6 +17,7 @@
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
                         }
@@ -27,16 +29,19 @@
                     "properties": [
                         {
                             "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 4,
                             "variant_value": "plasma.sprite"
                         },
                         {
                             "id": 3779456605,
+                            "name": "animation",
                             "variant_type": 2,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 6,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -47,13 +52,21 @@
                         },
                         {
                             "id": 2313652925,
+                            "name": "flip_vertical",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
+                            "name": "flip_horizontal",
                             "variant_type": 1,
                             "variant_value": false
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -63,21 +76,25 @@
                     "properties": [
                         {
                             "id": 3836179294,
+                            "name": "body_type",
                             "variant_type": 2,
                             "variant_value": 0
                         },
                         {
                             "id": 3749132497,
+                            "name": "mass",
                             "variant_type": 3,
                             "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 3447918833,
+                            "name": "inertia",
                             "variant_type": 3,
                             "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
+                            "name": "prevent_rotation",
                             "variant_type": 1,
                             "variant_value": false
                         }
@@ -89,25 +106,29 @@
                     "properties": [
                         {
                             "id": 776086107,
+                            "name": "faction",
                             "variant_type": 2,
                             "variant_value": 1
                         },
                         {
                             "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 1,
                             "variant_value": false
                         },
                         {
                             "id": 230313139,
+                            "name": "radius",
                             "variant_type": 3,
                             "variant_value": 0.125
                         },
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 5,
                             "variant_value": {
-                                "x": 0.20000000298023224,
-                                "y": 0.20000000298023224
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         }
                     ]
@@ -117,5 +138,15 @@
             "folder": "",
             "name": "plasma_bullet"
         }
-    ]
+    ],
+    "metadata": {
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 0.0,
+            "y": 0.0
+        }
+    }
 }
