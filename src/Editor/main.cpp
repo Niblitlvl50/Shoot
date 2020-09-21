@@ -25,7 +25,9 @@ int main(int argc, const char* argv[])
     // This is assumed to be the file argument
     const char* file_name = (argc < 2) ? nullptr : argv[1];
     if(!file_name)
-        file_name = "res/world.world";
+    {
+        return -1;
+    }
 
     constexpr size_t max_entities = 500;
 
