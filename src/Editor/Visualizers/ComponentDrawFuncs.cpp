@@ -32,9 +32,11 @@ void editor::DrawBoxShapeDetails(
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
+    const math::Vector half_size = width_height / 2.0f;
+
     math::Quad box;
-    box.mA = position + offset;
-    box.mB = position + offset + width_height;
+    box.mA = position + offset - half_size;
+    box.mB = position + offset + half_size;
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawQuad(box, color, 1.0f);
@@ -70,7 +72,7 @@ void editor::DrawSpawnPointDetails(
         { position, position + unit_vector * 1.5f }, mono::Color::BLUE, 3.0f);
 }
 
-void editor::DrawTriggerComponentDetails(
+void editor::DrawShapeTriggerComponentDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
     const char* name = nullptr;
@@ -84,11 +86,28 @@ void editor::DrawAreaTriggerComponentDetails(
     math::Vector width_height;
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
 
-    renderer.DrawFilledQuad(math::Quad(position, position + width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
+    const math::Vector half_width_height = width_height / 2.0f;
+    renderer.DrawFilledQuad(math::Quad(position - half_width_height, position + half_width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
 
     const char* name = nullptr;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position + width_height / 2.0f, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+}
+
+void editor::DrawDeathTriggerComponentDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    const char* name = nullptr;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+}
+
+void editor::DrawTimeTriggerComponentDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    const char* name = nullptr;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSetTranslationDetails(

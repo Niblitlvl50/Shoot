@@ -85,7 +85,7 @@ bool editor::DrawGenericProperty(const char* text, Variant& attribute)
     return false;
 }
 
-bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components)
+bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
 {
     const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
     const char* attribute_name = text.c_str();
@@ -123,14 +123,11 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
-        const std::vector<std::string> all_sprites = editor::GetAllSprites();
+        const editor::SpritePickerResult result = DrawSpritePicker(attribute_name, attribute.attribute, ui_context);
+        if(result.changed)
+            attribute.attribute = result.new_value.c_str();
 
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, attribute.attribute, all_sprites, out_index);
-        if(changed)
-            attribute.attribute = all_sprites[out_index].c_str();
-
-        return changed;
+        return result.changed;
     }
     else if(attribute.id == ANIMATION_ATTRIBUTE)
     {
@@ -279,7 +276,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
 
         for(Attribute& property : component.properties)
         {
-            if(DrawProperty(property, components))
+            if(DrawProperty(property, components, ui_context))
                 modified_index = index;
         }
 
@@ -375,4 +372,74 @@ bool editor::DrawStringPicker(
 
     return ImGui::Combo(
         name, &out_index, item_proxy, (void*)&all_strings, all_strings.size(), ImGuiComboFlags_HeightLarge);
+}
+
+editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const char* current_value, const UIContext& ui_context)
+{
+    editor::SpritePickerResult result;
+    result.changed = false;
+
+    const float item_width = ImGui::CalcItemWidth();
+    const bool pushed_button = ImGui::Button(current_value, ImVec2(item_width, 0));
+    ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
+    ImGui::Text("%s", name);
+    if(pushed_button)
+        ImGui::OpenPopup("sprite_picker_popup");
+
+    if(ImGui::IsPopupOpen("sprite_picker_popup"))
+        ImGui::SetNextWindowSize(ImVec2(800, -1));
+    
+    if(ImGui::BeginPopup("sprite_picker_popup"))
+    {
+        const std::vector<std::string>& all_sprites = editor::GetAllSprites();
+        ImGui::Columns(10, "sprite_picker_columns", false);
+
+        for(const std::string& sprite : all_sprites)
+        {
+            ImGui::PushID(sprite.c_str());
+
+            const auto it = ui_context.ui_icons.find(sprite);
+            if(it != ui_context.ui_icons.end())
+            {
+                void* texture_id = reinterpret_cast<void*>(it->second.texture_id);
+                const math::Quad& uv_coordinates = it->second.uv_coordinates;
+                const math::Vector& size = it->second.size;
+
+                constexpr float button_max_size = 64.0f;
+                const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
+
+                const ImageCoords& icon = QuadToImageCoords(uv_coordinates);
+                const bool sprite_selected = ImGui::ImageButton(
+                    texture_id, ImVec2(size.x * scale, size.y * scale), icon.uv1, icon.uv2, 2);
+                if(sprite_selected)
+                {
+                    result.changed = true;
+                    result.new_value = sprite;
+                    ImGui::CloseCurrentPopup();
+                }
+
+                if(sprite == current_value)
+                {
+                    ImGui::GetWindowDrawList()->AddRect(
+                        ImGui::GetItemRectMin(),
+                        ImGui::GetItemRectMax(),
+                        ImGui::GetColorU32(ImGuiCol_DragDropTarget),
+                        3.0f,
+                        ImDrawCornerFlags_All,
+                        2.0f);
+                }
+
+                if(ImGui::IsItemHovered())
+                    ImGui::SetTooltip("%s, width %.2f m, height %.2f m", sprite.c_str(), size.x, size.y);
+
+                ImGui::NextColumn();
+            }
+
+            ImGui::PopID();
+        }
+
+        ImGui::EndPopup();
+    }
+
+    return result;
 }

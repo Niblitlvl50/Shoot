@@ -45,6 +45,7 @@ namespace editor
     {
         int texture_id;
         math::Quad uv_coordinates;
+        math::Vector size;
     };
 
     struct UIContext

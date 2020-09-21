@@ -60,33 +60,55 @@ namespace
     {
         context.ui_icons[editor::placeholder_texture] = {
             (int)mono::LoadImGuiTexture(editor::placeholder_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
 
         context.ui_icons[editor::export_texture] = {
             (int)mono::LoadImGuiTexture(editor::export_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
 
         context.ui_icons[editor::import_texture] = {
             (int)mono::LoadImGuiTexture(editor::import_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
 
         context.ui_icons[editor::information_texture] = {
             (int)mono::LoadImGuiTexture(editor::information_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
 
         context.ui_icons[editor::save_texture] = {
             (int)mono::LoadImGuiTexture(editor::save_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
 
         context.ui_icons[editor::wrench_texture] = {
             (int)mono::LoadImGuiTexture(editor::wrench_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f)
+            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f)
         };
+    }
+
+    void SetupSpriteIcons(const std::vector<std::string>& sprite_files, editor::UIContext& context)
+    {
+        for(const std::string& sprite_file : sprite_files)
+        {
+            const std::string full_sprite_path = "res/sprites/" + sprite_file;
+            const mono::SpriteData* sprite_data =
+                mono::GetSpriteFactory()->GetSpriteDataForFile(full_sprite_path.c_str());
+
+            context.ui_icons[sprite_file] = {
+                (int)mono::LoadImGuiTexture(sprite_data->texture_file.c_str()),
+                sprite_data->frames.front().texture_coordinates,
+                sprite_data->frames.front().size
+            };
+        }
     }
 
     void SetupComponents(editor::UIContext& context)
@@ -152,13 +174,14 @@ Editor::Editor(
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
 
-    SetupIcons(m_context);
-    SetupComponents(m_context);
-
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllPaths("res/paths/all_paths.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
+
+    SetupIcons(m_context);
+    SetupSpriteIcons(editor::GetAllSprites(), m_context);
+    SetupComponents(m_context);
 }
 
 Editor::~Editor()
@@ -192,8 +215,10 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
-    draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawTriggerComponentDetails;
+    draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawShapeTriggerComponentDetails;
     draw_funcs[AREA_TRIGGER_COMPONENT] = editor::DrawAreaTriggerComponentDetails;
+    draw_funcs[DEATH_TRIGGER_COMPONENT] = editor::DrawDeathTriggerComponentDetails;
+    draw_funcs[TIME_TRIGGER_COMPONENT] = editor::DrawTimeTriggerComponentDetails;
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
 
@@ -545,34 +570,16 @@ void Editor::OnDeleteObject()
     m_grabbers.clear();
 }
 
-namespace
-{
-    void add_component_recursivly(uint32_t component_hash, std::vector<Component>& components)
-    {
-        Component new_component = DefaultComponentFromHash(component_hash);
-
-        if(new_component.depends_on != NULL_COMPONENT)
-        {
-            const Component* found_dependency = FindComponentFromHash(new_component.depends_on, components);
-            if(!found_dependency)
-                add_component_recursivly(new_component.depends_on, components);
-        }
-
-        components.push_back(std::move(new_component));
-    };
-}
-
 void Editor::AddComponent(uint32_t component_hash)
 {
     IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
     if(proxy_object)
     {
         std::vector<Component>& components = proxy_object->GetComponents();
-        const size_t num_components = components.size();
+        const uint32_t num_components = components.size();
+        const uint32_t num_added = shared::AddComponent(component_hash, components);
 
-        add_component_recursivly(component_hash, components);
-
-        for(size_t index = num_components; index < components.size(); ++index)
+        for(size_t index = num_components; index < num_components + num_added; ++index)
             m_entity_manager.AddComponent(m_selected_id, components[index].hash);
     }
 }

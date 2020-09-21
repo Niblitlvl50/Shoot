@@ -329,3 +329,27 @@ void StripUnknownProperties(Component& component)
     const auto it = std::remove_if(component.properties.begin(), component.properties.end(), not_in_template);
     component.properties.erase(it, component.properties.end());
 }
+
+namespace
+{
+    void add_component_recursivly(uint32_t component_hash, std::vector<Component>& components)
+    {
+        Component new_component = DefaultComponentFromHash(component_hash);
+
+        if(new_component.depends_on != NULL_COMPONENT)
+        {
+            const Component* found_dependency = FindComponentFromHash(new_component.depends_on, components);
+            if(!found_dependency)
+                add_component_recursivly(new_component.depends_on, components);
+        }
+
+        components.push_back(std::move(new_component));
+    };
+}
+
+uint32_t shared::AddComponent(uint32_t hash, std::vector<Component>& components)
+{
+    const uint32_t num_components = components.size();
+    add_component_recursivly(hash, components);
+    return components.size() - num_components;
+}

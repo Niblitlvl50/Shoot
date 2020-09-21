@@ -17,11 +17,14 @@ namespace editor
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawSpawnPointDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
-    void DrawTriggerComponentDetails(
+    void DrawShapeTriggerComponentDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawAreaTriggerComponentDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
-
+    void DrawDeathTriggerComponentDetails(
+        mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
+    void DrawTimeTriggerComponentDetails(
+        mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawSetTranslationDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawSetRotationDetails(

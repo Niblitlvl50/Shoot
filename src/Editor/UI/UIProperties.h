@@ -14,7 +14,7 @@ namespace editor
     void DrawName(std::string& name);
     void DrawFolder(std::string& folder);
     bool DrawGenericProperty(const char* text, Variant& attribute);
-    bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components);
+    bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
     void AddDynamicProperties(Component& component);
     int DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
 
@@ -24,4 +24,12 @@ namespace editor
     bool DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string);
 
     bool DrawStringPicker(const char* name, const char* current_value, const std::vector<std::string>& all_strings, int& out_index);
+    
+    struct SpritePickerResult
+    {
+        bool changed;
+        std::string new_value;
+    };
+
+    SpritePickerResult DrawSpritePicker(const char* name, const char* current_value, const UIContext& ui_context);
 }
