@@ -15,7 +15,7 @@ namespace
     constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
 }
 
-ModificationSystem::ModificationSystem(
+AnimationSystem::AnimationSystem(
     uint32_t n, TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system)
     : m_trigger_system(trigger_system)
     , m_transform_system(transform_system)
@@ -31,7 +31,7 @@ ModificationSystem::ModificationSystem(
     m_active_rotation_components.resize(n, false);
 }
 
-SpriteAnimationComponent* ModificationSystem::AllocateSpriteAnimation(uint32_t entity_id)
+SpriteAnimationComponent* AnimationSystem::AllocateSpriteAnimation(uint32_t entity_id)
 {
     m_active_sprite_components[entity_id] = true;
     
@@ -40,7 +40,7 @@ SpriteAnimationComponent* ModificationSystem::AllocateSpriteAnimation(uint32_t e
     return allocated_component;
 }
 
-void ModificationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
+void AnimationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
 {
     SpriteAnimationComponent& allocated_component = m_sprite_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
@@ -49,7 +49,7 @@ void ModificationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
     m_active_sprite_components[entity_id] = false;
 }
 
-void ModificationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index)
+void AnimationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index)
 {
     SpriteAnimationComponent* sprite_animation = &m_sprite_components[entity_id];
 
@@ -67,7 +67,7 @@ void ModificationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trig
     sprite_animation->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
 }
 
-TranslateAnimationComponent* ModificationSystem::AllocateTranslationAnimation(uint32_t entity_id)
+TranslateAnimationComponent* AnimationSystem::AllocateTranslationAnimation(uint32_t entity_id)
 {
     m_active_translation_components[entity_id] = true;
     
@@ -76,7 +76,7 @@ TranslateAnimationComponent* ModificationSystem::AllocateTranslationAnimation(ui
     return allocated_component;
 }
 
-void ModificationSystem::ReleaseTranslationAnimation(uint32_t entity_id)
+void AnimationSystem::ReleaseTranslationAnimation(uint32_t entity_id)
 {
     TranslateAnimationComponent& allocated_component = m_translation_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
@@ -87,7 +87,7 @@ void ModificationSystem::ReleaseTranslationAnimation(uint32_t entity_id)
     m_active_translation_components[entity_id] = false;
 }
 
-void ModificationSystem::AddTranslationComponent(
+void AnimationSystem::AddTranslationComponent(
     uint32_t entity_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta)
 {
     TranslateAnimationComponent* translation_anim = &m_translation_components[entity_id];
@@ -122,7 +122,7 @@ void ModificationSystem::AddTranslationComponent(
     }
 }
 
-RotationAnimationComponent* ModificationSystem::AllocateRotationAnimation(uint32_t entity_id)
+RotationAnimationComponent* AnimationSystem::AllocateRotationAnimation(uint32_t entity_id)
 {
     m_active_rotation_components[entity_id] = true;
     
@@ -131,7 +131,7 @@ RotationAnimationComponent* ModificationSystem::AllocateRotationAnimation(uint32
     return allocated_component;
 }
 
-void ModificationSystem::ReleaseRotationAnimation(uint32_t entity_id)
+void AnimationSystem::ReleaseRotationAnimation(uint32_t entity_id)
 {
     RotationAnimationComponent& allocated_component = m_rotation_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
@@ -142,7 +142,7 @@ void ModificationSystem::ReleaseRotationAnimation(uint32_t entity_id)
     m_active_rotation_components[entity_id] = false;
 }
 
-void ModificationSystem::AddRotationComponent(
+void AnimationSystem::AddRotationComponent(
     uint32_t entity_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta)
 {
     RotationAnimationComponent* rotation_anim = &m_rotation_components[entity_id];
@@ -176,22 +176,22 @@ void ModificationSystem::AddRotationComponent(
     }
 }
 
-uint32_t ModificationSystem::Id() const
+uint32_t AnimationSystem::Id() const
 {
     return mono::Hash(Name());
 }
 
-const char* ModificationSystem::Name() const
+const char* AnimationSystem::Name() const
 {
-    return "ModificationSystem";
+    return "AnimationSystem";
 }
 
-uint32_t ModificationSystem::Capacity() const
+uint32_t AnimationSystem::Capacity() const
 {
     return m_sprite_components.capacity();
 }
 
-void ModificationSystem::Update(const mono::UpdateContext& update_context)
+void AnimationSystem::Update(const mono::UpdateContext& update_context)
 {
     for(SpriteAnimationComponent* sprite_anim : m_sprite_anims_to_process)
     {

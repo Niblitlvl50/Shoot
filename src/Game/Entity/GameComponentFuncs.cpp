@@ -407,15 +407,15 @@ namespace
 
     bool CreateAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AllocateSpriteAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AllocateSpriteAnimation(entity->id);
         return true;
     }
 
     bool ReleaseAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->ReleaseSpriteAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->ReleaseSpriteAnimation(entity->id);
         return true;
     }
 
@@ -434,23 +434,23 @@ namespace
         uint32_t animation_index;
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AddAnimationComponent(entity->id, mono::Hash(trigger_name), animation_index);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AddAnimationComponent(entity->id, mono::Hash(trigger_name), animation_index);
 
         return true;
     }
 
     bool CreateTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AllocateTranslationAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AllocateTranslationAnimation(entity->id);
         return true;
     }
 
     bool ReleaseTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->ReleaseTranslationAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->ReleaseTranslationAnimation(entity->id);
         return true;
     }
 
@@ -475,8 +475,8 @@ namespace
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
         FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AddTranslationComponent(
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AddTranslationComponent(
             entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), translation);
 
         return true;
@@ -484,15 +484,15 @@ namespace
 
     bool CreateRotation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AllocateRotationAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AllocateRotationAnimation(entity->id);
         return true;
     }
 
     bool ReleaseRotation(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->ReleaseRotationAnimation(entity->id);
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->ReleaseRotationAnimation(entity->id);
         return true;
     }
 
@@ -517,8 +517,8 @@ namespace
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
         FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
-        game::ModificationSystem* modification_system = context->GetSystem<game::ModificationSystem>();
-        modification_system->AddRotationComponent(
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AddRotationComponent(
             entity->id, mono::Hash(trigger_name), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), rotation);
 
         return true;

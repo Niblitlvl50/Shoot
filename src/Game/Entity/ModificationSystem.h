@@ -60,11 +60,11 @@ namespace game
         float delta_rotation;
     };
 
-    class ModificationSystem : public mono::IGameSystem
+    class AnimationSystem : public mono::IGameSystem
     {
     public:
 
-        ModificationSystem(
+        AnimationSystem(
             uint32_t n, class TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system);
 
         SpriteAnimationComponent* AllocateSpriteAnimation(uint32_t entity_id);
