@@ -12,7 +12,7 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"
-#include "Entity/ModificationSystem.h"
+#include "Entity/AnimationSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"

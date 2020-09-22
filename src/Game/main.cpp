@@ -22,7 +22,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityLogicSystem.h"
-#include "Entity/ModificationSystem.h"
+#include "Entity/AnimationSystem.h"
 #include "DamageSystem.h"
 #include "TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
