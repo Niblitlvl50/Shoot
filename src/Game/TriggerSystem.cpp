@@ -93,6 +93,8 @@ void TriggerSystem::ReleaseShapeTrigger(uint32_t entity_id)
 void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask)
 {
     ShapeTriggerComponent& allocated_trigger = m_shape_triggers[entity_id];
+    allocated_trigger.trigger_hash = trigger_hash;
+
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     if(body)
     {
@@ -134,6 +136,7 @@ void TriggerSystem::ReleaseDeathTrigger(uint32_t entity_id)
 void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
 {
     DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
+    allocated_trigger.trigger_hash = trigger_hash;
 
     if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
         m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
@@ -191,8 +194,10 @@ void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, fl
     time_trigger.repeating = repeating;
 }
 
-uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback)
+uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id)
 {
+    m_entity_id_to_trigger_hashes[trigger_hash].push_back(debug_entity_id);
+
     TriggerCallbacks& callback_array = m_trigger_callbacks[trigger_hash];
     const auto it = std::find(callback_array.begin(), callback_array.end(), nullptr);
     if(it != callback_array.end())
@@ -204,9 +209,29 @@ uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCa
     return std::numeric_limits<uint32_t>::max();
 }
 
-void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id)
+void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id)
 {
     m_trigger_callbacks[trigger_hash][callback_id] = nullptr;
+    mono::remove(m_entity_id_to_trigger_hashes[trigger_hash], debug_entity_id);
+}
+
+void TriggerSystem::RegisterTriggerHashDebugName(uint32_t trigger_hash, const char* debug_name)
+{
+    m_trigger_hash_to_text[trigger_hash] = debug_name;
+}
+
+const char* TriggerSystem::TriggerHashToString(uint32_t trigger_hash) const
+{
+    const auto it = m_trigger_hash_to_text.find(trigger_hash);
+    if(it != m_trigger_hash_to_text.end())
+        return it->second.c_str();
+
+    return "Unknown";
+}
+
+const std::unordered_map<uint32_t, std::vector<uint32_t>>& TriggerSystem::GetTriggerTargets() const
+{
+    return m_entity_id_to_trigger_hashes;
 }
 
 void TriggerSystem::EmitTrigger(uint32_t trigger_hash, TriggerState state)
@@ -252,16 +277,20 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
             }
         }
 
-        const char* suffix = nullptr;
+        std::string hash_name = "...";
+
+        const auto hash_name_it = m_trigger_hash_to_text.find(emit_data.hash);
+        if(hash_name_it != m_trigger_hash_to_text.end())
+            hash_name = hash_name_it->second;
 
         if(emit_data.state == TriggerState::ENTER)
-            suffix = "Enter";
+            hash_name += "|Enter";
         else if(emit_data.state == TriggerState::EXIT)
-            suffix = "Exit";
+            hash_name += "|Exit";
         else if(emit_data.state == TriggerState::NONE)
-            suffix = "None";
+            hash_name += "|None";
 
-        game::g_debug_drawer->DrawScreenText(suffix, math::Vector(1, 1), mono::Color::BLACK);
+        game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
     }
 
     m_triggers_to_emit.clear();

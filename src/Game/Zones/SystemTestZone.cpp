@@ -58,6 +58,9 @@
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
 
+#include "TriggerSystem.h"
+#include "TriggerDebugDrawer.h"
+
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
 using namespace game;
@@ -93,10 +96,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager, nullptr);
     m_loaded_entities = leveldata.loaded_entities;
 
-    const math::Quad viewport(leveldata.metadata.camera_position, leveldata.metadata.camera_size);
-
-    camera->SetViewport(viewport);
-    //camera->SetViewport(math::Quad(0, 0, 9, 16));
+    camera->SetViewport(math::Quad(leveldata.metadata.camera_position, leveldata.metadata.camera_size));
     m_camera = camera;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
@@ -108,6 +108,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+    TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
 
     m_game_camera = std::make_unique<GameCamera>(camera, transform_system, *m_event_handler);
 
@@ -115,13 +116,21 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager.get());
     AddUpdatable(
-        new ServerReplicator(entity_system, transform_system, sprite_system, g_entity_manager, m_server_manager.get(), m_game_config.server_replication_interval));
-    AddUpdatable(new SyncPoint());
+        new ServerReplicator(
+            entity_system,
+            transform_system,
+            sprite_system,
+            g_entity_manager,
+            m_server_manager.get(),
+            m_game_config.server_replication_interval)
+        );
+    AddUpdatable(new SyncPoint()); // this should probably go last or something...
 
     AddUpdatable(new ListenerPositionUpdater());
     AddUpdatable(m_game_camera.get());
 
-    m_player_daemon = std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
+    m_player_daemon =
+        std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -152,9 +161,10 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new ClientViewportVisualizer(m_server_manager->GetConnectedClients()), LayerId::UI);
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
-    AddDrawable(new mono::TransformSystemDrawer(game::g_draw_transformsystem, transform_system), LayerId::UI);
-    AddDrawable(new mono::PhysicsDebugDrawer(game::g_draw_physics, game::g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
-    AddDrawable(new mono::AudioDebugDrawer(game::g_draw_audio), LayerId::UI);
+    AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
+    AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
+    AddDrawable(new mono::AudioDebugDrawer(g_draw_audio), LayerId::UI);
+    AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()

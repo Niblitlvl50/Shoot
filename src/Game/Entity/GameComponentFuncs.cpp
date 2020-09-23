@@ -271,8 +271,11 @@ namespace
         uint32_t faction;
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
+        const uint32_t trigger_hash = mono::Hash(trigger_name);
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity->id, mono::Hash(trigger_name), faction);
+        trigger_system->AddShapeTrigger(entity->id, trigger_hash, faction);
+        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name);
+
         return true;
     }
 
@@ -302,8 +305,11 @@ namespace
             return false;
         }
 
+        const uint32_t trigger_hash = mono::Hash(trigger_name);
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddDeathTrigger(entity->id, mono::Hash(trigger_name));
+        trigger_system->AddDeathTrigger(entity->id, trigger_hash);
+        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name);
+
         return true;
     }
 
@@ -340,8 +346,11 @@ namespace
 
         const math::Quad world_bb = math::Transform(world_transform, math::Quad(0.0f, 0.0f, size.x, size.y));
 
+        const uint32_t trigger_hash = mono::Hash(trigger_name);
+
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddAreaEntityTrigger(entity->id, mono::Hash(trigger_name), world_bb, faction, 0);
+        trigger_system->AddAreaEntityTrigger(entity->id, trigger_hash, world_bb, faction, 0);
+        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name);
 
         return true;
     }
@@ -373,8 +382,10 @@ namespace
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
         FindAttribute(REPEATING_ATTRIBUTE, properties, repeating, FallbackMode::SET_DEFAULT);
 
+        const uint32_t trigger_hash = mono::Hash(trigger_name);
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddTimeTrigger(entity->id, mono::Hash(trigger_name), timeout_ms, repeating);
+        trigger_system->AddTimeTrigger(entity->id, trigger_hash, timeout_ms, repeating);
+        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name);
 
         return true;
     }

@@ -15,6 +15,7 @@
 #include <unordered_map>
 #include <functional>
 #include <memory>
+#include <string>
 
 namespace game
 {
@@ -79,10 +80,58 @@ namespace game
         void ReleaseTimeTrigger(uint32_t entity_id);
         void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms, bool repeating);
 
-        uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback);
-        void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id);
+        uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
+        void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id);
+
+        void RegisterTriggerHashDebugName(uint32_t trigger_hash, const char* debug_name);
+        const char* TriggerHashToString(uint32_t trigger_hash) const;
+        const std::unordered_map<uint32_t, std::vector<uint32_t>>& GetTriggerTargets() const;
 
         void EmitTrigger(uint32_t trigger_hash, TriggerState state);
+
+        template<typename T>
+        void ForEachShapeTrigger(T&& callable) const
+        {
+            for(uint32_t index = 0; index < m_active_shape_triggers.size(); ++index)
+            {
+                const bool is_active = m_active_shape_triggers[index];
+                if(is_active)
+                    callable(index, m_shape_triggers[index]);
+            }
+        }
+
+        template<typename T>
+        void ForEachDeathTrigger(T&& callable) const
+        {
+            for(uint32_t index = 0; index < m_active_death_triggers.size(); ++index)
+            {
+                const bool is_active = m_active_death_triggers[index];
+                if(is_active)
+                    callable(index, m_death_triggers[index]);
+            }
+        }
+
+        template<typename T>
+        void ForEachAreaTrigger(T&& callable) const
+        {
+            for(uint32_t index = 0; index < m_active_area_triggers.size(); ++index)
+            {
+                const bool is_active = m_active_area_triggers[index];
+                if(is_active)
+                    callable(index, m_area_triggers[index]);
+            }
+        }
+
+        template<typename T>
+        void ForEachTimeTrigger(T&& callable) const
+        {
+            for(uint32_t index = 0; index < m_active_time_triggers.size(); ++index)
+            {
+                const bool is_active = m_active_time_triggers[index];
+                if(is_active)
+                    callable(index, m_time_triggers[index]);
+            }
+        }
 
         uint32_t Id() const override;
         const char* Name() const override;
@@ -119,5 +168,9 @@ namespace game
             TriggerState state;
         };
         std::vector<EmitData> m_triggers_to_emit;
+
+        // Debug data
+        std::unordered_map<uint32_t, std::string> m_trigger_hash_to_text;
+        std::unordered_map<uint32_t, std::vector<uint32_t>> m_entity_id_to_trigger_hashes;
     };
 }

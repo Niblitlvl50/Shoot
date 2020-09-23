@@ -15,6 +15,7 @@ bool game::g_draw_transformsystem = false;
 bool game::g_draw_fps = false;
 bool game::g_draw_physics = false;
 bool game::g_draw_audio = false;
+bool game::g_draw_triggers = false;
 uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW_SHAPES;
 bool game::g_draw_physics_stats = false;
 bool game::g_draw_particle_stats = false;
@@ -37,6 +38,7 @@ void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
         game::g_draw_physics_subcomponents, mono::all_physics_debug_component, std::size(mono::all_physics_debug_component), mono::PhsicsDebugComponentToString);
     ImGui::Unindent();
     ImGui::Checkbox("Draw Audio",           &game::g_draw_audio);
+    ImGui::Checkbox("Draw Triggers",        &game::g_draw_triggers);
     ImGui::Checkbox("Draw FPS",             &game::g_draw_fps);
     ImGui::Checkbox("Draw Physics Stats",   &game::g_draw_physics_stats);
     ImGui::Checkbox("Draw Particle Stats",  &game::g_draw_particle_stats);

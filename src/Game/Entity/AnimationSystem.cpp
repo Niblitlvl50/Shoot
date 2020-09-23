@@ -44,7 +44,7 @@ void AnimationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
 {
     SpriteAnimationComponent& allocated_component = m_sprite_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id);
+        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
 
     m_active_sprite_components[entity_id] = false;
 }
@@ -54,7 +54,7 @@ void AnimationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trigger
     SpriteAnimationComponent* sprite_animation = &m_sprite_components[entity_id];
 
     if(sprite_animation->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(sprite_animation->trigger_hash, sprite_animation->callback_id);
+        m_trigger_system->RemoveTriggerCallback(sprite_animation->trigger_hash, sprite_animation->callback_id, entity_id);
 
     sprite_animation->target_id = entity_id;
     sprite_animation->trigger_hash = trigger_hash;
@@ -64,7 +64,7 @@ void AnimationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trigger
         m_sprite_anims_to_process.push_back(sprite_animation);
     };
 
-    sprite_animation->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+    sprite_animation->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
 }
 
 TranslateAnimationComponent* AnimationSystem::AllocateTranslationAnimation(uint32_t entity_id)
@@ -80,7 +80,7 @@ void AnimationSystem::ReleaseTranslationAnimation(uint32_t entity_id)
 {
     TranslateAnimationComponent& allocated_component = m_translation_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id);
+        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
 
     mono::remove(m_translation_anims_to_process, &allocated_component);
 
@@ -93,7 +93,7 @@ void AnimationSystem::AddTranslationComponent(
     TranslateAnimationComponent* translation_anim = &m_translation_components[entity_id];
 
     if(translation_anim->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(translation_anim->trigger_hash, translation_anim->callback_id);
+        m_trigger_system->RemoveTriggerCallback(translation_anim->trigger_hash, translation_anim->callback_id, entity_id);
 
     mono::remove(m_translation_anims_to_process, translation_anim);
 
@@ -114,7 +114,7 @@ void AnimationSystem::AddTranslationComponent(
         const TriggerCallback callback = [this, translation_anim](uint32_t trigger_id, TriggerState state) {
             m_translation_anims_to_process.push_back(translation_anim);
         };
-        translation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+        translation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
     }
     else
     {
@@ -135,7 +135,7 @@ void AnimationSystem::ReleaseRotationAnimation(uint32_t entity_id)
 {
     RotationAnimationComponent& allocated_component = m_rotation_components[entity_id];
     if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id);
+        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
 
     mono::remove(m_rotation_anims_to_process, &allocated_component);
 
@@ -148,7 +148,7 @@ void AnimationSystem::AddRotationComponent(
     RotationAnimationComponent* rotation_anim = &m_rotation_components[entity_id];
 
     if(rotation_anim->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(rotation_anim->trigger_hash, rotation_anim->callback_id);
+        m_trigger_system->RemoveTriggerCallback(rotation_anim->trigger_hash, rotation_anim->callback_id, entity_id);
 
     mono::remove(m_rotation_anims_to_process, rotation_anim);
     
@@ -168,7 +168,7 @@ void AnimationSystem::AddRotationComponent(
         const TriggerCallback callback = [this, rotation_anim](uint32_t trigger_id, TriggerState state) {
             m_rotation_anims_to_process.push_back(rotation_anim);
         };
-        rotation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback);
+        rotation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
     }
     else
     {
@@ -195,7 +195,7 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 {
     for(SpriteAnimationComponent* sprite_anim : m_sprite_anims_to_process)
     {
-        m_trigger_system->RemoveTriggerCallback(sprite_anim->trigger_hash, sprite_anim->callback_id);
+        m_trigger_system->RemoveTriggerCallback(sprite_anim->trigger_hash, sprite_anim->callback_id, sprite_anim->target_id);
         sprite_anim->callback_id = NO_CALLBACK_SET;
 
         mono::Sprite* sprite = m_sprite_system->GetSprite(sprite_anim->target_id);
@@ -209,7 +209,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 
         if(translation_anim->callback_id != NO_CALLBACK_SET)
         {
-            m_trigger_system->RemoveTriggerCallback(translation_anim->trigger_hash, translation_anim->callback_id);
+            m_trigger_system->RemoveTriggerCallback(
+                translation_anim->trigger_hash, translation_anim->callback_id, translation_anim->target_id);
             translation_anim->callback_id = NO_CALLBACK_SET;
         }
 
@@ -257,7 +258,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 
         if(rotation_anim->callback_id != NO_CALLBACK_SET)
         {
-            m_trigger_system->RemoveTriggerCallback(rotation_anim->trigger_hash, rotation_anim->callback_id);
+            m_trigger_system->RemoveTriggerCallback(
+                rotation_anim->trigger_hash, rotation_anim->callback_id, rotation_anim->target_id);
             rotation_anim->callback_id = NO_CALLBACK_SET;
         }
 
