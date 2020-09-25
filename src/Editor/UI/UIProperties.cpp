@@ -1,6 +1,6 @@
 
 #include "UIProperties.h"
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 #include "UIContext.h"
 #include "Resources.h"
@@ -9,6 +9,7 @@
 #include "CollisionConfiguration.h"
 #include "PickupTypes.h"
 #include "Math/EasingFunctions.h"
+#include "Math/MathFunctions.h"
 #include "TriggerTypes.h"
 #include "AnimationModes.h"
 #include "FontIds.h"
@@ -192,6 +193,15 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
+    }
+    else if(attribute.id == ROTATION_ATTRIBUTE)
+    {
+        float degrees = math::ToDegrees(attribute.attribute);
+        const bool changed = ImGui::InputFloat(text.c_str(), &degrees);
+        if(changed)
+            attribute.attribute = math::ToRadians(degrees);
+        
+        return changed;
     }
     else if(attribute.id == ANIMATION_MODE_ATTRIBUTE)
     {

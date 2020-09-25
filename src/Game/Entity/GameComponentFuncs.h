@@ -1,9 +1,12 @@
 
 #pragma once
 
-class EntityManager;
+namespace mono
+{
+    class EntityManager;
+}
 
 namespace game
 {
-    void RegisterGameComponents(EntityManager& entity_manager);
+    void RegisterGameComponents(mono::EntityManager& entity_manager);
 }

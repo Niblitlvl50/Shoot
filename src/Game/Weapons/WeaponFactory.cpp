@@ -12,7 +12,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 
 #include <functional>
 #include <limits>
@@ -23,7 +23,7 @@ namespace
         const char* entity_file,
         int animation_id,
         uint32_t position_at_transform_id,
-        IEntityManager* entity_manager,
+        mono::IEntityManager* entity_manager,
         mono::TransformSystem* transform_system,
         mono::SpriteSystem* sprite_system)
     {
@@ -44,7 +44,7 @@ namespace
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags,
         const mono::IBody* other,
-        IEntityManager* entity_manager,
+        mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system)
     {
@@ -61,7 +61,7 @@ namespace
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags, 
         const mono::IBody* other,
-        IEntityManager* entity_manager,
+        mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
@@ -77,7 +77,7 @@ namespace
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags,
         const mono::IBody* other,
-        IEntityManager* entity_manager,
+        mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
@@ -90,7 +90,7 @@ namespace
 
 using namespace game;
 
-WeaponFactory::WeaponFactory(IEntityManager* entity_manager, mono::SystemContext* system_context)
+WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
     : m_entity_manager(entity_manager)
     , m_system_context(system_context)
 { }
@@ -126,7 +126,8 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
             weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 99;
-            weapon_config.rounds_per_second = 7.0f;
+            //weapon_config.rounds_per_second = 7.0f;
+            weapon_config.rounds_per_second = 30.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
             weapon_config.bullet_force = 20.0f;
@@ -200,9 +201,10 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.sound_file = nullptr;
 
             weapon_config.projectiles_per_fire = 6;
-            weapon_config.magazine_size = 6;
+            weapon_config.magazine_size = 30;
             weapon_config.reload_time = 1.0f;
-            weapon_config.rounds_per_second = 1.0f;
+            //weapon_config.rounds_per_second = 1.0f;
+            weapon_config.rounds_per_second = 4.0f;
             weapon_config.bullet_force = 25.0f;
             weapon_config.bullet_spread_degrees = 4.0f;
             weapon_config.fire_sound = "res/sound/shotgun_fire.wav";

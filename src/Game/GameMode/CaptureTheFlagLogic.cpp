@@ -11,7 +11,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 
 #include <iostream>
 
@@ -23,7 +23,7 @@ CaptureTheFlagLogic::CaptureTheFlagLogic(
     mono::SpriteSystem* sprite_system,
     game::DamageSystem* damage_system,
     const PlayerDaemon* player_daemon,
-    IEntityManager* entity_manager)
+    mono::IEntityManager* entity_manager)
     : m_transform_system(transform_system)
     , m_damage_system(damage_system)
     , m_player_daemon(player_daemon)

@@ -1,12 +1,11 @@
 
 #include "PlayerDaemon.h"
 #include "PlayerLogic.h"
-#include "RenderLayers.h"
 #include "AIKnowledge.h"
 
 #include "Factories.h"
 #include "EntitySystem/Entity.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "UpdateTasks/GameCamera.h"
 
 #include "SystemContext.h"
@@ -15,31 +14,22 @@
 #include "Entity/EntityLogicSystem.h"
 
 #include "EventHandler/EventHandler.h"
-#include "Events/ControllerEvent.h"
-#include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
+#include "Events/ControllerEvent.h"
 #include "Events/PlayerConnectedEvent.h"
 #include "Events/ScoreEvent.h"
-
-#include "Camera/ICamera.h"
-#include "Rendering/Color.h"
-#include "Rendering/IRenderer.h"
-#include "System/System.h"
-#include "Zone/EntityBase.h"
-#include "Hud/UIElements.h"
-#include "Hud/Dialog.h"
 
 #include "Network/NetworkMessage.h"
 #include "Network/INetworkPipe.h"
 #include "Network/NetworkSerialize.h"
 
 #include "Component.h"
-#include "System/System.h"
 
 #include <functional>
 
 using namespace game;
 
+/*
 #define IS_TRIGGERED(variable) (!m_last_state.variable && state.variable)
 #define HAS_CHANGED(variable) (m_last_state.variable != state.variable)
 
@@ -92,6 +82,40 @@ namespace
         System::ControllerState m_last_state;
     };
 }
+*/
+
+namespace
+{
+    uint32_t SpawnPlayer(
+        game::PlayerInfo* player_info,
+        const System::ControllerState& controller,
+        mono::SystemContext* system_context,
+        mono::EventHandler* event_handler,
+        game::DestroyedCallback destroyed_callback)
+    {
+        mono::Entity player_entity = game::g_entity_manager->CreateEntity("res/entities/player_entity.entity");
+
+        mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+        math::Matrix& transform = transform_system->GetTransform(player_entity.id);
+        math::Position(transform, math::ZeroVec);
+
+        // No need to store the callback id, when destroyed this callback will be cleared up.
+        game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
+        const uint32_t callback_id = damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
+        (void)callback_id;
+
+        game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
+        game::g_entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
+
+        IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, *event_handler, controller, system_context);
+        logic_system->AddLogic(player_entity.id, player_logic);
+
+        player_info->entity_id = player_entity.id;
+        player_info->is_active = true;
+
+        return player_entity.id;
+    }
+}
 
 PlayerDaemon::PlayerDaemon(
     GameCamera* game_camera,
@@ -102,6 +126,7 @@ PlayerDaemon::PlayerDaemon(
     , m_remote_connection(remote_connection)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
+    , m_player_state(PlayerMetaState::NONE)
 {
     using namespace std::placeholders;
 
@@ -166,42 +191,21 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemon::SpawnPlayer(
-    game::PlayerInfo* player_info, const System::ControllerState& controller, DestroyedCallback destroyed_callback)
-{
-    mono::Entity player_entity = game::g_entity_manager->CreateEntity("res/entities/player_entity.entity");
-
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    math::Matrix& transform = transform_system->GetTransform(player_entity.id);
-    math::Position(transform, math::ZeroVec);
-
-    game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-
-    // No need to store the callback id, when destroyed this callback will be cleared up.
-    const uint32_t callback_id = damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
-    (void)callback_id;
-
-    game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
-    game::g_entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
-
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_event_handler, controller, m_system_context);
-    logic_system->AddLogic(player_entity.id, player_logic);
-
-    m_game_camera->Follow(player_entity.id, math::ZeroVec);
-
-    player_info->entity_id = player_entity.id;
-    player_info->is_active = true;
-}
-
 void PlayerDaemon::SpawnPlayer1()
 {
-    const auto destroyed_func = [](uint32_t entity_id) {
+    const auto destroyed_func = [this](uint32_t entity_id) {
         game::g_player_one.is_active = false;
-        //auto player_death_ui = std::make_shared<PlayerDeathScreen>(this, m_event_handler, game::g_player_one.position);
-        //m_event_handler.DispatchEvent(SpawnEntityEvent(player_death_ui, LayerId::UI));
     };
 
-    SpawnPlayer(&game::g_player_one, System::GetController(System::ControllerId::Primary), destroyed_func);
+    const uint32_t spawned_id = SpawnPlayer(
+        &game::g_player_one,
+        System::GetController(System::ControllerId::Primary),
+        m_system_context,
+        &m_event_handler,
+        destroyed_func);
+    
+    m_game_camera->Follow(spawned_id, math::ZeroVec);
+    m_player_state = PlayerMetaState::SPAWNED;
 }
 
 void PlayerDaemon::SpawnPlayer2()
@@ -210,7 +214,13 @@ void PlayerDaemon::SpawnPlayer2()
         game::g_player_two.is_active = false;
     };
 
-    SpawnPlayer(&game::g_player_two, System::GetController(System::ControllerId::Primary), destroyed_func);
+    const uint32_t spawned_id = SpawnPlayer(
+        &game::g_player_two,
+        System::GetController(System::ControllerId::Secondary),
+        m_system_context,
+        &m_event_handler,
+        destroyed_func);
+    (void)spawned_id;
 }
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
@@ -267,10 +277,15 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
         //m_remote_players.erase(it);
     };
 
-    SpawnPlayer(&remote_player_data.player_info, remote_player_data.controller_state, remote_player_destroyed);
+    const uint32_t spawned_id = SpawnPlayer(
+        &remote_player_data.player_info,
+        remote_player_data.controller_state,
+        m_system_context,
+        &m_event_handler,
+        remote_player_destroyed);
 
     ClientPlayerSpawned client_spawned_message;
-    client_spawned_message.client_entity_id = remote_player_data.player_info.entity_id;
+    client_spawned_message.client_entity_id = spawned_id;
 
     NetworkMessage reply_message;
     reply_message.payload = SerializeMessage(client_spawned_message);

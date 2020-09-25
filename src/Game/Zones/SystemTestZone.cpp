@@ -46,7 +46,7 @@
 #include "UpdateTasks/ListenerPositionUpdater.h"
 #include "UpdateTasks/GameCamera.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Factories.h"
 
 #include "RenderLayers.h"

@@ -15,7 +15,7 @@
 
 #include "WorldFile.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "ObjectProxies/IObjectProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
 #include "Component.h"
@@ -92,7 +92,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
 }
 
 std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
-    const char* file_name, IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
+    const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
 {
     std::vector<IObjectProxyPtr> proxies;
 
@@ -150,7 +150,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
 }
 
 editor::World editor::LoadWorld(
-    const char* file_name, const editor::ObjectFactory& factory, IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
+    const char* file_name, const editor::ObjectFactory& factory, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
 {
     editor::World world;
 

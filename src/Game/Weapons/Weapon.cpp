@@ -13,7 +13,7 @@
 #include "Effects/MuzzleFlash.h"
 
 #include "SystemContext.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 
 #include "Physics/PhysicsSystem.h"
@@ -31,7 +31,7 @@
 
 using namespace game;
 
-Weapon::Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager, mono::SystemContext* system_context)
+Weapon::Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
     : m_weapon_config(config)
     , m_entity_manager(entity_manager)
     , m_last_fire_timestamp(0)

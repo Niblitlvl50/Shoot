@@ -4,7 +4,7 @@
 #include "Util/Hash.h"
 #include "Physics/PhysicsSystem.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 
 using namespace game;
 
@@ -36,7 +36,7 @@ namespace
     };
 }
 
-PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, IEntityManager* entity_manager)
+PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_manager)
     : m_physics_system(physics_system)
     , m_entity_manager(entity_manager)
 {

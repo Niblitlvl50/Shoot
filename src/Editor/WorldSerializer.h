@@ -5,8 +5,6 @@
 #include "WorldFile.h"
 #include <vector>
 
-class IEntityManager;
-
 namespace mono
 {
     class TransformSystem;
@@ -19,7 +17,7 @@ namespace editor
 
     std::vector<IObjectProxyPtr> LoadPolygons(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadPaths(const char* file_name, const editor::ObjectFactory& factory);
-    std::vector<IObjectProxyPtr> LoadComponentObjects(const char* file_name, IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor);
+    std::vector<IObjectProxyPtr> LoadComponentObjects(const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor);
 
     struct World
     {
@@ -30,7 +28,7 @@ namespace editor
     World LoadWorld(
         const char* file_name,
         const editor::ObjectFactory& factory,
-        IEntityManager* entity_manager,
+        mono::IEntityManager* entity_manager,
         mono::TransformSystem* transform_system,
         Editor* editor);
 

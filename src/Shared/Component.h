@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 
 #include <vector>
 #include <array>

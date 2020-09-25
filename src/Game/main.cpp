@@ -20,7 +20,7 @@
 #include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Physics/PhysicsSystem.h"
-#include "Entity/EntityManager.h"
+#include "Entity/GameEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "DamageSystem.h"
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
-        EntityManager entity_manager(&system_context);
+        shared::GameEntityManager entity_manager(&system_context);
         game::RegisterGameComponents(entity_manager);
         shared::RegisterSharedComponents(entity_manager);
 

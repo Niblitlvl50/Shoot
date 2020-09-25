@@ -8,8 +8,6 @@
 #include <array>
 #include <memory>
 
-class IEntityManager;
-
 namespace game
 {
     struct DamageRecord
@@ -36,7 +34,7 @@ namespace game
     public:
         DamageSystem(
             size_t num_records,
-            IEntityManager* entity_manager,
+            mono::IEntityManager* entity_manager,
             mono::ParticleSystem* particle_system,
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
@@ -72,7 +70,7 @@ namespace game
 
         size_t FindFreeCallbackIndex(uint32_t id) const;
 
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
         mono::ParticleSystem* m_particle_system;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;

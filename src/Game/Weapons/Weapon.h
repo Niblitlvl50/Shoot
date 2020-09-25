@@ -7,10 +7,9 @@
 #include "MonoPtrFwd.h"
 #include "Math/MathFwd.h"
 
-class IEntityManager;
-
 namespace mono
 {
+    class IEntityManager;
     class PhysicsSystem;
     class ParticleSystem;
 }
@@ -23,7 +22,7 @@ namespace game
     {
     public:
 
-        Weapon(const WeaponConfiguration& config, IEntityManager* entity_manager, mono::SystemContext* system_context);
+        Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
         ~Weapon();
 
         WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
@@ -36,7 +35,7 @@ namespace game
     private:
 
         const WeaponConfiguration m_weapon_config;
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
         uint32_t m_last_fire_timestamp;
         uint32_t m_last_reload_timestamp;
         float m_current_fire_rate;

@@ -11,7 +11,7 @@
 #include "Math/Quad.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 #include "UI/UIProperties.h"
 

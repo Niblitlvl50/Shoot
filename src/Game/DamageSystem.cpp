@@ -3,7 +3,7 @@
 #include "AIKnowledge.h"
 
 #include "Effects/DamageEffect.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Particle/ParticleSystem.h"
 #include "Events/ScoreEvent.h"
@@ -21,7 +21,7 @@ using namespace game;
 
 DamageSystem::DamageSystem(
     size_t num_records,
-    IEntityManager* entity_manager,
+    mono::IEntityManager* entity_manager,
     mono::ParticleSystem* particle_system,
     mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system,

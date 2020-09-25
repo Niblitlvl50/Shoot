@@ -11,7 +11,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityProperties.h"
 
 #include "ScopedTimer.h"
@@ -30,7 +30,7 @@ ServerReplicator::ServerReplicator(
     mono::EntitySystem* entity_system,
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
-    IEntityManager* entity_manager,
+    mono::IEntityManager* entity_manager,
     ServerManager* server_manager,
     uint32_t replication_interval)
     : m_entity_system(entity_system)
@@ -91,7 +91,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
 
 void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender)
 {
-    for(const IEntityManager::SpawnEvent& spawn_event : m_entity_manager->GetSpawnEvents())
+    for(const mono::IEntityManager::SpawnEvent& spawn_event : m_entity_manager->GetSpawnEvents())
     {
         SpawnMessage spawn_message;
         spawn_message.entity_id = spawn_event.entity_id;

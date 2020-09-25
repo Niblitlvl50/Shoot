@@ -1,22 +1,12 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IUpdatable.h"
 #include "NetworkMessage.h"
 #include "NetworkSerialize.h"
 
 #include <queue>
-
-class IEntityManager;
-
-namespace mono
-{
-    class EntitySystem;
-    class TransformSystem;
-    class PhysicsSystem;
-    class SpriteSystem;
-    class ICamera;
-}
 
 namespace game
 {
@@ -32,7 +22,7 @@ namespace game
             mono::EntitySystem* entity_system,
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
-            IEntityManager* entity_manager,
+            mono::IEntityManager* entity_manager,
             ServerManager* server_manager,
             uint32_t replication_interval);
 
@@ -46,7 +36,7 @@ namespace game
         mono::EntitySystem* m_entity_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
         ServerManager* m_server_manager;
         uint32_t m_replication_interval;
 

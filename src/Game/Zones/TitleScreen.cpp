@@ -25,7 +25,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "System/System.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "WorldFile.h"
 
 using namespace game;

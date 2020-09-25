@@ -9,10 +9,9 @@
 #include <vector>
 #include <cstdint>
 
-class IEntityManager;
-
 namespace mono
 {
+    class IEntityManager;
     class TransformSystem;
     class SpriteSystem;
 }
@@ -31,7 +30,7 @@ namespace game
             mono::SpriteSystem* sprite_system,
             game::DamageSystem* damage_system,
             const PlayerDaemon* player_daemon,
-            IEntityManager* entity_manager);
+            mono::IEntityManager* entity_manager);
         
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -69,7 +68,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         game::DamageSystem* m_damage_system;
         const PlayerDaemon* m_player_daemon;
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
 
         CaptureTheFlagScore m_score;
     };

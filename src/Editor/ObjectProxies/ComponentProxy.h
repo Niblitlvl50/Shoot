@@ -6,10 +6,10 @@
 #include <string>
 
 struct Component;
-class IEntityManager;
 
 namespace mono
 {
+    class IEntityManager;
     class TransformSystem;
 }
 
@@ -26,7 +26,7 @@ namespace editor
             const std::string& name,
             const std::string& folder,
             const std::vector<Component>& components,
-            IEntityManager* entity_manager,
+            mono::IEntityManager* entity_manager,
             mono::TransformSystem* transform_system,
             Editor* editor);
         
@@ -68,7 +68,7 @@ namespace editor
         std::string m_folder;
         uint32_t m_entity_properties;
         std::vector<Component> m_components;
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
         Editor* m_editor;
     };

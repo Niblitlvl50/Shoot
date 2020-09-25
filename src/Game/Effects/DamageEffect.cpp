@@ -8,7 +8,7 @@
 
 #include "Particle/ParticleSystem.h"
 #include "Factories.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 
 using namespace game;
 

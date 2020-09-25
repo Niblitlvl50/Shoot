@@ -7,7 +7,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"
 #include "Factories.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 
 using namespace game;
 

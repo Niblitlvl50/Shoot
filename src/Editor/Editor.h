@@ -18,7 +18,6 @@
 #include <memory>
 
 class ImGuiInputHandler;
-class IEntityManager;
 
 namespace editor
 {
@@ -34,7 +33,7 @@ namespace editor
 
         Editor(
             System::IWindow* window,
-            IEntityManager& entity_manager,
+            mono::IEntityManager& entity_manager,
             mono::EventHandler& event_handler,
             mono::SystemContext& system_context,
             Config& editor_config,
@@ -109,7 +108,7 @@ namespace editor
     private:
 
         System::IWindow* m_window;
-        IEntityManager& m_entity_manager;
+        mono::IEntityManager& m_entity_manager;
         mono::EventHandler& m_event_handler;
         mono::SystemContext& m_system_context;
         Config& m_editor_config;

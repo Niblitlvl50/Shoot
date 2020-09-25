@@ -1,9 +1,12 @@
 
 #pragma once
 
-class EntityManager;
+namespace mono
+{
+    class EntityManager;
+}
 
 namespace shared
 {
-    void RegisterSharedComponents(EntityManager& entity_manager);
+    void RegisterSharedComponents(mono::EntityManager& entity_manager);
 }

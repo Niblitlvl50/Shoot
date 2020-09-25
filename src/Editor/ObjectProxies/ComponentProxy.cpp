@@ -3,13 +3,13 @@
 #include "SnapPoint.h"
 #include "Grabber.h"
 
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 #include "UI/UIProperties.h"
 #include "IObjectVisitor.h"
 #include "Math/MathFunctions.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityProperties.h"
 #include "TransformSystem/TransformSystem.h"
 
@@ -17,13 +17,12 @@
 
 using namespace editor;
 
-
 ComponentProxy::ComponentProxy(
     uint32_t entity_id,
     const std::string& name,
     const std::string& folder,
     const std::vector<Component>& components,
-    IEntityManager* entity_manager,
+    mono::IEntityManager* entity_manager,
     mono::TransformSystem* transform_system,
     Editor* editor)
     : m_entity_id(entity_id)

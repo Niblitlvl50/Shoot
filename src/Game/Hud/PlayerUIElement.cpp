@@ -89,7 +89,7 @@ void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
     if(m_player_info.score != m_current_score)
     {
         //const int score_diff = m_player_info.score - m_current_score;
-        m_current_score += 1;
+        m_current_score += 10;
         m_current_score = std::min(m_player_info.score, m_current_score);
     }
 

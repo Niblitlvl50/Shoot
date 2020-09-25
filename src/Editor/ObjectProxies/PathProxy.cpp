@@ -11,7 +11,7 @@
 #include "Math/MathFunctions.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 
 using namespace editor;

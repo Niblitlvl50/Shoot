@@ -7,7 +7,7 @@
 #include "Rendering/Text/TextSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "Entity/EntityManager.h"
+#include "EntitySystem/EntityManager.h"
 
 #include "Component.h"
 
@@ -124,7 +124,7 @@ bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, 
     return true;
 }
 
-void shared::RegisterSharedComponents(EntityManager& entity_manager)
+void shared::RegisterSharedComponents(mono::EntityManager& entity_manager)
 {
     entity_manager.RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
     entity_manager.RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);

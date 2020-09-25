@@ -13,8 +13,6 @@
 #include <functional>
 #include <unordered_map>
 
-class IEntityManager;
-
 namespace game
 {
     struct Pickup
@@ -29,7 +27,7 @@ namespace game
     {
     public:
         
-        PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, IEntityManager* entity_manager);
+        PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_manager);
 
         Pickup* AllocatePickup(uint32_t id);
         void ReleasePickup(uint32_t id);
@@ -50,7 +48,7 @@ namespace game
         void PlayPickupSound(shared::PickupType type);
 
         mono::PhysicsSystem* m_physics_system;
-        IEntityManager* m_entity_manager;
+        mono::IEntityManager* m_entity_manager;
 
         std::vector<Pickup> m_pickups;
         std::vector<bool> m_active;

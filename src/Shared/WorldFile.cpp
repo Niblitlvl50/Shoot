@@ -2,7 +2,7 @@
 #include "WorldFile.h"
 #include "Math/Serialize.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Component.h"
 #include "Serialize.h"
 
@@ -15,7 +15,7 @@
 
 
 shared::LevelData shared::ReadWorldComponentObjects(
-    const char* file_name, IEntityManager* entity_manager, EntityCreationCallback callback)
+    const char* file_name, mono::IEntityManager* entity_manager, EntityCreationCallback callback)
 {
     LevelData level_data;
 

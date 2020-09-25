@@ -6,7 +6,7 @@
 #include "Math/Quad.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 
 using namespace editor;

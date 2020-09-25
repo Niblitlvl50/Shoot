@@ -30,7 +30,7 @@
 #include "ObjectProxies/PathProxy.h"
 
 #include "ObjectProxies/ComponentProxy.h"
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "EntitySystem/EntitySystem.h"
 
 #include "Objects/Polygon.h"
@@ -120,7 +120,7 @@ namespace
     class SyncPoint : public mono::IUpdatable
     {
     public:
-        SyncPoint(IEntityManager& entity_manager)
+        SyncPoint(mono::IEntityManager& entity_manager)
             : m_entity_manager(entity_manager)
         { }
 
@@ -129,7 +129,7 @@ namespace
             m_entity_manager.Sync();
         }
 
-        IEntityManager& m_entity_manager;
+        mono::IEntityManager& m_entity_manager;
     };
 }
 
@@ -137,7 +137,7 @@ using namespace editor;
 
 Editor::Editor(
     System::IWindow* window,
-    IEntityManager& entity_manager,
+    mono::IEntityManager& entity_manager,
     mono::EventHandler& event_handler,
     mono::SystemContext& system_context,
     Config& editor_config,

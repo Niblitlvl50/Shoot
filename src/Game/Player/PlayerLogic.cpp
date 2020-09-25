@@ -13,7 +13,7 @@
 #include "Weapons/IWeaponSystem.h"
 #include "Weapons/IWeaponFactory.h"
 
-#include "Entity/IEntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
 
 #include "Effects/TrailEffect.h"

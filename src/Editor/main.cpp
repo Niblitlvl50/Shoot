@@ -17,7 +17,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 
 #include "Component.h"
-#include "Entity/EntityManager.h"
+#include "Entity/GameEntityManager.h"
 #include "Entity/ComponentFunctions.h"
 
 int main(int argc, const char* argv[])
@@ -43,7 +43,7 @@ int main(int argc, const char* argv[])
     {
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
-        EntityManager entity_manager(&system_context);
+        shared::GameEntityManager entity_manager(&system_context);
         shared::RegisterSharedComponents(entity_manager);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);

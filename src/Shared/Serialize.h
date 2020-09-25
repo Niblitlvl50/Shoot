@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "ObjectAttribute.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Component.h"
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
