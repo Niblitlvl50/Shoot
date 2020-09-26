@@ -396,55 +396,78 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const char
     if(pushed_button)
         ImGui::OpenPopup("sprite_picker_popup");
 
-    if(ImGui::IsPopupOpen("sprite_picker_popup"))
-        ImGui::SetNextWindowSize(ImVec2(800, -1));
-    
+    if(!ImGui::IsPopupOpen("sprite_picker_popup"))
+        return result;
+
+    // Prepare sprite image data
+    const std::vector<std::string>& all_sprites = editor::GetAllSprites();
+
+    struct SpriteUIIcon
+    {
+        std::string sprite_name;
+        editor::UIIcon icon;
+    };
+
+    std::vector<SpriteUIIcon> sprite_icons;
+    sprite_icons.reserve(all_sprites.size());
+
+    for(const std::string& sprite_name : all_sprites)
+    {
+        const auto it = ui_context.ui_icons.find(sprite_name);
+        if(it != ui_context.ui_icons.end())
+            sprite_icons.push_back({sprite_name, it->second});
+    }
+
+    const auto sort_by_category = [](const SpriteUIIcon& first, const SpriteUIIcon& second)
+    {
+        if(first.icon.category == second.icon.category)
+            return first.sprite_name < second.sprite_name;
+
+        return first.icon.category < second.icon.category;
+    };
+    std::sort(sprite_icons.begin(), sprite_icons.end(), sort_by_category);
+
+    ImGui::SetNextWindowSize(ImVec2(800, -1));
     if(ImGui::BeginPopup("sprite_picker_popup"))
     {
-        const std::vector<std::string>& all_sprites = editor::GetAllSprites();
         ImGui::Columns(10, "sprite_picker_columns", false);
 
-        for(const std::string& sprite : all_sprites)
+        for(size_t index = 0; index < sprite_icons.size(); ++index)
         {
-            ImGui::PushID(sprite.c_str());
+            const SpriteUIIcon& sprite_icon = sprite_icons[index];
+            ImGui::PushID(index);
 
-            const auto it = ui_context.ui_icons.find(sprite);
-            if(it != ui_context.ui_icons.end())
+            void* texture_id = reinterpret_cast<void*>(sprite_icon.icon.texture_id);
+            const math::Vector& size = sprite_icon.icon.size;
+
+            constexpr float button_max_size = 64.0f;
+            const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
+
+            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_coordinates);
+            const bool sprite_selected = ImGui::ImageButton(
+                texture_id, ImVec2(size.x * scale, size.y * scale), image_icon.uv1, image_icon.uv2, 2);
+            if(sprite_selected)
             {
-                void* texture_id = reinterpret_cast<void*>(it->second.texture_id);
-                const math::Quad& uv_coordinates = it->second.uv_coordinates;
-                const math::Vector& size = it->second.size;
-
-                constexpr float button_max_size = 64.0f;
-                const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
-
-                const ImageCoords& icon = QuadToImageCoords(uv_coordinates);
-                const bool sprite_selected = ImGui::ImageButton(
-                    texture_id, ImVec2(size.x * scale, size.y * scale), icon.uv1, icon.uv2, 2);
-                if(sprite_selected)
-                {
-                    result.changed = true;
-                    result.new_value = sprite;
-                    ImGui::CloseCurrentPopup();
-                }
-
-                if(sprite == current_value)
-                {
-                    ImGui::GetWindowDrawList()->AddRect(
-                        ImGui::GetItemRectMin(),
-                        ImGui::GetItemRectMax(),
-                        ImGui::GetColorU32(ImGuiCol_DragDropTarget),
-                        3.0f,
-                        ImDrawCornerFlags_All,
-                        2.0f);
-                }
-
-                if(ImGui::IsItemHovered())
-                    ImGui::SetTooltip("%s, width %.2f m, height %.2f m", sprite.c_str(), size.x, size.y);
-
-                ImGui::NextColumn();
+                result.changed = true;
+                result.new_value = sprite_icon.sprite_name;
+                ImGui::CloseCurrentPopup();
             }
 
+            if(sprite_icon.sprite_name == current_value)
+            {
+                ImGui::GetWindowDrawList()->AddRect(
+                    ImGui::GetItemRectMin(),
+                    ImGui::GetItemRectMax(),
+                    ImGui::GetColorU32(ImGuiCol_DragDropTarget),
+                    3.0f,
+                    ImDrawCornerFlags_All,
+                    2.0f);
+            }
+
+            if(ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s|%s, width %.2f m, height %.2f m", sprite_icon.icon.category.c_str(), sprite_icon.sprite_name.c_str(), size.x, size.y);
+
+            ImGui::NextColumn();
             ImGui::PopID();
         }
 

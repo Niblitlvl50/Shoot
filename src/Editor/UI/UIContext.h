@@ -46,6 +46,7 @@ namespace editor
         int texture_id;
         math::Quad uv_coordinates;
         math::Vector size;
+        std::string category;
     };
 
     struct UIContext
