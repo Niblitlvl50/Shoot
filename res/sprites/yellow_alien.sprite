@@ -42,54 +42,54 @@
             "h": 41,
             "name": "yellow_alien0",
             "w": 33,
-            "x": 387,
+            "x": 1999,
             "x_offset": 0.0,
-            "y": 188,
+            "y": 279,
             "y_offset": 0.0
         },
         {
             "h": 34,
             "name": "yellow_alien1",
             "w": 34,
-            "x": 1173,
+            "x": 1761,
             "x_offset": 0.0,
-            "y": 204,
+            "y": 299,
             "y_offset": 0.0
         },
         {
             "h": 43,
             "name": "yellow_alien3",
             "w": 35,
-            "x": 1599,
+            "x": 836,
             "x_offset": 0.0,
-            "y": 182,
+            "y": 260,
             "y_offset": 0.0
         },
         {
             "h": 42,
             "name": "yellow_alien2",
             "w": 34,
-            "x": 282,
+            "x": 502,
             "x_offset": 0.0,
-            "y": 188,
+            "y": 268,
             "y_offset": 0.0
         },
         {
             "h": 41,
             "name": "yellow_alien5",
             "w": 33,
-            "x": 350,
+            "x": 298,
             "x_offset": 0.0,
-            "y": 188,
+            "y": 274,
             "y_offset": 0.0
         },
         {
             "h": 41,
             "name": "yellow_alien4",
             "w": 33,
-            "x": 424,
+            "x": 1199,
             "x_offset": 0.0,
-            "y": 188,
+            "y": 283,
             "y_offset": 0.0
         }
     ],

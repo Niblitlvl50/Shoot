@@ -1,0 +1,28 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 23,
+            "name": "log_first",
+            "w": 38,
+            "x": 33,
+            "x_offset": 0.0,
+            "y": 324,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

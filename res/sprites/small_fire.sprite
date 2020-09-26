@@ -1,0 +1,50 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                92,
+                1,
+                92,
+                2,
+                100
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 41,
+            "name": "small_fire2",
+            "w": 23,
+            "x": 1897,
+            "x_offset": 0.0,
+            "y": 288,
+            "y_offset": 0.0
+        },
+        {
+            "h": 41,
+            "name": "small_fire3",
+            "w": 23,
+            "x": 979,
+            "x_offset": 0.0,
+            "y": 291,
+            "y_offset": 0.0
+        },
+        {
+            "h": 41,
+            "name": "small_fire1",
+            "w": 23,
+            "x": 952,
+            "x_offset": 0.0,
+            "y": 291,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

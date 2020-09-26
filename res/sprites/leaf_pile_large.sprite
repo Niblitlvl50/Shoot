@@ -1,0 +1,28 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                -50
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 40,
+            "name": "leaf_pile_large",
+            "w": 57,
+            "x": 1006,
+            "x_offset": 0.0,
+            "y": 291,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

@@ -726,43 +726,19 @@
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
-                            "variant_value": 0.25
+                            "variant_value": 2.0
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.8999999761581421
+                            "variant_value": 6.2831854820251465
                         },
                         {
                             "id": 1453830135,
                             "name": "easing_func",
                             "variant_type": 2,
                             "variant_value": 3
-                        }
-                    ]
-                },
-                {
-                    "hash": 1848570119,
-                    "name": "time_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 4,
-                            "variant_value": "rotate_doom"
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 2,
-                            "variant_value": 5000
-                        },
-                        {
-                            "id": 2374006294,
-                            "name": "repeating",
-                            "variant_type": 1,
-                            "variant_value": true
                         }
                     ]
                 }
