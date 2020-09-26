@@ -33,15 +33,7 @@ ComponentProxy::ComponentProxy(
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
     , m_editor(editor)
-{
-    /*
-    for(const Component& component : m_components)
-    {
-        entity_manager->AddComponent(entity_id, component.hash);
-        entity_manager->SetComponentData(entity_id, component.hash, component.properties);
-    }
-    */
-}
+{ }
 
 ComponentProxy::~ComponentProxy()
 {
@@ -95,6 +87,20 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
     {
         Component& modified_component = m_components[modified_index];
         m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
+
+        // Special case for setting a proper name...
+        if(modified_component.hash == SPRITE_COMPONENT && m_name == "unnamed")
+        {
+            const char* sprite_name = nullptr;
+            const bool found_sprite_name = 
+                FindAttribute(SPRITE_ATTRIBUTE, modified_component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
+            if(found_sprite_name)
+            {
+                m_name = sprite_name;
+                const size_t dot_pos = m_name.find_last_of('.');
+                m_name.erase(dot_pos);
+            }
+        }
     }
 }
 

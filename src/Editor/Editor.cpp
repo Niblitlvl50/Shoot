@@ -317,7 +317,7 @@ void Editor::ImportEntity()
 void Editor::NewEntity()
 {
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-    mono::Entity new_entity = m_entity_manager.CreateEntity("Unnamed", { TRANSFORM_COMPONENT });
+    mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { TRANSFORM_COMPONENT });
 
     const std::vector<Component> components = {
         DefaultComponentFromHash(TRANSFORM_COMPONENT)
