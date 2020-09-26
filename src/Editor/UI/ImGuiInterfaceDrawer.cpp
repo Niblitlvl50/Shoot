@@ -114,6 +114,9 @@ namespace
 
         ImGui::Begin("Objects", nullptr, flags);
 
+        const size_t n_objects = context.all_proxy_objects->size();
+        ImGui::TextDisabled("%zu / 500 objects", n_objects);
+
         int id = 0;
 
         const auto add_selectables = [&id, &context](const std::vector<IObjectProxy*>& proxies)
