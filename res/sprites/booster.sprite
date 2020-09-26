@@ -19,14 +19,15 @@
             "name": "default"
         }
     ],
+    "category": "shuttle",
     "frames": [
         {
             "h": 11,
             "name": "booster2",
             "w": 9,
-            "x": 1101,
+            "x": 1222,
             "x_offset": 0.0,
-            "y": 334,
+            "y": 328,
             "y_offset": 0.0
         },
         {

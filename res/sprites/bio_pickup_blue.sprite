@@ -9,6 +9,7 @@
             "name": "default"
         }
     ],
+    "category": "pickups",
     "frames": [
         {
             "h": 21,

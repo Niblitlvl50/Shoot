@@ -11,23 +11,24 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 16,
             "name": "caco_bullet1",
             "w": 16,
-            "x": 1815,
+            "x": 1761,
             "x_offset": 0.0,
-            "y": 335,
+            "y": 337,
             "y_offset": 0.0
         },
         {
             "h": 15,
             "name": "caco_bullet2",
             "w": 15,
-            "x": 1701,
+            "x": 1130,
             "x_offset": 0.0,
-            "y": 338,
+            "y": 339,
             "y_offset": 0.0
         }
     ],

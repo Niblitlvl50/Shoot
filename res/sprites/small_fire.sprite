@@ -13,6 +13,7 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 41,

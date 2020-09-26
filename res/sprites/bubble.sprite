@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 24,
             "name": "bubble",
             "w": 24,
-            "x": 268,
+            "x": 307,
             "x_offset": 0.0,
-            "y": 320,
+            "y": 319,
             "y_offset": 0.0
         }
     ],

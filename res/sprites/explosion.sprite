@@ -21,12 +21,13 @@
             "name": "default"
         }
     ],
+    "category": "explosions",
     "frames": [
         {
             "h": 8,
             "name": "explosion1",
             "w": 8,
-            "x": 1447,
+            "x": 1507,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0
@@ -35,7 +36,7 @@
             "h": 8,
             "name": "explosion2",
             "w": 8,
-            "x": 1374,
+            "x": 1495,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0
@@ -44,7 +45,7 @@
             "h": 10,
             "name": "explosion3",
             "w": 11,
-            "x": 1297,
+            "x": 1358,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0
@@ -53,16 +54,16 @@
             "h": 11,
             "name": "explosion7",
             "w": 11,
-            "x": 1876,
+            "x": 991,
             "x_offset": 0.0,
-            "y": 334,
+            "y": 336,
             "y_offset": 0.0
         },
         {
             "h": 10,
             "name": "explosion6",
             "w": 11,
-            "x": 832,
+            "x": 1298,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0
@@ -71,7 +72,7 @@
             "h": 10,
             "name": "explosion4",
             "w": 11,
-            "x": 847,
+            "x": 1313,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0
@@ -80,7 +81,7 @@
             "h": 10,
             "name": "explosion5",
             "w": 10,
-            "x": 1312,
+            "x": 1373,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0

@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 17,
             "name": "board_small",
             "w": 15,
-            "x": 1953,
+            "x": 1006,
             "x_offset": 0.0,
-            "y": 333,
+            "y": 335,
             "y_offset": 0.0
         }
     ],

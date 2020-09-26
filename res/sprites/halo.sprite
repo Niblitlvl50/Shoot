@@ -9,21 +9,22 @@
             "name": "default"
         }
     ],
+    "category": "halo",
     "frames": [
         {
             "h": 29,
             "name": "halo5",
             "w": 27,
-            "x": 540,
+            "x": 882,
             "x_offset": 0.0,
-            "y": 312,
+            "y": 311,
             "y_offset": 0.0
         },
         {
             "h": 28,
             "name": "halo4",
             "w": 27,
-            "x": 687,
+            "x": 1585,
             "x_offset": 0.0,
             "y": 312,
             "y_offset": 0.0
@@ -41,18 +42,18 @@
             "h": 29,
             "name": "halo3",
             "w": 27,
-            "x": 882,
+            "x": 656,
             "x_offset": 0.0,
-            "y": 311,
+            "y": 310,
             "y_offset": 0.0
         },
         {
             "h": 29,
             "name": "halo2",
             "w": 27,
-            "x": 656,
+            "x": 540,
             "x_offset": 0.0,
-            "y": 310,
+            "y": 312,
             "y_offset": 0.0
         },
         {

@@ -40,6 +40,8 @@
         "res/sprites/frame.sprite",
         "res/sprites/generic.sprite",
         "res/sprites/goblin.sprite",
+        "res/sprites/grass_one.sprite",
+        "res/sprites/grass_two.sprite",
         "res/sprites/halo.sprite",
         "res/sprites/health_pack_large.sprite",
         "res/sprites/health_pack_small.sprite",

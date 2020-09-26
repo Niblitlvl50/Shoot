@@ -13,30 +13,31 @@
             "name": "default"
         }
     ],
+    "category": "eye_monster",
     "frames": [
         {
             "h": 25,
             "name": "eye_monster1",
             "w": 35,
-            "x": 432,
+            "x": 268,
             "x_offset": 0.0,
-            "y": 314,
+            "y": 320,
             "y_offset": 0.0
         },
         {
             "h": 24,
             "name": "eye_monster0",
             "w": 34,
-            "x": 471,
+            "x": 2,
             "x_offset": 0.0,
-            "y": 314,
+            "y": 324,
             "y_offset": 0.0
         },
         {
             "h": 24,
             "name": "eye_monster2",
             "w": 27,
-            "x": 2,
+            "x": 77,
             "x_offset": 0.0,
             "y": 324,
             "y_offset": 0.0

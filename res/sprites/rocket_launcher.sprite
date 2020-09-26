@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "weapons",
     "frames": [
         {
             "h": 21,
             "name": "rocket_launcher",
             "w": 36,
-            "x": 225,
+            "x": 1845,
             "x_offset": 0.0,
-            "y": 324,
+            "y": 334,
             "y_offset": 0.0
         }
     ],

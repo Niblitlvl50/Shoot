@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 8,
             "name": "flak_bullet",
             "w": 8,
-            "x": 1459,
+            "x": 1519,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0

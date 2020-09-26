@@ -37,14 +37,15 @@
             "name": "walk_up"
         }
     ],
+    "category": "yellow_alien",
     "frames": [
         {
             "h": 41,
             "name": "yellow_alien0",
             "w": 33,
-            "x": 1999,
+            "x": 298,
             "x_offset": 0.0,
-            "y": 279,
+            "y": 274,
             "y_offset": 0.0
         },
         {
@@ -78,18 +79,18 @@
             "h": 41,
             "name": "yellow_alien5",
             "w": 33,
-            "x": 298,
+            "x": 1199,
             "x_offset": 0.0,
-            "y": 274,
+            "y": 283,
             "y_offset": 0.0
         },
         {
             "h": 41,
             "name": "yellow_alien4",
             "w": 33,
-            "x": 1199,
+            "x": 1999,
             "x_offset": 0.0,
-            "y": 283,
+            "y": 279,
             "y_offset": 0.0
         }
     ],

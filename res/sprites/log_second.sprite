@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "vegetation",
     "frames": [
         {
             "h": 22,
             "name": "log_second",
             "w": 41,
-            "x": 1176,
+            "x": 1067,
             "x_offset": 0.0,
-            "y": 328,
+            "y": 334,
             "y_offset": 0.0
         }
     ],

@@ -9,6 +9,7 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 22,

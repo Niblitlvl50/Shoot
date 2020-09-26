@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 37,
             "name": "board_one",
             "w": 50,
-            "x": 1336,
+            "x": 1282,
             "x_offset": 0.0,
             "y": 299,
             "y_offset": 0.0

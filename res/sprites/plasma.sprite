@@ -11,23 +11,24 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 13,
             "name": "plasma2",
             "w": 13,
-            "x": 1390,
+            "x": 854,
             "x_offset": 0.0,
-            "y": 339,
+            "y": 340,
             "y_offset": 0.0
         },
         {
             "h": 14,
             "name": "plasma1",
             "w": 15,
-            "x": 1155,
+            "x": 835,
             "x_offset": 0.0,
-            "y": 339,
+            "y": 340,
             "y_offset": 0.0
         }
     ],

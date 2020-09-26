@@ -27,6 +27,7 @@
             "name": "look_around"
         }
     ],
+    "category": "mugshots",
     "frames": [
         {
             "h": 60,
@@ -41,7 +42,7 @@
             "h": 58,
             "name": "doomguy3",
             "w": 48,
-            "x": 1793,
+            "x": 1845,
             "x_offset": 0.0,
             "y": 237,
             "y_offset": 0.0
@@ -59,7 +60,7 @@
             "h": 58,
             "name": "doomguy5",
             "w": 48,
-            "x": 1845,
+            "x": 1793,
             "x_offset": 0.0,
             "y": 237,
             "y_offset": 0.0

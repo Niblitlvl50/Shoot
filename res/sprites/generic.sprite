@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "bullets",
     "frames": [
         {
             "h": 15,
             "name": "generic1",
             "w": 15,
-            "x": 1777,
+            "x": 1741,
             "x_offset": 0.0,
-            "y": 337,
+            "y": 338,
             "y_offset": 0.0
         }
     ],

@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 17,
             "name": "device_random",
             "w": 27,
-            "x": 1845,
+            "x": 1919,
             "x_offset": 0.0,
             "y": 334,
             "y_offset": 0.0

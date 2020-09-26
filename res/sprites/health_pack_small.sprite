@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "pickups",
     "frames": [
         {
             "h": 15,
             "name": "health_pack_small",
             "w": 13,
-            "x": 1738,
+            "x": 1390,
             "x_offset": 0.0,
-            "y": 338,
+            "y": 339,
             "y_offset": 0.0
         }
     ],

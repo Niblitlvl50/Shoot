@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "prototype",
     "frames": [
         {
             "h": 114,
             "name": "wall_straight",
             "w": 128,
-            "x": 1918,
+            "x": 1786,
             "x_offset": 0.0,
             "y": 2,
             "y_offset": 0.0

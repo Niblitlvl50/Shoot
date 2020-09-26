@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 21,
             "name": "device_medical",
             "w": 20,
-            "x": 1891,
+            "x": 240,
             "x_offset": 0.0,
-            "y": 333,
+            "y": 324,
             "y_offset": 0.0
         }
     ],

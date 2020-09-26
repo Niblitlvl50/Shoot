@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "vegetation",
     "frames": [
         {
             "h": 24,
             "name": "leaf_pile_medium",
             "w": 33,
-            "x": 298,
+            "x": 40,
             "x_offset": 0.0,
-            "y": 319,
+            "y": 324,
             "y_offset": 0.0
         }
     ],

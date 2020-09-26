@@ -31,21 +31,22 @@
             "name": "run"
         }
     ],
+    "category": "goblin",
     "frames": [
         {
             "h": 17,
             "name": "goblin9",
             "w": 12,
-            "x": 1799,
+            "x": 960,
             "x_offset": 0.0,
-            "y": 335,
+            "y": 336,
             "y_offset": 0.0
         },
         {
             "h": 17,
             "name": "goblin8",
             "w": 12,
-            "x": 1022,
+            "x": 1815,
             "x_offset": 0.0,
             "y": 335,
             "y_offset": 0.0
@@ -63,43 +64,43 @@
             "h": 17,
             "name": "goblin7",
             "w": 12,
-            "x": 1931,
-            "x_offset": 0.0,
-            "y": 334,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin5",
-            "w": 11,
-            "x": 1221,
-            "x_offset": 0.0,
-            "y": 328,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin4",
-            "w": 12,
-            "x": 1915,
-            "x_offset": 0.0,
-            "y": 334,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin1",
-            "w": 12,
-            "x": 1038,
+            "x": 1041,
             "x_offset": 0.0,
             "y": 335,
             "y_offset": 0.0
         },
         {
             "h": 17,
+            "name": "goblin5",
+            "w": 11,
+            "x": 976,
+            "x_offset": 0.0,
+            "y": 336,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
+            "name": "goblin4",
+            "w": 12,
+            "x": 1025,
+            "x_offset": 0.0,
+            "y": 335,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
+            "name": "goblin1",
+            "w": 12,
+            "x": 944,
+            "x_offset": 0.0,
+            "y": 336,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
             "name": "goblin3",
             "w": 12,
-            "x": 1006,
+            "x": 1799,
             "x_offset": 0.0,
             "y": 335,
             "y_offset": 0.0
@@ -108,7 +109,7 @@
             "h": 16,
             "name": "goblin2",
             "w": 12,
-            "x": 1761,
+            "x": 1781,
             "x_offset": 0.0,
             "y": 337,
             "y_offset": 0.0

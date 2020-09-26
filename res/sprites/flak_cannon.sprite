@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "weapons",
     "frames": [
         {
             "h": 16,
             "name": "flak_cannon",
             "w": 36,
-            "x": 944,
+            "x": 1701,
             "x_offset": 0.0,
-            "y": 336,
+            "y": 338,
             "y_offset": 0.0
         }
     ],

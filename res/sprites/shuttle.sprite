@@ -19,6 +19,7 @@
             "name": "default"
         }
     ],
+    "category": "shuttle",
     "frames": [
         {
             "h": 30,
@@ -33,9 +34,9 @@
             "h": 26,
             "name": "shuttle0",
             "w": 25,
-            "x": 803,
+            "x": 430,
             "x_offset": 0.0,
-            "y": 313,
+            "y": 314,
             "y_offset": 0.0
         },
         {

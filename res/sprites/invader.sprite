@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "creatures",
     "frames": [
         {
             "h": 8,
             "name": "invader1",
             "w": 11,
-            "x": 1359,
+            "x": 1480,
             "x_offset": 0.0,
             "y": 340,
             "y_offset": 0.0

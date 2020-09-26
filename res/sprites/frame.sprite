@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "ui",
     "frames": [
         {
             "h": 27,
             "name": "frame",
             "w": 27,
-            "x": 1670,
+            "x": 785,
             "x_offset": 0.0,
-            "y": 312,
+            "y": 313,
             "y_offset": 0.0
         }
     ],

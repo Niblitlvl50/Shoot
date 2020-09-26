@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "vegetation",
     "frames": [
         {
             "h": 23,
             "name": "log_first",
             "w": 38,
-            "x": 33,
+            "x": 108,
             "x_offset": 0.0,
             "y": 324,
             "y_offset": 0.0

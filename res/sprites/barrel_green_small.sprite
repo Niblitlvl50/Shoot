@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 18,
             "name": "barrel_green_small",
             "w": 14,
-            "x": 2028,
+            "x": 1953,
             "x_offset": 0.0,
-            "y": 332,
+            "y": 333,
             "y_offset": 0.0
         }
     ],

@@ -9,6 +9,7 @@
             "name": "default"
         }
     ],
+    "category": "prototype",
     "frames": [
         {
             "h": 182,

@@ -9,12 +9,13 @@
             "name": "default"
         }
     ],
+    "category": "props",
     "frames": [
         {
             "h": 23,
             "name": "screen_right",
             "w": 26,
-            "x": 105,
+            "x": 180,
             "x_offset": 0.0,
             "y": 324,
             "y_offset": 0.0

@@ -9,14 +9,15 @@
             "name": "default"
         }
     ],
+    "category": "vegetation",
     "frames": [
         {
             "h": 27,
             "name": "bush_small",
             "w": 33,
-            "x": 718,
+            "x": 748,
             "x_offset": 0.0,
-            "y": 312,
+            "y": 313,
             "y_offset": 0.0
         }
     ],

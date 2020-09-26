@@ -85,6 +85,7 @@
             "name": "death"
         }
     ],
+    "category": "cacodemon",
     "frames": [
         {
             "h": 65,
