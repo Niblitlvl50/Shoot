@@ -43,13 +43,14 @@ int main(int argc, const char* argv[])
     {
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
-        shared::GameEntityManager entity_manager(&system_context);
-        shared::RegisterSharedComponents(entity_manager);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        system_context.CreateSystem<mono::EntitySystem>(max_entities);
+        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
+
+        shared::GameEntityManager entity_manager(entity_system, &system_context);
+        shared::RegisterSharedComponents(entity_manager);
 
         editor::Config config;
         editor::LoadConfig("res/editor_config.json", config);

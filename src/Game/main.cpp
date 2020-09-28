@@ -135,19 +135,19 @@ int main(int argc, char* argv[])
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
-        shared::GameEntityManager entity_manager(&system_context);
+        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
+
+        shared::GameEntityManager entity_manager(entity_system, &system_context);
         game::RegisterGameComponents(entity_manager);
         shared::RegisterSharedComponents(entity_manager);
 
         game::WeaponFactory weapon_factory(&entity_manager, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
 
+        game::g_entity_manager = &entity_manager;
         game::g_weapon_factory = &weapon_factory;
         game::g_logic_factory = &logic_factory;
-        game::g_entity_manager = &entity_manager;
-
-        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        system_context.CreateSystem<mono::EntitySystem>(max_entities);
 
         mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);

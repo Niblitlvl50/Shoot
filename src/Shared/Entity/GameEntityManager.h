@@ -9,7 +9,7 @@ namespace shared
     {
     public:
 
-        GameEntityManager(mono::SystemContext* system_context);
+        using EntityManager::EntityManager;
         mono::EntityData LoadEntityFile(const char* entity_file) const override;
         const char* ComponentNameFromHash(uint32_t component_hash) const override;
     };

@@ -9,10 +9,6 @@
 
 using namespace shared;
 
-GameEntityManager::GameEntityManager(mono::SystemContext* system_context)
-    : EntityManager(system_context)
-{ }
-
 mono::EntityData GameEntityManager::LoadEntityFile(const char* entity_file) const
 {
     file::FilePtr file = file::OpenAsciiFile(entity_file);
