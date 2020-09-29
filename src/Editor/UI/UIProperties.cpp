@@ -227,8 +227,13 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == ANIMATION_MODE_ATTRIBUTE)
     {
-        return DrawBitfieldProperty(
-            attribute_name, std::get<uint32_t>(attribute.value), shared::all_animation_modes, shared::AnimationModeToString);
+        uint32_t int_value = std::get<int>(attribute.value);
+        const bool changed = DrawBitfieldProperty(
+            attribute_name, int_value, shared::all_animation_modes, shared::AnimationModeToString);
+        if(changed)
+            attribute.value = (int)int_value;
+
+        return changed;
     }
     else if(attribute.id == FONT_ID_ATTRIBUTE)
     {
