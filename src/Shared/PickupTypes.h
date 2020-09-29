@@ -5,7 +5,7 @@
 
 namespace shared
 {
-    enum class PickupType : uint32_t
+    enum class PickupType : int
     {
         AMMO,
         HEALTH,
@@ -20,6 +20,6 @@ namespace shared
 
     inline const char* PickupTypeToString(PickupType pickup_type)
     {
-        return pickup_items[static_cast<uint32_t>(pickup_type)];
+        return pickup_items[static_cast<int>(pickup_type)];
     }
 }

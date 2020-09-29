@@ -91,7 +91,7 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
         // Special case for setting a proper name...
         if(modified_component.hash == SPRITE_COMPONENT && m_name == "unnamed")
         {
-            const char* sprite_name = nullptr;
+            std::string sprite_name;
             const bool found_sprite_name = 
                 FindAttribute(SPRITE_ATTRIBUTE, modified_component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
             if(found_sprite_name)

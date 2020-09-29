@@ -67,9 +67,10 @@ bool ReleaseSprite(mono::Entity* entity, mono::SystemContext* context)
 
 bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
 {
+    std::string sprite_file;
     mono::SpriteComponents sprite_args;
 
-    const bool success = FindAttribute(SPRITE_ATTRIBUTE, properties, sprite_args.sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
+    const bool success = FindAttribute(SPRITE_ATTRIBUTE, properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
     if(!success)
     {
         System::Log("ComponentFunctions|Missing sprite parameters, unable to update component\n");
@@ -82,9 +83,9 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     FindAttribute(FLIP_HORIZONTAL_ATTRIBUTE, properties, sprite_args.flip_horizontal, FallbackMode::SET_DEFAULT);
     FindAttribute(SPRITE_LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
 
-    char sprite_file[1024] = { 0 };
-    std::sprintf(sprite_file, "res/sprites/%s", sprite_args.sprite_file);
-    sprite_args.sprite_file = sprite_file;
+    char sprite_path[1024] = { 0 };
+    std::sprintf(sprite_path, "res/sprites/%s", sprite_file.c_str());
+    sprite_args.sprite_file = sprite_path;
 
     mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
     sprite_system->SetSpriteData(entity->id, sprite_args);
@@ -107,13 +108,11 @@ bool ReleaseText(mono::Entity* entity, mono::SystemContext* context)
 
 bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
 {
-    const char* text_data = nullptr;
-    FindAttribute(TEXT_ATTRIBUTE, properties, text_data, FallbackMode::SET_DEFAULT);
-
     mono::TextComponent text_component;
-    text_component.text = text_data;
+    //text_component.text;
     text_component.centered = false;
 
+    FindAttribute(TEXT_ATTRIBUTE, properties, text_component.text, FallbackMode::SET_DEFAULT);
     FindAttribute(FONT_ID_ATTRIBUTE, properties, text_component.font_id, FallbackMode::SET_DEFAULT);
     FindAttribute(COLOR_ATTRIBUTE, properties, text_component.tint, FallbackMode::SET_DEFAULT);
     FindAttribute(TEXT_SHADOW_ATTRIBUTE, properties, text_component.draw_shadow, FallbackMode::SET_DEFAULT);

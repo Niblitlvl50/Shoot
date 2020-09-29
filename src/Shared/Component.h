@@ -58,6 +58,7 @@ extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
 
 extern const uint32_t ANIMATION_MODE_ATTRIBUTE;
 extern const uint32_t REPEATING_ATTRIBUTE;
+extern const uint32_t POLYGON_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -82,11 +83,11 @@ inline bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes,
     const bool found_attribute = (it != attributes.end());
     if(found_attribute)
     {
-        value = it->attribute;
+        value = std::get<T>(it->value);
     }
     else if(fallback_mode == FallbackMode::SET_DEFAULT)
     {
-        value = DefaultAttributeFromHash(id);
+        value = std::get<T>(DefaultAttributeFromHash(id));
         return true;
     }
 
@@ -103,7 +104,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
     const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
     const bool found_attribute = (it != attributes.end());
     if(found_attribute)
-        it->attribute = value;
+        it->value = value;
 }
 
 extern const uint32_t NULL_COMPONENT;
@@ -114,6 +115,7 @@ extern const uint32_t PHYSICS_COMPONENT;
 extern const uint32_t CIRCLE_SHAPE_COMPONENT;
 extern const uint32_t BOX_SHAPE_COMPONENT;
 extern const uint32_t SEGMENT_SHAPE_COMPONENT;
+extern const uint32_t POLYGON_SHAPE_COMPONENT;
 extern const uint32_t HEALTH_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
@@ -134,7 +136,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 18>;
+using ComponentArray = std::array<Component, 19>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

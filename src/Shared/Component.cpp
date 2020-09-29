@@ -18,7 +18,7 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
-const std::array<DefaultAttribute, 42> default_attributes = {{
+const std::array<DefaultAttribute, 43> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -37,8 +37,8 @@ const std::array<DefaultAttribute, 42> default_attributes = {{
     DefaultAttribute("inertia",             Variant(1.0f)),
     DefaultAttribute("prevent_rotation",    Variant(false)),
 
-    DefaultAttribute("faction",             Variant(0)),
-    DefaultAttribute("faction_picker",      Variant(0)),
+    DefaultAttribute("faction",             Variant(0u)),
+    DefaultAttribute("faction_picker",      Variant(0u)),
     DefaultAttribute("UNUSED",              Variant(1.0f)),
     DefaultAttribute("UNUSED",              Variant(1.0f)),
     DefaultAttribute("start",               Variant(math::ZeroVec)),
@@ -50,7 +50,7 @@ const std::array<DefaultAttribute, 42> default_attributes = {{
     DefaultAttribute("boss_health",         Variant(false)),
 
     DefaultAttribute("sprite_file",         Variant("")),
-    DefaultAttribute("animation",           Variant(0)),
+    DefaultAttribute("animation",           Variant(0u)),
     DefaultAttribute("flip_vertical",       Variant(false)),
     DefaultAttribute("flip_horizontal",     Variant(false)),
     DefaultAttribute("sprite_layer",        Variant(0)),
@@ -65,8 +65,9 @@ const std::array<DefaultAttribute, 42> default_attributes = {{
     DefaultAttribute("font_id",             Variant(0)),
     DefaultAttribute("text",                Variant("")),
     DefaultAttribute("text_shadow",         Variant(false)),
-    DefaultAttribute("animation_mode",      Variant(0)),
+    DefaultAttribute("animation_mode",      Variant(0u)),
     DefaultAttribute("repeating",           Variant(false)),
+    DefaultAttribute("polygon",             Variant(0)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -119,6 +120,7 @@ extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[38].has
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].hash;
 extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[40].hash;
 extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[41].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[42].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -129,6 +131,7 @@ extern const uint32_t PHYSICS_COMPONENT         = mono::Hash("physics");
 extern const uint32_t CIRCLE_SHAPE_COMPONENT    = mono::Hash("circle_shape");
 extern const uint32_t BOX_SHAPE_COMPONENT       = mono::Hash("box_shape");
 extern const uint32_t SEGMENT_SHAPE_COMPONENT   = mono::Hash("segment_shape");
+extern const uint32_t POLYGON_SHAPE_COMPONENT   = mono::Hash("polygon_shape");
 extern const uint32_t HEALTH_COMPONENT          = mono::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT       = mono::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT     = mono::Hash("spawn_point");
@@ -160,6 +163,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "box_shape";
     else if(hash == SEGMENT_SHAPE_COMPONENT)
         return "segment_shape";
+    else if(hash == POLYGON_SHAPE_COMPONENT)
+        return "polygon_shape";
     else if(hash == HEALTH_COMPONENT)
         return "health";
     else if(hash == BEHAVIOUR_COMPONENT)
@@ -202,7 +207,8 @@ const ComponentArray default_components = {
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
     MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE} ),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE } ),
+    MakeComponent(POLYGON_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, POLYGON_ATTRIBUTE } ),
     MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
@@ -262,7 +268,7 @@ void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vecto
     {
         Attribute* attribute = nullptr;
         if(FindAttribute(input.id, result_attributes, attribute))
-            attribute->attribute = input.attribute;
+            attribute->value = input.value;
     }
 }
 

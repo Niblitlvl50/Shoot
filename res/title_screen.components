@@ -9,7 +9,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 17.0,
                                 "y": 11.0
@@ -28,21 +28,21 @@
                     "name": "text",
                     "properties": [
                         {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
                             "id": 3185987134,
                             "name": "text",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "...Dont die!"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 1
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 0.0,
@@ -53,7 +53,7 @@
                         {
                             "id": 124392387,
                             "name": "text_shadow",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": true
                         }
                     ]
@@ -65,13 +65,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -83,7 +83,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": -14.0,
                                 "y": 0.0
@@ -92,7 +92,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         }
                     ]
@@ -111,7 +111,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 15.0,
                                 "y": 12.0
@@ -130,21 +130,21 @@
                     "name": "text",
                     "properties": [
                         {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
                             "id": 3185987134,
                             "name": "text",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "Shoot, survive!"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 2
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 0.7526912689208984,
@@ -155,7 +155,7 @@
                         {
                             "id": 124392387,
                             "name": "text_shadow",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": true
                         }
                     ]
@@ -167,13 +167,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -185,7 +185,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": -14.0,
                                 "y": 0.0
@@ -194,7 +194,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         }
                     ]
@@ -213,7 +213,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 6.0,
                                 "y": 5.0
@@ -234,19 +234,25 @@
                         {
                             "id": 910774975,
                             "name": "sprite_file",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "xbox_one_a.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
-                            "variant_type": 2,
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
@@ -257,20 +263,14 @@
                         {
                             "id": 2313652925,
                             "name": "flip_vertical",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
                             "name": "flip_horizontal",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 2,
-                            "variant_value": 0
                         }
                     ]
                 },
@@ -281,13 +281,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -299,7 +299,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
                                 "y": -1.0
@@ -308,7 +308,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 3
                         }
                     ]
@@ -327,7 +327,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 9.5,
                                 "y": 5.0
@@ -348,19 +348,25 @@
                         {
                             "id": 910774975,
                             "name": "sprite_file",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "ps_cross.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
-                            "variant_type": 2,
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
@@ -371,20 +377,14 @@
                         {
                             "id": 2313652925,
                             "name": "flip_vertical",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
                             "name": "flip_horizontal",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 2,
-                            "variant_value": 0
                         }
                     ]
                 },
@@ -395,13 +395,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -413,7 +413,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
                                 "y": -1.0
@@ -422,7 +422,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 3
                         }
                     ]
@@ -441,7 +441,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 1.5,
                                 "y": 6.0
@@ -460,21 +460,21 @@
                     "name": "text",
                     "properties": [
                         {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
                             "id": 3185987134,
                             "name": "text",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "Hit enter, or"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 1
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 0.9999899864196777,
@@ -485,7 +485,7 @@
                         {
                             "id": 124392387,
                             "name": "text_shadow",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": true
                         }
                     ]
@@ -497,13 +497,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -515,7 +515,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
                                 "y": -1.0
@@ -524,7 +524,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 3
                         }
                     ]
@@ -543,7 +543,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 9.0,
                                 "y": 6.0
@@ -562,21 +562,21 @@
                     "name": "text",
                     "properties": [
                         {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
                             "id": 3185987134,
                             "name": "text",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "/"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 1
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 0.9999899864196777,
@@ -587,7 +587,7 @@
                         {
                             "id": 124392387,
                             "name": "text_shadow",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": true
                         }
                     ]
@@ -599,13 +599,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": ""
                         },
                         {
@@ -617,7 +617,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
                                 "y": -1.0
@@ -626,7 +626,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 3
                         }
                     ]
@@ -645,7 +645,7 @@
                         {
                             "id": 2471448074,
                             "name": "position",
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 6.234706878662109,
                                 "y": 9.338066101074219
@@ -666,19 +666,25 @@
                         {
                             "id": 910774975,
                             "name": "sprite_file",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "doomguy.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
-                            "variant_type": 2,
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
@@ -689,20 +695,14 @@
                         {
                             "id": 2313652925,
                             "name": "flip_vertical",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
                             "name": "flip_horizontal",
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 2,
-                            "variant_value": 0
                         }
                     ]
                 },
@@ -713,13 +713,13 @@
                         {
                             "id": 1743751533,
                             "name": "animation_mode",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "rotate_doom"
                         },
                         {
@@ -737,7 +737,7 @@
                         {
                             "id": 1453830135,
                             "name": "easing_func",
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 3
                         }
                     ]

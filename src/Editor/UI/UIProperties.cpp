@@ -48,42 +48,64 @@ void editor::DrawFolder(std::string& folder)
         folder = text_buffer;
 }
 
-bool editor::DrawGenericProperty(const char* text, Variant& attribute)
+bool DrawGenericProperty(const char* text, Variant& value)
 {
-    switch(attribute.type)
+    class DrawVariantsVisitor
     {
-    case Variant::Type::BOOL:
-    {
-        bool temp_value = attribute;
-        const bool changed = ImGui::Checkbox(text, &temp_value);
-        attribute = temp_value;
-        return changed;
-    }
-    case Variant::Type::INT:
-        return ImGui::InputInt(text, &attribute.int_value);
-    case Variant::Type::UINT:
-        //Imgui::InputU
-        return false;
-    case Variant::Type::FLOAT:
-        return ImGui::InputFloat(text, &attribute.float_value);
-    case Variant::Type::STRING:
-    {
-        char string_buffer[1024] = { 0 };
-        std::snprintf(string_buffer, 1024, "%s", (const char*)attribute);
-        const bool changed = ImGui::InputText(text, string_buffer, 1024);
-        if(changed)
-            attribute = string_buffer;
-        return changed;
-    }
-    case Variant::Type::POINT:
-        return ImGui::InputFloat2(text, &attribute.point_value.x);
-    case Variant::Type::COLOR:
-        return ImGui::ColorEdit4(text, &attribute.color_value.red);
-    case Variant::Type::NONE:
-        break;
-    }
+    public:
 
-    return false;
+        DrawVariantsVisitor(const char* property_text)
+            : m_property_text(property_text)
+            , m_is_changed(false)
+        { }
+
+        void operator()(bool& value)
+        {
+            m_is_changed = ImGui::Checkbox(m_property_text, &value);
+        }
+        void operator()(int& value)
+        {
+            m_is_changed = ImGui::InputInt(m_property_text, &value);
+        }
+        void operator()(uint32_t& value)
+        {}
+        void operator()(float& value)
+        {
+            m_is_changed = ImGui::InputFloat(m_property_text, &value);
+        }
+        void operator()(math::Vector& value)
+        {
+            m_is_changed = ImGui::InputFloat2(m_property_text, &value.x);
+        }
+        void operator()(mono::Color::RGBA& value)
+        {
+            m_is_changed = ImGui::ColorEdit4(m_property_text, &value.red);
+        }
+        void operator()(std::string& value)
+        {
+            char string_buffer[VariantStringMaxLength] = { 0 };
+            std::snprintf(string_buffer, VariantStringMaxLength, "%s", value.c_str());
+            m_is_changed = ImGui::InputText(m_property_text, string_buffer, VariantStringMaxLength);
+            if(m_is_changed)
+                value = string_buffer;
+        }
+        void operator()(std::vector<math::Vector>& value)
+        {}
+
+        bool WasPropertyChanged() const
+        {
+            return m_is_changed;
+        }
+
+    private:
+
+        const char* m_property_text;
+        bool m_is_changed;
+    };
+
+    DrawVariantsVisitor visitor(text);
+    std::visit(visitor, value);
+    return visitor.WasPropertyChanged();
 }
 
 bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
@@ -94,17 +116,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, shared::pickup_items, std::size(shared::pickup_items));
+            attribute_name, &std::get<int>(attribute.value), shared::pickup_items, std::size(shared::pickup_items));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, shared::entity_logic_strings, std::size(shared::entity_logic_strings));
+            attribute_name, &std::get<int>(attribute.value), shared::entity_logic_strings, std::size(shared::entity_logic_strings));
     }
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, body_types, std::size(body_types));
+            attribute_name, &std::get<int>(attribute.value), body_types, std::size(body_types));
     }
     else if(attribute.id == FACTION_ATTRIBUTE)
     {
@@ -115,18 +137,18 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         };
 
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::all_collision_categories));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::all_collision_categories));
     }
     else if(attribute.id == FACTION_PICKER_ATTRIBUTE)
     {
         return DrawBitfieldProperty(
-            attribute_name, attribute.attribute.uint_value, shared::all_collision_categories, shared::CollisionCategoryToString);
+            attribute_name, std::get<uint32_t>(attribute.value), shared::all_collision_categories, shared::CollisionCategoryToString);
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
-        const editor::SpritePickerResult result = DrawSpritePicker(attribute_name, attribute.attribute, ui_context);
+        const editor::SpritePickerResult result = DrawSpritePicker(attribute_name, std::get<std::string>(attribute.value), ui_context);
         if(result.changed)
-            attribute.attribute = result.new_value.c_str();
+            attribute.value = result.new_value;
 
         return result.changed;
     }
@@ -134,14 +156,13 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, all_components);
 
-        const char* sprite_file = nullptr;
-
+        std::string sprite_file;
         const bool success = FindAttribute(SPRITE_ATTRIBUTE, sprite_component->properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!success)
             return false;
 
         char sprite_filename[1024] = { 0 };
-        std::sprintf(sprite_filename, "res/sprites/%s", sprite_file);
+        std::sprintf(sprite_filename, "res/sprites/%s", sprite_file.c_str());
         const mono::SpriteData* sprite_data = mono::GetSpriteFactory()->GetSpriteDataForFile(sprite_filename);
         if(!sprite_data)
             return false;
@@ -152,13 +173,14 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
             animation_names.push_back(animation.name);
 
         // Make sure the animation index is within avalible ones
-        attribute.attribute = std::min((int)attribute.attribute, (int)sprite_data->animations.size() - 1);
+        attribute.value = std::min(std::get<int>(attribute.value), (int)sprite_data->animations.size() - 1);
 
+        const int current_index = std::get<int>(attribute.value);
         int out_index = 0;
         const bool changed =
-            DrawStringPicker(attribute_name, animation_names[(int)attribute.attribute].c_str(), animation_names, out_index);
+            DrawStringPicker(attribute_name, animation_names[current_index], animation_names, out_index);
         if(changed)
-            attribute.attribute = out_index;
+            attribute.value = out_index;
         return changed;
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
@@ -166,9 +188,9 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         const std::vector<std::string>& all_paths = editor::GetAllPaths();
 
         int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, attribute.attribute, all_paths, out_index);
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_paths, out_index);
         if(changed)
-            attribute.attribute = all_paths[out_index].c_str();
+            attribute.value = all_paths[out_index];
         
         return changed;
     }
@@ -181,7 +203,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         };
 
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(math::easing_function_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(math::easing_function_strings));
     }
     else if(attribute.id == LOGIC_OP_ATTRIBUTE)
     {
@@ -192,21 +214,21 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         };
 
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
     }
     else if(attribute.id == ROTATION_ATTRIBUTE)
     {
-        float degrees = math::ToDegrees(attribute.attribute);
+        float degrees = math::ToDegrees(std::get<float>(attribute.value));
         const bool changed = ImGui::InputFloat(text.c_str(), &degrees);
         if(changed)
-            attribute.attribute = math::ToRadians(degrees);
+            attribute.value = math::ToRadians(degrees);
         
         return changed;
     }
     else if(attribute.id == ANIMATION_MODE_ATTRIBUTE)
     {
         return DrawBitfieldProperty(
-            attribute_name, attribute.attribute.uint_value, shared::all_animation_modes, shared::AnimationModeToString);
+            attribute_name, std::get<uint32_t>(attribute.value), shared::all_animation_modes, shared::AnimationModeToString);
     }
     else if(attribute.id == FONT_ID_ATTRIBUTE)
     {
@@ -217,11 +239,11 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         };
 
         return ImGui::Combo(
-            attribute_name, &attribute.attribute.int_value, item_proxy, nullptr, std::size(shared::font_id_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::font_id_strings));
     }
     else
     {
-        return DrawGenericProperty(attribute_name, attribute.attribute);
+        return DrawGenericProperty(attribute_name, attribute.value);
     }
 }
 
@@ -236,7 +258,7 @@ void editor::AddDynamicProperties(Component& component)
         {
             if(shared::EntityLogicType(logic_type) == shared::EntityLogicType::INVADER_PATH)
             {
-                const char* dummy_string = nullptr;
+                std::string dummy_string;
                 const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string, FallbackMode::REQUIRE_ATTRIBUTE);
                 if(!has_path_file)
                 {
@@ -368,7 +390,7 @@ bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::
 }
 
 bool editor::DrawStringPicker(
-    const char* name, const char* current_value, const std::vector<std::string>& all_strings, int& out_index)
+    const char* name, const std::string& current_value, const std::vector<std::string>& all_strings, int& out_index)
 {
     const auto it = std::find(all_strings.begin(), all_strings.end(), current_value);
     out_index = std::distance(all_strings.begin(), it);
@@ -384,13 +406,13 @@ bool editor::DrawStringPicker(
         name, &out_index, item_proxy, (void*)&all_strings, all_strings.size(), ImGuiComboFlags_HeightLarge);
 }
 
-editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const char* current_value, const UIContext& ui_context)
+editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context)
 {
     editor::SpritePickerResult result;
     result.changed = false;
 
     const float item_width = ImGui::CalcItemWidth();
-    const bool pushed_button = ImGui::Button(current_value, ImVec2(item_width, 0));
+    const bool pushed_button = ImGui::Button(current_value.c_str(), ImVec2(item_width, 0));
     ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     ImGui::Text("%s", name);
     if(pushed_button)

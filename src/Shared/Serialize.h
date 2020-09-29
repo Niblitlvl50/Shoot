@@ -11,69 +11,45 @@ inline void to_json(nlohmann::json& json, const Attribute& attribute)
 {
     json["id"] = attribute.id;
     json["name"] = AttributeNameFromHash(attribute.id);
-    json["variant_type"] = attribute.attribute.type;
+    json["variant_type"] = attribute.value.index();
 
-    switch(attribute.attribute.type)
+    const auto visitor = [&json](const auto& value)
     {
-    case Variant::Type::NONE:
-        json["variant_value"] = nullptr;
-        break;
-    case Variant::Type::BOOL:
-        json["variant_value"] = (bool)attribute.attribute.int_value;
-        break;
-    case Variant::Type::INT:
-        json["variant_value"] = attribute.attribute.int_value;
-        break;
-    case Variant::Type::UINT:
-        json["variant_value"] = attribute.attribute.uint_value;
-        break;
-    case Variant::Type::FLOAT:
-        json["variant_value"] = attribute.attribute.float_value;
-        break;
-    case Variant::Type::STRING:
-        json["variant_value"] = (const char*)attribute.attribute;
-        break;
-    case Variant::Type::POINT:
-        json["variant_value"] = attribute.attribute.point_value;
-        break;
-    case Variant::Type::COLOR:
-        json["variant_value"] = attribute.attribute.color_value;
-        break;
-    }
+        json["variant_value"] = value;
+    };
+    std::visit(visitor, attribute.value);
 }
 
 inline void from_json(const nlohmann::json& json, Attribute& attribute)
 {
     attribute.id = json["id"].get<uint32_t>();
-    attribute.attribute.type = Variant::Type(json["variant_type"].get<short>());
 
-    switch(attribute.attribute.type)
+    const uint32_t value_index = json["variant_type"].get<int>();
+    switch(value_index)
     {
-    case Variant::Type::NONE:
+    case VariantTypeIndex::BOOL:
+        attribute.value = json["variant_value"].get<bool>();
         break;
-    case Variant::Type::BOOL:
-        attribute.attribute = json["variant_value"].get<bool>();
+    case VariantTypeIndex::INT:
+        attribute.value = json["variant_value"].get<int>();
         break;
-    case Variant::Type::INT:
-        attribute.attribute = json["variant_value"].get<int>();
+    case VariantTypeIndex::UINT:
+        attribute.value = json["variant_value"].get<uint32_t>();
         break;
-    case Variant::Type::UINT:
-        attribute.attribute = json["variant_value"].get<uint32_t>();
+    case VariantTypeIndex::FLOAT:
+        attribute.value = json["variant_value"].get<float>();
         break;
-    case Variant::Type::FLOAT:
-        attribute.attribute = json["variant_value"].get<float>();
+    case VariantTypeIndex::POINT:
+        attribute.value = json["variant_value"].get<math::Vector>();
         break;
-    case Variant::Type::STRING:
-    {
-        const std::string& string_value = json["variant_value"].get<std::string>();
-        attribute.attribute = string_value.c_str();
+    case VariantTypeIndex::COLOR:
+        attribute.value = json["variant_value"].get<mono::Color::RGBA>();
         break;
-    }
-    case Variant::Type::POINT:
-        attribute.attribute = json["variant_value"].get<math::Vector>();
+    case VariantTypeIndex::STRING:
+        attribute.value = json["variant_value"].get<std::string>();
         break;
-    case Variant::Type::COLOR:
-        attribute.attribute = json["variant_value"].get<mono::Color::RGBA>();
+    case VariantTypeIndex::POLYGON:
+        attribute.value = json["variant_value"].get<std::vector<math::Vector>>();
         break;
     }
 }

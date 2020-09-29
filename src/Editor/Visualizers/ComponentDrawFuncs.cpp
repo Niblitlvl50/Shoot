@@ -75,9 +75,9 @@ void editor::DrawSpawnPointDetails(
 void editor::DrawShapeTriggerComponentDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
-    const char* name = nullptr;
+    std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -89,25 +89,25 @@ void editor::DrawAreaTriggerComponentDetails(
     const math::Vector half_width_height = width_height / 2.0f;
     renderer.DrawFilledQuad(math::Quad(position - half_width_height, position + half_width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
 
-    const char* name = nullptr;
+    std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawDeathTriggerComponentDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
-    const char* name = nullptr;
+    std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawTimeTriggerComponentDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
 {
-    const char* name = nullptr;
+    std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name, position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSetTranslationDetails(
