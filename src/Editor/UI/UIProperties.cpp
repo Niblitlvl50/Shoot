@@ -97,8 +97,15 @@ bool DrawGenericProperty(const char* text, Variant& value)
             const bool point_added = ImGui::Button("Add Point", ImVec2(item_width / 2.0f, 0));
             if(point_added)
             {
-                const math::Vector new_point = (value.front() - value.back()) / 2.0f;
-                value.push_back(value.back() + new_point);
+                const bool clockwise = math::IsPolygonClockwise(value);
+
+                const math::Vector new_point = value.front() - value.back();
+                const math::Vector new_point_tangent =
+                    clockwise ?
+                        math::Normalize(math::Vector(-new_point.y, new_point.x)) : 
+                        math::Normalize(math::Vector(new_point.y, -new_point.x));
+
+                value.push_back(value.back() + (new_point / 2.0f) + (new_point_tangent * 0.25f));
             }
 
             ImGui::SameLine(0.0f, 1.0f);
