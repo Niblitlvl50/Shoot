@@ -8,7 +8,7 @@
                     "properties": [
                         {
                             "id": 2471448074,
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 8.724872589111328,
                                 "y": -3.922196865081787
@@ -27,7 +27,7 @@
                     "properties": [
                         {
                             "id": 3836179294,
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 2
                         },
                         {
@@ -42,7 +42,7 @@
                         },
                         {
                             "id": 1995093780,
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         }
                     ]
@@ -53,17 +53,17 @@
                     "properties": [
                         {
                             "id": 776086107,
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 2209756795,
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         },
                         {
                             "id": 1697318111,
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": -15.0,
                                 "y": 0.0
@@ -71,7 +71,7 @@
                         },
                         {
                             "id": 1787721130,
-                            "variant_type": 5,
+                            "variant_type": 4,
                             "variant_value": {
                                 "x": 15.0,
                                 "y": 0.0
@@ -90,17 +90,17 @@
                     "properties": [
                         {
                             "id": 910774975,
-                            "variant_type": 4,
+                            "variant_type": 6,
                             "variant_value": "table.sprite"
                         },
                         {
                             "id": 3779456605,
-                            "variant_type": 2,
+                            "variant_type": 1,
                             "variant_value": 0
                         },
                         {
                             "id": 1031692888,
-                            "variant_type": 6,
+                            "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
@@ -110,12 +110,12 @@
                         },
                         {
                             "id": 2313652925,
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         },
                         {
                             "id": 1775175667,
-                            "variant_type": 1,
+                            "variant_type": 0,
                             "variant_value": false
                         }
                     ]
