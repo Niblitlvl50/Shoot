@@ -21,7 +21,8 @@ struct DefaultAttribute
 static const std::vector<math::Vector> polygon_default = {
     math::Vector(0.0f, 0.0f),
     math::Vector(0.0f, 1.0f),
-    math::Vector(1.0f, 1.0f)
+    math::Vector(1.0f, 1.0f),
+    math::Vector(1.0f, 0.0f)
 };
 
 const std::array<DefaultAttribute, 43> default_attributes = {{
