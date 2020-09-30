@@ -94,9 +94,23 @@ bool DrawGenericProperty(const char* text, Variant& value)
             const ImGuiStyle& style = ImGui::GetStyle();
             const float item_width = ImGui::CalcItemWidth();
 
-            m_is_changed = ImGui::Button("polygon data", ImVec2(item_width, 0));
-            ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
+            const bool point_added = ImGui::Button("Add Point", ImVec2(item_width / 2.0f, 0));
+            if(point_added)
+            {
+                const math::Vector new_point = (value.front() - value.back()) / 2.0f;
+                value.push_back(value.back() + new_point);
+            }
+
+            ImGui::SameLine(0.0f, 1.0f);
+
+            const bool point_removed = ImGui::Button("Remove Point", ImVec2(item_width / 2.0f, 0));
+            if(point_removed && !value.empty())
+                value.pop_back();
+
+            ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
             ImGui::Text("%s", m_property_text);
+
+            m_is_changed = point_added || point_removed;
         }
 
         bool WasPropertyChanged() const
