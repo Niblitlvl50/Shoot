@@ -38,7 +38,7 @@ namespace editor
 
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
-        std::vector<struct Grabber> GetGrabbers() const override;
+        std::vector<Grabber> GetGrabbers() override;
         std::vector<SnapPoint> GetSnappers() const override;
 
         void UpdateUIContext(struct UIContext& context) override;

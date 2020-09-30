@@ -8,6 +8,7 @@
 #include "UI/UIProperties.h"
 #include "IObjectVisitor.h"
 #include "Math/MathFunctions.h"
+#include "Math/Vector.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityProperties.h"
@@ -66,26 +67,32 @@ bool ComponentProxy::Intersects(const math::Vector& position) const
     return math::PointInsideQuad(position, world_bb);
 }
 
-std::vector<Grabber> ComponentProxy::GetGrabbers() const
+std::vector<Grabber> ComponentProxy::GetGrabbers()
 {
     std::vector<Grabber> grabbers;
 
-    const Component* polygon_shape_component = FindComponentFromHash(POLYGON_SHAPE_COMPONENT, m_components);
+    Component* polygon_shape_component = FindComponentFromHash(POLYGON_SHAPE_COMPONENT, m_components);
     if(!polygon_shape_component)
         return grabbers;
 
-    const Attribute* polygon_attribute = nullptr;
+    Attribute* polygon_attribute = nullptr;
     const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
     if(!found_polygon)
         return grabbers;
 
-    const std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(polygon_attribute->value);
+    const math::Matrix& local_to_world = m_transform_system->GetTransform(m_entity_id);
+    std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(polygon_attribute->value);
     grabbers.reserve(points.size());
 
-    for(const math::Vector& point : points)
+    for(math::Vector& point : points)
     {
         Grabber grabber;
-        grabber.position = point;
+        grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
+        grabber.callback = [&local_to_world, &point](const math::Vector& new_position) {
+            const math::Matrix& world_to_local = math::Inverse(local_to_world);
+            point = math::Transform(world_to_local, new_position);
+        };
+
         grabbers.push_back(grabber);
     }
 
@@ -107,7 +114,7 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
     if(result.component_index == std::numeric_limits<uint32_t>::max())
         return;
 
-    Component& modified_component = m_components[result.component_index];
+    const Component& modified_component = m_components[result.component_index];
     m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
 
     // Special case for setting a proper name...
@@ -123,6 +130,9 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
             m_name.erase(dot_pos);
         }
     }
+
+    if(result.attribute_hash == POLYGON_ATTRIBUTE)
+        m_editor->UpdateGrabbers();
 }
 
 void ComponentProxy::SetFolder(const std::string& folder)

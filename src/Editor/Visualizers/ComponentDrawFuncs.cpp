@@ -4,6 +4,7 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Quad.h"
+#include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
 
 #include "Component.h"
@@ -60,6 +61,26 @@ void editor::DrawSegmentShapeDetails(
 
     constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
     renderer.DrawLines(line, color, std::max(radius, 1.0f));
+}
+
+void editor::DrawPolygonShapeDetails(
+    mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
+{
+    std::vector<math::Vector> polygon;
+    const bool found_polygon =
+        FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
+    if(found_polygon)
+    {
+        const auto to_world = [position, rotation](const math::Vector& point) {
+            math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
+            math::Position(local_to_world, position);
+            return math::Transform(local_to_world, point);
+        };
+        std::transform(polygon.begin(), polygon.end(), polygon.begin(), to_world);
+
+        constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
+        renderer.DrawClosedPolyline(polygon, color, 1.0f);
+    }
 }
 
 void editor::DrawSpawnPointDetails(

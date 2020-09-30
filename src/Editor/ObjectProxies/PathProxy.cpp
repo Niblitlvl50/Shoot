@@ -71,7 +71,7 @@ bool PathProxy::Intersects(const math::Vector& world_position) const
     return false;
 }
 
-std::vector<Grabber> PathProxy::GetGrabbers() const
+std::vector<Grabber> PathProxy::GetGrabbers()
 {
     using namespace std::placeholders;
 

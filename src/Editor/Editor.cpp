@@ -221,6 +221,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
+    draw_funcs[POLYGON_SHAPE_COMPONENT] = editor::DrawPolygonShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
     draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawShapeTriggerComponentDetails;
     draw_funcs[AREA_TRIGGER_COMPONENT] = editor::DrawAreaTriggerComponentDetails;
@@ -510,7 +511,7 @@ void Editor::UpdateGrabbers()
 {
     m_grabbers.clear();
 
-    const IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
+    IObjectProxy* proxy_object = FindProxyObject(m_selected_id);
     if(proxy_object)
         m_grabbers = proxy_object->GetGrabbers();
 }

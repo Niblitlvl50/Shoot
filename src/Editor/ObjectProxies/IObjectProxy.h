@@ -6,7 +6,6 @@
 #include <vector>
 #include <memory>
 
-struct Attribute;
 struct Component;
 
 namespace editor
@@ -24,7 +23,7 @@ namespace editor
 
         virtual void SetSelected(bool selected) = 0;
         virtual bool Intersects(const math::Vector& position) const = 0;
-        virtual std::vector<struct Grabber> GetGrabbers() const = 0;
+        virtual std::vector<struct Grabber> GetGrabbers() = 0;
         virtual std::vector<struct SnapPoint> GetSnappers() const = 0;
 
         virtual void UpdateUIContext(struct UIContext& context) = 0;

@@ -61,7 +61,7 @@ bool PolygonProxy::Intersects(const math::Vector& world_point) const
     return false;
 }
 
-std::vector<Grabber> PolygonProxy::GetGrabbers() const
+std::vector<Grabber> PolygonProxy::GetGrabbers()
 {
     using namespace std::placeholders;
 

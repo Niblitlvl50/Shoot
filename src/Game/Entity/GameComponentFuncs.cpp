@@ -139,7 +139,26 @@ namespace
         return true;
     }
 
+    bool UpdatePolygonShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int faction;
+        mono::PolyComponent shape_params;
+
+        FindAttribute(FACTION_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
+        FindAttribute(POLYGON_ATTRIBUTE, properties, shape_params.vertices, FallbackMode::SET_DEFAULT);
+        FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
+
+        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
+        shape_params.category = faction_pair.category;
+        shape_params.mask = faction_pair.mask;
+
+        mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
+        physics_system->AddShape(entity->id, shape_params);
+        return true;
+    }
+
     bool CreateHealth(mono::Entity* entity, mono::SystemContext* context)
+    
     {
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         damage_system->CreateRecord(entity->id);
@@ -542,6 +561,7 @@ void game::RegisterGameComponents(mono::EntityManager& entity_manager)
     entity_manager.RegisterComponent(CIRCLE_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdateCircleShape);
     entity_manager.RegisterComponent(BOX_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdateBoxShape);
     entity_manager.RegisterComponent(SEGMENT_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdateSegmentShape);
+    entity_manager.RegisterComponent(POLYGON_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdatePolygonShape);
     entity_manager.RegisterComponent(HEALTH_COMPONENT, CreateHealth, ReleaseHealth, UpdateHealth);
     entity_manager.RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager.RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);

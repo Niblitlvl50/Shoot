@@ -18,6 +18,12 @@ struct DefaultAttribute
     const Variant default_value;
 };
 
+static const std::vector<math::Vector> polygon_default = {
+    math::Vector(0.0f, 0.0f),
+    math::Vector(0.0f, 1.0f),
+    math::Vector(1.0f, 1.0f)
+};
+
 const std::array<DefaultAttribute, 43> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
@@ -67,7 +73,7 @@ const std::array<DefaultAttribute, 43> default_attributes = {{
     DefaultAttribute("text_shadow",         Variant(false)),
     DefaultAttribute("animation_mode",      Variant(0)),
     DefaultAttribute("repeating",           Variant(false)),
-    DefaultAttribute("polygon",             Variant(std::vector<math::Vector>())),
+    DefaultAttribute("polygon",             Variant(polygon_default)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;

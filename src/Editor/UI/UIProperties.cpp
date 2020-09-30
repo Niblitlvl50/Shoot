@@ -91,7 +91,12 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         void operator()(std::vector<math::Vector>& value)
         {
-            ImGui::TextDisabled("polygon data");
+            const ImGuiStyle& style = ImGui::GetStyle();
+            const float item_width = ImGui::CalcItemWidth();
+
+            m_is_changed = ImGui::Button("polygon data", ImVec2(item_width, 0));
+            ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
+            ImGui::Text("%s", m_property_text);
         }
 
         bool WasPropertyChanged() const

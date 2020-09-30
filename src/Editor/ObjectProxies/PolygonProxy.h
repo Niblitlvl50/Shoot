@@ -21,7 +21,7 @@ namespace editor
         mono::IEntity* Entity() override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
-        std::vector<Grabber> GetGrabbers() const override;
+        std::vector<Grabber> GetGrabbers() override;
         std::vector<SnapPoint> GetSnappers() const override;
         void UpdateUIContext(UIContext& context) override;
         std::string GetFolder() const override;

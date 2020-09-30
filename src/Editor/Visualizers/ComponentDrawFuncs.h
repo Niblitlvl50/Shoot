@@ -15,6 +15,8 @@ namespace editor
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawSegmentShapeDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
+    void DrawPolygonShapeDetails(
+        mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawSpawnPointDetails(
         mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties);
     void DrawShapeTriggerComponentDetails(
