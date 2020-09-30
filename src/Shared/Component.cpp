@@ -67,7 +67,7 @@ const std::array<DefaultAttribute, 43> default_attributes = {{
     DefaultAttribute("text_shadow",         Variant(false)),
     DefaultAttribute("animation_mode",      Variant(0)),
     DefaultAttribute("repeating",           Variant(false)),
-    DefaultAttribute("polygon",             Variant(0)),
+    DefaultAttribute("polygon",             Variant(std::vector<math::Vector>())),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -205,10 +205,10 @@ const ComponentArray default_components = {
     MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
     MakeComponent(TEXT_COMPONENT,           NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
-    MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE } ),
-    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE } ),
-    MakeComponent(POLYGON_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SENSOR_ATTRIBUTE, POLYGON_ATTRIBUTE } ),
+    MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(POLYGON_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
     MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
@@ -261,6 +261,10 @@ bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& 
     return found_attribute;
 }
 
+bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes, const Attribute*& output)
+{
+    return FindAttribute(id, const_cast<std::vector<Attribute>&>(attributes), const_cast<Attribute*&>(output));
+}
 
 void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes)
 {

@@ -68,7 +68,28 @@ bool ComponentProxy::Intersects(const math::Vector& position) const
 
 std::vector<Grabber> ComponentProxy::GetGrabbers() const
 {
-    return { };
+    std::vector<Grabber> grabbers;
+
+    const Component* polygon_shape_component = FindComponentFromHash(POLYGON_SHAPE_COMPONENT, m_components);
+    if(!polygon_shape_component)
+        return grabbers;
+
+    const Attribute* polygon_attribute = nullptr;
+    const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
+    if(!found_polygon)
+        return grabbers;
+
+    const std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(polygon_attribute->value);
+    grabbers.reserve(points.size());
+
+    for(const math::Vector& point : points)
+    {
+        Grabber grabber;
+        grabber.position = point;
+        grabbers.push_back(grabber);
+    }
+
+    return grabbers;
 }
 
 std::vector<SnapPoint> ComponentProxy::GetSnappers() const
@@ -82,24 +103,24 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
     DrawFolder(m_folder);
     //DrawBitfieldProperty(m_entity_properties, all_entity_properties, EntityPropertyToString);
     
-    const int modified_index = DrawComponents(context, m_components);
-    if(modified_index != -1)
-    {
-        Component& modified_component = m_components[modified_index];
-        m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
+    const DrawComponentsResult result = DrawComponents(context, m_components);
+    if(result.component_index == std::numeric_limits<uint32_t>::max())
+        return;
 
-        // Special case for setting a proper name...
-        if(modified_component.hash == SPRITE_COMPONENT && m_name == "unnamed")
+    Component& modified_component = m_components[result.component_index];
+    m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
+
+    // Special case for setting a proper name...
+    if(modified_component.hash == SPRITE_COMPONENT && m_name == "unnamed")
+    {
+        std::string sprite_name;
+        const bool found_sprite_name = 
+            FindAttribute(SPRITE_ATTRIBUTE, modified_component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(found_sprite_name)
         {
-            std::string sprite_name;
-            const bool found_sprite_name = 
-                FindAttribute(SPRITE_ATTRIBUTE, modified_component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
-            if(found_sprite_name)
-            {
-                m_name = sprite_name;
-                const size_t dot_pos = m_name.find_last_of('.');
-                m_name.erase(dot_pos);
-            }
+            m_name = sprite_name;
+            const size_t dot_pos = m_name.find_last_of('.');
+            m_name.erase(dot_pos);
         }
     }
 }

@@ -14,7 +14,13 @@ namespace editor
     void DrawFolder(std::string& folder);
     bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
     void AddDynamicProperties(Component& component);
-    int DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
+
+    struct DrawComponentsResult
+    {
+        uint32_t component_index;
+        uint32_t attribute_hash;
+    };
+    DrawComponentsResult DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
 
     void DrawEntityProperty(uint32_t& properties);
 

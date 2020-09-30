@@ -90,7 +90,9 @@ bool DrawGenericProperty(const char* text, Variant& value)
                 value = string_buffer;
         }
         void operator()(std::vector<math::Vector>& value)
-        {}
+        {
+            ImGui::TextDisabled("polygon data");
+        }
 
         bool WasPropertyChanged() const
         {
@@ -280,9 +282,11 @@ void editor::AddDynamicProperties(Component& component)
     }
 }
 
-int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& components)
+editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::vector<Component>& components)
 {
-    int modified_index = -1;
+    DrawComponentsResult result;
+    result.component_index = -1;
+    result.attribute_hash = -1;
 
     ImGui::Spacing();
     ImGui::Spacing();
@@ -314,7 +318,10 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
         for(Attribute& property : component.properties)
         {
             if(DrawProperty(property, components, ui_context))
-                modified_index = index;
+            {
+                result.component_index = index;
+                result.attribute_hash = property.id;
+            }
         }
 
         ImGui::Spacing();
@@ -347,7 +354,7 @@ int editor::DrawComponents(UIContext& ui_context, std::vector<Component>& compon
     if(selected_component_hash != NOTHING_SELECTED)
         ui_context.add_component(selected_component_hash);
 
-    return modified_index;
+    return result;
 }
 
 bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)
