@@ -74,7 +74,8 @@ namespace game
 
         AreaEntityTriggerComponent* AllocateAreaTrigger(uint32_t entity_id);
         void ReleaseAreaTrigger(uint32_t entity_id);
-        void AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities);
+        void AddAreaEntityTrigger(
+            uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, shared::AreaTriggerOperation operation, int n_entities);
 
         TimeTriggerComponent* AllocateTimeTrigger(uint32_t entity_id);
         void ReleaseTimeTrigger(uint32_t entity_id);

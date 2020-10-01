@@ -162,7 +162,8 @@ void TriggerSystem::ReleaseAreaTrigger(uint32_t entity_id)
     m_active_area_triggers[entity_id] = false;
 }
 
-void TriggerSystem::AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, int n_entities)
+void TriggerSystem::AddAreaEntityTrigger(
+    uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, shared::AreaTriggerOperation operation, int n_entities)
 {
     AreaEntityTriggerComponent& area_trigger = m_area_triggers[entity_id];
 
@@ -170,7 +171,7 @@ void TriggerSystem::AddAreaEntityTrigger(uint32_t entity_id, uint32_t trigger_ha
     area_trigger.faction = faction;
     area_trigger.world_bb = world_bb;
     area_trigger.n_entities = n_entities;
-    area_trigger.operation = shared::AreaTriggerOperation::LESS_THAN;
+    area_trigger.operation = operation;
 }
 
 TimeTriggerComponent* TriggerSystem::AllocateTimeTrigger(uint32_t entity_id)

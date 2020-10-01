@@ -356,19 +356,25 @@ namespace
 
         math::Vector size;
         uint32_t faction;
+        int operation;
+        int n_entities;
 
         FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
+        FindAttribute(LOGIC_OP_ATTRIBUTE, properties, operation, FallbackMode::SET_DEFAULT);
+        FindAttribute(N_ENTITIES_ATTRIBUTE, properties, n_entities, FallbackMode::SET_DEFAULT);
+
+        const math::Vector half_width_height = size / 2.0f;
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
         const math::Matrix& world_transform = transform_system->GetWorld(entity->id);
-
-        const math::Quad world_bb = math::Transform(world_transform, math::Quad(0.0f, 0.0f, size.x, size.y));
+        const math::Quad world_bb = math::Transform(world_transform, math::Quad(-half_width_height, half_width_height));
 
         const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddAreaEntityTrigger(entity->id, trigger_hash, world_bb, faction, 0);
+        trigger_system->AddAreaEntityTrigger(
+            entity->id, trigger_hash, world_bb, faction, shared::AreaTriggerOperation(operation), n_entities);
         trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name.c_str());
 
         return true;
