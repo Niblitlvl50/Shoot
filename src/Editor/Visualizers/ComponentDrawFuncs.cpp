@@ -10,6 +10,41 @@
 #include "Component.h"
 #include "FontIds.h"
 
+namespace
+{
+    std::vector<math::Vector> GenerateArrow(const math::Vector& start, const math::Vector& end, float scale)
+    {
+        const float angle = math::AngleBetweenPoints(start, end);
+
+        const float x1 = ( std::sin(angle + math::PI() + math::PI_4())) * scale + end.x;
+        const float y1 = (-std::cos(angle + math::PI() + math::PI_4())) * scale + end.y;
+
+        const float x2 = ( std::sin(angle - math::PI_4())) * scale + end.x;
+        const float y2 = (-std::cos(angle - math::PI_4())) * scale + end.y;
+
+        return {
+            math::Vector(x1, y1), end, end, math::Vector(x2, y2)
+        };
+    }
+
+    std::vector<math::Vector> GenerateArc(const math::Vector& position, float start_radians, float end_radians, int segments)
+    {
+        std::vector<math::Vector> vertices;
+        vertices.reserve(segments);
+
+        const float radians_increment = (end_radians - start_radians) / segments;
+        
+        for(int index = 0; index < segments; ++index)
+        {
+            const float radians = index * radians_increment + start_radians;
+            const float x = -std::sin(radians) + position.x;
+            const float y = std::cos(radians) + position.y;
+            vertices.emplace_back(x, y);
+        }
+
+        return vertices;
+    }
+}
 
 void editor::DrawCircleShapeDetails(
     mono::IRenderer& renderer, const math::Vector& position, float rotation, const std::vector<Attribute>& component_properties)
@@ -20,8 +55,7 @@ void editor::DrawCircleShapeDetails(
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius_value, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
 
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-    renderer.DrawCircle(position + offset, std::max(radius_value, 0.0001f), 20, 1.0f, color);
+    renderer.DrawCircle(position + offset, std::max(radius_value, 0.0001f), 20, 1.0f, mono::Color::MAGENTA);
 }
 
 void editor::DrawBoxShapeDetails(
@@ -39,8 +73,7 @@ void editor::DrawBoxShapeDetails(
     box.mA = position + offset - half_size;
     box.mB = position + offset + half_size;
 
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-    renderer.DrawQuad(box, color, 1.0f);
+    renderer.DrawQuad(box, mono::Color::MAGENTA, 1.0f);
 }
 
 void editor::DrawSegmentShapeDetails(
@@ -59,8 +92,7 @@ void editor::DrawSegmentShapeDetails(
         end + position
     };
 
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-    renderer.DrawLines(line, color, std::max(radius, 1.0f));
+    renderer.DrawLines(line, mono::Color::MAGENTA, std::max(radius, 1.0f));
 }
 
 void editor::DrawPolygonShapeDetails(
@@ -71,15 +103,14 @@ void editor::DrawPolygonShapeDetails(
         FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
     if(found_polygon)
     {
-        const auto to_world = [position, rotation](const math::Vector& point) {
+        const auto local_to_world = [position, rotation](const math::Vector& point) {
             math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
             math::Position(local_to_world, position);
             return math::Transform(local_to_world, point);
         };
-        std::transform(polygon.begin(), polygon.end(), polygon.begin(), to_world);
+        std::transform(polygon.begin(), polygon.end(), polygon.begin(), local_to_world);
 
-        constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-        renderer.DrawClosedPolyline(polygon, color, 1.0f);
+        renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
     }
 }
 
@@ -137,7 +168,11 @@ void editor::DrawSetTranslationDetails(
     math::Vector delta_position;
     FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
 
-    renderer.DrawLines({ position, position + delta_position }, mono::Color::BLUE, 3.0f);
+    const math::Vector end_position = position + delta_position;
+    renderer.DrawLines({ position, end_position }, mono::Color::BLUE, 2.0f);
+
+    const std::vector<math::Vector>& arrow_points = GenerateArrow(position, end_position, 0.5f);
+    renderer.DrawLines(arrow_points, mono::Color::BLUE, 2.0f);
 }
 
 void editor::DrawSetRotationDetails(
@@ -146,8 +181,9 @@ void editor::DrawSetRotationDetails(
     float delta_rotation;
     FindAttribute(ROTATION_ATTRIBUTE, component_properties, delta_rotation, FallbackMode::SET_DEFAULT);
 
-    const math::Vector start_vector = math::VectorFromAngle(rotation);
-    const math::Vector end_vector = math::VectorFromAngle(rotation + delta_rotation);
+    const std::vector<math::Vector>& arc_points = GenerateArc(position, rotation, rotation + delta_rotation, 10);
+    renderer.DrawPolyline(arc_points, mono::Color::CYAN, 2.0f);
 
-    renderer.DrawClosedPolyline({ position, position + start_vector, position + end_vector }, mono::Color::CYAN, 2.0f);
+    const std::vector<math::Vector>& arrow_points = GenerateArrow(arc_points[8], arc_points[9], 0.5f);
+    renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
