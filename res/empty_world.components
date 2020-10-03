@@ -1,3 +1,13 @@
 {
-    "entities": null
+    "entities": [ ],
+    "metadata": {
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 14.0,
+            "y": 23.0
+        }
+    }
 }
