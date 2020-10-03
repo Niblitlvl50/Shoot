@@ -3,17 +3,9 @@
         {
             "frames": [
                 0,
-                0
-            ],
-            "loop": true,
-            "name": "default"
-        },
-        {
-            "frames": [
-                0,
-                50,
+                100,
                 1,
-                50
+                100
             ],
             "loop": true,
             "name": "default"
@@ -22,21 +14,21 @@
     "category": "shuttle",
     "frames": [
         {
-            "h": 11,
-            "name": "booster2",
+            "h": 12,
+            "name": "booster_default_1",
             "w": 9,
-            "x": 1222,
+            "x": 1877,
             "x_offset": 0.0,
-            "y": 328,
+            "y": 327,
             "y_offset": 0.0
         },
         {
-            "h": 12,
-            "name": "booster1",
+            "h": 11,
+            "name": "booster_default_2",
             "w": 9,
-            "x": 1434,
+            "x": 1395,
             "x_offset": 0.0,
-            "y": 325,
+            "y": 329,
             "y_offset": 0.0
         }
     ],

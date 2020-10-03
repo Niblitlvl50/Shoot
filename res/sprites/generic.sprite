@@ -13,11 +13,11 @@
     "frames": [
         {
             "h": 15,
-            "name": "generic1",
+            "name": "generic_1",
             "w": 15,
-            "x": 1741,
+            "x": 1102,
             "x_offset": 0.0,
-            "y": 338,
+            "y": 328,
             "y_offset": 0.0
         }
     ],

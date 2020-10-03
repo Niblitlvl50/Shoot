@@ -3,21 +3,30 @@
         {
             "frames": [
                 0,
-                136,
+                100,
                 1,
-                149,
+                100,
                 2,
-                193
+                100
             ],
-            "loop": false,
+            "loop": true,
             "name": "default"
         }
     ],
     "category": "explosions",
     "frames": [
         {
+            "h": 48,
+            "name": "caco_explosion_default_1",
+            "w": 45,
+            "x": 1999,
+            "x_offset": 0.0,
+            "y": 227,
+            "y_offset": 0.0
+        },
+        {
             "h": 42,
-            "name": "caco_explosion2",
+            "name": "caco_explosion_default_2",
             "w": 50,
             "x": 354,
             "x_offset": 0.0,
@@ -26,20 +35,11 @@
         },
         {
             "h": 47,
-            "name": "caco_explosion3",
+            "name": "caco_explosion_default_3",
             "w": 53,
             "x": 692,
             "x_offset": 0.0,
             "y": 261,
-            "y_offset": 0.0
-        },
-        {
-            "h": 48,
-            "name": "caco_explosion1",
-            "w": 45,
-            "x": 1999,
-            "x_offset": 0.0,
-            "y": 227,
             "y_offset": 0.0
         }
     ],

@@ -3,43 +3,54 @@
         {
             "frames": [
                 0,
-                136,
+                100,
                 1,
-                136,
+                100,
                 2,
-                168
+                100,
+                3,
+                100
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
         }
     ],
     "category": "eye_monster",
     "frames": [
         {
-            "h": 25,
-            "name": "eye_monster1",
-            "w": 35,
-            "x": 268,
-            "x_offset": 0.0,
-            "y": 320,
-            "y_offset": 0.0
-        },
-        {
             "h": 24,
-            "name": "eye_monster0",
+            "name": "eye_monster_idle_0",
             "w": 34,
-            "x": 2,
+            "x": 1754,
             "x_offset": 0.0,
-            "y": 324,
+            "y": 299,
+            "y_offset": 0.0
+        },
+        {
+            "h": 25,
+            "name": "eye_monster_idle_1",
+            "w": 35,
+            "x": 1715,
+            "x_offset": 0.0,
+            "y": 299,
             "y_offset": 0.0
         },
         {
             "h": 24,
-            "name": "eye_monster2",
+            "name": "eye_monster_idle_2",
             "w": 27,
-            "x": 77,
+            "x": 1829,
             "x_offset": 0.0,
-            "y": 324,
+            "y": 299,
+            "y_offset": 0.0
+        },
+        {
+            "h": 25,
+            "name": "eye_monster_idle_3",
+            "w": 35,
+            "x": 1408,
+            "x_offset": 0.0,
+            "y": 299,
             "y_offset": 0.0
         }
     ],

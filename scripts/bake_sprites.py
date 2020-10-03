@@ -10,6 +10,7 @@ def get_files(folder, extension):
             if filename.endswith(extension):
                 file_paths.append(os.path.join(root, filename))
 
+    file_paths.sort()
     return file_paths
 
 

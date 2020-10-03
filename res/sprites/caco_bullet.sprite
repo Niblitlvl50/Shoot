@@ -3,9 +3,9 @@
         {
             "frames": [
                 0,
-                105,
+                100,
                 1,
-                92
+                100
             ],
             "loop": true,
             "name": "default"
@@ -15,20 +15,20 @@
     "frames": [
         {
             "h": 16,
-            "name": "caco_bullet1",
+            "name": "caco_bullet_default_1",
             "w": 16,
-            "x": 1761,
+            "x": 1857,
             "x_offset": 0.0,
-            "y": 337,
+            "y": 327,
             "y_offset": 0.0
         },
         {
             "h": 15,
-            "name": "caco_bullet2",
+            "name": "caco_bullet_default_2",
             "w": 15,
-            "x": 1130,
+            "x": 1083,
             "x_offset": 0.0,
-            "y": 339,
+            "y": 328,
             "y_offset": 0.0
         }
     ],

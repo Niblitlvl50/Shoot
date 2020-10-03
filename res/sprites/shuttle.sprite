@@ -3,49 +3,49 @@
         {
             "frames": [
                 0,
-                10
+                100
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
         },
         {
             "frames": [
                 1,
-                50,
+                100,
                 2,
-                50
+                100
             ],
             "loop": true,
-            "name": "default"
+            "name": "thrust"
         }
     ],
     "category": "shuttle",
     "frames": [
         {
-            "h": 30,
-            "name": "shuttle1",
+            "h": 26,
+            "name": "shuttle_idle",
             "w": 25,
-            "x": 1953,
+            "x": 1379,
             "x_offset": 0.0,
             "y": 299,
             "y_offset": 0.0
         },
         {
-            "h": 26,
-            "name": "shuttle0",
+            "h": 30,
+            "name": "shuttle_thrust_1",
             "w": 25,
-            "x": 430,
+            "x": 1485,
             "x_offset": 0.0,
-            "y": 314,
+            "y": 298,
             "y_offset": 0.0
         },
         {
             "h": 31,
-            "name": "shuttle2",
+            "name": "shuttle_thrust_2",
             "w": 25,
-            "x": 1924,
+            "x": 1897,
             "x_offset": 0.0,
-            "y": 299,
+            "y": 288,
             "y_offset": 0.0
         }
     ],

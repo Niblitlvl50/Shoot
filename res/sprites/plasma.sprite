@@ -3,9 +3,9 @@
         {
             "frames": [
                 0,
-                50,
+                100,
                 1,
-                50
+                100
             ],
             "loop": true,
             "name": "default"
@@ -14,21 +14,21 @@
     "category": "bullets",
     "frames": [
         {
-            "h": 13,
-            "name": "plasma2",
-            "w": 13,
-            "x": 854,
+            "h": 14,
+            "name": "plasma_default_1",
+            "w": 15,
+            "x": 1715,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 328,
             "y_offset": 0.0
         },
         {
-            "h": 14,
-            "name": "plasma1",
-            "w": 15,
-            "x": 835,
+            "h": 13,
+            "name": "plasma_default_2",
+            "w": 13,
+            "x": 1734,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 328,
             "y_offset": 0.0
         }
     ],

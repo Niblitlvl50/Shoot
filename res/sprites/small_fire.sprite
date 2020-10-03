@@ -3,9 +3,9 @@
         {
             "frames": [
                 0,
-                92,
+                100,
                 1,
-                92,
+                100,
                 2,
                 100
             ],
@@ -17,29 +17,29 @@
     "frames": [
         {
             "h": 41,
-            "name": "small_fire2",
+            "name": "small_fire_default_1",
             "w": 23,
-            "x": 1897,
+            "x": 1199,
             "x_offset": 0.0,
-            "y": 288,
+            "y": 283,
             "y_offset": 0.0
         },
         {
             "h": 41,
-            "name": "small_fire3",
+            "name": "small_fire_default_2",
             "w": 23,
-            "x": 979,
+            "x": 305,
             "x_offset": 0.0,
-            "y": 291,
+            "y": 274,
             "y_offset": 0.0
         },
         {
             "h": 41,
-            "name": "small_fire1",
+            "name": "small_fire_default_3",
             "w": 23,
-            "x": 952,
+            "x": 1999,
             "x_offset": 0.0,
-            "y": 291,
+            "y": 279,
             "y_offset": 0.0
         }
     ],

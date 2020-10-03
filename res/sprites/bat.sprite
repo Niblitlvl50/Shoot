@@ -3,7 +3,7 @@
         {
             "frames": [
                 0,
-                98,
+                100,
                 1,
                 100,
                 2,
@@ -15,61 +15,53 @@
             ],
             "loop": true,
             "name": "default"
-        },
-        {
-            "frames": [
-                0,
-                100
-            ],
-            "loop": false,
-            "name": "new"
         }
     ],
     "category": "bat",
     "frames": [
         {
-            "h": 10,
-            "name": "bat3",
-            "w": 11,
-            "x": 1343,
+            "h": 6,
+            "name": "bat_default_1",
+            "w": 16,
+            "x": 2022,
             "x_offset": 0.0,
-            "y": 340,
-            "y_offset": 0.0
-        },
-        {
-            "h": 9,
-            "name": "bat2",
-            "w": 12,
-            "x": 1447,
-            "x_offset": 0.0,
-            "y": 340,
+            "y": 331,
             "y_offset": 0.0
         },
         {
             "h": 8,
-            "name": "bat1",
+            "name": "bat_default_2",
             "w": 13,
-            "x": 1463,
+            "x": 1340,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 330,
             "y_offset": 0.0
         },
         {
-            "h": 6,
-            "name": "bat5",
-            "w": 16,
-            "x": 1531,
+            "h": 9,
+            "name": "bat_default_3",
+            "w": 12,
+            "x": 1324,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 330,
             "y_offset": 0.0
         },
         {
             "h": 10,
-            "name": "bat4",
+            "name": "bat_default_4",
             "w": 11,
-            "x": 1328,
+            "x": 1265,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 10,
+            "name": "bat_default_5",
+            "w": 11,
+            "x": 1280,
+            "x_offset": 0.0,
+            "y": 330,
             "y_offset": 0.0
         }
     ],

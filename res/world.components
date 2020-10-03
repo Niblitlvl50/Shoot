@@ -104,93 +104,6 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.7471237182617188,
-                                "y": -9.915706634521484
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "beast.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.9999899864196777,
-                                "green": 0.9999899864196777,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Enemies",
-            "name": "beastie boy"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
                                 "x": -0.15707015991210938,
                                 "y": -7.157070159912109
                             }
@@ -7484,174 +7397,6 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -8.0,
-                                "y": 25.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "beast.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2130936338,
-                    "name": "set_rotation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "on_rotate"
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 1.5707963705062866
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "on_translate"
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -2.0,
-                                "y": -1.0
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        }
-                    ]
-                },
-                {
-                    "hash": 1052622306,
-                    "name": "set_animation",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "on_animate"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "trigger_test",
-            "name": "set_stuff_test"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
                                 "x": -11.0,
                                 "y": 22.0
                             }
@@ -8108,180 +7853,6 @@
             "entity_properties": 0,
             "folder": "trigger_test",
             "name": "trigger_translation"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -20.0,
-                                "y": 22.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "beast.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "name": "body_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1000.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2383081758,
-                    "name": "death_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "monster_died"
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "trigger_test",
-            "name": "monster_with_trigger"
         },
         {
             "components": [
@@ -16054,7 +15625,7 @@
                             "id": 2565644130,
                             "name": "sprite_layer",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": -1
                         },
                         {
                             "id": 1031692888,
@@ -16322,8 +15893,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 23.45809555053711,
-                                "y": 21.61516571044922
+                                "x": 23.467357635498047,
+                                "y": 21.61516761779785
                             }
                         },
                         {
@@ -16380,6 +15951,69 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.15000000596046448
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.10000000149011612,
+                                "y": -1.899999976158142
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -16397,8 +16031,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 22.359394073486328,
-                                "y": 24.182111740112305
+                                "x": 22.5153751373291,
+                                "y": 24.07292366027832
                             }
                         },
                         {
@@ -16455,6 +16089,69 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.15000000596046448
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.10000000149011612,
+                                "y": -1.899999976158142
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -16472,8 +16169,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.366426467895508,
-                                "y": 22.925256729125977
+                                "x": 21.304170608520508,
+                                "y": 23.02486801147461
                             }
                         },
                         {
@@ -16528,6 +16225,69 @@
                             "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.15000000596046448
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.10000000149011612,
+                                "y": -1.899999976158142
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -17072,8 +16832,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.203798294067383,
-                                "y": 22.479799270629883
+                                "x": 17.039348602294922,
+                                "y": 22.553001403808594
                             }
                         },
                         {
@@ -17126,6 +16886,85 @@
                         {
                             "id": 1775175667,
                             "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000000.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.5747470855712891,
+                                    "y": -1.1175060272216797
+                                },
+                                {
+                                    "x": -1.0687294006347656,
+                                    "y": -0.6965923309326172
+                                },
+                                {
+                                    "x": -1.050161361694336,
+                                    "y": 0.03542900085449219
+                                },
+                                {
+                                    "x": -0.35465431213378906,
+                                    "y": 0.49294090270996094
+                                },
+                                {
+                                    "x": 1.0180339813232422,
+                                    "y": 0.23673439025878906
+                                },
+                                {
+                                    "x": 1.0548343658447266,
+                                    "y": -0.4769859313964844
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -17309,8 +17148,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.203798294067383,
-                                "y": 22.479799270629883
+                                "x": 21.132423400878906,
+                                "y": 22.503589630126953
                             }
                         },
                         {
@@ -17365,6 +17204,85 @@
                             "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.6665210723876953,
+                                    "y": -0.7213897705078125
+                                },
+                                {
+                                    "x": -1.0709800720214844,
+                                    "y": -0.3645153045654297
+                                },
+                                {
+                                    "x": -1.1185626983642578,
+                                    "y": 0.08752632141113281
+                                },
+                                {
+                                    "x": 1.0583744049072266,
+                                    "y": 0.20648574829101563
+                                },
+                                {
+                                    "x": 1.1059589385986328,
+                                    "y": -0.7213897705078125
+                                },
+                                {
+                                    "x": 0.5111675262451172,
+                                    "y": -1.1853275299072266
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -17609,8 +17527,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 26.68505096435547,
-                                "y": 26.122905731201172
+                                "x": 26.770336151123047,
+                                "y": 25.91232681274414
                             }
                         },
                         {
@@ -17667,6 +17585,89 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -2.637662887573242,
+                                    "y": -4.264644622802734
+                                },
+                                {
+                                    "x": -3.9047393798828125,
+                                    "y": -1.3931007385253906
+                                },
+                                {
+                                    "x": -3.693857192993164,
+                                    "y": 0.9293918609619141
+                                },
+                                {
+                                    "x": 3.27386474609375,
+                                    "y": 1.224843978881836
+                                },
+                                {
+                                    "x": 4.033805847167969,
+                                    "y": -1.0979423522949219
+                                },
+                                {
+                                    "x": 3.5684890747070313,
+                                    "y": -3.1254825592041016
+                                },
+                                {
+                                    "x": -0.2742347717285156,
+                                    "y": -4.941242218017578
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -17684,8 +17685,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 26.351367950439453,
-                                "y": 21.955236434936523
+                                "x": 25.90190315246582,
+                                "y": 21.893239974975586
                             }
                         },
                         {
@@ -17738,6 +17739,81 @@
                         {
                             "id": 1775175667,
                             "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -2.1375503540039063,
+                                    "y": -0.9182987213134766
+                                },
+                                {
+                                    "x": -2.168548583984375,
+                                    "y": 0.1356182098388672
+                                },
+                                {
+                                    "x": 1.8611297607421875,
+                                    "y": 0.6005821228027344
+                                },
+                                {
+                                    "x": 2.1246089935302734,
+                                    "y": -0.6548194885253906
+                                },
+                                {
+                                    "x": 0.3422508239746094,
+                                    "y": -1.6777381896972656
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -17931,7 +18007,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 4
+                            "variant_value": 6
                         },
                         {
                             "id": 85768329,
@@ -18044,6 +18120,81 @@
                             "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -1.7848758697509766,
+                                    "y": -0.48729705810546875
+                                },
+                                {
+                                    "x": -1.7848758697509766,
+                                    "y": 0.3806343078613281
+                                },
+                                {
+                                    "x": 1.4543647766113281,
+                                    "y": 0.5821189880371094
+                                },
+                                {
+                                    "x": 1.8418350219726563,
+                                    "y": -0.2858123779296875
+                                },
+                                {
+                                    "x": -0.20400238037109375,
+                                    "y": -1.13824462890625
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -18663,8 +18814,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 25.155033111572266,
-                                "y": 21.023561477661133
+                                "x": 25.092639923095703,
+                                "y": 20.94556999206543
                             }
                         },
                         {
@@ -18739,7 +18890,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 26.081762313842773,
-                                "y": 20.741300582885742
+                                "y": 20.6477108001709
                             }
                         },
                         {
@@ -18814,7 +18965,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 25.54305076599121,
-                                "y": 20.78876495361328
+                                "y": 20.695175170898438
                             }
                         },
                         {
@@ -18888,7 +19039,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.67959213256836,
+                                "x": 15.206012725830078,
                                 "y": 21.25653648376465
                             }
                         },
@@ -19188,8 +19339,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 18.96181297302246,
-                                "y": 21.097545623779297
+                                "x": 18.681907653808594,
+                                "y": 20.837635040283203
                             }
                         },
                         {
@@ -19713,8 +19864,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.097393035888672,
-                                "y": 22.70003318786621
+                                "x": 19.10407257080078,
+                                "y": 22.807884216308594
                             }
                         },
                         {
@@ -19792,7 +19943,7 @@
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 2.0
                         },
                         {
                             "id": 2471448074,
@@ -19807,7 +19958,94 @@
                             "id": 1453830135,
                             "name": "easing_func",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 3
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000000.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.7132587432861328,
+                                    "y": -0.7512989044189453
+                                },
+                                {
+                                    "x": -1.0582389831542969,
+                                    "y": -0.3825263977050781
+                                },
+                                {
+                                    "x": -0.9630718231201172,
+                                    "y": 0.23605728149414063
+                                },
+                                {
+                                    "x": 0.0956573486328125,
+                                    "y": 0.4739723205566406
+                                },
+                                {
+                                    "x": 1.0235328674316406,
+                                    "y": 0.22416114807128906
+                                },
+                                {
+                                    "x": 1.035430908203125,
+                                    "y": -0.8583602905273438
+                                },
+                                {
+                                    "x": 0.5001182556152344,
+                                    "y": -1.1795482635498047
+                                },
+                                {
+                                    "x": -0.21363449096679688,
+                                    "y": -0.7750892639160156
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -20239,8 +20477,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.976022720336914,
-                                "y": 18.370792388916016
+                                "x": 16.64847755432129,
+                                "y": 20.823637008666992
                             }
                         },
                         {
@@ -20252,36 +20490,6 @@
                     ]
                 },
                 {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "name": "body_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -20289,13 +20497,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "screen_suprised.sprite"
+                            "variant_value": "goblin_black.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 2565644130,
@@ -20327,56 +20535,86 @@
                             "variant_value": false
                         }
                     ]
-                },
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "goblin_black"
+        },
+        {
+            "components": [
                 {
-                    "hash": 958098175,
-                    "name": "polygon_shape",
+                    "hash": 3786248987,
+                    "name": "transform",
                     "properties": [
                         {
-                            "id": 776086107,
-                            "name": "faction",
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 17.35464859008789,
+                                "y": 20.5469970703125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 85768329,
-                            "name": "polygon",
-                            "variant_type": 7,
-                            "variant_value": [
-                                {
-                                    "x": -0.6293239593505859,
-                                    "y": 0.5368824005126953
-                                },
-                                {
-                                    "x": 0.6548347473144531,
-                                    "y": 0.7910385131835938
-                                },
-                                {
-                                    "x": 0.9001846313476563,
-                                    "y": -0.3026771545410156
-                                },
-                                {
-                                    "x": -0.6293239593505859,
-                                    "y": -0.5733795166015625
-                                },
-                                {
-                                    "x": -1.1799907684326172,
-                                    "y": 0.021518707275390625
-                                }
-                            ]
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.5588235259056091,
+                                "green": 0.5588235259056091,
+                                "red": 1.0
+                            }
                         },
                         {
-                            "id": 2209756795,
-                            "name": "sensor",
+                            "id": 2313652925,
+                            "name": "flip_vertical",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "screen_suprised"
+            "name": "goblin_black"
         }
     ],
     "metadata": {

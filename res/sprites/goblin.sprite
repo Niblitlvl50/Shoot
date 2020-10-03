@@ -2,116 +2,116 @@
     "animations": [
         {
             "frames": [
-                6,
-                136,
-                8,
-                136,
-                7,
-                187
+                0,
+                100,
+                1,
+                100,
+                2,
+                100
             ],
             "loop": true,
             "name": "idle"
         },
         {
             "frames": [
-                5,
-                79,
-                4,
-                73,
-                2,
-                79,
                 3,
-                79,
-                1,
-                92,
-                0,
-                79
+                100,
+                4,
+                100,
+                5,
+                100,
+                6,
+                100,
+                7,
+                100,
+                8,
+                100
             ],
             "loop": true,
-            "name": "run"
+            "name": "walk"
         }
     ],
     "category": "goblin",
     "frames": [
         {
             "h": 17,
-            "name": "goblin9",
+            "name": "goblin_idle_1",
             "w": 12,
-            "x": 960,
+            "x": 1770,
             "x_offset": 0.0,
-            "y": 336,
+            "y": 327,
+            "y_offset": 0.0
+        },
+        {
+            "h": 16,
+            "name": "goblin_idle_2",
+            "w": 12,
+            "x": 1067,
+            "x_offset": 0.0,
+            "y": 328,
             "y_offset": 0.0
         },
         {
             "h": 17,
-            "name": "goblin8",
+            "name": "goblin_idle_3",
             "w": 12,
-            "x": 1815,
+            "x": 1786,
             "x_offset": 0.0,
-            "y": 335,
+            "y": 327,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
+            "name": "goblin_walk_1",
+            "w": 12,
+            "x": 1909,
+            "x_offset": 0.0,
+            "y": 323,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
+            "name": "goblin_walk_2",
+            "w": 11,
+            "x": 1802,
+            "x_offset": 0.0,
+            "y": 327,
             "y_offset": 0.0
         },
         {
             "h": 18,
-            "name": "goblin6",
+            "name": "goblin_walk_3",
             "w": 11,
-            "x": 1115,
+            "x": 819,
+            "x_offset": 0.0,
+            "y": 313,
+            "y_offset": 0.0
+        },
+        {
+            "h": 17,
+            "name": "goblin_walk_4",
+            "w": 12,
+            "x": 1970,
             "x_offset": 0.0,
             "y": 326,
             "y_offset": 0.0
         },
         {
             "h": 17,
-            "name": "goblin7",
+            "name": "goblin_walk_5",
             "w": 12,
-            "x": 1041,
+            "x": 1754,
             "x_offset": 0.0,
-            "y": 335,
+            "y": 327,
             "y_offset": 0.0
         },
         {
             "h": 17,
-            "name": "goblin5",
-            "w": 11,
-            "x": 976,
-            "x_offset": 0.0,
-            "y": 336,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin4",
+            "name": "goblin_walk_6",
             "w": 12,
-            "x": 1025,
+            "x": 1954,
             "x_offset": 0.0,
-            "y": 335,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin1",
-            "w": 12,
-            "x": 944,
-            "x_offset": 0.0,
-            "y": 336,
-            "y_offset": 0.0
-        },
-        {
-            "h": 17,
-            "name": "goblin3",
-            "w": 12,
-            "x": 1799,
-            "x_offset": 0.0,
-            "y": 335,
-            "y_offset": 0.0
-        },
-        {
-            "h": 16,
-            "name": "goblin2",
-            "w": 12,
-            "x": 1781,
-            "x_offset": 0.0,
-            "y": 337,
+            "y": 326,
             "y_offset": 0.0
         }
     ],

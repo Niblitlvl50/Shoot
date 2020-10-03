@@ -13,11 +13,11 @@
     "frames": [
         {
             "h": 13,
-            "name": "meteorite1",
+            "name": "meteorite_1",
             "w": 12,
-            "x": 1282,
+            "x": 1379,
             "x_offset": 0.0,
-            "y": 340,
+            "y": 329,
             "y_offset": 0.0
         }
     ],

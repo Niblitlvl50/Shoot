@@ -13,11 +13,11 @@
     "frames": [
         {
             "h": 22,
-            "name": "laser1",
+            "name": "laser_1",
             "w": 8,
-            "x": 1434,
+            "x": 1185,
             "x_offset": 0.0,
-            "y": 299,
+            "y": 295,
             "y_offset": 0.0
         }
     ],

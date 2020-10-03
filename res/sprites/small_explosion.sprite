@@ -1,0 +1,95 @@
+{
+    "animations": [
+        {
+            "frames": [
+                0,
+                100,
+                1,
+                100,
+                2,
+                100,
+                3,
+                100,
+                4,
+                100,
+                5,
+                100,
+                6,
+                100
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "category": "explosions",
+    "frames": [
+        {
+            "h": 8,
+            "name": "small_explosion_default_1",
+            "w": 8,
+            "x": 1543,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 8,
+            "name": "small_explosion_default_2",
+            "w": 8,
+            "x": 1514,
+            "x_offset": 0.0,
+            "y": 331,
+            "y_offset": 0.0
+        },
+        {
+            "h": 10,
+            "name": "small_explosion_default_3",
+            "w": 11,
+            "x": 1250,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 10,
+            "name": "small_explosion_default_4",
+            "w": 11,
+            "x": 1235,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 10,
+            "name": "small_explosion_default_5",
+            "w": 10,
+            "x": 1310,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 10,
+            "name": "small_explosion_default_6",
+            "w": 11,
+            "x": 1295,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        },
+        {
+            "h": 11,
+            "name": "small_explosion_default_7",
+            "w": 11,
+            "x": 1220,
+            "x_offset": 0.0,
+            "y": 330,
+            "y_offset": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
