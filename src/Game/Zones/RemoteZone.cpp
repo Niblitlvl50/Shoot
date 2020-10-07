@@ -66,6 +66,7 @@ RemoteZone::~RemoteZone()
 void RemoteZone::OnLoad(mono::ICamera* camera)
 {
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
 
     camera->SetViewport(math::Quad(0, 0, 22, 14));
     m_game_camera = std::make_unique<GameCamera>(camera, transform_system, m_event_handler);
@@ -80,7 +81,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(m_client_manager.get());
     AddUpdatable(new ClientReplicator(camera, m_client_manager.get()));
 
-    AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new CaptureTheFlagHud(m_ctf_score), LayerId::UI);
 

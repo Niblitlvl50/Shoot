@@ -214,6 +214,7 @@ void Editor::OnLoad(mono::ICamera* camera)
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
     m_user_input_controller =
         std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
 
@@ -243,7 +244,7 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(new GameCameraVisualizer(m_context.camera_position, m_context.camera_size), RenderLayer::UI);
-    AddDrawable(new mono::SpriteBatchDrawer(&m_system_context), RenderLayer::OBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
     editor::World world = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);

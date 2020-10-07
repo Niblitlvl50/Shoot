@@ -66,7 +66,7 @@ DamageEffect::DamageEffect(mono::ParticleSystem* particle_system)
     mono::Entity particle_entity = g_entity_manager->CreateEntity("DamageEffect", {});
     particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/flare.png");
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
     particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
 
     m_particle_entity = particle_entity.id;

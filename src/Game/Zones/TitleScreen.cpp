@@ -20,6 +20,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
 #include "TransformSystem/TransformSystem.h"
@@ -101,10 +102,11 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
 
     AddUpdatable(new CheckControllerInput(this));
 
-    AddDrawable(new mono::SpriteBatchDrawer(m_system_context), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);

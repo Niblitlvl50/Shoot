@@ -33,7 +33,7 @@ TrailEffect::TrailEffect(mono::TransformSystem* transform_system, mono::Particle
     mono::Entity particle_entity = g_entity_manager->CreateEntity("traileffect", {});
     particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/flare.png");
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
     particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
 
     const auto generator_proxy = [transform_system, follow_id](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
