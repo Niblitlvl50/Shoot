@@ -36,6 +36,7 @@
 #include "SpriteResources.h"
 
 #include <cassert>
+#include <cstring>
 
 namespace
 {
@@ -59,30 +60,30 @@ namespace
         for(int index = 0; index < argc; ++index)
         {
             const char* arg = argv[index];
-            if(strcmp("--position", arg) == 0)
+            if(std::strcmp("--position", arg) == 0)
             {
                 assert((index + 2) < argc);
                 options.x = atoi(argv[++index]);
                 options.y = atoi(argv[++index]);
 
             }
-            else if(strcmp("--size", arg) == 0)
+            else if(std::strcmp("--size", arg) == 0)
             {
                 assert((index + 2) < argc);
                 options.width = atoi(argv[++index]);
                 options.height = atoi(argv[++index]);
             }
-            else if(strcmp("--zone", arg) == 0)
+            else if(std::strcmp("--zone", arg) == 0)
             {
                 assert((index + 1) < argc);
                 options.start_zone = atoi(argv[++index]);
             }
-            else if(strcmp("--config", arg) == 0)
+            else if(std::strcmp("--config", arg) == 0)
             {
                 assert((index + 1) < argc);
                 options.game_config = argv[++index];
             }
-            else if(strcmp("--log-file", arg) == 0)
+            else if(std::strcmp("--log-file", arg) == 0)
             {
                 assert((index + 1) < argc);
                 options.log_file = argv[++index];
