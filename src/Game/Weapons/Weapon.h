@@ -7,13 +7,6 @@
 #include "MonoPtrFwd.h"
 #include "Math/MathFwd.h"
 
-namespace mono
-{
-    class IEntityManager;
-    class PhysicsSystem;
-    class ParticleSystem;
-}
-
 namespace game
 {
     class EntityLogicSystem;

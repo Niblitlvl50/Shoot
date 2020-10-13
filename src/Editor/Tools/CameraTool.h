@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
+#include "MonoFwd.h"
 #include "Math/Vector.h"
 
 namespace System

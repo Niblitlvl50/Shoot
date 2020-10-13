@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 
