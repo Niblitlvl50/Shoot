@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "Math/Vector.h"
 #include <vector>
 #include <cstdint>
@@ -8,25 +9,8 @@
 
 struct Component;
 
-namespace mono
-{
-    struct Entity;
-    class IEntityManager;
-}
-
 namespace shared
 {
-    constexpr size_t PolygonTextureNameMaxLength = 64;
-
-    struct PolygonData
-    {
-        math::Vector position;
-        math::Vector local_offset;
-        float rotation = 0.0f;
-        char texture[PolygonTextureNameMaxLength] = { 0 };
-        std::vector<math::Vector> vertices;
-    };
-
     struct LevelMetadata
     {
         math::Vector camera_position;

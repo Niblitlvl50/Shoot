@@ -11,6 +11,8 @@
 
 namespace editor
 {
+    constexpr size_t PolygonTextureNameMaxLength = 64;
+
     class PolygonEntity : public mono::EntityBase
     {
     public:
@@ -46,7 +48,7 @@ namespace editor
 
         std::vector<math::Vector> m_points;
         std::vector<math::Vector> m_textureCoordinates;
-        char m_texture_name[shared::PolygonTextureNameMaxLength];
+        char m_texture_name[PolygonTextureNameMaxLength];
     };
 
     void DrawPolygon(mono::IRenderer& renderer,
