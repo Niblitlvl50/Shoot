@@ -25,7 +25,7 @@ static const std::vector<math::Vector> polygon_default = {
     math::Vector(1.0f, 0.0f)
 };
 
-const std::array<DefaultAttribute, 43> default_attributes = {{
+const std::array<DefaultAttribute, 44> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -75,6 +75,7 @@ const std::array<DefaultAttribute, 43> default_attributes = {{
     DefaultAttribute("animation_mode",      Variant(0)),
     DefaultAttribute("repeating",           Variant(false)),
     DefaultAttribute("polygon",             Variant(polygon_default)),
+    DefaultAttribute("random_start_frame",  Variant(false)),
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -128,6 +129,7 @@ extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].has
 extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[40].hash;
 extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[41].hash;
 extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[42].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[43].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -209,7 +211,7 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 
 const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
     MakeComponent(TEXT_COMPONENT,           NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),

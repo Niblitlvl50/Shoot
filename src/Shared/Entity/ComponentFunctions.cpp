@@ -82,6 +82,7 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     FindAttribute(FLIP_VERTICAL_ATTRIBUTE, properties, sprite_args.flip_vertical, FallbackMode::SET_DEFAULT);
     FindAttribute(FLIP_HORIZONTAL_ATTRIBUTE, properties, sprite_args.flip_horizontal, FallbackMode::SET_DEFAULT);
     FindAttribute(SPRITE_LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
+    FindAttribute(RANDOM_START_FRAME_ATTRIBUTE, properties, sprite_args.random_start_frame, FallbackMode::SET_DEFAULT);
 
     char sprite_path[1024] = { 0 };
     std::sprintf(sprite_path, "res/sprites/%s", sprite_file.c_str());
