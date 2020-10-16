@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "Math/MathFwd.h"
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -10,8 +11,7 @@ struct Component;
 
 namespace editor
 {
-    void DrawName(std::string& name);
-    void DrawFolder(std::string& folder);
+    bool DrawStringProperty(const char* name, std::string& value);
     bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
     void AddDynamicProperties(Component& component);
 
@@ -36,4 +36,6 @@ namespace editor
     };
 
     SpritePickerResult DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context);
+
+    bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
 }

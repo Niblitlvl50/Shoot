@@ -32,20 +32,17 @@ std::string PrettifyString(const std::string& text)
     return out_string;
 }
 
-void editor::DrawName(std::string& name)
+bool editor::DrawStringProperty(const char* name, std::string& value)
 {
     char text_buffer[VariantStringMaxLength] = { 0 };
-    std::snprintf(text_buffer, VariantStringMaxLength, "%s", name.c_str());
-    if(ImGui::InputText("Name", text_buffer, VariantStringMaxLength))
-        name = text_buffer;
-}
+    std::snprintf(text_buffer, VariantStringMaxLength, "%s", value.c_str());
+    if(ImGui::InputText(name, text_buffer, VariantStringMaxLength))
+    {
+        value = text_buffer;
+        return true;
+    }
 
-void editor::DrawFolder(std::string& folder)
-{
-    char text_buffer[VariantStringMaxLength] = { 0 };
-    std::snprintf(text_buffer, VariantStringMaxLength, "%s", folder.c_str());
-    if(ImGui::InputText("Folder", text_buffer, VariantStringMaxLength))
-        folder = text_buffer;
+    return false;
 }
 
 bool DrawGenericProperty(const char* text, Variant& value)
@@ -68,7 +65,9 @@ bool DrawGenericProperty(const char* text, Variant& value)
             m_is_changed = ImGui::InputInt(m_property_text, &value);
         }
         void operator()(uint32_t& value)
-        {}
+        {
+            ImGui::TextDisabled("Wait what, uint32_t has no UI!!!");
+        }
         void operator()(float& value)
         {
             m_is_changed = ImGui::InputFloat(m_property_text, &value);
@@ -83,41 +82,11 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         void operator()(std::string& value)
         {
-            char string_buffer[VariantStringMaxLength] = { 0 };
-            std::snprintf(string_buffer, VariantStringMaxLength, "%s", value.c_str());
-            m_is_changed = ImGui::InputText(m_property_text, string_buffer, VariantStringMaxLength);
-            if(m_is_changed)
-                value = string_buffer;
+            m_is_changed = editor::DrawStringProperty(m_property_text, value);
         }
         void operator()(std::vector<math::Vector>& value)
         {
-            const ImGuiStyle& style = ImGui::GetStyle();
-            const float item_width = ImGui::CalcItemWidth();
-
-            const bool point_added = ImGui::Button("Add Point", ImVec2(item_width / 2.0f, 0));
-            if(point_added)
-            {
-                const bool clockwise = math::IsPolygonClockwise(value);
-
-                const math::Vector new_point = value.front() - value.back();
-                const math::Vector new_point_tangent =
-                    clockwise ?
-                        math::Normalize(math::Vector(-new_point.y, new_point.x)) : 
-                        math::Normalize(math::Vector(new_point.y, -new_point.x));
-
-                value.push_back(value.back() + (new_point / 2.0f) + (new_point_tangent * 0.25f));
-            }
-
-            ImGui::SameLine(0.0f, 1.0f);
-
-            const bool point_removed = ImGui::Button("Remove Point", ImVec2(item_width / 2.0f, 0));
-            if(point_removed && !value.empty())
-                value.pop_back();
-
-            ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
-            ImGui::Text("%s", m_property_text);
-
-            m_is_changed = point_added || point_removed;
+            m_is_changed = editor::DrawPolygonProperty(m_property_text, value);
         }
 
         bool WasPropertyChanged() const
@@ -535,4 +504,35 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
     }
 
     return result;
+}
+
+bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon)
+{
+    const ImGuiStyle& style = ImGui::GetStyle();
+    const float item_width = ImGui::CalcItemWidth();
+
+    const bool point_added = ImGui::Button("Add Point", ImVec2(item_width / 2.0f, 0));
+    if(point_added)
+    {
+        const bool clockwise = math::IsPolygonClockwise(polygon);
+
+        const math::Vector new_point = polygon.front() - polygon.back();
+        const math::Vector new_point_tangent =
+            clockwise ?
+                math::Normalize(math::Vector(-new_point.y, new_point.x)) : 
+                math::Normalize(math::Vector(new_point.y, -new_point.x));
+
+        polygon.push_back(polygon.back() + (new_point / 2.0f) + (new_point_tangent * 0.25f));
+    }
+
+    ImGui::SameLine(0.0f, 1.0f);
+
+    const bool point_removed = ImGui::Button("Remove Point", ImVec2(item_width / 2.0f, 0));
+    if(point_removed && !polygon.empty())
+        polygon.pop_back();
+
+    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
+    ImGui::Text("%s", name);
+
+    return point_added || point_removed;
 }

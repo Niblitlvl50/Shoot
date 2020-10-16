@@ -93,7 +93,7 @@ void PolygonProxy::UpdateUIContext(UIContext& context)
     const float rotation = m_polygon->Rotation();
     int texture_index = FindTextureIndex(m_polygon->GetTextureName());
 
-    editor::DrawName(m_name);
+    editor::DrawStringProperty("Name", m_name);
     ImGui::Value("X", position.x);
     ImGui::SameLine();
     ImGui::Value("Y", position.y);

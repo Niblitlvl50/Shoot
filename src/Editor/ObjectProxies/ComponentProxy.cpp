@@ -106,8 +106,8 @@ std::vector<SnapPoint> ComponentProxy::GetSnappers() const
 
 void ComponentProxy::UpdateUIContext(UIContext& context)
 {
-    DrawName(m_name);
-    DrawFolder(m_folder);
+    DrawStringProperty("Name", m_name);
+    DrawStringProperty("Folder", m_folder);
     //DrawBitfieldProperty(m_entity_properties, all_entity_properties, EntityPropertyToString);
     
     const DrawComponentsResult result = DrawComponents(context, m_components);
