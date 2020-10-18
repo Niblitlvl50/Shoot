@@ -40,7 +40,6 @@ namespace game
         mono::EventHandler& m_event_handler;
         const game::Config m_game_config;
 
-        std::unique_ptr<class GameCamera> m_game_camera;
         std::unique_ptr<class ClientManager> m_client_manager;
 
         mono::EventToken<game::TextMessage> m_text_token;

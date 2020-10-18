@@ -16,7 +16,6 @@
 
 namespace game
 {
-    class GameCamera;
     class INetworkPipe;
     struct RemoteInputMessage;
     struct ClientPlayerSpawned;
@@ -33,7 +32,6 @@ namespace game
     public:
 
         PlayerDaemon(
-            GameCamera* game_camera,
             INetworkPipe* remote_connection,
             mono::SystemContext* system_context,
             mono::EventHandler& event_handler);
@@ -53,7 +51,7 @@ namespace game
         mono::EventResult RemoteInput(const RemoteInputMessage& event);
         mono::EventResult PLayerScore(const ScoreEvent& event);
 
-        GameCamera* m_game_camera;
+        class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
         mono::SystemContext* m_system_context;
         mono::EventHandler& m_event_handler;
@@ -82,7 +80,7 @@ namespace game
     {
     public:
 
-        ClientPlayerDaemon(GameCamera* game_camera, mono::EventHandler& event_handler);
+        ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler& event_handler);
         ~ClientPlayerDaemon();
 
         void SpawnPlayer1();
@@ -91,7 +89,7 @@ namespace game
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
         mono::EventResult ClientSpawned(const ClientPlayerSpawned& message);
 
-        GameCamera* m_game_camera;
+        CameraSystem* m_camera_system;
         mono::EventHandler& m_event_handler;
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;

@@ -17,8 +17,8 @@ namespace
 }
 
 ZoneManager::ZoneManager(
-    System::IWindow* window, const ZoneCreationContext& zone_context, int initial_zone)
-    : m_engine(window, zone_context.system_context, zone_context.event_handler)
+    System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context, int initial_zone)
+    : m_engine(window, camera, zone_context.system_context, zone_context.event_handler)
     , m_zone_context(zone_context)
     , m_active_zone(initial_zone)
 {

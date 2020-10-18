@@ -6,10 +6,10 @@
 #include "Factories.h"
 #include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
-#include "UpdateTasks/GameCamera.h"
 
 #include "SystemContext.h"
 #include "DamageSystem.h"
+#include "GameCamera/CameraSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Entity/EntityLogicSystem.h"
 
@@ -118,18 +118,17 @@ namespace
 }
 
 PlayerDaemon::PlayerDaemon(
-    GameCamera* game_camera,
     INetworkPipe* remote_connection,
     mono::SystemContext* system_context,
     mono::EventHandler& event_handler)
-    : m_game_camera(game_camera)
-    , m_remote_connection(remote_connection)
+    : m_remote_connection(remote_connection)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
     , m_player_state(PlayerMetaState::NONE)
 {
-    using namespace std::placeholders;
+    m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
+    using namespace std::placeholders;
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
 
@@ -204,7 +203,7 @@ void PlayerDaemon::SpawnPlayer1()
         &m_event_handler,
         destroyed_func);
     
-    m_game_camera->Follow(spawned_id, math::ZeroVec);
+    m_camera_system->Follow(spawned_id, math::ZeroVec);
     m_player_state = PlayerMetaState::SPAWNED;
 }
 
@@ -246,7 +245,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
         if(game::g_player_one.is_active)
             g_entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
-        m_game_camera->Unfollow();
+        m_camera_system->Unfollow();
         game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
     }
@@ -327,12 +326,11 @@ mono::EventResult PlayerDaemon::PLayerScore(const ScoreEvent& event)
 }
 
 
-ClientPlayerDaemon::ClientPlayerDaemon(GameCamera* game_camera, mono::EventHandler& event_handler)
-    : m_game_camera(game_camera)
+ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler& event_handler)
+    : m_camera_system(camera_system)
     , m_event_handler(event_handler)
 {
     using namespace std::placeholders;
-
     const event::ControllerAddedFunc& added_func = std::bind(&ClientPlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&ClientPlayerDaemon::OnControllerRemoved, this, _1);
     const std::function<mono::EventResult (const ClientPlayerSpawned&)>& client_spawned = std::bind(&ClientPlayerDaemon::ClientSpawned, this, _1);
@@ -354,7 +352,7 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
     m_event_handler.RemoveListener(m_removed_token);
     m_event_handler.RemoveListener(m_client_spawned_token);
 
-    m_game_camera->Unfollow();
+    m_camera_system->Unfollow();
 }
 
 void ClientPlayerDaemon::SpawnPlayer1()
@@ -381,7 +379,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::Controlle
     {
         game::g_player_one.entity_id = mono::INVALID_ID;
         game::g_player_one.is_active = false;
-        m_game_camera->Unfollow();
+        m_camera_system->Unfollow();
     }
 
     return mono::EventResult::PASS_ON;
@@ -392,7 +390,7 @@ mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& m
     game::g_player_one.entity_id = message.client_entity_id;
     game::g_player_one.is_active = true;
 
-    m_game_camera->Follow(g_player_one.entity_id, math::ZeroVec);
+    m_camera_system->Follow(g_player_one.entity_id, math::ZeroVec);
 
     return mono::EventResult::PASS_ON;
 }

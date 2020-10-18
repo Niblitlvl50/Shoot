@@ -39,7 +39,6 @@ namespace game
         const game::Config m_game_config;
 
         std::vector<uint32_t> m_loaded_entities;
-        std::unique_ptr<class GameCamera> m_game_camera;
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class ServerManager> m_server_manager;
 

@@ -3,6 +3,7 @@
 #include "System/File.h"
 #include "System/Network.h"
 #include "Audio/AudioSystem.h"
+#include "Camera/Camera.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "Rendering/Text/TextSystem.h"
@@ -28,6 +29,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "SpawnSystem.h"
+#include "GameCamera/CameraSystem.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
@@ -135,6 +137,7 @@ int main(int argc, char* argv[])
 
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
+        mono::Camera camera;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
@@ -165,6 +168,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, &entity_manager);
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
+        system_context.CreateSystem<game::CameraSystem>(&camera, transform_system, &event_handler, trigger_system);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;
@@ -172,8 +176,7 @@ int main(int argc, char* argv[])
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;
 
-        game::ZoneManager zone_manager(window, zone_context, options.start_zone);
-        zone_manager.Run();
+        game::ZoneManager(window, &camera, zone_context, options.start_zone).Run();
 
         system_context.DestroySystems();
 

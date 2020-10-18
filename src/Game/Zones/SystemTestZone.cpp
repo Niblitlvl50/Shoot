@@ -44,7 +44,6 @@
 #include "Network/NetworkMessage.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
-#include "UpdateTasks/GameCamera.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Factories.h"
@@ -57,6 +56,7 @@
 #include "Camera/ICamera.h"
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
+#include "GameCamera/CameraSystem.h"
 
 #include "TriggerSystem.h"
 #include "TriggerDebugDrawer.h"
@@ -110,8 +110,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
 
-    m_game_camera = std::make_unique<GameCamera>(camera, transform_system, *m_event_handler);
-
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager.get());
@@ -127,10 +125,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(new SyncPoint()); // this should probably go last or something...
 
     AddUpdatable(new ListenerPositionUpdater());
-    AddUpdatable(m_game_camera.get());
 
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_game_camera.get(), m_server_manager.get(), m_system_context, *m_event_handler);
+        std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, *m_event_handler);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -174,7 +171,6 @@ int SystemTestZone::OnUnload()
 
     g_entity_manager->Sync();
 
-    RemoveUpdatable(m_game_camera.get());
     RemoveUpdatable(m_server_manager.get());
 
     return 0;

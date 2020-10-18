@@ -471,7 +471,7 @@ namespace
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AddAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), animation_index);
+        animation_system->AddSpriteAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), animation_index);
 
         return true;
     }

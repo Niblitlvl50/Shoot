@@ -18,7 +18,7 @@
 #include "Network/ClientManager.h"
 
 #include "Camera/ICamera.h"
-#include "UpdateTasks/GameCamera.h"
+#include "GameCamera/CameraSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
@@ -67,17 +67,16 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
 {
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
 
     camera->SetViewport(math::Quad(0, 0, 22, 14));
-    m_game_camera = std::make_unique<GameCamera>(camera, transform_system, m_event_handler);
 
     m_client_manager = std::make_unique<ClientManager>(&m_event_handler, &m_game_config);
-    m_player_daemon = std::make_unique<ClientPlayerDaemon>(m_game_camera.get(), m_event_handler);
+    m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
 
     const PositionPredictionSystem* prediction_system =
         m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, &m_event_handler);
 
-    AddUpdatable(m_game_camera.get());
     AddUpdatable(m_client_manager.get());
     AddUpdatable(new ClientReplicator(camera, m_client_manager.get()));
 
@@ -96,7 +95,6 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
 
 int RemoteZone::OnUnload()
 {
-    RemoveUpdatable(m_game_camera.get());
     RemoveUpdatable(m_client_manager.get());
     RemoveDrawable(m_console_drawer.get());
     return 0;
