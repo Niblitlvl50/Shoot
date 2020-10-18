@@ -3,7 +3,6 @@
 
 #include "IGameSystem.h"
 #include "MonoFwd.h"
-#include "Util/ObjectPool.h"
 #include "Math/Vector.h"
 #include "Math/EasingFunctions.h"
 
@@ -69,7 +68,7 @@ namespace game
 
         SpriteAnimationComponent* AllocateSpriteAnimation(uint32_t entity_id);
         void ReleaseSpriteAnimation(uint32_t entity_id);
-        void AddAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index);
+        void AddSpriteAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index);
 
         TranslateAnimationComponent* AllocateTranslationAnimation(uint32_t entity_id);
         void ReleaseTranslationAnimation(uint32_t entity_id);
@@ -83,7 +82,6 @@ namespace game
 
         uint32_t Id() const override;
         const char* Name() const override;
-        uint32_t Capacity() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
         class TriggerSystem* m_trigger_system;

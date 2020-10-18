@@ -250,11 +250,6 @@ const char* TriggerSystem::Name() const
     return "TriggerSystem";
 }
 
-uint32_t TriggerSystem::Capacity() const
-{
-    return m_shape_triggers.capacity();
-}
-
 void TriggerSystem::Update(const mono::UpdateContext& update_context)
 {
     m_area_trigger_timer += update_context.delta_ms;

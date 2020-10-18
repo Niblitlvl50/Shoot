@@ -127,11 +127,6 @@ const char* DamageSystem::Name() const
     return "damagesystem";
 }
 
-uint32_t DamageSystem::Capacity() const
-{
-    return m_damage_records.size();
-}
-
 void DamageSystem::Update(const mono::UpdateContext& update_context)
 {
     m_timestamp = update_context.timestamp;

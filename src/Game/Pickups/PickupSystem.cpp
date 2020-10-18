@@ -107,11 +107,6 @@ const char* PickupSystem::Name() const
     return "pickupsystem";
 }
 
-uint32_t PickupSystem::Capacity() const
-{
-    return m_pickups.capacity();
-}
-
 void PickupSystem::Update(const mono::UpdateContext& update_context)
 {
     for(const PickupToTarget& pickup : m_pickups_to_process)

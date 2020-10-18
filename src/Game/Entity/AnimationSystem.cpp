@@ -49,7 +49,7 @@ void AnimationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
     m_active_sprite_components[entity_id] = false;
 }
 
-void AnimationSystem::AddAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index)
+void AnimationSystem::AddSpriteAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index)
 {
     SpriteAnimationComponent* sprite_animation = &m_sprite_components[entity_id];
 
@@ -184,11 +184,6 @@ uint32_t AnimationSystem::Id() const
 const char* AnimationSystem::Name() const
 {
     return "AnimationSystem";
-}
-
-uint32_t AnimationSystem::Capacity() const
-{
-    return m_sprite_components.capacity();
 }
 
 void AnimationSystem::Update(const mono::UpdateContext& update_context)

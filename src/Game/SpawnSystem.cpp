@@ -47,11 +47,6 @@ const char* SpawnSystem::Name() const
     return "spawnsystem";
 }
 
-uint32_t SpawnSystem::Capacity() const
-{
-    return m_spawn_points.capacity();
-}
-
 void SpawnSystem::Update(const mono::UpdateContext& update_context)
 {
 

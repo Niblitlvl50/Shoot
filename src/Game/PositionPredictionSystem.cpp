@@ -52,11 +52,6 @@ const char* PositionPredictionSystem::Name() const
     return "PositionPredictionSystem";
 }
 
-uint32_t PositionPredictionSystem::Capacity() const
-{
-    return m_prediction_data.size();
-}
-
 void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
 {
     const int server_time = m_client_manager->GetServerTimePredicted();

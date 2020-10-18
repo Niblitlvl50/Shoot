@@ -48,11 +48,6 @@ const char* EntityLogicSystem::Name() const
     return "entitylogicsystem";
 }
 
-uint32_t EntityLogicSystem::Capacity() const
-{
-    return m_logics.size();
-}
-
 void EntityLogicSystem::Update(const mono::UpdateContext& update_context)
 {
     for(IEntityLogic* logic : m_logics)
