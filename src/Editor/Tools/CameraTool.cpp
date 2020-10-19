@@ -60,14 +60,16 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
 
 void CameraTool::HandleMouseWheel(float x, float y)
 {
-    math::Quad quad = m_camera->GetViewport();
+    math::Vector viewport_size = m_camera->GetViewportSize();
 
     const float multiplier = (y < 0.0f) ? 1.0f : -1.0f;
-    const float resizeValue = quad.mB.x * 0.15f * multiplier;
-    const float aspect = quad.mB.x / quad.mB.y;
-    math::ResizeQuad(quad, resizeValue, aspect);
+    const float resize_value = viewport_size.x * 0.15f * multiplier;
+    const float aspect = viewport_size.x / viewport_size.y;
 
-    m_camera->SetTargetViewport(quad);
+    viewport_size.x += resize_value * aspect;
+    viewport_size.y += resize_value;
+
+    m_camera->SetTargetViewportSize(viewport_size);
 }
 
 void CameraTool::HandleMultiGesture(const math::Vector& screen_position, float distance)

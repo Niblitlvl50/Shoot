@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Math/Quad.h"
 #include "Rendering/Color.h"
 
 namespace editor
@@ -10,7 +9,7 @@ namespace editor
     struct Config
     {
         math::Vector camera_position;
-        math::Quad camera_viewport = math::Quad(0.0f, 0.0f, 600.0f, 400.0f);
+        math::Vector camera_viewport = math::Vector(600.0f, 400.0f);
         math::Vector window_position;
         math::Vector window_size = math::Vector(1200.0f, 800.0f);
 

@@ -69,7 +69,8 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
 
-    camera->SetViewport(math::Quad(0, 0, 22, 14));
+    camera->SetPosition(math::Vector(0.0f, 0.0f));
+    camera->SetViewportSize(math::Vector(22.0f, 14.0f));
 
     m_client_manager = std::make_unique<ClientManager>(&m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);

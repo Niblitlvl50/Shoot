@@ -202,8 +202,9 @@ void Editor::OnLoad(mono::ICamera* camera)
     EnableDrawLevelMetadata(m_editor_config.draw_metadata);
     SetBackgroundColor(m_editor_config.background_color);
     EnableSnapToGrid(m_editor_config.snap_to_grid);
+    
     camera->SetPosition(m_editor_config.camera_position);
-    camera->SetViewport(m_editor_config.camera_viewport);
+    camera->SetViewportSize(m_editor_config.camera_viewport);
 
     m_context.grid_size = m_editor_config.grid_size;
 
@@ -275,7 +276,7 @@ int Editor::OnUnload()
     }
 
     m_editor_config.camera_position = m_camera->GetPosition();
-    m_editor_config.camera_viewport = m_camera->GetViewport();
+    m_editor_config.camera_viewport = m_camera->GetViewportSize();
     m_editor_config.draw_object_names = DrawObjectNames();
     m_editor_config.draw_snappers = DrawSnappers();
     m_editor_config.draw_outline = DrawOutline();
@@ -389,7 +390,7 @@ void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
 void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
 {
     const math::Vector& proxy_position = proxy_object->GetPosition();
-    m_camera->SetPosition(proxy_position);
+    m_camera->SetTargetPosition(proxy_position);
 
     const math::Quad& proxy_bounding_box = proxy_object->GetBoundingBox();
     const float length_squared =
@@ -398,7 +399,7 @@ void Editor::TeleportToProxyObject(IObjectProxy* proxy_object)
     const math::Quad viewport = m_camera->GetViewport();
     const float ratio = math::Width(viewport) * math::Height(viewport);
     const float height = length_squared * ratio;
-    m_camera->SetTargetViewport(math::Quad(0, 0, length_squared, height));
+    m_camera->SetTargetViewportSize(math::Vector(length_squared, height));
 }
 
 void Editor::TeleportToSelectedProxyObject()

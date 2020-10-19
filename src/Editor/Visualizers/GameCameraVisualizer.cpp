@@ -13,10 +13,12 @@ GameCameraVisualizer::GameCameraVisualizer(const math::Vector& position, const m
 
 void GameCameraVisualizer::Draw(mono::IRenderer& renderer) const
 {
-    renderer.DrawQuad(math::Quad(m_position, m_position + m_size), mono::Color::RED, 2.0f);
+    const math::Vector half_size = m_size / 2.0f;
+    renderer.DrawQuad(math::Quad(m_position - half_size, m_position + half_size), mono::Color::RED, 2.0f);
 }
 
 math::Quad GameCameraVisualizer::BoundingBox() const
 {
-    return math::Quad(m_position, m_position + m_size);
+    const math::Vector half_size = m_size / 2.0f;
+    return math::Quad(m_position - half_size, m_position + half_size);
 }

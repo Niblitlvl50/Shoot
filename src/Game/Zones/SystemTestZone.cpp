@@ -95,8 +95,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 {
     const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/world.components", g_entity_manager, nullptr);
     m_loaded_entities = leveldata.loaded_entities;
-
-    camera->SetViewport(math::Quad(leveldata.metadata.camera_position, leveldata.metadata.camera_size));
+    camera->SetPosition(leveldata.metadata.camera_position);
+    camera->SetViewportSize(leveldata.metadata.camera_size);
     m_camera = camera;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);

@@ -10,7 +10,7 @@ namespace game
     {
     public:
 
-        ScreenSparkles(mono::ParticleSystem* particle_system, const math::Quad& viewport);
+        ScreenSparkles(mono::ParticleSystem* particle_system, const math::Vector& camera_position, const math::Vector& viewport_size);
         ~ScreenSparkles();
 
     private:

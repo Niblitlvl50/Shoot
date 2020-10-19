@@ -68,25 +68,28 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
     if(m_entity_id != NO_ENTITY)
     {
-        const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+        const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
 
-        const float rotation = math::GetZRotation(transform);
-        const math::Vector& position = math::GetPosition(transform);
+        const math::Vector& position = math::GetPosition(world_transform);
 
-        math::Quad viewport = m_camera->GetViewport();
-        const float ratio_value = viewport.mB.y / viewport.mB.x;
+/*
+        const float rotation = math::GetZRotation(world_transform);
+        math::Vector viewport_size = m_camera->GetViewportSize();
+        const float viewport_ratio = viewport_size.y / viewport_size.x;
 
-        const math::Vector ratio(1.0f, ratio_value);
+        const math::Vector ratio(1.0f, viewport_ratio);
         const math::Vector& xy = -math::VectorFromAngle(rotation) * ratio * 3.0f;
 
-        const math::Vector& target_position = position - (viewport.mB * 0.5f) - xy;
+        const math::Vector& target_position = position - (viewport_size * 0.5f) - xy;
         const math::Vector& diff = target_position - viewport.mA;
 
         constexpr float SPEED = 0.005f;
         const math::Vector& move = diff * (update_context.delta_ms * SPEED);
         viewport.mA += move;
+*/
 
-        m_camera->SetViewport(viewport);
+        m_camera->SetTargetPosition(position);
+        //m_camera->SetViewportSize(viewport_size);
     }
 
     const auto process_camera_anims = [this, &update_context](CameraAnimationComponent* camera_anim)

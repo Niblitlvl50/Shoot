@@ -13,9 +13,9 @@ using namespace game;
 
 namespace
 {
-    void Generator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, const math::Quad& viewport)
+    void Generator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, const math::Vector& viewport_size)
     {
-        const float half_height = viewport.mB.y / 2.0f;
+        const float half_height = viewport_size.y / 2.0f;
 
         const float x = 0.0f;
         const float y = mono::Random(-half_height, half_height);
@@ -56,11 +56,11 @@ namespace
     }
 }
 
-ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Quad& viewport)
+ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Vector& camera_position, const math::Vector& viewport_size)
     : m_particle_system(particle_system)
 {
-    const float x = viewport.mB.x + 1.0f;
-    const float y = viewport.mB.y / 2.0f;
+    const float x = viewport_size.x + 1.0f;
+    const float y = viewport_size.y / 2.0f;
 
     mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
@@ -70,8 +70,8 @@ ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
     particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
-    const auto generator_proxy = [viewport](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
-        Generator(position, pool, index, viewport);
+    const auto generator_proxy = [viewport_size](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
+        Generator(position, pool, index, viewport_size);
     };
     particle_system->AttachEmitter(sparkles_entity.id, math::Vector(x, y), -1.0f, 100.0f, mono::EmitterType::CONTINOUS, generator_proxy);
 
