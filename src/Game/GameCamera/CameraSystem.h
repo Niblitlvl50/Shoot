@@ -40,6 +40,7 @@ namespace game
     public:
 
         CameraSystem(
+            uint32_t n,
             mono::ICamera* camera,
             mono::TransformSystem* transform_system,
             mono::EventHandler* event_handler,

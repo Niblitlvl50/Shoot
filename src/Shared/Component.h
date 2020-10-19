@@ -27,7 +27,7 @@ extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
 extern const uint32_t FACTION_PICKER_ATTRIBUTE;
-extern const uint32_t UNUSED_1;
+extern const uint32_t ZOOM_LEVEL_ATTRIBUTE;
 extern const uint32_t UNUSED_2;
 extern const uint32_t START_ATTRIBUTE;
 extern const uint32_t END_ATTRIBUTE;
@@ -130,6 +130,8 @@ extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
 extern const uint32_t ROTATION_COMPONENT;
+extern const uint32_t CAMERA_ZOOM_COMPONENT;
+extern const uint32_t CAMERA_POINT_COMPONENT;
 
 struct Component
 {
@@ -139,7 +141,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 19>;
+using ComponentArray = std::array<Component, 21>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

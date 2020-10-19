@@ -13,6 +13,7 @@
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/AnimationSystem.h"
+#include "GameCamera/CameraSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -559,6 +560,72 @@ namespace
 
         return true;
     }
+
+    bool CreateCameraZoom(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AllocateCameraAnimation(entity->id);
+        return true;
+    }
+
+    bool ReleaseCameraZoom(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->ReleaseCameraAnimation(entity->id);
+        return true;
+    }
+
+    bool UpdateCameraZoom(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        float zoom_value;
+        FindAttribute(ZOOM_LEVEL_ATTRIBUTE, properties, zoom_value, FallbackMode::SET_DEFAULT);
+
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AddCameraAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), zoom_value);
+        return true;
+    }
+
+    bool CreateCameraPoint(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AllocateCameraAnimation(entity->id);
+        return true;
+    }
+
+    bool ReleaseCameraPoint(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->ReleaseCameraAnimation(entity->id);
+        return true;
+    }
+
+    bool UpdateCameraPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+
+        math::Vector point;
+        FindAttribute(POSITION_ATTRIBUTE, properties, point, FallbackMode::SET_DEFAULT);
+
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AddCameraAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), point);
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::EntityManager& entity_manager)
@@ -579,4 +646,7 @@ void game::RegisterGameComponents(mono::EntityManager& entity_manager)
     entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager.RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);
     entity_manager.RegisterComponent(ROTATION_COMPONENT, CreateRotation, ReleaseRotation, UpdateRotation);
+
+    entity_manager.RegisterComponent(CAMERA_ZOOM_COMPONENT, CreateCameraZoom, ReleaseCameraZoom, UpdateCameraZoom);
+    entity_manager.RegisterComponent(CAMERA_POINT_COMPONENT, CreateCameraPoint, ReleaseCameraPoint, UpdateCameraPoint);
 }

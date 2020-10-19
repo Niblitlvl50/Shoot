@@ -46,7 +46,7 @@ const std::array<DefaultAttribute, 44> default_attributes = {{
 
     DefaultAttribute("faction",             Variant(0)),
     DefaultAttribute("faction_picker",      Variant(0u)),
-    DefaultAttribute("UNUSED",              Variant(1.0f)),
+    DefaultAttribute("zoom_level",          Variant(1.0f)),
     DefaultAttribute("UNUSED",              Variant(1.0f)),
     DefaultAttribute("start",               Variant(math::ZeroVec)),
     DefaultAttribute("end",                 Variant(math::ZeroVec)),
@@ -99,7 +99,7 @@ extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[14].has
 extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[15].hash;
 extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[16].hash;
 
-extern const uint32_t UNUSED_1                      = default_attributes[17].hash;
+extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[17].hash;
 extern const uint32_t UNUSED_2                      = default_attributes[18].hash;
 extern const uint32_t START_ATTRIBUTE               = default_attributes[19].hash;
 extern const uint32_t END_ATTRIBUTE                 = default_attributes[20].hash;
@@ -152,6 +152,8 @@ extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
 extern const uint32_t ROTATION_COMPONENT        = mono::Hash("set_rotation");
+extern const uint32_t CAMERA_ZOOM_COMPONENT     = mono::Hash("camera_zoom");
+extern const uint32_t CAMERA_POINT_COMPONENT    = mono::Hash("camera_point");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -196,6 +198,10 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "set_translation";
     else if(hash == ROTATION_COMPONENT)
         return "set_rotation";
+    else if(hash == CAMERA_ZOOM_COMPONENT)
+        return "camera_zoom";
+    else if(hash == CAMERA_POINT_COMPONENT)
+        return "camera_point";
 
     return "Unknown";
 }
@@ -229,6 +235,8 @@ const ComponentArray default_components = {
     MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
     MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
     MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(CAMERA_ZOOM_COMPONENT,    NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE } ),
+    MakeComponent(CAMERA_POINT_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

@@ -23,7 +23,7 @@ namespace
 using namespace game;
 
 CameraSystem::CameraSystem(
-    mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler* event_handler, TriggerSystem* trigger_system)
+    uint32_t n, mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler* event_handler, TriggerSystem* trigger_system)
     : m_camera(camera)
     , m_transform_system(transform_system)
     , m_event_handler(event_handler)
@@ -32,6 +32,9 @@ CameraSystem::CameraSystem(
     , m_debug_camera(false)
     , m_entity_id(NO_ENTITY)
 {
+    m_camera_components.resize(n);
+    m_active_camera_components.resize(n, false);
+
     const event::KeyDownEventFunc key_down_func = [this](const event::KeyDownEvent& event) {
         const bool toggle_camera = (event.key == Keycode::D);
         if(toggle_camera)
@@ -69,27 +72,8 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     if(m_entity_id != NO_ENTITY)
     {
         const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
-
         const math::Vector& position = math::GetPosition(world_transform);
-
-/*
-        const float rotation = math::GetZRotation(world_transform);
-        math::Vector viewport_size = m_camera->GetViewportSize();
-        const float viewport_ratio = viewport_size.y / viewport_size.x;
-
-        const math::Vector ratio(1.0f, viewport_ratio);
-        const math::Vector& xy = -math::VectorFromAngle(rotation) * ratio * 3.0f;
-
-        const math::Vector& target_position = position - (viewport_size * 0.5f) - xy;
-        const math::Vector& diff = target_position - viewport.mA;
-
-        constexpr float SPEED = 0.005f;
-        const math::Vector& move = diff * (update_context.delta_ms * SPEED);
-        viewport.mA += move;
-*/
-
         m_camera->SetTargetPosition(position);
-        //m_camera->SetViewportSize(viewport_size);
     }
 
     const auto process_camera_anims = [this, &update_context](CameraAnimationComponent* camera_anim)
@@ -97,11 +81,19 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         switch(camera_anim->type)
         {
         case CameraAnimationType::ZOOM_LEVEL:
+        {
+            const math::Vector viewport_size = m_camera->GetViewportSize();
+            const math::Vector new_viewport_size = viewport_size * camera_anim->zoom_level;
+            m_camera->SetTargetViewportSize(new_viewport_size);
+            break;
+        }
         case CameraAnimationType::CENTER_ON_POINT:
+            m_camera->SetTargetPosition(math::Vector(camera_anim->point_x, camera_anim->point_y));
+            break;
         case CameraAnimationType::CENTER_ON_ENTITY:
             break;
         };
-        //m_camera->SetTargetViewport();
+
         return true;
     };
 
