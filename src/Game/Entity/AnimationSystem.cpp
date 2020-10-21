@@ -60,7 +60,7 @@ void AnimationSystem::AddSpriteAnimationComponent(uint32_t entity_id, uint32_t t
     sprite_animation->trigger_hash = trigger_hash;
     sprite_animation->animation_index = animation_index;
 
-    const TriggerCallback callback = [this, sprite_animation](uint32_t trigger_id, TriggerState state) {
+    const TriggerCallback callback = [this, sprite_animation](uint32_t trigger_id) {
         m_sprite_anims_to_process.push_back(sprite_animation);
     };
 
@@ -111,7 +111,7 @@ void AnimationSystem::AddTranslationComponent(
 
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
-        const TriggerCallback callback = [this, translation_anim](uint32_t trigger_id, TriggerState state) {
+        const TriggerCallback callback = [this, translation_anim](uint32_t trigger_id) {
             m_translation_anims_to_process.push_back(translation_anim);
         };
         translation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
@@ -165,7 +165,7 @@ void AnimationSystem::AddRotationComponent(
 
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
-        const TriggerCallback callback = [this, rotation_anim](uint32_t trigger_id, TriggerState state) {
+        const TriggerCallback callback = [this, rotation_anim](uint32_t trigger_id) {
             m_rotation_anims_to_process.push_back(rotation_anim);
         };
         rotation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);

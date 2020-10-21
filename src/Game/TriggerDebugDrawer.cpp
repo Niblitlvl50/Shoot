@@ -46,7 +46,8 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     const auto collect_shape_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const ShapeTriggerComponent& trigger)
     {
-        trigger_hash_to_emitter_ids[trigger.trigger_hash].push_back(entity_id);
+        trigger_hash_to_emitter_ids[trigger.trigger_hash_enter].push_back(entity_id);
+        trigger_hash_to_emitter_ids[trigger.trigger_hash_exit].push_back(entity_id);
     };
 
     const auto collect_death_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const DeathTriggerComponent& trigger)

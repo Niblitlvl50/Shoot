@@ -282,7 +282,11 @@ namespace
         const bool found_trigger_name =
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
 
-        if(!found_trigger_name)
+        std::string exit_trigger_name;
+        const bool found_exit_trigger_name =
+            FindAttribute(TRIGGER_NAME_EXIT_ATTRIBUTE, properties, exit_trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name && !found_exit_trigger_name)
         {
             System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
             return false;
@@ -292,9 +296,13 @@ namespace
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
         const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t exit_trigger_hash = mono::Hash(exit_trigger_name.c_str());
+
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity->id, trigger_hash, faction);
+        trigger_system->AddShapeTrigger(entity->id, trigger_hash, exit_trigger_hash, faction);
+
         trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name.c_str());
+        trigger_system->RegisterTriggerHashDebugName(exit_trigger_hash, exit_trigger_name.c_str());
 
         return true;
     }

@@ -19,16 +19,10 @@
 
 namespace game
 {
-    enum class TriggerState
-    {
-        NONE,
-        ENTER,
-        EXIT
-    };
-
     struct ShapeTriggerComponent
     {
-        uint32_t trigger_hash;
+        uint32_t trigger_hash_enter;
+        uint32_t trigger_hash_exit;
         uint32_t collision_mask;
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
@@ -56,7 +50,7 @@ namespace game
         bool repeating;
     };
 
-    using TriggerCallback = std::function<void (uint32_t trigger_id, TriggerState state)>;
+    using TriggerCallback = std::function<void (uint32_t trigger_id)>;
 
     class TriggerSystem : public mono::IGameSystem
     {
@@ -66,7 +60,8 @@ namespace game
 
         ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
         void ReleaseShapeTrigger(uint32_t entity_id);
-        void AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask);
+        void AddShapeTrigger(
+            uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask);
 
         DeathTriggerComponent* AllocateDeathTrigger(uint32_t entity_id);
         void ReleaseDeathTrigger(uint32_t entity_id);
@@ -88,7 +83,7 @@ namespace game
         const char* TriggerHashToString(uint32_t trigger_hash) const;
         const std::unordered_map<uint32_t, std::vector<uint32_t>>& GetTriggerTargets() const;
 
-        void EmitTrigger(uint32_t trigger_hash, TriggerState state);
+        void EmitTrigger(uint32_t trigger_hash);
 
         template<typename T>
         void ForEachShapeTrigger(T&& callable) const
@@ -162,12 +157,7 @@ namespace game
         std::vector<TimeTriggerComponent> m_time_triggers;
         std::vector<bool> m_active_time_triggers;
 
-        struct EmitData
-        {
-            uint32_t hash;
-            TriggerState state;
-        };
-        std::vector<EmitData> m_triggers_to_emit;
+        std::vector<uint32_t> m_triggers_to_emit;
 
         // Debug data
         std::unordered_map<uint32_t, std::string> m_trigger_hash_to_text;

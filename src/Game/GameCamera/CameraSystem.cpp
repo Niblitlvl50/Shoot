@@ -131,7 +131,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     camera_component->type = CameraAnimationType::ZOOM_LEVEL;
     camera_component->zoom_level = new_zoom_level;
 
-    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id, TriggerState state) {
+    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(camera_component);
     };
 
@@ -146,7 +146,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     camera_component->point_x = world_point.x;
     camera_component->point_y = world_point.y;
 
-    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id, TriggerState state) {
+    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(camera_component);
     };
 
@@ -160,7 +160,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     camera_component->type = CameraAnimationType::CENTER_ON_ENTITY;
     camera_component->entity_id = follow_entity_id;
 
-    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id, TriggerState state) {
+    const TriggerCallback callback = [this, camera_component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(camera_component);
     };
 

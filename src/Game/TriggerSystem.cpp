@@ -22,24 +22,26 @@ namespace
     {
     public:
 
-        TriggerHandler(uint32_t trigger_hash, TriggerSystem* trigger_system)
+        TriggerHandler(uint32_t trigger_hash, uint32_t trigger_hash_exit, TriggerSystem* trigger_system)
             : m_trigger_hash(trigger_hash)
+            , m_trigger_hash_exit(trigger_hash_exit)
             , m_trigger_system(trigger_system)
         { }
 
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_hash, TriggerState::ENTER);
+            m_trigger_system->EmitTrigger(m_trigger_hash);
             return mono::CollisionResolve::IGNORE;
         }
 
         void OnSeparateFrom(mono::IBody* body) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_hash, TriggerState::EXIT);
+            m_trigger_system->EmitTrigger(m_trigger_hash_exit);
         }
 
-        uint32_t m_trigger_hash;
+        const uint32_t m_trigger_hash;
+        const uint32_t m_trigger_hash_exit;
         TriggerSystem* m_trigger_system;
     };
 
@@ -90,10 +92,12 @@ void TriggerSystem::ReleaseShapeTrigger(uint32_t entity_id)
     m_active_shape_triggers[entity_id] = false;
 }
 
-void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t collision_mask)
+void TriggerSystem::AddShapeTrigger(
+    uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask)
 {
     ShapeTriggerComponent& allocated_trigger = m_shape_triggers[entity_id];
-    allocated_trigger.trigger_hash = trigger_hash;
+    allocated_trigger.trigger_hash_enter = trigger_hash_enter;
+    allocated_trigger.trigger_hash_exit = trigger_hash_exit;
 
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     if(body)
@@ -101,7 +105,7 @@ void TriggerSystem::AddShapeTrigger(uint32_t entity_id, uint32_t trigger_hash, u
         if(allocated_trigger.shape_trigger_handler)
             body->RemoveCollisionHandler(allocated_trigger.shape_trigger_handler.get());
 
-        allocated_trigger.shape_trigger_handler = std::make_unique<TriggerHandler>(trigger_hash, this);
+        allocated_trigger.shape_trigger_handler = std::make_unique<TriggerHandler>(trigger_hash_enter, trigger_hash_exit, this);
         body->AddCollisionHandler(allocated_trigger.shape_trigger_handler.get());
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
@@ -142,7 +146,7 @@ void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
         m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
 
     const DestroyedCallback callback = [this, trigger_hash](uint32_t id) {
-        EmitTrigger(trigger_hash, TriggerState::NONE);
+        EmitTrigger(trigger_hash);
     };
 
     allocated_trigger.death_trigger_id = m_damage_system->SetDestroyedCallback(entity_id, callback);
@@ -235,9 +239,9 @@ const std::unordered_map<uint32_t, std::vector<uint32_t>>& TriggerSystem::GetTri
     return m_entity_id_to_trigger_hashes;
 }
 
-void TriggerSystem::EmitTrigger(uint32_t trigger_hash, TriggerState state)
+void TriggerSystem::EmitTrigger(uint32_t trigger_hash)
 {
-    m_triggers_to_emit.push_back({ trigger_hash, state });
+    m_triggers_to_emit.push_back(trigger_hash);
 }
 
 uint32_t TriggerSystem::Id() const
@@ -261,30 +265,23 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
     UpdateTimeTriggers(update_context);
 
-    for(const EmitData& emit_data : m_triggers_to_emit)
+    for(uint32_t trigger_hash : m_triggers_to_emit)
     {
-        const auto it = m_trigger_callbacks.find(emit_data.hash);
+        const auto it = m_trigger_callbacks.find(trigger_hash);
         if(it != m_trigger_callbacks.end())
         {
             for(TriggerCallback callback : it->second)
             {
                 if(callback)
-                    callback(emit_data.hash, emit_data.state);
+                    callback(trigger_hash);
             }
         }
 
         std::string hash_name = "...";
 
-        const auto hash_name_it = m_trigger_hash_to_text.find(emit_data.hash);
+        const auto hash_name_it = m_trigger_hash_to_text.find(trigger_hash);
         if(hash_name_it != m_trigger_hash_to_text.end())
             hash_name = hash_name_it->second;
-
-        if(emit_data.state == TriggerState::ENTER)
-            hash_name += "|Enter";
-        else if(emit_data.state == TriggerState::EXIT)
-            hash_name += "|Exit";
-        else if(emit_data.state == TriggerState::NONE)
-            hash_name += "|None";
 
         game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
     }
@@ -321,7 +318,7 @@ void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_c
 
             if(emit_trigger)
             {
-                EmitTrigger(area_trigger.trigger_hash, TriggerState::NONE);
+                EmitTrigger(area_trigger.trigger_hash);
                 m_active_area_triggers[index] = false;
             }
         }
@@ -340,7 +337,7 @@ void TriggerSystem::UpdateTimeTriggers(const mono::UpdateContext& update_context
             const bool emit_trigger = (time_trigger.timeout_counter_ms < 0.0f);
             if(emit_trigger)
             {
-                EmitTrigger(time_trigger.trigger_hash, TriggerState::NONE);
+                EmitTrigger(time_trigger.trigger_hash);
                 if(time_trigger.repeating)
                     time_trigger.timeout_counter_ms = time_trigger.timeout_ms;
                 else

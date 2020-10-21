@@ -25,7 +25,7 @@ static const std::vector<math::Vector> polygon_default = {
     math::Vector(1.0f, 0.0f)
 };
 
-const std::array<DefaultAttribute, 44> default_attributes = {{
+const std::array<DefaultAttribute, 45> default_attributes = {{
     DefaultAttribute("position",            Variant(math::ZeroVec)),
     DefaultAttribute("rotation",            Variant(0.0f)),
     DefaultAttribute("radius",              Variant(1.0f)),
@@ -65,6 +65,7 @@ const std::array<DefaultAttribute, 44> default_attributes = {{
     DefaultAttribute("behaviour",           Variant(0)),
     DefaultAttribute("spawn_score",         Variant(10)),
     DefaultAttribute("trigger_name",        Variant(std::string())),
+    DefaultAttribute("trigger_name_exit",   Variant(std::string())),
     DefaultAttribute("duration",            Variant(1.0f)),
     DefaultAttribute("easing_func",         Variant(0)),
     DefaultAttribute("logic_op",            Variant(0)),
@@ -118,18 +119,19 @@ extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[29].has
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[30].hash;
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[31].hash;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[32].hash;
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[33].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[34].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[35].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[36].hash;
+extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[33].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[34].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[35].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[36].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[37].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[37].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[38].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[39].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[40].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[41].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[42].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[43].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[38].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[39].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[40].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[41].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[42].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[43].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[44].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -227,7 +229,7 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
     MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false,  { TRIGGER_NAME_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,  PHYSICS_COMPONENT,  false,  { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
     MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(AREA_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE } ),
     MakeComponent(TIME_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE } ),
