@@ -64,6 +64,7 @@ extern const uint32_t REPEATING_ATTRIBUTE;
 extern const uint32_t POLYGON_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
+const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
 bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& output);
 bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes, const Attribute*& output);

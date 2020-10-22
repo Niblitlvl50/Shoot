@@ -216,7 +216,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     else if(attribute.id == ROTATION_ATTRIBUTE)
     {
         float degrees = math::ToDegrees(std::get<float>(attribute.value));
-        const bool changed = ImGui::InputFloat(text.c_str(), &degrees);
+        const bool changed = ImGui::InputFloat(attribute_name, &degrees);
         if(changed)
             attribute.value = math::ToRadians(degrees);
         
@@ -317,6 +317,10 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
                 result.component_index = index;
                 result.attribute_hash = property.id;
             }
+
+            const char* tooltip = AttributeTooltipFromHash(property.id);
+            if(tooltip && strlen(tooltip) > 0 && ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s", tooltip);
         }
 
         ImGui::Spacing();
