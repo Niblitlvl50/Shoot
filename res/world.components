@@ -57,6 +57,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -148,6 +154,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -312,6 +324,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -385,6 +403,12 @@
                                 "green": 1.0,
                                 "red": 0.9999942779541016
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -550,6 +574,12 @@
                                 "green": 1.0,
                                 "red": 0.8408303260803223
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -724,6 +754,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -1002,6 +1038,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -1149,6 +1191,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -1288,6 +1336,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -1431,6 +1485,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -1570,6 +1630,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -1713,6 +1779,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -1852,6 +1924,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -1995,6 +2073,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2136,6 +2220,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2209,6 +2299,12 @@
                                 "green": 1.0,
                                 "red": 0.9498270750045776
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -2286,6 +2382,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2361,6 +2463,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2434,6 +2542,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -2577,6 +2691,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2650,6 +2770,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -2727,6 +2853,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2800,6 +2932,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -2877,6 +3015,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -2950,6 +3094,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -3027,6 +3177,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -3102,6 +3258,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -3175,6 +3337,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -3349,6 +3517,12 @@
                                 "green": 0.843137264251709,
                                 "red": 0.07450980693101883
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -3531,6 +3705,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -3670,6 +3850,12 @@
                                 "green": 0.843137264251709,
                                 "red": 0.07439448684453964
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -3852,6 +4038,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -3993,6 +4185,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -4132,6 +4330,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -4311,6 +4515,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -4434,6 +4644,21 @@
                             "variant_value": "test"
                         },
                         {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
@@ -4501,6 +4726,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -4663,6 +4894,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -4842,6 +5079,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -4983,6 +5226,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -5124,6 +5373,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -5219,8 +5474,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.0,
-                                "y": -21.0
+                                "x": 3.41693115234375,
+                                "y": -23.083663940429688
                             }
                         },
                         {
@@ -5263,6 +5518,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -5406,6 +5667,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -5545,6 +5812,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -5688,6 +5961,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -5827,6 +6106,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -5970,6 +6255,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -6065,8 +6356,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -9.0,
-                                "y": -18.0
+                                "x": -9.383674621582031,
+                                "y": -17.871929168701172
                             }
                         },
                         {
@@ -6109,6 +6400,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -6252,6 +6549,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -6391,6 +6694,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -6534,6 +6843,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -6675,6 +6990,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -6814,6 +7135,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -6970,6 +7297,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -7131,6 +7464,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -7285,6 +7624,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -7443,6 +7788,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -7530,6 +7881,21 @@
                             "variant_value": "on_animate"
                         },
                         {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
@@ -7597,6 +7963,12 @@
                                 "green": 0.08333331346511841,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -7686,6 +8058,21 @@
                             "variant_value": "on_translate"
                         },
                         {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
@@ -7753,6 +8140,12 @@
                                 "green": 1.0,
                                 "red": 0.29901957511901855
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -7842,6 +8235,21 @@
                             "variant_value": "on_rotate"
                         },
                         {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
@@ -7909,6 +8317,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -8002,6 +8416,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -8145,6 +8565,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -8286,6 +8712,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -8425,6 +8857,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -8604,6 +9042,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -8769,6 +9213,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -8932,6 +9382,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -9138,6 +9594,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -9211,6 +9673,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -9387,6 +9855,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -9559,6 +10033,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -9735,6 +10215,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -9907,6 +10393,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -10083,6 +10575,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -10257,6 +10755,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -10420,6 +10924,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -10587,6 +11097,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -10743,6 +11259,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -10882,6 +11404,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -11025,6 +11553,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -11164,6 +11698,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -11307,6 +11847,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -11448,6 +11994,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -11587,6 +12139,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -11730,6 +12288,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -11869,6 +12433,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -12012,6 +12582,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -12151,6 +12727,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -12294,6 +12876,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -12433,6 +13021,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -12576,6 +13170,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -12715,6 +13315,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -12858,6 +13464,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -12997,6 +13609,12 @@
                                 "green": 1.0,
                                 "red": 0.9999952912330627
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -13140,6 +13758,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -13281,6 +13905,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -13420,6 +14050,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -13578,6 +14214,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -13734,6 +14376,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -13807,6 +14455,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -13965,6 +14619,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -14119,6 +14779,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -14277,6 +14943,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -14433,6 +15105,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -14543,8 +15221,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.32073974609375,
-                                "y": 21.63994789123535
+                                "x": 16.36467742919922,
+                                "y": 21.617979049682617
                             }
                         },
                         {
@@ -14587,6 +15265,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -14664,6 +15348,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -14737,6 +15427,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -14814,6 +15510,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -14887,6 +15589,12 @@
                                 "green": 1.0,
                                 "red": 0.9999899864196777
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -14964,6 +15672,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15037,6 +15751,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15114,6 +15834,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15187,6 +15913,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15264,6 +15996,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15337,6 +16075,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15414,6 +16158,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15487,6 +16237,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15564,6 +16320,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15637,6 +16399,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15714,6 +16482,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15787,6 +16561,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -15864,6 +16644,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -15937,6 +16723,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -16031,8 +16823,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 22.5153751373291,
-                                "y": 24.07292366027832
+                                "x": 22.362102508544922,
+                                "y": 24.190826416015625
                             }
                         },
                         {
@@ -16075,6 +16867,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -16215,6 +17013,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -16353,6 +17157,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -16426,6 +17236,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -16503,6 +17319,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -16576,6 +17398,12 @@
                                 "green": 1.0,
                                 "red": 0.9999899864196777
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -16653,6 +17481,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -16726,6 +17560,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -16803,6 +17643,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -16876,6 +17722,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -17032,6 +17884,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -17105,6 +17963,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -17192,6 +18056,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -17348,6 +18218,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -17421,6 +18297,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -17498,6 +18380,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -17571,6 +18459,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -17731,6 +18625,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -17881,6 +18781,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -17954,6 +18860,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -18110,6 +19022,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18260,6 +19178,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18333,6 +19257,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -18410,6 +19340,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18483,6 +19419,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -18560,6 +19502,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18633,6 +19581,12 @@
                                 "green": 0.5343137383460999,
                                 "red": 0.20953479409217834
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -18710,6 +19664,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18783,6 +19743,12 @@
                                 "green": 0.4117646813392639,
                                 "red": 0.05046134814620018
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -18860,6 +19826,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -18933,6 +19905,12 @@
                                 "green": 0.4117646813392639,
                                 "red": 0.05046134814620018
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19010,6 +19988,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19083,6 +20067,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19160,6 +20150,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19233,6 +20229,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19310,6 +20312,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19385,6 +20393,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19458,6 +20472,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19535,6 +20555,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19608,6 +20634,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19685,6 +20717,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19758,6 +20796,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -19835,6 +20879,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -19908,6 +20958,12 @@
                                 "green": 0.7450905442237854,
                                 "red": 0.7450979948043823
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -20065,8 +21121,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.203489303588867,
-                                "y": 21.14436912536621
+                                "x": 19.156095504760742,
+                                "y": 20.872114181518555
                             }
                         },
                         {
@@ -20078,72 +21134,6 @@
                     ]
                 },
                 {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "name": "body_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 597743964,
-                            "name": "size",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 2.0,
-                                "y": 2.0
-                            }
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
                     "hash": 3676170277,
                     "name": "shape_trigger",
                     "properties": [
@@ -20151,13 +21141,46 @@
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
-                            "variant_value": "open_rock"
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
                         },
                         {
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
-                            "variant_value": 1
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 678936972,
+                    "name": "camera_zoom",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3119647911,
+                            "name": "zoom_level",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         }
                     ]
                 }
@@ -20223,6 +21246,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -20298,6 +21327,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -20371,6 +21406,12 @@
                                 "green": 1.0,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2313652925,
@@ -20448,6 +21489,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -20477,8 +21524,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.64847755432129,
-                                "y": 20.823637008666992
+                                "x": 17.5,
+                                "y": 20.5
                             }
                         },
                         {
@@ -20503,7 +21550,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 1
                         },
                         {
                             "id": 2565644130,
@@ -20523,6 +21570,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -20532,7 +21585,7 @@
                             "id": 1775175667,
                             "name": "flip_horizontal",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 }
@@ -20552,8 +21605,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.35464859008789,
-                                "y": 20.5469970703125
+                                "x": 16.88446617126465,
+                                "y": 20.884428024291992
                             }
                         },
                         {
@@ -20598,6 +21651,12 @@
                             }
                         },
                         {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -20607,7 +21666,88 @@
                             "id": 1775175667,
                             "name": "flip_horizontal",
                             "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "goblin_black"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 16.48546028137207,
+                                "y": 20.370071411132813
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.8865509033203125,
+                                "green": 0.9901960492134094,
+                                "red": 0.4028738737106323
+                            }
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 2313652925,
+                            "name": "flip_vertical",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
