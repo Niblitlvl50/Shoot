@@ -9,6 +9,7 @@ namespace game
         BACKGROUND_DECALS,
         GAMEOBJECTS,
         GAMEOBJECTS_DEBUG,
+        PARTICLES,
         UI
     };
 }

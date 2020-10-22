@@ -191,7 +191,7 @@ namespace
             return;
 
         constexpr int flags =
-            //ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoCollapse |
             ImGuiWindowFlags_AlwaysAutoResize |
             ImGuiWindowFlags_NoResize |
@@ -206,7 +206,7 @@ namespace
 
         ImGui::Begin("Level Metadata", nullptr, flags);
 
-        ImGui::TextDisabled("Camera");
+        ImGui::TextDisabled("Game Camera");
         ImGui::InputFloat2("Position", &context.camera_position.x);
         ImGui::InputFloat2("Size", &context.camera_size.x);
 

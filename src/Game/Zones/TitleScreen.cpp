@@ -107,7 +107,7 @@ void TitleScreen::OnLoad(mono::ICamera* camera)
 
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
 
     m_sparkles =

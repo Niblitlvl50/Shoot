@@ -59,8 +59,8 @@ namespace
 ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Vector& camera_position, const math::Vector& viewport_size)
     : m_particle_system(particle_system)
 {
-    const float x = viewport_size.x + 1.0f;
-    const float y = viewport_size.y / 2.0f;
+    const float x = camera_position.x + viewport_size.x / 2.0f + 1.0f;
+    const float y = camera_position.y;
 
     mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);

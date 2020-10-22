@@ -138,7 +138,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddDrawable(new StaticBackground(), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
 
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
