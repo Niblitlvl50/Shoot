@@ -1,9 +1,9 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                -50
+                0
             ],
             "loop": true,
             "name": "default"
@@ -16,9 +16,13 @@
             "name": "device_medical",
             "w": 20,
             "x": 704,
-            "x_offset": 0.0,
-            "y": 312,
-            "y_offset": 0.0
+            "y": 312
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

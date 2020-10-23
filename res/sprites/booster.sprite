@@ -1,11 +1,10 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
-                1,
-                100
+                1
             ],
             "loop": true,
             "name": "default"
@@ -18,18 +17,24 @@
             "name": "booster_default_1",
             "w": 9,
             "x": 1877,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 11,
             "name": "booster_default_2",
             "w": 9,
             "x": 1395,
-            "x_offset": 0.0,
-            "y": 329,
-            "y_offset": 0.0
+            "y": 329
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

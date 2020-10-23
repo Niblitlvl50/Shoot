@@ -1,9 +1,9 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                -50
+                0
             ],
             "loop": true,
             "name": "default"
@@ -16,9 +16,13 @@
             "name": "player_point",
             "w": 60,
             "x": 1651,
-            "x_offset": 0.0,
-            "y": 251,
-            "y_offset": 0.0
+            "y": 251
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

@@ -1,9 +1,9 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                -50
+                0
             ],
             "loop": true,
             "name": "default"
@@ -16,9 +16,13 @@
             "name": "block_small",
             "w": 32,
             "x": 1025,
-            "x_offset": 0.0,
-            "y": 241,
-            "y_offset": 0.0
+            "y": 241
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

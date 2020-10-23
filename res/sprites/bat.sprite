@@ -1,17 +1,13 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
                 1,
-                100,
                 2,
-                100,
                 3,
-                100,
-                4,
-                100
+                4
             ],
             "loop": true,
             "name": "default"
@@ -24,45 +20,57 @@
             "name": "bat_default_1",
             "w": 16,
             "x": 2022,
-            "x_offset": 0.0,
-            "y": 331,
-            "y_offset": 0.0
+            "y": 331
         },
         {
             "h": 8,
             "name": "bat_default_2",
             "w": 13,
             "x": 1340,
-            "x_offset": 0.0,
-            "y": 330,
-            "y_offset": 0.0
+            "y": 330
         },
         {
             "h": 9,
             "name": "bat_default_3",
             "w": 12,
             "x": 1324,
-            "x_offset": 0.0,
-            "y": 330,
-            "y_offset": 0.0
+            "y": 330
         },
         {
             "h": 10,
             "name": "bat_default_4",
             "w": 11,
             "x": 1265,
-            "x_offset": 0.0,
-            "y": 330,
-            "y_offset": 0.0
+            "y": 330
         },
         {
             "h": 10,
             "name": "bat_default_5",
             "w": 11,
             "x": 1280,
-            "x_offset": 0.0,
-            "y": 330,
-            "y_offset": 0.0
+            "y": 330
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

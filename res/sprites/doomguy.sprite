@@ -1,29 +1,27 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                100
+                0
             ],
             "loop": true,
             "name": "grin"
         },
         {
+            "frame_duration": 100,
             "frames": [
-                1,
-                100
+                1
             ],
             "loop": true,
             "name": "hurt"
         },
         {
+            "frame_duration": 100,
             "frames": [
                 2,
-                100,
                 3,
-                100,
-                4,
-                100
+                4
             ],
             "loop": true,
             "name": "look_around"
@@ -36,45 +34,57 @@
             "name": "doomguy_grin_1",
             "w": 48,
             "x": 1079,
-            "x_offset": 0.0,
-            "y": 237,
-            "y_offset": 0.0
+            "y": 237
         },
         {
             "h": 60,
             "name": "doomguy_hurt_1",
             "w": 48,
             "x": 1147,
-            "x_offset": 0.0,
-            "y": 231,
-            "y_offset": 0.0
+            "y": 231
         },
         {
             "h": 58,
             "name": "doomguy_look_around_1",
             "w": 48,
             "x": 1793,
-            "x_offset": 0.0,
-            "y": 237,
-            "y_offset": 0.0
+            "y": 237
         },
         {
             "h": 58,
             "name": "doomguy_look_around_2",
             "w": 48,
             "x": 1741,
-            "x_offset": 0.0,
-            "y": 237,
-            "y_offset": 0.0
+            "y": 237
         },
         {
             "h": 58,
             "name": "doomguy_look_around_3",
             "w": 48,
             "x": 1845,
-            "x_offset": 0.0,
-            "y": 237,
-            "y_offset": 0.0
+            "y": 237
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

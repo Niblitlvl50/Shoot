@@ -1,11 +1,10 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
-                1,
-                100
+                1
             ],
             "loop": true,
             "name": "default"
@@ -18,18 +17,24 @@
             "name": "caco_bullet_default_1",
             "w": 16,
             "x": 1857,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 15,
             "name": "caco_bullet_default_2",
             "w": 15,
             "x": 1083,
-            "x_offset": 0.0,
-            "y": 328,
-            "y_offset": 0.0
+            "y": 328
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

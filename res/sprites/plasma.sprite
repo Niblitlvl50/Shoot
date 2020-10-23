@@ -1,11 +1,10 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
-                1,
-                100
+                1
             ],
             "loop": true,
             "name": "default"
@@ -18,18 +17,24 @@
             "name": "plasma_default_1",
             "w": 15,
             "x": 1715,
-            "x_offset": 0.0,
-            "y": 328,
-            "y_offset": 0.0
+            "y": 328
         },
         {
             "h": 13,
             "name": "plasma_default_2",
             "w": 13,
             "x": 1734,
-            "x_offset": 0.0,
-            "y": 328,
-            "y_offset": 0.0
+            "y": 328
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

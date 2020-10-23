@@ -1,31 +1,24 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
                 1,
-                100,
-                2,
-                100
+                2
             ],
             "loop": true,
             "name": "idle"
         },
         {
+            "frame_duration": 100,
             "frames": [
                 3,
-                100,
                 4,
-                100,
                 5,
-                100,
                 6,
-                100,
                 7,
-                100,
-                8,
-                100
+                8
             ],
             "loop": true,
             "name": "walk"
@@ -38,81 +31,101 @@
             "name": "goblin_idle_1",
             "w": 12,
             "x": 1770,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 16,
             "name": "goblin_idle_2",
             "w": 12,
             "x": 1067,
-            "x_offset": 0.0,
-            "y": 328,
-            "y_offset": 0.0
+            "y": 328
         },
         {
             "h": 17,
             "name": "goblin_idle_3",
             "w": 12,
             "x": 1786,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 17,
             "name": "goblin_walk_1",
             "w": 12,
             "x": 1909,
-            "x_offset": 0.0,
-            "y": 323,
-            "y_offset": 0.0
+            "y": 323
         },
         {
             "h": 17,
             "name": "goblin_walk_2",
             "w": 11,
             "x": 1802,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 18,
             "name": "goblin_walk_3",
             "w": 11,
             "x": 819,
-            "x_offset": 0.0,
-            "y": 313,
-            "y_offset": 0.0
+            "y": 313
         },
         {
             "h": 17,
             "name": "goblin_walk_4",
             "w": 12,
             "x": 1970,
-            "x_offset": 0.0,
-            "y": 326,
-            "y_offset": 0.0
+            "y": 326
         },
         {
             "h": 17,
             "name": "goblin_walk_5",
             "w": 12,
             "x": 1754,
-            "x_offset": 0.0,
-            "y": 327,
-            "y_offset": 0.0
+            "y": 327
         },
         {
             "h": 17,
             "name": "goblin_walk_6",
             "w": 12,
             "x": 1954,
-            "x_offset": 0.0,
-            "y": 326,
-            "y_offset": 0.0
+            "y": 326
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

@@ -1,9 +1,9 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                -50
+                0
             ],
             "loop": true,
             "name": "default"
@@ -16,9 +16,13 @@
             "name": "board_two",
             "w": 50,
             "x": 1013,
-            "x_offset": 0.0,
-            "y": 291,
-            "y_offset": 0.0
+            "y": 291
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

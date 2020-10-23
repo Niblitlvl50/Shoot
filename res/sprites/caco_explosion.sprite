@@ -1,13 +1,11 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
                 1,
-                100,
-                2,
-                100
+                2
             ],
             "loop": true,
             "name": "default"
@@ -20,27 +18,35 @@
             "name": "caco_explosion_default_1",
             "w": 45,
             "x": 1999,
-            "x_offset": 0.0,
-            "y": 227,
-            "y_offset": 0.0
+            "y": 227
         },
         {
             "h": 42,
             "name": "caco_explosion_default_2",
             "w": 50,
             "x": 354,
-            "x_offset": 0.0,
-            "y": 268,
-            "y_offset": 0.0
+            "y": 268
         },
         {
             "h": 47,
             "name": "caco_explosion_default_3",
             "w": 53,
             "x": 692,
-            "x_offset": 0.0,
-            "y": 261,
-            "y_offset": 0.0
+            "y": 261
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

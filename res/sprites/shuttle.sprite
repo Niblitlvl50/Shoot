@@ -1,19 +1,18 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
-                0,
-                100
+                0
             ],
             "loop": true,
             "name": "idle"
         },
         {
+            "frame_duration": 100,
             "frames": [
                 1,
-                100,
-                2,
-                100
+                2
             ],
             "loop": true,
             "name": "thrust"
@@ -26,27 +25,35 @@
             "name": "shuttle_idle",
             "w": 25,
             "x": 1379,
-            "x_offset": 0.0,
-            "y": 299,
-            "y_offset": 0.0
+            "y": 299
         },
         {
             "h": 30,
             "name": "shuttle_thrust_1",
             "w": 25,
             "x": 1485,
-            "x_offset": 0.0,
-            "y": 298,
-            "y_offset": 0.0
+            "y": 298
         },
         {
             "h": 31,
             "name": "shuttle_thrust_2",
             "w": 25,
             "x": 1897,
-            "x_offset": 0.0,
-            "y": 288,
-            "y_offset": 0.0
+            "y": 288
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

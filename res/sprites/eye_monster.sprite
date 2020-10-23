@@ -1,15 +1,12 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
                 1,
-                100,
                 2,
-                100,
-                3,
-                100
+                3
             ],
             "loop": true,
             "name": "idle"
@@ -22,36 +19,46 @@
             "name": "eye_monster_idle_0",
             "w": 34,
             "x": 1754,
-            "x_offset": 0.0,
-            "y": 299,
-            "y_offset": 0.0
+            "y": 299
         },
         {
             "h": 25,
             "name": "eye_monster_idle_1",
             "w": 35,
             "x": 1715,
-            "x_offset": 0.0,
-            "y": 299,
-            "y_offset": 0.0
+            "y": 299
         },
         {
             "h": 24,
             "name": "eye_monster_idle_2",
             "w": 27,
             "x": 1829,
-            "x_offset": 0.0,
-            "y": 299,
-            "y_offset": 0.0
+            "y": 299
         },
         {
             "h": 25,
             "name": "eye_monster_idle_3",
             "w": 35,
             "x": 1408,
-            "x_offset": 0.0,
-            "y": 299,
-            "y_offset": 0.0
+            "y": 299
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

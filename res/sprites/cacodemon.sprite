@@ -1,43 +1,34 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
                 1,
-                100,
-                2,
-                100
+                2
             ],
             "loop": true,
             "name": "attack"
         },
         {
+            "frame_duration": 100,
             "frames": [
                 3,
-                100,
                 4,
-                100,
                 5,
-                100,
                 6,
-                100,
                 7,
-                100,
                 8,
-                100,
                 9,
-                100,
-                10,
-                100
+                10
             ],
             "loop": true,
             "name": "dead"
         },
         {
+            "frame_duration": 100,
             "frames": [
-                11,
-                100
+                11
             ],
             "loop": true,
             "name": "idle"
@@ -50,108 +41,134 @@
             "name": "cacodemon_attack_1",
             "w": 63,
             "x": 1932,
-            "x_offset": 0.0,
-            "y": 230,
-            "y_offset": 0.0
+            "y": 230
         },
         {
             "h": 69,
             "name": "cacodemon_attack_2",
             "w": 63,
             "x": 692,
-            "x_offset": 0.0,
-            "y": 188,
-            "y_offset": 0.0
+            "y": 188
         },
         {
             "h": 71,
             "name": "cacodemon_attack_3",
             "w": 63,
             "x": 625,
-            "x_offset": 0.0,
-            "y": 188,
-            "y_offset": 0.0
+            "y": 188
         },
         {
             "h": 67,
             "name": "cacodemon_dead_1",
             "w": 63,
             "x": 958,
-            "x_offset": 0.0,
-            "y": 220,
-            "y_offset": 0.0
+            "y": 220
         },
         {
             "h": 67,
             "name": "cacodemon_dead_2",
             "w": 63,
             "x": 1246,
-            "x_offset": 0.0,
-            "y": 228,
-            "y_offset": 0.0
+            "y": 228
         },
         {
             "h": 67,
             "name": "cacodemon_dead_3",
             "w": 63,
             "x": 891,
-            "x_offset": 0.0,
-            "y": 188,
-            "y_offset": 0.0
+            "y": 188
         },
         {
             "h": 67,
             "name": "cacodemon_dead_4",
             "w": 63,
             "x": 1313,
-            "x_offset": 0.0,
-            "y": 228,
-            "y_offset": 0.0
+            "y": 228
         },
         {
             "h": 67,
             "name": "cacodemon_dead_5",
             "w": 63,
             "x": 1380,
-            "x_offset": 0.0,
-            "y": 228,
-            "y_offset": 0.0
+            "y": 228
         },
         {
             "h": 73,
             "name": "cacodemon_dead_6",
             "w": 67,
             "x": 554,
-            "x_offset": 0.0,
-            "y": 188,
-            "y_offset": 0.0
+            "y": 188
         },
         {
             "h": 66,
             "name": "cacodemon_dead_7",
             "w": 69,
             "x": 1447,
-            "x_offset": 0.0,
-            "y": 228,
-            "y_offset": 0.0
+            "y": 228
         },
         {
             "h": 49,
             "name": "cacodemon_dead_8",
             "w": 73,
             "x": 759,
-            "x_offset": 0.0,
-            "y": 260,
-            "y_offset": 0.0
+            "y": 260
         },
         {
             "h": 66,
             "name": "cacodemon_idle_1",
             "w": 63,
             "x": 1520,
-            "x_offset": 0.0,
-            "y": 228,
-            "y_offset": 0.0
+            "y": 228
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",

@@ -1,37 +1,35 @@
 {
     "animations": [
         {
+            "frame_duration": 100,
             "frames": [
                 0,
-                100,
-                1,
-                100
+                1
             ],
             "loop": true,
             "name": "climb"
         },
         {
+            "frame_duration": 100,
             "frames": [
-                2,
-                100
+                2
             ],
             "loop": true,
             "name": "duck"
         },
         {
+            "frame_duration": 100,
             "frames": [
-                3,
-                100
+                3
             ],
             "loop": true,
             "name": "idle"
         },
         {
+            "frame_duration": 100,
             "frames": [
                 4,
-                100,
-                5,
-                100
+                5
             ],
             "loop": true,
             "name": "walk"
@@ -44,54 +42,68 @@
             "name": "yellow_alien_climb_1",
             "w": 33,
             "x": 476,
-            "x_offset": 0.0,
-            "y": 268,
-            "y_offset": 0.0
+            "y": 268
         },
         {
             "h": 41,
             "name": "yellow_alien_climb_2",
             "w": 33,
             "x": 513,
-            "x_offset": 0.0,
-            "y": 268,
-            "y_offset": 0.0
+            "y": 268
         },
         {
             "h": 34,
             "name": "yellow_alien_duck_1",
             "w": 34,
             "x": 1447,
-            "x_offset": 0.0,
-            "y": 298,
-            "y_offset": 0.0
+            "y": 298
         },
         {
             "h": 41,
             "name": "yellow_alien_idle_1",
             "w": 33,
             "x": 268,
-            "x_offset": 0.0,
-            "y": 274,
-            "y_offset": 0.0
+            "y": 274
         },
         {
             "h": 42,
             "name": "yellow_alien_walk_1",
             "w": 34,
             "x": 408,
-            "x_offset": 0.0,
-            "y": 268,
-            "y_offset": 0.0
+            "y": 268
         },
         {
             "h": 43,
             "name": "yellow_alien_walk_2",
             "w": 35,
             "x": 836,
-            "x_offset": 0.0,
-            "y": 260,
-            "y_offset": 0.0
+            "y": 260
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
     "texture": "res/sprite_atlas.png",
