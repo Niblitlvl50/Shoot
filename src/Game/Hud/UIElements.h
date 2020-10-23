@@ -4,7 +4,6 @@
 #include "Zone/EntityBase.h"
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
-#include "Rendering/RenderPtrFwd.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 
 #include <string>

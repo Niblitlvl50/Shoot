@@ -19,9 +19,7 @@ bool game::LoadAllSprites(const char* all_sprites_file)
     if(!file)
         return false;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     for(const auto& list_entry : json["all_sprites"])
     {

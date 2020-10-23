@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
-#include "Rendering/RenderPtrFwd.h"
 #include "ObjectProxies/IObjectProxy.h"
 
 #include <vector>

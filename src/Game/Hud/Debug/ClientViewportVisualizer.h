@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
-#include "Rendering/RenderPtrFwd.h"
 
 #include <unordered_map>
 

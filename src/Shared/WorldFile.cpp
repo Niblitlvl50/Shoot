@@ -23,9 +23,7 @@ shared::LevelData shared::ReadWorldComponentObjects(
     if(!file)
         return level_data;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     const nlohmann::json& json_metadata = json["metadata"];

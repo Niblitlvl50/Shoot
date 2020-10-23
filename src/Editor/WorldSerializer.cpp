@@ -35,8 +35,7 @@ std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const e
     if(!file)
         return proxies;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
+    const std::vector<byte> file_data = file::FileRead(file);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const nlohmann::json& polygons = json["polygons"];
@@ -65,8 +64,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     if(!file)
         return paths;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
+    const std::vector<byte> file_data = file::FileRead(file);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const std::vector<std::string>& path_names = json["path_files"];
@@ -100,8 +98,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
     if(!file)
         return proxies;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
+    const std::vector<byte> file_data = file::FileRead(file);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const nlohmann::json& entities = json["entities"];

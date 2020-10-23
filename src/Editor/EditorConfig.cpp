@@ -52,9 +52,7 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     if(!file)
         return false;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     config.camera_position      = json.value(camera_position_key, config.camera_position);

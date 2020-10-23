@@ -19,7 +19,14 @@ using namespace editor;
 PathProxy::PathProxy(std::unique_ptr<PathEntity> path, Editor* editor)
     : m_path(std::move(path)),
       m_editor(editor)
-{ }
+{
+    Component temp;
+    temp.hash = 13234;
+    temp.allow_multiple = false;
+    temp.depends_on = 0;
+    temp.properties.push_back({POLYGON_ATTRIBUTE, DefaultAttributeFromHash(POLYGON_ATTRIBUTE)});
+    m_components.push_back(temp);
+}
 
 PathProxy::~PathProxy()
 { }

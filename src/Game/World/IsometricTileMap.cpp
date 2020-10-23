@@ -9,9 +9,7 @@ game::TileMap game::LoadTilemap(const char* tilemap_file)
     if(!file)
         return {};
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     game::TileMap tilemap;
@@ -55,9 +53,7 @@ game::TileSet game::LoadTileset(const char* tileset_file)
     if(!file)
         return {};
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     game::TileSet tileset;

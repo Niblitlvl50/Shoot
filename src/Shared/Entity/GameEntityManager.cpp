@@ -15,8 +15,7 @@ mono::EntityData GameEntityManager::LoadEntityFile(const char* entity_file) cons
     if(!file)
         return { };
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
+    std::vector<byte> file_data = file::FileRead(file);
     file_data.push_back('\0');
 
     const nlohmann::json& json = nlohmann::json::parse((const char*)file_data.data());

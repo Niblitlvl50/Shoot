@@ -9,9 +9,7 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
     if(!file)
         return false;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
-
+    const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     config.use_port_range               = json.value("use_port_range", config.use_port_range);

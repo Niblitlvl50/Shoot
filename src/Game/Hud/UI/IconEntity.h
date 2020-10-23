@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Zone/EntityBase.h"
-#include "Rendering/RenderPtrFwd.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 
 namespace game

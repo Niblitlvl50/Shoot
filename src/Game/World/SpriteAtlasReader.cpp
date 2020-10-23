@@ -13,8 +13,7 @@ game::SpriteAtlasData game::ReadSpriteAtlas(const char* filename)
     if(!file)
         return data;
 
-    std::vector<byte> file_data;
-    file::FileRead(file, file_data);
+    const std::vector<byte> file_data = file::FileRead(file);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
     const auto meta_json = json["meta"];
