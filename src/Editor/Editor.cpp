@@ -244,7 +244,8 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new SelectionVisualizer(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
-    AddDrawable(new GameCameraVisualizer(m_context.camera_position, m_context.camera_size), RenderLayer::UI);
+    AddDrawable(
+        new GameCameraVisualizer(m_context.draw_level_metadata, m_context.camera_position, m_context.camera_size), RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
