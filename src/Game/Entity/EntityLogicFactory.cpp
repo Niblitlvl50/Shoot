@@ -9,8 +9,6 @@
 #include "Enemies/InvaderController.h"
 #include "Enemies/InvaderPathController.h"
 
-#include "Pickups/PickupController.h"
-
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
 
@@ -32,7 +30,6 @@ namespace
         MakeController<game::CacodemonController>,
         MakeController<game::InvaderController>,
         MakeController<game::InvaderPathController>,
-        MakeController<game::PickupController>,
     };
 }
 
