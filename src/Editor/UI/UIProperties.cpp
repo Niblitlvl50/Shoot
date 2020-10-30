@@ -13,6 +13,7 @@
 #include "TriggerTypes.h"
 #include "AnimationModes.h"
 #include "FontIds.h"
+#include "SpriteProperties.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -179,6 +180,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         if(changed)
             attribute.value = out_index;
         return changed;
+    }
+    else if(attribute.id == SPRITE_PROPERTIES_ATTRIBUTE)
+    {
+        return DrawBitfieldProperty(
+            attribute_name, std::get<uint32_t>(attribute.value), shared::all_sprite_properties, shared::SpritePropertyToString);
+
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {

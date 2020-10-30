@@ -117,7 +117,7 @@ void CaptureTheFlagLogic::DropFlag(uint32_t flag_owner_entity_id)
             m_transform_system->UnchildTransform(flag.flag_entity_id);
 
             if(flag.callback_handle != std::numeric_limits<uint32_t>::max())
-                m_damage_system->RemoveCallback(flag_owner_entity_id, flag.callback_handle);
+                m_damage_system->RemoveDamageCallback(flag_owner_entity_id, flag.callback_handle);
 
             flag.state = FlagState::NONE;
             flag.owning_entity_id = -1;
@@ -146,11 +146,11 @@ void CaptureTheFlagLogic::CheckForPickup(const std::vector<uint32_t>& player_ids
 
             m_transform_system->ChildTransform(flag.flag_entity_id, flag.owning_entity_id);
 
-            const game::DestroyedCallback entity_destroyed_func = [this](uint32_t entity_id) {
+            const game::DamageCallback entity_destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
                 DropFlag(entity_id);
             };
 
-            flag.callback_handle = m_damage_system->SetDestroyedCallback(flag.owning_entity_id, entity_destroyed_func);
+            flag.callback_handle = m_damage_system->SetDamageCallback(flag.owning_entity_id, DamageType::DESTROYED, entity_destroyed_func);
             break;
         }
     }

@@ -131,7 +131,7 @@ void TriggerSystem::ReleaseDeathTrigger(uint32_t entity_id)
 {
     DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
  
-    m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
+    m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.death_trigger_id);
     allocated_trigger.death_trigger_id = NO_CALLBACK_SET;
 
     m_active_death_triggers[entity_id] = false;
@@ -143,13 +143,13 @@ void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
     allocated_trigger.trigger_hash = trigger_hash;
 
     if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
-        m_damage_system->RemoveCallback(entity_id, allocated_trigger.death_trigger_id);
+        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.death_trigger_id);
 
-    const DestroyedCallback callback = [this, trigger_hash](uint32_t id) {
+    const DamageCallback callback = [this, trigger_hash](uint32_t id, int damage, uint32_t id_who_did_damage, DamageType type) {
         EmitTrigger(trigger_hash);
     };
 
-    allocated_trigger.death_trigger_id = m_damage_system->SetDestroyedCallback(entity_id, callback);
+    allocated_trigger.death_trigger_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);
 }
 
 AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_id)

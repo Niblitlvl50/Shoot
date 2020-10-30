@@ -24,52 +24,53 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 45> default_attributes = {{
-    { "position",            Variant(math::ZeroVec) },
-    { "rotation",            Variant(0.0f) },
-    { "radius",              Variant(1.0f) },
-    { "size",                Variant(math::Vector(1.0f, 1.0f)) },
-    { "time_stamp",          Variant(1000) },
-    { "spawn_tag",           Variant(std::string()) },
-    { "path_file",           Variant(std::string()) },
-    { "trigger_radius",      Variant(1.0f) },
-    { "color",               Variant(mono::Color::WHITE) },
-    { "pickup_type",         Variant(0) },
-    { "amount",              Variant(10) },
-    { "body_type",           Variant(0) },
-    { "mass",                Variant(10.0f) },
-    { "inertia",             Variant(1.0f) },
-    { "prevent_rotation",    Variant(false) },
-    { "faction",             Variant(0) },
-    { "faction_picker",      Variant(0u) },
-    { "zoom_level",          Variant(1.0f), "multiples, 0.5 means half zoom, 2.0f means double zoom." },
-    { "UNUSED",              Variant(1.0f) },
-    { "start",               Variant(math::ZeroVec) },
-    { "end",                 Variant(math::ZeroVec) },
-    { "sensor",              Variant(false) },
-    { "health",              Variant(100) },
-    { "score",               Variant(90) },
-    { "boss_health",         Variant(false) },
-    { "sprite_file",         Variant(std::string()) },
-    { "animation",           Variant(0) },
-    { "flip_vertical",       Variant(false) },
-    { "flip_horizontal",     Variant(false) },
-    { "sprite_layer",        Variant(0) },
-    { "behaviour",           Variant(0) },
-    { "spawn_score",         Variant(10) },
-    { "trigger_name",        Variant(std::string()) },
-    { "trigger_name_exit",   Variant(std::string()) },
-    { "duration",            Variant(1.0f) },
-    { "easing_func",         Variant(0) },
-    { "logic_op",            Variant(0) },
-    { "num_entities",        Variant(0) },
-    { "font_id",             Variant(0) },
-    { "text",                Variant(std::string()) },
-    { "text_shadow",         Variant(false) },
-    { "animation_mode",      Variant(0) },
-    { "repeating",           Variant(false) },
-    { "polygon",             Variant(polygon_default) },
-    { "random_start_frame",  Variant(false) },
+const std::array<DefaultAttribute, 46> default_attributes = {{
+    { "position",           Variant(math::ZeroVec) },
+    { "rotation",           Variant(0.0f) },
+    { "radius",             Variant(1.0f) },
+    { "size",               Variant(math::Vector(1.0f, 1.0f)) },
+    { "time_stamp",         Variant(1000) },
+    { "spawn_tag",          Variant(std::string()) },
+    { "path_file",          Variant(std::string()) },
+    { "trigger_radius",     Variant(1.0f) },
+    { "color",              Variant(mono::Color::WHITE) },
+    { "pickup_type",        Variant(0) },
+    { "amount",             Variant(10) },
+    { "body_type",          Variant(0) },
+    { "mass",               Variant(10.0f) },
+    { "inertia",            Variant(1.0f) },
+    { "prevent_rotation",   Variant(false) },
+    { "faction",            Variant(0) },
+    { "faction_picker",     Variant(0u) },
+    { "zoom_level",         Variant(1.0f), "multiples, 0.5 means half zoom, 2.0f means double zoom." },
+    { "UNUSED",             Variant(1.0f) },
+    { "start",              Variant(math::ZeroVec) },
+    { "end",                Variant(math::ZeroVec) },
+    { "sensor",             Variant(false) },
+    { "health",             Variant(100) },
+    { "score",              Variant(90) },
+    { "boss_health",        Variant(false) },
+    { "sprite_file",        Variant(std::string()) },
+    { "animation",          Variant(0) },
+    { "flip_vertical",      Variant(false) },
+    { "flip_horizontal",    Variant(false) },
+    { "sprite_layer",       Variant(0) },
+    { "sprite_properties",  Variant(0u) },
+    { "behaviour",          Variant(0) },
+    { "spawn_score",        Variant(10) },
+    { "trigger_name",       Variant(std::string()) },
+    { "trigger_name_exit",  Variant(std::string()) },
+    { "duration",           Variant(1.0f) },
+    { "easing_func",        Variant(0) },
+    { "logic_op",           Variant(0) },
+    { "num_entities",       Variant(0) },
+    { "font_id",            Variant(0) },
+    { "text",               Variant(std::string()) },
+    { "text_shadow",        Variant(false) },
+    { "animation_mode",     Variant(0) },
+    { "repeating",          Variant(false) },
+    { "polygon",            Variant(polygon_default) },
+    { "random_start_frame", Variant(false) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -108,23 +109,24 @@ extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[26].has
 extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[27].hash;
 extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[28].hash;
 extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[29].hash;
+extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[30].hash;
 
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[30].hash;
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[31].hash;
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[32].hash;
-extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[33].hash;
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[34].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[35].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[36].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[37].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[31].hash;
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[32].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[33].hash;
+extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[34].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[35].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[36].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[37].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[38].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[38].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[39].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[40].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[41].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[42].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[43].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[44].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[39].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[40].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[41].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[42].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[43].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[44].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[45].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -212,7 +214,7 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 
 const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
     MakeComponent(TEXT_COMPONENT,           NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),

@@ -27,7 +27,14 @@ namespace game
         int health_left;
     };
 
-    using DestroyedCallback = std::function<void (uint32_t id)>;
+    enum DamageType
+    {
+        DESTROYED = 1,
+        DAMAGED = 2,
+        ALL = DESTROYED | DAMAGED,
+    };
+
+    using DamageCallback = std::function<void (uint32_t id, int damage, uint32_t who_did_damage, DamageType type)>;
 
     class DamageSystem : public mono::IGameSystem
     {
@@ -41,11 +48,11 @@ namespace game
             mono::EventHandler* event_handler);
 
         DamageRecord* CreateRecord(uint32_t id);
-        uint32_t SetDestroyedCallback(uint32_t id, DestroyedCallback destroyed_callback);
-        void RemoveCallback(uint32_t id, uint32_t callback_id);
         void ReleaseRecord(uint32_t id);
-
         DamageRecord* GetDamageRecord(uint32_t id);
+
+        uint32_t SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback);
+        void RemoveDamageCallback(uint32_t id, uint32_t callback_id);
 
         DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
         const std::vector<DamageRecord>& GetDamageRecords() const;
@@ -78,8 +85,14 @@ namespace game
         
         std::vector<DamageRecord> m_damage_records;
 
-        using DestroyedCallbacks = std::array<DestroyedCallback, 8>;
-        std::vector<DestroyedCallbacks> m_destroyed_callbacks;
+        struct DamageCallbackData
+        {
+            uint32_t callback_types;
+            DamageCallback callback;
+        };
+
+        using DamageCallbacks = std::array<DamageCallbackData, 8>;
+        std::vector<DamageCallbacks> m_damage_callbacks;
         std::vector<bool> m_active;
 
         std::unique_ptr<class DamageEffect> m_damage_effect;

@@ -43,6 +43,7 @@ extern const uint32_t FLIP_VERTICAL_ATTRIBUTE;
 extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE;
 extern const uint32_t SPRITE_LAYER_ATTRIBUTE;
 extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE;
+extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE;
 
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 

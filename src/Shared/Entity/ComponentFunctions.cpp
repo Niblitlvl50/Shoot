@@ -79,6 +79,7 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     
     FindAttribute(COLOR_ATTRIBUTE, properties, sprite_args.shade, FallbackMode::SET_DEFAULT);
     FindAttribute(ANIMATION_ATTRIBUTE, properties, sprite_args.animation_id, FallbackMode::SET_DEFAULT);
+    FindAttribute(SPRITE_PROPERTIES_ATTRIBUTE, properties, sprite_args.properties, FallbackMode::SET_DEFAULT);
     FindAttribute(FLIP_VERTICAL_ATTRIBUTE, properties, sprite_args.flip_vertical, FallbackMode::SET_DEFAULT);
     FindAttribute(FLIP_HORIZONTAL_ATTRIBUTE, properties, sprite_args.flip_horizontal, FallbackMode::SET_DEFAULT);
     FindAttribute(SPRITE_LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);

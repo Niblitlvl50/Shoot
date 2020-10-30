@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
-#include "Rendering/IRenderBuffer.h"
+#include "Rendering/RenderBuffer/IRenderBuffer.h"
 #include "Rendering/RenderFwd.h"
 #include "Rendering/Texture/ITextureFactory.h"
 

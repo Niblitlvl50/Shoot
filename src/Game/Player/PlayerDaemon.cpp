@@ -91,7 +91,7 @@ namespace
         const System::ControllerState& controller,
         mono::SystemContext* system_context,
         mono::EventHandler* event_handler,
-        game::DestroyedCallback destroyed_callback)
+        game::DamageCallback damage_callback)
     {
         mono::Entity player_entity = game::g_entity_manager->CreateEntity("res/entities/player_entity.entity");
 
@@ -101,7 +101,7 @@ namespace
 
         // No need to store the callback id, when destroyed this callback will be cleared up.
         game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
-        const uint32_t callback_id = damage_system->SetDestroyedCallback(player_entity.id, destroyed_callback);
+        const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::DESTROYED, damage_callback);
         (void)callback_id;
 
         game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
@@ -192,7 +192,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 
 void PlayerDaemon::SpawnPlayer1()
 {
-    const auto destroyed_func = [this](uint32_t entity_id) {
+    const auto destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
         game::g_player_one.is_active = false;
     };
 
@@ -209,7 +209,7 @@ void PlayerDaemon::SpawnPlayer1()
 
 void PlayerDaemon::SpawnPlayer2()
 {
-    const auto destroyed_func = [](uint32_t entity_id) {
+    const auto destroyed_func = [](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
         game::g_player_two.is_active = false;
     };
 
@@ -271,7 +271,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
 
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
 
-    const auto remote_player_destroyed = [](uint32_t entity_id) {
+    const auto remote_player_destroyed = [](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
         //game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
         //m_remote_players.erase(it);
     };

@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-#include "Rendering/BufferFactory.h"
+#include "Rendering/RenderBuffer/BufferFactory.h"
 
 #include "par_streamlines/par_streamlines.h"
 
