@@ -27,8 +27,9 @@ void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
 
     constexpr mono::Color::RGBA black_color(0.0f, 0.0f, 0.0f, 0.5f);
 
-    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
     const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+    const mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
     renderer.DrawLines(points, black_color, 2.0f);
     renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text, position, true, black_color);

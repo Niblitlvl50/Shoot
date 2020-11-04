@@ -49,8 +49,9 @@ GridVisualizer::GridVisualizer()
 void GridVisualizer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
-    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
     const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+    const mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
     constexpr mono::Color::RGBA gray_color(1.0f, 1.0f, 1.0f, 0.2f);
     renderer.DrawLines(m_gridVertices, gray_color, 1.0f);

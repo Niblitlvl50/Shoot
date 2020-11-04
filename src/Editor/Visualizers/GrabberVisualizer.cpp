@@ -18,7 +18,6 @@ void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
     points.reserve(m_grabbers.size());
 
     std::vector<math::Vector> hoovered_points;
-    hoovered_points.reserve(m_grabbers.size());
 
     for(const Grabber& grabber : m_grabbers)
     {

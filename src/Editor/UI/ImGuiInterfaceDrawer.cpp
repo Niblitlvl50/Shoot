@@ -74,7 +74,8 @@ namespace
             ImGui::Checkbox("Show Level Metadata, L", &context.draw_level_metadata);
 
             ImGui::Checkbox("Snap to Grid, G", &context.snap_to_grid);
-            ImGui::InputFloat2("Grid Size", &context.grid_size.x);
+            ImGui::SameLine(0.0f, 50.0f);
+            ImGui::InputFloat2("", &context.grid_size.x);
 
             ImGui::EndMenu();
         }
