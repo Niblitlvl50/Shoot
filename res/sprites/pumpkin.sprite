@@ -3,35 +3,23 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
-                1
+                0
             ],
             "loop": true,
             "name": "default"
         }
     ],
-    "category": "shuttle",
+    "category": "vegetation",
     "frames": [
         {
-            "h": 12,
-            "name": "booster_default_1",
-            "w": 9,
-            "x": 1740,
-            "y": 328
-        },
-        {
-            "h": 11,
-            "name": "booster_default_2",
-            "w": 9,
-            "x": 1253,
-            "y": 330
+            "h": 23,
+            "name": "pumpkin",
+            "w": 37,
+            "x": 1067,
+            "y": 301
         }
     ],
     "frames_offsets": [
-        {
-            "x": 0.0,
-            "y": 0.0
-        },
         {
             "x": 0.0,
             "y": 0.0
