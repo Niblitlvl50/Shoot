@@ -14,7 +14,8 @@ StaticBackground::StaticBackground()
 {
     const int vertex_count = 4;
 
-    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/white_box_placeholder.png");
+    //m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/white_box_placeholder.png");
+    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/grass_02.png");
     m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
     m_texture_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2); 
 
@@ -31,7 +32,7 @@ StaticBackground::StaticBackground()
     texture_coordinates.reserve(vertices.size());
 
     //const math::Vector& repeate = (background_bb.mB - background_bb.mA) / 8.0f;
-    const math::Vector repeate(20.0f, 20.0f);
+    const math::Vector repeate(12.0f, 12.0f);
         
     for(const math::Vector& vertex : vertices)
         texture_coordinates.push_back(math::MapVectorInQuad(vertex, background_bb) * repeate);
