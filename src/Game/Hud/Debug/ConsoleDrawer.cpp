@@ -21,8 +21,9 @@ void ConsoleDrawer::AddText(const std::string& text, uint32_t life_time_ms)
 void ConsoleDrawer::Draw(mono::IRenderer& renderer) const
 {
     const math::Matrix& projection = math::Ortho(0.0f, 20.0f, 0.0f, 16.0f, 0.0f, 10.0f);
-    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
     const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+    const mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
     math::Vector current_pos;
 

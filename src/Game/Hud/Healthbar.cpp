@@ -123,8 +123,11 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     constexpr float line_width_boss = 8.0f;
 
     const math::Matrix projection = math::Ortho(viewport.mA.x, viewport.mB.x, viewport.mA.y, viewport.mB.y, -10.0f, 10.0f);
-    const mono::ScopedTransform scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+
     const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
+    const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+
     renderer.DrawLines(boss_background_lines, background_color, line_width_boss);
     renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width_boss);
 

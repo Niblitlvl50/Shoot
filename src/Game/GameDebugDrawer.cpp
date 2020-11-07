@@ -58,8 +58,9 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
     const math::Quad viewport = renderer.GetViewport();
     const math::Matrix projection = math::Ortho(0.0f, math::Width(viewport), 0.0f, math::Height(viewport), -10.0f, 10.0f);
 
-    mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
     mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
+    mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
     for(DebugText& text : m_debug_texts_screen)
     {
