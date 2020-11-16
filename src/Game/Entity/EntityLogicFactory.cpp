@@ -3,7 +3,7 @@
 #include "IEntityLogic.h"
 
 #include "Enemies/BatController.h"
-#include "Enemies/BeastController.h"
+#include "Enemies/GoblinFireController.h"
 #include "Enemies/BlackSquareController.h"
 #include "Enemies/CacoDemonController.h"
 #include "Enemies/InvaderController.h"
@@ -25,7 +25,7 @@ namespace
 
     constexpr CreateLogicFunc create_functions[] = {
         MakeController<game::BatController>,
-        MakeController<game::BeastController>,
+        MakeController<game::GoblinFireController>,
         MakeController<game::BlackSquareController>,
         MakeController<game::CacodemonController>,
         MakeController<game::InvaderController>,

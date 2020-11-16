@@ -3,6 +3,7 @@
 
 #include "ZoneCreationContext.h"
 #include "Zone/ZoneBase.h"
+#include "GameZone.h"
 #include "EventHandler/EventToken.h"
 #include "Events/EventFwd.h"
 
@@ -11,15 +12,13 @@
 
 namespace game
 {
-    class TitleScreen : public mono::ZoneBase
+    class TitleScreen : public GameZone
     {
     public:
 
         TitleScreen(const ZoneCreationContext& context);
         ~TitleScreen();
         
-        mono::EventResult OnKeyUp(const event::KeyUpEvent& event);
-
         void OnLoad(mono::ICamera* camera) override;
         int OnUnload() override;
 

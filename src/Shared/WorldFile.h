@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 #include <vector>
+#include <string>
 #include <cstdint>
 #include <functional>
 
@@ -15,6 +16,7 @@ namespace shared
     {
         math::Vector camera_position;
         math::Vector camera_size;
+        std::string background_texture;
     };
 
     struct LevelData

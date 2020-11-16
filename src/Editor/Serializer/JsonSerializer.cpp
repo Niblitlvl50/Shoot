@@ -28,6 +28,7 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     nlohmann::json json_metadata;
     json_metadata["camera_position"] = level_metadata.camera_position;
     json_metadata["camera_size"] = level_metadata.camera_size;
+    json_metadata["background_texture"] = level_metadata.background_texture;
 
     nlohmann::json json;
     json["metadata"] = json_metadata;

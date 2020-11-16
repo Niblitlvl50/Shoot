@@ -10,7 +10,7 @@ class StaticBackground : public mono::IDrawable
 {
 public:
 
-    StaticBackground();
+    StaticBackground(const char* background_texture);
     void Draw(mono::IRenderer& renderer) const override;
     math::Quad BoundingBox() const override;
 

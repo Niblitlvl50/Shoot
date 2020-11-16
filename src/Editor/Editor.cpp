@@ -261,6 +261,7 @@ void Editor::OnLoad(mono::ICamera* camera)
 
     m_context.camera_position = world.leveldata.metadata.camera_position;
     m_context.camera_size = world.leveldata.metadata.camera_size;
+    m_context.background_texture = world.leveldata.metadata.background_texture;
 
     UpdateSnappers();
 }
@@ -295,6 +296,7 @@ void Editor::Save()
     shared::LevelMetadata metadata;
     metadata.camera_position = m_context.camera_position;
     metadata.camera_size = m_context.camera_size;
+    metadata.background_texture = m_context.background_texture;
 
     SaveWorld(m_world_filename, m_proxies, metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);

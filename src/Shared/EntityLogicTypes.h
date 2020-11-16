@@ -8,7 +8,7 @@ namespace shared
     enum class EntityLogicType : uint32_t
     {
         BAT,
-        BEAST,
+        GOBLIN_FIRE,
         BLACK_SQUARE,
         CACODEMON,
         INVADER,
@@ -17,7 +17,7 @@ namespace shared
 
     constexpr const char* entity_logic_strings[] = {
         "Bat",
-        "Beast",
+        "Goblin Fire",
         "Black Square",
         "Cacodemon",
         "Invader",

@@ -18,28 +18,28 @@
             "h": 24,
             "name": "eye_monster_idle_0",
             "w": 34,
-            "x": 1754,
+            "x": 1793,
             "y": 299
         },
         {
             "h": 25,
             "name": "eye_monster_idle_1",
             "w": 35,
-            "x": 1715,
+            "x": 1754,
             "y": 299
         },
         {
             "h": 24,
             "name": "eye_monster_idle_2",
             "w": 27,
-            "x": 1829,
+            "x": 1926,
             "y": 299
         },
         {
             "h": 25,
             "name": "eye_monster_idle_3",
             "w": 35,
-            "x": 1408,
+            "x": 1715,
             "y": 299
         }
     ],

@@ -68,11 +68,21 @@ namespace
 }
 
 TitleScreen::TitleScreen(const ZoneCreationContext& context)
-    : m_event_handler(*context.event_handler)
+    : GameZone(context, "res/title_screen.components")
+    , m_event_handler(*context.event_handler)
     , m_system_context(context.system_context)
 {
-    using namespace std::placeholders;
-    const event::KeyUpEventFunc& key_callback = std::bind(&TitleScreen::OnKeyUp, this, _1);
+    const event::KeyUpEventFunc key_callback =
+        [this](const event::KeyUpEvent& event) -> mono::EventResult
+    {
+        if(event.key == Keycode::ENTER)
+            Continue();
+        //else if(event.key == Keycode::R)
+        //    Remote();
+
+        return mono::EventResult::PASS_ON;
+    };
+
     m_key_token = m_event_handler.AddListener(key_callback);
 }
 
@@ -81,45 +91,18 @@ TitleScreen::~TitleScreen()
     m_event_handler.RemoveListener(m_key_token);
 }
 
-mono::EventResult TitleScreen::OnKeyUp(const event::KeyUpEvent& event)
-{
-    if(event.key == Keycode::ENTER)
-        Continue();
-    else if(event.key == Keycode::R)
-        Remote();
-
-    return mono::EventResult::PASS_ON;
-}
-
 void TitleScreen::OnLoad(mono::ICamera* camera)
 {
-    const shared::LevelData leveldata = shared::ReadWorldComponentObjects("res/title_screen.components", g_entity_manager, nullptr);
-    m_loaded_entities = leveldata.loaded_entities;
-    camera->SetPosition(leveldata.metadata.camera_position);
-    camera->SetViewportSize(leveldata.metadata.camera_size);
-
-    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
-    mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    GameZone::OnLoad(camera);
 
     AddUpdatable(new CheckControllerInput(this));
-
-    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
-    AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
-
-    m_sparkles =
-        std::make_unique<ScreenSparkles>(particle_system, leveldata.metadata.camera_position, leveldata.metadata.camera_size);
+    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
+    m_sparkles = std::make_unique<ScreenSparkles>(particle_system, camera->GetPosition(), camera->GetViewportSize());
 }
 
 int TitleScreen::OnUnload()
 {
-    for(uint32_t entity_id : m_loaded_entities)
-        g_entity_manager->ReleaseEntity(entity_id);
-
-    g_entity_manager->Sync();
+    GameZone::OnUnload();
     return m_exit_zone;
 }
 

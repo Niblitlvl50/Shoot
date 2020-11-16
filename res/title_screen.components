@@ -657,6 +657,7 @@
         "camera_size": {
             "x": 14.0,
             "y": 23.0
-        }
+        },
+        "background_texture": ""
     }
 }

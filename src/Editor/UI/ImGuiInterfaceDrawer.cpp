@@ -2,6 +2,8 @@
 #include "ImGuiInterfaceDrawer.h"
 #include "MainMenuOptions.h"
 #include "UIContext.h"
+#include "UIProperties.h"
+#include "Resources.h"
 #include "ObjectProxies/IObjectProxy.h"
 #include "Util/Algorithm.h"
 #include "ImGuiImpl/ImGuiImpl.h"
@@ -210,6 +212,14 @@ namespace
         ImGui::TextDisabled("Game Camera");
         ImGui::InputFloat2("Position", &context.camera_position.x);
         ImGui::InputFloat2("Size", &context.camera_size.x);
+        ImGui::Spacing();
+
+        ImGui::TextDisabled("Background");
+        const std::vector<std::string>& all_textures = editor::GetAllTextures();
+        int out_index;
+        const bool changed = editor::DrawStringPicker("Texture", context.background_texture, all_textures, out_index);
+        if(changed)
+            context.background_texture = all_textures[out_index];
 
         ImGui::End();
     }

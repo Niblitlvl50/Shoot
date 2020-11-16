@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "weapons",
+    "category": "props",
     "frames": [
         {
-            "h": 21,
-            "name": "rocket_launcher",
-            "w": 36,
-            "x": 716,
-            "y": 312
+            "h": 28,
+            "name": "ork_flag",
+            "w": 26,
+            "x": 1226,
+            "y": 299
         }
     ],
     "frames_offsets": [
