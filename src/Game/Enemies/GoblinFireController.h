@@ -7,6 +7,8 @@
 #include "StateMachine.h"
 #include "Weapons/IWeaponSystem.h"
 
+#include <memory>
+
 namespace game
 {
     class GoblinFireController : public IEntityLogic
