@@ -65,6 +65,7 @@ void GameZone::OnLoad(mono::ICamera* camera)
 
     const shared::LevelData leveldata = shared::ReadWorldComponentObjects(m_world_file, g_entity_manager, nullptr);
     m_loaded_entities = leveldata.loaded_entities;
+    m_player_spawn_point = leveldata.metadata.player_spawn_point;
     camera->SetPosition(leveldata.metadata.camera_position);
     camera->SetViewportSize(leveldata.metadata.camera_size);
 

@@ -70,7 +70,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     AddUpdatable(new ListenerPositionUpdater());
 
     // Player
-    m_player_daemon = std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, *m_event_handler);
+    m_player_daemon =
+        std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, *m_event_handler, m_player_spawn_point);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;

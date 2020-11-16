@@ -245,7 +245,12 @@ void Editor::OnLoad(mono::ICamera* camera)
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(
-        new GameCameraVisualizer(m_context.draw_level_metadata, m_context.camera_position, m_context.camera_size), RenderLayer::UI);
+        new GameCameraVisualizer(
+            m_context.draw_level_metadata,
+            m_context.player_spawn_point,
+            m_context.camera_position,
+            m_context.camera_size),
+        RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
 
@@ -261,6 +266,7 @@ void Editor::OnLoad(mono::ICamera* camera)
 
     m_context.camera_position = world.leveldata.metadata.camera_position;
     m_context.camera_size = world.leveldata.metadata.camera_size;
+    m_context.player_spawn_point = world.leveldata.metadata.player_spawn_point;
     m_context.background_texture = world.leveldata.metadata.background_texture;
 
     UpdateSnappers();
@@ -296,6 +302,7 @@ void Editor::Save()
     shared::LevelMetadata metadata;
     metadata.camera_position = m_context.camera_position;
     metadata.camera_size = m_context.camera_size;
+    metadata.player_spawn_point = m_context.player_spawn_point;
     metadata.background_texture = m_context.background_texture;
 
     SaveWorld(m_world_filename, m_proxies, metadata);

@@ -88,6 +88,7 @@ namespace
 {
     uint32_t SpawnPlayer(
         game::PlayerInfo* player_info,
+        const math::Vector& spawn_position,
         const System::ControllerState& controller,
         mono::SystemContext* system_context,
         mono::EventHandler* event_handler,
@@ -97,7 +98,8 @@ namespace
 
         mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(player_entity.id);
-        math::Position(transform, math::ZeroVec);
+        math::Position(transform, spawn_position);
+        transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
 
         // No need to store the callback id, when destroyed this callback will be cleared up.
         game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
@@ -120,11 +122,13 @@ namespace
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
     mono::SystemContext* system_context,
-    mono::EventHandler& event_handler)
+    mono::EventHandler& event_handler,
+    const math::Vector& player_one_spawn)
     : m_remote_connection(remote_connection)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
     , m_player_state(PlayerMetaState::NONE)
+    , m_player_one_spawn(player_one_spawn)
 {
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -198,6 +202,7 @@ void PlayerDaemon::SpawnPlayer1()
 
     const uint32_t spawned_id = SpawnPlayer(
         &game::g_player_one,
+        m_player_one_spawn,
         System::GetController(System::ControllerId::Primary),
         m_system_context,
         &m_event_handler,
@@ -215,6 +220,7 @@ void PlayerDaemon::SpawnPlayer2()
 
     const uint32_t spawned_id = SpawnPlayer(
         &game::g_player_two,
+        m_player_two_spawn,
         System::GetController(System::ControllerId::Secondary),
         m_system_context,
         &m_event_handler,
@@ -278,6 +284,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
 
     const uint32_t spawned_id = SpawnPlayer(
         &remote_player_data.player_info,
+        math::ZeroVec,
         remote_player_data.controller_state,
         m_system_context,
         &m_event_handler,

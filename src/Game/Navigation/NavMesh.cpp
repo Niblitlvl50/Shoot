@@ -99,7 +99,7 @@ float Heuristics(const game::NavmeshContext& context, int from, int to)
 
 std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int end)
 {
-    if(start == end)
+    if(start == end || context.nodes.empty() || context.points.empty())
         return { };
 
     std::unordered_map<int, int> came_from;

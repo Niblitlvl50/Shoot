@@ -29,6 +29,7 @@ shared::LevelData shared::ReadWorldComponentObjects(
     const nlohmann::json& json_metadata = json["metadata"];
     level_data.metadata.camera_position = json_metadata["camera_position"];
     level_data.metadata.camera_size = json_metadata["camera_size"];
+    level_data.metadata.player_spawn_point = json_metadata["player_spawn_point"];
     level_data.metadata.background_texture = json_metadata["background_texture"];
 
     const nlohmann::json& entities = json["entities"];

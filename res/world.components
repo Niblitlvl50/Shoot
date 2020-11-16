@@ -22902,7 +22902,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 15.423933029174805,
-                                "y": 21.244813919067383
+                                "y": 21.278095245361328
                             }
                         },
                         {
@@ -23762,7 +23762,7 @@
         }
     ],
     "metadata": {
-        "background_texture": "res/textures/dark_stone.png",
+        "background_texture": "res/textures/grass_02.png",
         "camera_position": {
             "x": 19.0,
             "y": 20.0
@@ -23770,6 +23770,10 @@
         "camera_size": {
             "x": 5.0,
             "y": 9.0
+        },
+        "player_spawn_point": {
+            "x": 0.0,
+            "y": 0.0
         }
     }
 }

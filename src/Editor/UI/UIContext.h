@@ -62,6 +62,7 @@ namespace editor
         bool draw_level_metadata = true;
         math::Vector camera_position;
         math::Vector camera_size;
+        math::Vector player_spawn_point;
         std::string background_texture;
         
         // Objects

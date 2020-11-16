@@ -68,7 +68,7 @@ namespace
         mono::TransformSystem* transform_system)
     {
         StandardCollision(entity_id, owner_entity_id, flags, other, entity_manager, damage_system, physics_system);
-        SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+        //SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
         //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
     }
 

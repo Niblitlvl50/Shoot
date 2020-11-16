@@ -209,6 +209,10 @@ namespace
 
         ImGui::Begin("Level Metadata", nullptr, flags);
 
+        ImGui::TextDisabled("Player");
+        ImGui::InputFloat2("Spawn", &context.player_spawn_point.x);
+        ImGui::Spacing();
+
         ImGui::TextDisabled("Game Camera");
         ImGui::InputFloat2("Position", &context.camera_position.x);
         ImGui::InputFloat2("Size", &context.camera_size.x);

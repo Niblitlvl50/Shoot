@@ -34,7 +34,8 @@ namespace game
         PlayerDaemon(
             INetworkPipe* remote_connection,
             mono::SystemContext* system_context,
-            mono::EventHandler& event_handler);
+            mono::EventHandler& event_handler,
+            const math::Vector& player_one_spawn);
         ~PlayerDaemon();
 
         void SpawnPlayer1();
@@ -67,6 +68,9 @@ namespace game
 
         int m_player_one_id = -1;
         int m_player_two_id = -1;
+
+        math::Vector m_player_one_spawn;
+        math::Vector m_player_two_spawn;
 
         struct RemotePlayerData
         {

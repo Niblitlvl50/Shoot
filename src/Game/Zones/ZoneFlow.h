@@ -8,6 +8,7 @@ namespace game
         QUIT,
         TITLE_SCREEN,
         TEST_ZONE,
-        REMOTE_ZONE
+        REMOTE_ZONE,
+        EMPTY_ZONE
     };
 }
