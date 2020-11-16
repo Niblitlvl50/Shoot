@@ -47,6 +47,9 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     if(!game::g_draw_navmesh)
         return;
 
+    if(m_navmesh_context.nodes.empty() || m_navmesh_context.points.empty())
+        return;
+
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
 
