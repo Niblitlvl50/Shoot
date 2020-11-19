@@ -73,7 +73,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     {
         const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
         const math::Vector& position = math::GetPosition(world_transform);
-        m_camera->SetTargetPosition(position);
+        m_camera->SetTargetPosition(position + m_follow_offset);
     }
 
     const auto process_camera_anims = [this, &update_context](CameraAnimationComponent* camera_anim)
@@ -103,7 +103,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 void CameraSystem::Follow(uint32_t entity_id, const math::Vector& offset)
 {
     m_entity_id = entity_id;
-    //m_offset = offset;
+    m_follow_offset = offset;
 }
 
 void CameraSystem::Unfollow()

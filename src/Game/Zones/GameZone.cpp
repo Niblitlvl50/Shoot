@@ -48,6 +48,17 @@
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
+namespace
+{
+    class SyncPoint : public mono::IUpdatable
+    {
+        void Update(const mono::UpdateContext& update_context)
+        {
+            game::g_entity_manager->Sync();
+        }
+    };
+}
+
 using namespace game;
 
 GameZone::GameZone(const ZoneCreationContext& context, const char* world_file)
@@ -79,6 +90,8 @@ void GameZone::OnLoad(mono::ICamera* camera)
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
+
+    AddUpdatable(new SyncPoint()); // this should probably go last or something...
 
     if(!leveldata.metadata.background_texture.empty())
         AddDrawable(new StaticBackground(leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);

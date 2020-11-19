@@ -18,23 +18,11 @@
 #include "Network/ServerReplicator.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"
-#include "EntitySystem/IEntityManager.h"
 #include "Factories.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
 
 using namespace game;
-
-namespace
-{
-    class SyncPoint : public mono::IUpdatable
-    {
-        void Update(const mono::UpdateContext& update_context)
-        {
-            g_entity_manager->Sync();
-        }
-    };
-}
 
 SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     : GameZone(context, "res/world.components")
@@ -66,7 +54,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
             m_server_manager.get(),
             m_game_config.server_replication_interval)
         );
-    AddUpdatable(new SyncPoint()); // this should probably go last or something...
     AddUpdatable(new ListenerPositionUpdater());
 
     // Player

@@ -68,6 +68,7 @@ namespace game
         mono::MouseCameraController m_controller;
         bool m_debug_camera;
         uint32_t m_entity_id;
+        math::Vector m_follow_offset;
 
         std::vector<CameraAnimationComponent> m_camera_components;
         std::vector<bool> m_active_camera_components;
