@@ -21,17 +21,20 @@ namespace game
     private:
 
         void ToIdle();
-        void ToHurt();
-        void ToAttacking();
         void Idle(const mono::UpdateContext& update_context);
-        void Hurt(const mono::UpdateContext& update_context);
+
+        void ToPrepareAttack();
+        void PrepareAttack(const mono::UpdateContext& update_context);
+
+        void ToAttacking();
         void Attacking(const mono::UpdateContext& update_context);
 
         enum class GoblinStates
         {
+            NONE,
             IDLE,
-            ATTACKING,
-            HURT
+            PREPARE_ATTACK,
+            ATTACKING
         };
 
         uint32_t m_entity_id;
@@ -43,7 +46,7 @@ namespace game
         GoblinStateMachine m_states;
 
         uint32_t m_idle_timer;
- 
+        uint32_t m_prepare_timer;
         uint32_t m_n_attacks;
         uint32_t m_attack_timer;
     };
