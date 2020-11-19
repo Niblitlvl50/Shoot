@@ -7,7 +7,7 @@
                 1,
                 2
             ],
-            "loop": true,
+            "loop": false,
             "name": "default"
         }
     ],
