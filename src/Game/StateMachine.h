@@ -16,17 +16,32 @@ public:
         std::function<void (const UpdateContext&)> update_state = nullptr;
     };
 
+    template <typename T>
+    static std::pair<StateId, State> MakeState(StateId id, void(T::*enter_func)(), void(T::*update_func)(const UpdateContext& context), T* this_ptr)
+    {
+        using namespace std::placeholders;
+        return { id, { std::bind(enter_func, this_ptr), std::bind(update_func, this_ptr, _1) } };
+    }
+
+    using StateTable = std::unordered_map<StateId, State>;
+
     StateMachine()
     { }
 
-    StateMachine(const std::unordered_map<StateId, State>& state_table)
+    StateMachine(const StateTable& state_table)
     {
         SetStateTable(state_table);
     }
 
-    void SetStateTable(const std::unordered_map<StateId, State>& state_table)
+    void SetStateTable(const StateTable& state_table)
     {
         m_states = state_table;
+    }
+
+    void SetStateTableAndState(const StateTable& state_table, StateId initial_state)
+    {
+        m_states = state_table;
+        m_wanted_state = initial_state;
     }
 
     void TransitionTo(StateId new_state)
@@ -57,7 +72,7 @@ public:
 
 private:
 
-    StateId m_active_state{};
-    StateId m_wanted_state{};
-    std::unordered_map<StateId, State> m_states;
+    StateId m_active_state{ -1 };
+    StateId m_wanted_state{ -1 };
+    StateTable m_states;
 };
