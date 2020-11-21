@@ -8,6 +8,7 @@
         "res/sprites/bio_pickup_blue.sprite",
         "res/sprites/bio_pickup_green.sprite",
         "res/sprites/bio_pickup_red.sprite",
+        "res/sprites/blob.sprite",
         "res/sprites/block_huge.sprite",
         "res/sprites/block_large.sprite",
         "res/sprites/block_small.sprite",
