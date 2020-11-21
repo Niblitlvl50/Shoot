@@ -23,6 +23,9 @@ namespace game
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
 
+        void ToMoving();
+        void Moving(const mono::UpdateContext& update_context);
+
         void ToPrepareAttack();
         void PrepareAttack(const mono::UpdateContext& update_context);
 
@@ -33,6 +36,7 @@ namespace game
         {
             NONE,
             IDLE,
+            MOVING,
             PREPARE_ATTACK,
             ATTACKING
         };

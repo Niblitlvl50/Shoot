@@ -24,25 +24,14 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
 
-    using namespace std::placeholders;
-
-    const std::unordered_map<GoblinStates, GoblinStateMachine::State>& state_table = {
-        { GoblinStates::IDLE, {
-            std::bind(&GoblinFireController::ToIdle, this),
-            std::bind(&GoblinFireController::Idle, this, _1) }
-        },
-        { GoblinStates::PREPARE_ATTACK, {
-            std::bind(&GoblinFireController::ToPrepareAttack, this),
-            std::bind(&GoblinFireController::PrepareAttack, this, _1) }
-        },
-        { GoblinStates::ATTACKING, {
-            std::bind(&GoblinFireController::ToAttacking, this),
-            std::bind(&GoblinFireController::Attacking, this, _1) }
-        }
+    const GoblinStateMachine::StateTable state_table = {
+        GoblinStateMachine::MakeState(GoblinStates::IDLE, &GoblinFireController::ToIdle, &GoblinFireController::Idle, this),
+        GoblinStateMachine::MakeState(GoblinStates::MOVING, &GoblinFireController::ToMoving, &GoblinFireController::Moving, this),
+        GoblinStateMachine::MakeState(GoblinStates::PREPARE_ATTACK, &GoblinFireController::ToPrepareAttack, &GoblinFireController::PrepareAttack, this),
+        GoblinStateMachine::MakeState(GoblinStates::ATTACKING, &GoblinFireController::ToAttacking, &GoblinFireController::Attacking, this),
     };
 
-    m_states.SetStateTable(state_table);
-    m_states.TransitionTo(GoblinStates::IDLE);
+    m_states.SetStateTableAndState(state_table, GoblinStates::IDLE);
 }
 
 void GoblinFireController::Update(const mono::UpdateContext& update_context)
@@ -73,6 +62,46 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         
         m_idle_timer = 0;
     }
+}
+
+void GoblinFireController::ToMoving()
+{
+    /*
+    const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
+    m_current_position = math::GetPosition(world_transform);
+
+    constexpr float move_radius = tweek_values::move_radius;
+    const float x = mono::Random(-move_radius, move_radius);
+    const float y = mono::Random(-move_radius, move_radius);
+
+    m_move_delta = (m_start_position + math::Vector(x, y)) - m_current_position;
+    m_move_counter = 0.0f;
+
+    const mono::HorizontalDirection new_horizontal_direction =
+        m_move_delta.x < 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+
+    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    sprite->SetHorizontalDirection(new_horizontal_direction);
+*/
+}
+
+void GoblinFireController::Moving(const mono::UpdateContext& update_context)
+{
+    /*
+    const float duration = math::Length(m_move_delta) / tweek_values::move_speed;
+
+    math::Vector new_position;
+    new_position.x = tweek_values::ease_function(m_move_counter, duration, m_current_position.x, m_move_delta.x);
+    new_position.y = tweek_values::ease_function(m_move_counter, duration, m_current_position.y, m_move_delta.y);
+
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    math::Position(transform, new_position);
+
+    m_move_counter += float(update_context.delta_ms) / 1000.0f;
+
+    if(m_move_counter >= duration)
+        m_states.TransitionTo(GoblinStates::IDLE);
+    */
 }
 
 void GoblinFireController::ToPrepareAttack()
