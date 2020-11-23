@@ -11,7 +11,7 @@
 
 using namespace game;
 
-namespace tweek_values
+namespace tweak_values
 {
     constexpr float chill_time_min = 0.0f;
     constexpr float chill_time_max = 0.0f;
@@ -26,14 +26,12 @@ BatController::BatController(uint32_t entity_id, mono::SystemContext* system_con
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
 
-    using namespace std::placeholders;
-    const std::unordered_map<BatStates, BatStateMachine::State>& state_table = {
-        { BatStates::IDLE,      { std::bind(&BatController::ToIdle,     this), std::bind(&BatController::Idle,      this, _1) } },
-        { BatStates::MOVING,    { std::bind(&BatController::ToMoving,   this), std::bind(&BatController::Moving,    this, _1) } },
+    const BatStateMachine::StateTable state_table = {
+        BatStateMachine::MakeState(BatStates::IDLE, &BatController::ToIdle, &BatController::Idle, this),
+        BatStateMachine::MakeState(BatStates::MOVING, &BatController::ToMoving, &BatController::Moving, this),
     };
 
-    m_states.SetStateTable(state_table);
-    m_states.TransitionTo(BatStates::IDLE);
+    m_states.SetStateTableAndState(state_table, BatStates::IDLE);
 
     const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
@@ -49,7 +47,7 @@ void BatController::Update(const mono::UpdateContext& update_context)
 
 void BatController::ToIdle()
 {
-    m_chill_time = mono::Random(tweek_values::chill_time_min, tweek_values::chill_time_max);
+    m_chill_time = mono::Random(tweak_values::chill_time_min, tweak_values::chill_time_max);
 }
 
 void BatController::Idle(const mono::UpdateContext& update_context)
@@ -64,7 +62,7 @@ void BatController::ToMoving()
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     m_current_position = math::GetPosition(world_transform);
 
-    constexpr float move_radius = tweek_values::move_radius;
+    constexpr float move_radius = tweak_values::move_radius;
     const float x = mono::Random(-move_radius, move_radius);
     const float y = mono::Random(-move_radius, move_radius);
 
@@ -80,14 +78,15 @@ void BatController::ToMoving()
 
 void BatController::Moving(const mono::UpdateContext& update_context)
 {
-    const float duration = math::Length(m_move_delta) / tweek_values::move_speed;
+    const float duration = math::Length(m_move_delta) / tweak_values::move_speed;
 
     math::Vector new_position;
-    new_position.x = tweek_values::ease_function(m_move_counter, duration, m_current_position.x, m_move_delta.x);
-    new_position.y = tweek_values::ease_function(m_move_counter, duration, m_current_position.y, m_move_delta.y);
+    new_position.x = tweak_values::ease_function(m_move_counter, duration, m_current_position.x, m_move_delta.x);
+    new_position.y = tweak_values::ease_function(m_move_counter, duration, m_current_position.y, m_move_delta.y);
 
     math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(transform, new_position);
+    m_transform_system->SetTransformState(m_entity_id, mono::TransformState::CLIENT);
 
     m_move_counter += float(update_context.delta_ms) / 1000.0f;
 

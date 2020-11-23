@@ -8,6 +8,7 @@
 #include "Enemies/CacoDemonController.h"
 #include "Enemies/InvaderController.h"
 #include "Enemies/InvaderPathController.h"
+#include "Enemies/BlobController.h"
 
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
@@ -30,6 +31,7 @@ namespace
         MakeController<game::CacodemonController>,
         MakeController<game::InvaderController>,
         MakeController<game::InvaderPathController>,
+        MakeController<game::BlobController>,
     };
 }
 
