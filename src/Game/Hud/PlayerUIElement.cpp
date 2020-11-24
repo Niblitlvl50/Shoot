@@ -59,7 +59,7 @@ PlayerUIElement::PlayerUIElement(
     m_weapon_state_text->SetPosition(math::Vector(81.0f, 8.5f));
     m_weapon_state_text->SetScale(math::Vector(6.0f, 6.0f));
 
-    m_score_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::BLUE);
+    m_score_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
     m_score_text->SetPosition(math::Vector(5.0f, 290.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 

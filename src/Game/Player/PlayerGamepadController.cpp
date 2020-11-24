@@ -18,16 +18,6 @@
 
 using namespace game;
 
-namespace
-{
-    template<class T>
-    constexpr const T& clamp(const T& value, const T& min, const T& max)
-    {
-        return std::max(min, std::min(value, max));
-    }
-}
-
-
 PlayerGamepadController::PlayerGamepadController(
     game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller)
     : m_shuttle_logic(shuttle_logic),
@@ -58,7 +48,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else if(right_shoulder)
         ++m_current_weapon_index;
 
-    m_current_weapon_index = clamp(m_current_weapon_index, 0, N_WEAPON_TYPES);
+    m_current_weapon_index = std::clamp(m_current_weapon_index, 0, N_WEAPON_TYPES);
         
     if(left_shoulder || right_shoulder)
         m_shuttle_logic->SelectWeapon(static_cast<WeaponType>(m_current_weapon_index));

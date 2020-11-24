@@ -169,10 +169,8 @@ void PlayerLogic::SelectSecondaryWeapon(WeaponType weapon)
 
 void PlayerLogic::ApplyImpulse(const math::Vector& force)
 {
-    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-
-    body->ApplyImpulse(force, math::GetPosition(transform));
+    body->ApplyLocalImpulse(force, math::ZeroVec);
 }
 
 void PlayerLogic::SetRotation(float rotation)
