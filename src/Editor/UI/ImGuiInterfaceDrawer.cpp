@@ -216,6 +216,8 @@ namespace
         ImGui::TextDisabled("Game Camera");
         ImGui::InputFloat2("Position", &context.camera_position.x);
         ImGui::InputFloat2("Size", &context.camera_size.x);
+        const float ratio = context.camera_size.x / context.camera_size.y;
+        ImGui::TextDisabled("Ratio: %f", ratio);
         ImGui::Spacing();
 
         ImGui::TextDisabled("Background");
