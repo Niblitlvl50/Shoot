@@ -8,6 +8,7 @@
             "program": "${workspaceRoot}/bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
                 "--position", "500", "0",
+                // "--zone", "4"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
