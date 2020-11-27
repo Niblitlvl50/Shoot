@@ -53,7 +53,7 @@
         },
         {
             "x": 0.0,
-            "y": 0.0
+            "y": -0.015625
         }
     ],
     "texture": "res/sprite_atlas.png",
