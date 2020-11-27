@@ -31,11 +31,17 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "yellow_alien.sprite"
+                            "variant_value": "shuttle.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
@@ -51,6 +57,18 @@
                             }
                         },
                         {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2313652925,
                             "name": "flip_vertical",
                             "variant_type": 0,
@@ -61,12 +79,6 @@
                             "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
                         }
                     ]
                 },
@@ -135,12 +147,6 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
@@ -154,6 +160,12 @@
                                 "x": 0.0,
                                 "y": 0.0
                             }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -164,11 +176,16 @@
         }
     ],
     "metadata": {
+        "background_texture": "",
         "camera_position": {
             "x": 0.0,
             "y": 0.0
         },
         "camera_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         }
