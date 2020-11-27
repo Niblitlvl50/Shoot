@@ -75,16 +75,16 @@ PlayerLogic::PlayerLogic(
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
 
-    const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
-    m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
-    m_weapon_entity_id = weapon_entity.id;
+    //const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
+    //m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
+    //m_weapon_entity_id = weapon_entity.id;
 
-    const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", { TRANSFORM_COMPONENT });
-    m_transform_system->ChildTransform(weapon_fire_offset_entity.id, m_weapon_entity_id);
-    m_weapon_fire_offset_entity_id = weapon_fire_offset_entity.id;
+    //const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", { TRANSFORM_COMPONENT });
+    //m_transform_system->ChildTransform(weapon_fire_offset_entity.id, m_weapon_entity_id);
+    //m_weapon_fire_offset_entity_id = weapon_fire_offset_entity.id;
 
-    const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(0.4f, 0.1f));
-    m_transform_system->SetTransform(m_weapon_fire_offset_entity_id, fire_offset);
+    //const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(0.4f, 0.1f));
+    //m_transform_system->SetTransform(m_weapon_fire_offset_entity_id, fire_offset);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
@@ -96,15 +96,16 @@ PlayerLogic::~PlayerLogic()
 {
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
 
-    g_entity_manager->ReleaseEntity(m_weapon_entity_id);
-    g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
+    //g_entity_manager->ReleaseEntity(m_weapon_entity_id);
+    //g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
 }
 
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     m_gamepad_controller.Update(update_context);
 
-    const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
+    //const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
+    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
     const float direction = math::GetZRotation(transform);
 
@@ -177,14 +178,14 @@ void PlayerLogic::SetRotation(float rotation)
 {
     m_aim_direction = rotation;
 
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity_id);
-    const auto direction = (rotation < math::PI()) ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
-    sprite->SetVerticalDirection(direction);
+    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity_id);
+    //const auto direction = (rotation < math::PI()) ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
+    //sprite->SetVerticalDirection(direction);
 
-    math::Matrix weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
-    math::Translate(weapon_transform, math::Vector(0.25f, 1.0f));
+    //math::Matrix weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
+    //math::Translate(weapon_transform, math::Vector(0.25f, 1.0f));
 
-    m_transform_system->SetTransform(m_weapon_entity_id, weapon_transform);
+    //m_transform_system->SetTransform(m_weapon_entity_id, weapon_transform);
 }
 
 void PlayerLogic::SetAnimation(PlayerAnimation animation)
@@ -197,22 +198,22 @@ void PlayerLogic::SetAnimation(PlayerAnimation animation)
     switch(animation)
     {
         case PlayerAnimation::IDLE:
-            sprite->SetAnimation(STANDING);
+            //sprite->SetAnimation(STANDING);
             break;
         case PlayerAnimation::DUCK:
-            sprite->SetAnimation(DUCKING);
+            //sprite->SetAnimation(DUCKING);
             break;
         case PlayerAnimation::WALK_LEFT:
         case PlayerAnimation::WALK_RIGHT:
         {
-            sprite->SetAnimation(WALKING);
-            const auto direction = 
-                (animation == PlayerAnimation::WALK_LEFT) ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
-            sprite->SetHorizontalDirection(direction);
+            //sprite->SetAnimation(WALKING);
+            //const auto direction = 
+            //    (animation == PlayerAnimation::WALK_LEFT) ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+            //sprite->SetHorizontalDirection(direction);
             break;
         }
         case PlayerAnimation::WALK_UP:
-            sprite->SetAnimation(CLIMBING);
+            //sprite->SetAnimation(CLIMBING);
             break;
     };
 
