@@ -25,10 +25,14 @@ PlayerUIElement::PlayerUIElement(
 {
     m_position = offscreen_position;
 
+    m_background = new UISquareElement(
+        math::Quad(0.0f, 0.0f, 70.0f, 18.0f), mono::Color::OFF_WHITE, mono::Color::GRAY, 1.0f);
+    m_background->SetPosition(math::Vector(2.0f, 2.0f));
+
     const std::vector<std::string> mugshot_sprites = {
         "res/sprites/doomguy.sprite"
     };
-    m_mugshot_sprite = std::make_unique<UISpriteElement>(mugshot_sprites);
+    m_mugshot_sprite = new UISpriteElement(mugshot_sprites);
     m_mugshot_sprite->SetPosition(math::Vector(10.0f, 10.0f));
     m_mugshot_sprite->SetScale(math::Vector(8.0f, 8.0f));
     m_mugshot_sprite->GetSprite(0)->SetAnimation(1);
@@ -40,45 +44,28 @@ PlayerUIElement::PlayerUIElement(
         "res/sprites/bolter.sprite",
         "res/sprites/bolter.sprite"
     };
-    m_weapon_sprites = std::make_unique<UISpriteElement>(sprite_files);
-    m_weapon_sprites->SetPosition(math::Vector(22.0f, 10.0f));
-    m_weapon_sprites->SetScale(math::Vector(10.0f, 10.0f));
+    m_weapon_sprites = new UISpriteElement(sprite_files);
+    m_weapon_sprites->SetPosition(math::Vector(26.0f, 10.0f));
+    m_weapon_sprites->SetScale(math::Vector(14.0f, 14.0f));
 
-    const std::vector<std::string> frame_sprites = {
-        "res/sprites/frame.sprite"
-    };
-    m_frame_sprite = std::make_unique<UISpriteElement>(frame_sprites);
-    m_frame_sprite->SetPosition(math::Vector(54.0f, 10.0f));
-    m_frame_sprite->SetScale(math::Vector(55.0f, 10.0f));
+    m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "0", true, mono::Color::MAGENTA);
+    m_ammo_text->SetPosition(math::Vector(42.0f, 8.5f));
+    m_ammo_text->SetScale(math::Vector(2.0f, 2.0f));
 
-    m_ammo_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "0", false, mono::Color::MAGENTA);
-    m_ammo_text->SetPosition(math::Vector(41.0f, 8.5f));
-    m_ammo_text->SetScale(math::Vector(6.0f, 6.0f));
+    m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "", false, mono::Color::MAGENTA);
+    m_weapon_state_text->SetPosition(math::Vector(50.0f, 8.5f));
+    m_weapon_state_text->SetScale(math::Vector(2.0f, 2.0f));
 
-    m_weapon_state_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
-    m_weapon_state_text->SetPosition(math::Vector(81.0f, 8.5f));
-    m_weapon_state_text->SetScale(math::Vector(6.0f, 6.0f));
-
-    m_score_text = std::make_unique<UITextElement>(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
+    m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
     m_score_text->SetPosition(math::Vector(5.0f, 290.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 
-    AddChild(m_mugshot_sprite.get());
-    AddChild(m_weapon_sprites.get());
-    AddChild(m_frame_sprite.get());
-    AddChild(m_ammo_text.get());
-    AddChild(m_weapon_state_text.get());
-    AddChild(m_score_text.get());
-}
-
-PlayerUIElement::~PlayerUIElement()
-{
-    RemoveChild(m_frame_sprite.get());
-    RemoveChild(m_weapon_sprites.get());
-    RemoveChild(m_mugshot_sprite.get());
-    RemoveChild(m_ammo_text.get());
-    RemoveChild(m_weapon_state_text.get());
-    RemoveChild(m_score_text.get());
+    AddChild(m_background);
+    AddChild(m_mugshot_sprite);
+    AddChild(m_weapon_sprites);
+    AddChild(m_ammo_text);
+    AddChild(m_weapon_state_text);
+    AddChild(m_score_text);
 }
 
 void PlayerUIElement::EntityDraw(mono::IRenderer& renderer) const
@@ -98,7 +85,7 @@ void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
     m_score_text->SetText(score_buffer);
 
     char ammo_text[32] = { '\0' };
-    std::snprintf(ammo_text, std::size(ammo_text), "%2u | %3u", m_player_info.magazine_left, m_player_info.ammunition_left);
+    std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
 
     m_ammo_text->SetText(ammo_text);
     m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
