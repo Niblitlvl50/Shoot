@@ -102,7 +102,7 @@
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 10000.0
                         },
                         {
                             "id": 1995093780,
