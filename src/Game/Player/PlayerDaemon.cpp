@@ -198,6 +198,7 @@ void PlayerDaemon::SpawnPlayer1()
 {
     const auto destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
         game::g_player_one.is_active = false;
+        m_camera_system->Unfollow();
     };
 
     const uint32_t spawned_id = SpawnPlayer(
