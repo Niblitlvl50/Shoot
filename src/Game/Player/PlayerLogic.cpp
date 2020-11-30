@@ -17,21 +17,17 @@
 #include "Math/MathFunctions.h"
 
 #include "Effects/TrailEffect.h"
+#include "Effects/BlinkEffect.h"
 #include "Pickups/PickupSystem.h"
 
 #include "Component.h"
 
 #include <cmath>
 
-namespace
+namespace tweak_values
 {
-    enum AnimationId
-    {
-        STANDING,
-        DUCKING,
-        WALKING,
-        CLIMBING
-    };
+    constexpr uint32_t blink_duration_ms = 200;
+    constexpr float blink_distance = 2.0f;
 }
 
 using namespace game;
@@ -73,38 +69,29 @@ PlayerLogic::PlayerLogic(
     m_pickup_system->RegisterPickupTarget(m_entity_id, pickup_callback);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
-
-    //const mono::Entity weapon_entity = g_entity_manager->CreateEntity("res/entities/player_weapon.entity");
-    //m_transform_system->ChildTransform(weapon_entity.id, m_entity_id);
-    //m_weapon_entity_id = weapon_entity.id;
-
-    //const mono::Entity weapon_fire_offset_entity = g_entity_manager->CreateEntity("weapon_fire_offset", { TRANSFORM_COMPONENT });
-    //m_transform_system->ChildTransform(weapon_fire_offset_entity.id, m_weapon_entity_id);
-    //m_weapon_fire_offset_entity_id = weapon_fire_offset_entity.id;
-
-    //const math::Matrix& fire_offset = math::CreateMatrixWithPosition(math::Vector(0.4f, 0.1f));
-    //m_transform_system->SetTransform(m_weapon_fire_offset_entity_id, fire_offset);
+    //m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
+    m_blink_effect = std::make_unique<BlinkEffect>(particle_system);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
     SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
     SetRotation(0.0f);
+
+    const PlayerStateMachine::StateTable state_table = {
+        PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),
+        PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, this),
+    };
+
+    m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
 }
 
 PlayerLogic::~PlayerLogic()
 {
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
-
-    //g_entity_manager->ReleaseEntity(m_weapon_entity_id);
-    //g_entity_manager->ReleaseEntity(m_weapon_fire_offset_entity_id);
 }
 
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
-    m_gamepad_controller.Update(update_context);
-
-    //const math::Matrix& transform = m_transform_system->GetWorld(m_weapon_fire_offset_entity_id);
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
     const float direction = math::GetZRotation(transform);
@@ -128,7 +115,61 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_player_info->magazine_capacity = m_weapon->MagazineSize();
     m_player_info->ammunition_left = m_total_ammo_left;
     m_player_info->weapon_type = m_weapon_type;
-    //m_player_info->weapon_state = m_weapon->GetState();
+    m_player_info->weapon_state = m_weapon->GetState();
+
+    m_state.UpdateState(update_context);
+}
+
+void PlayerLogic::ToDefault()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+}
+
+void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
+{
+    m_gamepad_controller.Update(update_context);
+}
+
+void PlayerLogic::ToBlink()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+
+    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
+    m_blink_effect->EmitBlinkAwayAt(position);
+
+    m_blink_counter = 0;
+}
+
+void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
+{
+    m_blink_counter += update_context.delta_ms;
+
+    if(m_blink_counter >= tweak_values::blink_duration_ms)
+    {
+        mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+        math::Vector new_position = body->GetPosition();
+
+        switch(m_blink_direction)
+        {
+        case BlinkDirection::LEFT:
+            new_position.x -= tweak_values::blink_distance;
+            break;
+        case BlinkDirection::RIGHT:
+            new_position.x += tweak_values::blink_distance;
+            break;
+        case BlinkDirection::UP:
+            new_position.y += tweak_values::blink_distance;
+            break;
+        case BlinkDirection::DOWN:
+            new_position.y -= tweak_values::blink_distance;
+            break;
+        }
+
+        body->SetPosition(new_position);
+        m_blink_effect->EmitBlinkBackAt(new_position);
+        m_state.TransitionTo(PlayerStates::DEFAULT);
+    }
 }
 
 void PlayerLogic::Fire()
@@ -143,12 +184,15 @@ void PlayerLogic::StopFire()
 
 void PlayerLogic::Reload(uint32_t timestamp)
 {
+    /*
     m_total_ammo_left -= m_weapon->MagazineSize() + m_weapon->AmmunitionLeft();
     m_total_ammo_left = std::max(0, m_total_ammo_left);
 
     if(m_total_ammo_left != 0)
         m_weapon->Reload(timestamp);
+    */
 
+    m_weapon->Reload(timestamp);
     m_secondary_weapon->Reload(timestamp);
 }
 
@@ -174,6 +218,25 @@ void PlayerLogic::ApplyImpulse(const math::Vector& force)
     body->ApplyLocalImpulse(force, math::ZeroVec);
 }
 
+void PlayerLogic::ApplyForce(const math::Vector& force)
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    body->ApplyLocalForce(force, math::ZeroVec);
+}
+
+void PlayerLogic::SetVelocity(const math::Vector& velocity)
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    body->SetVelocity(velocity);
+}
+
+void PlayerLogic::ResetForces()
+{
+    //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    //body->ResetForces();
+    //body->SetVelocity(math::ZeroVec);
+}
+
 void PlayerLogic::SetRotation(float rotation)
 {
     m_aim_direction = rotation;
@@ -193,7 +256,7 @@ void PlayerLogic::SetAnimation(PlayerAnimation animation)
     //const mono::VerticalDirection vertical = 
     //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
 
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
 
     switch(animation)
     {
@@ -223,25 +286,7 @@ void PlayerLogic::SetAnimation(PlayerAnimation animation)
 
 void PlayerLogic::Blink(BlinkDirection direction)
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    const math::Vector position = body->GetPosition();
-
-    math::Vector blink_offset;
-    switch(direction)
-    {
-    case BlinkDirection::LEFT:
-        blink_offset.x = -1.0f;
-        break;
-    case BlinkDirection::RIGHT:
-        blink_offset.x = 1.0f;
-        break;
-    case BlinkDirection::UP:
-        blink_offset.y = 1.0f;
-        break;
-    case BlinkDirection::DOWN:
-        blink_offset.y = -1.0f;
-        break;
-    }
-
-    body->SetPosition(position + blink_offset);
+    // Can blink?
+    m_blink_direction = direction;
+    m_state.TransitionTo(PlayerStates::BLINK);
 }
