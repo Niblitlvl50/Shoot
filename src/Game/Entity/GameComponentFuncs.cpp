@@ -159,7 +159,6 @@ namespace
     }
 
     bool CreateHealth(mono::Entity* entity, mono::SystemContext* context)
-    
     {
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         damage_system->CreateRecord(entity->id);
@@ -278,9 +277,9 @@ namespace
     
     bool UpdateShapeTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        std::string trigger_name;
+        std::string enter_trigger_name;
         const bool found_trigger_name =
-            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, enter_trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
 
         std::string exit_trigger_name;
         const bool found_exit_trigger_name =
@@ -295,13 +294,13 @@ namespace
         uint32_t faction;
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t enter_trigger_hash = mono::Hash(enter_trigger_name.c_str());
         const uint32_t exit_trigger_hash = mono::Hash(exit_trigger_name.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity->id, trigger_hash, exit_trigger_hash, faction);
+        trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction);
 
-        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name.c_str());
+        trigger_system->RegisterTriggerHashDebugName(enter_trigger_hash, enter_trigger_name.c_str());
         trigger_system->RegisterTriggerHashDebugName(exit_trigger_hash, exit_trigger_name.c_str());
 
         return true;

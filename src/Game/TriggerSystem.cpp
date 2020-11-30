@@ -22,8 +22,8 @@ namespace
     {
     public:
 
-        TriggerHandler(uint32_t trigger_hash, uint32_t trigger_hash_exit, TriggerSystem* trigger_system)
-            : m_trigger_hash(trigger_hash)
+        TriggerHandler(uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, TriggerSystem* trigger_system)
+            : m_trigger_hash_enter(trigger_hash_enter)
             , m_trigger_hash_exit(trigger_hash_exit)
             , m_trigger_system(trigger_system)
         { }
@@ -31,7 +31,7 @@ namespace
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_hash);
+            m_trigger_system->EmitTrigger(m_trigger_hash_enter);
             return mono::CollisionResolve::IGNORE;
         }
 
@@ -40,7 +40,7 @@ namespace
             m_trigger_system->EmitTrigger(m_trigger_hash_exit);
         }
 
-        const uint32_t m_trigger_hash;
+        const uint32_t m_trigger_hash_enter;
         const uint32_t m_trigger_hash_exit;
         TriggerSystem* m_trigger_system;
     };
