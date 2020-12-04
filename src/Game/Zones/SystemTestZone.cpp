@@ -5,6 +5,8 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/CMSpace.h"
 
 #include "Hud/Overlay.h"
 #include "Hud/PlayerUIElement.h"
@@ -41,6 +43,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
+    physics_system->GetSpace()->SetDamping(0.01f);
 
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
