@@ -80,13 +80,8 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_current_fire_rate = 1.0f;
 
     if(modified_delta < weapon_delta)
-    {
-        m_state = WeaponState::IDLE;
         return m_state;
-    }
 
-    m_last_fire_timestamp = timestamp;
-    
     if(m_ammunition == 0)
     {
         m_current_fire_rate = 1.0f;
@@ -96,6 +91,8 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_state = WeaponState::OUT_OF_AMMO;
         return m_state;
     }
+
+    m_last_fire_timestamp = timestamp;
 
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
@@ -117,6 +114,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
         body->SetPosition(position);
         body->SetAngle(bullet_direction);
+        body->SetNoDamping();
         body->AddCollisionHandler(bullet_logic);
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
