@@ -54,7 +54,13 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_shuttle_logic->SelectWeapon(static_cast<WeaponType>(m_current_weapon_index));
     
     const math::Vector force(m_state.left_x, m_state.left_y);
-    m_shuttle_logic->ApplyImpulse(force * 2);
+    const float length_squared = math::LengthSquared(force);
+    if(length_squared <= FLT_EPSILON)
+        m_shuttle_logic->ResetForces();
+    else
+        //m_shuttle_logic->ApplyForce(force * 40.0f);
+        m_shuttle_logic->ApplyImpulse(force * 10.0f);
+        //m_shuttle_logic->SetVelocity(force * 4.0f);
 
     //if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
     //{
