@@ -71,6 +71,7 @@ PlayerLogic::PlayerLogic(
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     //m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
     m_blink_effect = std::make_unique<BlinkEffect>(particle_system);
+    m_blink_sound = mono::AudioFactory::CreateSound("res/sound/punch.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
@@ -93,7 +94,7 @@ PlayerLogic::~PlayerLogic()
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
+    const math::Vector& position = math::GetPosition(transform);
     const float direction = math::GetZRotation(transform);
 
     if(m_fire)
@@ -135,8 +136,11 @@ void PlayerLogic::ToBlink()
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform); // + math::Vector(0.0f, -0.2f);
+    const math::Vector& position = math::GetPosition(transform);
     m_blink_effect->EmitBlinkAwayAt(position);
+
+    m_blink_sound->Position(position.x, position.y);
+    m_blink_sound->Play();
 
     m_blink_counter = 0;
 }
@@ -286,7 +290,6 @@ void PlayerLogic::SetAnimation(PlayerAnimation animation)
 
 void PlayerLogic::Blink(BlinkDirection direction)
 {
-    // Can blink?
     m_blink_direction = direction;
     m_state.TransitionTo(PlayerStates::BLINK);
 }
