@@ -127,7 +127,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 99;
             //weapon_config.rounds_per_second = 7.0f;
-            weapon_config.rounds_per_second = 30.0f;
+            weapon_config.rounds_per_second = 10.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
             weapon_config.bullet_force = 20.0f;
@@ -159,7 +159,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
         case game::WeaponType::CACOPLASMA:
         {
-            bullet_config.life_span = 1.0f;
+            bullet_config.life_span = 2.0f;
             bullet_config.fuzzy_life_span = 0.3f;
             bullet_config.collision_callback
                 = std::bind(CacoPlasmaCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
@@ -168,8 +168,10 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
             weapon_config.reload_time = 1.0f;
             weapon_config.magazine_size = 40;
-            weapon_config.rounds_per_second = 0.7f;
-            weapon_config.bullet_force = 10.0f;
+            //weapon_config.rounds_per_second = 0.7f;
+            weapon_config.rounds_per_second = 50.0f;
+            weapon_config.bullet_force = 5.0f;
+            weapon_config.bullet_spread_degrees = 10.0f;
 
             break;
         }
@@ -204,7 +206,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             weapon_config.magazine_size = 30;
             weapon_config.reload_time = 1.0f;
             //weapon_config.rounds_per_second = 1.0f;
-            weapon_config.rounds_per_second = 4.0f;
+            weapon_config.rounds_per_second = 2.0f;
             weapon_config.bullet_force = 25.0f;
             weapon_config.bullet_spread_degrees = 4.0f;
             weapon_config.fire_sound = "res/sound/shotgun_fire.wav";

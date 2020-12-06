@@ -530,8 +530,8 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
         const math::Vector new_point = polygon.front() - polygon.back();
         const math::Vector new_point_tangent =
             clockwise ?
-                math::Normalize(math::Vector(-new_point.y, new_point.x)) : 
-                math::Normalize(math::Vector(new_point.y, -new_point.x));
+                math::Normalized(math::Vector(-new_point.y, new_point.x)) : 
+                math::Normalized(math::Vector(new_point.y, -new_point.x));
 
         polygon.push_back(polygon.back() + (new_point / 2.0f) + (new_point_tangent * 0.25f));
     }

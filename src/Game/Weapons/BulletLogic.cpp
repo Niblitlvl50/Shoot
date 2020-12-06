@@ -71,7 +71,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
 
             mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
             const math::Vector bullet_position = bullet_body->GetPosition();
-            const math::Vector bullet_velocity_normalized = math::Normalize(bullet_body->GetVelocity());
+            const math::Vector bullet_velocity_normalized = math::Normalized(bullet_body->GetVelocity());
 
             const mono::QueryFilter query_filter = [this, &bullet_position, &bullet_velocity_normalized](uint32_t entity_id, const math::Vector& point) {
 
@@ -84,7 +84,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
                 if(dot_product < 0.0f) // if its less than zero its behind the bullet
                     return false;
 
-                const math::Vector normalized_local_point = math::Normalize(local_point);
+                const math::Vector normalized_local_point = math::Normalized(local_point);
                 const float radians1 = math::AngleFromVector(normalized_local_point);
                 const float radians2 = math::AngleFromVector(bullet_velocity_normalized);
                 const float radians = std::fabs(radians1 - radians2);
@@ -96,7 +96,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
             if(found_body)
             {
                 const math::Vector found_body_position = found_body->GetPosition();
-                const math::Vector unit_direction = math::Normalize(found_body_position - bullet_position);
+                const math::Vector unit_direction = math::Normalized(found_body_position - bullet_position);
 
                 const math::Vector bullet_velocity = bullet_body->GetVelocity();
                 const float bullet_velocity_length = math::Length(bullet_velocity);
