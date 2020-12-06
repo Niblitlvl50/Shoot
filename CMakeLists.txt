@@ -1,7 +1,7 @@
 
 ########### CMake Setup ###########
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16.0)
 
 project(shoot)
 
@@ -11,8 +11,8 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 17)
 
-# set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Release)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --debug -g -Wall -Wextra -Wno-unused-parameter")
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s")
@@ -75,6 +75,10 @@ add_executable(game_exe MACOSX_BUNDLE ${osx_bundle_icons} ${game_exe_source_file
 add_dependencies(game_exe game mono shared)
 target_link_libraries(game_exe game shared mono)
 
+# set_target_properties(game_exe PROPERTIES
+#     XCODE_GENERATE_SCHEME TRUE
+#     XCODE_SCHEME_WORKING_DIRECTORY "."
+# )
 
 # Game test exe
 file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")

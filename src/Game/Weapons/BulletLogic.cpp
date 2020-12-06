@@ -57,7 +57,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
 {
     if(m_bullet_behaviour == BulletCollisionBehaviour::JUMPER)
     {
-        const bool collide_with_static = colliding_body->GetType() == mono::BodyType::STATIC;
+        const bool collide_with_static = (colliding_body->GetType() == mono::BodyType::STATIC);
         if(collide_with_static)
         {
             m_jumps_left = 0;
@@ -92,7 +92,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
                 return (radians < math::ToRadians(45.0f));
             };
 
-            const mono::IBody* found_body = space->QueryNearest(collision_point, 5.0f, shared::CollisionCategory::ENEMY, query_filter);
+            const mono::IBody* found_body = space->QueryNearest(collision_point, 2.0f, shared::CollisionCategory::ENEMY, query_filter);
             if(found_body)
             {
                 const math::Vector found_body_position = found_body->GetPosition();
@@ -102,6 +102,10 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
                 const float bullet_velocity_length = math::Length(bullet_velocity);
                 bullet_body->SetVelocity(unit_direction * bullet_velocity_length);
                 m_jumps_left--;
+            }
+            else
+            {
+                m_jumps_left = 0;
             }
         }
     }
