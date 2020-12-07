@@ -18,11 +18,14 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include <cmath>
+#include <cstdlib>
 
 namespace tweak_values
 {
-    constexpr float radians_per_second = math::ToRadians(30.0f);
+    constexpr float radians_per_second = math::ToRadians(90.0f);
     constexpr float face_angle = math::ToRadians(5.0f);
+    constexpr float retreat_distance = 3.5f;
+    constexpr float advance_distance = 5.5f;
 }
 
 using namespace game;
@@ -78,7 +81,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
     const float new_angle = math::AngleBetweenPoints(g_player_one.position, position);
     const float current_rotation = math::GetZRotation(*m_transform);
 
-    const float angle_diff = current_rotation - new_angle - math::PI_2();
+    const float angle_diff = current_rotation - new_angle - math::PI_2() + math::PI();
     const float angle_diff_abs = std::fabsf(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
 
     if(angle_diff_abs <= tweak_values::face_angle)
@@ -91,6 +94,14 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         const float add = tweak_values::radians_per_second * float(update_context.delta_ms) / 1000.0f * direction;
         m_entity_body->SetAngle(current_rotation + add);
     }
+
+    const math::Vector position_diff = position - g_player_one.position;
+    const math::Vector position_diff_normalized = math::Normalized(position_diff);
+    const float distance_to_player = math::Length(position_diff);
+    if(distance_to_player < tweak_values::retreat_distance)
+        m_entity_body->ApplyLocalImpulse(position_diff_normalized * 200.0f, math::ZeroVec);
+    else if(distance_to_player > tweak_values::advance_distance)
+        m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 200.0f, math::ZeroVec);
 }
 
 void CacodemonController::OnAttack()

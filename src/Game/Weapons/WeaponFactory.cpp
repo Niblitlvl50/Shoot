@@ -167,7 +167,7 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
             bullet_config.sound_file = nullptr;
 
             weapon_config.reload_time = 1.0f;
-            weapon_config.magazine_size = 40;
+            weapon_config.magazine_size = 30;
             //weapon_config.rounds_per_second = 0.7f;
             weapon_config.rounds_per_second = 50.0f;
             weapon_config.bullet_force = 5.0f;
