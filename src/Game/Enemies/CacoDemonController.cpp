@@ -18,7 +18,6 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include <cmath>
-#include <cstdlib>
 
 namespace tweak_values
 {
@@ -82,7 +81,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
     const float current_rotation = math::GetZRotation(*m_transform);
 
     const float angle_diff = current_rotation - new_angle - math::PI_2() + math::PI();
-    const float angle_diff_abs = std::fabsf(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
+    const float angle_diff_abs = std::fabs(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
 
     if(angle_diff_abs <= tweak_values::face_angle)
     {
