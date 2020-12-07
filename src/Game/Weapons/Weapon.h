@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "IWeaponSystem.h"
+#include "IBulletWeapon.h"
 #include "WeaponConfiguration.h"
 
 #include "MonoPtrFwd.h"
@@ -11,7 +11,7 @@ namespace game
 {
     class EntityLogicSystem;
 
-    class Weapon : public IWeaponSystem
+    class Weapon : public IBulletWeapon
     {
     public:
 

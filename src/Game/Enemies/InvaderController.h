@@ -38,7 +38,7 @@ namespace game
 
         const uint32_t m_entity_id;
 
-        std::unique_ptr<class IWeaponSystem> m_weapon;
+        std::unique_ptr<class IBulletWeapon> m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         uint32_t m_idle_timer;

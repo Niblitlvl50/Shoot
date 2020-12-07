@@ -95,7 +95,7 @@ WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemC
     , m_system_context(system_context)
 { }
 
-std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id)
+std::unique_ptr<IBulletWeapon> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id)
 {
     using namespace std::placeholders;
 
@@ -218,4 +218,9 @@ std::unique_ptr<IWeaponSystem> WeaponFactory::CreateWeapon(WeaponType weapon, We
     }
 
     return std::make_unique<game::Weapon>(weapon_config, m_entity_manager, m_system_context);
+}
+
+std::unique_ptr<IThrowableWeapon> WeaponFactory::CreateThrowable(ThrowableType weapon_type, WeaponFaction faction, uint32_t owner_id)
+{
+    return nullptr;
 }

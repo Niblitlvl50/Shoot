@@ -26,7 +26,7 @@ namespace game
         const mono::IPathPtr m_path;
 
         std::unique_ptr<class PathBehaviour> m_path_behaviour;
-        std::unique_ptr<class IWeaponSystem> m_weapon;
+        std::unique_ptr<class IBulletWeapon> m_weapon;
 
         math::Matrix* m_transform;
     };

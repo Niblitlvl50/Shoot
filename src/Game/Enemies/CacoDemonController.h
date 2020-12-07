@@ -8,7 +8,7 @@
 #include "StateMachine.h"
 
 #include "Entity/IEntityLogic.h"
-#include "Weapons/IWeaponSystem.h"
+#include "Weapons/IBulletWeapon.h"
 
 #include <memory>
 
@@ -38,7 +38,7 @@ namespace game
         uint32_t m_idle_animation;
         uint32_t m_attack_animation;
 
-        std::unique_ptr<IWeaponSystem> m_weapon;
+        std::unique_ptr<IBulletWeapon> m_weapon;
 
         enum class CacoStates
         {

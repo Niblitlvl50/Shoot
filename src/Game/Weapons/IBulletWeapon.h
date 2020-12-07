@@ -7,11 +7,11 @@
 
 namespace game
 {
-    class IWeaponSystem
+    class IBulletWeapon
     {
     public:
 
-        virtual ~IWeaponSystem()
+        virtual ~IBulletWeapon()
         { }
 
         virtual WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) = 0;
