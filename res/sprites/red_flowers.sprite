@@ -1,0 +1,33 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "category": "vegetation",
+    "frames": [
+        {
+            "h": 26,
+            "name": "red_flowers",
+            "w": 27,
+            "x": 1831,
+            "y": 299
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

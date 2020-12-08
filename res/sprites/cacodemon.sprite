@@ -61,35 +61,35 @@
             "h": 67,
             "name": "cacodemon_dead_1",
             "w": 63,
-            "x": 1313,
-            "y": 228
-        },
-        {
-            "h": 67,
-            "name": "cacodemon_dead_2",
-            "w": 63,
-            "x": 1380,
-            "y": 228
-        },
-        {
-            "h": 67,
-            "name": "cacodemon_dead_3",
-            "w": 63,
             "x": 891,
             "y": 188
         },
         {
             "h": 67,
-            "name": "cacodemon_dead_4",
+            "name": "cacodemon_dead_2",
             "w": 63,
             "x": 958,
             "y": 220
         },
         {
             "h": 67,
-            "name": "cacodemon_dead_5",
+            "name": "cacodemon_dead_3",
             "w": 63,
             "x": 1246,
+            "y": 228
+        },
+        {
+            "h": 67,
+            "name": "cacodemon_dead_4",
+            "w": 63,
+            "x": 1313,
+            "y": 228
+        },
+        {
+            "h": 67,
+            "name": "cacodemon_dead_5",
+            "w": 63,
+            "x": 1380,
             "y": 228
         },
         {

@@ -1,0 +1,33 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "category": "props",
+    "frames": [
+        {
+            "h": 32,
+            "name": "medium_stone",
+            "w": 31,
+            "x": 1501,
+            "y": 298
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

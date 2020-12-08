@@ -17,14 +17,14 @@
             "h": 48,
             "name": "caco_explosion_default_1",
             "w": 45,
-            "x": 1999,
-            "y": 227
+            "x": 1025,
+            "y": 241
         },
         {
             "h": 42,
             "name": "caco_explosion_default_2",
             "w": 50,
-            "x": 354,
+            "x": 430,
             "y": 268
         },
         {

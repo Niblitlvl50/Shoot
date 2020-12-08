@@ -1,0 +1,33 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "category": "props",
+    "frames": [
+        {
+            "h": 63,
+            "name": "stone_statue",
+            "w": 32,
+            "x": 1741,
+            "y": 134
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
