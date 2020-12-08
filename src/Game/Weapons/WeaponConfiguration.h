@@ -63,4 +63,20 @@ namespace game
 
         BulletConfiguration bullet_config;
     };
+
+    struct ThrowableWeaponConfig
+    {
+        uint32_t owner_id = 0;
+        int magazine_size = 10;
+        int projectiles_per_fire = 1;
+        float cooldown_seconds = 2.0f;
+
+        // Throwable data
+        const char* entity_file = nullptr;
+        float life_span = 1.0f;
+        float fuzzy_life_span = 0.0f;
+        shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
+        uint32_t collision_mask = 0;
+        BulletImpactCallback collision_callback;
+    };
 }

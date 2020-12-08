@@ -5,7 +5,7 @@
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
-#include "Weapons/IBulletWeapon.h"
+#include "Weapons/IWeaponFactory.h"
 
 #include <memory>
 
@@ -43,7 +43,7 @@ namespace game
 
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
-        std::unique_ptr<IBulletWeapon> m_weapon;
+        IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
 
         using GoblinStateMachine = StateMachine<GoblinStates, const mono::UpdateContext&>;

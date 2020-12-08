@@ -7,14 +7,12 @@
 
 namespace game
 {
-    class IBulletWeapon;
-    class IThrowableWeapon;
+    using IWeaponPtr = std::unique_ptr<class IWeapon>;
 
     class IWeaponFactory
     {
     public:
         virtual ~IWeaponFactory() = default;
-        virtual std::unique_ptr<IBulletWeapon> CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id) = 0;
-        virtual std::unique_ptr<IThrowableWeapon> CreateThrowable(ThrowableType weapon_type, WeaponFaction faction, uint32_t owner_id) = 0;
+        virtual IWeaponPtr CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id) = 0;
     };
 }

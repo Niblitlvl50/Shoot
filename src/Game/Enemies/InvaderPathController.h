@@ -4,6 +4,7 @@
 #include "MonoPtrFwd.h"
 #include "Math/MathFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Weapons/IWeaponFactory.h"
 
 #include <memory>
 
@@ -26,7 +27,7 @@ namespace game
         const mono::IPathPtr m_path;
 
         std::unique_ptr<class PathBehaviour> m_path_behaviour;
-        std::unique_ptr<class IBulletWeapon> m_weapon;
+        IWeaponPtr m_weapon;
 
         math::Matrix* m_transform;
     };

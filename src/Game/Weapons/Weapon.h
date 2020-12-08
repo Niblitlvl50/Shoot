@@ -11,7 +11,7 @@ namespace game
 {
     class EntityLogicSystem;
 
-    class Weapon : public IBulletWeapon
+    class Weapon : public IWeapon
     {
     public:
 

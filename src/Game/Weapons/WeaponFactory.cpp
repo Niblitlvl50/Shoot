@@ -1,18 +1,18 @@
 
 #include "WeaponFactory.h"
 #include "Weapons/Weapon.h"
-#include "Math/MathFwd.h"
-#include "Math/MathFunctions.h"
-
-#include "Physics/IBody.h"
+#include "Weapons/ThrowableWeapon.h"
+#include "DamageSystem.h"
 
 #include "SystemContext.h"
-#include "DamageSystem.h"
+#include "EntitySystem/IEntityManager.h"
+#include "Math/MathFwd.h"
+#include "Math/MathFunctions.h"
+#include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem/IEntityManager.h"
 
 #include <functional>
 #include <limits>
@@ -95,7 +95,16 @@ WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemC
     , m_system_context(system_context)
 { }
 
-std::unique_ptr<IBulletWeapon> WeaponFactory::CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id)
+IWeaponPtr WeaponFactory::CreateWeapon(WeaponType weapon_type, WeaponFaction faction, uint32_t owner_id)
+{
+    const bool is_bullet_weapon = IsBulletWeapon(weapon_type);
+    if(is_bullet_weapon)
+        return CreateBulletWeapon(weapon_type, faction, owner_id);
+    else
+        return CreateThrowableWeapon(weapon_type, faction, owner_id);
+}
+
+IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFaction faction, uint32_t owner_id)
 {
     using namespace std::placeholders;
 
@@ -112,7 +121,7 @@ std::unique_ptr<IBulletWeapon> WeaponFactory::CreateWeapon(WeaponType weapon, We
     bullet_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
     bullet_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
 
-    switch(weapon)
+    switch(weapon_type)
     {
         case game::WeaponType::STANDARD:
         {
@@ -215,12 +224,30 @@ std::unique_ptr<IBulletWeapon> WeaponFactory::CreateWeapon(WeaponType weapon, We
 
             break;
         }
+
+        default:
+            break;
     }
 
     return std::make_unique<game::Weapon>(weapon_config, m_entity_manager, m_system_context);
 }
 
-std::unique_ptr<IThrowableWeapon> WeaponFactory::CreateThrowable(ThrowableType weapon_type, WeaponFaction faction, uint32_t owner_id)
+IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponType weapon_type, WeaponFaction faction, uint32_t owner_id)
 {
-    return nullptr;
+    const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
+
+    ThrowableWeaponConfig weapon_config;
+    weapon_config.owner_id = owner_id;
+    weapon_config.magazine_size = 10;
+    weapon_config.projectiles_per_fire = 1;
+    weapon_config.cooldown_seconds = 2.0f;
+
+    weapon_config.entity_file = "throwable_turret.entity";
+    weapon_config.life_span = 1.0f;
+    weapon_config.fuzzy_life_span = 0.0f;
+    weapon_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
+    weapon_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
+    weapon_config.collision_callback = nullptr;
+
+    return std::make_unique<game::ThrowableWeapon>(weapon_config, m_entity_manager, m_system_context);
 }

@@ -6,6 +6,7 @@
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
+#include "Weapons/IWeaponFactory.h"
 
 #include <memory>
 
@@ -38,7 +39,7 @@ namespace game
 
         const uint32_t m_entity_id;
 
-        std::unique_ptr<class IBulletWeapon> m_weapon;
+        IWeaponPtr m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         uint32_t m_idle_timer;

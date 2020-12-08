@@ -9,20 +9,18 @@ namespace game
         FLAK_CANON,
         ROCKET_LAUNCHER,
         CACOPLASMA,
-        GENERIC
+        GENERIC,
+
+        TURRET,
+        GRENADE,
     };
 
     constexpr int N_WEAPON_TYPES = static_cast<int>(WeaponType::GENERIC);
 
-
-    enum class ThrowableType : int
+    inline bool IsBulletWeapon(WeaponType weapon_type)
     {
-        TURRET,
-        GRENADE
-    };
-
-    constexpr int N_THROWABLE_WEAPON_TYPES = static_cast<int>(ThrowableType::GRENADE);
-
+        return static_cast<int>(weapon_type) <= N_WEAPON_TYPES;
+    }
 
     enum class WeaponFaction
     {

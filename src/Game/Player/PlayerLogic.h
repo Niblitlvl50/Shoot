@@ -8,9 +8,8 @@
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerGamepadController.h"
-#include "Weapons/IBulletWeapon.h"
 #include "Weapons/WeaponTypes.h"
-
+#include "Weapons/IWeaponFactory.h"
 
 #include <memory>
 
@@ -91,8 +90,8 @@ namespace game
         bool m_secondary_fire;
         int m_total_ammo_left;
         WeaponType m_weapon_type;
-        std::unique_ptr<IBulletWeapon> m_weapon;
-        std::unique_ptr<IBulletWeapon> m_secondary_weapon;
+        IWeaponPtr m_weapon;
+        IWeaponPtr m_secondary_weapon;
         float m_aim_direction;
 
         uint32_t m_blink_counter;
