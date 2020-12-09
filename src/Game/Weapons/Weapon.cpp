@@ -140,6 +140,12 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     return m_state;
 }
 
+WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
+{
+    assert(false); // Use the other fire for now...
+    return m_state;
+}
+
 void Weapon::Reload(uint32_t timestamp)
 {
     m_last_reload_timestamp = timestamp;

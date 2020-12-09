@@ -242,7 +242,8 @@ IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponType weapon_type, WeaponFa
     weapon_config.projectiles_per_fire = 1;
     weapon_config.cooldown_seconds = 2.0f;
 
-    weapon_config.entity_file = "throwable_turret.entity";
+    weapon_config.thrown_entity = "tiny_ball.entity";
+    weapon_config.spawned_entity = "throwable_turret.entity";
     weapon_config.life_span = 1.0f;
     weapon_config.fuzzy_life_span = 0.0f;
     weapon_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
