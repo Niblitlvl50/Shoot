@@ -1,6 +1,6 @@
 
 #include "WeaponFactory.h"
-#include "Weapons/Weapon.h"
+#include "Weapons/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon.h"
 #include "DamageSystem.h"
 
