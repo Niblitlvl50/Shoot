@@ -4,7 +4,7 @@
 #include "AIKnowledge.h"
 #include "Factories.h"
 #include "Behaviour/PathBehaviour.h"
-#include "Weapons/IBulletWeapon.h"
+#include "Weapons/IWeapon.h"
 
 #include "Paths/IPath.h"
 #include "Math/MathFunctions.h"

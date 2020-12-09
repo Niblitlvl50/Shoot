@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "IBulletWeapon.h"
+#include "IWeapon.h"
 #include "WeaponConfiguration.h"
 
 #include "MonoPtrFwd.h"

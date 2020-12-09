@@ -10,7 +10,7 @@
 #include "Particle/ParticleSystem.h"
 
 #include "Factories.h"
-#include "Weapons/IBulletWeapon.h"
+#include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 
 #include "EntitySystem/IEntityManager.h"

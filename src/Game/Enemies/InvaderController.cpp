@@ -4,7 +4,7 @@
 #include "AIKnowledge.h"
 #include "Behaviour/TrackingBehaviour.h"
 #include "Factories.h"
-#include "Weapons/IBulletWeapon.h"
+#include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 
 #include "Rendering/Color.h"

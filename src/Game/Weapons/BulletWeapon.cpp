@@ -1,5 +1,5 @@
 
-#include "Weapon.h"
+#include "BulletWeapon.h"
 #include "BulletLogic.h"
 
 #include "Math/Vector.h"

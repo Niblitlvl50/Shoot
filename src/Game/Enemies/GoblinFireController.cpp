@@ -10,7 +10,7 @@
 #include "AIKnowledge.h"
 #include "Factories.h"
 #include "SystemContext.h"
-#include "Weapons/IBulletWeapon.h"
+#include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 
 using namespace game;
