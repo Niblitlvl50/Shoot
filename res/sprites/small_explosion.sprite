@@ -21,28 +21,28 @@
             "h": 8,
             "name": "small_explosion_default_1",
             "w": 8,
-            "x": 256,
-            "y": 324
+            "x": 848,
+            "y": 339
         },
         {
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 824,
-            "y": 325
+            "x": 836,
+            "y": 339
         },
         {
             "h": 10,
             "name": "small_explosion_default_3",
             "w": 11,
-            "x": 730,
+            "x": 715,
             "y": 339
         },
         {
             "h": 10,
             "name": "small_explosion_default_4",
             "w": 11,
-            "x": 745,
+            "x": 730,
             "y": 339
         },
         {
