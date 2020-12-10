@@ -5,19 +5,29 @@
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Math/MathFunctions.h"
+#include "Particle/ParticleSystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 
 #include "Component.h"
 
+#include <cassert>
+
 using namespace game;
 
 ThrowableWeapon::ThrowableWeapon(const ThrowableWeaponConfig& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
     : m_config(config)
     , m_entity_manager(entity_manager)
+    , m_last_fire_timestamp(0)
+    , m_last_reload_timestamp(0)
+    , m_ammunition(config.magazine_size)
+    , m_state(WeaponState::IDLE)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 }
 
@@ -41,18 +51,28 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vect
 
     m_last_fire_timestamp = timestamp;
 
+    math::Vector diff = target - position;
+    const float target_length = math::Length(diff);
+    if(target_length > m_config.max_distance)
+        diff = math::Normalized(diff) * m_config.max_distance;
+
     for(int n_bullet = 0; n_bullet < m_config.projectiles_per_fire; ++n_bullet)
     {
         //const float bullet_direction = direction + math::ToRadians(mono::Random(-m_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
         mono::Entity thrown_entity = m_entity_manager->CreateEntity(m_config.thrown_entity);
 
-        ThrowableLogic* throwable_logic =
-            new ThrowableLogic(thrown_entity.id, m_config.spawned_entity, target, m_transform_system, m_entity_manager);
+        ThrowableLogic* throwable_logic = new ThrowableLogic(
+            thrown_entity.id,
+            m_config.spawned_entity,
+            position,
+            position + diff,
+            m_transform_system,
+            m_sprite_system,
+            m_particle_system,
+            m_entity_manager);
+
         m_entity_manager->AddComponent(thrown_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(thrown_entity.id, throwable_logic);
-
-        math::Matrix& transform = m_transform_system->GetTransform(thrown_entity.id);
-        math::Position(transform, position);
     }
 
     m_ammunition--;

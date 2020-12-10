@@ -71,6 +71,7 @@ namespace game
         int projectiles_per_fire = 1;
         float cooldown_seconds = 2.0f;
         float reload_time = 1.0f;
+        float max_distance = 5.0f;
 
         // Throwable data
         const char* thrown_entity = nullptr;

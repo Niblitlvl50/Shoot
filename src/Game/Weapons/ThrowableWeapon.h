@@ -26,11 +26,13 @@ namespace game
         const ThrowableWeaponConfig m_config;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
+        mono::SpriteSystem* m_sprite_system;
+        mono::ParticleSystem* m_particle_system;
         class EntityLogicSystem* m_logic_system;
 
         uint32_t m_last_fire_timestamp;
         uint32_t m_last_reload_timestamp;
-        WeaponState m_state;
         int m_ammunition;
+        WeaponState m_state;
     };
 }
