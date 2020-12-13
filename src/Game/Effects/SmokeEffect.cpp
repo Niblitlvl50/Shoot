@@ -14,20 +14,22 @@ using namespace game;
 
 namespace
 {
-    void StartBlinkGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
+    void SmokeGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
     {
         const bool go_left = (index % 2) == 0;
         const math::Vector velocity = go_left ? math::Vector(-1.0f, 0.0f) : math::Vector(1.0f, 0.0f);
 
-        const float y_variation = mono::Random(-0.25f, 0.25f);
-        const float velocity_variation = mono::Random(1.0f, 5.0f);
+        const float x_variation = mono::Random(-0.2f, 0.2f);
+        const float y_variation = mono::Random(-0.2f, 0.2f);
+        const float velocity_variation = mono::Random(1.0f, 3.0f);
         const float size = mono::Random(48.0f, 64.0f);
         const float end_size = mono::Random(64.0f, 80.0f);
-        const int life = mono::RandomInt(200, 500);
+        const int life = mono::RandomInt(200, 400);
 
-        pool.position[index] = position + math::Vector(0.0f, y_variation);
+        pool.position[index] = position + math::Vector(x_variation, y_variation);
         pool.rotation[index] = 0.0f;
         pool.velocity[index] = velocity * velocity_variation;
+        //pool.angular_velocity[index] = mono::Random(-1.1f, 1.1f);
         pool.start_color[index] = mono::Color::OFF_WHITE;
         pool.end_color[index] = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f);
         pool.start_size[index] = size;
@@ -39,7 +41,7 @@ namespace
 
     void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
     {
-        const float float_delta = float(delta_ms) / 1000.0f;
+        const float delta_seconds = float(delta_ms) / 1000.0f;
 
         for(size_t index = 0; index < count; ++index)
         {
@@ -48,15 +50,18 @@ namespace
             const float duration = float(pool.start_life[index]);
 
             pool.velocity[index] *= 0.90;
-            pool.position[index] += pool.velocity[index] * float_delta;
+            pool.position[index] += pool.velocity[index] * delta_seconds;
+            //pool.rotation[index] += pool.angular_velocity[index] * delta_seconds;
             pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
 
             const float alpha1 = pool.start_color[index].alpha;
             const float alpha2 = pool.end_color[index].alpha;
+            const float delta_alpha = alpha2 - alpha1;
+
             pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-            pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
+            pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, delta_alpha);
         }
-    }    
+    }
 }
 
 SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system)
@@ -80,5 +85,5 @@ SmokeEffect::~SmokeEffect()
 void SmokeEffect::EmitSmokeAt(const math::Vector& position)
 {
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 0.5f, 20.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, StartBlinkGenerator);
+        m_particle_entity, position, 0.5f, 20.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, SmokeGenerator);
 }
