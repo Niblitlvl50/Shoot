@@ -24,6 +24,7 @@ namespace game
 
     struct DamageResult
     {
+        bool did_damage;
         int health_left;
     };
 

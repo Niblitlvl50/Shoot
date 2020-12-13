@@ -77,7 +77,7 @@ DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
 
 DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage)
 {
-    DamageResult result = { 0 };
+    DamageResult result = { false, 0 };
 
     if(!m_active[id])
         return result;
@@ -87,6 +87,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     damage_record.last_damaged_timestamp = m_timestamp;
 
     result.health_left = damage_record.health;
+    result.did_damage = true;
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
 
