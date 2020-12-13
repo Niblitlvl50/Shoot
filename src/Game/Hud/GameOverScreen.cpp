@@ -27,10 +27,24 @@ GameOverScreen::GameOverScreen(
 {
     m_position = offscreen_position;
 
-    UITextElement* m_gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", true, mono::Color::BLACK);
-    m_gameover_text->SetScale(math::Vector(3.0f, 3.0f));
+    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", true, mono::Color::BLACK);
+    gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
+    gameover_text->SetScale(math::Vector(3.0f, 3.0f));
 
-    AddChild(m_gameover_text);
+    UITextElement* continue_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Press X to continue", true, mono::Color::BLACK);
+    continue_text->SetPosition(math::Vector(0.0f, 0.0f));
+    continue_text->SetScale(math::Vector(2.0f, 2.0f));
+
+    const std::vector<std::string>& sprite_files = {
+        "res/sprites/ps_cross.sprite"
+    };
+    UISpriteElement* a_button_sprite = new UISpriteElement(sprite_files);
+    a_button_sprite->SetScale(math::Vector(10.0f, 10.0f));
+
+
+    AddChild(gameover_text);
+    AddChild(continue_text);
+    AddChild(a_button_sprite);
 }
 
 void GameOverScreen::EntityDraw(mono::IRenderer& renderer) const

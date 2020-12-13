@@ -27,7 +27,7 @@ PlayerGamepadController::PlayerGamepadController(
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {
-    const bool fire = (m_state.a || m_state.right_trigger > 0.25f);
+    const bool fire = (m_state.right_trigger > 0.25f);
     if(fire)
         m_shuttle_logic->Fire();
     else
