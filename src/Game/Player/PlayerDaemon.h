@@ -51,6 +51,7 @@ namespace game
         mono::EventResult PlayerDisconnected(const PlayerDisconnectedEvent& event);
         mono::EventResult RemoteInput(const RemoteInputMessage& event);
         mono::EventResult PLayerScore(const ScoreEvent& event);
+        mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
 
         class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
@@ -65,6 +66,7 @@ namespace game
         mono::EventToken<PlayerDisconnectedEvent> m_player_disconnected_token;
         mono::EventToken<RemoteInputMessage> m_remote_input_token;
         mono::EventToken<ScoreEvent> m_score_token;
+        mono::EventToken<SpawnPlayerEvent> m_spawn_player_token;
 
         int m_player_one_id = -1;
         int m_player_two_id = -1;

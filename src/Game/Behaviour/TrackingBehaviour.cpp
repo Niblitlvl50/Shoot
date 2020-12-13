@@ -115,7 +115,7 @@ TrackingResult TrackingBehaviour::Run(uint32_t delta_ms)
 
 bool TrackingBehaviour::UpdatePath()
 {
-    if(!game::g_player_one.is_active)
+    if(game::g_player_one.player_state != game::PlayerState::ALIVE)
         return false;
 
     const math::Vector position = m_entity_body->GetPosition();

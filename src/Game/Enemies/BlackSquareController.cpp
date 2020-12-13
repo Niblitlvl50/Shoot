@@ -109,7 +109,7 @@ void BlackSquareController::ToHunt()
 
 void BlackSquareController::SleepState(uint32_t delta)
 {
-    if(!g_player_one.is_active)
+    if(g_player_one.player_state != game::PlayerState::ALIVE)
         return;
 
     const math::Vector& entity_position = math::GetPosition(*m_transform);
@@ -136,6 +136,6 @@ void BlackSquareController::HuntState(uint32_t delta)
     m_homing_behaviour->SetHomingPosition(g_player_one.position);
 
     const float distance = math::Length(g_player_one.position - entity_position);
-    if(distance > (m_trigger_distance * 2.0f) || !g_player_one.is_active)
+    if(distance > (m_trigger_distance * 2.0f) || g_player_one.player_state != game::PlayerState::ALIVE)
         m_states.TransitionTo(States::SLEEPING);
 }

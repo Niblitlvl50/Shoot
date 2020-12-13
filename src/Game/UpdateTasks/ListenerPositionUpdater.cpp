@@ -8,7 +8,7 @@ using namespace game;
 
 void ListenerPositionUpdater::Update(const mono::UpdateContext& update_context)
 {
-    if(!game::g_player_one.is_active)
+    if(game::g_player_one.player_state != game::PlayerState::ALIVE)
         return;
 
     mono::ListenerPosition(game::g_player_one.position.x, game::g_player_one.position.y);

@@ -55,7 +55,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-    if(!g_player_one.is_active)
+    if(g_player_one.player_state != game::PlayerState::ALIVE)
         return;
 
     const math::Vector& enemy_position = math::GetPosition(*m_transform);

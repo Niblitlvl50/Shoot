@@ -29,61 +29,6 @@
 
 using namespace game;
 
-/*
-#define IS_TRIGGERED(variable) (!m_last_state.variable && state.variable)
-#define HAS_CHANGED(variable) (m_last_state.variable != state.variable)
-
-namespace
-{
-    class PlayerDeathScreen : public mono::EntityBase
-    {
-    public:
-        PlayerDeathScreen(PlayerDaemon* player_daemon, mono::EventHandler& event_handler, const math::Vector& position)
-            : m_player_daemon(player_daemon), m_event_handler(event_handler)
-        {
-            m_position = position;
-
-            const std::vector<UIDialog::Option> options = {
-                { "Respawn",    "res/sprites/ps_cross.sprite",      0.35f },
-                { "Quit",       "res/sprites/ps_triangle.sprite",   0.35f }
-            };
-
-            constexpr mono::Color::RGBA background_color(0, 0, 0);
-            constexpr mono::Color::RGBA text_color(1, 0, 0);
-
-            AddChild(new UIDialog("YOU DEAD! Respawn?", options, background_color, text_color));
-        }
-
-        void EntityUpdate(const mono::UpdateContext& update_context)
-        {
-            const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
-
-            const bool a_pressed = IS_TRIGGERED(a) && HAS_CHANGED(a);
-            const bool y_pressed = IS_TRIGGERED(y) && HAS_CHANGED(y);
-
-            if(a_pressed)
-            {
-                m_player_daemon->SpawnPlayer1();
-                //m_event_handler.DispatchEvent(RemoveEntityEvent(Id()));
-            }
-            else if(y_pressed)
-            {
-                m_event_handler.DispatchEvent(event::QuitEvent());
-            }
-
-            m_last_state = state;
-        }
-
-        void EntityDraw(mono::IRenderer& renderer) const
-        { }
-
-        PlayerDaemon* m_player_daemon;
-        mono::EventHandler& m_event_handler;
-        System::ControllerState m_last_state;
-    };
-}
-*/
-
 namespace
 {
     uint32_t SpawnPlayer(
@@ -113,7 +58,7 @@ namespace
         logic_system->AddLogic(player_entity.id, player_logic);
 
         player_info->entity_id = player_entity.id;
-        player_info->is_active = true;
+        player_info->player_state = game::PlayerState::ALIVE;
 
         return player_entity.id;
     }
@@ -141,10 +86,12 @@ PlayerDaemon::PlayerDaemon(
 
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
+    const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
     const ScoreFunc& score_func = std::bind(&PlayerDaemon::PLayerScore, this, _1);
 
     m_player_connected_token = m_event_handler.AddListener(connected_func);
     m_player_disconnected_token = m_event_handler.AddListener(disconnected_func);
+    m_spawn_player_token = m_event_handler.AddListener(spawn_player_func);
 
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
     m_remote_input_token = m_event_handler.AddListener(remote_input_func);
@@ -171,13 +118,14 @@ PlayerDaemon::~PlayerDaemon()
 
     m_event_handler.RemoveListener(m_player_connected_token);
     m_event_handler.RemoveListener(m_player_disconnected_token);
+    m_event_handler.RemoveListener(m_spawn_player_token);
     m_event_handler.RemoveListener(m_remote_input_token);
     m_event_handler.RemoveListener(m_score_token);
 
-    if(g_player_one.is_active)
+    if(g_player_one.player_state == game::PlayerState::ALIVE)
         game::g_entity_manager->ReleaseEntity(g_player_one.entity_id);
 
-    if(g_player_two.is_active)
+    if(g_player_two.player_state == game::PlayerState::ALIVE)
         game::g_entity_manager->ReleaseEntity(g_player_two.entity_id);
 }
 
@@ -185,7 +133,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 {
     std::vector<uint32_t> ids;
 
-    if(g_player_one.is_active)
+    if(g_player_one.player_state == game::PlayerState::ALIVE)
         ids.push_back(g_player_one.entity_id);
 
     for(const auto& pair : m_remote_players)
@@ -197,7 +145,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 void PlayerDaemon::SpawnPlayer1()
 {
     const auto destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        game::g_player_one.is_active = false;
+        game::g_player_one.player_state = game::PlayerState::DEAD;
         m_camera_system->Unfollow();
     };
 
@@ -216,7 +164,7 @@ void PlayerDaemon::SpawnPlayer1()
 void PlayerDaemon::SpawnPlayer2()
 {
     const auto destroyed_func = [](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        game::g_player_two.is_active = false;
+        game::g_player_two.player_state = game::PlayerState::DEAD;
     };
 
     const uint32_t spawned_id = SpawnPlayer(
@@ -231,7 +179,7 @@ void PlayerDaemon::SpawnPlayer2()
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    if(!game::g_player_one.is_active)
+    if(game::g_player_one.player_state == game::PlayerState::NOT_SPAWNED)
     {
         SpawnPlayer1();
         m_player_one_id = event.id;
@@ -249,20 +197,20 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
 {
     if(event.id == m_player_one_id)
     {
-        if(game::g_player_one.is_active)
+        if(game::g_player_one.player_state != game::PlayerState::NOT_SPAWNED)  // Double negation, not great
             g_entity_manager->ReleaseEntity(game::g_player_one.entity_id);
 
         m_camera_system->Unfollow();
         game::g_player_one.entity_id = mono::INVALID_ID;
-        game::g_player_one.is_active = false;
+        game::g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
     }
     else if(event.id == m_player_two_id)
     {
-        if(game::g_player_two.is_active)
+        if(game::g_player_two.player_state != game::PlayerState::NOT_SPAWNED) // Double negation, not great
             g_entity_manager->ReleaseEntity(game::g_player_two.entity_id);
 
         game::g_player_two.entity_id = mono::INVALID_ID;
-        game::g_player_two.is_active = false;
+        game::g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
     }
 
     return mono::EventResult::PASS_ON;
@@ -333,6 +281,12 @@ mono::EventResult PlayerDaemon::PLayerScore(const ScoreEvent& event)
     return mono::EventResult::PASS_ON;
 }
 
+mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
+{
+    SpawnPlayer1();
+    return mono::EventResult::HANDLED;
+}
+
 
 ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler& event_handler)
     : m_camera_system(camera_system)
@@ -372,7 +326,7 @@ void ClientPlayerDaemon::SpawnPlayer1()
 
 mono::EventResult ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    if(!game::g_player_one.is_active)
+    if(game::g_player_one.player_state == game::PlayerState::NOT_SPAWNED)
     {
         SpawnPlayer1();
         m_player_one_controller_id = event.id;
@@ -386,7 +340,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::Controlle
     if(event.id == m_player_one_controller_id)
     {
         game::g_player_one.entity_id = mono::INVALID_ID;
-        game::g_player_one.is_active = false;
+        game::g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
         m_camera_system->Unfollow();
     }
 
@@ -396,7 +350,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::Controlle
 mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
 {
     game::g_player_one.entity_id = message.client_entity_id;
-    game::g_player_one.is_active = true;
+    game::g_player_one.player_state = game::PlayerState::ALIVE;
 
     m_camera_system->Follow(g_player_one.entity_id, math::ZeroVec);
 

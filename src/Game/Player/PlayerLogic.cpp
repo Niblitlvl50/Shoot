@@ -75,7 +75,8 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
-    SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
+    //SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
+    SelectSecondaryWeapon(WeaponType::TURRET);
     SetRotation(0.0f);
 
     const PlayerStateMachine::StateTable state_table = {
@@ -102,7 +103,11 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_secondary_fire)
     {
-        m_secondary_weapon->Fire(position, m_aim_direction, update_context.timestamp);
+        //m_secondary_weapon->Fire(position, m_aim_direction, update_context.timestamp);
+
+        const math::Vector target = position + math::VectorFromAngle(m_aim_direction) * 2.0f;
+        m_secondary_weapon->Fire(position, target, update_context.timestamp);
+
         m_secondary_fire = false;
     }
 

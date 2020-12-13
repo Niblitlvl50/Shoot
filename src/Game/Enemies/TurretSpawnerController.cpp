@@ -52,7 +52,7 @@ void TurretSpawnerController::Idle(const mono::UpdateContext& update_context)
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
 
-    const bool is_player_active = g_player_one.is_active;
+    const bool is_player_active = g_player_one.player_state == game::PlayerState::ALIVE;
     const bool is_visible = math::PointInsideQuad(world_position, g_camera_viewport);
     if(is_player_active && is_visible && m_idle_timer > 1000)
     {
@@ -82,7 +82,7 @@ void TurretSpawnerController::ToAttacking()
 
 void TurretSpawnerController::Attacking(const mono::UpdateContext& update_context)
 {
-    if(!g_player_one.is_active)
+    if(g_player_one.player_state != game::PlayerState::ALIVE)
         m_states.TransitionTo(TurretStates::IDLE);
 
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);

@@ -22,7 +22,7 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
     if(client_status != ClientStatus::CONNECTED)
         return;
 
-    if(game::g_player_one.is_active)
+    if(game::g_player_one.player_state == game::PlayerState::ALIVE)
     {
         RemoteInputMessage remote_input;
         remote_input.controller_state = System::GetController(System::ControllerId::Primary);

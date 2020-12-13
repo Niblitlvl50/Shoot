@@ -81,7 +81,7 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer += update_context.delta_ms;
 
-    if(!g_player_one.is_active)
+    if(g_player_one.player_state != game::PlayerState::ALIVE)
         return;
 
     const math::Vector& position = math::GetPosition(*m_transform);
@@ -114,7 +114,7 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = math::Length(g_player_one.position - position);
-    if(distance_to_player > 5.0f || !g_player_one.is_active)
+    if(distance_to_player > 5.0f || g_player_one.player_state != game::PlayerState::ALIVE)
     {
         //m_states.TransitionTo(InvaderStates::TRACKING);
         m_states.TransitionTo(InvaderStates::IDLE);

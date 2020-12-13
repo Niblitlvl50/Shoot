@@ -5,6 +5,9 @@
 
 namespace game
 {
+    struct SpawnPlayerEvent
+    {};
+
     struct PlayerConnectedEvent
     {
         PlayerConnectedEvent(const network::Address& address)

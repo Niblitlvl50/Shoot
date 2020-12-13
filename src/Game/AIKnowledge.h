@@ -10,9 +10,16 @@
 
 namespace game
 {
+    enum class PlayerState
+    {
+        NOT_SPAWNED,
+        ALIVE,
+        DEAD,
+    };
+
     struct PlayerInfo
     {
-        bool is_active;
+        PlayerState player_state;
         uint32_t entity_id;
         math::Vector position;
         math::Vector velocity;

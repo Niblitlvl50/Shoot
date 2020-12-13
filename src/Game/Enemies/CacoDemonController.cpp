@@ -74,7 +74,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
 {
     const math::Vector position = math::GetPosition(*m_transform);
     const bool is_visible = math::PointInsideQuad(position, g_camera_viewport);
-    if(!is_visible || !g_player_one.is_active)
+    if(!is_visible || g_player_one.player_state != game::PlayerState::ALIVE)
         return;
 
     const float new_angle = math::AngleBetweenPoints(g_player_one.position, position);
