@@ -28,6 +28,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 
 using namespace game;
 
