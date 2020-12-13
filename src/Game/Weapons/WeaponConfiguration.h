@@ -20,7 +20,7 @@ namespace game
     // imact_flags is what to do on impact
     // collide_with is the body that the bullet collides with
     using BulletImpactCallback =
-        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with)>;
+        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with, const math::Vector& collision_point)>;
 
     enum class BulletCollisionBehaviour
     {

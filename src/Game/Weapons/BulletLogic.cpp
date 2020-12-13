@@ -50,7 +50,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     m_life_span -= update_context.delta_ms;
     if(m_life_span < 0)
-        m_collision_callback(m_entity_id, m_owner_entity_id, BulletCollisionFlag::DESTROY_THIS, nullptr);
+        m_collision_callback(m_entity_id, m_owner_entity_id, BulletCollisionFlag::DESTROY_THIS, nullptr, math::ZeroVec);
 }
 
 mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, const math::Vector& collision_point, uint32_t categories)
@@ -119,7 +119,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
         collision_flags = BulletCollisionFlag(collision_flags & ~DESTROY_THIS);
     }
 
-    m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, colliding_body);
+    m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, colliding_body, collision_point);
     return resolve_type;
 }
 

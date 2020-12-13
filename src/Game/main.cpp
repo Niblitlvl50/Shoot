@@ -136,25 +136,26 @@ int main(int argc, char* argv[])
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
+        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
         shared::GameEntityManager entity_manager(entity_system, &system_context);
         game::RegisterGameComponents(entity_manager);
         shared::RegisterSharedComponents(entity_manager);
 
+        game::g_entity_manager = &entity_manager;
+
         game::WeaponFactory weapon_factory(&entity_manager, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
 
-        game::g_entity_manager = &entity_manager;
         game::g_weapon_factory = &weapon_factory;
         game::g_logic_factory = &logic_factory;
 
-        mono::ParticleSystem* particle_system = system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(
-            max_entities, &entity_manager, particle_system, transform_system, physics_system, &event_handler);
+            max_entities, &entity_manager, transform_system, physics_system, &event_handler);
 
         game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(
             max_entities, damage_system, physics_system);

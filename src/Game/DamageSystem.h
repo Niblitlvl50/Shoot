@@ -42,7 +42,6 @@ namespace game
         DamageSystem(
             size_t num_records,
             mono::IEntityManager* entity_manager,
-            mono::ParticleSystem* particle_system,
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
             mono::EventHandler* event_handler);
@@ -77,7 +76,6 @@ namespace game
         size_t FindFreeCallbackIndex(uint32_t id) const;
 
         mono::IEntityManager* m_entity_manager;
-        mono::ParticleSystem* m_particle_system;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::EventHandler* m_event_handler;
@@ -94,7 +92,5 @@ namespace game
         using DamageCallbacks = std::array<DamageCallbackData, 8>;
         std::vector<DamageCallbacks> m_damage_callbacks;
         std::vector<bool> m_active;
-
-        std::unique_ptr<class DamageEffect> m_damage_effect;
     };
 }

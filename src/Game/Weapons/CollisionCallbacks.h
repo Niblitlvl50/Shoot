@@ -11,6 +11,9 @@ namespace game
 {
     class DamageSystem;
 
+    void InitWeaponCallbacks(mono::SystemContext* system_context);
+    void CleanupWeaponCallbacks();
+
     void SpawnEntityWithAnimation(
         const char* entity_file,
         int animation_id,
@@ -24,15 +27,18 @@ namespace game
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags,
         const mono::IBody* other,
+        const math::Vector& collision_point,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system);
+        mono::PhysicsSystem* physics_system,
+        mono::TransformSystem* transform_system);
 
     void RocketCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags, 
         const mono::IBody* other,
+        const math::Vector& collision_point,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
@@ -44,6 +50,7 @@ namespace game
         uint32_t owner_entity_id,
         game::BulletCollisionFlag flags,
         const mono::IBody* other,
+        const math::Vector& collision_point,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,

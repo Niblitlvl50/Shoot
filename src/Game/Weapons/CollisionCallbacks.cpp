@@ -2,15 +2,41 @@
 #include "CollisionCallbacks.h"
 
 #include "DamageSystem.h"
+#include "Effects/DamageEffect.h"
+#include "Effects/ImpactEffect.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFwd.h"
 #include "Math/MathFunctions.h"
+#include "Particle/ParticleSystem.h"
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
+#include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+
+namespace
+{
+    game::DamageEffect* g_damage_effect = nullptr;
+    game::ImpactEffect* g_impact_effect = nullptr;
+}
+
+void game::InitWeaponCallbacks(mono::SystemContext* system_context)
+{
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    g_damage_effect = new game::DamageEffect(particle_system);
+    g_impact_effect = new game::ImpactEffect(particle_system);
+}
+
+void game::CleanupWeaponCallbacks()
+{
+    delete g_damage_effect;
+    g_damage_effect = nullptr;
+
+    delete g_impact_effect;
+    g_impact_effect = nullptr;
+}
 
 void game::SpawnEntityWithAnimation(
     const char* entity_file,
@@ -37,13 +63,25 @@ void game::StandardCollision(
     uint32_t owner_entity_id,
     game::BulletCollisionFlag flags,
     const mono::IBody* other,
+    const math::Vector& collision_point,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
-    mono::PhysicsSystem* physics_system)
+    mono::PhysicsSystem* physics_system,
+    mono::TransformSystem* transform_system)
 {
     const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
     if(other_entity_id != std::numeric_limits<uint32_t>::max() && flags & game::BulletCollisionFlag::APPLY_DAMAGE)
+    {
         damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
+        g_damage_effect->EmitGibsAt(collision_point, 0.0f);
+    }
+
+    if(other)
+    {
+        const math::Vector world_position = math::GetPosition(transform_system->GetWorld(entity_id));
+        const float direction = math::AngleFromVector(collision_point - world_position) + math::PI();
+        g_impact_effect->EmittAt(collision_point, direction);
+    }
 
     if(flags & game::BulletCollisionFlag::DESTROY_THIS)
         entity_manager->ReleaseEntity(entity_id);
@@ -54,13 +92,14 @@ void game::RocketCollision(
     uint32_t owner_entity_id,
     game::BulletCollisionFlag flags, 
     const mono::IBody* other,
+    const math::Vector& collision_point,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, other, entity_manager, damage_system, physics_system);
+    StandardCollision(entity_id, owner_entity_id, flags, other, collision_point, entity_manager, damage_system, physics_system, transform_system);
     //SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
     //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
 }
@@ -70,12 +109,13 @@ void game::CacoPlasmaCollision(
     uint32_t owner_entity_id,
     game::BulletCollisionFlag flags,
     const mono::IBody* other,
+    const math::Vector& collision_point,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, other, entity_manager, damage_system, physics_system);
+    StandardCollision(entity_id, owner_entity_id, flags, other, collision_point, entity_manager, damage_system, physics_system, transform_system);
     SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }
