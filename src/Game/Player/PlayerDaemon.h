@@ -6,7 +6,6 @@
 #include "EventHandler/EventToken.h"
 #include "System/System.h"
 #include "System/Network.h"
-#include "StateMachine.h"
 
 #include "Events/GameEventFuncFwd.h"
 #include "AIKnowledge.h"
@@ -20,13 +19,6 @@ namespace game
     struct RemoteInputMessage;
     struct ClientPlayerSpawned;
 
-    enum class PlayerMetaState
-    {
-        NONE,
-        SPAWNED,
-        DEAD
-    };
-
     class PlayerDaemon
     {
     public:
@@ -34,7 +26,7 @@ namespace game
         PlayerDaemon(
             INetworkPipe* remote_connection,
             mono::SystemContext* system_context,
-            mono::EventHandler& event_handler,
+            mono::EventHandler* event_handler,
             const math::Vector& player_one_spawn);
         ~PlayerDaemon();
 
@@ -56,9 +48,7 @@ namespace game
         class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
         mono::SystemContext* m_system_context;
-        mono::EventHandler& m_event_handler;
-
-        PlayerMetaState m_player_state;
+        mono::EventHandler* m_event_handler;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
@@ -86,7 +76,7 @@ namespace game
     {
     public:
 
-        ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler& event_handler);
+        ClientPlayerDaemon(class CameraSystem* camera_system, mono::EventHandler* event_handler);
         ~ClientPlayerDaemon();
 
         void SpawnPlayer1();
@@ -95,8 +85,9 @@ namespace game
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
         mono::EventResult ClientSpawned(const ClientPlayerSpawned& message);
 
-        CameraSystem* m_camera_system;
-        mono::EventHandler& m_event_handler;
+        class CameraSystem* m_camera_system;
+        mono::EventHandler* m_event_handler;
+
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
         mono::EventToken<ClientPlayerSpawned> m_client_spawned_token;

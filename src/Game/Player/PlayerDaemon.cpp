@@ -67,12 +67,11 @@ namespace
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
     mono::SystemContext* system_context,
-    mono::EventHandler& event_handler,
+    mono::EventHandler* event_handler,
     const math::Vector& player_one_spawn)
     : m_remote_connection(remote_connection)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
-    , m_player_state(PlayerMetaState::NONE)
     , m_player_one_spawn(player_one_spawn)
 {
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
@@ -81,22 +80,22 @@ PlayerDaemon::PlayerDaemon(
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
     const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
 
-    m_added_token = m_event_handler.AddListener(added_func);
-    m_removed_token = m_event_handler.AddListener(removed_func);
+    m_added_token = m_event_handler->AddListener(added_func);
+    m_removed_token = m_event_handler->AddListener(removed_func);
 
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
     const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
     const ScoreFunc& score_func = std::bind(&PlayerDaemon::PLayerScore, this, _1);
 
-    m_player_connected_token = m_event_handler.AddListener(connected_func);
-    m_player_disconnected_token = m_event_handler.AddListener(disconnected_func);
-    m_spawn_player_token = m_event_handler.AddListener(spawn_player_func);
+    m_player_connected_token = m_event_handler->AddListener(connected_func);
+    m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
+    m_spawn_player_token = m_event_handler->AddListener(spawn_player_func);
 
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
-    m_remote_input_token = m_event_handler.AddListener(remote_input_func);
+    m_remote_input_token = m_event_handler->AddListener(remote_input_func);
 
-    m_score_token = m_event_handler.AddListener(score_func);
+    m_score_token = m_event_handler->AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
     {
@@ -113,14 +112,14 @@ PlayerDaemon::PlayerDaemon(
 
 PlayerDaemon::~PlayerDaemon()
 {
-    m_event_handler.RemoveListener(m_added_token);
-    m_event_handler.RemoveListener(m_removed_token);
+    m_event_handler->RemoveListener(m_added_token);
+    m_event_handler->RemoveListener(m_removed_token);
 
-    m_event_handler.RemoveListener(m_player_connected_token);
-    m_event_handler.RemoveListener(m_player_disconnected_token);
-    m_event_handler.RemoveListener(m_spawn_player_token);
-    m_event_handler.RemoveListener(m_remote_input_token);
-    m_event_handler.RemoveListener(m_score_token);
+    m_event_handler->RemoveListener(m_player_connected_token);
+    m_event_handler->RemoveListener(m_player_disconnected_token);
+    m_event_handler->RemoveListener(m_spawn_player_token);
+    m_event_handler->RemoveListener(m_remote_input_token);
+    m_event_handler->RemoveListener(m_score_token);
 
     if(g_player_one.player_state == game::PlayerState::ALIVE)
         game::g_entity_manager->ReleaseEntity(g_player_one.entity_id);
@@ -154,11 +153,10 @@ void PlayerDaemon::SpawnPlayer1()
         m_player_one_spawn,
         System::GetController(System::ControllerId::Primary),
         m_system_context,
-        &m_event_handler,
+        m_event_handler,
         destroyed_func);
     
     m_camera_system->Follow(spawned_id, math::Vector(0.0f, 3.0f));
-    m_player_state = PlayerMetaState::SPAWNED;
 }
 
 void PlayerDaemon::SpawnPlayer2()
@@ -172,7 +170,7 @@ void PlayerDaemon::SpawnPlayer2()
         m_player_two_spawn,
         System::GetController(System::ControllerId::Secondary),
         m_system_context,
-        &m_event_handler,
+        m_event_handler,
         destroyed_func);
     (void)spawned_id;
 }
@@ -184,7 +182,7 @@ mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEv
         SpawnPlayer1();
         m_player_one_id = event.id;
     }
-    else
+    else if(game::g_player_two.player_state == game::PlayerState::NOT_SPAWNED)
     {
         SpawnPlayer2();
         m_player_two_id = event.id;
@@ -236,7 +234,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
         math::ZeroVec,
         remote_player_data.controller_state,
         m_system_context,
-        &m_event_handler,
+        m_event_handler,
         remote_player_destroyed);
 
     ClientPlayerSpawned client_spawned_message;
@@ -288,7 +286,7 @@ mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 }
 
 
-ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler& event_handler)
+ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventHandler* event_handler)
     : m_camera_system(camera_system)
     , m_event_handler(event_handler)
 {
@@ -297,9 +295,9 @@ ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventH
     const event::ControllerRemovedFunc& removed_func = std::bind(&ClientPlayerDaemon::OnControllerRemoved, this, _1);
     const std::function<mono::EventResult (const ClientPlayerSpawned&)>& client_spawned = std::bind(&ClientPlayerDaemon::ClientSpawned, this, _1);
 
-    m_added_token = m_event_handler.AddListener(added_func);
-    m_removed_token = m_event_handler.AddListener(removed_func);
-    m_client_spawned_token = m_event_handler.AddListener(client_spawned);
+    m_added_token = m_event_handler->AddListener(added_func);
+    m_removed_token = m_event_handler->AddListener(removed_func);
+    m_client_spawned_token = m_event_handler->AddListener(client_spawned);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
     {
@@ -310,9 +308,9 @@ ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventH
 
 ClientPlayerDaemon::~ClientPlayerDaemon()
 {
-    m_event_handler.RemoveListener(m_added_token);
-    m_event_handler.RemoveListener(m_removed_token);
-    m_event_handler.RemoveListener(m_client_spawned_token);
+    m_event_handler->RemoveListener(m_added_token);
+    m_event_handler->RemoveListener(m_removed_token);
+    m_event_handler->RemoveListener(m_client_spawned_token);
 
     m_camera_system->Unfollow();
 }

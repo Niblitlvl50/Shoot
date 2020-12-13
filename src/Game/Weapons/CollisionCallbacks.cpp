@@ -80,16 +80,13 @@ void game::StandardCollision(
 
     if(other)
     {
+        const math::Vector world_position = math::GetPosition(transform_system->GetWorld(entity_id));
+        const float direction = math::AngleFromVector(world_position - collision_point);
+
         if(did_damage)
-        {
-            g_damage_effect->EmitGibsAt(collision_point, 0.0f);
-        }
+            g_damage_effect->EmitGibsAt(collision_point, direction);
         else
-        {
-            const math::Vector world_position = math::GetPosition(transform_system->GetWorld(entity_id));
-            const float direction = math::AngleFromVector(collision_point - world_position) + math::PI();
             g_impact_effect->EmittAt(collision_point, direction);
-        }
     }
 
     if(flags & game::BulletCollisionFlag::DESTROY_THIS)

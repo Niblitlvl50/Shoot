@@ -2,11 +2,12 @@
 #include "SystemTestZone.h"
 
 #include "EntitySystem/EntitySystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/CMSpace.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Physics/PhysicsSystem.h"
-#include "Physics/CMSpace.h"
+#include "Util/Hash.h"
 
 #include "Hud/Overlay.h"
 #include "Hud/GameOverScreen.h"
@@ -24,6 +25,13 @@
 #include "Factories.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
+#include "TriggerSystem.h"
+
+
+namespace
+{
+    const uint32_t level_completed_hash = mono::Hash("level_completed");
+}
 
 using namespace game;
 
@@ -47,6 +55,13 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     physics_system->GetSpace()->SetDamping(0.01f);
 
+    game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
+
+    const auto level_completed_func = [](uint32_t trigger_id) {
+        printf("Level completed, good job!");
+    };
+    m_level_completed_trigger = trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, 0);
+
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
     AddUpdatable(m_server_manager.get());
@@ -63,7 +78,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
     // Player
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, *m_event_handler, m_player_spawn_point);
+        std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, m_event_handler, m_player_spawn_point);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -86,6 +101,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
 
 int SystemTestZone::OnUnload()
 {
+    TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
+    trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
+
     GameZone::OnUnload();
     RemoveUpdatable(m_server_manager.get());
     return 0;

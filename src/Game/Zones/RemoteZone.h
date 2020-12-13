@@ -5,7 +5,6 @@
 #include "Zone/ZoneBase.h"
 #include "GameConfig.h"
 #include "EventHandler/EventToken.h"
-#include "GameMode/CaptureTheFlagScore.h"
 
 #include <memory>
 
@@ -37,7 +36,7 @@ namespace game
     private:
 
         mono::SystemContext* m_system_context;
-        mono::EventHandler& m_event_handler;
+        mono::EventHandler* m_event_handler;
         const game::Config m_game_config;
 
         std::unique_ptr<class ClientManager> m_client_manager;
@@ -48,7 +47,5 @@ namespace game
 
         std::unique_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;
-
-        CaptureTheFlagScore m_ctf_score;
     };
 }

@@ -10,36 +10,28 @@
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/FPSElement.h"
 
-#include "WorldFile.h"
-#include "Navigation/NavmeshFactory.h"
-
 #include "Network/NetworkMessage.h"
 #include "Network/ClientReplicator.h"
 #include "Network/ClientManager.h"
 
 #include "Camera/ICamera.h"
-#include "GameCamera/CameraSystem.h"
+#include "EventHandler/EventHandler.h"
+#include "Math/Vector.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
-
-#include "EventHandler/EventHandler.h"
-//#include "Entity/IEntity.h"
-#include "Math/Vector.h"
-#include "Math/Quad.h"
-
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "PositionPredictionSystem.h"
 
+#include "GameCamera/CameraSystem.h"
+#include "PositionPredictionSystem.h"
 #include "Player/PlayerDaemon.h"
-#include "GameMode/CaptureTheFlagHud.h"
 
 using namespace game;
 
 RemoteZone::RemoteZone(const ZoneCreationContext& context)
     : m_system_context(context.system_context)
-    , m_event_handler(*context.event_handler)
+    , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)
 {
     using namespace std::placeholders;
@@ -48,19 +40,16 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     const std::function<mono::EventResult (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<mono::EventResult (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
 
-    m_text_token = m_event_handler.AddListener(text_func);
-    m_spawn_token = m_event_handler.AddListener(spawn_func);
-    m_sprite_token = m_event_handler.AddListener(sprite_func);
-
-    m_ctf_score.red = 0;
-    m_ctf_score.blue = 0;
+    m_text_token = m_event_handler->AddListener(text_func);
+    m_spawn_token = m_event_handler->AddListener(spawn_func);
+    m_sprite_token = m_event_handler->AddListener(sprite_func);
 }
 
 RemoteZone::~RemoteZone()
 {
-    m_event_handler.RemoveListener(m_text_token);
-    m_event_handler.RemoveListener(m_spawn_token);
-    m_event_handler.RemoveListener(m_sprite_token);
+    m_event_handler->RemoveListener(m_text_token);
+    m_event_handler->RemoveListener(m_spawn_token);
+    m_event_handler->RemoveListener(m_sprite_token);
 }
 
 void RemoteZone::OnLoad(mono::ICamera* camera)
@@ -72,18 +61,17 @@ void RemoteZone::OnLoad(mono::ICamera* camera)
     camera->SetPosition(math::Vector(0.0f, 0.0f));
     camera->SetViewportSize(math::Vector(22.0f, 14.0f));
 
-    m_client_manager = std::make_unique<ClientManager>(&m_event_handler, &m_game_config);
+    m_client_manager = std::make_unique<ClientManager>(m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
 
     const PositionPredictionSystem* prediction_system =
-        m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, &m_event_handler);
+        m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, m_event_handler);
 
     AddUpdatable(m_client_manager.get());
     AddUpdatable(new ClientReplicator(camera, m_client_manager.get()));
 
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(new CaptureTheFlagHud(m_ctf_score), LayerId::UI);
 
     m_console_drawer = std::make_unique<ConsoleDrawer>();
     AddDrawable(m_console_drawer.get(), LayerId::UI);

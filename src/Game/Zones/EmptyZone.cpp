@@ -43,7 +43,7 @@ void EmptyZone::OnLoad(mono::ICamera* camera)
     // Player
     m_network_pipe = std::make_unique<NullPipe>();
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_network_pipe.get(), m_system_context, *m_event_handler, m_player_spawn_point);
+        std::make_unique<PlayerDaemon>(m_network_pipe.get(), m_system_context, m_event_handler, m_player_spawn_point);
 
     // Ui
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();

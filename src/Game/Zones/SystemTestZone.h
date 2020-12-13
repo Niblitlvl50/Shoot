@@ -27,6 +27,8 @@ namespace game
         mono::EventHandler* m_event_handler;
         const game::Config m_game_config;
 
+        uint32_t m_level_completed_trigger;
+
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class ServerManager> m_server_manager;
     };
