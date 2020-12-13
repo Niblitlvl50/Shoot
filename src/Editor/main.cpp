@@ -3,7 +3,6 @@
 #include "System/UID.h"
 #include "Camera/Camera.h"
 #include "Rendering/RenderSystem.h"
-#include "Rendering/Text/TextFunctions.h"
 #include "Rendering/Text/TextSystem.h"
 #include "EventHandler/EventHandler.h"
 #include "Engine.h"
@@ -61,11 +60,7 @@ int main(int argc, const char* argv[])
 
         mono::Camera camera;
 
-        mono::LoadFont(shared::FontId::PIXELETTE_TINY,   "res/pixelette.ttf", 10.0f, 1.0f / 25.0f);
-        mono::LoadFont(shared::FontId::PIXELETTE_SMALL,  "res/pixelette.ttf", 10.0f, 1.0f / 10.0f);
-        mono::LoadFont(shared::FontId::PIXELETTE_MEDIUM, "res/pixelette.ttf", 10.0f, 1.0f / 5.0f);
-        mono::LoadFont(shared::FontId::PIXELETTE_LARGE,  "res/pixelette.ttf", 10.0f, 1.0f / 3.0f);
-        mono::LoadFont(shared::FontId::PIXELETTE_MEGA,   "res/pixelette.ttf", 10.0f, 1.0f / 1.5f);
+        shared::LoadFonts();
 
         auto editor = std::make_unique<editor::Editor>(window, entity_manager, event_handler, system_context, config, file_name);
         mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
