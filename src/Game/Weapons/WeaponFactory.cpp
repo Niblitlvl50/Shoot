@@ -2,91 +2,15 @@
 #include "WeaponFactory.h"
 #include "Weapons/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon.h"
+#include "Weapons/CollisionCallbacks.h"
 #include "DamageSystem.h"
 
 #include "SystemContext.h"
-#include "EntitySystem/IEntityManager.h"
-#include "Math/MathFwd.h"
-#include "Math/MathFunctions.h"
-#include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
-#include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include <functional>
-#include <limits>
-
-namespace
-{
-    void SpawnEntityWithAnimation(
-        const char* entity_file,
-        int animation_id,
-        uint32_t position_at_transform_id,
-        mono::IEntityManager* entity_manager,
-        mono::TransformSystem* transform_system,
-        mono::SpriteSystem* sprite_system)
-    {
-        const mono::Entity spawned_entity = entity_manager->CreateEntity(entity_file);
-        math::Matrix& entity_transform = transform_system->GetTransform(spawned_entity.id);
-        entity_transform = transform_system->GetWorld(position_at_transform_id);
-
-        mono::Sprite* spawned_entity_sprite = sprite_system->GetSprite(spawned_entity.id);
-
-        const auto remove_entity_callback = [spawned_entity, entity_manager]() {
-            entity_manager->ReleaseEntity(spawned_entity.id);
-        };
-        spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
-    }
-
-    void StandardCollision(
-        uint32_t entity_id,
-        uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags,
-        const mono::IBody* other,
-        mono::IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system)
-    {
-        const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
-        if(other_entity_id != std::numeric_limits<uint32_t>::max() && flags & game::BulletCollisionFlag::APPLY_DAMAGE)
-            damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
-
-        if(flags & game::BulletCollisionFlag::DESTROY_THIS)
-            entity_manager->ReleaseEntity(entity_id);
-    }
-
-    void RocketCollision(
-        uint32_t entity_id,
-        uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags, 
-        const mono::IBody* other,
-        mono::IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system)
-    {
-        StandardCollision(entity_id, owner_entity_id, flags, other, entity_manager, damage_system, physics_system);
-        //SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
-        //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
-    }
-
-    void CacoPlasmaCollision(
-        uint32_t entity_id,
-        uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags,
-        const mono::IBody* other,
-        mono::IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system)
-    {
-        StandardCollision(entity_id, owner_entity_id, flags, other, entity_manager, damage_system, physics_system);
-        SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
-    }
-}
 
 using namespace game;
 
@@ -234,22 +158,33 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
 
 IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponType weapon_type, WeaponFaction faction, uint32_t owner_id)
 {
-    const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
-
     ThrowableWeaponConfig weapon_config;
     weapon_config.owner_id = owner_id;
-    weapon_config.magazine_size = 10;
-    weapon_config.projectiles_per_fire = 1;
-    weapon_config.cooldown_seconds = 2.0f;
-    weapon_config.max_distance = 5.0f;
 
-    weapon_config.thrown_entity = "res/entities/throwable_thing.entity";
-    weapon_config.spawned_entity = "res/entities/torch_small.entity";
-    weapon_config.life_span = 1.0f;
-    weapon_config.fuzzy_life_span = 0.0f;
+    const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
     weapon_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
     weapon_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
-    weapon_config.collision_callback = nullptr;
+
+    switch(weapon_type)
+    {
+    case WeaponType::TURRET:
+    {
+        weapon_config.magazine_size = 100;
+        weapon_config.projectiles_per_fire = 1;
+        weapon_config.cooldown_seconds = 2.0f;
+        weapon_config.max_distance = 5.0f;
+        weapon_config.target_accuracy = 1.0f;
+
+        weapon_config.thrown_entity = "res/entities/throwable_thing.entity";
+        weapon_config.spawned_entity = "res/entities/torch_small.entity";
+        weapon_config.collision_callback = nullptr;
+
+        break;
+    }
+
+    default:
+        break;
+    }
 
     return std::make_unique<game::ThrowableWeapon>(weapon_config, m_entity_manager, m_system_context);
 }

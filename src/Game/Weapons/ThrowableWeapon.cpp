@@ -40,7 +40,7 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, float direction,
 WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
 {
     const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
-    if(m_state == WeaponState::RELOADING && reload_delta < (m_config.reload_time * 1000.0f))
+    if(m_state == WeaponState::RELOADING && reload_delta < (m_config.reload_time_seconds * 1000.0f))
         return m_state;
 
     if(m_ammunition == 0)
@@ -51,21 +51,27 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vect
 
     m_last_fire_timestamp = timestamp;
 
-    math::Vector diff = target - position;
+    math::Vector diff = position - target;
     const float target_length = math::Length(diff);
     if(target_length > m_config.max_distance)
         diff = math::Normalized(diff) * m_config.max_distance;
 
     for(int n_bullet = 0; n_bullet < m_config.projectiles_per_fire; ++n_bullet)
     {
-        //const float bullet_direction = direction + math::ToRadians(mono::Random(-m_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
+        math::Vector accuracy_diff;
+        if(m_config.target_accuracy != 0.0f)
+        {
+            const float radians = mono::Random(-math::PI(), math::PI());
+            accuracy_diff = math::VectorFromAngle(radians) * mono::Random(0.0f, m_config.target_accuracy);
+        }
+
         mono::Entity thrown_entity = m_entity_manager->CreateEntity(m_config.thrown_entity);
 
         ThrowableLogic* throwable_logic = new ThrowableLogic(
             thrown_entity.id,
             m_config.spawned_entity,
             position,
-            position + diff,
+            position + diff + accuracy_diff,
             m_transform_system,
             m_sprite_system,
             m_particle_system,

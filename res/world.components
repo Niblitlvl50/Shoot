@@ -2213,8 +2213,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.304170608520508,
-                                "y": 23.02486801147461
+                                "x": 22.119848251342773,
+                                "y": 22.575347900390625
                             }
                         },
                         {
@@ -3292,7 +3292,7 @@
                             "id": 2951636756,
                             "name": "behaviour",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -3551,7 +3551,7 @@
                             "id": 2951636756,
                             "name": "behaviour",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -5172,8 +5172,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 25.092639923095703,
-                                "y": 20.94556999206543
+                                "x": 25.233732223510742,
+                                "y": 20.830219268798828
                             }
                         },
                         {
@@ -5259,8 +5259,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 26.081762313842773,
-                                "y": 20.6477108001709
+                                "x": 26.13306999206543,
+                                "y": 20.596481323242188
                             }
                         },
                         {
@@ -5346,8 +5346,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 25.54305076599121,
-                                "y": 20.695175170898438
+                                "x": 25.65849494934082,
+                                "y": 20.720882415771484
                             }
                         },
                         {
@@ -7605,8 +7605,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 24.558015823364258,
-                                "y": 21.011991500854492
+                                "x": 24.73759651184082,
+                                "y": 20.98643684387207
                             }
                         },
                         {
@@ -7692,8 +7692,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 24.815956115722656,
-                                "y": 20.81966209411621
+                                "x": 24.174610137939453,
+                                "y": 21.037755966186523
                             }
                         },
                         {
@@ -11603,8 +11603,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.356185913085938,
-                                "y": 22.245702743530273
+                                "x": 16.652753829956055,
+                                "y": 22.108924865722656
                             }
                         },
                         {
@@ -11690,95 +11690,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.912160873413086,
-                                "y": 20.390531539916992
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "small_stone.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "small_stone"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 26.89742660522461,
-                                "y": 20.60199546813965
+                                "x": 27.20527458190918,
+                                "y": 20.46092987060547
                             }
                         },
                         {
@@ -11864,8 +11777,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 20.872236251831055,
-                                "y": 22.04261589050293
+                                "x": 21.354984283447266,
+                                "y": 22.04256248474121
                             }
                         },
                         {
@@ -11939,6 +11852,306 @@
             "entity_properties": 0,
             "folder": "",
             "name": "stone_statue"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 16.956859588623047,
+                                "y": 23.58001708984375
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2313652925,
+                            "name": "flip_vertical",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "torch_small"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 20.49871826171875,
+                                "y": 22.97536849975586
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2313652925,
+                            "name": "flip_vertical",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1775175667,
+                            "name": "flip_horizontal",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "torch_small"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 18.67064666748047,
+                                "y": 11.416006088256836
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Hello"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999899864196777,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "unnamed"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 13.423835754394531,
+                                "y": 6.086531639099121
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "SEGA"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 11
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 0.14705896377563477,
+                                "red": 0.0
+                            }
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "unnamed"
         }
     ],
     "metadata": {
@@ -11948,8 +12161,8 @@
             "y": 20.0
         },
         "camera_size": {
-            "x": 4.5,
-            "y": 8.0
+            "x": 5.0,
+            "y": 9.0
         },
         "player_spawn_point": {
             "x": 19.0,

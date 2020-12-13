@@ -4,13 +4,16 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/EasingFunctions.h"
+#include "Math/MathFunctions.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
 
 
 namespace tweak_values
 {
-    constexpr math::EaseFunction ease_function = math::EaseInOutCubic;
+    constexpr float meters_per_second = 3.0f;
+    constexpr math::EaseFunction ease_function = math::EaseOutCubic;
 }
 
 using namespace game;
@@ -59,7 +62,7 @@ void ThrowableLogic::ToThrowing()
 
 void ThrowableLogic::Throwing(const mono::UpdateContext& update_context)
 {
-    uint32_t duration = 1000;
+    const uint32_t duration = math::Length(m_move_delta) / tweak_values::meters_per_second * 1000.0f;
 
     m_move_timer += update_context.delta_ms;
 
@@ -82,6 +85,10 @@ void ThrowableLogic::ToSpawning()
     mono::Entity spawned_entity = m_entity_manager->CreateEntity(m_spawned_entity);
     math::Matrix& spawned_transform = m_transform_system->GetTransform(spawned_entity.id);
     math::Position(spawned_transform, position);
+
+    constexpr float variation_radians = math::ToRadians(10.0f);
+    const float rotation = mono::Random(-variation_radians, variation_radians);
+    math::RotateZ(spawned_transform, rotation);
 
     m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
 

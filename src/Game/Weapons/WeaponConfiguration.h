@@ -70,14 +70,13 @@ namespace game
         int magazine_size = 10;
         int projectiles_per_fire = 1;
         float cooldown_seconds = 2.0f;
-        float reload_time = 1.0f;
+        float reload_time_seconds = 1.0f;
         float max_distance = 5.0f;
+        float target_accuracy = 0.0f; // Radius
 
         // Throwable data
         const char* thrown_entity = nullptr;
         const char* spawned_entity = nullptr;
-        float life_span = 1.0f;
-        float fuzzy_life_span = 0.0f;
         shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
