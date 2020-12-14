@@ -11,6 +11,7 @@
 
 #include "Factories.h"
 #include "IDebugDrawer.h"
+#include "GameDebug.h"
 
 #include <cassert>
 
@@ -339,13 +340,16 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
             }
         }
 
-        std::string hash_name = "...";
+        if(game::g_draw_triggers)
+        {
+            std::string hash_name = "...";
 
-        const auto hash_name_it = m_trigger_hash_to_text.find(trigger_hash);
-        if(hash_name_it != m_trigger_hash_to_text.end())
-            hash_name = hash_name_it->second;
+            const auto hash_name_it = m_trigger_hash_to_text.find(trigger_hash);
+            if(hash_name_it != m_trigger_hash_to_text.end())
+                hash_name = hash_name_it->second;
 
-        game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
+            game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
+        }
     }
 }
 

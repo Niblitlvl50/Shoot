@@ -58,9 +58,10 @@ void SystemTestZone::OnLoad(mono::ICamera* camera)
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
 
     const auto level_completed_func = [](uint32_t trigger_id) {
-        printf("Level completed, good job!");
+        printf("Level completed, good job!\n");
     };
-    m_level_completed_trigger = trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, 0);
+    m_level_completed_trigger =
+        trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
 
     // Network and syncing should be done first in the frame.
     m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);

@@ -26,14 +26,19 @@ namespace
         const float size = mono::Random(16.0f, 24.0f);
 
         pool.position[index] = position;
-        pool.rotation[index] = 0.0f;
         pool.velocity[index] = velocity * velocity_variation;
+
+        pool.rotation[index] = 0.0f;
+        pool.angular_velocity[index] = 10.0f;
+
+        pool.color[index] = mono::Color::BLACK;
         pool.start_color[index] = mono::Color::BLACK;
         pool.end_color[index] = mono::Color::BLACK;
-        //pool.end_color[index] = mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f);
+
+        pool.size[index] = size;
         pool.start_size[index] = size;
         pool.end_size[index] = size;
-        pool.size[index] = size;
+
         pool.start_life[index] = life;
         pool.life[index] = life;
     }
@@ -45,18 +50,12 @@ namespace
         for(size_t index = 0; index < count; ++index)
         {
             const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
-            const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
-            const float duration = float(pool.start_life[index]); // / 1000.0f;
 
             pool.velocity[index] *= 0.90;
             pool.position[index] += pool.velocity[index] * float_delta;
-            //pool.m_size[index] = pool.m_start_size[index];
-
-            const float alpha1 = pool.start_color[index].alpha;
-            const float alpha2 = pool.end_color[index].alpha;
-            
+            pool.rotation[index] += pool.angular_velocity[index] * float_delta;
+            pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
             pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-            //pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
         }
     }    
 }
@@ -65,7 +64,7 @@ ImpactEffect::ImpactEffect(mono::ParticleSystem* particle_system)
     : m_particle_system(particle_system)
 {
     mono::Entity particle_entity = g_entity_manager->CreateEntity("impacteffect", {});
-    particle_system->AllocatePool(particle_entity.id, 500, GibsUpdater);
+    particle_system->AllocatePool(particle_entity.id, 50, GibsUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
     particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);

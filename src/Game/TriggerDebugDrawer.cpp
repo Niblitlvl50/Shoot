@@ -7,6 +7,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "TransformSystem/TransformSystem.h"
+#include "EntitySystem/Entity.h"
 
 using namespace game;
 
@@ -67,7 +68,7 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     const auto collect_counter_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const CounterTriggerComponent& trigger)
     {
-        trigger_hash_to_emitter_ids[trigger.listen_trigger_hash].push_back(entity_id);
+        trigger_hash_to_emitter_ids[trigger.completed_trigger_hash].push_back(entity_id);
     };
 
     m_trigger_system->ForEachShapeTrigger(collect_shape_triggers);
@@ -85,6 +86,9 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
 
         for(uint32_t emitter_entity_id : hash_emitters.second)
         {
+            if(emitter_entity_id == mono::INVALID_ID)
+                continue;
+
             const math::Matrix& world_transform = m_transform_system->GetWorld(emitter_entity_id);
             const math::Vector& world_position = math::GetPosition(world_transform);
             emitter_positions_for_this_hash.push_back(world_position);
@@ -95,6 +99,9 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
         {
             for(uint32_t target_entity_id : it->second)
             {
+                if(target_entity_id == mono::INVALID_ID) // This can mean the target resides in code
+                    continue;
+
                 const math::Matrix& world_transform = m_transform_system->GetWorld(target_entity_id);
                 const math::Vector& world_position = math::GetPosition(world_transform);
                 target_positions_for_this_hash.push_back(world_position);
