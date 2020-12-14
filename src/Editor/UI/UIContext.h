@@ -33,6 +33,7 @@ namespace editor
         uint32_t hash;
         bool allow_multiple;
         std::string name;
+        std::string category;
     };
 
     struct UIFolder

@@ -147,6 +147,7 @@ struct Component
     uint32_t depends_on;
     bool allow_multiple;
     std::vector<Attribute> properties;
+    const char* category;
 };
 
 using ComponentArray = std::array<Component, 22>;

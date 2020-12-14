@@ -339,8 +339,17 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
     if(ImGui::BeginPopup("select_component"))
     {
+        std::string current_category;
+
         for(const UIComponentItem& component_item : ui_context.component_items)
         {
+            if(current_category != component_item.category)
+            {
+                if(!current_category.empty())
+                    ImGui::Separator();
+                current_category = component_item.category;
+            }
+
             const std::string name = PrettifyString(component_item.name);
             
             ImGuiSelectableFlags flags = 0;
