@@ -423,6 +423,48 @@ namespace
         return true;
     }
 
+    bool CreateCounterTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateCounterTrigger(entity->id);
+        return true;
+    }
+
+    bool ReleaseCounterTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseCounterTrigger(entity->id);
+        return true;
+    }
+
+    bool UpdateCounterTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        std::string trigger_name_completed;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        const bool found_trigger_name_completed =
+            FindAttribute(TRIGGER_NAME_COMPLETED_ATTRIBUTE, properties, trigger_name_completed, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name || !found_trigger_name_completed)
+            return false;
+
+        int count;
+        bool reset_on_completed;
+        FindAttribute(COUNT_ATTRIBUTE, properties, count, FallbackMode::SET_DEFAULT);
+        FindAttribute(RESET_ON_COMPLETED_ATTRIBUTE, properties, reset_on_completed, FallbackMode::SET_DEFAULT);
+
+        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t completed_trigger_hash = mono::Hash(trigger_name_completed.c_str());
+
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AddCounterTrigger(entity->id, trigger_hash, completed_trigger_hash, count, reset_on_completed);
+
+        trigger_system->RegisterTriggerHashDebugName(trigger_hash, trigger_name.c_str());
+        trigger_system->RegisterTriggerHashDebugName(completed_trigger_hash, trigger_name_completed.c_str());
+
+        return true;
+    }
+
     bool CreatePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
@@ -649,6 +691,7 @@ void game::RegisterGameComponents(mono::EntityManager& entity_manager)
     entity_manager.RegisterComponent(DEATH_TRIGGER_COMPONENT, CreateDeathTrigger, ReleaseDeathTrigger, UpdateDeathTrigger);
     entity_manager.RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);
     entity_manager.RegisterComponent(TIME_TRIGGER_COMPONENT, CreateTimeTrigger, ReleaseTimeTrigger, UpdateTimeTrigger);
+    entity_manager.RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
     entity_manager.RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager.RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager.RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);

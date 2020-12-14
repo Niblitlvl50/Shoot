@@ -64,6 +64,9 @@ TriggerSystem::TriggerSystem(size_t n_triggers, DamageSystem* damage_system, mon
 
     m_time_triggers.resize(n_triggers);
     m_active_time_triggers.resize(n_triggers, false);
+
+    m_counter_triggers.resize(n_triggers);
+    m_active_counter_triggers.resize(n_triggers, false);
 }
 
 ShapeTriggerComponent* TriggerSystem::AllocateShapeTrigger(uint32_t entity_id)
@@ -199,6 +202,62 @@ void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, fl
     time_trigger.repeating = repeating;
 }
 
+CounterTriggerComponent* TriggerSystem::AllocateCounterTrigger(uint32_t entity_id)
+{
+    m_active_counter_triggers[entity_id] = true;
+
+    CounterTriggerComponent& counter_trigger = m_counter_triggers[entity_id];
+    counter_trigger.callback_id = NO_CALLBACK_SET;
+    counter_trigger.counter = 0;
+    return &counter_trigger;
+}
+
+void TriggerSystem::ReleaseCounterTrigger(uint32_t entity_id)
+{
+    CounterTriggerComponent& counter_trigger = m_counter_triggers[entity_id];
+
+    if(counter_trigger.callback_id != NO_CALLBACK_SET)
+    {
+        RemoveTriggerCallback(counter_trigger.listen_trigger_hash, counter_trigger.callback_id, entity_id);
+        counter_trigger.callback_id = NO_CALLBACK_SET;
+    }
+
+    m_active_counter_triggers[entity_id] = false;
+}
+
+void TriggerSystem::AddCounterTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int count, bool reset_on_completed)
+{
+    CounterTriggerComponent* counter_trigger = &m_counter_triggers[entity_id];
+
+    counter_trigger->listen_trigger_hash = listener_hash;
+    counter_trigger->completed_trigger_hash = completed_hash;
+    counter_trigger->count = count;
+    counter_trigger->reset_on_completed = reset_on_completed;
+
+    if(counter_trigger->callback_id != NO_CALLBACK_SET)
+    {
+        RemoveTriggerCallback(counter_trigger->listen_trigger_hash, counter_trigger->callback_id, entity_id);
+        counter_trigger->callback_id = NO_CALLBACK_SET;
+    }
+
+    const auto counter_callback = [this, counter_trigger](uint32_t trigger_id)
+    {
+        counter_trigger->counter++;
+        if(counter_trigger->counter == counter_trigger->count)
+        {
+            EmitTrigger(counter_trigger->completed_trigger_hash);
+            if(counter_trigger->reset_on_completed)
+                counter_trigger->counter = 0;
+            else
+            {
+                // Remove?
+            }
+        }
+    };
+
+    counter_trigger->callback_id = RegisterTriggerCallback(listener_hash, counter_callback, entity_id);
+}
+
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id)
 {
     m_entity_id_to_trigger_hashes[trigger_hash].push_back(debug_entity_id);
@@ -265,7 +324,10 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
     UpdateTimeTriggers(update_context);
 
-    for(uint32_t trigger_hash : m_triggers_to_emit)
+    const std::vector<uint32_t> local_triggers_to_emit = m_triggers_to_emit;
+    m_triggers_to_emit.clear();
+
+    for(uint32_t trigger_hash : local_triggers_to_emit)
     {
         const auto it = m_trigger_callbacks.find(trigger_hash);
         if(it != m_trigger_callbacks.end())
@@ -285,8 +347,6 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
         game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
     }
-
-    m_triggers_to_emit.clear();
 }
 
 void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_context)

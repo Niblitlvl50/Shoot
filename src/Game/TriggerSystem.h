@@ -50,6 +50,18 @@ namespace game
         bool repeating;
     };
 
+    struct CounterTriggerComponent
+    {
+        uint32_t listen_trigger_hash;
+        uint32_t completed_trigger_hash;
+        bool reset_on_completed;
+        int count;
+
+        // Internal data
+        uint32_t callback_id;
+        int counter;
+    };
+
     using TriggerCallback = std::function<void (uint32_t trigger_id)>;
 
     class TriggerSystem : public mono::IGameSystem
@@ -75,6 +87,11 @@ namespace game
         TimeTriggerComponent* AllocateTimeTrigger(uint32_t entity_id);
         void ReleaseTimeTrigger(uint32_t entity_id);
         void AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, float timeout_ms, bool repeating);
+
+        CounterTriggerComponent* AllocateCounterTrigger(uint32_t entity_id);
+        void ReleaseCounterTrigger(uint32_t entity_id);
+        void AddCounterTrigger(
+            uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int count, bool reset_on_completed);
 
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id);
@@ -129,6 +146,17 @@ namespace game
             }
         }
 
+        template<typename T>
+        void ForEachCounterTrigger(T&& callable) const
+        {
+            for(uint32_t index = 0; index < m_active_counter_triggers.size(); ++index)
+            {
+                const bool is_active = m_active_counter_triggers[index];
+                if(is_active)
+                    callable(index, m_counter_triggers[index]);
+            }
+        }
+
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -156,6 +184,9 @@ namespace game
 
         std::vector<TimeTriggerComponent> m_time_triggers;
         std::vector<bool> m_active_time_triggers;
+
+        std::vector<CounterTriggerComponent> m_counter_triggers;
+        std::vector<bool> m_active_counter_triggers;
 
         std::vector<uint32_t> m_triggers_to_emit;
 

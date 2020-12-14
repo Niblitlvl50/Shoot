@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 46> default_attributes = {{
+const std::array<DefaultAttribute, 49> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -71,6 +71,9 @@ const std::array<DefaultAttribute, 46> default_attributes = {{
     { "repeating",          Variant(false) },
     { "polygon",            Variant(polygon_default) },
     { "random_start_frame", Variant(false) },
+    { "trigger_name_completed", Variant(std::string()) },
+    { "count",                  Variant(2) },
+    { "reset_on_compeleted",    Variant(false) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -128,6 +131,10 @@ extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[43].has
 extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[44].hash;
 extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[45].hash;
 
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[46].hash;
+extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[47].hash;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[48].hash;
+
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
 extern const uint32_t TRANSFORM_COMPONENT       = mono::Hash("transform");
@@ -145,6 +152,7 @@ extern const uint32_t SHAPE_TRIGGER_COMPONENT   = mono::Hash("shape_trigger");
 extern const uint32_t DEATH_TRIGGER_COMPONENT   = mono::Hash("death_trigger");
 extern const uint32_t AREA_TRIGGER_COMPONENT    = mono::Hash("area_entity_trigger");
 extern const uint32_t TIME_TRIGGER_COMPONENT    = mono::Hash("time_trigger");
+extern const uint32_t COUNTER_TRIGGER_COMPONENT = mono::Hash("counter_trigger");
 extern const uint32_t PICKUP_COMPONENT          = mono::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT       = mono::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
@@ -187,6 +195,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "area_entity_trigger";
     else if(hash == TIME_TRIGGER_COMPONENT)
         return "time_trigger";
+    else if(hash == COUNTER_TRIGGER_COMPONENT)
+        return "counter_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
@@ -213,27 +223,28 @@ Component MakeComponent(uint32_t hash, uint32_t depends_on, bool allow_multiple,
 }
 
 const ComponentArray default_components = {
-    MakeComponent(TRANSFORM_COMPONENT,      NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
-    MakeComponent(SPRITE_COMPONENT,         NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
-    MakeComponent(TEXT_COMPONENT,           NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
-    MakeComponent(PHYSICS_COMPONENT,        NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
-    MakeComponent(CIRCLE_SHAPE_COMPONENT,   PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
-    MakeComponent(BOX_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
-    MakeComponent(SEGMENT_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
-    MakeComponent(POLYGON_SHAPE_COMPONENT,  PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
-    MakeComponent(HEALTH_COMPONENT,         NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
-    MakeComponent(BEHAVIOUR_COMPONENT,      NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
-    MakeComponent(SPAWN_POINT_COMPONENT,    NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,  NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
-    MakeComponent(DEATH_TRIGGER_COMPONENT,  HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
-    MakeComponent(AREA_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE } ),
-    MakeComponent(TIME_TRIGGER_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE } ),
-    MakeComponent(PICKUP_COMPONENT,         PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
-    MakeComponent(ANIMATION_COMPONENT,      SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
-    MakeComponent(TRANSLATION_COMPONENT,    NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
-    MakeComponent(ROTATION_COMPONENT,       NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
-    MakeComponent(CAMERA_ZOOM_COMPONENT,    NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE } ),
-    MakeComponent(CAMERA_POINT_COMPONENT,   NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE } ),
+    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE } ),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE } ),
+    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE } ),
+    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE } ),
+    MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE } ),
+    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE } ),
+    MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  { ENTITY_BEHAVIOUR_ATTRIBUTE } ),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE } ),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE } ),
+    MakeComponent(DEATH_TRIGGER_COMPONENT,      HEALTH_COMPONENT,   false,  { TRIGGER_NAME_ATTRIBUTE } ),
+    MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE } ),
+    MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE } ),
+    MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE } ),
+    MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE } ),
+    MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,   true,   { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE } ),
+    MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,     true,   { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE } ),
+    MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE } ),
+    MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE } ),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

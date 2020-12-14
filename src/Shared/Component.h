@@ -64,6 +64,10 @@ extern const uint32_t ANIMATION_MODE_ATTRIBUTE;
 extern const uint32_t REPEATING_ATTRIBUTE;
 extern const uint32_t POLYGON_ATTRIBUTE;
 
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE;
+extern const uint32_t COUNT_ATTRIBUTE;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -129,6 +133,7 @@ extern const uint32_t SHAPE_TRIGGER_COMPONENT;
 extern const uint32_t DEATH_TRIGGER_COMPONENT;
 extern const uint32_t AREA_TRIGGER_COMPONENT;
 extern const uint32_t TIME_TRIGGER_COMPONENT;
+extern const uint32_t COUNTER_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
@@ -144,7 +149,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 21>;
+using ComponentArray = std::array<Component, 22>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);
