@@ -365,4 +365,7 @@ void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
     };
 
     mono::remove_if(m_context.notifications, remove_notification_func);
+
+    // Reset the shortcut
+    m_context.open_add_component = false;
 }

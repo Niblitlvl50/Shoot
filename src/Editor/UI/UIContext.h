@@ -86,6 +86,7 @@ namespace editor
 
         // Components
         std::vector<UIComponentItem> component_items;
+        bool open_add_component = false;
 
         // Item selection
         bool show_modal_item_selection = false;

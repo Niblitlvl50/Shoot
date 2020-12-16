@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 49> default_attributes = {{
+const std::array<DefaultAttribute, 50> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -34,6 +34,7 @@ const std::array<DefaultAttribute, 49> default_attributes = {{
     { "path_file",          Variant(std::string()) },
     { "trigger_radius",     Variant(1.0f) },
     { "color",              Variant(mono::Color::WHITE) },
+    { "shadow_offset",      Variant(math::ZeroVec) },
     { "pickup_type",        Variant(0) },
     { "amount",             Variant(10) },
     { "body_type",          Variant(0) },
@@ -85,55 +86,56 @@ extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[5].hash
 extern const uint32_t PATH_FILE_ATTRIBUTE           = default_attributes[6].hash;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[7].hash;
 extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[8].hash;
+extern const uint32_t SHADOW_OFFSET_ATTRIBUTE       = default_attributes[9].hash;
 
-extern const uint32_t PICKUP_TYPE_ATTRIBUTE         = default_attributes[9].hash;
-extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[10].hash;
+extern const uint32_t PICKUP_TYPE_ATTRIBUTE         = default_attributes[10].hash;
+extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[11].hash;
 
-extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[11].hash;
-extern const uint32_t MASS_ATTRIBUTE                = default_attributes[12].hash;
-//extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[13].hash;
-extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[14].hash;
+extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[12].hash;
+extern const uint32_t MASS_ATTRIBUTE                = default_attributes[13].hash;
+//extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[14].hash;
+extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[15].hash;
 
-extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[15].hash;
-extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[16].hash;
+extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[16].hash;
+extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[17].hash;
 
-extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[17].hash;
-extern const uint32_t UNUSED_2                      = default_attributes[18].hash;
-extern const uint32_t START_ATTRIBUTE               = default_attributes[19].hash;
-extern const uint32_t END_ATTRIBUTE                 = default_attributes[20].hash;
-extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[21].hash;
+extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[18].hash;
+extern const uint32_t UNUSED_2                      = default_attributes[19].hash;
+extern const uint32_t START_ATTRIBUTE               = default_attributes[20].hash;
+extern const uint32_t END_ATTRIBUTE                 = default_attributes[21].hash;
+extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[22].hash;
 
-extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[22].hash;
-extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[23].hash;
-extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[24].hash;
+extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[23].hash;
+extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[24].hash;
+extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[25].hash;
 
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[25].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[26].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[27].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[28].hash;
-extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[29].hash;
-extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[30].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[26].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[27].hash;
+extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[28].hash;
+extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[29].hash;
+extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[30].hash;
+extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[31].hash;
 
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[31].hash;
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[32].hash;
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[33].hash;
-extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[34].hash;
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[35].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[36].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[37].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[38].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[32].hash;
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[33].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[34].hash;
+extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[35].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[36].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[37].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[38].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[39].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[39].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[40].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[41].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[42].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[43].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[44].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[45].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[40].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[41].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[42].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[43].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[44].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[45].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[46].hash;
 
-extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[46].hash;
-extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[47].hash;
-extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[48].hash;
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[47].hash;
+extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[48].hash;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[49].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -228,7 +230,7 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }, "general" ),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }, "general" ),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE }, "general" ),
-    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE }, "rendering" ),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE }, "rendering" ),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }, "rendering" ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }, "physics" ),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }, "physics" ),

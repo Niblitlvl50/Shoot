@@ -615,6 +615,11 @@ void Editor::DeleteComponent(uint32_t index)
     }
 }
 
+void Editor::AddComponentUI()
+{
+    m_context.open_add_component = true;
+}
+
 void Editor::EntityComponentUpdated(uint32_t entity_id, uint32_t component_hash)
 {
     IObjectProxy* proxy_object = FindProxyObject(m_selected_id);

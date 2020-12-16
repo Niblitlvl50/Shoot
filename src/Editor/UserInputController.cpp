@@ -246,6 +246,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::SAVE);
     else if(event.key == Keycode::T && event.ctrl)
         m_editor->TeleportToSelectedProxyObject();
+    else if(event.key == Keycode::A && event.ctrl)
+        m_editor->AddComponentUI();
     else if(event.key == Keycode::I && event.ctrl && event.shift)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::IMPORT_ENTITY);
     else if(event.key == Keycode::E && event.ctrl && event.shift)

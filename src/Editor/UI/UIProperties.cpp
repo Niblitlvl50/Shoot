@@ -13,7 +13,7 @@
 #include "TriggerTypes.h"
 #include "AnimationModes.h"
 #include "FontIds.h"
-#include "SpriteProperties.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -183,8 +183,13 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == SPRITE_PROPERTIES_ATTRIBUTE)
     {
+        static const std::vector<uint32_t> all_sprite_properties = {
+            mono::SpriteProperty::WIND_SWAY,
+            mono::SpriteProperty::SHADOW,
+        };
+
         return DrawBitfieldProperty(
-            attribute_name, std::get<uint32_t>(attribute.value), shared::all_sprite_properties, shared::SpritePropertyToString);
+            attribute_name, std::get<uint32_t>(attribute.value), all_sprite_properties, mono::SpritePropertyToString);
 
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
@@ -293,8 +298,9 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
     ImGui::Spacing();
     ImGui::Spacing();
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-    if(ImGui::Button("Add Component", ImVec2(285, 0)))
+    if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(285, 0)) || ui_context.open_add_component)
         ImGui::OpenPopup("select_component");
+
     ImGui::PopStyleVar();
 
     for(size_t index = 0; index < components.size(); ++index)
