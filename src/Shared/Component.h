@@ -17,6 +17,7 @@ extern const uint32_t PATH_FILE_ATTRIBUTE;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE;
 extern const uint32_t COLOR_ATTRIBUTE;
 extern const uint32_t SHADOW_OFFSET_ATTRIBUTE;
+extern const uint32_t SHADOW_SIZE_ATTRIBUTE;
 
 extern const uint32_t PICKUP_TYPE_ATTRIBUTE;
 extern const uint32_t AMOUNT_ATTRIBUTE;

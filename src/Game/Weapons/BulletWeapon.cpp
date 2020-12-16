@@ -114,7 +114,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
         body->SetPosition(position);
-        body->SetAngle(bullet_direction);
+        //body->SetAngle(bullet_direction);
         body->SetNoDamping();
         body->AddCollisionHandler(bullet_logic);
 
