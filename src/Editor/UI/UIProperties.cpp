@@ -498,7 +498,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
             constexpr float button_max_size = 64.0f;
             const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
 
-            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_coordinates);
+            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
             const bool sprite_selected = ImGui::ImageButton(
                 texture_id, ImVec2(size.x * scale, size.y * scale), image_icon.uv1, image_icon.uv2, 2);
             if(sprite_selected)

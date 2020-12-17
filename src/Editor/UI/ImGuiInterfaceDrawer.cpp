@@ -292,7 +292,7 @@ namespace
             if(icon_it != context.ui_icons.end())
             {
                 void* texture_id = reinterpret_cast<void*>(icon_it->second.texture_id);
-                const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_coordinates);
+                const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
                 ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
                 ImGui::SameLine();
             }

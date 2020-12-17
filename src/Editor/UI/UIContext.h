@@ -45,7 +45,8 @@ namespace editor
     struct UIIcon
     {
         int texture_id;
-        math::Quad uv_coordinates;
+        math::Vector uv_upper_left;
+        math::Vector uv_lower_right;
         math::Vector size;
         std::string category;
     };

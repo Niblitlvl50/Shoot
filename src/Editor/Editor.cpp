@@ -60,42 +60,48 @@ namespace
     {
         context.ui_icons[editor::placeholder_texture] = {
             (int)mono::LoadImGuiTexture(editor::placeholder_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
 
         context.ui_icons[editor::export_texture] = {
             (int)mono::LoadImGuiTexture(editor::export_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
 
         context.ui_icons[editor::import_texture] = {
             (int)mono::LoadImGuiTexture(editor::import_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
 
         context.ui_icons[editor::information_texture] = {
             (int)mono::LoadImGuiTexture(editor::information_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
 
         context.ui_icons[editor::save_texture] = {
             (int)mono::LoadImGuiTexture(editor::save_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
 
         context.ui_icons[editor::wrench_texture] = {
             (int)mono::LoadImGuiTexture(editor::wrench_texture),
-            math::Quad(0.0f, 1.0f, 1.0f, 0.0f),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
             "ui"
         };
@@ -111,7 +117,8 @@ namespace
 
             context.ui_icons[sprite_file] = {
                 (int)mono::LoadImGuiTexture(sprite_data->texture_file.c_str()),
-                sprite_data->frames.front().texture_coordinates,
+                sprite_data->frames.front().uv_upper_left,
+                sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
                 sprite_data->category
             };
