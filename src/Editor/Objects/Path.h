@@ -47,7 +47,7 @@ namespace editor
 
         std::unique_ptr<mono::IRenderBuffer> m_position_buffer;
         std::unique_ptr<mono::IRenderBuffer> m_color_buffer;
-        std::unique_ptr<mono::IRenderBuffer> m_index_buffer;
+        std::unique_ptr<mono::IElementBuffer> m_index_buffer;
     };
 
     void DrawPath(mono::IRenderer& renderer, const std::vector<math::Vector>& points);

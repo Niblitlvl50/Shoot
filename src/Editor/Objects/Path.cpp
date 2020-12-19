@@ -202,16 +202,14 @@ void PathEntity::UpdateMesh()
     const uint32_t position_buffer_data_size = generated_mesh->num_vertices * 2;
     if(!m_position_buffer || m_position_buffer->Size() < position_buffer_data_size)
     {
-        m_position_buffer =
-            CreateRenderBuffer(BufferTarget::ARRAY_BUFFER, BufferType::DYNAMIC, BufferData::FLOAT, position_buffer_data_size);
+        m_position_buffer = CreateRenderBuffer(BufferType::DYNAMIC, BufferData::FLOAT, 2, position_buffer_data_size);
     }
     m_position_buffer->UpdateData(generated_mesh->positions, 0, position_buffer_data_size);
 
     const uint32_t color_buffer_data_size = position_buffer_data_size * 2;
     if(!m_color_buffer || m_color_buffer->Size() < color_buffer_data_size)
     {
-        m_color_buffer =
-            CreateRenderBuffer(BufferTarget::ARRAY_BUFFER, BufferType::DYNAMIC, BufferData::FLOAT, color_buffer_data_size);
+        m_color_buffer = CreateRenderBuffer(BufferType::DYNAMIC, BufferData::FLOAT, 4, color_buffer_data_size);
     }
     const std::vector<mono::Color::RGBA> colors(generated_mesh->num_vertices, mono::Color::RED);
     m_color_buffer->UpdateData(colors.data(), 0, color_buffer_data_size);
@@ -219,8 +217,7 @@ void PathEntity::UpdateMesh()
     const uint32_t index_buffer_data_size = generated_mesh->num_triangles * 3;
     if(!m_index_buffer || m_index_buffer->Size() < index_buffer_data_size)
     {
-        m_index_buffer =
-            CreateRenderBuffer(BufferTarget::ELEMENT_BUFFER, BufferType::DYNAMIC, BufferData::INT, index_buffer_data_size);
+        m_index_buffer = CreateElementBuffer(BufferType::DYNAMIC, BufferData::INT, index_buffer_data_size);
     }
     m_index_buffer->UpdateData(generated_mesh->triangle_indices, 0, index_buffer_data_size);
 

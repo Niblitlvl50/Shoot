@@ -15,8 +15,8 @@ StaticBackground::StaticBackground(const char* background_texture)
     const int vertex_count = 4;
 
     m_texture = mono::GetTextureFactory()->CreateTexture(background_texture);
-    m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2);
-    m_texture_buffer = mono::CreateRenderBuffer(mono::BufferTarget::ARRAY_BUFFER, mono::BufferType::STATIC, mono::BufferData::FLOAT, vertex_count * 2); 
+    m_vertex_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertex_count * 2);
+    m_texture_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertex_count * 2); 
 
     constexpr math::Quad background_bb = math::Quad(-100.0f, -100.0f, 100.0f, 100.0f);
 
