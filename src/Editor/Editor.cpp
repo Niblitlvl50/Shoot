@@ -3,6 +3,7 @@
 #include "EditorConfig.h"
 #include "Camera/ICamera.h"
 
+#include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
@@ -201,8 +202,10 @@ Editor::Editor(
 Editor::~Editor()
 { }
 
-void Editor::OnLoad(mono::ICamera* camera)
+void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
+    m_renderer = renderer;
+
     EnableDrawObjectNames(m_editor_config.draw_object_names);
     EnableDrawSnappers(m_editor_config.draw_snappers);
     EnableDrawOutline(m_editor_config.draw_outline);
@@ -734,7 +737,7 @@ const mono::Color::RGBA& Editor::BackgroundColor() const
 void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
-    //m_window->SetBackgroundColor(color.red, color.green, color.blue);
+    m_renderer->SetClearColor(color);
 }
 
 bool Editor::SnapToGrid() const

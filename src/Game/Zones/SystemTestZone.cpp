@@ -4,6 +4,8 @@
 #include "EntitySystem/EntitySystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CMSpace.h"
+#include "Rendering/IRenderer.h"
+#include "Rendering/Shader/ScreenShader.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -45,9 +47,13 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
 SystemTestZone::~SystemTestZone()
 { }
 
-void SystemTestZone::OnLoad(mono::ICamera* camera)
+void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    GameZone::OnLoad(camera);
+    GameZone::OnLoad(camera, renderer);
+
+    mono::IShader* screen_shader = renderer->GetScreenShader();
+    renderer->UseShader(screen_shader);
+    mono::ScreenShader::FadeCorners(screen_shader, true);
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();

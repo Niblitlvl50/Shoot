@@ -17,7 +17,7 @@ namespace game
 
         GameZone(const ZoneCreationContext& context, const char* world_file);
         ~GameZone();
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
     protected:

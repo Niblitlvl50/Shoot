@@ -19,7 +19,7 @@ namespace game
         TitleScreen(const ZoneCreationContext& context);
         ~TitleScreen();
         
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
         void Continue();

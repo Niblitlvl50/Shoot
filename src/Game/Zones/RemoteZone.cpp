@@ -52,7 +52,7 @@ RemoteZone::~RemoteZone()
     m_event_handler->RemoveListener(m_sprite_token);
 }
 
-void RemoteZone::OnLoad(mono::ICamera* camera)
+void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();

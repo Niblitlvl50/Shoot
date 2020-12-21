@@ -36,9 +36,9 @@ EmptyZone::EmptyZone(const ZoneCreationContext& context)
 EmptyZone::~EmptyZone()
 { }
 
-void EmptyZone::OnLoad(mono::ICamera* camera)
+void EmptyZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    GameZone::OnLoad(camera);
+    GameZone::OnLoad(camera, renderer);
 
     // Player
     m_network_pipe = std::make_unique<NullPipe>();

@@ -12,7 +12,7 @@ namespace game
         EmptyZone(const ZoneCreationContext& context);
         ~EmptyZone();
 
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
         mono::EventHandler* m_event_handler;

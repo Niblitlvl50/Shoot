@@ -42,7 +42,7 @@ namespace editor
 
         virtual ~Editor();
 
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
         void Save();
@@ -116,6 +116,7 @@ namespace editor
         const char* m_world_filename;
 
         mono::ICamera* m_camera;
+        mono::IRenderer* m_renderer;
 
         editor::UIContext m_context;
         ObjectFactory m_object_factory;

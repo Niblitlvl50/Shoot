@@ -70,7 +70,7 @@ GameZone::GameZone(const ZoneCreationContext& context, const char* world_file)
 GameZone::~GameZone()
 { }
 
-void GameZone::OnLoad(mono::ICamera* camera)
+void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     game::g_navmesh = &m_navmesh;
 

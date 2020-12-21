@@ -26,7 +26,7 @@ namespace game
         RemoteZone(const ZoneCreationContext& context);
         ~RemoteZone();
 
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
         mono::EventResult HandleText(const TextMessage& text_message);

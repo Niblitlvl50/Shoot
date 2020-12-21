@@ -18,7 +18,7 @@ namespace game
         SystemTestZone(const ZoneCreationContext& context);
         ~SystemTestZone();
 
-        void OnLoad(mono::ICamera* camera) override;
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
     private:

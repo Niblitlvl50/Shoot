@@ -91,9 +91,9 @@ TitleScreen::~TitleScreen()
     m_event_handler.RemoveListener(m_key_token);
 }
 
-void TitleScreen::OnLoad(mono::ICamera* camera)
+void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    GameZone::OnLoad(camera);
+    GameZone::OnLoad(camera, renderer);
 
     AddUpdatable(new CheckControllerInput(this));
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
