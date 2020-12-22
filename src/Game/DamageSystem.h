@@ -19,6 +19,7 @@ namespace game
         uint32_t strong_against;
         uint32_t weak_against;
         uint32_t last_damaged_timestamp;
+        bool release_entity_on_death;
         bool is_boss;
     };
 
@@ -57,6 +58,8 @@ namespace game
         DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
         const std::vector<DamageRecord>& GetDamageRecords() const;
 
+        void PreventReleaseOnDeath(uint32_t id, bool enable);
+
         template <typename T>
         inline void ForEeach(T&& func)
         {
@@ -93,5 +96,7 @@ namespace game
         using DamageCallbacks = std::array<DamageCallbackData, 8>;
         std::vector<DamageCallbacks> m_damage_callbacks;
         std::vector<bool> m_active;
+
+        std::vector<uint32_t> m_destroyed_but_not_released;
     };
 }

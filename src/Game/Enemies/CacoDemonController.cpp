@@ -2,18 +2,16 @@
 #include "CacoDemonController.h"
 
 #include "AIKnowledge.h"
-#include "Behaviour/TrackingBehaviour.h"
+#include "DamageSystem.h"
 #include "Factories.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 
 #include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
-#include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
-#include "Util/Random.h"
-
+#include "Rendering/Sprite/SpriteProperties.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
@@ -30,7 +28,6 @@ namespace tweak_values
 using namespace game;
 
 CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
-    : m_entity_id(entity_id)
 {
     m_weapon = g_weapon_factory->CreateWeapon(WeaponType::CACOPLASMA, WeaponFaction::ENEMY, entity_id);
 
@@ -47,11 +44,20 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
 
     m_idle_animation = m_entity_sprite->GetAnimationIdFromName("idle");
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack");
-    //m_entity_sprite->GetAnimationIdFromName("death");
+    m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
+
+    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+        m_states.TransitionTo(CacoStates::DEAD);
+    };
+
+    game::DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
+    damage_system->PreventReleaseOnDeath(entity_id, true);
+    uint32_t callback_id = damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
     const CacoStateMachine::StateTable state_table = {
         CacoStateMachine::MakeState(CacoStates::IDLE, &CacodemonController::OnIdle, &CacodemonController::Idle, this),
         CacoStateMachine::MakeState(CacoStates::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack, this),
+        CacoStateMachine::MakeState(CacoStates::DEAD, &CacodemonController::OnDead, &CacodemonController::Dead, this),
     };
 
     m_states.SetStateTableAndState(state_table, CacoStates::IDLE);
@@ -74,25 +80,26 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
 {
     const math::Vector position = math::GetPosition(*m_transform);
     const bool is_visible = math::PointInsideQuad(position, g_camera_viewport);
-    if(!is_visible || g_player_one.player_state != game::PlayerState::ALIVE)
-        return;
 
-    const float new_angle = math::AngleBetweenPoints(g_player_one.position, position);
+    float target_angle = math::PI_2();
+
+    const PlayerInfo* closest_player = game::GetClosestActivePlayer(position);
+    if(closest_player && is_visible)
+        target_angle = math::AngleBetweenPoints(closest_player->position, position);
+
     const float current_rotation = math::GetZRotation(*m_transform);
-
-    const float angle_diff = current_rotation - new_angle - math::PI_2() + math::PI();
+    const float angle_diff = current_rotation - target_angle - math::PI_2() + math::PI();
     const float angle_diff_abs = std::fabs(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
 
-    if(angle_diff_abs <= tweak_values::face_angle)
-    {
-        m_states.TransitionTo(CacoStates::ATTACK);
-    }
-    else
+    if(angle_diff_abs >= tweak_values::face_angle)
     {
         const float direction = angle_diff > 0.0f ? -1.0f : 1.0f;
         const float add = tweak_values::radians_per_second * float(update_context.delta_ms) / 1000.0f * direction;
         m_entity_body->SetAngle(current_rotation + add);
     }
+
+    if(!is_visible || !closest_player)
+        return;
 
     const math::Vector position_diff = position - g_player_one.position;
     const math::Vector position_diff_normalized = math::Normalized(position_diff);
@@ -101,15 +108,26 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         m_entity_body->ApplyLocalImpulse(position_diff_normalized * 200.0f, math::ZeroVec);
     else if(distance_to_player > tweak_values::advance_distance)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 200.0f, math::ZeroVec);
+
+    if(angle_diff_abs <= tweak_values::face_angle)
+        m_states.TransitionTo(CacoStates::ATTACK);
 }
 
 void CacodemonController::OnAttack()
 {
-    m_entity_sprite->SetAnimation(m_attack_animation);
+    m_ready_to_attack = false;
+
+    const auto set_ready_to_attack = [this] {
+        m_ready_to_attack = true;
+    };
+    m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
 }
 
 void CacodemonController::Attack(const mono::UpdateContext& update_context)
 {
+    if(!m_ready_to_attack)
+        return;
+
     const math::Vector position = math::GetPosition(*m_transform);
     const float rotation = math::GetZRotation(*m_transform) + math::PI();
     const math::Vector offset_vector = math::VectorFromAngle(rotation) * 0.5f;
@@ -121,3 +139,13 @@ void CacodemonController::Attack(const mono::UpdateContext& update_context)
         m_states.TransitionTo(CacoStates::IDLE);
     }
 }
+
+void CacodemonController::OnDead()
+{
+    m_entity_sprite->SetAnimation(m_death_animation);
+    const uint32_t new_properties = m_entity_sprite->GetProperties() & ~mono::SpriteProperty::SHADOW;
+    m_entity_sprite->SetProperties(new_properties);
+}
+
+void CacodemonController::Dead(const mono::UpdateContext& update_context)
+{ }

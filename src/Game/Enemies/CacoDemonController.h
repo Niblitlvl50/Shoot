@@ -29,21 +29,26 @@ namespace game
         void OnAttack();
         void Attack(const mono::UpdateContext& update_context);
 
+        void OnDead();
+        void Dead(const mono::UpdateContext& update_context);
+
     private:
 
-        const uint32_t m_entity_id;
         math::Matrix* m_transform;
         mono::IBody* m_entity_body;
         mono::ISprite* m_entity_sprite;
         uint32_t m_idle_animation;
         uint32_t m_attack_animation;
+        uint32_t m_death_animation;
+        bool m_ready_to_attack;
 
         IWeaponPtr m_weapon;
 
         enum class CacoStates
         {
             IDLE,
-            ATTACK
+            ATTACK,
+            DEAD,
         };
 
         using CacoStateMachine = StateMachine<CacoStates, const mono::UpdateContext&>;

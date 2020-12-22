@@ -76,7 +76,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         m_camera->SetTargetPosition(position + m_follow_offset);
     }
 
-    const auto process_camera_anims = [this, &update_context](CameraAnimationComponent* camera_anim)
+    const auto process_camera_anims = [this](CameraAnimationComponent* camera_anim)
     {
         switch(camera_anim->type)
         {

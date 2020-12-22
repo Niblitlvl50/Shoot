@@ -94,7 +94,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Ui
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new GameOverScreen(g_player_one, math::Vector(100.0f, 150.0f), math::Vector(400.0f, 150.0f), m_event_handler));
+    hud_overlay->AddChild(new GameOverScreen(g_player_one, math::Vector(150.0f, 150.0f), math::Vector(400.0f, 150.0f), m_event_handler));
     hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
     hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
     AddEntity(hud_overlay, LayerId::UI);

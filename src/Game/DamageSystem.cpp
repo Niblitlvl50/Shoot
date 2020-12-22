@@ -44,6 +44,7 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     new_record.weak_against = 0;
     new_record.multipier = 1;
     new_record.last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
+    new_record.release_entity_on_death = true;
 
     return &new_record;
 }
@@ -86,8 +87,10 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     damage_record.health -= damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
 
-    result.health_left = damage_record.health;
+    damage_record.health = std::max(damage_record.health, 0);
+
     result.did_damage = true;
+    result.health_left = damage_record.health;
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
 
@@ -98,7 +101,11 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     }
 
     if(damage_type == DamageType::DESTROYED)
+    {
         m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, damage_record.score));
+        if(!damage_record.release_entity_on_death)
+            m_destroyed_but_not_released.push_back(id);
+    }
 
     return result;
 }
@@ -106,6 +113,11 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 const std::vector<DamageRecord>& DamageSystem::GetDamageRecords() const
 {
     return m_damage_records;
+}
+
+void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)
+{
+    m_damage_records[id].release_entity_on_death = !enable;
 }
 
 uint32_t DamageSystem::Id() const
@@ -128,29 +140,8 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             continue;
 
         DamageRecord& damage_record = m_damage_records[entity_id];
-        if(damage_record.health <= 0)
-        {
-            const bool is_player = IsPlayer(entity_id);
-            if(!is_player)
-            {
-                const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
-                const math::Vector& world_position = math::GetPosition(world_transform);
-
-                for(int index = 0; index < 5; ++index)
-                {
-                    const mono::Entity spawned_entity = m_entity_manager->CreateEntity("res/entities/score_100.entity");
-
-                    const float radians = mono::Random(0.0f, math::PI() * 2.0f);
-                    const math::Vector impulse_normal = math::VectorFromAngle(radians);
-
-                    m_physics_system->PositionBody(spawned_entity.id, world_position);
-                    mono::IBody* body = m_physics_system->GetBody(spawned_entity.id);
-                    body->ApplyLocalImpulse(impulse_normal, math::ZeroVec);
-                }
-            }
-
+        if(damage_record.health <= 0 && damage_record.release_entity_on_death)
             m_entity_manager->ReleaseEntity(entity_id);
-        }
     }
 }
 
