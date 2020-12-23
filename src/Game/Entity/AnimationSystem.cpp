@@ -221,6 +221,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             translation_anim->is_initialized = true;
         }
 
+        translation_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
+
         const math::Vector new_position(
             translation_anim->ease_function(translation_anim->duration_counter, translation_anim->duration, translation_anim->start_x, translation_anim->delta_x),
             translation_anim->ease_function(translation_anim->duration_counter, translation_anim->duration, translation_anim->start_y, translation_anim->delta_y)
@@ -228,8 +230,6 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 
         math::Position(transform, new_position);
         m_transform_system->SetTransformState(translation_anim->target_id, mono::TransformState::CLIENT);
-    
-        translation_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
 
         // Check if done
         const bool is_done = (translation_anim->duration - translation_anim->duration_counter) <= 0.0f;

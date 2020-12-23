@@ -122,10 +122,18 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler->RemoveListener(m_score_token);
 
     if(g_player_one.player_state == game::PlayerState::ALIVE)
-        game::g_entity_manager->ReleaseEntity(g_player_one.entity_id);
+    {
+        g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
+        g_entity_manager->ReleaseEntity(g_player_one.entity_id);
+    }
 
     if(g_player_two.player_state == game::PlayerState::ALIVE)
-        game::g_entity_manager->ReleaseEntity(g_player_two.entity_id);
+    {
+        g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
+        g_entity_manager->ReleaseEntity(g_player_two.entity_id);
+    }
+
+    m_camera_system->Unfollow();
 }
 
 std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const

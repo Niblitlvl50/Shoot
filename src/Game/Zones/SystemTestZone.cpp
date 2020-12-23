@@ -1,7 +1,10 @@
 
 #include "SystemTestZone.h"
+#include "ZoneFlow.h"
 
 #include "EntitySystem/EntitySystem.h"
+#include "Events/QuitEvent.h"
+#include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/CMSpace.h"
 #include "Rendering/IRenderer.h"
@@ -42,6 +45,7 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     , m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)
+    , m_next_zone(TITLE_SCREEN)
 { }
 
 SystemTestZone::~SystemTestZone()
@@ -63,8 +67,10 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
 
-    const auto level_completed_func = [](uint32_t trigger_id) {
+    const auto level_completed_func = [this](uint32_t trigger_id) {
         printf("Level completed, good job!\n");
+        m_next_zone = END_SCREEN;
+        m_event_handler->DispatchEvent(event::QuitEvent());
     };
     m_level_completed_trigger =
         trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
@@ -113,5 +119,6 @@ int SystemTestZone::OnUnload()
 
     GameZone::OnUnload();
     RemoveUpdatable(m_server_manager.get());
-    return 0;
+
+    return m_next_zone;
 }

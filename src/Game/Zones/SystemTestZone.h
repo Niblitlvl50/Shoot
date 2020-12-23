@@ -28,6 +28,7 @@ namespace game
         const game::Config m_game_config;
 
         uint32_t m_level_completed_trigger;
+        int m_next_zone;
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class ServerManager> m_server_manager;

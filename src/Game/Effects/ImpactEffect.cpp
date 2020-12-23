@@ -23,7 +23,7 @@ namespace
 
         const int life = mono::RandomInt(100, 150);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
-        const float size = mono::Random(16.0f, 24.0f);
+        const float size = mono::Random(16.0f, 20.0f);
 
         pool.position[index] = position;
         pool.velocity[index] = velocity * velocity_variation;

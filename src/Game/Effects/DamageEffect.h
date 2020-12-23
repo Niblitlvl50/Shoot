@@ -15,7 +15,6 @@ namespace game
         ~DamageEffect();
 
         void EmitGibsAt(const math::Vector& position, float direction);
-        void EmitBloodAt(const math::Vector& position, float direction);
 
     private:
 

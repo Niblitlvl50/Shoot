@@ -9,6 +9,7 @@ namespace game
         TITLE_SCREEN,
         TEST_ZONE,
         REMOTE_ZONE,
+        END_SCREEN,
         EMPTY_ZONE
     };
 }

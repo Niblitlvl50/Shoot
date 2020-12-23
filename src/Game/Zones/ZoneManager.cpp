@@ -5,6 +5,7 @@
 #include "RemoteZone.h"
 #include "SystemTestZone.h"
 #include "EmptyZone.h"
+#include "EndScreen.h"
 
 using namespace game;
 
@@ -27,6 +28,7 @@ ZoneManager::ZoneManager(
     m_zones[TEST_ZONE] = LoadZone<game::SystemTestZone>;
     m_zones[REMOTE_ZONE] = LoadZone<game::RemoteZone>;
     m_zones[EMPTY_ZONE] = LoadZone<game::EmptyZone>;
+    m_zones[END_SCREEN] = LoadZone<game::EndScreen>;
 }
 
 void ZoneManager::Run()
