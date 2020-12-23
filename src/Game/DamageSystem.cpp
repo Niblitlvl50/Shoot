@@ -20,12 +20,8 @@ using namespace game;
 DamageSystem::DamageSystem(
     size_t num_records,
     mono::IEntityManager* entity_manager,
-    mono::TransformSystem* transform_system,
-    mono::PhysicsSystem* physics_system,
     mono::EventHandler* event_handler)
     : m_entity_manager(entity_manager)
-    , m_transform_system(transform_system)
-    , m_physics_system(physics_system)
     , m_event_handler(event_handler)
     , m_timestamp(0)
     , m_damage_records(num_records)
@@ -87,7 +83,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     damage_record.health -= damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
 
-    damage_record.health = std::max(damage_record.health, 0);
+    damage_record.health = std::max(0, damage_record.health);
 
     result.did_damage = true;
     result.health_left = damage_record.health;
@@ -140,8 +136,13 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             continue;
 
         DamageRecord& damage_record = m_damage_records[entity_id];
-        if(damage_record.health <= 0 && damage_record.release_entity_on_death)
-            m_entity_manager->ReleaseEntity(entity_id);
+        if(damage_record.health <= 0)
+        {
+            if(damage_record.release_entity_on_death)
+                m_entity_manager->ReleaseEntity(entity_id);
+
+            m_active[entity_id] = false;
+        }
     }
 }
 

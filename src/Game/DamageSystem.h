@@ -44,8 +44,6 @@ namespace game
         DamageSystem(
             size_t num_records,
             mono::IEntityManager* entity_manager,
-            mono::TransformSystem* transform_system,
-            mono::PhysicsSystem* physics_system,
             mono::EventHandler* event_handler);
 
         DamageRecord* CreateRecord(uint32_t id);
@@ -80,8 +78,6 @@ namespace game
         size_t FindFreeCallbackIndex(uint32_t id) const;
 
         mono::IEntityManager* m_entity_manager;
-        mono::TransformSystem* m_transform_system;
-        mono::PhysicsSystem* m_physics_system;
         mono::EventHandler* m_event_handler;
         uint32_t m_timestamp;
         

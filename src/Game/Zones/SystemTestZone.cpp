@@ -68,9 +68,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
 
     const auto level_completed_func = [this](uint32_t trigger_id) {
-        printf("Level completed, good job!\n");
-        m_next_zone = END_SCREEN;
         m_event_handler->DispatchEvent(event::QuitEvent());
+        m_next_zone = END_SCREEN;
     };
     m_level_completed_trigger =
         trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);

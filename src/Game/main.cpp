@@ -155,7 +155,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(
-            max_entities, &entity_manager, transform_system, physics_system, &event_handler);
+            max_entities, &entity_manager, &event_handler);
 
         game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(
             max_entities, damage_system, physics_system);
