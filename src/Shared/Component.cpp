@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 51> default_attributes = {{
+const std::array<DefaultAttribute, 52> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -76,6 +76,7 @@ const std::array<DefaultAttribute, 51> default_attributes = {{
     { "trigger_name_completed", Variant(std::string()) },
     { "count",                  Variant(2) },
     { "reset_on_compeleted",    Variant(false) },
+    { "center",                 Variant(false) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -138,6 +139,7 @@ extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[47].has
 extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[48].hash;
 extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[49].hash;
 extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50].hash;
+extern const uint32_t CENTER_ATTRIBUTE                  = default_attributes[51].hash;
 
 
 extern const uint32_t NULL_COMPONENT            = mono::Hash("null");
@@ -233,7 +235,7 @@ const ComponentArray default_components = {
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }, "general" ),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE }, "general" ),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE }, "rendering" ),
-    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }, "rendering" ),
+    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }, "rendering" ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }, "physics" ),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }, "physics" ),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }, "physics" ),
