@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "creatures",
+    "category": "misc",
     "frames": [
         {
             "h": 13,
-            "name": "meteorite_1",
+            "name": "meteorite",
             "w": 12,
-            "x": 1006,
-            "y": 337
+            "x": 1639,
+            "y": 353
         }
     ],
     "frames_offsets": [

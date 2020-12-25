@@ -41,43 +41,43 @@
             "h": 41,
             "name": "yellow_alien_climb_1",
             "w": 33,
-            "x": 1199,
-            "y": 286
+            "x": 1441,
+            "y": 324
         },
         {
             "h": 41,
             "name": "yellow_alien_climb_2",
             "w": 33,
-            "x": 268,
-            "y": 274
+            "x": 223,
+            "y": 324
         },
         {
             "h": 34,
             "name": "yellow_alien_duck_1",
             "w": 34,
-            "x": 1040,
-            "y": 293
+            "x": 1857,
+            "y": 324
         },
         {
             "h": 41,
             "name": "yellow_alien_idle_1",
             "w": 33,
-            "x": 305,
-            "y": 274
+            "x": 1478,
+            "y": 324
         },
         {
             "h": 42,
             "name": "yellow_alien_walk_1",
             "w": 34,
-            "x": 484,
-            "y": 268
+            "x": 155,
+            "y": 324
         },
         {
             "h": 43,
             "name": "yellow_alien_walk_2",
             "w": 35,
-            "x": 354,
-            "y": 268
+            "x": 62,
+            "y": 324
         }
     ],
     "frames_offsets": [

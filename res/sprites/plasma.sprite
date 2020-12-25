@@ -16,15 +16,15 @@
             "h": 14,
             "name": "plasma_default_1",
             "w": 15,
-            "x": 1165,
-            "y": 336
+            "x": 1569,
+            "y": 353
         },
         {
             "h": 13,
             "name": "plasma_default_2",
             "w": 13,
-            "x": 989,
-            "y": 337
+            "x": 1606,
+            "y": 353
         }
     ],
     "frames_offsets": [
