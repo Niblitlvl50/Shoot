@@ -52,7 +52,7 @@
             },
             "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
-                "--position", "500", "0",
+                "--position", "300", "50",
                 // "--zone", "4"
             ],
             "problemMatcher": []
@@ -70,7 +70,8 @@
             "command": "./bin/editor.app/Contents/MacOS/editor",
             "args": [
                 "res/world.components"
-                //"res/title_screen.components"
+                // "res/title_screen.components"
+                // "res/end_screen.components"
                 // "res/empty_world.components"
             ],
             "problemMatcher": []
