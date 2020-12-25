@@ -222,6 +222,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
         }
 
         translation_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
+        translation_anim->duration_counter =
+            std::clamp(translation_anim->duration_counter, 0.0f, translation_anim->duration);
 
         const math::Vector new_position(
             translation_anim->ease_function(translation_anim->duration_counter, translation_anim->duration, translation_anim->start_x, translation_anim->delta_x),
