@@ -80,6 +80,7 @@ namespace editor
         bool draw_snappers = false;
         bool snap_to_grid = false;
         math::Vector grid_size;
+        bool draw_all_objects = false;
 
         // Context menu
         bool show_context_menu = false;

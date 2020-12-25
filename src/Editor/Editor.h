@@ -103,6 +103,9 @@ namespace editor
         void EnableSnapToGrid(bool enable);
         math::Vector GridSize() const;
 
+        void EnableDrawAllObjects(bool enable);
+        bool DrawAllObjects() const;
+
         void DuplicateSelected();
         void ReExportEntities();
 

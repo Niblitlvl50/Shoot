@@ -51,9 +51,18 @@ void editor::DrawCircleShapeDetails(
 {
     float radius_value = 1.0f;
     math::Vector offset;
+    bool is_sensor;
 
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius_value, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
+    FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
+
+    if(is_sensor)
+    {
+        mono::Color::RGBA sensor_color = mono::Color::BLUE;
+        sensor_color.alpha = 0.25f;
+        renderer.DrawFilledCircle(position + offset, math::Vector(radius_value, radius_value), 20, sensor_color);
+    }
 
     renderer.DrawCircle(position + offset, std::max(radius_value, 0.0001f), 20, 1.0f, mono::Color::MAGENTA);
 }
@@ -63,9 +72,11 @@ void editor::DrawBoxShapeDetails(
 {
     math::Vector width_height;
     math::Vector offset;
+    bool is_sensor;
 
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
+    FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
     const math::Vector half_size = width_height / 2.0f;
 
@@ -73,6 +84,12 @@ void editor::DrawBoxShapeDetails(
     box.mA = position + offset - half_size;
     box.mB = position + offset + half_size;
 
+    if(is_sensor)
+    {
+        mono::Color::RGBA sensor_color = mono::Color::BLUE;
+        sensor_color.alpha = 0.25f;
+        renderer.DrawFilledQuad(box, sensor_color);
+    }
     renderer.DrawQuad(box, mono::Color::MAGENTA, 1.0f);
 }
 
@@ -82,16 +99,24 @@ void editor::DrawSegmentShapeDetails(
     math::Vector start;
     math::Vector end;
     float radius = 1.0f;
+    bool is_sensor;
 
     FindAttribute(START_ATTRIBUTE, component_properties, start, FallbackMode::SET_DEFAULT);
     FindAttribute(END_ATTRIBUTE, component_properties, end, FallbackMode::SET_DEFAULT);
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
+    FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
     const std::vector<math::Vector> line = {
         start + position,
         end + position
     };
 
+    if(is_sensor)
+    {
+        mono::Color::RGBA sensor_color = mono::Color::BLUE;
+        sensor_color.alpha = 0.25f;
+        renderer.DrawLines(line, sensor_color, 10.0f);
+    }
     renderer.DrawLines(line, mono::Color::MAGENTA, std::max(radius, 1.0f));
 }
 
@@ -101,17 +126,22 @@ void editor::DrawPolygonShapeDetails(
     std::vector<math::Vector> polygon;
     const bool found_polygon =
         FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
-    if(found_polygon)
-    {
-        const auto local_to_world = [position, rotation](const math::Vector& point) {
-            math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
-            math::Position(local_to_world, position);
-            return math::Transform(local_to_world, point);
-        };
-        std::transform(polygon.begin(), polygon.end(), polygon.begin(), local_to_world);
+    if(!found_polygon)
+        return;
 
-        renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
-    }
+    bool is_sensor;
+    FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
+
+    const auto local_to_world = [position, rotation](const math::Vector& point) {
+        math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
+        math::Position(local_to_world, position);
+        return math::Transform(local_to_world, point);
+    };
+    std::transform(polygon.begin(), polygon.end(), polygon.begin(), local_to_world);
+
+    renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
+    if(is_sensor)
+        renderer.DrawText(shared::PIXELETTE_SMALL, "sensor", position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSpawnPointDetails(

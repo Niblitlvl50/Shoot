@@ -276,6 +276,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawLevelMetadata(!m_editor->DrawLevelMetadata());
     else if(event.key == Keycode::G)
         m_editor->EnableSnapToGrid(!m_editor->SnapToGrid());
+    else if(event.key == Keycode::A)
+        m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
     else if(event.key == Keycode::ENTER && event.ctrl)

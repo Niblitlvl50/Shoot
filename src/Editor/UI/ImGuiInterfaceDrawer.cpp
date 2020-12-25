@@ -79,6 +79,8 @@ namespace
             ImGui::SameLine(0.0f, 50.0f);
             ImGui::InputFloat2("", &context.grid_size.x);
 
+            ImGui::Checkbox("Draw all Objects, A", &context.draw_all_objects);
+
             ImGui::EndMenu();
         }
 

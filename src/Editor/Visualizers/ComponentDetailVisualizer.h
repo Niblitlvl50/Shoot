@@ -1,17 +1,13 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "Rendering/IDrawable.h"
 
 #include <vector>
 #include <unordered_map>
 
 struct Attribute;
-
-namespace mono
-{
-    class TransformSystem;
-}
 
 namespace editor
 {
@@ -26,7 +22,7 @@ namespace editor
     public:
 
         ComponentDetailVisualizer(const ComponentDrawMap& draw_funcs, const mono::TransformSystem* transform_system);
-        void SetObjectProxy(IObjectProxy* object_proxy);
+        void SetObjectProxies(const std::vector<IObjectProxy*>& proxies);
 
         virtual void Draw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
@@ -34,6 +30,6 @@ namespace editor
     private:
         const ComponentDrawMap m_component_draw_funcs;
         const mono::TransformSystem* m_transform_system;
-        IObjectProxy* m_object_proxy = nullptr;
+        std::vector<IObjectProxy*> m_object_proxies;
     };
 }

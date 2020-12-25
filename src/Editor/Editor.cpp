@@ -377,16 +377,19 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     m_selected_id = NO_SELECTION;
     m_context.selected_proxy_object = proxy_object;
-    m_component_detail_visualizer->SetObjectProxy(proxy_object);
 
     for(auto& proxy : m_proxies)
         proxy->SetSelected(false);
 
+    std::vector<IObjectProxy*> proxies_to_draw;
     if(proxy_object)
     {
         m_selected_id = proxy_object->Id();
         proxy_object->SetSelected(true);
+        proxies_to_draw.push_back(proxy_object);
     }
+
+    m_component_detail_visualizer->SetObjectProxies(proxies_to_draw);
 
     UpdateSnappers();
     UpdateGrabbers();
@@ -757,6 +760,26 @@ void Editor::EnableSnapToGrid(bool enable)
 math::Vector Editor::GridSize() const
 {
     return m_context.grid_size;
+}
+
+void Editor::EnableDrawAllObjects(bool enable)
+{
+    m_context.draw_all_objects = enable;
+
+    std::vector<IObjectProxy*> proxies;
+    
+    if(m_context.draw_all_objects)
+    {
+        for(IObjectProxyPtr& proxy_ptr : m_proxies)
+            proxies.push_back(proxy_ptr.get());
+    }
+    
+    m_component_detail_visualizer->SetObjectProxies(proxies);
+}
+
+bool Editor::DrawAllObjects() const
+{
+    return m_context.draw_all_objects;
 }
 
 void Editor::DuplicateSelected()
