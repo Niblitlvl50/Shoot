@@ -68,7 +68,7 @@ namespace
 }
 
 TitleScreen::TitleScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/title_screen.components")
+    : GameZone(context, "res/worlds/title_screen.components")
     , m_event_handler(*context.event_handler)
     , m_system_context(context.system_context)
 {

@@ -41,7 +41,7 @@ namespace
 using namespace game;
 
 SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
-    : GameZone(context, "res/world.components")
+    : GameZone(context, "res/worlds/world.components")
     , m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)

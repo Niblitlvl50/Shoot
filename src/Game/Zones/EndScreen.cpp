@@ -5,7 +5,7 @@
 using namespace game;
 
 EndScreen::EndScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/end_screen.components")
+    : GameZone(context, "res/worlds/end_screen.components")
 { }
 
 void EndScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)

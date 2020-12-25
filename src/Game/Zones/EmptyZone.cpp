@@ -29,7 +29,7 @@ namespace
 }
 
 EmptyZone::EmptyZone(const ZoneCreationContext& context)
-    : GameZone(context, "res/empty_world.components")
+    : GameZone(context, "res/worlds/empty_world.components")
     , m_event_handler(context.event_handler)
 { }
 

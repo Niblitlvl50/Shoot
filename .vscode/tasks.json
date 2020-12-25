@@ -69,10 +69,10 @@
             "type": "process",
             "command": "./bin/editor.app/Contents/MacOS/editor",
             "args": [
-                "res/world.components"
-                // "res/title_screen.components"
-                // "res/end_screen.components"
-                // "res/empty_world.components"
+                "res/worlds/world.components"
+                // "res/worlds/title_screen.components"
+                // "res/worlds/end_screen.components"
+                // "res/worlds/empty_world.components"
             ],
             "problemMatcher": []
         }

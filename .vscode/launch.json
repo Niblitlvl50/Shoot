@@ -51,8 +51,8 @@
             "request": "launch",
             "program": "${workspaceRoot}/bin/editor.app/Contents/MacOS/editor",
             "args": [
-                "res/world.components"
-                // "res/empty_world.components"
+                "res/worlds/world.components"
+                // "res/worlds/empty_world.components"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
