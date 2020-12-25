@@ -34,7 +34,7 @@ namespace
 
         const float radians_increment = (end_radians - start_radians) / segments;
         
-        for(int index = 0; index < segments; ++index)
+        for(int index = 0; index <= segments; ++index)
         {
             const float radians = index * radians_increment + start_radians;
             const float x = -std::sin(radians) + position.x;
@@ -159,7 +159,7 @@ void editor::DrawShapeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -173,7 +173,7 @@ void editor::DrawAreaTriggerComponentDetails(
 
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawDeathTriggerComponentDetails(
@@ -181,7 +181,7 @@ void editor::DrawDeathTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawTimeTriggerComponentDetails(
@@ -189,7 +189,7 @@ void editor::DrawTimeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_SMALL, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSetTranslationDetails(
@@ -199,10 +199,10 @@ void editor::DrawSetTranslationDetails(
     FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
 
     const math::Vector end_position = position + delta_position;
-    renderer.DrawLines({ position, end_position }, mono::Color::BLUE, 2.0f);
+    renderer.DrawLines({ position, end_position }, mono::Color::CYAN, 2.0f);
 
     const std::vector<math::Vector>& arrow_points = GenerateArrow(position, end_position, 0.5f);
-    renderer.DrawLines(arrow_points, mono::Color::BLUE, 2.0f);
+    renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
 
 void editor::DrawSetRotationDetails(
@@ -211,9 +211,12 @@ void editor::DrawSetRotationDetails(
     float delta_rotation;
     FindAttribute(ROTATION_ATTRIBUTE, component_properties, delta_rotation, FallbackMode::SET_DEFAULT);
 
-    const std::vector<math::Vector>& arc_points = GenerateArc(position, rotation, rotation + delta_rotation, 10);
+    const std::vector<math::Vector>& arc_points = GenerateArc(position, rotation, rotation + delta_rotation, 20);
     renderer.DrawPolyline(arc_points, mono::Color::CYAN, 2.0f);
 
-    const std::vector<math::Vector>& arrow_points = GenerateArrow(arc_points[8], arc_points[9], 0.5f);
+    const uint32_t almost_last_point = arc_points.size() -2;
+    const uint32_t last_point = arc_points.size() -1;
+
+    const std::vector<math::Vector>& arrow_points = GenerateArrow(arc_points[almost_last_point], arc_points[last_point], 0.5f);
     renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
