@@ -315,13 +315,17 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
         const std::string name = PrettifyString(ComponentNameFromHash(component.hash));
         ImGui::TextDisabled("%s", name.c_str());
-        ImGui::SameLine(245);
-        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
-        if(ImGui::Button("Delete"))
-            ui_context.delete_component(index);
-        ImGui::PopStyleVar();
-        ImGui::PopStyleColor();
+
+        if(component.hash != TRANSFORM_COMPONENT)
+        {
+            ImGui::SameLine(245);
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
+            if(ImGui::Button("Delete"))
+                ui_context.delete_component(index);
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+        }
 
         for(Attribute& property : component.properties)
         {
