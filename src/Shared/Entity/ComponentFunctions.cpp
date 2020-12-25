@@ -20,8 +20,7 @@ bool CreateTransform(mono::Entity* entity, mono::SystemContext* context)
 bool ReleaseTransform(mono::Entity* entity, mono::SystemContext* context)
 {
     mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-    transform_system->UnchildTransform(entity->id);
-
+    transform_system->ResetTransformComponent(entity->id);
     return true;
 }
 

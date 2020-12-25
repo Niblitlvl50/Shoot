@@ -15,5 +15,6 @@ void EndScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int EndScreen::OnUnload()
 {
+    GameZone::OnUnload();
     return TITLE_SCREEN;
 }

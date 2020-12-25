@@ -120,8 +120,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int GameZone::OnUnload()
 {
-    for(uint32_t entity_id : m_loaded_entities)
-        g_entity_manager->ReleaseEntity(entity_id);
+    g_entity_manager->ReleaseAllEntities();
     g_entity_manager->Sync();
 
     return 0;

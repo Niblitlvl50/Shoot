@@ -113,10 +113,11 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int SystemTestZone::OnUnload()
 {
+    GameZone::OnUnload();
+
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
 
-    GameZone::OnUnload();
     RemoveUpdatable(m_server_manager.get());
 
     return m_next_zone;
