@@ -99,8 +99,11 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     {
         const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
 
-        const float force_multiplier = mono::Random(0.8f, 1.2f);
-        const math::Vector& unit = math::VectorFromAngle(bullet_direction);
+        float force_multiplier = 1.0f;
+        if(m_weapon_config.bullet_force_random)
+            force_multiplier = mono::Random(0.8f, 1.2f);
+        
+        const math::Vector& unit = math::Normalized(math::VectorFromAngle(bullet_direction));
         const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
 
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_weapon_config.bullet_config.entity_file);

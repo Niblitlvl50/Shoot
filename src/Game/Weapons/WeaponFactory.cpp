@@ -71,6 +71,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
             weapon_config.bullet_force = 20.0f;
+            weapon_config.bullet_force_random = true;
             weapon_config.bullet_spread_degrees = 2.0f;
             weapon_config.fire_sound = "res/sound/plasma_fire.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
@@ -111,6 +112,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             //weapon_config.rounds_per_second = 0.7f;
             weapon_config.rounds_per_second = 50.0f;
             weapon_config.bullet_force = 5.0f;
+            weapon_config.bullet_force_random = true;
             weapon_config.bullet_spread_degrees = 10.0f;
 
             break;
@@ -148,10 +150,35 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             //weapon_config.rounds_per_second = 1.0f;
             weapon_config.rounds_per_second = 2.0f;
             weapon_config.bullet_force = 25.0f;
+            weapon_config.bullet_force_random = true;
             weapon_config.bullet_spread_degrees = 4.0f;
             weapon_config.fire_sound = "res/sound/shotgun_fire.wav";
             weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
             //weapon_config.out_of_ammo_sound = "res/sound/ooa_sound.wav";
+
+            break;
+        }
+
+        case game::WeaponType::LASER_BLASTER:
+        {
+            bullet_config.life_span = 10.0f;
+            bullet_config.fuzzy_life_span = 0;
+            bullet_config.bullet_behaviour = BulletCollisionBehaviour::NORMAL;
+            bullet_config.collision_callback = std::bind(
+                StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
+            bullet_config.entity_file = "res/entities/laser_bullet.entity";
+            bullet_config.sound_file = nullptr;
+
+            weapon_config.reload_time = 0.5f;
+            weapon_config.magazine_size = 50;
+            //weapon_config.rounds_per_second = 7.0f;
+            weapon_config.rounds_per_second = 5.0f;
+            weapon_config.fire_rate_multiplier = 1.0f;
+            weapon_config.max_fire_rate = 2.0f;
+            weapon_config.bullet_force = 10.0f;
+            weapon_config.bullet_spread_degrees = 0.0f;
+            weapon_config.fire_sound = "res/sound/plasma_fire.wav";
+            weapon_config.reload_sound = "res/sound/shotgun_reload2.wav";
 
             break;
         }

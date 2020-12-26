@@ -8,6 +8,7 @@
         "res/entities/flak_bullet.entity",
         "res/entities/floor_dude.entity",
         "res/entities/green_blob.entity",
+        "res/entities/laser_bullet.entity",
         "res/entities/pink_blolb.entity",
         "res/entities/plasma_bullet.entity",
         "res/entities/player_bullet.entity",

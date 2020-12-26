@@ -10,12 +10,13 @@ namespace game
         ROCKET_LAUNCHER,
         CACOPLASMA,
         GENERIC,
+        LASER_BLASTER,
 
         TURRET,
         GRENADE,
     };
 
-    constexpr int N_WEAPON_TYPES = static_cast<int>(WeaponType::GENERIC);
+    constexpr int N_WEAPON_TYPES = static_cast<int>(WeaponType::LASER_BLASTER);
 
     inline bool IsBulletWeapon(WeaponType weapon_type)
     {

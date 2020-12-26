@@ -42,7 +42,8 @@ PlayerUIElement::PlayerUIElement(
         "res/sprites/flak_cannon.sprite",
         "res/sprites/rocket_launcher.sprite",
         "res/sprites/bolter.sprite",
-        "res/sprites/bolter.sprite"
+        "res/sprites/bolter.sprite",
+        "res/sprites/bolter.sprite",
     };
     m_weapon_sprites = new UISpriteElement(sprite_files);
     m_weapon_sprites->SetPosition(math::Vector(26.0f, 10.0f));
