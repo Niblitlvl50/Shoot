@@ -1,10 +1,11 @@
 
 #include "PathProxy.h"
+#include "PathEntity.h"
+
 #include "IObjectVisitor.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
 #include "UI/UIContext.h"
-#include "Objects/Path.h"
 #include "Editor.h"
 #include "Math/Matrix.h"
 #include "Math/Quad.h"

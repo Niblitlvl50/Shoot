@@ -1,7 +1,7 @@
 
 #define PAR_STREAMLINES_IMPLEMENTATION
 
-#include "Path.h"
+#include "PathEntity.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Quad.h"

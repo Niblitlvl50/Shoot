@@ -24,11 +24,10 @@
 #include "ImGuiImpl/ImGuiInputHandler.h"
 #include "Resources.h"
 #include "RenderLayers.h"
-#include "WorldSerializer.h"
 #include "Component.h"
 
 #include "ObjectProxies/PathProxy.h"
-#include "Objects/Path.h"
+#include "ObjectProxies/PathEntity.h"
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "EntitySystem/IEntityManager.h"
@@ -46,9 +45,11 @@
 #include "Visualizers/ComponentDetailVisualizer.h"
 
 #include "Serializer/JsonSerializer.h"
+#include "Serializer/WorldSerializer.h"
 
 #include "Util/Algorithm.h"
 #include "Math/MathFunctions.h"
+
 #include <algorithm>
 #include <limits>
 
