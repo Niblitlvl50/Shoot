@@ -49,13 +49,7 @@ namespace
             if(ImGui::MenuItem("Rotate", "2", context.active_tool_index == 1))
                 context.tools_menu_callback(ToolsMenuOptions::ROTATE_TOOL);
 
-            if(ImGui::MenuItem("Polygon", "3", context.active_tool_index == 2))
-                context.tools_menu_callback(ToolsMenuOptions::POLYGON_TOOL);
-
-            if(ImGui::MenuItem("Polygon Brush", "4", context.active_tool_index == 3))
-                context.tools_menu_callback(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
-
-            if(ImGui::MenuItem("Path drawer", "5", context.active_tool_index == 4))
+            if(ImGui::MenuItem("Path drawer", "3", context.active_tool_index == 2))
                 context.tools_menu_callback(ToolsMenuOptions::PATH_TOOL);
 
             ImGui::EndMenu();

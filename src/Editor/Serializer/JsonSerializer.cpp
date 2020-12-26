@@ -2,11 +2,8 @@
 #include "JsonSerializer.h"
 
 #include "ObjectProxies/PathProxy.h"
-#include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
-
 #include "Objects/Path.h"
-#include "Objects/Polygon.h"
 
 #include "Math/Serialize.h"
 #include "Math/Matrix.h"
@@ -52,17 +49,6 @@ void JsonSerializer::WritePathFile(const std::string& file_path) const
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
 }
 
-void JsonSerializer::WritePolygons(const std::string& file_path) const
-{
-    nlohmann::json json;
-    json["polygons"] = m_json_polygons;
-
-    const std::string& serialized_json = json.dump(4);
-
-    file::FilePtr file = file::CreateAsciiFile(file_path.c_str());
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-}
-
 void JsonSerializer::Accept(PathProxy* proxy)
 {
     const auto& path = proxy->m_path;
@@ -71,27 +57,6 @@ void JsonSerializer::Accept(PathProxy* proxy)
     mono::SavePath(filename.c_str(), path->Position(), path->GetPoints());
 
     m_path_names.push_back(filename);
-}
-
-void JsonSerializer::Accept(PolygonProxy* proxy)
-{
-    const auto& polygon_entity = proxy->m_polygon;
-
-    const math::Matrix& local_to_world = polygon_entity->Transformation();
-
-    std::vector<math::Vector> vertices;
-    for(const math::Vector& vertex : polygon_entity->GetVertices())
-        vertices.push_back(math::Transform(local_to_world, vertex));
-
-    nlohmann::json json_polygon;
-    json_polygon["name"] = proxy->Name();
-    json_polygon["position"] = polygon_entity->Position();
-    json_polygon["base_point"] = polygon_entity->BasePoint();
-    json_polygon["rotation"] = polygon_entity->Rotation();
-    json_polygon["texture"] = polygon_entity->GetTextureName();
-    json_polygon["vertices"] = vertices;
-
-    m_json_polygons.push_back(json_polygon);
 }
 
 void JsonSerializer::Accept(ComponentProxy* proxy)

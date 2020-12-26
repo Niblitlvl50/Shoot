@@ -41,9 +41,6 @@ UserInputController::UserInputController(
     , m_camera_tool(camera, window)
     , m_translate_tool(editor)
     , m_rotate_tool(editor)
-    , m_polygon_tool(editor)
-    , m_polygon_box_tool(editor)
-    , m_polygon_brush_tool(editor)
     , m_path_tool(editor)
     , m_measure_tool(editor)
     , m_active_tool(nullptr)
@@ -67,24 +64,6 @@ UserInputController::UserInputController(
     m_multiGestureToken = m_event_handler.AddListener(multi_gesture);
     m_keyDownToken = m_event_handler.AddListener(key_down);
     m_key_up_token = m_event_handler.AddListener(key_up);
-
-    tools[ToolsMenuOptions::POLYGON_TOOL] = {
-        &m_polygon_tool,
-        Notification(editor::wrench_texture, "Polygon tool", 2000),
-        { "Create polygon", "Undo last" }
-    };
-
-    tools[ToolsMenuOptions::POLYGON_BOX_TOOL] = {
-        &m_polygon_box_tool,
-        Notification(editor::wrench_texture, "Polygon Box", 2000),
-        { }
-    };
-
-    tools[ToolsMenuOptions::POLYGON_BRUSH_TOOL] = {
-        &m_polygon_brush_tool,
-        Notification(editor::wrench_texture, "Polygon Brush", 2000),
-        { }
-    };
 
     tools[ToolsMenuOptions::TRANSLATE_TOOL] = {
         &m_translate_tool,
@@ -257,12 +236,6 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     else if(event.key == Keycode::TWO)
         SelectTool(ToolsMenuOptions::ROTATE_TOOL);
     else if(event.key == Keycode::THREE)
-        SelectTool(ToolsMenuOptions::POLYGON_TOOL);
-    else if(event.key == Keycode::FOUR)
-        SelectTool(ToolsMenuOptions::POLYGON_BOX_TOOL);
-    else if(event.key == Keycode::FIVE)
-        SelectTool(ToolsMenuOptions::POLYGON_BRUSH_TOOL);
-    else if(event.key == Keycode::SIX)
         SelectTool(ToolsMenuOptions::PATH_TOOL);
     else if(event.key == Keycode::M)
         SelectTool(ToolsMenuOptions::MEASURE_TOOL);

@@ -52,7 +52,6 @@ namespace editor
         void ImportEntity();
         void ExportEntity();
 
-        void AddPolygon(std::unique_ptr<editor::PolygonEntity> polygon);
         void AddPath(std::unique_ptr<editor::PathEntity> path);
 
         void SelectProxyObject(IObjectProxy* proxy_object);

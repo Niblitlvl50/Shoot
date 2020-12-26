@@ -6,9 +6,6 @@
 
 #include "UI/MainMenuOptions.h"
 
-#include "Tools/PolygonTool.h"
-#include "Tools/PolygonBrushTool.h"
-#include "Tools/PolygonBoxTool.h"
 #include "Tools/TranslateTool.h"
 #include "Tools/RotateTool.h"
 #include "Tools/CameraTool.h"
@@ -62,9 +59,6 @@ namespace editor
         editor::CameraTool m_camera_tool;
         editor::TranslateTool m_translate_tool;
         editor::RotateTool m_rotate_tool;
-        editor::PolygonTool m_polygon_tool;
-        editor::PolygonBoxTool m_polygon_box_tool;
-        editor::PolygonBrushTool m_polygon_brush_tool;
         editor::PathTool m_path_tool;
         editor::MeasureTool m_measure_tool;
 

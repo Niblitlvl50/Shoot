@@ -27,15 +27,12 @@
 #include "WorldSerializer.h"
 #include "Component.h"
 
-#include "ObjectProxies/PolygonProxy.h"
 #include "ObjectProxies/PathProxy.h"
+#include "Objects/Path.h"
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EntitySystem/EntitySystem.h"
-
-#include "Objects/Polygon.h"
-#include "Objects/Path.h"
 
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
@@ -390,12 +387,6 @@ void Editor::NewEntity()
 
     m_proxies.push_back(std::move(proxy));
     SelectProxyObject(m_proxies.back().get());
-}
-
-void Editor::AddPolygon(std::unique_ptr<editor::PolygonEntity> polygon)
-{
-    AddEntity(polygon.get(), RenderLayer::POLYGONS);
-    m_proxies.push_back(std::make_unique<PolygonProxy>("unnamed", std::move(polygon)));
 }
 
 void Editor::AddPath(std::unique_ptr<editor::PathEntity> path)
