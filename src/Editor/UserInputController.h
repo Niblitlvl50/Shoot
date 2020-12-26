@@ -12,7 +12,10 @@
 #include "Tools/PathTool.h"
 #include "Tools/MeasureTool.h"
 
-#include "System/System.h"
+namespace System
+{
+    class IWindow;
+}
 
 namespace editor
 {
@@ -23,11 +26,12 @@ namespace editor
     {
     public:
 
-        UserInputController(mono::ICamera* camera,
-                            System::IWindow* window,
-                            editor::Editor* editor,
-                            editor::UIContext* context,
-                            mono::EventHandler& event_handler);
+        UserInputController(
+            mono::ICamera* camera,
+            System::IWindow* window,
+            editor::Editor* editor,
+            editor::UIContext* context,
+            mono::EventHandler& event_handler);
         ~UserInputController();
 
         void HandleContextMenu(int item_index);
