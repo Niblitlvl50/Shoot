@@ -10,6 +10,7 @@
 #include "System/File.h"
 #include "System/System.h"
 
+#include "ObjectProxies/PathProxy.h"
 #include "Objects/Path.h"
 #include "WorldFile.h"
 
@@ -19,14 +20,13 @@
 #include "Component.h"
 #include "Serialize.h"
 
-#include "ObjectFactory.h"
 #include "Serializer/JsonSerializer.h"
 
 #include "nlohmann/json.hpp"
 #include <algorithm>
 
 
-std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const editor::ObjectFactory& factory)
+std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, editor::Editor* editor)
 {
     std::vector<IObjectProxyPtr> paths;
 
@@ -50,7 +50,9 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const edit
     for(const std::string& file : path_names)
     {
         mono::IPathPtr path = mono::CreatePath(file.c_str());
-        auto proxy = factory.CreatePath(get_name(file), path->GetPathPoints());
+
+        auto path_entity = std::make_unique<editor::PathEntity>(get_name(file), path->GetPathPoints());
+        auto proxy = std::make_unique<PathProxy>(std::move(path_entity), editor);
         proxy->Entity()->SetPosition(path->GetGlobalPosition());
 
         paths.push_back(std::move(proxy));
@@ -117,7 +119,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
 }
 
 editor::World editor::LoadWorld(
-    const char* file_name, const editor::ObjectFactory& factory, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
+    const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
 {
     editor::World world;
 
@@ -134,7 +136,7 @@ editor::World editor::LoadWorld(
 
     world.leveldata = shared::ReadWorldComponentObjects(file_name, entity_manager, entity_callback);
 
-    auto paths = LoadPaths("res/world.paths", factory);
+    auto paths = LoadPaths("res/world.paths", editor);
     for(auto& proxy : paths)
         world.loaded_proxies.push_back(std::move(proxy));
 

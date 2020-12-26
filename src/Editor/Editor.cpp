@@ -158,7 +158,6 @@ Editor::Editor(
     , m_event_handler(event_handler)
     , m_system_context(system_context)
     , m_editor_config(editor_config)
-    , m_object_factory(this)
     , m_selected_id(NO_SELECTION)
     , m_preselected_id(NO_SELECTION)
 {
@@ -316,7 +315,7 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_entity_manager.Sync();
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-    editor::World world = ::LoadWorld(world_filename.c_str(), m_object_factory, &m_entity_manager, transform_system, this);
+    editor::World world = ::LoadWorld(world_filename.c_str(), &m_entity_manager, transform_system, this);
     m_proxies = std::move(world.loaded_proxies);
 
     for(IObjectProxyPtr& proxy : m_proxies)

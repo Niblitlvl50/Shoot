@@ -15,7 +15,7 @@ namespace editor
     class ObjectFactory;
     class Editor;
 
-    std::vector<IObjectProxyPtr> LoadPaths(const char* file_name, const editor::ObjectFactory& factory);
+    std::vector<IObjectProxyPtr> LoadPaths(const char* file_name, Editor* editor);
     std::vector<IObjectProxyPtr> LoadComponentObjects(const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor);
 
     struct World
@@ -26,7 +26,6 @@ namespace editor
 
     World LoadWorld(
         const char* file_name,
-        const editor::ObjectFactory& factory,
         mono::IEntityManager* entity_manager,
         mono::TransformSystem* transform_system,
         Editor* editor);

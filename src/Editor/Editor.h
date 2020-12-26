@@ -13,8 +13,6 @@
 #include "Grabber.h"
 #include "SnapPoint.h"
 
-#include "ObjectFactory.h"
-
 #include <memory>
 
 class ImGuiInputHandler;
@@ -126,7 +124,6 @@ namespace editor
         mono::IRenderer* m_renderer;
 
         editor::UIContext m_context;
-        ObjectFactory m_object_factory;
 
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::unique_ptr<class UserInputController> m_user_input_controller;
