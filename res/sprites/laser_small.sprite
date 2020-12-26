@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "prototype",
+    "category": "bullets",
     "frames": [
         {
-            "h": 136,
-            "name": "wall_half_corner_w",
-            "w": 128,
-            "x": 1161,
-            "y": 2
+            "h": 18,
+            "name": "laser_small",
+            "w": 4,
+            "x": 516,
+            "y": 327
         }
     ],
     "frames_offsets": [

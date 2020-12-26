@@ -31,7 +31,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "laser.sprite"
+                            "variant_value": "laser_small.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -51,8 +51,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
+                                "blue": 0.19607841968536377,
+                                "green": 0.19607841968536377,
                                 "red": 1.0
                             }
                         },
@@ -122,20 +122,23 @@
                     ]
                 },
                 {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
+                    "hash": 103600384,
+                    "name": "box_shape",
                     "properties": [
                         {
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.125
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.10000000149011612,
+                                "y": 0.4000000059604645
+                            }
                         },
                         {
                             "id": 2471448074,
