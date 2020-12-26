@@ -631,6 +631,7 @@ void Editor::OnDeleteObject()
 
     mono::remove_if(m_proxies, find_func);
     SelectProxyObject(nullptr);
+    PreselectProxyObject(nullptr);
     m_grabbers.clear();
 }
 
