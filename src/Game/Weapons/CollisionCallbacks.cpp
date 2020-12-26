@@ -62,31 +62,37 @@ void game::StandardCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     game::BulletCollisionFlag flags,
-    const mono::IBody* other,
-    const math::Vector& collision_point,
+    const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
+    mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
     bool did_damage = false;
 
-    const uint32_t other_entity_id = physics_system->GetIdFromBody(other);
+    const uint32_t other_entity_id = physics_system->GetIdFromBody(details.colliding_body);
     if(other_entity_id != std::numeric_limits<uint32_t>::max() && flags & game::BulletCollisionFlag::APPLY_DAMAGE)
     {
         const DamageResult result = damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
         did_damage = result.did_damage;
     }
 
-    if(other)
+    if(details.colliding_body)
     {
         const math::Vector world_position = math::GetPosition(transform_system->GetWorld(entity_id));
-        const float direction = math::AngleFromVector(world_position - collision_point);
+        const float direction = math::AngleFromVector(world_position - details.collision_point);
 
         if(did_damage)
-            g_damage_effect->EmitGibsAt(collision_point, direction);
+        {
+            g_damage_effect->EmitGibsAt(details.collision_point, direction);
+            mono::Sprite* sprite = sprite_system->GetSprite(other_entity_id);
+            sprite->FlashSprite();
+        }
         else
-            g_impact_effect->EmittAt(collision_point, direction);
+        {
+            g_impact_effect->EmittAt(details.collision_point, direction);
+        }
     }
 
     if(flags & game::BulletCollisionFlag::DESTROY_THIS)
@@ -96,16 +102,15 @@ void game::StandardCollision(
 void game::RocketCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
-    game::BulletCollisionFlag flags, 
-    const mono::IBody* other,
-    const math::Vector& collision_point,
+    game::BulletCollisionFlag flags,
+    const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, other, collision_point, entity_manager, damage_system, physics_system, transform_system);
+    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
     //SpawnEntityWithAnimation("res/entities/explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
     //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
 }
@@ -114,14 +119,13 @@ void game::CacoPlasmaCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     game::BulletCollisionFlag flags,
-    const mono::IBody* other,
-    const math::Vector& collision_point,
+    const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, other, collision_point, entity_manager, damage_system, physics_system, transform_system);
+    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
     SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }

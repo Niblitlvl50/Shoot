@@ -4,6 +4,7 @@
 #include "Physics/PhysicsFwd.h"
 #include "Particle/ParticleFwd.h"
 #include "CollisionConfiguration.h"
+#include "Math/Vector.h"
 
 #include <functional>
 
@@ -15,12 +16,19 @@ namespace game
         DESTROY_THIS = 2,
     };
 
+    struct CollisionDetails
+    {
+        mono::IBody* colliding_body;
+        math::Vector collision_point;
+        math::Vector collision_normal;
+    };
+
     // entity_id is the bullet that collides with something
     // owner_entity_id is the owner of this bullet
     // imact_flags is what to do on impact
-    // collide_with is the body that the bullet collides with
+    // details contains more data on the collision
     using BulletImpactCallback =
-        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, mono::IBody* collide_with, const math::Vector& collision_point)>;
+        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, const CollisionDetails& details)>;
 
     enum class BulletCollisionBehaviour
     {
