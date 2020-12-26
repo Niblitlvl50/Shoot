@@ -85,9 +85,9 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         }
         else
         {
-            const math::Matrix& transform = m_transform_system->GetWorld(entity_id);
-            
-            bar.position = math::GetPosition(transform);
+            const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(entity_id);
+
+            bar.position = math::BottomCenter(world_bb);
             bar.width = 1.0f;
             healthbars.push_back(bar);
         }
