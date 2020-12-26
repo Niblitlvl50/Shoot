@@ -19862,8 +19862,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 26.45170783996582,
-                                "y": 16.11252212524414
+                                "x": 26.18347930908203,
+                                "y": 16.11250877380371
                             }
                         },
                         {
@@ -19956,7 +19956,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "AAAAA"
+                            "variant_value": "AAAA"
                         },
                         {
                             "id": 3902434344,

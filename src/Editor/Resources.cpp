@@ -17,6 +17,9 @@ namespace
     const char* g_all_textures_filename = nullptr;
     std::vector<std::string> g_all_textures;
 
+    const char* g_all_worlds_filename = nullptr;
+    std::vector<std::string> g_all_worlds;
+
     void WriteListFile(const char* filename, const char* key_name, const std::vector<std::string>& list)
     {
         nlohmann::json json;
@@ -135,4 +138,16 @@ bool editor::AddNewTexture(const char* new_texture_filename)
 const std::vector<std::string>& editor::GetAllTextures()
 {
     return g_all_textures;
+}
+
+bool editor::LoadAllWorlds(const char* filename)
+{
+    g_all_worlds = ReadListFile(filename, "all_worlds");
+    g_all_worlds_filename = filename;
+    return false;
+}
+
+const std::vector<std::string>& editor::GetAllWorlds()
+{
+    return g_all_worlds;
 }

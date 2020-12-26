@@ -51,6 +51,12 @@
                             }
                         },
                         {
+                            "id": 93078660,
+                            "name": "center",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,
@@ -151,6 +157,12 @@
                                 "green": 0.7526912689208984,
                                 "red": 0.936274528503418
                             }
+                        },
+                        {
+                            "id": 93078660,
+                            "name": "center",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 124392387,
@@ -537,6 +549,12 @@
                             }
                         },
                         {
+                            "id": 93078660,
+                            "name": "center",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,
@@ -637,6 +655,12 @@
                                 "green": 0.9999899864196777,
                                 "red": 1.0
                             }
+                        },
+                        {
+                            "id": 93078660,
+                            "name": "center",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 124392387,

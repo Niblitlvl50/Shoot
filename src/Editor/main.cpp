@@ -20,15 +20,8 @@
 #include "Entity/GameEntityManager.h"
 #include "Entity/ComponentFunctions.h"
 
-int main(int argc, const char* argv[])
+int main()
 {
-    // This is assumed to be the file argument
-    const char* file_name = (argc < 2) ? nullptr : argv[1];
-    if(!file_name)
-    {
-        return -1;
-    }
-
     constexpr size_t max_entities = 500;
 
     System::InitializeContext init_context;
@@ -62,7 +55,7 @@ int main(int argc, const char* argv[])
 
         shared::LoadFonts();
 
-        auto editor = std::make_unique<editor::Editor>(window, entity_manager, event_handler, system_context, config, file_name);
+        auto editor = std::make_unique<editor::Editor>(window, entity_manager, event_handler, system_context, config);
         mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
 
         const System::Position& position = window->Position();

@@ -155,14 +155,12 @@ Editor::Editor(
     mono::IEntityManager& entity_manager,
     mono::EventHandler& event_handler,
     mono::SystemContext& system_context,
-    Config& editor_config,
-    const char* world_filename)
+    Config& editor_config)
     : m_window(window)
     , m_entity_manager(entity_manager)
     , m_event_handler(event_handler)
     , m_system_context(system_context)
     , m_editor_config(editor_config)
-    , m_world_filename(world_filename)
     , m_object_factory(this)
     , m_selected_id(NO_SELECTION)
     , m_preselected_id(NO_SELECTION)
@@ -175,6 +173,7 @@ Editor::Editor(
     m_context.modal_selection_callback = std::bind(&Editor::SelectItemCallback, this, _1);
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
+    m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
     m_context.select_object_callback = std::bind(&Editor::SelectProxyObject, this, _1);
     m_context.preselect_object_callback = std::bind(&Editor::PreselectProxyObject, this, _1);
     m_context.teleport_to_object_callback = std::bind(&Editor::TeleportToProxyObject, this, _1);
@@ -193,10 +192,13 @@ Editor::Editor(
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllPaths("res/paths/all_paths.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
+    editor::LoadAllWorlds("res/worlds/all_worlds.json");
 
     SetupIcons(m_context);
     SetupSpriteIcons(editor::GetAllSprites(), m_context);
     SetupComponents(m_context);
+
+    m_context.all_worlds = editor::GetAllWorlds();
 }
 
 Editor::~Editor()
@@ -212,6 +214,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     EnableDrawLevelMetadata(m_editor_config.draw_metadata);
     SetBackgroundColor(m_editor_config.background_color);
     EnableSnapToGrid(m_editor_config.snap_to_grid);
+    SwitchWorld(m_editor_config.selected_world);
     
     camera->SetPosition(m_editor_config.camera_position);
     camera->SetViewportSize(m_editor_config.camera_viewport);
@@ -263,8 +266,60 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
+}
 
-    editor::World world = LoadWorld(m_world_filename, m_object_factory, &m_entity_manager, transform_system, this);
+int Editor::OnUnload()
+{
+    RemoveDrawable(m_component_detail_visualizer.get());
+
+    m_editor_config.camera_position = m_camera->GetPosition();
+    m_editor_config.camera_viewport = m_camera->GetViewportSize();
+    m_editor_config.draw_object_names = DrawObjectNames();
+    m_editor_config.draw_snappers = DrawSnappers();
+    m_editor_config.draw_outline = DrawOutline();
+    m_editor_config.draw_metadata = DrawLevelMetadata();
+    m_editor_config.background_color = BackgroundColor();
+    m_editor_config.snap_to_grid = SnapToGrid();
+    m_editor_config.grid_size = m_context.grid_size;
+    m_editor_config.selected_world = m_world_filename;
+
+    Save();
+    return 0;
+}
+
+void Editor::PostUpdate()
+{
+    if(m_world_filename != m_new_world_filename)
+        LoadWorld(m_new_world_filename);
+}
+
+void Editor::SwitchWorld(const std::string& new_world_filename)
+{
+    m_new_world_filename = new_world_filename;
+}
+
+void Editor::LoadWorld(const std::string& world_filename)
+{
+    SelectProxyObject(nullptr);
+    PreselectProxyObject(nullptr);
+
+    if(!m_proxies.empty())
+    {
+        for(IObjectProxyPtr& proxy : m_proxies)
+        {
+            auto entity = proxy->Entity();
+            if(entity)
+                RemoveEntity(entity);
+        }
+
+        Save();
+        m_proxies.clear();
+    }
+
+    m_entity_manager.Sync();
+
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    editor::World world = ::LoadWorld(world_filename.c_str(), m_object_factory, &m_entity_manager, transform_system, this);
     m_proxies = std::move(world.loaded_proxies);
 
     for(IObjectProxyPtr& proxy : m_proxies)
@@ -279,32 +334,8 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_context.player_spawn_point = world.leveldata.metadata.player_spawn_point;
     m_context.background_texture = world.leveldata.metadata.background_texture;
 
-    UpdateSnappers();
-}
-
-int Editor::OnUnload()
-{
-    RemoveDrawable(m_component_detail_visualizer.get());
-
-    for(IObjectProxyPtr& proxy : m_proxies)
-    {
-        auto entity = proxy->Entity();
-        if(entity)
-            RemoveEntity(entity);
-    }
-
-    m_editor_config.camera_position = m_camera->GetPosition();
-    m_editor_config.camera_viewport = m_camera->GetViewportSize();
-    m_editor_config.draw_object_names = DrawObjectNames();
-    m_editor_config.draw_snappers = DrawSnappers();
-    m_editor_config.draw_outline = DrawOutline();
-    m_editor_config.draw_metadata = DrawLevelMetadata();
-    m_editor_config.background_color = BackgroundColor();
-    m_editor_config.snap_to_grid = SnapToGrid();
-    m_editor_config.grid_size = m_context.grid_size;
-
-    Save();
-    return 0;
+    m_world_filename = world_filename;
+    m_context.selected_world = world_filename;
 }
 
 void Editor::Save()
@@ -315,7 +346,7 @@ void Editor::Save()
     metadata.player_spawn_point = m_context.player_spawn_point;
     metadata.background_texture = m_context.background_texture;
 
-    SaveWorld(m_world_filename, m_proxies, metadata);
+    SaveWorld(m_world_filename.c_str(), m_proxies, metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }
 

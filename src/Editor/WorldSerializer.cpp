@@ -10,9 +10,7 @@
 #include "System/File.h"
 #include "System/System.h"
 
-#include "Objects/Polygon.h"
 #include "Objects/Path.h"
-
 #include "WorldFile.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -27,34 +25,6 @@
 #include "nlohmann/json.hpp"
 #include <algorithm>
 
-std::vector<IObjectProxyPtr> editor::LoadPolygons(const char* file_name, const editor::ObjectFactory& factory)
-{
-    std::vector<IObjectProxyPtr> proxies;
-
-    file::FilePtr file = file::OpenAsciiFile(file_name);
-    if(!file)
-        return proxies;
-
-    const std::vector<byte> file_data = file::FileRead(file);
-
-    const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const nlohmann::json& polygons = json["polygons"];
-
-    for(const auto& json_polygon : polygons)
-    {
-        const std::string name = json_polygon["name"];
-        const math::Vector position = json_polygon["position"];
-        const math::Vector base_point = json_polygon["base_point"];
-        const float rotation = json_polygon["rotation"];
-        const std::string texture = json_polygon["texture"];
-        const std::vector<math::Vector> vertices = json_polygon["vertices"];
-
-        auto proxy = factory.CreatePolygon(name, position, base_point, rotation, vertices, texture);
-        proxies.push_back(std::move(proxy));
-    }
-
-    return proxies;
-}
 
 std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, const editor::ObjectFactory& factory)
 {
@@ -168,10 +138,6 @@ editor::World editor::LoadWorld(
     for(auto& proxy : paths)
         world.loaded_proxies.push_back(std::move(proxy));
 
-    auto polygons = LoadPolygons("res/world.polygons", factory);
-    for(auto& proxy : polygons)
-        world.loaded_proxies.push_back(std::move(proxy));
-
     return world;
 }
 
@@ -184,5 +150,4 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
 
     serializer.WriteComponentEntities(file_name, level_data);
     serializer.WritePathFile("res/world.paths");
-    serializer.WritePolygons("res/world.polygons");
 }

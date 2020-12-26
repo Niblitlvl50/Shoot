@@ -51,6 +51,12 @@
                             }
                         },
                         {
+                            "id": 93078660,
+                            "name": "center",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,

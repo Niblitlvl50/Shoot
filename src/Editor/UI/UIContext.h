@@ -82,6 +82,10 @@ namespace editor
         math::Vector grid_size;
         bool draw_all_objects = false;
 
+        // Worlds
+        std::string selected_world;
+        std::vector<std::string> all_worlds;
+
         // Context menu
         bool show_context_menu = false;
         std::vector<std::string> context_menu_items;
@@ -99,6 +103,7 @@ namespace editor
 
         // Callbacks
         std::function<void ()> delete_callback;
+        std::function<void (const std::string& new_world)> switch_world;
         
         std::function<void (uint32_t component_hash)> add_component;
         std::function<void (uint32_t component_index)> delete_component;

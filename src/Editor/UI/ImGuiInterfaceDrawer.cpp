@@ -84,6 +84,18 @@ namespace
             ImGui::EndMenu();
         }
 
+        if(ImGui::BeginMenu("Worlds"))
+        {
+            for(const std::string& world : context.all_worlds)
+            {
+                const bool is_selected = (world == context.selected_world);
+
+                if(ImGui::MenuItem(world.c_str(), "", is_selected))
+                    context.switch_world(world);
+            }
+            ImGui::EndMenu();
+        }
+
         ImGui::SameLine(ImGui::GetWindowWidth() -160);
         ImGui::TextDisabled("mouse: %.2f %.2f", context.world_mouse_position.x, context.world_mouse_position.y);
         ImGui::EndMainMenuBar();

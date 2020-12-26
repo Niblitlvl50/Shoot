@@ -36,14 +36,17 @@ namespace editor
             mono::IEntityManager& entity_manager,
             mono::EventHandler& event_handler,
             mono::SystemContext& system_context,
-            Config& editor_config,
-            const char* world_filename
+            Config& editor_config
         );
 
         virtual ~Editor();
 
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
+        void PostUpdate() override;
+
+        void SwitchWorld(const std::string& new_world_filename);
+        void LoadWorld(const std::string& world_filename);
 
         void Save();
         void ImportEntity();
@@ -116,7 +119,9 @@ namespace editor
         mono::EventHandler& m_event_handler;
         mono::SystemContext& m_system_context;
         Config& m_editor_config;
-        const char* m_world_filename;
+
+        std::string m_world_filename;
+        std::string m_new_world_filename;
 
         mono::ICamera* m_camera;
         mono::IRenderer* m_renderer;

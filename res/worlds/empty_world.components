@@ -63,6 +63,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -97,12 +112,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -216,6 +225,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -250,12 +274,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -369,6 +387,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -403,12 +436,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -522,6 +549,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -556,12 +598,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -675,6 +711,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -709,12 +760,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -828,6 +873,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -862,12 +922,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -981,6 +1035,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1015,12 +1084,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1134,6 +1197,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1168,12 +1246,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1287,6 +1359,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1321,12 +1408,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1440,6 +1521,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1474,12 +1570,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1593,6 +1683,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1627,12 +1732,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1746,6 +1845,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1780,12 +1894,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1899,6 +2007,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -1933,12 +2056,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2052,6 +2169,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2086,12 +2218,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2205,6 +2331,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2239,12 +2380,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2358,6 +2493,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2392,12 +2542,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2511,6 +2655,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2545,12 +2704,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2664,6 +2817,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2698,12 +2866,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2817,6 +2979,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -2851,12 +3028,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2970,6 +3141,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3004,12 +3190,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3123,6 +3303,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3157,12 +3352,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3276,6 +3465,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3310,12 +3514,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3429,6 +3627,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3463,12 +3676,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3582,6 +3789,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3616,12 +3838,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3735,6 +3951,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3769,12 +4000,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -3888,6 +4113,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -3922,12 +4162,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4041,6 +4275,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4075,12 +4324,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4194,6 +4437,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4228,12 +4486,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4347,6 +4599,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4381,12 +4648,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4500,6 +4761,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4534,12 +4810,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4653,6 +4923,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4687,12 +4972,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4806,6 +5085,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4840,12 +5134,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4959,6 +5247,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -4993,12 +5296,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -5145,6 +5442,21 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
@@ -5179,12 +5491,6 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,

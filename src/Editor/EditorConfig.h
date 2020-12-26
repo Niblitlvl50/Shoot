@@ -4,6 +4,8 @@
 #include "Math/Vector.h"
 #include "Rendering/Color.h"
 
+#include <string>
+
 namespace editor
 {
     struct Config
@@ -21,6 +23,8 @@ namespace editor
 
         bool snap_to_grid = false;
         math::Vector grid_size = math::Vector(1.0f, 1.0f);
+
+        std::string selected_world;
     };
 
     bool SaveConfig(const char* config_file, const Config& config);

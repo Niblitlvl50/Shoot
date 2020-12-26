@@ -15,7 +15,6 @@ namespace editor
     class ObjectFactory;
     class Editor;
 
-    std::vector<IObjectProxyPtr> LoadPolygons(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadPaths(const char* file_name, const editor::ObjectFactory& factory);
     std::vector<IObjectProxyPtr> LoadComponentObjects(const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor);
 

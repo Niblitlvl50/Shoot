@@ -20,6 +20,7 @@ namespace
     constexpr const char* background_color_key = "background_color";
     constexpr const char* snap_to_grid_key = "snap_to_grid";
     constexpr const char* grid_size_key = "grid_size";
+    constexpr const char* selected_world_key = "selected_world";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
@@ -37,6 +38,7 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
     json[draw_level_metadata_key]   = config.draw_metadata;
     json[snap_to_grid_key]          = config.snap_to_grid;
     json[grid_size_key]             = config.grid_size;
+    json[selected_world_key]        = config.selected_world;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -66,6 +68,7 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     config.draw_metadata        = json.value(draw_level_metadata_key, config.draw_metadata);
     config.snap_to_grid         = json.value(snap_to_grid_key, config.snap_to_grid);
     config.grid_size            = json.value(grid_size_key, config.grid_size);
+    config.selected_world       = json.value(selected_world_key, config.selected_world);
 
     return true;
 }
