@@ -9,7 +9,7 @@
 #include "TriggerSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "SpawnSystem.h"
-#include "EntitySystem/EntityManager.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/AnimationSystem.h"
@@ -677,7 +677,7 @@ namespace
     }
 }
 
-void game::RegisterGameComponents(mono::EntityManager& entity_manager)
+void game::RegisterGameComponents(mono::IEntityManager& entity_manager)
 {
     entity_manager.RegisterComponent(PHYSICS_COMPONENT, CreatePhysics, ReleasePhysics, UpdatePhysics);
     entity_manager.RegisterComponent(CIRCLE_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdateCircleShape);

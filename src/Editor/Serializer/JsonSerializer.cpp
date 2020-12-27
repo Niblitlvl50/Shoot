@@ -14,7 +14,7 @@
 #include "Paths/PathFactory.h"
 
 #include "Component.h"
-#include "Serialize.h"
+#include "Entity/Serialize.h"
 
 #include "nlohmann/json.hpp"
 

@@ -18,7 +18,7 @@
 #include "ObjectProxies/IObjectProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
 #include "Component.h"
-#include "Serialize.h"
+#include "Entity/Serialize.h"
 
 #include "Serializer/JsonSerializer.h"
 

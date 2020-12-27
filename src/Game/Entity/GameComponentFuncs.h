@@ -3,10 +3,10 @@
 
 namespace mono
 {
-    class EntityManager;
+    class IEntityManager;
 }
 
 namespace game
 {
-    void RegisterGameComponents(mono::EntityManager& entity_manager);
+    void RegisterGameComponents(mono::IEntityManager& entity_manager);
 }

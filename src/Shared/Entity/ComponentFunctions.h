@@ -3,10 +3,10 @@
 
 namespace mono
 {
-    class EntityManager;
+    class IEntityManager;
 }
 
 namespace shared
 {
-    void RegisterSharedComponents(mono::EntityManager& entity_manager);
+    void RegisterSharedComponents(mono::IEntityManager& entity_manager);
 }

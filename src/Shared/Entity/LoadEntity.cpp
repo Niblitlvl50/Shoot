@@ -1,15 +1,13 @@
 
-#include "GameEntityManager.h"
-#include "Component.h"
+#include "LoadEntity.h"
 
+#include "Component.h"
 #include "Serialize.h"
 
 #include "System/File.h"
 #include "nlohmann/json.hpp"
 
-using namespace shared;
-
-mono::EntityData GameEntityManager::LoadEntityFile(const char* entity_file) const
+mono::EntityData shared::LoadEntityFile(const char* entity_file)
 {
     file::FilePtr file = file::OpenAsciiFile(entity_file);
     if(!file)
@@ -38,9 +36,4 @@ mono::EntityData GameEntityManager::LoadEntityFile(const char* entity_file) cons
     }
 
     return entity_data;
-}
-
-const char* GameEntityManager::ComponentNameFromHash(uint32_t component_hash) const
-{
-    return ::ComponentNameFromHash(component_hash);
 }

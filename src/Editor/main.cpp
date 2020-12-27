@@ -14,11 +14,12 @@
 
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
+#include "EntitySystem/EntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 
 #include "Component.h"
-#include "Entity/GameEntityManager.h"
 #include "Entity/ComponentFunctions.h"
+#include "Entity/LoadEntity.h"
 
 int main()
 {
@@ -42,7 +43,7 @@ int main()
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
-        shared::GameEntityManager entity_manager(entity_system, &system_context);
+        mono::EntityManager entity_manager(entity_system, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         shared::RegisterSharedComponents(entity_manager);
 
         editor::Config config;

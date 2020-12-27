@@ -18,9 +18,9 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
+#include "EntitySystem/EntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Physics/PhysicsSystem.h"
-#include "Entity/GameEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "DamageSystem.h"
@@ -33,6 +33,8 @@
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
 #include "Entity/EntityLogicFactory.h"
+#include "Entity/LoadEntity.h"
+#include "Component.h"
 
 #include "SpriteResources.h"
 
@@ -138,7 +140,7 @@ int main(int argc, char* argv[])
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
-        shared::GameEntityManager entity_manager(entity_system, &system_context);
+        mono::EntityManager entity_manager(entity_system, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         game::RegisterGameComponents(entity_manager);
         shared::RegisterSharedComponents(entity_manager);
 
