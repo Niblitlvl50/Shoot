@@ -33,7 +33,6 @@
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "EntitySystem/IEntityManager.h"
-#include "Factories.h"
 
 #include "RenderLayers.h"
 #include "DamageSystem.h"

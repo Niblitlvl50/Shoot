@@ -5,7 +5,6 @@
 #include "Math/Matrix.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "Factories.h"
 #include "EntitySystem/IEntityManager.h"
 
 using namespace game;
@@ -27,10 +26,15 @@ namespace
     }
 }
 
-TrailEffect::TrailEffect(mono::TransformSystem* transform_system, mono::ParticleSystem* particle_system, uint32_t follow_id)
+TrailEffect::TrailEffect(
+    mono::TransformSystem* transform_system,
+    mono::ParticleSystem* particle_system,
+    mono::IEntityManager* entity_system,
+    uint32_t follow_id)
     : m_particle_system(particle_system)
+    , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = g_entity_manager->CreateEntity("traileffect", {});
+    mono::Entity particle_entity = m_entity_system->CreateEntity("traileffect", {});
     particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
@@ -49,5 +53,5 @@ TrailEffect::TrailEffect(mono::TransformSystem* transform_system, mono::Particle
 TrailEffect::~TrailEffect()
 {
     m_particle_system->ReleasePool(m_particle_entity);
-    g_entity_manager->ReleaseEntity(m_particle_entity);
+    m_entity_system->ReleaseEntity(m_particle_entity);
 }

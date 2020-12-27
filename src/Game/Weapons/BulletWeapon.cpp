@@ -59,7 +59,7 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_m
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 
-    m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system);
+    m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system, m_entity_manager);
 }
 
 Weapon::~Weapon()

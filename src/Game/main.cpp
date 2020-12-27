@@ -1,41 +1,40 @@
 
-#include "System/System.h"
-#include "System/File.h"
-#include "System/Network.h"
 #include "Audio/AudioSystem.h"
 #include "Camera/Camera.h"
-#include "Rendering/RenderSystem.h"
-#include "Rendering/Text/TextSystem.h"
 #include "EventHandler/EventHandler.h"
-
-#include "Factories.h"
-#include "Weapons/WeaponFactory.h"
-#include "FontIds.h"
-#include "Zones/ZoneManager.h"
-#include "GameConfig.h"
-#include "AIKnowledge.h"
+#include "System/System.h"
+#include "System/Network.h"
 
 #include "SystemContext.h"
-#include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
-#include "Rendering/Sprite/SpriteSystem.h"
-#include "Physics/PhysicsSystem.h"
-#include "Entity/EntityLogicSystem.h"
-#include "Entity/AnimationSystem.h"
-#include "DamageSystem.h"
-#include "TriggerSystem/TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
-#include "Pickups/PickupSystem.h"
-#include "SpawnSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Rendering/RenderSystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Text/TextSystem.h"
+#include "TransformSystem/TransformSystem.h"
+
+#include "AIKnowledge.h"
+#include "Factories.h"
+#include "FontIds.h"
+#include "GameConfig.h"
+#include "SpriteResources.h"
+#include "Weapons/WeaponFactory.h"
+#include "Zones/ZoneManager.h"
+
+#include "DamageSystem.h"
+#include "Entity/AnimationSystem.h"
+#include "Entity/EntityLogicSystem.h"
 #include "GameCamera/CameraSystem.h"
+#include "Pickups/PickupSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
+#include "SpawnSystem.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/LoadEntity.h"
 #include "Component.h"
-
-#include "SpriteResources.h"
 
 #include <cassert>
 #include <cstring>
@@ -142,8 +141,6 @@ int main(int argc, char* argv[])
 
         game::RegisterGameComponents(*entity_system);
         shared::RegisterSharedComponents(*entity_system);
-
-        game::g_entity_manager = entity_system;
 
         game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);

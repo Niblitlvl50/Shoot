@@ -25,8 +25,10 @@ namespace
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
 {
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    g_damage_effect = new game::DamageEffect(particle_system);
-    g_impact_effect = new game::ImpactEffect(particle_system);
+    mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
+
+    g_damage_effect = new game::DamageEffect(particle_system, entity_system);
+    g_impact_effect = new game::ImpactEffect(particle_system, entity_system);
 }
 
 void game::CleanupWeaponCallbacks()

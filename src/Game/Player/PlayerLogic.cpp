@@ -69,8 +69,9 @@ PlayerLogic::PlayerLogic(
     m_pickup_system->RegisterPickupTarget(m_entity_id, pickup_callback);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
     //m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
-    m_blink_effect = std::make_unique<BlinkEffect>(particle_system);
+    m_blink_effect = std::make_unique<BlinkEffect>(particle_system, entity_system);
     m_blink_sound = mono::AudioFactory::CreateSound("res/sound/punch.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
 
     // Make sure we have a weapon

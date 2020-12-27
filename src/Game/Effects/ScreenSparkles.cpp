@@ -56,13 +56,18 @@ namespace
     }
 }
 
-ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math::Vector& camera_position, const math::Vector& viewport_size)
+ScreenSparkles::ScreenSparkles(
+    mono::ParticleSystem* particle_system,
+    mono::IEntityManager* entity_system,
+    const math::Vector& camera_position,
+    const math::Vector& viewport_size)
     : m_particle_system(particle_system)
+    , m_entity_system(entity_system)
 {
     const float x = camera_position.x + viewport_size.x / 2.0f + 1.0f;
     const float y = camera_position.y;
 
-    mono::Entity sparkles_entity = g_entity_manager->CreateEntity("screensparkles", {});
+    mono::Entity sparkles_entity = m_entity_system->CreateEntity("screensparkles", {});
     particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
 
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/x4.png");
@@ -81,5 +86,5 @@ ScreenSparkles::ScreenSparkles(mono::ParticleSystem* particle_system, const math
 ScreenSparkles::~ScreenSparkles()
 {
     m_particle_system->ReleasePool(m_particle_entity);
-    g_entity_manager->ReleaseEntity(m_particle_entity);
+    m_entity_system->ReleaseEntity(m_particle_entity);
 }

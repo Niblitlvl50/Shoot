@@ -41,7 +41,7 @@ ThrowableLogic::ThrowableLogic(
     math::Matrix& entity_transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(entity_transform, m_start_position);
 
-    m_smoke_effect = std::make_unique<SmokeEffect>(particle_system);
+    m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, entity_manager);
 
     const ThrowableStatemachine::StateTable state_table = {
         ThrowableStatemachine::MakeState(ThrowableStates::THROWING, &ThrowableLogic::ToThrowing, &ThrowableLogic::Throwing, this),

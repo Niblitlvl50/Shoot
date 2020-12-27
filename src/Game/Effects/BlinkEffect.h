@@ -1,8 +1,9 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "Math/Vector.h"
-#include "Particle/ParticleFwd.h"
+#include <cstdint>
 
 namespace game
 {
@@ -10,7 +11,7 @@ namespace game
     {
     public:
 
-        BlinkEffect(mono::ParticleSystem* particle_system);
+        BlinkEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system);
         ~BlinkEffect();
 
         void EmitBlinkAwayAt(const math::Vector& position);
@@ -18,6 +19,7 @@ namespace game
 
     private:
         mono::ParticleSystem* m_particle_system;
+        mono::IEntityManager* m_entity_system;
         uint32_t m_particle_entity;
     };
 }

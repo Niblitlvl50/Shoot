@@ -7,7 +7,6 @@
 #include "Math/EasingFunctions.h"
 
 #include "Particle/ParticleSystem.h"
-#include "Factories.h"
 #include "EntitySystem/IEntityManager.h"
 
 using namespace game;
@@ -36,10 +35,11 @@ namespace
     }
 }
 
-DamageEffect::DamageEffect(mono::ParticleSystem* particle_system)
+DamageEffect::DamageEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
     : m_particle_system(particle_system)
+    , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = g_entity_manager->CreateEntity("DamageEffect", {});
+    mono::Entity particle_entity = m_entity_system->CreateEntity("DamageEffect", {});
     particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
@@ -51,7 +51,7 @@ DamageEffect::DamageEffect(mono::ParticleSystem* particle_system)
 DamageEffect::~DamageEffect()
 {
     m_particle_system->ReleasePool(m_particle_entity);
-    g_entity_manager->ReleaseEntity(m_particle_entity);
+    m_entity_system->ReleaseEntity(m_particle_entity);
 }
 
 void DamageEffect::EmitGibsAt(const math::Vector& position, float direction)

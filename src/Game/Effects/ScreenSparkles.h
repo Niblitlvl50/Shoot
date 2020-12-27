@@ -1,8 +1,9 @@
 
 #pragma once
 
-#include "Math/Quad.h"
-#include "Particle/ParticleFwd.h"
+#include "MonoFwd.h"
+#include "Math/Vector.h"
+#include <cstdint>
 
 namespace game
 {
@@ -10,11 +11,16 @@ namespace game
     {
     public:
 
-        ScreenSparkles(mono::ParticleSystem* particle_system, const math::Vector& camera_position, const math::Vector& viewport_size);
+        ScreenSparkles(
+            mono::ParticleSystem* particle_system,
+            mono::IEntityManager* entity_system,
+            const math::Vector& camera_position,
+            const math::Vector& viewport_size);
         ~ScreenSparkles();
 
     private:
         mono::ParticleSystem* m_particle_system;
+        mono::IEntityManager* m_entity_system;
         uint32_t m_particle_entity;
     };
 }
