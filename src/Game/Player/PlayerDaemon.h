@@ -25,6 +25,7 @@ namespace game
 
         PlayerDaemon(
             INetworkPipe* remote_connection,
+            mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
             const math::Vector& player_one_spawn);
@@ -47,6 +48,7 @@ namespace game
 
         class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
+        mono::IEntityManager* m_entity_system;
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
 

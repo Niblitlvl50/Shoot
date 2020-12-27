@@ -3,14 +3,13 @@
 #include "PlayerLogic.h"
 #include "AIKnowledge.h"
 
-#include "Factories.h"
+#include "SystemContext.h"
 #include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
+#include "TransformSystem/TransformSystem.h"
 
-#include "SystemContext.h"
 #include "DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
-#include "TransformSystem/TransformSystem.h"
 #include "Entity/EntityLogicSystem.h"
 
 #include "EventHandler/EventHandler.h"
@@ -35,11 +34,12 @@ namespace
         game::PlayerInfo* player_info,
         const math::Vector& spawn_position,
         const System::ControllerState& controller,
+        mono::IEntityManager* entity_system,
         mono::SystemContext* system_context,
         mono::EventHandler* event_handler,
         game::DamageCallback damage_callback)
     {
-        mono::Entity player_entity = game::g_entity_manager->CreateEntity("res/entities/player_entity.entity");
+        mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
 
         mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(player_entity.id);
@@ -52,7 +52,7 @@ namespace
         (void)callback_id;
 
         game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
-        game::g_entity_manager->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
+        entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
         IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, *event_handler, controller, system_context);
         logic_system->AddLogic(player_entity.id, player_logic);
@@ -66,10 +66,12 @@ namespace
 
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
+    mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
     const math::Vector& player_one_spawn)
     : m_remote_connection(remote_connection)
+    , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
     , m_player_one_spawn(player_one_spawn)
@@ -124,13 +126,13 @@ PlayerDaemon::~PlayerDaemon()
     if(g_player_one.player_state == game::PlayerState::ALIVE)
     {
         g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
-        g_entity_manager->ReleaseEntity(g_player_one.entity_id);
+        m_entity_system->ReleaseEntity(g_player_one.entity_id);
     }
 
     if(g_player_two.player_state == game::PlayerState::ALIVE)
     {
         g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
-        g_entity_manager->ReleaseEntity(g_player_two.entity_id);
+        m_entity_system->ReleaseEntity(g_player_two.entity_id);
     }
 
     m_camera_system->Unfollow();
@@ -160,6 +162,7 @@ void PlayerDaemon::SpawnPlayer1()
         &game::g_player_one,
         m_player_one_spawn,
         System::GetController(System::ControllerId::Primary),
+        m_entity_system,
         m_system_context,
         m_event_handler,
         destroyed_func);
@@ -177,6 +180,7 @@ void PlayerDaemon::SpawnPlayer2()
         &game::g_player_two,
         m_player_two_spawn,
         System::GetController(System::ControllerId::Secondary),
+        m_entity_system,
         m_system_context,
         m_event_handler,
         destroyed_func);
@@ -204,7 +208,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     if(event.id == m_player_one_id)
     {
         if(game::g_player_one.player_state != game::PlayerState::NOT_SPAWNED)  // Double negation, not great
-            g_entity_manager->ReleaseEntity(game::g_player_one.entity_id);
+            m_entity_system->ReleaseEntity(game::g_player_one.entity_id);
 
         m_camera_system->Unfollow();
         game::g_player_one.entity_id = mono::INVALID_ID;
@@ -213,7 +217,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     else if(event.id == m_player_two_id)
     {
         if(game::g_player_two.player_state != game::PlayerState::NOT_SPAWNED) // Double negation, not great
-            g_entity_manager->ReleaseEntity(game::g_player_two.entity_id);
+            m_entity_system->ReleaseEntity(game::g_player_two.entity_id);
 
         game::g_player_two.entity_id = mono::INVALID_ID;
         game::g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
@@ -241,6 +245,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
         &remote_player_data.player_info,
         math::ZeroVec,
         remote_player_data.controller_state,
+        m_entity_system,
         m_system_context,
         m_event_handler,
         remote_player_destroyed);
@@ -261,7 +266,7 @@ mono::EventResult PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
     {
-        game::g_entity_manager->ReleaseEntity(it->second.player_info.entity_id);
+        m_entity_system->ReleaseEntity(it->second.player_info.entity_id);
         m_remote_players.erase(it);
     }
 

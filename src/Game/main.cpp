@@ -23,7 +23,7 @@
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "DamageSystem.h"
-#include "TriggerSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "SpawnSystem.h"

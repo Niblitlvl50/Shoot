@@ -4,10 +4,12 @@
 #include "AIKnowledge.h"
 #include "Hud/Overlay.h"
 #include "Hud/PlayerUIElement.h"
+#include "Network/INetworkPipe.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
 
-#include "Network/INetworkPipe.h"
+#include "EntitySystem/EntitySystem.h"
+#include "SystemContext.h"
 
 using namespace game;
 
@@ -40,10 +42,12 @@ void EmptyZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     GameZone::OnLoad(camera, renderer);
 
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+
     // Player
     m_network_pipe = std::make_unique<NullPipe>();
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_network_pipe.get(), m_system_context, m_event_handler, m_player_spawn_point);
+        std::make_unique<PlayerDaemon>(m_network_pipe.get(), entity_system, m_system_context, m_event_handler, m_player_spawn_point);
 
     // Ui
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();

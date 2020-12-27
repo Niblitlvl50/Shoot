@@ -119,7 +119,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 12.0,
+                                "x": -8.0,
                                 "y": 2.0
                             }
                         },
@@ -169,45 +169,6 @@
                             "name": "text_shadow",
                             "variant_type": 0,
                             "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -20.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 2
                         }
                     ]
                 }

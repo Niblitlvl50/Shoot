@@ -43,21 +43,10 @@
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
 
-#include "TriggerSystem.h"
-#include "TriggerDebugDrawer.h"
+#include "TriggerSystem/TriggerSystem.h"
+#include "TriggerSystem/TriggerDebugDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
-
-namespace
-{
-    class SyncPoint : public mono::IUpdatable
-    {
-        void Update(const mono::UpdateContext& update_context)
-        {
-            game::g_entity_manager->Sync();
-        }
-    };
-}
 
 using namespace game;
 
@@ -74,14 +63,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     game::g_navmesh = &m_navmesh;
 
-    const shared::LevelData leveldata = shared::ReadWorldComponentObjects(m_world_file, g_entity_manager, nullptr);
-    m_loaded_entities = leveldata.loaded_entities;
-    m_player_spawn_point = leveldata.metadata.player_spawn_point;
-    camera->SetPosition(leveldata.metadata.camera_position);
-    camera->SetViewportSize(leveldata.metadata.camera_size);
-
-    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
-
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
@@ -91,7 +72,13 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
 
-    AddUpdatable(new SyncPoint()); // this should probably go last or something...
+    const shared::LevelData leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
+    m_loaded_entities = leveldata.loaded_entities;
+    m_player_spawn_point = leveldata.metadata.player_spawn_point;
+    camera->SetPosition(leveldata.metadata.camera_position);
+    camera->SetViewportSize(leveldata.metadata.camera_size);
+
+    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
     if(!leveldata.metadata.background_texture.empty())
         AddDrawable(new StaticBackground(leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
@@ -120,8 +107,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int GameZone::OnUnload()
 {
-    g_entity_manager->ReleaseAllEntities();
-    g_entity_manager->Sync();
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+    entity_system->ReleaseAllEntities();
 
     return 0;
 }

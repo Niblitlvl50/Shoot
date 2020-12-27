@@ -1,6 +1,6 @@
 
 #include "AnimationSystem.h"
-#include "TriggerSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"

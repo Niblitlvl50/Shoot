@@ -6,7 +6,7 @@
 #include "Factories.h"
 
 #include "DamageSystem.h"
-#include "TriggerSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "SpawnSystem.h"
 #include "EntitySystem/IEntityManager.h"

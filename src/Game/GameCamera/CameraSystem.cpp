@@ -1,6 +1,6 @@
 
 #include "CameraSystem.h"
-#include "TriggerSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 #include "AIKnowledge.h"
 
 #include "Camera/ICamera.h"

@@ -31,7 +31,7 @@
 #include "Factories.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
-#include "TriggerSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 
 
 namespace
@@ -83,7 +83,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
             entity_system,
             transform_system,
             sprite_system,
-            g_entity_manager,
+            entity_system,
             m_server_manager.get(),
             m_game_config.server_replication_interval)
         );
@@ -91,7 +91,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Player
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_server_manager.get(), m_system_context, m_event_handler, m_player_spawn_point);
+        std::make_unique<PlayerDaemon>(m_server_manager.get(), entity_system, m_system_context, m_event_handler, m_player_spawn_point);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
