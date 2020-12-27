@@ -15,7 +15,7 @@
 #include "Particle/ParticleSystemDrawer.h"
 
 #include "SystemContext.h"
-#include "EntitySystem/EntitySystem.h"
+#include "EntitySystem/EntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 
@@ -82,7 +82,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
-    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+    mono::EntityManager* entity_system = m_system_context->GetSystem<mono::EntityManager>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();

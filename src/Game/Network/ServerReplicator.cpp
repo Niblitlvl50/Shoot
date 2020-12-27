@@ -5,7 +5,7 @@
 #include "NetworkMessage.h"
 #include "BatchedMessageSender.h"
 
-#include "EntitySystem/EntitySystem.h"
+#include "EntitySystem/EntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -27,7 +27,7 @@ using namespace game;
 static constexpr uint32_t KEYFRAME_INTERVAL = 10;
 
 ServerReplicator::ServerReplicator(
-    mono::EntitySystem* entity_system,
+    mono::EntityManager* entity_system,
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
     mono::IEntityManager* entity_manager,

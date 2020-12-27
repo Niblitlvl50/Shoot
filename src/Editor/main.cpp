@@ -13,7 +13,6 @@
 #include "FontIds.h"
 
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem/EntitySystem.h"
 #include "EntitySystem/EntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 
@@ -39,12 +38,12 @@ int main()
         mono::SystemContext system_context;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities);
+        mono::EntityManager* entity_system = system_context.CreateSystem<mono::EntityManager>(
+            max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
-        mono::EntityManager entity_manager(entity_system, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
-        shared::RegisterSharedComponents(entity_manager);
+        shared::RegisterSharedComponents(*entity_system);
 
         editor::Config config;
         editor::LoadConfig("res/editor_config.json", config);
@@ -56,7 +55,7 @@ int main()
 
         shared::LoadFonts();
 
-        auto editor = std::make_unique<editor::Editor>(window, entity_manager, event_handler, system_context, config);
+        auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config);
         mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
 
         const System::Position& position = window->Position();
