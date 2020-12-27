@@ -8,7 +8,7 @@
 #include "Math/Quad.h"
 #include "Util/Algorithm.h"
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem/EntityManager.h"
+#include "EntitySystem/EntitySystem.h"
 
 #include <limits>
 #include <string>
@@ -49,7 +49,7 @@ namespace
     }
 }
 
-HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::EntityManager* entity_system)
+HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::EntitySystem* entity_system)
     : m_damage_system(damage_system)
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)

@@ -3,7 +3,7 @@
 #include "ZoneFlow.h"
 
 #include "EntitySystem/Entity.h"
-#include "EntitySystem/EntityManager.h"
+#include "EntitySystem/EntitySystem.h"
 #include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsSystem.h"
@@ -60,7 +60,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     renderer->UseShader(screen_shader);
     mono::ScreenShader::FadeCorners(screen_shader, true);
 
-    mono::EntityManager* entity_system = m_system_context->GetSystem<mono::EntityManager>();
+    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();

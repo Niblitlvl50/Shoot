@@ -17,7 +17,7 @@
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem/EntityManager.h"
+#include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Entity/EntityLogicSystem.h"
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
         mono::Camera camera;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        mono::EntityManager* entity_system = system_context.CreateSystem<mono::EntityManager>(
+        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
             max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 

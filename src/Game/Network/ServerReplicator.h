@@ -19,7 +19,7 @@ namespace game
     public:
 
         ServerReplicator(
-            mono::EntityManager* entity_system,
+            mono::EntitySystem* entity_system,
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
             mono::IEntityManager* entity_manager,
@@ -33,7 +33,7 @@ namespace game
         void ReplicateTransforms(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context);
         void ReplicateSprites(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
 
-        mono::EntityManager* m_entity_system;
+        mono::EntitySystem* m_entity_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
         mono::IEntityManager* m_entity_manager;

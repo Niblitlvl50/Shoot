@@ -31,7 +31,7 @@
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "EntitySystem/IEntityManager.h"
-#include "EntitySystem/EntityManager.h"
+#include "EntitySystem/EntitySystem.h"
 
 #include "Visualizers/GridVisualizer.h"
 #include "Visualizers/ScaleVisualizer.h"
@@ -467,7 +467,7 @@ IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
     if(found_proxies.empty())
         return nullptr;
 
-    mono::EntityManager* entity_system = m_system_context.GetSystem<mono::EntityManager>();
+    mono::EntitySystem* entity_system = m_system_context.GetSystem<mono::EntitySystem>();
     const mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
 
     const auto sort_on_y = [entity_system, sprite_system](const IObjectProxy* first, const IObjectProxy* second) {
