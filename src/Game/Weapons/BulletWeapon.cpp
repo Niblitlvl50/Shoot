@@ -68,7 +68,7 @@ Weapon::~Weapon()
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
     const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
-    if(m_state == WeaponState::RELOADING && reload_delta < (m_weapon_config.reload_time * 1000.0f))
+    if(m_state == WeaponState::RELOADING && reload_delta < m_weapon_config.reload_time_ms)
         return m_state;
 
     const float rps_hz = 1.0f / m_weapon_config.rounds_per_second;
@@ -166,6 +166,11 @@ int Weapon::AmmunitionLeft() const
 int Weapon::MagazineSize() const
 {
     return m_weapon_config.magazine_size;
+}
+
+uint32_t Weapon::ReloadDuration() const
+{
+    return m_weapon_config.reload_time_ms;
 }
 
 WeaponState Weapon::GetState() const

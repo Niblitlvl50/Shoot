@@ -19,6 +19,7 @@ namespace game
         void Reload(uint32_t timestamp) override;
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
+        uint32_t ReloadDuration() const override;
         WeaponState GetState() const override;
 
     private:

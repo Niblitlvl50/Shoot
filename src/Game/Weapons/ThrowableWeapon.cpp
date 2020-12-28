@@ -40,7 +40,7 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, float direction,
 WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
 {
     const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
-    if(m_state == WeaponState::RELOADING && reload_delta < (m_config.reload_time_seconds * 1000.0f))
+    if(m_state == WeaponState::RELOADING && reload_delta < m_config.reload_time_ms)
         return m_state;
 
     if(m_ammunition == 0)
@@ -101,6 +101,11 @@ int ThrowableWeapon::AmmunitionLeft() const
 int ThrowableWeapon::MagazineSize() const
 {
     return m_config.magazine_size;
+}
+
+uint32_t ThrowableWeapon::ReloadDuration() const
+{
+    return m_config.reload_time_ms;
 }
 
 WeaponState ThrowableWeapon::GetState() const

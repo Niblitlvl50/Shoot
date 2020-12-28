@@ -64,7 +64,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.entity_file = "res/entities/plasma_bullet.entity";
             bullet_config.sound_file = nullptr;
 
-            weapon_config.reload_time = 1.0f;
+            weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 100;
             //weapon_config.rounds_per_second = 7.0f;
             weapon_config.rounds_per_second = 8.0f;
@@ -88,7 +88,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.entity_file = "res/entities/rocket_bullet.entity";
             bullet_config.sound_file = nullptr;
 
-            weapon_config.reload_time = 1.0f;
+            weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 5;
             weapon_config.rounds_per_second = 1.5f;
             weapon_config.bullet_force = 10.0f;
@@ -107,7 +107,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.entity_file = "res/entities/caco_bullet.entity";
             bullet_config.sound_file = nullptr;
 
-            weapon_config.reload_time = 1.0f;
+            weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 30;
             //weapon_config.rounds_per_second = 0.7f;
             weapon_config.rounds_per_second = 50.0f;
@@ -127,7 +127,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.entity_file = "res/entities/green_blob.entity";
             bullet_config.sound_file = nullptr;
 
-            weapon_config.reload_time = 1.0f;
+            weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 40;
             weapon_config.rounds_per_second = 1.0f;
             weapon_config.bullet_force = 10.0f;
@@ -146,7 +146,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
 
             weapon_config.projectiles_per_fire = 6;
             weapon_config.magazine_size = 30;
-            weapon_config.reload_time = 1.0f;
+            weapon_config.reload_time_ms = 1000;
             //weapon_config.rounds_per_second = 1.0f;
             weapon_config.rounds_per_second = 2.0f;
             weapon_config.bullet_force = 25.0f;
@@ -169,7 +169,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.entity_file = "res/entities/laser_bullet.entity";
             bullet_config.sound_file = nullptr;
 
-            weapon_config.reload_time = 0.5f;
+            weapon_config.reload_time_ms = 500;
             weapon_config.magazine_size = 50;
             weapon_config.rounds_per_second = 6.0f;
             weapon_config.fire_rate_multiplier = 1.0f;

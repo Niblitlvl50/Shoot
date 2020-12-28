@@ -24,6 +24,7 @@ namespace game
 
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
+        uint32_t ReloadDuration() const override;
         WeaponState GetState() const override;
 
     private:
