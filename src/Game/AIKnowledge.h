@@ -29,7 +29,7 @@ namespace game
         int magazine_left;
         int magazine_capacity;
         int ammunition_left;
-        uint32_t weapon_reload_time_ms;
+        int weapon_reload_percentage;
         int score;
     };
 

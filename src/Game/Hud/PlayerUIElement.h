@@ -25,8 +25,6 @@ namespace game
         float m_timer;
 
         int m_current_score;
-        bool m_is_reloading;
-        uint32_t m_reload_timer;
 
         class UISquareElement* m_background;
         class UITextElement* m_ammo_text;

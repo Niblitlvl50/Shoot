@@ -107,11 +107,8 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_secondary_fire)
     {
-        //m_secondary_weapon->Fire(position, m_aim_direction, update_context.timestamp);
-
         const math::Vector target = position + math::VectorFromAngle(m_aim_direction) * 2.0f;
         m_secondary_weapon->Fire(position, target, update_context.timestamp);
-
         m_secondary_fire = false;
     }
 
@@ -121,12 +118,12 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_player_info->velocity = body->GetVelocity();
     m_player_info->direction = direction;
 
-    m_player_info->magazine_left = m_weapon->AmmunitionLeft();
-    m_player_info->magazine_capacity = m_weapon->MagazineSize();
-    m_player_info->ammunition_left = m_total_ammo_left;
-    m_player_info->weapon_reload_time_ms = m_weapon->ReloadDuration();
     m_player_info->weapon_type = m_weapon_type;
-    m_player_info->weapon_state = m_weapon->GetState();
+    m_player_info->weapon_state = m_weapon->UpdateWeaponState(update_context.timestamp);
+    m_player_info->weapon_reload_percentage = m_weapon->ReloadPercentage();
+    m_player_info->magazine_capacity = m_weapon->MagazineSize();
+    m_player_info->magazine_left = m_weapon->AmmunitionLeft();
+    m_player_info->ammunition_left = m_total_ammo_left;
 
     m_state.UpdateState(update_context);
 }

@@ -18,9 +18,10 @@ namespace game
         virtual WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) = 0;
 
         virtual void Reload(uint32_t timestamp) = 0;
+        virtual WeaponState UpdateWeaponState(uint32_t timestamp) = 0;
+
         virtual int AmmunitionLeft() const = 0;
         virtual int MagazineSize() const = 0;
-        virtual uint32_t ReloadDuration() const = 0;
-        virtual WeaponState GetState() const = 0;
+        virtual int ReloadPercentage() const = 0;
     };
 }

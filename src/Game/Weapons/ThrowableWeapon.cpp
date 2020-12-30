@@ -93,6 +93,28 @@ void ThrowableWeapon::Reload(uint32_t timestamp)
     m_state = WeaponState::RELOADING;
 }
 
+WeaponState ThrowableWeapon::UpdateWeaponState(uint32_t timestamp)
+{
+    switch(m_state)
+    {
+    case WeaponState::RELOADING:
+    {
+        const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
+        m_reload_percentage = float(reload_delta) / float(m_config.reload_time_ms) * 100.0f;
+
+        const bool still_reloading = reload_delta < m_config.reload_time_ms;
+        if(!still_reloading)
+            m_state = WeaponState::IDLE;
+
+        break;
+    }
+    default:
+        break;
+    };
+
+    return m_state;
+}
+
 int ThrowableWeapon::AmmunitionLeft() const
 {
     return m_ammunition;
@@ -103,12 +125,7 @@ int ThrowableWeapon::MagazineSize() const
     return m_config.magazine_size;
 }
 
-uint32_t ThrowableWeapon::ReloadDuration() const
+int ThrowableWeapon::ReloadPercentage() const
 {
-    return m_config.reload_time_ms;
-}
-
-WeaponState ThrowableWeapon::GetState() const
-{
-    return m_state;
+    return m_reload_percentage;
 }

@@ -17,10 +17,10 @@ namespace game
         WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
         WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override;
         void Reload(uint32_t timestamp) override;
+        WeaponState UpdateWeaponState(uint32_t timestamp) override;
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
-        uint32_t ReloadDuration() const override;
-        WeaponState GetState() const override;
+        int ReloadPercentage() const override;
 
     private:
 
@@ -34,6 +34,7 @@ namespace game
         uint32_t m_last_fire_timestamp;
         uint32_t m_last_reload_timestamp;
         int m_ammunition;
+        int m_reload_percentage;
         WeaponState m_state;
     };
 }

@@ -67,20 +67,7 @@ Weapon::~Weapon()
 
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
-    if(m_state == WeaponState::RELOADING && reload_delta < m_weapon_config.reload_time_ms)
-        return m_state;
-
-    const float rps_hz = 1.0f / m_weapon_config.rounds_per_second;
-    const uint32_t weapon_delta = rps_hz * 1000.0f;
-
-    const uint32_t delta = timestamp - m_last_fire_timestamp;
-    const uint32_t modified_delta = delta * m_current_fire_rate;
-
-    if(delta > weapon_delta)
-        m_current_fire_rate = 1.0f;
-
-    if(modified_delta < weapon_delta)
+    if(m_state == WeaponState::RELOADING)
         return m_state;
 
     if(m_ammunition == 0)
@@ -92,6 +79,18 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_state = WeaponState::OUT_OF_AMMO;
         return m_state;
     }
+
+    const float rps_hz = 1.0f / m_weapon_config.rounds_per_second;
+    const uint32_t weapon_delta = rps_hz * 1000.0f;
+
+    const uint32_t delta = timestamp - m_last_fire_timestamp;
+    const uint32_t modified_delta = delta * m_current_fire_rate;
+
+    if(modified_delta < weapon_delta)
+        return m_state;
+
+    if(delta > weapon_delta)
+        m_current_fire_rate = 1.0f;
 
     m_last_fire_timestamp = timestamp;
 
@@ -125,9 +124,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         for(mono::IShape* shape : shapes)
             shape->SetCollisionFilter(m_weapon_config.bullet_config.collision_category, m_weapon_config.bullet_config.collision_mask);
 
-        //System::Log("impulse: %f\n", math::Length(impulse));
         body->SetVelocity(impulse);
-        //body->ApplyImpulse(impulse, position);
     }
 
     m_muzzle_flash->EmittAt(position, direction);
@@ -158,6 +155,28 @@ void Weapon::Reload(uint32_t timestamp)
     m_reload_sound->Play();
 }
 
+WeaponState Weapon::UpdateWeaponState(uint32_t timestamp)
+{
+    switch(m_state)
+    {
+    case WeaponState::RELOADING:
+    {
+        const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
+        m_reload_percentage = float(reload_delta) / float(m_weapon_config.reload_time_ms) * 100.0f;
+
+        const bool still_reloading = reload_delta < m_weapon_config.reload_time_ms;
+        if(!still_reloading)
+            m_state = WeaponState::IDLE;
+
+        break;
+    }
+    default:
+        break;
+    };
+
+    return m_state;
+}
+
 int Weapon::AmmunitionLeft() const
 {
     return m_ammunition;
@@ -168,12 +187,7 @@ int Weapon::MagazineSize() const
     return m_weapon_config.magazine_size;
 }
 
-uint32_t Weapon::ReloadDuration() const
+int Weapon::ReloadPercentage() const
 {
-    return m_weapon_config.reload_time_ms;
-}
-
-WeaponState Weapon::GetState() const
-{
-    return m_state;
+    return m_reload_percentage;
 }
