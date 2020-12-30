@@ -124,6 +124,7 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->magazine_capacity = m_weapon->MagazineSize();
     m_player_info->ammunition_left = m_total_ammo_left;
+    m_player_info->weapon_reload_time_ms = m_weapon->ReloadDuration();
     m_player_info->weapon_type = m_weapon_type;
     m_player_info->weapon_state = m_weapon->GetState();
 

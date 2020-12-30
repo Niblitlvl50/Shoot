@@ -22,6 +22,7 @@ PlayerUIElement::PlayerUIElement(
     , m_offscreen_position(offscreen_position)
     , m_timer(0)
     , m_current_score(m_player_info.score)
+    , m_is_reloading(false)
 {
     m_position = offscreen_position;
 
@@ -70,7 +71,24 @@ PlayerUIElement::PlayerUIElement(
 }
 
 void PlayerUIElement::EntityDraw(mono::IRenderer& renderer) const
-{ }
+{
+    if(m_is_reloading)
+    {
+        constexpr float x_offset = 10.0f;
+        constexpr float y_offset = 20.0f;
+
+        const std::vector<math::Vector> reload_line = {
+            math::Vector(x_offset, y_offset),
+            math::Vector(50.0f, y_offset)
+        };
+
+        const float percentage = float(m_reload_timer) / float(m_player_info.weapon_reload_time_ms);
+        const float reload_dot = math::Length(reload_line.back() - reload_line.front()) * percentage;
+
+        renderer.DrawLines(reload_line, mono::Color::RED, 4.0f);
+        renderer.DrawPoints({ math::Vector(reload_dot + x_offset, y_offset) }, mono::Color::BLACK, 8.0f);
+    }
+}
 
 void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
@@ -102,4 +120,7 @@ void PlayerUIElement::EntityUpdate(const mono::UpdateContext& update_context)
         m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
         m_timer -= float(update_context.delta_ms) / 1000.0f;
     }
+
+    m_is_reloading = (m_player_info.weapon_state == WeaponState::RELOADING);
+    m_reload_timer = m_is_reloading ? (m_reload_timer + update_context.delta_ms) : 0;
 }
