@@ -25,7 +25,7 @@
 
 #include "GameCamera/CameraSystem.h"
 #include "PositionPredictionSystem.h"
-#include "Player/PlayerDaemon.h"
+#include "Player/ClientPlayerDaemon.h"
 
 using namespace game;
 
