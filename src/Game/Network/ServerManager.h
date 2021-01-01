@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "IUpdatable.h"
+#include "Network/INetworkPipe.h"
+#include "Network/ConnectionStats.h"
+#include "IGameSystem.h"
 #include "EventHandler/EventToken.h"
+#include "Math/Quad.h"
 #include "System/Network.h"
 
-#include "Network/INetworkPipe.h"
 #include "MessageDispatcher.h"
-
-#include "Math/Quad.h"
 
 #include <unordered_map>
 #include <memory>
@@ -29,7 +29,7 @@ namespace game
         math::Quad viewport;
     };
 
-    class ServerManager : public mono::IUpdatable, public INetworkPipe
+    class ServerManager : public mono::IGameSystem, public INetworkPipe
     {
     public:
 
@@ -54,6 +54,8 @@ namespace game
         mono::EventResult HandleHeartBeatMessage(const HeartBeatMessage& message);
         mono::EventResult HandleViewportMessage(const ViewportMessage& message);
 
+        uint32_t Id() const override;
+        const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
         mono::EventHandler* m_event_handler;

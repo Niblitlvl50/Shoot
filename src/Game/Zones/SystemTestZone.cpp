@@ -67,6 +67,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     physics_system->GetSpace()->SetDamping(0.01f);
 
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
+    game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
 
     const auto level_completed_func = [this](uint32_t trigger_id) {
         m_event_handler->DispatchEvent(event::QuitEvent());
@@ -76,22 +77,20 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
 
     // Network and syncing should be done first in the frame.
-    m_server_manager = std::make_unique<ServerManager>(m_event_handler, &m_game_config);
-    AddUpdatable(m_server_manager.get());
     AddUpdatable(
         new ServerReplicator(
             entity_system,
             transform_system,
             sprite_system,
             entity_system,
-            m_server_manager.get(),
+            server_manager,
             m_game_config.server_replication_interval)
         );
     AddUpdatable(new ListenerPositionUpdater());
 
     // Player
     m_player_daemon =
-        std::make_unique<PlayerDaemon>(m_server_manager.get(), entity_system, m_system_context, m_event_handler, m_player_spawn_point);
+        std::make_unique<PlayerDaemon>(server_manager, entity_system, m_system_context, m_event_handler, m_player_spawn_point);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -107,9 +106,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Debug
     UIOverlayDrawer* debug_hud_overlay = new UIOverlayDrawer();
-    debug_hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_server_manager.get()));
+    debug_hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), server_manager));
     AddEntity(debug_hud_overlay, LayerId::UI);
-    AddDrawable(new ClientViewportVisualizer(m_server_manager->GetConnectedClients()), LayerId::UI);
+    AddDrawable(new ClientViewportVisualizer(server_manager->GetConnectedClients()), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()
@@ -118,8 +117,6 @@ int SystemTestZone::OnUnload()
 
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
-
-    RemoveUpdatable(m_server_manager.get());
 
     return m_next_zone;
 }

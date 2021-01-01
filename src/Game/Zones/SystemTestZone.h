@@ -31,6 +31,5 @@ namespace game
         int m_next_zone;
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
-        std::unique_ptr<class ServerManager> m_server_manager;
     };
 }

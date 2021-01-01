@@ -30,6 +30,9 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "SpawnSystem.h"
 
+//#include "Network/ClientManager.h"
+#include "Network/ServerManager.h"
+
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
 #include "Entity/EntityLogicFactory.h"
@@ -163,6 +166,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
+        system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

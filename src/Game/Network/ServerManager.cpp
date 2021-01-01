@@ -7,6 +7,7 @@
 
 #include "System/Network.h"
 #include "System/System.h"
+#include "Util/Hash.h"
 
 #include <functional>
 #include <thread>
@@ -194,6 +195,16 @@ void ServerManager::PurgeZombieClients()
         m_connected_clients.erase(key);
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key));
     }
+}
+
+uint32_t ServerManager::Id() const
+{
+    return mono::Hash(Name());
+}
+
+const char* ServerManager::Name() const
+{
+    return "ServerManager";
 }
 
 void ServerManager::Update(const mono::UpdateContext& update_context)
