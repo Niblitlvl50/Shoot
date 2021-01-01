@@ -69,6 +69,7 @@ CacodemonController::~CacodemonController()
 void CacodemonController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+    m_weapon->UpdateWeaponState(update_context.timestamp);
 }
 
 void CacodemonController::OnIdle()

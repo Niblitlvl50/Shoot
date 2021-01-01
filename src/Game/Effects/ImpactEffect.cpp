@@ -22,7 +22,7 @@ namespace
 
         const int life = mono::RandomInt(100, 150);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
-        const float size = mono::Random(16.0f, 20.0f);
+        const float size = mono::Random(12.0f, 16.0f);
 
         pool.position[index] = position;
         pool.velocity[index] = velocity * velocity_variation;
@@ -32,7 +32,7 @@ namespace
 
         pool.color[index] = mono::Color::BLACK;
         pool.start_color[index] = mono::Color::BLACK;
-        pool.end_color[index] = mono::Color::BLACK;
+        pool.end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f);
 
         pool.size[index] = size;
         pool.start_size[index] = size;
@@ -54,7 +54,7 @@ namespace
             pool.position[index] += pool.velocity[index] * float_delta;
             pool.rotation[index] += pool.angular_velocity[index] * float_delta;
             pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
-            pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
+            pool.color[index] = mono::Color::Lerp(pool.start_color[index], pool.end_color[index], t);
         }
     }    
 }
