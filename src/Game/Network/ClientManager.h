@@ -2,7 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "IUpdatable.h"
+#include "IGameSystem.h"
 #include "EventHandler/EventToken.h"
 #include "System/Network.h"
 
@@ -23,18 +23,19 @@ namespace game
     struct ConnectAcceptedMessage;
     struct PingMessage;
 
-    class ClientManager : public mono::IUpdatable, public INetworkPipe
+    class ClientManager : public mono::IGameSystem, public INetworkPipe
     {
     public:
 
         ClientManager(mono::EventHandler* event_handler, const game::Config* game_config);
         ~ClientManager();
 
+        void StartClient();
+        void Disconnect();
+
         void SendMessage(const struct NetworkMessage& message) override;
         void SendMessageTo(const NetworkMessage& message, const network::Address& address) override;
         ConnectionInfo GetConnectionInfo() const override;
-
-        void Disconnect();
 
         ClientStatus GetConnectionStatus() const;
         const struct ConnectionStats& GetConnectionStats() const;
@@ -46,6 +47,8 @@ namespace game
 
     private:
 
+        uint32_t Id() const override;
+        const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
         mono::EventResult HandleServerBeacon(const ServerBeaconMessage& message);

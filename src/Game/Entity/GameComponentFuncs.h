@@ -8,5 +8,5 @@ namespace mono
 
 namespace game
 {
-    void RegisterGameComponents(mono::IEntityManager& entity_manager);
+    void RegisterGameComponents(mono::IEntityManager* entity_manager);
 }

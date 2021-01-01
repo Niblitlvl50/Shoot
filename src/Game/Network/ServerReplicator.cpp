@@ -30,13 +30,11 @@ ServerReplicator::ServerReplicator(
     mono::EntitySystem* entity_system,
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
-    mono::IEntityManager* entity_manager,
     ServerManager* server_manager,
     uint32_t replication_interval)
     : m_entity_system(entity_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
-    , m_entity_manager(entity_manager)
     , m_server_manager(server_manager)
     , m_replication_interval(replication_interval)
 {
@@ -91,7 +89,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
 
 void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender)
 {
-    for(const mono::IEntityManager::SpawnEvent& spawn_event : m_entity_manager->GetSpawnEvents())
+    for(const mono::IEntityManager::SpawnEvent& spawn_event : m_entity_system->GetSpawnEvents())
     {
         SpawnMessage spawn_message;
         spawn_message.entity_id = spawn_event.entity_id;

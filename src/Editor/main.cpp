@@ -43,7 +43,7 @@ int main()
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
 
-        shared::RegisterSharedComponents(*entity_system);
+        shared::RegisterSharedComponents(entity_system);
 
         editor::Config config;
         editor::LoadConfig("res/editor_config.json", config);

@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "Network/INetworkPipe.h"
-#include "Network/ConnectionStats.h"
 #include "IGameSystem.h"
 #include "EventHandler/EventToken.h"
 #include "Math/Quad.h"
 #include "System/Network.h"
 
-#include "MessageDispatcher.h"
+#include "Network/MessageDispatcher.h"
+#include "Network/INetworkPipe.h"
+#include "Network/ConnectionStats.h"
 
 #include <unordered_map>
 #include <memory>
@@ -36,11 +36,13 @@ namespace game
         ServerManager(mono::EventHandler* event_handler, const game::Config* game_config);
         ~ServerManager();
 
+        void StartServer();
+        void QuitServer();
+
         void SendMessage(const NetworkMessage& message) override;
         void SendMessageTo(const NetworkMessage& message, const network::Address& address) override;
         ConnectionInfo GetConnectionInfo() const override;
 
-        void QuitServer();
         const std::unordered_map<network::Address, ClientData>& GetConnectedClients() const;
         const struct ConnectionStats& GetConnectionStats() const;
 
@@ -67,6 +69,7 @@ namespace game
         uint32_t m_beacon_timer;
         uint32_t m_server_time;
 
+        mutable ConnectionStats m_connection_stats;
         std::unordered_map<network::Address, ClientData> m_connected_clients;
 
         mono::EventToken<PingMessage> m_ping_func_token;

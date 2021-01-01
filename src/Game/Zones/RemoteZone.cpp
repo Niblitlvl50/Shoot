@@ -57,18 +57,19 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
+    ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
+
+    client_manager->StartClient();
 
     camera->SetPosition(math::Vector(0.0f, 0.0f));
     camera->SetViewportSize(math::Vector(22.0f, 14.0f));
 
-    m_client_manager = std::make_unique<ClientManager>(m_event_handler, &m_game_config);
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
 
     const PositionPredictionSystem* prediction_system =
-        m_system_context->CreateSystem<PositionPredictionSystem>(500, m_client_manager.get(), transform_system, m_event_handler);
+        m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system, m_event_handler);
 
-    AddUpdatable(m_client_manager.get());
-    AddUpdatable(new ClientReplicator(camera, m_client_manager.get()));
+    AddUpdatable(new ClientReplicator(camera, client_manager));
 
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
@@ -77,14 +78,13 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(m_console_drawer.get(), LayerId::UI);
 
     auto hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_client_manager.get()));
+    hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), client_manager));
     hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     AddEntity(hud_overlay, LayerId::UI);
 }
 
 int RemoteZone::OnUnload()
 {
-    RemoveUpdatable(m_client_manager.get());
     RemoveDrawable(m_console_drawer.get());
     return 0;
 }

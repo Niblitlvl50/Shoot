@@ -7,6 +7,7 @@
 #include "EventHandler/EventHandler.h"
 #include "System/Network.h"
 #include "System/System.h"
+#include "Util/Hash.h"
 
 using namespace game;
 
@@ -19,8 +20,6 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     , m_server_time(0)
     , m_server_time_predicted(0)
 {
-    PrintNetworkMessageSize();
-
     using namespace std::placeholders;
 
     const std::function<mono::EventResult (const ServerBeaconMessage&)> server_beacon_func = std::bind(&ClientManager::HandleServerBeacon, this, _1);
@@ -33,16 +32,15 @@ ClientManager::ClientManager(mono::EventHandler* event_handler, const game::Conf
     m_connect_accepted_token = m_event_handler->AddListener(connect_accepted_func);
     m_ping_token = m_event_handler->AddListener(ping_func);
 
-    const std::unordered_map<ClientStatus, ClientStateMachine::State>& state_table = {
-        { ClientStatus::DISCONNECTED,   { std::bind(&ClientManager::ToDisconnected, this), nullptr} },
-        { ClientStatus::SEARCHING,      { std::bind(&ClientManager::ToSearching,    this), std::bind(&ClientManager::Searching, this, _1) } },
-        { ClientStatus::FOUND_SERVER,   { std::bind(&ClientManager::ToFoundServer,  this), nullptr } },
-        { ClientStatus::CONNECTED,      { std::bind(&ClientManager::ToConnected,    this), std::bind(&ClientManager::Connected, this, _1) } },
-        { ClientStatus::FAILED,         { std::bind(&ClientManager::ToFailed,       this), std::bind(&ClientManager::Failed,    this, _1) } }
+    const ClientStateMachine::StateTable& state_table = {
+        ClientStateMachine::MakeState(ClientStatus::DISCONNECTED,   &ClientManager::ToDisconnected, this),
+        ClientStateMachine::MakeState(ClientStatus::SEARCHING,      &ClientManager::ToSearching,    &ClientManager::Searching, this),
+        ClientStateMachine::MakeState(ClientStatus::FOUND_SERVER,   &ClientManager::ToFoundServer,  this),
+        ClientStateMachine::MakeState(ClientStatus::CONNECTED,      &ClientManager::ToConnected,    &ClientManager::Connected, this),
+        ClientStateMachine::MakeState(ClientStatus::FAILED,         &ClientManager::ToFailed,       &ClientManager::Failed, this),
     };
 
-    m_states.SetStateTable(state_table);
-    m_states.TransitionTo(ClientStatus::SEARCHING);
+    m_states.SetStateTableAndState(state_table, ClientStatus::DISCONNECTED);
 }
 
 ClientManager::~ClientManager()
@@ -53,6 +51,20 @@ ClientManager::~ClientManager()
     m_event_handler->RemoveListener(m_server_quit_token);
     m_event_handler->RemoveListener(m_connect_accepted_token);
     m_event_handler->RemoveListener(m_ping_token);
+}
+
+void ClientManager::StartClient()
+{
+    m_states.TransitionTo(ClientStatus::SEARCHING);
+}
+
+void ClientManager::Disconnect()
+{
+    NetworkMessage message;
+    message.payload = SerializeMessage(DisconnectMessage());
+    SendMessage(message);
+
+    m_states.TransitionTo(ClientStatus::DISCONNECTED);
 }
 
 ClientStatus ClientManager::GetConnectionStatus() const
@@ -116,13 +128,14 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     return info;
 }
 
-void ClientManager::Disconnect()
+uint32_t ClientManager::Id() const
 {
-    NetworkMessage message;
-    message.payload = SerializeMessage(DisconnectMessage());
-    SendMessage(message);
+    return mono::Hash(Name());
+}
 
-    m_states.TransitionTo(ClientStatus::DISCONNECTED);
+const char* ClientManager::Name() const
+{
+    return "clientmanager";
 }
 
 void ClientManager::Update(const mono::UpdateContext& update_context)
@@ -167,7 +180,7 @@ mono::EventResult ClientManager::HandlePing(const PingMessage& message)
 
 void ClientManager::ToSearching()
 {
-    System::Log("network|Searching for server\n");
+    System::Log("ClientManager|Searching for server\n");
     m_search_timer = 0;
 
     m_remote_connection.reset();
@@ -192,7 +205,7 @@ void ClientManager::ToSearching()
 
 void ClientManager::ToFoundServer()
 {
-    System::Log("network|Found server at %s\n", network::AddressToString(m_server_address).c_str());
+    System::Log("ClientManager|Found server at %s\n", network::AddressToString(m_server_address).c_str());
 
     NetworkMessage message;
     message.payload = SerializeMessage(ConnectMessage());
@@ -201,17 +214,17 @@ void ClientManager::ToFoundServer()
 
 void ClientManager::ToConnected()
 {
-    System::Log("network|Server accepted connection\n");
+    System::Log("ClientManager|Server accepted connection\n");
 }
 
 void ClientManager::ToDisconnected()
 {
-    System::Log("network|Server quit\n");
+    System::Log("ClientManager|Server quit\n");
 }
 
 void ClientManager::ToFailed()
 {
-    System::Log("network|Failed to find a server\n");
+    System::Log("ClientManager|Failed to find a server\n");
     m_failed_timer = 0;
 }
 

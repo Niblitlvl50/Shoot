@@ -8,5 +8,5 @@ namespace mono
 
 namespace shared
 {
-    void RegisterSharedComponents(mono::IEntityManager& entity_manager);
+    void RegisterSharedComponents(mono::IEntityManager* entity_manager);
 }

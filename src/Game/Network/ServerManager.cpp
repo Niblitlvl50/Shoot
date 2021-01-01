@@ -20,8 +20,6 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     , m_dispatcher(event_handler)
     , m_beacon_timer(0)
 {
-    PrintNetworkMessageSize();
-
     using namespace std::placeholders;
 
     const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
@@ -35,32 +33,40 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     m_disconnect_token = m_event_handler->AddListener(disconnect_func);
     m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
     m_viewport_token = m_event_handler->AddListener(viewport_func);
+}
 
+ServerManager::~ServerManager()
+{
+    m_event_handler->RemoveListener(m_ping_func_token);
+    m_event_handler->RemoveListener(m_connect_token);
+    m_event_handler->RemoveListener(m_disconnect_token);
+    m_event_handler->RemoveListener(m_heartbeat_token);
+    m_event_handler->RemoveListener(m_viewport_token);
+}
+
+void ServerManager::StartServer()
+{
     network::ISocketPtr socket;
-    if(game_config->use_port_range)
+    if(m_game_config->use_port_range)
     {
         socket = network::CreateUDPSocket(network::SocketType::BLOCKING);
         m_broadcast_address = network::GetBroadcastAddress(socket->Port());
     }
     else
     {
-        socket = network::CreateUDPSocket(network::SocketType::BLOCKING, game_config->server_port);
-        m_broadcast_address = network::GetBroadcastAddress(game_config->client_port);
+        socket = network::CreateUDPSocket(network::SocketType::BLOCKING, m_game_config->server_port);
+        m_broadcast_address = network::GetBroadcastAddress(m_game_config->client_port);
     }
 
     m_server_address = network::MakeAddress(network::GetLocalhostName().c_str(), socket->Port());
     m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
 }
 
-ServerManager::~ServerManager()
+void ServerManager::QuitServer()
 {
-    QuitServer();
-
-    m_event_handler->RemoveListener(m_ping_func_token);
-    m_event_handler->RemoveListener(m_connect_token);
-    m_event_handler->RemoveListener(m_disconnect_token);
-    m_event_handler->RemoveListener(m_heartbeat_token);
-    m_event_handler->RemoveListener(m_viewport_token);
+    NetworkMessage message;
+    message.payload = SerializeMessage(ServerQuitMessage());
+    SendMessage(message);
 }
 
 void ServerManager::SendMessage(const NetworkMessage& message)
@@ -76,6 +82,11 @@ void ServerManager::SendMessageTo(const NetworkMessage& message, const network::
 ConnectionInfo ServerManager::GetConnectionInfo() const
 {
     ConnectionInfo info;
+    info.stats = { };
+
+    if(!m_remote_connection)
+        return info;
+
     info.stats = m_remote_connection->GetConnectionStats();
     info.additional_info.push_back("server: " + network::AddressToString(m_server_address));
 
@@ -90,13 +101,6 @@ ConnectionInfo ServerManager::GetConnectionInfo() const
     return info;
 }
 
-void ServerManager::QuitServer()
-{
-    NetworkMessage message;
-    message.payload = SerializeMessage(ServerQuitMessage());
-    SendMessage(message);
-}
-
 const std::unordered_map<network::Address, ClientData>& ServerManager::GetConnectedClients() const
 {
     return m_connected_clients;
@@ -104,7 +108,10 @@ const std::unordered_map<network::Address, ClientData>& ServerManager::GetConnec
 
 const ConnectionStats& ServerManager::GetConnectionStats() const
 {
-    return m_remote_connection->GetConnectionStats();
+    if(m_remote_connection)
+        m_connection_stats = m_remote_connection->GetConnectionStats();
+
+    return m_connection_stats;
 }
 
 mono::EventResult ServerManager::HandlePingMessage(const PingMessage& ping_message)
@@ -204,7 +211,7 @@ uint32_t ServerManager::Id() const
 
 const char* ServerManager::Name() const
 {
-    return "ServerManager";
+    return "servermanager";
 }
 
 void ServerManager::Update(const mono::UpdateContext& update_context)
@@ -216,7 +223,7 @@ void ServerManager::Update(const mono::UpdateContext& update_context)
 
     m_beacon_timer += update_context.delta_ms;
 
-    if(m_beacon_timer >= 500)
+    if(m_beacon_timer >= 500 && m_remote_connection)
     {
         NetworkMessage message;
         message.payload = SerializeMessage(ServerBeaconMessage());

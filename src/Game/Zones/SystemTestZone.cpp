@@ -68,6 +68,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
     game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
+    server_manager->StartServer();
 
     const auto level_completed_func = [this](uint32_t trigger_id) {
         m_event_handler->DispatchEvent(event::QuitEvent());
@@ -77,20 +78,14 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
 
     // Network and syncing should be done first in the frame.
-    AddUpdatable(
-        new ServerReplicator(
-            entity_system,
-            transform_system,
-            sprite_system,
-            entity_system,
-            server_manager,
-            m_game_config.server_replication_interval)
-        );
+    ServerReplicator* server_replicator = new ServerReplicator(
+        entity_system, transform_system, sprite_system, server_manager, m_game_config.server_replication_interval);
+    AddUpdatable(server_replicator);
     AddUpdatable(new ListenerPositionUpdater());
 
     // Player
-    m_player_daemon =
-        std::make_unique<PlayerDaemon>(server_manager, entity_system, m_system_context, m_event_handler, m_player_spawn_point);
+    m_player_daemon = std::make_unique<PlayerDaemon>(
+        server_manager, entity_system, m_system_context, m_event_handler, m_player_spawn_point);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;

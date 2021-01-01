@@ -30,8 +30,9 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "SpawnSystem.h"
 
-//#include "Network/ClientManager.h"
 #include "Network/ServerManager.h"
+#include "Network/ClientManager.h"
+#include "Network/NetworkMessage.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
@@ -112,6 +113,8 @@ int main(int argc, char* argv[])
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
 
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
+    game::PrintNetworkMessageSize();
+
     mono::InitializeAudio();
 
     mono::RenderInitParams render_params;
@@ -142,8 +145,8 @@ int main(int argc, char* argv[])
             max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
-        game::RegisterGameComponents(*entity_system);
-        shared::RegisterSharedComponents(*entity_system);
+        game::RegisterGameComponents(entity_system);
+        shared::RegisterSharedComponents(entity_system);
 
         game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
@@ -167,6 +170,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
+        system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

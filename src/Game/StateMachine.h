@@ -23,6 +23,13 @@ public:
         return { id, { std::bind(enter_func, this_ptr), std::bind(update_func, this_ptr, _1) } };
     }
 
+    template <typename T>
+    static std::pair<StateId, State> MakeState(StateId id, void(T::*enter_func)(), T* this_ptr)
+    {
+        using namespace std::placeholders;
+        return { id, { std::bind(enter_func, this_ptr), nullptr } };
+    }
+
     using StateTable = std::unordered_map<StateId, State>;
 
     StateMachine()
