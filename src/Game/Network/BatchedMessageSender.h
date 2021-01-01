@@ -1,10 +1,13 @@
 
 #pragma once
 
-#include "NetworkMessage.h"
+#include "NetworkSerialize.h"
+#include <queue>
 
 namespace game
 {
+    struct NetworkMessage;
+
     class BatchedMessageSender
     {
     public:
