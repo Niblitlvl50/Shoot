@@ -37,7 +37,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, editor::Ed
     const std::vector<byte> file_data = file::FileRead(file);
 
     const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const std::vector<std::string>& path_names = json["path_files"];
+    const std::vector<std::string>& path_names = json["all_paths"];
 
     paths.reserve(path_names.size());
 
@@ -136,7 +136,7 @@ editor::World editor::LoadWorld(
 
     world.leveldata = shared::ReadWorldComponentObjects(file_name, entity_manager, entity_callback);
 
-    auto paths = LoadPaths("res/world.paths", editor);
+    auto paths = LoadPaths("res/paths/all_paths.json", editor);
     for(auto& proxy : paths)
         world.loaded_proxies.push_back(std::move(proxy));
 
@@ -151,5 +151,5 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
         proxy->Visit(serializer);
 
     serializer.WriteComponentEntities(file_name, level_data);
-    serializer.WritePathFile("res/world.paths");
+    serializer.WritePathFile("res/paths/all_paths.json");
 }

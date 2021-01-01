@@ -41,7 +41,7 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
 void JsonSerializer::WritePathFile(const std::string& file_path) const
 {
     nlohmann::json json;
-    json["path_files"] = m_path_names;
+    json["all_paths"] = m_path_names;
 
     const std::string& serialized_json = json.dump(4);
 

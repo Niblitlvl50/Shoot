@@ -2,7 +2,9 @@
     "all_paths": [
         "res/paths/center_loop.path",
         "res/paths/loop_1.path",
-        "res/paths/New path.path",
-        "res/paths/smaller_loop.path"
+        "res/paths/new_path.path",
+        "res/paths/right_most_loop.path",
+        "res/paths/smaller_loop.path",
+        "res/paths/tiny_loop.path"
     ]
 }
