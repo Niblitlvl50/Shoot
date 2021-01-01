@@ -36,8 +36,8 @@ add_library(shared STATIC ${shared_source_files})
 # Game lib
 file(GLOB_RECURSE game_source_files "src/Game/*.cpp" "src/Game/*.h")
 list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
-add_library(game STATIC ${game_source_files})
-target_include_directories(game PRIVATE "src/Game")
+add_library(game_lib STATIC ${game_source_files})
+target_include_directories(game_lib PRIVATE "src/Game")
 
 
 # Editor exe
@@ -56,7 +56,18 @@ set_source_files_properties(
 )
 
 # Get a list of all of the files in the res-folder
-file(GLOB_RECURSE game_exe_resource_files "res/*")
+file(
+    GLOB_RECURSE
+    game_exe_resource_files
+    "res/entities/*"
+    "res/fonts/*"
+    "res/paths/*"
+    "res/sound/*"
+    "res/sprites/*"
+    "res/textures/*"
+    "res/worlds/*"
+    "res/game_config.json"
+    "res/sprite_atlas.png")
 
 # Individually set the file's path properties
 foreach(RES_FILE ${game_exe_resource_files})
@@ -72,8 +83,9 @@ endforeach(RES_FILE)
 
 file(GLOB_RECURSE game_exe_source_files "src/Game/main.cpp")
 add_executable(game_exe MACOSX_BUNDLE ${osx_bundle_icons} ${game_exe_source_files} ${game_exe_resource_files})
-add_dependencies(game_exe game mono shared)
-target_link_libraries(game_exe game shared mono)
+add_dependencies(game_exe game_lib mono shared)
+target_include_directories(game_exe PRIVATE "src/Game")
+target_link_libraries(game_exe game_lib shared mono)
 
 # set_target_properties(game_exe PROPERTIES
 #     XCODE_GENERATE_SCHEME TRUE
@@ -83,6 +95,6 @@ target_link_libraries(game_exe game shared mono)
 # Game test exe
 file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
 add_executable(game_test_exe ${game_test_source_files})
-add_dependencies(game_test_exe game shared mono)
+add_dependencies(game_test_exe game_lib shared mono)
 target_include_directories(game_test_exe PRIVATE "src/Game" "Mono1/third_party/gtest-1.7.0/include")
-target_link_libraries(game_test_exe gtest game shared mono)
+target_link_libraries(game_test_exe gtest game_lib shared mono)
