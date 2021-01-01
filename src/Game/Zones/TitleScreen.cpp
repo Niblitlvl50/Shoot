@@ -75,8 +75,8 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
     {
         if(event.key == Keycode::ENTER)
             Continue();
-        //else if(event.key == Keycode::R)
-        //    Remote();
+        else if(event.key == Keycode::Q)
+            Remote();
 
         return mono::EventResult::PASS_ON;
     };

@@ -58,7 +58,6 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
-
     client_manager->StartClient();
 
     camera->SetPosition(math::Vector(0.0f, 0.0f));
@@ -98,7 +97,6 @@ mono::EventResult RemoteZone::HandleText(const TextMessage& text_message)
 mono::EventResult RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
 {
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
-
     if(!spawn_message.spawn)
         sprite_system->ReleaseSprite(spawn_message.entity_id);
 

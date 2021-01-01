@@ -19,21 +19,7 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     , m_game_config(game_config)
     , m_dispatcher(event_handler)
     , m_beacon_timer(0)
-{
-    using namespace std::placeholders;
-
-    const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
-    const std::function<mono::EventResult (const ConnectMessage&)> connect_func = std::bind(&ServerManager::HandleConnectMessage, this, _1);
-    const std::function<mono::EventResult (const DisconnectMessage&)> disconnect_func = std::bind(&ServerManager::HandleDisconnectMessage, this, _1);
-    const std::function<mono::EventResult (const HeartBeatMessage&)> heartbeat_func = std::bind(&ServerManager::HandleHeartBeatMessage, this, _1);
-    const std::function<mono::EventResult (const ViewportMessage&)> viewport_func = std::bind(&ServerManager::HandleViewportMessage, this, _1);
-
-    m_ping_func_token = m_event_handler->AddListener(ping_func);
-    m_connect_token = m_event_handler->AddListener(connect_func);
-    m_disconnect_token = m_event_handler->AddListener(disconnect_func);
-    m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
-    m_viewport_token = m_event_handler->AddListener(viewport_func);
-}
+{ }
 
 ServerManager::~ServerManager()
 {
@@ -46,6 +32,19 @@ ServerManager::~ServerManager()
 
 void ServerManager::StartServer()
 {
+    using namespace std::placeholders;
+    const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
+    const std::function<mono::EventResult (const ConnectMessage&)> connect_func = std::bind(&ServerManager::HandleConnectMessage, this, _1);
+    const std::function<mono::EventResult (const DisconnectMessage&)> disconnect_func = std::bind(&ServerManager::HandleDisconnectMessage, this, _1);
+    const std::function<mono::EventResult (const HeartBeatMessage&)> heartbeat_func = std::bind(&ServerManager::HandleHeartBeatMessage, this, _1);
+    const std::function<mono::EventResult (const ViewportMessage&)> viewport_func = std::bind(&ServerManager::HandleViewportMessage, this, _1);
+
+    m_ping_func_token = m_event_handler->AddListener(ping_func);
+    m_connect_token = m_event_handler->AddListener(connect_func);
+    m_disconnect_token = m_event_handler->AddListener(disconnect_func);
+    m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
+    m_viewport_token = m_event_handler->AddListener(viewport_func);
+
     network::ISocketPtr socket;
     if(m_game_config->use_port_range)
     {

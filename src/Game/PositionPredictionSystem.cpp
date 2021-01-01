@@ -93,7 +93,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
 
-        m_transform_system->ChildTransform(index, from.parent_transform);
+        //m_transform_system->ChildTransform(index, from.parent_transform);
     }
 }
 
@@ -115,7 +115,7 @@ mono::EventResult PositionPredictionSystem::HandlePredicitonMessage(const Transf
     }
     else
     {
-        System::Log("network|Old transform message, will skip\n");
+        System::Log("PositionPredictionSystem|Old transform message, will skip\n");
     }
 
     return mono::EventResult::PASS_ON;
