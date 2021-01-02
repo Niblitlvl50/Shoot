@@ -96,6 +96,11 @@ namespace game
         short animation_id;
         bool vertical_direction;
         bool horizontal_direction;
+        short layer;
+        uint32_t properties;
+        float shadow_offset_x;
+        float shadow_offset_y;
+        float shadow_size;
     };
 
     struct RemoteInputMessage

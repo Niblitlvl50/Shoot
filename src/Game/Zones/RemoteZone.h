@@ -39,6 +39,8 @@ namespace game
         mono::EventHandler* m_event_handler;
         const game::Config m_game_config;
 
+        mono::SpriteSystem* m_sprite_system;
+
         mono::EventToken<game::TextMessage> m_text_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;

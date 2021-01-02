@@ -12,6 +12,11 @@
 
 using namespace game;
 
+namespace
+{
+    constexpr uint32_t no_parent = std::numeric_limits<uint32_t>::max();
+}
+
 PositionPredictionSystem::PositionPredictionSystem(
     size_t num_records,
     const ClientManager* client_manager,
@@ -29,6 +34,7 @@ PositionPredictionSystem::PositionPredictionSystem(
             transform.timestamp = 0;
             transform.position = math::ZeroVec;
             transform.rotation = 0.0f;
+            transform.parent_transform = no_parent;
         }
     }
 
@@ -93,7 +99,8 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
 
-        //m_transform_system->ChildTransform(index, from.parent_transform);
+        m_transform_system->ChildTransform(index, from.parent_transform);
+        //System::Log("PositionPredictionSystem|Parent transform %u\n", from.parent_transform);
     }
 }
 

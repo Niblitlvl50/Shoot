@@ -55,13 +55,13 @@ RemoteZone::~RemoteZone()
 void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
     client_manager->StartClient();
 
     camera->SetPosition(math::Vector(0.0f, 0.0f));
-    camera->SetViewportSize(math::Vector(22.0f, 14.0f));
+    camera->SetViewportSize(math::Vector(8.0f, 8.0f));
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
 
@@ -70,7 +70,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddUpdatable(new ClientReplicator(camera, client_manager));
 
-    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
 
     m_console_drawer = std::make_unique<ConsoleDrawer>();
@@ -96,30 +96,38 @@ mono::EventResult RemoteZone::HandleText(const TextMessage& text_message)
 
 mono::EventResult RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
 {
-    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     if(!spawn_message.spawn)
+    {
+        mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
         sprite_system->ReleaseSprite(spawn_message.entity_id);
+    }
 
     return mono::EventResult::HANDLED;
 }
 
 mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_message)
 {
-    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
-    const bool is_allocated = sprite_system->IsAllocated(sprite_message.entity_id);
+    const bool is_allocated = m_sprite_system->IsAllocated(sprite_message.entity_id);
     if(!is_allocated)
     {
         mono::SpriteComponents sprite_data;
         sprite_data.sprite_file = game::SpriteHashToString(sprite_message.filename_hash);
-        sprite_system->AllocateSprite(sprite_message.entity_id, sprite_data);
+        m_sprite_system->AllocateSprite(sprite_message.entity_id, sprite_data);
     }
 
-    mono::Sprite* sprite = sprite_system->GetSprite(sprite_message.entity_id);
+    mono::Sprite* sprite = m_sprite_system->GetSprite(sprite_message.entity_id);
 
     sprite->SetShade(mono::Color::ToRGBA(sprite_message.hex_color));
     sprite->SetAnimation(sprite_message.animation_id);
     sprite->SetHorizontalDirection(mono::HorizontalDirection(sprite_message.horizontal_direction));
     sprite->SetVerticalDirection(mono::VerticalDirection(sprite_message.vertical_direction));
+
+    const math::Vector shadow_offset(sprite_message.shadow_offset_x, sprite_message.shadow_offset_y);
+    sprite->SetShadowOffset(shadow_offset);
+    sprite->SetShadowSize(sprite_message.shadow_size);
+    sprite->SetProperties(sprite_message.properties);
+
+    m_sprite_system->SetSpriteLayer(sprite_message.entity_id, sprite_message.layer);
 
     return mono::EventResult::HANDLED;
 }

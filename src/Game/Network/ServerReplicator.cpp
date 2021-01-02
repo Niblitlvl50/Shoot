@@ -179,6 +179,14 @@ void ServerReplicator::ReplicateSprites(
         sprite_message.vertical_direction = (short)sprite->GetVerticalDirection();
         sprite_message.horizontal_direction = (short)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();
+        
+        sprite_message.properties = sprite->GetProperties();
+        sprite_message.layer = m_sprite_system->GetSpriteLayer(id);
+        sprite_message.shadow_size = sprite->GetShadowSize();
+
+        const math::Vector shadow_offset = sprite->GetShadowOffset();
+        sprite_message.shadow_offset_x = shadow_offset.x;
+        sprite_message.shadow_offset_y = shadow_offset.y;
 
         total_sprites++;
 
