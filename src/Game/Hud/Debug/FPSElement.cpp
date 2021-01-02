@@ -13,7 +13,7 @@
 using namespace game;
 
 FPSElement::FPSElement(const math::Vector& position)
-    : FPSElement(position, mono::Color::RGBA(1, 0, 0))
+    : FPSElement(position, mono::Color::RED)
 { }
 
 FPSElement::FPSElement(const math::Vector& position, const mono::Color::RGBA& color)
@@ -36,4 +36,3 @@ void FPSElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
     m_counter++;
 }
-

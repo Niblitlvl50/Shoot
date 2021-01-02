@@ -4,6 +4,7 @@
 #include "Factories.h"
 #include "SpriteResources.h"
 #include "RenderLayers.h"
+#include "GameDebug.h"
 
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Overlay.h"
@@ -26,6 +27,8 @@
 #include "GameCamera/CameraSystem.h"
 #include "PositionPredictionSystem.h"
 #include "Player/ClientPlayerDaemon.h"
+
+#include "ImGuiImpl/ImGuiInputHandler.h"
 
 using namespace game;
 
@@ -68,13 +71,15 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     const PositionPredictionSystem* prediction_system =
         m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system, m_event_handler);
 
-    AddUpdatable(new ClientReplicator(camera, client_manager));
+    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
+    m_console_drawer = std::make_unique<ConsoleDrawer>();
 
+    AddUpdatable(new ClientReplicator(camera, client_manager));
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
-
-    m_console_drawer = std::make_unique<ConsoleDrawer>();
     AddDrawable(m_console_drawer.get(), LayerId::UI);
+
+    AddUpdatable(new DebugUpdater(m_event_handler));
 
     auto hud_overlay = new UIOverlayDrawer();
     hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), client_manager));

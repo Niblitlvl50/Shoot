@@ -91,7 +91,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     UIOverlayDrawer* debug_hud_overlay = new UIOverlayDrawer();
     debug_hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
     debug_hud_overlay->AddChild(new PhysicsStatsElement(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
-    //debug_hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), m_server_manager.get()));
     debug_hud_overlay->AddChild(new ParticleStatusDrawer(particle_system, math::Vector(2, 190)));
     AddEntity(debug_hud_overlay, LayerId::UI);
 
