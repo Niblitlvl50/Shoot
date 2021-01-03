@@ -66,6 +66,8 @@ void ServerManager::QuitServer()
     NetworkMessage message;
     message.payload = SerializeMessage(ServerQuitMessage());
     SendMessage(message);
+
+    m_remote_connection = nullptr;
 }
 
 void ServerManager::SendMessage(const NetworkMessage& message)

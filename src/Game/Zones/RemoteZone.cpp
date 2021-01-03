@@ -92,6 +92,9 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int RemoteZone::OnUnload()
 {
+    ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
+    client_manager->Disconnect();
+
     RemoveDrawable(m_console_drawer.get());
     return 0;
 }
@@ -104,7 +107,7 @@ mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& me
     //const shared::LevelData level_data = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     //const char* world_filename = WorldHashToString(metadata_message.world_file_hash);
 
-    const char* background_texture_filename = TextureHashToString(metadata_message.background_texture_hash);
+    const char* background_texture_filename = game::HashToFilename(metadata_message.background_texture_hash);
     if(background_texture_filename)
         AddDrawable(new StaticBackground(background_texture_filename), LayerId::BACKGROUND);
 
@@ -134,7 +137,7 @@ mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_me
     if(!is_allocated)
     {
         mono::SpriteComponents sprite_data;
-        sprite_data.sprite_file = game::SpriteHashToString(sprite_message.filename_hash);
+        sprite_data.sprite_file = game::HashToFilename(sprite_message.filename_hash);
         m_sprite_system->AllocateSprite(sprite_message.entity_id, sprite_data);
     }
 

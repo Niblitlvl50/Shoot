@@ -115,6 +115,9 @@ int SystemTestZone::OnUnload()
 {
     GameZone::OnUnload();
 
+    game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
+    server_manager->QuitServer();
+
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
 
