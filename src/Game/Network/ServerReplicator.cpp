@@ -5,17 +5,22 @@
 #include "NetworkMessage.h"
 #include "BatchedMessageSender.h"
 
+#include "EventHandler/EventHandler.h"
 #include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
+#include "Util/Hash.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityProperties.h"
 
+#include "Events/GameEventFuncFwd.h"
+#include "Events/PlayerConnectedEvent.h"
 #include "ScopedTimer.h"
 #include "AIKnowledge.h"
+#include "WorldFile.h"
 
 #include "Math/MathFunctions.h"
 #include "Camera/ICamera.h"
@@ -27,12 +32,15 @@ using namespace game;
 static constexpr uint32_t KEYFRAME_INTERVAL = 10;
 
 ServerReplicator::ServerReplicator(
+    mono::EventHandler* event_handler,
     mono::EntitySystem* entity_system,
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
     ServerManager* server_manager,
+    const shared::LevelMetadata& level_metadata,
     uint32_t replication_interval)
-    : m_entity_system(entity_system)
+    : m_event_handler(event_handler)
+    , m_entity_system(entity_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
     , m_server_manager(server_manager)
@@ -41,11 +49,30 @@ ServerReplicator::ServerReplicator(
     std::memset(&m_transform_data, 0, std::size(m_transform_data) * sizeof(TransformData));
     std::memset(&m_sprite_data, 0, std::size(m_sprite_data) * sizeof(SpriteData));
 
-    for(TransformData& transform_data : m_transform_data)
-        transform_data.parent_transform = std::numeric_limits<uint32_t>::max();
-
     m_keyframe_low = 0;
     m_keyframe_high = KEYFRAME_INTERVAL;
+
+    const PlayerConnectedFunc connected_func = [server_manager, level_metadata](const PlayerConnectedEvent& event) {
+
+        LevelMetadataMessage metadata_message;
+        metadata_message.camera_position = level_metadata.camera_position;
+        metadata_message.camera_size = level_metadata.camera_size;
+        metadata_message.background_texture_hash = mono::Hash(level_metadata.background_texture.c_str());
+        metadata_message.world_file_hash = 0;
+
+        NetworkMessage message;
+        message.address = event.address;
+        message.payload = SerializeMessage(metadata_message);
+        server_manager->SendMessage(message);
+
+        return mono::EventResult::PASS_ON;
+    };
+    m_connected_token = m_event_handler->AddListener(connected_func);
+}
+
+ServerReplicator::~ServerReplicator()
+{
+    m_event_handler->RemoveListener(m_connected_token);
 }
 
 void ServerReplicator::Update(const mono::UpdateContext& update_context)
@@ -85,6 +112,9 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
         m_keyframe_low = 0;
         m_keyframe_high = KEYFRAME_INTERVAL;
     }
+
+    if(!m_message_queue.empty())
+        System::Log("ServerReplicator|Message queue is not empty, size: %u\n", m_message_queue.size());
 }
 
 void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender)

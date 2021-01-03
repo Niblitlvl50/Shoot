@@ -27,6 +27,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "PositionPredictionSystem.h"
 #include "Player/ClientPlayerDaemon.h"
+#include "World/StaticBackground.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -39,10 +40,12 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
 {
     using namespace std::placeholders;
 
+    const std::function<mono::EventResult (const LevelMetadataMessage&)> metadata_func = std::bind(&RemoteZone::HandleLevelMetadata, this, _1);
     const std::function<mono::EventResult (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
     const std::function<mono::EventResult (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<mono::EventResult (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
 
+    m_metadata_token = m_event_handler->AddListener(metadata_func);
     m_text_token = m_event_handler->AddListener(text_func);
     m_spawn_token = m_event_handler->AddListener(spawn_func);
     m_sprite_token = m_event_handler->AddListener(sprite_func);
@@ -50,6 +53,7 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
 
 RemoteZone::~RemoteZone()
 {
+    m_event_handler->RemoveListener(m_metadata_token);
     m_event_handler->RemoveListener(m_text_token);
     m_event_handler->RemoveListener(m_spawn_token);
     m_event_handler->RemoveListener(m_sprite_token);
@@ -57,14 +61,13 @@ RemoteZone::~RemoteZone()
 
 void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
+    m_camera = camera;
+
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
     client_manager->StartClient();
-
-    camera->SetPosition(math::Vector(0.0f, 0.0f));
-    camera->SetViewportSize(math::Vector(8.0f, 8.0f));
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
 
@@ -91,6 +94,21 @@ int RemoteZone::OnUnload()
 {
     RemoveDrawable(m_console_drawer.get());
     return 0;
+}
+
+mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& metadata_message)
+{
+    m_camera->SetPosition(metadata_message.camera_position);
+    m_camera->SetViewportSize(metadata_message.camera_size);
+
+    //const shared::LevelData level_data = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
+    //const char* world_filename = WorldHashToString(metadata_message.world_file_hash);
+
+    const char* background_texture_filename = TextureHashToString(metadata_message.background_texture_hash);
+    if(background_texture_filename)
+        AddDrawable(new StaticBackground(background_texture_filename), LayerId::BACKGROUND);
+
+    return mono::EventResult::HANDLED;
 }
 
 mono::EventResult RemoteZone::HandleText(const TextMessage& text_message)

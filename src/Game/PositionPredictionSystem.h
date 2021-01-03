@@ -46,7 +46,7 @@ namespace game
             uint32_t timestamp;
             math::Vector position;
             float rotation;
-            uint32_t parent_transform;
+            uint16_t parent_transform;
         };
 
         struct PredictionData

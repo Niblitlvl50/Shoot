@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "ZoneCreationContext.h"
 #include "Zone/ZoneBase.h"
 #include "GameConfig.h"
@@ -17,6 +18,7 @@ namespace network
 
 namespace game
 {
+    struct LevelMetadataMessage;
     struct TextMessage;
     struct SpawnMessage;
     struct SpriteMessage;
@@ -31,6 +33,7 @@ namespace game
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
+        mono::EventResult HandleLevelMetadata(const LevelMetadataMessage& metadata_message);
         mono::EventResult HandleText(const TextMessage& text_message);
         mono::EventResult HandleSpawnMessage(const SpawnMessage& spawn_message);
         mono::EventResult HandleSpriteMessage(const SpriteMessage& sprite_message);
@@ -41,8 +44,10 @@ namespace game
         mono::EventHandler* m_event_handler;
         const game::Config m_game_config;
 
+        mono::ICamera* m_camera;
         mono::SpriteSystem* m_sprite_system;
 
+        mono::EventToken<game::LevelMetadataMessage> m_metadata_token;
         mono::EventToken<game::TextMessage> m_text_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;

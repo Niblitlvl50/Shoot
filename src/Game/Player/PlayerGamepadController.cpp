@@ -13,9 +13,6 @@
 #include <algorithm>
 #include <cmath>
 
-#define IS_TRIGGERED(variable) (!m_last_state.variable && m_state.variable)
-#define HAS_CHANGED(variable) (m_last_state.variable != m_state.variable)
-
 using namespace game;
 
 PlayerGamepadController::PlayerGamepadController(
@@ -33,16 +30,17 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_shuttle_logic->StopFire();
 
-    const bool secondary_fire = IS_TRIGGERED(y);
+    const bool secondary_fire = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::Y);
     if(secondary_fire)
         m_shuttle_logic->SecondaryFire();
 
-    const bool reload = IS_TRIGGERED(x) && HAS_CHANGED(x);
+    const bool reload =
+        System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::X);
     if(reload)
         m_shuttle_logic->Reload(update_context.timestamp);
 
-    const bool left_shoulder = IS_TRIGGERED(left_shoulder);
-    const bool right_shoulder = IS_TRIGGERED(right_shoulder);
+    const bool left_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT_SHOULDER);
+    const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(left_shoulder)
         --m_current_weapon_index;
     else if(right_shoulder)
@@ -77,17 +75,17 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 
     m_shuttle_logic->SetAnimation(animation);
     
-    const bool b = IS_TRIGGERED(b);
-    const bool b_changed = HAS_CHANGED(b);
+    const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
+    const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     if(b)
         m_event_handler.DispatchEvent(event::TimeScaleEvent(0.1f));
     else if(b_changed)
         m_event_handler.DispatchEvent(event::TimeScaleEvent(1.0f));
 
-    const bool left_triggered = IS_TRIGGERED(left);
-    const bool right_triggered = IS_TRIGGERED(right);
-    const bool up_triggered = IS_TRIGGERED(up);
-    const bool down_triggered = IS_TRIGGERED(down);
+    const bool left_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT);
+    const bool right_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT);
+    const bool up_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::UP);
+    const bool down_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::DOWN);
 
     if(left_triggered || right_triggered || up_triggered || down_triggered)
     {

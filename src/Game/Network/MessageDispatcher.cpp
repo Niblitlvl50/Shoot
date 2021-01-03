@@ -52,6 +52,7 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(DisconnectMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(HeartBeatMessage);
 
+    REGISTER_MESSAGE_HANDLER(LevelMetadataMessage);
     REGISTER_MESSAGE_HANDLER(ClientPlayerSpawned);
     REGISTER_MESSAGE_HANDLER(TextMessage);
     REGISTER_MESSAGE_HANDLER(TransformMessage);

@@ -71,16 +71,14 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
 
-    const shared::LevelData leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
-    m_loaded_entities = leveldata.loaded_entities;
-    m_player_spawn_point = leveldata.metadata.player_spawn_point;
-    camera->SetPosition(leveldata.metadata.camera_position);
-    camera->SetViewportSize(leveldata.metadata.camera_size);
+    m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
+    camera->SetPosition(m_leveldata.metadata.camera_position);
+    camera->SetViewportSize(m_leveldata.metadata.camera_size);
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
-    if(!leveldata.metadata.background_texture.empty())
-        AddDrawable(new StaticBackground(leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
+    if(!m_leveldata.metadata.background_texture.empty())
+        AddDrawable(new StaticBackground(m_leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
     
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);

@@ -4,6 +4,7 @@
 #include "Zone/ZoneBase.h"
 #include "ZoneCreationContext.h"
 #include "Navigation/NavmeshData.h"
+#include "WorldFile.h"
 
 #include <memory>
 
@@ -26,10 +27,9 @@ namespace game
         mono::EventHandler* m_event_handler;
         const char* m_world_file;
 
-        math::Vector m_player_spawn_point;
+        shared::LevelData m_leveldata;
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
         NavmeshContext m_navmesh;
-        std::vector<uint32_t> m_loaded_entities;
     };
 }

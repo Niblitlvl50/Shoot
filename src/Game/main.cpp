@@ -111,6 +111,8 @@ int main(int argc, char* argv[])
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
+    game::LoadAllTextures("res/textures/all_textures.json");
+    game::LoadAllWorlds("res/worlds/all_worlds.json");
 
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();

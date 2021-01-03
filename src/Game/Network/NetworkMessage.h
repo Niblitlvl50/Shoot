@@ -48,7 +48,7 @@ namespace game
     struct ClientPlayerSpawned
     {
         DECLARE_NETWORK_MESSAGE();
-        uint32_t client_entity_id;
+        uint16_t client_entity_id;
     };
 
     struct DisconnectMessage
@@ -69,34 +69,43 @@ namespace game
         char text[256] = { 0 };
     };
 
+    struct LevelMetadataMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+        math::Vector camera_position;
+        math::Vector camera_size;
+        uint32_t world_file_hash;
+        uint32_t background_texture_hash;
+    };
+
     struct TransformMessage
     {
         DECLARE_NETWORK_MESSAGE();
         uint32_t timestamp;
-        uint32_t entity_id;
+        uint16_t entity_id;
+        uint16_t parent_transform;
         math::Vector position;
         float rotation;
-        uint32_t parent_transform;
         bool settled;
     };
 
     struct SpawnMessage
     {
         DECLARE_NETWORK_MESSAGE();
-        uint32_t entity_id;
+        uint16_t entity_id;
         bool spawn;
     };
 
     struct SpriteMessage
     {
         DECLARE_NETWORK_MESSAGE();
-        uint32_t entity_id;
+        uint16_t entity_id;
         uint32_t filename_hash;
         uint32_t hex_color;
-        short animation_id;
+        uint8_t animation_id;
         bool vertical_direction;
         bool horizontal_direction;
-        short layer;
+        int8_t layer;
         uint32_t properties;
         float shadow_offset_x;
         float shadow_offset_y;

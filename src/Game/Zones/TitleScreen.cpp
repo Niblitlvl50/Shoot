@@ -29,9 +29,6 @@
 
 using namespace game;
 
-#define IS_TRIGGERED(variable) (!m_last_state.variable && state.variable)
-#define HAS_CHANGED(variable) (m_last_state.variable != state.variable)
-
 namespace
 {
     class CheckControllerInput : public mono::IUpdatable
@@ -46,9 +43,9 @@ namespace
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
-            const bool a_pressed = IS_TRIGGERED(a) && HAS_CHANGED(a);
-            const bool y_pressed = IS_TRIGGERED(y) && HAS_CHANGED(y);
-            const bool x_pressed = IS_TRIGGERED(x) && HAS_CHANGED(x);
+            const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
+            const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+            const bool x_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::X);
 
             if(a_pressed)
                 m_title_screen->Continue();

@@ -13,10 +13,6 @@
 
 using namespace game;
 
-#define IS_TRIGGERED(variable) (!m_last_state.variable && state.variable)
-#define HAS_CHANGED(variable) (m_last_state.variable != state.variable)
-
-
 GameOverScreen::GameOverScreen(
     const PlayerInfo& player_info, const math::Vector& position, const math::Vector& offscreen_position, mono::EventHandler* event_handler)
     : m_player_info(player_info)
@@ -79,8 +75,8 @@ void GameOverScreen::EntityUpdate(const mono::UpdateContext& update_context)
         }
 
         const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
-        const bool a_pressed = IS_TRIGGERED(a) && HAS_CHANGED(a);
-        const bool y_pressed = IS_TRIGGERED(y) && HAS_CHANGED(y);
+        const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
+        const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
 
         if(a_pressed)
             m_event_handler->DispatchEvent(game::SpawnPlayerEvent());
