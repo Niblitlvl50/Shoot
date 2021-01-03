@@ -134,6 +134,7 @@ mono::EventResult PositionPredictionSystem::HandlePredicitonMessage(const Transf
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
+#include "GameDebug.h"
 
 PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictionSystem* prediction_system)
     : m_prediction_system(prediction_system)
@@ -141,6 +142,9 @@ PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictio
 
 void PredictionSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_position_prediction)
+        return;
+
     std::vector<math::Vector> line_points;
     std::vector<math::Vector> first_points;
     std::vector<math::Vector> predicted_positions;

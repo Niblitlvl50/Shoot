@@ -21,6 +21,7 @@ namespace game
     extern bool g_draw_physics_stats;
     extern bool g_draw_particle_stats;
     extern bool g_draw_network_stats;
+    extern bool g_draw_position_prediction;
 
     class DebugUpdater : public mono::IUpdatable
     {

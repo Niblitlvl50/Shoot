@@ -20,6 +20,7 @@ uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW
 bool game::g_draw_physics_stats = false;
 bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
+bool game::g_draw_position_prediction = false;
 
 void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
 {
@@ -43,6 +44,7 @@ void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
     ImGui::Checkbox("Draw Physics Stats",   &game::g_draw_physics_stats);
     ImGui::Checkbox("Draw Particle Stats",  &game::g_draw_particle_stats);
     ImGui::Checkbox("Draw Network Stats",   &game::g_draw_network_stats);
+    ImGui::Checkbox("Draw Prediction Sys",  &game::g_draw_position_prediction);
 
     ImGui::End();
 }
