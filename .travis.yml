@@ -36,6 +36,8 @@ matrix:
     compiler: clang
     osx_image: xcode11.3
 
+  - os: windows
+
 script:
 
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER . && make
