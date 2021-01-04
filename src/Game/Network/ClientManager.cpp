@@ -216,7 +216,7 @@ void ClientManager::ToConnected()
 
 void ClientManager::ToDisconnected()
 {
-    System::Log("ClientManager|Server quit\n");
+    System::Log("ClientManager|Disconnected\n");
 }
 
 void ClientManager::ToFailed()

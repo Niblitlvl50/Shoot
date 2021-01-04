@@ -36,7 +36,7 @@ matrix:
     compiler: clang
     osx_image: xcode11.3
 
-  - os: windows
+#  - os: windows
 
 script:
 
