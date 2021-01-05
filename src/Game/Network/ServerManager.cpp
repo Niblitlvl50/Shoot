@@ -199,7 +199,7 @@ void ServerManager::PurgeZombieClients()
 
     for(const auto& key : dead_clients)
     {
-        System::Log("ServerManager|Purging client '%s'\n", network::AddressToString(key).c_str());
+        System::Log("ServerManager|Purging client: %s\n", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key));
     }
