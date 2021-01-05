@@ -85,16 +85,16 @@ PlayerDaemon::PlayerDaemon(
     m_added_token = m_event_handler->AddListener(added_func);
     m_removed_token = m_event_handler->AddListener(removed_func);
 
-    const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::PlayerConnected, this, _1);
-    const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::PlayerDisconnected, this, _1);
+    const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::RemotePlayerConnected, this, _1);
+    const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::RemotePlayerDisconnected, this, _1);
     const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
-    const ScoreFunc& score_func = std::bind(&PlayerDaemon::PLayerScore, this, _1);
+    const ScoreFunc& score_func = std::bind(&PlayerDaemon::PlayerScore, this, _1);
 
     m_player_connected_token = m_event_handler->AddListener(connected_func);
     m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
     m_spawn_player_token = m_event_handler->AddListener(spawn_player_func);
 
-    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemoteInput, this, _1);
+    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemotePlayerInput, this, _1);
     m_remote_input_token = m_event_handler->AddListener(remote_input_func);
 
     m_score_token = m_event_handler->AddListener(score_func);
@@ -234,13 +234,13 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     return mono::EventResult::PASS_ON;
 }
 
-mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& event)
+mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
         return mono::EventResult::HANDLED;
 
-    System::Log("PlayerDaemon|Player connected, %s\n", network::AddressToString(event.address).c_str());
+    System::Log("PlayerDaemon|Remote player connected, %s\n", network::AddressToString(event.address).c_str());
 
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
 
@@ -251,7 +251,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
 
     const uint32_t spawned_id = SpawnPlayer(
         &remote_player_data.player_info,
-        math::ZeroVec,
+        m_player_one_spawn,
         remote_player_data.controller_state,
         m_entity_system,
         m_system_context,
@@ -269,7 +269,7 @@ mono::EventResult PlayerDaemon::PlayerConnected(const PlayerConnectedEvent& even
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent& event)
+mono::EventResult PlayerDaemon::RemotePlayerDisconnected(const PlayerDisconnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
@@ -281,7 +281,7 @@ mono::EventResult PlayerDaemon::PlayerDisconnected(const PlayerDisconnectedEvent
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
+mono::EventResult PlayerDaemon::RemotePlayerInput(const RemoteInputMessage& event)
 {
     auto it = m_remote_players.find(event.sender);
     if(it != m_remote_players.end())
@@ -290,7 +290,7 @@ mono::EventResult PlayerDaemon::RemoteInput(const RemoteInputMessage& event)
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::PLayerScore(const ScoreEvent& event)
+mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 {
     if(g_player_one.entity_id == event.entity_id)
         g_player_one.score += event.score;

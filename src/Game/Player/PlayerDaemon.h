@@ -40,10 +40,10 @@ namespace game
 
         mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
-        mono::EventResult PlayerConnected(const PlayerConnectedEvent& event);
-        mono::EventResult PlayerDisconnected(const PlayerDisconnectedEvent& event);
-        mono::EventResult RemoteInput(const RemoteInputMessage& event);
-        mono::EventResult PLayerScore(const ScoreEvent& event);
+        mono::EventResult RemotePlayerConnected(const PlayerConnectedEvent& event);
+        mono::EventResult RemotePlayerDisconnected(const PlayerDisconnectedEvent& event);
+        mono::EventResult RemotePlayerInput(const RemoteInputMessage& event);
+        mono::EventResult PlayerScore(const ScoreEvent& event);
         mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
 
         class CameraSystem* m_camera_system;
