@@ -1,5 +1,5 @@
 
-#include "Healthbar.h"
+#include "HealthbarDrawer.h"
 #include "FontIds.h"
 #include "DamageSystem.h"
 
@@ -8,7 +8,7 @@
 #include "Math/Quad.h"
 #include "Util/Algorithm.h"
 #include "TransformSystem/TransformSystem.h"
-#include "EntitySystem/EntitySystem.h"
+#include "EntitySystem/IEntityManager.h"
 
 #include <limits>
 #include <string>
@@ -49,7 +49,7 @@ namespace
     }
 }
 
-HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::EntitySystem* entity_system)
+HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
@@ -76,7 +76,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         Healthbar bar;
         bar.last_damaged_timestamp = record.last_damaged_timestamp;
         bar.health_percentage = float(record.health) / float(record.full_health);
-        bar.name = m_entity_system->GetName(entity_id);
+        bar.name = m_entity_system->GetEntityName(entity_id);
         
         if(record.is_boss)
         {

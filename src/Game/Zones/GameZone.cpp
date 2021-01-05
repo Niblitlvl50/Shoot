@@ -21,7 +21,7 @@
 
 #include "AIKnowledge.h"
 #include "Hud/Overlay.h"
-#include "Hud/Healthbar.h"
+#include "Hud/HealthbarDrawer.h"
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
