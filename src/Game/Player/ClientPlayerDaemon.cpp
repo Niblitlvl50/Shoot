@@ -81,7 +81,7 @@ mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& m
     game::g_player_one.entity_id = message.client_entity_id;
     game::g_player_one.player_state = game::PlayerState::ALIVE;
 
-    m_camera_system->Follow(g_player_one.entity_id, math::ZeroVec);
+    m_camera_system->Follow(g_player_one.entity_id, math::Vector(0.0f, 3.0f));
 
     return mono::EventResult::PASS_ON;
 }
