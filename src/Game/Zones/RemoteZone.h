@@ -22,6 +22,7 @@ namespace game
     struct TextMessage;
     struct SpawnMessage;
     struct SpriteMessage;
+    struct TransformMessage;
 
     class RemoteZone : public mono::ZoneBase
     {
@@ -37,6 +38,7 @@ namespace game
         mono::EventResult HandleText(const TextMessage& text_message);
         mono::EventResult HandleSpawnMessage(const SpawnMessage& spawn_message);
         mono::EventResult HandleSpriteMessage(const SpriteMessage& sprite_message);
+        mono::EventResult HandleTransformMessage(const TransformMessage& transform_message);
 
     private:
 
@@ -46,11 +48,15 @@ namespace game
 
         mono::ICamera* m_camera;
         mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_manager;
+        class PositionPredictionSystem* m_position_prediction_system;
+        class SpawnPredictionSystem* m_spawn_prediction_system;
 
         mono::EventToken<game::LevelMetadataMessage> m_metadata_token;
         mono::EventToken<game::TextMessage> m_text_token;
         mono::EventToken<game::SpawnMessage> m_spawn_token;
         mono::EventToken<game::SpriteMessage> m_sprite_token;
+        mono::EventToken<game::TransformMessage> m_transform_token;
 
         std::unique_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;

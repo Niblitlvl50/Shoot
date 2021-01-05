@@ -143,9 +143,26 @@ int main(int argc, char* argv[])
         mono::Camera camera;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
-            max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+        mono::EntitySystem* entity_system =
+            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
+
+        mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
+        mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
+
+        game::DamageSystem* damage_system =
+            system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);
+        game::TriggerSystem* trigger_system =
+            system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system);
+        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
+        system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
+        system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
+        system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
+        system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
+
+        system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
+        system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
         game::RegisterGameComponents(entity_system);
         shared::RegisterSharedComponents(entity_system);
@@ -155,24 +172,6 @@ int main(int argc, char* argv[])
 
         game::g_weapon_factory = &weapon_factory;
         game::g_logic_factory = &logic_factory;
-
-        mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-        mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
-
-        game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(
-            max_entities, entity_system, &event_handler);
-
-        game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(
-            max_entities, damage_system, physics_system);
-
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
-        system_context.CreateSystem<game::SpawnSystem>(max_entities, transform_system);
-        system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
-        system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
-        system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
-        system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
-        system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

@@ -60,6 +60,8 @@ namespace game
         void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, const math::Vector& world_point);
         void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t follow_entity_id);
 
+        void AddCameraShake(uint32_t time_ms);
+
         mono::ICamera* m_camera;
         mono::TransformSystem* m_transform_system;
         mono::EventHandler* m_event_handler;
@@ -69,6 +71,9 @@ namespace game
         bool m_debug_camera;
         uint32_t m_entity_id;
         math::Vector m_follow_offset;
+
+        math::Vector m_camera_position;
+        int m_camera_shake_timer_ms;
 
         std::vector<CameraAnimationComponent> m_camera_components;
         std::vector<bool> m_active_camera_components;

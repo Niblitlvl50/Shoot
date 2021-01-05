@@ -109,32 +109,32 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
     // Boss health bars
 
-    if(boss_healthbars.empty())
-        return;
+    if(!boss_healthbars.empty())
+    {
+        const auto sort_on_timestamp = [](const Healthbar& first, const Healthbar& second) {
+            return first.last_damaged_timestamp > second.last_damaged_timestamp;
+        };
+        std::sort(boss_healthbars.begin(), boss_healthbars.end(), sort_on_timestamp);
+        boss_healthbars.erase(boss_healthbars.begin() +1, boss_healthbars.end());
 
-    const auto sort_on_timestamp = [](const Healthbar& first, const Healthbar& second) {
-        return first.last_damaged_timestamp > second.last_damaged_timestamp;
-    };
-    std::sort(boss_healthbars.begin(), boss_healthbars.end(), sort_on_timestamp);
-    boss_healthbars.erase(boss_healthbars.begin() +1, boss_healthbars.end());
+        const std::vector<math::Vector>& boss_background_lines = GenerateHealthbarVertices(boss_healthbars, true);
+        const std::vector<math::Vector>& boss_healthbar_lines = GenerateHealthbarVertices(boss_healthbars, false);
 
-    const std::vector<math::Vector>& boss_background_lines = GenerateHealthbarVertices(boss_healthbars, true);
-    const std::vector<math::Vector>& boss_healthbar_lines = GenerateHealthbarVertices(boss_healthbars, false);
+        constexpr float line_width_boss = 8.0f;
 
-    constexpr float line_width_boss = 8.0f;
+        const math::Matrix projection = math::Ortho(viewport.mA.x, viewport.mB.x, viewport.mA.y, viewport.mB.y, -10.0f, 10.0f);
 
-    const math::Matrix projection = math::Ortho(viewport.mA.x, viewport.mB.x, viewport.mA.y, viewport.mB.y, -10.0f, 10.0f);
+        const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
+        const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+        const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
-    const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
-    const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
-    const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
+        renderer.DrawLines(boss_background_lines, background_color, line_width_boss);
+        renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width_boss);
 
-    renderer.DrawLines(boss_background_lines, background_color, line_width_boss);
-    renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width_boss);
-
-    const Healthbar& boss_healthbar = boss_healthbars.back();
-    renderer.DrawText(
-        shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
+        const Healthbar& boss_healthbar = boss_healthbars.back();
+        renderer.DrawText(
+            shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
+    }
 }
 
 math::Quad HealthbarDrawer::BoundingBox() const

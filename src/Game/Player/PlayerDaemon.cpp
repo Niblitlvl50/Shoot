@@ -48,7 +48,7 @@ namespace
 
         // No need to store the callback id, when destroyed this callback will be cleared up.
         game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
-        const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::DESTROYED, damage_callback);
+        const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::ALL, damage_callback);
         (void)callback_id;
 
         game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
@@ -154,8 +154,16 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 void PlayerDaemon::SpawnPlayer1()
 {
     const auto destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        game::g_player_one.player_state = game::PlayerState::DEAD;
-        m_camera_system->Unfollow();
+
+        if(type == DamageType::DESTROYED)
+        {
+            game::g_player_one.player_state = game::PlayerState::DEAD;
+            m_camera_system->Unfollow();
+        }
+        else if(type == DamageType::DAMAGED)
+        {
+            m_camera_system->AddCameraShake(250);
+        }
     };
 
     const uint32_t spawned_id = SpawnPlayer(

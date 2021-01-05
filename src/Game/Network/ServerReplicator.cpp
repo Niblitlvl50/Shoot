@@ -91,7 +91,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
     {
         BatchedMessageSender batch_sender(client.first, m_message_queue);
 
-        ReplicateSpawns(batch_sender);
+        ReplicateSpawns(batch_sender, update_context);
         ReplicateTransforms(entity_ids, batch_sender, client.second.viewport, update_context);
         ReplicateSprites(entity_ids, batch_sender, update_context);
     }
@@ -117,11 +117,12 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
         System::Log("ServerReplicator|Message queue is not empty, size: %u\n", m_message_queue.size());
 }
 
-void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender)
+void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context)
 {
     for(const mono::IEntityManager::SpawnEvent& spawn_event : m_entity_system->GetSpawnEvents())
     {
         SpawnMessage spawn_message;
+        spawn_message.timestamp = update_context.timestamp;
         spawn_message.entity_id = spawn_event.entity_id;
         spawn_message.spawn = spawn_event.spawned;
 
@@ -226,6 +227,7 @@ void ServerReplicator::ReplicateSprites(
         const bool time_to_replicate = (last_sprite_data.time_to_replicate < 0);
         const bool same =
             last_sprite_data.animation_id == sprite_message.animation_id &&
+            last_sprite_data.filename_hash == sprite_message.filename_hash &&
             last_sprite_data.hex_color == sprite_message.hex_color &&
             last_sprite_data.vertical_direction == sprite_message.vertical_direction &&
             last_sprite_data.horizontal_direction == sprite_message.horizontal_direction;
@@ -236,6 +238,7 @@ void ServerReplicator::ReplicateSprites(
             batched_sender.SendMessage(sprite_message);
             
             last_sprite_data.animation_id = sprite_message.animation_id;
+            last_sprite_data.filename_hash = sprite_message.filename_hash;
             last_sprite_data.hex_color = sprite_message.hex_color;
             last_sprite_data.vertical_direction = sprite_message.vertical_direction;
             last_sprite_data.horizontal_direction = sprite_message.horizontal_direction;

@@ -11,7 +11,9 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Algorithm.h"
 #include "Util/Hash.h"
+#include "Util/Random.h"
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -31,6 +33,7 @@ CameraSystem::CameraSystem(
     , m_controller(camera, *event_handler)
     , m_debug_camera(false)
     , m_entity_id(NO_ENTITY)
+    , m_camera_shake_timer_ms(0)
 {
     m_camera_components.resize(n);
     m_active_camera_components.resize(n, false);
@@ -66,9 +69,6 @@ const char* CameraSystem::Name() const
 
 void CameraSystem::Update(const mono::UpdateContext& update_context)
 {
-    const math::Quad& viewport = m_camera->GetViewport();
-    g_camera_viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
-
     if(m_entity_id != NO_ENTITY)
     {
         const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
@@ -98,6 +98,27 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     };
 
     mono::remove_if(m_camera_anims_to_process, process_camera_anims);
+
+    if(m_camera_shake_timer_ms > 0)
+    {
+        constexpr float magnitude = 0.5f;
+
+        const math::Vector camera_shake(
+            mono::Random(-magnitude, magnitude),
+            mono::Random(-magnitude, magnitude)
+        );
+
+        m_camera_shake_timer_ms -= update_context.delta_ms;
+        m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, 0);
+
+        m_camera->SetTargetPosition(m_camera->GetPosition() + camera_shake);
+
+        if(m_camera_shake_timer_ms == 0)
+            m_camera->SetTargetPosition(m_camera_position);
+    }
+
+    const math::Quad& viewport = m_camera->GetViewport();
+    g_camera_viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
 }
 
 void CameraSystem::Follow(uint32_t entity_id, const math::Vector& offset)
@@ -165,4 +186,11 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     };
 
     camera_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
+}
+
+void CameraSystem::AddCameraShake(uint32_t time_ms)
+{
+    if(m_camera_shake_timer_ms == 0)
+        m_camera_position = m_camera->GetPosition();
+    m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, (int)time_ms);
 }

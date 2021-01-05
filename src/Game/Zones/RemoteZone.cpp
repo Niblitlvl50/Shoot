@@ -16,6 +16,7 @@
 #include "Network/ClientManager.h"
 
 #include "Camera/ICamera.h"
+#include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Math/Vector.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
@@ -25,11 +26,15 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "GameCamera/CameraSystem.h"
-#include "PositionPredictionSystem.h"
+#include "PredictionSystem/PositionPredictionSystem.h"
+#include "PredictionSystem/PositionPredictionSystemDebug.h"
+#include "PredictionSystem/SpawnPredictionSystem.h"
 #include "Player/ClientPlayerDaemon.h"
 #include "World/StaticBackground.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
+
+#include "Component.h"
 
 using namespace game;
 
@@ -44,11 +49,13 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     const std::function<mono::EventResult (const TextMessage&)> text_func = std::bind(&RemoteZone::HandleText, this, _1);
     const std::function<mono::EventResult (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<mono::EventResult (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
+    const std::function<mono::EventResult (const TransformMessage&)> transform_func = std::bind(&RemoteZone::HandleTransformMessage, this, _1);
 
     m_metadata_token = m_event_handler->AddListener(metadata_func);
     m_text_token = m_event_handler->AddListener(text_func);
     m_spawn_token = m_event_handler->AddListener(spawn_func);
     m_sprite_token = m_event_handler->AddListener(sprite_func);
+    m_transform_token = m_event_handler->AddListener(transform_func);
 }
 
 RemoteZone::~RemoteZone()
@@ -57,6 +64,7 @@ RemoteZone::~RemoteZone()
     m_event_handler->RemoveListener(m_text_token);
     m_event_handler->RemoveListener(m_spawn_token);
     m_event_handler->RemoveListener(m_sprite_token);
+    m_event_handler->RemoveListener(m_transform_token);
 }
 
 void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
@@ -65,21 +73,24 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    m_entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
     client_manager->StartClient();
 
+    m_position_prediction_system =
+        m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system);
+
+    m_spawn_prediction_system = m_system_context->CreateSystem<SpawnPredictionSystem>(client_manager, m_sprite_system, m_entity_manager);
+
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
-
-    const PositionPredictionSystem* prediction_system =
-        m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system, m_event_handler);
-
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
     m_console_drawer = std::make_unique<ConsoleDrawer>();
 
     AddUpdatable(new ClientReplicator(camera, client_manager));
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new PredictionSystemDebugDrawer(prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(m_console_drawer.get(), LayerId::UI);
 
     AddUpdatable(new DebugUpdater(m_event_handler));
@@ -122,12 +133,7 @@ mono::EventResult RemoteZone::HandleText(const TextMessage& text_message)
 
 mono::EventResult RemoteZone::HandleSpawnMessage(const SpawnMessage& spawn_message)
 {
-    if(!spawn_message.spawn)
-    {
-        mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
-        sprite_system->ReleaseSprite(spawn_message.entity_id);
-    }
-
+    m_spawn_prediction_system->HandleSpawnMessage(spawn_message);
     return mono::EventResult::HANDLED;
 }
 
@@ -155,5 +161,11 @@ mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_me
 
     m_sprite_system->SetSpriteLayer(sprite_message.entity_id, sprite_message.layer);
 
+    return mono::EventResult::HANDLED;
+}
+
+mono::EventResult RemoteZone::HandleTransformMessage(const TransformMessage& transform_message)
+{
+    m_position_prediction_system->HandlePredicitonMessage(transform_message);
     return mono::EventResult::HANDLED;
 }

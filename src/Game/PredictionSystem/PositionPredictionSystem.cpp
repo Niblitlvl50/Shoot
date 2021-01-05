@@ -4,10 +4,10 @@
 #include "Network/ClientManager.h"
 
 #include "Util/Hash.h"
-#include "EventHandler/EventHandler.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Math/Matrix.h"
 #include "System/System.h"
+
 #include <algorithm>
 
 using namespace game;
@@ -20,13 +20,12 @@ namespace
 PositionPredictionSystem::PositionPredictionSystem(
     size_t num_records,
     const ClientManager* client_manager,
-    mono::TransformSystem* transform_system,
-    mono::EventHandler* event_handler)
+    mono::TransformSystem* transform_system)
     : m_client_manager(client_manager)
     , m_transform_system(transform_system)
-    , m_event_handler(event_handler)
 {
     m_prediction_data.resize(num_records);
+
     for(PredictionData& prediction_data : m_prediction_data)
     {
         for(RemoteTransform& transform : prediction_data.prediction_buffer)
@@ -37,15 +36,6 @@ PositionPredictionSystem::PositionPredictionSystem(
             transform.parent_transform = no_parent;
         }
     }
-
-    using namespace std::placeholders;
-    std::function<mono::EventResult (const TransformMessage&)> transform_func = std::bind(&PositionPredictionSystem::HandlePredicitonMessage, this, _1);
-    m_transform_token = m_event_handler->AddListener(transform_func);
-}
-
-PositionPredictionSystem::~PositionPredictionSystem()
-{
-    m_event_handler->RemoveListener(m_transform_token);
 }
 
 uint32_t PositionPredictionSystem::Id() const
@@ -105,7 +95,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
-mono::EventResult PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
+void PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
 {
     PredictionData& prediction_data = m_prediction_data[transform_message.entity_id];
     auto& prediction_buffer = prediction_data.prediction_buffer;
@@ -125,45 +115,4 @@ mono::EventResult PositionPredictionSystem::HandlePredicitonMessage(const Transf
     {
         System::Log("PositionPredictionSystem|Old transform message, will skip\n");
     }
-
-    return mono::EventResult::PASS_ON;
-}
-
-
-
-#include "Math/Quad.h"
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
-#include "GameDebug.h"
-
-PredictionSystemDebugDrawer::PredictionSystemDebugDrawer(const PositionPredictionSystem* prediction_system)
-    : m_prediction_system(prediction_system)
-{ }
-
-void PredictionSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
-{
-    if(!game::g_draw_position_prediction)
-        return;
-
-    std::vector<math::Vector> line_points;
-    std::vector<math::Vector> first_points;
-    std::vector<math::Vector> predicted_positions;
-
-    for(const auto& prediction_data : m_prediction_system->m_prediction_data)
-    {
-        for(const auto& remote_transform : prediction_data.prediction_buffer)
-            line_points.push_back(remote_transform.position);
-
-        first_points.push_back(prediction_data.prediction_buffer.back().position);
-        predicted_positions.push_back(prediction_data.predicted_position);
-    }
-    
-    renderer.DrawPoints(line_points, mono::Color::GREEN, 4.0f);
-    renderer.DrawPoints(first_points, mono::Color::RED, 6.0f);
-    renderer.DrawPoints(predicted_positions, mono::Color::CYAN, 6.0f);
-}
-
-math::Quad PredictionSystemDebugDrawer::BoundingBox() const
-{
-    return math::InfQuad;
 }

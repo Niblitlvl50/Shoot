@@ -92,6 +92,7 @@ namespace game
     struct SpawnMessage
     {
         DECLARE_NETWORK_MESSAGE();
+        uint32_t timestamp;
         uint16_t entity_id;
         bool spawn;
     };

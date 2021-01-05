@@ -38,7 +38,7 @@ namespace game
     private:
         void Update(const mono::UpdateContext& update_context) override;
 
-        void ReplicateSpawns(BatchedMessageSender& batched_sender);
+        void ReplicateSpawns(BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
         void ReplicateTransforms(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context);
         void ReplicateSprites(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
 
@@ -66,6 +66,7 @@ namespace game
         struct SpriteData
         {
             int time_to_replicate;
+            uint32_t filename_hash;
             uint32_t hex_color;
             short animation_id;
             bool vertical_direction;
