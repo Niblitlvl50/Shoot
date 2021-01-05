@@ -103,7 +103,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     {
         constexpr float magnitude = 0.5f;
 
-        const math::Vector camera_shake(
+        math::Vector camera_shake(
             mono::Random(-magnitude, magnitude),
             mono::Random(-magnitude, magnitude)
         );
@@ -111,10 +111,10 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         m_camera_shake_timer_ms -= update_context.delta_ms;
         m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, 0);
 
-        m_camera->SetTargetPosition(m_camera->GetPosition() + camera_shake);
-
         if(m_camera_shake_timer_ms == 0)
-            m_camera->SetTargetPosition(m_camera_position);
+            camera_shake = math::ZeroVec;
+        
+        m_camera->SetTargetPosition(m_camera->GetTargetPosition() + camera_shake);
     }
 
     const math::Quad& viewport = m_camera->GetViewport();
@@ -190,7 +190,5 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
 
 void CameraSystem::AddCameraShake(uint32_t time_ms)
 {
-    if(m_camera_shake_timer_ms == 0)
-        m_camera_position = m_camera->GetPosition();
     m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, (int)time_ms);
 }

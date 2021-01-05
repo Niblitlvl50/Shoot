@@ -72,7 +72,6 @@ namespace game
         uint32_t m_entity_id;
         math::Vector m_follow_offset;
 
-        math::Vector m_camera_position;
         int m_camera_shake_timer_ms;
 
         std::vector<CameraAnimationComponent> m_camera_components;
