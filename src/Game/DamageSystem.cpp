@@ -66,6 +66,11 @@ void DamageSystem::ReleaseRecord(uint32_t id)
     m_active[id] = false;
 }
 
+bool DamageSystem::IsAllocated(uint32_t id) const
+{
+    return m_active[id];
+}
+
 DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
 {
     assert(m_active[id]);

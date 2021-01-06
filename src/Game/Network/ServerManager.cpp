@@ -65,7 +65,9 @@ void ServerManager::QuitServer()
 {
     NetworkMessage message;
     message.payload = SerializeMessage(ServerQuitMessage());
-    SendMessage(message);
+
+    for(const auto& client : m_connected_clients)
+        SendMessageTo(message, client.first);
 
     m_remote_connection = nullptr;
 }
@@ -92,12 +94,12 @@ ConnectionInfo ServerManager::GetConnectionInfo() const
     info.additional_info.push_back("server: " + network::AddressToString(m_server_address));
 
     info.additional_info.push_back("");
+    info.additional_info.push_back("server time: " + std::to_string(m_server_time));
+
+    info.additional_info.push_back("");
     info.additional_info.push_back("clients");
     for(const auto& pair : m_connected_clients)
         info.additional_info.push_back(network::AddressToString(pair.first));
-
-    info.additional_info.push_back("");
-    info.additional_info.push_back("server time: " + std::to_string(m_server_time));
 
     return info;
 }

@@ -12,6 +12,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Util/Hash.h"
+#include "Util/Algorithm.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityProperties.h"
@@ -21,9 +22,11 @@
 #include "ScopedTimer.h"
 #include "AIKnowledge.h"
 #include "WorldFile.h"
+#include "DamageSystem.h"
 
 #include "Math/MathFunctions.h"
 #include "Camera/ICamera.h"
+#include "Component.h"
 
 #include <unordered_set>
 
@@ -36,6 +39,7 @@ ServerReplicator::ServerReplicator(
     mono::EntitySystem* entity_system,
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
+    DamageSystem* damage_system,
     ServerManager* server_manager,
     const shared::LevelMetadata& level_metadata,
     uint32_t replication_interval)
@@ -43,6 +47,7 @@ ServerReplicator::ServerReplicator(
     , m_entity_system(entity_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
+    , m_damage_system(damage_system)
     , m_server_manager(server_manager)
     , m_replication_interval(replication_interval)
 {
@@ -79,10 +84,18 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
 
-    std::vector<uint32_t> entity_ids;
+    std::vector<uint32_t> transforms_to_replicate;
+    std::vector<uint32_t> sprites_to_replicate;
+    std::vector<uint32_t> damage_info_to_replicate;
 
-    const auto collect_entities = [&entity_ids](const mono::Entity& entity) {
-        entity_ids.push_back(entity.id);
+    const auto collect_entities = [&](const mono::Entity& entity) {
+        transforms_to_replicate.push_back(entity.id);
+
+        if(mono::contains(entity.components, SPRITE_COMPONENT))
+            sprites_to_replicate.push_back(entity.id);
+
+        if(mono::contains(entity.components, HEALTH_COMPONENT))
+            damage_info_to_replicate.push_back(entity.id);
     };
     m_entity_system->ForEachEntity(collect_entities);
 
@@ -92,8 +105,9 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
         BatchedMessageSender batch_sender(client.first, m_message_queue);
 
         ReplicateSpawns(batch_sender, update_context);
-        ReplicateTransforms(entity_ids, batch_sender, client.second.viewport, update_context);
-        ReplicateSprites(entity_ids, batch_sender, update_context);
+        ReplicateTransforms(transforms_to_replicate, batch_sender, client.second.viewport, update_context);
+        ReplicateSprites(sprites_to_replicate, batch_sender, update_context);
+        ReplicateDamageInfos(damage_info_to_replicate, batch_sender);
     }
 
     for(int index = 0; index < 5 && !m_message_queue.empty(); ++index)
@@ -249,8 +263,39 @@ void ServerReplicator::ReplicateSprites(
     };
 
     for(uint32_t entity_id : entities)
-        sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
+    {
+        const bool is_allocated = m_sprite_system->IsAllocated(entity_id);
+        if(is_allocated)
+            sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
+    }
 
 //    System::Log(
 //        "keyframe %u - %u, transforms %d/%d, sprites %d/%d\n", m_keyframe_low, m_keyframe_high, replicated_transforms, total_transforms, replicated_sprites, total_sprites);
+}
+
+void ServerReplicator::ReplicateDamageInfos(const std::vector<uint32_t>& entities, BatchedMessageSender& batch_sender)
+{
+    int total_damages = 0;
+    int replicated_damages = 0;
+
+    const auto damage_info_func = [&](const DamageRecord* damage_record, uint32_t entity_id) {
+        DamageInfoMessage damage_info;
+        damage_info.entity_id = entity_id;
+        damage_info.health = damage_record->health;
+        damage_info.full_health = damage_record->full_health;
+        damage_info.damage_timestamp = damage_record->last_damaged_timestamp;
+        damage_info.is_boss = damage_record->is_boss;
+
+        total_damages++;
+        replicated_damages++;
+
+        batch_sender.SendMessage(damage_info);
+    };
+
+    for(uint32_t entity_id : entities)
+    {
+        const bool is_allocated = m_damage_system->IsAllocated(entity_id);
+        if(is_allocated)
+            damage_info_func(m_damage_system->GetDamageRecord(entity_id), entity_id);
+    }
 }

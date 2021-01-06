@@ -10,6 +10,7 @@
 #include "Hud/Overlay.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/FPSElement.h"
+#include "Hud/HealthbarDrawer.h"
 
 #include "Network/NetworkMessage.h"
 #include "Network/ClientReplicator.h"
@@ -25,6 +26,7 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "PredictionSystem/PositionPredictionSystem.h"
 #include "PredictionSystem/PositionPredictionSystemDebug.h"
@@ -35,6 +37,7 @@
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
 #include "Component.h"
+//#include "WorldFile.h"
 
 using namespace game;
 
@@ -50,12 +53,14 @@ RemoteZone::RemoteZone(const ZoneCreationContext& context)
     const std::function<mono::EventResult (const SpawnMessage&)> spawn_func = std::bind(&RemoteZone::HandleSpawnMessage, this, _1);
     const std::function<mono::EventResult (const SpriteMessage&)> sprite_func = std::bind(&RemoteZone::HandleSpriteMessage, this, _1);
     const std::function<mono::EventResult (const TransformMessage&)> transform_func = std::bind(&RemoteZone::HandleTransformMessage, this, _1);
+    const std::function<mono::EventResult (const DamageInfoMessage&)> damage_func = std::bind(&RemoteZone::HandleDamageInfoMessage, this, _1);
 
     m_metadata_token = m_event_handler->AddListener(metadata_func);
     m_text_token = m_event_handler->AddListener(text_func);
     m_spawn_token = m_event_handler->AddListener(spawn_func);
     m_sprite_token = m_event_handler->AddListener(sprite_func);
     m_transform_token = m_event_handler->AddListener(transform_func);
+    m_damageinfo_token = m_event_handler->AddListener(damage_func);
 }
 
 RemoteZone::~RemoteZone()
@@ -65,6 +70,7 @@ RemoteZone::~RemoteZone()
     m_event_handler->RemoveListener(m_spawn_token);
     m_event_handler->RemoveListener(m_sprite_token);
     m_event_handler->RemoveListener(m_transform_token);
+    m_event_handler->RemoveListener(m_damageinfo_token);
 }
 
 void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
@@ -75,6 +81,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
 
+    m_damage_system = m_system_context->GetSystem<DamageSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
     client_manager->StartClient();
@@ -82,18 +89,21 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_position_prediction_system =
         m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system);
 
-    m_spawn_prediction_system = m_system_context->CreateSystem<SpawnPredictionSystem>(client_manager, m_sprite_system, m_entity_manager);
+    m_spawn_prediction_system = m_system_context->CreateSystem<SpawnPredictionSystem>(
+        client_manager, m_sprite_system, m_damage_system, m_entity_manager
+    );
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
     m_console_drawer = std::make_unique<ConsoleDrawer>();
 
     AddUpdatable(new ClientReplicator(camera, client_manager));
+    AddUpdatable(new DebugUpdater(m_event_handler));
+
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new HealthbarDrawer(m_damage_system, transform_system, m_entity_manager), LayerId::UI);
     AddDrawable(m_console_drawer.get(), LayerId::UI);
-
-    AddUpdatable(new DebugUpdater(m_event_handler));
 
     auto hud_overlay = new UIOverlayDrawer();
     hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), client_manager));
@@ -107,16 +117,40 @@ int RemoteZone::OnUnload()
     client_manager->Disconnect();
 
     RemoveDrawable(m_console_drawer.get());
-    return 0;
+    return TITLE_SCREEN;
 }
 
 mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& metadata_message)
 {
+    /*
+    const auto component_filter = [](uint32_t component_hash) {
+        return
+            component_hash == TRANSFORM_COMPONENT ||
+            component_hash == SPRITE_COMPONENT ||
+            //component_hash == TEXT_COMPONENT ||
+            component_hash == HEALTH_COMPONENT;
+    };
+
+    const char* world_filename = game::HashToFilename(metadata_message.world_file_hash);
+    if(world_filename)
+    {
+        const shared::LevelData level_data =
+            shared::ReadWorldComponentObjectsFiltered(world_filename, m_entity_manager, component_filter);
+
+        m_camera->SetPosition(level_data.metadata.camera_position);
+        m_camera->SetViewportSize(level_data.metadata.camera_size);
+
+        if(!level_data.metadata.background_texture.empty())
+            AddDrawable(new StaticBackground(level_data.metadata.background_texture.c_str()), LayerId::BACKGROUND);
+    }
+    else
+    {
+        System::Log("RemoteZone|Unable to load world file for hash %u\n", metadata_message.world_file_hash);
+    }
+    */
+
     m_camera->SetPosition(metadata_message.camera_position);
     m_camera->SetViewportSize(metadata_message.camera_size);
-
-    //const shared::LevelData level_data = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
-    //const char* world_filename = WorldHashToString(metadata_message.world_file_hash);
 
     const char* background_texture_filename = game::HashToFilename(metadata_message.background_texture_hash);
     if(background_texture_filename)
@@ -167,5 +201,20 @@ mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_me
 mono::EventResult RemoteZone::HandleTransformMessage(const TransformMessage& transform_message)
 {
     m_position_prediction_system->HandlePredicitonMessage(transform_message);
+    return mono::EventResult::HANDLED;
+}
+
+mono::EventResult RemoteZone::HandleDamageInfoMessage(const DamageInfoMessage& damageinfo_message)
+{
+    const bool is_allocated = m_damage_system->IsAllocated(damageinfo_message.entity_id);
+    if(!is_allocated)
+        m_damage_system->CreateRecord(damageinfo_message.entity_id);
+
+    DamageRecord* damage_record = m_damage_system->GetDamageRecord(damageinfo_message.entity_id);
+    damage_record->health = damageinfo_message.health;
+    damage_record->full_health = damageinfo_message.full_health;
+    damage_record->is_boss = damageinfo_message.is_boss;
+    damage_record->last_damaged_timestamp = damageinfo_message.damage_timestamp;
+
     return mono::EventResult::HANDLED;
 }

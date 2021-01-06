@@ -1,6 +1,7 @@
 
 #include "SpawnPredictionSystem.h"
 #include "Network/ClientManager.h"
+#include "DamageSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -10,9 +11,13 @@
 using namespace game;
 
 SpawnPredictionSystem::SpawnPredictionSystem(
-    const ClientManager* client_manager, mono::SpriteSystem* sprite_system, mono::IEntityManager* entity_manager)
+    const ClientManager* client_manager,
+    mono::SpriteSystem* sprite_system,
+    game::DamageSystem* damage_system,
+    mono::IEntityManager* entity_manager)
     : m_client_manager(client_manager)
     , m_sprite_system(sprite_system)
+    , m_damage_system(damage_system)
     , m_entity_manager(entity_manager)
 {
     m_spawn_messages.reserve(50);
@@ -44,7 +49,7 @@ void SpawnPredictionSystem::Update(const mono::UpdateContext& update_context)
     std::vector<uint32_t> entities_to_despawn;
 
     const auto update_and_remove = [&](SpawnMessage& message) {
-        const bool despawn_entity = message.timestamp <= server_time;
+        const bool despawn_entity = (message.timestamp <= server_time);
         if(despawn_entity)
             entities_to_despawn.push_back(message.entity_id);
 
@@ -55,7 +60,14 @@ void SpawnPredictionSystem::Update(const mono::UpdateContext& update_context)
 
     for(uint32_t entity_id : entities_to_despawn)
     {
-        m_sprite_system->ReleaseSprite(entity_id);
+        const bool is_sprite_allocated = m_sprite_system->IsAllocated(entity_id);
+        if(is_sprite_allocated)
+            m_sprite_system->ReleaseSprite(entity_id);
+    
+        const bool is_damageinfo_allocated = m_damage_system->IsAllocated(entity_id);
+        if(is_damageinfo_allocated)
+            m_damage_system->ReleaseRecord(entity_id);
+    
         //m_entity_manager->ReleaseEntity(entity_id);
     }
 }

@@ -47,5 +47,9 @@ bool game::LoadAllWorlds(const char* all_worlds_file)
 
 const char* game::HashToFilename(uint32_t hash)
 {
-    return g_hash_to_filename[hash].c_str();
+    const auto it = g_hash_to_filename.find(hash);
+    if(it != g_hash_to_filename.end())
+        return it->second.c_str();
+
+    return nullptr;
 }

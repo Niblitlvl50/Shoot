@@ -32,7 +32,7 @@
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
 #include "TriggerSystem/TriggerSystem.h"
-
+#include "DamageSystem.h"
 
 namespace
 {
@@ -66,6 +66,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     physics_system->GetSpace()->SetDamping(0.01f);
 
+    game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
     game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
     server_manager->StartServer();
@@ -82,6 +83,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         entity_system,
         transform_system,
         sprite_system,
+        damage_system,
         server_manager,
         m_leveldata.metadata,
         m_game_config.server_replication_interval);
@@ -99,7 +101,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Ui
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new GameOverScreen(g_player_one, math::Vector(150.0f, 150.0f), math::Vector(400.0f, 150.0f), m_event_handler));
+    hud_overlay->AddChild(new GameOverScreen(g_player_one, math::Vector(150.0f, 150.0f), math::Vector(450.0f, 150.0f), m_event_handler));
     hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
     hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
     AddEntity(hud_overlay, LayerId::UI);

@@ -23,6 +23,8 @@ GameOverScreen::GameOverScreen(
 {
     m_position = offscreen_position;
 
+    UISquareElement* background = new UISquareElement(math::Quad(-150.0f, -40.0f, 300.0f, 40.0f), mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f));
+
     UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", true, mono::Color::BLACK);
     gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
     gameover_text->SetScale(math::Vector(3.0f, 3.0f));
@@ -35,9 +37,11 @@ GameOverScreen::GameOverScreen(
         "res/sprites/ps_cross.sprite"
     };
     UISpriteElement* a_button_sprite = new UISpriteElement(sprite_files);
+    a_button_sprite->SetPosition(math::Vector(0.0f, -20.0f));
     a_button_sprite->SetScale(math::Vector(10.0f, 10.0f));
 
 
+    AddChild(background);
     AddChild(gameover_text);
     AddChild(continue_text);
     AddChild(a_button_sprite);

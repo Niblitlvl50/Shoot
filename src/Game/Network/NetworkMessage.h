@@ -113,6 +113,16 @@ namespace game
         float shadow_size;
     };
 
+    struct DamageInfoMessage
+    {
+        DECLARE_NETWORK_MESSAGE();
+        uint16_t entity_id;
+        int16_t health;
+        int16_t full_health;
+        bool is_boss;
+        uint32_t damage_timestamp;
+    };
+
     struct RemoteInputMessage
     {
         DECLARE_NETWORK_MESSAGE();
@@ -153,6 +163,7 @@ namespace game
         PRINT_NETWORK_MESSAGE_SIZE(TransformMessage);
         PRINT_NETWORK_MESSAGE_SIZE(SpawnMessage);
         PRINT_NETWORK_MESSAGE_SIZE(SpriteMessage);
+        PRINT_NETWORK_MESSAGE_SIZE(DamageInfoMessage);
         PRINT_NETWORK_MESSAGE_SIZE(RemoteInputMessage);
         PRINT_NETWORK_MESSAGE_SIZE(RemoteCameraMessage);
         PRINT_NETWORK_MESSAGE_SIZE(ViewportMessage);

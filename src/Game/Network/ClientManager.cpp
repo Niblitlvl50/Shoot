@@ -57,9 +57,12 @@ void ClientManager::StartClient()
 
 void ClientManager::Disconnect()
 {
-    NetworkMessage message;
-    message.payload = SerializeMessage(DisconnectMessage());
-    SendMessage(message);
+    if(m_states.ActiveState() == ClientStatus::CONNECTED)
+    {
+        NetworkMessage message;
+        message.payload = SerializeMessage(DisconnectMessage());
+        SendMessage(message);
+    }
 
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
 }
@@ -112,15 +115,17 @@ void ClientManager::SendMessageTo(const NetworkMessage& message, const network::
 ConnectionInfo ClientManager::GetConnectionInfo() const
 {
     ConnectionInfo info;
-    info.stats = m_remote_connection->GetConnectionStats();
-    info.additional_info.push_back(network::AddressToString(m_client_address));
-    info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
-    info.additional_info.push_back("client: " + std::to_string(m_client_time));
-    info.additional_info.push_back("server: " + std::to_string(m_server_time));
-    info.additional_info.push_back("predicted: " + std::to_string(m_server_time_predicted));
 
-    if(GetConnectionStatus() == ClientStatus::CONNECTED)
+    if(m_states.ActiveState() == ClientStatus::CONNECTED)
+    {
+        info.stats = m_remote_connection->GetConnectionStats();
+        info.additional_info.push_back(network::AddressToString(m_client_address));
+        info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
+        info.additional_info.push_back("client: " + std::to_string(m_client_time));
+        info.additional_info.push_back("server: " + std::to_string(m_server_time));
+        info.additional_info.push_back("predicted: " + std::to_string(m_server_time_predicted));
         info.additional_info.push_back("ping: " + std::to_string(m_server_ping));
+    }
 
     return info;
 }
@@ -157,6 +162,7 @@ mono::EventResult ClientManager::HandleServerBeacon(const ServerBeaconMessage& m
 
 mono::EventResult ClientManager::HandleServerQuit(const ServerQuitMessage& message)
 {
+    System::Log("ClientManager|Server Quit!\n");
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
     return mono::EventResult::HANDLED;
 }
@@ -217,6 +223,7 @@ void ClientManager::ToConnected()
 void ClientManager::ToDisconnected()
 {
     System::Log("ClientManager|Disconnected\n");
+    m_remote_connection = nullptr;
 }
 
 void ClientManager::ToFailed()

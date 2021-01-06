@@ -48,6 +48,7 @@ namespace game
 
         DamageRecord* CreateRecord(uint32_t id);
         void ReleaseRecord(uint32_t id);
+        bool IsAllocated(uint32_t id) const;
         DamageRecord* GetDamageRecord(uint32_t id);
 
         uint32_t SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback);

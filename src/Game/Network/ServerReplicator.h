@@ -19,6 +19,7 @@ namespace game
     class INetworkPipe;
     class ServerManager;
     class BatchedMessageSender;
+    class DamageSystem;
     struct PlayerConnectedEvent;
 
     class ServerReplicator : public mono::IUpdatable
@@ -30,6 +31,7 @@ namespace game
             mono::EntitySystem* entity_system,
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
+            DamageSystem* damage_system,
             ServerManager* server_manager,
             const shared::LevelMetadata& level_metadata,
             uint32_t replication_interval);
@@ -41,11 +43,13 @@ namespace game
         void ReplicateSpawns(BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
         void ReplicateTransforms(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context);
         void ReplicateSprites(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
+        void ReplicateDamageInfos(const std::vector<uint32_t>& entities, BatchedMessageSender& batch_sender);
 
         mono::EventHandler* m_event_handler;
         mono::EntitySystem* m_entity_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
+        DamageSystem* m_damage_system;
         ServerManager* m_server_manager;
         uint32_t m_replication_interval;
 

@@ -58,6 +58,7 @@ MessageDispatcher::MessageDispatcher(mono::EventHandler* event_handler)
     REGISTER_MESSAGE_HANDLER(TransformMessage);
     REGISTER_MESSAGE_HANDLER(SpawnMessage);
     REGISTER_MESSAGE_HANDLER(SpriteMessage);
+    REGISTER_MESSAGE_HANDLER(DamageInfoMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(RemoteInputMessage);
     REGISTER_MESSAGE_HANDLER(RemoteCameraMessage);
     REGISTER_MESSAGE_HANDLER_WITH_SENDER(ViewportMessage);
