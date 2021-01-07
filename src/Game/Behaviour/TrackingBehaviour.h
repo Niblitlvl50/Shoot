@@ -3,6 +3,7 @@
 
 #include "Physics/PhysicsFwd.h"
 #include "MonoPtrFwd.h"
+#include "Math/Vector.h"
 
 namespace game
 {
@@ -21,6 +22,7 @@ namespace game
         ~TrackingBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
+        void SetTrackingPosition(const math::Vector& tracking_position);
         TrackingResult Run(uint32_t delta_ms);
 
     private:
@@ -32,6 +34,7 @@ namespace game
         uint32_t m_tracking_timer;
         float m_current_position;
         float m_meter_per_second;
+        math::Vector m_tracking_position;
         
         mono::IBody* m_control_body;
         mono::IConstraint* m_spring;

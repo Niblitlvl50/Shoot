@@ -55,7 +55,8 @@ namespace game
         void ReplicateDamageInfos(
             const std::vector<uint32_t>& entities,
             const std::vector<uint32_t>& spawn_entities,
-            BatchedMessageSender& batch_sender);
+            BatchedMessageSender& batch_sender,
+            const mono::UpdateContext& update_context);
 
         mono::EventHandler* m_event_handler;
         mono::EntitySystem* m_entity_system;

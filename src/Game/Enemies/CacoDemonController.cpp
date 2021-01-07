@@ -80,13 +80,17 @@ void CacodemonController::OnIdle()
 void CacodemonController::Idle(const mono::UpdateContext& update_context)
 {
     const math::Vector position = math::GetPosition(*m_transform);
-    const bool is_visible = math::PointInsideQuad(position, g_camera_viewport);
+    const PlayerInfo* closest_player = game::GetClosestActivePlayer(position);
 
+    bool is_visible = false;
     float target_angle = math::PI_2();
 
-    const PlayerInfo* closest_player = game::GetClosestActivePlayer(position);
-    if(closest_player && is_visible)
-        target_angle = math::AngleBetweenPoints(closest_player->position, position);
+    if(closest_player)
+    {
+        is_visible = math::PointInsideQuad(position, closest_player->viewport);
+        if(is_visible)
+            target_angle = math::AngleBetweenPoints(closest_player->position, position);
+    }
 
     const float current_rotation = math::GetZRotation(*m_transform);
     const float angle_diff = current_rotation - target_angle - math::PI_2() + math::PI();
@@ -102,7 +106,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
     if(!is_visible || !closest_player)
         return;
 
-    const math::Vector position_diff = position - g_player_one.position;
+    const math::Vector position_diff = position - closest_player->position;
     const math::Vector position_diff_normalized = math::Normalized(position_diff);
     const float distance_to_player = math::Length(position_diff);
     if(distance_to_player < tweak_values::retreat_distance)

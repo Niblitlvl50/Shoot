@@ -1,17 +1,15 @@
 
 #include "ListenerPositionUpdater.h"
 #include "Audio/AudioSystem.h"
-#include "Math/Vector.h"
 #include "AIKnowledge.h"
 
-using namespace game;
-
-void ListenerPositionUpdater::Update(const mono::UpdateContext& update_context)
+void game::ListenerPositionUpdater::Update(const mono::UpdateContext& update_context)
 {
-    if(game::g_player_one.player_state != game::PlayerState::ALIVE)
+    const game::PlayerInfo& first_player = game::g_players[0];
+    if(first_player.player_state != game::PlayerState::ALIVE)
         return;
 
-    mono::ListenerPosition(game::g_player_one.position.x, game::g_player_one.position.y);
-    mono::ListenerVelocity(game::g_player_one.velocity.x, game::g_player_one.velocity.y);
-    mono::ListenerDirection(game::g_player_one.direction);
+    mono::ListenerPosition(first_player.position.x, first_player.position.y);
+    mono::ListenerVelocity(first_player.velocity.x, first_player.velocity.y);
+    mono::ListenerDirection(first_player.direction);
 }

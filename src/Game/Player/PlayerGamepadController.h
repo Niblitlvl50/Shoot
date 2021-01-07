@@ -14,13 +14,13 @@ namespace game
     public:
         
         PlayerGamepadController(
-            game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller);
+            game::PlayerLogic* shuttle_logic, mono::EventHandler* event_handler, const System::ControllerState& controller);
         void Update(const mono::UpdateContext& update_context);
         
     private:
         
         game::PlayerLogic* m_shuttle_logic;
-        mono::EventHandler& m_event_handler;
+        mono::EventHandler* m_event_handler;
 
         const System::ControllerState& m_state;
         System::ControllerState m_last_state;

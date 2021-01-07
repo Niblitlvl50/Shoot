@@ -16,7 +16,7 @@ namespace game
         ClientPlayerDaemon(class CameraSystem* camera_system, mono::EventHandler* event_handler);
         ~ClientPlayerDaemon();
 
-        void SpawnPlayer1();
+        void SpawnLocalRemotePlayer(int controller_id);
 
         mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);

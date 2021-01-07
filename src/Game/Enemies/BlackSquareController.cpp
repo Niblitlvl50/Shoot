@@ -109,13 +109,14 @@ void BlackSquareController::ToHunt()
 
 void BlackSquareController::SleepState(uint32_t delta)
 {
-    if(g_player_one.player_state != game::PlayerState::ALIVE)
+    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
+    if(!player_info)
         return;
 
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
     m_homing_behaviour->SetHomingPosition(entity_position);
-        
-    const float distance = math::Length(g_player_one.position - entity_position);
+
+    const float distance = math::Length(player_info->position - entity_position);
     if(distance < m_trigger_distance)
         m_states.TransitionTo(States::AWAKE);
 }
@@ -130,12 +131,19 @@ void BlackSquareController::AwakeState(uint32_t delta)
 void BlackSquareController::HuntState(uint32_t delta)
 {
     const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const float angle = math::AngleBetweenPoints(g_player_one.position, entity_position) - math::PI_2();
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
+    if(!player_info)
+    {
+        m_states.TransitionTo(States::SLEEPING);
+        return;
+    }
+
+    const float angle = math::AngleBetweenPoints(player_info->position, entity_position) - math::PI_2();
     m_body->SetAngle(angle);
 
-    m_homing_behaviour->SetHomingPosition(g_player_one.position);
+    m_homing_behaviour->SetHomingPosition(player_info->position);
 
-    const float distance = math::Length(g_player_one.position - entity_position);
-    if(distance > (m_trigger_distance * 2.0f) || g_player_one.player_state != game::PlayerState::ALIVE)
+    const float distance = math::Length(player_info->position - entity_position);
+    if(distance > (m_trigger_distance * 2.0f))
         m_states.TransitionTo(States::SLEEPING);
 }

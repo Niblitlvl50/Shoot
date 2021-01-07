@@ -54,7 +54,7 @@ namespace
         game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
         entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
-        IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, *event_handler, controller, system_context);
+        IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, event_handler, controller, system_context);
         logic_system->AddLogic(player_entity.id, player_logic);
 
         player_info->entity_id = player_entity.id;
@@ -69,12 +69,12 @@ PlayerDaemon::PlayerDaemon(
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
-    const math::Vector& player_one_spawn)
+    const math::Vector& player_spawn)
     : m_remote_connection(remote_connection)
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
-    , m_player_one_spawn(player_one_spawn)
+    , m_player_spawn(player_spawn)
 {
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -97,19 +97,16 @@ PlayerDaemon::PlayerDaemon(
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemotePlayerInput, this, _1);
     m_remote_input_token = m_event_handler->AddListener(remote_input_func);
 
+    const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemon::RemotePlayerViewport, this, _1);
+    m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
+
     m_score_token = m_event_handler->AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-    {
-        m_player_one_id = System::GetControllerId(System::ControllerId::Primary);
-        SpawnPlayer1();
-    }
+        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Primary));
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
-    {
-        m_player_two_id = System::GetControllerId(System::ControllerId::Secondary);
-        SpawnPlayer2();
-    }
+        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Secondary));
 }
 
 PlayerDaemon::~PlayerDaemon()
@@ -121,18 +118,17 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler->RemoveListener(m_player_disconnected_token);
     m_event_handler->RemoveListener(m_spawn_player_token);
     m_event_handler->RemoveListener(m_remote_input_token);
+    m_event_handler->RemoveListener(m_remote_viewport_token);
     m_event_handler->RemoveListener(m_score_token);
 
-    if(g_player_one.player_state == game::PlayerState::ALIVE)
+    for(int index = 0; index < game::n_players; ++index)
     {
-        g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
-        m_entity_system->ReleaseEntity(g_player_one.entity_id);
-    }
-
-    if(g_player_two.player_state == game::PlayerState::ALIVE)
-    {
-        g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
-        m_entity_system->ReleaseEntity(g_player_two.entity_id);
+        game::PlayerInfo& player_info = g_players[index];
+        if(player_info.player_state == game::PlayerState::ALIVE)
+        {
+            m_entity_system->ReleaseEntity(player_info.entity_id);
+            ReleasePlayerInfo(&player_info);
+        }
     }
 
     m_camera_system->Unfollow();
@@ -142,22 +138,32 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 {
     std::vector<uint32_t> ids;
 
-    if(g_player_one.player_state == game::PlayerState::ALIVE)
-        ids.push_back(g_player_one.entity_id);
-
-    for(const auto& pair : m_remote_players)
-        ids.push_back(pair.second.player_info.entity_id);
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = g_players[index];
+        if(player_info.player_state == game::PlayerState::ALIVE)
+            ids.push_back(player_info.entity_id);
+    }
 
     return ids;
 }
 
-void PlayerDaemon::SpawnPlayer1()
+void PlayerDaemon::SpawnLocalPlayer(int controller_id)
 {
-    const auto destroyed_func = [this](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
+    game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
+    if(!allocated_player_info)
+    {
+        System::Log("Unable to allocate player info for local player.\n");
+        return;
+    }
+
+    m_controller_id_to_player_info[controller_id] = allocated_player_info;
+
+    const auto destroyed_func = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
 
         if(type == DamageType::DESTROYED)
         {
-            game::g_player_one.player_state = game::PlayerState::DEAD;
+            ReleasePlayerInfo(allocated_player_info);
             m_camera_system->Unfollow();
         }
         else if(type == DamageType::DAMAGED)
@@ -167,9 +173,9 @@ void PlayerDaemon::SpawnPlayer1()
     };
 
     const uint32_t spawned_id = SpawnPlayer(
-        &game::g_player_one,
-        m_player_one_spawn,
-        System::GetController(System::ControllerId::Primary),
+        allocated_player_info,
+        m_player_spawn,
+        System::GetController(System::ControllerId(controller_id)),
         m_entity_system,
         m_system_context,
         m_event_handler,
@@ -178,57 +184,23 @@ void PlayerDaemon::SpawnPlayer1()
     m_camera_system->Follow(spawned_id, math::Vector(0.0f, 3.0f));
 }
 
-void PlayerDaemon::SpawnPlayer2()
-{
-    const auto destroyed_func = [](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        game::g_player_two.player_state = game::PlayerState::DEAD;
-    };
-
-    const uint32_t spawned_id = SpawnPlayer(
-        &game::g_player_two,
-        m_player_two_spawn,
-        System::GetController(System::ControllerId::Secondary),
-        m_entity_system,
-        m_system_context,
-        m_event_handler,
-        destroyed_func);
-    (void)spawned_id;
-}
-
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    if(game::g_player_one.player_state == game::PlayerState::NOT_SPAWNED)
-    {
-        SpawnPlayer1();
-        m_player_one_id = event.id;
-    }
-    else if(game::g_player_two.player_state == game::PlayerState::NOT_SPAWNED)
-    {
-        SpawnPlayer2();
-        m_player_two_id = event.id;
-    }
-
+    SpawnLocalPlayer(event.controller_id);
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
-    if(event.id == m_player_one_id)
+    const auto it = m_controller_id_to_player_info.find(event.controller_id);
+    if(it != m_controller_id_to_player_info.end())
     {
-        if(game::g_player_one.player_state != game::PlayerState::NOT_SPAWNED)  // Double negation, not great
-            m_entity_system->ReleaseEntity(game::g_player_one.entity_id);
-
+        game::PlayerInfo* player_info = it->second;
+        m_entity_system->ReleaseEntity(player_info->entity_id);
+        ReleasePlayerInfo(player_info);
         m_camera_system->Unfollow();
-        game::g_player_one.entity_id = mono::INVALID_ID;
-        game::g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
-    }
-    else if(event.id == m_player_two_id)
-    {
-        if(game::g_player_two.player_state != game::PlayerState::NOT_SPAWNED) // Double negation, not great
-            m_entity_system->ReleaseEntity(game::g_player_two.entity_id);
 
-        game::g_player_two.entity_id = mono::INVALID_ID;
-        game::g_player_two.player_state = game::PlayerState::NOT_SPAWNED;
+        m_controller_id_to_player_info.erase(event.controller_id);
     }
 
     return mono::EventResult::PASS_ON;
@@ -242,16 +214,22 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
 
     System::Log("PlayerDaemon|Remote player connected, %s\n", network::AddressToString(event.address).c_str());
 
-    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
+    game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
 
-    const auto remote_player_destroyed = [](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
+    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
+    remote_player_data.player_info = allocated_player_info;
+
+    const auto remote_player_destroyed = [allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
         //game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
         //m_remote_players.erase(it);
+        
+        allocated_player_info->player_state = game::PlayerState::DEAD;
+        //ReleasePlayerInfo(allocated_player_info);
     };
 
     const uint32_t spawned_id = SpawnPlayer(
-        &remote_player_data.player_info,
-        m_player_one_spawn,
+        remote_player_data.player_info,
+        m_player_spawn,
         remote_player_data.controller_state,
         m_entity_system,
         m_system_context,
@@ -274,7 +252,8 @@ mono::EventResult PlayerDaemon::RemotePlayerDisconnected(const PlayerDisconnecte
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
     {
-        m_entity_system->ReleaseEntity(it->second.player_info.entity_id);
+        m_entity_system->ReleaseEntity(it->second.player_info->entity_id);
+        ReleasePlayerInfo(it->second.player_info);
         m_remote_players.erase(it);
     }
 
@@ -290,18 +269,26 @@ mono::EventResult PlayerDaemon::RemotePlayerInput(const RemoteInputMessage& even
     return mono::EventResult::HANDLED;
 }
 
+mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& message)
+{
+    auto it = m_remote_players.find(message.sender);
+    if(it != m_remote_players.end())
+        it->second.player_info->viewport = message.viewport;
+
+    return mono::EventResult::PASS_ON;
+}
+
 mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 {
-    if(g_player_one.entity_id == event.entity_id)
-        g_player_one.score += event.score;
-    else if(g_player_two.entity_id == event.entity_id)
-        g_player_two.score += event.score;
+    game::PlayerInfo* player_info = FindPlayerInfoFromEntityId(event.entity_id);
+    if(player_info)
+        player_info->score += event.score;
 
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    SpawnPlayer1();
+    //SpawnLocalPlayer();
     return mono::EventResult::HANDLED;
 }

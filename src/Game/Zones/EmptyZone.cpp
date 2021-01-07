@@ -51,8 +51,8 @@ void EmptyZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Ui
     UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
-    hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
+    //hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
+    //hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
     AddEntity(hud_overlay, LayerId::UI);
 }
 

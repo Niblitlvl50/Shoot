@@ -1,6 +1,6 @@
 
 #include "DamageSystem.h"
-#include "AIKnowledge.h"
+//#include "AIKnowledge.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"

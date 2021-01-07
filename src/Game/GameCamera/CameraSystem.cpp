@@ -117,8 +117,12 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         m_camera->SetTargetPosition(m_camera->GetTargetPosition() + camera_shake);
     }
 
-    const math::Quad& viewport = m_camera->GetViewport();
-    g_camera_viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
+    game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_entity_id);
+    if(player_info)
+    {
+        const math::Quad& viewport = m_camera->GetViewport();
+        player_info->viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
+    }
 }
 
 void CameraSystem::Follow(uint32_t entity_id, const math::Vector& offset)

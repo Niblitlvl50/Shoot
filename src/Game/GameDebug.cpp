@@ -1,9 +1,10 @@
 
 #include "GameDebug.h"
+#include "AIKnowledge.h"
+
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
-
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
 
@@ -28,7 +29,7 @@ void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::Begin("Debug", &show_window, flags);
+    ImGui::Begin("DebugMenu", &show_window, flags);
 
     ImGui::Checkbox("Draw Client Viewport", &game::g_draw_client_viewport);
     ImGui::Checkbox("Draw Navmesh",         &game::g_draw_navmesh);
@@ -49,13 +50,64 @@ void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
     ImGui::End();
 }
 
+void DrawDebugPlayers(const mono::UpdateContext& update_context, bool& show_window)
+{
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::SetNextWindowSize(ImVec2(600, -1));
+
+    ImGui::Begin("DebugPlayers", &show_window, flags);
+
+    ImGui::Columns(5, "mycolumns");
+    ImGui::Separator();
+    ImGui::Text("Index"); ImGui::NextColumn();
+    ImGui::Text("Entity"); ImGui::NextColumn();
+    ImGui::Text("State"); ImGui::NextColumn();
+    ImGui::Text("Position"); ImGui::NextColumn();
+    ImGui::Text("Viewport"); ImGui::NextColumn();
+    ImGui::Separator();
+
+    ImGui::SetColumnWidth(0, 60);
+    ImGui::SetColumnWidth(1, 60);
+
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = game::g_players[index];
+
+        ImGui::Text("%d", index);
+        ImGui::NextColumn();
+        
+        ImGui::Text("%u", player_info.entity_id);
+        ImGui::NextColumn();
+
+        ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
+        ImGui::NextColumn();
+
+        ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
+        ImGui::NextColumn();
+
+        const math::Quad& viewport = player_info.viewport;
+        ImGui::Text("%.1f %.1f %.1f %.1f", viewport.mA.x, viewport.mA.y, viewport.mB.x, viewport.mB.y);
+        ImGui::NextColumn();
+    }
+
+    ImGui::End();
+}
+
+
 game::DebugUpdater::DebugUpdater(mono::EventHandler* event_handler)
     : m_event_handler(event_handler)
-    , m_draw(false)
+    , m_draw_debug_menu(false)
+    , m_draw_debug_players(false)
 {
     const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
-            m_draw = !m_draw;
+            m_draw_debug_menu = !m_draw_debug_menu;
+        else if(event.key == Keycode::P)
+            m_draw_debug_players = !m_draw_debug_players;
+
         return mono::EventResult::PASS_ON;
     };
 
@@ -72,8 +124,11 @@ void game::DebugUpdater::Update(const mono::UpdateContext& update_context)
     ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
     ImGui::NewFrame();
 
-    if(m_draw)
-        DrawDebugMenu(update_context, m_draw);
+    if(m_draw_debug_menu)
+        DrawDebugMenu(update_context, m_draw_debug_menu);
+
+    if(m_draw_debug_players)
+        DrawDebugPlayers(update_context, m_draw_debug_players);
 
     //ImGui::ShowDemoWindow();
     ImGui::Render();

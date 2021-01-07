@@ -32,7 +32,8 @@ namespace game
 
     private:
         mono::EventHandler* m_event_handler;
-        bool m_draw;
+        bool m_draw_debug_menu;
+        bool m_draw_debug_players;
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
     };
 }

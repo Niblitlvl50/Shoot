@@ -52,8 +52,15 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
 
-    const bool is_player_active = g_player_one.player_state == game::PlayerState::ALIVE;
-    const bool is_visible = math::PointInsideQuad(world_position, g_camera_viewport);
+    bool is_visible = false;
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
+    if(player_info)
+    {
+        m_attack_position = player_info->position;
+        is_visible = math::PointInsideQuad(world_position, player_info->viewport);
+    }
+
+    const bool is_player_active = player_info != nullptr;
     if(is_player_active && is_visible && m_idle_timer > 1000)
     {
         const float percentage = mono::Random();
@@ -125,7 +132,7 @@ void GoblinFireController::ToAttacking()
 
 void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
 {
-    if(g_player_one.player_state != game::PlayerState::ALIVE || m_n_attacks >= 3)
+    if(m_n_attacks >= 3)
         m_states.TransitionTo(GoblinStates::IDLE);
 
     m_attack_timer += update_context.delta_ms;
@@ -134,7 +141,7 @@ void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
         const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
         const math::Vector& world_position = math::GetPosition(world_transform);
 
-        const float angle = math::AngleBetweenPoints(g_player_one.position, world_position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(m_attack_position, world_position) + math::PI_2();
         game::WeaponState fire_state = m_weapon->Fire(world_position, angle, update_context.timestamp);
         if(fire_state == game::WeaponState::FIRE)
             m_n_attacks++;

@@ -115,7 +115,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
         ReplicateSpawns(batch_sender, update_context);
         ReplicateTransforms(transforms_to_replicate, spawns_this_frame, batch_sender, client.second.viewport, update_context);
         ReplicateSprites(sprites_to_replicate, spawns_this_frame, batch_sender, update_context);
-        ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, batch_sender);
+        ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, batch_sender, update_context);
     }
 
     for(int index = 0; index < 10 && !m_message_queue.empty(); ++index)
@@ -264,7 +264,7 @@ void ServerReplicator::ReplicateSprites(
         const bool keyframe = (id >= m_keyframe_low && id < m_keyframe_high);
         const bool spawned_this_frame = mono::contains(spawn_entities, id);
 
-        if((time_to_replicate && !same) || keyframe || spawned_this_frame || true)
+        if((time_to_replicate && !same) || keyframe || spawned_this_frame)
         {
             batched_sender.SendMessage(sprite_message);
             
@@ -280,23 +280,35 @@ void ServerReplicator::ReplicateSprites(
     };
 
     for(uint32_t entity_id : entities)
-    {
-        const bool is_allocated = m_sprite_system->IsAllocated(entity_id);
-        if(is_allocated)
-            sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
-    }
+        sprite_func(m_sprite_system->GetSprite(entity_id), entity_id);
 
 //    System::Log(
 //        "keyframe %u - %u, transforms %d/%d, sprites %d/%d\n", m_keyframe_low, m_keyframe_high, replicated_transforms, total_transforms, replicated_sprites, total_sprites);
 }
 
 void ServerReplicator::ReplicateDamageInfos(
-    const std::vector<uint32_t>& entities, const std::vector<uint32_t>& spawn_entities, BatchedMessageSender& batch_sender)
+    const std::vector<uint32_t>& entities,
+    const std::vector<uint32_t>& spawn_entities,
+    BatchedMessageSender& batch_sender,
+    const mono::UpdateContext& update_context)
 {
     int total_damages = 0;
     int replicated_damages = 0;
 
     const auto damage_info_func = [&](const DamageRecord* damage_record, uint32_t entity_id) {
+        
+        total_damages++;
+
+        const bool keyframe = (entity_id >= m_keyframe_low && entity_id < m_keyframe_high);
+        if(!keyframe)
+            return;
+
+        // This is a detail of the health bar drawer, should probably not leak into here.
+        const uint32_t timestamp_diff = update_context.timestamp - damage_record->last_damaged_timestamp;
+        const bool not_visible = timestamp_diff > 5000;
+        if(not_visible)
+            return;
+
         DamageInfoMessage damage_info;
         damage_info.entity_id = entity_id;
         damage_info.health = damage_record->health;
@@ -304,16 +316,10 @@ void ServerReplicator::ReplicateDamageInfos(
         damage_info.damage_timestamp = damage_record->last_damaged_timestamp;
         damage_info.is_boss = damage_record->is_boss;
 
-        total_damages++;
         replicated_damages++;
-
         batch_sender.SendMessage(damage_info);
     };
 
     for(uint32_t entity_id : entities)
-    {
-        const bool is_allocated = m_damage_system->IsAllocated(entity_id);
-        if(is_allocated)
-            damage_info_func(m_damage_system->GetDamageRecord(entity_id), entity_id);
-    }
+        damage_info_func(m_damage_system->GetDamageRecord(entity_id), entity_id);
 }

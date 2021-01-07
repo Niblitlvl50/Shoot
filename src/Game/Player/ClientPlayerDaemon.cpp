@@ -31,10 +31,7 @@ ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventH
     m_client_spawned_token = m_event_handler->AddListener(client_spawned);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-    {
-        m_player_one_controller_id = System::GetControllerId(System::ControllerId::Primary);
-        SpawnPlayer1();
-    }
+        SpawnLocalRemotePlayer(System::GetControllerId(System::ControllerId::Primary));
 }
 
 ClientPlayerDaemon::~ClientPlayerDaemon()
@@ -46,42 +43,30 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
     m_camera_system->Unfollow();
 }
 
-void ClientPlayerDaemon::SpawnPlayer1()
+void ClientPlayerDaemon::SpawnLocalRemotePlayer(int controller_id)
 {
+    m_player_one_controller_id = controller_id;
     System::Log("ClientPlayerDaemon|Spawn player 1\n");
-    //game::g_player_one.entity_id = player_entity.id;
-    //game::g_player_one.is_active = true;
 }
 
 mono::EventResult ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    if(game::g_player_one.player_state == game::PlayerState::NOT_SPAWNED)
-    {
-        SpawnPlayer1();
-        m_player_one_controller_id = event.id;
-    }
+    if(m_player_one_controller_id == -1)
+        SpawnLocalRemotePlayer(event.controller_id);
 
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
-    if(event.id == m_player_one_controller_id)
-    {
-        game::g_player_one.entity_id = mono::INVALID_ID;
-        game::g_player_one.player_state = game::PlayerState::NOT_SPAWNED;
+    if(event.controller_id == m_player_one_controller_id)
         m_camera_system->Unfollow();
-    }
 
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
 {
-    game::g_player_one.entity_id = message.client_entity_id;
-    game::g_player_one.player_state = game::PlayerState::ALIVE;
-
-    m_camera_system->Follow(g_player_one.entity_id, math::Vector(0.0f, 3.0f));
-
+    m_camera_system->Follow(message.client_entity_id, math::Vector(0.0f, 3.0f));
     return mono::EventResult::PASS_ON;
 }

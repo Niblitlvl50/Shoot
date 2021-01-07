@@ -81,15 +81,14 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer += update_context.delta_ms;
 
-    if(g_player_one.player_state != game::PlayerState::ALIVE)
+    const math::Vector& position = math::GetPosition(*m_transform);
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
+    if(!player_info)
         return;
 
-    const math::Vector& position = math::GetPosition(*m_transform);
-    const float distance_to_player = std::fabs(math::Length(position - g_player_one.position));
-
+    const float distance_to_player = std::fabs(math::Length(position - player_info->position));
     if(m_idle_timer > 2000 && distance_to_player < 3)
         m_states.TransitionTo(InvaderStates::ATTACKING);
-
 
     //if(m_idle_timer > 2000 && distance_to_player < 5)
     //    m_states.TransitionTo(InvaderStates::TRACKING);
@@ -97,6 +96,7 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
 {
+    /*
     const math::Vector& position = math::GetPosition(*m_transform);
     const float distance_to_player = math::Length(g_player_one.position - position);
     if(distance_to_player < 5.0f)
@@ -108,19 +108,27 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
     const TrackingResult result = m_tracking_behaviour->Run(update_context.delta_ms);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
         m_states.TransitionTo(InvaderStates::IDLE);
+        */
 }
 
 void InvaderController::Attacking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = math::GetPosition(*m_transform);
-    const float distance_to_player = math::Length(g_player_one.position - position);
-    if(distance_to_player > 5.0f || g_player_one.player_state != game::PlayerState::ALIVE)
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
+    if(!player_info)
+    {
+        m_states.TransitionTo(InvaderStates::IDLE);
+        return;
+    }
+
+    const float distance_to_player = math::Length(player_info->position - position);
+    if(distance_to_player > 5.0f)
     {
         //m_states.TransitionTo(InvaderStates::TRACKING);
         m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
 
-    const float angle = math::AngleBetweenPoints(g_player_one.position, position) + math::PI_2();
+    const float angle = math::AngleBetweenPoints(player_info->position, position) + math::PI_2();
     m_weapon->Fire(position, angle, update_context.timestamp);
 }

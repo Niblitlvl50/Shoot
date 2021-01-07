@@ -16,7 +16,7 @@
 using namespace game;
 
 PlayerGamepadController::PlayerGamepadController(
-    game::PlayerLogic* shuttle_logic, mono::EventHandler& event_handler, const System::ControllerState& controller)
+    game::PlayerLogic* shuttle_logic, mono::EventHandler* event_handler, const System::ControllerState& controller)
     : m_shuttle_logic(shuttle_logic),
       m_event_handler(event_handler),
       m_state(controller)
@@ -78,9 +78,9 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     if(b)
-        m_event_handler.DispatchEvent(event::TimeScaleEvent(0.1f));
+        m_event_handler->DispatchEvent(event::TimeScaleEvent(0.1f));
     else if(b_changed)
-        m_event_handler.DispatchEvent(event::TimeScaleEvent(1.0f));
+        m_event_handler->DispatchEvent(event::TimeScaleEvent(1.0f));
 
     const bool left_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT);
     const bool right_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT);

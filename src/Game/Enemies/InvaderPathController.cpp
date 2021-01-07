@@ -55,18 +55,19 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-    if(g_player_one.player_state != game::PlayerState::ALIVE)
+    const math::Vector& enemy_position = math::GetPosition(*m_transform);
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(enemy_position);
+    if(!player_info)
         return;
 
-    const math::Vector& enemy_position = math::GetPosition(*m_transform);
-    const bool is_visible = math::PointInsideQuad(enemy_position, g_camera_viewport);
+    const bool is_visible = math::PointInsideQuad(enemy_position, player_info->viewport);
     if(!is_visible)
         return;
 
-    const float distance = math::Length(g_player_one.position - enemy_position);
+    const float distance = math::Length(player_info->position - enemy_position);
     if(distance < 7.0f)
     {
-        const float angle = math::AngleBetweenPoints(g_player_one.position, enemy_position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(player_info->position, enemy_position) + math::PI_2();
         m_fire_count += (m_weapon->Fire(enemy_position, angle, update_context.timestamp) == WeaponState::FIRE);
     }
 

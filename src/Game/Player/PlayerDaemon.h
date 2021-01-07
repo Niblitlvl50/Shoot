@@ -17,6 +17,7 @@ namespace game
 {
     class INetworkPipe;
     struct RemoteInputMessage;
+    struct ViewportMessage;
     struct ClientPlayerSpawned;
 
     class PlayerDaemon
@@ -28,12 +29,10 @@ namespace game
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
-            const math::Vector& player_one_spawn);
+            const math::Vector& player_spawn);
         ~PlayerDaemon();
 
-        void SpawnPlayer1();
-        void SpawnPlayer2();
-
+        void SpawnLocalPlayer(int controller_id);
         std::vector<uint32_t> GetPlayerIds() const;
 
     private:
@@ -43,6 +42,7 @@ namespace game
         mono::EventResult RemotePlayerConnected(const PlayerConnectedEvent& event);
         mono::EventResult RemotePlayerDisconnected(const PlayerDisconnectedEvent& event);
         mono::EventResult RemotePlayerInput(const RemoteInputMessage& event);
+        mono::EventResult RemotePlayerViewport(const ViewportMessage& message);
         mono::EventResult PlayerScore(const ScoreEvent& event);
         mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
 
@@ -52,23 +52,22 @@ namespace game
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
 
+        math::Vector m_player_spawn;
+
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
         mono::EventToken<PlayerConnectedEvent> m_player_connected_token;
         mono::EventToken<PlayerDisconnectedEvent> m_player_disconnected_token;
         mono::EventToken<RemoteInputMessage> m_remote_input_token;
+        mono::EventToken<ViewportMessage> m_remote_viewport_token;
         mono::EventToken<ScoreEvent> m_score_token;
         mono::EventToken<SpawnPlayerEvent> m_spawn_player_token;
 
-        int m_player_one_id = -1;
-        int m_player_two_id = -1;
-
-        math::Vector m_player_one_spawn;
-        math::Vector m_player_two_spawn;
+        std::unordered_map<int, PlayerInfo*> m_controller_id_to_player_info;
 
         struct RemotePlayerData
         {
-            PlayerInfo player_info;
+            PlayerInfo* player_info;
             System::ControllerState controller_state;
         };
         std::unordered_map<network::Address, RemotePlayerData> m_remote_players;

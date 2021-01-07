@@ -6,6 +6,7 @@
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
 #include "Weapons/IWeaponFactory.h"
+#include "Math/Vector.h"
 
 #include <memory>
 
@@ -47,5 +48,7 @@ namespace game
 
         uint32_t m_idle_timer;
         uint32_t m_prepare_timer;
+
+        math::Vector m_attack_position;
     };
 }

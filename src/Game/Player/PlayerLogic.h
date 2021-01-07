@@ -41,7 +41,7 @@ namespace game
         PlayerLogic(
             uint32_t entity_id,
             PlayerInfo* player_info,
-            mono::EventHandler& event_handler,
+            mono::EventHandler* event_handler,
             const System::ControllerState& controller,
             mono::SystemContext* system_context);
 

@@ -1,7 +1,7 @@
 
 #include "TrackingBehaviour.h"
-
 #include "AIKnowledge.h"
+
 #include "Navigation/NavMesh.h"
 
 #include "Paths/PathFactory.h"
@@ -88,6 +88,11 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+void TrackingBehaviour::SetTrackingPosition(const math::Vector& tracking_position)
+{
+    m_tracking_position = tracking_position;
+}
+
 TrackingResult TrackingBehaviour::Run(uint32_t delta_ms)
 {
     m_tracking_timer += delta_ms;
@@ -115,13 +120,10 @@ TrackingResult TrackingBehaviour::Run(uint32_t delta_ms)
 
 bool TrackingBehaviour::UpdatePath()
 {
-    if(game::g_player_one.player_state != game::PlayerState::ALIVE)
-        return false;
-
     const math::Vector position = m_entity_body->GetPosition();
 
     const int start = game::FindClosestIndex(*g_navmesh, position);
-    const int end = game::FindClosestIndex(*g_navmesh, g_player_one.position);
+    const int end = game::FindClosestIndex(*g_navmesh, m_tracking_position);
 
     if(start == end || start == -1 || end == -1)
         return false;

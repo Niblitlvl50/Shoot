@@ -4,7 +4,6 @@
 #include "INetworkPipe.h"
 #include "NetworkMessage.h"
 
-#include "AIKnowledge.h"
 #include "Math/MathFunctions.h"
 #include "Camera/ICamera.h"
 
@@ -22,15 +21,12 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
     if(client_status != ClientStatus::CONNECTED)
         return;
 
-    if(game::g_player_one.player_state == game::PlayerState::ALIVE)
-    {
-        RemoteInputMessage remote_input;
-        remote_input.controller_state = System::GetController(System::ControllerId::Primary);
+    RemoteInputMessage remote_input;
+    remote_input.controller_state = System::GetController(System::ControllerId::Primary);
 
-        NetworkMessage message;
-        message.payload = SerializeMessage(remote_input);
-        m_remote_connection->SendMessage(message);
-    }
+    NetworkMessage message;
+    message.payload = SerializeMessage(remote_input);
+    m_remote_connection->SendMessage(message);
 
     m_replicate_timer += update_context.delta_ms;
     if(m_replicate_timer > 16)

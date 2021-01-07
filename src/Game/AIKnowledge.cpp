@@ -4,45 +4,72 @@
 #include <cstring>
 #include <algorithm>
 
-game::PlayerInfo game::g_player_one;
-game::PlayerInfo game::g_player_two;
-
-math::Quad game::g_camera_viewport;
+game::PlayerInfo game::g_players[n_players];
 game::NavmeshContext* game::g_navmesh = nullptr;
 
 void game::InitializeAIKnowledge()
 {
-    std::memset(&g_player_one, 0, sizeof(PlayerInfo));
-    std::memset(&g_player_two, 0, sizeof(PlayerInfo));
+    std::memset(g_players, 0, sizeof(g_players));
+}
+
+game::PlayerInfo* game::AllocatePlayerInfo()
+{
+    const auto find_func = [](const PlayerInfo& player_info){
+        return player_info.player_state == PlayerState::NOT_SPAWNED;
+    };
+
+    game::PlayerInfo* found_player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+    if(found_player_info != std::end(g_players))
+        return found_player_info;
+
+    return nullptr;
+}
+
+void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
+{
+    const auto find_func = [player_info_release](const PlayerInfo& player_info){
+        return player_info_release == &player_info;
+    };
+
+    game::PlayerInfo* it = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+    if(it != std::end(g_players))
+        std::memset(it, 0, sizeof(game::PlayerInfo));
 }
 
 bool game::IsPlayer(uint32_t entity_id)
 {
-    return (g_player_one.entity_id == entity_id || g_player_two.entity_id == entity_id);
+    return FindPlayerInfoFromEntityId(entity_id) != nullptr;
 }
 
-game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_position)
+game::PlayerInfo* game::FindPlayerInfoFromEntityId(uint32_t entity_id)
 {
-    static PlayerInfo* all_player_infos[] = {
-        &g_player_one,
-        &g_player_two,
+    const auto find_func = [entity_id](const PlayerInfo& player_info){
+        return entity_id == player_info.entity_id;
     };
+    
+    game::PlayerInfo* player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+    if(player_info != std::end(g_players))
+        return player_info;
 
-    PlayerInfo* closest_player = nullptr;
+    return nullptr;
+}
+
+const game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_position)
+{
+    const PlayerInfo* closest_player = nullptr;
     float closest_distance = math::INF;
 
-    for(size_t index = 0; index < std::size(all_player_infos); ++index)
+    for(size_t index = 0; index < n_players; ++index)
     {
-        PlayerInfo* player_info = all_player_infos[index];
-
-        if(player_info->player_state != PlayerState::ALIVE)
+        const PlayerInfo& player_info = g_players[index];
+        if(player_info.player_state != PlayerState::ALIVE)
             continue;
 
-        const float distance = math::Length(player_info->position - world_position);
+        const float distance = std::fabs(math::Length(player_info.position - world_position));
         if(distance < closest_distance)
         {
             closest_distance = distance;
-            closest_player = player_info;
+            closest_player = &player_info;
         }
     }
 
