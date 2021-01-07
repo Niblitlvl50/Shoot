@@ -1,5 +1,6 @@
 
 #include "SpawnPredictionSystem.h"
+#include "PositionPredictionSystem.h"
 #include "Network/ClientManager.h"
 #include "DamageSystem.h"
 
@@ -14,11 +15,11 @@ SpawnPredictionSystem::SpawnPredictionSystem(
     const ClientManager* client_manager,
     mono::SpriteSystem* sprite_system,
     game::DamageSystem* damage_system,
-    mono::IEntityManager* entity_manager)
+    game::PositionPredictionSystem* position_prediciton_system)
     : m_client_manager(client_manager)
     , m_sprite_system(sprite_system)
     , m_damage_system(damage_system)
-    , m_entity_manager(entity_manager)
+    , m_position_prediciton_system(position_prediciton_system)
 {
     m_spawn_messages.reserve(50);
 }
@@ -67,7 +68,7 @@ void SpawnPredictionSystem::Update(const mono::UpdateContext& update_context)
         const bool is_damageinfo_allocated = m_damage_system->IsAllocated(entity_id);
         if(is_damageinfo_allocated)
             m_damage_system->ReleaseRecord(entity_id);
-    
-        //m_entity_manager->ReleaseEntity(entity_id);
+
+        m_position_prediciton_system->ClearPredictionsForEntity(entity_id);
     }
 }

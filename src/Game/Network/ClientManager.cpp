@@ -117,15 +117,16 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     ConnectionInfo info;
 
     if(m_states.ActiveState() == ClientStatus::CONNECTED)
-    {
         info.stats = m_remote_connection->GetConnectionStats();
-        info.additional_info.push_back(network::AddressToString(m_client_address));
-        info.additional_info.push_back(ClientStatusToString(GetConnectionStatus()));
-        info.additional_info.push_back("client: " + std::to_string(m_client_time));
-        info.additional_info.push_back("server: " + std::to_string(m_server_time));
-        info.additional_info.push_back("predicted: " + std::to_string(m_server_time_predicted));
-        info.additional_info.push_back("ping: " + std::to_string(m_server_ping));
-    }
+
+    info.additional_info.push_back("client: " + network::AddressToString(m_client_address));
+    info.additional_info.push_back(std::string("status: ") + ClientStatusToString(GetConnectionStatus()));
+    info.additional_info.push_back("");
+    info.additional_info.push_back("client time: " + std::to_string(m_client_time));
+    info.additional_info.push_back("server time: " + std::to_string(m_server_time));
+    info.additional_info.push_back("predicted time: " + std::to_string(m_server_time_predicted));
+    info.additional_info.push_back("");
+    info.additional_info.push_back("server round trip: " + std::to_string(m_server_ping));
 
     return info;
 }

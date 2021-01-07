@@ -14,7 +14,7 @@ using namespace game;
 
 namespace
 {
-    constexpr uint16_t no_parent = std::numeric_limits<uint16_t>::max();
+    constexpr uint16_t no_parent_16 = std::numeric_limits<uint16_t>::max();
 }
 
 PositionPredictionSystem::PositionPredictionSystem(
@@ -26,16 +26,8 @@ PositionPredictionSystem::PositionPredictionSystem(
 {
     m_prediction_data.resize(num_records);
 
-    for(PredictionData& prediction_data : m_prediction_data)
-    {
-        for(RemoteTransform& transform : prediction_data.prediction_buffer)
-        {
-            transform.timestamp = 0;
-            transform.position = math::ZeroVec;
-            transform.rotation = 0.0f;
-            transform.parent_transform = no_parent;
-        }
-    }
+    for(uint32_t index = 0; index < num_records; ++index)
+        ClearPredictionsForEntity(index);
 }
 
 uint32_t PositionPredictionSystem::Id() const
@@ -60,7 +52,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
 
     for(size_t index = 0; index < m_prediction_data.size(); ++index)
     {
-        PredictionData& prediction_data  = m_prediction_data[index];
+        PredictionData& prediction_data = m_prediction_data[index];
 
         const auto& prediction_buffer = prediction_data.prediction_buffer;
         if(prediction_buffer.back().timestamp == 0)
@@ -89,7 +81,7 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
         transform = math::CreateMatrixFromZRotation(predicted_rotation);
         math::Position(transform, predicted_position);
 
-        if(from.parent_transform != no_parent)
+        if(from.parent_transform != no_parent_16)
             m_transform_system->ChildTransform(index, from.parent_transform);
         //System::Log("PositionPredictionSystem|Parent transform %u\n", from.parent_transform);
     }
@@ -114,5 +106,19 @@ void PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
     else
     {
         System::Log("PositionPredictionSystem|Old transform message, will skip\n");
+    }
+}
+
+void PositionPredictionSystem::ClearPredictionsForEntity(uint32_t entity_id)
+{
+    PredictionData& prediction_data = m_prediction_data[entity_id];
+    prediction_data.predicted_position = math::ZeroVec;
+
+    for(RemoteTransform& transform : prediction_data.prediction_buffer)
+    {
+        transform.timestamp = 0;
+        transform.position = math::ZeroVec;
+        transform.rotation = 0.0f;
+        transform.parent_transform = no_parent_16;
     }
 }

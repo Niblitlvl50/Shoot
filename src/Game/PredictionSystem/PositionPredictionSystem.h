@@ -27,6 +27,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void HandlePredicitonMessage(const struct TransformMessage& transform_message);
+        void ClearPredictionsForEntity(uint32_t entity_id);
 
         const ClientManager* m_client_manager;
         mono::TransformSystem* m_transform_system;

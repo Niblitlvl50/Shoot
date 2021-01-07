@@ -90,8 +90,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         m_system_context->CreateSystem<PositionPredictionSystem>(500, client_manager, transform_system);
 
     m_spawn_prediction_system = m_system_context->CreateSystem<SpawnPredictionSystem>(
-        client_manager, m_sprite_system, m_damage_system, m_entity_manager
-    );
+        client_manager, m_sprite_system, m_damage_system, m_position_prediction_system);
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);

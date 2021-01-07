@@ -57,8 +57,15 @@ void ServerManager::StartServer()
         m_broadcast_address = network::GetBroadcastAddress(m_game_config->client_port);
     }
 
-    m_server_address = network::MakeAddress(network::GetLocalhostName().c_str(), socket->Port());
-    m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
+    if(socket)
+    {
+        m_server_address = network::MakeAddress(network::GetLocalhostName().c_str(), socket->Port());
+        m_remote_connection = std::make_unique<RemoteConnection>(&m_dispatcher, std::move(socket));
+    }
+    else
+    {
+        System::Log("ServerManager|Failed to create socket");
+    }
 }
 
 void ServerManager::QuitServer()

@@ -41,9 +41,21 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void ReplicateSpawns(BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
-        void ReplicateTransforms(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context);
-        void ReplicateSprites(const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
-        void ReplicateDamageInfos(const std::vector<uint32_t>& entities, BatchedMessageSender& batch_sender);
+        void ReplicateTransforms(
+            const std::vector<uint32_t>& entities,
+            const std::vector<uint32_t>& spawn_entities,
+            BatchedMessageSender& batched_sender,
+            const math::Quad& client_viewport,
+            const mono::UpdateContext& update_context);
+        void ReplicateSprites(
+            const std::vector<uint32_t>& entities,
+            const std::vector<uint32_t>& spawn_entities,
+            BatchedMessageSender& batched_sender,
+            const mono::UpdateContext& update_context);
+        void ReplicateDamageInfos(
+            const std::vector<uint32_t>& entities,
+            const std::vector<uint32_t>& spawn_entities,
+            BatchedMessageSender& batch_sender);
 
         mono::EventHandler* m_event_handler;
         mono::EntitySystem* m_entity_system;

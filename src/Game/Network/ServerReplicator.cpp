@@ -51,8 +51,8 @@ ServerReplicator::ServerReplicator(
     , m_server_manager(server_manager)
     , m_replication_interval(replication_interval)
 {
-    std::memset(&m_transform_data, 0, std::size(m_transform_data) * sizeof(TransformData));
-    std::memset(&m_sprite_data, 0, std::size(m_sprite_data) * sizeof(SpriteData));
+    std::memset(&m_transform_data, 0, sizeof(m_transform_data));
+    std::memset(&m_sprite_data, 0, sizeof(m_sprite_data));
 
     m_keyframe_low = 0;
     m_keyframe_high = KEYFRAME_INTERVAL;
@@ -87,6 +87,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
     std::vector<uint32_t> transforms_to_replicate;
     std::vector<uint32_t> sprites_to_replicate;
     std::vector<uint32_t> damage_info_to_replicate;
+    std::vector<uint32_t> spawns_this_frame;
 
     const auto collect_entities = [&](const mono::Entity& entity) {
         transforms_to_replicate.push_back(entity.id);
@@ -99,18 +100,25 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
     };
     m_entity_system->ForEachEntity(collect_entities);
 
+    const std::vector<mono::IEntityManager::SpawnEvent>& spawn_events = m_entity_system->GetSpawnEvents();
+    for(const auto& spawn_event : spawn_events)
+    {
+        if(spawn_event.spawned)
+            spawns_this_frame.push_back(spawn_event.entity_id);
+    }
+
     const std::unordered_map<network::Address, ClientData>& clients = m_server_manager->GetConnectedClients();
     for(const auto& client : clients)
     {
         BatchedMessageSender batch_sender(client.first, m_message_queue);
 
         ReplicateSpawns(batch_sender, update_context);
-        ReplicateTransforms(transforms_to_replicate, batch_sender, client.second.viewport, update_context);
-        ReplicateSprites(sprites_to_replicate, batch_sender, update_context);
-        ReplicateDamageInfos(damage_info_to_replicate, batch_sender);
+        ReplicateTransforms(transforms_to_replicate, spawns_this_frame, batch_sender, client.second.viewport, update_context);
+        ReplicateSprites(sprites_to_replicate, spawns_this_frame, batch_sender, update_context);
+        ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, batch_sender);
     }
 
-    for(int index = 0; index < 5 && !m_message_queue.empty(); ++index)
+    for(int index = 0; index < 10 && !m_message_queue.empty(); ++index)
     {
         m_server_manager->SendMessage(m_message_queue.front());
         m_message_queue.pop();
@@ -145,7 +153,11 @@ void ServerReplicator::ReplicateSpawns(BatchedMessageSender& batched_sender, con
 }
 
 void ServerReplicator::ReplicateTransforms(
-    const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const math::Quad& client_viewport, const mono::UpdateContext& update_context)
+    const std::vector<uint32_t>& entities,
+    const std::vector<uint32_t>& spawn_entities,
+    BatchedMessageSender& batched_sender,
+    const math::Quad& client_viewport,
+    const mono::UpdateContext& update_context)
 {
     int total_transforms = 0;
     int replicated_transforms = 0;
@@ -159,11 +171,12 @@ void ServerReplicator::ReplicateTransforms(
 
         const bool keyframe = (id >= m_keyframe_low && id < m_keyframe_high);
         const bool time_to_replicate = (last_transform_message.time_to_replicate < 0);
+        const bool spawned_this_frame = mono::contains(spawn_entities, id);
 
-        if(!time_to_replicate && !keyframe)
+        if(!time_to_replicate && !keyframe && !spawned_this_frame)
             return;
 
-        if(!keyframe)
+        if(!keyframe && !spawned_this_frame)
         {
              // Expand by 5 meter to send positions before in sight
             const math::Quad& client_bb = math::ResizeQuad(client_viewport, 5.0f);
@@ -188,7 +201,7 @@ void ServerReplicator::ReplicateTransforms(
         const bool same_as_last_time =
             transform_message.settled && (last_transform_message.settled == transform_message.settled);
 
-        if(!same_as_last_time || keyframe)
+        if(!same_as_last_time || keyframe || spawned_this_frame)
         {
             batched_sender.SendMessage(transform_message);
 
@@ -210,7 +223,10 @@ void ServerReplicator::ReplicateTransforms(
 }
 
 void ServerReplicator::ReplicateSprites(
-    const std::vector<uint32_t>& entities, BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context)
+    const std::vector<uint32_t>& entities,
+    const std::vector<uint32_t>& spawn_entities,
+    BatchedMessageSender& batched_sender,
+    const mono::UpdateContext& update_context)
 {
     int total_sprites = 0;
     int replicated_sprites = 0;
@@ -246,8 +262,9 @@ void ServerReplicator::ReplicateSprites(
             last_sprite_data.vertical_direction == sprite_message.vertical_direction &&
             last_sprite_data.horizontal_direction == sprite_message.horizontal_direction;
         const bool keyframe = (id >= m_keyframe_low && id < m_keyframe_high);
+        const bool spawned_this_frame = mono::contains(spawn_entities, id);
 
-        if((time_to_replicate && !same) || keyframe)
+        if((time_to_replicate && !same) || keyframe || spawned_this_frame || true)
         {
             batched_sender.SendMessage(sprite_message);
             
@@ -273,7 +290,8 @@ void ServerReplicator::ReplicateSprites(
 //        "keyframe %u - %u, transforms %d/%d, sprites %d/%d\n", m_keyframe_low, m_keyframe_high, replicated_transforms, total_transforms, replicated_sprites, total_sprites);
 }
 
-void ServerReplicator::ReplicateDamageInfos(const std::vector<uint32_t>& entities, BatchedMessageSender& batch_sender)
+void ServerReplicator::ReplicateDamageInfos(
+    const std::vector<uint32_t>& entities, const std::vector<uint32_t>& spawn_entities, BatchedMessageSender& batch_sender)
 {
     int total_damages = 0;
     int replicated_damages = 0;
