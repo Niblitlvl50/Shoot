@@ -46,51 +46,68 @@ void PositionPredictionSystem::Update(const mono::UpdateContext& update_context)
     if(server_time <= 0)
         return;
 
-    const auto find_remote_transform = [server_time](const RemoteTransform& remote_transform) {
-        return server_time < int(remote_transform.timestamp);
-    };
-
-    for(size_t index = 0; index < m_prediction_data.size(); ++index)
+    for(uint32_t index = 0; index < m_prediction_data.size(); ++index)
     {
         PredictionData& prediction_data = m_prediction_data[index];
 
-        const auto& prediction_buffer = prediction_data.prediction_buffer;
+        const RemoteTransformBuffer& prediction_buffer = prediction_data.prediction_buffer;
         if(prediction_buffer.back().timestamp == 0)
             continue;
 
-        const auto it = std::find_if(prediction_buffer.begin(), prediction_buffer.end(), find_remote_transform);
-        if(it == prediction_buffer.end())
-            continue;
+        uint16_t new_parent_transform = no_parent_16;
 
-        const RemoteTransform& from = *(it -1);
-        const RemoteTransform& to = *it;
+        const uint32_t best_index = FindBestPredictionIndex(server_time, prediction_buffer);
+        if(best_index == 0)
+        {
+            const RemoteTransform& to = prediction_buffer[best_index];
 
-        const float local_t = float(server_time - from.timestamp);
-        const float to_from_t = float(to.timestamp - from.timestamp);
-        const float t = local_t / to_from_t; 
+            prediction_data.predicted_position = to.position;
+            prediction_data.predicted_rotation = to.rotation;
+            new_parent_transform = to.parent_transform;
+        }
+        else
+        {
+            const RemoteTransform& from = prediction_buffer[best_index -1];
+            const RemoteTransform& to = prediction_buffer[best_index];
 
-        const math::Vector& delta_position = to.position - from.position;
-        const math::Vector& predicted_position = from.position + (delta_position * t);
+            const float local_t = float(server_time - from.timestamp);
+            const float to_from_t = float(to.timestamp - from.timestamp);
+            const float t = local_t / to_from_t;
 
-        const float delta_rotation = to.rotation - from.rotation;
-        const float predicted_rotation = from.rotation + (delta_rotation * t);
+            const math::Vector& delta_position = to.position - from.position;
+            const math::Vector& predicted_position = from.position + (delta_position * t);
 
-        prediction_data.predicted_position = predicted_position;
+            const float delta_rotation = to.rotation - from.rotation;
+            const float predicted_rotation = from.rotation + (delta_rotation * t);
+
+            if(from.timestamp == 0)
+            {
+                prediction_data.predicted_position = to.position;
+                prediction_data.predicted_rotation = to.rotation;
+            }
+            else
+            {
+                prediction_data.predicted_position = predicted_position;
+                prediction_data.predicted_rotation = predicted_rotation;
+            }
+            
+
+            new_parent_transform = to.parent_transform;
+        }
 
         math::Matrix& transform = m_transform_system->GetTransform(index);
-        transform = math::CreateMatrixFromZRotation(predicted_rotation);
-        math::Position(transform, predicted_position);
+        transform = math::CreateMatrixFromZRotation(prediction_data.predicted_rotation);
+        math::Position(transform, prediction_data.predicted_position);
 
-        if(from.parent_transform != no_parent_16)
-            m_transform_system->ChildTransform(index, from.parent_transform);
-        //System::Log("PositionPredictionSystem|Parent transform %u\n", from.parent_transform);
+        if(new_parent_transform != no_parent_16)
+            m_transform_system->ChildTransform(index, new_parent_transform);
     }
 }
 
 void PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& transform_message)
 {
     PredictionData& prediction_data = m_prediction_data[transform_message.entity_id];
-    auto& prediction_buffer = prediction_data.prediction_buffer;
+    RemoteTransformBuffer& prediction_buffer = prediction_data.prediction_buffer;
 
     if(prediction_buffer.back().timestamp < transform_message.timestamp)
     {
@@ -105,7 +122,11 @@ void PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
     }
     else
     {
-        System::Log("PositionPredictionSystem|Old transform message, will skip\n");
+        System::Log(
+            "PositionPredictionSystem|Old transform message, will skip. entity: %u have: %u new: %u\n",
+            transform_message.entity_id,
+            prediction_buffer.back().timestamp,
+            transform_message.timestamp);
     }
 }
 
@@ -121,4 +142,20 @@ void PositionPredictionSystem::ClearPredictionsForEntity(uint32_t entity_id)
         transform.rotation = 0.0f;
         transform.parent_transform = no_parent_16;
     }
+}
+
+uint32_t PositionPredictionSystem::FindBestPredictionIndex(uint32_t timestamp, const RemoteTransformBuffer& prediction_buffer)
+{
+    uint32_t best_index = 0;
+
+    for(uint32_t buffer_index = 0; buffer_index < 8; ++buffer_index)
+    {
+        best_index = buffer_index;
+        
+        const RemoteTransform& remote_transform = prediction_buffer[buffer_index];
+        if(remote_transform.timestamp > timestamp)
+            break;
+    }
+
+    return best_index;
 }

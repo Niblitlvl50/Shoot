@@ -40,10 +40,15 @@ namespace game
             uint16_t parent_transform;
         };
 
+        using RemoteTransformBuffer = std::array<RemoteTransform, 8>;
+
+        static uint32_t FindBestPredictionIndex(uint32_t timestamp, const RemoteTransformBuffer& prediction_buffer);
+
         struct PredictionData
         {
             math::Vector predicted_position;
-            std::array<RemoteTransform, 8> prediction_buffer;
+            float predicted_rotation;
+            RemoteTransformBuffer prediction_buffer;
         };
 
         std::vector<PredictionData> m_prediction_data;

@@ -25,6 +25,7 @@
 #include "Rendering/Sprite/Sprite.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "TransformSystem/TransformSystemDrawer.h"
 
 #include "DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
@@ -101,6 +102,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(m_damage_system, transform_system, m_entity_manager), LayerId::UI);
     AddDrawable(m_console_drawer.get(), LayerId::UI);
 

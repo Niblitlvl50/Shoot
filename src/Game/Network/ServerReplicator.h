@@ -8,6 +8,7 @@
 #include "NetworkSerialize.h"
 
 #include <queue>
+#include <unordered_set>
 
 namespace shared
 {
@@ -41,20 +42,23 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void ReplicateSpawns(BatchedMessageSender& batched_sender, const mono::UpdateContext& update_context);
-        void ReplicateTransforms(
+        int ReplicateTransforms(
             const std::vector<uint32_t>& entities,
             const std::vector<uint32_t>& spawn_entities,
+            bool force_replicate,
             BatchedMessageSender& batched_sender,
             const math::Quad& client_viewport,
             const mono::UpdateContext& update_context);
-        void ReplicateSprites(
+        int ReplicateSprites(
             const std::vector<uint32_t>& entities,
             const std::vector<uint32_t>& spawn_entities,
+            bool force_replicate,
             BatchedMessageSender& batched_sender,
             const mono::UpdateContext& update_context);
-        void ReplicateDamageInfos(
+        int ReplicateDamageInfos(
             const std::vector<uint32_t>& entities,
             const std::vector<uint32_t>& spawn_entities,
+            bool force_replicate,
             BatchedMessageSender& batch_sender,
             const mono::UpdateContext& update_context);
 
@@ -66,9 +70,6 @@ namespace game
         ServerManager* m_server_manager;
         uint32_t m_replication_interval;
 
-        uint32_t m_keyframe_low;
-        uint32_t m_keyframe_high;
-
         mono::EventToken<PlayerConnectedEvent> m_connected_token;
 
         struct TransformData
@@ -77,12 +78,10 @@ namespace game
             math::Vector position;
             float rotation;
             uint16_t parent_transform;
-            bool settled;
         } m_transform_data[500];
 
         struct SpriteData
         {
-            int time_to_replicate;
             uint32_t filename_hash;
             uint32_t hex_color;
             short animation_id;
@@ -90,6 +89,12 @@ namespace game
             bool horizontal_direction;
         } m_sprite_data[500];
 
+        struct HealthData
+        {
+            int health;
+        } m_health_data[500];
+
         std::queue<NetworkMessage> m_message_queue;
+        std::unordered_set<network::Address> m_known_clients;
     };
 }

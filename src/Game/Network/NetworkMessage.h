@@ -86,7 +86,6 @@ namespace game
         uint16_t parent_transform;
         math::Vector position;
         float rotation;
-        bool settled;
     };
 
     struct SpawnMessage
