@@ -62,7 +62,8 @@ namespace game
     game::PlayerInfo* AllocatePlayerInfo();
     void ReleasePlayerInfo(PlayerInfo* player_info);
 
-    bool IsPlayer(uint32_t entity_id);
     game::PlayerInfo* FindPlayerInfoFromEntityId(uint32_t entity_id);
     const PlayerInfo* GetClosestActivePlayer(const math::Vector& world_position);
+
+    bool IsPlayer(uint32_t entity_id);
 }

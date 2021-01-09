@@ -25,8 +25,6 @@
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
-#include "Hud/Debug/NetworkStatusDrawer.h"
-#include "Hud/Debug/ClientViewportVisualizer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
 
 #include "UpdateTasks/ListenerPositionUpdater.h"

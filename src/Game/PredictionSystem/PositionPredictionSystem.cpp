@@ -148,7 +148,7 @@ uint32_t PositionPredictionSystem::FindBestPredictionIndex(uint32_t timestamp, c
 {
     uint32_t best_index = 0;
 
-    for(uint32_t buffer_index = 0; buffer_index < 8; ++buffer_index)
+    for(uint32_t buffer_index = 0; buffer_index < prediction_buffer.size(); ++buffer_index)
     {
         best_index = buffer_index;
         

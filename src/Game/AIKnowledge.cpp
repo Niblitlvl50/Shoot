@@ -36,11 +36,6 @@ void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
         std::memset(it, 0, sizeof(game::PlayerInfo));
 }
 
-bool game::IsPlayer(uint32_t entity_id)
-{
-    return FindPlayerInfoFromEntityId(entity_id) != nullptr;
-}
-
 game::PlayerInfo* game::FindPlayerInfoFromEntityId(uint32_t entity_id)
 {
     const auto find_func = [entity_id](const PlayerInfo& player_info){
@@ -74,4 +69,9 @@ const game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_p
     }
 
     return closest_player;
+}
+
+bool game::IsPlayer(uint32_t entity_id)
+{
+    return FindPlayerInfoFromEntityId(entity_id) != nullptr;
 }
