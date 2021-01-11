@@ -8,7 +8,7 @@
 #include "Math/MathFunctions.h"
 
 #include "Physics/PhysicsSystem.h"
-#include "Physics/CMSpace.h"
+#include "Physics/PhysicsSpace.h"
 
 #include "System/System.h"
 

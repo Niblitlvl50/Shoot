@@ -1,0 +1,94 @@
+
+#include "ExplodableController.h"
+
+#include "DamageSystem.h"
+#include "Effects/ExplosionEffect.h"
+
+#include "Audio/AudioFactory.h"
+#include "EntitySystem/IEntityManager.h"
+#include "Particle/ParticleSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/PhysicsSpace.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "SystemContext.h"
+#include "TransformSystem/TransformSystem.h"
+
+#include "CollisionConfiguration.h"
+
+using namespace game;
+
+ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+    : m_entity_id(entity_id)
+{
+    m_explosion_sound =
+        mono::AudioFactory::CreateSound("res/sound/explosion_metallic.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
+
+    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+        m_states.TransitionTo(ExplodableStates::DEAD);
+    };
+
+    m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_damage_system->PreventReleaseOnDeath(entity_id, true);
+    uint32_t callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
+
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    m_explosion_effect = std::make_unique<ExplosionEffect>(particle_system, m_entity_system);
+
+    const ExplodableStateMachine::StateTable state_table = {
+        ExplodableStateMachine::MakeState(ExplodableStates::IDLE, &ExplodableController::OnIdle, &ExplodableController::Idle, this),
+        ExplodableStateMachine::MakeState(ExplodableStates::DEAD, &ExplodableController::OnDead, &ExplodableController::Dead, this),
+    };
+
+    m_states.SetStateTableAndState(state_table, ExplodableStates::IDLE);
+}
+
+void ExplodableController::Update(const mono::UpdateContext& update_context)
+{
+    m_states.UpdateState(update_context);
+}
+
+void ExplodableController::OnIdle()
+{ }
+
+void ExplodableController::Idle(const mono::UpdateContext& update_context)
+{ }
+
+void ExplodableController::OnDead()
+{
+    m_explosion_sound->Play();
+    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+
+    const math::Vector world_position = math::GetPosition(m_transform_system->GetWorld(m_entity_id));
+    m_explosion_effect->ExplodeAt(world_position);
+
+    const std::vector<mono::IBody*> found_bodies =
+        m_physics_system->GetSpace()->QueryRadius(world_position, 3.0f, shared::CollisionCategory::ALL);
+
+    for(mono::IBody* body : found_bodies)
+    {
+        const uint32_t other_entity_id = m_physics_system->GetIdFromBody(body);
+        const math::Vector body_position = body->GetPosition();
+
+        const math::Vector delta = body_position - world_position;
+        const math::Vector normalized_delta = math::Normalized(delta);
+
+        //const float length = math::Length(delta); // Maybe scale the damage and impulse with the length
+
+        body->ApplyImpulse(normalized_delta * 50.0f, world_position);
+        m_damage_system->ApplyDamage(other_entity_id, 10, m_entity_id);
+    }
+
+    m_wait_timer = 0;
+}
+
+void ExplodableController::Dead(const mono::UpdateContext& update_context)
+{
+    m_wait_timer += update_context.delta_ms;
+    if(m_wait_timer > 500)
+        m_entity_system->ReleaseEntity(m_entity_id);
+}

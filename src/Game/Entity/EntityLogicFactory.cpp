@@ -10,6 +10,7 @@
 #include "Enemies/InvaderPathController.h"
 #include "Enemies/BlobController.h"
 #include "Enemies/TurretSpawnerController.h"
+#include "Enemies/ExplodableController.h"
 
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
@@ -34,6 +35,7 @@ namespace
         MakeController<game::InvaderPathController>,
         MakeController<game::BlobController>,
         MakeController<game::TurretSpawnerController>,
+        MakeController<game::ExplodableController>,
     };
 }
 

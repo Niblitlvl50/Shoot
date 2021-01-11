@@ -7,7 +7,7 @@
 #include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsSystem.h"
-#include "Physics/CMSpace.h"
+#include "Physics/PhysicsSpace.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Shader/ScreenShader.h"
 #include "Rendering/Sprite/SpriteSystem.h"

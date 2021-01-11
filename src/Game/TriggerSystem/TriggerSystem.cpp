@@ -6,7 +6,7 @@
 #include "Physics/IShape.h"
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
-#include "Physics/CMSpace.h"
+#include "Physics/PhysicsSpace.h"
 #include "Rendering/Color.h"
 
 #include "Factories.h"

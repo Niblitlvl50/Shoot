@@ -15,6 +15,7 @@ namespace shared
         INVADER_PATH,
         BLOB,
         TURRET_SPAWNER,
+        EXPLODABLE,
     };
 
     constexpr const char* entity_logic_strings[] = {
@@ -26,6 +27,7 @@ namespace shared
         "Path Invader",
         "Blob",
         "Turret Spawner",
+        "Explodable",
     };
 
     inline const char* EntityLogicToString(EntityLogicType logic_type)
