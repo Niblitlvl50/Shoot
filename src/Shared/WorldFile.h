@@ -28,5 +28,12 @@ namespace shared
 
     using EntityCreationCallback
         = std::function<void (const mono::Entity& entity, const std::string& folder, const std::vector<Component>& components)>;
-    LevelData ReadWorldComponentObjects(const char* file_name, mono::IEntityManager* entity_manager, EntityCreationCallback callback);
+
+    LevelData ReadWorldComponentObjects(
+        const char* filename, mono::IEntityManager* entity_manager, EntityCreationCallback creation_callback);
+
+    using ComponentFilterCallback = std::function<bool (uint32_t component_hash)>;
+
+    LevelData ReadWorldComponentObjectsFiltered(
+        const char* filename, mono::IEntityManager* entity_manager, ComponentFilterCallback component_filter);
 }
