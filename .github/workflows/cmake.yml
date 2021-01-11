@@ -51,4 +51,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}
-      run: ls
+      run: ./bin/game_test_exe
