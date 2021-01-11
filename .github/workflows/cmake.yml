@@ -22,6 +22,13 @@ jobs:
     - name: Install OpenGL and OpenAL
       run: sudo apt-get install libgl1-mesa-dev libopenal-dev
 
+    - name: Install SDL2
+      run: |
+        # Steps copied from the rust-sdl2 project.
+        wget https://www.libsdl.org/release/SDL2-2.0.10.tar.gz -O sdl2.tar.gz
+        tar xzf sdl2.tar.gz
+        pushd SDL2-2.0.10 && ./configure && make && sudo make install && popd
+    
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
       # We'll use this as our working directory for all subsequent commands
