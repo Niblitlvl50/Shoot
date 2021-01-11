@@ -270,7 +270,7 @@ int ServerReplicator::ReplicateSprites(
     return replicated_sprites;
 }
 
-int_fast32_t ServerReplicator::ReplicateDamageInfos(
+int ServerReplicator::ReplicateDamageInfos(
     const std::vector<uint32_t>& entities,
     const std::vector<uint32_t>& spawn_entities,
     bool force_replicate,
