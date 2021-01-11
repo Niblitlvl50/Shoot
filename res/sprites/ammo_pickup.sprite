@@ -15,8 +15,8 @@
             "h": 11,
             "name": "ammo_pickup",
             "w": 9,
-            "x": 235,
-            "y": 354
+            "x": 100,
+            "y": 355
         }
     ],
     "frames_offsets": [

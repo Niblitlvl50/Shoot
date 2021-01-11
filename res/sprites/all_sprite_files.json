@@ -1,6 +1,7 @@
 {
     "all_sprites": [
         "res/sprites/ammo_pickup.sprite",
+        "res/sprites/barrel_exploding.sprite",
         "res/sprites/barrel_green.sprite",
         "res/sprites/barrel_green_small.sprite",
         "res/sprites/barrel_red.sprite",
