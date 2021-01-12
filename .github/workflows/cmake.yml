@@ -67,5 +67,5 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}
       run: |
-        ./bin/unittest${{ matrix.exe_suffix }}
+        # ./bin/unittest${{ matrix.exe_suffix }}
         ./bin/game_test_exe${{ matrix.exe_suffix }}
