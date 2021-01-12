@@ -6,7 +6,7 @@
 
 #include "PickupTypes.h"
 #include "Physics/PhysicsFwd.h"
-#include "Audio/AudioFactory.h"
+#include "System/Audio.h"
 
 #include <vector>
 #include <memory>
@@ -62,6 +62,6 @@ namespace game
 
         std::vector<PickupToTarget> m_pickups_to_process;
 
-        mono::ISoundPtr m_pickup_sound;
+        audio::ISoundPtr m_pickup_sound;
     };
 }

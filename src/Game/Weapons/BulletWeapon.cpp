@@ -5,8 +5,7 @@
 #include "Math/Vector.h"
 #include "Math/MathFunctions.h"
 
-#include "Audio/ISound.h"
-#include "Audio/AudioFactory.h"
+#include "System/Audio.h"
 #include "Util/Random.h"
 
 #include "RenderLayers.h"
@@ -41,18 +40,18 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_m
     , m_ammunition(config.magazine_size)
     , m_state(WeaponState::IDLE)
 {
-    m_fire_sound = mono::AudioFactory::CreateNullSound();
-    m_ooa_sound = mono::AudioFactory::CreateNullSound();
-    m_reload_sound = mono::AudioFactory::CreateNullSound();
+    m_fire_sound = audio::CreateNullSound();
+    m_ooa_sound = audio::CreateNullSound();
+    m_reload_sound = audio::CreateNullSound();
 
     if(config.fire_sound)
-        m_fire_sound = mono::AudioFactory::CreateSound(config.fire_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+        m_fire_sound = audio::CreateSound(config.fire_sound, audio::SoundPlayback::ONCE);
 
     if(config.out_of_ammo_sound)
-        m_ooa_sound = mono::AudioFactory::CreateSound(config.out_of_ammo_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+        m_ooa_sound = audio::CreateSound(config.out_of_ammo_sound, audio::SoundPlayback::ONCE);
     
     if(config.reload_sound)
-        m_reload_sound = mono::AudioFactory::CreateSound(config.reload_sound, mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+        m_reload_sound = audio::CreateSound(config.reload_sound, audio::SoundPlayback::ONCE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -73,7 +72,6 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     if(m_ammunition == 0)
     {
         m_current_fire_rate = 1.0f;
-        m_ooa_sound->Position(position.x, position.y);
         m_ooa_sound->Play();
 
         m_state = WeaponState::OUT_OF_AMMO;
@@ -129,7 +127,6 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
     m_muzzle_flash->EmittAt(position, direction);
 
-    m_fire_sound->Position(position.x, position.y);
     m_fire_sound->Play();
 
     m_current_fire_rate *= m_weapon_config.fire_rate_multiplier;

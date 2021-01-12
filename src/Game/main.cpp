@@ -1,7 +1,7 @@
 
-#include "Audio/AudioSystem.h"
 #include "Camera/Camera.h"
 #include "EventHandler/EventHandler.h"
+#include "System/Audio.h"
 #include "System/System.h"
 #include "System/Network.h"
 
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();
 
-    mono::InitializeAudio();
+    audio::Initialize();
 
     mono::RenderInitParams render_params;
     render_params.pixels_per_meter = 32.0f;
@@ -187,7 +187,7 @@ int main(int argc, char* argv[])
     }
 
     mono::ShutdownRender();
-    mono::ShutdownAudio();
+    audio::Shutdown();
 
     network::Shutdown();
     System::Shutdown();

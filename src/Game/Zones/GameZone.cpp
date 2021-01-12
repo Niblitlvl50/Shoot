@@ -1,8 +1,6 @@
 
 #include "GameZone.h"
 
-#include "Audio/AudioDebugDrawer.h"
-
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Text/TextSystem.h"
@@ -95,7 +93,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
-    AddDrawable(new mono::AudioDebugDrawer(g_draw_audio), LayerId::UI);
+    //AddDrawable(new mono::AudioDebugDrawer(g_draw_audio), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
 }
 

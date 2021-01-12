@@ -2,7 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "Audio/ISound.h"
+#include "System/Audio.h"
 
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
@@ -36,7 +36,7 @@ namespace game
         game::DamageSystem* m_damage_system;
 
         std::unique_ptr<class ExplosionEffect> m_explosion_effect;
-        std::unique_ptr<mono::ISound> m_explosion_sound;
+        audio::ISoundPtr m_explosion_sound;
 
         enum class ExplodableStates
         {

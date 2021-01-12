@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "MonoPtrFwd.h"
+#include "System/Audio.h"
 #include "Physics/IBody.h"
 
 #include "Entity/IEntityLogic.h"
@@ -25,7 +25,7 @@ namespace game
 
         BulletImpactCallback m_collision_callback;
         int m_life_span;
-        mono::ISoundPtr m_sound;
+        audio::ISoundPtr m_sound;
 
         mono::PhysicsSystem* m_physics_system;
         BulletCollisionBehaviour m_bullet_behaviour;

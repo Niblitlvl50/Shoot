@@ -2,8 +2,7 @@
 #include "BulletLogic.h"
 #include "CollisionConfiguration.h"
 
-#include "Audio/ISound.h"
-#include "Audio/AudioFactory.h"
+#include "System/Audio.h"
 #include "Util/Random.h"
 #include "Math/MathFunctions.h"
 
@@ -31,12 +30,12 @@ BulletLogic::BulletLogic(
 
     if(config.sound_file)
     {
-        m_sound = mono::AudioFactory::CreateSound(config.sound_file, mono::SoundPlayback::LOOPING, mono::SoundPosition::GLOBAL);
+        m_sound = audio::CreateSound(config.sound_file, audio::SoundPlayback::LOOPING);
         m_sound->Play();
     }
     else
     {
-        m_sound = mono::AudioFactory::CreateNullSound();
+        m_sound = audio::CreateNullSound();
     }
 
     m_physics_system = physics_system;

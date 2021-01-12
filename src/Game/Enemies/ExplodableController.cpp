@@ -4,7 +4,7 @@
 #include "DamageSystem.h"
 #include "Effects/ExplosionEffect.h"
 
-#include "Audio/AudioFactory.h"
+#include "System/Audio.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Particle/ParticleSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -21,7 +21,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     : m_entity_id(entity_id)
 {
     m_explosion_sound =
-        mono::AudioFactory::CreateSound("res/sound/explosion_metallic.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
+        audio::CreateSound("res/sound/explosion_metallic.wav", audio::SoundPlayback::ONCE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();

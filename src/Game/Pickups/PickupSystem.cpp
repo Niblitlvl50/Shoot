@@ -44,9 +44,7 @@ PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, mono
     m_active.resize(n, false);
     m_collision_handlers.resize(n);
 
-    m_pickup_sound =
-        mono::AudioFactory::CreateSound("res/sound/item_pickup.wav", mono::SoundPlayback::ONCE, mono::SoundPosition::GLOBAL);
-    m_pickup_sound->Position(0.0f, 0.0f);
+    m_pickup_sound = audio::CreateSound("res/sound/item_pickup.wav", audio::SoundPlayback::ONCE);
 }
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)

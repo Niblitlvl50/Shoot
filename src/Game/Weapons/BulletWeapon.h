@@ -1,10 +1,11 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IWeapon.h"
 #include "WeaponConfiguration.h"
 
-#include "MonoPtrFwd.h"
+#include "System/Audio.h"
 #include "Math/MathFwd.h"
 
 namespace game
@@ -37,9 +38,9 @@ namespace game
         int m_reload_percentage;
         WeaponState m_state;
 
-        mono::ISoundPtr m_fire_sound;
-        mono::ISoundPtr m_ooa_sound;
-        mono::ISoundPtr m_reload_sound;
+        audio::ISoundPtr m_fire_sound;
+        audio::ISoundPtr m_ooa_sound;
+        audio::ISoundPtr m_reload_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;

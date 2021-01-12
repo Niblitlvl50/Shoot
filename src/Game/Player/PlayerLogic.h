@@ -4,7 +4,7 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 #include "StateMachine.h"
-#include "Audio/ISound.h"
+#include "System/Audio.h"
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerGamepadController.h"
@@ -100,7 +100,7 @@ namespace game
         std::unique_ptr<class TrailEffect> m_trail_effect;
         std::unique_ptr<class BlinkEffect> m_blink_effect;
 
-        std::unique_ptr<class mono::ISound> m_blink_sound;
+        audio::ISoundPtr m_blink_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
