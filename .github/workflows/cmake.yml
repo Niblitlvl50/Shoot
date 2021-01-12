@@ -12,14 +12,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest] #, windows-latest]
+#        os: [ubuntu-latest, macos-latest] #, windows-latest]
         include:
           - os: ubuntu-latest
             exe_suffix: ''
           - os: macos-latest
             exe_suffix: ''
-          - os: windows-latest
-            exe_suffix: '.exe'
+#          - os: windows-latest
+#            exe_suffix: '.exe'
 
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
@@ -69,3 +69,7 @@ jobs:
       run: |
         # ./bin/unittest${{ matrix.exe_suffix }}
         ./bin/game_test_exe${{ matrix.exe_suffix }}
+
+    - name: List dir
+      working-directory: ${{github.workspace}}
+      run: ls
