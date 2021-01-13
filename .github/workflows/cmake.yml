@@ -21,7 +21,7 @@ jobs:
             sdl2_dir: ''
           - os: windows-latest
             exe_suffix: '.exe'
-            sdl2_dir: 'SDL2-2.0.10'
+            sdl2_dir: ${{github.workspace}}/'SDL2-2.0.10/'
 
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
