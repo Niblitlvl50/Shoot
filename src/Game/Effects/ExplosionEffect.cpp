@@ -6,6 +6,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 
+#include "Rendering/RenderSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "EntitySystem/IEntityManager.h"
 

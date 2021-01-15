@@ -29,7 +29,7 @@ void ConsoleDrawer::Draw(mono::IRenderer& renderer) const
 
     for(const TextItem& item : m_text_items)
     {
-        renderer.DrawText(0, item.text.c_str(), current_pos, false, mono::Color::RED);
+        renderer.RenderText(0, item.text.c_str(), current_pos, false, mono::Color::RED);
         current_pos.y += 1.0f;
     }
 

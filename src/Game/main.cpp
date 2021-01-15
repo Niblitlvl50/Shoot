@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
     {
         //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
         const System::WindowOptions window_options = System::WindowOptions::NONE;
-        System::IWindow* window = System::CreateWindow("game", options.x, options.y, options.width, options.height, window_options);
+        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, window_options);
         
         shared::LoadFonts();
 

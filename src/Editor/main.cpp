@@ -48,7 +48,7 @@ int main()
         editor::Config config;
         editor::LoadConfig("res/editor_config.json", config);
         
-        System::IWindow* window = System::CreateWindow(
+        System::IWindow* window = System::MakeWindow(
             "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::NONE);
 
         mono::Camera camera;

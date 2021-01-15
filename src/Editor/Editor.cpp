@@ -3,6 +3,7 @@
 #include "EditorConfig.h"
 #include "Camera/ICamera.h"
 
+#include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"

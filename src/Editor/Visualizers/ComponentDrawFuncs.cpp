@@ -141,7 +141,7 @@ void editor::DrawPolygonShapeDetails(
 
     renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
     if(is_sensor)
-        renderer.DrawText(shared::PIXELETTE_SMALL, "sensor", position, true, mono::Color::BLUE);
+        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSpawnPointDetails(
@@ -159,7 +159,7 @@ void editor::DrawShapeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -173,7 +173,7 @@ void editor::DrawAreaTriggerComponentDetails(
 
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawDeathTriggerComponentDetails(
@@ -181,7 +181,7 @@ void editor::DrawDeathTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawTimeTriggerComponentDetails(
@@ -189,7 +189,7 @@ void editor::DrawTimeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.DrawText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawSetTranslationDetails(

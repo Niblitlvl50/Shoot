@@ -29,7 +29,7 @@ void FPSElement::EntityDraw(mono::IRenderer& renderer) const
 
     char text[32] = { '\0' };
     std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, m_color);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, m_color);
 }
 
 void FPSElement::EntityUpdate(const mono::UpdateContext& update_context)

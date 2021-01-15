@@ -27,7 +27,7 @@ void ParticleStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
 
     char text[512] = { 0 };
     std::snprintf(text, 512, "pools: %u emitters: %u", stats.active_pools, stats.active_emitters);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, mono::Color::BLACK);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, mono::Color::BLACK);
 }
 
 void ParticleStatusDrawer::EntityUpdate(const mono::UpdateContext& update_context)

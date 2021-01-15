@@ -36,25 +36,25 @@ void NetworkStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
 
     char text_buffer[256] = { '\0' };
     std::snprintf(text_buffer, std::size(text_buffer), "packages: %u/%u", stats.total_packages_sent, stats.total_packages_received);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -5.0f), false, mono::Color::BLACK);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -5.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
     std::snprintf(text_buffer, std::size(text_buffer), "total: %.1fmb / %.1fmb", mb_sent, mb_received);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -10.0f), false, mono::Color::BLACK);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -10.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
     std::snprintf(text_buffer, std::size(text_buffer), "frame: %.1fkb / %.1fkb", kb_sent_per_frame, kb_received_per_frame);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -15.0f), false, mono::Color::BLACK);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -15.0f), false, mono::Color::BLACK);
 
     std::memset(text_buffer, 0, std::size(text_buffer));
     std::snprintf(text_buffer, std::size(text_buffer), "compression rate: %.1f%%", compression_rate);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -20.0f), false, mono::Color::BLACK);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -20.0f), false, mono::Color::BLACK);
 
     float y = -30.0f;
 
     for(const std::string& additional_text : info.additional_info)
     {
-        renderer.DrawText(shared::FontId::PIXELETTE_MEGA, additional_text.c_str(), math::Vector(5.0f, y), false, mono::Color::BLACK);
+        renderer.RenderText(shared::FontId::PIXELETTE_MEGA, additional_text.c_str(), math::Vector(5.0f, y), false, mono::Color::BLACK);
         y -= 5.0f;
     }
 }

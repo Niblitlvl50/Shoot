@@ -1,6 +1,7 @@
 
 #include "TrailEffect.h"
 #include "Particle/ParticleSystem.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Texture/ITextureFactory.h"
 #include "Math/Matrix.h"
 #include "TransformSystem/TransformSystem.h"

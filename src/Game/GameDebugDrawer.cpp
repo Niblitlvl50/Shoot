@@ -49,7 +49,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     for(DebugText& text : m_debug_texts_world)
     {
-        renderer.DrawText(0, text.text.c_str(), text.position, false, text.color);
+        renderer.RenderText(0, text.text.c_str(), text.position, false, text.color);
 
         text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
         text.timestamp += renderer.GetDeltaTimeMS();
@@ -64,7 +64,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     for(DebugText& text : m_debug_texts_screen)
     {
-        renderer.DrawText(0, text.text.c_str(), text.position, false, text.color);
+        renderer.RenderText(0, text.text.c_str(), text.position, false, text.color);
 
         text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
         text.timestamp += renderer.GetDeltaTimeMS();

@@ -32,7 +32,7 @@ void ScaleVisualizer::Draw(mono::IRenderer& renderer) const
     const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
     renderer.DrawLines(points, black_color, 2.0f);
-    renderer.DrawText(shared::FontId::PIXELETTE_MEGA, text, position, true, black_color);
+    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text, position, true, black_color);
 }
 
 math::Quad ScaleVisualizer::BoundingBox() const

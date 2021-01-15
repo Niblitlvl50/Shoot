@@ -13,6 +13,7 @@
 #include "TriggerTypes.h"
 #include "AnimationModes.h"
 #include "FontIds.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"

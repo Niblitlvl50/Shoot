@@ -20,7 +20,7 @@ void ObjectNameVisualizer::Draw(mono::IRenderer& renderer) const
     for(const IObjectProxyPtr& proxy : m_object_proxies)
     {
         const math::Vector position = proxy->GetPosition() + math::Vector(0.0f, -1.0f);
-        renderer.DrawText(shared::FontId::PIXELETTE_TINY, proxy->Name(), position, true, mono::Color::WHITE);
+        renderer.RenderText(shared::FontId::PIXELETTE_TINY, proxy->Name(), position, true, mono::Color::WHITE);
     }
 }
 

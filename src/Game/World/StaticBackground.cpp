@@ -3,6 +3,7 @@
 
 #include "Math/MathFunctions.h"
 #include "Math/Quad.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Texture/ITextureFactory.h"

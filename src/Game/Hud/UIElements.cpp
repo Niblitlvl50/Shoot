@@ -1,5 +1,6 @@
 
 #include "UIElements.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
@@ -30,7 +31,7 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
 
 void UITextElement::EntityDraw(mono::IRenderer& renderer) const
 {
-    renderer.DrawText(m_font_id, m_text.c_str(), math::ZeroVec, m_centered, m_color);
+    renderer.RenderText(m_font_id, m_text.c_str(), math::ZeroVec, m_centered, m_color);
 }
 
 void UITextElement::EntityUpdate(const mono::UpdateContext& update_context)

@@ -132,7 +132,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width_boss);
 
         const Healthbar& boss_healthbar = boss_healthbars.back();
-        renderer.DrawText(
+        renderer.RenderText(
             shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
     }
 }

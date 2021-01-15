@@ -2,6 +2,7 @@
 #include "BlinkEffect.h"
 
 #include "Particle/ParticleSystem.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Texture/ITextureFactory.h"
 #include "Util/Random.h"
 
