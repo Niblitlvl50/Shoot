@@ -27,7 +27,7 @@ namespace
         if(!file)
             return level_data;
 
-        System::Log("Loading world '%s'.\n", filename);
+        System::Log("WorldFile|Loading world '%s'.\n", filename);
 
         const std::vector<byte> file_data = file::FileRead(file);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
