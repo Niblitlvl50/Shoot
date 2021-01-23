@@ -16,6 +16,7 @@ public:
 
     std::unique_ptr<mono::IRenderBuffer> m_vertex_buffer;
     std::unique_ptr<mono::IRenderBuffer> m_texture_buffer;
+    std::unique_ptr<mono::IElementBuffer> m_index_buffer;
 
     mono::ITexturePtr m_texture;
 };

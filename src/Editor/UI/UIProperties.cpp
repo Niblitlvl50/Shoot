@@ -14,12 +14,13 @@
 #include "AnimationModes.h"
 #include "FontIds.h"
 #include "Rendering/RenderSystem.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteProperties.h"
+#include "Rendering/Sprite/SpriteData.h"
+#include "Rendering/Texture/ITexture.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
-#include "Rendering/Sprite/ISpriteFactory.h"
-#include "Rendering/Sprite/SpriteData.h"
 
 #include <cstdio>
 #include <limits>
@@ -497,7 +498,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
             const SpriteUIIcon& sprite_icon = sprite_icons[index];
             ImGui::PushID(index);
 
-            void* texture_id = reinterpret_cast<void*>(sprite_icon.icon.texture_id);
+            void* texture_id = reinterpret_cast<void*>(sprite_icon.icon.texture->Id());
             const math::Vector& size = sprite_icon.icon.size;
 
             constexpr float button_max_size = 64.0f;

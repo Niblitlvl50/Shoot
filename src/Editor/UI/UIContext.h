@@ -4,6 +4,7 @@
 #include "MainMenuOptions.h"
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "UINotification.h"
 
 #include <functional>
@@ -44,7 +45,7 @@ namespace editor
 
     struct UIIcon
     {
-        int texture_id;
+        mono::ITexturePtr texture;
         math::Vector uv_upper_left;
         math::Vector uv_lower_right;
         math::Vector size;

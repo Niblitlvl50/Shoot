@@ -6,6 +6,10 @@
 #include "Resources.h"
 #include "ObjectProxies/IObjectProxy.h"
 #include "Util/Algorithm.h"
+
+#include "Rendering/IRenderer.h"
+#include "Rendering/Texture/ITexture.h"
+
 #include "ImGuiImpl/ImGuiImpl.h"
 
 #include <algorithm>
@@ -299,7 +303,7 @@ namespace
 
             if(icon_it != context.ui_icons.end())
             {
-                void* texture_id = reinterpret_cast<void*>(icon_it->second.texture_id);
+                void* texture_id = reinterpret_cast<void*>(icon_it->second.texture->Id());
                 const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
                 ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
                 ImGui::SameLine();
@@ -349,11 +353,8 @@ ImGuiInterfaceDrawer::ImGuiInterfaceDrawer(UIContext& context)
     : m_context(context)
 { }
 
-void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
+void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
 {
-    ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
-    ImGui::NewFrame();
-
     DrawMainMenuBar(m_context);
     DrawObjectOutline(m_context);
     DrawSelectionView(m_context);
@@ -362,13 +363,10 @@ void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
-    //ImGui::ShowDemoWindow();
-    ImGui::Render();
-
     // Update UI stuff below
 
-    const auto remove_notification_func = [update_context](Notification& note) {
-        note.time_left -= update_context.delta_ms;
+    const auto remove_notification_func = [&renderer](Notification& note) {
+        note.time_left -= renderer.GetDeltaTimeMS();
         return note.time_left <= 0;
     };
 
@@ -376,4 +374,9 @@ void ImGuiInterfaceDrawer::Update(const mono::UpdateContext& update_context)
 
     // Reset the shortcut
     m_context.open_add_component = false;
+}
+
+math::Quad ImGuiInterfaceDrawer::BoundingBox() const
+{
+    return math::InfQuad;
 }

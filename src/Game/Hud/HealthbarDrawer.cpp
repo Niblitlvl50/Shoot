@@ -103,9 +103,11 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     const std::vector<math::Vector>& background_lines = GenerateHealthbarVertices(healthbars, true);
     const std::vector<math::Vector>& healthbar_lines = GenerateHealthbarVertices(healthbars, false);
 
-    renderer.DrawLines(background_lines, background_color, line_width);
-    renderer.DrawLines(healthbar_lines, healthbar_color, line_width);
-
+    if(!background_lines.empty() && !healthbar_lines.empty())
+    {
+        renderer.DrawLines(background_lines, background_color, line_width);
+        renderer.DrawLines(healthbar_lines, healthbar_color, line_width);
+    }
 
     // Boss health bars
 

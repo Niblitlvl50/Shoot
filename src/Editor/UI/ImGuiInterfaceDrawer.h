@@ -1,17 +1,18 @@
 
 #pragma once
 
-#include "IUpdatable.h"
+#include "Rendering/IDrawable.h"
 
 namespace editor
 {
     struct UIContext;
 
-    class ImGuiInterfaceDrawer : public mono::IUpdatable
+    class ImGuiInterfaceDrawer : public mono::IDrawable
     {
     public:
         ImGuiInterfaceDrawer(UIContext& context);
-        virtual void Update(const mono::UpdateContext& update_context);
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
     
     private:
         UIContext& m_context;

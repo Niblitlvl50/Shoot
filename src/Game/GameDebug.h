@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "IUpdatable.h"
 #include "MonoFwd.h"
+#include "Rendering/IDrawable.h"
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 
@@ -23,17 +23,18 @@ namespace game
     extern bool g_draw_network_stats;
     extern bool g_draw_position_prediction;
 
-    class DebugUpdater : public mono::IUpdatable
+    class DebugUpdater : public mono::IDrawable
     {
     public:
         DebugUpdater(mono::EventHandler* event_handler);
         ~DebugUpdater();
-        void Update(const mono::UpdateContext& update_context) override;
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
     private:
         mono::EventHandler* m_event_handler;
-        bool m_draw_debug_menu;
-        bool m_draw_debug_players;
+        mutable bool m_draw_debug_menu;
+        mutable bool m_draw_debug_players;
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
     };
 }

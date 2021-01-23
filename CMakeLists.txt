@@ -81,8 +81,7 @@ foreach(RES_FILE ${game_exe_resource_files})
 
 endforeach(RES_FILE)
 
-file(GLOB_RECURSE game_exe_source_files "src/Game/main.cpp")
-add_executable(game_exe MACOSX_BUNDLE ${osx_bundle_icons} ${game_exe_source_files} ${game_exe_resource_files})
+add_executable(game_exe MACOSX_BUNDLE "src/Game/main.cpp" ${osx_bundle_icons} ${game_exe_resource_files})
 add_dependencies(game_exe game_lib mono shared)
 target_include_directories(game_exe PRIVATE "src/Game")
 target_link_libraries(game_exe game_lib shared mono)

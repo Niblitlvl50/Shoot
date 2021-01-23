@@ -9,7 +9,6 @@
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
-#include "Rendering/ImGui.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
 
@@ -59,7 +58,7 @@ namespace
     void SetupIcons(editor::UIContext& context)
     {
         context.ui_icons[editor::placeholder_texture] = {
-            (int)mono::LoadImGuiTexture(editor::placeholder_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::placeholder_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -67,7 +66,7 @@ namespace
         };
 
         context.ui_icons[editor::export_texture] = {
-            (int)mono::LoadImGuiTexture(editor::export_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::export_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -75,7 +74,7 @@ namespace
         };
 
         context.ui_icons[editor::import_texture] = {
-            (int)mono::LoadImGuiTexture(editor::import_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::import_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -83,7 +82,7 @@ namespace
         };
 
         context.ui_icons[editor::information_texture] = {
-            (int)mono::LoadImGuiTexture(editor::information_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::information_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -91,7 +90,7 @@ namespace
         };
 
         context.ui_icons[editor::save_texture] = {
-            (int)mono::LoadImGuiTexture(editor::save_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::save_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -99,7 +98,7 @@ namespace
         };
 
         context.ui_icons[editor::wrench_texture] = {
-            (int)mono::LoadImGuiTexture(editor::wrench_texture),
+            mono::GetTextureFactory()->CreateTexture(editor::wrench_texture),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -116,7 +115,7 @@ namespace
                 mono::GetSpriteFactory()->GetSpriteDataForFile(full_sprite_path.c_str());
 
             context.ui_icons[sprite_file] = {
-                (int)mono::LoadImGuiTexture(sprite_data->texture_file.c_str()),
+                mono::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
                 sprite_data->frames.front().uv_upper_left,
                 sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
@@ -221,7 +220,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_camera = camera;
 
-    mono::SetImGuiConfig("res/editor_imgui.ini");
     m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
@@ -246,7 +244,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
     AddUpdatable(new SyncPoint(m_entity_manager));
-    AddUpdatable(new editor::ImGuiInterfaceDrawer(m_context));
 
     AddDrawable(new GridVisualizer(), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
@@ -264,6 +261,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
 }
 
 int Editor::OnUnload()

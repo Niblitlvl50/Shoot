@@ -23,7 +23,7 @@ bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 
-void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
+void DrawDebugMenu(bool& show_window)
 {
     constexpr int flags =
         ImGuiWindowFlags_AlwaysAutoResize |
@@ -50,7 +50,7 @@ void DrawDebugMenu(const mono::UpdateContext& update_context, bool& show_window)
     ImGui::End();
 }
 
-void DrawDebugPlayers(const mono::UpdateContext& update_context, bool& show_window)
+void DrawDebugPlayers(bool& show_window)
 {
     constexpr int flags =
         ImGuiWindowFlags_AlwaysAutoResize |
@@ -119,17 +119,16 @@ game::DebugUpdater::~DebugUpdater()
     m_event_handler->RemoveListener(m_keyup_token);
 }
 
-void game::DebugUpdater::Update(const mono::UpdateContext& update_context)
+void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
 {
-    ImGui::GetIO().DeltaTime = float(update_context.delta_ms) / 1000.0f;
-    ImGui::NewFrame();
-
     if(m_draw_debug_menu)
-        DrawDebugMenu(update_context, m_draw_debug_menu);
+        DrawDebugMenu(m_draw_debug_menu);
 
     if(m_draw_debug_players)
-        DrawDebugPlayers(update_context, m_draw_debug_players);
+        DrawDebugPlayers(m_draw_debug_players);
+}
 
-    //ImGui::ShowDemoWindow();
-    ImGui::Render();
+math::Quad game::DebugUpdater::BoundingBox() const
+{
+    return math::InfQuad;
 }

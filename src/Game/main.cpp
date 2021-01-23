@@ -119,10 +119,6 @@ int main(int argc, char* argv[])
 
     audio::Initialize();
 
-    mono::RenderInitParams render_params;
-    render_params.pixels_per_meter = 32.0f;
-    mono::InitializeRender(render_params);
-
     mono::PhysicsSystemInitParams physics_system_params;
     physics_system_params.n_bodies = max_entities;
     physics_system_params.n_circle_shapes = max_entities;
@@ -135,7 +131,11 @@ int main(int argc, char* argv[])
         //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
         const System::WindowOptions window_options = System::WindowOptions::NONE;
         System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, window_options);
-        
+
+        mono::RenderInitParams render_params;
+        render_params.pixels_per_meter = 32.0f;
+        mono::InitializeRender(render_params);
+
         shared::LoadFonts();
 
         mono::EventHandler event_handler;
