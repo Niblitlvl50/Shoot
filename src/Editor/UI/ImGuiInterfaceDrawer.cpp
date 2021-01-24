@@ -94,8 +94,10 @@ namespace
             ImGui::EndMenu();
         }
 
-        ImGui::SameLine(ImGui::GetWindowWidth() -160);
+        ImGui::SameLine(ImGui::GetWindowWidth() -250);
         ImGui::TextDisabled("mouse: %.2f %.2f", context.world_mouse_position.x, context.world_mouse_position.y);
+        ImGui::SameLine(ImGui::GetWindowWidth() -100);
+        ImGui::TextDisabled("fps: %.2f", context.fps);
         ImGui::EndMainMenuBar();
     }
 

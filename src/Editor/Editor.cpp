@@ -48,6 +48,7 @@
 #include "Serializer/WorldSerializer.h"
 
 #include "Util/Algorithm.h"
+#include "Util/FpsCounter.h"
 #include "Math/MathFunctions.h"
 
 #include <algorithm>
@@ -133,16 +134,22 @@ namespace
     class SyncPoint : public mono::IUpdatable
     {
     public:
-        SyncPoint(mono::IEntityManager& entity_manager)
+        SyncPoint(mono::IEntityManager& entity_manager, editor::UIContext& ui_context)
             : m_entity_manager(entity_manager)
+            , m_ui_context(ui_context)
         { }
 
         void Update(const mono::UpdateContext& update_context) override
         {
             m_entity_manager.Sync();
+            m_fps++;
+
+            m_ui_context.fps = m_fps.Fps();
         }
 
         mono::IEntityManager& m_entity_manager;
+        editor::UIContext& m_ui_context;
+        mono::FpsCounter m_fps;
     };
 }
 
@@ -243,7 +250,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
-    AddUpdatable(new SyncPoint(m_entity_manager));
+    AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
     AddDrawable(new GridVisualizer(), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);

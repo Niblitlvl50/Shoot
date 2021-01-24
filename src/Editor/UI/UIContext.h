@@ -54,6 +54,7 @@ namespace editor
 
     struct UIContext
     {
+        float fps;
         math::Vector world_mouse_position;
 
         // User tools
