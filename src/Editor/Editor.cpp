@@ -287,6 +287,14 @@ int Editor::OnUnload()
     m_editor_config.selected_world = m_world_filename;
 
     Save();
+
+    for(auto& proxy : m_proxies)
+    {
+        mono::IEntity* entity = proxy->Entity();
+        if(entity)
+            RemoveEntity(entity);
+    }
+
     return 0;
 }
 
