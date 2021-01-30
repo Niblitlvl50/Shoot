@@ -14,7 +14,6 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Hash.h"
 
-#include "Hud/Overlay.h"
 #include "Hud/GameOverScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
@@ -98,18 +97,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
     m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
 
-    // Ui
-    UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    //hud_overlay->AddChild(new GameOverScreen(g_player_one, math::Vector(150.0f, 150.0f), math::Vector(450.0f, 150.0f), m_event_handler));
-    //hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
-    //hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
-    AddEntity(hud_overlay, LayerId::UI);
-
     // Debug
-    UIOverlayDrawer* debug_hud_overlay = new UIOverlayDrawer();
-    debug_hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), server_manager));
-    AddEntity(debug_hud_overlay, LayerId::UI);
     AddDrawable(new ClientViewportVisualizer(server_manager->GetConnectedClients()), LayerId::UI);
+    AddDrawable(new NetworkStatusDrawer(server_manager), LayerId::UI);
 }
 
 int SystemTestZone::OnUnload()

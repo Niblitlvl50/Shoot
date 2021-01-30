@@ -7,7 +7,6 @@
 #include "GameDebug.h"
 
 #include "Hud/Debug/ConsoleDrawer.h"
-#include "Hud/Overlay.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/HealthbarDrawer.h"
@@ -105,11 +104,8 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new HealthbarDrawer(m_damage_system, transform_system, m_entity_manager), LayerId::UI);
     AddDrawable(m_console_drawer.get(), LayerId::UI);
     AddDrawable(new DebugUpdater(m_event_handler), LayerId::UI);
-
-    auto hud_overlay = new UIOverlayDrawer();
-    hud_overlay->AddChild(new NetworkStatusDrawer(math::Vector(2.0f, 190.0f), client_manager));
-    hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
-    AddEntity(hud_overlay, LayerId::UI);
+    AddDrawable(new NetworkStatusDrawer(client_manager), LayerId::UI);
+    AddDrawable(new FPSElement, LayerId::UI);
 }
 
 int RemoteZone::OnUnload()
@@ -186,8 +182,6 @@ mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_me
 
     sprite->SetShade(mono::Color::ToRGBA(sprite_message.hex_color));
     sprite->SetAnimation(sprite_message.animation_id);
-    sprite->SetHorizontalDirection(mono::HorizontalDirection(sprite_message.horizontal_direction));
-    sprite->SetVerticalDirection(mono::VerticalDirection(sprite_message.vertical_direction));
 
     const math::Vector shadow_offset(sprite_message.shadow_offset_x, sprite_message.shadow_offset_y);
     sprite->SetShadowOffset(shadow_offset);

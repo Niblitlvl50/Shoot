@@ -1,13 +1,14 @@
 
 #pragma once
 
-#include <Zone/EntityBase.h>
+#include "Rendering/Color.h"
 
 #include <string>
+#include <vector>
 
 namespace game
 {
-    class UIDialog : public mono::EntityBase
+    class UIDialog
     {
     public:
 
@@ -25,9 +26,6 @@ namespace game
             const mono::Color::RGBA& text_color);
 
     private:
-
-        void EntityUpdate(const mono::UpdateContext& update_context);
-        void EntityDraw(mono::IRenderer& renderer) const;
 
         const std::vector<Option> m_options;
     };

@@ -1,29 +1,24 @@
 
 #include "NetworkStatusDrawer.h"
-#include "Network/ServerManager.h"
-#include "Network/ClientManager.h"
+#include "Network/INetworkPipe.h"
 #include "Network/ConnectionStats.h"
-#include "FontIds.h"
 
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
-#include "System/Network.h"
-#include "Util/Algorithm.h"
-
+#include "Math/Quad.h"
 #include "GameDebug.h"
-#include "Hud/UIElements.h"
+
+#include "imgui/imgui.h"
 
 using namespace game;
 
-NetworkStatusDrawer::NetworkStatusDrawer(const math::Vector& position, const INetworkPipe* network_pipe)
+NetworkStatusDrawer::NetworkStatusDrawer(const INetworkPipe* network_pipe)
     : m_network_pipe(network_pipe)
-{
-    m_position = position;
-    AddChild(new UISquareElement(math::Quad(0.0f, 0.0f, 100.0f, -100.0f), mono::Color::OFF_WHITE));
-}
+{ }
 
-void NetworkStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
+void NetworkStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
+    if(!game::g_draw_network_stats)
+        return;
+
     const ConnectionInfo& info = m_network_pipe->GetConnectionInfo();
     const ConnectionStats& stats = info.stats;
 
@@ -34,33 +29,26 @@ void NetworkStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
 
     const float compression_rate = (1.0f - float(stats.total_compressed_byte_sent) / float(stats.total_byte_sent)) * 100.0f;
 
-    char text_buffer[256] = { '\0' };
-    std::snprintf(text_buffer, std::size(text_buffer), "packages: %u/%u", stats.total_packages_sent, stats.total_packages_received);
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -5.0f), false, mono::Color::BLACK);
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
 
-    std::memset(text_buffer, 0, std::size(text_buffer));
-    std::snprintf(text_buffer, std::size(text_buffer), "total: %.1fmb / %.1fmb", mb_sent, mb_received);
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -10.0f), false, mono::Color::BLACK);
-
-    std::memset(text_buffer, 0, std::size(text_buffer));
-    std::snprintf(text_buffer, std::size(text_buffer), "frame: %.1fkb / %.1fkb", kb_sent_per_frame, kb_received_per_frame);
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -15.0f), false, mono::Color::BLACK);
-
-    std::memset(text_buffer, 0, std::size(text_buffer));
-    std::snprintf(text_buffer, std::size(text_buffer), "compression rate: %.1f%%", compression_rate);
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text_buffer, math::Vector(5.0f, -20.0f), false, mono::Color::BLACK);
-
-    float y = -30.0f;
-
-    for(const std::string& additional_text : info.additional_info)
+    const bool window_open = ImGui::Begin("network_status_drawer", nullptr, flags);
+    if(window_open)
     {
-        renderer.RenderText(shared::FontId::PIXELETTE_MEGA, additional_text.c_str(), math::Vector(5.0f, y), false, mono::Color::BLACK);
-        y -= 5.0f;
+        ImGui::Text("packages: %u/%u", stats.total_packages_sent, stats.total_packages_received);
+        ImGui::Text("total: %.1fmb / %.1fmb", mb_sent, mb_received);
+        ImGui::Text("frame: %.1fkb / %.1fkb", kb_sent_per_frame, kb_received_per_frame);
+        ImGui::Text("compression rate: %.1f%%", compression_rate);
+
+        for(const std::string& additional_text : info.additional_info)
+            ImGui::Text("%s", additional_text.c_str());
     }
+
+    ImGui::End();
 }
 
-void NetworkStatusDrawer::EntityUpdate(const mono::UpdateContext& context)
+math::Quad NetworkStatusDrawer::BoundingBox() const
 {
-    m_total_frame_count = context.frame_count;
-    m_draw = game::g_draw_network_stats;
+    return math::InfQuad;
 }

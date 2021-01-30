@@ -1,34 +1,35 @@
 
 #include "ParticleStatusDrawer.h"
-#include "FontIds.h"
-#include "GameDebug.h"
-
-#include "Math/Vector.h"
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
 #include "Particle/ParticleSystem.h"
 
-#include <cstdio>
+#include "Math/Quad.h"
+#include "GameDebug.h"
+
+#include "imgui/imgui.h"
 
 using namespace game;
 
-ParticleStatusDrawer::ParticleStatusDrawer(const mono::ParticleSystem* particle_system, const math::Vector& position)
+ParticleStatusDrawer::ParticleStatusDrawer(const mono::ParticleSystem* particle_system)
     : m_particle_system(particle_system)
-{
-    m_position = position;
-}
+{ }
 
-void ParticleStatusDrawer::EntityDraw(mono::IRenderer& renderer) const
+void ParticleStatusDrawer::Draw(mono::IRenderer& renderer) const
 {
     if(!game::g_draw_particle_stats)
         return;
 
     const mono::ParticleSystemStats& stats = m_particle_system->GetStats();
 
-    char text[512] = { 0 };
-    std::snprintf(text, 512, "pools: %u emitters: %u", stats.active_pools, stats.active_emitters);
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, mono::Color::BLACK);
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::Begin("particle_status", &game::g_draw_particle_stats, flags);
+    ImGui::Text("pools: %u emitters: %u", stats.active_pools, stats.active_emitters);
+    ImGui::End();
 }
 
-void ParticleStatusDrawer::EntityUpdate(const mono::UpdateContext& update_context)
-{ }
+math::Quad ParticleStatusDrawer::BoundingBox() const
+{
+    return math::InfQuad;
+}

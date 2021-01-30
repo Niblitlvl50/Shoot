@@ -18,7 +18,6 @@
 #include "TransformSystem/TransformSystemDrawer.h"
 
 #include "AIKnowledge.h"
-#include "Hud/Overlay.h"
 #include "Hud/HealthbarDrawer.h"
 #include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
@@ -82,13 +81,10 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
 
     // Debug
-    UIOverlayDrawer* debug_hud_overlay = new UIOverlayDrawer();
-    debug_hud_overlay->AddChild(new FPSElement(math::Vector(2.0f, 2.0f), mono::Color::BLACK));
-    debug_hud_overlay->AddChild(new PhysicsStatsElement(physics_system, math::Vector(2.0f, 190.0f), mono::Color::BLACK));
-    debug_hud_overlay->AddChild(new ParticleStatusDrawer(particle_system, math::Vector(2, 190)));
-    AddEntity(debug_hud_overlay, LayerId::UI);
-
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new FPSElement, LayerId::UI);
+    AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
+    AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);

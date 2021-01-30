@@ -14,7 +14,6 @@
 #include <cassert>
 
 /*
-#include "Entity/EntityBase.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 namespace game

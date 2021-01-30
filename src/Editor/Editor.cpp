@@ -405,8 +405,8 @@ void Editor::NewEntity()
 
 void Editor::AddPath(std::unique_ptr<editor::PathEntity> path)
 {
-    AddEntity(path.get(), RenderLayer::OBJECTS);
-    m_proxies.push_back(std::make_unique<PathProxy>(std::move(path), this));
+    // AddEntity(path.get(), RenderLayer::OBJECTS);
+    // m_proxies.push_back(std::make_unique<PathProxy>(std::move(path), this));
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)

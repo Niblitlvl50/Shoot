@@ -1,38 +1,29 @@
 
 #include "FPSElement.h"
-#include "FontIds.h"
-
-#include "Rendering/IRenderer.h"
-#include "Rendering/Color.h"
-#include "Math/Vector.h"
-
 #include "GameDebug.h"
+#include "Math/Quad.h"
 
-#include <cstdio>
+#include "imgui/imgui.h"
 
 using namespace game;
 
-FPSElement::FPSElement(const math::Vector& position)
-    : FPSElement(position, mono::Color::RED)
-{ }
-
-FPSElement::FPSElement(const math::Vector& position, const mono::Color::RGBA& color)
-    : m_color(color)
+void FPSElement::Draw(mono::IRenderer& renderer) const
 {
-    m_position = position;
-}
+    m_counter++;
 
-void FPSElement::EntityDraw(mono::IRenderer& renderer) const
-{
     if(!game::g_draw_fps)
         return;
 
-    char text[32] = { '\0' };
-    std::snprintf(text, 32, "fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
-    renderer.RenderText(shared::FontId::PIXELETTE_MEGA, text, math::ZeroVec, false, m_color);
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::Begin("fps_counter", &game::g_draw_fps, flags);
+    ImGui::Text("fps: %u frames: %u", m_counter.Fps(), m_counter.Frames());
+    ImGui::End();
 }
 
-void FPSElement::EntityUpdate(const mono::UpdateContext& update_context)
+math::Quad FPSElement::BoundingBox() const
 {
-    m_counter++;
+    return math::InfQuad;
 }

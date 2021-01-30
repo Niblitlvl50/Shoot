@@ -1,23 +1,17 @@
 
 #pragma once
 
-#include "Zone/EntityBase.h"
+#include "Rendering/IDrawable.h"
 #include "Util/FpsCounter.h"
-#include "Rendering/Color.h"
 
 namespace game
 {
-    class FPSElement : public mono::EntityBase
+    class FPSElement : public mono::IDrawable
     {
     public:
 
-        FPSElement(const math::Vector& position);
-        FPSElement(const math::Vector& position, const mono::Color::RGBA& color);
-        void EntityDraw(mono::IRenderer& renderer) const override;
-        void EntityUpdate(const mono::UpdateContext& update_context) override;
-
-    private:
-        mono::FpsCounter m_counter;
-        mono::Color::RGBA m_color;
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
+        mutable mono::FpsCounter m_counter;
     };
 }

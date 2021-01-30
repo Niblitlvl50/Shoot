@@ -85,7 +85,7 @@ PathEntity::PathEntity(const std::string& name, const std::vector<math::Vector>&
     : PathEntity(name)
 {
     m_points = local_points;
-    m_pivot_point = math::CentroidOfPolygon(m_points);
+    //m_pivot_point = math::CentroidOfPolygon(m_points);
 
     UpdateMesh();
 }
@@ -95,7 +95,42 @@ PathEntity::~PathEntity()
     parsl_destroy_context(m_ctx);
 }
 
-void PathEntity::EntityDraw(mono::IRenderer& renderer) const
+uint32_t PathEntity::Id() const
+{
+    return 501;
+}
+
+math::Matrix PathEntity::Transformation() const
+{
+    math::Matrix translation;
+    math::Translate(translation, m_position);
+
+    const math::Matrix rotation = math::CreateMatrixFromZRotation(m_rotation);
+
+    return translation * rotation;
+}
+
+void PathEntity::SetPosition(const math::Vector& position)
+{
+    m_position = position;
+}
+
+const math::Vector& PathEntity::Position() const
+{
+    return m_position;
+}
+
+void PathEntity::SetRotation(float rotation)
+{
+    m_rotation = rotation;
+}
+
+float PathEntity::Rotation() const
+{
+    return m_rotation;
+}
+
+void PathEntity::Draw(mono::IRenderer& renderer) const
 {
     std::vector<math::Vector> curve_points;
     std::vector<math::Vector> control_points;
@@ -108,11 +143,13 @@ void PathEntity::EntityDraw(mono::IRenderer& renderer) const
             curve_points.push_back(m_curve.points[index]);
     }
 
+    const math::Matrix& matrix = renderer.GetTransform() * Transformation();
+    auto transform_scope = mono::MakeTransformScope(matrix, &renderer);
+
     renderer.DrawPoints( control_points, mono::Color::RED, 4.0f);
     renderer.DrawPoints( curve_points, mono::Color::BLACK, 2.0f);
-
-
     renderer.DrawPolyline(m_curve.points, selected_color, 1.0f);
+
     //DrawPath(renderer, m_curve.points);
 
 /*
@@ -126,7 +163,7 @@ void PathEntity::EntityDraw(mono::IRenderer& renderer) const
 */
 }
 
-void PathEntity::EntityUpdate(const mono::UpdateContext& update_context)
+void PathEntity::Update(const mono::UpdateContext& update_context)
 { }
 
 math::Quad PathEntity::BoundingBox() const

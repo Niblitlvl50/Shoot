@@ -103,8 +103,6 @@ namespace game
         uint32_t filename_hash;
         uint32_t hex_color;
         uint8_t animation_id;
-        bool vertical_direction;
-        bool horizontal_direction;
         int8_t layer;
         uint32_t properties;
         float shadow_offset_x;

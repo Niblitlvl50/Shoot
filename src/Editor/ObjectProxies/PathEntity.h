@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include "Zone/EntityBase.h"
+#include "IUpdatable.h"
+#include "Rendering/IDrawable.h"
 #include "Math/Vector.h"
 #include "Paths/Bezier.h"
 #include <vector>
@@ -13,7 +14,7 @@
 
 namespace editor
 {
-    class PathEntity : public mono::EntityBase
+    class PathEntity : public mono::IUpdatable, public mono::IDrawable
     {
     public:
 
@@ -22,6 +23,16 @@ namespace editor
 
         ~PathEntity();
 
+        uint32_t Id() const;
+
+        math::Matrix Transformation() const;
+
+        void SetPosition(const math::Vector& position);
+        const math::Vector& Position() const;
+
+        void SetRotation(float rotation);
+        float Rotation() const;
+
         void SetSelected(bool selected);
         void SetName(const char* new_name);
         const std::string& GetName() const;
@@ -29,8 +40,8 @@ namespace editor
         void SetVertex(const math::Vector& world_point, size_t index);
         const std::vector<math::Vector>& GetPoints() const;
 
-        virtual void EntityDraw(mono::IRenderer& renderer) const;
-        virtual void EntityUpdate(const mono::UpdateContext& update_context);
+        virtual void Draw(mono::IRenderer& renderer) const;
+        virtual void Update(const mono::UpdateContext& update_context);
         virtual math::Quad BoundingBox() const;
 
         void UpdateMesh();
@@ -39,6 +50,9 @@ namespace editor
         std::string m_name;
         std::vector<math::Vector> m_points;
         bool m_selected;
+
+        math::Vector m_position;
+        float m_rotation;
 
         mono::Curve m_curve;
 

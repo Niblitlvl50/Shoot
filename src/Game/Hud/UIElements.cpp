@@ -4,6 +4,11 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+
+#include "EntitySystem/IEntityManager.h"
+#include "Component.h"
 
 using namespace game;
 
@@ -38,35 +43,56 @@ void UITextElement::EntityUpdate(const mono::UpdateContext& update_context)
 { }
 
 
-UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
-    : m_active_sprite(0)
+UISpriteElement::UISpriteElement(
+    const std::vector<std::string>& sprite_files,
+    mono::SpriteSystem* sprite_system,
+    mono::IEntityManager* entity_manager)
+    : m_sprite_system(sprite_system)
+    , m_entity_manager(entity_manager)
+    , m_active_sprite(0)
 {
     for(const std::string& sprite_file : sprite_files)
-        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
+    {
+        mono::SpriteComponents sprite_data;
+        sprite_data.sprite_file = sprite_file.c_str();
+
+        mono::Entity entity = entity_manager->CreateEntity("ui_sprite_element", { TRANSFORM_COMPONENT, SPRITE_COMPONENT });
+        m_sprite_system->AllocateSprite(entity.id, sprite_data);
+
+        m_sprite_entities.push_back(entity.id);
+    }
+    
+//        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
 }
 
 UISpriteElement::~UISpriteElement()
-{ }
+{
+    for(uint32_t entity_id : m_sprite_entities)
+        m_entity_manager->ReleaseEntity(entity_id);
+}
 
 void UISpriteElement::SetActiveSprite(size_t index)
 {
     m_active_sprite = index;
 }
 
-const mono::ISpritePtr& UISpriteElement::GetSprite(size_t index) const
+mono::ISprite* UISpriteElement::GetSprite(size_t index)
 {
-    return m_sprites[index];
+    return m_sprite_system->GetSprite(m_sprite_entities[index]);
+    //return m_sprites[index];
 }
 
 void UISpriteElement::EntityDraw(mono::IRenderer& renderer) const
 {
-    renderer.DrawSprite(*m_sprites[m_active_sprite]);
+    //renderer.DrawSprite(*m_sprites[m_active_sprite]);
 }
 
 void UISpriteElement::EntityUpdate(const mono::UpdateContext& update_context)
 {
-    for(auto& sprite : m_sprites)
-        sprite->Update(update_context);
+    //Transformation();
+
+//    for(auto& sprite : m_sprites)
+//        sprite->Update(update_context);
 }
 
 UISquareElement::UISquareElement(const math::Quad& square, const mono::Color::RGBA& color)

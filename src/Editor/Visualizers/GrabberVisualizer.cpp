@@ -14,6 +14,9 @@ GrabberVisualizer::GrabberVisualizer(const std::vector<editor::Grabber>& grabber
 
 void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
 {
+    if(m_grabbers.empty())
+        return;
+
     std::vector<math::Vector> points;
     points.reserve(m_grabbers.size());
 

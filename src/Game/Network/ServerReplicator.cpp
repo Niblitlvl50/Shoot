@@ -228,8 +228,6 @@ int ServerReplicator::ReplicateSprites(
         sprite_message.entity_id = id;
         sprite_message.filename_hash = sprite->GetSpriteHash();
         sprite_message.hex_color = mono::Color::ToHex(sprite->GetShade());
-        sprite_message.vertical_direction = (short)sprite->GetVerticalDirection();
-        sprite_message.horizontal_direction = (short)sprite->GetHorizontalDirection();
         sprite_message.animation_id = sprite->GetActiveAnimation();
         
         sprite_message.properties = sprite->GetProperties();
@@ -246,8 +244,7 @@ int ServerReplicator::ReplicateSprites(
             last_sprite_data.animation_id == sprite_message.animation_id &&
             last_sprite_data.filename_hash == sprite_message.filename_hash &&
             last_sprite_data.hex_color == sprite_message.hex_color &&
-            last_sprite_data.vertical_direction == sprite_message.vertical_direction &&
-            last_sprite_data.horizontal_direction == sprite_message.horizontal_direction;
+            last_sprite_data.properties == sprite_message.properties;
         const bool spawned_this_frame = mono::contains(spawn_entities, id);
 
         if(!same_as_last_time || spawned_this_frame || force_replicate)
@@ -257,8 +254,7 @@ int ServerReplicator::ReplicateSprites(
             last_sprite_data.animation_id = sprite_message.animation_id;
             last_sprite_data.filename_hash = sprite_message.filename_hash;
             last_sprite_data.hex_color = sprite_message.hex_color;
-            last_sprite_data.vertical_direction = sprite_message.vertical_direction;
-            last_sprite_data.horizontal_direction = sprite_message.horizontal_direction;
+            last_sprite_data.properties = sprite_message.properties;
 
             replicated_sprites++;
         }

@@ -1,16 +1,20 @@
 
 #pragma once
 
-#include "Zone/EntityBase.h"
+#include "MonoFwd.h"
+#include "Rendering/RenderFwd.h"
 #include "Math/Quad.h"
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 
+#include "IUpdatable.h"
+
 #include <string>
+#include <vector>
 
 namespace game
 {
-    class UITextElement : public mono::EntityBase
+    class UITextElement //: public mono::EntityBase
     {
     public:
 
@@ -30,26 +34,31 @@ namespace game
         mono::Color::RGBA m_color;
     };
 
-    class UISpriteElement : public mono::EntityBase
+    class UISpriteElement //: public mono::EntityBase
     {
     public:
     
-        UISpriteElement(const std::vector<std::string>& sprite_files);
+        UISpriteElement(
+            const std::vector<std::string>& sprite_files,
+            mono::SpriteSystem* sprite_system,
+            mono::IEntityManager* entity_manager);
         ~UISpriteElement();
 
         void SetActiveSprite(size_t index);
-        const mono::ISpritePtr& GetSprite(size_t index) const;
+        mono::ISprite* GetSprite(size_t index);
 
     private:
 
         void EntityDraw(mono::IRenderer& renderer) const;
         void EntityUpdate(const mono::UpdateContext& update_context);
 
+        mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_manager;
+        std::vector<uint32_t> m_sprite_entities;
         size_t m_active_sprite;
-        std::vector<mono::ISpritePtr> m_sprites;
     };
 
-    class UISquareElement : public mono::EntityBase
+    class UISquareElement //: public mono::EntityBase
     {
     public:
       

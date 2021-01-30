@@ -188,6 +188,9 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         static const std::vector<uint32_t> all_sprite_properties = {
             mono::SpriteProperty::WIND_SWAY,
             mono::SpriteProperty::SHADOW,
+            mono::SpriteProperty::FLIP_HORIZONTAL,
+            mono::SpriteProperty::FLIP_VERTICAL,
+            //mono::SpriteProperty::FLASH,
         };
 
         return DrawBitfieldProperty(

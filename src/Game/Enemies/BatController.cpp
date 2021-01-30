@@ -69,11 +69,11 @@ void BatController::ToMoving()
     m_move_delta = (m_start_position + math::Vector(x, y)) - m_current_position;
     m_move_counter = 0.0f;
 
-    const mono::HorizontalDirection new_horizontal_direction =
-        m_move_delta.x < 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
-
-    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-    sprite->SetHorizontalDirection(new_horizontal_direction);
+//    const mono::HorizontalDirection new_horizontal_direction =
+//        m_move_delta.x < 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+//
+//    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+//    sprite->SetHorizontalDirection(new_horizontal_direction);
 }
 
 void BatController::Moving(const mono::UpdateContext& update_context)

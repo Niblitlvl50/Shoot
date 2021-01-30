@@ -1,25 +1,33 @@
 
 #pragma once
 
-#include "Zone/EntityBase.h"
+#include "MonoFwd.h"
+#include "Rendering/IDrawable.h"
+#include "IUpdatable.h"
 #include "Math/Vector.h"
 
 namespace game
 {
     struct PlayerInfo;
 
-    class PlayerUIElement : public mono::EntityBase
+    class PlayerUIElement : public mono::IUpdatable
     {
     public:
 
         PlayerUIElement(
-            const PlayerInfo& player_info, const math::Vector& position, const math::Vector& offscreen_position);
-        void EntityDraw(mono::IRenderer& renderer) const override;
-        void EntityUpdate(const mono::UpdateContext& update_context) override;
+            const PlayerInfo& player_info,
+            const math::Vector& position,
+            const math::Vector& offscreen_position,
+            mono::SpriteSystem* sprite_system,
+            mono::IEntityManager* entity_manager);
+        
+        void Update(const mono::UpdateContext& update_context) override;
+        //void EntityDraw(mono::IRenderer& renderer) const override;
 
     private:
 
         const PlayerInfo& m_player_info;
+        math::Vector m_position;
         const math::Vector m_screen_position;
         const math::Vector m_offscreen_position;
         float m_timer;

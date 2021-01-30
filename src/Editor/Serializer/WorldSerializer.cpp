@@ -6,6 +6,7 @@
 #include "Rendering/Serialize.h"
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
+#include "Zone/IEntity.h"
 
 #include "System/File.h"
 #include "System/System.h"
@@ -53,7 +54,7 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, editor::Ed
 
         auto path_entity = std::make_unique<editor::PathEntity>(get_name(file), path->GetPathPoints());
         auto proxy = std::make_unique<PathProxy>(std::move(path_entity), editor);
-        proxy->Entity()->SetPosition(path->GetGlobalPosition());
+        //proxy->Entity()->SetPosition(path->GetGlobalPosition());
 
         paths.push_back(std::move(proxy));
     }

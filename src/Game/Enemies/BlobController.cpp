@@ -79,10 +79,10 @@ void BlobController::ToMoving()
     m_move_counter = 0.0f;
 
     // The blob sprite is facing the wrong direction
-    const mono::HorizontalDirection new_horizontal_direction =
-        m_move_delta.x > 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
-
-    m_sprite->SetHorizontalDirection(new_horizontal_direction);
+//    const mono::HorizontalDirection new_horizontal_direction =
+//        m_move_delta.x > 0.0f ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
+//
+//    m_sprite->SetHorizontalDirection(new_horizontal_direction);
     m_sprite->SetAnimation(m_jump_anim_id);
 }
 

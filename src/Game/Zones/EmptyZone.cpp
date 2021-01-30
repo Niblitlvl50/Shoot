@@ -2,8 +2,6 @@
 #include "EmptyZone.h"
 
 #include "AIKnowledge.h"
-#include "Hud/Overlay.h"
-#include "Hud/PlayerUIElement.h"
 #include "Network/INetworkPipe.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
@@ -48,12 +46,6 @@ void EmptyZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_network_pipe = std::make_unique<NullPipe>();
     m_player_daemon =
         std::make_unique<PlayerDaemon>(m_network_pipe.get(), entity_system, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
-
-    // Ui
-    UIOverlayDrawer* hud_overlay = new UIOverlayDrawer();
-    //hud_overlay->AddChild(new PlayerUIElement(g_player_one, math::Vector(0.0f, 0.0f), math::Vector(-100.0f, 0.0f)));
-    //hud_overlay->AddChild(new PlayerUIElement(g_player_two, math::Vector(277.0f, 0.0f), math::Vector(320.0f, 0.0f)));
-    AddEntity(hud_overlay, LayerId::UI);
 }
 
 int EmptyZone::OnUnload()

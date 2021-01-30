@@ -38,8 +38,8 @@ UIDialog::UIDialog(
     const math::Vector top_right = description_text_size + padding;
     const math::Quad dialog_size(bottom_left, top_right);
 
-    AddChild(new UISquareElement(dialog_size, background_color, text_color, 0.1f));
-    AddChild(new UITextElement(font_id, description, false, text_color));
+    //AddChild(new UISquareElement(dialog_size, background_color, text_color, 0.1f));
+    //AddChild(new UITextElement(font_id, description, false, text_color));
 
     float y_shift = description_text_size.y + padding.y;
 
@@ -52,23 +52,15 @@ UIDialog::UIDialog(
         };
 
         auto option_text = new UITextElement(font_id, option.text, false, text_color);
-        auto option_icon = new UISpriteElement(option_sprites);
-
-        option_text->SetPosition(math::Vector(2.0f, -y_shift));
-        option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));
-
-        option_icon->SetScale(math::Vector(option.icon_scale, option.icon_scale));
+        //option_text->SetPosition(math::Vector(2.0f, -y_shift));
         
-        AddChild(option_text);
-        AddChild(option_icon);
+        //auto option_icon = new UISpriteElement(option_sprites);
+        //option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));
+        //option_icon->SetScale(math::Vector(option.icon_scale, option.icon_scale));
+        
+        //AddChild(option_text);
+        //AddChild(option_icon);
 
         y_shift += option_text_size.y + option_spacing;
     }
 }
-
-void UIDialog::EntityUpdate(const mono::UpdateContext& update_context)
-{}
-
-void UIDialog::EntityDraw(mono::IRenderer& renderer) const
-{}
-

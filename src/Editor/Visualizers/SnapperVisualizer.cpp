@@ -18,7 +18,7 @@ SnapperVisualizer::SnapperVisualizer(const bool& draw_snappers, const std::vecto
 
 void SnapperVisualizer::Draw(mono::IRenderer& renderer) const
 {
-    if(!m_draw_snappers)
+    if(!m_draw_snappers || m_snappers.empty())
         return;
 
     std::vector<math::Vector> points;

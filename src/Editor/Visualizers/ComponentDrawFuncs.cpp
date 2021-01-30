@@ -159,7 +159,9 @@ void editor::DrawShapeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+
+    if(!name.empty())
+        renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
 }
 
 void editor::DrawAreaTriggerComponentDetails(

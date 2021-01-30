@@ -54,8 +54,8 @@ const std::array<DefaultAttribute, 52> default_attributes = {{
     { "boss_health",        Variant(false) },
     { "sprite_file",        Variant(std::string()) },
     { "animation",          Variant(0) },
-    { "flip_vertical",      Variant(false) },
-    { "flip_horizontal",    Variant(false) },
+    { "unused",             Variant(false) },
+    { "unused",             Variant(false) },
     { "sprite_layer",       Variant(0) },
     { "sprite_properties",  Variant(0u) },
     { "behaviour",          Variant(0) },
@@ -114,8 +114,8 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[26].has
 
 extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[27].hash;
 extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[28].hash;
-extern const uint32_t FLIP_VERTICAL_ATTRIBUTE       = default_attributes[29].hash;
-extern const uint32_t FLIP_HORIZONTAL_ATTRIBUTE     = default_attributes[30].hash;
+extern const uint32_t UNUSED_3                      = default_attributes[29].hash;
+extern const uint32_t UNUSED_4                      = default_attributes[30].hash;
 extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[31].hash;
 extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].hash;
 
@@ -234,7 +234,7 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }, "general" ),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }, "general" ),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE }, "general" ),
-    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE, FLIP_VERTICAL_ATTRIBUTE, FLIP_HORIZONTAL_ATTRIBUTE }, "rendering" ),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }, "rendering" ),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }, "rendering" ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }, "physics" ),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }, "physics" ),

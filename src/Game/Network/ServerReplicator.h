@@ -84,9 +84,8 @@ namespace game
         {
             uint32_t filename_hash;
             uint32_t hex_color;
+            uint32_t properties;
             short animation_id;
-            bool vertical_direction;
-            bool horizontal_direction;
         } m_sprite_data[500];
 
         struct HealthData
