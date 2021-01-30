@@ -42,11 +42,6 @@ unsigned int PathProxy::Id() const
     return m_path->Id();
 }
 
-mono::IEntity* PathProxy::Entity()
-{
-    return nullptr; //m_path.get();
-}
-
 void PathProxy::SetSelected(bool selected)
 {
     m_path->SetSelected(selected);

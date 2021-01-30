@@ -19,7 +19,6 @@ namespace editor
 
         virtual const char* Name() const = 0;
         virtual uint32_t Id() const = 0;
-        virtual mono::IEntity* Entity() = 0;
 
         virtual void SetSelected(bool selected) = 0;
         virtual bool Intersects(const math::Vector& position) const = 0;

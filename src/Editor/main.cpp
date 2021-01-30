@@ -1,6 +1,5 @@
 
 #include "System/System.h"
-#include "Zone/UID.h"
 #include "Camera/Camera.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextSystem.h"
@@ -27,7 +26,6 @@ int main()
     System::InitializeContext init_context;
     init_context.working_directory = ".";
     System::Initialize(init_context);
-    System::SetUIDOffset(max_entities +1);
 
     {
         editor::Config config;

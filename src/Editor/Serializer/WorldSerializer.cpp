@@ -6,7 +6,6 @@
 #include "Rendering/Serialize.h"
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
-#include "Zone/IEntity.h"
 
 #include "System/File.h"
 #include "System/System.h"

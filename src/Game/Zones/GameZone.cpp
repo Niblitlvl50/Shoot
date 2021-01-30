@@ -24,7 +24,6 @@
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
 
-#include "UpdateTasks/ListenerPositionUpdater.h"
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "EntitySystem/IEntityManager.h"

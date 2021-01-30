@@ -51,11 +51,6 @@ uint32_t ComponentProxy::Id() const
     return m_entity_id;
 }
 
-mono::IEntity* ComponentProxy::Entity()
-{
-    return nullptr;
-}
-
 void ComponentProxy::SetSelected(bool selected)
 {
 

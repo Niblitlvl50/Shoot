@@ -34,7 +34,6 @@ namespace editor
 
         const char* Name() const override;
         uint32_t Id() const override;
-        mono::IEntity* Entity() override;
 
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;

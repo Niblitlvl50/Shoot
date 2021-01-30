@@ -25,7 +25,6 @@
 #include "Network/ServerManager.h"
 #include "Network/ServerReplicator.h"
 
-#include "UpdateTasks/ListenerPositionUpdater.h"
 #include "Factories.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"
@@ -86,7 +85,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         m_leveldata.metadata,
         m_game_config.server_replication_interval);
     AddUpdatable(server_replicator);
-    AddUpdatable(new ListenerPositionUpdater());
 
     // Player
     m_player_daemon = std::make_unique<PlayerDaemon>(

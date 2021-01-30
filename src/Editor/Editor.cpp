@@ -287,14 +287,6 @@ int Editor::OnUnload()
     m_editor_config.selected_world = m_world_filename;
 
     Save();
-
-    for(auto& proxy : m_proxies)
-    {
-        mono::IEntity* entity = proxy->Entity();
-        if(entity)
-            RemoveEntity(entity);
-    }
-
     return 0;
 }
 
@@ -316,13 +308,6 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     if(!m_proxies.empty())
     {
-        for(IObjectProxyPtr& proxy : m_proxies)
-        {
-            auto entity = proxy->Entity();
-            if(entity)
-                RemoveEntity(entity);
-        }
-
         Save();
         m_proxies.clear();
     }
@@ -332,13 +317,6 @@ void Editor::LoadWorld(const std::string& world_filename)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     editor::World world = ::LoadWorld(world_filename.c_str(), &m_entity_manager, transform_system, this);
     m_proxies = std::move(world.loaded_proxies);
-
-    for(IObjectProxyPtr& proxy : m_proxies)
-    {
-        auto entity = proxy->Entity();
-        if(entity)
-            AddEntity(entity, RenderLayer::OBJECTS);
-    }
 
     m_context.camera_position = world.leveldata.metadata.camera_position;
     m_context.camera_size = world.leveldata.metadata.camera_size;
@@ -623,11 +601,6 @@ void Editor::OnDeleteObject()
 {
     if(m_selected_id == NO_SELECTION)
         return;
-
-    IObjectProxy* proxy = FindProxyObject(m_selected_id);
-    mono::IEntity* entity = proxy->Entity();
-    if(entity)
-        RemoveEntity(entity);
 
     const uint32_t id = m_selected_id;
     const auto find_func = [id](const IObjectProxyPtr& proxy) {

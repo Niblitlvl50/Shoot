@@ -1,6 +1,5 @@
 
 #include "TranslateTool.h"
-#include "Zone/IEntity.h"
 #include "Math/Vector.h"
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
