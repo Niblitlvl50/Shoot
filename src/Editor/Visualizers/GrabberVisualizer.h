@@ -1,8 +1,10 @@
 
 #pragma once
 
+#include "Rendering/RenderFwd.h"
 #include "Rendering/IDrawable.h"
 #include <vector>
+#include <memory>
 
 namespace editor
 {
@@ -18,5 +20,7 @@ namespace editor
         virtual math::Quad BoundingBox() const;
 
         const std::vector<editor::Grabber>& m_grabbers;
+        std::unique_ptr<mono::IRenderBuffer> m_vertices;
+        std::unique_ptr<mono::IRenderBuffer> m_colors;
     };
 }
