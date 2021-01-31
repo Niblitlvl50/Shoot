@@ -2,7 +2,8 @@
 #pragma once
 
 #include "Rendering/IDrawable.h"
-#include <vector>
+#include "Rendering/RenderFwd.h"
+#include <memory>
 
 namespace editor
 {
@@ -14,6 +15,7 @@ namespace editor
         virtual void Draw(mono::IRenderer& renderer) const;
         virtual math::Quad BoundingBox() const;
 
-        const std::vector<math::Vector> m_gridVertices;
+        std::unique_ptr<mono::IRenderBuffer> m_vertices;
+        std::unique_ptr<mono::IRenderBuffer> m_colors;
     };
 }

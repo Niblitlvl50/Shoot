@@ -2,6 +2,7 @@
 #include "GridVisualizer.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
+#include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 
@@ -42,8 +43,15 @@ namespace
 using namespace editor;
 
 GridVisualizer::GridVisualizer()
-    : m_gridVertices(BuildGridVertices(math::Quad(0, 0, 1200, 800)))
-{ }
+{
+    const std::vector<math::Vector>& grid_vertices = BuildGridVertices(math::Quad(0, 0, 1200, 800));
+
+    constexpr mono::Color::RGBA gray_color(1.0f, 1.0f, 1.0f, 0.2f);
+    const std::vector<mono::Color::RGBA> color(grid_vertices.size(), gray_color);
+
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, grid_vertices.size(), grid_vertices.data());
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, color.size(), color.data());
+}
 
 void GridVisualizer::Draw(mono::IRenderer& renderer) const
 {
@@ -52,8 +60,7 @@ void GridVisualizer::Draw(mono::IRenderer& renderer) const
     const mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
     const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
-    constexpr mono::Color::RGBA gray_color(1.0f, 1.0f, 1.0f, 0.2f);
-    renderer.DrawLines(m_gridVertices, gray_color, 1.0f);
+    renderer.DrawLines(m_vertices.get(), m_colors.get(), 0, m_vertices->Size());
 }
 
 math::Quad GridVisualizer::BoundingBox() const

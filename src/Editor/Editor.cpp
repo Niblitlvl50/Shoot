@@ -34,7 +34,6 @@
 #include "EntitySystem/EntitySystem.h"
 
 #include "Visualizers/GridVisualizer.h"
-#include "Visualizers/ScaleVisualizer.h"
 #include "Visualizers/GameCameraVisualizer.h"
 #include "Visualizers/GrabberVisualizer.h"
 #include "Visualizers/SnapperVisualizer.h"
@@ -255,7 +254,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new GridVisualizer(), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
-    AddDrawable(new ScaleVisualizer(), RenderLayer::UI);
     AddDrawable(new SelectionVisualizer(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
