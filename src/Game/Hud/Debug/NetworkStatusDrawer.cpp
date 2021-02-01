@@ -33,7 +33,7 @@ void NetworkStatusDrawer::Draw(mono::IRenderer& renderer) const
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    const bool window_open = ImGui::Begin("network_status_drawer", nullptr, flags);
+    const bool window_open = ImGui::Begin("Network Status", nullptr, flags);
     if(window_open)
     {
         ImGui::Text("packages: %u/%u", stats.total_packages_sent, stats.total_packages_received);

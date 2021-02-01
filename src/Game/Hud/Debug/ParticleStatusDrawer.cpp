@@ -24,7 +24,7 @@ void ParticleStatusDrawer::Draw(mono::IRenderer& renderer) const
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::Begin("particle_status", &game::g_draw_particle_stats, flags);
+    ImGui::Begin("Particle Stats", &game::g_draw_particle_stats, flags);
     ImGui::Text("pools: %u emitters: %u", stats.active_pools, stats.active_emitters);
     ImGui::End();
 }

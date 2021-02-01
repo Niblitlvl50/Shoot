@@ -15,10 +15,8 @@ namespace game
     extern bool g_draw_navmesh;
     extern bool g_draw_transformsystem;
     extern bool g_draw_physics;
-    extern bool g_draw_audio;
     extern bool g_draw_triggers;
     extern uint32_t g_draw_physics_subcomponents;
-    extern bool g_draw_fps;
     extern bool g_draw_physics_stats;
     extern bool g_draw_particle_stats;
     extern bool g_draw_network_stats;
