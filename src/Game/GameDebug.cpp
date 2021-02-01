@@ -23,31 +23,34 @@ bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 
-void DrawDebugMenu(bool& show_window)
+void DrawDebugMenu(uint32_t fps)
 {
-    constexpr int flags =
-        ImGuiWindowFlags_AlwaysAutoResize |
-        ImGuiWindowFlags_NoResize;
+    ImGui::BeginMainMenuBar();
+    if(ImGui::BeginMenu("Options"))
+    {
+        ImGui::Checkbox("Draw Client Viewport", &game::g_draw_client_viewport);
+        ImGui::Checkbox("Draw Navmesh",         &game::g_draw_navmesh);
+        ImGui::Checkbox("Draw TransformSystem", &game::g_draw_transformsystem);
+        ImGui::Checkbox("Draw Physics",         &game::g_draw_physics);
+        ImGui::Indent();
+        mono::DrawBitFieldType(
+            game::g_draw_physics_subcomponents, mono::all_physics_debug_component, std::size(mono::all_physics_debug_component), mono::PhsicsDebugComponentToString);
+        ImGui::Unindent();
+        ImGui::Checkbox("Draw Audio",           &game::g_draw_audio);
+        ImGui::Checkbox("Draw Triggers",        &game::g_draw_triggers);
+        ImGui::Checkbox("Draw FPS",             &game::g_draw_fps);
+        ImGui::Checkbox("Draw Physics Stats",   &game::g_draw_physics_stats);
+        ImGui::Checkbox("Draw Particle Stats",  &game::g_draw_particle_stats);
+        ImGui::Checkbox("Draw Network Stats",   &game::g_draw_network_stats);
+        ImGui::Checkbox("Draw Prediction Sys",  &game::g_draw_position_prediction);
 
-    ImGui::Begin("DebugMenu", &show_window, flags);
+        ImGui::EndMenu();
+    }
 
-    ImGui::Checkbox("Draw Client Viewport", &game::g_draw_client_viewport);
-    ImGui::Checkbox("Draw Navmesh",         &game::g_draw_navmesh);
-    ImGui::Checkbox("Draw TransformSystem", &game::g_draw_transformsystem);
-    ImGui::Checkbox("Draw Physics",         &game::g_draw_physics);
-    ImGui::Indent();
-    mono::DrawBitFieldType(
-        game::g_draw_physics_subcomponents, mono::all_physics_debug_component, std::size(mono::all_physics_debug_component), mono::PhsicsDebugComponentToString);
-    ImGui::Unindent();
-    ImGui::Checkbox("Draw Audio",           &game::g_draw_audio);
-    ImGui::Checkbox("Draw Triggers",        &game::g_draw_triggers);
-    ImGui::Checkbox("Draw FPS",             &game::g_draw_fps);
-    ImGui::Checkbox("Draw Physics Stats",   &game::g_draw_physics_stats);
-    ImGui::Checkbox("Draw Particle Stats",  &game::g_draw_particle_stats);
-    ImGui::Checkbox("Draw Network Stats",   &game::g_draw_network_stats);
-    ImGui::Checkbox("Draw Prediction Sys",  &game::g_draw_position_prediction);
+    ImGui::SameLine(ImGui::GetWindowWidth() -100);
+    ImGui::TextDisabled("fps: %u", fps);
 
-    ImGui::End();
+    ImGui::EndMainMenuBar();
 }
 
 void DrawDebugPlayers(bool& show_window)
@@ -121,8 +124,10 @@ game::DebugUpdater::~DebugUpdater()
 
 void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
 {
+    m_counter++;
+
     if(m_draw_debug_menu)
-        DrawDebugMenu(m_draw_debug_menu);
+        DrawDebugMenu(m_counter.Fps());
 
     if(m_draw_debug_players)
         DrawDebugPlayers(m_draw_debug_players);

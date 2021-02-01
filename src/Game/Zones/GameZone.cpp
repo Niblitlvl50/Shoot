@@ -19,7 +19,6 @@
 
 #include "AIKnowledge.h"
 #include "Hud/HealthbarDrawer.h"
-#include "Hud/Debug/FPSElement.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
@@ -81,7 +80,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Debug
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
-    AddDrawable(new FPSElement, LayerId::UI);
     AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
     AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);

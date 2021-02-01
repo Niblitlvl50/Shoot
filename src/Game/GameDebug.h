@@ -5,6 +5,7 @@
 #include "Rendering/IDrawable.h"
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
+#include "Util/FpsCounter.h"
 
 #include <cstdint>
 
@@ -33,8 +34,10 @@ namespace game
 
     private:
         mono::EventHandler* m_event_handler;
+        mono::EventToken<event::KeyUpEvent> m_keyup_token;
+
         mutable bool m_draw_debug_menu;
         mutable bool m_draw_debug_players;
-        mono::EventToken<event::KeyUpEvent> m_keyup_token;
+        mutable mono::FpsCounter m_counter;
     };
 }

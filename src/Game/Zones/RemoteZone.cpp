@@ -8,7 +8,6 @@
 
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
-#include "Hud/Debug/FPSElement.h"
 #include "Hud/HealthbarDrawer.h"
 
 #include "Network/NetworkMessage.h"
@@ -105,7 +104,6 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(m_console_drawer.get(), LayerId::UI);
     AddDrawable(new DebugUpdater(m_event_handler), LayerId::UI);
     AddDrawable(new NetworkStatusDrawer(client_manager), LayerId::UI);
-    AddDrawable(new FPSElement, LayerId::UI);
 }
 
 int RemoteZone::OnUnload()
