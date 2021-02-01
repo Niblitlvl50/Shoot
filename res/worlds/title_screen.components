@@ -153,9 +153,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.7526912689208984,
-                                "green": 0.7526912689208984,
-                                "red": 0.936274528503418
+                                "blue": 0.7529411911964417,
+                                "green": 0.7529411911964417,
+                                "red": 0.9372549057006836
                             }
                         },
                         {
@@ -189,7 +189,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 1.0,
-                                "y": -4.0
+                                "y": -3.75
                             }
                         },
                         {
@@ -259,18 +259,6 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -330,7 +318,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 4.5,
-                                "y": -4.0
+                                "y": -3.75
                             }
                         },
                         {
@@ -398,18 +386,6 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -755,18 +731,6 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": false
                         }
