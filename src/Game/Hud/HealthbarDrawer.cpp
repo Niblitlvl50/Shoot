@@ -5,6 +5,7 @@
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
+#include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Math/Quad.h"
 #include "Util/Algorithm.h"
 #include "TransformSystem/TransformSystem.h"
@@ -26,26 +27,64 @@ namespace
         std::string name;
     };
 
-    std::vector<math::Vector> GenerateHealthbarVertices(const std::vector<Healthbar>& healthbars, bool full_width)
-    {
-        std::vector<math::Vector> vertices;
-        vertices.reserve(healthbars.size() * 2);
+    constexpr mono::Color::RGBA healthbar_red(1.0f, 0.3f, 0.3f, 1.0f);
 
+    void GenerateHealthbarVertices(
+        const std::vector<Healthbar>& healthbars,
+        float bar_thickness,
+        std::vector<math::Vector>& out_vertices,
+        std::vector<mono::Color::RGBA>& out_colors,
+        std::vector<uint16_t>& out_indices)
+    {
         for(const Healthbar& bar : healthbars)
         {
-            const math::Vector shift_vector(bar.width / 2.0f, 0.0f);
+            const uint16_t base_index = out_vertices.size();
 
-            const math::Vector& left = bar.position - shift_vector;
-            const math::Vector& right = bar.position + shift_vector;
-            const math::Vector& diff = right - left;
+            const float percentage_length = bar.width * bar.health_percentage;
+            const float half_length = bar.width / 2.0f;
 
-            const float percentage = full_width ? 1.0f : bar.health_percentage;
+            const math::Vector& top_left = bar.position - math::Vector(half_length, 0.0f);
+            const math::Vector& top_mid_right = top_left + math::Vector(percentage_length, 0.0f);
+            const math::Vector& bottom_left = top_left - math::Vector(0.0f, bar_thickness);
+            const math::Vector& bottom_mid_right = bottom_left + math::Vector(percentage_length, 0.0f);
 
-            vertices.emplace_back(left);
-            vertices.emplace_back(left + (diff * percentage));
+            const math::Vector& top_right = top_left + math::Vector(bar.width, 0.0f);
+            const math::Vector& bottom_right = top_left + math::Vector(bar.width, -bar_thickness);
+
+            out_vertices.emplace_back(bottom_left);
+            out_vertices.emplace_back(top_left);
+            out_vertices.emplace_back(top_mid_right);
+            out_vertices.emplace_back(bottom_mid_right);
+            out_vertices.emplace_back(top_mid_right);
+            out_vertices.emplace_back(bottom_mid_right);
+            out_vertices.emplace_back(top_right);
+            out_vertices.emplace_back(bottom_right);
+
+            out_colors.emplace_back(healthbar_red);
+            out_colors.emplace_back(healthbar_red);
+            out_colors.emplace_back(healthbar_red);
+            out_colors.emplace_back(healthbar_red);
+            out_colors.emplace_back(mono::Color::GRAY);
+            out_colors.emplace_back(mono::Color::GRAY);
+            out_colors.emplace_back(mono::Color::GRAY);
+            out_colors.emplace_back(mono::Color::GRAY);
+
+            out_indices.push_back(base_index + 0);
+            out_indices.push_back(base_index + 1);
+            out_indices.push_back(base_index + 2);
+
+            out_indices.push_back(base_index + 0);
+            out_indices.push_back(base_index + 2);
+            out_indices.push_back(base_index + 3);
+
+            out_indices.push_back(base_index + 5);
+            out_indices.push_back(base_index + 4);
+            out_indices.push_back(base_index + 6);
+
+            out_indices.push_back(base_index + 5);
+            out_indices.push_back(base_index + 6);
+            out_indices.push_back(base_index + 7);
         }
-
-        return vertices;
     }
 }
 
@@ -60,6 +99,9 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     constexpr uint32_t max_uint = std::numeric_limits<uint32_t>::max();
     const uint32_t timestamp = renderer.GetTimestamp();
     const math::Quad viewport = renderer.GetViewport();
+
+    const float viewport_width = 10.0f;
+    const float ratio = math::Width(viewport) / math::Height(viewport);
 
     std::vector<Healthbar> healthbars;
     std::vector<Healthbar> boss_healthbars;
@@ -80,36 +122,20 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         
         if(record.is_boss)
         {
-            bar.position = math::TopCenter(viewport) + math::Vector(0.0f, -1.0f);
-            bar.width = math::Width(viewport) * 0.9f;
+            bar.position = math::ZeroVec;
+            bar.width = viewport_width * 0.9f;
             boss_healthbars.push_back(bar);
         }
         else
         {
             const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(entity_id);
-
             bar.position = math::BottomCenter(world_bb);
-            bar.width = 1.0f;
+            bar.width = math::Width(world_bb) * 1.25f;
             healthbars.push_back(bar);
         }
     };
 
     m_damage_system->ForEeach(collect_func);
-
-    constexpr float line_width = 4.0f;
-    constexpr mono::Color::RGBA background_color(0.5f, 0.5f, 0.5f, 1.0f);
-    constexpr mono::Color::RGBA healthbar_color(1.0f, 0.3f, 0.3f, 1.0f);
-
-    const std::vector<math::Vector>& background_lines = GenerateHealthbarVertices(healthbars, true);
-    const std::vector<math::Vector>& healthbar_lines = GenerateHealthbarVertices(healthbars, false);
-
-    if(!background_lines.empty() && !healthbar_lines.empty())
-    {
-        renderer.DrawLines(background_lines, background_color, line_width);
-        renderer.DrawLines(healthbar_lines, healthbar_color, line_width);
-    }
-
-    // Boss health bars
 
     if(!boss_healthbars.empty())
     {
@@ -118,24 +144,57 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         };
         std::sort(boss_healthbars.begin(), boss_healthbars.end(), sort_on_timestamp);
         boss_healthbars.erase(boss_healthbars.begin() +1, boss_healthbars.end());
+    }
 
-        const std::vector<math::Vector>& boss_background_lines = GenerateHealthbarVertices(boss_healthbars, true);
-        const std::vector<math::Vector>& boss_healthbar_lines = GenerateHealthbarVertices(boss_healthbars, false);
+    const int n_healthbars = healthbars.size() + boss_healthbars.size();
+    if(n_healthbars == 0)
+        return;
 
-        constexpr float line_width_boss = 8.0f;
+    const uint32_t vertices_needed = n_healthbars * 8;
+    const uint32_t indices_needed = n_healthbars * 12;
 
-        const math::Matrix projection = math::Ortho(viewport.mA.x, viewport.mB.x, viewport.mA.y, viewport.mB.y, -10.0f, 10.0f);
+    std::vector<math::Vector> vertices;
+    vertices.reserve(vertices_needed);
 
+    std::vector<mono::Color::RGBA> colors;
+    colors.reserve(vertices_needed);
+
+    std::vector<uint16_t> indices;
+    indices.reserve(indices_needed);
+
+    GenerateHealthbarVertices(healthbars, 0.05f, vertices, colors, indices);
+    const uint32_t n_healthbar_indices = indices.size();
+
+    GenerateHealthbarVertices(boss_healthbars, 0.1f, vertices, colors, indices);
+    const uint32_t n_boss_indices = indices.size() - n_healthbar_indices;
+
+    auto vertex_buffer = mono::CreateRenderBuffer(
+        mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices_needed, vertices.data());
+    auto color_buffer = mono::CreateRenderBuffer(
+        mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, vertices_needed, colors.data());
+    auto index_buffer = mono::CreateElementBuffer(
+        mono::BufferType::STATIC, indices_needed, indices.data());
+
+    renderer.DrawTrianges(vertex_buffer.get(), color_buffer.get(), index_buffer.get(), 0, n_healthbar_indices);
+
+    // Boss health bars
+
+    if(!boss_healthbars.empty())
+    {
+        const math::Matrix projection = math::Ortho(0.0f, viewport_width, 0.0f, viewport_width / ratio, -10.0f, 10.0f);
         const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
         const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
-        const mono::ScopedTransform transform_scope = mono::MakeTransformScope(math::Matrix(), &renderer);
 
-        renderer.DrawLines(boss_background_lines, background_color, line_width_boss);
-        renderer.DrawLines(boss_healthbar_lines, healthbar_color, line_width_boss);
+        math::Matrix transform;
+        math::Translate(transform, math::Vector(5.0f, 9.5f));
+        const mono::ScopedTransform transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        renderer.DrawTrianges(
+            vertex_buffer.get(), color_buffer.get(), index_buffer.get(), n_healthbar_indices, n_boss_indices);
 
         const Healthbar& boss_healthbar = boss_healthbars.back();
         renderer.RenderText(
-            shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), boss_healthbar.position + math::Vector(0.0f, 0.1f), true, mono::Color::BLACK);
+            shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), math::ZeroVec, true, mono::Color::BLACK);
     }
 }
 
