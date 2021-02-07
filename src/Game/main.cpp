@@ -14,7 +14,7 @@
 #include "Rendering/Text/TextSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"

@@ -1,7 +1,7 @@
 
 #include "PlayerUIElement.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
 #include "Math/EasingFunctions.h"
@@ -15,30 +15,21 @@
 
 using namespace game;
 
-PlayerUIElement::PlayerUIElement(
-    const PlayerInfo& player_info,
-    const math::Vector& position,
-    const math::Vector& offscreen_position,
-    mono::SpriteSystem* sprite_system,
-    mono::IEntityManager* entity_manager)
-    : m_player_info(player_info)
-    , m_screen_position(position)
-    , m_offscreen_position(offscreen_position)
+PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
+    : UIOverlay(400.0f, 400.0f)
+    , m_player_info(player_info)
     , m_timer(0)
     , m_current_score(m_player_info.score)
 {
-    m_position = offscreen_position;
+    m_position = m_offscreen_position = math::Vector(-200.0f, 0.0f);
+    m_screen_position = math::Vector(0.0f, 0.0f);
 
-    m_background = new UISquareElement(
-        math::Quad(0.0f, 0.0f, 70.0f, 18.0f), mono::Color::OFF_WHITE, mono::Color::GRAY, 1.0f);
-    //m_background->SetPosition(math::Vector(2.0f, 2.0f));
+    m_background = new UISquareElement(70.0f, 18.0f, mono::Color::OFF_WHITE, mono::Color::GRAY, 1.0f);
+    m_background->SetPosition(math::Vector(2.0f, 2.0f));
 
-    const std::vector<std::string> mugshot_sprites = {
-        "res/sprites/doomguy.sprite"
-    };
-    m_mugshot_sprite = new UISpriteElement(mugshot_sprites, sprite_system, entity_manager);
-    //m_mugshot_sprite->SetPosition(math::Vector(10.0f, 10.0f));
-    //m_mugshot_sprite->SetScale(math::Vector(8.0f, 8.0f));
+    m_mugshot_sprite = new UISpriteElement("res/sprites/doomguy.sprite");
+    m_mugshot_sprite->SetPosition(math::Vector(10.0f, 10.0f));
+    m_mugshot_sprite->SetScale(math::Vector(8.0f, 8.0f));
     m_mugshot_sprite->GetSprite(0)->SetAnimation(1);
 
     const std::vector<std::string> sprite_files = {
@@ -49,32 +40,34 @@ PlayerUIElement::PlayerUIElement(
         "res/sprites/bolter.sprite",
         "res/sprites/bolter.sprite",
     };
-    m_weapon_sprites = new UISpriteElement(sprite_files, sprite_system, entity_manager);
-    //m_weapon_sprites->SetPosition(math::Vector(26.0f, 10.0f));
-    //m_weapon_sprites->SetScale(math::Vector(14.0f, 14.0f));
+    m_weapon_sprites = new UISpriteElement(sprite_files);
+    m_weapon_sprites->SetPosition(math::Vector(26.0f, 10.0f));
+    m_weapon_sprites->SetScale(math::Vector(14.0f, 14.0f));
 
     m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "0", true, mono::Color::MAGENTA);
-    //m_ammo_text->SetPosition(math::Vector(42.0f, 8.5f));
-    //m_ammo_text->SetScale(math::Vector(2.0f, 2.0f));
+    m_ammo_text->SetPosition(math::Vector(42.0f, 8.5f));
+    m_ammo_text->SetScale(math::Vector(2.0f, 2.0f));
 
     m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "", false, mono::Color::MAGENTA);
-    //m_weapon_state_text->SetPosition(math::Vector(50.0f, 8.5f));
-    //m_weapon_state_text->SetScale(math::Vector(2.0f, 2.0f));
+    m_weapon_state_text->SetPosition(math::Vector(50.0f, 8.5f));
+    m_weapon_state_text->SetScale(math::Vector(2.0f, 2.0f));
 
     m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
-    //m_score_text->SetPosition(math::Vector(5.0f, 290.0f));
-    //m_score_text->SetScale(math::Vector(10.0f, 10.0f));
+    m_score_text->SetPosition(math::Vector(5.0f, 390.0f));
+    m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 
-    //AddChild(m_background);
-    //AddChild(m_mugshot_sprite);
-    //AddChild(m_weapon_sprites);
-    //AddChild(m_ammo_text);
-    //AddChild(m_weapon_state_text);
-    //AddChild(m_score_text);
+    AddChild(m_background);
+    AddChild(m_mugshot_sprite);
+    AddChild(m_weapon_sprites);
+    AddChild(m_ammo_text);
+    AddChild(m_weapon_state_text);
+    AddChild(m_score_text);
 }
-/*
-void PlayerUIElement::EntityDraw(mono::IRenderer& renderer) const
+
+void PlayerUIElement::Draw(mono::IRenderer& renderer) const
 {
+    UIOverlay::Draw(renderer);
+
     const bool is_reloading = (m_player_info.weapon_state == WeaponState::RELOADING);
     if(is_reloading)
     {
@@ -93,10 +86,11 @@ void PlayerUIElement::EntityDraw(mono::IRenderer& renderer) const
         renderer.DrawPoints({ math::Vector(reload_dot + x_offset, y_offset) }, mono::Color::BLACK, 8.0f);
     }
 }
-*/
 
 void PlayerUIElement::Update(const mono::UpdateContext& update_context)
 {
+    UIOverlay::Update(update_context);
+
     if(m_player_info.score != m_current_score)
     {
         //const int score_diff = m_player_info.score - m_current_score;

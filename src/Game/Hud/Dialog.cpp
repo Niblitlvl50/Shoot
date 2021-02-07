@@ -25,6 +25,7 @@ UIDialog::UIDialog(
     const std::vector<Option>& options,
     const mono::Color::RGBA& background_color,
     const mono::Color::RGBA& text_color)
+    : UIOverlay(400.0f, 400.0f)
 {
     constexpr int font_id = shared::FontId::PIXELETTE_SMALL;
     constexpr math::Vector padding(0.5f, 0.5f);
@@ -38,8 +39,8 @@ UIDialog::UIDialog(
     const math::Vector top_right = description_text_size + padding;
     const math::Quad dialog_size(bottom_left, top_right);
 
-    //AddChild(new UISquareElement(dialog_size, background_color, text_color, 0.1f));
-    //AddChild(new UITextElement(font_id, description, false, text_color));
+    AddChild(new UISquareElement(math::Width(dialog_size), math::Height(dialog_size), background_color, text_color, 0.1f));
+    AddChild(new UITextElement(font_id, description, false, text_color));
 
     float y_shift = description_text_size.y + padding.y;
 
@@ -52,14 +53,14 @@ UIDialog::UIDialog(
         };
 
         auto option_text = new UITextElement(font_id, option.text, false, text_color);
-        //option_text->SetPosition(math::Vector(2.0f, -y_shift));
+        option_text->SetPosition(math::Vector(2.0f, -y_shift));
         
-        //auto option_icon = new UISpriteElement(option_sprites);
-        //option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));
-        //option_icon->SetScale(math::Vector(option.icon_scale, option.icon_scale));
+        auto option_icon = new UISpriteElement(option_sprites);
+        option_icon->SetPosition(math::Vector(1.0f, -y_shift + 0.25f));
+        option_icon->SetScale(math::Vector(option.icon_scale, option.icon_scale));
         
-        //AddChild(option_text);
-        //AddChild(option_icon);
+        AddChild(option_text);
+        AddChild(option_icon);
 
         y_shift += option_text_size.y + option_spacing;
     }

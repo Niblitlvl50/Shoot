@@ -1,7 +1,7 @@
 
 #include "InvaderPathController.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "Factories.h"
 #include "Behaviour/PathBehaviour.h"
 #include "Weapons/IWeapon.h"

@@ -8,7 +8,7 @@
 #include "Math/MathFunctions.h"
 #include "Util/Random.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "Factories.h"
 #include "SystemContext.h"
 #include "Weapons/IWeapon.h"

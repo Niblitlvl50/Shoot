@@ -8,7 +8,7 @@
 #include "System/Network.h"
 
 #include "Events/GameEventFuncFwd.h"
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 
 #include <vector>
 #include <unordered_map>
@@ -44,7 +44,9 @@ namespace game
         mono::EventResult RemotePlayerInput(const RemoteInputMessage& event);
         mono::EventResult RemotePlayerViewport(const ViewportMessage& message);
         mono::EventResult PlayerScore(const ScoreEvent& event);
+
         mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
+        mono::EventResult OnRespawnPlayer(const RespawnPlayerEvent& event);
 
         class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
@@ -62,6 +64,7 @@ namespace game
         mono::EventToken<ViewportMessage> m_remote_viewport_token;
         mono::EventToken<ScoreEvent> m_score_token;
         mono::EventToken<SpawnPlayerEvent> m_spawn_player_token;
+        mono::EventToken<RespawnPlayerEvent> m_respawn_player_token;
 
         std::unordered_map<int, PlayerInfo*> m_controller_id_to_player_info;
 

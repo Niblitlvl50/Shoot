@@ -1,6 +1,5 @@
 
 #include "DamageSystem.h"
-//#include "AIKnowledge.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -81,10 +80,10 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 {
     DamageResult result = { false, 0 };
 
-    if(!m_active[id])
+    DamageRecord& damage_record = m_damage_records[id];
+    if(damage_record.health <= 0)
         return result;
 
-    DamageRecord& damage_record = m_damage_records[id];
     damage_record.health -= damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
 
@@ -145,8 +144,6 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         {
             if(damage_record.release_entity_on_death)
                 m_entity_manager->ReleaseEntity(entity_id);
-
-            m_active[entity_id] = false;
         }
     }
 }

@@ -89,6 +89,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     // Player
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, entity_system, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
+    
+    AddUpdatableDrawable(new GameOverScreen(game::g_players[0], m_event_handler), LayerId::UI);
+    AddUpdatableDrawable(new PlayerUIElement(game::g_players[0]), LayerId::UI);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;

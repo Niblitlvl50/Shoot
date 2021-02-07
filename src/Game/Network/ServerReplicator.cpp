@@ -20,7 +20,7 @@
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerConnectedEvent.h"
 #include "ScopedTimer.h"
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "WorldFile.h"
 #include "DamageSystem.h"
 

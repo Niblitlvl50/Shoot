@@ -70,6 +70,9 @@ namespace game
         void ToDefault();
         void DefaultState(const mono::UpdateContext& update_context);
 
+        void ToDead();
+        void DeadState(const mono::UpdateContext& update_context);
+
         void ToBlink();
         void BlinkState(const mono::UpdateContext& update_context);
 
@@ -80,6 +83,7 @@ namespace game
         enum class PlayerStates
         {
             DEFAULT,
+            DEAD,
             BLINK
         };
 

@@ -1,6 +1,6 @@
 
 #include "PlayerLogic.h"
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -9,6 +9,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Particle/ParticleSystem.h"
 
+#include "DamageSystem.h"
 #include "Factories.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
@@ -51,15 +52,20 @@ PlayerLogic::PlayerLogic(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
 
-    const PickupCallback pickup_callback = [this](shared::PickupType type, int amount) {
+    DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
+
+    const PickupCallback pickup_callback = [this, damage_system](shared::PickupType type, int amount) {
         switch(type)
         {
         case shared::PickupType::AMMO:
             m_total_ammo_left += amount;
             break;
         case shared::PickupType::HEALTH:
-            std::printf("Got Health! (%d)\n", amount);
+        {
+            DamageRecord* record = damage_system->GetDamageRecord(m_entity_id);
+            record->health += amount;
             break;
+        }
         case shared::PickupType::SCORE:
             m_player_info->score += amount;
             break;
@@ -70,18 +76,19 @@ PlayerLogic::PlayerLogic(
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
-    //m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_id);
+    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_system, entity_id);
     m_blink_effect = std::make_unique<BlinkEffect>(particle_system, entity_system);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
-    //SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
-    SelectSecondaryWeapon(WeaponType::TURRET);
+    SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
+    //SelectSecondaryWeapon(WeaponType::TURRET);
     SetRotation(0.0f);
 
     const PlayerStateMachine::StateTable state_table = {
         PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),
+        PlayerStateMachine::MakeState(PlayerStates::DEAD, &PlayerLogic::ToDead, &PlayerLogic::DeadState, this),
         PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, this),
     };
 
@@ -95,6 +102,18 @@ PlayerLogic::~PlayerLogic()
 
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
+    m_state.UpdateState(update_context);
+}
+
+void PlayerLogic::ToDefault()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+}
+
+void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
+{
+    m_gamepad_controller.Update(update_context);
+
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& position = math::GetPosition(transform);
     const float direction = math::GetZRotation(transform);
@@ -125,17 +144,21 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->ammunition_left = m_total_ammo_left;
 
-    m_state.UpdateState(update_context);
+    if(m_player_info->player_state == PlayerState::DEAD)
+        m_state.TransitionTo(PlayerStates::DEAD);
 }
 
-void PlayerLogic::ToDefault()
+void PlayerLogic::ToDead()
 {
-    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+    //sprite->SetAnimation();
 }
 
-void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
+void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
 {
-    m_gamepad_controller.Update(update_context);
+    if(m_player_info->player_state == PlayerState::ALIVE)
+        m_state.TransitionTo(PlayerStates::DEFAULT);
 }
 
 void PlayerLogic::ToBlink()

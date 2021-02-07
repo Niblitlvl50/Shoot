@@ -1,7 +1,7 @@
 
 #include "PlayerDaemon.h"
 #include "PlayerLogic.h"
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/Entity.h"
@@ -48,6 +48,7 @@ namespace
 
         // No need to store the callback id, when destroyed this callback will be cleared up.
         game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
+        damage_system->PreventReleaseOnDeath(player_entity.id, true);
         const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::ALL, damage_callback);
         (void)callback_id;
 
@@ -88,11 +89,13 @@ PlayerDaemon::PlayerDaemon(
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::RemotePlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::RemotePlayerDisconnected, this, _1);
     const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
+    const RespawnPlayerFunc& respawn_player_func = std::bind(&PlayerDaemon::OnRespawnPlayer, this, _1);
     const ScoreFunc& score_func = std::bind(&PlayerDaemon::PlayerScore, this, _1);
 
     m_player_connected_token = m_event_handler->AddListener(connected_func);
     m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
     m_spawn_player_token = m_event_handler->AddListener(spawn_player_func);
+    m_respawn_player_token = m_event_handler->AddListener(respawn_player_func);
 
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemotePlayerInput, this, _1);
     m_remote_input_token = m_event_handler->AddListener(remote_input_func);
@@ -117,6 +120,7 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler->RemoveListener(m_player_connected_token);
     m_event_handler->RemoveListener(m_player_disconnected_token);
     m_event_handler->RemoveListener(m_spawn_player_token);
+    m_event_handler->RemoveListener(m_respawn_player_token);
     m_event_handler->RemoveListener(m_remote_input_token);
     m_event_handler->RemoveListener(m_remote_viewport_token);
     m_event_handler->RemoveListener(m_score_token);
@@ -163,8 +167,9 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
 
         if(type == DamageType::DESTROYED)
         {
-            ReleasePlayerInfo(allocated_player_info);
-            m_camera_system->Unfollow();
+            //ReleasePlayerInfo(allocated_player_info);
+            allocated_player_info->player_state = game::PlayerState::DEAD;
+            //m_camera_system->Unfollow();
         }
         else if(type == DamageType::DAMAGED)
         {
@@ -290,5 +295,26 @@ mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
     //SpawnLocalPlayer();
+    return mono::EventResult::HANDLED;
+}
+
+mono::EventResult PlayerDaemon::OnRespawnPlayer(const RespawnPlayerEvent& event)
+{
+    game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(event.entity_id);
+    if(player_info)
+    {
+        mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+        math::Matrix& transform = transform_system->GetTransform(event.entity_id);
+        math::Position(transform, m_player_spawn);
+        transform_system->SetTransformState(event.entity_id, mono::TransformState::CLIENT);
+
+        game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
+        game::DamageRecord* record = damage_system->GetDamageRecord(event.entity_id);
+        record->health = record->full_health;
+        record->last_damaged_timestamp = 0;
+
+        player_info->player_state = game::PlayerState::ALIVE;
+    }
+
     return mono::EventResult::HANDLED;
 }

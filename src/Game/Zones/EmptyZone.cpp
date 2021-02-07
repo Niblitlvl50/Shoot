@@ -1,7 +1,7 @@
 
 #include "EmptyZone.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "Network/INetworkPipe.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"

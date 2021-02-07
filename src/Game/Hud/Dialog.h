@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "UIElements.h"
 #include "Rendering/Color.h"
 
 #include <string>
@@ -8,7 +9,7 @@
 
 namespace game
 {
-    class UIDialog
+    class UIDialog : public UIOverlay
     {
     public:
 

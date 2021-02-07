@@ -2,15 +2,91 @@
 #include "UIElements.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
+
+#include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
-#include "Rendering/Sprite/SpriteSystem.h"
-#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteBatchDrawer.h"
 
-#include "EntitySystem/IEntityManager.h"
-#include "Component.h"
+#include "Util/Algorithm.h"
 
 using namespace game;
+
+void UIElement::SetPosition(const math::Vector& position)
+{
+    m_position = position;
+}
+
+void UIElement::SetScale(const math::Vector& scale)
+{
+    m_scale = scale;
+}
+
+void UIElement::SetRotation(float radians)
+{
+    m_rotation = radians;
+}
+
+math::Matrix UIElement::Transform() const
+{
+    return 
+        math::CreateMatrixWithPosition(m_position) *
+        math::CreateMatrixFromZRotation(m_rotation) *
+        math::CreateMatrixWithScale(m_scale);
+}
+
+
+UIOverlay::UIOverlay(float width, float height)
+    : m_scale(1.0f, 1.0f)
+    , m_rotation(0.0f)
+{
+    m_projection = math::Ortho(0, width, 0, height, -10, 10);
+}
+
+void UIOverlay::Update(const mono::UpdateContext& context)
+{
+    for(UIElement* ui : m_ui_elements)
+        ui->Update(context);
+}
+
+void UIOverlay::Draw(mono::IRenderer& renderer) const
+{
+    const auto projection_scope = mono::MakeProjectionScope(m_projection, &renderer);
+    const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+
+    const math::Matrix& model = Transform();
+
+    for(const UIElement* ui : m_ui_elements)
+    {
+        const math::Matrix& transform = model * ui->Transform();
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+        ui->Draw(renderer);
+    }
+}
+
+math::Quad UIOverlay::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+void UIOverlay::AddChild(UIElement* element)
+{
+    m_ui_elements.push_back(element);
+}
+
+void UIOverlay::RemoveChild(UIElement* element)
+{
+    mono::remove(m_ui_elements, element);
+}
+
+math::Matrix UIOverlay::Transform() const
+{
+    return 
+        math::CreateMatrixWithPosition(m_position) *
+        math::CreateMatrixFromZRotation(m_rotation) *
+        math::CreateMatrixWithScale(m_scale);
+}
+
 
 UITextElement::UITextElement(int font_id, const std::string& text, bool centered, const mono::Color::RGBA& color)
     : m_font_id(font_id)
@@ -34,41 +110,29 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
     m_color = new_color;
 }
 
-void UITextElement::EntityDraw(mono::IRenderer& renderer) const
+void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     renderer.RenderText(m_font_id, m_text.c_str(), math::ZeroVec, m_centered, m_color);
 }
 
-void UITextElement::EntityUpdate(const mono::UpdateContext& update_context)
+
+UISpriteElement::UISpriteElement(const std::string& sprite_file)
+    : UISpriteElement(std::vector<std::string>{ sprite_file })
 { }
 
-
-UISpriteElement::UISpriteElement(
-    const std::vector<std::string>& sprite_files,
-    mono::SpriteSystem* sprite_system,
-    mono::IEntityManager* entity_manager)
-    : m_sprite_system(sprite_system)
-    , m_entity_manager(entity_manager)
-    , m_active_sprite(0)
+UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
+    : m_active_sprite(0)
 {
     for(const std::string& sprite_file : sprite_files)
     {
-        mono::SpriteComponents sprite_data;
-        sprite_data.sprite_file = sprite_file.c_str();
-
-        mono::Entity entity = entity_manager->CreateEntity("ui_sprite_element", { TRANSFORM_COMPONENT, SPRITE_COMPONENT });
-        m_sprite_system->AllocateSprite(entity.id, sprite_data);
-
-        m_sprite_entities.push_back(entity.id);
+        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
+        m_sprite_buffers.push_back(mono::SpriteBatchDrawer::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
     }
-    
-//        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
-}
 
-UISpriteElement::~UISpriteElement()
-{
-    for(uint32_t entity_id : m_sprite_entities)
-        m_entity_manager->ReleaseEntity(entity_id);
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
 }
 
 void UISpriteElement::SetActiveSprite(size_t index)
@@ -78,50 +142,63 @@ void UISpriteElement::SetActiveSprite(size_t index)
 
 mono::ISprite* UISpriteElement::GetSprite(size_t index)
 {
-    return m_sprite_system->GetSprite(m_sprite_entities[index]);
-    //return m_sprites[index];
+    return m_sprites[index].get();
 }
 
-void UISpriteElement::EntityDraw(mono::IRenderer& renderer) const
+void UISpriteElement::Update(const mono::UpdateContext& update_context)
 {
-    //renderer.DrawSprite(*m_sprites[m_active_sprite]);
+    for(auto& sprite : m_sprites)
+        sprite->Update(update_context);
 }
 
-void UISpriteElement::EntityUpdate(const mono::UpdateContext& update_context)
+void UISpriteElement::Draw(mono::IRenderer& renderer) const
 {
-    //Transformation();
-
-//    for(auto& sprite : m_sprites)
-//        sprite->Update(update_context);
+    const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
+    const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
+    renderer.DrawSprite(
+        sprite,
+        buffers.vertices.get(),
+        buffers.offsets.get(),
+        buffers.uv.get(),
+        buffers.uv_flipped.get(),
+        buffers.heights.get(),
+        m_indices.get(),
+        sprite->GetTexture(),
+        sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }
 
-UISquareElement::UISquareElement(const math::Quad& square, const mono::Color::RGBA& color)
-    : UISquareElement(square, color, color, 0.0f)
+UISquareElement::UISquareElement(float width, float height, const mono::Color::RGBA& color)
+    : UISquareElement(width, height, color, color, 0.0f)
 { }
 
 UISquareElement::UISquareElement(
-    const math::Quad& square, const mono::Color::RGBA& color, const mono::Color::RGBA& border_color, float border_width)
-    : m_square(square)
-    , m_color(color)
-    , m_border_color(border_color)
-    , m_border_width(border_width)
-{ }
-
-void UISquareElement::EntityDraw(mono::IRenderer& renderer) const
+    float width, float height, const mono::Color::RGBA& color, const mono::Color::RGBA& border_color, float border_width)
+    : m_border_width(border_width)
 {
-    if(m_border_width > 0.0f)
-    {
-        const math::Vector border_shift(m_border_width, m_border_width);
+    const std::vector<math::Vector> vertex_data = {
+        { 0.0f, 0.0f },
+        { 0.0f, height },
+        { width, height },
+        { width, 0.0f }
+    };
+    const std::vector<mono::Color::RGBA> color_data(vertex_data.size(), color);
+    const std::vector<mono::Color::RGBA> border_color_data(vertex_data.size(), border_color);
 
-        math::Quad border_square = m_square;
-        border_square.mA -= border_shift;
-        border_square.mB += border_shift;
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
+    m_border_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, border_color_data.data());
 
-        renderer.DrawFilledQuad(border_square, m_border_color);
-    }
-
-    renderer.DrawFilledQuad(m_square, m_color);
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3,   // Two triangles
+        0, 1, 2, 3, 0       // Outline
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
 }
 
-void UISquareElement::EntityUpdate(const mono::UpdateContext& update_context)
-{ }
+void UISquareElement::Draw(mono::IRenderer& renderer) const
+{
+    renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
+
+    if(m_border_width > 0.0f)
+        renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
+}

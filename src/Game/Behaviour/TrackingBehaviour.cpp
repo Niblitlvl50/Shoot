@@ -1,6 +1,6 @@
 
 #include "TrackingBehaviour.h"
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 
 #include "Navigation/NavMesh.h"
 

@@ -50,6 +50,7 @@ namespace game
         int weapon_reload_percentage;
 
         int score;
+        int lifes;
     };
 
     constexpr int n_players = 4;

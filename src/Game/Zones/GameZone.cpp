@@ -17,7 +17,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"

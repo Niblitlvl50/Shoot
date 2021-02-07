@@ -1,7 +1,7 @@
 
 #include "gtest/gtest.h"
 
-#include "AIKnowledge.h"
+#include "PlayerInfo.h"
 
 static_assert(game::n_players == 4);
 
