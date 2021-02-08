@@ -129,10 +129,7 @@ PlayerDaemon::~PlayerDaemon()
     {
         game::PlayerInfo& player_info = g_players[index];
         if(player_info.player_state == game::PlayerState::ALIVE)
-        {
-            m_entity_system->ReleaseEntity(player_info.entity_id);
-            ReleasePlayerInfo(&player_info);
-        }
+            DespawnPlayer(&player_info);
     }
 
     m_camera_system->Unfollow();
@@ -161,15 +158,20 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
         return;
     }
 
+    allocated_player_info->lives = 3;
     m_controller_id_to_player_info[controller_id] = allocated_player_info;
 
     const auto destroyed_func = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
 
         if(type == DamageType::DESTROYED)
         {
-            //ReleasePlayerInfo(allocated_player_info);
             allocated_player_info->player_state = game::PlayerState::DEAD;
-            //m_camera_system->Unfollow();
+            allocated_player_info->lives--;
+            if(allocated_player_info->lives <= 0)
+            {
+                DespawnPlayer(allocated_player_info);
+                m_camera_system->Unfollow();
+            }
         }
         else if(type == DamageType::DAMAGED)
         {
@@ -189,6 +191,12 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
     m_camera_system->Follow(spawned_id, math::Vector(0.0f, 3.0f));
 }
 
+void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
+{
+    m_entity_system->ReleaseEntity(player_info->entity_id);
+    ReleasePlayerInfo(player_info);
+}
+
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     SpawnLocalPlayer(event.controller_id);
@@ -200,11 +208,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     const auto it = m_controller_id_to_player_info.find(event.controller_id);
     if(it != m_controller_id_to_player_info.end())
     {
-        game::PlayerInfo* player_info = it->second;
-        m_entity_system->ReleaseEntity(player_info->entity_id);
-        ReleasePlayerInfo(player_info);
-        m_camera_system->Unfollow();
-
+        DespawnPlayer(it->second);
         m_controller_id_to_player_info.erase(event.controller_id);
     }
 
@@ -220,16 +224,22 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
     System::Log("PlayerDaemon|Remote player connected, %s\n", network::AddressToString(event.address).c_str());
 
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
+    if(!allocated_player_info)
+    {
+        System::Log("Unable to allocate player info for local player.\n");
+        return mono::EventResult::HANDLED;
+    }
 
+    allocated_player_info->lives = 3;
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
     remote_player_data.player_info = allocated_player_info;
 
-    const auto remote_player_destroyed = [allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        //game::entity_manager->ReleaseEntity(it->second.player_info.entity_id);
-        //m_remote_players.erase(it);
-        
+    const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
+
         allocated_player_info->player_state = game::PlayerState::DEAD;
-        //ReleasePlayerInfo(allocated_player_info);
+        allocated_player_info->lives--;
+        if(allocated_player_info->lives <= 0)
+            DespawnPlayer(allocated_player_info);
     };
 
     const uint32_t spawned_id = SpawnPlayer(
@@ -257,8 +267,7 @@ mono::EventResult PlayerDaemon::RemotePlayerDisconnected(const PlayerDisconnecte
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
     {
-        m_entity_system->ReleaseEntity(it->second.player_info->entity_id);
-        ReleasePlayerInfo(it->second.player_info);
+        DespawnPlayer(it->second.player_info);
         m_remote_players.erase(it);
     }
 

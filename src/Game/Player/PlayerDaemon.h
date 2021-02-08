@@ -33,6 +33,7 @@ namespace game
         ~PlayerDaemon();
 
         void SpawnLocalPlayer(int controller_id);
+        void DespawnPlayer(PlayerInfo* player_info);
         std::vector<uint32_t> GetPlayerIds() const;
 
     private:
