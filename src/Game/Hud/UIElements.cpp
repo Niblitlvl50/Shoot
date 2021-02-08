@@ -12,6 +12,34 @@
 
 using namespace game;
 
+UIElement::UIElement()
+    : m_scale(1.0f, 1.0f)
+    , m_rotation(0.0f)
+{ }
+
+void UIElement::Update(const mono::UpdateContext& context)
+{
+    for(UIElement* child : m_ui_elements)
+        child->Update(context);
+}
+
+void UIElement::Draw(mono::IRenderer& renderer) const
+{
+    const math::Matrix& model = Transform();
+
+    for(const UIElement* ui : m_ui_elements)
+    {
+        const math::Matrix& transform = model * ui->Transform();
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+        ui->Draw(renderer);
+    }
+}
+
+math::Quad UIElement::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
 void UIElement::SetPosition(const math::Vector& position)
 {
     m_position = position;
@@ -35,56 +63,27 @@ math::Matrix UIElement::Transform() const
         math::CreateMatrixWithScale(m_scale);
 }
 
-
-UIOverlay::UIOverlay(float width, float height)
-    : m_scale(1.0f, 1.0f)
-    , m_rotation(0.0f)
+void UIElement::AddChild(UIElement* element)
 {
-    m_projection = math::Ortho(0, width, 0, height, -10, 10);
+    m_ui_elements.push_back(element);
 }
 
-void UIOverlay::Update(const mono::UpdateContext& context)
+void UIElement::RemoveChild(UIElement* element)
 {
-    for(UIElement* ui : m_ui_elements)
-        ui->Update(context);
+    mono::remove(m_ui_elements, element);
+}
+
+
+UIOverlay::UIOverlay(float width, float height)
+{
+    m_projection = math::Ortho(0, width, 0, height, -10, 10);
 }
 
 void UIOverlay::Draw(mono::IRenderer& renderer) const
 {
     const auto projection_scope = mono::MakeProjectionScope(m_projection, &renderer);
     const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
-
-    const math::Matrix& model = Transform();
-
-    for(const UIElement* ui : m_ui_elements)
-    {
-        const math::Matrix& transform = model * ui->Transform();
-        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-        ui->Draw(renderer);
-    }
-}
-
-math::Quad UIOverlay::BoundingBox() const
-{
-    return math::InfQuad;
-}
-
-void UIOverlay::AddChild(UIElement* element)
-{
-    m_ui_elements.push_back(element);
-}
-
-void UIOverlay::RemoveChild(UIElement* element)
-{
-    mono::remove(m_ui_elements, element);
-}
-
-math::Matrix UIOverlay::Transform() const
-{
-    return 
-        math::CreateMatrixWithPosition(m_position) *
-        math::CreateMatrixFromZRotation(m_rotation) *
-        math::CreateMatrixWithScale(m_scale);
+    UIElement::Draw(renderer);
 }
 
 
@@ -95,19 +94,9 @@ UITextElement::UITextElement(int font_id, const std::string& text, bool centered
     , m_color(color)
 { }
 
-void UITextElement::SetFontId(int new_font_id)
-{
-    m_font_id = new_font_id;
-}
-
 void UITextElement::SetText(const std::string& new_text)
 {
     m_text = new_text;
-}
-
-void UITextElement::SetColor(const mono::Color::RGBA& new_color)
-{
-    m_color = new_color;
 }
 
 void UITextElement::Draw(mono::IRenderer& renderer) const

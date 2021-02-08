@@ -17,51 +17,40 @@
 
 namespace game
 {
-    class UIElement
+    class UIElement : public mono::IUpdatable, public mono::IDrawable
     {
     public:
 
+        UIElement();
         virtual ~UIElement() = default;
 
-        virtual void Update(const mono::UpdateContext& context)
-        { }
-        virtual void Draw(mono::IRenderer& renderer) const
-        { }
+        void Update(const mono::UpdateContext& context) override;
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
         void SetPosition(const math::Vector& position);
         void SetScale(const math::Vector& scale);
         void SetRotation(float radians);
         math::Matrix Transform() const;
 
-    protected:
-
-        math::Vector m_position;
-        math::Vector m_scale{1.0f, 1.0f};
-        float m_rotation = 0.0f;
-    };
-
-    class UIOverlay : public mono::IUpdatable, public mono::IDrawable
-    {
-    public:
-
-        UIOverlay(float width, float height);
-
-        void Update(const mono::UpdateContext& context) override;
-        void Draw(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
-
         void AddChild(UIElement* element);
         void RemoveChild(UIElement* element);
 
-        math::Matrix Transform() const;
-
     protected:
 
-        math::Matrix m_projection;
         math::Vector m_position;
         math::Vector m_scale;
         float m_rotation;
         std::vector<UIElement*> m_ui_elements;
+    };
+
+    class UIOverlay : public UIElement
+    {
+    public:
+
+        UIOverlay(float width, float height);
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Matrix m_projection;
     };
 
     class UITextElement : public UIElement
@@ -69,14 +58,11 @@ namespace game
     public:
 
         UITextElement(int font_id, const std::string& text, bool centered, const mono::Color::RGBA& color);
-
-        void SetFontId(int new_font_id);
         void SetText(const std::string& new_text);
-        void SetColor(const mono::Color::RGBA& new_color);
-
-        void Draw(mono::IRenderer& renderer) const override;
 
     private:
+
+        void Draw(mono::IRenderer& renderer) const override;
 
         int m_font_id;
         std::string m_text;

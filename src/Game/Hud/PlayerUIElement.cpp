@@ -13,6 +13,38 @@
 
 #include <cstdio>
 
+namespace
+{
+    class ReloadLine : public game::UIElement
+    {
+    public:
+
+        ReloadLine(const game::PlayerInfo& player_info)
+            : m_player_info(player_info)
+        {}
+
+        void Draw(mono::IRenderer& renderer) const
+        {
+            const bool is_reloading = (m_player_info.weapon_state == game::WeaponState::RELOADING);
+            if(is_reloading)
+            {
+                const std::vector<math::Vector> reload_line = {
+                    math::Vector(0.0f, 0.0f),
+                    math::Vector(50.0f, 0.0f)
+                };
+
+                const float reload_dot =
+                    math::Length(reload_line.back() - reload_line.front()) * float(m_player_info.weapon_reload_percentage) / 100.f;
+
+                renderer.DrawLines(reload_line, mono::Color::RED, 4.0f);
+                renderer.DrawPoints({ math::Vector(reload_dot, 0.0f) }, mono::Color::BLACK, 8.0f);
+            }
+        }
+
+        const game::PlayerInfo& m_player_info;
+    };
+}
+
 using namespace game;
 
 PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
@@ -52,6 +84,9 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     m_weapon_state_text->SetPosition(math::Vector(50.0f, 8.5f));
     m_weapon_state_text->SetScale(math::Vector(2.0f, 2.0f));
 
+    ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
+    weapon_reload_line->SetPosition(math::Vector(10.0f, 25.0f));
+
     m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
     m_score_text->SetPosition(math::Vector(5.0f, 390.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
@@ -61,30 +96,8 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     AddChild(m_weapon_sprites);
     AddChild(m_ammo_text);
     AddChild(m_weapon_state_text);
+    AddChild(weapon_reload_line);
     AddChild(m_score_text);
-}
-
-void PlayerUIElement::Draw(mono::IRenderer& renderer) const
-{
-    UIOverlay::Draw(renderer);
-
-    const bool is_reloading = (m_player_info.weapon_state == WeaponState::RELOADING);
-    if(is_reloading)
-    {
-        constexpr float x_offset = 10.0f;
-        constexpr float y_offset = 20.0f;
-
-        const std::vector<math::Vector> reload_line = {
-            math::Vector(x_offset, y_offset),
-            math::Vector(50.0f, y_offset)
-        };
-
-        const float reload_dot =
-            math::Length(reload_line.back() - reload_line.front()) * float(m_player_info.weapon_reload_percentage) / 100.f;
-
-        renderer.DrawLines(reload_line, mono::Color::RED, 4.0f);
-        renderer.DrawPoints({ math::Vector(reload_dot + x_offset, y_offset) }, mono::Color::BLACK, 8.0f);
-    }
 }
 
 void PlayerUIElement::Update(const mono::UpdateContext& update_context)

@@ -15,7 +15,6 @@ namespace game
 
         PlayerUIElement(const PlayerInfo& player_info);
         void Update(const mono::UpdateContext& update_context) override;
-        void Draw(mono::IRenderer& renderer) const override;
 
     private:
 
