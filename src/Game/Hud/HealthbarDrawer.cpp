@@ -115,6 +115,9 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         if(delta > 5000)
             return;
 
+        if(record.health <= 0)
+            return;
+
         Healthbar bar;
         bar.last_damaged_timestamp = record.last_damaged_timestamp;
         bar.health_percentage = float(record.health) / float(record.full_health);
