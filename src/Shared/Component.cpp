@@ -165,7 +165,7 @@ extern const uint32_t TRANSLATION_COMPONENT     = mono::Hash("set_translation");
 extern const uint32_t ROTATION_COMPONENT        = mono::Hash("set_rotation");
 extern const uint32_t CAMERA_ZOOM_COMPONENT     = mono::Hash("camera_zoom");
 extern const uint32_t CAMERA_POINT_COMPONENT    = mono::Hash("camera_point");
-
+extern const uint32_t INTERACTION_COMPONENT     = mono::Hash("interaction");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -215,6 +215,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "camera_zoom";
     else if(hash == CAMERA_POINT_COMPONENT)
         return "camera_point";
+    else if(hash == INTERACTION_COMPONENT)
+        return "interaction";
 
     return "Unknown";
 }
@@ -234,6 +236,7 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }, "general" ),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }, "general" ),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  { SPAWN_SCORE_ATTRIBUTE }, "general" ),
+    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  { TRIGGER_NAME_ATTRIBUTE }, "general" ),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }, "rendering" ),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }, "rendering" ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }, "physics" ),

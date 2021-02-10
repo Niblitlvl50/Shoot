@@ -35,6 +35,9 @@
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
 
+#include "InteractionSystem/InteractionSystem.h"
+#include "InteractionSystem/InteractionSystemDrawer.h"
+
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
 
@@ -63,6 +66,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
+    InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
 
     m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
@@ -76,6 +80,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
+    AddDrawable(new InteractionSystemDrawer(interaction_system, transform_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
 
     // Debug

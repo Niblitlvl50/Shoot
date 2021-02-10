@@ -138,12 +138,10 @@ PlayerDaemon::~PlayerDaemon()
 std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
 {
     std::vector<uint32_t> ids;
-
-    for(int index = 0; index < game::n_players; ++index)
+    for(const PlayerInfo* player : game::GetActivePlayers())
     {
-        game::PlayerInfo& player_info = g_players[index];
-        if(player_info.player_state == game::PlayerState::ALIVE)
-            ids.push_back(player_info.entity_id);
+        if(player)
+            ids.push_back(player->entity_id);
     }
 
     return ids;

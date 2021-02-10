@@ -7,6 +7,7 @@
 #include "Weapons/WeaponState.h"
 
 #include <cstdint>
+#include <array>
 
 namespace game
 {
@@ -65,6 +66,11 @@ namespace game
 
     game::PlayerInfo* FindPlayerInfoFromEntityId(uint32_t entity_id);
     const PlayerInfo* GetClosestActivePlayer(const math::Vector& world_position);
+
+    using PlayerArray = std::array<const PlayerInfo*, game::n_players>;
+
+    // You need to check for nullptr for each.
+    PlayerArray GetActivePlayers();
 
     bool IsPlayer(uint32_t entity_id);
 }

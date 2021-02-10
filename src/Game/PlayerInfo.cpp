@@ -71,6 +71,19 @@ const game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_p
     return closest_player;
 }
 
+game::PlayerArray game::GetActivePlayers()
+{
+    PlayerArray active_players;
+
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = g_players[index];
+        active_players[index] = (player_info.player_state == game::PlayerState::ALIVE) ? &player_info : nullptr;
+    }
+
+    return active_players;
+}
+
 bool game::IsPlayer(uint32_t entity_id)
 {
     return FindPlayerInfoFromEntityId(entity_id) != nullptr;

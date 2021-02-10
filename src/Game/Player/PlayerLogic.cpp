@@ -10,6 +10,7 @@
 #include "Particle/ParticleSystem.h"
 
 #include "DamageSystem.h"
+#include "InteractionSystem/InteractionSystem.h"
 #include "Factories.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
@@ -51,6 +52,7 @@ PlayerLogic::PlayerLogic(
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
+    m_interaction_system = system_context->GetSystem<InteractionSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
 
@@ -232,6 +234,11 @@ void PlayerLogic::Reload(uint32_t timestamp)
 void PlayerLogic::SecondaryFire()
 {
     m_secondary_fire = true;
+}
+
+void PlayerLogic::TriggerInteraction()
+{
+    m_interaction_system->TryTriggerInteraction(m_entity_id);
 }
 
 void PlayerLogic::SelectWeapon(WeaponType weapon)

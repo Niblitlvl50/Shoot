@@ -143,6 +143,7 @@ extern const uint32_t TRANSLATION_COMPONENT;
 extern const uint32_t ROTATION_COMPONENT;
 extern const uint32_t CAMERA_ZOOM_COMPONENT;
 extern const uint32_t CAMERA_POINT_COMPONENT;
+extern const uint32_t INTERACTION_COMPONENT;
 
 struct Component
 {
@@ -153,7 +154,7 @@ struct Component
     const char* category;
 };
 
-using ComponentArray = std::array<Component, 22>;
+using ComponentArray = std::array<Component, 23>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

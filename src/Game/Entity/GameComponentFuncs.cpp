@@ -14,6 +14,7 @@
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/AnimationSystem.h"
 #include "GameCamera/CameraSystem.h"
+#include "InteractionSystem/InteractionSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -675,6 +676,37 @@ namespace
         camera_system->AddCameraAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), point);
         return true;
     }
+
+    bool CreateInteraction(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
+        interaction_system->AllocateComponent(entity->id);
+        return true;
+    }
+    
+    bool ReleaseInteraction(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
+        interaction_system->ReleaseComponent(entity->id);
+        return true;
+    }
+    
+    bool UpdateInteraction(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+        
+        game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
+        interaction_system->AddComponent(entity->id, mono::Hash(trigger_name.c_str()));
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -696,7 +728,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);
     entity_manager->RegisterComponent(ROTATION_COMPONENT, CreateRotation, ReleaseRotation, UpdateRotation);
-
     entity_manager->RegisterComponent(CAMERA_ZOOM_COMPONENT, CreateCameraZoom, ReleaseCameraZoom, UpdateCameraZoom);
     entity_manager->RegisterComponent(CAMERA_POINT_COMPONENT, CreateCameraPoint, ReleaseCameraPoint, UpdateCameraPoint);
+    entity_manager->RegisterComponent(INTERACTION_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteraction);
 }

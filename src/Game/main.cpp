@@ -26,6 +26,7 @@
 #include "Entity/AnimationSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "GameCamera/CameraSystem.h"
+#include "InteractionSystem/InteractionSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "SpawnSystem.h"
@@ -160,6 +161,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
+        system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
 
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

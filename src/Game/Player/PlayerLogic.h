@@ -55,6 +55,8 @@ namespace game
 
         void SecondaryFire();
 
+        void TriggerInteraction();
+
         void SelectWeapon(WeaponType weapon);
         void SelectSecondaryWeapon(WeaponType weapon);
         
@@ -110,5 +112,6 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
         class PickupSystem* m_pickup_system;
+        class InteractionSystem* m_interaction_system;
     };
 }
