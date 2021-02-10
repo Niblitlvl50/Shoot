@@ -90,8 +90,11 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, entity_system, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
     
-    AddUpdatableDrawable(new GameOverScreen(game::g_players[0], m_event_handler), LayerId::UI);
-    AddUpdatableDrawable(new PlayerUIElement(game::g_players[0]), LayerId::UI);
+    m_gameover_screen = std::make_unique<GameOverScreen>(game::g_players[0], m_event_handler);
+    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
+
+    AddUpdatableDrawable(m_gameover_screen.get(), LayerId::UI);
+    AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -112,6 +115,9 @@ int SystemTestZone::OnUnload()
 
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
+
+    RemoveUpdatableDrawable(m_gameover_screen.get());
+    RemoveUpdatableDrawable(m_player_ui.get());
 
     return m_next_zone;
 }

@@ -31,5 +31,7 @@ namespace game
         int m_next_zone;
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
+        std::unique_ptr<class GameOverScreen> m_gameover_screen;
+        std::unique_ptr<class PlayerUIElement> m_player_ui;
     };
 }
