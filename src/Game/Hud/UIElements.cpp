@@ -6,7 +6,7 @@
 #include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
-#include "Rendering/Sprite/SpriteBatchDrawer.h"
+#include "Rendering/Sprite/SpriteBufferFactory.h"
 
 #include "Util/Algorithm.h"
 
@@ -115,7 +115,7 @@ UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
     for(const std::string& sprite_file : sprite_files)
     {
         m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
-        m_sprite_buffers.push_back(mono::SpriteBatchDrawer::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
+        m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
     }
 
     constexpr uint16_t indices[] = {

@@ -12,6 +12,18 @@ namespace game
         uint32_t interaction_hash;
     };
 
+    struct InteractionAndTrigger
+    {
+        uint32_t interaction_id;
+        uint32_t trigger_id;
+    };
+
+    struct FrameInteractionData
+    {
+        std::vector<InteractionAndTrigger> active;
+        std::vector<InteractionAndTrigger> deactivated;
+    };
+
     class InteractionSystem : public mono::IGameSystem
     {
     public:
@@ -28,8 +40,7 @@ namespace game
 
         void TryTriggerInteraction(uint32_t entity_id);
 
-        const std::vector<uint32_t>& GetActiveInteractions() const;
-        const std::vector<uint32_t>& GetTriggeredInteractions() const;
+        const FrameInteractionData& GetFrameInteractionData() const;
 
         template <typename T>
         inline void ForEach(T&& callable)
@@ -49,8 +60,10 @@ namespace game
 
         std::vector<InteractionComponent> m_components;
         std::vector<bool> m_active;
-        std::vector<uint32_t> m_active_interactions;
-        std::vector<uint32_t> m_triggered_interactions;
+
+        std::vector<InteractionAndTrigger> m_previous_active_interactions;
+        FrameInteractionData m_interaction_data;
+
         std::vector<uint32_t> m_player_triggers;
     };
 }
