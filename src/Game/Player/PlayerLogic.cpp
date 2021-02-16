@@ -1,6 +1,6 @@
 
 #include "PlayerLogic.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"

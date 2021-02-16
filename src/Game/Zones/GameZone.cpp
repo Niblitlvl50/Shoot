@@ -17,7 +17,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"

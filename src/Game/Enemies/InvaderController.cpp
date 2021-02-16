@@ -1,7 +1,7 @@
 
 #include "InvaderController.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Behaviour/TrackingBehaviour.h"
 #include "Factories.h"
 #include "Weapons/IWeapon.h"

@@ -8,7 +8,7 @@
 #include "System/Network.h"
 
 #include "Events/GameEventFuncFwd.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include <vector>
 #include <unordered_map>

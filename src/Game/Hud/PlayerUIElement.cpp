@@ -1,7 +1,7 @@
 
 #include "PlayerUIElement.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
 #include "Math/EasingFunctions.h"

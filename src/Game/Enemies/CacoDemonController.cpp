@@ -1,7 +1,7 @@
 
 #include "CacoDemonController.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "DamageSystem.h"
 #include "Factories.h"
 #include "Weapons/IWeapon.h"

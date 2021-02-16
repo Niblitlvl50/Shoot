@@ -1,6 +1,6 @@
 
 #include "GameDebug.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"

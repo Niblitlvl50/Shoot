@@ -1,6 +1,6 @@
 
 #include "TrackingBehaviour.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include "Navigation/NavMesh.h"
 

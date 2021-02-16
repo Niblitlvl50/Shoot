@@ -1,7 +1,7 @@
 
 #include "CameraSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include "Camera/ICamera.h"
 #include "EventHandler/EventHandler.h"

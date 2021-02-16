@@ -1,7 +1,7 @@
 
 #include "EmptyZone.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Network/INetworkPipe.h"
 #include "RenderLayers.h"
 #include "Player/PlayerDaemon.h"

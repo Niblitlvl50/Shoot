@@ -1,7 +1,7 @@
 
 #include "GameOverScreen.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
 #include "Events/PlayerConnectedEvent.h"

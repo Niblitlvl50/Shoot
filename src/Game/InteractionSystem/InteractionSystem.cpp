@@ -1,6 +1,6 @@
 
 #include "InteractionSystem.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "TriggerSystem/TriggerSystem.h"
 
 #include "Math/MathFunctions.h"

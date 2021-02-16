@@ -7,7 +7,7 @@
 game::PlayerInfo game::g_players[n_players];
 game::NavmeshContext* game::g_navmesh = nullptr;
 
-void game::InitializeAIKnowledge()
+void game::InitializePlayerInfo()
 {
     std::memset(g_players, 0, sizeof(g_players));
 }

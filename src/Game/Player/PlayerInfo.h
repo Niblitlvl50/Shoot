@@ -58,7 +58,7 @@ namespace game
     extern PlayerInfo g_players[n_players];
     extern struct NavmeshContext* g_navmesh;
 
-    void InitializeAIKnowledge();
+    void InitializePlayerInfo();
     
     // Might return nullptr if no one is avalible.
     game::PlayerInfo* AllocatePlayerInfo();

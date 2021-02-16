@@ -1,7 +1,7 @@
 
 #include "PlayerDaemon.h"
 #include "PlayerLogic.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/Entity.h"

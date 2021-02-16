@@ -14,7 +14,7 @@
 #include "Rendering/Text/TextSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
     physics_system_params.n_segment_shapes = max_entities;
     physics_system_params.n_polygon_shapes = max_entities;
 
-    game::InitializeAIKnowledge();
+    game::InitializePlayerInfo();
 
     {
         //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;

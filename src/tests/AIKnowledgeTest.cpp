@@ -1,13 +1,13 @@
 
 #include "gtest/gtest.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 
 static_assert(game::n_players == 4);
 
-TEST(AIKnowledgeTest, AllocateAndRelease)
+TEST(PlayerInfoTest, AllocateAndRelease)
 {
-    game::InitializeAIKnowledge();
+    game::InitializePlayerInfo();
 
     game::PlayerInfo* player_info_1 = game::AllocatePlayerInfo();
     player_info_1->player_state = game::PlayerState::ALIVE;
@@ -36,9 +36,9 @@ TEST(AIKnowledgeTest, AllocateAndRelease)
     //bool game::IsPlayer(uint32_t entity_id);
 }
 
-TEST(AIKnowledgeTest, FindPlayerInfo)
+TEST(PlayerInfoTest, FindPlayerInfo)
 {
-    game::InitializeAIKnowledge();
+    game::InitializePlayerInfo();
 
     game::PlayerInfo* player_info_1 = game::AllocatePlayerInfo();
     player_info_1->player_state = game::PlayerState::ALIVE;
@@ -57,9 +57,9 @@ TEST(AIKnowledgeTest, FindPlayerInfo)
     EXPECT_EQ(found_player_info_2->score, player_info_2->score);
 }
 
-TEST(AIKnowledgeTest, GetClosestActivePlayer)
+TEST(PlayerInfoTest, GetClosestActivePlayer)
 {
-    game::InitializeAIKnowledge();
+    game::InitializePlayerInfo();
 
     game::PlayerInfo* player_info_1 = game::AllocatePlayerInfo();
     player_info_1->player_state = game::PlayerState::ALIVE;

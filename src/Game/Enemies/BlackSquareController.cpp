@@ -1,7 +1,7 @@
 
 #include "BlackSquareController.h"
 
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Behaviour/HomingBehaviour.h"
 #include "CollisionConfiguration.h"
 

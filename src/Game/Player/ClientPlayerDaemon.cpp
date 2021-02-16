@@ -1,7 +1,7 @@
 
 #include "ClientPlayerDaemon.h"
 #include "GameCamera/CameraSystem.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerInfo.h"
 #include "Network/NetworkMessage.h"
 
 #include "EntitySystem/Entity.h"
