@@ -301,8 +301,8 @@ namespace
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction);
 
-        mono::HashRegister(enter_trigger_hash, enter_trigger_name.c_str());
-        mono::HashRegister(exit_trigger_hash, exit_trigger_name.c_str());
+        mono::HashRegisterString(enter_trigger_name.c_str());
+        mono::HashRegisterString(exit_trigger_name.c_str());
 
         return true;
     }
@@ -336,7 +336,7 @@ namespace
         const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddDeathTrigger(entity->id, trigger_hash);
-        mono::HashRegister(trigger_hash, trigger_name.c_str());
+        mono::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -384,7 +384,7 @@ namespace
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddAreaEntityTrigger(
             entity->id, trigger_hash, world_bb, faction, shared::AreaTriggerOperation(operation), n_entities);
-        mono::HashRegister(trigger_hash, trigger_name.c_str());
+        mono::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -419,7 +419,7 @@ namespace
         const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddTimeTrigger(entity->id, trigger_hash, timeout_ms, repeating);
-        mono::HashRegister(trigger_hash, trigger_name.c_str());
+        mono::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -460,8 +460,8 @@ namespace
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddCounterTrigger(entity->id, trigger_hash, completed_trigger_hash, count, reset_on_completed);
 
-        mono::HashRegister(trigger_hash, trigger_name.c_str());
-        mono::HashRegister(completed_trigger_hash, trigger_name_completed.c_str());
+        mono::HashRegisterString(trigger_name.c_str());
+        mono::HashRegisterString(trigger_name_completed.c_str());
 
         return true;
     }
@@ -704,6 +704,7 @@ namespace
         
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(entity->id, mono::Hash(trigger_name.c_str()));
+        mono::HashRegisterString(trigger_name.c_str());
 
         return true;
     }

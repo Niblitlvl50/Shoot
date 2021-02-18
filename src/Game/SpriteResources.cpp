@@ -20,7 +20,7 @@ namespace
         for(const auto& list_entry : json[json_node_name])
         {
             const std::string sprite_string = list_entry;
-            mono::HashRegister(mono::Hash(sprite_string.c_str()), sprite_string.c_str());
+            mono::HashRegisterString(sprite_string.c_str());
         }
 
         return true;
