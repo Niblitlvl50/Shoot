@@ -3,15 +3,12 @@
 #include "System/File.h"
 #include "Util/Hash.h"
 
-#include <unordered_map>
 #include <string>
 
 #include "nlohmann/json.hpp"
 
 namespace
 {
-    std::unordered_map<uint32_t, std::string> g_hash_to_filename;
-
     bool LoadFileAndHashContent(const char* filename, const char* json_node_name)
     {
         file::FilePtr file = file::OpenAsciiFile(filename);
@@ -23,7 +20,7 @@ namespace
         for(const auto& list_entry : json[json_node_name])
         {
             const std::string sprite_string = list_entry;
-            g_hash_to_filename[mono::Hash(sprite_string.c_str())] = sprite_string;
+            mono::HashRegister(mono::Hash(sprite_string.c_str()), sprite_string.c_str());
         }
 
         return true;
@@ -47,9 +44,5 @@ bool game::LoadAllWorlds(const char* all_worlds_file)
 
 const char* game::HashToFilename(uint32_t hash)
 {
-    const auto it = g_hash_to_filename.find(hash);
-    if(it != g_hash_to_filename.end())
-        return it->second.c_str();
-
-    return nullptr;
+    return mono::HashLookup(hash);
 }

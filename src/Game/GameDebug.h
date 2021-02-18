@@ -22,19 +22,24 @@ namespace game
     extern bool g_draw_network_stats;
     extern bool g_draw_position_prediction;
 
+    class TriggerSystem;
+
     class DebugUpdater : public mono::IDrawable
     {
     public:
-        DebugUpdater(mono::EventHandler* event_handler);
+        DebugUpdater(TriggerSystem* trigger_system, mono::EventHandler* event_handler);
         ~DebugUpdater();
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
     private:
+
+        TriggerSystem* m_trigger_system;
         mono::EventHandler* m_event_handler;
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
 
         mutable bool m_draw_debug_menu;
+        mutable bool m_draw_trigger_input;
         mutable bool m_draw_debug_players;
         mutable mono::FpsCounter m_counter;
     };

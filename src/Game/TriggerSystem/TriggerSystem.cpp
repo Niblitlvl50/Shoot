@@ -14,6 +14,7 @@
 #include "GameDebug.h"
 
 #include <cassert>
+#include <string>
 
 using namespace game;
 
@@ -280,20 +281,6 @@ void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callba
     mono::remove(m_entity_id_to_trigger_hashes[trigger_hash], debug_entity_id);
 }
 
-void TriggerSystem::RegisterTriggerHashDebugName(uint32_t trigger_hash, const char* debug_name)
-{
-    m_trigger_hash_to_text[trigger_hash] = debug_name;
-}
-
-const char* TriggerSystem::TriggerHashToString(uint32_t trigger_hash) const
-{
-    const auto it = m_trigger_hash_to_text.find(trigger_hash);
-    if(it != m_trigger_hash_to_text.end())
-        return it->second.c_str();
-
-    return "Unknown";
-}
-
 const std::unordered_map<uint32_t, std::vector<uint32_t>>& TriggerSystem::GetTriggerTargets() const
 {
     return m_entity_id_to_trigger_hashes;
@@ -342,13 +329,8 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
         if(game::g_draw_triggers)
         {
-            std::string hash_name = "...";
-
-            const auto hash_name_it = m_trigger_hash_to_text.find(trigger_hash);
-            if(hash_name_it != m_trigger_hash_to_text.end())
-                hash_name = hash_name_it->second;
-
-            game::g_debug_drawer->DrawScreenText(hash_name.c_str(), math::Vector(1, 1), mono::Color::BLACK);
+            const char* hash_string = mono::HashLookup(trigger_hash);
+            game::g_debug_drawer->DrawScreenText(hash_string, math::Vector(1, 1), mono::Color::BLACK);
         }
     }
 }

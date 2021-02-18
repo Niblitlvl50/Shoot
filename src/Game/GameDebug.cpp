@@ -1,12 +1,14 @@
 
 #include "GameDebug.h"
 #include "Player/PlayerInfo.h"
+#include "TriggerSystem/TriggerSystem.h"
 
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
+#include "Util/Hash.h"
 
 #include "imgui/imgui.h"
 
@@ -49,6 +51,28 @@ void DrawDebugMenu(uint32_t fps)
     ImGui::TextDisabled("fps: %u", fps);
 
     ImGui::EndMainMenuBar();
+}
+
+void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_system)
+{
+    if(!trigger_system)
+        return;
+
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::Begin("TriggerInput", &draw_trigger_input, flags);
+
+    char out_buffer[128] = {};
+    const bool input_entered = ImGui::InputText("Trigger", out_buffer, std::size(out_buffer), ImGuiInputTextFlags_EnterReturnsTrue);
+    if(input_entered)
+    {
+        const uint32_t hash_value = mono::Hash(out_buffer);
+        trigger_system->EmitTrigger(hash_value);
+    }
+    
+    ImGui::End();
 }
 
 void DrawDebugPlayers(bool& show_window)
@@ -98,14 +122,18 @@ void DrawDebugPlayers(bool& show_window)
 }
 
 
-game::DebugUpdater::DebugUpdater(mono::EventHandler* event_handler)
-    : m_event_handler(event_handler)
+game::DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::EventHandler* event_handler)
+    : m_trigger_system(trigger_system)
+    , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
+    , m_draw_trigger_input(false)
     , m_draw_debug_players(false)
 {
     const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
             m_draw_debug_menu = !m_draw_debug_menu;
+        else if(event.key == Keycode::T)
+            m_draw_trigger_input = !m_draw_trigger_input;
         else if(event.key == Keycode::P)
             m_draw_debug_players = !m_draw_debug_players;
 
@@ -126,6 +154,9 @@ void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(m_draw_debug_menu)
         DrawDebugMenu(m_counter.Fps());
+
+    if(m_draw_trigger_input)
+        DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
 
     if(m_draw_debug_players)
         DrawDebugPlayers(m_draw_debug_players);

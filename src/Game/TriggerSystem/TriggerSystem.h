@@ -4,7 +4,6 @@
 #include "IGameSystem.h"
 #include "MonoFwd.h"
 #include "Math/Quad.h"
-#include "Util/ObjectPool.h"
 
 #include "Physics/PhysicsFwd.h"
 #include "TriggerTypes.h"
@@ -15,7 +14,6 @@
 #include <unordered_map>
 #include <functional>
 #include <memory>
-#include <string>
 
 namespace game
 {
@@ -97,8 +95,6 @@ namespace game
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id);
 
-        void RegisterTriggerHashDebugName(uint32_t trigger_hash, const char* debug_name);
-        const char* TriggerHashToString(uint32_t trigger_hash) const;
         const std::unordered_map<uint32_t, std::vector<uint32_t>>& GetTriggerTargets() const;
 
         void EmitTrigger(uint32_t trigger_hash);
@@ -192,7 +188,6 @@ namespace game
         std::vector<uint32_t> m_triggers_to_emit;
 
         // Debug data
-        std::unordered_map<uint32_t, std::string> m_trigger_hash_to_text;
         std::unordered_map<uint32_t, std::vector<uint32_t>> m_entity_id_to_trigger_hashes;
     };
 }
