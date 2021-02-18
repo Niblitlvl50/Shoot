@@ -1,0 +1,127 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                6
+            ],
+            "loop": false,
+            "name": "default"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "loop": false,
+            "name": "off"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                6,
+                5,
+                4,
+                3,
+                2,
+                1,
+                0
+            ],
+            "loop": false,
+            "name": "on"
+        }
+    ],
+    "category": "switches",
+    "frames": [
+        {
+            "h": 13,
+            "name": "switch_block_default_1",
+            "w": 14,
+            "x": 1868,
+            "y": 353
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_2",
+            "w": 14,
+            "x": 1886,
+            "y": 353
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_3",
+            "w": 14,
+            "x": 1904,
+            "y": 353
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_4",
+            "w": 14,
+            "x": 1000,
+            "y": 354
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_5",
+            "w": 14,
+            "x": 1018,
+            "y": 354
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_6",
+            "w": 14,
+            "x": 1036,
+            "y": 354
+        },
+        {
+            "h": 13,
+            "name": "switch_block_default_7",
+            "w": 14,
+            "x": 1684,
+            "y": 353
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

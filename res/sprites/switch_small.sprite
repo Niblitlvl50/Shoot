@@ -3,27 +3,34 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
                 1
             ],
-            "loop": true,
-            "name": "default"
+            "loop": false,
+            "name": "on"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": false,
+            "name": "off"
         }
     ],
-    "category": "shuttle",
+    "category": "switches",
     "frames": [
         {
-            "h": 12,
-            "name": "booster_default_1",
-            "w": 9,
-            "x": 191,
+            "h": 13,
+            "name": "switch_small_default_1",
+            "w": 8,
+            "x": 113,
             "y": 355
         },
         {
-            "h": 11,
-            "name": "booster_default_2",
-            "w": 9,
-            "x": 1938,
+            "h": 13,
+            "name": "switch_small_default_2",
+            "w": 8,
+            "x": 125,
             "y": 355
         }
     ],

@@ -3,35 +3,23 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
-                1
+                0
             ],
             "loop": true,
             "name": "default"
         }
     ],
-    "category": "bullets",
+    "category": "misc",
     "frames": [
         {
             "h": 16,
-            "name": "caco_bullet_default_1",
+            "name": "emote_swirl",
             "w": 16,
-            "x": 1356,
-            "y": 353
-        },
-        {
-            "h": 15,
-            "name": "caco_bullet_default_2",
-            "w": 15,
-            "x": 1551,
+            "x": 1193,
             "y": 353
         }
     ],
     "frames_offsets": [
-        {
-            "x": 0.0,
-            "y": 0.0
-        },
         {
             "x": 0.0,
             "y": 0.0
