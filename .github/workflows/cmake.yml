@@ -74,4 +74,5 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}
+      if: runner.os != 'Windows'
       run: ./bin/game_test_exe${{ matrix.exe_suffix }}
