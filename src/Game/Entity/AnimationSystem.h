@@ -5,7 +5,7 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 #include "Math/EasingFunctions.h"
-
+#include "Util/ObjectPool.h"
 #include "AnimationModes.h"
 
 #include <vector>
@@ -21,7 +21,13 @@ namespace game
         uint32_t animation_index;
     };
 
-    struct TranslateAnimationComponent
+    enum class TransformAnimType
+    {
+        TRANSLATION,
+        ROTATION
+    };
+
+    struct TransformAnimationComponent
     {
         uint32_t target_id;
         uint32_t trigger_hash;
@@ -32,31 +38,22 @@ namespace game
 
         math::EaseFunction ease_function;
         shared::AnimationMode animation_flags;
+        TransformAnimType transform_type;
 
         bool is_initialized;
 
         float start_x;
         float start_y;
+
         float delta_x;
         float delta_y;
     };
 
-    struct RotationAnimationComponent
+    struct AnimationContainer
     {
-        uint32_t target_id;
-        uint32_t trigger_hash;
-        uint32_t callback_id;
-
-        float duration;
-        float duration_counter;
-
-        math::EaseFunction ease_function;
-        shared::AnimationMode animation_flags;
-
-        bool is_initialized;
-
-        float start_rotation;
-        float delta_rotation;
+        int ref_counter = 0;
+        std::vector<SpriteAnimationComponent*> sprite_components;
+        std::vector<TransformAnimationComponent*> transform_components;
     };
 
     class AnimationSystem : public mono::IGameSystem
@@ -66,19 +63,30 @@ namespace game
         AnimationSystem(
             uint32_t n, class TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system);
 
-        SpriteAnimationComponent* AllocateSpriteAnimation(uint32_t entity_id);
-        void ReleaseSpriteAnimation(uint32_t entity_id);
-        void AddSpriteAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index);
+        AnimationContainer* AllocateAnimationContainer(uint32_t entity_id);
+        void ReleaseAnimationContainer(uint32_t entity_id);
+        bool IsAnimationContainerAllocated(uint32_t entity_id);
 
-        TranslateAnimationComponent* AllocateTranslationAnimation(uint32_t entity_id);
-        void ReleaseTranslationAnimation(uint32_t entity_id);
-        void AddTranslationComponent(
-            uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta);
+        SpriteAnimationComponent* AddSpriteAnimation(
+            uint32_t container_id,
+            uint32_t trigger_hash,
+            uint32_t animation_index);
 
-        RotationAnimationComponent* AllocateRotationAnimation(uint32_t entity_id);
-        void ReleaseRotationAnimation(uint32_t entity_id);
-        void AddRotationComponent(
-            uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta);
+        TransformAnimationComponent* AddTranslationComponent(
+            uint32_t container_id,
+            uint32_t trigger_hash,
+            float duration,
+            math::EaseFunction func,
+            shared::AnimationMode mode,
+            const math::Vector& translation_delta);
+
+        TransformAnimationComponent* AddRotationComponent(
+            uint32_t container_id,
+            uint32_t trigger_hash,
+            float duration,
+            math::EaseFunction func,
+            shared::AnimationMode mode,
+            float rotation_delta);
 
         uint32_t Id() const override;
         const char* Name() const override;
@@ -88,17 +96,13 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
 
-        std::vector<SpriteAnimationComponent> m_sprite_components;
-        std::vector<bool> m_active_sprite_components;
+        mono::ObjectPool<SpriteAnimationComponent> m_sprite_anim_pool;
+        mono::ObjectPool<TransformAnimationComponent> m_transform_anim_pool;
 
-        std::vector<TranslateAnimationComponent> m_translation_components;
-        std::vector<bool> m_active_translation_components;
-
-        std::vector<RotationAnimationComponent> m_rotation_components;
-        std::vector<bool> m_active_rotation_components;
+        std::vector<AnimationContainer> m_animation_containers;
+        std::vector<bool> m_active_animation_containers;
 
         std::vector<SpriteAnimationComponent*> m_sprite_anims_to_process;
-        std::vector<TranslateAnimationComponent*> m_translation_anims_to_process;
-        std::vector<RotationAnimationComponent*> m_rotation_anims_to_process;
+        std::vector<TransformAnimationComponent*> m_transform_anims_to_process;
     };
 }

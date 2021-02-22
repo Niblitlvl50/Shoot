@@ -20,160 +20,142 @@ AnimationSystem::AnimationSystem(
     : m_trigger_system(trigger_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
+    , m_sprite_anim_pool(32)
+    , m_transform_anim_pool(32)
 {
-    m_sprite_components.resize(n);
-    m_active_sprite_components.resize(n, false);
-
-    m_translation_components.resize(n);
-    m_active_translation_components.resize(n, false);
-
-    m_rotation_components.resize(n);
-    m_active_rotation_components.resize(n, false);
+    m_animation_containers.resize(n);
+    m_active_animation_containers.resize(n, false);
 }
 
-SpriteAnimationComponent* AnimationSystem::AllocateSpriteAnimation(uint32_t entity_id)
+AnimationContainer* AnimationSystem::AllocateAnimationContainer(uint32_t entity_id)
 {
-    m_active_sprite_components[entity_id] = true;
+    m_active_animation_containers[entity_id] = true;
     
-    SpriteAnimationComponent* allocated_component = &m_sprite_components[entity_id];
-    allocated_component->callback_id = NO_CALLBACK_SET;
-    return allocated_component;
+    AnimationContainer& allocated_container = m_animation_containers[entity_id];
+    allocated_container.ref_counter++;
+
+    return &allocated_container;
 }
 
-void AnimationSystem::ReleaseSpriteAnimation(uint32_t entity_id)
+void AnimationSystem::ReleaseAnimationContainer(uint32_t entity_id)
 {
-    SpriteAnimationComponent& allocated_component = m_sprite_components[entity_id];
-    if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
+    AnimationContainer& allocated_container = m_animation_containers[entity_id];
+    allocated_container.ref_counter--;
+    if(allocated_container.ref_counter > 0)
+        return;
 
-    m_active_sprite_components[entity_id] = false;
+    for(SpriteAnimationComponent* component : allocated_container.sprite_components)
+    {
+        if(component->callback_id != NO_CALLBACK_SET)
+            m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
+
+        mono::remove(m_sprite_anims_to_process, component);
+        m_sprite_anim_pool.ReleasePoolData(component);
+    }
+
+    for(TransformAnimationComponent* component : allocated_container.transform_components)
+    {
+        if(component->callback_id != NO_CALLBACK_SET)
+            m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
+
+        mono::remove(m_transform_anims_to_process, component);
+        m_transform_anim_pool.ReleasePoolData(component);
+    }
+
+    allocated_container.sprite_components.clear();
+    allocated_container.transform_components.clear();
+
+    m_active_animation_containers[entity_id] = false;
 }
 
-void AnimationSystem::AddSpriteAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t animation_index)
+bool AnimationSystem::IsAnimationContainerAllocated(uint32_t entity_id)
 {
-    SpriteAnimationComponent* sprite_animation = &m_sprite_components[entity_id];
+    return m_active_animation_containers[entity_id];
+}
 
-    if(sprite_animation->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(sprite_animation->trigger_hash, sprite_animation->callback_id, entity_id);
+ SpriteAnimationComponent* AnimationSystem::AddSpriteAnimation(
+     uint32_t container_id, uint32_t trigger_hash, uint32_t animation_index)
+{
+    SpriteAnimationComponent* allocated_component = m_sprite_anim_pool.GetPoolData();
+    allocated_component->target_id = container_id;
+    allocated_component->trigger_hash = trigger_hash;
+    allocated_component->animation_index = animation_index;
 
-    sprite_animation->target_id = entity_id;
-    sprite_animation->trigger_hash = trigger_hash;
-    sprite_animation->animation_index = animation_index;
-
-    const TriggerCallback callback = [this, sprite_animation](uint32_t trigger_id) {
-        m_sprite_anims_to_process.push_back(sprite_animation);
+    const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
+        m_sprite_anims_to_process.push_back(allocated_component);
     };
+    allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
 
-    sprite_animation->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
-}
+    AnimationContainer& allocated_container = m_animation_containers[container_id];
+    allocated_container.sprite_components.push_back(allocated_component);
 
-TranslateAnimationComponent* AnimationSystem::AllocateTranslationAnimation(uint32_t entity_id)
-{
-    m_active_translation_components[entity_id] = true;
-    
-    TranslateAnimationComponent* allocated_component = &m_translation_components[entity_id];
-    allocated_component->callback_id = NO_CALLBACK_SET;
+    m_animation_containers[container_id].sprite_components.push_back(allocated_component);
     return allocated_component;
 }
 
-void AnimationSystem::ReleaseTranslationAnimation(uint32_t entity_id)
+TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta)
 {
-    TranslateAnimationComponent& allocated_component = m_translation_components[entity_id];
-    if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
+    TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
+    allocated_component->target_id = container_id;
+    allocated_component->trigger_hash = trigger_hash;
+    allocated_component->callback_id = NO_CALLBACK_SET;
+    allocated_component->duration = duration;
+    allocated_component->duration_counter = 0.0f;
+    allocated_component->ease_function = func;
+    allocated_component->animation_flags = mode;
+    allocated_component->transform_type = TransformAnimType::TRANSLATION;
+    allocated_component->is_initialized = false;
 
-    mono::remove(m_translation_anims_to_process, &allocated_component);
-
-    m_active_translation_components[entity_id] = false;
-}
-
-void AnimationSystem::AddTranslationComponent(
-    uint32_t entity_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta)
-{
-    TranslateAnimationComponent* translation_anim = &m_translation_components[entity_id];
-
-    if(translation_anim->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(translation_anim->trigger_hash, translation_anim->callback_id, entity_id);
-
-    mono::remove(m_translation_anims_to_process, translation_anim);
-
-    translation_anim->target_id = entity_id;
-    translation_anim->trigger_hash = trigger_hash;
-    translation_anim->callback_id = NO_CALLBACK_SET;
-    translation_anim->duration = duration;
-    translation_anim->duration_counter = 0.0f;
-    translation_anim->ease_function = func;
-    translation_anim->is_initialized = false;
-    translation_anim->animation_flags = mode;
-
-    translation_anim->delta_x = translation_delta.x;
-    translation_anim->delta_y = translation_delta.y;
+    allocated_component->delta_x = translation_delta.x;
+    allocated_component->delta_y = translation_delta.y;
 
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
-        const TriggerCallback callback = [this, translation_anim](uint32_t trigger_id) {
-            m_translation_anims_to_process.push_back(translation_anim);
+        const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
+            m_transform_anims_to_process.push_back(allocated_component);
         };
-        translation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
+        allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
     }
     else
     {
-        m_translation_anims_to_process.push_back(translation_anim);
+        m_transform_anims_to_process.push_back(allocated_component);
     }
-}
 
-RotationAnimationComponent* AnimationSystem::AllocateRotationAnimation(uint32_t entity_id)
-{
-    m_active_rotation_components[entity_id] = true;
-    
-    RotationAnimationComponent* allocated_component = &m_rotation_components[entity_id];
-    allocated_component->callback_id = NO_CALLBACK_SET;
+    m_animation_containers[container_id].transform_components.push_back(allocated_component);
     return allocated_component;
 }
 
-void AnimationSystem::ReleaseRotationAnimation(uint32_t entity_id)
+TransformAnimationComponent* AnimationSystem::AddRotationComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta)
 {
-    RotationAnimationComponent& allocated_component = m_rotation_components[entity_id];
-    if(allocated_component.callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(allocated_component.trigger_hash, allocated_component.callback_id, entity_id);
+    TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
+    allocated_component->target_id = container_id;
+    allocated_component->trigger_hash = trigger_hash;
+    allocated_component->callback_id = NO_CALLBACK_SET;
+    allocated_component->duration = duration;
+    allocated_component->duration_counter = 0.0f;
+    allocated_component->ease_function = func;
+    allocated_component->animation_flags = mode;
+    allocated_component->transform_type = TransformAnimType::ROTATION;
+    allocated_component->is_initialized = false;
 
-    mono::remove(m_rotation_anims_to_process, &allocated_component);
-
-    m_active_rotation_components[entity_id] = false;
-}
-
-void AnimationSystem::AddRotationComponent(
-    uint32_t entity_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta)
-{
-    RotationAnimationComponent* rotation_anim = &m_rotation_components[entity_id];
-
-    if(rotation_anim->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(rotation_anim->trigger_hash, rotation_anim->callback_id, entity_id);
-
-    mono::remove(m_rotation_anims_to_process, rotation_anim);
-    
-    rotation_anim->target_id = entity_id;
-    rotation_anim->trigger_hash = trigger_hash;
-    rotation_anim->callback_id = NO_CALLBACK_SET;
-    rotation_anim->duration = duration;
-    rotation_anim->duration_counter = 0.0f;
-    rotation_anim->ease_function = func;
-    rotation_anim->is_initialized = false;
-    rotation_anim->animation_flags = mode;
-
-    rotation_anim->delta_rotation = rotation_delta;
+    allocated_component->delta_x = rotation_delta;
 
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
-        const TriggerCallback callback = [this, rotation_anim](uint32_t trigger_id) {
-            m_rotation_anims_to_process.push_back(rotation_anim);
+        const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
+            m_transform_anims_to_process.push_back(allocated_component);
         };
-        rotation_anim->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, entity_id);
+        allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
     }
     else
     {
-        m_rotation_anims_to_process.push_back(rotation_anim);
+        m_transform_anims_to_process.push_back(allocated_component);
     }
+
+    m_animation_containers[container_id].transform_components.push_back(allocated_component);
+    return allocated_component;
 }
 
 uint32_t AnimationSystem::Id() const
@@ -200,97 +182,73 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
     m_sprite_anims_to_process.clear();
 
 
-    const auto process_translation_anims_func = [this, &update_context](TranslateAnimationComponent* translation_anim) {
-
-        if(translation_anim->callback_id != NO_CALLBACK_SET)
-        {
-            m_trigger_system->RemoveTriggerCallback(
-                translation_anim->trigger_hash, translation_anim->callback_id, translation_anim->target_id);
-            translation_anim->callback_id = NO_CALLBACK_SET;
-        }
+    const auto process_transform_anims_func = [this, &update_context](TransformAnimationComponent* transform_anim) {
 
         // Do the stuff
-        math::Matrix& transform = m_transform_system->GetTransform(translation_anim->target_id);
+        math::Matrix& transform = m_transform_system->GetTransform(transform_anim->target_id);
+        const math::Vector& position = math::GetPosition(transform);
 
-        if(!translation_anim->is_initialized)
+        if(!transform_anim->is_initialized)
         {
-            const math::Vector& position = math::GetPosition(transform);
-            translation_anim->start_x = position.x;
-            translation_anim->start_y = position.y;
+            if(transform_anim->transform_type == TransformAnimType::TRANSLATION)
+            {
+                transform_anim->start_x = position.x;
+                transform_anim->start_y = position.y;
+            }
+            else
+            {
+                transform_anim->start_x = math::GetZRotation(transform);
+            }
 
-            translation_anim->is_initialized = true;
+            transform_anim->is_initialized = true;
         }
 
-        translation_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
-        translation_anim->duration_counter =
-            std::clamp(translation_anim->duration_counter, 0.0f, translation_anim->duration);
+        transform_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
+        transform_anim->duration_counter = std::clamp(transform_anim->duration_counter, 0.0f, transform_anim->duration);
 
-        const math::Vector new_position(
-            translation_anim->ease_function(translation_anim->duration_counter, translation_anim->duration, translation_anim->start_x, translation_anim->delta_x),
-            translation_anim->ease_function(translation_anim->duration_counter, translation_anim->duration, translation_anim->start_y, translation_anim->delta_y)
-        );
+        if(transform_anim->transform_type == TransformAnimType::TRANSLATION)
+        {
+            const math::Vector new_position(
+                transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x),
+                transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_y, transform_anim->delta_y)
+            );
+            math::Position(transform, new_position);
+        }
+        else
+        {
+            const float new_rotation =
+                transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
+            transform = math::CreateMatrixFromZRotation(new_rotation);
+            math::Position(transform, position);
+        }
 
-        math::Position(transform, new_position);
-        m_transform_system->SetTransformState(translation_anim->target_id, mono::TransformState::CLIENT);
+        m_transform_system->SetTransformState(transform_anim->target_id, mono::TransformState::CLIENT);
 
         // Check if done
-        const bool is_done = (translation_anim->duration - translation_anim->duration_counter) <= 0.0f;
-        if(is_done && (translation_anim->animation_flags & shared::AnimationMode::PING_PONG))
+        bool is_done = (transform_anim->duration - transform_anim->duration_counter) <= 0.0f;
+        
+        const bool ping_pong = (transform_anim->animation_flags & shared::AnimationMode::PING_PONG);
+        const bool reversable = (transform_anim->animation_flags & shared::AnimationMode::TRIGGER_REVERSE);
+        if(is_done && (ping_pong || reversable))
         {
-            translation_anim->is_initialized = false;
-            translation_anim->duration_counter = 0.0f;
+            transform_anim->is_initialized = false;
+            transform_anim->duration_counter = 0.0f;
             
-            translation_anim->delta_x = -translation_anim->delta_x;
-            translation_anim->delta_y = -translation_anim->delta_y;
+            transform_anim->delta_x = -transform_anim->delta_x;
+            transform_anim->delta_y = -transform_anim->delta_y;
 
-            return false;
+            is_done = ping_pong ? false : true;
         }
 
-        return is_done;
-    };
-    mono::remove_if(m_translation_anims_to_process, process_translation_anims_func);
-
-
-    const auto process_rotation_anims_func = [this, &update_context](RotationAnimationComponent* rotation_anim) {
-
-        if(rotation_anim->callback_id != NO_CALLBACK_SET)
+        if(transform_anim->animation_flags & shared::AnimationMode::ONE_SHOT && transform_anim->callback_id != NO_CALLBACK_SET)
         {
             m_trigger_system->RemoveTriggerCallback(
-                rotation_anim->trigger_hash, rotation_anim->callback_id, rotation_anim->target_id);
-            rotation_anim->callback_id = NO_CALLBACK_SET;
-        }
-
-        // Do the stuff
-        math::Matrix& transform = m_transform_system->GetTransform(rotation_anim->target_id);
-        const math::Vector position = math::GetPosition(transform);
-
-        if(!rotation_anim->is_initialized)
-        {
-            rotation_anim->start_rotation = math::GetZRotation(transform);
-            rotation_anim->is_initialized = true;
-        }
-
-        const float new_rotation =
-            rotation_anim->ease_function(rotation_anim->duration_counter, rotation_anim->duration, rotation_anim->start_rotation, rotation_anim->delta_rotation);
-
-        transform = math::CreateMatrixFromZRotation(new_rotation);
-        math::Position(transform, position);
-        m_transform_system->SetTransformState(rotation_anim->target_id, mono::TransformState::CLIENT);
-
-        rotation_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
-
-        // Check if done
-        const bool is_done = (rotation_anim->duration - rotation_anim->duration_counter) <= 0.0f;
-        if(is_done && (rotation_anim->animation_flags & shared::AnimationMode::PING_PONG))
-        {
-            rotation_anim->is_initialized = false;
-            rotation_anim->duration_counter = 0.0f;
-            rotation_anim->delta_rotation = -rotation_anim->delta_rotation;
-
-            return false;
+                transform_anim->trigger_hash, transform_anim->callback_id, transform_anim->target_id);
+            transform_anim->callback_id = NO_CALLBACK_SET;
         }
 
         return is_done;
     };
-    mono::remove_if(m_rotation_anims_to_process, process_rotation_anims_func);
+    
+    mono::remove_if(m_transform_anims_to_process, process_transform_anims_func);
 }

@@ -9,7 +9,9 @@ namespace game
 {
     struct InteractionComponent
     {
-        uint32_t interaction_hash;
+        uint32_t on_interaction_hash;
+        uint32_t off_interaction_hash;
+        bool triggered;
     };
 
     struct InteractionAndTrigger
@@ -33,6 +35,7 @@ namespace game
         InteractionComponent* AllocateComponent(uint32_t entity_id);
         void ReleaseComponent(uint32_t entity_id);
         void AddComponent(uint32_t entity_id, uint32_t interaction_hash);
+        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash);
 
         uint32_t Id() const override;
         const char* Name() const override;

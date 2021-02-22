@@ -495,14 +495,14 @@ namespace
     bool CreateAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AllocateSpriteAnimation(entity->id);
+        animation_system->AllocateAnimationContainer(entity->id);
         return true;
     }
 
     bool ReleaseAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->ReleaseSpriteAnimation(entity->id);
+        animation_system->ReleaseAnimationContainer(entity->id);
         return true;
     }
 
@@ -522,7 +522,7 @@ namespace
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AddSpriteAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), animation_index);
+        animation_system->AddSpriteAnimation(entity->id, mono::Hash(trigger_name.c_str()), animation_index);
 
         return true;
     }
@@ -530,14 +530,14 @@ namespace
     bool CreateTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AllocateTranslationAnimation(entity->id);
+        animation_system->AllocateAnimationContainer(entity->id);
         return true;
     }
 
     bool ReleaseTranslation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->ReleaseTranslationAnimation(entity->id);
+        animation_system->ReleaseAnimationContainer(entity->id);
         return true;
     }
 
@@ -572,14 +572,14 @@ namespace
     bool CreateRotation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AllocateRotationAnimation(entity->id);
+        animation_system->AllocateAnimationContainer(entity->id);
         return true;
     }
 
     bool ReleaseRotation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->ReleaseRotationAnimation(entity->id);
+        animation_system->ReleaseAnimationContainer(entity->id);
         return true;
     }
 
@@ -708,6 +708,29 @@ namespace
 
         return true;
     }
+
+    bool UpdateInteractionSwitch(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string on_trigger_name;
+        std::string off_trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, on_trigger_name, FallbackMode::REQUIRE_ATTRIBUTE) &&
+            FindAttribute(TRIGGER_NAME_EXIT_ATTRIBUTE, properties, off_trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            return false;
+        }
+        
+        game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
+        interaction_system->AddComponent(
+            entity->id, mono::Hash(on_trigger_name.c_str()), mono::Hash(off_trigger_name.c_str()));
+
+        mono::HashRegisterString(on_trigger_name.c_str());
+        mono::HashRegisterString(off_trigger_name.c_str());
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -732,4 +755,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(CAMERA_ZOOM_COMPONENT, CreateCameraZoom, ReleaseCameraZoom, UpdateCameraZoom);
     entity_manager->RegisterComponent(CAMERA_POINT_COMPONENT, CreateCameraPoint, ReleaseCameraPoint, UpdateCameraPoint);
     entity_manager->RegisterComponent(INTERACTION_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteraction);
+    entity_manager->RegisterComponent(INTERACTION_SWITCH_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteractionSwitch);
 }

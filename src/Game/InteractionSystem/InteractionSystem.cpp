@@ -9,6 +9,11 @@
 
 using namespace game;
 
+namespace
+{
+    constexpr uint32_t NO_HASH = std::numeric_limits<uint32_t>::max();
+}
+
 InteractionSystem::InteractionSystem(
     uint32_t n, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system)
     : m_transform_system(transform_system)
@@ -31,7 +36,18 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
 
 void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash)
 {
-    m_components[entity_id].interaction_hash = interaction_hash;
+    InteractionComponent& component = m_components[entity_id];
+    component.on_interaction_hash = interaction_hash;
+    component.off_interaction_hash = NO_HASH;
+    component.triggered = false;
+}
+
+void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash)
+{
+    InteractionComponent& component = m_components[entity_id];
+    component.on_interaction_hash = on_interaction_hash;
+    component.off_interaction_hash = off_interaction_hash;
+    component.triggered = false;
 }
 
 uint32_t InteractionSystem::Id() const
@@ -51,7 +67,7 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 
     const game::PlayerArray active_players = game::GetActivePlayers();
 
-    const auto collect_active_interactions = [&, this](uint32_t interaction_id, const InteractionComponent& interaction) {
+    const auto collect_active_interactions = [&, this](uint32_t interaction_id, InteractionComponent& interaction) {
         
         math::Quad interaction_bb = m_transform_system->GetWorldBoundingBox(interaction_id);
         math::ResizeQuad(interaction_bb, 0.5f);
@@ -69,7 +85,14 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 
                 const auto it = std::find(m_player_triggers.begin(), m_player_triggers.end(), player_info->entity_id);
                 if(it != m_player_triggers.end())
-                    m_trigger_system->EmitTrigger(interaction.interaction_hash);
+                {
+                    const bool has_off_hash = (interaction.off_interaction_hash != NO_HASH);
+                    const uint32_t hash =
+                        (interaction.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
+                    m_trigger_system->EmitTrigger(hash);
+
+                    interaction.triggered = !interaction.triggered;
+                }
             }
         }
     };
