@@ -622,6 +622,8 @@ void Editor::AddComponent(uint32_t component_hash)
 
         for(size_t index = num_components; index < num_components + num_added; ++index)
             m_entity_manager.AddComponent(m_selected_id, components[index].hash);
+
+        shared::SortComponentsByPriority(components);
     }
 }
 

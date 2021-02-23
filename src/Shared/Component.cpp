@@ -413,3 +413,21 @@ uint32_t shared::AddComponent(uint32_t hash, std::vector<Component>& components)
     add_component_recursivly(hash, components);
     return components.size() - num_components;
 }
+
+int shared::ComponentPriorityForHash(uint32_t hash)
+{
+    const auto find_func = [hash](const Component& component) {
+        return component.hash == hash;
+    };
+    const auto it = std::find_if(default_components.begin(), default_components.end(), find_func);
+    return std::distance(default_components.begin(), it);
+}
+
+void shared::SortComponentsByPriority(std::vector<Component>& components)
+{
+    const auto sort_by_prio = [](const Component& left, const Component& right) {
+        return shared::ComponentPriorityForHash(left.hash) < shared::ComponentPriorityForHash(right.hash);
+    };
+    std::sort(components.begin(), components.end(), sort_by_prio);
+}
+

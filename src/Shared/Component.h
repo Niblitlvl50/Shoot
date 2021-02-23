@@ -167,4 +167,6 @@ void StripUnknownProperties(Component& component);
 namespace shared
 {
     uint32_t AddComponent(uint32_t hash, std::vector<Component>& components);
+    int ComponentPriorityForHash(uint32_t hash);
+    void SortComponentsByPriority(std::vector<Component>& components);
 }
