@@ -236,7 +236,6 @@ Component MakeComponent(
 
 const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
-    MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "general",      { ENTITY_BEHAVIOUR_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE }),
@@ -259,6 +258,7 @@ const ComponentArray default_components = {
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,     true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
+    MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)
