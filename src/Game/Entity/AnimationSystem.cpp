@@ -113,13 +113,13 @@ TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
         const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
-            m_transform_anims_to_process.push_back(allocated_component);
+            AddTransformAnimatonToUpdate(allocated_component);
         };
         allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
     }
     else
     {
-        m_transform_anims_to_process.push_back(allocated_component);
+        AddTransformAnimatonToUpdate(allocated_component);
     }
 
     m_animation_containers[container_id].transform_components.push_back(allocated_component);
@@ -145,17 +145,24 @@ TransformAnimationComponent* AnimationSystem::AddRotationComponent(
     if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
     {
         const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
-            m_transform_anims_to_process.push_back(allocated_component);
+            AddTransformAnimatonToUpdate(allocated_component);
         };
         allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
     }
     else
     {
-        m_transform_anims_to_process.push_back(allocated_component);
+        AddTransformAnimatonToUpdate(allocated_component);
     }
 
     m_animation_containers[container_id].transform_components.push_back(allocated_component);
     return allocated_component;
+}
+
+void AnimationSystem::AddTransformAnimatonToUpdate(TransformAnimationComponent* transform_animation)
+{
+    const bool is_in_update = mono::contains(m_transform_anims_to_process, transform_animation);
+    if(!is_in_update)
+        m_transform_anims_to_process.push_back(transform_animation);
 }
 
 uint32_t AnimationSystem::Id() const
@@ -172,9 +179,6 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 {
     for(SpriteAnimationComponent* sprite_anim : m_sprite_anims_to_process)
     {
-        m_trigger_system->RemoveTriggerCallback(sprite_anim->trigger_hash, sprite_anim->callback_id, sprite_anim->target_id);
-        sprite_anim->callback_id = NO_CALLBACK_SET;
-
         mono::Sprite* sprite = m_sprite_system->GetSprite(sprite_anim->target_id);
         sprite->SetAnimation(sprite_anim->animation_index);
     }
@@ -233,7 +237,6 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
         {
             transform_anim->is_initialized = false;
             transform_anim->duration_counter = 0.0f;
-            
             transform_anim->delta_x = -transform_anim->delta_x;
             transform_anim->delta_y = -transform_anim->delta_y;
 
@@ -245,6 +248,12 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             m_trigger_system->RemoveTriggerCallback(
                 transform_anim->trigger_hash, transform_anim->callback_id, transform_anim->target_id);
             transform_anim->callback_id = NO_CALLBACK_SET;
+        }
+
+        if(is_done)
+        {
+            transform_anim->is_initialized = false;
+            transform_anim->duration_counter = 0.0f;
         }
 
         return is_done;

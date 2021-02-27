@@ -92,6 +92,8 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        void AddTransformAnimatonToUpdate(TransformAnimationComponent* transform_animation);
+
         class TriggerSystem* m_trigger_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
