@@ -15,6 +15,20 @@
             ],
             "loop": false,
             "name": "off"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0
+            ],
+            "loop": false,
+            "name": "off_on_off"
         }
     ],
     "category": "switches",

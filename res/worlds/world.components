@@ -282,18 +282,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -445,6 +433,18 @@
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "boss_death"
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 3
                         }
                     ]
                 }
@@ -3241,18 +3241,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -3311,6 +3299,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -3506,18 +3506,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -3576,6 +3564,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -5434,18 +5434,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -5504,6 +5492,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -5536,18 +5536,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -5606,6 +5594,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -5638,18 +5638,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -5708,6 +5696,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -8311,18 +8311,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 6
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -8383,6 +8371,18 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -8409,18 +8409,6 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 6
                         }
                     ]
                 },
@@ -8485,6 +8473,18 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -8511,18 +8511,6 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 6
                         }
                     ]
                 },
@@ -8585,6 +8573,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 6
                         }
                     ]
                 }
@@ -8964,18 +8964,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -9127,6 +9115,18 @@
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "boss_death"
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 3
                         }
                     ]
                 }
@@ -14238,18 +14238,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -14308,6 +14296,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -14340,18 +14340,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -14410,6 +14398,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -14442,18 +14442,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -14512,6 +14500,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -14544,18 +14544,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -14614,6 +14602,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -15075,18 +15075,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -15145,6 +15133,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 7
                         }
                     ]
                 }
@@ -17637,18 +17637,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -17791,6 +17779,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -17823,18 +17823,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -17977,6 +17965,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -18009,18 +18009,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -18163,6 +18151,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -18195,18 +18195,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -18349,6 +18337,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -18381,18 +18381,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -18535,6 +18523,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -18567,18 +18567,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -18721,6 +18709,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
@@ -19203,18 +19203,6 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 8
-                        }
-                    ]
-                },
-                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -19359,6 +19347,18 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 8
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -19385,18 +19385,6 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
-                    "properties": [
-                        {
-                            "id": 2951636756,
-                            "name": "behaviour",
-                            "variant_type": 1,
-                            "variant_value": 8
                         }
                     ]
                 },
@@ -19543,6 +19531,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 8
                         }
                     ]
                 }
@@ -19824,13 +19824,13 @@
                             "id": 1743751533,
                             "name": "animation_mode",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 5
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
-                            "variant_value": "move_box_on"
+                            "variant_value": "switch_small_on"
                         },
                         {
                             "id": 799079693,
@@ -19844,45 +19844,6 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 4.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "move_box_off"
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -4.0,
                                 "y": 0.0
                             }
                         },
@@ -20318,8 +20279,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 11.833282470703125,
-                                "y": 8.282050132751465
+                                "x": 11.006692886352539,
+                                "y": 8.162412643432617
                             }
                         },
                         {
@@ -20562,7 +20523,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         }
                     ]
                 }
