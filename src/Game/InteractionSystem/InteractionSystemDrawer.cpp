@@ -26,8 +26,14 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     , m_sprite_system(sprite_system)
     , m_transform_system(transform_system)
 {
-    m_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/emote_star.sprite");
-    m_buffers = mono::BuildSpriteDrawBuffers(m_sprite->GetSpriteData());
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/emote_star.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/emote_swirl.sprite"));
+
+    for(size_t index = 0; index < m_sprites.size(); ++index)
+    {
+        mono::ISpritePtr& sprite = m_sprites[index];
+        m_buffers.push_back(mono::BuildSpriteDrawBuffers(sprite->GetSpriteData()));
+    }
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -37,7 +43,12 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
 void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 {
-    std::vector<math::Matrix> active_interactions;
+    struct InteractionDrawData
+    {
+        math::Matrix transform;
+        uint32_t sprite_index;
+    };
+    std::vector<InteractionDrawData> active_interactions;
 
     const FrameInteractionData& frame_interactions = m_interaction_system->GetFrameInteractionData();
 
@@ -57,10 +68,11 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             m_backup_data[interaction_trigger.interaction_id] = { shade };
         }
 
-        const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.trigger_id);
-        const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(-0.1f, 0.2f);
+        //const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.trigger_id);
+        const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.interaction_id);
+        const math::Vector& entity_position = math::RightCenter(entity_world_bb) + math::Vector(0.3f, 0.0f);
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
-        active_interactions.push_back(transform);
+        active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type });
     }
 
     for(const InteractionAndTrigger& interaction_trigger : frame_interactions.deactivated)
@@ -75,19 +87,23 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         m_backup_data.erase(interaction_trigger.interaction_id);
     }
 
-    for(const math::Matrix& transform : active_interactions)
+    for(const InteractionDrawData& draw_data : active_interactions)
     {
-        const auto scope = mono::MakeTransformScope(transform, &renderer);
-        const int offset = m_sprite->GetCurrentFrameIndex() * m_buffers.vertices_per_sprite;
-        mono::ITexture* texture = m_sprite->GetTexture();
+        const auto scope = mono::MakeTransformScope(draw_data.transform, &renderer);
+
+        const mono::ISpritePtr& sprite = m_sprites[draw_data.sprite_index];
+        const mono::SpriteDrawBuffers& buffers = m_buffers[draw_data.sprite_index];
+
+        mono::ITexture* texture = sprite->GetTexture();
+        const int offset = sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite;
 
         renderer.DrawSprite(
-            m_sprite.get(),
-            m_buffers.vertices.get(),
-            m_buffers.offsets.get(),
-            m_buffers.uv.get(),
-            m_buffers.uv_flipped.get(),
-            m_buffers.heights.get(),
+            sprite.get(),
+            buffers.vertices.get(),
+            buffers.offsets.get(),
+            buffers.uv.get(),
+            buffers.uv_flipped.get(),
+            buffers.heights.get(),
             m_indices.get(),
             texture,
             offset);

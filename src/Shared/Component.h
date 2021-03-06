@@ -71,6 +71,8 @@ extern const uint32_t COUNT_ATTRIBUTE;
 extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE;
 extern const uint32_t CENTER_ATTRIBUTE;
 
+extern const uint32_t INTERACTION_TYPE_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

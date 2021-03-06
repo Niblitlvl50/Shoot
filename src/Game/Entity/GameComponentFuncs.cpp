@@ -701,9 +701,12 @@ namespace
             System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
             return false;
         }
-        
+
+        shared::InteractionType interaction_type;
+        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
+
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
-        interaction_system->AddComponent(entity->id, mono::Hash(trigger_name.c_str()));
+        interaction_system->AddComponent(entity->id, mono::Hash(trigger_name.c_str()), interaction_type);
         mono::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -721,10 +724,13 @@ namespace
             System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
             return false;
         }
+
+        shared::InteractionType interaction_type;
+        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
         
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
-            entity->id, mono::Hash(on_trigger_name.c_str()), mono::Hash(off_trigger_name.c_str()));
+            entity->id, mono::Hash(on_trigger_name.c_str()), mono::Hash(off_trigger_name.c_str()), interaction_type);
 
         mono::HashRegisterString(on_trigger_name.c_str());
         mono::HashRegisterString(off_trigger_name.c_str());

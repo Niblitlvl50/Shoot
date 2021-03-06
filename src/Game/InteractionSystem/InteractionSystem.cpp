@@ -34,19 +34,17 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
     m_active[entity_id] = false;
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash)
+void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type)
 {
-    InteractionComponent& component = m_components[entity_id];
-    component.on_interaction_hash = interaction_hash;
-    component.off_interaction_hash = NO_HASH;
-    component.triggered = false;
+    AddComponent(entity_id, interaction_hash, NO_HASH, interaction_type);
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash)
+void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type)
 {
     InteractionComponent& component = m_components[entity_id];
     component.on_interaction_hash = on_interaction_hash;
     component.off_interaction_hash = off_interaction_hash;
+    component.type = interaction_type;
     component.triggered = false;
 }
 
@@ -70,7 +68,7 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
     const auto collect_active_interactions = [&, this](uint32_t interaction_id, InteractionComponent& interaction) {
         
         math::Quad interaction_bb = m_transform_system->GetWorldBoundingBox(interaction_id);
-        math::ResizeQuad(interaction_bb, 0.5f);
+        math::ResizeQuad(interaction_bb, 0.25f);
 
         for(const PlayerInfo* player_info : active_players)
         {
@@ -81,7 +79,7 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
             const bool overlaps = math::QuadOverlaps(interaction_bb, player_bb);
             if(overlaps)
             {
-                m_interaction_data.active.push_back({ interaction_id, player_info->entity_id });
+                m_interaction_data.active.push_back({ interaction_id, player_info->entity_id, interaction.type });
 
                 const auto it = std::find(m_player_triggers.begin(), m_player_triggers.end(), player_info->entity_id);
                 if(it != m_player_triggers.end())

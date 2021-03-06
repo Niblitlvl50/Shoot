@@ -3,6 +3,7 @@
 
 #include "MonoFwd.h"
 #include "IGameSystem.h"
+#include "InteractionType.h"
 #include <vector>
 
 namespace game
@@ -11,6 +12,7 @@ namespace game
     {
         uint32_t on_interaction_hash;
         uint32_t off_interaction_hash;
+        shared::InteractionType type;
         bool triggered;
     };
 
@@ -18,6 +20,7 @@ namespace game
     {
         uint32_t interaction_id;
         uint32_t trigger_id;
+        shared::InteractionType interaction_type;
     };
 
     struct FrameInteractionData
@@ -34,8 +37,8 @@ namespace game
 
         InteractionComponent* AllocateComponent(uint32_t entity_id);
         void ReleaseComponent(uint32_t entity_id);
-        void AddComponent(uint32_t entity_id, uint32_t interaction_hash);
-        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash);
+        void AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type);
+        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type);
 
         uint32_t Id() const override;
         const char* Name() const override;

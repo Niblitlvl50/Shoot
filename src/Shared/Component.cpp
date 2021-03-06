@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 52> default_attributes = {{
+const std::array<DefaultAttribute, 53> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -77,6 +77,7 @@ const std::array<DefaultAttribute, 52> default_attributes = {{
     { "count",                  Variant(2) },
     { "reset_on_compeleted",    Variant(false) },
     { "center",                 Variant(false) },
+    { "interaction_type",       Variant(0) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -140,6 +141,7 @@ extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[48]
 extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[49].hash;
 extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50].hash;
 extern const uint32_t CENTER_ATTRIBUTE                  = default_attributes[51].hash;
+extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
@@ -239,8 +241,8 @@ const ComponentArray default_components = {
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE }),
-    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE }),
-    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE }),
+    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
+    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),

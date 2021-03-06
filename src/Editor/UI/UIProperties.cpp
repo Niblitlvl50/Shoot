@@ -8,6 +8,7 @@
 #include "EntityLogicTypes.h"
 #include "CollisionConfiguration.h"
 #include "PickupTypes.h"
+#include "InteractionType.h"
 #include "Math/EasingFunctions.h"
 #include "Math/MathFunctions.h"
 #include "TriggerTypes.h"
@@ -259,6 +260,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::font_id_strings));
+    }
+    else if(attribute.id == INTERACTION_TYPE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::InteractionTypeToString(shared::InteractionType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::interaction_type_strings));
     }
     else
     {

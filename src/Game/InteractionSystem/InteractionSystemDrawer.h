@@ -8,6 +8,7 @@
 #include "Rendering/Color.h"
 
 #include <unordered_map>
+#include <vector>
 
 namespace game
 {
@@ -27,8 +28,8 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         const mono::TransformSystem* m_transform_system;
 
-        mono::ISpritePtr m_sprite;
-        mono::SpriteDrawBuffers m_buffers;
+        std::vector<mono::ISpritePtr> m_sprites;
+        std::vector<mono::SpriteDrawBuffers> m_buffers;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct BackupData
