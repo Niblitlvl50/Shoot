@@ -39,7 +39,7 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
         const shared::InteractionType type = shared::InteractionType(index);
         m_verb_buffers.push_back(
-            mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, shared::InteractionTypeToVerb(type), mono::FontCentering::HORIZONTAL_VERTICAL));
+            mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, shared::InteractionTypeToVerb(type), mono::FontCentering::VERTICAL));
     }
 
     constexpr uint16_t indices[] = {
@@ -75,7 +75,6 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             m_backup_data[interaction_trigger.interaction_id] = { shade };
         }
 
-        //const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.trigger_id);
         const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.interaction_id);
         const math::Vector& entity_position = math::RightCenter(entity_world_bb) + math::Vector(0.3f, 0.0f);
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
@@ -117,6 +116,10 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
         const mono::TextDrawBuffers& text_buffers = m_verb_buffers[draw_data.sprite_index];
         const mono::ITexturePtr font_texture = mono::GetFontTexture(shared::FontId::PIXELETTE_TINY);
+
+        math::Matrix text_transform = draw_data.transform;
+        math::Translate(text_transform, math::Vector(0.35f, 0.0f));
+        const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
 
         renderer.RenderText(
             text_buffers.vertices.get(),
