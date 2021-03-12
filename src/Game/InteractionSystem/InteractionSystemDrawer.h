@@ -5,6 +5,7 @@
 #include "Rendering/IDrawable.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
+#include "Rendering/Text/TextBufferFactory.h"
 #include "Rendering/Color.h"
 
 #include <unordered_map>
@@ -29,7 +30,8 @@ namespace game
         const mono::TransformSystem* m_transform_system;
 
         std::vector<mono::ISpritePtr> m_sprites;
-        std::vector<mono::SpriteDrawBuffers> m_buffers;
+        std::vector<mono::SpriteDrawBuffers> m_sprite_buffers;
+        std::vector<mono::TextDrawBuffers> m_verb_buffers;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct BackupData

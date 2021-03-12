@@ -141,7 +141,7 @@ void editor::DrawPolygonShapeDetails(
 
     renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
     if(is_sensor)
-        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", position, true, mono::Color::BLUE);
+        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSpawnPointDetails(
@@ -161,7 +161,7 @@ void editor::DrawShapeTriggerComponentDetails(
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
 
     if(!name.empty())
-        renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+        renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -175,7 +175,7 @@ void editor::DrawAreaTriggerComponentDetails(
 
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDeathTriggerComponentDetails(
@@ -183,7 +183,7 @@ void editor::DrawDeathTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawTimeTriggerComponentDetails(
@@ -191,7 +191,7 @@ void editor::DrawTimeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, true, mono::Color::BLUE);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSetTranslationDetails(

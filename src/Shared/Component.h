@@ -69,7 +69,7 @@ extern const uint32_t POLYGON_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE;
 extern const uint32_t COUNT_ATTRIBUTE;
 extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE;
-extern const uint32_t CENTER_ATTRIBUTE;
+extern const uint32_t CENTER_FLAGS_ATTRIBUTE;
 
 extern const uint32_t INTERACTION_TYPE_ATTRIBUTE;
 

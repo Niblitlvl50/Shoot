@@ -14,7 +14,10 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Text/TextFunctions.h"
 #include "TransformSystem/TransformSystem.h"
+
+#include "FontIds.h"
 
 using namespace game;
 
@@ -32,7 +35,11 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     for(size_t index = 0; index < m_sprites.size(); ++index)
     {
         mono::ISpritePtr& sprite = m_sprites[index];
-        m_buffers.push_back(mono::BuildSpriteDrawBuffers(sprite->GetSpriteData()));
+        m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(sprite->GetSpriteData()));
+
+        const shared::InteractionType type = shared::InteractionType(index);
+        m_verb_buffers.push_back(
+            mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, shared::InteractionTypeToVerb(type), mono::FontCentering::HORIZONTAL_VERTICAL));
     }
 
     constexpr uint16_t indices[] = {
@@ -92,7 +99,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         const auto scope = mono::MakeTransformScope(draw_data.transform, &renderer);
 
         const mono::ISpritePtr& sprite = m_sprites[draw_data.sprite_index];
-        const mono::SpriteDrawBuffers& buffers = m_buffers[draw_data.sprite_index];
+        const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[draw_data.sprite_index];
 
         mono::ITexture* texture = sprite->GetTexture();
         const int offset = sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite;
@@ -107,6 +114,16 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             m_indices.get(),
             texture,
             offset);
+
+        const mono::TextDrawBuffers& text_buffers = m_verb_buffers[draw_data.sprite_index];
+        const mono::ITexturePtr font_texture = mono::GetFontTexture(shared::FontId::PIXELETTE_TINY);
+
+        renderer.RenderText(
+            text_buffers.vertices.get(),
+            text_buffers.uv.get(),
+            text_buffers.indices.get(),
+            font_texture.get(),
+            mono::Color::WHITE);
     }
 }
 

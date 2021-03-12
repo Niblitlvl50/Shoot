@@ -1,6 +1,7 @@
 {
     "all_textures": [
         "res/textures/brown_stone.png",
+        "res/textures/brown_stone_small.png",
         "res/textures/dark_stone.png",
         "res/textures/flare.png",
         "res/textures/grass_01.png",

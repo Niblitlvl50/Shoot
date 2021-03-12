@@ -31,6 +31,8 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "DamageSystem.h"
 
+#include "World/FogOverlay.h"
+
 namespace
 {
     const uint32_t level_completed_hash = mono::Hash("level_completed");
@@ -92,9 +94,11 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     
     m_gameover_screen = std::make_unique<GameOverScreen>(game::g_players[0], m_event_handler);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
+    m_fog = std::make_unique<FogOverlay>();
 
     AddUpdatableDrawable(m_gameover_screen.get(), LayerId::UI);
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
+    AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -118,6 +122,7 @@ int SystemTestZone::OnUnload()
 
     RemoveUpdatableDrawable(m_gameover_screen.get());
     RemoveUpdatableDrawable(m_player_ui.get());
+    RemoveUpdatableDrawable(m_fog.get());
 
     return m_next_zone;
 }

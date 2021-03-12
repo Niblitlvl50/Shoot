@@ -197,7 +197,11 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
         const Healthbar& boss_healthbar = boss_healthbars.back();
         renderer.RenderText(
-            shared::FontId::PIXELETTE_TINY, boss_healthbar.name.c_str(), math::ZeroVec, true, mono::Color::BLACK);
+            shared::FontId::PIXELETTE_TINY,
+            boss_healthbar.name.c_str(),
+            math::ZeroVec,
+            mono::Color::BLACK,
+            mono::FontCentering::HORIZONTAL_VERTICAL);
     }
 }
 

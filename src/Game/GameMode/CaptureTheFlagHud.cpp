@@ -25,7 +25,7 @@ void CaptureTheFlagHud::Draw(mono::IRenderer& renderer) const
     char text_buffer[64] = { 0 };
     std::sprintf(text_buffer, "Red %d | Blue %d", m_score.red, m_score.blue);
 
-    renderer.RenderText(shared::FontId::PIXELETTE_LARGE, text_buffer, math::Vector(100.0f, 90.0f), true, mono::Color::BLUE);
+    //renderer.RenderText(shared::FontId::PIXELETTE_LARGE, text_buffer, math::Vector(100.0f, 90.0f), true, mono::Color::BLUE);
 }
 
 math::Quad CaptureTheFlagHud::BoundingBox() const

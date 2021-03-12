@@ -18,6 +18,7 @@
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "Rendering/Sprite/SpriteData.h"
+#include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITexture.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
@@ -196,7 +197,6 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return DrawBitfieldProperty(
             attribute_name, std::get<uint32_t>(attribute.value), all_sprite_properties, mono::SpritePropertyToString);
-
     }
     else if(attribute.id == PATH_FILE_ATTRIBUTE)
     {
@@ -260,6 +260,16 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::font_id_strings));
+    }
+    else if(attribute.id == CENTER_FLAGS_ATTRIBUTE)
+    {
+        static const std::vector<uint32_t> all_centering_properties = {
+            mono::FontCentering::VERTICAL,
+            mono::FontCentering::HORIZONTAL,
+        };
+
+        return DrawBitfieldProperty(
+            attribute_name, std::get<uint32_t>(attribute.value), all_centering_properties, mono::FontCenterToString);
     }
     else if(attribute.id == INTERACTION_TYPE_ATTRIBUTE)
     {

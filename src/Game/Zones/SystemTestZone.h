@@ -33,5 +33,6 @@ namespace game
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class GameOverScreen> m_gameover_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
+        std::unique_ptr<class FogOverlay> m_fog;
     };
 }

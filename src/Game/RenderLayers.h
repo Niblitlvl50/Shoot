@@ -10,6 +10,7 @@ namespace game
         GAMEOBJECTS,
         GAMEOBJECTS_DEBUG,
         PARTICLES,
+        FOG,
         UI
     };
 }

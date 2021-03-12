@@ -76,7 +76,7 @@ const std::array<DefaultAttribute, 53> default_attributes = {{
     { "trigger_name_completed", Variant(std::string()) },
     { "count",                  Variant(2) },
     { "reset_on_compeleted",    Variant(false) },
-    { "center",                 Variant(false) },
+    { "center_flags",           Variant(0u) },
     { "interaction_type",       Variant(0) },
 }};
 
@@ -140,7 +140,7 @@ extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[47].has
 extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[48].hash;
 extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[49].hash;
 extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50].hash;
-extern const uint32_t CENTER_ATTRIBUTE                  = default_attributes[51].hash;
+extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[51].hash;
 extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52].hash;
 
 
@@ -244,7 +244,7 @@ const ComponentArray default_components = {
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
-    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
+    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
