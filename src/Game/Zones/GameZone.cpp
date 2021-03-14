@@ -5,6 +5,7 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
+#include "Rendering/Objects/StaticBackground.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
@@ -29,7 +30,6 @@
 
 #include "RenderLayers.h"
 #include "DamageSystem.h"
-#include "World/StaticBackground.h"
 #include "WorldFile.h"
 #include "Camera/ICamera.h"
 #include "GameDebug.h"
@@ -75,7 +75,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
     if(!m_leveldata.metadata.background_texture.empty())
-        AddDrawable(new StaticBackground(m_leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
+        AddDrawable(new mono::StaticBackground(m_leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
     
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);

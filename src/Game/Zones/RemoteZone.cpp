@@ -21,6 +21,7 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Objects/StaticBackground.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
@@ -31,7 +32,6 @@
 #include "PredictionSystem/PositionPredictionSystemDebug.h"
 #include "PredictionSystem/SpawnPredictionSystem.h"
 #include "Player/ClientPlayerDaemon.h"
-#include "World/StaticBackground.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -149,7 +149,7 @@ mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& me
 
     const char* background_texture_filename = game::HashToFilename(metadata_message.background_texture_hash);
     if(background_texture_filename)
-        AddDrawable(new StaticBackground(background_texture_filename), LayerId::BACKGROUND);
+        AddDrawable(new mono::StaticBackground(background_texture_filename), LayerId::BACKGROUND);
 
     return mono::EventResult::HANDLED;
 }

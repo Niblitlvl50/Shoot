@@ -80,6 +80,7 @@ namespace editor
         mono::Color::RGBA background_color;
         bool draw_object_names = false;
         bool draw_snappers = false;
+        bool draw_grid = false;
         bool snap_to_grid = false;
         math::Vector grid_size;
         bool draw_all_objects = false;
@@ -121,5 +122,6 @@ namespace editor
         std::function<void (bool new_value)> draw_object_names_callback;
         std::function<void (bool new_value)> draw_snappers_callback;
         std::function<void (const mono::Color::RGBA& color)> background_color_callback;
+        std::function<void (const std::string& background_texture)> background_texture_callback;
     };
 }

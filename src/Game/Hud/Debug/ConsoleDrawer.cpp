@@ -29,7 +29,10 @@ void ConsoleDrawer::Draw(mono::IRenderer& renderer) const
 
     for(const TextItem& item : m_text_items)
     {
-        renderer.RenderText(0, item.text.c_str(), current_pos, mono::Color::RED, mono::FontCentering::DEFAULT_CENTER);
+        const math::Matrix world_transform = math::CreateMatrixWithPosition(current_pos);
+        const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+
+        renderer.RenderText(0, item.text.c_str(), mono::Color::RED, mono::FontCentering::DEFAULT_CENTER);
         current_pos.y += 1.0f;
     }
 

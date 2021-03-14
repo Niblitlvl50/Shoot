@@ -464,98 +464,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.873611450195313,
-                                "y": 21.876008987426758
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "bush_large.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "bush_large"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 13.267717361450195,
-                                "y": 23.490684509277344
+                                "x": 12.505309104919434,
+                                "y": 23.753591537475586
                             }
                         },
                         {
@@ -644,8 +554,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 12.459193229675293,
-                                "y": 22.738874435424805
+                                "x": 11.578479766845703,
+                                "y": 22.92291259765625
                             }
                         },
                         {
@@ -722,96 +632,6 @@
             "entity_properties": 0,
             "folder": "vegetation",
             "name": "bush_large"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 17.877819061279297,
-                                "y": 21.690088272094727
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "bush_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.9999920725822449,
-                                "green": 1.0,
-                                "red": 0.9999899864196777
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "bush_small"
         },
         {
             "components": [
@@ -914,186 +734,6 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.461288452148438,
-                                "y": 23.1127986907959
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "bush_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.9999920725822449,
-                                "green": 1.0,
-                                "red": 0.9999899864196777
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "bush_small"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 13.891536712646484,
-                                "y": 21.29042625427246
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "log_second.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "log"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
                                 "x": 20.591989517211914,
                                 "y": 23.479398727416992
                             }
@@ -1184,8 +824,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.860631942749023,
-                                "y": 24.908117294311523
+                                "x": 16.491445541381836,
+                                "y": 25.12627410888672
                             }
                         },
                         {
@@ -1634,8 +1274,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 13.540284156799316,
-                                "y": 25.29591178894043
+                                "x": 11.543322563171387,
+                                "y": 24.674997329711914
                             }
                         },
                         {
@@ -1724,8 +1364,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 20.34271240234375,
-                                "y": 21.393552780151367
+                                "x": 20.17060089111328,
+                                "y": 21.486228942871094
                             }
                         },
                         {
@@ -2885,98 +2525,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.147911071777344,
-                                "y": 23.009557723999023
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "log_first.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "log"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 17.039348602294922,
-                                "y": 22.553001403808594
+                                "x": 15.650632858276367,
+                                "y": 22.439863204956055
                             }
                         },
                         {
@@ -3138,8 +2688,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.35400390625,
-                                "y": 22.05918312072754
+                                "x": 16.01270294189453,
+                                "y": 22.100557327270508
                             }
                         },
                         {
@@ -3228,8 +2778,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.497623443603516,
-                                "y": 23.189056396484375
+                                "x": 16.172286987304688,
+                                "y": 22.812227249145508
                             }
                         },
                         {
@@ -3542,7 +3092,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4
                         },
                         {
                             "id": 4153965,
@@ -3595,8 +3145,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.441770553588867,
-                                "y": 21.79976463317871
+                                "x": 20.798019409179688,
+                                "y": 21.874982833862305
                             }
                         },
                         {
@@ -4195,8 +3745,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.25989818572998,
-                                "y": 22.435073852539063
+                                "x": 13.405473709106445,
+                                "y": 22.72431182861328
                             }
                         },
                         {
@@ -4521,8 +4071,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.201528549194336,
-                                "y": 21.411731719970703
+                                "x": 18.486604690551758,
+                                "y": 21.424970626831055
                             }
                         },
                         {
@@ -5331,8 +4881,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.2844820022583,
-                                "y": 21.443159103393555
+                                "x": 15.763968467712402,
+                                "y": 21.32335090637207
                             }
                         },
                         {
@@ -5421,8 +4971,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.1027889251709,
-                                "y": 20.62331771850586
+                                "x": 18.480539321899414,
+                                "y": 20.768951416015625
                             }
                         },
                         {
@@ -5523,8 +5073,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.577516555786133,
-                                "y": 21.28217124938965
+                                "x": 19.167095184326172,
+                                "y": 21.30864906311035
                             }
                         },
                         {
@@ -5625,8 +5175,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 18.552339553833008,
-                                "y": 21.098825454711914
+                                "x": 17.625585556030273,
+                                "y": 21.204740524291992
                             }
                         },
                         {
@@ -6177,8 +5727,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.119922637939453,
-                                "y": 25.5186767578125
+                                "x": 13.34111499786377,
+                                "y": 25.03202247619629
                             }
                         },
                         {
@@ -6344,8 +5894,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.10407257080078,
-                                "y": 22.807884216308594
+                                "x": 17.600419998168945,
+                                "y": 22.550678253173828
                             }
                         },
                         {
@@ -6554,8 +6104,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.156095504760742,
-                                "y": 20.872114181518555
+                                "x": 18.478248596191406,
+                                "y": 20.90900993347168
                             }
                         },
                         {
@@ -6666,8 +6216,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.65412712097168,
-                                "y": 20.67418098449707
+                                "x": 19.031875610351563,
+                                "y": 20.5020694732666
                             }
                         },
                         {
@@ -6756,8 +6306,98 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 18.65412712097168,
-                                "y": 20.658456802368164
+                                "x": 17.727371215820313,
+                                "y": 20.565824508666992
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "log_first.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "vegetation",
+            "name": "log"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 17.64793586730957,
+                                "y": 21.37279510498047
                             }
                         },
                         {
@@ -6846,8 +6486,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 18.65412712097168,
-                                "y": 21.17418098449707
+                                "x": 19.232757568359375,
+                                "y": 21.28843116760254
                             }
                         },
                         {
@@ -6895,97 +6535,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "vegetation",
-            "name": "log"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 19.73585319519043,
-                                "y": 21.2354736328125
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "log_first.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": -1
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 8
                         },
                         {
                             "id": 4153965,
@@ -7314,8 +6864,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 13.50844669342041,
-                                "y": 21.142826080322266
+                                "x": 12.12822437286377,
+                                "y": 21.813297271728516
                             }
                         },
                         {
@@ -7404,8 +6954,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.423933029174805,
-                                "y": 21.278095245361328
+                                "x": 13.780811309814453,
+                                "y": 21.46218490600586
                             }
                         },
                         {
@@ -7494,8 +7044,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.566143035888672,
-                                "y": 20.723419189453125
+                                "x": 10.938129425048828,
+                                "y": 23.66796875
                             }
                         },
                         {
@@ -7764,8 +7314,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.55453872680664,
-                                "y": 25.83345603942871
+                                "x": 16.749042510986328,
+                                "y": 26.25298500061035
                             }
                         },
                         {
@@ -7854,8 +7404,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.744869232177734,
-                                "y": 26.856605529785156
+                                "x": 15.704437255859375,
+                                "y": 26.235702514648438
                             }
                         },
                         {
@@ -11264,8 +10814,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 12.421229362487793,
-                                "y": 25.990398406982422
+                                "x": 10.759891510009766,
+                                "y": 25.738670349121094
                             }
                         },
                         {
@@ -11714,8 +11264,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.956859588623047,
-                                "y": 23.58001708984375
+                                "x": 16.128726959228516,
+                                "y": 23.38288688659668
                             }
                         },
                         {
@@ -11804,8 +11354,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 20.49871826171875,
-                                "y": 22.97536849975586
+                                "x": 20.51406478881836,
+                                "y": 23.420381546020508
                             }
                         },
                         {
@@ -16879,8 +16429,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.260053634643555,
-                                "y": 20.888486862182617
+                                "x": 14.605371475219727,
+                                "y": 21.860036849975586
                             }
                         },
                         {
@@ -16969,15 +16519,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 20.736515045166016,
-                                "y": 21.629377365112305
+                                "x": 21.35555648803711,
+                                "y": 20.656599044799805
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": -0.0
                         }
                     ]
                 },
@@ -21548,8 +21098,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.396737098693848,
-                                "y": 6.36844539642334
+                                "x": 12.92908000946045,
+                                "y": 6.167952537536621
                             }
                         },
                         {
@@ -21561,20 +21111,26 @@
                     ]
                 },
                 {
-                    "hash": 3185987134,
-                    "name": "text",
+                    "hash": 2179094556,
+                    "name": "sprite",
                     "properties": [
                         {
-                            "id": 3185987134,
-                            "name": "text",
+                            "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "hello"
+                            "variant_value": "meteorite.sprite"
                         },
                         {
-                            "id": 3902434344,
-                            "name": "font_id",
+                            "id": 3779456605,
+                            "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 1031692888,
@@ -21588,14 +21144,86 @@
                             }
                         },
                         {
-                            "id": 2611375224,
-                            "name": "center_flags",
+                            "id": 1160474912,
+                            "name": "sprite_properties",
                             "variant_type": 2,
                             "variant_value": 0
                         },
                         {
-                            "id": 124392387,
-                            "name": "text_shadow",
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 20.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -21604,11 +21232,221 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "unnamed"
+            "name": "meteorite"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 19.668806076049805,
+                                "y": 22.660358428955078
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "rock_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.7450905442237854,
+                                "green": 0.7450905442237854,
+                                "red": 0.7450979948043823
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000000.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.6560821533203125,
+                                    "y": -0.4998588562011719
+                                },
+                                {
+                                    "x": -0.9908905029296875,
+                                    "y": -0.23208045959472656
+                                },
+                                {
+                                    "x": -0.9630718231201172,
+                                    "y": 0.23605728149414063
+                                },
+                                {
+                                    "x": 0.0956573486328125,
+                                    "y": 0.4739723205566406
+                                },
+                                {
+                                    "x": 1.0235328674316406,
+                                    "y": 0.22416114807128906
+                                },
+                                {
+                                    "x": 1.0447463989257813,
+                                    "y": -0.5270462036132813
+                                },
+                                {
+                                    "x": 0.5626220703125,
+                                    "y": -1.0090827941894531
+                                },
+                                {
+                                    "x": -0.21413421630859375,
+                                    "y": -0.7009735107421875
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1338470111,
+                    "name": "set_translation",
+                    "properties": [
+                        {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "open_rock"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "vegetation",
+            "name": "rock_small"
         }
     ],
     "metadata": {
-        "background_texture": "res/textures/grass_02.png",
+        "background_texture": "res/textures/grass_01.png",
         "camera_position": {
             "x": 15.0,
             "y": 14.0

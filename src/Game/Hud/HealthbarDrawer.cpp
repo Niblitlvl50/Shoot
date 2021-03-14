@@ -199,7 +199,6 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         renderer.RenderText(
             shared::FontId::PIXELETTE_TINY,
             boss_healthbar.name.c_str(),
-            math::ZeroVec,
             mono::Color::BLACK,
             mono::FontCentering::HORIZONTAL_VERTICAL);
     }

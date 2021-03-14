@@ -17,6 +17,11 @@
 
 class ImGuiInputHandler;
 
+namespace mono
+{
+    class StaticBackground;
+}
+
 namespace editor
 {
     class PathEntity;
@@ -99,6 +104,11 @@ namespace editor
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
 
+        void SetBackgroundTexture(const std::string& background_texture);
+
+        bool DrawGrid() const;
+        void EnableDrawGrid(bool enable);
+
         bool SnapToGrid() const;
         void EnableSnapToGrid(bool enable);
         math::Vector GridSize() const;
@@ -128,6 +138,7 @@ namespace editor
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::unique_ptr<class UserInputController> m_user_input_controller;
         std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
+        std::unique_ptr<mono::StaticBackground> m_static_background;
 
         uint32_t m_selected_id;
         uint32_t m_preselected_id;

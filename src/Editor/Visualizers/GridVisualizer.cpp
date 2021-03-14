@@ -42,7 +42,8 @@ namespace
 
 using namespace editor;
 
-GridVisualizer::GridVisualizer()
+GridVisualizer::GridVisualizer(const bool& draw_grid)
+    : m_draw_grid(draw_grid)
 {
     const std::vector<math::Vector>& grid_vertices = BuildGridVertices(math::Quad(0, 0, 1200, 800));
 
@@ -55,6 +56,9 @@ GridVisualizer::GridVisualizer()
 
 void GridVisualizer::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_draw_grid)
+        return;
+
     const math::Matrix& projection = math::Ortho(0.0f, 1200, 0.0f, 800, -10.0f, 10.0f);
     const mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
     const mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);

@@ -103,7 +103,7 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     const mono::FontCentering center_flags =
         m_centered ? mono::FontCentering::HORIZONTAL_VERTICAL : mono::FontCentering::DEFAULT_CENTER;
-    renderer.RenderText(m_font_id, m_text.c_str(), math::ZeroVec, m_color, center_flags);
+    renderer.RenderText(m_font_id, m_text.c_str(), m_color, center_flags);
 }
 
 

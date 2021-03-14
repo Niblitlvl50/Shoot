@@ -132,16 +132,19 @@ void editor::DrawPolygonShapeDetails(
     bool is_sensor;
     FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
-    const auto local_to_world = [position, rotation](const math::Vector& point) {
-        math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
-        math::Position(local_to_world, position);
-        return math::Transform(local_to_world, point);
-    };
-    std::transform(polygon.begin(), polygon.end(), polygon.begin(), local_to_world);
+//    const auto local_to_world = [position, rotation](const math::Vector& point) {
+//        math::Matrix local_to_world = math::CreateMatrixFromZRotation(rotation);
+//        math::Position(local_to_world, position);
+//        return math::Transform(local_to_world, point);
+//    };
+//    std::transform(polygon.begin(), polygon.end(), polygon.begin(), local_to_world);
 
+    const math::Matrix world_transform = math::CreateMatrixWithPositionRotation(position, rotation);
+    const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+    
     renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
     if(is_sensor)
-        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSpawnPointDetails(
@@ -161,7 +164,11 @@ void editor::DrawShapeTriggerComponentDetails(
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
 
     if(!name.empty())
-        renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    {
+        const math::Matrix world_transform = math::CreateMatrixWithPositionRotation(position, rotation);
+        const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+        renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    }
 }
 
 void editor::DrawAreaTriggerComponentDetails(
@@ -175,7 +182,10 @@ void editor::DrawAreaTriggerComponentDetails(
 
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+
+    const math::Matrix world_transform = math::CreateMatrixWithPositionRotation(position, rotation);
+    const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDeathTriggerComponentDetails(
@@ -183,7 +193,10 @@ void editor::DrawDeathTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+
+    const math::Matrix world_transform = math::CreateMatrixWithPositionRotation(position, rotation);
+    const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawTimeTriggerComponentDetails(
@@ -191,7 +204,10 @@ void editor::DrawTimeTriggerComponentDetails(
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), position, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+
+    const math::Matrix world_transform = math::CreateMatrixWithPositionRotation(position, rotation);
+    const auto scope = mono::MakeTransformScope(world_transform, &renderer);
+    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSetTranslationDetails(

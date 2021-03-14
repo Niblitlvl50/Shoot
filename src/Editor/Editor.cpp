@@ -11,6 +11,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
+#include "Rendering/Objects/StaticBackground.h"
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
@@ -190,6 +191,7 @@ Editor::Editor(
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
+    m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
 
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
@@ -248,10 +250,12 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
+    m_static_background = std::make_unique<mono::StaticBackground>();
 
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
-    AddDrawable(new GridVisualizer(), RenderLayer::BACKGROUND);
+    AddDrawable(m_static_background.get(), RenderLayer::BACKGROUND);
+    AddDrawable(new GridVisualizer(m_context.draw_grid), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(new SelectionVisualizer(m_selected_id, m_preselected_id, transform_system), RenderLayer::UI);
@@ -272,6 +276,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int Editor::OnUnload()
 {
     RemoveDrawable(m_component_detail_visualizer.get());
+    RemoveDrawable(m_static_background.get());
 
     m_editor_config.camera_position = m_camera->GetPosition();
     m_editor_config.camera_viewport = m_camera->GetViewportSize();
@@ -323,6 +328,8 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
+
+    m_static_background->Load(world.leveldata.metadata.background_texture.c_str());
 }
 
 void Editor::Save()
@@ -751,6 +758,21 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
     m_renderer->SetClearColor(color);
+}
+
+void Editor::SetBackgroundTexture(const std::string& background_texture)
+{
+    m_static_background->Load(background_texture.c_str());
+}
+
+bool Editor::DrawGrid() const
+{
+    return m_context.draw_grid;
+}
+
+void Editor::EnableDrawGrid(bool enable)
+{
+    m_context.draw_grid = enable;
 }
 
 bool Editor::SnapToGrid() const

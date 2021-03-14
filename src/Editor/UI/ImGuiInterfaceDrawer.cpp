@@ -73,6 +73,7 @@ namespace
             ImGui::Checkbox("Show Outline, O", &context.draw_outline);
             ImGui::Checkbox("Show Level Metadata, L", &context.draw_level_metadata);
 
+            ImGui::Checkbox("Draw Grid, Alt + G", &context.draw_grid);
             ImGui::Checkbox("Snap to Grid, G", &context.snap_to_grid);
             ImGui::SameLine(0.0f, 50.0f);
             ImGui::InputFloat2("", &context.grid_size.x);
@@ -239,7 +240,10 @@ namespace
         int out_index;
         const bool changed = editor::DrawStringPicker("Texture", context.background_texture, all_textures, out_index);
         if(changed)
+        {
             context.background_texture = all_textures[out_index];
+            context.background_texture_callback(context.background_texture);
+        }
 
         ImGui::End();
     }

@@ -3,6 +3,7 @@
 #include "Rendering/IDrawable.h"
 #include "Rendering/IRenderer.h"
 #include "Math/Quad.h"
+#include "Math/Matrix.h"
 
 #include "Editor.h"
 #include "RenderLayers.h"
@@ -36,16 +37,24 @@ public:
         const math::Vector delta = m_start_position - m_end_position;
         const float radius = std::fabs(math::Length(delta));
 
-        const mono::Color::RGBA circle_color(1.0f, 0.0f, 1.0f, 0.2f);
+        const mono::Color::RGBA circle_color(1.0f, 0.0f, 1.0f, 0.5f);
 
         renderer.DrawPoints(measure_line, mono::Color::BLUE, 3.0f);
         renderer.DrawLines(measure_line, mono::Color::BLUE, 1.5f);
-        renderer.DrawCircle(m_start_position, radius, 30, 1.0f, circle_color);
+        renderer.DrawCircle(m_start_position, radius, 30, 1.0f, mono::Color::BLUE);
+
+        const math::Vector text_position = m_start_position - math::Vector(0.0f, 0.5f);
+
+        const math::Matrix text_transform = math::CreateMatrixWithPosition(text_position);
+        const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
 
         char text_buffer[512] = { 0 };
         std::sprintf(text_buffer, "%.2f", radius);
         renderer.RenderText(
-            shared::FontId::PIXELETTE_SMALL, text_buffer, m_start_position - math::Vector(0.0f, 0.5f), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+            shared::FontId::PIXELETTE_SMALL,
+            text_buffer,
+            mono::Color::BLUE,
+            mono::FontCentering::HORIZONTAL_VERTICAL);
     }
 
     math::Quad BoundingBox() const override

@@ -56,16 +56,16 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(length_squared <= FLT_EPSILON)
         m_player_logic->ResetForces();
     else
-        //m_player_logic->ApplyForce(force * 40.0f);
-        m_player_logic->ApplyImpulse(force * 10.0f);
+        m_player_logic->ApplyForce(force * 700.0f);
+        //m_player_logic->ApplyImpulse(force * 10.0f);
         //m_player_logic->SetVelocity(force * 4.0f);
 
-    //if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
-    //{
-    //    const math::Vector direction(m_state.right_x, m_state.right_y);
-    //    const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
-    //    m_player_logic->SetRotation(rotation);
-    //}
+    if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
+    {
+        const math::Vector direction(m_state.right_x, m_state.right_y);
+        const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
+        m_player_logic->SetRotation(rotation);
+    }
     
     PlayerAnimation animation = PlayerAnimation::IDLE;
     if(force.x > 0.0f)
