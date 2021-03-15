@@ -4234,6 +4234,18 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -6216,8 +6228,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.031875610351563,
-                                "y": 20.5020694732666
+                                "x": 19.04302406311035,
+                                "y": 20.43024444580078
                             }
                         },
                         {
@@ -13601,8 +13613,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 23.731666564941406,
-                                "y": 36.89794921875
+                                "x": 23.749149322509766,
+                                "y": 36.79305648803711
                             }
                         },
                         {
@@ -14279,8 +14291,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 25.055927276611328,
-                                "y": 35.590152740478516
+                                "x": 25.646753311157227,
+                                "y": 33.11936569213867
                             }
                         },
                         {
@@ -14369,8 +14381,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 23.170507431030273,
-                                "y": 35.89570236206055
+                                "x": 21.282503128051758,
+                                "y": 36.280296325683594
                             }
                         },
                         {
@@ -15620,8 +15632,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.934402465820313,
-                                "y": 29.905799865722656
+                                "x": 15.08399772644043,
+                                "y": 29.81048583984375
                             }
                         },
                         {
@@ -15652,7 +15664,7 @@
                             "id": 2565644130,
                             "name": "sprite_layer",
                             "variant_type": 1,
-                            "variant_value": -1
+                            "variant_value": 0
                         },
                         {
                             "id": 1031692888,
@@ -15710,8 +15722,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.425949096679688,
-                                "y": 34.3014030456543
+                                "x": 19.221481323242188,
+                                "y": 34.33061599731445
                             }
                         },
                         {
@@ -15808,9 +15820,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.23367153108119965,
+                                "green": 0.3382353186607361,
+                                "red": 0.23046424984931946
                             }
                         },
                         {
@@ -15898,9 +15910,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.22562837600708008,
+                                "green": 0.3382353186607361,
+                                "red": 0.22217418253421783
                             }
                         },
                         {
@@ -18459,6 +18471,18 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -18547,6 +18571,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -18639,6 +18675,18 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -18727,6 +18775,18 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -20328,9 +20388,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.25869518518447876,
+                                "green": 0.38235294818878174,
+                                "red": 0.2549019455909729
                             }
                         },
                         {
@@ -20418,9 +20478,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.3358671963214874,
+                                "green": 0.46078431606292725,
+                                "red": 0.33203575015068054
                             }
                         },
                         {
@@ -20508,9 +20568,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.3084440529346466,
+                                "green": 0.45588237047195435,
+                                "red": 0.30392155051231384
                             }
                         },
                         {
@@ -20559,7 +20619,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 18.310571670532227,
-                                "y": 30.645122528076172
+                                "y": 30.66525650024414
                             }
                         },
                         {
@@ -20598,9 +20658,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.16113954782485962,
+                                "green": 0.27941179275512695,
+                                "red": 0.15751154720783234
                             }
                         },
                         {
@@ -20688,9 +20748,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.2394617795944214,
+                                "green": 0.4019607901573181,
+                                "red": 0.23447714745998383
                             }
                         },
                         {
@@ -20778,9 +20838,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.15990979969501495,
+                                "green": 0.28431373834609985,
+                                "red": 0.1560938060283661
                             }
                         },
                         {
@@ -20828,8 +20888,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.1184139251709,
-                                "y": 30.786941528320313
+                                "x": 17.093700408935547,
+                                "y": 30.79932403564453
                             }
                         },
                         {
@@ -20868,99 +20928,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "grass_two"
-        },
-        {
-            "components": [
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 17.1184139251709,
-                                "y": 30.786941528320313
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "grass_two.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.21335238218307495,
+                                "green": 0.30882352590560913,
+                                "red": 0.21042387187480927
                             }
                         },
                         {
@@ -21048,9 +21018,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.21920087933540344,
-                                "green": 0.5343137383460999,
-                                "red": 0.20953479409217834
+                                "blue": 0.2399100363254547,
+                                "green": 0.38725489377975464,
+                                "red": 0.23539024591445923
                             }
                         },
                         {
@@ -21098,8 +21068,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 12.92908000946045,
-                                "y": 6.167952537536621
+                                "x": 14.458544731140137,
+                                "y": 8.41804313659668
                             }
                         },
                         {
@@ -21446,7 +21416,7 @@
         }
     ],
     "metadata": {
-        "background_texture": "res/textures/grass_01.png",
+        "background_texture": "res/textures/grass_02.png",
         "camera_position": {
             "x": 15.0,
             "y": 14.0

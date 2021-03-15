@@ -4,6 +4,7 @@
 #include "ObjectProxies/IObjectProxy.h"
 
 #include "Math/Quad.h"
+#include "Rendering/IRenderer.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "EntitySystem/ObjectAttribute.h"
@@ -27,16 +28,14 @@ void ComponentDetailVisualizer::Draw(mono::IRenderer& renderer) const
     for(const IObjectProxy* proxy : m_object_proxies)
     {
         const uint32_t entity_id = proxy->Id();
-
         const math::Matrix& entity_transform = m_transform_system->GetTransform(entity_id);
-        const math::Vector& position = math::GetPosition(entity_transform);
-        const float rotation = math::GetZRotation(entity_transform);
+        const auto scope = mono::MakeTransformScope(entity_transform, &renderer);
 
         for(const Component& component : proxy->GetComponents())
         {
             const auto it = m_component_draw_funcs.find(component.hash);
             if(it != m_component_draw_funcs.end())
-                it->second(renderer, position, rotation, component.properties);
+                it->second(renderer, component.properties);
         }
     }
 }
