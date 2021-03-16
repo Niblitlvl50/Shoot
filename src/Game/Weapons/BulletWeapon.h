@@ -8,6 +8,8 @@
 #include "System/Audio.h"
 #include "Math/MathFwd.h"
 
+#include <unordered_map>
+
 namespace game
 {
     class EntityLogicSystem;
@@ -48,5 +50,8 @@ namespace game
         EntityLogicSystem* m_logic_system;
 
         std::unique_ptr<class MuzzleFlash> m_muzzle_flash;
+        std::unique_ptr<class BulletTrailEffect> m_bullet_trail;
+
+        std::unordered_map<uint32_t, uint32_t> m_bullet_id_to_callback;
     };
 }

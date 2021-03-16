@@ -10,6 +10,7 @@
 
 #include "RenderLayers.h"
 #include "Effects/MuzzleFlash.h"
+#include "Effects/BulletTrailEffect.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/IEntityManager.h"
@@ -59,10 +60,14 @@ Weapon::Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_m
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 
     m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system, m_entity_manager);
+    m_bullet_trail = std::make_unique<BulletTrailEffect>(m_transform_system, m_particle_system, entity_manager);
 }
 
 Weapon::~Weapon()
-{ }
+{
+    for(const auto& pair : m_bullet_id_to_callback)
+        m_entity_manager->RemoveReleaseCallback(pair.first, pair.second);
+}
 
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
@@ -110,11 +115,13 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
-        math::Position(transform, position);
+        transform = math::CreateMatrixWithPositionRotation(position, bullet_direction);
+        m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
-        body->SetPosition(position);
+        //body->SetPosition(position);
         //body->SetAngle(bullet_direction);
+        body->SetVelocity(impulse);
         body->SetNoDamping();
         body->AddCollisionHandler(bullet_logic);
 
@@ -122,7 +129,14 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         for(mono::IShape* shape : shapes)
             shape->SetCollisionFilter(m_weapon_config.bullet_config.collision_category, m_weapon_config.bullet_config.collision_mask);
 
-        body->SetVelocity(impulse);
+        m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
+
+        const ReleaseCallback release_callback = [this](uint32_t entity_id) {
+            m_bullet_trail->RemoveEmitterFromBullet(entity_id);
+            m_bullet_id_to_callback.erase(entity_id);
+        };
+        const uint32_t callback_id = m_entity_manager->AddReleaseCallback(bullet_entity.id, release_callback);
+        m_bullet_id_to_callback[bullet_entity.id] = callback_id;
     }
 
     m_muzzle_flash->EmittAt(position, direction);

@@ -78,14 +78,12 @@ PlayerLogic::PlayerLogic(
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
-    m_trail_effect = std::make_unique<TrailEffect>(m_transform_system, particle_system, entity_system, entity_id);
     m_blink_effect = std::make_unique<BlinkEffect>(particle_system, entity_system);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
     SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
-    //SelectSecondaryWeapon(WeaponType::TURRET);
     SetRotation(0.0f);
 
     const PlayerStateMachine::StateTable state_table = {
