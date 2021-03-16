@@ -32,6 +32,7 @@ namespace game
         std::vector<mono::ISpritePtr> m_sprites;
         std::vector<mono::SpriteDrawBuffers> m_sprite_buffers;
         std::vector<mono::TextDrawBuffers> m_verb_buffers;
+        std::vector<float> m_verb_widths;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct BackupData

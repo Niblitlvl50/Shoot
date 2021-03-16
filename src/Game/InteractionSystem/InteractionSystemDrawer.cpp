@@ -29,8 +29,8 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     , m_sprite_system(sprite_system)
     , m_transform_system(transform_system)
 {
-    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/emote_star.sprite"));
-    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/emote_swirl.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/meteorite.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite"));
 
     for(size_t index = 0; index < m_sprites.size(); ++index)
     {
@@ -40,6 +40,8 @@ InteractionSystemDrawer::InteractionSystemDrawer(
         const shared::InteractionType type = shared::InteractionType(index);
         m_verb_buffers.push_back(
             mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, shared::InteractionTypeToVerb(type), mono::FontCentering::VERTICAL));
+
+        m_verb_widths.push_back(mono::MeasureString(shared::FontId::PIXELETTE_TINY, shared::InteractionTypeToVerb(type)).x);
     }
 
     constexpr uint16_t indices[] = {
@@ -76,7 +78,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         }
 
         const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.interaction_id);
-        const math::Vector& entity_position = math::RightCenter(entity_world_bb) + math::Vector(0.3f, 0.0f);
+        const math::Vector& entity_position = math::RightCenter(entity_world_bb) + math::Vector(0.4f, 0.1f);
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
         active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type });
     }
@@ -99,6 +101,16 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
         const mono::ISpritePtr& sprite = m_sprites[draw_data.sprite_index];
         const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[draw_data.sprite_index];
+
+        const mono::SpriteFrame current_frame = sprite->GetCurrentFrame();
+        const float half_sprite_width = current_frame.size.x / 2.0f;
+        const float verb_width = m_verb_widths[draw_data.sprite_index];
+        const float width_padding = 0.1f;
+
+        const math::Quad background_quad(
+            -(half_sprite_width + width_padding), -0.25f,
+            current_frame.size.x + verb_width + width_padding, 0.25f);
+        renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
         mono::ITexture* texture = sprite->GetTexture();
         const int offset = sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite;
