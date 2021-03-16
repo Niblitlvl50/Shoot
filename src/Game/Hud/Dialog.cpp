@@ -40,7 +40,7 @@ UIDialog::UIDialog(
     const math::Quad dialog_size(bottom_left, top_right);
 
     AddChild(new UISquareElement(math::Width(dialog_size), math::Height(dialog_size), background_color, text_color, 0.1f));
-    AddChild(new UITextElement(font_id, description, false, text_color));
+    AddChild(new UITextElement(font_id, description, mono::FontCentering::DEFAULT_CENTER, text_color));
 
     float y_shift = description_text_size.y + padding.y;
 
@@ -52,7 +52,7 @@ UIDialog::UIDialog(
             option.icon
         };
 
-        auto option_text = new UITextElement(font_id, option.text, false, text_color);
+        auto option_text = new UITextElement(font_id, option.text, mono::FontCentering::DEFAULT_CENTER, text_color);
         option_text->SetPosition(math::Vector(2.0f, -y_shift));
         
         auto option_icon = new UISpriteElement(option_sprites);

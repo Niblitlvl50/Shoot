@@ -10,6 +10,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IDrawable.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/Text/TextFlags.h"
 
 #include <string>
 #include <vector>
@@ -57,7 +58,7 @@ namespace game
     {
     public:
 
-        UITextElement(int font_id, const std::string& text, bool centered, const mono::Color::RGBA& color);
+        UITextElement(int font_id, const std::string& text, mono::FontCentering centering, const mono::Color::RGBA& color);
         void SetText(const std::string& new_text);
 
     private:
@@ -66,7 +67,7 @@ namespace game
 
         int m_font_id;
         std::string m_text;
-        bool m_centered;
+        mono::FontCentering m_centering;
         mono::Color::RGBA m_color;
     };
 

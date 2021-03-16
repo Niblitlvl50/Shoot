@@ -27,11 +27,11 @@ GameOverScreen::GameOverScreen(
     UISquareElement* background = new UISquareElement(400.0f, 80.0f, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
     background->SetPosition(math::Vector(-200.0f, -40.0f));
 
-    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", true, mono::Color::BLACK);
+    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
     gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
     gameover_text->SetScale(math::Vector(3.0f, 3.0f));
 
-    UITextElement* continue_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Press X to continue", true, mono::Color::BLACK);
+    UITextElement* continue_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Press X to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
     continue_text->SetPosition(math::Vector(0.0f, 0.0f));
     continue_text->SetScale(math::Vector(2.0f, 2.0f));
 

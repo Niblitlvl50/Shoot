@@ -76,18 +76,18 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     m_weapon_sprites->SetPosition(math::Vector(26.0f, 10.0f));
     m_weapon_sprites->SetScale(math::Vector(14.0f, 14.0f));
 
-    m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "0", true, mono::Color::MAGENTA);
+    m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "0", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_ammo_text->SetPosition(math::Vector(42.0f, 8.5f));
     m_ammo_text->SetScale(math::Vector(2.0f, 2.0f));
 
-    m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "", false, mono::Color::MAGENTA);
+    m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_LARGE, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_weapon_state_text->SetPosition(math::Vector(50.0f, 8.5f));
     m_weapon_state_text->SetScale(math::Vector(2.0f, 2.0f));
 
     ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
     weapon_reload_line->SetPosition(math::Vector(10.0f, 25.0f));
 
-    m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", false, mono::Color::MAGENTA);
+    m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::MAGENTA);
     m_score_text->SetPosition(math::Vector(5.0f, 390.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 

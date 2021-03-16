@@ -87,10 +87,10 @@ void UIOverlay::Draw(mono::IRenderer& renderer) const
 }
 
 
-UITextElement::UITextElement(int font_id, const std::string& text, bool centered, const mono::Color::RGBA& color)
+UITextElement::UITextElement(int font_id, const std::string& text, mono::FontCentering centering, const mono::Color::RGBA& color)
     : m_font_id(font_id)
     , m_text(text)
-    , m_centered(centered)
+    , m_centering(centering)
     , m_color(color)
 { }
 
@@ -101,9 +101,7 @@ void UITextElement::SetText(const std::string& new_text)
 
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
-    const mono::FontCentering center_flags =
-        m_centered ? mono::FontCentering::HORIZONTAL_VERTICAL : mono::FontCentering::DEFAULT_CENTER;
-    renderer.RenderText(m_font_id, m_text.c_str(), m_color, center_flags);
+    renderer.RenderText(m_font_id, m_text.c_str(), m_color, m_centering);
 }
 
 
