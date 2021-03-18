@@ -13,9 +13,7 @@
 
 using namespace game;
 
-GameOverScreen::GameOverScreen(
-    const PlayerInfo& player_info,
-    mono::EventHandler* event_handler)
+GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler)
     : UIOverlay(400.0f, 400.0f)
     , m_player_info(player_info)
     , m_event_handler(event_handler)
@@ -27,7 +25,7 @@ GameOverScreen::GameOverScreen(
     UISquareElement* background = new UISquareElement(400.0f, 80.0f, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
     background->SetPosition(math::Vector(-200.0f, -40.0f));
 
-    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Game Over!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
+    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "You dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
     gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
     gameover_text->SetScale(math::Vector(3.0f, 3.0f));
 

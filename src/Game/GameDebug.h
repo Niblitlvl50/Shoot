@@ -21,6 +21,7 @@ namespace game
     extern bool g_draw_particle_stats;
     extern bool g_draw_network_stats;
     extern bool g_draw_position_prediction;
+    extern bool g_draw_debug_players;
 
     class TriggerSystem;
 
@@ -40,7 +41,6 @@ namespace game
 
         mutable bool m_draw_debug_menu;
         mutable bool m_draw_trigger_input;
-        mutable bool m_draw_debug_players;
         mutable mono::FpsCounter m_counter;
     };
 }

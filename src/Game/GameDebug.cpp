@@ -22,6 +22,7 @@ bool game::g_draw_physics_stats = false;
 bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
+bool game::g_draw_debug_players = false;
 
 void DrawDebugMenu(uint32_t fps)
 {
@@ -43,6 +44,7 @@ void DrawDebugMenu(uint32_t fps)
         ImGui::Checkbox("Network Stats",        &game::g_draw_network_stats);
         ImGui::Checkbox("Client Viewport",      &game::g_draw_client_viewport);
         ImGui::Checkbox("Prediction System",    &game::g_draw_position_prediction);
+        ImGui::Checkbox("Players",              &game::g_draw_debug_players);
 
         ImGui::EndMenu();
     }
@@ -132,7 +134,6 @@ game::DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::EventHandl
     , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
     , m_draw_trigger_input(false)
-    , m_draw_debug_players(false)
 {
     const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
@@ -140,7 +141,7 @@ game::DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::EventHandl
         else if(event.key == Keycode::T)
             m_draw_trigger_input = !m_draw_trigger_input;
         else if(event.key == Keycode::P)
-            m_draw_debug_players = !m_draw_debug_players;
+            game::g_draw_debug_players = !game::g_draw_debug_players;
 
         return mono::EventResult::PASS_ON;
     };
@@ -163,8 +164,8 @@ void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
     if(m_draw_trigger_input)
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
 
-    if(m_draw_debug_players)
-        DrawDebugPlayers(m_draw_debug_players);
+    if(game::g_draw_debug_players)
+        DrawDebugPlayers(game::g_draw_debug_players);
 }
 
 math::Quad game::DebugUpdater::BoundingBox() const

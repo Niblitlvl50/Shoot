@@ -133,7 +133,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         {
             const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(entity_id);
             bar.position = math::BottomCenter(world_bb);
-            bar.width = math::Width(world_bb) * 1.25f;
+            bar.width = std::max(math::Width(world_bb) * 1.25f, 0.5f);
             healthbars.push_back(bar);
         }
     };
