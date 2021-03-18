@@ -48,10 +48,11 @@ namespace game
     {
     public:
 
+        static constexpr const int max_lives = 3;
+        static constexpr const char* heart_sprite = "res/sprites/heart.sprite";
+
         HeartContainer()
         {
-            constexpr const char* heart_sprite = "res/sprites/heart.sprite";
-
             for(size_t index = 0; index < std::size(m_hearts); ++index)
             {
                 game::UISpriteElement* element = new game::UISpriteElement(heart_sprite);
@@ -67,22 +68,22 @@ namespace game
 
         void SetLives(int lives)
         {
-            constexpr const int max_lives = 3;
 
             for(int index = 0; index < max_lives; ++index)
             {
-                mono::ISprite* sprite = m_hearts[index]->GetSprite(0);
+                const bool alive = index < lives;
+                const mono::Color::RGBA shade = alive ? mono::Color::WHITE : mono::Color::GRAY;
+                const int animation = alive ? m_deafault_id : m_dead_id;
 
-                const mono::Color::RGBA shade = index < lives ? mono::Color::WHITE : mono::Color::GRAY;
-                const int animation = index < lives ? m_deafault_id : m_dead_id;
+                mono::ISprite* sprite = m_hearts[index]->GetSprite(0);
                 sprite->SetShade(shade);
-                
+
                 if(animation != sprite->GetActiveAnimation())
                     sprite->SetAnimation(animation);
             }
         }
 
-        game::UISpriteElement* m_hearts[3];
+        game::UISpriteElement* m_hearts[max_lives];
         int m_deafault_id;
         int m_dead_id;
     };
