@@ -122,12 +122,12 @@ void PlayerUIElement::Update(const mono::UpdateContext& update_context)
     m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
     m_weapon_state_text->SetText(WeaponStateToString(m_player_info.weapon_state));
 
-    if(m_player_info.player_state == game::PlayerState::ALIVE && m_timer < 1.0f)
+    if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)
     {
         m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
         m_timer += float(update_context.delta_ms) / 1000.0f;
     }
-    else if(m_player_info.player_state != game::PlayerState::ALIVE && m_timer > 0.0f)
+    else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
     {
         m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
         m_timer -= float(update_context.delta_ms) / 1000.0f;

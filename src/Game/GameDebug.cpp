@@ -85,17 +85,19 @@ void DrawDebugPlayers(bool& show_window)
 
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    ImGui::Columns(5, "mycolumns");
+    ImGui::Columns(6, "mycolumns");
     ImGui::Separator();
     ImGui::Text("Index"); ImGui::NextColumn();
     ImGui::Text("Entity"); ImGui::NextColumn();
     ImGui::Text("State"); ImGui::NextColumn();
+    ImGui::Text("Lives"); ImGui::NextColumn();
     ImGui::Text("Position"); ImGui::NextColumn();
     ImGui::Text("Viewport"); ImGui::NextColumn();
     ImGui::Separator();
 
     ImGui::SetColumnWidth(0, 60);
     ImGui::SetColumnWidth(1, 60);
+    ImGui::SetColumnWidth(3, 60);
 
     for(int index = 0; index < game::n_players; ++index)
     {
@@ -108,6 +110,9 @@ void DrawDebugPlayers(bool& show_window)
         ImGui::NextColumn();
 
         ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
+        ImGui::NextColumn();
+
+        ImGui::Text("%d", player_info.lives);
         ImGui::NextColumn();
 
         ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
