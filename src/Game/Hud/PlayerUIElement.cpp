@@ -13,7 +13,7 @@
 
 #include <cstdio>
 
-namespace
+namespace game
 {
     class ReloadLine : public game::UIElement
     {
@@ -42,6 +42,49 @@ namespace
         }
 
         const game::PlayerInfo& m_player_info;
+    };
+
+    class HeartContainer : public game::UIElement
+    {
+    public:
+
+        HeartContainer()
+        {
+            constexpr const char* heart_sprite = "res/sprites/heart.sprite";
+
+            for(size_t index = 0; index < std::size(m_hearts); ++index)
+            {
+                game::UISpriteElement* element = new game::UISpriteElement(heart_sprite);
+                element->SetPosition(math::Vector(index * 0.8f, 0.0f));
+                m_hearts[index] = element;
+                AddChild(element);
+            }
+
+            mono::ISprite* sprite = m_hearts[0]->GetSprite(0);
+            m_deafault_id = sprite->GetAnimationIdFromName("default");
+            m_dead_id = sprite->GetAnimationIdFromName("dead");
+        }
+
+        void SetLives(int lives)
+        {
+            constexpr const int max_lives = 3;
+
+            for(int index = 0; index < max_lives; ++index)
+            {
+                mono::ISprite* sprite = m_hearts[index]->GetSprite(0);
+
+                const mono::Color::RGBA shade = index < lives ? mono::Color::WHITE : mono::Color::GRAY;
+                const int animation = index < lives ? m_deafault_id : m_dead_id;
+                sprite->SetShade(shade);
+                
+                if(animation != sprite->GetActiveAnimation())
+                    sprite->SetAnimation(animation);
+            }
+        }
+
+        game::UISpriteElement* m_hearts[3];
+        int m_deafault_id;
+        int m_dead_id;
     };
 }
 
@@ -87,8 +130,12 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
     weapon_reload_line->SetPosition(math::Vector(10.0f, 25.0f));
 
-    m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::MAGENTA);
-    m_score_text->SetPosition(math::Vector(5.0f, 390.0f));
+    m_hearts = new HeartContainer();
+    m_hearts->SetPosition(math::Vector(20.0f, 380.0f));
+    m_hearts->SetScale(math::Vector(40.0f, 40.0f));
+
+    m_score_text = new UITextElement(shared::FontId::PIXELETTE_SMALL, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+    m_score_text->SetPosition(math::Vector(200.0f, 10.0f));
     m_score_text->SetScale(math::Vector(10.0f, 10.0f));
 
     AddChild(m_background);
@@ -97,6 +144,7 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     AddChild(m_ammo_text);
     AddChild(m_weapon_state_text);
     AddChild(weapon_reload_line);
+    AddChild(m_hearts);
     AddChild(m_score_text);
 }
 
@@ -114,6 +162,8 @@ void PlayerUIElement::Update(const mono::UpdateContext& update_context)
     char score_buffer[256] = { 0 };
     std::snprintf(score_buffer, std::size(score_buffer), "score %010d", m_current_score);
     m_score_text->SetText(score_buffer);
+
+    m_hearts->SetLives(m_player_info.lives);
 
     char ammo_text[32] = { '\0' };
     std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);

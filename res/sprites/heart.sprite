@@ -4,35 +4,46 @@
             "frame_duration": 100,
             "frames": [
                 0,
+                0,
+                0,
+                0,
                 1,
                 2
             ],
             "loop": true,
             "name": "default"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": false,
+            "name": "dead"
         }
     ],
-    "category": "props",
+    "category": "misc",
     "frames": [
         {
-            "h": 41,
-            "name": "small_fire_default_1",
-            "w": 23,
-            "x": 1321,
-            "y": 308
+            "h": 24,
+            "name": "heart_1",
+            "w": 16,
+            "x": 565,
+            "y": 326
         },
         {
-            "h": 41,
-            "name": "small_fire_default_2",
-            "w": 23,
-            "x": 1294,
-            "y": 308
+            "h": 24,
+            "name": "heart_2",
+            "w": 16,
+            "x": 545,
+            "y": 326
         },
         {
-            "h": 41,
-            "name": "small_fire_default_3",
-            "w": 23,
-            "x": 1533,
-            "y": 307
+            "h": 24,
+            "name": "heart_3",
+            "w": 16,
+            "x": 525,
+            "y": 326
         }
     ],
     "frames_offsets": [

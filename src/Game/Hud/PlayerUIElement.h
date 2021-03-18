@@ -31,6 +31,7 @@ namespace game
         class UISpriteElement* m_mugshot_sprite;
         class UITextElement* m_weapon_state_text;
 
+        class HeartContainer* m_hearts;
         class UITextElement* m_score_text;
     };
 }
