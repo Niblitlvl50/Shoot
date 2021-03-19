@@ -30,7 +30,9 @@ namespace game
         math::Quad BoundingBox() const override;
 
         void SetPosition(const math::Vector& position);
+        void SetPosition(float x, float y);
         void SetScale(const math::Vector& scale);
+        void SetScale(float uniform_scale);
         void SetRotation(float radians);
         math::Matrix Transform() const;
 

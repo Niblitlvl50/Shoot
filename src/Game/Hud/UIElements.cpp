@@ -25,14 +25,11 @@ void UIElement::Update(const mono::UpdateContext& context)
 
 void UIElement::Draw(mono::IRenderer& renderer) const
 {
-    const math::Matrix& model = Transform();
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     for(const UIElement* ui : m_ui_elements)
-    {
-        const math::Matrix& transform = model * ui->Transform();
-        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
         ui->Draw(renderer);
-    }
 }
 
 math::Quad UIElement::BoundingBox() const
@@ -45,9 +42,20 @@ void UIElement::SetPosition(const math::Vector& position)
     m_position = position;
 }
 
+void UIElement::SetPosition(float x, float y)
+{
+    m_position.x = x;
+    m_position.y = y;
+}
+
 void UIElement::SetScale(const math::Vector& scale)
 {
     m_scale = scale;
+}
+
+void UIElement::SetScale(float uniform_scale)
+{
+    m_scale.x = m_scale.y = uniform_scale;
 }
 
 void UIElement::SetRotation(float radians)
@@ -101,6 +109,10 @@ void UITextElement::SetText(const std::string& new_text)
 
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
+    UIElement::Draw(renderer);
+
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
     renderer.RenderText(m_font_id, m_text.c_str(), m_color, m_centering);
 }
 
@@ -136,12 +148,19 @@ mono::ISprite* UISpriteElement::GetSprite(size_t index)
 
 void UISpriteElement::Update(const mono::UpdateContext& update_context)
 {
+    UIElement::Update(update_context);
+
     for(auto& sprite : m_sprites)
         sprite->Update(update_context);
 }
 
 void UISpriteElement::Draw(mono::IRenderer& renderer) const
 {
+    UIElement::Draw(renderer);
+
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
     const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
     const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
     renderer.DrawSprite(
@@ -186,8 +205,12 @@ UISquareElement::UISquareElement(
 
 void UISquareElement::Draw(mono::IRenderer& renderer) const
 {
-    renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
+    UIElement::Draw(renderer);
 
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+    renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
     if(m_border_width > 0.0f)
         renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
 }
