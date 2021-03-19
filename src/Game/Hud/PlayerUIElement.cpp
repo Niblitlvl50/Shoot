@@ -25,12 +25,17 @@ namespace game
 
         void Draw(mono::IRenderer& renderer) const
         {
+            UIElement::Draw(renderer);
+
             const bool is_reloading = (m_player_info.weapon_state == game::WeaponState::RELOADING);
             if(is_reloading)
             {
+                const math::Matrix& transform = renderer.GetTransform() * Transform();
+                const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
                 const std::vector<math::Vector> reload_line = {
                     math::Vector(0.0f, 0.0f),
-                    math::Vector(50.0f, 0.0f)
+                    math::Vector(1.0f, 0.0f)
                 };
 
                 const float reload_dot =
@@ -139,7 +144,8 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     m_score_text->SetPosition(8.0f, 0.5f);
 
     ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
-    weapon_reload_line->SetPosition(10.0f, 25.0f);
+    weapon_reload_line->SetPosition(12.0f, 0.5f);
+    weapon_reload_line->SetScale(math::Vector(3.0f, 1.0f));
 
     m_hearts = new HeartContainer(player_info);
     m_hearts->SetPosition(0.75f, 15.25f);
