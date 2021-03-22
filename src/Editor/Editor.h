@@ -55,7 +55,7 @@ namespace editor
         void ImportEntity();
         void ExportEntity();
 
-        void AddPath(std::unique_ptr<editor::PathEntity> path);
+        void AddPath(const std::vector<math::Vector>& path_points);
 
         void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);

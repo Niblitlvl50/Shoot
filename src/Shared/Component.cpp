@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 53> default_attributes = {{
+const std::array<DefaultAttribute, 55> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -78,6 +78,8 @@ const std::array<DefaultAttribute, 53> default_attributes = {{
     { "reset_on_compeleted",    Variant(false) },
     { "center_flags",           Variant(0u) },
     { "interaction_type",       Variant(0) },
+    { "path_type",              Variant(0) },
+    { "path_points",            Variant(polygon_default) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -143,6 +145,9 @@ extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50]
 extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[51].hash;
 extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52].hash;
 
+extern const uint32_t PATH_TYPE_ATTRIBUTE = default_attributes[53].hash;
+extern const uint32_t PATH_POINTS_ATTRIBUTE = default_attributes[54].hash;
+
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
 extern const uint32_t TRANSFORM_COMPONENT           = mono::Hash("transform");
@@ -169,6 +174,8 @@ extern const uint32_t CAMERA_ZOOM_COMPONENT         = mono::Hash("camera_zoom");
 extern const uint32_t CAMERA_POINT_COMPONENT        = mono::Hash("camera_point");
 extern const uint32_t INTERACTION_COMPONENT         = mono::Hash("interaction");
 extern const uint32_t INTERACTION_SWITCH_COMPONENT  = mono::Hash("interaction_switch");
+
+extern const uint32_t PATH_COMPONENT                = mono::Hash("path");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -222,6 +229,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "interaction";
     else if(hash == INTERACTION_SWITCH_COMPONENT)
         return "interaction_switch";
+    else if(hash == PATH_COMPONENT)
+        return "path";
 
     return "Unknown";
 }
@@ -261,6 +270,8 @@ const ComponentArray default_components = {
     MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
+
+    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

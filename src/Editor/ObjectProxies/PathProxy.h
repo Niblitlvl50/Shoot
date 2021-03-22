@@ -1,23 +1,31 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IObjectProxy.h"
-#include <memory>
+#include <string>
 
 namespace editor
 {
-    class PathEntity;
     class Editor;
 
     class PathProxy : public editor::IObjectProxy
     {
     public:
 
-        PathProxy(std::unique_ptr<PathEntity> path, Editor* editor);
+        PathProxy(
+            uint32_t entity_id,
+            const std::string& name,
+            const std::string& folder,
+            const std::vector<Component>& components,
+            mono::IEntityManager* entity_manager,
+            mono::TransformSystem* transform_system,
+            Editor* editor);
+
         ~PathProxy();
 
         const char* Name() const override;
-        unsigned int Id() const override;
+        uint32_t Id() const override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
         std::vector<Grabber> GetGrabbers() override;
@@ -35,10 +43,13 @@ namespace editor
 
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(IObjectVisitor& visitor) override;
-        
-        std::unique_ptr<PathEntity> m_path;
-        Editor* m_editor;
 
+        const uint32_t m_entity_id;
+        std::string m_name;
+        std::string m_folder;
         std::vector<Component> m_components;
+        mono::IEntityManager* m_entity_manager;
+        mono::TransformSystem* m_transform_system;
+        Editor* m_editor;
     };
 }

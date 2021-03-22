@@ -73,6 +73,9 @@ extern const uint32_t CENTER_FLAGS_ATTRIBUTE;
 
 extern const uint32_t INTERACTION_TYPE_ATTRIBUTE;
 
+extern const uint32_t PATH_TYPE_ATTRIBUTE;
+extern const uint32_t PATH_POINTS_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -148,6 +151,8 @@ extern const uint32_t CAMERA_POINT_COMPONENT;
 extern const uint32_t INTERACTION_COMPONENT;
 extern const uint32_t INTERACTION_SWITCH_COMPONENT;
 
+extern const uint32_t PATH_COMPONENT;
+
 struct Component
 {
     uint32_t hash;
@@ -157,7 +162,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 24>;
+using ComponentArray = std::array<Component, 25>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

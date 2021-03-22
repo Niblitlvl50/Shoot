@@ -20,4 +20,6 @@ namespace editor
     void DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties);
     void DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties);
     void DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties);
+
+    void DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties);
 }

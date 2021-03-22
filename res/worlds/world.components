@@ -19222,7 +19222,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 1
                         },
                         {
                             "id": 2565644130,
@@ -21068,15 +21068,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.458544731140137,
-                                "y": 8.41804313659668
+                                "x": 14.806302070617676,
+                                "y": 7.53090763092041
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21413,6 +21413,73 @@
             "entity_properties": 0,
             "folder": "vegetation",
             "name": "rock_small"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2223459638,
+                    "name": "path",
+                    "properties": [
+                        {
+                            "id": 4282467795,
+                            "name": "path_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3308676800,
+                            "name": "path_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -1.1526527404785156,
+                                    "y": -0.1729412078857422
+                                },
+                                {
+                                    "x": -0.46856117248535156,
+                                    "y": 1.0068492889404297
+                                },
+                                {
+                                    "x": 1.7438220977783203,
+                                    "y": 0.3498973846435547
+                                },
+                                {
+                                    "x": 1.14483642578125,
+                                    "y": -0.9446854591369629
+                                },
+                                {
+                                    "x": -0.9726419448852539,
+                                    "y": -0.9046001434326172
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "paths",
+            "name": "test_path"
         }
     ],
     "metadata": {

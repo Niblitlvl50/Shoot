@@ -209,3 +209,14 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
     const std::vector<math::Vector>& arrow_points = GenerateArrow(arc_points[almost_last_point], arc_points[last_point], 0.5f);
     renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
+
+void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+{
+    std::vector<math::Vector> vertices;
+    const bool found_polygon =
+        FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
+    if(!found_polygon)
+        return;
+
+    renderer.DrawPolyline(vertices, mono::Color::MAGENTA, 1.0f);
+}

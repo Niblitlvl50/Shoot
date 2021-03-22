@@ -322,13 +322,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
     result.component_index = -1;
     result.attribute_hash = -1;
 
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-    if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(285, 0)) || ui_context.open_add_component)
-        ImGui::OpenPopup("select_component");
-
-    ImGui::PopStyleVar();
+    //const bool component_added = DrawAddComponent(ui_context, components);
 
     for(size_t index = 0; index < components.size(); ++index)
     {
@@ -370,7 +364,18 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
         ImGui::Spacing();
         ImGui::PopID();
     }
-    
+
+    return result;
+}
+
+bool editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component>& components)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+    if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(285, 0)) || ui_context.open_add_component)
+        ImGui::OpenPopup("select_component");
+
+    ImGui::PopStyleVar();
+
     constexpr uint32_t NOTHING_SELECTED = std::numeric_limits<uint32_t>::max();
     uint32_t selected_component_hash = NOTHING_SELECTED;
 
@@ -406,7 +411,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
     if(selected_component_hash != NOTHING_SELECTED)
         ui_context.add_component(selected_component_hash);
 
-    return result;
+    return false;
 }
 
 bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)

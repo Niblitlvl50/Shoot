@@ -249,6 +249,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[COUNTER_TRIGGER_COMPONENT] = editor::DrawCounterTriggerComponentDetails;
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
+    draw_funcs[PATH_COMPONENT] = editor::DrawPath;
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
     m_static_background = std::make_unique<mono::StaticBackground>();
@@ -387,10 +388,31 @@ void Editor::NewEntity()
     SelectProxyObject(m_proxies.back().get());
 }
 
-void Editor::AddPath(std::unique_ptr<editor::PathEntity> path)
+void Editor::AddPath(const std::vector<math::Vector>& path_points)
 {
-    // AddEntity(path.get(), RenderLayer::OBJECTS);
-    // m_proxies.push_back(std::make_unique<PathProxy>(std::move(path), this));
+    // Make points local
+    const math::Vector position = path_points.front();
+
+    std::vector<math::Vector> local_points = path_points;
+    for(math::Vector& point : local_points)
+        point -= position;
+
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { TRANSFORM_COMPONENT, PATH_COMPONENT });
+
+    std::vector<Component> components = {
+        DefaultComponentFromHash(TRANSFORM_COMPONENT),
+        DefaultComponentFromHash(PATH_COMPONENT),
+    };
+
+    SetAttribute(PATH_POINTS_ATTRIBUTE, components.back().properties, local_points);
+
+    auto proxy = std::make_unique<PathProxy>(
+        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system, this);
+    proxy->SetPosition(position);
+
+    m_proxies.push_back(std::move(proxy));
+    SelectProxyObject(m_proxies.back().get());
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)

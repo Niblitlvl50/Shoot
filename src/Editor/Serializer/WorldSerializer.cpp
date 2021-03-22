@@ -41,21 +41,23 @@ std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, editor::Ed
 
     paths.reserve(path_names.size());
 
+/*
     const auto get_name = [](const std::string& file_name) {
         const size_t slash_pos = file_name.find_last_of('/');
         const size_t dot_pos = file_name.find_last_of('.');
         return file_name.substr(slash_pos +1, dot_pos - slash_pos -1);
     };
+    */
 
     for(const std::string& file : path_names)
     {
         mono::IPathPtr path = mono::CreatePath(file.c_str());
 
-        auto path_entity = std::make_unique<editor::PathEntity>(get_name(file), path->GetPathPoints());
-        auto proxy = std::make_unique<PathProxy>(std::move(path_entity), editor);
+        //auto path_entity = std::make_unique<editor::PathEntity>(get_name(file), path->GetPathPoints());
+        //auto proxy = std::make_unique<PathProxy>(std::move(path_entity), editor);
         //proxy->Entity()->SetPosition(path->GetGlobalPosition());
 
-        paths.push_back(std::move(proxy));
+        //paths.push_back(std::move(proxy));
     }
 
     return paths;

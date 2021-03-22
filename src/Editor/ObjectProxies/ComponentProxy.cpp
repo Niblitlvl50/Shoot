@@ -16,6 +16,8 @@
 
 #include "Editor.h"
 
+#include "imgui/imgui.h"
+
 using namespace editor;
 
 ComponentProxy::ComponentProxy(
@@ -70,12 +72,20 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
 
     Component* polygon_shape_component = FindComponentFromHash(POLYGON_SHAPE_COMPONENT, m_components);
     if(!polygon_shape_component)
-        return grabbers;
+    {
+        polygon_shape_component = FindComponentFromHash(PATH_COMPONENT, m_components);
+        if(!polygon_shape_component)
+            return grabbers;
+    }
 
     Attribute* polygon_attribute = nullptr;
     const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
     if(!found_polygon)
-        return grabbers;
+    {
+        const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
+        if(!found_path)
+            return grabbers;
+    }
 
     const math::Matrix& local_to_world = m_transform_system->GetTransform(m_entity_id);
     std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(polygon_attribute->value);
@@ -106,6 +116,11 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
     DrawStringProperty("Name", m_name);
     DrawStringProperty("Folder", m_folder);
     //DrawBitfieldProperty(m_entity_properties, all_entity_properties, EntityPropertyToString);
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    const bool component_added = DrawAddComponent(context, m_components);
     
     const DrawComponentsResult result = DrawComponents(context, m_components);
     if(result.component_index == std::numeric_limits<uint32_t>::max())
@@ -128,7 +143,7 @@ void ComponentProxy::UpdateUIContext(UIContext& context)
         }
     }
 
-    if(result.attribute_hash == POLYGON_ATTRIBUTE)
+    if(result.attribute_hash == POLYGON_ATTRIBUTE || result.attribute_hash == PATH_POINTS_ATTRIBUTE)
         m_editor->UpdateGrabbers();
 }
 

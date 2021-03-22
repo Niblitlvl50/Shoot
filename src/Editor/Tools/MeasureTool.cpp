@@ -37,8 +37,6 @@ public:
         const math::Vector delta = m_start_position - m_end_position;
         const float radius = std::fabs(math::Length(delta));
 
-        const mono::Color::RGBA circle_color(1.0f, 0.0f, 1.0f, 0.5f);
-
         renderer.DrawPoints(measure_line, mono::Color::BLUE, 3.0f);
         renderer.DrawLines(measure_line, mono::Color::BLUE, 1.5f);
         renderer.DrawCircle(m_start_position, radius, 30, 1.0f, mono::Color::BLUE);

@@ -69,16 +69,17 @@ void PathTool::HandleContextMenu(int menu_index)
 
     if(menu_index == 0)
     {
-        const math::Vector position = m_points.front();
+        //const math::Vector position = m_points.front();
 
         // Make points local
-        for(math::Vector& point : m_points)
-            point -= position;
+        //for(math::Vector& point : m_points)
+        //    point -= position;
 
-        auto path_entity = std::make_unique<editor::PathEntity>("New path", m_points);
-        path_entity->SetPosition(position);
+        //auto path_entity = std::make_unique<editor::PathEntity>("New path", m_points);
+        //path_entity->SetPosition(position);
 
-        m_editor->AddPath(std::move(path_entity));
+        //m_editor->AddPath(std::move(path_entity));
+        m_editor->AddPath(m_points);
         m_points.clear();
     }
     else if(menu_index == 1)

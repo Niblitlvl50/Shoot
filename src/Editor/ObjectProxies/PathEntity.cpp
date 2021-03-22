@@ -211,7 +211,8 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<math::Vector>
     renderer.DrawPolyline(points, line_color, 2.0f);
 
     const std::vector<math::Vector>& arrow_vertices = GenerateArrows(points);
-    renderer.DrawLines(arrow_vertices, arrow_color, 2.0f);
+    if(!arrow_vertices.empty())
+        renderer.DrawLines(arrow_vertices, arrow_color, 2.0f);
 }
 
 void PathEntity::UpdateMesh()

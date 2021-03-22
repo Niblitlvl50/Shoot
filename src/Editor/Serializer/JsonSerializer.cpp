@@ -51,12 +51,14 @@ void JsonSerializer::WritePathFile(const std::string& file_path) const
 
 void JsonSerializer::Accept(PathProxy* proxy)
 {
+    /*
     const auto& path = proxy->m_path;
 
     const std::string& filename = "res/paths/" + path->GetName() + ".path";
     mono::SavePath(filename.c_str(), path->Position(), path->GetPoints());
 
     m_path_names.push_back(filename);
+    */
 }
 
 void JsonSerializer::Accept(ComponentProxy* proxy)

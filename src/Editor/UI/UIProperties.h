@@ -21,6 +21,7 @@ namespace editor
         uint32_t attribute_hash;
     };
     DrawComponentsResult DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
+    bool DrawAddComponent(struct UIContext& ui_context, const std::vector<Component>& components);
 
     void DrawEntityProperty(uint32_t& properties);
 
@@ -34,7 +35,6 @@ namespace editor
         bool changed;
         std::string new_value;
     };
-
     SpritePickerResult DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context);
 
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);

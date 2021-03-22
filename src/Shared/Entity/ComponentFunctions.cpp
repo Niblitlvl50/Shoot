@@ -3,6 +3,8 @@
 #include "System/System.h"
 
 #include "SystemContext.h"
+#include "Paths/IPath.h"
+#include "Paths/PathSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "TransformSystem/TransformSystem.h"
@@ -123,9 +125,39 @@ bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, 
     return true;
 }
 
+bool CreatePath(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+    path_system->AllocatePath(entity->id);
+    return true;
+}
+
+bool ReleasePath(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+    path_system->ReleasePath(entity->id);
+    return true;
+}
+
+bool UpdatePath(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+{
+    int path_type;
+    std::vector<math::Vector> path_points;
+    FindAttribute(PATH_TYPE_ATTRIBUTE, properties, path_type, FallbackMode::SET_DEFAULT);
+    FindAttribute(PATH_POINTS_ATTRIBUTE, properties, path_points, FallbackMode::REQUIRE_ATTRIBUTE);
+
+    mono::PathComponent component;
+
+    mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+    path_system->SetPathData(entity->id, component);
+
+    return true;
+}
+
 void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
+    entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);
 }

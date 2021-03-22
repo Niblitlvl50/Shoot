@@ -1,32 +1,39 @@
 
 #include "PathProxy.h"
-#include "PathEntity.h"
 
 #include "IObjectVisitor.h"
 #include "Grabber.h"
 #include "SnapPoint.h"
 #include "UI/UIContext.h"
+#include "UI/UIProperties.h"
 #include "Editor.h"
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
-#include "ImGuiImpl/ImGuiImpl.h"
-#include "EntitySystem/ObjectAttribute.h"
+#include "EntitySystem/IEntityManager.h"
+#include "TransformSystem/TransformSystem.h"
+
 #include "Component.h"
 
 using namespace editor;
 
-PathProxy::PathProxy(std::unique_ptr<PathEntity> path, Editor* editor)
-    : m_path(std::move(path)),
-      m_editor(editor)
+PathProxy::PathProxy(
+    uint32_t entity_id,
+    const std::string& name,
+    const std::string& folder,
+    const std::vector<Component>& components,
+    mono::IEntityManager* entity_manager,
+    mono::TransformSystem* transform_system,
+    Editor* editor)
+    : m_entity_id(entity_id)
+    , m_name(name)
+    , m_folder(folder)
+    , m_components(components)
+    , m_entity_manager(entity_manager)
+    , m_transform_system(transform_system)
+    , m_editor(editor)
 {
-    Component temp;
-    temp.hash = 13234;
-    temp.allow_multiple = false;
-    temp.depends_on = 0;
-    temp.properties.push_back({POLYGON_ATTRIBUTE, DefaultAttributeFromHash(POLYGON_ATTRIBUTE)});
-    m_components.push_back(temp);
 }
 
 PathProxy::~PathProxy()
@@ -34,32 +41,40 @@ PathProxy::~PathProxy()
 
 const char* PathProxy::Name() const
 {
-    return m_path->GetName().c_str();
+    return m_name.c_str();
 }
 
-unsigned int PathProxy::Id() const
+uint32_t PathProxy::Id() const
 {
-    return m_path->Id();
+    return m_entity_id;
 }
 
 void PathProxy::SetSelected(bool selected)
 {
-    m_path->SetSelected(selected);
 }
 
 bool PathProxy::Intersects(const math::Vector& world_position) const
 {
-    const math::Quad& bb = m_path->BoundingBox();
-    const bool inside_bb = math::PointInsideQuad(world_position, bb);
+    const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
+    const bool inside_bb = math::PointInsideQuad(world_position, world_bb);
     if(inside_bb)
     {
-        math::Matrix world_to_local = m_path->Transformation();
-        math::Inverse(world_to_local);
+        const Component* path_component = FindComponentFromHash(PATH_COMPONENT, m_components);
+        if(!path_component)
+            return true;
+
+        const Attribute* path_points_attribute = nullptr;
+        const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, path_component->properties, path_points_attribute);
+        if(!found_path)
+            return true;
+
+        const math::Matrix world_to_local = math::Inverse((const math::Matrix&)m_transform_system->GetTransform(m_entity_id));
         const math::Vector& local_position = math::Transform(world_to_local, world_position);
+
+        const std::vector<math::Vector>& local_points = std::get<std::vector<math::Vector>>(path_points_attribute->value);
 
         float min_distance = math::INF;
 
-        const auto& local_points = m_path->GetPoints();
         for(size_t index = 0; index < local_points.size() -1; ++index)
         {
             const math::Vector& line_point = math::ClosestPointOnLine(local_points[index], local_points[index+1], local_position);
@@ -76,20 +91,31 @@ bool PathProxy::Intersects(const math::Vector& world_position) const
 
 std::vector<Grabber> PathProxy::GetGrabbers()
 {
-    using namespace std::placeholders;
-
-    const math::Matrix& local_to_world = m_path->Transformation();
-    const auto& local_points = m_path->GetPoints();
-
     std::vector<Grabber> grabbers;
-    grabbers.reserve(local_points.size());
 
-    for(size_t index = 0; index < local_points.size(); ++index)
+    Component* path_component = FindComponentFromHash(PATH_COMPONENT, m_components);
+    if(!path_component)
+        return grabbers;
+
+    Attribute* path_points_attribute = nullptr;
+    const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, path_component->properties, path_points_attribute);
+    if(!found_path)
+        return grabbers;
+
+    const math::Matrix& local_to_world = m_transform_system->GetTransform(m_entity_id);
+    std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(path_points_attribute->value);
+    grabbers.reserve(points.size());
+
+    for(math::Vector& point : points)
     {
-        Grabber grab;
-        grab.position = math::Transform(local_to_world, local_points[index]);
-        grab.callback = std::bind(&PathEntity::SetVertex, m_path.get(), _1, index);
-        grabbers.push_back(grab);
+        Grabber grabber;
+        grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
+        grabber.callback = [&local_to_world, &point](const math::Vector& new_position) {
+            const math::Matrix& world_to_local = math::Inverse(local_to_world);
+            point = math::Transform(world_to_local, new_position);
+        };
+
+        grabbers.push_back(grabber);
     }
 
     return grabbers;
@@ -102,24 +128,20 @@ std::vector<SnapPoint> PathProxy::GetSnappers() const
 
 void PathProxy::UpdateUIContext(UIContext& context)
 {
-    const std::string& name = m_path->GetName();
-    const math::Vector& position = m_path->Position();
+    DrawStringProperty("Name", m_name);
+    DrawStringProperty("Folder", m_folder);
 
-    char buffer[100] = { 0 };
-    snprintf(buffer, 100, "%s", name.c_str());
+    const DrawComponentsResult result = DrawComponents(context, m_components);
+    if(result.component_index == std::numeric_limits<uint32_t>::max())
+        return;
 
-    if(ImGui::InputText("", buffer, 100))
-        m_path->SetName(buffer);
-    
-    ImGui::Value("X", position.x);
-    ImGui::SameLine();
-    ImGui::Value("Y", position.y);
-    ImGui::Value("Rotation", m_path->Rotation());
+    const Component& modified_component = m_components[result.component_index];
+    m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
 }
 
 std::string PathProxy::GetFolder() const
 {
-    return "PATHS";
+    return m_folder;
 }
 
 const std::vector<Component>& PathProxy::GetComponents() const
@@ -134,27 +156,43 @@ std::vector<Component>& PathProxy::GetComponents()
 
 float PathProxy::GetRotation() const
 {
-    return m_path->Rotation();
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    return math::GetZRotation(transform);
 }
 
 void PathProxy::SetRotation(float rotation)
 {
-    m_path->SetRotation(rotation);
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    const math::Vector position = math::GetPosition(transform);
+    transform = math::CreateMatrixFromZRotation(rotation);
+    math::Position(transform, position);
 }
 
 math::Vector PathProxy::GetPosition() const
 {
-    return m_path->Position();
+    const math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    return math::GetPosition(transform);
 }
 
 void PathProxy::SetPosition(const math::Vector& position)
 {
-    m_path->SetPosition(position);
+    math::Vector new_position = position;
+
+    const bool snap_position = m_editor->SnapToGrid();
+    if(snap_position)
+    {
+        const math::Vector grid_size = m_editor->GridSize();
+        new_position.x = math::Align(position.x, grid_size.x);
+        new_position.y = math::Align(position.y, grid_size.y);
+    }
+
+    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
+    math::Position(transform, new_position);
 }
 
 math::Quad PathProxy::GetBoundingBox() const
 {
-    return m_path->BoundingBox();
+    return m_transform_system->GetWorldBoundingBox(m_entity_id);
 }
 
 std::unique_ptr<editor::IObjectProxy> PathProxy::Clone() const
