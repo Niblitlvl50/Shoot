@@ -110,9 +110,11 @@ std::vector<Grabber> PathProxy::GetGrabbers()
     {
         Grabber grabber;
         grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
-        grabber.callback = [&local_to_world, &point](const math::Vector& new_position) {
+        grabber.callback = [path_component, local_to_world, &point, this](const math::Vector& new_position) {
             const math::Matrix& world_to_local = math::Inverse(local_to_world);
             point = math::Transform(world_to_local, new_position);
+
+            m_entity_manager->SetComponentData(m_entity_id, path_component->hash, path_component->properties);
         };
 
         grabbers.push_back(grabber);
@@ -137,6 +139,8 @@ void PathProxy::UpdateUIContext(UIContext& context)
 
     const Component& modified_component = m_components[result.component_index];
     m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
+
+    m_editor->UpdateGrabbers();
 }
 
 std::string PathProxy::GetFolder() const

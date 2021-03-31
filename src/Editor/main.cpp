@@ -14,6 +14,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Paths/PathSystem.h"
 
 #include "Component.h"
 #include "Entity/ComponentFunctions.h"
@@ -43,10 +44,11 @@ int main()
         mono::SystemContext system_context;
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
-            max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
+        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
+            max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
 
         shared::RegisterSharedComponents(entity_system);
         shared::LoadFonts();

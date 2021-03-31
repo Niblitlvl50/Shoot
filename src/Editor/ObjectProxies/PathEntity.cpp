@@ -42,8 +42,8 @@ namespace
         return vertices;
     }
 
-    constexpr mono::Color::RGBA line_color(0.0f, 0.0f, 0.0f, 0.4f);
-    constexpr mono::Color::RGBA arrow_color(0.0f, 1.0f, 0.7f, 0.4f);
+    constexpr mono::Color::RGBA line_color(0.0f, 0.0f, 0.0f, 0.8f);
+    constexpr mono::Color::RGBA arrow_color(0.0f, 1.0f, 0.7f, 0.8f);
     constexpr mono::Color::RGBA selected_color(0.0f, 1.0f, 0.0f);
 }
 

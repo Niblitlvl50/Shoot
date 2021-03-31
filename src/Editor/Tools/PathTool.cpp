@@ -23,7 +23,7 @@ public:
         if(m_points.empty())
             return;
 
-        constexpr mono::Color::RGBA line_color(1.0f, 0.0f, 0.0f, 0.2f);
+        constexpr mono::Color::RGBA line_color(1.0f, 0.0f, 0.0f, 1.0f);
 
         DrawPath(renderer, m_points);
 

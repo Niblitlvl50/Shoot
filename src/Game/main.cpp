@@ -8,6 +8,7 @@
 #include "SystemContext.h"
 #include "EntitySystem/EntitySystem.h"
 #include "Particle/ParticleSystem.h"
+#include "Paths/PathSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -151,6 +152,7 @@ int main(int argc, char* argv[])
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
 
         game::DamageSystem* damage_system =
             system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);

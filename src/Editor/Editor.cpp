@@ -19,6 +19,8 @@
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Paths/PathSystem.h"
+#include "Paths/PathBatchDrawer.h"
 
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
@@ -235,6 +237,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
     m_user_input_controller =
         std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
+    mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
 
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
@@ -272,6 +275,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
 }
 
@@ -405,6 +409,7 @@ void Editor::AddPath(const std::vector<math::Vector>& path_points)
         DefaultComponentFromHash(PATH_COMPONENT),
     };
 
+    SetAttribute(POSITION_ATTRIBUTE, components.front().properties, position);
     SetAttribute(PATH_POINTS_ATTRIBUTE, components.back().properties, local_points);
 
     auto proxy = std::make_unique<PathProxy>(

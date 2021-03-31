@@ -38,7 +38,7 @@ void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
     m_vertices->UpdateData(points.data(), 0, points.size());
     m_colors->UpdateData(colors.data(), 0, colors.size());
 
-    renderer.DrawPoints(m_vertices.get(), m_colors.get(), 10.0f, 0, points.size());
+    renderer.DrawPoints(m_vertices.get(), m_colors.get(), 20.0f, 0, points.size());
 }
 
 math::Quad GrabberVisualizer::BoundingBox() const

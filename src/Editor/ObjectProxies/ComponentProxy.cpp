@@ -95,9 +95,10 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
     {
         Grabber grabber;
         grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
-        grabber.callback = [&local_to_world, &point](const math::Vector& new_position) {
+        grabber.callback = [this, polygon_shape_component, &local_to_world, &point](const math::Vector& new_position) {
             const math::Matrix& world_to_local = math::Inverse(local_to_world);
             point = math::Transform(world_to_local, new_position);
+            m_entity_manager->SetComponentData(m_entity_id, polygon_shape_component->hash, polygon_shape_component->properties);
         };
 
         grabbers.push_back(grabber);
