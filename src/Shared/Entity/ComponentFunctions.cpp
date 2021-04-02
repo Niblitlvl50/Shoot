@@ -142,10 +142,13 @@ bool ReleasePath(mono::Entity* entity, mono::SystemContext* context)
 bool UpdatePath(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
 {
     int path_type;
-    mono::PathComponent component;
-
     FindAttribute(PATH_TYPE_ATTRIBUTE, properties, path_type, FallbackMode::SET_DEFAULT);
+
+    mono::PathComponent component;
+    component.type = mono::PathType(path_type);
+
     FindAttribute(PATH_POINTS_ATTRIBUTE, properties, component.points, FallbackMode::REQUIRE_ATTRIBUTE);
+    FindAttribute(PATH_CLOSED_ATTRIBUTE, properties, component.closed, FallbackMode::SET_DEFAULT);
 
     mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
     path_system->SetPathData(entity->id, component);

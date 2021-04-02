@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 55> default_attributes = {{
+const std::array<DefaultAttribute, 56> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -80,6 +80,7 @@ const std::array<DefaultAttribute, 55> default_attributes = {{
     { "interaction_type",       Variant(0) },
     { "path_type",              Variant(0) },
     { "path_points",            Variant(polygon_default) },
+    { "path_closed",            Variant(false) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -145,8 +146,9 @@ extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50]
 extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[51].hash;
 extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52].hash;
 
-extern const uint32_t PATH_TYPE_ATTRIBUTE = default_attributes[53].hash;
-extern const uint32_t PATH_POINTS_ATTRIBUTE = default_attributes[54].hash;
+extern const uint32_t PATH_TYPE_ATTRIBUTE       = default_attributes[53].hash;
+extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[54].hash;
+extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[55].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
@@ -271,7 +273,7 @@ const ComponentArray default_components = {
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 
-    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE }),
+    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)
