@@ -20,6 +20,7 @@
 #include "Rendering/Sprite/SpriteData.h"
 #include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITexture.h"
+#include "Paths/PathTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -281,6 +282,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::interaction_type_strings));
+    }
+    else if(attribute.id == PATH_TYPE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = mono::PathTypeToString(mono::PathType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::path_type_strings));
     }
     else
     {

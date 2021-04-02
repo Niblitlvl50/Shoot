@@ -3,7 +3,6 @@
 
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
-#include "ObjectProxies/PathEntity.h"
 
 #include "Math/Serialize.h"
 #include "Math/Matrix.h"

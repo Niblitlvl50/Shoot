@@ -3,7 +3,7 @@
 #include "Editor.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "ObjectProxies/PathEntity.h"
+#include "Rendering/IDrawable.h"
 
 using namespace editor;
 
@@ -25,7 +25,7 @@ public:
 
         constexpr mono::Color::RGBA line_color(1.0f, 0.0f, 0.0f, 1.0f);
 
-        DrawPath(renderer, m_points);
+        //DrawPath(renderer, m_points);
 
         const std::vector<math::Vector>& line = { m_points.back(), m_mouse_position };
         renderer.DrawLines(line, line_color, 2.0f);

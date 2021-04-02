@@ -30,7 +30,6 @@
 #include "Component.h"
 
 #include "ObjectProxies/PathProxy.h"
-#include "ObjectProxies/PathEntity.h"
 
 #include "ObjectProxies/ComponentProxy.h"
 #include "EntitySystem/IEntityManager.h"

@@ -11,7 +11,6 @@
 #include "System/System.h"
 
 #include "ObjectProxies/PathProxy.h"
-#include "ObjectProxies/PathEntity.h"
 #include "WorldFile.h"
 
 #include "EntitySystem/IEntityManager.h"
