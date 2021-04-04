@@ -4,8 +4,8 @@
 
 #include "Navigation/NavMesh.h"
 
-#include "Paths/PathFactory.h"
 #include "Paths/IPath.h"
+#include "Paths/PathFactory.h"
 
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
@@ -110,9 +110,8 @@ TrackingResult TrackingBehaviour::Run(uint32_t delta_ms)
     if(m_current_position > m_path->Length())
         return TrackingResult::AT_TARGET;
 
-    const math::Vector& global_position = m_path->GetGlobalPosition();
     const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-    m_control_body->SetPosition(global_position + path_position);
+    m_control_body->SetPosition(path_position);
 
     return TrackingResult::TRACKING;
 }
@@ -132,7 +131,7 @@ bool TrackingBehaviour::UpdatePath()
         return false;
 
     const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
-    m_path = mono::CreatePath(math::ZeroVec, points);
+    m_path = mono::CreatePath(points);
 
     const float length = math::Length(position - m_control_body->GetPosition());
     m_current_position = length;

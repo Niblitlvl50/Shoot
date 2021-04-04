@@ -215,23 +215,7 @@ namespace
         if(!found_property)
             return false;
 
-        game::IEntityLogic* entity_logic = nullptr;
-
-        const shared::EntityLogicType logic_type = shared::EntityLogicType(logic_type_value);
-        if(logic_type == shared::EntityLogicType::INVADER_PATH)
-        {
-            std::string path_file;
-            const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file, FallbackMode::REQUIRE_ATTRIBUTE);
-            if(!found_path_property || path_file.empty())
-                return false;
-
-            entity_logic = game::g_logic_factory->CreatePathInvaderLogic(path_file.c_str(), entity->id);
-        }
-        else
-        {
-            entity_logic = game::g_logic_factory->CreateLogic(logic_type, entity->id);
-        }
-
+        game::IEntityLogic* entity_logic = game::g_logic_factory->CreateLogic(shared::EntityLogicType(logic_type_value), properties, entity->id);
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
         logic_system->AddLogic(entity->id, entity_logic);
 

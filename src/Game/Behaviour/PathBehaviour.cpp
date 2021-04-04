@@ -39,9 +39,8 @@ void PathBehaviour::Run(uint32_t delta_ms)
 {
     m_current_position += m_meter_per_second * float(delta_ms) / 1000.0f;
 
-    const math::Vector& global_position = m_path->GetGlobalPosition();
     const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-    m_point = global_position + path_position;
+    m_point = path_position;
     m_control_body->SetPosition(m_point);
 
     if(m_current_position > m_path->Length())

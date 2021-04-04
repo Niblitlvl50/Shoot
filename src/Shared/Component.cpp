@@ -45,7 +45,7 @@ const std::array<DefaultAttribute, 56> default_attributes = {{
     { "faction",            Variant(0) },
     { "faction_picker",     Variant(0u) },
     { "zoom_level",         Variant(1.0f), "multiples, 0.5 means half zoom, 2.0f means double zoom." },
-    { "UNUSED",             Variant(1.0f) },
+    { "width",              Variant(1.0f) },
     { "start",              Variant(math::ZeroVec) },
     { "end",                Variant(math::ZeroVec) },
     { "sensor",             Variant(false) },
@@ -107,7 +107,7 @@ extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[17].has
 extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[18].hash;
 
 extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[19].hash;
-extern const uint32_t UNUSED_2                      = default_attributes[20].hash;
+extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[20].hash;
 extern const uint32_t START_ATTRIBUTE               = default_attributes[21].hash;
 extern const uint32_t END_ATTRIBUTE                 = default_attributes[22].hash;
 extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[23].hash;
@@ -254,6 +254,7 @@ const ComponentArray default_components = {
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
+    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, WIDTH_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
@@ -272,8 +273,6 @@ const ComponentArray default_components = {
     MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
-
-    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

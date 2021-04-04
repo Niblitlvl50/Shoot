@@ -1,9 +1,10 @@
 
 #pragma once
 
-#include "Physics/PhysicsFwd.h"
 #include "MonoPtrFwd.h"
+#include "Physics/PhysicsFwd.h"
 #include "Math/Vector.h"
+#include <cstdint>
 
 namespace game
 {

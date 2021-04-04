@@ -334,8 +334,6 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
     result.component_index = -1;
     result.attribute_hash = -1;
 
-    //const bool component_added = DrawAddComponent(ui_context, components);
-
     for(size_t index = 0; index < components.size(); ++index)
     {
         ImGui::Separator();

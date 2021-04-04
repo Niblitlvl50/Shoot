@@ -9,8 +9,6 @@
 #include "Rendering/Serialize.h"
 
 #include "System/File.h"
-#include "Paths/IPath.h"
-#include "Paths/PathFactory.h"
 
 #include "Component.h"
 #include "Entity/Serialize.h"
@@ -37,27 +35,8 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
 }
 
-void JsonSerializer::WritePathFile(const std::string& file_path) const
-{
-    nlohmann::json json;
-    json["all_paths"] = m_path_names;
-
-    const std::string& serialized_json = json.dump(4);
-
-    file::FilePtr file = file::CreateAsciiFile(file_path.c_str());
-    std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-}
-
 void JsonSerializer::Accept(PathProxy* proxy)
 {
-    /*
-    const auto& path = proxy->m_path;
-
-    const std::string& filename = "res/paths/" + path->GetName() + ".path";
-    mono::SavePath(filename.c_str(), path->Position(), path->GetPoints());
-
-    m_path_names.push_back(filename);
-    */
 }
 
 void JsonSerializer::Accept(ComponentProxy* proxy)

@@ -3,6 +3,9 @@
 
 #include "MonoFwd.h"
 #include "EntityLogicTypes.h"
+#include <vector>
+
+struct Attribute;
 
 namespace game
 {
@@ -11,8 +14,7 @@ namespace game
     public:
 
         EntityLogicFactory(mono::SystemContext* system_context, mono::EventHandler& event_handler);
-        class IEntityLogic* CreateLogic(shared::EntityLogicType type, uint32_t entity_id);
-        class IEntityLogic* CreatePathInvaderLogic(const char* path_file, uint32_t entity_id);
+        class IEntityLogic* CreateLogic(shared::EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
 
     private:
         mono::SystemContext* m_system_context;

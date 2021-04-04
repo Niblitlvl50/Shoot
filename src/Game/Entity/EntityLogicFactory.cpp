@@ -12,8 +12,8 @@
 #include "Enemies/TurretSpawnerController.h"
 #include "Enemies/ExplodableController.h"
 
-#include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
+#include "Component.h"
 
 namespace
 {
@@ -46,12 +46,17 @@ EntityLogicFactory::EntityLogicFactory(mono::SystemContext* system_context, mono
     , m_event_handler(event_handler)
 { }
 
-IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, uint32_t entity_id)
+IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
 {
-    return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
-}
+    if(type == shared::EntityLogicType::INVADER_PATH)
+    {
+        std::string path_file;
+        const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_path_property || path_file.empty())
+            return nullptr;
 
-IEntityLogic* EntityLogicFactory::CreatePathInvaderLogic(const char* path_file, uint32_t entity_id)
-{
-    return new game::InvaderPathController(entity_id, mono::CreatePath(path_file), m_system_context, m_event_handler);
+        return new game::InvaderPathController(entity_id, 0, m_system_context, m_event_handler);
+    }
+
+    return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 }

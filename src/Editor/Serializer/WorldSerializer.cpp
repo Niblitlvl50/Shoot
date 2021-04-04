@@ -4,8 +4,6 @@
 #include "Math/Matrix.h"
 #include "Math/Serialize.h"
 #include "Rendering/Serialize.h"
-#include "Paths/IPath.h"
-#include "Paths/PathFactory.h"
 
 #include "System/File.h"
 #include "System/System.h"
@@ -24,43 +22,6 @@
 #include "nlohmann/json.hpp"
 #include <algorithm>
 
-
-std::vector<IObjectProxyPtr> editor::LoadPaths(const char* file_name, editor::Editor* editor)
-{
-    std::vector<IObjectProxyPtr> paths;
-
-    file::FilePtr file = file::OpenAsciiFile(file_name);
-    if(!file)
-        return paths;
-
-    const std::vector<byte> file_data = file::FileRead(file);
-
-    const nlohmann::json& json = nlohmann::json::parse(file_data);
-    const std::vector<std::string>& path_names = json["all_paths"];
-
-    paths.reserve(path_names.size());
-
-/*
-    const auto get_name = [](const std::string& file_name) {
-        const size_t slash_pos = file_name.find_last_of('/');
-        const size_t dot_pos = file_name.find_last_of('.');
-        return file_name.substr(slash_pos +1, dot_pos - slash_pos -1);
-    };
-    */
-
-    for(const std::string& file : path_names)
-    {
-        mono::IPathPtr path = mono::CreatePath(file.c_str());
-
-        //auto path_entity = std::make_unique<editor::PathEntity>(get_name(file), path->GetPathPoints());
-        //auto proxy = std::make_unique<PathProxy>(std::move(path_entity), editor);
-        //proxy->Entity()->SetPosition(path->GetGlobalPosition());
-
-        //paths.push_back(std::move(proxy));
-    }
-
-    return paths;
-}
 
 std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
     const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor)
@@ -136,11 +97,6 @@ editor::World editor::LoadWorld(
     };
 
     world.leveldata = shared::ReadWorldComponentObjects(file_name, entity_manager, entity_callback);
-
-    auto paths = LoadPaths("res/paths/all_paths.json", editor);
-    for(auto& proxy : paths)
-        world.loaded_proxies.push_back(std::move(proxy));
-
     return world;
 }
 
@@ -152,5 +108,4 @@ void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>
         proxy->Visit(serializer);
 
     serializer.WriteComponentEntities(file_name, level_data);
-    serializer.WritePathFile("res/paths/all_paths.json");
 }

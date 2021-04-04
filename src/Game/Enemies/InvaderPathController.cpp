@@ -12,6 +12,8 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Paths/PathSystem.h"
+#include "Paths/PathFactory.h"
 
 using namespace game;
 
@@ -27,10 +29,9 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
     m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
-InvaderPathController::InvaderPathController(uint32_t entity_id, mono::IPathPtr path, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_fire_count(0)
     , m_fire_cooldown(0)
-    , m_path(std::move(path))
 {
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
@@ -38,6 +39,11 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::IPathPtr 
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* entity_body = physics_system->GetBody(entity_id);
 
+
+    mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
+    const mono::PathComponent* path_component = path_system->GetPath(path_entity_id);
+
+    m_path = mono::CreatePath(path_component->points);
     m_path_behaviour = std::make_unique<PathBehaviour>(entity_body, m_path.get(), physics_system, event_handler);
     m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
