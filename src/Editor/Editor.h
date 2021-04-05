@@ -14,6 +14,7 @@
 #include "SnapPoint.h"
 
 #include <memory>
+#include <stack>
 
 class ImGuiInputHandler;
 
@@ -29,6 +30,12 @@ namespace editor
     struct Config;
 
     constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
+
+    enum class EditorMode
+    {
+        DEFAULT,
+        REFERENCE_PICKING,
+    };
 
     class Editor : public mono::ZoneBase
     {
@@ -119,6 +126,11 @@ namespace editor
         void DuplicateSelected();
         void ReExportEntities();
 
+        void SetPickingTarget(uint32_t* target_data);
+
+        void EnterMode(EditorMode new_mode);
+        void PopMode();
+
     private:
 
         System::IWindow* m_window;
@@ -142,6 +154,9 @@ namespace editor
 
         uint32_t m_selected_id;
         uint32_t m_preselected_id;
+        std::stack<EditorMode> m_mode_stack;
+        uint32_t* m_pick_target;
+
         std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
         std::vector<SnapPoint> m_snap_points;

@@ -294,6 +294,10 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::path_type_strings));
     }
+    else if(attribute.id == ENTITY_REFERENCE_ATTRIBUTE)
+    {
+        return DrawEntityReferenceProperty(attribute_name, std::get<uint32_t>(attribute.value), ui_context.pick_callback);
+    }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value);
@@ -311,12 +315,12 @@ void editor::AddDynamicProperties(Component& component)
         {
             if(shared::EntityLogicType(logic_type) == shared::EntityLogicType::INVADER_PATH)
             {
-                std::string dummy_string;
-                const bool has_path_file = FindAttribute(PATH_FILE_ATTRIBUTE, component.properties, dummy_string, FallbackMode::REQUIRE_ATTRIBUTE);
+                uint32_t dummy_value;
+                const bool has_path_file = FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, component.properties, dummy_value, FallbackMode::REQUIRE_ATTRIBUTE);
                 if(!has_path_file)
                 {
                     component.properties.push_back(
-                        { PATH_FILE_ATTRIBUTE, DefaultAttributeFromHash(PATH_FILE_ATTRIBUTE) }
+                        { ENTITY_REFERENCE_ATTRIBUTE, DefaultAttributeFromHash(ENTITY_REFERENCE_ATTRIBUTE) }
                     );
                 }
             }
@@ -607,4 +611,22 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     ImGui::Text("%s", name);
 
     return point_added || point_removed;
+}
+
+bool editor::DrawEntityReferenceProperty(const char* name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback)
+{
+    const ImGuiStyle& style = ImGui::GetStyle();
+    const float item_width = ImGui::CalcItemWidth();
+
+    char label[32] = {};
+    std::sprintf(label, "Pick (%u)", entity_reference);
+
+    const bool enable_pick = ImGui::Button(label, ImVec2(item_width, 0));
+    if(enable_pick)
+        pick_callback(&entity_reference);
+
+    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
+    ImGui::Text("%s", name);
+
+    return enable_pick;
 }

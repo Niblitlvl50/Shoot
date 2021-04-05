@@ -169,13 +169,20 @@ Editor::Editor(
     , m_editor_config(editor_config)
     , m_selected_id(NO_SELECTION)
     , m_preselected_id(NO_SELECTION)
+    , m_pick_target(nullptr)
 {
+    m_mode_stack.push(EditorMode::DEFAULT);
+
     using namespace std::placeholders;
 
     m_context.all_proxy_objects = &m_proxies;
 
     m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);
     m_context.modal_selection_callback = std::bind(&Editor::SelectItemCallback, this, _1);
+    m_context.pick_callback = [this](uint32_t* target_data){
+        SetPickingTarget(target_data);
+        EnterMode(EditorMode::REFERENCE_PICKING);
+    };
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
@@ -421,6 +428,20 @@ void Editor::AddPath(const std::vector<math::Vector>& path_points)
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
+    const EditorMode mode = m_mode_stack.top();
+    if(mode == EditorMode::REFERENCE_PICKING)
+    {
+        if(proxy_object)
+        {
+            const uint32_t selected_id = proxy_object->Id();
+            *m_pick_target = selected_id;
+            m_pick_target = nullptr;
+            m_mode_stack.pop();
+        }
+
+        return;
+    }
+
     m_selected_id = NO_SELECTION;
     m_context.selected_proxy_object = proxy_object;
 
@@ -885,4 +906,30 @@ void Editor::ReExportEntities()
             serializer.WriteComponentEntities(filename, metadata);
         }
     }
+}
+
+void Editor::SetPickingTarget(uint32_t* target_data)
+{
+    m_pick_target = target_data;
+}
+
+void Editor::EnterMode(EditorMode new_mode)
+{
+    m_mode_stack.push(new_mode);
+
+    const char* mode_text = nullptr;
+    if(new_mode == EditorMode::DEFAULT)
+        mode_text = "Default";
+    else if(new_mode == EditorMode::REFERENCE_PICKING)
+        mode_text = "Reference Picking";
+
+    char text_buffer[128] = {};
+    std::snprintf(text_buffer, std::size(text_buffer), "%s", mode_text);
+    m_context.notifications.push_back({information_texture, text_buffer, 5000});
+}
+
+void Editor::PopMode()
+{
+    assert(m_mode_stack.size() > 1);
+    m_mode_stack.pop();
 }

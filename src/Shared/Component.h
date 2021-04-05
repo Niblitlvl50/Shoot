@@ -77,6 +77,8 @@ extern const uint32_t PATH_TYPE_ATTRIBUTE;
 extern const uint32_t PATH_POINTS_ATTRIBUTE;
 extern const uint32_t PATH_CLOSED_ATTRIBUTE;
 
+extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

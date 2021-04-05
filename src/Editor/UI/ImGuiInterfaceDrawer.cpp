@@ -53,9 +53,6 @@ namespace
             if(ImGui::MenuItem("Rotate", "2", context.active_tool_index == 1))
                 context.tools_menu_callback(ToolsMenuOptions::ROTATE_TOOL);
 
-            if(ImGui::MenuItem("Path drawer", "3", context.active_tool_index == 2))
-                context.tools_menu_callback(ToolsMenuOptions::PATH_TOOL);
-
             ImGui::EndMenu();
         }
 
@@ -280,8 +277,8 @@ namespace
             ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoSavedSettings;
 
-        const ImVec2 window_size = ImVec2(160.0f, 50.0f);
-        const float window_position = ImGui::GetIO().DisplaySize.x - window_size.x;
+        const ImVec2 window_size = ImVec2(200.0f, 40.0f);
+        const float window_position = (ImGui::GetIO().DisplaySize.x - window_size.x) / 2.0f;
 
         for(size_t index = 0; index < context.notifications.size(); ++index)
         {
@@ -311,11 +308,12 @@ namespace
             {
                 void* texture_id = reinterpret_cast<void*>(icon_it->second.texture->Id());
                 const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
-                ImGui::Image(texture_id, ImVec2(32.0f, 32.0f), icon.uv1, icon.uv2, tint);
+                ImGui::Image(texture_id, ImVec2(24.0f, 24.0f), icon.uv1, icon.uv2, tint);
                 ImGui::SameLine();
             }
 
-            ImGui::TextWrapped("%s", note.text.c_str());
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text("%s", note.text.c_str());
             ImGui::End();
         }
     }

@@ -50,12 +50,12 @@ IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, cons
 {
     if(type == shared::EntityLogicType::INVADER_PATH)
     {
-        std::string path_file;
-        const bool found_path_property = FindAttribute(PATH_FILE_ATTRIBUTE, properties, path_file, FallbackMode::REQUIRE_ATTRIBUTE);
-        if(!found_path_property || path_file.empty())
+        uint32_t entity_reference;
+        const bool found_path_property = FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, entity_reference, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_path_property)
             return nullptr;
 
-        return new game::InvaderPathController(entity_id, 0, m_system_context, m_event_handler);
+        return new game::InvaderPathController(entity_id, entity_reference, m_system_context, m_event_handler);
     }
 
     return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);

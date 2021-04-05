@@ -39,11 +39,11 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* entity_body = physics_system->GetBody(entity_id);
 
-
     mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
     const mono::PathComponent* path_component = path_system->GetPath(path_entity_id);
+    const math::Matrix& path_entity_transform = transform_system->GetWorld(path_entity_id);
 
-    m_path = mono::CreatePath(path_component->points);
+    m_path = mono::CreatePath(path_component->points, path_entity_transform);
     m_path_behaviour = std::make_unique<PathBehaviour>(entity_body, m_path.get(), physics_system, event_handler);
     m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }

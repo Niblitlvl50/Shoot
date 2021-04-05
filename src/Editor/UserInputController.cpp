@@ -41,7 +41,6 @@ UserInputController::UserInputController(
     , m_camera_tool(camera, window)
     , m_translate_tool(editor)
     , m_rotate_tool(editor)
-    , m_path_tool(editor)
     , m_measure_tool(editor)
     , m_active_tool(nullptr)
     , m_grabber(nullptr)
@@ -75,12 +74,6 @@ UserInputController::UserInputController(
         &m_rotate_tool,
         Notification(editor::wrench_texture, "Rotate tool", 2000),
         { }
-    };
-
-    tools[ToolsMenuOptions::PATH_TOOL] = {
-        &m_path_tool,
-        Notification(editor::wrench_texture, "Path tool", 2000),
-        { "Create path", "Undo last" }
     };
 
     tools[ToolsMenuOptions::MEASURE_TOOL] = {
@@ -235,8 +228,6 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)
         SelectTool(ToolsMenuOptions::ROTATE_TOOL);
-    else if(event.key == Keycode::THREE)
-        SelectTool(ToolsMenuOptions::PATH_TOOL);
     else if(event.key == Keycode::M)
         SelectTool(ToolsMenuOptions::MEASURE_TOOL);
     else if(event.key == Keycode::N)

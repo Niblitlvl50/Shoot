@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 56> default_attributes = {{
+const std::array<DefaultAttribute, 57> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -81,6 +81,7 @@ const std::array<DefaultAttribute, 56> default_attributes = {{
     { "path_type",              Variant(0) },
     { "path_points",            Variant(polygon_default) },
     { "path_closed",            Variant(false) },
+    { "entity_reference",       Variant(0u) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -149,6 +150,8 @@ extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52]
 extern const uint32_t PATH_TYPE_ATTRIBUTE       = default_attributes[53].hash;
 extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[54].hash;
 extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[55].hash;
+
+extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[56].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
