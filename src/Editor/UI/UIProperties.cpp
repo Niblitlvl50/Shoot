@@ -180,10 +180,10 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         const int current_index = std::get<int>(attribute.value);
         int out_index = 0;
-        const bool changed =
-            DrawStringPicker(attribute_name, animation_names[current_index], animation_names, out_index);
+        const bool changed = DrawStringPicker(attribute_name, animation_names[current_index], animation_names, out_index);
         if(changed)
             attribute.value = out_index;
+
         return changed;
     }
     else if(attribute.id == SPRITE_PROPERTIES_ATTRIBUTE)
@@ -296,7 +296,9 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == ENTITY_REFERENCE_ATTRIBUTE)
     {
-        return DrawEntityReferenceProperty(attribute_name, std::get<uint32_t>(attribute.value), ui_context.pick_callback);
+        uint32_t& entity_id = std::get<uint32_t>(attribute.value);
+        const char* entity_name = ui_context.entity_name_callback(entity_id);
+        return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback);
     }
     else
     {
@@ -613,13 +615,13 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     return point_added || point_removed;
 }
 
-bool editor::DrawEntityReferenceProperty(const char* name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback)
+bool editor::DrawEntityReferenceProperty(const char* name, const char* entity_name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback)
 {
     const ImGuiStyle& style = ImGui::GetStyle();
     const float item_width = ImGui::CalcItemWidth();
 
     char label[32] = {};
-    std::sprintf(label, "Pick (%u)", entity_reference);
+    std::sprintf(label, "%s (%u)", entity_name, entity_reference);
 
     const bool enable_pick = ImGui::Button(label, ImVec2(item_width, 0));
     if(enable_pick)

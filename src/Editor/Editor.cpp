@@ -201,6 +201,10 @@ Editor::Editor(
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
     m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
 
+    m_context.entity_name_callback = [&entity_manager](uint32_t entity_id){
+        return entity_manager.GetEntityName(entity_id);
+    };
+
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllPaths("res/paths/all_paths.json");
@@ -341,7 +345,8 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
 
-    m_static_background->Load(world.leveldata.metadata.background_texture.c_str());
+    if(!world.leveldata.metadata.background_texture.empty())
+        m_static_background->Load(world.leveldata.metadata.background_texture.c_str());
 }
 
 void Editor::Save()

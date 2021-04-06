@@ -124,5 +124,7 @@ namespace editor
         std::function<void (bool new_value)> draw_snappers_callback;
         std::function<void (const mono::Color::RGBA& color)> background_color_callback;
         std::function<void (const std::string& background_texture)> background_texture_callback;
+
+        std::function<const char* (uint32_t entity_id)> entity_name_callback;
     };
 }

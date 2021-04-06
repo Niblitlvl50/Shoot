@@ -84,26 +84,131 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
             "name": "screen_right"
+        },
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -9.892868995666504,
+                                "y": 1.3497390747070313
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2223459638,
+                    "name": "path",
+                    "properties": [
+                        {
+                            "id": 4282467795,
+                            "name": "path_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3308676800,
+                            "name": "path_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -2.738811492919922,
+                                    "y": 3.1961803436279297
+                                },
+                                {
+                                    "x": 2.3227949142456055,
+                                    "y": 4.998945236206055
+                                },
+                                {
+                                    "x": 5.477631568908691,
+                                    "y": 1.081399917602539
+                                },
+                                {
+                                    "x": 4.7495927810668945,
+                                    "y": -3.425508499145508
+                                },
+                                {
+                                    "x": 0.8320474624633789,
+                                    "y": -4.985593795776367
+                                },
+                                {
+                                    "x": -3.3975133895874023,
+                                    "y": -3.7028579711914063
+                                },
+                                {
+                                    "x": -4.125554084777832,
+                                    "y": 0.3533611297607422
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2508680735,
+                            "name": "width",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1693580783,
+                            "name": "path_closed",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "white_path"
         }
     ],
     "metadata": {
         "background_texture": "",
         "camera_position": {
-            "x": 25.0,
-            "y": 10.0
+            "x": 0.0,
+            "y": 0.0
         },
         "camera_size": {
             "x": 14.0,
             "y": 23.0
         },
         "player_spawn_point": {
-            "x": 25.0,
-            "y": 7.0
+            "x": 0.0,
+            "y": 0.0
         }
     }
 }
