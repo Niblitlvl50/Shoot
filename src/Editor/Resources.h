@@ -13,29 +13,6 @@ namespace editor
         "Static"
     };
 
-    static const char* avalible_textures[] = {
-        "res/textures/placeholder.png",
-        "res/textures/stone_tileable.png",
-        "res/textures/gray_stone.png",
-        "res/textures/dark_stone.png",
-        "res/textures/brown_stone.png",
-        "res/textures/lava1.png",
-        "res/textures/lava2.png",
-        "res/textures/white_box_placeholder.png"
-    };
-
-    inline int FindTextureIndex(const char* texture)
-    {
-        for(uint32_t index = 0; index < std::size(avalible_textures); ++index)
-        {
-            const bool found = std::strstr(texture, avalible_textures[index]) != nullptr;
-            if(found)
-                return index;
-        }
-
-        return -1;
-    }
-
     bool LoadAllSprites(const char* all_sprites_file);
     const std::vector<std::string>& GetAllSprites();
 

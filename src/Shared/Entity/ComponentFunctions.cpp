@@ -148,7 +148,6 @@ bool UpdatePath(mono::Entity* entity, const std::vector<Attribute>& properties, 
     component.type = mono::PathType(path_type);
 
     FindAttribute(PATH_POINTS_ATTRIBUTE, properties, component.points, FallbackMode::REQUIRE_ATTRIBUTE);
-    FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
     FindAttribute(PATH_CLOSED_ATTRIBUTE, properties, component.closed, FallbackMode::SET_DEFAULT);
 
     mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();

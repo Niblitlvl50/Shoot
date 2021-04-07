@@ -300,6 +300,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         const char* entity_name = ui_context.entity_name_callback(entity_id);
         return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback);
     }
+    else if(attribute.id == TEXTURE_ATTRIBUTE)
+    {
+        const std::vector<std::string>& all_textures = editor::GetAllTextures();
+
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_textures, out_index);
+        if(changed)
+            attribute.value = all_textures[out_index];
+        
+        return changed;
+    }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value);
