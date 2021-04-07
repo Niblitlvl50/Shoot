@@ -12,6 +12,9 @@
 
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
+#include "Paths/PathSystem.h"
+#include "RoadSystem/RoadSystem.h"
+#include "RoadSystem/RoadBatchDrawer.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/EntitySystem.h"
@@ -64,6 +67,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
+    mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
+    mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
@@ -77,6 +82,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     if(!m_leveldata.metadata.background_texture.empty())
         AddDrawable(new mono::StaticBackground(m_leveldata.metadata.background_texture.c_str()), LayerId::BACKGROUND);
     
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND_DECALS);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);

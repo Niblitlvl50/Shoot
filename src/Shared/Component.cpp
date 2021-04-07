@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 57> default_attributes = {{
+const std::array<DefaultAttribute, 58> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -82,6 +82,7 @@ const std::array<DefaultAttribute, 57> default_attributes = {{
     { "path_points",            Variant(polygon_default) },
     { "path_closed",            Variant(false) },
     { "entity_reference",       Variant(0u) },
+    { "texture",                Variant(std::string()) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -152,6 +153,7 @@ extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[54].hash;
 extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[55].hash;
 
 extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[56].hash;
+extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[57].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
@@ -179,8 +181,8 @@ extern const uint32_t CAMERA_ZOOM_COMPONENT         = mono::Hash("camera_zoom");
 extern const uint32_t CAMERA_POINT_COMPONENT        = mono::Hash("camera_point");
 extern const uint32_t INTERACTION_COMPONENT         = mono::Hash("interaction");
 extern const uint32_t INTERACTION_SWITCH_COMPONENT  = mono::Hash("interaction_switch");
-
 extern const uint32_t PATH_COMPONENT                = mono::Hash("path");
+extern const uint32_t ROAD_COMPONENT                = mono::Hash("road");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -236,6 +238,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "interaction_switch";
     else if(hash == PATH_COMPONENT)
         return "path";
+    else if(hash == ROAD_COMPONENT)
+        return "road";
 
     return "Unknown";
 }
@@ -260,6 +264,7 @@ const ComponentArray default_components = {
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, WIDTH_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
+    MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
@@ -286,6 +291,7 @@ const char* AttributeNameFromHash(uint32_t hash)
             return hash_string.string;
     }
 
+    assert(false);
     return nullptr;
 }
 
@@ -340,8 +346,8 @@ void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vecto
         Attribute* attribute = nullptr;
         if(FindAttribute(input.id, result_attributes, attribute))
             attribute->value = input.value;
-        else
-            result_attributes.push_back(input);
+//        else
+//            result_attributes.push_back(input);
     }
 }
 

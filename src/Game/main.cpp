@@ -31,6 +31,7 @@
 #include "Pickups/PickupSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "SpawnSystem.h"
+#include "RoadSystem/RoadSystem.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -153,6 +154,7 @@ int main(int argc, char* argv[])
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::RoadSystem>(max_entities);
 
         game::DamageSystem* damage_system =
             system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);

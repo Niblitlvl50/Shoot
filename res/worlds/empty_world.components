@@ -183,6 +183,24 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 1025494171,
+                    "name": "road",
+                    "properties": [
+                        {
+                            "id": 2508680735,
+                            "name": "width",
+                            "variant_type": 3,
+                            "variant_value": 4.0
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,

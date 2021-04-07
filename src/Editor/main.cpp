@@ -15,6 +15,7 @@
 #include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Paths/PathSystem.h"
+#include "RoadSystem/RoadSystem.h"
 
 #include "Component.h"
 #include "Entity/ComponentFunctions.h"
@@ -47,6 +48,8 @@ int main()
         system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
+        system_context.CreateSystem<mono::RoadSystem>(max_entities);
+
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
             max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
 
