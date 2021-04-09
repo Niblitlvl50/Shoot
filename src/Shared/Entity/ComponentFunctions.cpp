@@ -174,7 +174,7 @@ bool UpdateRoad(mono::Entity* entity, const std::vector<Attribute>& properties, 
 {
     mono::RoadComponent component;
     FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
-    FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture, FallbackMode::SET_DEFAULT);
+    FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture_name, FallbackMode::SET_DEFAULT);
 
     mono::RoadSystem* road_system = context->GetSystem<mono::RoadSystem>();
     road_system->SetData(entity->id, component);
