@@ -351,7 +351,7 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_context.selected_world = world_filename;
 
     if(!world.leveldata.metadata.background_texture.empty())
-        m_static_background->Load(world.leveldata.metadata.background_texture.c_str());
+        SetBackgroundTexture(world.leveldata.metadata.background_texture);
 }
 
 void Editor::Save()
@@ -820,7 +820,7 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 
 void Editor::SetBackgroundTexture(const std::string& background_texture)
 {
-    m_static_background->Load(background_texture.c_str());
+    m_static_background->Load(background_texture.c_str(), mono::TextureModeFlags::REPEAT);
 }
 
 bool Editor::DrawGrid() const
