@@ -52,8 +52,9 @@
             },
             "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
-                "--position", "300", "50",
-                // "--zone", "4"
+                "--position",
+                "300",
+                "50"
             ],
             "problemMatcher": []
         },
@@ -61,7 +62,7 @@
             "label": "game test",
             "type": "process",
             "command": "./bin/game_test_exe",
-            "args": [ ],
+            "args": [],
             "problemMatcher": []
         },
         {
@@ -70,9 +71,6 @@
             "command": "./bin/editor.app/Contents/MacOS/editor",
             "args": [
                 "res/worlds/world.components"
-                // "res/worlds/title_screen.components"
-                // "res/worlds/end_screen.components"
-                // "res/worlds/empty_world.components"
             ],
             "problemMatcher": []
         }

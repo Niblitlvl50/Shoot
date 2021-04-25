@@ -56,7 +56,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(length_squared <= FLT_EPSILON)
         m_player_logic->ResetForces();
     else
-        m_player_logic->ApplyForce(force * 700.0f);
+        m_player_logic->ApplyForce(force * 500.0f);
         //m_player_logic->ApplyImpulse(force * 10.0f);
         //m_player_logic->SetVelocity(force * 4.0f);
 
@@ -69,9 +69,17 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     
     PlayerAnimation animation = PlayerAnimation::IDLE;
     if(force.x > 0.0f)
+    {
         animation = PlayerAnimation::WALK_RIGHT;
+        m_last_direction_animation = (int)animation;
+    }
     else if(force.x < 0.0f)
+    {
         animation = PlayerAnimation::WALK_LEFT;
+        m_last_direction_animation = (int)animation;
+    }
+    else if(force.y < 0.0f || force.y > 0.0f)
+        animation = PlayerAnimation(m_last_direction_animation);
 
     m_player_logic->SetAnimation(animation);
     

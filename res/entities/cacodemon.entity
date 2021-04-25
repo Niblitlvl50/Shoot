@@ -1,0 +1,202 @@
+{
+    "entities": [
+        {
+            "components": [
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "cacodemon.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.800000011920929
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "cacodemon"
+        }
+    ],
+    "metadata": {
+        "background_texture": "",
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "player_spawn_point": {
+            "x": 0.0,
+            "y": 0.0
+        }
+    }
+}

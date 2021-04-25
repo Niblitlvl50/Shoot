@@ -24,6 +24,30 @@
                     ]
                 },
                 {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -31,7 +55,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "shuttle.sprite"
+                            "variant_value": "dude.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -68,7 +92,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.4000000059604645
+                                "y": -0.20000000298023224
                             }
                         },
                         {
@@ -80,18 +104,6 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 2313652925,
-                            "name": "flip_vertical",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1775175667,
-                            "name": "flip_horizontal",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -122,32 +134,8 @@
                     ]
                 },
                 {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3996803839,
-                    "name": "circle_shape",
+                    "hash": 103600384,
+                    "name": "box_shape",
                     "properties": [
                         {
                             "id": 776086107,
@@ -156,10 +144,13 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.25
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.20000000298023224,
+                                "y": 0.30000001192092896
+                            }
                         },
                         {
                             "id": 2471448074,

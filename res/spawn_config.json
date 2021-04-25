@@ -1,0 +1,6 @@
+{
+    "spawn_definitions": [
+        { "value": 3, "entity": "res/entities/cacodemon.entity" },
+        { "value": 1, "entity": "res/entities/goblin.entity" }
+    ]
+}

@@ -20,7 +20,6 @@ namespace game
     enum class PlayerAnimation
     {
         IDLE,
-        DUCK,
         WALK_LEFT,
         WALK_RIGHT,
         WALK_UP
@@ -79,6 +78,7 @@ namespace game
         void BlinkState(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
+        const uint32_t m_controller_id;
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
 
@@ -99,6 +99,9 @@ namespace game
         IWeaponPtr m_weapon;
         IWeaponPtr m_secondary_weapon;
         float m_aim_direction;
+
+        int m_idle_anim_id;
+        int m_run_anim_id;
 
         uint32_t m_blink_counter;
         BlinkDirection m_blink_direction;

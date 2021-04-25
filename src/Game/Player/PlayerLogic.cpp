@@ -7,6 +7,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 #include "Particle/ParticleSystem.h"
 
 #include "DamageSystem.h"
@@ -41,6 +42,7 @@ PlayerLogic::PlayerLogic(
     const System::ControllerState& controller,
     mono::SystemContext* system_context)
     : m_entity_id(entity_id)
+    , m_controller_id(controller.id)
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
     , m_fire(false)
@@ -53,6 +55,10 @@ PlayerLogic::PlayerLogic(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
+
+    mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
+    m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
+    m_run_anim_id = sprite->GetAnimationIdFromName("run");
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
 
@@ -167,8 +173,8 @@ void PlayerLogic::ToBlink()
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& position = math::GetPosition(transform);
-    m_blink_effect->EmitBlinkAwayAt(position);
 
+    m_blink_effect->EmitBlinkAwayAt(position);
     m_blink_sound->Play();
 
     m_blink_counter = 0;
@@ -234,9 +240,13 @@ void PlayerLogic::SecondaryFire()
     m_secondary_fire = true;
 }
 
+#include "System/System.h"
+
 void PlayerLogic::TriggerInteraction()
 {
     m_interaction_system->TryTriggerInteraction(m_entity_id);
+
+    System::PlayRumble(System::ControllerId(m_controller_id), 0.5f, 1000);
 }
 
 void PlayerLogic::SelectWeapon(WeaponType weapon)
@@ -291,35 +301,38 @@ void PlayerLogic::SetRotation(float rotation)
 
 void PlayerLogic::SetAnimation(PlayerAnimation animation)
 {
-    //const mono::VerticalDirection vertical = 
-    //    delta_position.y < 0.0f ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
 
-    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    int anim_id = m_idle_anim_id;
+    float anim_speed = 1.0f;
 
     switch(animation)
     {
         case PlayerAnimation::IDLE:
-            //sprite->SetAnimation(STANDING);
-            break;
-        case PlayerAnimation::DUCK:
-            //sprite->SetAnimation(DUCKING);
             break;
         case PlayerAnimation::WALK_LEFT:
+        {
+            anim_id = m_run_anim_id;
+            const float velocity_magnitude = math::Length(m_player_info->velocity);
+            anim_speed = math::Scale01(velocity_magnitude, 0.0f, 10.0f) * 2.0f;
+            sprite->SetProperties(sprite->GetProperties() | mono::SpriteProperty::FLIP_HORIZONTAL);
+            break;
+        }
         case PlayerAnimation::WALK_RIGHT:
         {
-            //sprite->SetAnimation(WALKING);
-            //const auto direction = 
-            //    (animation == PlayerAnimation::WALK_LEFT) ? mono::HorizontalDirection::LEFT : mono::HorizontalDirection::RIGHT;
-            //sprite->SetHorizontalDirection(direction);
+            anim_id = m_run_anim_id;
+            const float velocity_magnitude = math::Length(m_player_info->velocity);
+            anim_speed = math::Scale01(velocity_magnitude, 0.0f, 10.0f) * 2.0f;
+            sprite->SetProperties(sprite->GetProperties() & ~mono::SpriteProperty::FLIP_HORIZONTAL);
             break;
         }
         case PlayerAnimation::WALK_UP:
-            //sprite->SetAnimation(CLIMBING);
             break;
     };
 
-    //sprite->SetHorizontalDirection(horizontal);
-    //sprite->SetVerticalDirection(vertical);
+    if(anim_id != sprite->GetActiveAnimation())
+        sprite->SetAnimation(anim_id);
+    sprite->SetAnimationPlaybackSpeed(anim_speed);
 }
 
 void PlayerLogic::Blink(BlinkDirection direction)

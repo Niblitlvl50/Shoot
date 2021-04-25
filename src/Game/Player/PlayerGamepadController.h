@@ -25,6 +25,7 @@ namespace game
         const System::ControllerState& m_state;
         System::ControllerState m_last_state;
 
+        int m_last_direction_animation;
         int m_current_weapon_index = 0;
     };
 }

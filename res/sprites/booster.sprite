@@ -16,15 +16,15 @@
             "h": 12,
             "name": "booster_default_1",
             "w": 9,
-            "x": 621,
-            "y": 355
+            "x": 68,
+            "y": 356
         },
         {
             "h": 11,
             "name": "booster_default_2",
             "w": 9,
-            "x": 1956,
-            "y": 355
+            "x": 947,
+            "y": 356
         }
     ],
     "frames_offsets": [

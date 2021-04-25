@@ -186,7 +186,7 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
         m_event_handler,
         destroyed_func);
     
-    m_camera_system->Follow(spawned_id, math::Vector(0.0f, 3.0f));
+    m_camera_system->Follow(spawned_id, math::Vector(0.0f, 0.0f));
 }
 
 void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
