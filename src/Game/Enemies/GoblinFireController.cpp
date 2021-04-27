@@ -2,6 +2,7 @@
 #include "GoblinFireController.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Math/MathFunctions.h"
@@ -60,11 +61,19 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         is_visible = math::PointInsideQuad(world_position, player_info->viewport);
     }
 
+    uint32_t sprite_properties = m_sprite->GetProperties();
+    const bool is_left_of = (m_attack_position.x < world_position.x);
+    if(is_left_of)
+        sprite_properties |= mono::SpriteProperty::FLIP_HORIZONTAL;
+    else 
+        sprite_properties &= ~mono::SpriteProperty::FLIP_HORIZONTAL;
+    m_sprite->SetProperties(sprite_properties);
+
     const bool is_player_active = player_info != nullptr;
     if(is_player_active && is_visible && m_idle_timer > 1000)
     {
-        const float percentage = mono::Random();
-        if(percentage <= 0.2f)
+        const bool transition_to_attack = mono::Chance(20);
+        if(transition_to_attack)
             m_states.TransitionTo(GoblinStates::PREPARE_ATTACK);
         
         m_idle_timer = 0;

@@ -10,8 +10,6 @@
 
 namespace game
 {
-    class TriggerSystem;
-
     class SpawnSystem : public mono::IGameSystem
     {
     public:
@@ -28,7 +26,7 @@ namespace game
 
             // internal data
             bool active;
-            uint32_t counter;
+            int counter;
             uint32_t enable_callback_id;
             uint32_t disable_callback_id;
         };
@@ -39,7 +37,7 @@ namespace game
             std::string entity_file;
         };
 
-        SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
+        SpawnSystem(uint32_t n, class TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
 
         SpawnPoint* AllocateSpawnPoint(uint32_t entity_id);
         void ReleaseSpawnPoint(uint32_t entity_id);
