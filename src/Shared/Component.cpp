@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 58> default_attributes = {{
+const std::array<DefaultAttribute, 60> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -62,6 +62,8 @@ const std::array<DefaultAttribute, 58> default_attributes = {{
     { "spawn_score",        Variant(10) },
     { "trigger_name",       Variant(std::string()) },
     { "trigger_name_exit",  Variant(std::string()) },
+    { "enable_trigger",     Variant(std::string()) },
+    { "disable_trigger",    Variant(std::string()) },
     { "duration",           Variant(1.0f) },
     { "easing_func",        Variant(0) },
     { "logic_op",           Variant(0) },
@@ -127,33 +129,37 @@ extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].has
 
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[33].hash;
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[34].hash;
+
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[35].hash;
 extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[36].hash;
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[37].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[38].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[39].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[40].hash;
+extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE      = default_attributes[37].hash;
+extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE     = default_attributes[38].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[41].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[42].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[43].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[44].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[45].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[46].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[47].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[39].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[40].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[41].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[42].hash;
 
-extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[48].hash;
-extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[49].hash;
-extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[50].hash;
-extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[51].hash;
-extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[52].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[43].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[44].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[45].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[46].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[47].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[48].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[49].hash;
 
-extern const uint32_t PATH_TYPE_ATTRIBUTE       = default_attributes[53].hash;
-extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[54].hash;
-extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[55].hash;
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[50].hash;
+extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[51].hash;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[52].hash;
+extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[53].hash;
+extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[54].hash;
 
-extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[56].hash;
-extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[57].hash;
+extern const uint32_t PATH_TYPE_ATTRIBUTE       = default_attributes[55].hash;
+extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[56].hash;
+extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[57].hash;
+
+extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[58].hash;
+extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[59].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
@@ -258,7 +264,7 @@ const ComponentArray default_components = {
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),

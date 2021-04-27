@@ -239,7 +239,22 @@ namespace
     bool UpdateSpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         game::SpawnSystem::SpawnPoint spawn_point;
+        spawn_point.enable_trigger = 0;
+        spawn_point.disable_trigger = 0;
+
         FindAttribute(SPAWN_SCORE_ATTRIBUTE, properties, spawn_point.spawn_score, FallbackMode::SET_DEFAULT);
+        FindAttribute(RADIUS_ATTRIBUTE, properties, spawn_point.radius, FallbackMode::SET_DEFAULT);
+        FindAttribute(TIME_STAMP_ATTRIBUTE, properties, spawn_point.interval, FallbackMode::SET_DEFAULT);
+
+        std::string enable_trigger;
+        const bool found_enable = FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
+        if(found_enable)
+            spawn_point.enable_trigger = mono::Hash(enable_trigger.c_str());
+
+        std::string disable_trigger;
+        const bool found_disable = FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
+        if(found_disable)
+            spawn_point.disable_trigger = mono::Hash(disable_trigger.c_str());
 
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
         spawn_system->SetSpawnPointData(entity->id, spawn_point);

@@ -20,10 +20,17 @@ namespace game
         {
             int spawn_score;
             float radius;
+            int interval;
             uint32_t properties;
 
             uint32_t enable_trigger;
             uint32_t disable_trigger;
+
+            // internal data
+            bool active;
+            uint32_t counter;
+            uint32_t enable_callback_id;
+            uint32_t disable_callback_id;
         };
 
         struct SpawnDefinition

@@ -53,6 +53,9 @@ extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE;
 
+extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE;
+extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE;
+
 extern const uint32_t DURATION_ATTRIBUTE;
 extern const uint32_t EASING_FUNC_ATTRIBUTE;
 extern const uint32_t LOGIC_OP_ATTRIBUTE;

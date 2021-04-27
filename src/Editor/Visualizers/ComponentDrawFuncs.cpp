@@ -131,7 +131,9 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
 
 void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
 {
-    renderer.DrawCircle(math::ZeroVec, 1.0f, 8, 5.0f, mono::Color::BLUE);
+    float radius = 1.0f;
+    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
+    renderer.DrawCircle(math::ZeroVec, radius, 8, 5.0f, mono::Color::BLUE);
     renderer.DrawLines({ math::ZeroVec, math::Vector(1.0f, 0.0f) }, mono::Color::BLUE, 3.0f);
 }
 
