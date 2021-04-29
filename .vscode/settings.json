@@ -94,6 +94,7 @@
         "unordered_set": "cpp",
         "__errc": "cpp",
         "__node_handle": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "stack": "cpp"
     }
 }

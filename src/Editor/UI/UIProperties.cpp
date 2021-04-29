@@ -545,15 +545,29 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
     };
     std::sort(sprite_icons.begin(), sprite_icons.end(), sort_by_category);
 
+    std::string current_category;
+
     ImGui::SetNextWindowSize(ImVec2(800, -1));
     if(ImGui::BeginPopup("sprite_picker_popup"))
     {
-        ImGui::Columns(10, "sprite_picker_columns", false);
+        const bool begin_table = ImGui::BeginTable("sprite_picker_columns", 10);
 
         for(size_t index = 0; index < sprite_icons.size(); ++index)
         {
-            const SpriteUIIcon& sprite_icon = sprite_icons[index];
             ImGui::PushID(index);
+
+            const SpriteUIIcon& sprite_icon = sprite_icons[index];
+
+            if(current_category != sprite_icon.icon.category)
+            {
+                current_category = sprite_icon.icon.category;
+                ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(40, 40, 40, 127));
+                ImGui::TableSetColumnIndex(0);
+                ImGui::TextDisabled("%s", current_category.c_str());
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+            }
 
             void* texture_id = reinterpret_cast<void*>(sprite_icon.icon.texture->Id());
             const math::Vector& size = sprite_icon.icon.size;
@@ -585,9 +599,12 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
             if(ImGui::IsItemHovered())
                 ImGui::SetTooltip("%s|%s, width %.2f m, height %.2f m", sprite_icon.icon.category.c_str(), sprite_icon.sprite_name.c_str(), size.x, size.y);
 
-            ImGui::NextColumn();
+            ImGui::TableNextColumn();
             ImGui::PopID();
         }
+
+        if(begin_table)
+            ImGui::EndTable();
 
         ImGui::EndPopup();
     }
