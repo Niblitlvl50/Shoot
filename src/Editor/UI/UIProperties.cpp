@@ -597,7 +597,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
             }
 
             if(ImGui::IsItemHovered())
-                ImGui::SetTooltip("%s|%s, width %.2f m, height %.2f m", sprite_icon.icon.category.c_str(), sprite_icon.sprite_name.c_str(), size.x, size.y);
+                ImGui::SetTooltip("%s\nwidth %.2f m, height %.2f m", sprite_icon.sprite_name.c_str(), size.x, size.y);
 
             ImGui::TableNextColumn();
             ImGui::PopID();
