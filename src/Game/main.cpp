@@ -30,7 +30,7 @@
 #include "InteractionSystem/InteractionSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
-#include "SpawnSystem.h"
+#include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
 
 #include "Network/ServerManager.h"

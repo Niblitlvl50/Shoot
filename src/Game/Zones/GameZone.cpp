@@ -43,6 +43,8 @@
 
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
+#include "SpawnSystem/SpawnSystem.h"
+#include "SpawnSystem/SpawnSystemDebugDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -72,6 +74,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
+    SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
 
     m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
@@ -97,6 +100,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
+    AddDrawable(new SpawnSystemDebugDrawer(spawn_system, transform_system), LayerId::UI);
     AddDrawable(new DebugUpdater(trigger_system, m_event_handler), LayerId::UI);
 }
 

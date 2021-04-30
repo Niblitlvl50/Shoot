@@ -48,6 +48,16 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        template <typename T>
+        inline void ForEeach(T&& func)
+        {
+            for(uint32_t entity_id = 0; entity_id < m_spawn_points.size(); ++entity_id)
+            {
+                if(m_alive[entity_id])
+                    func(entity_id, m_spawn_points[entity_id]);
+            }
+        }
+
         game::TriggerSystem* m_trigger_system;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;

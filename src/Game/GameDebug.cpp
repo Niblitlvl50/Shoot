@@ -23,6 +23,7 @@ bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 bool game::g_draw_debug_players = false;
+bool game::g_draw_spawn_points = false;
 
 void DrawDebugMenu(uint32_t fps)
 {
@@ -45,6 +46,7 @@ void DrawDebugMenu(uint32_t fps)
         ImGui::Checkbox("Client Viewport",      &game::g_draw_client_viewport);
         ImGui::Checkbox("Prediction System",    &game::g_draw_position_prediction);
         ImGui::Checkbox("Players",              &game::g_draw_debug_players);
+        ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
 
         ImGui::EndMenu();
     }

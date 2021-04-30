@@ -8,7 +8,7 @@
 #include "DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Pickups/PickupSystem.h"
-#include "SpawnSystem.h"
+#include "SpawnSystem/SpawnSystem.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityLogicFactory.h"

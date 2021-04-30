@@ -22,6 +22,7 @@ namespace game
     extern bool g_draw_network_stats;
     extern bool g_draw_position_prediction;
     extern bool g_draw_debug_players;
+    extern bool g_draw_spawn_points;
 
     class TriggerSystem;
 
