@@ -3,6 +3,7 @@
 
 #include "IGameSystem.h"
 #include "Math/Vector.h"
+#include "Math/Matrix.h"
 #include "MonoFwd.h"
 
 #include <vector>
@@ -37,6 +38,16 @@ namespace game
             std::string entity_file;
         };
 
+        struct SpawnEvent
+        {
+            uint32_t spawner_id;
+            uint32_t spawned_entity_id;
+            math::Matrix transform;
+            uint32_t timestamp_to_spawn;
+        };
+
+        static const uint32_t spawn_delay_time_ms = 500;
+
         SpawnSystem(uint32_t n, class TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
 
         SpawnPoint* AllocateSpawnPoint(uint32_t entity_id);
@@ -44,9 +55,13 @@ namespace game
         bool IsAllocated(uint32_t entity_id);
         void SetSpawnPointData(uint32_t entity_id, const SpawnPoint& component_data);
 
+        const std::vector<SpawnEvent>& GetSpawnEvents() const;
+
+
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
+        void Sync() override;
 
         template <typename T>
         inline void ForEeach(T&& func)
@@ -64,5 +79,7 @@ namespace game
         std::vector<SpawnDefinition> m_spawn_definitions;
         std::vector<SpawnPoint> m_spawn_points;
         std::vector<bool> m_alive;
+
+        std::vector<SpawnEvent> m_spawn_events;
     };
 }
