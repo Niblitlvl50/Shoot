@@ -59,7 +59,8 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
     }
 }
 
-mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, const math::Vector& collision_point, uint32_t categories)
+mono::CollisionResolve BulletLogic::OnCollideWith(
+    mono::IBody* colliding_body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
 {
     if(m_bullet_behaviour == BulletCollisionBehaviour::JUMPER)
     {
@@ -128,7 +129,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(mono::IBody* colliding_body, c
     CollisionDetails details;
     details.colliding_body = colliding_body;
     details.collision_point = collision_point;
-    details.collision_normal = math::ZeroVec;
+    details.collision_normal = collision_normal;
 
     m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, details);
     return resolve_type;

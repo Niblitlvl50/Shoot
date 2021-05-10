@@ -20,7 +20,7 @@ namespace
         { }
 
         mono::CollisionResolve OnCollideWith(
-            mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
+            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override
         {
             const uint32_t target_id = mono::PhysicsSystem::GetIdFromBody(body);
             m_pickup_system->HandlePickup(m_pickup_id, target_id);

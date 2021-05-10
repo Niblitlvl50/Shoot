@@ -31,7 +31,7 @@ namespace
         { }
 
         mono::CollisionResolve OnCollideWith(
-            mono::IBody* body, const math::Vector& collision_point, uint32_t categories) override
+            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override
         {
             m_trigger_system->EmitTrigger(m_trigger_hash_enter);
             return mono::CollisionResolve::IGNORE;

@@ -64,7 +64,8 @@ void BlackSquareController::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context.delta_ms);
 }
 
-mono::CollisionResolve BlackSquareController::OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category)
+mono::CollisionResolve BlackSquareController::OnCollideWith(
+    mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
         m_states.TransitionTo(States::AWAKE);

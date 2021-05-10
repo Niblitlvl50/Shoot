@@ -126,7 +126,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
     if(m_fire)
     {
-        const math::Vector offset = math::Normalized(math::VectorFromAngle(direction)) / 2.0f;
+        const math::Vector offset; // = math::Normalized(math::VectorFromAngle(direction)) / 2.0f;
         m_player_info->weapon_state = m_weapon->Fire(position + offset, m_aim_direction, update_context.timestamp);
     }
 

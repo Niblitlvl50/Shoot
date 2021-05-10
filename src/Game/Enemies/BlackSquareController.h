@@ -20,7 +20,8 @@ namespace game
         virtual ~BlackSquareController();
 
         void Update(const mono::UpdateContext& update_context) override;
-        mono::CollisionResolve OnCollideWith(mono::IBody* body, const math::Vector& collision_point, uint32_t category) override;
+        mono::CollisionResolve OnCollideWith(
+            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category) override;
         void OnSeparateFrom(mono::IBody* body) override;
 
     private:
