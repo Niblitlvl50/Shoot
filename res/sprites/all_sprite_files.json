@@ -74,6 +74,7 @@
         "res/sprites/pine_small_dead.sprite",
         "res/sprites/plasma.sprite",
         "res/sprites/player_point.sprite",
+        "res/sprites/portal.sprite",
         "res/sprites/ps_circle.sprite",
         "res/sprites/ps_cross.sprite",
         "res/sprites/ps_options.sprite",

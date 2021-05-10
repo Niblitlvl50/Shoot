@@ -17,22 +17,22 @@
             "h": 41,
             "name": "small_fire_default_1",
             "w": 23,
-            "x": 1321,
-            "y": 308
+            "x": 29,
+            "y": 324
         },
         {
             "h": 41,
             "name": "small_fire_default_2",
             "w": 23,
-            "x": 1533,
-            "y": 307
+            "x": 2,
+            "y": 324
         },
         {
             "h": 41,
             "name": "small_fire_default_3",
             "w": 23,
-            "x": 1294,
-            "y": 308
+            "x": 1839,
+            "y": 310
         }
     ],
     "frames_offsets": [
