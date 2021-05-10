@@ -44,7 +44,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
-#include "SpawnSystem/SpawnSystemDebugDrawer.h"
+#include "SpawnSystem/SpawnSystemDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -100,7 +100,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
-    AddDrawable(new SpawnSystemDebugDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
+    AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new DebugUpdater(trigger_system, m_event_handler), LayerId::UI);
 }
 

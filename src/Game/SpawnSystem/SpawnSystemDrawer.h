@@ -13,11 +13,11 @@
 
 namespace game
 {
-    class SpawnSystemDebugDrawer : public mono::IDrawable
+    class SpawnSystemDrawer : public mono::IDrawable
     {
     public:
 
-        SpawnSystemDebugDrawer(
+        SpawnSystemDrawer(
             class SpawnSystem* spawn_system, mono::TransformSystem* transform_system, mono::ParticleSystem* particle_system, mono::IEntityManager* entity_manager);
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;

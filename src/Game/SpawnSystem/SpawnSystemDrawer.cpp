@@ -1,5 +1,5 @@
 
-#include "SpawnSystemDebugDrawer.h"
+#include "SpawnSystemDrawer.h"
 #include "SpawnSystem.h"
 #include "GameDebug.h"
 #include "FontIds.h"
@@ -18,7 +18,7 @@
 
 using namespace game;
 
-SpawnSystemDebugDrawer::SpawnSystemDebugDrawer(SpawnSystem* spawn_system, mono::TransformSystem* transform_system, mono::ParticleSystem* particle_system, mono::IEntityManager* entity_manager)
+SpawnSystemDrawer::SpawnSystemDrawer(SpawnSystem* spawn_system, mono::TransformSystem* transform_system, mono::ParticleSystem* particle_system, mono::IEntityManager* entity_manager)
     : m_spawn_system(spawn_system)
     , m_transform_system(transform_system)
     , m_smoke_effect(particle_system, entity_manager)
@@ -26,7 +26,7 @@ SpawnSystemDebugDrawer::SpawnSystemDebugDrawer(SpawnSystem* spawn_system, mono::
     m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/beam_white_vertical6.png");
 }
 
-void SpawnSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
+void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
 {
     for(const SpawnSystem::SpawnEvent& event : m_spawn_system->GetSpawnEvents())
     {
@@ -97,7 +97,7 @@ void SpawnSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
     m_spawn_system->ForEeach(draw_spawn_points);
 }
 
-math::Quad SpawnSystemDebugDrawer::BoundingBox() const
+math::Quad SpawnSystemDrawer::BoundingBox() const
 {
     return math::InfQuad;
 }
