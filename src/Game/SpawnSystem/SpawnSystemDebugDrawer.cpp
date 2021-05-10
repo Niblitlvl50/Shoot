@@ -59,8 +59,11 @@ void SpawnSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
             SpawnEffect& spawn_effect = it->second;
             auto& buffers = spawn_effect.buffers;
 
+            const float scale_value = math::Scale01Clamped(time_to_spawn, 200, 125);
+            const uint32_t n_indices = scale_value * buffers.indices->Size();
+
             renderer.DrawAnnotatedTrianges(
-                buffers.vertices.get(), buffers.anotations.get(), buffers.indices.get(), m_texture.get(), color, 0, buffers.indices->Size());
+                buffers.vertices.get(), buffers.anotations.get(), buffers.indices.get(), m_texture.get(), color, 0, n_indices);
 
             if(!spawn_effect.emit_smoke)
             {
