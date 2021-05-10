@@ -82,10 +82,7 @@ void game::StandardCollision(
 
     if(details.colliding_body)
     {
-        const math::Vector world_position = math::GetPosition(transform_system->GetWorld(entity_id));
-        //const float direction = math::AngleFromVector(world_position - details.collision_point);
-        const float direction = math::AngleFromVector(-details.collision_normal);
-
+        const float direction = math::AngleFromVector(details.collision_normal);
         if(did_damage)
         {
             g_damage_effect->EmitGibsAt(details.collision_point, direction);

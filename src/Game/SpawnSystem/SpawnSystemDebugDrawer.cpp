@@ -51,15 +51,15 @@ void SpawnSystemDebugDrawer::Draw(mono::IRenderer& renderer) const
 
             m_path_draw_buffers[event.spawner_id] = std::move(spawn_effect);
         }
-        else if(time_to_spawn <= 200)
+        else if(time_to_spawn <= 300)
         {
             mono::Color::RGBA color = mono::Color::WHITE;
-            color.alpha = math::Scale01(time_to_spawn, 0, 200);
+            color.alpha = math::Scale01(time_to_spawn, 0, 300);
 
             SpawnEffect& spawn_effect = it->second;
             auto& buffers = spawn_effect.buffers;
 
-            const float scale_value = math::Scale01Clamped(time_to_spawn, 200, 125);
+            const float scale_value = math::Scale01Clamped(time_to_spawn, 300, 225);
             const uint32_t n_indices = scale_value * buffers.indices->Size();
 
             renderer.DrawAnnotatedTrianges(
