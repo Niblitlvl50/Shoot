@@ -53,6 +53,7 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
 
@@ -83,14 +84,18 @@ PlayerLogic::PlayerLogic(
     m_pickup_system->RegisterPickupTarget(m_entity_id, pickup_callback);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
-    m_blink_effect = std::make_unique<BlinkEffect>(particle_system, entity_system);
+    m_blink_effect = std::make_unique<BlinkEffect>(particle_system, m_entity_system);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+
+    const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
+    m_weapon_entity = spawned_weapon.id;
+
+    m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
     // Make sure we have a weapon
     SelectWeapon(WeaponType::STANDARD);
     SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
-    SetRotation(0.0f);
+    SetAimDirection(math::PI_2());
 
     const PlayerStateMachine::StateTable state_table = {
         PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),
@@ -104,6 +109,7 @@ PlayerLogic::PlayerLogic(
 PlayerLogic::~PlayerLogic()
 {
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
+    m_entity_system->ReleaseEntity(m_weapon_entity);
 }
 
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
@@ -111,9 +117,35 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_state.UpdateState(update_context);
 }
 
+void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& player_velocity)
+{
+    float anim_speed = 1.0f;
+    int anim_id = m_idle_anim_id;
+
+    const bool facing_left = (aim_direction < math::PI());
+    const float velocity_magnitude = math::Length(player_velocity);
+
+    if(velocity_magnitude > 0.2f)
+    {
+        anim_id = m_run_anim_id;
+        anim_speed = math::Scale01(velocity_magnitude, 0.0f, 5.0f);
+    }
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    if(facing_left)
+        sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+
+    if(anim_id != sprite->GetActiveAnimation())
+        sprite->SetAnimation(anim_id);
+    sprite->SetAnimationPlaybackSpeed(anim_speed);
+}
+
 void PlayerLogic::ToDefault()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
 }
 
 void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
@@ -126,7 +158,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
     if(m_fire)
     {
-        const math::Vector offset; // = math::Normalized(math::VectorFromAngle(direction)) / 2.0f;
+        const math::Vector offset = math::Normalized(math::VectorFromAngle(m_aim_direction)) * 0.5f;
         m_player_info->weapon_state = m_weapon->Fire(position + offset, m_aim_direction, update_context.timestamp);
     }
 
@@ -150,15 +182,16 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->ammunition_left = m_total_ammo_left;
 
+    UpdateAnimation(m_aim_direction, m_player_info->velocity);
+
     if(m_player_info->player_state == PlayerState::DEAD)
         m_state.TransitionTo(PlayerStates::DEAD);
 }
 
 void PlayerLogic::ToDead()
 {
-    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
-    //sprite->SetAnimation();
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
 }
 
 void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
@@ -170,6 +203,7 @@ void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
 void PlayerLogic::ToBlink()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
 
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& position = math::GetPosition(transform);
@@ -268,8 +302,12 @@ void PlayerLogic::ApplyImpulse(const math::Vector& force)
 
 void PlayerLogic::ApplyForce(const math::Vector& force)
 {
+    const math::Vector angle_vector = math::VectorFromAngle(m_aim_direction);
+    const float dot_value = math::Dot(angle_vector, math::Normalized(force));
+    const float multiplier = dot_value < 0.0f && (m_fire || m_secondary_fire) ? 0.5f : 1.0;
+
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    body->ApplyLocalForce(force, math::ZeroVec);
+    body->ApplyLocalForce(force * multiplier, math::ZeroVec);
 }
 
 void PlayerLogic::SetVelocity(const math::Vector& velocity)
@@ -283,56 +321,28 @@ void PlayerLogic::ResetForces()
     //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     //body->ResetForces();
     //body->SetVelocity(math::ZeroVec);
+
+    //SetAnimation(PlayerAnimation::IDLE);
 }
 
-void PlayerLogic::SetRotation(float rotation)
+void PlayerLogic::SetAimDirection(float aim_direction)
 {
-    m_aim_direction = rotation;
+    m_aim_direction = aim_direction;
 
-    //mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity_id);
-    //const auto direction = (rotation < math::PI()) ? mono::VerticalDirection::UP : mono::VerticalDirection::DOWN;
-    //sprite->SetVerticalDirection(direction);
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity);
+    sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    
+    if(aim_direction < math::PI())
+        sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
+    else
+        sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
 
-    //math::Matrix weapon_transform = math::CreateMatrixFromZRotation(rotation - math::PI_2());
-    //math::Translate(weapon_transform, math::Vector(0.25f, 1.0f));
-
-    //m_transform_system->SetTransform(m_weapon_entity_id, weapon_transform);
-}
-
-void PlayerLogic::SetAnimation(PlayerAnimation animation)
-{
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-
-    int anim_id = m_idle_anim_id;
-    float anim_speed = 1.0f;
-
-    switch(animation)
-    {
-        case PlayerAnimation::IDLE:
-            break;
-        case PlayerAnimation::WALK_LEFT:
-        {
-            anim_id = m_run_anim_id;
-            const float velocity_magnitude = math::Length(m_player_info->velocity);
-            anim_speed = math::Scale01(velocity_magnitude, 0.0f, 10.0f) * 2.0f;
-            sprite->SetProperties(sprite->GetProperties() | mono::SpriteProperty::FLIP_HORIZONTAL);
-            break;
-        }
-        case PlayerAnimation::WALK_RIGHT:
-        {
-            anim_id = m_run_anim_id;
-            const float velocity_magnitude = math::Length(m_player_info->velocity);
-            anim_speed = math::Scale01(velocity_magnitude, 0.0f, 10.0f) * 2.0f;
-            sprite->SetProperties(sprite->GetProperties() & ~mono::SpriteProperty::FLIP_HORIZONTAL);
-            break;
-        }
-        case PlayerAnimation::WALK_UP:
-            break;
-    };
-
-    if(anim_id != sprite->GetActiveAnimation())
-        sprite->SetAnimation(anim_id);
-    sprite->SetAnimationPlaybackSpeed(anim_speed);
+    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
+    weapon_transform =
+        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
+        math::CreateMatrixFromZRotation(aim_direction + math::PI_2()) *
+        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f)) *
+        math::CreateMatrixWithScale(math::Vector(0.4f, 0.4f));
 }
 
 void PlayerLogic::Blink(BlinkDirection direction)

@@ -7,14 +7,12 @@
 
 namespace game
 {
-    class PlayerLogic;
-    
     class PlayerGamepadController
     {
     public:
         
         PlayerGamepadController(
-            game::PlayerLogic* player_logic, mono::EventHandler* event_handler, const System::ControllerState& controller);
+            class PlayerLogic* player_logic, mono::EventHandler* event_handler, const System::ControllerState& controller);
         void Update(const mono::UpdateContext& update_context);
         
     private:
@@ -25,7 +23,6 @@ namespace game
         const System::ControllerState& m_state;
         System::ControllerState m_last_state;
 
-        int m_last_direction_animation;
         int m_current_weapon_index = 0;
     };
 }

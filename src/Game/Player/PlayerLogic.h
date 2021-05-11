@@ -17,14 +17,6 @@ namespace game
 {
     struct PlayerInfo;
 
-    enum class PlayerAnimation
-    {
-        IDLE,
-        WALK_LEFT,
-        WALK_RIGHT,
-        WALK_UP
-    };
-
     enum class BlinkDirection
     {
         LEFT,
@@ -47,6 +39,7 @@ namespace game
         ~PlayerLogic();
 
         void Update(const mono::UpdateContext& update_context) override;
+        void UpdateAnimation(float aim_direction, const math::Vector& player_velocity);
 
         void Fire();
         void StopFire();
@@ -64,8 +57,7 @@ namespace game
         void SetVelocity(const math::Vector& velocity);
         void ResetForces();
 
-        void SetRotation(float rotation);
-        void SetAnimation(PlayerAnimation animation);
+        void SetAimDirection(float aim_direction);
         void Blink(BlinkDirection direction);
 
         void ToDefault();
@@ -92,6 +84,8 @@ namespace game
         using PlayerStateMachine = StateMachine<PlayerStates, const mono::UpdateContext&>;
         PlayerStateMachine m_state;
 
+        uint32_t m_weapon_entity;
+
         bool m_fire;
         bool m_secondary_fire;
         int m_total_ammo_left;
@@ -114,6 +108,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_system;
         class PickupSystem* m_pickup_system;
         class InteractionSystem* m_interaction_system;
     };

@@ -8,6 +8,7 @@
                     "properties": [
                         {
                             "id": 2471448074,
+                            "name": "position",
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
@@ -16,6 +17,7 @@
                         },
                         {
                             "id": 564937055,
+                            "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
                         }
@@ -27,16 +29,25 @@
                     "properties": [
                         {
                             "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 6,
                             "variant_value": "bolter.sprite"
                         },
                         {
                             "id": 3779456605,
+                            "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
+                            "id": 2565644130,
+                            "name": "sprite_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
                             "id": 1031692888,
+                            "name": "color",
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
@@ -46,12 +57,29 @@
                             }
                         },
                         {
-                            "id": 2313652925,
-                            "variant_type": 0,
-                            "variant_value": false
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
-                            "id": 1775175667,
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -62,5 +90,20 @@
             "folder": "",
             "name": "player_weapon"
         }
-    ]
+    ],
+    "metadata": {
+        "background_texture": "",
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "player_spawn_point": {
+            "x": 0.0,
+            "y": 0.0
+        }
+    }
 }

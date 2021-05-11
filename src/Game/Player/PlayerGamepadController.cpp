@@ -63,26 +63,10 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
     {
         const math::Vector direction(m_state.right_x, m_state.right_y);
-        const float rotation = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
-        m_player_logic->SetRotation(rotation);
+        const float aim_direction = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
+        m_player_logic->SetAimDirection(aim_direction);
     }
-    
-    PlayerAnimation animation = PlayerAnimation::IDLE;
-    if(force.x > 0.0f)
-    {
-        animation = PlayerAnimation::WALK_RIGHT;
-        m_last_direction_animation = (int)animation;
-    }
-    else if(force.x < 0.0f)
-    {
-        animation = PlayerAnimation::WALK_LEFT;
-        m_last_direction_animation = (int)animation;
-    }
-    else if(force.y < 0.0f || force.y > 0.0f)
-        animation = PlayerAnimation(m_last_direction_animation);
 
-    m_player_logic->SetAnimation(animation);
-    
     const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     if(b)
