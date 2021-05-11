@@ -10,6 +10,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
+#include "Rendering/RenderSystem.h"
 
 #include <cstdio>
 
@@ -104,7 +105,7 @@ namespace game
 using namespace game;
 
 PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
-    : UIOverlay(16.0f, 16.0f)
+    : UIOverlay(16.0f, 16.0f / mono::GetWindowAspect())
     , m_player_info(player_info)
     , m_timer(0)
     , m_current_score(m_player_info.score)
@@ -148,7 +149,7 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     weapon_reload_line->SetScale(math::Vector(3.0f, 1.0f));
 
     m_hearts = new HeartContainer(player_info);
-    m_hearts->SetPosition(0.75f, 15.25f);
+    m_hearts->SetPosition(0.75f, m_height - 0.75f);
     m_hearts->SetScale(1.5f);
 
     AddChild(m_background);

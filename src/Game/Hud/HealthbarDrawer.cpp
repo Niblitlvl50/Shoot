@@ -102,6 +102,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
     const float viewport_width = 10.0f;
     const float ratio = math::Width(viewport) / math::Height(viewport);
+    const float viewport_height = viewport_width * ratio;
 
     std::vector<Healthbar> healthbars;
     std::vector<Healthbar> boss_healthbars;
@@ -168,7 +169,8 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     GenerateHealthbarVertices(healthbars, 0.05f, vertices, colors, indices);
     const uint32_t n_healthbar_indices = indices.size();
 
-    GenerateHealthbarVertices(boss_healthbars, 0.1f, vertices, colors, indices);
+    const float boss_healthbar_thickness = viewport_height * 0.02f;
+    GenerateHealthbarVertices(boss_healthbars, boss_healthbar_thickness, vertices, colors, indices);
     const uint32_t n_boss_indices = indices.size() - n_healthbar_indices;
 
     auto vertex_buffer = mono::CreateRenderBuffer(
@@ -184,12 +186,12 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
     if(!boss_healthbars.empty())
     {
-        const math::Matrix projection = math::Ortho(0.0f, viewport_width, 0.0f, viewport_width / ratio, -10.0f, 10.0f);
+        const math::Matrix projection = math::Ortho(0.0f, viewport_width, 0.0f, viewport_height, -10.0f, 10.0f);
         const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
         const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
 
         math::Matrix transform;
-        math::Translate(transform, math::Vector(5.0f, 9.5f));
+        math::Translate(transform, math::Vector(viewport_width / 2.0f, viewport_height * 0.95f));
         const mono::ScopedTransform transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         renderer.DrawTrianges(

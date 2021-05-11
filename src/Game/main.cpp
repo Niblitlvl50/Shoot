@@ -52,9 +52,7 @@ namespace
     {
         int x = 0;
         int y = 0;
-        //int width = 1000;
-        //int height = 625;
-        int width = 800;
+        int width = 1200;
         int height = 800;
         int start_zone = 1;
         const char* game_config = "res/game_config.json";
@@ -137,6 +135,7 @@ int main(int argc, char* argv[])
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
+        render_params.window = window;
         mono::InitializeRender(render_params);
 
         shared::LoadFonts();

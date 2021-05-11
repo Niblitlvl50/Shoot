@@ -11,16 +11,20 @@
 #include "Math/EasingFunctions.h"
 #include "System/System.h"
 
+#include "Rendering/RenderSystem.h"
+
 using namespace game;
 
 GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler)
-    : UIOverlay(400.0f, 400.0f)
+    : UIOverlay(400.0f, 400.0f / mono::GetWindowAspect())
     , m_player_info(player_info)
     , m_event_handler(event_handler)
     , m_timer(0)
 {
-    m_position = m_offscreen_position = math::Vector(-200.0f, 200.0f);
-    m_screen_position = math::Vector(200.0f, 200.0f);
+    const float half_height = m_height / 2.0f;
+
+    m_position = m_offscreen_position = math::Vector(-200.0f, half_height);
+    m_screen_position = math::Vector(200.0f, half_height);
 
     UISquareElement* background = new UISquareElement(400.0f, 80.0f, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
     background->SetPosition(math::Vector(-200.0f, -40.0f));

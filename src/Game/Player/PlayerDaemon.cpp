@@ -208,6 +208,7 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     {
         DespawnPlayer(it->second);
         m_controller_id_to_player_info.erase(event.controller_id);
+        m_camera_system->Unfollow();
     }
 
     return mono::EventResult::PASS_ON;

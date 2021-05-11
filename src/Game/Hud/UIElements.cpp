@@ -83,9 +83,10 @@ void UIElement::RemoveChild(UIElement* element)
 
 
 UIOverlay::UIOverlay(float width, float height)
-{
-    m_projection = math::Ortho(0, width, 0, height, -10, 10);
-}
+    : m_width(width)
+    , m_height(height)
+    , m_projection(math::Ortho(0, width, 0, height, -10, 10))
+{ }
 
 void UIOverlay::Draw(mono::IRenderer& renderer) const
 {

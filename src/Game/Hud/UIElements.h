@@ -53,7 +53,12 @@ namespace game
 
         UIOverlay(float width, float height);
         void Draw(mono::IRenderer& renderer) const override;
-        math::Matrix m_projection;
+
+    protected:
+
+        const float m_width;
+        const float m_height;
+        const math::Matrix m_projection;
     };
 
     class UITextElement : public UIElement

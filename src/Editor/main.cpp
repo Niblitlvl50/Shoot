@@ -39,6 +39,7 @@ int main()
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
         render_params.imgui_ini = "res/editor_imgui.ini";
+        render_params.window = window;
         mono::InitializeRender(render_params);
 
         mono::EventHandler event_handler;
