@@ -63,6 +63,7 @@ namespace game
         float bullet_force = 1.0f;
         float bullet_spread_degrees = 0.0f;
         bool bullet_force_random = false;
+        bool bullet_want_direction = false;
 
         uint32_t reload_time_ms = 1000;
         

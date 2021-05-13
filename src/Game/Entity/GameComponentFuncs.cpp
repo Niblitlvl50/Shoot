@@ -238,7 +238,7 @@ namespace
 
     bool UpdateSpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        game::SpawnSystem::SpawnPoint spawn_point;
+        game::SpawnSystem::SpawnPointComponent spawn_point;
         spawn_point.enable_trigger = 0;
         spawn_point.disable_trigger = 0;
 

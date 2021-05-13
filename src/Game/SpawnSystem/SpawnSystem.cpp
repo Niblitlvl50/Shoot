@@ -22,6 +22,7 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     , m_transform_system(transform_system)
 {
     m_spawn_points.resize(n);
+    m_spawn_points_internal.resize(n);
     m_alive.resize(n, false);
 
     file::FilePtr config_file = file::OpenAsciiFile("res/spawn_config.json");
@@ -40,13 +41,16 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     }
 }
 
-SpawnSystem::SpawnPoint* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)
+SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)
 {
     assert(!m_alive[entity_id]);
     m_alive[entity_id] = true;
 
-    SpawnPoint& spawn_point = m_spawn_points[entity_id];
-    std::memset(&spawn_point, 0, sizeof(SpawnPoint));
+    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
+    std::memset(&spawn_point, 0, sizeof(SpawnPointComponent));
+
+    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
+    std::memset(&internal_data, 0, sizeof(SpawnPointInternalData));
 
     return &spawn_point;
 }
@@ -55,12 +59,14 @@ void SpawnSystem::ReleaseSpawnPoint(uint32_t entity_id)
 {
     m_alive[entity_id] = false;
 
-    SpawnPoint& spawn_point = m_spawn_points[entity_id];
-    if(spawn_point.enable_callback_id != 0)
-        m_trigger_system->RemoveTriggerCallback(spawn_point.enable_trigger, spawn_point.enable_callback_id, entity_id);
+    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
+    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
 
-    if(spawn_point.disable_callback_id != 0)
-        m_trigger_system->RemoveTriggerCallback(spawn_point.disable_trigger, spawn_point.disable_callback_id, entity_id);
+    if(internal_data.enable_callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(spawn_point.enable_trigger, internal_data.enable_callback_id, entity_id);
+
+    if(internal_data.disable_callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(spawn_point.disable_trigger, internal_data.disable_callback_id, entity_id);
 }
 
 bool SpawnSystem::IsAllocated(uint32_t entity_id)
@@ -68,31 +74,33 @@ bool SpawnSystem::IsAllocated(uint32_t entity_id)
     return m_alive[entity_id];
 }
 
-void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::SpawnPoint& component_data)
+void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::SpawnPointComponent& component_data)
 {
     assert(m_alive[sprite_id]);
     assert(component_data.interval > spawn_delay_frames);
 
-    SpawnPoint& spawn_point = m_spawn_points[entity_id];
+    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
     spawn_point = component_data;
+
+    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
 
     if(spawn_point.enable_trigger != 0)
     {
-        const game::TriggerCallback enable_callback = [&spawn_point](uint32_t entity_id) {
-            spawn_point.active = true;
+        const game::TriggerCallback enable_callback = [&internal_data](uint32_t entity_id) {
+            internal_data.active = true;
         };
-        spawn_point.enable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.enable_trigger, enable_callback, entity_id);
+        internal_data.enable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.enable_trigger, enable_callback, entity_id);
     }
 
     if(spawn_point.disable_trigger != 0)
     {
-        const game::TriggerCallback disable_callback = [&spawn_point](uint32_t entity_id) {
-            spawn_point.active = false;
+        const game::TriggerCallback disable_callback = [&internal_data](uint32_t entity_id) {
+            internal_data.active = false;
         };
-        spawn_point.disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.disable_trigger, disable_callback, entity_id);
+        internal_data.disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.disable_trigger, disable_callback, entity_id);
     }
 
-    spawn_point.active = false;
+    internal_data.active = false;
 }
 
 const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
@@ -117,12 +125,14 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(!m_alive[index])
             continue;
 
-        SpawnPoint& spawn_point = m_spawn_points[index];
-        if(!spawn_point.active)
+        SpawnPointInternalData& internal_data = m_spawn_points_internal[index];
+        if(!internal_data.active)
             continue;
 
-        spawn_point.counter += update_context.delta_ms;
-        if(spawn_point.counter < spawn_point.interval)
+        SpawnPointComponent& spawn_point = m_spawn_points[index];
+
+        internal_data.counter += update_context.delta_ms;
+        if(internal_data.counter < spawn_point.interval)
             continue;
 
         const float random_length = mono::Random(0.0f, spawn_point.radius);
@@ -138,7 +148,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         spawn_event.timestamp_to_spawn = update_context.timestamp + spawn_delay_time_ms;
         m_spawn_events.push_back(spawn_event);
 
-        spawn_point.counter = 0;
+        internal_data.counter = 0;
     }
 
     for(SpawnEvent& spawn_event : m_spawn_events)
