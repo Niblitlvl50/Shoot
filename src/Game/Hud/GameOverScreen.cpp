@@ -53,8 +53,7 @@ void GameOverScreen::Update(const mono::UpdateContext& update_context)
 {
     UIOverlay::Update(update_context);
 
-    //switch(m_player_info.player_state)
-    switch(game::PlayerState::DEAD)
+    switch(m_player_info.player_state)
     {
     case game::PlayerState::NOT_SPAWNED:
         break;
