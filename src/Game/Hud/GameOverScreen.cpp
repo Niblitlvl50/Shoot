@@ -16,42 +16,45 @@
 using namespace game;
 
 GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler)
-    : UIOverlay(400.0f, 400.0f / mono::GetWindowAspect())
+    : UIOverlay(1200.0f, 1200.0f / mono::GetWindowAspect())
     , m_player_info(player_info)
     , m_event_handler(event_handler)
     , m_timer(0)
 {
+    const float half_width = m_width / 2.0f;
     const float half_height = m_height / 2.0f;
+    const float square_height = m_height * 0.2f;
 
-    m_position = m_offscreen_position = math::Vector(-200.0f, half_height);
-    m_screen_position = math::Vector(200.0f, half_height);
+    m_position = m_offscreen_position = math::Vector(-half_width, half_height);
+    m_screen_position = math::Vector(half_width, half_height);
 
-    UISquareElement* background = new UISquareElement(400.0f, 80.0f, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
-    background->SetPosition(math::Vector(-200.0f, -40.0f));
+    UISquareElement* background = new UISquareElement(m_width, square_height, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
+    background->SetPosition(math::Vector(-half_width, -(square_height / 2.0f)));
 
-    UITextElement* gameover_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "You dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
+    UITextElement* gameover_text = new UITextElement(
+        shared::FontId::RUSSOONE_MEGA, "You are Dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
     gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
-    gameover_text->SetScale(math::Vector(3.0f, 3.0f));
 
-    UITextElement* continue_text = new UITextElement(shared::FontId::PIXELETTE_MEGA, "Press X to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
-    continue_text->SetPosition(math::Vector(0.0f, 0.0f));
-    continue_text->SetScale(math::Vector(2.0f, 2.0f));
+    UITextElement* continue_text = new UITextElement(
+        shared::FontId::RUSSOONE_LARGE, "Press button to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::RGBA(0.7f, 0.7f, 0.7f));
+    continue_text->SetPosition(math::Vector(0.0f, -40.0f));
 
-    UISpriteElement* a_button_sprite = new UISpriteElement("res/sprites/ps_cross.sprite");
-    a_button_sprite->SetPosition(math::Vector(0.0f, -20.0f));
-    a_button_sprite->SetScale(math::Vector(10.0f, 10.0f));
+    //UISpriteElement* a_button_sprite = new UISpriteElement("res/sprites/ps_cross.sprite");
+    //a_button_sprite->SetPosition(math::Vector(0.0f, -20.0f));
+    //a_button_sprite->SetScale(math::Vector(10.0f, 10.0f));
 
     AddChild(background);
     AddChild(gameover_text);
     AddChild(continue_text);
-    AddChild(a_button_sprite);
+    //AddChild(a_button_sprite);
 }
 
 void GameOverScreen::Update(const mono::UpdateContext& update_context)
 {
     UIOverlay::Update(update_context);
 
-    switch(m_player_info.player_state)
+    //switch(m_player_info.player_state)
+    switch(game::PlayerState::DEAD)
     {
     case game::PlayerState::NOT_SPAWNED:
         break;

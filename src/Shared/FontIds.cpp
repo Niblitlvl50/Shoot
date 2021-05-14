@@ -14,7 +14,7 @@ bool shared::LoadFonts()
     mono::LoadFont(shared::FontId::RUSSOONE_SMALL,  "res/fonts/russoone-regular.ttf", 20.0f, 1.0f); // / 10.0f);
     mono::LoadFont(shared::FontId::RUSSOONE_MEDIUM, "res/fonts/russoone-regular.ttf", 30.0f, 1.0f); // / 5.0f);
     mono::LoadFont(shared::FontId::RUSSOONE_LARGE,  "res/fonts/russoone-regular.ttf", 40.0f, 1.0f); // / 3.0f);
-    mono::LoadFont(shared::FontId::RUSSOONE_MEGA,   "res/fonts/russoone-regular.ttf", 50.0f, 1.0f); // / 1.5f);
+    mono::LoadFont(shared::FontId::RUSSOONE_MEGA,   "res/fonts/russoone-regular.ttf", 72.0f, 1.0f); // / 1.5f);
 
     mono::LoadFont(shared::FontId::MONOTON_TINY,   "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 25.0f);
     mono::LoadFont(shared::FontId::MONOTON_SMALL,  "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 10.0f);
