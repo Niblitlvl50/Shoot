@@ -170,7 +170,6 @@ Editor::Editor(
     , m_event_handler(event_handler)
     , m_system_context(system_context)
     , m_editor_config(editor_config)
-    //, m_selected_id(NO_SELECTION)
     , m_preselected_id(NO_SELECTION)
     , m_pick_target(nullptr)
 {
@@ -279,7 +278,10 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new GridVisualizer(m_context.draw_grid), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
-    AddDrawable(new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system), RenderLayer::UI);
+
+    m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
+    AddDrawable(m_selection_visualizer, RenderLayer::UI);
+
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(
@@ -441,6 +443,41 @@ void Editor::AddPath(const std::vector<math::Vector>& path_points)
     SelectProxyObject(m_proxies.back().get());
 }
 
+void Editor::SetSelection(const Selection& selected_ids)
+{
+    m_selected_ids = selected_ids;
+}
+
+const Selection& Editor::GetSelection() const
+{
+    return m_selected_ids;
+}
+
+void Editor::AddToSelection(const Selection& selected_ids)
+{
+    m_selected_ids.insert(m_selected_ids.end(), selected_ids.begin(), selected_ids.end());
+}
+
+void Editor::RemoveFromSelection(const Selection& selected_ids)
+{
+    const auto remove_check = [&selected_ids](uint32_t id) {
+        return (std::find(selected_ids.begin(), selected_ids.end(), id) != selected_ids.end());
+    };
+    mono::remove_if(m_selected_ids, remove_check);
+}
+
+void Editor::ClearSelection()
+{
+    m_selected_ids.clear();
+}
+
+void Editor::SetSelectionPoint(const math::Vector& selection_point)
+{
+    const float picking_distance = GetPickingDistance();
+    const math::Vector offset = { picking_distance, picking_distance };
+    m_selection_visualizer->PushSelectionQuad({ selection_point - offset, selection_point + offset });
+}
+
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     const EditorMode mode = m_mode_stack.top();
@@ -579,6 +616,20 @@ IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
 
     std::sort(found_proxies.begin(), found_proxies.end(), sort_on_y);
     return found_proxies.back();
+}
+
+std::vector<IObjectProxy*> Editor::FindProxiesFromBox(const math::Quad& world_bb) const
+{
+    std::vector<IObjectProxy*> found_proxies;
+
+    for(const auto& proxy : m_proxies)
+    {
+        const bool intersects = proxy->Intersects(world_bb);
+        if(intersects)
+            found_proxies.push_back(proxy.get());
+    }
+
+    return found_proxies;
 }
 
 IObjectProxy* Editor::FindProxyObject(uint32_t proxy_id) const

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "System/System.h"
-
+#include "ISelectionHandler.h"
 #include "Zone/ZoneBase.h"
 #include "Events/EventFwd.h"
 
@@ -25,10 +25,6 @@ namespace mono
 
 namespace editor
 {
-    class PathEntity;
-    class PolygonEntity;
-    struct Config;
-
     constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
 
     enum class EditorMode
@@ -37,7 +33,7 @@ namespace editor
         REFERENCE_PICKING,
     };
 
-    class Editor : public mono::ZoneBase
+    class Editor : public mono::ZoneBase, public editor::ISelectionHandler
     {
     public:
 
@@ -46,7 +42,7 @@ namespace editor
             mono::IEntityManager& entity_manager,
             mono::EventHandler& event_handler,
             mono::SystemContext& system_context,
-            Config& editor_config
+            struct Config& editor_config
         );
 
         virtual ~Editor();
@@ -64,14 +60,23 @@ namespace editor
 
         void AddPath(const std::vector<math::Vector>& path_points);
 
+        void SetSelection(const Selection& selected_ids) override;
+        const Selection& GetSelection() const override;
+        void AddToSelection(const Selection& selected_ids) override;
+        void RemoveFromSelection(const Selection& selected_ids) override;
+        void ClearSelection() override;
+
+        void SetSelectionPoint(const math::Vector& selection_point);
+
         void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);
+
         void TeleportToProxyObject(const IObjectProxy* proxy_object);
         void TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxies);
         void TeleportToSelectedProxyObject();
         IObjectProxy* FindProxyObject(const math::Vector& position);
+        std::vector<IObjectProxy*> FindProxiesFromBox(const math::Quad& world_bb) const;
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
-        //uint32_t GetSelectedObjectId() const;
 
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);
@@ -151,9 +156,10 @@ namespace editor
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
         std::unique_ptr<class UserInputController> m_user_input_controller;
         std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
+        class SelectionVisualizer* m_selection_visualizer; 
         std::unique_ptr<mono::StaticBackground> m_static_background;
 
-        std::vector<uint32_t> m_selected_ids;
+        Selection m_selected_ids;
         uint32_t m_preselected_id;
         std::stack<EditorMode> m_mode_stack;
         uint32_t* m_pick_target;

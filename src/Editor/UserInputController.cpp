@@ -136,6 +136,7 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
         }
         else
         {
+            m_editor->SetSelectionPoint(world_position);
             IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
             m_editor->SelectProxyObject(proxy);
 

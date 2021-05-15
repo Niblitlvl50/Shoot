@@ -2,11 +2,11 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "Rendering/RenderFwd.h"
 #include "Rendering/IDrawable.h"
+#include "Math/Vector.h"
+#include "Math/Quad.h"
 
 #include <cstdint>
-#include <memory>
 #include <vector>
 
 namespace editor
@@ -17,6 +17,8 @@ namespace editor
 
         SelectionVisualizer(
             const std::vector<uint32_t>& selected_ids, const uint32_t& preselection_id, mono::TransformSystem* transform_system);
+        void PushSelectionQuad(const math::Quad& world_bb);
+
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
@@ -26,8 +28,11 @@ namespace editor
         const uint32_t& m_preselection_id;
         mono::TransformSystem* m_transform_system;
 
-        std::unique_ptr<mono::IRenderBuffer> m_vertices;
-        std::unique_ptr<mono::IRenderBuffer> m_colors;
-        std::unique_ptr<mono::IElementBuffer> m_indices;
+        struct SelectionBox
+        {
+            math::Quad bb;
+            uint32_t timer;
+        };
+        mutable std::vector<SelectionBox> m_selection_boxes;
     };
 }

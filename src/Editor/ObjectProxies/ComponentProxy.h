@@ -37,6 +37,7 @@ namespace editor
 
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
+        bool Intersects(const math::Quad& world_bb) const override;
         std::vector<Grabber> GetGrabbers() override;
         std::vector<SnapPoint> GetSnappers() const override;
 

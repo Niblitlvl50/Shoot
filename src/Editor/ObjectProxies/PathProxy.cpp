@@ -89,6 +89,13 @@ bool PathProxy::Intersects(const math::Vector& world_position) const
     return false;
 }
 
+bool PathProxy::Intersects(const math::Quad& world_bb) const
+{
+    const math::Quad& proxy_world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
+    const bool inside_bb = math::QuadOverlaps(proxy_world_bb, world_bb);
+    return inside_bb;
+}
+
 std::vector<Grabber> PathProxy::GetGrabbers()
 {
     std::vector<Grabber> grabbers;

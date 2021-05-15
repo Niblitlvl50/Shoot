@@ -95,6 +95,9 @@
         "__errc": "cpp",
         "__node_handle": "cpp",
         "optional": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "bit": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp"
     }
 }

@@ -66,6 +66,12 @@ bool ComponentProxy::Intersects(const math::Vector& position) const
     return math::PointInsideQuad(position, world_bb);
 }
 
+bool ComponentProxy::Intersects(const math::Quad& world_bb) const
+{
+    const math::Quad& proxy_world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
+    return math::QuadOverlaps(world_bb, proxy_world_bb);
+}
+
 std::vector<Grabber> ComponentProxy::GetGrabbers()
 {
     std::vector<Grabber> grabbers;

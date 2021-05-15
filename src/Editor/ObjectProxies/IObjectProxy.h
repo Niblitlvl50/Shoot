@@ -22,6 +22,7 @@ namespace editor
 
         virtual void SetSelected(bool selected) = 0;
         virtual bool Intersects(const math::Vector& position) const = 0;
+        virtual bool Intersects(const math::Quad& world_bb) const = 0;
         virtual std::vector<struct Grabber> GetGrabbers() = 0;
         virtual std::vector<struct SnapPoint> GetSnappers() const = 0;
 
