@@ -54,16 +54,25 @@ SelectionVisualizer::SelectionVisualizer(
     : m_selected_ids(selected_ids)
     , m_preselection_id(preselection_id)
     , m_transform_system(transform_system)
+    , m_selection_point_timer(SELECTION_FADE_TIMER)
+    , m_selection_box_timer(SELECTION_FADE_TIMER)
 { }
 
-void SelectionVisualizer::PushSelectionQuad(const math::Quad& world_bb)
+void SelectionVisualizer::SetClickPoint(const math::Vector& world_point)
 {
-    m_selection_boxes.push_back({ world_bb, 0 });
+    m_selection_point = world_point;
+    m_selection_point_timer = 0;
+}
+
+void SelectionVisualizer::SetSelectionBox(const math::Quad& world_bb)
+{
+    m_selection_box = world_bb;
+    m_selection_box_timer = 0;
 }
 
 void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
 {
-    const uint32_t n_boxes = m_selected_ids.size() + m_selection_boxes.size() + 1 + 1;
+    const uint32_t n_boxes = m_selected_ids.size() + 1 + 1 + 1;
 
     std::vector<math::Vector> vertices;
     vertices.reserve(n_boxes * 4);
@@ -74,26 +83,39 @@ void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
     std::vector<uint16_t> indices;
     indices.reserve(n_boxes * 8);
 
-    if(m_preselection_id != NO_SELECTION)
-    {
-        const math::Quad& selection_bb = m_transform_system->GetWorldBoundingBox(m_preselection_id);
-        BuildQuad(selection_bb, mono::Color::BLUE, vertices, colors, indices);
-    }
-
     for(uint32_t selected_id : m_selected_ids)
     {
         const math::Quad& selection_bb = m_transform_system->GetWorldBoundingBox(selected_id);
-        BuildQuad(selection_bb, mono::Color::RED, vertices, colors, indices);
+        BuildQuad(selection_bb, mono::Color::WHITE, vertices, colors, indices);
     }
 
-    for(SelectionBox& box : m_selection_boxes)
+    if(m_preselection_id != NO_SELECTION)
     {
-        const float scale = 1.0f - math::Scale01(box.timer, 0u, SELECTION_FADE_TIMER);
-        mono::Color::RGBA color = mono::Color::CYAN;
+        const math::Quad& selection_bb = m_transform_system->GetWorldBoundingBox(m_preselection_id);
+        BuildQuad(selection_bb, mono::Color::CYAN, vertices, colors, indices);
+    }
+
+    if(m_selection_point_timer < SELECTION_FADE_TIMER)
+    {
+        const math::Vector offset = { 0.1f, 0.1f };
+        const math::Quad box = { m_selection_point - offset, m_selection_point + offset };
+
+        const float scale = 1.0f - math::Scale01(m_selection_point_timer, 0u, SELECTION_FADE_TIMER);
+        mono::Color::RGBA color = mono::Color::WHITE;
         color.alpha = scale;
 
-        BuildQuad(box.bb, color, vertices, colors, indices);
-        box.timer += renderer.GetDeltaTimeMS();
+        BuildQuad(box, color, vertices, colors, indices);
+        m_selection_point_timer += renderer.GetDeltaTimeMS();
+    }
+
+    if(m_selection_box_timer < SELECTION_FADE_TIMER)
+    {
+        const float scale = 1.0f - math::Scale01(m_selection_box_timer, 0u, SELECTION_FADE_TIMER);
+        mono::Color::RGBA color = mono::Color::WHITE;
+        color.alpha = scale;
+
+        BuildQuad(m_selection_box, color, vertices, colors, indices);
+        m_selection_box_timer += renderer.GetDeltaTimeMS();
     }
 
     if(!vertices.empty())
@@ -107,11 +129,6 @@ void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
 
         renderer.DrawLines(vertices_buffer.get(), colors_buffer.get(), index_buffer.get(), 0, index_buffer->Size());
     }
-
-    const auto remove_if_faded = [](const SelectionBox& box) {
-        return box.timer > SELECTION_FADE_TIMER;
-    };
-    mono::remove_if(m_selection_boxes, remove_if_faded);
 }
 
 math::Quad SelectionVisualizer::BoundingBox() const

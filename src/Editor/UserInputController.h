@@ -67,6 +67,8 @@ namespace editor
         editor::ITool* m_active_tool;
 
         editor::Grabber* m_grabber;
+        bool m_box_selection;
+        math::Vector m_click_point;
         bool m_is_maximized;
     };
 }

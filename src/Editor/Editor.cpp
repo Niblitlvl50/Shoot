@@ -473,9 +473,12 @@ void Editor::ClearSelection()
 
 void Editor::SetSelectionPoint(const math::Vector& selection_point)
 {
-    const float picking_distance = GetPickingDistance();
-    const math::Vector offset = { picking_distance, picking_distance };
-    m_selection_visualizer->PushSelectionQuad({ selection_point - offset, selection_point + offset });
+    m_selection_visualizer->SetClickPoint(selection_point);
+}
+
+void Editor::SetSelectionBox(const math::Quad& selection_box)
+{
+    m_selection_visualizer->SetSelectionBox(selection_box);
 }
 
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)

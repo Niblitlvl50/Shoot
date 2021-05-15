@@ -17,7 +17,9 @@ namespace editor
 
         SelectionVisualizer(
             const std::vector<uint32_t>& selected_ids, const uint32_t& preselection_id, mono::TransformSystem* transform_system);
-        void PushSelectionQuad(const math::Quad& world_bb);
+
+        void SetClickPoint(const math::Vector& world_point);
+        void SetSelectionBox(const math::Quad& world_bb);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -28,11 +30,10 @@ namespace editor
         const uint32_t& m_preselection_id;
         mono::TransformSystem* m_transform_system;
 
-        struct SelectionBox
-        {
-            math::Quad bb;
-            uint32_t timer;
-        };
-        mutable std::vector<SelectionBox> m_selection_boxes;
+        math::Vector m_selection_point;
+        mutable uint32_t m_selection_point_timer;
+
+        math::Quad m_selection_box;
+        mutable uint32_t m_selection_box_timer;
     };
 }

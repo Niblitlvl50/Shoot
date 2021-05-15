@@ -44,6 +44,7 @@ UserInputController::UserInputController(
     , m_measure_tool(editor)
     , m_active_tool(nullptr)
     , m_grabber(nullptr)
+    , m_box_selection(false)
     , m_is_maximized(false)
 {
     using namespace std::placeholders;
@@ -126,7 +127,7 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
 
     if(event.key == MouseButton::LEFT)
     {
-        const math::Vector world_position(event.world_x, event.world_y);
+        const math::Vector world_position = { event.world_x, event.world_y };
 
         // Check for grabbers first
         m_grabber = m_editor->FindGrabber(world_position);
@@ -136,11 +137,23 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
         }
         else
         {
-            m_editor->SetSelectionPoint(world_position);
-            IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
-            m_editor->SelectProxyObject(proxy);
+            uint32_t entity_id = std::numeric_limits<uint32_t>::max();
 
-            const uint32_t entity_id = (proxy != nullptr) ? proxy->Id() : std::numeric_limits<uint32_t>::max();
+            if(event.shift)
+            {
+                m_click_point = world_position;
+                m_box_selection = true;
+            }
+            else
+            {
+                m_editor->SetSelectionPoint(world_position);
+                IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
+                m_editor->SelectProxyObject(proxy);
+    
+                if(proxy)
+                    entity_id = proxy->Id();
+            }
+
             m_active_tool->HandleMouseDown(world_position, entity_id);
             handled = m_active_tool->IsActive();
         }
@@ -157,9 +170,30 @@ mono::EventResult UserInputController::OnMouseUp(const event::MouseUpEvent& even
     m_grabber = nullptr;
 
     if(event.key == MouseButton::LEFT)
-        m_active_tool->HandleMouseUp(math::Vector(event.world_x, event.world_y));
+    {
+        if(m_box_selection)
+        {
+            m_box_selection = false;
+
+            math::Quad box = { m_click_point, math::Vector(event.world_x, event.world_y) };
+            math::NormalizeQuad(box);
+
+            std::vector<IObjectProxy*> found_proxies = m_editor->FindProxiesFromBox(box);
+
+            Selection selection;
+            for(IObjectProxy* proxy : found_proxies)
+                selection.push_back(proxy->Id());
+            m_editor->SetSelection(selection);
+        }
+        else
+        {
+            m_active_tool->HandleMouseUp(math::Vector(event.world_x, event.world_y));
+        }
+    }
     else if(event.key == MouseButton::RIGHT)
+    {
         m_context->show_context_menu = !m_context->context_menu_items.empty();
+    }
 
     m_camera_tool.HandleMouseUp(math::Vector(event.screen_x, event.screen_y));
 
@@ -168,8 +202,8 @@ mono::EventResult UserInputController::OnMouseUp(const event::MouseUpEvent& even
 
 mono::EventResult UserInputController::OnMouseMove(const event::MouseMotionEvent& event)
 {
-    const math::Vector world_position(event.world_x, event.world_y);
-    const math::Vector screen_position(event.screen_x, event.screen_y);
+    const math::Vector world_position = { event.world_x, event.world_y };
+    const math::Vector screen_position = { (float)event.screen_x, (float)event.screen_y };
 
     m_editor->SelectGrabber(world_position);
 
@@ -178,6 +212,11 @@ mono::EventResult UserInputController::OnMouseMove(const event::MouseMotionEvent
     {
         m_grabber->position = world_position;
         m_grabber->callback(world_position);
+    }
+    else if(m_box_selection)
+    {
+        const math::Quad box = { m_click_point, world_position };
+        m_editor->SetSelectionBox(box);
     }
     else
     {
