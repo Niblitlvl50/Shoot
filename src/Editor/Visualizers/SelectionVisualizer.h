@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace editor
 {
@@ -15,13 +16,13 @@ namespace editor
     public:
 
         SelectionVisualizer(
-            const uint32_t& selection_id, const uint32_t& preselection_id, mono::TransformSystem* transform_system);
+            const std::vector<uint32_t>& selected_ids, const uint32_t& preselection_id, mono::TransformSystem* transform_system);
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
     private:
 
-        const uint32_t& m_selection_id;
+        const std::vector<uint32_t>& m_selected_ids;
         const uint32_t& m_preselection_id;
         mono::TransformSystem* m_transform_system;
 

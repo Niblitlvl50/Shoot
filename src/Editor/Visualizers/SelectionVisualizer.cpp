@@ -48,8 +48,8 @@ namespace
 using namespace editor;
 
 SelectionVisualizer::SelectionVisualizer(
-    const uint32_t& selection_id, const uint32_t& preselection_id, mono::TransformSystem* transform_system)
-    : m_selection_id(selection_id)
+    const std::vector<uint32_t>& selected_ids, const uint32_t& preselection_id, mono::TransformSystem* transform_system)
+    : m_selected_ids(selected_ids)
     , m_preselection_id(preselection_id)
     , m_transform_system(transform_system)
 {
@@ -72,9 +72,9 @@ void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
         count += BuildQuad(selection_bb, mono::Color::BLUE, count, vertices, colors, indices);
     }
 
-    if(m_selection_id != std::numeric_limits<uint32_t>::max())
+    for(uint32_t selected_id : m_selected_ids)
     {
-        const math::Quad& selection_bb = m_transform_system->GetWorldBoundingBox(m_selection_id);
+        const math::Quad& selection_bb = m_transform_system->GetWorldBoundingBox(selected_id);
         count += BuildQuad(selection_bb, mono::Color::RED, count, vertices, colors, indices);
     }
 

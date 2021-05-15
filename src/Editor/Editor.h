@@ -66,11 +66,12 @@ namespace editor
 
         void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);
-        void TeleportToProxyObject(IObjectProxy* proxy_object);
+        void TeleportToProxyObject(const IObjectProxy* proxy_object);
+        void TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxies);
         void TeleportToSelectedProxyObject();
         IObjectProxy* FindProxyObject(const math::Vector& position);
         IObjectProxy* FindProxyObject(uint32_t proxy_id) const;
-        uint32_t GetSelectedObjectId() const;
+        //uint32_t GetSelectedObjectId() const;
 
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);
@@ -152,7 +153,7 @@ namespace editor
         std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
         std::unique_ptr<mono::StaticBackground> m_static_background;
 
-        uint32_t m_selected_id;
+        std::vector<uint32_t> m_selected_ids;
         uint32_t m_preselected_id;
         std::stack<EditorMode> m_mode_stack;
         uint32_t* m_pick_target;

@@ -257,6 +257,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     }
     else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)
     {
+        /*
         const uint32_t selected_object_id = m_editor->GetSelectedObjectId();
         const IObjectProxy* proxy = m_editor->FindProxyObject(selected_object_id);
         if(proxy)
@@ -275,6 +276,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
 
             m_translate_tool.MoveObject(selected_object_id, new_position);
         }
+        */
     }
 
     return mono::EventResult::PASS_ON;
