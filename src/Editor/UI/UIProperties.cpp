@@ -349,6 +349,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 {
     DrawComponentsResult result;
     result.component_index = -1;
+    result.component_hash = -1;
     result.attribute_hash = -1;
 
     for(size_t index = 0; index < components.size(); ++index)
@@ -364,7 +365,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
         const std::string name = PrettifyString(ComponentNameFromHash(component.hash));
         ImGui::TextDisabled("%s", name.c_str());
 
-        if(component.hash != TRANSFORM_COMPONENT)
+        if(component.hash != NAME_FOLDER_COMPONENT && component.hash != TRANSFORM_COMPONENT)
         {
             ImGui::SameLine(245);
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
@@ -380,6 +381,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
             if(DrawProperty(property, components, ui_context))
             {
                 result.component_index = index;
+                result.component_hash = component.hash;
                 result.attribute_hash = property.id;
             }
 
@@ -395,7 +397,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
     return result;
 }
 
-bool editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component>& components)
+void editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component>& components)
 {
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
     if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(285, 0)) || ui_context.open_add_component)
@@ -437,8 +439,6 @@ bool editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component
 
     if(selected_component_hash != NOTHING_SELECTED)
         ui_context.add_component(selected_component_hash);
-
-    return false;
 }
 
 bool editor::DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string)

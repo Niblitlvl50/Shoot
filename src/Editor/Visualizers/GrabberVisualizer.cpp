@@ -10,10 +10,7 @@ using namespace editor;
 
 GrabberVisualizer::GrabberVisualizer(const std::vector<editor::Grabber>& grabbers)
     : m_grabbers(grabbers)
-{
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::DYNAMIC, mono::BufferData::FLOAT, 2, 32, nullptr);
-    m_colors = mono::CreateRenderBuffer(mono::BufferType::DYNAMIC, mono::BufferData::FLOAT, 4, 32, nullptr);
-}
+{ }
 
 void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
 {
@@ -35,10 +32,10 @@ void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
         colors.push_back(grabber.hoover ? hoover_color : default_color);
     }
 
-    m_vertices->UpdateData(points.data(), 0, points.size());
-    m_colors->UpdateData(colors.data(), 0, colors.size());
+    std::unique_ptr<mono::IRenderBuffer> vertex_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, points.size(), points.data());
+    std::unique_ptr<mono::IRenderBuffer> colors_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, colors.size(), colors.data());
 
-    renderer.DrawPoints(m_vertices.get(), m_colors.get(), 20.0f, 0, points.size());
+    renderer.DrawPoints(vertex_buffer.get(), colors_buffer.get(), 20.0f, 0, points.size());
 }
 
 math::Quad GrabberVisualizer::BoundingBox() const

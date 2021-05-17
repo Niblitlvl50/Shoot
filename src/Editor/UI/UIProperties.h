@@ -18,10 +18,11 @@ namespace editor
     struct DrawComponentsResult
     {
         uint32_t component_index;
+        uint32_t component_hash;
         uint32_t attribute_hash;
     };
     DrawComponentsResult DrawComponents(struct UIContext& ui_context, std::vector<Component>& components);
-    bool DrawAddComponent(struct UIContext& ui_context, const std::vector<Component>& components);
+    void DrawAddComponent(struct UIContext& ui_context, const std::vector<Component>& components);
 
     void DrawEntityProperty(uint32_t& properties);
 

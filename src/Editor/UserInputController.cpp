@@ -148,10 +148,16 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
             {
                 m_editor->SetSelectionPoint(world_position);
                 IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
-                m_editor->SelectProxyObject(proxy);
-    
                 if(proxy)
+                {
                     entity_id = proxy->Id();
+                    const Selection new_selection = { proxy->Id() };
+                    m_editor->SetSelection(new_selection);
+                }
+                else
+                {
+                    m_editor->ClearSelection();
+                }
             }
 
             m_active_tool->HandleMouseDown(world_position, entity_id);

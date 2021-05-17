@@ -71,7 +71,7 @@ namespace editor
         
         // Objects
         bool draw_outline = false;
-        class IObjectProxy* selected_proxy_object = nullptr;
+        std::vector<class IObjectProxy*> selected_proxies;
         class IObjectProxy* preselected_proxy_object = nullptr;
         std::vector<std::unique_ptr<IObjectProxy>>* all_proxy_objects = nullptr;
         std::vector<UIFolder> folders;
@@ -111,9 +111,9 @@ namespace editor
         
         std::function<void (uint32_t component_hash)> add_component;
         std::function<void (uint32_t component_index)> delete_component;
-        std::function<void (IObjectProxy* proxy)> select_object_callback;
+        std::function<void (uint32_t entity_id)> select_object_callback;
         std::function<void (IObjectProxy* proxy)> preselect_object_callback;
-        std::function<void (IObjectProxy* proxy)> teleport_to_object_callback;
+        std::function<void (uint32_t entity_id)> teleport_to_object_callback;
         
         std::function<void (int)> context_menu_callback;
         std::function<void (int)> modal_selection_callback;

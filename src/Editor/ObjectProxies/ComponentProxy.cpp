@@ -22,15 +22,11 @@ using namespace editor;
 
 ComponentProxy::ComponentProxy(
     uint32_t entity_id,
-    const std::string& name,
-    const std::string& folder,
     const std::vector<Component>& components,
     mono::IEntityManager* entity_manager,
     mono::TransformSystem* transform_system,
     Editor* editor)
     : m_entity_id(entity_id)
-    , m_name(name)
-    , m_folder(folder)
     , m_entity_properties(0)
     , m_components(components)
     , m_entity_manager(entity_manager)
@@ -45,14 +41,45 @@ ComponentProxy::~ComponentProxy()
     m_entity_manager->ReleaseEntity(m_entity_id);
 }
 
-const char* ComponentProxy::Name() const
-{
-    return m_name.c_str();
-}
-
 uint32_t ComponentProxy::Id() const
 {
     return m_entity_id;
+}
+
+std::string ComponentProxy::Name() const
+{
+    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    if(!name_folder_component)
+        return "Unknown";
+
+    std::string name;
+    FindAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name, FallbackMode::REQUIRE_ATTRIBUTE);
+    return name;
+}
+
+void ComponentProxy::SetName(const std::string& name)
+{
+    Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    assert(name_folder_component != nullptr);
+    SetAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name);
+}
+
+void ComponentProxy::SetFolder(const std::string& folder)
+{
+    Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    assert(name_folder_component != nullptr);
+    SetAttribute(FOLDER_ATTRIBUTE, name_folder_component->properties, folder);
+}
+
+std::string ComponentProxy::GetFolder() const
+{
+    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    if(!name_folder_component)
+        return "Unknown";
+
+    std::string folder;
+    FindAttribute(FOLDER_ATTRIBUTE, name_folder_component->properties, folder, FallbackMode::REQUIRE_ATTRIBUTE);
+    return folder;
 }
 
 void ComponentProxy::SetSelected(bool selected)
@@ -118,54 +145,6 @@ std::vector<SnapPoint> ComponentProxy::GetSnappers() const
     return { };
 }
 
-void ComponentProxy::UpdateUIContext(UIContext& context)
-{
-    const bool name_changed = DrawStringProperty("Name", m_name);
-    if(name_changed)
-        m_entity_manager->SetEntityName(m_entity_id, m_name.c_str());
-    DrawStringProperty("Folder", m_folder);
-    //DrawBitfieldProperty(m_entity_properties, all_entity_properties, EntityPropertyToString);
-
-    ImGui::Spacing();
-    ImGui::Spacing();
-
-    const bool component_added = DrawAddComponent(context, m_components);
-    
-    const DrawComponentsResult result = DrawComponents(context, m_components);
-    if(result.component_index == std::numeric_limits<uint32_t>::max())
-        return;
-
-    const Component& modified_component = m_components[result.component_index];
-    m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
-
-    // Special case for setting a proper name...
-    if(modified_component.hash == SPRITE_COMPONENT && m_name == "unnamed")
-    {
-        std::string sprite_name;
-        const bool found_sprite_name = 
-            FindAttribute(SPRITE_ATTRIBUTE, modified_component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
-        if(found_sprite_name)
-        {
-            m_name = sprite_name;
-            const size_t dot_pos = m_name.find_last_of('.');
-            m_name.erase(dot_pos);
-        }
-    }
-
-    if(result.attribute_hash == POLYGON_ATTRIBUTE || result.attribute_hash == PATH_POINTS_ATTRIBUTE)
-        m_editor->UpdateGrabbers();
-}
-
-void ComponentProxy::SetFolder(const std::string& folder)
-{
-    m_folder = folder;
-}
-
-std::string ComponentProxy::GetFolder() const
-{
-    return m_folder;
-}
-
 const std::vector<Component>& ComponentProxy::GetComponents() const
 {
     return m_components;
@@ -174,6 +153,35 @@ const std::vector<Component>& ComponentProxy::GetComponents() const
 std::vector<Component>& ComponentProxy::GetComponents()
 {
     return m_components;
+}
+
+void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_hash)
+{
+    m_entity_manager->SetComponentData(m_entity_id, component.hash, component.properties);
+
+    const std::string name = Name();
+
+    if(component.hash == NAME_FOLDER_COMPONENT)
+        m_entity_manager->SetEntityEnabled(m_entity_id, name.c_str());
+
+    const bool unnamed_or_empty = (name == "unnamed" || name.empty());
+
+    // Special case for setting a proper name...
+    if(component.hash == SPRITE_COMPONENT && unnamed_or_empty)
+    {
+        std::string sprite_name;
+        const bool found_sprite_name = 
+            FindAttribute(SPRITE_ATTRIBUTE, component.properties, sprite_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(found_sprite_name)
+        {
+            const size_t dot_pos = sprite_name.find_last_of('.');
+            sprite_name.erase(dot_pos);
+            SetName(sprite_name);
+        }
+    }
+
+    if(attribute_hash == POLYGON_ATTRIBUTE || attribute_hash == PATH_POINTS_ATTRIBUTE)
+        m_editor->UpdateGrabbers();
 }
 
 uint32_t ComponentProxy::GetEntityProperties() const
@@ -231,7 +239,7 @@ std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
 {
     const mono::Entity new_entity = m_entity_manager->CreateEntity("", {});
     auto proxy = std::make_unique<ComponentProxy>(
-        new_entity.id, Name(), m_folder, m_components, m_entity_manager, m_transform_system, m_editor);
+        new_entity.id, m_components, m_entity_manager, m_transform_system, m_editor);
 
     for(const Component& component : m_components)
     {

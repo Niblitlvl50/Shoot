@@ -188,9 +188,12 @@ Editor::Editor(
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
-    m_context.select_object_callback = std::bind(&Editor::SelectProxyObject, this, _1);
+    m_context.select_object_callback = [this](uint32_t entity_id) {
+        SetSelection({ entity_id });
+    };
     m_context.preselect_object_callback = std::bind(&Editor::PreselectProxyObject, this, _1);
-    m_context.teleport_to_object_callback = [this](const IObjectProxy* proxy) {
+    m_context.teleport_to_object_callback = [this](uint32_t entity_id) {
+        IObjectProxy* proxy = FindProxyObject(entity_id);
         TeleportToProxyObject(proxy);
     };
 
@@ -331,7 +334,7 @@ void Editor::SwitchWorld(const std::string& new_world_filename)
 
 void Editor::LoadWorld(const std::string& world_filename)
 {
-    SelectProxyObject(nullptr);
+    ClearSelection();
     PreselectProxyObject(nullptr);
 
     if(!m_proxies.empty())
@@ -356,6 +359,22 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     if(!world.leveldata.metadata.background_texture.empty())
         SetBackgroundTexture(world.leveldata.metadata.background_texture);
+
+    for(IObjectProxyPtr& proxy : m_proxies)
+    {
+        std::vector<Component>& components = proxy->GetComponents();
+        const bool found = (FindComponentFromHash(NAME_FOLDER_COMPONENT, components) != nullptr);
+        if(!found)
+        {
+            const std::vector<Component*> added_components = shared::AddComponent(NAME_FOLDER_COMPONENT, components);
+            for(Component* component : added_components)
+                m_entity_manager.AddComponent(proxy->Id(), component->hash);
+
+            Component* name_folder = added_components.front();
+            SetAttribute(NAME_ATTRIBUTE, name_folder->properties, proxy->Name());
+            SetAttribute(FOLDER_ATTRIBUTE, name_folder->properties, proxy->GetFolder());
+        }
+    }
 }
 
 void Editor::Save()
@@ -401,18 +420,20 @@ void Editor::ImportEntity()
 void Editor::NewEntity()
 {
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-    mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { TRANSFORM_COMPONENT });
+    mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { NAME_FOLDER_COMPONENT, TRANSFORM_COMPONENT });
 
     const std::vector<Component> components = {
+        DefaultComponentFromHash(NAME_FOLDER_COMPONENT),
         DefaultComponentFromHash(TRANSFORM_COMPONENT)
     };
 
-    auto proxy = std::make_unique<ComponentProxy>(
-        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system, this);
+    auto proxy = std::make_unique<ComponentProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(m_camera->GetPosition());
 
     m_proxies.push_back(std::move(proxy));
-    SelectProxyObject(m_proxies.back().get());
+
+    const Selection new_selection = { new_entity.id };
+    SetSelection(new_selection);
 }
 
 void Editor::AddPath(const std::vector<math::Vector>& path_points)
@@ -435,17 +456,32 @@ void Editor::AddPath(const std::vector<math::Vector>& path_points)
     SetAttribute(POSITION_ATTRIBUTE, components.front().properties, position);
     SetAttribute(PATH_POINTS_ATTRIBUTE, components.back().properties, local_points);
 
-    auto proxy = std::make_unique<PathProxy>(
-        new_entity.id, "unnamed", "", components, &m_entity_manager, transform_system, this);
+    auto proxy = std::make_unique<PathProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(position);
 
     m_proxies.push_back(std::move(proxy));
-    SelectProxyObject(m_proxies.back().get());
+
+    const Selection new_selection = { new_entity.id };
+    SetSelection(new_selection);
 }
 
 void Editor::SetSelection(const Selection& selected_ids)
 {
+    const EditorMode mode = m_mode_stack.top();
+    if(mode == EditorMode::REFERENCE_PICKING)
+    {
+        if(!selected_ids.empty())
+        {
+            *m_pick_target = selected_ids.front();
+            m_pick_target = nullptr;
+            m_mode_stack.pop();
+        }
+
+        return;
+    }
+
     m_selected_ids = selected_ids;
+    UpdateSelection();
 }
 
 const Selection& Editor::GetSelection() const
@@ -456,6 +492,7 @@ const Selection& Editor::GetSelection() const
 void Editor::AddToSelection(const Selection& selected_ids)
 {
     m_selected_ids.insert(m_selected_ids.end(), selected_ids.begin(), selected_ids.end());
+    UpdateSelection();
 }
 
 void Editor::RemoveFromSelection(const Selection& selected_ids)
@@ -464,11 +501,37 @@ void Editor::RemoveFromSelection(const Selection& selected_ids)
         return (std::find(selected_ids.begin(), selected_ids.end(), id) != selected_ids.end());
     };
     mono::remove_if(m_selected_ids, remove_check);
+    UpdateSelection();
 }
 
 void Editor::ClearSelection()
 {
     m_selected_ids.clear();
+    UpdateSelection();
+}
+
+void Editor::UpdateSelection()
+{
+    for(auto& proxy : m_proxies)
+        proxy->SetSelected(false);
+
+    std::vector<IObjectProxy*> selected_proxies;
+    for(uint32_t id : m_selected_ids)
+    {
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(proxy)
+        {
+            proxy->SetSelected(true);
+            selected_proxies.push_back(proxy);
+        }
+    }
+
+    m_context.selected_proxies = selected_proxies;
+    m_component_detail_visualizer->SetObjectProxies(selected_proxies);
+
+    UpdateSnappers();
+    UpdateGrabbers();
+
 }
 
 void Editor::SetSelectionPoint(const math::Vector& selection_point)
@@ -481,6 +544,7 @@ void Editor::SetSelectionBox(const math::Quad& selection_box)
     m_selection_visualizer->SetSelectionBox(selection_box);
 }
 
+/*
 void Editor::SelectProxyObject(IObjectProxy* proxy_object)
 {
     const EditorMode mode = m_mode_stack.top();
@@ -516,6 +580,7 @@ void Editor::SelectProxyObject(IObjectProxy* proxy_object)
     UpdateSnappers();
     UpdateGrabbers();
 }
+*/
 
 void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
 {
@@ -761,7 +826,7 @@ void Editor::OnDeleteObject()
     };
 
     mono::remove_if(m_proxies, find_func);
-    SelectProxyObject(nullptr);
+    ClearSelection();
     PreselectProxyObject(nullptr);
     m_grabbers.clear();
 }
@@ -775,11 +840,10 @@ void Editor::AddComponent(uint32_t component_hash)
             continue;
 
         std::vector<Component>& components = proxy_object->GetComponents();
-        const uint32_t num_components = components.size();
-        const uint32_t num_added = shared::AddComponent(component_hash, components);
 
-        for(size_t index = num_components; index < num_components + num_added; ++index)
-            m_entity_manager.AddComponent(id, components[index].hash);
+        const std::vector<Component*> added_components = shared::AddComponent(component_hash, components);
+        for(Component* component : added_components)
+            m_entity_manager.AddComponent(id, component->hash);
 
         shared::SortComponentsByPriority(components);
     }
@@ -837,10 +901,14 @@ void Editor::SelectItemCallback(int index)
     if(loaded_objects.empty())
         return;
 
+    Selection new_selection;
     for(auto& object : loaded_objects)
+    {
+        new_selection.push_back(object->Id());
         m_proxies.push_back(std::move(object));
+    }
 
-    SelectProxyObject(m_proxies.back().get());
+    SetSelection(new_selection);
     TeleportToProxyObject(m_proxies.back().get());
     m_context.notifications.emplace_back(import_texture, "Imported Entity...", 2000);
 }
@@ -973,6 +1041,8 @@ bool Editor::DrawAllObjects() const
 
 void Editor::DuplicateSelected()
 {
+    Selection duplicated_selection;
+
     for(uint32_t id : m_selected_ids)
     {
         IObjectProxy* proxy_object = FindProxyObject(id);
@@ -988,11 +1058,12 @@ void Editor::DuplicateSelected()
             math::Matrix& transform = transform_system->GetTransform(cloned_entity_id);
             math::Translate(transform, math::Vector(1.0f, 1.0f));
 
-            IObjectProxy* proxy_pointer = cloned_proxy.get();
             m_proxies.push_back(std::move(cloned_proxy));
-            SelectProxyObject(proxy_pointer);
+            duplicated_selection.push_back(cloned_entity_id);
         }
     }
+
+    SetSelection(duplicated_selection);
 }
 
 void Editor::ReExportEntities()

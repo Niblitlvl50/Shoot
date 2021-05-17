@@ -83,6 +83,9 @@ extern const uint32_t PATH_CLOSED_ATTRIBUTE;
 extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE;
 extern const uint32_t TEXTURE_ATTRIBUTE;
 
+extern const uint32_t NAME_ATTRIBUTE;
+extern const uint32_t FOLDER_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -133,6 +136,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
 }
 
 extern const uint32_t NULL_COMPONENT;
+extern const uint32_t NAME_FOLDER_COMPONENT;
 extern const uint32_t TRANSFORM_COMPONENT;
 extern const uint32_t SPRITE_COMPONENT;
 extern const uint32_t TEXT_COMPONENT;
@@ -169,7 +173,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 26>;
+using ComponentArray = std::array<Component, 27>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);
@@ -180,7 +184,7 @@ void StripUnknownProperties(Component& component);
 
 namespace shared
 {
-    uint32_t AddComponent(uint32_t hash, std::vector<Component>& components);
+    std::vector<Component*> AddComponent(uint32_t hash, std::vector<Component>& components);
     int ComponentPriorityForHash(uint32_t hash);
     void SortComponentsByPriority(std::vector<Component>& components);
 }

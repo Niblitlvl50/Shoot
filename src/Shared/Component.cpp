@@ -24,7 +24,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 60> default_attributes = {{
+const std::array<DefaultAttribute, 62> default_attributes = {{
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -85,6 +85,8 @@ const std::array<DefaultAttribute, 60> default_attributes = {{
     { "path_closed",            Variant(false) },
     { "entity_reference",       Variant(0u) },
     { "texture",                Variant(std::string()) },
+    { "name",                   Variant(std::string()) },
+    { "folder",                 Variant(std::string()) },
 }};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -161,8 +163,12 @@ extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[57].hash;
 extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[58].hash;
 extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[59].hash;
 
+extern const uint32_t NAME_ATTRIBUTE                = default_attributes[60].hash;
+extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[61].hash;
+
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
+extern const uint32_t NAME_FOLDER_COMPONENT         = mono::Hash("name_folder");
 extern const uint32_t TRANSFORM_COMPONENT           = mono::Hash("transform");
 extern const uint32_t SPRITE_COMPONENT              = mono::Hash("sprite");
 extern const uint32_t TEXT_COMPONENT                = mono::Hash("text");
@@ -194,6 +200,8 @@ const char* ComponentNameFromHash(uint32_t hash)
 {
     if(hash == NULL_COMPONENT)
         return "null";
+    if(hash == NAME_FOLDER_COMPONENT)
+        return "name_folder";
     else if(hash == TRANSFORM_COMPONENT)
         return "transform";
     else if(hash == SPRITE_COMPONENT)
@@ -261,6 +269,7 @@ Component MakeComponent(
 }
 
 const ComponentArray default_components = {
+    MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,     false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
@@ -438,11 +447,19 @@ namespace
     };
 }
 
-uint32_t shared::AddComponent(uint32_t hash, std::vector<Component>& components)
+std::vector<Component*> shared::AddComponent(uint32_t hash, std::vector<Component>& components)
 {
     const uint32_t num_components = components.size();
     add_component_recursivly(hash, components);
-    return components.size() - num_components;
+    const uint32_t n_added = components.size() - num_components;
+
+    std::vector<Component*> added_components;
+    added_components.reserve(n_added);
+
+    for(uint32_t index = num_components; index < components.size(); ++index)
+        added_components.push_back(&components[index]);
+
+    return added_components;
 }
 
 int shared::ComponentPriorityForHash(uint32_t hash)

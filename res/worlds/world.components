@@ -3,6 +3,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "left_wall"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "walls"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -160,42 +178,6 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0,
-                                "y": 100.0
-                            }
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 100.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 597743964,
-                            "name": "size",
-                            "variant_type": 4,
-                            "variant_value": {
                                 "x": 100.0,
                                 "y": 1.0
                             }
@@ -252,6 +234,42 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 100.0
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 100.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -260,6 +278,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "caco boss 1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boss"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -456,6 +492,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bush_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -545,6 +599,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bush_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -636,6 +708,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bush_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -725,6 +815,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -816,6 +924,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -905,6 +1031,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -996,6 +1140,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -1085,6 +1247,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -1176,6 +1356,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -1265,6 +1463,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_dead"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -1356,6 +1572,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -1446,6 +1680,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -1535,6 +1787,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large_dead"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -1683,6 +1953,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large_dead"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -1829,6 +2117,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large_dead"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -1977,6 +2283,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -2066,6 +2390,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -2157,6 +2499,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -2246,6 +2606,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bush_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -2337,6 +2715,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -2427,6 +2823,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -2516,6 +2930,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -2680,6 +3112,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_question"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -2769,6 +3219,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -2871,6 +3339,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -3035,6 +3521,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -3137,6 +3641,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_right"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -3227,6 +3749,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -3316,6 +3856,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_huge"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -3488,6 +4046,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -3647,6 +4223,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -3736,6 +4330,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -3900,6 +4512,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4063,6 +4693,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "small_fire"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4152,6 +4800,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -4255,6 +4921,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4344,6 +5028,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -4435,6 +5137,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4524,6 +5244,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -4615,6 +5353,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4704,6 +5460,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -4795,6 +5569,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4885,6 +5677,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -4974,6 +5784,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bat"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -5077,6 +5905,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bat"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -5178,6 +6024,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bat"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -5281,6 +6145,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -5370,6 +6252,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -5461,6 +6361,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -5550,6 +6468,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -5641,6 +6577,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -5730,6 +6684,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -5897,6 +6869,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -6108,6 +7098,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "open_rock_trigger"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6220,6 +7228,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6309,6 +7335,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -6400,6 +7444,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6490,6 +7552,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6579,6 +7659,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -6688,6 +7786,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6777,6 +7893,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -6868,6 +8002,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -6957,6 +8109,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7048,6 +8218,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -7137,6 +8325,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7228,6 +8434,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -7317,6 +8541,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7408,6 +8650,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -7497,6 +8757,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7588,6 +8866,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -7677,6 +8973,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7768,6 +9082,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -7857,6 +9189,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "blob"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "enemies"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -7960,6 +9310,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "blob"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "enemies"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -8062,6 +9430,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "blob"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "enemies"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -8163,6 +9549,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -8331,6 +9735,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -8421,6 +9843,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -8510,6 +9950,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "caco boss 2"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boss"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -8706,6 +10164,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -8872,6 +10348,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -9040,6 +10534,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -9206,6 +10718,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_huge"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -9378,6 +10908,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -9467,6 +11015,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -9558,6 +11124,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -9647,6 +11231,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -9738,6 +11340,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -9827,6 +11447,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -9918,6 +11556,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10007,6 +11663,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10098,6 +11772,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10187,6 +11879,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10278,6 +11988,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10367,6 +12095,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10458,6 +12204,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10547,6 +12311,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_one"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10638,6 +12420,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10727,6 +12527,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_dead"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10818,6 +12636,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -10907,6 +12743,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -10998,6 +12852,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -11087,6 +12959,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -11178,6 +13068,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -11268,6 +13176,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -11357,6 +13283,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -11508,6 +13452,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -11657,6 +13619,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -11844,6 +13824,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -11993,6 +13991,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -12144,6 +14160,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "wall_straight"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "back_wall"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -12293,6 +14327,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -12461,6 +14513,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -12627,6 +14697,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -12795,6 +14883,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -12884,6 +14990,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -12975,6 +15099,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13064,6 +15206,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -13155,6 +15315,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13244,6 +15422,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -13335,6 +15531,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13424,6 +15638,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -13515,6 +15747,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13605,6 +15855,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13694,6 +15962,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -13797,6 +16083,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -13898,6 +16202,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -14001,6 +16323,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14103,6 +16443,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fern"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14192,6 +16550,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fern"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -14283,6 +16659,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fern"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14372,6 +16766,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fern"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -14532,6 +16944,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14634,6 +17064,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14723,6 +17171,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -14814,6 +17280,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -14903,6 +17387,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -14994,6 +17496,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15083,6 +17603,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -15174,6 +17712,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15263,6 +17819,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "hallowen"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -15354,6 +17928,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15443,6 +18035,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -15534,6 +18144,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15624,6 +18252,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boss_logic_trigger"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boss"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15681,6 +18327,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -15772,6 +18436,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -15861,6 +18543,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "tent"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -16020,6 +18720,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "tent"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -16184,6 +18902,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "tent"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -16322,8 +19058,8 @@
                                     "y": -0.2167644500732422
                                 },
                                 {
-                                    "x": -0.04903984069824219,
-                                    "y": -0.9134902954101563
+                                    "x": -0.018451690673828125,
+                                    "y": -0.9291667938232422
                                 }
                             ]
                         },
@@ -16342,6 +19078,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -16433,6 +19187,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -16522,6 +19294,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -16613,6 +19403,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -16703,6 +19511,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "flower_poppy"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -16792,6 +19618,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "door"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -16982,6 +19826,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "end_level_trigger"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -17093,6 +19955,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -17280,6 +20160,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -17465,6 +20363,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -17652,6 +20568,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -17837,6 +20771,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -18024,6 +20976,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "army"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -18210,6 +21180,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "flower_poppy"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -18299,6 +21287,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -18402,6 +21408,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -18503,6 +21527,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -18606,6 +21648,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -18707,6 +21767,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "barrel_red"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -18894,6 +21972,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "barrel_red"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -19080,6 +22176,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin_black"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -19205,6 +22319,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "block_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -19395,6 +22527,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "block_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -19545,6 +22695,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "device_medical"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -19658,6 +22826,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "block_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -19809,6 +22995,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "switch_block"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -19959,6 +23163,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "switch_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20084,6 +23306,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "block_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -20250,6 +23490,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20339,6 +23597,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -20430,6 +23706,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20519,6 +23813,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -20610,6 +23922,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20699,6 +24029,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -20790,6 +24138,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20879,6 +24245,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_two"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -20970,6 +24354,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "meteorite"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -20978,7 +24380,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.806302070617676,
+                                "x": 14.826668739318848,
                                 "y": 7.53090763092041
                             }
                         },
@@ -20986,7 +24388,7 @@
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": -0.0
                         }
                     ]
                 },
@@ -21128,6 +24530,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -21339,6 +24759,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "test_path"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "paths"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -21347,8 +24785,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 21.692771911621094,
-                                "y": -16.35049819946289
+                                "x": 19.988494873046875,
+                                "y": -16.019590377807617
                             }
                         },
                         {
@@ -21437,6 +24875,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "unnamed"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "paths"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -21531,6 +24987,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -21620,6 +25094,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -21711,6 +25203,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -21800,6 +25310,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -21891,6 +25419,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -21980,6 +25526,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -22071,6 +25635,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22160,6 +25742,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -22251,6 +25851,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22340,6 +25958,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -22431,6 +26067,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22520,6 +26174,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -22611,6 +26283,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22700,6 +26390,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -22791,6 +26499,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22881,6 +26607,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -22970,6 +26714,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -23101,8 +26863,8 @@
                                     "y": 1.1968803405761719
                                 },
                                 {
-                                    "x": 2.0905628204345703,
-                                    "y": 0.31195068359375
+                                    "x": 2.065546989440918,
+                                    "y": 0.11083412170410156
                                 },
                                 {
                                     "x": 1.8882598876953125,
@@ -23137,6 +26899,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -23264,12 +27044,12 @@
                                     "y": 0.6143989562988281
                                 },
                                 {
-                                    "x": -0.5393791198730469,
-                                    "y": 1.1968803405761719
+                                    "x": -0.44048023223876953,
+                                    "y": 1.1421661376953125
                                 },
                                 {
-                                    "x": 2.0905628204345703,
-                                    "y": 0.31195068359375
+                                    "x": 1.628988265991211,
+                                    "y": 0.3260383605957031
                                 },
                                 {
                                     "x": 1.8882598876953125,
@@ -23304,6 +27084,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -23472,6 +27270,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "dude"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -23561,6 +27377,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "health_pack_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -23729,6 +27563,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "test_spawn"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "spawn_points"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -23940,6 +27792,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "portal"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -24029,6 +27899,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -24120,6 +28008,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -24209,6 +28115,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -24300,6 +28224,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -24389,6 +28331,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fir_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation"
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",

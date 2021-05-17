@@ -40,7 +40,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
     for(const auto& json_entity : entities)
     {
         const std::string& entity_name = json_entity["name"];
-        const std::string& entity_folder = json_entity.value("folder", "");
+        //const std::string& entity_folder = json_entity.value("folder", "");
         const uint32_t entity_properties = json_entity.value("entity_properties", 0);
 
         mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
@@ -70,8 +70,7 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
                 System::Log("Failed to setup component with name '%s' for entity named '%s'\n", ComponentNameFromHash(component.hash), entity_name.c_str());
         }
 
-        auto component_proxy =
-            std::make_unique<ComponentProxy>(new_entity.id, entity_name, entity_folder, components, entity_manager, transform_system, editor);
+        auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, components, entity_manager, transform_system, editor);
         component_proxy->SetEntityProperties(entity_properties);
 
         proxies.push_back(std::move(component_proxy));
@@ -89,8 +88,7 @@ editor::World editor::LoadWorld(
         [&world, entity_manager, transform_system, editor]
         (const mono::Entity& entity, const std::string& folder, const std::vector<Component>& components)
     {
-        auto component_proxy =
-            std::make_unique<ComponentProxy>(entity.id, entity.name, folder, components, entity_manager, transform_system, editor);
+        auto component_proxy = std::make_unique<ComponentProxy>(entity.id, components, entity_manager, transform_system, editor);
         component_proxy->SetEntityProperties(entity.properties);
 
         world.loaded_proxies.push_back(std::move(component_proxy));

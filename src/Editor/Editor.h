@@ -65,11 +65,11 @@ namespace editor
         void AddToSelection(const Selection& selected_ids) override;
         void RemoveFromSelection(const Selection& selected_ids) override;
         void ClearSelection() override;
+        void UpdateSelection();
 
         void SetSelectionPoint(const math::Vector& selection_point);
         void SetSelectionBox(const math::Quad& selection_box);
 
-        void SelectProxyObject(IObjectProxy* proxy_object);
         void PreselectProxyObject(IObjectProxy* proxy_object);
 
         void TeleportToProxyObject(const IObjectProxy* proxy_object);

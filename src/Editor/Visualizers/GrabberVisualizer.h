@@ -20,7 +20,5 @@ namespace editor
         virtual math::Quad BoundingBox() const;
 
         const std::vector<editor::Grabber>& m_grabbers;
-        std::unique_ptr<mono::IRenderBuffer> m_vertices;
-        std::unique_ptr<mono::IRenderBuffer> m_colors;
     };
 }

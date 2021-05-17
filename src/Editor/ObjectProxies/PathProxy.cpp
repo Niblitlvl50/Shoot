@@ -20,33 +20,45 @@ using namespace editor;
 
 PathProxy::PathProxy(
     uint32_t entity_id,
-    const std::string& name,
-    const std::string& folder,
     const std::vector<Component>& components,
     mono::IEntityManager* entity_manager,
     mono::TransformSystem* transform_system,
     Editor* editor)
     : m_entity_id(entity_id)
-    , m_name(name)
-    , m_folder(folder)
     , m_components(components)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
     , m_editor(editor)
-{
-}
+{ }
 
 PathProxy::~PathProxy()
 { }
 
-const char* PathProxy::Name() const
-{
-    return m_name.c_str();
-}
-
 uint32_t PathProxy::Id() const
 {
     return m_entity_id;
+}
+
+std::string PathProxy::Name() const
+{
+    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    if(!name_folder_component)
+        return "Unknown";
+
+    std::string name;
+    FindAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name, FallbackMode::REQUIRE_ATTRIBUTE);
+    return name;
+}
+
+std::string PathProxy::GetFolder() const
+{
+    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    if(!name_folder_component)
+        return "Unknown";
+
+    std::string folder;
+    FindAttribute(FOLDER_ATTRIBUTE, name_folder_component->properties, folder, FallbackMode::REQUIRE_ATTRIBUTE);
+    return folder;
 }
 
 void PathProxy::SetSelected(bool selected)
@@ -135,26 +147,6 @@ std::vector<SnapPoint> PathProxy::GetSnappers() const
     return std::vector<SnapPoint>();
 }
 
-void PathProxy::UpdateUIContext(UIContext& context)
-{
-    DrawStringProperty("Name", m_name);
-    DrawStringProperty("Folder", m_folder);
-
-    const DrawComponentsResult result = DrawComponents(context, m_components);
-    if(result.component_index == std::numeric_limits<uint32_t>::max())
-        return;
-
-    const Component& modified_component = m_components[result.component_index];
-    m_entity_manager->SetComponentData(m_entity_id, modified_component.hash, modified_component.properties);
-
-    m_editor->UpdateGrabbers();
-}
-
-std::string PathProxy::GetFolder() const
-{
-    return m_folder;
-}
-
 const std::vector<Component>& PathProxy::GetComponents() const
 {
     return m_components;
@@ -163,6 +155,12 @@ const std::vector<Component>& PathProxy::GetComponents() const
 std::vector<Component>& PathProxy::GetComponents()
 {
     return m_components;
+}
+
+void PathProxy::ComponentChanged(Component& component, uint32_t attribute_hash)
+{
+    m_entity_manager->SetComponentData(m_entity_id, component.hash, component.properties);
+    m_editor->UpdateGrabbers();
 }
 
 float PathProxy::GetRotation() const

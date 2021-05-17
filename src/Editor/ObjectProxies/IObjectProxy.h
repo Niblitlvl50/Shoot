@@ -17,8 +17,10 @@ namespace editor
         virtual ~IObjectProxy()
         { }
 
-        virtual const char* Name() const = 0;
         virtual uint32_t Id() const = 0;
+
+        virtual std::string Name() const = 0;
+        virtual std::string GetFolder() const = 0;
 
         virtual void SetSelected(bool selected) = 0;
         virtual bool Intersects(const math::Vector& position) const = 0;
@@ -26,11 +28,10 @@ namespace editor
         virtual std::vector<struct Grabber> GetGrabbers() = 0;
         virtual std::vector<struct SnapPoint> GetSnappers() const = 0;
 
-        virtual void UpdateUIContext(struct UIContext& context) = 0;
-        virtual std::string GetFolder() const = 0;
-
         virtual const std::vector<Component>& GetComponents() const = 0;
         virtual std::vector<Component>& GetComponents() = 0;
+
+        virtual void ComponentChanged(Component& component, uint32_t attribute_hash) = 0;
 
         virtual math::Vector GetPosition() const = 0;
         virtual void SetPosition(const math::Vector& position) = 0;

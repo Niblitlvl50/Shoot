@@ -11,6 +11,7 @@
 #include "Rendering/Texture/ITexture.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
+#include "Component.h"
 
 #include <algorithm>
 #include <map>
@@ -138,18 +139,18 @@ namespace
         {
             for(IObjectProxy* proxy : proxies)
             {
-                const bool selected =
-                    (proxy == context.selected_proxy_object) || (proxy == context.preselected_proxy_object);
+                const bool in_selection =
+                    std::find(context.selected_proxies.begin(), context.selected_proxies.end(), proxy) != context.selected_proxies.end();
+                const bool pre_selection = (proxy == context.preselected_proxy_object);
+                const bool selected = in_selection || pre_selection;
                 
                 ImGui::PushID(id++);
 
-                if(ImGui::Selectable(proxy->Name(), selected, ImGuiSelectableFlags_AllowDoubleClick))
+                if(ImGui::Selectable(proxy->Name().c_str(), selected, ImGuiSelectableFlags_AllowDoubleClick))
                 {
+                    const uint32_t entity_id = proxy->Id();
                     const bool is_double_click = ImGui::IsMouseDoubleClicked(0);
-                    if(is_double_click)
-                        context.teleport_to_object_callback(proxy);
-                    else
-                        context.select_object_callback(proxy);
+                    (is_double_click) ? context.teleport_to_object_callback(entity_id) : context.select_object_callback(entity_id);
                 }
 
                 if(ImGui::IsItemHovered())
@@ -177,7 +178,7 @@ namespace
 
     void DrawSelectionView(editor::UIContext& context)
     {
-        if(!context.selected_proxy_object)
+        if(context.selected_proxies.empty())
             return;
 
         constexpr int flags =
@@ -195,7 +196,28 @@ namespace
         ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 50), ImVec2(selection_width, window_height - 60));
 
         ImGui::Begin("Selection", nullptr, flags);
-        context.selected_proxy_object->UpdateUIContext(context);
+
+        // We could loop through all proxies and do a union of the components and present those.
+        IObjectProxy* first_proxy = context.selected_proxies.front();
+        std::vector<Component>& first_components = first_proxy->GetComponents();
+
+        DrawAddComponent(context, first_components);
+        const DrawComponentsResult result = DrawComponents(context, first_components);
+
+        if(result.component_index != std::numeric_limits<uint32_t>::max())
+        {
+            const Component& updated_component = first_components[result.component_index];
+
+            for(IObjectProxy* proxy : context.selected_proxies)
+            {
+                Component* proxy_component = FindComponentFromHash(result.component_hash, proxy->GetComponents());
+                if(proxy_component)
+                {
+                    proxy_component->properties = updated_component.properties;
+                    proxy->ComponentChanged(*proxy_component, result.attribute_hash);
+                }
+            }
+        }
 
         ImGui::End();
     }

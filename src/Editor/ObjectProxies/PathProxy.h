@@ -15,8 +15,6 @@ namespace editor
 
         PathProxy(
             uint32_t entity_id,
-            const std::string& name,
-            const std::string& folder,
             const std::vector<Component>& components,
             mono::IEntityManager* entity_manager,
             mono::TransformSystem* transform_system,
@@ -24,17 +22,17 @@ namespace editor
 
         ~PathProxy();
 
-        const char* Name() const override;
+        std::string Name() const override;
         uint32_t Id() const override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
         bool Intersects(const math::Quad& world_bb) const override;
         std::vector<Grabber> GetGrabbers() override;
         std::vector<SnapPoint> GetSnappers() const override;
-        void UpdateUIContext(UIContext& context) override;
         std::string GetFolder() const override;
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
+        void ComponentChanged(Component& component, uint32_t attribute_hash) override;
 
         math::Vector GetPosition() const override;
         void SetPosition(const math::Vector& position) override;
@@ -46,8 +44,6 @@ namespace editor
         void Visit(IObjectVisitor& visitor) override;
 
         const uint32_t m_entity_id;
-        std::string m_name;
-        std::string m_folder;
         std::vector<Component> m_components;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
