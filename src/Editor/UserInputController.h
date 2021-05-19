@@ -10,6 +10,7 @@
 #include "Tools/RotateTool.h"
 #include "Tools/CameraTool.h"
 #include "Tools/MeasureTool.h"
+#include "Tools/PaletteTool.h"
 
 namespace System
 {
@@ -63,6 +64,7 @@ namespace editor
         editor::TranslateTool m_translate_tool;
         editor::RotateTool m_rotate_tool;
         editor::MeasureTool m_measure_tool;
+        editor::PaletteTool m_palette_tool;
 
         editor::ITool* m_active_tool;
 

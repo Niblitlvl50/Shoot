@@ -63,11 +63,29 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "nice_you_did_it"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "end_text"
+            "name": "nice_you_did_it"
         },
         {
             "components": [
@@ -151,6 +169,24 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "ork_flag"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -243,11 +279,29 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_surprised"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "screen_suprised"
+            "name": "screen_surprised"
         },
         {
             "components": [
@@ -331,6 +385,24 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_neutral"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }

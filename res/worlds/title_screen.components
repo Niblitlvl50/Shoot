@@ -3,6 +3,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "dont_die"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -111,6 +129,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "shoot_survive"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -175,10 +211,28 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "shoot"
+            "name": "shoot_survive"
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "xbox_one_a"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -304,10 +358,28 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "xbox_a_button"
+            "name": "xbox_one_a"
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "ps_cross"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -433,10 +505,28 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "ps_cross_button"
+            "name": "ps_cross"
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "hit_enter"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -546,6 +636,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "slash"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -653,6 +761,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "ork_flag"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",

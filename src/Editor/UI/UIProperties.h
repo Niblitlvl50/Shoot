@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Math/MathFwd.h"
+#include "Rendering/RenderFwd.h"
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -40,4 +41,14 @@ namespace editor
 
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
     bool DrawEntityReferenceProperty(const char* name, const char* entity_name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback);
+
+    struct PaletteResult
+    {
+        int selected_index;
+        bool apply;
+        bool reset;
+        std::string pasted_text;
+    };
+
+    PaletteResult DrawPaletteView(const std::vector<mono::Color::RGBA>& colors, int selected_index);
 }

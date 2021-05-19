@@ -24,6 +24,8 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
+#include "System/Keycodes.h"
+#include "System/System.h"
 
 #include <cstdio>
 #include <limits>
@@ -659,4 +661,78 @@ bool editor::DrawEntityReferenceProperty(const char* name, const char* entity_na
     ImGui::Text("%s", name);
 
     return enable_pick;
+}
+
+editor::PaletteResult editor::DrawPaletteView(const std::vector<mono::Color::RGBA>& colors, int selected_index)
+{
+    PaletteResult result;
+    result.selected_index = selected_index;
+    result.apply = false;
+    result.reset = false;
+
+    constexpr int flags =
+        ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_AlwaysAutoResize;
+
+//    const float window_width = ImGui::GetIO().DisplaySize.x;
+//    const float window_height = ImGui::GetIO().DisplaySize.y;
+//    const float selection_width = 310;
+//
+//    ImGui::SetNextWindowPos(ImVec2(window_width - selection_width - 30, 40));
+//    ImGui::SetNextWindowSizeConstraints(ImVec2(selection_width, 50), ImVec2(selection_width, window_height - 60));
+
+
+    ImGui::Begin("Palette", nullptr, flags);
+
+    for(uint32_t index = 0; index < colors.size(); ++index)
+    {
+        const mono::Color::RGBA& color = colors[index];
+        const ImVec4 imgui_color = ImVec4(color.red, color.green, color.blue, color.alpha);
+
+        ImGui::PushID(index);
+        ImGui::PushStyleColor(ImGuiCol_Button, imgui_color);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, imgui_color);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, imgui_color);
+        if(ImGui::Button("", ImVec2(80.0f, 80.0f)))
+            result.selected_index = index;
+
+        ImGui::PopStyleColor(3);
+        ImGui::PopID();
+
+        if(index == uint32_t(selected_index))
+        {
+            ImGui::GetWindowDrawList()->AddRect(
+                ImGui::GetItemRectMin(),
+                ImGui::GetItemRectMax(),
+                ImGui::GetColorU32(ImGuiCol_DragDropTarget),
+                3.0f,
+                ImDrawCornerFlags_All,
+                2.0f);
+        }
+    }
+
+    result.apply = ImGui::Button("Apply", ImVec2(80, 0));
+    result.reset = ImGui::Button("Reset", ImVec2(80, 0));
+
+    const bool in_focus = ImGui::IsWindowFocused();
+    if(in_focus)
+    {
+        const int v_key = System::KeycodeToNative(Keycode::V);
+
+        const ImGuiIO& io = ImGui::GetIO();
+        const bool is_shortcut_key = io.ConfigMacOSXBehaviors ? (io.KeyMods == ImGuiKeyModFlags_Super) : (io.KeyMods == ImGuiKeyModFlags_Ctrl);
+        const bool is_paste = (is_shortcut_key && ImGui::IsKeyPressed(v_key, false));
+
+        if(is_paste)
+        {
+            const char* clipboard_text = ImGui::GetClipboardText();
+            if(clipboard_text)
+                result.pasted_text = clipboard_text;
+       }
+    }
+
+    ImGui::End();
+
+    return result;
 }

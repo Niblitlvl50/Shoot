@@ -23,7 +23,7 @@ namespace
         std::vector<std::string> context_menu;
     };
 
-    ToolData tools[editor::ToolsMenuOptions::N_TOOLS];
+    ToolData g_tools[editor::ToolsMenuOptions::N_TOOLS];
 }
 
 using namespace editor;
@@ -42,6 +42,7 @@ UserInputController::UserInputController(
     , m_translate_tool(editor)
     , m_rotate_tool(editor)
     , m_measure_tool(editor)
+    , m_palette_tool(editor)
     , m_active_tool(nullptr)
     , m_grabber(nullptr)
     , m_box_selection(false)
@@ -65,21 +66,27 @@ UserInputController::UserInputController(
     m_keyDownToken = m_event_handler.AddListener(key_down);
     m_key_up_token = m_event_handler.AddListener(key_up);
 
-    tools[ToolsMenuOptions::TRANSLATE_TOOL] = {
+    g_tools[ToolsMenuOptions::TRANSLATE_TOOL] = {
         &m_translate_tool,
         Notification(editor::wrench_texture, "Translate tool", 2000),
         { }
     };
 
-    tools[ToolsMenuOptions::ROTATE_TOOL] = {
+    g_tools[ToolsMenuOptions::ROTATE_TOOL] = {
         &m_rotate_tool,
         Notification(editor::wrench_texture, "Rotate tool", 2000),
         { }
     };
 
-    tools[ToolsMenuOptions::MEASURE_TOOL] = {
+    g_tools[ToolsMenuOptions::MEASURE_TOOL] = {
         &m_measure_tool,
         Notification(editor::wrench_texture, "Measure tool", 2000),
+        { }
+    };
+
+    g_tools[ToolsMenuOptions::PALETTE_TOOL] = {
+        &m_palette_tool,
+        Notification(editor::wrench_texture, "Palette Tool", 2000),
         { }
     };
 
@@ -104,7 +111,7 @@ void UserInputController::HandleContextMenu(int item_index)
 
 void UserInputController::SelectTool(ToolsMenuOptions option)
 {
-    const ToolData& tool_data = tools[option];
+    const ToolData& tool_data = g_tools[option];
     if(m_active_tool)
     {
         if(m_active_tool == tool_data.tool)
@@ -274,6 +281,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
     else if(event.key == Keycode::TWO)
         SelectTool(ToolsMenuOptions::ROTATE_TOOL);
+    else if(event.key == Keycode::THREE)
+        SelectTool(ToolsMenuOptions::PALETTE_TOOL);
     else if(event.key == Keycode::M)
         SelectTool(ToolsMenuOptions::MEASURE_TOOL);
     else if(event.key == Keycode::N)

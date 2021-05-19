@@ -94,6 +94,30 @@
                             "name": "behaviour",
                             "variant_type": 1,
                             "variant_value": 5
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_right"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -203,11 +227,29 @@
                             "variant_value": "res/textures/road_dirt_road.png"
                         }
                     ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "spline"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "white_path"
+            "name": "spline"
         }
     ],
     "metadata": {

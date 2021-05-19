@@ -17,6 +17,7 @@ namespace editor
     {
         TRANSLATE_TOOL,
         ROTATE_TOOL,
+        PALETTE_TOOL,
         MEASURE_TOOL,
         N_TOOLS
     };

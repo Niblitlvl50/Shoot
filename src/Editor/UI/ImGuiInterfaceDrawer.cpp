@@ -54,6 +54,9 @@ namespace
             if(ImGui::MenuItem("Rotate", "2", context.active_tool_index == 1))
                 context.tools_menu_callback(ToolsMenuOptions::ROTATE_TOOL);
 
+            if(ImGui::MenuItem("Palette", "3", context.active_tool_index == 2))
+                context.tools_menu_callback(ToolsMenuOptions::PALETTE_TOOL);
+
             ImGui::EndMenu();
         }
 
@@ -389,6 +392,7 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
+//    ImGui::ShowDemoWindow();
     // Update UI stuff below
 
     const auto remove_notification_func = [&renderer](Notification& note) {
