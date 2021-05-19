@@ -318,26 +318,19 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     }
     else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)
     {
-        /*
-        const uint32_t selected_object_id = m_editor->GetSelectedObjectId();
-        const IObjectProxy* proxy = m_editor->FindProxyObject(selected_object_id);
-        if(proxy)
-        {
-            math::Vector new_position = proxy->GetPosition();
-            const float offset = event.shift ? 0.5f : 1.0f;
+        const float offset = event.shift ? 0.5f : 1.0f;
+        math::Vector delta;
 
-            if(event.key == Keycode::LEFT)
-                new_position.x -= offset;
-            else if(event.key == Keycode::RIGHT)
-                new_position.x += offset;
-            else if(event.key == Keycode::UP)
-                new_position.y += offset;
-            else if(event.key == Keycode::DOWN)
-                new_position.y -= offset;
+        if(event.key == Keycode::LEFT)
+            delta.x -= offset;
+        else if(event.key == Keycode::RIGHT)
+            delta.x += offset;
+        else if(event.key == Keycode::UP)
+            delta.y += offset;
+        else if(event.key == Keycode::DOWN)
+            delta.y -= offset;
 
-            m_translate_tool.MoveObject(selected_object_id, new_position);
-        }
-        */
+        m_translate_tool.MoveObjects(0, delta);
     }
 
     return mono::EventResult::PASS_ON;
