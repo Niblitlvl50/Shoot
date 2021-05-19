@@ -279,6 +279,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddDrawable(m_static_background.get(), RenderLayer::BACKGROUND);
     AddDrawable(new GridVisualizer(m_context.draw_grid), RenderLayer::BACKGROUND);
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
 
@@ -297,7 +298,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
-    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
 }
 
