@@ -96,8 +96,6 @@ namespace editor
         void DeleteComponent(uint32_t index);
         void AddComponentUI();
 
-        void EntityComponentUpdated(uint32_t entity_id, uint32_t component_hash);
-
         void OnContextMenu(int index);
         void SelectItemCallback(int index);
         void EditorMenuCallback(EditorMenuOptions index);

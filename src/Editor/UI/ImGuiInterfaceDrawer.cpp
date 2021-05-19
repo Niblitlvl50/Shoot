@@ -12,6 +12,7 @@
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "Component.h"
+#include "EntitySystem/ObjectAttribute.h"
 
 #include <algorithm>
 #include <map>
@@ -209,16 +210,24 @@ namespace
 
         if(result.component_index != std::numeric_limits<uint32_t>::max())
         {
-            const Component& updated_component = first_components[result.component_index];
+            const Component& src_component = first_components[result.component_index];
+            const Attribute* src_attribute;
+            FindAttribute(result.attribute_hash, src_component.properties, src_attribute);
 
             for(IObjectProxy* proxy : context.selected_proxies)
             {
-                Component* proxy_component = FindComponentFromHash(result.component_hash, proxy->GetComponents());
-                if(proxy_component)
-                {
-                    proxy_component->properties = updated_component.properties;
-                    proxy->ComponentChanged(*proxy_component, result.attribute_hash);
-                }
+                Component* target_component = FindComponentFromHash(result.component_hash, proxy->GetComponents());
+                if(!target_component)
+                    continue;
+
+                Attribute* target_attribute;
+                const bool found_it = FindAttribute(result.attribute_hash, target_component->properties, target_attribute);
+                if(!found_it)
+                    continue;
+
+                target_attribute->value = src_attribute->value;
+
+                proxy->ComponentChanged(*target_component, result.attribute_hash);
             }
         }
 

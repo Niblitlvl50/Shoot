@@ -12,11 +12,11 @@
 
 using namespace editor;
 
+constexpr uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
+
 TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
-    , m_entity_id(std::numeric_limits<uint32_t>::max())
-    // , m_was_snapped(false)
-    , m_snap_rotate(false)
+    , m_entity_id(NO_ENTITY)
 { }
 
 void TranslateTool::Begin()
@@ -24,12 +24,12 @@ void TranslateTool::Begin()
 
 void TranslateTool::End()
 {
-    m_entity_id = std::numeric_limits<uint32_t>::max();
+    m_entity_id = NO_ENTITY;
 }
 
 bool TranslateTool::IsActive() const
 {
-    return m_entity_id != std::numeric_limits<uint32_t>::max();
+    return m_entity_id != NO_ENTITY;
 }
 
 void TranslateTool::HandleContextMenu(int menu_index)
@@ -38,14 +38,10 @@ void TranslateTool::HandleContextMenu(int menu_index)
 void TranslateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
     m_entity_id = entity_id;
-    if(m_entity_id == std::numeric_limits<uint32_t>::max())
+    if(m_entity_id == NO_ENTITY)
         return;
 
-    IObjectProxy* proxy = m_editor->FindProxyObject(entity_id);
-    const math::Vector object_position = proxy->GetPosition();
-
     m_begin_translate = world_pos;
-    m_position_diff = object_position - world_pos;
 }
 
 void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
@@ -55,66 +51,32 @@ void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
 
 void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    if(m_entity_id == std::numeric_limits<uint32_t>::max())
+    if(m_entity_id == NO_ENTITY)
         return;
 
-    const math::Vector& delta = m_begin_translate - world_pos;
-    const math::Vector& new_pos = m_begin_translate - delta + m_position_diff;
+    const math::Vector& delta = world_pos - m_begin_translate;
+    MoveObjects(m_entity_id, delta);
 
-    MoveObject(m_entity_id, new_pos);
-
-    /*
-    const SnapPair& snap_pair = m_editor->FindSnapPosition(new_pos);
-    if(snap_pair.found_snap && !m_was_snapped)
-    {
-        if(m_snap_rotate)
-        {
-            const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
-            const float new_angle = math::NormalizeAngle(snap_pair.snap_from.normal - snap_pair.snap_to.normal - math::PI());
-
-            math::Matrix translation;
-            math::Translate(translation, snap_pair.snap_to.position);
-
-            math::Matrix rotation;
-            math::RotateZ(rotation, new_angle, snap_offset);
-
-            const math::Matrix& transform = translation * rotation;
-            const math::Vector& position = math::Transform(transform, snap_offset);
-            m_entity->SetPosition(position);
-            m_entity->SetRotation(math::NormalizeAngle(new_angle + m_entity->Rotation()));
-        }
-        else
-        {
-            const math::Vector& snap_offset = m_entity->Position() - snap_pair.snap_from.position;
-
-            math::Matrix translation;
-            math::Translate(translation, snap_pair.snap_to.position);
-
-            const math::Vector& position = math::Transform(translation, snap_offset);
-            m_entity->SetPosition(position);
-        }
-
-        End();
-    }
-
-    m_was_snapped = snap_pair.found_snap;
-    */
-
+    m_begin_translate = world_pos;
 }
 
 void TranslateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
-{
-    m_snap_rotate = shift;
-}
+{ }
 
-void TranslateTool::MoveObject(uint32_t entity_id, const math::Vector& new_position)
+void TranslateTool::MoveObjects(uint32_t entity_id, const math::Vector& delta)
 {
-    IObjectProxy* proxy = m_editor->FindProxyObject(entity_id);
-    if(!proxy)
-        return;
+    std::vector<uint32_t> selected_proxies = m_editor->GetSelection();
 
-    proxy->SetPosition(new_position);
-    m_editor->EntityComponentUpdated(entity_id, TRANSFORM_COMPONENT);
+    for(uint32_t id : selected_proxies)
+    {
+        IObjectProxy* proxy = m_editor->FindProxyObject(id);
+        if(proxy)
+        {
+            const math::Vector new_pos = proxy->GetPosition() + delta;
+            proxy->SetPosition(new_pos);
+        }
+    }
+
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();
 }

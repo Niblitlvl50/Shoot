@@ -63,7 +63,6 @@ void RotateTool::HandleMousePosition(const math::Vector& world_pos)
     const float angle = math::AngleBetweenPoints(position, world_pos);
     proxy->SetRotation(angle + m_rotation_diff);
 
-    m_editor->EntityComponentUpdated(m_entity_id, TRANSFORM_COMPONENT);
     m_editor->UpdateGrabbers();
     m_editor->UpdateSnappers();
 }

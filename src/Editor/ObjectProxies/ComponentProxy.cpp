@@ -214,6 +214,10 @@ void ComponentProxy::SetPosition(const math::Vector& position)
 
     math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(transform, new_position);
+
+    Component* transform_component = FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
+    if(transform_component)
+        SetAttribute(POSITION_ATTRIBUTE, transform_component->properties, new_position);
 }
 
 float ComponentProxy::GetRotation() const
@@ -228,6 +232,10 @@ void ComponentProxy::SetRotation(float rotation)
     const math::Vector position = math::GetPosition(transform);
     transform = math::CreateMatrixFromZRotation(rotation);
     math::Position(transform, position);
+
+    Component* transform_component = FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
+    if(transform_component)
+        SetAttribute(ROTATION_ATTRIBUTE, transform_component->properties, rotation);
 }
 
 math::Quad ComponentProxy::GetBoundingBox() const

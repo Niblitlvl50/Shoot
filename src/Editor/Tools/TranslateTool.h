@@ -1,14 +1,10 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "ITool.h"
 #include "Math/Vector.h"
 #include <memory>
-
-namespace mono
-{
-    class TransformSystem;
-}
 
 namespace editor
 {
@@ -29,16 +25,12 @@ namespace editor
         virtual void HandleMousePosition(const math::Vector& world_pos);
         virtual void UpdateModifierState(bool ctrl, bool shift, bool alt);
 
-        void MoveObject(uint32_t entity_id, const math::Vector& new_position);
+        void MoveObjects(uint32_t entity_id, const math::Vector& delta);
 
     private:
 
         Editor* m_editor;
         uint32_t m_entity_id;
         math::Vector m_begin_translate;
-        math::Vector m_position_diff;
-
-        // bool m_was_snapped;
-        bool m_snap_rotate;
     };
 }

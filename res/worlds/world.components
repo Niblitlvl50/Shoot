@@ -27926,15 +27926,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.7368154525756836,
-                                "y": 18.3529052734375
+                                "x": -1.1341819763183594,
+                                "y": 20.82697105407715
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27966,9 +27966,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.6784313917160034,
-                                "green": 0.5411764979362488,
-                                "red": 0.08627451211214066
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -28034,15 +28034,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.725593566894531,
-                                "y": 19.44305419921875
+                                "x": -5.887850761413574,
+                                "y": 20.82697105407715
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28074,9 +28074,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.5764706134796143,
-                                "green": 0.7843137383460999,
-                                "red": 0.4627451002597809
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -28142,15 +28142,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.577066421508789,
-                                "y": 19.938068389892578
+                                "x": 0.9833612442016602,
+                                "y": 19.746591567993164
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28182,9 +28182,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.5686274766921997,
-                                "green": 0.3764705955982208,
-                                "red": 0.11764705926179886
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -28250,15 +28250,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.6467390060424805,
-                                "y": 18.920455932617188
+                                "x": -3.2949399948120117,
+                                "y": 17.218503952026367
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28290,9 +28290,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.46666666865348816,
-                                "green": 0.30588236451148987,
-                                "red": 0.0941176488995552
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -28358,15 +28358,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 5.252662658691406,
-                                "y": 17.891080856323242
+                                "x": 0.9617547988891602,
+                                "y": 16.41901969909668
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28398,9 +28398,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.6784313917160034,
-                                "green": 0.5411764979362488,
-                                "red": 0.08627451211214066
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {

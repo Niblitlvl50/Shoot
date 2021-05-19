@@ -867,25 +867,6 @@ void Editor::AddComponentUI()
     m_context.open_add_component = true;
 }
 
-void Editor::EntityComponentUpdated(uint32_t entity_id, uint32_t component_hash)
-{
-    for(uint32_t id : m_selected_ids)
-    {
-        IObjectProxy* proxy_object = FindProxyObject(id);
-        if(!proxy_object)
-            continue;
-
-        for(Component& component : proxy_object->GetComponents())
-        {
-            if(component.hash == component_hash)
-            {
-                auto data = m_entity_manager.GetComponentData(entity_id, component_hash);
-                component.properties = data;
-            }
-        }
-    }
-}
-
 void Editor::OnContextMenu(int index)
 {
     m_user_input_controller->HandleContextMenu(index);
