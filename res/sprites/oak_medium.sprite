@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "weapons",
+    "category": "vegetation",
     "frames": [
         {
-            "h": 21,
-            "name": "rocket_launcher",
-            "w": 36,
-            "x": 1550,
-            "y": 361
+            "h": 108,
+            "name": "oak_medium",
+            "w": 86,
+            "x": 1918,
+            "y": 120
         }
     ],
     "frames_offsets": [
