@@ -158,14 +158,15 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
                 if(proxy)
                 {
                     entity_id = proxy->Id();
+                    const Selection new_selection = { entity_id };
 
                     const std::vector<uint32_t> selection = m_editor->GetSelection();
                     const bool already_selected = (std::find(selection.begin(), selection.end(), entity_id) != selection.end());
-                    if(!already_selected)
-                    {
-                        const Selection new_selection = { entity_id };
+
+                    if(event.ctrl)
+                        already_selected ? m_editor->RemoveFromSelection(new_selection) : m_editor->AddToSelection(new_selection);
+                    else if(!already_selected)
                         m_editor->SetSelection(new_selection);
-                    }
                 }
                 else
                 {
