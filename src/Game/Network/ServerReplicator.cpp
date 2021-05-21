@@ -120,7 +120,7 @@ void ServerReplicator::Update(const mono::UpdateContext& update_context)
             ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, force_replicate, batch_sender, update_context);
     
         System::Log(
-            "replications, transforms: %u, sprites: %u, damages: %u\n",
+            "replications, transforms: %u, sprites: %u, damages: %u",
             replicated_transforms,
             replicated_sprites,
             replicated_damages);

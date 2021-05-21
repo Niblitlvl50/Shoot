@@ -63,7 +63,7 @@ namespace
 
                 if(compressed_size == 0)
                 {
-                    System::Log("RemoteConnection|Failed to compress message.\n");
+                    System::Log("RemoteConnection|Failed to compress message.");
                     continue;
                 }
 
@@ -72,7 +72,7 @@ namespace
                     /*
                     const float compression_ratio = float(compressed_size) / float(message.payload.size());
                     System::Log(
-                        "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu\n",
+                        "RemoteConnection|Warning, compressed size(%lu) is more than uncompressed(%lu)!!! ratio: %f, diff: %lu",
                         compressed_size,
                         message.payload.size(), 
                         compression_ratio,

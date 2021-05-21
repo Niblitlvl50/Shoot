@@ -46,7 +46,7 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
 void ClientPlayerDaemon::SpawnLocalRemotePlayer(int controller_id)
 {
     m_player_one_controller_id = controller_id;
-    System::Log("ClientPlayerDaemon|Spawn player 1\n");
+    System::Log("ClientPlayerDaemon|Spawn player 1");
 }
 
 mono::EventResult ClientPlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)

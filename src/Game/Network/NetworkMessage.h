@@ -144,9 +144,9 @@ namespace game
     inline void PrintNetworkMessageSize()
     {
         #define PRINT_NETWORK_MESSAGE_SIZE(message_name) \
-            System::Log("\t%u %s %zu\n", message_name::message_type, #message_name, sizeof(message_name));
+            System::Log("\t%u %s %zu", message_name::message_type, #message_name, sizeof(message_name));
 
-        System::Log("Network message sizes\n");
+        System::Log("Network message sizes");
 
         PRINT_NETWORK_MESSAGE_SIZE(ServerBeaconMessage);
         PRINT_NETWORK_MESSAGE_SIZE(ServerQuitMessage);

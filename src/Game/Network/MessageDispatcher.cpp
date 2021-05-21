@@ -92,13 +92,13 @@ void MessageDispatcher::Update(const mono::UpdateContext& update_context)
             if(handler_it == m_handlers.end())
             {
                 System::Log(
-                    "network|Failed to find a handler for message of type: %u, message: %lu/%lu\n", message_type, index, n_messages.size());
+                    "network|Failed to find a handler for message of type: %u, message: %lu/%lu", message_type, index, n_messages.size());
                 continue;
             }
 
             const bool handled_message = handler_it->second(message_view, network_message.address, m_event_handler);
             if(!handled_message)
-                System::Log("network|Failed to deserialize message of type: %u\n", message_type);
+                System::Log("network|Failed to deserialize message of type: %u", message_type);
         }
     }
 

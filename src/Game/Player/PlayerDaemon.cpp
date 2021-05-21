@@ -152,7 +152,7 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
     if(!allocated_player_info)
     {
-        System::Log("Unable to allocate player info for local player.\n");
+        System::Log("Unable to allocate player info for local player.");
         return;
     }
 
@@ -220,12 +220,12 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
     if(it != m_remote_players.end())
         return mono::EventResult::HANDLED;
 
-    System::Log("PlayerDaemon|Remote player connected, %s\n", network::AddressToString(event.address).c_str());
+    System::Log("PlayerDaemon|Remote player connected, %s", network::AddressToString(event.address).c_str());
 
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
     if(!allocated_player_info)
     {
-        System::Log("Unable to allocate player info for local player.\n");
+        System::Log("Unable to allocate player info for local player.");
         return mono::EventResult::HANDLED;
     }
 

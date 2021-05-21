@@ -74,7 +74,7 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     const bool success = FindAttribute(SPRITE_ATTRIBUTE, properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
     if(!success)
     {
-        System::Log("ComponentFunctions|Missing sprite parameters, unable to update component\n");
+        System::Log("ComponentFunctions|Missing sprite parameters, unable to update component");
         return false;
     }
     

@@ -140,7 +140,7 @@ mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& me
     }
     else
     {
-        System::Log("RemoteZone|Unable to load world file for hash %u\n", metadata_message.world_file_hash);
+        System::Log("RemoteZone|Unable to load world file for hash %u", metadata_message.world_file_hash);
     }
     */
 

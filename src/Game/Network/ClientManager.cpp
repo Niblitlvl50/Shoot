@@ -163,7 +163,7 @@ mono::EventResult ClientManager::HandleServerBeacon(const ServerBeaconMessage& m
 
 mono::EventResult ClientManager::HandleServerQuit(const ServerQuitMessage& message)
 {
-    System::Log("ClientManager|Server Quit!\n");
+    System::Log("ClientManager|Server Quit!");
     m_states.TransitionTo(ClientStatus::DISCONNECTED);
     return mono::EventResult::HANDLED;
 }
@@ -184,7 +184,7 @@ mono::EventResult ClientManager::HandlePing(const PingMessage& message)
 
 void ClientManager::ToSearching()
 {
-    System::Log("ClientManager|Searching for server\n");
+    System::Log("ClientManager|Searching for server");
     m_search_timer = 0;
 
     m_remote_connection.reset();
@@ -209,7 +209,7 @@ void ClientManager::ToSearching()
 
 void ClientManager::ToFoundServer()
 {
-    System::Log("ClientManager|Found server at %s\n", network::AddressToString(m_server_address).c_str());
+    System::Log("ClientManager|Found server at %s", network::AddressToString(m_server_address).c_str());
 
     NetworkMessage message;
     message.payload = SerializeMessage(ConnectMessage());
@@ -218,18 +218,18 @@ void ClientManager::ToFoundServer()
 
 void ClientManager::ToConnected()
 {
-    System::Log("ClientManager|Server accepted connection\n");
+    System::Log("ClientManager|Server accepted connection");
 }
 
 void ClientManager::ToDisconnected()
 {
-    System::Log("ClientManager|Disconnected\n");
+    System::Log("ClientManager|Disconnected");
     m_remote_connection = nullptr;
 }
 
 void ClientManager::ToFailed()
 {
-    System::Log("ClientManager|Failed to find a server\n");
+    System::Log("ClientManager|Failed to find a server");
     m_failed_timer = 0;
 }
 

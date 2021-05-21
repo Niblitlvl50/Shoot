@@ -123,7 +123,7 @@ void PositionPredictionSystem::HandlePredicitonMessage(const TransformMessage& t
     else
     {
         System::Log(
-            "PositionPredictionSystem|Old transform message, will skip. entity: %u have: %u new: %u\n",
+            "PositionPredictionSystem|Old transform message, will skip. entity: %u have: %u new: %u",
             transform_message.entity_id,
             prediction_buffer.back().timestamp,
             transform_message.timestamp);

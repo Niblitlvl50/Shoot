@@ -330,7 +330,7 @@ const Variant& DefaultAttributeFromHash(uint32_t hash)
     }
 
     const char* attribute_name = AttributeNameFromHash(hash);
-    System::Log("Component|Unable to find default attribute for hash: %u (%s)\n", hash, attribute_name);
+    System::Log("Component|Unable to find default attribute for hash: %u (%s)", hash, attribute_name);
     static const Variant null_attribute;
     return null_attribute;
 }
@@ -388,7 +388,7 @@ Component DefaultComponentFromHash(uint32_t hash)
         return *it;
 
     const char* component_name = ComponentNameFromHash(hash);
-    System::Log("Component|Unable to find default component for hash: %u (%s)\n", hash, component_name);
+    System::Log("Component|Unable to find default component for hash: %u (%s)", hash, component_name);
 
     return Component();
 }

@@ -287,7 +287,7 @@ namespace
 
         if(!found_trigger_name && !found_exit_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -328,7 +328,7 @@ namespace
 
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -513,7 +513,7 @@ namespace
 
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -548,7 +548,7 @@ namespace
 
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -590,7 +590,7 @@ namespace
 
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -631,7 +631,7 @@ namespace
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -664,7 +664,7 @@ namespace
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -697,7 +697,7 @@ namespace
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 
@@ -720,7 +720,7 @@ namespace
             FindAttribute(TRIGGER_NAME_EXIT_ATTRIBUTE, properties, off_trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
         if(!found_trigger_name)
         {
-            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component\n");
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
             return false;
         }
 

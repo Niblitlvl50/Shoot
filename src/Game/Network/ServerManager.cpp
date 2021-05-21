@@ -145,7 +145,7 @@ mono::EventResult ServerManager::HandleConnectMessage(const ConnectMessage& mess
     if(insert_result.second)
     {
         const std::string& address_string = network::AddressToString(message.sender);
-        System::Log("ServerManager|Client connected: %s\n", address_string.c_str());
+        System::Log("ServerManager|Client connected: %s", address_string.c_str());
 
         NetworkMessage reply_message;
         reply_message.payload = SerializeMessage(ConnectAcceptedMessage());
@@ -155,7 +155,7 @@ mono::EventResult ServerManager::HandleConnectMessage(const ConnectMessage& mess
     }
     else
     {
-        System::Log("ServerManager|Client already in collection\n");
+        System::Log("ServerManager|Client already in collection");
     }
 
     return mono::EventResult::PASS_ON;
@@ -163,7 +163,7 @@ mono::EventResult ServerManager::HandleConnectMessage(const ConnectMessage& mess
 
 mono::EventResult ServerManager::HandleDisconnectMessage(const DisconnectMessage& message)
 {
-    System::Log("ServerManager|Disconnect client\n");
+    System::Log("ServerManager|Disconnect client");
     m_connected_clients.erase(message.sender);
     m_event_handler->DispatchEvent(PlayerDisconnectedEvent(message.sender));
 
@@ -176,7 +176,7 @@ mono::EventResult ServerManager::HandleHeartBeatMessage(const HeartBeatMessage& 
     if(client_it != m_connected_clients.end())
         client_it->second.heartbeat_timestamp = System::GetMilliseconds();
     else
-        System::Log("ServerManager|Client not found in collection\n");
+        System::Log("ServerManager|Client not found in collection");
 
     return mono::EventResult::PASS_ON;
 }
@@ -187,7 +187,7 @@ mono::EventResult ServerManager::HandleViewportMessage(const ViewportMessage& me
     if(client_it != m_connected_clients.end())
         client_it->second.viewport = message.viewport;
     else
-        System::Log("ServerManager|Client not found in collection\n");
+        System::Log("ServerManager|Client not found in collection");
 
     return mono::EventResult::PASS_ON;
 }
@@ -208,7 +208,7 @@ void ServerManager::PurgeZombieClients()
 
     for(const auto& key : dead_clients)
     {
-        System::Log("ServerManager|Purging client: %s\n", network::AddressToString(key).c_str());
+        System::Log("ServerManager|Purging client: %s", network::AddressToString(key).c_str());
         m_connected_clients.erase(key);
         m_event_handler->DispatchEvent(PlayerDisconnectedEvent(key));
     }

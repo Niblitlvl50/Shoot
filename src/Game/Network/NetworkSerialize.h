@@ -49,7 +49,7 @@ namespace game
 
         if(message.size() != type_and_message_size)
         {
-            System::Log("NetworkSerialize|Payload size missmatch! %zu / %zu\n", message.size(), type_and_message_size);
+            System::Log("NetworkSerialize|Payload size missmatch! %zu / %zu", message.size(), type_and_message_size);
             return false;
         }
 
@@ -58,7 +58,7 @@ namespace game
 
         if(T::message_type != message_type)
         {
-            System::Log("NetworkSerialize|Message id missmatch!\n");
+            System::Log("NetworkSerialize|Message id missmatch!");
             return false;
         }
 

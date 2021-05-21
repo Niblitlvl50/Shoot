@@ -67,7 +67,9 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
             const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
             const bool set_component_result = entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
             if(!add_component_result || !set_component_result)
-                System::Log("Failed to setup component with name '%s' for entity named '%s'\n", ComponentNameFromHash(component.hash), entity_name.c_str());
+            {
+                //System::Log("WorldSerializer|Failed to setup component with name '%s' for entity named '%s'", ComponentNameFromHash(component.hash), entity_name.c_str());
+            }
         }
 
         auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, components, entity_manager, transform_system, editor);

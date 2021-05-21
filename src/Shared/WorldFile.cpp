@@ -27,7 +27,7 @@ namespace
         if(!file)
             return level_data;
 
-        System::Log("WorldFile|Loading world '%s'.\n", filename);
+        System::Log("WorldFile|Loading world '%s'.", filename);
 
         const std::vector<byte> file_data = file::FileRead(file);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
@@ -81,7 +81,9 @@ namespace
                 const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
                 const bool set_component_result = entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
                 if(!add_component_result || !set_component_result)
-                    System::Log("Failed to setup component with name '%s' for entity named '%s'\n", ComponentNameFromHash(component.hash), entity_name.c_str());
+                {
+                    //System::Log("WorldFile|Failed to setup component with name '%s' for entity named '%s'", ComponentNameFromHash(component.hash), entity_name.c_str());
+                }
             }
 
             if(!ignored_components.empty())
@@ -92,7 +94,7 @@ namespace
                 component_text.pop_back();
 
                 System::Log(
-                    "Ignored the following components for entity named '%s', %s\n", entity_name.c_str(), component_text.c_str());
+                    "Ignored the following components for entity named '%s', %s", entity_name.c_str(), component_text.c_str());
             }
 
             level_data.loaded_entities.push_back(new_entity.id);
