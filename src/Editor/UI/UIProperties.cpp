@@ -160,6 +160,8 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     else if(attribute.id == ANIMATION_ATTRIBUTE)
     {
         const Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, all_components);
+        if(!sprite_component)
+            return false;
 
         std::string sprite_file;
         const bool success = FindAttribute(SPRITE_ATTRIBUTE, sprite_component->properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
