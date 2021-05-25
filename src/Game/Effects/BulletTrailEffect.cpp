@@ -15,25 +15,25 @@ using namespace game;
 
 namespace
 {
-    void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
+    void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
     {
         constexpr int life = 300;
 
         const float radians = mono::Random(0.0f, math::PI() * 2.0f);
         const math::Vector offset = math::VectorFromAngle(radians) * 0.1f;
 
-        pool.position[index] = position + offset;
-        pool.velocity[index] = math::ZeroVec;
-        pool.rotation[index] = 0.0f;
-        pool.angular_velocity[index] = 0.0f;
-        pool.color[index] = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
-        pool.start_color[index] = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
-        pool.end_color[index] = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 0.1f);
-        pool.size[index] = 10.0f;
-        pool.start_size[index] = 10.0f;
-        pool.end_size[index] = 10.0f;
-        pool.start_life[index] = life;
-        pool.life[index] = life;
+        component_view.position = position + offset;
+        component_view.velocity = math::ZeroVec;
+        component_view.rotation = 0.0f;
+        component_view.angular_velocity = 0.0f;
+        component_view.color = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
+        component_view.start_color = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 1.0f);
+        component_view.end_color = mono::Color::RGBA(0.5f, 0.5f, 0.5f, 0.1f);
+        component_view.size = 10.0f;
+        component_view.start_size = 10.0f;
+        component_view.end_size = 10.0f;
+        component_view.start_life = life;
+        component_view.life = life;
     }
 }
 
@@ -62,9 +62,9 @@ BulletTrailEffect::~BulletTrailEffect()
 
 void BulletTrailEffect::AttachEmitterToBullet(uint32_t entity_id)
 {
-    const auto generator_proxy = [this, entity_id](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
+    const auto generator_proxy = [this, entity_id](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
         const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
-        TrailGenerator(math::GetPosition(world_transform), pool, index);
+        TrailGenerator(math::GetPosition(world_transform), component_view);
     };
 
     mono::ParticleEmitterComponent* emitter = m_particle_system->AttachEmitter(

@@ -14,7 +14,7 @@ using namespace game;
 
 namespace
 {
-    void Generator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, const math::Vector& viewport_size)
+    void Generator(const math::Vector& position, mono::ParticlePoolComponentView& component_view, const math::Vector& viewport_size)
     {
         const float half_height = viewport_size.y / 2.0f;
 
@@ -29,18 +29,19 @@ namespace
 
         const int life = mono::RandomInt(0, 500) + 5000;
 
-        pool.position[index] = position + math::Vector(x, y);
-        pool.velocity[index] = math::Vector(velocity_x, velocity_y);
-        //pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
-        //pool.angular_velocity[index] = angular_velocity;
-        pool.start_color[index] = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 1.0f);
-        pool.end_color[index] = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
-        pool.start_size[index] = mono::Random(58.0f, 76.0f);
-        pool.end_size[index] = mono::Random(2.0f, 6.0f);
-        pool.start_life[index] = life;
-        pool.life[index] = life;
+        component_view.position = position + math::Vector(x, y);
+        component_view.velocity = math::Vector(velocity_x, velocity_y);
+        //pool.rotation = mono::Random(0.0f, math::PI() * 2.0f);
+        //pool.angular_velocity = angular_velocity;
+        component_view.start_color = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 1.0f);
+        component_view.end_color = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
+        component_view.start_size = mono::Random(58.0f, 76.0f);
+        component_view.end_size = mono::Random(2.0f, 6.0f);
+        component_view.start_life = life;
+        component_view.life = life;
     }
 
+/*
     void SparklesUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
     {
         const float delta_seconds = float(delta_ms) / 1000.0f;
@@ -55,6 +56,7 @@ namespace
             pool.rotation[index] += pool.angular_velocity[index] * delta_seconds;
         }
     }
+    */
 }
 
 ScreenSparkles::ScreenSparkles(
@@ -69,15 +71,15 @@ ScreenSparkles::ScreenSparkles(
     const float y = camera_position.y;
 
     mono::Entity sparkles_entity = m_entity_system->CreateEntity("screensparkles", {});
-    particle_system->AllocatePool(sparkles_entity.id, 500, SparklesUpdater);
+    particle_system->AllocatePool(sparkles_entity.id, 500, mono::DefaultUpdater);
 
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/x4.png");
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/heart.png");
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
     particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
-    const auto generator_proxy = [viewport_size](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
-        Generator(position, pool, index, viewport_size);
+    const auto generator_proxy = [viewport_size](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
+        Generator(position, component_view, viewport_size);
     };
     particle_system->AttachEmitter(sparkles_entity.id, math::Vector(x, y), -1.0f, 100.0f, mono::EmitterType::CONTINOUS, generator_proxy);
 

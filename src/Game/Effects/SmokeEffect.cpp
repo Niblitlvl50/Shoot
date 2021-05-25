@@ -14,9 +14,11 @@ using namespace game;
 
 namespace
 {
-    void SmokeGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
+    void SmokeGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
     {
-        const bool go_left = (index % 2) == 0;
+        static bool go_left = false;
+        go_left = !go_left;
+
         const math::Vector velocity = go_left ? math::Vector(-1.0f, 0.0f) : math::Vector(1.0f, 0.0f);
 
         const float x_variation = mono::Random(-0.2f, 0.2f);
@@ -26,17 +28,17 @@ namespace
         const float end_size = mono::Random(64.0f, 80.0f);
         const int life = mono::RandomInt(200, 400);
 
-        pool.position[index] = position + math::Vector(x_variation, y_variation);
-        pool.rotation[index] = 0.0f;
-        pool.velocity[index] = velocity * velocity_variation;
-        //pool.angular_velocity[index] = mono::Random(-1.1f, 1.1f);
-        pool.start_color[index] = mono::Color::OFF_WHITE;
-        pool.end_color[index] = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f);
-        pool.start_size[index] = size;
-        pool.end_size[index] = end_size;
-        pool.size[index] = size;
-        pool.start_life[index] = life;
-        pool.life[index] = life;
+        component_view.position = position + math::Vector(x_variation, y_variation);
+        component_view.rotation = 0.0f;
+        component_view.velocity = velocity * velocity_variation;
+        //component_view.angular_velocity = mono::Random(-1.1f, 1.1f);
+        component_view.start_color = mono::Color::OFF_WHITE;
+        component_view.end_color = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f);
+        component_view.start_size = size;
+        component_view.end_size = end_size;
+        component_view.size = size;
+        component_view.start_life = life;
+        component_view.life = life;
     }
 
     void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)

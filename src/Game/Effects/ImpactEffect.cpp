@@ -14,7 +14,7 @@ using namespace game;
 
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, float direction)
+    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view, float direction)
     {
         constexpr float ten_degrees = math::ToRadians(45.0f);
 
@@ -25,22 +25,22 @@ namespace
         const float velocity_variation = mono::Random(10.0f, 16.0f);
         const float size = mono::Random(12.0f, 16.0f);
 
-        pool.position[index] = position;
-        pool.velocity[index] = velocity * velocity_variation;
+        component_view.position = position;
+        component_view.velocity = velocity * velocity_variation;
 
-        pool.rotation[index] = 0.0f;
-        pool.angular_velocity[index] = 10.0f;
+        component_view.rotation = 0.0f;
+        component_view.angular_velocity = 10.0f;
 
-        pool.color[index] = mono::Color::BLACK;
-        pool.start_color[index] = mono::Color::BLACK;
-        pool.end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f);
+        component_view.color = mono::Color::BLACK;
+        component_view.start_color = mono::Color::BLACK;
+        component_view.end_color = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f);
 
-        pool.size[index] = size;
-        pool.start_size[index] = size;
-        pool.end_size[index] = size;
+        component_view.size = size;
+        component_view.start_size = size;
+        component_view.end_size = size;
 
-        pool.start_life[index] = life;
-        pool.life[index] = life;
+        component_view.start_life = life;
+        component_view.life = life;
     }
 
     void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
@@ -81,8 +81,8 @@ ImpactEffect::~ImpactEffect()
 
 void ImpactEffect::EmittAt(const math::Vector& position, float direction)
 {
-    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
-        GibsGenerator(position, pool, index, direction);
+    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
+        GibsGenerator(position, component_view, direction);
     };
 
     m_particle_system->AttachEmitter(

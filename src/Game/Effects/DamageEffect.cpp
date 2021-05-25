@@ -14,25 +14,27 @@ using namespace game;
 
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index)
+    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
     {
         const float x = mono::Random(-4.0f, 4.0f);
         const float y = mono::Random(-4.0f, 4.0f);
         const float life = mono::Random(0.0f, 250.0f);
 
-        pool.position[index] = position;
-        pool.velocity[index] = math::Vector(x, y);
-        pool.rotation[index] = 0.0f;
-        pool.color[index] = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        pool.start_color[index] = pool.color[index];
-        pool.end_color[index] = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.5f);
+        component_view.position = position;
+        component_view.velocity = math::Vector(x, y);
 
-        pool.size[index] = 16.0f;
-        pool.start_size[index] = 16.0f;
-        pool.end_size[index] = 16.0f;
+        component_view.rotation = 0.0f;
 
-        pool.start_life[index] = 100 + life;
-        pool.life[index] = 100 + life;
+        component_view.color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        component_view.start_color = component_view.color;
+        component_view.end_color = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.5f);
+
+        component_view.size = 16.0f;
+        component_view.start_size = 16.0f;
+        component_view.end_size = 16.0f;
+
+        component_view.start_life = 100 + life;
+        component_view.life = 100 + life;
     }
 }
 

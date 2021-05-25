@@ -14,7 +14,7 @@ using namespace game;
 
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index, float direction)
+    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view, float direction)
     {
         constexpr float ten_degrees = math::ToRadians(20.0f);
 
@@ -25,16 +25,16 @@ namespace
         const float velocity_variation = mono::Random(10.0f, 16.0f);
         const float size = mono::Random(2.0f, 6.0f);
 
-        pool.position[index] = position;
-        pool.rotation[index] = 0.0f;
-        pool.velocity[index] = velocity * velocity_variation;
-        pool.start_color[index] = mono::Color::RGBA(1.0f, 0.8f, 0.0f, 1.0f);
-        pool.end_color[index] = mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f);
-        pool.start_size[index] = size;
-        pool.end_size[index] = size;
-        pool.size[index] = size;
-        pool.start_life[index] = life;
-        pool.life[index] = life;
+        component_view.position = position;
+        component_view.rotation = 0.0f;
+        component_view.velocity = velocity * velocity_variation;
+        component_view.start_color = mono::Color::RGBA(1.0f, 0.8f, 0.0f, 1.0f);
+        component_view.end_color = mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f);
+        component_view.start_size = size;
+        component_view.end_size = size;
+        component_view.size = size;
+        component_view.start_life = life;
+        component_view.life = life;
     }
 
     void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
@@ -81,8 +81,8 @@ MuzzleFlash::~MuzzleFlash()
 
 void MuzzleFlash::EmittAt(const math::Vector& position, float direction)
 {
-    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponent& pool, size_t index) {
-        GibsGenerator(position, pool, index, direction);
+    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
+        GibsGenerator(position, component_view, direction);
     };
 
     m_particle_system->AttachEmitter(
