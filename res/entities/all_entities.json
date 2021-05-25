@@ -1,5 +1,6 @@
 {
     "all_entities": [
+        "res/entities/Unknown.entity",
         "res/entities/caco_bullet.entity",
         "res/entities/caco_explosion.entity",
         "res/entities/cacodemon.entity",

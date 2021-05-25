@@ -15,8 +15,8 @@
             "h": 16,
             "name": "flak_cannon",
             "w": 36,
-            "x": 671,
-            "y": 366
+            "x": 375,
+            "y": 364
         }
     ],
     "frames_offsets": [

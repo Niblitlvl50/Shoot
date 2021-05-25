@@ -33,35 +33,35 @@
             "h": 60,
             "name": "doomguy_grin_1",
             "w": 48,
-            "x": 965,
-            "y": 268
+            "x": 320,
+            "y": 274
         },
         {
             "h": 60,
             "name": "doomguy_hurt_1",
             "w": 48,
-            "x": 402,
+            "x": 268,
             "y": 274
         },
         {
             "h": 58,
             "name": "doomguy_look_around_1",
             "w": 48,
-            "x": 630,
+            "x": 479,
             "y": 274
         },
         {
             "h": 58,
             "name": "doomguy_look_around_2",
             "w": 48,
-            "x": 526,
+            "x": 531,
             "y": 274
         },
         {
             "h": 58,
             "name": "doomguy_look_around_3",
             "w": 48,
-            "x": 578,
+            "x": 583,
             "y": 274
         }
     ],

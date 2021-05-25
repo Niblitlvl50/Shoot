@@ -17,22 +17,22 @@
             "h": 48,
             "name": "caco_explosion_default_1",
             "w": 45,
-            "x": 1906,
-            "y": 311
+            "x": 1738,
+            "y": 310
         },
         {
             "h": 42,
             "name": "caco_explosion_default_2",
             "w": 50,
-            "x": 39,
-            "y": 324
+            "x": 1156,
+            "y": 323
         },
         {
             "h": 47,
             "name": "caco_explosion_default_3",
             "w": 53,
-            "x": 1738,
-            "y": 313
+            "x": 1904,
+            "y": 310
         }
     ],
     "frames_offsets": [

@@ -13,6 +13,7 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Hash.h"
+#include "Particle/ParticleSystem.h"
 
 #include "Hud/GameOverScreen.h"
 #include "Hud/PlayerUIElement.h"
@@ -32,6 +33,7 @@
 #include "DamageSystem.h"
 
 #include "World/FogOverlay.h"
+#include "Effects/AngelDust.h"
 
 namespace
 {
@@ -62,6 +64,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     physics_system->GetSpace()->SetDamping(0.01f);
 
@@ -94,11 +97,13 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     
     m_gameover_screen = std::make_unique<GameOverScreen>(game::g_players[0], m_event_handler);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
-    m_fog = std::make_unique<FogOverlay>();
+    //m_fog = std::make_unique<FogOverlay>();
+
+    m_angeldust_effect = std::make_unique<AngelDust>(particle_system, entity_system, math::Quad(-50.0f, -50.0f, 50.0f, 50.0f));
 
     AddUpdatableDrawable(m_gameover_screen.get(), LayerId::UI);
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
-    AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
+    //AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
@@ -122,7 +127,7 @@ int SystemTestZone::OnUnload()
 
     RemoveUpdatableDrawable(m_gameover_screen.get());
     RemoveUpdatableDrawable(m_player_ui.get());
-    RemoveUpdatableDrawable(m_fog.get());
+    //RemoveUpdatableDrawable(m_fog.get());
 
     return m_next_zone;
 }

@@ -95,6 +95,7 @@
         "res/sprites/screen_right.sprite",
         "res/sprites/screen_suprised.sprite",
         "res/sprites/shuttle.sprite",
+        "res/sprites/signpost.sprite",
         "res/sprites/small_explosion.sprite",
         "res/sprites/small_fire.sprite",
         "res/sprites/spawn_point.sprite",
