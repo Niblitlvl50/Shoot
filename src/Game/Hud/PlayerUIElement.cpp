@@ -110,15 +110,16 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     , m_timer(0)
     , m_current_score(m_player_info.score)
 {
-    m_position = m_offscreen_position = math::Vector(-250.0f, 0.0f);
+    //m_position = m_offscreen_position = math::Vector(-250.0f, 0.0f);
+    m_position = m_offscreen_position = math::Vector(0.0f, -5.0f);
     m_screen_position = math::Vector(0.0f, 0.0f);
 
     m_background = new UISquareElement(4.0f, 1.0f, mono::Color::OFF_WHITE, mono::Color::GRAY, 1.0f);
     m_background->SetPosition(0.25f, 0.25f);
 
     m_mugshot_sprite = new UISpriteElement("res/sprites/doomguy.sprite");
-    m_mugshot_sprite->SetPosition(0.75f, 0.75f);
-    m_mugshot_sprite->SetScale(0.75f);
+    m_mugshot_sprite->SetPosition(m_width / 2.0f, 0.75f);
+    m_mugshot_sprite->SetScale(0.5f);
     m_mugshot_sprite->GetSprite(0)->SetAnimation(1);
 
     const std::vector<std::string> sprite_files = {
@@ -130,18 +131,15 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
         "res/sprites/bolter.sprite",
     };
     m_weapon_sprites = new UISpriteElement(sprite_files);
-    m_weapon_sprites->SetPosition(2.0f, 0.75f);
+    m_weapon_sprites->SetPosition(9.0f, 0.75f);
 
-    m_ammo_text = new UITextElement(
-        shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+    m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_ammo_text->SetPosition(3.25f, 0.5f);
 
-    m_weapon_state_text = new UITextElement(
-        shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+    m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_weapon_state_text->SetPosition(3.25f, 1.0f);
 
-    m_score_text = new UITextElement(
-        shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+    m_score_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_score_text->SetPosition(8.0f, 0.5f);
 
     ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
@@ -149,15 +147,14 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     weapon_reload_line->SetScale(math::Vector(3.0f, 1.0f));
 
     m_hearts = new HeartContainer(player_info);
-    m_hearts->SetPosition(0.75f, m_height - 0.75f);
-    m_hearts->SetScale(1.5f);
+    m_hearts->SetPosition(0.5f, 0.5f); //m_height - 0.5f);
 
-    AddChild(m_background);
+    //AddChild(m_background);
     AddChild(m_mugshot_sprite);
     AddChild(m_weapon_sprites);
     AddChild(m_ammo_text);
-    AddChild(m_weapon_state_text);
-    AddChild(m_score_text);
+    //AddChild(m_weapon_state_text);
+    //AddChild(m_score_text);
     AddChild(weapon_reload_line);
     AddChild(m_hearts);
 }
@@ -187,11 +184,13 @@ void PlayerUIElement::Update(const mono::UpdateContext& update_context)
     if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)
     {
         m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+        m_position.y = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
         m_timer += float(update_context.delta_ms) / 1000.0f;
     }
     else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
     {
         m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+        m_position.y = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
         m_timer -= float(update_context.delta_ms) / 1000.0f;
     }
 }

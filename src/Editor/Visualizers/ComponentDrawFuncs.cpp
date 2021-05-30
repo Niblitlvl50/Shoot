@@ -55,14 +55,12 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
     FindAttribute(POSITION_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
     FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
-    if(is_sensor)
-    {
-        mono::Color::RGBA sensor_color = mono::Color::BLUE;
-        sensor_color.alpha = 0.25f;
-        renderer.DrawFilledCircle(offset, math::Vector(radius_value, radius_value), 20, sensor_color);
-    }
+    radius_value = std::max(radius_value, 0.0001f);
 
-    renderer.DrawCircle(offset, std::max(radius_value, 0.0001f), 20, 1.0f, mono::Color::MAGENTA);
+    mono::Color::RGBA color = is_sensor ? mono::Color::BLUE : mono::Color::MAGENTA;
+    color.alpha = 0.5f;
+    
+    renderer.DrawFilledCircle(offset, math::Vector(radius_value, radius_value), 20, color);
 }
 
 void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
@@ -81,13 +79,10 @@ void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<At
     box.mA = offset - half_size;
     box.mB = offset + half_size;
 
-    if(is_sensor)
-    {
-        mono::Color::RGBA sensor_color = mono::Color::BLUE;
-        sensor_color.alpha = 0.25f;
-        renderer.DrawFilledQuad(box, sensor_color);
-    }
-    renderer.DrawQuad(box, mono::Color::MAGENTA, 1.0f);
+    mono::Color::RGBA color = is_sensor ? mono::Color::BLUE : mono::Color::MAGENTA;
+    color.alpha = 0.5f;
+
+    renderer.DrawFilledQuad(box, color);
 }
 
 void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
@@ -116,8 +111,7 @@ void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vecto
 void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
 {
     std::vector<math::Vector> polygon;
-    const bool found_polygon =
-        FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
+    const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
     if(!found_polygon)
         return;
 
@@ -215,8 +209,7 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
 void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
 {
     std::vector<math::Vector> vertices;
-    const bool found_polygon =
-        FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
+    const bool found_polygon = FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
     if(!found_polygon)
         return;
 
