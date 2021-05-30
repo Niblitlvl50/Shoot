@@ -33,30 +33,15 @@ namespace
         component_view.velocity = math::Vector(velocity_x, velocity_y);
         //pool.rotation = mono::Random(0.0f, math::PI() * 2.0f);
         //pool.angular_velocity = angular_velocity;
-        component_view.start_color = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 1.0f);
-        component_view.end_color = mono::Color::RGBA(0.0f, 1.0f, 0.0f, 1.0f);
+        component_view.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 1.0f, 1.0f },
+            { mono::Color::RGBA(1.0f, 1.0f, 0.0f), mono::Color::RGBA(0.0f, 1.0f, 0.0f), mono::Color::RGBA() }
+        );
         component_view.start_size = mono::Random(58.0f, 76.0f);
         component_view.end_size = mono::Random(2.0f, 6.0f);
         component_view.start_life = life;
         component_view.life = life;
     }
-
-/*
-    void SparklesUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
-    {
-        const float delta_seconds = float(delta_ms) / 1000.0f;
-
-        for(size_t index = 0; index < count; ++index)
-        {
-            const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
-
-            pool.position[index] += pool.velocity[index] * delta_seconds;
-            pool.color[index] = mono::Color::Lerp(pool.start_color[index], pool.end_color[index], t);
-            pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
-            pool.rotation[index] += pool.angular_velocity[index] * delta_seconds;
-        }
-    }
-    */
 }
 
 ScreenSparkles::ScreenSparkles(

@@ -26,8 +26,10 @@ namespace
         component_view.rotation = 0.0f;
 
         component_view.color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
-        component_view.start_color = component_view.color;
-        component_view.end_color = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.5f);
+        component_view.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 1.0f, 1.0f},
+            { component_view.color, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.5f), mono::Color::RGBA() }
+        );
 
         component_view.size = 16.0f;
         component_view.start_size = 16.0f;

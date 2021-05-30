@@ -31,9 +31,10 @@ namespace
         component_view.rotation = 0.0f;
         component_view.angular_velocity = 10.0f;
 
-        component_view.color = mono::Color::BLACK;
-        component_view.start_color = mono::Color::BLACK;
-        component_view.end_color = mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f);
+        component_view.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 1.0f, 1.0f },
+            { mono::Color::BLACK, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f), mono::Color::RGBA() }
+        );
 
         component_view.size = size;
         component_view.start_size = size;
@@ -42,22 +43,6 @@ namespace
         component_view.start_life = life;
         component_view.life = life;
     }
-
-    void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
-    {
-        const float float_delta = float(delta_ms) / 1000.0f;
-
-        for(size_t index = 0; index < count; ++index)
-        {
-            const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
-
-            pool.velocity[index] *= 0.90;
-            pool.position[index] += pool.velocity[index] * float_delta;
-            pool.rotation[index] += pool.angular_velocity[index] * float_delta;
-            pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
-            pool.color[index] = mono::Color::Lerp(pool.start_color[index], pool.end_color[index], t);
-        }
-    }    
 }
 
 ImpactEffect::ImpactEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
@@ -65,7 +50,7 @@ ImpactEffect::ImpactEffect(mono::ParticleSystem* particle_system, mono::IEntityM
     , m_entity_system(entity_system)
 {
     mono::Entity particle_entity = m_entity_system->CreateEntity("impacteffect", {});
-    particle_system->AllocatePool(particle_entity.id, 50, GibsUpdater);
+    particle_system->AllocatePool(particle_entity.id, 50, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
     particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);

@@ -23,9 +23,11 @@ namespace
 
         component_view.position = position + math::Vector(x, y);
         component_view.rotation = 0.0f;
-        component_view.color = mono::Color::RGBA(1.0f, 0.6f, 0.2f, 1.0f);
-        component_view.start_color = component_view.color;
-        component_view.end_color = mono::Color::RGBA(0.5f, 0.3f, 0.1f, 0.0f);
+
+        component_view.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 1.0f, 1.0f },
+            { mono::Color::RGBA(1.0f, 0.6f, 0.2f, 1.0f), mono::Color::RGBA(0.5f, 0.3f, 0.1f, 0.0f), mono::Color::RGBA() }
+        );
 
         const float size = mono::Random(48.0f, 96.0f);
         component_view.size = size;

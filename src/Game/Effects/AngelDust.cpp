@@ -28,10 +28,14 @@ namespace
         pool.velocity = math::Vector(velocity_x, velocity_y);
         //pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
         //pool.angular_velocity[index] = angular_velocity;
-        pool.start_color = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.25f);
-        pool.end_color = mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.0f);
-        pool.start_size = 32.0f;
-        pool.end_size = 4.0f;
+
+        pool.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 0.5f, 1.0f },
+            { mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.0f), mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.25f), mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.0f) }
+        );
+
+        pool.start_size = 64.0f;
+        pool.end_size = 16.0f;
         pool.start_life = life;
         pool.life = life;
     }
@@ -44,7 +48,7 @@ AngelDust::AngelDust(mono::ParticleSystem* particle_system, mono::IEntityManager
     mono::Entity sparkles_entity = m_entity_system->CreateEntity("angeldust", {});
     particle_system->AllocatePool(sparkles_entity.id, 1000, mono::DefaultUpdater);
 
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
+    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
     particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
 
     const auto generator_proxy = [area](const math::Vector& position, mono::ParticlePoolComponentView& pool) {

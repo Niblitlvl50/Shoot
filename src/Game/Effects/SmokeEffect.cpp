@@ -32,8 +32,10 @@ namespace
         component_view.rotation = 0.0f;
         component_view.velocity = velocity * velocity_variation;
         //component_view.angular_velocity = mono::Random(-1.1f, 1.1f);
-        component_view.start_color = mono::Color::OFF_WHITE;
-        component_view.end_color = mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f);
+        component_view.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 1.0f, 1.0f },
+            { mono::Color::OFF_WHITE, mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f), mono::Color::RGBA() }
+        );
         component_view.start_size = size;
         component_view.end_size = end_size;
         component_view.size = size;
@@ -48,20 +50,22 @@ namespace
         for(size_t index = 0; index < count; ++index)
         {
             const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
-            const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
-            const float duration = float(pool.start_life[index]);
+            //const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
+            //const float duration = float(pool.start_life[index]);
 
             pool.velocity[index] *= 0.90;
             pool.position[index] += pool.velocity[index] * delta_seconds;
             //pool.rotation[index] += pool.angular_velocity[index] * delta_seconds;
             pool.size[index] = (1.0f - t) * pool.start_size[index] + t * pool.end_size[index];
 
-            const float alpha1 = pool.start_color[index].alpha;
-            const float alpha2 = pool.end_color[index].alpha;
-            const float delta_alpha = alpha2 - alpha1;
+            pool.color[index] = mono::Color::ColorFromGradient(pool.gradient[index], t);
 
-            pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-            pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, delta_alpha);
+            //const float alpha1 = pool.start_color[index].alpha;
+            //const float alpha2 = pool.end_color[index].alpha;
+            //const float delta_alpha = alpha2 - alpha1;
+
+            //pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
+            //pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, delta_alpha);
         }
     }
 }
