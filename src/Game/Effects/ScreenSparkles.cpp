@@ -21,13 +21,13 @@ namespace
         const float x = 0.0f;
         const float y = mono::Random(-half_height, half_height);
 
-        const float velocity_x = mono::Random(-5.0f, -3.0f);
-        const float velocity_y = mono::Random(-1.0f, 1.0f);
+        const float velocity_x = mono::Random(-100.0f, -60.0f);
+        const float velocity_y = mono::Random(-20.0f, 20.0f);
 
         //const float sign = mono::RandomInt(0, 1) == 0 ? 1.0f : -1.0f;
         //const float angular_velocity = mono::Random(0.3f, 1.0f) * sign;
 
-        const int life = mono::RandomInt(0, 500) + 5000;
+        const int life = mono::RandomInt(0, 500) + 10000;
 
         component_view.position = position + math::Vector(x, y);
         component_view.velocity = math::Vector(velocity_x, velocity_y);
@@ -37,7 +37,7 @@ namespace
             { 0.0f, 1.0f, 1.0f },
             { mono::Color::RGBA(1.0f, 1.0f, 0.0f), mono::Color::RGBA(0.0f, 1.0f, 0.0f), mono::Color::RGBA() }
         );
-        component_view.start_size = mono::Random(58.0f, 76.0f);
+        component_view.start_size = mono::Random(158.0f, 176.0f);
         component_view.end_size = mono::Random(2.0f, 6.0f);
         component_view.start_life = life;
         component_view.life = life;
@@ -56,7 +56,7 @@ ScreenSparkles::ScreenSparkles(
     const float y = camera_position.y;
 
     mono::Entity sparkles_entity = m_entity_system->CreateEntity("screensparkles", {});
-    particle_system->AllocatePool(sparkles_entity.id, 500, mono::DefaultUpdater);
+    particle_system->AllocatePool(sparkles_entity.id, 1000, mono::DefaultUpdater);
 
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/x4.png");
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/heart.png");

@@ -6,17 +6,20 @@ namespace shared
     enum InteractionType : int
     {
         BUTTON,
-        NPC
+        NPC,
+        SIGN,
     };
 
     constexpr const char* interaction_type_strings[] = {
         "Button",
         "NPC",
+        "Sign"
     };
 
     constexpr const char* interaction_type_verb[] = {
         "Push",
         "Talk",
+        "Read",
     };
 
     inline const char* InteractionTypeToString(InteractionType interaction_type)

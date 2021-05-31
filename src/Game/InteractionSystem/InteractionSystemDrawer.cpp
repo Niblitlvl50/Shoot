@@ -31,6 +31,7 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 {
     m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/meteorite.sprite"));
     m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite"));
 
     for(size_t index = 0; index < m_sprites.size(); ++index)
     {
