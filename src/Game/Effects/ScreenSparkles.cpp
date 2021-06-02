@@ -16,9 +16,11 @@ namespace
 {
     void Generator(const math::Vector& position, mono::ParticlePoolComponentView& component_view, const math::Vector& viewport_size)
     {
+        const float half_width = viewport_size.x / 2.0f;
         const float half_height = viewport_size.y / 2.0f;
 
-        const float x = 0.0f;
+        //const float x = 0.0f;
+        const float x = mono::Random(-half_width, half_width);
         const float y = mono::Random(-half_height, half_height);
 
         const float velocity_x = mono::Random(-100.0f, -60.0f);
@@ -33,9 +35,12 @@ namespace
         component_view.velocity = math::Vector(velocity_x, velocity_y);
         //pool.rotation = mono::Random(0.0f, math::PI() * 2.0f);
         //pool.angular_velocity = angular_velocity;
-        component_view.gradient = mono::Color::MakeGradient<3>(
-            { 0.0f, 1.0f, 1.0f },
-            { mono::Color::RGBA(1.0f, 1.0f, 0.0f), mono::Color::RGBA(0.0f, 1.0f, 0.0f), mono::Color::RGBA() }
+
+        using namespace mono::Color;
+
+        component_view.gradient = MakeGradient<3>(
+            { 0.0f, 0.5f, 1.0f },
+            { RGBA(1.0f, 1.0f, 0.0f, 0.0f), RGBA(0.0f, 1.0f, 0.0f, 1.0f), RGBA(0.0f, 1.0f, 0.0f, 0.0f) }
         );
         component_view.start_size = mono::Random(158.0f, 176.0f);
         component_view.end_size = mono::Random(2.0f, 6.0f);

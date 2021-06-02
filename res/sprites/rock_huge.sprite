@@ -12,11 +12,11 @@
     "category": "vegetation",
     "frames": [
         {
-            "h": 318,
+            "h": 80,
             "name": "rock_huge",
-            "w": 262,
-            "x": 2,
-            "y": 2
+            "w": 66,
+            "x": 1193,
+            "y": 142
         }
     ],
     "frames_offsets": [

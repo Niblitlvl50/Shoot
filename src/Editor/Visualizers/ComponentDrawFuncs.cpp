@@ -45,7 +45,7 @@ namespace
     }
 }
 
-void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float radius_value = 1.0f;
     math::Vector offset;
@@ -63,7 +63,7 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawFilledCircle(offset, math::Vector(radius_value, radius_value), 20, color);
 }
 
-void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     math::Vector width_height;
     math::Vector offset;
@@ -85,7 +85,7 @@ void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<At
     renderer.DrawFilledQuad(box, color);
 }
 
-void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     math::Vector start;
     math::Vector end;
@@ -108,7 +108,7 @@ void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vecto
     renderer.DrawLines(line, mono::Color::MAGENTA, std::max(radius, 1.0f));
 }
 
-void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::vector<math::Vector> polygon;
     const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -123,7 +123,7 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
         renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
@@ -131,14 +131,14 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
     renderer.DrawLines({ math::ZeroVec, math::Vector(1.0f, 0.0f) }, mono::Color::BLUE, 3.0f);
 }
 
-void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     math::Vector width_height;
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
@@ -151,21 +151,21 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
     renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawDeathTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawDeathTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     std::string completed_name;
@@ -179,7 +179,7 @@ void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const
     renderer.RenderText(shared::FontId::PIXELETTE_TINY, output.c_str(), mono::Color::ORANGE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     math::Vector delta_position;
     FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
@@ -191,7 +191,7 @@ void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vec
     renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
 
-void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float delta_rotation;
     FindAttribute(ROTATION_ATTRIBUTE, component_properties, delta_rotation, FallbackMode::SET_DEFAULT);
@@ -206,7 +206,22 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
 }
 
-void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties)
+void editor::DrawSpriteDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    float sort_offset = 0.0f;
+    FindAttribute(SPRITE_SORT_OFFSET_ATTRIBUTE, component_properties, sort_offset, FallbackMode::SET_DEFAULT);
+
+    const float half_width = math::Width(entity_bb) / 2.0f;
+    const float bottom = math::Bottom(entity_bb);
+
+    const std::vector<math::Vector> line = {
+        { -half_width, bottom + sort_offset },
+        { +half_width, bottom + sort_offset }
+    };
+    renderer.DrawLines(line, mono::Color::CYAN, 1.0f);
+}
+
+void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::vector<math::Vector> vertices;
     const bool found_polygon = FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);

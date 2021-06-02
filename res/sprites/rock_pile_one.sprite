@@ -12,11 +12,11 @@
     "category": "vegetation",
     "frames": [
         {
-            "h": 53,
+            "h": 51,
             "name": "rock_pile_one",
-            "w": 58,
-            "x": 1738,
-            "y": 310
+            "w": 55,
+            "x": 1557,
+            "y": 237
         }
     ],
     "frames_offsets": [

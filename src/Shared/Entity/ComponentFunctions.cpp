@@ -84,6 +84,7 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     FindAttribute(SHADOW_OFFSET_ATTRIBUTE, properties, sprite_args.shadow_offset, FallbackMode::SET_DEFAULT);
     FindAttribute(SHADOW_SIZE_ATTRIBUTE, properties, sprite_args.shadow_size, FallbackMode::SET_DEFAULT);
     FindAttribute(SPRITE_LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
+    FindAttribute(SPRITE_SORT_OFFSET_ATTRIBUTE, properties, sprite_args.sort_offset, FallbackMode::SET_DEFAULT);
     FindAttribute(RANDOM_START_FRAME_ATTRIBUTE, properties, sprite_args.random_start_frame, FallbackMode::SET_DEFAULT);
 
     char sprite_path[1024] = { 0 };

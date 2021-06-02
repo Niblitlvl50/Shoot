@@ -12,11 +12,11 @@
     "category": "vegetation",
     "frames": [
         {
-            "h": 18,
+            "h": 17,
             "name": "rock_small_two",
-            "w": 22,
-            "x": 508,
-            "y": 365
+            "w": 20,
+            "x": 1030,
+            "y": 317
         }
     ],
     "frames_offsets": [

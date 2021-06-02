@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "Math/MathFwd.h"
 #include "Rendering/IDrawable.h"
 
 #include <vector>
@@ -13,7 +14,7 @@ namespace editor
 {
     class IObjectProxy;
 
-    using ComponentDrawFunc = void(*)(mono::IRenderer& renderer, const std::vector<Attribute>& component_attributes);
+    using ComponentDrawFunc = void(*)(mono::IRenderer& renderer, const std::vector<Attribute>& component_attributes, const math::Quad& entity_bb);
     using ComponentDrawMap = std::unordered_map<uint32_t, ComponentDrawFunc>;
 
     class ComponentDetailVisualizer : public mono::IDrawable

@@ -270,6 +270,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[COUNTER_TRIGGER_COMPONENT] = editor::DrawCounterTriggerComponentDetails;
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
+    draw_funcs[SPRITE_COMPONENT] = editor::DrawSpriteDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
 
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);

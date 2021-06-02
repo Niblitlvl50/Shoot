@@ -55,7 +55,7 @@ const std::array<DefaultAttribute, 62> default_attributes = {{
     { "sprite_file",        Variant(std::string()) },
     { "animation",          Variant(0) },
     { "unused",             Variant(false) },
-    { "unused",             Variant(false) },
+    { "sprite_soft_offset", Variant(0.0f) },
     { "sprite_layer",       Variant(0) },
     { "sprite_properties",  Variant(0u) },
     { "behaviour",          Variant(0) },
@@ -125,7 +125,7 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[26].has
 extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[27].hash;
 extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[28].hash;
 extern const uint32_t UNUSED_3                      = default_attributes[29].hash;
-extern const uint32_t UNUSED_4                      = default_attributes[30].hash;
+extern const uint32_t SPRITE_SORT_OFFSET_ATTRIBUTE  = default_attributes[30].hash;
 extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[31].hash;
 extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].hash;
 
@@ -277,7 +277,7 @@ const ComponentArray default_components = {
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
-    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, SPRITE_SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),

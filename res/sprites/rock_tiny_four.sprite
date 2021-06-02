@@ -14,9 +14,9 @@
         {
             "h": 12,
             "name": "rock_tiny_four",
-            "w": 15,
-            "x": 276,
-            "y": 388
+            "w": 12,
+            "x": 471,
+            "y": 334
         }
     ],
     "frames_offsets": [
