@@ -55,7 +55,7 @@ const std::array<DefaultAttribute, 62> default_attributes = {{
     { "sprite_file",        Variant(std::string()) },
     { "animation",          Variant(0) },
     { "unused",             Variant(false) },
-    { "sprite_soft_offset", Variant(0.0f) },
+    { "sprite_sort_offset", Variant(0.0f) },
     { "sprite_layer",       Variant(0) },
     { "sprite_properties",  Variant(0u) },
     { "behaviour",          Variant(0) },
