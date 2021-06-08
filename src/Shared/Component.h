@@ -163,6 +163,7 @@ extern const uint32_t INTERACTION_COMPONENT;
 extern const uint32_t INTERACTION_SWITCH_COMPONENT;
 extern const uint32_t PATH_COMPONENT;
 extern const uint32_t ROAD_COMPONENT;
+extern const uint32_t LIGHT_COMPONENT;
 
 struct Component
 {
@@ -173,7 +174,7 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 27>;
+using ComponentArray = std::array<Component, 28>;
 extern const ComponentArray default_components;
 
 const char* ComponentNameFromHash(uint32_t hash);

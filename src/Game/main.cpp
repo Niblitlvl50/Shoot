@@ -13,6 +13,7 @@
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "Player/PlayerInfo.h"
@@ -154,6 +155,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::RoadSystem>(max_entities);
+        system_context.CreateSystem<mono::LightSystem>(max_entities);
 
         game::DamageSystem* damage_system =
             system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);

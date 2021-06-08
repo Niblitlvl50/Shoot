@@ -195,6 +195,8 @@ extern const uint32_t INTERACTION_COMPONENT         = mono::Hash("interaction");
 extern const uint32_t INTERACTION_SWITCH_COMPONENT  = mono::Hash("interaction_switch");
 extern const uint32_t PATH_COMPONENT                = mono::Hash("path");
 extern const uint32_t ROAD_COMPONENT                = mono::Hash("road");
+extern const uint32_t LIGHT_COMPONENT               = mono::Hash("light");
+
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -254,6 +256,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "path";
     else if(hash == ROAD_COMPONENT)
         return "road";
+    else if(hash == LIGHT_COMPONENT)
+        return "light";
 
     return "Unknown";
 }
@@ -280,6 +284,7 @@ const ComponentArray default_components = {
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, SPRITE_SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
+    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),

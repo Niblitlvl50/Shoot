@@ -6,6 +6,7 @@
 #include "Paths/PathSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "RoadSystem/RoadSystem.h"
 
@@ -183,6 +184,32 @@ bool UpdateRoad(mono::Entity* entity, const std::vector<Attribute>& properties, 
     return true;
 }
 
+bool CreateLight(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
+    light_system->Allocate(entity->id);
+    return true;
+}
+
+bool ReleaseLight(mono::Entity* entity, mono::SystemContext* context)
+{
+    mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
+    light_system->Release(entity->id);
+    return true;
+}
+
+bool UpdateLight(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+{
+    mono::LightComponent component;
+    FindAttribute(RADIUS_ATTRIBUTE, properties, component.radius, FallbackMode::SET_DEFAULT);
+    FindAttribute(COLOR_ATTRIBUTE, properties, component.shade, FallbackMode::SET_DEFAULT);
+
+    mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
+    light_system->SetData(entity->id, component);
+
+    return true;
+}
+
 void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
@@ -190,4 +217,5 @@ void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
     entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);
     entity_manager->RegisterComponent(ROAD_COMPONENT, CreateRoad, ReleaseRoad, UpdateRoad);
+    entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight);
 }

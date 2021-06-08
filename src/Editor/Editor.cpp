@@ -5,6 +5,8 @@
 
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
+#include "Rendering/Lights/LightSystem.h"
+#include "Rendering/Lights/LightSystemDrawer.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
@@ -252,6 +254,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
     mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
+    mono::LightSystem* light_system = m_system_context.GetSystem<mono::LightSystem>();
     m_user_input_controller =
         std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
     mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
@@ -300,6 +303,8 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
+
+    AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
 }
 
 int Editor::OnUnload()

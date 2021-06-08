@@ -2,6 +2,7 @@
 #include "System/System.h"
 #include "Camera/Camera.h"
 #include "Rendering/RenderSystem.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "EventHandler/EventHandler.h"
 #include "Engine.h"
@@ -50,6 +51,7 @@ int main()
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::RoadSystem>(max_entities);
+        system_context.CreateSystem<mono::LightSystem>(max_entities);
 
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
             max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);

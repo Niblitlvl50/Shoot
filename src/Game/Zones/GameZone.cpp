@@ -6,6 +6,8 @@
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
 #include "Rendering/Objects/StaticBackground.h"
+#include "Rendering/Lights/LightSystem.h"
+#include "Rendering/Lights/LightSystemDrawer.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
@@ -69,6 +71,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
+    mono::LightSystem* light_system = m_system_context->GetSystem<mono::LightSystem>();
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
     DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
@@ -89,6 +92,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
+    AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
 
