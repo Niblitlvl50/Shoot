@@ -67,6 +67,8 @@ namespace editor
         math::Vector camera_position;
         math::Vector camera_size;
         math::Vector player_spawn_point;
+        mono::Color::RGBA background_color;
+        mono::Color::RGBA ambient_shade;
         std::string background_texture;
         
         // Objects
@@ -77,7 +79,6 @@ namespace editor
         std::vector<UIFolder> folders;
 
         // Options
-        mono::Color::RGBA background_color;
         bool draw_object_names = false;
         bool draw_snappers = false;
         bool draw_grid = false;
@@ -123,6 +124,7 @@ namespace editor
         std::function<void (bool new_value)> draw_object_names_callback;
         std::function<void (bool new_value)> draw_snappers_callback;
         std::function<void (const mono::Color::RGBA& color)> background_color_callback;
+        std::function<void (const mono::Color::RGBA& ambient_shade)> ambient_shade_callback;
         std::function<void (const std::string& background_texture)> background_texture_callback;
 
         std::function<const char* (uint32_t entity_id)> entity_name_callback;

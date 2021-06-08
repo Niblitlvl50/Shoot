@@ -63,9 +63,6 @@ namespace
 
         if(ImGui::BeginMenu("Options"))
         {
-            if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
-                context.background_color_callback(context.background_color);
-
             if(ImGui::Checkbox("Draw Object Names, N", &context.draw_object_names))
                 context.draw_object_names_callback(context.draw_object_names);
 
@@ -265,6 +262,12 @@ namespace
         const float ratio = context.camera_size.x / context.camera_size.y;
         ImGui::TextDisabled("Ratio: %f", ratio);
         ImGui::Spacing();
+
+        if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
+            context.background_color_callback(context.background_color);
+
+        if(ImGui::ColorEdit3("Ambient Shade", &context.ambient_shade.red))
+            context.ambient_shade_callback(context.ambient_shade);
 
         ImGui::TextDisabled("Background");
         const std::vector<std::string>& all_textures = editor::GetAllTextures();

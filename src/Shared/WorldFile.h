@@ -3,6 +3,8 @@
 
 #include "MonoFwd.h"
 #include "Math/Vector.h"
+#include "Rendering/Color.h"
+
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -17,6 +19,8 @@ namespace shared
         math::Vector camera_position;
         math::Vector camera_size;
         math::Vector player_spawn_point;
+        mono::Color::RGBA background_color;
+        mono::Color::RGBA ambient_shade;
         std::string background_texture;
     };
 

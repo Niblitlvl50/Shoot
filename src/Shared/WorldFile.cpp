@@ -1,6 +1,7 @@
 
 #include "WorldFile.h"
 #include "Math/Serialize.h"
+#include "Rendering/Serialize.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Component.h"
@@ -36,6 +37,8 @@ namespace
         level_data.metadata.camera_position = json_metadata["camera_position"];
         level_data.metadata.camera_size = json_metadata["camera_size"];
         level_data.metadata.player_spawn_point = json_metadata["player_spawn_point"];
+        level_data.metadata.background_color = json_metadata.value("background_color", mono::Color::BLACK);
+        level_data.metadata.ambient_shade = json_metadata.value("ambient_shade", mono::Color::WHITE);
         level_data.metadata.background_texture = json_metadata["background_texture"];
 
         const nlohmann::json& entities = json["entities"];

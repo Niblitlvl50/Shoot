@@ -277,6 +277,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -422,6 +428,12 @@
                             "name": "sprite_layer",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -823,6 +835,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -1082,6 +1100,18 @@
         }
     ],
     "metadata": {
+        "ambient_shade": {
+            "alpha": 1.0,
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
+        },
+        "background_color": {
+            "alpha": 1.0,
+            "blue": 0.7205809950828552,
+            "green": 0.7205809950828552,
+            "red": 0.720588207244873
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,

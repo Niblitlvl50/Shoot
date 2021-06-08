@@ -208,6 +208,7 @@ Editor::Editor(
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
+    m_context.ambient_shade_callback = std::bind(&Editor::SetAmbientShade, this, _1);
     m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
 
     m_context.entity_name_callback = [&entity_manager](uint32_t entity_id){
@@ -238,7 +239,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     EnableDrawSnappers(m_editor_config.draw_snappers);
     EnableDrawOutline(m_editor_config.draw_outline);
     EnableDrawLevelMetadata(m_editor_config.draw_metadata);
-    SetBackgroundColor(m_editor_config.background_color);
     EnableSnapToGrid(m_editor_config.snap_to_grid);
     SwitchWorld(m_editor_config.selected_world);
     
@@ -318,7 +318,6 @@ int Editor::OnUnload()
     m_editor_config.draw_snappers = DrawSnappers();
     m_editor_config.draw_outline = DrawOutline();
     m_editor_config.draw_metadata = DrawLevelMetadata();
-    m_editor_config.background_color = BackgroundColor();
     m_editor_config.snap_to_grid = SnapToGrid();
     m_editor_config.grid_size = m_context.grid_size;
     m_editor_config.selected_world = m_world_filename;
@@ -358,11 +357,15 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_context.camera_position = world.leveldata.metadata.camera_position;
     m_context.camera_size = world.leveldata.metadata.camera_size;
     m_context.player_spawn_point = world.leveldata.metadata.player_spawn_point;
+    m_context.background_color = world.leveldata.metadata.background_color;
+    m_context.ambient_shade = world.leveldata.metadata.ambient_shade;
     m_context.background_texture = world.leveldata.metadata.background_texture;
 
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
 
+    SetBackgroundColor(world.leveldata.metadata.background_color);
+    SetAmbientShade(world.leveldata.metadata.ambient_shade);
     SetBackgroundTexture(world.leveldata.metadata.background_texture);
 
     for(IObjectProxyPtr& proxy : m_proxies)
@@ -388,6 +391,8 @@ void Editor::Save()
     metadata.camera_position = m_context.camera_position;
     metadata.camera_size = m_context.camera_size;
     metadata.player_spawn_point = m_context.player_spawn_point;
+    metadata.background_color = m_context.background_color;
+    metadata.ambient_shade = m_context.ambient_shade;
     metadata.background_texture = m_context.background_texture;
 
     SaveWorld(m_world_filename.c_str(), m_proxies, metadata);
@@ -969,6 +974,17 @@ void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
     m_context.background_color = color;
     m_renderer->SetClearColor(color);
+}
+
+const mono::Color::RGBA& Editor::AmbientShade() const
+{
+    return m_context.background_color;
+}
+
+void Editor::SetAmbientShade(const mono::Color::RGBA& color)
+{
+    m_context.ambient_shade = color;
+    m_renderer->SetAmbientShade(color);
 }
 
 void Editor::SetBackgroundTexture(const std::string& background_texture)

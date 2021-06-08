@@ -3,6 +3,24 @@
         {
             "components": [
                 {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "nice_you_did_it"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 3786248987,
                     "name": "transform",
                     "properties": [
@@ -63,24 +81,6 @@
                             "variant_value": true
                         }
                     ]
-                },
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "nice_you_did_it"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
@@ -89,6 +89,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "ork_flag"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -133,6 +151,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -171,24 +195,6 @@
                             "variant_value": false
                         }
                     ]
-                },
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "ork_flag"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
@@ -197,6 +203,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_surprised"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -241,6 +265,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -279,24 +309,6 @@
                             "variant_value": false
                         }
                     ]
-                },
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "screen_surprised"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
@@ -305,6 +317,24 @@
         },
         {
             "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "screen_neutral"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
                 {
                     "hash": 3786248987,
                     "name": "transform",
@@ -349,6 +379,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 905328841,
+                            "name": "sprite_sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -387,24 +423,6 @@
                             "variant_value": false
                         }
                     ]
-                },
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "screen_neutral"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
@@ -413,6 +431,18 @@
         }
     ],
     "metadata": {
+        "ambient_shade": {
+            "alpha": 1.0,
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
+        },
+        "background_color": {
+            "alpha": 1.0,
+            "blue": 0.7499924898147583,
+            "green": 0.7499924898147583,
+            "red": 0.75
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,

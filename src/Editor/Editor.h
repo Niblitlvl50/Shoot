@@ -115,6 +115,8 @@ namespace editor
 
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
+        const mono::Color::RGBA& AmbientShade() const;
+        void SetAmbientShade(const mono::Color::RGBA& color);
 
         void SetBackgroundTexture(const std::string& background_texture);
 
