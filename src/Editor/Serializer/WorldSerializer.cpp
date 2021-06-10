@@ -72,6 +72,15 @@ std::vector<IObjectProxyPtr> editor::LoadComponentObjects(
             }
         }
 
+        // Patch the exported entities to have name and folder component, remove later.
+        Component* name_folder = FindComponentFromHash(NAME_FOLDER_COMPONENT, components);
+        if(!name_folder)
+        {
+            Component name_folder_component = DefaultComponentFromHash(NAME_FOLDER_COMPONENT);
+            SetAttribute(NAME_ATTRIBUTE, name_folder_component.properties, entity_name);
+            components.push_back(name_folder_component);
+        }
+
         auto component_proxy = std::make_unique<ComponentProxy>(new_entity.id, components, entity_manager, transform_system, editor);
         component_proxy->SetEntityProperties(entity_properties);
 

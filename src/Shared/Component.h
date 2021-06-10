@@ -86,6 +86,8 @@ extern const uint32_t TEXTURE_ATTRIBUTE;
 extern const uint32_t NAME_ATTRIBUTE;
 extern const uint32_t FOLDER_ATTRIBUTE;
 
+extern const uint32_t LIGHT_FLICKERING_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

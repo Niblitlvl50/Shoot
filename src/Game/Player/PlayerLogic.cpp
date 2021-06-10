@@ -302,9 +302,7 @@ void PlayerLogic::ApplyImpulse(const math::Vector& force)
 
 void PlayerLogic::ApplyForce(const math::Vector& force)
 {
-    const math::Vector angle_vector = math::VectorFromAngle(m_aim_direction);
-    const float dot_value = math::Dot(angle_vector, math::Normalized(force));
-    const float multiplier = dot_value < 0.0f && (m_fire || m_secondary_fire) ? 0.5f : 1.0;
+    const float multiplier = (m_fire || m_secondary_fire) ? 0.5f : 1.0;
 
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     body->ApplyLocalForce(force * multiplier, math::ZeroVec);

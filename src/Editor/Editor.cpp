@@ -554,44 +554,6 @@ void Editor::SetSelectionBox(const math::Quad& selection_box)
     m_selection_visualizer->SetSelectionBox(selection_box);
 }
 
-/*
-void Editor::SelectProxyObject(IObjectProxy* proxy_object)
-{
-    const EditorMode mode = m_mode_stack.top();
-    if(mode == EditorMode::REFERENCE_PICKING)
-    {
-        if(proxy_object)
-        {
-            const uint32_t selected_id = proxy_object->Id();
-            *m_pick_target = selected_id;
-            m_pick_target = nullptr;
-            m_mode_stack.pop();
-        }
-
-        return;
-    }
-
-    m_selected_ids.clear();
-    m_context.selected_proxy_object = proxy_object;
-
-    for(auto& proxy : m_proxies)
-        proxy->SetSelected(false);
-
-    std::vector<IObjectProxy*> proxies_to_draw;
-    if(proxy_object)
-    {
-        m_selected_ids.push_back(proxy_object->Id());
-        proxy_object->SetSelected(true);
-        proxies_to_draw.push_back(proxy_object);
-    }
-
-    m_component_detail_visualizer->SetObjectProxies(proxies_to_draw);
-
-    UpdateSnappers();
-    UpdateGrabbers();
-}
-*/
-
 void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
 {
     if(proxy_object)
@@ -725,13 +687,6 @@ IObjectProxy* Editor::FindProxyObject(uint32_t proxy_id) const
 
     return nullptr;
 }
-
-/*
-uint32_t Editor::GetSelectedObjectId() const
-{
-    return m_selected_id;
-}
-*/
 
 void Editor::SelectGrabber(const math::Vector& position)
 {
