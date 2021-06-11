@@ -1,6 +1,7 @@
 
 #include "GameZone.h"
 
+#include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Text/TextSystem.h"
@@ -82,6 +83,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
     camera->SetViewportSize(m_leveldata.metadata.camera_size);
+    renderer->SetClearColor(m_leveldata.metadata.background_color);
+    renderer->SetAmbientShade(m_leveldata.metadata.ambient_shade);
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
