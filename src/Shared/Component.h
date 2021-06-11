@@ -4,7 +4,6 @@
 #include "EntitySystem/ObjectAttribute.h"
 
 #include <vector>
-#include <array>
 #include <algorithm>
 
 extern const uint32_t POSITION_ATTRIBUTE;
@@ -87,6 +86,9 @@ extern const uint32_t NAME_ATTRIBUTE;
 extern const uint32_t FOLDER_ATTRIBUTE;
 
 extern const uint32_t LIGHT_FLICKERING_ATTRIBUTE;
+extern const uint32_t FREQUENCY_ATTRIBUTE;
+extern const uint32_t PERCENTAGE_ATTRIBUTE;
+
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -176,9 +178,6 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-using ComponentArray = std::array<Component, 28>;
-extern const ComponentArray default_components;
-
 const char* ComponentNameFromHash(uint32_t hash);
 Component DefaultComponentFromHash(uint32_t hash);
 Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components);
@@ -187,6 +186,7 @@ void StripUnknownProperties(Component& component);
 
 namespace shared
 {
+    std::vector<Component*> GetAllDefaultComponents();
     std::vector<Component*> AddComponent(uint32_t hash, std::vector<Component>& components);
     int ComponentPriorityForHash(uint32_t hash);
     void SortComponentsByPriority(std::vector<Component>& components);

@@ -40506,6 +40506,18 @@
                             "name": "light_flickering",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
                         }
                     ]
                 }
@@ -40649,6 +40661,18 @@
                             "name": "light_flickering",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
                         }
                     ]
                 }
@@ -40792,6 +40816,18 @@
                             "name": "light_flickering",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
                         }
                     ]
                 }

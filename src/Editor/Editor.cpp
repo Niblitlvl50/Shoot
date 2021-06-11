@@ -133,8 +133,8 @@ namespace
 
     void SetupComponents(editor::UIContext& context)
     {
-        for(const Component& component : default_components)
-            context.component_items.push_back({component.hash, component.allow_multiple, ComponentNameFromHash(component.hash), component.category});
+        for(const Component* component : shared::GetAllDefaultComponents())
+            context.component_items.push_back({component->hash, component->allow_multiple, ComponentNameFromHash(component->hash), component->category});
     }
 
     class SyncPoint : public mono::IUpdatable

@@ -3,8 +3,6 @@
 #include "Util/Hash.h"
 #include "System/System.h"
 
-#include <array>
-
 struct DefaultAttribute
 {
     DefaultAttribute(const char* string, const Variant& default_value, const char* tooltip = "")
@@ -24,7 +22,7 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
-const std::array<DefaultAttribute, 63> default_attributes = {{
+const DefaultAttribute default_attributes[] = {
     { "position",           Variant(math::ZeroVec) },
     { "rotation",           Variant(0.0f) },
     { "radius",             Variant(1.0f) },
@@ -88,7 +86,9 @@ const std::array<DefaultAttribute, 63> default_attributes = {{
     { "name",                   Variant(std::string()) },
     { "folder",                 Variant(std::string()) },
     { "light_flickering",       Variant(false) },
-}};
+    { "frequency",              Variant(1.0f) },
+    { "percentage",             Variant(0.5f) },
+};
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
 extern const uint32_t ROTATION_ATTRIBUTE            = default_attributes[1].hash;
@@ -168,6 +168,8 @@ extern const uint32_t NAME_ATTRIBUTE                = default_attributes[60].has
 extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[61].hash;
 
 extern const uint32_t LIGHT_FLICKERING_ATTRIBUTE    = default_attributes[62].hash;
+extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].hash;
+extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
 
 
 
@@ -276,7 +278,7 @@ Component MakeComponent(
     return { hash, depends_on, allow_multiple, category, std::move(attributes) };
 }
 
-const ComponentArray default_components = {
+const Component default_components[] = {
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,     false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
@@ -288,7 +290,7 @@ const ComponentArray default_components = {
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, SPRITE_SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
-    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, LIGHT_FLICKERING_ATTRIBUTE }),
+    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, LIGHT_FLICKERING_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
@@ -392,8 +394,8 @@ Component DefaultComponentFromHash(uint32_t hash)
         return component_template.hash == hash;
     };
 
-    const auto it = std::find_if(default_components.begin(), default_components.end(), find_template);
-    if(it != default_components.end())
+    const auto it = std::find_if(std::begin(default_components), std::end(default_components), find_template);
+    if(it != std::end(default_components))
         return *it;
 
     const char* component_name = ComponentNameFromHash(hash);
@@ -456,6 +458,12 @@ namespace
     };
 }
 
+std::vector<Component*> shared::GetAllDefaultComponents()
+{
+    std::vector<Component*> components;
+    return components;
+}
+
 std::vector<Component*> shared::AddComponent(uint32_t hash, std::vector<Component>& components)
 {
     const uint32_t num_components = components.size();
@@ -476,8 +484,8 @@ int shared::ComponentPriorityForHash(uint32_t hash)
     const auto find_func = [hash](const Component& component) {
         return component.hash == hash;
     };
-    const auto it = std::find_if(default_components.begin(), default_components.end(), find_func);
-    return std::distance(default_components.begin(), it);
+    const auto it = std::find_if(std::begin(default_components), std::end(default_components), find_func);
+    return std::distance(std::begin(default_components), it);
 }
 
 void shared::SortComponentsByPriority(std::vector<Component>& components)

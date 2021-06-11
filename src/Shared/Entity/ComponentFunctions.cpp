@@ -204,6 +204,8 @@ bool UpdateLight(mono::Entity* entity, const std::vector<Attribute>& properties,
     FindAttribute(RADIUS_ATTRIBUTE, properties, component.radius, FallbackMode::SET_DEFAULT);
     FindAttribute(COLOR_ATTRIBUTE, properties, component.shade, FallbackMode::SET_DEFAULT);
     FindAttribute(LIGHT_FLICKERING_ATTRIBUTE, properties, component.flicker, FallbackMode::SET_DEFAULT);
+    FindAttribute(FREQUENCY_ATTRIBUTE, properties, component.flicker_frequencey, FallbackMode::SET_DEFAULT);
+    FindAttribute(PERCENTAGE_ATTRIBUTE, properties, component.flicker_percentage, FallbackMode::SET_DEFAULT);
 
     mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
     light_system->SetData(entity->id, component);
