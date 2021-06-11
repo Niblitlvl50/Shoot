@@ -84,8 +84,8 @@ bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties
     FindAttribute(SPRITE_PROPERTIES_ATTRIBUTE, properties, sprite_args.properties, FallbackMode::SET_DEFAULT);
     FindAttribute(SHADOW_OFFSET_ATTRIBUTE, properties, sprite_args.shadow_offset, FallbackMode::SET_DEFAULT);
     FindAttribute(SHADOW_SIZE_ATTRIBUTE, properties, sprite_args.shadow_size, FallbackMode::SET_DEFAULT);
-    FindAttribute(SPRITE_LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
-    FindAttribute(SPRITE_SORT_OFFSET_ATTRIBUTE, properties, sprite_args.sort_offset, FallbackMode::SET_DEFAULT);
+    FindAttribute(LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
+    FindAttribute(SORT_OFFSET_ATTRIBUTE, properties, sprite_args.sort_offset, FallbackMode::SET_DEFAULT);
     FindAttribute(RANDOM_START_FRAME_ATTRIBUTE, properties, sprite_args.random_start_frame, FallbackMode::SET_DEFAULT);
 
     char sprite_path[1024] = { 0 };
@@ -203,7 +203,7 @@ bool UpdateLight(mono::Entity* entity, const std::vector<Attribute>& properties,
     mono::LightComponent component;
     FindAttribute(RADIUS_ATTRIBUTE, properties, component.radius, FallbackMode::SET_DEFAULT);
     FindAttribute(COLOR_ATTRIBUTE, properties, component.shade, FallbackMode::SET_DEFAULT);
-    FindAttribute(LIGHT_FLICKERING_ATTRIBUTE, properties, component.flicker, FallbackMode::SET_DEFAULT);
+    FindAttribute(FLICKER_ATTRIBUTE, properties, component.flicker, FallbackMode::SET_DEFAULT);
     FindAttribute(FREQUENCY_ATTRIBUTE, properties, component.flicker_frequencey, FallbackMode::SET_DEFAULT);
     FindAttribute(PERCENTAGE_ATTRIBUTE, properties, component.flicker_percentage, FallbackMode::SET_DEFAULT);
 

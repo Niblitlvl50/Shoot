@@ -53,8 +53,8 @@ const DefaultAttribute default_attributes[] = {
     { "sprite_file",        Variant(std::string()) },
     { "animation",          Variant(0) },
     { "unused",             Variant(false) },
-    { "sprite_sort_offset", Variant(0.0f) },
-    { "sprite_layer",       Variant(0) },
+    { "sort_offset",        Variant(0.0f) },
+    { "layer",              Variant(0) },
     { "sprite_properties",  Variant(0u) },
     { "behaviour",          Variant(0) },
     { "spawn_score",        Variant(10) },
@@ -85,7 +85,7 @@ const DefaultAttribute default_attributes[] = {
     { "texture",                Variant(std::string()) },
     { "name",                   Variant(std::string()) },
     { "folder",                 Variant(std::string()) },
-    { "light_flickering",       Variant(false) },
+    { "flicker",                Variant(false) },
     { "frequency",              Variant(1.0f) },
     { "percentage",             Variant(0.5f) },
 };
@@ -126,8 +126,8 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[26].has
 extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[27].hash;
 extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[28].hash;
 extern const uint32_t UNUSED_3                      = default_attributes[29].hash;
-extern const uint32_t SPRITE_SORT_OFFSET_ATTRIBUTE  = default_attributes[30].hash;
-extern const uint32_t SPRITE_LAYER_ATTRIBUTE        = default_attributes[31].hash;
+extern const uint32_t SORT_OFFSET_ATTRIBUTE         = default_attributes[30].hash;
+extern const uint32_t LAYER_ATTRIBUTE               = default_attributes[31].hash;
 extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].hash;
 
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[33].hash;
@@ -167,7 +167,7 @@ extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[59].has
 extern const uint32_t NAME_ATTRIBUTE                = default_attributes[60].hash;
 extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[61].hash;
 
-extern const uint32_t LIGHT_FLICKERING_ATTRIBUTE    = default_attributes[62].hash;
+extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[62].hash;
 extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].hash;
 extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
 
@@ -287,10 +287,10 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
-    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, SPRITE_LAYER_ATTRIBUTE, SPRITE_SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
-    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, LIGHT_FLICKERING_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
+    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
@@ -458,9 +458,13 @@ namespace
     };
 }
 
-std::vector<Component*> shared::GetAllDefaultComponents()
+std::vector<const Component*> shared::GetAllDefaultComponents()
 {
-    std::vector<Component*> components;
+    std::vector<const Component*> components;
+
+    for(const Component& component : default_components)
+        components.push_back(&component);
+
     return components;
 }
 

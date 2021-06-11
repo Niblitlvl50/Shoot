@@ -41,8 +41,8 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE;
 extern const uint32_t SPRITE_ATTRIBUTE;
 extern const uint32_t ANIMATION_ATTRIBUTE;
 //extern const uint32_t FLIP_VERTICAL_ATTRIBUTE;
-extern const uint32_t SPRITE_SORT_OFFSET_ATTRIBUTE;
-extern const uint32_t SPRITE_LAYER_ATTRIBUTE;
+extern const uint32_t SORT_OFFSET_ATTRIBUTE;
+extern const uint32_t LAYER_ATTRIBUTE;
 extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE;
 extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE;
 
@@ -85,7 +85,7 @@ extern const uint32_t TEXTURE_ATTRIBUTE;
 extern const uint32_t NAME_ATTRIBUTE;
 extern const uint32_t FOLDER_ATTRIBUTE;
 
-extern const uint32_t LIGHT_FLICKERING_ATTRIBUTE;
+extern const uint32_t FLICKER_ATTRIBUTE;
 extern const uint32_t FREQUENCY_ATTRIBUTE;
 extern const uint32_t PERCENTAGE_ATTRIBUTE;
 
@@ -186,7 +186,7 @@ void StripUnknownProperties(Component& component);
 
 namespace shared
 {
-    std::vector<Component*> GetAllDefaultComponents();
+    std::vector<const Component*> GetAllDefaultComponents();
     std::vector<Component*> AddComponent(uint32_t hash, std::vector<Component>& components);
     int ComponentPriorityForHash(uint32_t hash);
     void SortComponentsByPriority(std::vector<Component>& components);

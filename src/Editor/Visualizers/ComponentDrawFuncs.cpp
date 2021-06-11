@@ -209,7 +209,7 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
 void editor::DrawSpriteDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float sort_offset = 0.0f;
-    FindAttribute(SPRITE_SORT_OFFSET_ATTRIBUTE, component_properties, sort_offset, FallbackMode::SET_DEFAULT);
+    FindAttribute(SORT_OFFSET_ATTRIBUTE, component_properties, sort_offset, FallbackMode::SET_DEFAULT);
 
     const float half_width = math::Width(entity_bb) / 2.0f;
     const float bottom = math::Bottom(entity_bb);
