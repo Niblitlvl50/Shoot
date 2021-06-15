@@ -24,8 +24,9 @@ namespace editor
         ComponentDetailVisualizer(const ComponentDrawMap& draw_funcs, const mono::TransformSystem* transform_system);
         void SetObjectProxies(const std::vector<IObjectProxy*>& proxies);
 
-        virtual void Draw(mono::IRenderer& renderer) const;
-        virtual math::Quad BoundingBox() const;
+        void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
+        int DrawProperties() const override { return mono::DP_POST_LIGHTING; }
 
     private:
         const ComponentDrawMap m_component_draw_funcs;

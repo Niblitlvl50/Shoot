@@ -66,11 +66,10 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
 
             weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 100;
-            //weapon_config.rounds_per_second = 7.0f;
             weapon_config.rounds_per_second = 8.0f;
             weapon_config.fire_rate_multiplier = 1.1f;
             weapon_config.max_fire_rate = 2.0f;
-            weapon_config.bullet_force = 20.0f;
+            weapon_config.bullet_force = 10.0f;
             weapon_config.bullet_force_random = true;
             weapon_config.bullet_spread_degrees = 2.0f;
             weapon_config.fire_sound = "res/sound/plasma_fire.wav";

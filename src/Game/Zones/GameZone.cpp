@@ -91,7 +91,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     if(!m_leveldata.metadata.background_texture.empty())
         AddDrawable(new mono::StaticBackground(m_leveldata.metadata.background_texture.c_str(), mono::TextureModeFlags::REPEAT), LayerId::BACKGROUND);
     
-    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND_DECALS);
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);

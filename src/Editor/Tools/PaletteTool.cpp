@@ -28,7 +28,7 @@ PaletteTool::PaletteTool(Editor* editor)
 
 void PaletteTool::Begin()
 {
-    m_editor->AddDrawable(this, RenderLayer::IMGUI);
+    m_editor->AddDrawable(this, RenderLayer::UI);
 }
 
 void PaletteTool::End()

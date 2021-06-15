@@ -29,9 +29,9 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     , m_sprite_system(sprite_system)
     , m_transform_system(transform_system)
 {
-    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/meteorite.sprite"));
-    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite"));
-    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/ammo_pickup.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/touch.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/speach_bubble.sprite"));
+    m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite("res/sprites/message.sprite"));
 
     for(size_t index = 0; index < m_sprites.size(); ++index)
     {

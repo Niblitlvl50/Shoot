@@ -247,7 +247,7 @@ namespace
         const float metadata_width = 310;
         const float window_width = ImGui::GetIO().DisplaySize.x;
 
-        ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
+        //ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
         ImGui::SetNextWindowPos(ImVec2(window_width / 2.0f - metadata_width / 2.0f, 40));
 
         ImGui::Begin("Level Metadata", nullptr, flags);
@@ -263,11 +263,13 @@ namespace
         ImGui::TextDisabled("Ratio: %f", ratio);
         ImGui::Spacing();
 
+        ImGui::TextDisabled("Colors");
         if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
             context.background_color_callback(context.background_color);
 
         if(ImGui::ColorEdit3("Ambient Shade", &context.ambient_shade.red))
             context.ambient_shade_callback(context.ambient_shade);
+        ImGui::Spacing();
 
         ImGui::TextDisabled("Background");
         const std::vector<std::string>& all_textures = editor::GetAllTextures();
