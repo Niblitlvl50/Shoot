@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "ps",
+    "category": "icons",
     "frames": [
         {
-            "h": 82,
-            "name": "ps_triangle",
-            "w": 82,
-            "x": 849,
-            "y": 142
+            "h": 16,
+            "name": "speach_bubble",
+            "w": 16,
+            "x": 1319,
+            "y": 318
         }
     ],
     "frames_offsets": [

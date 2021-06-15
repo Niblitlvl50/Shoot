@@ -7,9 +7,10 @@ namespace game
     {
         BACKGROUND,
         GAMEOBJECTS,
-        GAMEOBJECTS_DEBUG,
         PARTICLES,
         FOG,
+
+        GAMEOBJECTS_DEBUG,
         UI
     };
 }

@@ -9,14 +9,14 @@
             "name": "default"
         }
     ],
-    "category": "ps",
+    "category": "icons",
     "frames": [
         {
-            "h": 82,
-            "name": "ps_triangle",
-            "w": 82,
-            "x": 849,
-            "y": 142
+            "h": 17,
+            "name": "touch",
+            "w": 12,
+            "x": 1364,
+            "y": 317
         }
     ],
     "frames_offsets": [

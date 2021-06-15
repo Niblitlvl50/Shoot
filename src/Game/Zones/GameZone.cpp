@@ -64,6 +64,8 @@ GameZone::~GameZone()
 
 void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
+    SetLastLightingLayer(LayerId::FOG);
+
     game::g_navmesh = &m_navmesh;
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();

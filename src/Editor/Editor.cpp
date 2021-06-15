@@ -233,6 +233,8 @@ Editor::~Editor()
 
 void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
+    SetLastLightingLayer(RenderLayer::OBJECTS);
+
     m_renderer = renderer;
 
     EnableDrawObjectNames(m_editor_config.draw_object_names);
