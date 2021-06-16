@@ -6,7 +6,12 @@
 namespace game
 {
     struct SpawnPlayerEvent
-    {};
+    {
+        SpawnPlayerEvent(int player_index)
+            : player_index(player_index)
+        { }
+        const int player_index;
+    };
 
     struct RespawnPlayerEvent
     {

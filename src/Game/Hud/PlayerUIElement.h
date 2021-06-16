@@ -25,7 +25,6 @@ namespace game
 
         int m_current_score;
 
-        class UISquareElement* m_background;
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_weapon_sprites;
         class UISpriteElement* m_mugshot_sprite;

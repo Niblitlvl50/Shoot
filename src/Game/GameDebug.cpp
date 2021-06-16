@@ -5,6 +5,7 @@
 
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
+#include "Events/PlayerConnectedEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
@@ -79,7 +80,7 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
     ImGui::End();
 }
 
-void DrawDebugPlayers(bool& show_window)
+void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
 {
     constexpr int flags =
         ImGuiWindowFlags_AlwaysAutoResize |
@@ -89,7 +90,7 @@ void DrawDebugPlayers(bool& show_window)
 
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    ImGui::Columns(6, "mycolumns");
+    ImGui::Columns(7, "mycolumns");
     ImGui::Separator();
     ImGui::Text("Index"); ImGui::NextColumn();
     ImGui::Text("Entity"); ImGui::NextColumn();
@@ -97,11 +98,14 @@ void DrawDebugPlayers(bool& show_window)
     ImGui::Text("Lives"); ImGui::NextColumn();
     ImGui::Text("Position"); ImGui::NextColumn();
     ImGui::Text("Viewport"); ImGui::NextColumn();
+    ImGui::NextColumn();
     ImGui::Separator();
 
     ImGui::SetColumnWidth(0, 60);
     ImGui::SetColumnWidth(1, 60);
+    ImGui::SetColumnWidth(2, 100);
     ImGui::SetColumnWidth(3, 60);
+    ImGui::SetColumnWidth(5, 170);
 
     for(int index = 0; index < game::n_players; ++index)
     {
@@ -124,6 +128,14 @@ void DrawDebugPlayers(bool& show_window)
 
         const math::Quad& viewport = player_info.viewport;
         ImGui::Text("%.1f %.1f %.1f %.1f", viewport.mA.x, viewport.mA.y, viewport.mB.x, viewport.mB.y);
+        ImGui::NextColumn();
+
+        ImGui::PushID(index);
+        const bool spawn_player_index = ImGui::SmallButton("Spawn");
+        if(spawn_player_index)
+            event_handler->DispatchEvent(game::SpawnPlayerEvent(index));
+        ImGui::PopID();
+
         ImGui::NextColumn();
     }
 
@@ -167,7 +179,7 @@ void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
 
     if(game::g_draw_debug_players)
-        DrawDebugPlayers(game::g_draw_debug_players);
+        DrawDebugPlayers(game::g_draw_debug_players, m_event_handler);
 }
 
 math::Quad game::DebugUpdater::BoundingBox() const

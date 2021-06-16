@@ -303,6 +303,7 @@ mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
     //SpawnLocalPlayer();
+    SpawnLocalPlayer(event.player_index);
     return mono::EventResult::HANDLED;
 }
 

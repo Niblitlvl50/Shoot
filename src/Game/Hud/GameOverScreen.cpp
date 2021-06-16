@@ -23,7 +23,7 @@ GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler
 {
     const float half_width = m_width / 2.0f;
     const float half_height = m_height / 2.0f;
-    const float square_height = m_height * 0.2f;
+    const float square_height = m_height * 0.3f;
 
     m_position = m_offscreen_position = math::Vector(-half_width, half_height);
     m_screen_position = math::Vector(half_width, half_height);
@@ -39,14 +39,9 @@ GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler
         shared::FontId::RUSSOONE_LARGE, "Press button to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::RGBA(0.7f, 0.7f, 0.7f));
     continue_text->SetPosition(math::Vector(0.0f, -40.0f));
 
-    //UISpriteElement* a_button_sprite = new UISpriteElement("res/sprites/ps_cross.sprite");
-    //a_button_sprite->SetPosition(math::Vector(0.0f, -20.0f));
-    //a_button_sprite->SetScale(math::Vector(10.0f, 10.0f));
-
     AddChild(background);
     AddChild(gameover_text);
     AddChild(continue_text);
-    //AddChild(a_button_sprite);
 }
 
 void GameOverScreen::Update(const mono::UpdateContext& update_context)
