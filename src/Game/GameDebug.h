@@ -8,6 +8,7 @@
 #include "Util/FpsCounter.h"
 
 #include <cstdint>
+#include <memory>
 
 namespace game
 {
@@ -29,7 +30,7 @@ namespace game
     class DebugUpdater : public mono::IDrawable
     {
     public:
-        DebugUpdater(TriggerSystem* trigger_system, mono::EventHandler* event_handler);
+        DebugUpdater(TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::EventHandler* event_handler);
         ~DebugUpdater();
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -43,5 +44,8 @@ namespace game
         mutable bool m_draw_debug_menu;
         mutable bool m_draw_trigger_input;
         mutable mono::FpsCounter m_counter;
+
+        class PlayerDebugHandler;
+        std::unique_ptr<PlayerDebugHandler> m_player_debug_handler;
     };
 }

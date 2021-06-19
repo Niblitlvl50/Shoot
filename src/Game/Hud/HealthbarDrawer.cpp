@@ -180,7 +180,8 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     auto index_buffer = mono::CreateElementBuffer(
         mono::BufferType::STATIC, indices_needed, indices.data());
 
-    renderer.DrawTrianges(vertex_buffer.get(), color_buffer.get(), index_buffer.get(), 0, n_healthbar_indices);
+    if(!healthbars.empty())
+        renderer.DrawTrianges(vertex_buffer.get(), color_buffer.get(), index_buffer.get(), 0, n_healthbar_indices);
 
     // Boss health bars
 

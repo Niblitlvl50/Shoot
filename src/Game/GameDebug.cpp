@@ -5,11 +5,16 @@
 
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
+#include "Events/MouseEvent.h"
 #include "Events/PlayerConnectedEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
 #include "Util/Hash.h"
+
+#include "TransformSystem/TransformSystem.h"
+#include "Math/MathFunctions.h"
+#include "Math/Matrix.h"
 
 #include "imgui/imgui.h"
 
@@ -142,8 +147,93 @@ void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
     ImGui::End();
 }
 
+using namespace game;
 
-game::DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::EventHandler* event_handler)
+constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
+
+class DebugUpdater::PlayerDebugHandler
+{
+public:
+    PlayerDebugHandler(const bool& enabled, mono::TransformSystem* transform_system, mono::EventHandler* event_handler)
+        : m_enabled(enabled)
+        , m_transform_system(transform_system)
+        , m_event_handler(event_handler)
+        , m_player_id(NO_ID)
+    {
+        using namespace std::placeholders;
+        const event::MouseDownEventFunc mouse_down_func = std::bind(&PlayerDebugHandler::OnMouseDown, this, _1);
+        const event::MouseUpEventFunc mouse_up_func = std::bind(&PlayerDebugHandler::OnMouseUp, this, _1);
+        const event::MouseMotionEventFunc mouse_motion_func = std::bind(&PlayerDebugHandler::OnMouseMotion, this, _1);
+
+        m_mouse_down_token = m_event_handler->AddListener(mouse_down_func);
+        m_mouse_up_token = m_event_handler->AddListener(mouse_up_func);
+        m_mouse_motion_token = m_event_handler->AddListener(mouse_motion_func);
+    }
+
+    ~PlayerDebugHandler()
+    {
+        m_event_handler->RemoveListener(m_mouse_down_token);
+        m_event_handler->RemoveListener(m_mouse_up_token);
+        m_event_handler->RemoveListener(m_mouse_motion_token);
+    }
+
+    mono::EventResult OnMouseDown(const event::MouseDownEvent& event)
+    {
+        if(!m_enabled)
+            return mono::EventResult::PASS_ON;
+
+        const math::Vector world_click = {event.world_x, event.world_y};
+        const game::PlayerInfo* player = game::GetClosestActivePlayer(world_click);
+        if(player)
+        {
+            const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(player->entity_id);
+            const bool inside_bb = math::PointInsideQuad(world_click, world_bb);
+            if(inside_bb)
+            {
+                m_player_id = player->entity_id;
+                m_previous_position = world_click;
+            }
+        }
+
+        return mono::EventResult::HANDLED;
+    }
+
+    mono::EventResult OnMouseUp(const event::MouseUpEvent& event)
+    {
+        m_player_id = NO_ID;
+        return mono::EventResult::PASS_ON;
+    }
+
+    mono::EventResult OnMouseMotion(const event::MouseMotionEvent& event)
+    {
+        if(m_player_id != NO_ID)
+        {
+            const math::Vector world_position = { event.world_x, event.world_y };
+            const math::Vector delta = world_position - m_previous_position;
+            math::Matrix& transform = m_transform_system->GetTransform(m_player_id);
+            math::Translate(transform, delta);
+
+            m_transform_system->SetTransformState(m_player_id, mono::TransformState::CLIENT);
+
+            m_previous_position = world_position;
+        }
+
+        return mono::EventResult::PASS_ON;
+    }
+
+    const bool& m_enabled;
+    mono::TransformSystem* m_transform_system;
+    mono::EventHandler* m_event_handler;
+
+    mono::EventToken<event::MouseDownEvent> m_mouse_down_token;
+    mono::EventToken<event::MouseUpEvent> m_mouse_up_token;
+    mono::EventToken<event::MouseMotionEvent> m_mouse_motion_token;
+
+    uint32_t m_player_id;
+    math::Vector m_previous_position;
+};
+
+DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::EventHandler* event_handler)
     : m_trigger_system(trigger_system)
     , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
@@ -161,14 +251,16 @@ game::DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::EventHandl
     };
 
     m_keyup_token = m_event_handler->AddListener(key_up_func);
+
+    m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, event_handler);
 }
 
-game::DebugUpdater::~DebugUpdater()
+DebugUpdater::~DebugUpdater()
 {
     m_event_handler->RemoveListener(m_keyup_token);
 }
 
-void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
+void DebugUpdater::Draw(mono::IRenderer& renderer) const
 {
     m_counter++;
 
@@ -182,7 +274,7 @@ void game::DebugUpdater::Draw(mono::IRenderer& renderer) const
         DrawDebugPlayers(game::g_draw_debug_players, m_event_handler);
 }
 
-math::Quad game::DebugUpdater::BoundingBox() const
+math::Quad DebugUpdater::BoundingBox() const
 {
     return math::InfQuad;
 }
