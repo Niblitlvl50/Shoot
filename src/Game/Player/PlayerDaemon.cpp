@@ -106,10 +106,10 @@ PlayerDaemon::PlayerDaemon(
     m_score_token = m_event_handler->AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Primary));
+        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Primary), true);
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
-        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Secondary));
+        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Secondary), false);
 }
 
 PlayerDaemon::~PlayerDaemon()
@@ -147,7 +147,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemon::SpawnLocalPlayer(int controller_id)
+void PlayerDaemon::SpawnLocalPlayer(int controller_id, bool follow_player)
 {
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
     if(!allocated_player_info)
@@ -186,7 +186,8 @@ void PlayerDaemon::SpawnLocalPlayer(int controller_id)
         m_event_handler,
         destroyed_func);
     
-    m_camera_system->Follow(spawned_id, math::Vector(0.0f, 0.0f));
+    if(follow_player)
+        m_camera_system->Follow(spawned_id, math::Vector(0.0f, 0.0f));
 }
 
 void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
@@ -197,7 +198,7 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    SpawnLocalPlayer(event.controller_id);
+    SpawnLocalPlayer(event.controller_id, true);
     return mono::EventResult::PASS_ON;
 }
 
@@ -302,8 +303,7 @@ mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    //SpawnLocalPlayer();
-    SpawnLocalPlayer(event.player_index);
+    SpawnLocalPlayer(event.player_index, false);
     return mono::EventResult::HANDLED;
 }
 

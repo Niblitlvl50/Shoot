@@ -32,7 +32,7 @@ namespace game
             const math::Vector& player_spawn);
         ~PlayerDaemon();
 
-        void SpawnLocalPlayer(int controller_id);
+        void SpawnLocalPlayer(int controller_id, bool follow_player);
         void DespawnPlayer(PlayerInfo* player_info);
         std::vector<uint32_t> GetPlayerIds() const;
 
