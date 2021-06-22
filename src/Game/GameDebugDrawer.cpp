@@ -40,9 +40,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     for(DebugLine& line : m_debug_lines)
     {
-        const std::vector<math::Vector> line_points = { line.start, line.end };
-        renderer.DrawLines(line_points, line.color, line.width);
-
+        renderer.DrawPolyline(line.points, line.color, line.width);
         line.color.alpha = 1.0f - float(line.timestamp) / 5000.0f;
         line.timestamp += renderer.GetDeltaTimeMS();
     }
@@ -95,7 +93,12 @@ void GameDebugDrawer::DrawPoint(const math::Vector& position, float size, const 
 
 void GameDebugDrawer::DrawLine(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color)
 {
-    const DebugLine new_line = { start_position, end_position, color, width, 0 };
+    DrawLine({start_position, end_position}, width, color);
+}
+
+void GameDebugDrawer::DrawLine(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color)
+{
+    const DebugLine new_line = { polyline, color, width, 0 };
     m_debug_lines.push_back(new_line);
 }
 

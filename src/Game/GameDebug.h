@@ -15,8 +15,9 @@ namespace game
     extern bool g_draw_client_viewport;
     extern bool g_draw_navmesh;
     extern bool g_draw_transformsystem;
-    extern bool g_draw_physics;
     extern bool g_draw_triggers;
+    extern bool g_draw_physics;
+    extern bool g_interact_physics;
     extern uint32_t g_draw_physics_subcomponents;
     extern bool g_draw_physics_stats;
     extern bool g_draw_particle_stats;

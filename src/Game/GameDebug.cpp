@@ -22,6 +22,7 @@ bool game::g_draw_client_viewport = false;
 bool game::g_draw_navmesh = false;
 bool game::g_draw_transformsystem = false;
 bool game::g_draw_physics = false;
+bool game::g_interact_physics = false;
 bool game::g_draw_triggers = false;
 uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW_SHAPES;
 bool game::g_draw_physics_stats = false;
@@ -46,6 +47,7 @@ void DrawDebugMenu(uint32_t fps)
             mono::all_physics_debug_component,
             std::size(mono::all_physics_debug_component),
             mono::PhsicsDebugComponentToString);
+        ImGui::Checkbox("Physics Interact",     &game::g_interact_physics);
         ImGui::Checkbox("Physics Stats",        &game::g_draw_physics_stats);
         ImGui::Checkbox("Particle Stats",       &game::g_draw_particle_stats);
         ImGui::Checkbox("Network Stats",        &game::g_draw_network_stats);
