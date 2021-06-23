@@ -12,6 +12,8 @@ namespace game
     struct SpawnPlayerEvent;
     struct RespawnPlayerEvent;
     struct ScoreEvent;
+    struct AddDrawableEvent;
+    struct RemoveDrawableEvent;
 
     using ShockwaveFunc = std::function<mono::EventResult (const game::ShockwaveEvent&)>;
     using PlayerConnectedFunc = std::function<mono::EventResult (const game::PlayerConnectedEvent&)>; 
@@ -19,4 +21,7 @@ namespace game
     using SpawnPlayerFunc = std::function<mono::EventResult (const game::SpawnPlayerEvent&)>;
     using RespawnPlayerFunc = std::function<mono::EventResult (const game::RespawnPlayerEvent&)>;
     using ScoreFunc = std::function<mono::EventResult (const game::ScoreEvent&)>;
+
+    using AddDrawableFunc = std::function<mono::EventResult (const game::AddDrawableEvent&)>;
+    using RemoveDrawableFunc = std::function<mono::EventResult (const game::RemoveDrawableEvent&)>;
 }
