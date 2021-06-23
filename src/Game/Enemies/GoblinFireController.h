@@ -24,8 +24,8 @@ namespace game
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
 
-        void ToMoving();
-        void Moving(const mono::UpdateContext& update_context);
+        void ToReposition();
+        void Reposition(const mono::UpdateContext& update_context);
 
         void ToPrepareAttack();
         void PrepareAttack(const mono::UpdateContext& update_context);
@@ -37,7 +37,7 @@ namespace game
         {
             NONE,
             IDLE,
-            MOVING,
+            REPOSITION,
             PREPARE_ATTACK,
             ATTACKING
         };
@@ -46,6 +46,8 @@ namespace game
         mono::TransformSystem* m_transform_system;
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
+        int m_idle_anim_id;
+        int m_run_anim_id;
 
         using GoblinStateMachine = StateMachine<GoblinStates, const mono::UpdateContext&>;
         GoblinStateMachine m_states;
@@ -56,5 +58,8 @@ namespace game
         uint32_t m_attack_timer;
 
         math::Vector m_attack_position;
+        math::Vector m_move_delta;
+        math::Vector m_start_position;
+        float m_move_counter;
     };
 }
