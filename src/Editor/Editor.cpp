@@ -594,7 +594,7 @@ void Editor::TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxi
     m_camera->SetTargetPosition(position);
 
     const float length_squared =
-        math::Length(math::TopLeft(bb) - math::BottomRight(bb)) * 8;
+        math::DistanceBetween(math::TopLeft(bb), math::BottomRight(bb)) * 8;
 
     const math::Quad viewport = m_camera->GetViewport();
     const float ratio = math::Width(viewport) * math::Height(viewport);
@@ -706,7 +706,7 @@ editor::Grabber* Editor::FindGrabber(const math::Vector& position)
 
     for(auto& grabber : m_grabbers)
     {
-        const float distance = math::Length(grabber.position - position);
+        const float distance = math::DistanceBetween(grabber.position, position);
         if(distance <= threshold)
             return &grabber;
     }

@@ -117,10 +117,11 @@ void GoblinFireController::ToReposition()
     m_move_delta = delta / 2.0f;
     
     const float distance_to_player = math::Length(delta);
+
     if(distance_to_player < tweak_values::distance_to_player_threshold)
     {
-        // Move sideways
-        std::swap(m_move_delta.x, m_move_delta.y);
+        const float multiplier = mono::Chance(50) ? -1.0f : 1.0f;
+        m_move_delta = math::Perpendicular(m_move_delta) * multiplier; // Move sideways
     }
 
     m_move_counter = 0.0f;
@@ -142,7 +143,11 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
     m_move_counter += float(update_context.delta_ms) / 1000.0f;
 
     if(m_move_counter >= duration)
-        m_states.TransitionTo(GoblinStates::IDLE);
+    {
+        const bool fire = mono::Chance(75);
+        const GoblinStates new_state = fire ? GoblinStates::PREPARE_ATTACK : GoblinStates::IDLE;
+        m_states.TransitionTo(new_state);
+    }
 }
 
 void GoblinFireController::ToPrepareAttack()

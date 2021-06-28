@@ -8,8 +8,6 @@
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
-#include <memory>
-
 namespace game
 {
     class BlackSquareController : public IEntityLogic, public mono::ICollisionHandler
@@ -34,24 +32,29 @@ namespace game
         };
 
         void ToSleep();
-        void ToAwake();
-        void ToHunt();
+        void SleepState(const mono::UpdateContext& update_context);
 
-        void SleepState(uint32_t delta);
-        void AwakeState(uint32_t delta);
-        void HuntState(uint32_t delta);
+        void ToAwake();
+        void AwakeState(const mono::UpdateContext& update_context);
+
+        void ToHunt();
+        void HuntState(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
         mono::EventHandler& m_event_handler;
-        const float m_trigger_distance;
         uint32_t m_awake_state_timer;
 
-        using MyStateMachine = StateMachine<States, uint32_t>;
+        using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
-        std::unique_ptr<class HomingBehaviour> m_homing_behaviour;
 
         math::Matrix* m_transform;
         mono::ISprite* m_sprite;
         mono::IBody* m_body;
+
+        const math::Vector* m_target_position;
+
+        mono::IEntityManager* m_entity_manager;
+        mono::PhysicsSystem* m_physics_system;
+        class DamageSystem* m_damage_system;
     };
 }

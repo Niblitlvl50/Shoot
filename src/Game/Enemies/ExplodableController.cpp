@@ -3,17 +3,15 @@
 
 #include "DamageSystem.h"
 #include "Effects/ExplosionEffect.h"
+#include "Shockwave.h"
 
 #include "System/Audio.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Particle/ParticleSystem.h"
 #include "Physics/PhysicsSystem.h"
-#include "Physics/PhysicsSpace.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-
-#include "CollisionConfiguration.h"
 
 using namespace game;
 
@@ -66,22 +64,7 @@ void ExplodableController::OnDead()
     const math::Vector world_position = math::GetPosition(m_transform_system->GetWorld(m_entity_id));
     m_explosion_effect->ExplodeAt(world_position);
 
-    const std::vector<mono::IBody*> found_bodies =
-        m_physics_system->GetSpace()->QueryRadius(world_position, 3.0f, shared::CollisionCategory::ALL);
-
-    for(mono::IBody* body : found_bodies)
-    {
-        const uint32_t other_entity_id = m_physics_system->GetIdFromBody(body);
-        const math::Vector body_position = body->GetPosition();
-
-        const math::Vector delta = body_position - world_position;
-        const math::Vector normalized_delta = math::Normalized(delta);
-
-        //const float length = math::Length(delta); // Maybe scale the damage and impulse with the length
-
-        body->ApplyImpulse(normalized_delta * 50.0f, world_position);
-        m_damage_system->ApplyDamage(other_entity_id, 10, m_entity_id);
-    }
+    game::ShockwaveAndDamageAt(m_physics_system, m_damage_system, world_position, 50.0f, 10, m_entity_id);
 
     m_wait_timer = 0;
 }

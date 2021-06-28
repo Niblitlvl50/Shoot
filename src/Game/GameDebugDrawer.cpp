@@ -4,6 +4,7 @@
 #include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
 #include "Util/Algorithm.h"
+#include "FontIds.h"
 
 #include "Factories.h"
 
@@ -68,7 +69,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix world_transform = math::CreateMatrixWithPosition(text.position);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
 
-        renderer.RenderText(0, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
+        renderer.RenderText(shared::FontId::PIXELETTE_TINY, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
         text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
         text.timestamp += renderer.GetDeltaTimeMS();
@@ -104,7 +105,12 @@ void GameDebugDrawer::DrawLine(const std::vector<math::Vector>& polyline, float 
 
 void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
 {
-    const DebugText new_text = { position, color, 0, text };
+    DrawScreenText(text, position, color, 0);
+}
+
+void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color, uint32_t time)
+{
+    const DebugText new_text = { position, color, time, text };
     m_debug_texts_screen.push_back(new_text);
 }
 
