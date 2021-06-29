@@ -12,15 +12,24 @@ void game::InitializePlayerInfo()
     std::memset(g_players, 0, sizeof(g_players));
 }
 
-game::PlayerInfo* game::AllocatePlayerInfo()
+game::PlayerInfo* game::AllocatePlayerInfo(int player_index)
 {
-    const auto find_func = [](const PlayerInfo& player_info){
-        return player_info.player_state == PlayerState::NOT_SPAWNED;
-    };
+    if(player_index == ANY_PLAYER_INFO)
+    {
+        const auto find_func = [](const PlayerInfo& player_info){
+            return player_info.player_state == PlayerState::NOT_SPAWNED;
+        };
 
-    game::PlayerInfo* found_player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
-    if(found_player_info != std::end(g_players))
-        return found_player_info;
+        game::PlayerInfo* found_player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+        if(found_player_info != std::end(g_players))
+            return found_player_info;
+    }
+    else
+    {
+        game::PlayerInfo& player_info = g_players[player_index];
+        if(player_info.player_state == PlayerState::NOT_SPAWNED)
+            return &player_info;
+    }
 
     return nullptr;
 }

@@ -32,7 +32,7 @@ namespace game
             const math::Vector& player_spawn);
         ~PlayerDaemon();
 
-        void SpawnLocalPlayer(int controller_id, bool follow_player);
+        void SpawnLocalPlayer(int player_index, int controller_id, bool follow_player);
         void DespawnPlayer(PlayerInfo* player_info);
         std::vector<uint32_t> GetPlayerIds() const;
 
@@ -47,6 +47,7 @@ namespace game
         mono::EventResult PlayerScore(const ScoreEvent& event);
 
         mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
+        mono::EventResult OnDespawnPlayer(const DespawnPlayerEvent& event);
         mono::EventResult OnRespawnPlayer(const RespawnPlayerEvent& event);
 
         class CameraSystem* m_camera_system;
@@ -65,6 +66,7 @@ namespace game
         mono::EventToken<ViewportMessage> m_remote_viewport_token;
         mono::EventToken<ScoreEvent> m_score_token;
         mono::EventToken<SpawnPlayerEvent> m_spawn_player_token;
+        mono::EventToken<DespawnPlayerEvent> m_despawn_player_token;
         mono::EventToken<RespawnPlayerEvent> m_respawn_player_token;
 
         std::unordered_map<int, PlayerInfo*> m_controller_id_to_player_info;

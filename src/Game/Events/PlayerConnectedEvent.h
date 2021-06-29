@@ -13,6 +13,15 @@ namespace game
         const int player_index;
     };
 
+    struct DespawnPlayerEvent
+    {
+        DespawnPlayerEvent(int player_index)
+            : player_index(player_index)
+        { }
+
+        const int player_index;
+    };
+
     struct RespawnPlayerEvent
     {
         RespawnPlayerEvent(uint32_t entity_id)

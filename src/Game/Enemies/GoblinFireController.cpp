@@ -18,6 +18,7 @@
 
 namespace tweak_values
 {
+    constexpr float activate_distance_to_player_threshold = 6.0f;
     constexpr float distance_to_player_threshold = 3.0f;
     constexpr float move_speed = 1.0f;
     constexpr uint32_t attack_start_delay = 500;
@@ -75,7 +76,9 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
     if(player_info)
     {
         m_attack_position = player_info->position;
-        is_visible = math::PointInsideQuad(world_position, player_info->viewport);
+        const float distance = math::DistanceBetween(world_position, player_info->position);
+        is_visible = (distance < tweak_values::activate_distance_to_player_threshold);
+        //is_visible = math::PointInsideQuad(world_position, player_info->viewport);
     }
 
     const bool is_left_of = (m_attack_position.x < world_position.x);

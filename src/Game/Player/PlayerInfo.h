@@ -59,9 +59,11 @@ namespace game
     extern struct NavmeshContext* g_navmesh;
 
     void InitializePlayerInfo();
-    
+
+    constexpr int ANY_PLAYER_INFO = -1;
+
     // Might return nullptr if no one is avalible.
-    game::PlayerInfo* AllocatePlayerInfo();
+    game::PlayerInfo* AllocatePlayerInfo(int player_index = ANY_PLAYER_INFO);
     void ReleasePlayerInfo(PlayerInfo* player_info);
 
     game::PlayerInfo* FindPlayerInfoFromEntityId(uint32_t entity_id);

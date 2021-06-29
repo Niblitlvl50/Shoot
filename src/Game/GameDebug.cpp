@@ -138,9 +138,19 @@ void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
         ImGui::NextColumn();
 
         ImGui::PushID(index);
-        const bool spawn_player_index = ImGui::SmallButton("Spawn");
+
+        const bool not_spawned = (player_info.player_state == game::PlayerState::NOT_SPAWNED);
+        const char* button_text = not_spawned ? "Spawn" : "Despawn";
+
+        const bool spawn_player_index = ImGui::SmallButton(button_text);
         if(spawn_player_index)
-            event_handler->DispatchEvent(game::SpawnPlayerEvent(index));
+        {
+            if(not_spawned)
+                event_handler->DispatchEvent(game::SpawnPlayerEvent(index));
+            else
+                event_handler->DispatchEvent(game::DespawnPlayerEvent(index));
+        }
+
         ImGui::PopID();
 
         ImGui::NextColumn();

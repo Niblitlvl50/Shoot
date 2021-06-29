@@ -89,12 +89,14 @@ PlayerDaemon::PlayerDaemon(
     const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::RemotePlayerConnected, this, _1);
     const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::RemotePlayerDisconnected, this, _1);
     const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
+    const DespawnPlayerFunc& despawn_player_func = std::bind(&PlayerDaemon::OnDespawnPlayer, this, _1);
     const RespawnPlayerFunc& respawn_player_func = std::bind(&PlayerDaemon::OnRespawnPlayer, this, _1);
     const ScoreFunc& score_func = std::bind(&PlayerDaemon::PlayerScore, this, _1);
 
     m_player_connected_token = m_event_handler->AddListener(connected_func);
     m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
     m_spawn_player_token = m_event_handler->AddListener(spawn_player_func);
+    m_despawn_player_token = m_event_handler->AddListener(despawn_player_func);
     m_respawn_player_token = m_event_handler->AddListener(respawn_player_func);
 
     const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemotePlayerInput, this, _1);
@@ -106,10 +108,10 @@ PlayerDaemon::PlayerDaemon(
     m_score_token = m_event_handler->AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Primary), true);
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary), true);
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
-        SpawnLocalPlayer(System::GetControllerId(System::ControllerId::Secondary), false);
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary), false);
 }
 
 PlayerDaemon::~PlayerDaemon()
@@ -120,6 +122,7 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler->RemoveListener(m_player_connected_token);
     m_event_handler->RemoveListener(m_player_disconnected_token);
     m_event_handler->RemoveListener(m_spawn_player_token);
+    m_event_handler->RemoveListener(m_despawn_player_token);
     m_event_handler->RemoveListener(m_respawn_player_token);
     m_event_handler->RemoveListener(m_remote_input_token);
     m_event_handler->RemoveListener(m_remote_viewport_token);
@@ -147,9 +150,9 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemon::SpawnLocalPlayer(int controller_id, bool follow_player)
+void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool follow_player)
 {
-    game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
+    game::PlayerInfo* allocated_player_info = AllocatePlayerInfo(player_index);
     if(!allocated_player_info)
     {
         System::Log("Unable to allocate player info for local player.");
@@ -198,7 +201,7 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    SpawnLocalPlayer(event.controller_id, true);
+    SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id, true);
     return mono::EventResult::PASS_ON;
 }
 
@@ -303,7 +306,13 @@ mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
 
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    SpawnLocalPlayer(event.player_index, false);
+    SpawnLocalPlayer(event.player_index, event.player_index, false);
+    return mono::EventResult::HANDLED;
+}
+
+mono::EventResult PlayerDaemon::OnDespawnPlayer(const DespawnPlayerEvent& event)
+{
+    DespawnPlayer(&g_players[event.player_index]);
     return mono::EventResult::HANDLED;
 }
 
