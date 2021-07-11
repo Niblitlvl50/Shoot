@@ -13,6 +13,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 #include "SystemContext.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -24,9 +25,10 @@ namespace tweak_values
     constexpr float trigger_distance = 5.0f;
     constexpr uint32_t time_before_hunt_ms = 300;
     constexpr uint32_t collision_damage = 45;
+    constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 120.0f;
-    constexpr float velocity = 2.0f;
+    constexpr float velocity = 0.1f;
 }
 
 using namespace game;
@@ -35,6 +37,7 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
     : m_entity_id(entity_id)
     , m_event_handler(event_handler)
     , m_awake_state_timer(0)
+    , m_current_heading(0.0f)
 {
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
@@ -76,10 +79,10 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(
     if(category == shared::CollisionCategory::PLAYER)
     {
         const math::Vector& entity_position = math::GetPosition(*m_transform);
-        game::ShockwaveAt(m_physics_system, entity_position, 20.0f);
+        game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
+        //m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
         m_entity_manager->ReleaseEntity(m_entity_id);
     }
 
@@ -91,7 +94,6 @@ void BlackSquareController::OnSeparateFrom(mono::IBody* body)
 
 void BlackSquareController::ToSleep()
 {
-    m_sprite->SetShade(mono::Color::BLACK);
     m_body->ResetForces();
 }
 
@@ -122,8 +124,6 @@ void BlackSquareController::AwakeState(const mono::UpdateContext& update_context
 
 void BlackSquareController::ToHunt()
 {
-    m_sprite->SetShade(mono::Color::RED);
-
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     const game::PlayerInfo* player_info = game::GetClosestActivePlayer(entity_position);
     m_target_position = (player_info != nullptr) ? &player_info->position : nullptr;
@@ -142,8 +142,12 @@ void BlackSquareController::HuntState(const mono::UpdateContext& update_context)
 
     const math::Vector& delta = math::Normalized(target_position - entity_position);
 
-    const float angle = m_body->GetAngle();
-    const math::Vector& vector_angle = math::VectorFromAngle(angle);
+    if(delta.x < 0.0f)
+        m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+
+    const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
 
     const float dot_value = math::Dot(delta, vector_angle);
     const float cross_value = math::Cross(delta, vector_angle);
@@ -154,8 +158,13 @@ void BlackSquareController::HuntState(const mono::UpdateContext& update_context)
     const float radians_turn = update_context.delta_s * math::ToRadians(tweak_values::degrees_per_second);
     const float turn_value = scale_value * radians_turn;
 
-    m_body->SetAngle(m_body->GetAngle() + turn_value);
-    m_body->SetVelocity(vector_angle * tweak_values::velocity);
+    m_current_heading += turn_value;
+
+    const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
+
+    //m_body->SetVelocity(angle1 * tweak_values::velocity);
+    m_body->ApplyLocalImpulse(angle1 * tweak_values::velocity, math::ZeroVec);
+    //m_body->ApplyLocalForce(angle1 * tweak_values::velocity, math::ZeroVec);
 
     const float distance = math::DistanceBetween(target_position, entity_position);
     if(distance > tweak_values::trigger_distance)

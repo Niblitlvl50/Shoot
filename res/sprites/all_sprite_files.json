@@ -35,6 +35,7 @@
         "res/sprites/emote_star.sprite",
         "res/sprites/emote_swirl.sprite",
         "res/sprites/eye_monster.sprite",
+        "res/sprites/eye_monster_small.sprite",
         "res/sprites/fern.sprite",
         "res/sprites/fir_large.sprite",
         "res/sprites/fir_small.sprite",
@@ -77,6 +78,7 @@
         "res/sprites/plasma.sprite",
         "res/sprites/player_point.sprite",
         "res/sprites/portal.sprite",
+        "res/sprites/portal_green.sprite",
         "res/sprites/ps_circle.sprite",
         "res/sprites/ps_cross.sprite",
         "res/sprites/ps_options.sprite",
@@ -137,6 +139,7 @@
         "res/sprites/wall_pipes.sprite",
         "res/sprites/wall_straight.sprite",
         "res/sprites/wall_straight_n.sprite",
+        "res/sprites/wizard_crazy.sprite",
         "res/sprites/xbox_one_a.sprite"
     ]
 }

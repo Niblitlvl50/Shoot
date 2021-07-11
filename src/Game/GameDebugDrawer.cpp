@@ -13,9 +13,9 @@ using namespace game;
 namespace
 {
     template <typename T>
-    bool remove_if_5(const T& item)
+    bool remove_if_0(const T& item)
     {
-        return item.timestamp > 5000;
+        return item.time_to_live < 0;
     }
 }
 
@@ -36,14 +36,14 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
         const std::vector<math::Vector> points = { point.position };
         renderer.DrawPoints(points, point.color, point.size);
 
-        point.timestamp += renderer.GetDeltaTimeMS();
+        point.time_to_live -= renderer.GetDeltaTimeMS();
     }
 
     for(DebugLine& line : m_debug_lines)
     {
         renderer.DrawPolyline(line.points, line.color, line.width);
-        line.color.alpha = 1.0f - float(line.timestamp) / 5000.0f;
-        line.timestamp += renderer.GetDeltaTimeMS();
+        line.color.alpha = 1.0f - float(line.time_to_live) / 5000.0f;
+        line.time_to_live -= renderer.GetDeltaTimeMS();
     }
 
     for(DebugText& text : m_debug_texts_world)
@@ -53,8 +53,8 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.RenderText(0, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
-        text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
-        text.timestamp += renderer.GetDeltaTimeMS();
+        text.color.alpha = 1.0f - float(text.time_to_live) / 5000.0f;
+        text.time_to_live -= renderer.GetDeltaTimeMS();
     }
 
     const math::Quad viewport = renderer.GetViewport();
@@ -71,14 +71,14 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.RenderText(shared::FontId::PIXELETTE_TINY, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
-        text.color.alpha = 1.0f - float(text.timestamp) / 5000.0f;
-        text.timestamp += renderer.GetDeltaTimeMS();
+        text.color.alpha = 1.0f - float(text.time_to_live) / 5000.0f;
+        text.time_to_live -= renderer.GetDeltaTimeMS();
     }
 
-    mono::remove_if(m_debug_points, remove_if_5<DebugPoint>);
-    mono::remove_if(m_debug_lines, remove_if_5<DebugLine>);
-    mono::remove_if(m_debug_texts_world, remove_if_5<DebugText>);
-    mono::remove_if(m_debug_texts_screen, remove_if_5<DebugText>);
+    mono::remove_if(m_debug_points, remove_if_0<DebugPoint>);
+    mono::remove_if(m_debug_lines, remove_if_0<DebugLine>);
+    mono::remove_if(m_debug_texts_world, remove_if_0<DebugText>);
+    mono::remove_if(m_debug_texts_screen, remove_if_0<DebugText>);
 }
 
 math::Quad GameDebugDrawer::BoundingBox() const
@@ -99,23 +99,33 @@ void GameDebugDrawer::DrawLine(const math::Vector& start_position, const math::V
 
 void GameDebugDrawer::DrawLine(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color)
 {
-    const DebugLine new_line = { polyline, color, width, 0 };
-    m_debug_lines.push_back(new_line);
+    DrawLineFading(polyline, width, color, 0);
 }
 
 void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
 {
-    DrawScreenText(text, position, color, 0);
-}
-
-void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color, uint32_t time)
-{
-    const DebugText new_text = { position, color, time, text };
-    m_debug_texts_screen.push_back(new_text);
+    DrawScreenTextFading(text, position, color, 0);
 }
 
 void GameDebugDrawer::DrawWorldText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
 {
     const DebugText new_text = { position, color, 0, text };
     m_debug_texts_world.push_back(new_text);
+}
+
+void GameDebugDrawer::DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, int time)
+{
+    DrawLineFading({ start_position, end_position }, width, color, time);
+}
+
+void GameDebugDrawer::DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, int time)
+{
+    const DebugLine new_line = { polyline, color, width, time };
+    m_debug_lines.push_back(new_line);
+}
+
+void GameDebugDrawer::DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, int time)
+{
+    const DebugText new_text = { position, color, time, text };
+    m_debug_texts_screen.push_back(new_text);
 }

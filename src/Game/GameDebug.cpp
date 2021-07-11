@@ -191,9 +191,6 @@ public:
 
     mono::EventResult OnMouseDown(const event::MouseDownEvent& event)
     {
-        if(!m_enabled)
-            return mono::EventResult::PASS_ON;
-
         const math::Vector world_click = {event.world_x, event.world_y};
         const game::PlayerInfo* player = game::GetClosestActivePlayer(world_click);
         if(player)
@@ -207,7 +204,7 @@ public:
             }
         }
 
-        return mono::EventResult::HANDLED;
+        return player ? mono::EventResult::HANDLED : mono::EventResult::PASS_ON;
     }
 
     mono::EventResult OnMouseUp(const event::MouseUpEvent& event)

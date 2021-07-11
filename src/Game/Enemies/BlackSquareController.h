@@ -52,6 +52,7 @@ namespace game
         mono::IBody* m_body;
 
         const math::Vector* m_target_position;
+        float m_current_heading;
 
         mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;

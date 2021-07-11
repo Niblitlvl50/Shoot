@@ -4374,8 +4374,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.668108940124512,
-                                "y": -16.561437606811523
+                                "x": -6.45822811126709,
+                                "y": -16.59457778930664
                             }
                         },
                         {
@@ -12240,7 +12240,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1031692888,
@@ -15031,8 +15031,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.771177291870117,
-                                "y": -1.6986193656921387
+                                "x": 7.807145595550537,
+                                "y": -5.62429141998291
                             }
                         },
                         {
@@ -19330,13 +19330,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -19365,7 +19365,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -19373,14 +19373,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -19537,13 +19537,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -19572,7 +19572,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -19580,14 +19580,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -19744,13 +19744,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -19779,7 +19779,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -19787,14 +19787,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -19818,7 +19818,7 @@
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 1995093780,
@@ -19951,13 +19951,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -19986,7 +19986,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -19994,14 +19994,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -20158,13 +20158,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -20193,7 +20193,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -20201,14 +20201,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -20365,13 +20365,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -20400,7 +20400,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -20408,14 +20408,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -20572,13 +20572,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -20607,7 +20607,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -20615,14 +20615,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -20779,13 +20779,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -20814,7 +20814,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -20822,14 +20822,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -20986,13 +20986,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader.sprite"
+                            "variant_value": "eye_monster_small.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -21021,7 +21021,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -21029,14 +21029,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -21119,6 +21119,389 @@
             "entity_properties": 0,
             "folder": "enemies",
             "name": "black_square"
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation_forest"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 6.449838161468506,
+                                "y": -6.712074279785156
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": -0.20000000298023224
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999899864196777,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.4000000059604645
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "vegetation_forest",
+            "name": "goblin"
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation_forest"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 5.0106520652771,
+                                "y": -6.530082702636719
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "wizard_crazy.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999899864196777,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.20999999344348907
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "vegetation_forest",
+            "name": "goblin"
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "vegetation_forest"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 8.903007507324219,
+                                "y": -6.685164928436279
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": -0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "portal_green.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9999899864196777,
+                                "green": 0.9999899864196777,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.20999999344348907
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "vegetation_forest",
+            "name": "goblin"
         }
     ],
     "metadata": {

@@ -1,0 +1,172 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "loop": true,
+            "name": "attack"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "category": "eye_monster_small",
+    "frames": [
+        {
+            "h": 11,
+            "name": "eye_monster_small_attack_1",
+            "w": 12,
+            "x": 1810,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_attack_2",
+            "w": 12,
+            "x": 1851,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_attack_3",
+            "w": 12,
+            "x": 1867,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_attack_4",
+            "w": 12,
+            "x": 813,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_1",
+            "w": 12,
+            "x": 829,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_2",
+            "w": 12,
+            "x": 845,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_3",
+            "w": 12,
+            "x": 1220,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_4",
+            "w": 12,
+            "x": 765,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_5",
+            "w": 12,
+            "x": 781,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_6",
+            "w": 12,
+            "x": 1161,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_7",
+            "w": 12,
+            "x": 1236,
+            "y": 347
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_8",
+            "w": 12,
+            "x": 797,
+            "y": 347
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
