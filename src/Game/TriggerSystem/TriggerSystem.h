@@ -25,10 +25,13 @@ namespace game
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
 
-    struct DeathTriggerComponent
+    struct DestroyedTriggerComponent
     {
         uint32_t trigger_hash;
-        uint32_t death_trigger_id;
+        shared::DestroyedTriggerType trigger_type;
+
+        // Internal data
+        uint32_t callback_id;
     };
 
     struct AreaEntityTriggerComponent
@@ -66,16 +69,16 @@ namespace game
     {
     public:
 
-        TriggerSystem(size_t n_triggers, class DamageSystem* damage_system, mono::PhysicsSystem* physics_system);
+        TriggerSystem(size_t n_triggers, class DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system);
 
         ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
         void ReleaseShapeTrigger(uint32_t entity_id);
         void AddShapeTrigger(
             uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask);
 
-        DeathTriggerComponent* AllocateDeathTrigger(uint32_t entity_id);
-        void ReleaseDeathTrigger(uint32_t entity_id);
-        void AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash);
+        DestroyedTriggerComponent* AllocateDestroyedTrigger(uint32_t entity_id);
+        void ReleaseDestroyedTrigger(uint32_t entity_id);
+        void AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, shared::DestroyedTriggerType type);
 
         AreaEntityTriggerComponent* AllocateAreaTrigger(uint32_t entity_id);
         void ReleaseAreaTrigger(uint32_t entity_id);
@@ -111,13 +114,13 @@ namespace game
         }
 
         template<typename T>
-        void ForEachDeathTrigger(T&& callable) const
+        void ForEachDestroyedTrigger(T&& callable) const
         {
-            for(uint32_t index = 0; index < m_active_death_triggers.size(); ++index)
+            for(uint32_t index = 0; index < m_active_destroyed_triggers.size(); ++index)
             {
-                const bool is_active = m_active_death_triggers[index];
+                const bool is_active = m_active_destroyed_triggers[index];
                 if(is_active)
-                    callable(index, m_death_triggers[index]);
+                    callable(index, m_destroyed_triggers[index]);
             }
         }
 
@@ -165,6 +168,7 @@ namespace game
 
         class DamageSystem* m_damage_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::IEntityManager* m_entity_system;
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
@@ -172,8 +176,8 @@ namespace game
         std::vector<ShapeTriggerComponent> m_shape_triggers;
         std::vector<bool> m_active_shape_triggers;
 
-        std::vector<DeathTriggerComponent> m_death_triggers;
-        std::vector<bool> m_active_death_triggers;
+        std::vector<DestroyedTriggerComponent> m_destroyed_triggers;
+        std::vector<bool> m_active_destroyed_triggers;
 
         std::vector<AreaEntityTriggerComponent> m_area_triggers;
         std::vector<bool> m_active_area_triggers;

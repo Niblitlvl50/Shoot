@@ -306,21 +306,21 @@ namespace
         return true;
     }
 
-    bool CreateDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
+    bool CreateDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AllocateDeathTrigger(entity->id);
+        trigger_system->AllocateDestroyedTrigger(entity->id);
         return true;
     }
 
-    bool ReleaseDeathTrigger(mono::Entity* entity, mono::SystemContext* context)
+    bool ReleaseDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->ReleaseDeathTrigger(entity->id);
+        trigger_system->ReleaseDestroyedTrigger(entity->id);
         return true;
     }
 
-    bool UpdateDeathTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDestroyedTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         std::string trigger_name;
         const bool found_trigger_name =
@@ -332,9 +332,12 @@ namespace
             return false;
         }
 
+        int trigger_type;
+        FindAttribute(DESTROYED_TRIGGER_TYPE_ATTRIBUTE, properties, trigger_type, FallbackMode::SET_DEFAULT);
+
         const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddDeathTrigger(entity->id, trigger_hash);
+        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, shared::DestroyedTriggerType(trigger_type));
         mono::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -749,7 +752,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager->RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
     entity_manager->RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateShapeTrigger, ReleaseShapeTrigger, UpdateShapeTrigger);
-    entity_manager->RegisterComponent(DEATH_TRIGGER_COMPONENT, CreateDeathTrigger, ReleaseDeathTrigger, UpdateDeathTrigger);
+    entity_manager->RegisterComponent(DESTROYED_TRIGGER_COMPONENT, CreateDestroyedTrigger, ReleaseDestroyedTrigger, UpdateDestroyedTrigger);
     entity_manager->RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);
     entity_manager->RegisterComponent(TIME_TRIGGER_COMPONENT, CreateTimeTrigger, ReleaseTimeTrigger, UpdateTimeTrigger);
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);

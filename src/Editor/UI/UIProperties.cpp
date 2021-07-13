@@ -236,6 +236,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
     }
+    else if(attribute.id == DESTROYED_TRIGGER_TYPE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = shared::DestroyedTriggerTypeToString(shared::DestroyedTriggerType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::destroyed_trigger_type_strings));
+    }
     else if(attribute.id == ROTATION_ATTRIBUTE)
     {
         float degrees = math::ToDegrees(std::get<float>(attribute.value));

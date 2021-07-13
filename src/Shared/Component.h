@@ -60,6 +60,8 @@ extern const uint32_t EASING_FUNC_ATTRIBUTE;
 extern const uint32_t LOGIC_OP_ATTRIBUTE;
 extern const uint32_t N_ENTITIES_ATTRIBUTE;
 
+extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE;
+
 extern const uint32_t FONT_ID_ATTRIBUTE;
 extern const uint32_t TEXT_ATTRIBUTE;
 extern const uint32_t TEXT_SHADOW_ATTRIBUTE;
@@ -153,7 +155,7 @@ extern const uint32_t HEALTH_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
 extern const uint32_t SHAPE_TRIGGER_COMPONENT;
-extern const uint32_t DEATH_TRIGGER_COMPONENT;
+extern const uint32_t DESTROYED_TRIGGER_COMPONENT;
 extern const uint32_t AREA_TRIGGER_COMPONENT;
 extern const uint32_t TIME_TRIGGER_COMPONENT;
 extern const uint32_t COUNTER_TRIGGER_COMPONENT;

@@ -88,6 +88,7 @@ const DefaultAttribute default_attributes[] = {
     { "flicker",                Variant(false) },
     { "frequency",              Variant(1.0f) },
     { "percentage",             Variant(0.5f) },
+    { "destroyed_type",         Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -171,6 +172,8 @@ extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[62].has
 extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].hash;
 extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
 
+extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE = default_attributes[65].hash;
+
 
 
 extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
@@ -187,7 +190,7 @@ extern const uint32_t HEALTH_COMPONENT              = mono::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT           = mono::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = mono::Hash("spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = mono::Hash("shape_trigger");
-extern const uint32_t DEATH_TRIGGER_COMPONENT       = mono::Hash("death_trigger");
+extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = mono::Hash("destroyed_trigger");
 extern const uint32_t AREA_TRIGGER_COMPONENT        = mono::Hash("area_entity_trigger");
 extern const uint32_t TIME_TRIGGER_COMPONENT        = mono::Hash("time_trigger");
 extern const uint32_t COUNTER_TRIGGER_COMPONENT     = mono::Hash("counter_trigger");
@@ -234,8 +237,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "spawn_point";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
         return "shape_trigger";
-    else if(hash == DEATH_TRIGGER_COMPONENT)
-        return "death_trigger";
+    else if(hash == DESTROYED_TRIGGER_COMPONENT)
+        return "destroyed_trigger";
     else if(hash == AREA_TRIGGER_COMPONENT)
         return "area_entity_trigger";
     else if(hash == TIME_TRIGGER_COMPONENT)
@@ -298,7 +301,7 @@ const Component default_components[] = {
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE }),
     MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
-    MakeComponent(DEATH_TRIGGER_COMPONENT,      HEALTH_COMPONENT,   false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,   true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),

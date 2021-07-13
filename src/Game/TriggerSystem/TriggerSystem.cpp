@@ -8,6 +8,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
 #include "Rendering/Color.h"
+#include "EntitySystem/IEntityManager.h"
 
 #include "Factories.h"
 #include "IDebugDrawer.h"
@@ -50,15 +51,16 @@ namespace
     constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
 }
 
-TriggerSystem::TriggerSystem(size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system)
+TriggerSystem::TriggerSystem(size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
     , m_physics_system(physics_system)
+    , m_entity_system(entity_system)
 {
     m_shape_triggers.resize(n_triggers);
     m_active_shape_triggers.resize(n_triggers, false);
 
-    m_death_triggers.resize(n_triggers);
-    m_active_death_triggers.resize(n_triggers, false);
+    m_destroyed_triggers.resize(n_triggers);
+    m_active_destroyed_triggers.resize(n_triggers, false);
 
     m_area_triggers.resize(n_triggers);
     m_active_area_triggers.resize(n_triggers, false);
@@ -122,39 +124,66 @@ void TriggerSystem::AddShapeTrigger(
     }
 }
 
-DeathTriggerComponent* TriggerSystem::AllocateDeathTrigger(uint32_t entity_id)
+DestroyedTriggerComponent* TriggerSystem::AllocateDestroyedTrigger(uint32_t entity_id)
 {
-    m_active_death_triggers[entity_id] = true;
+    m_active_destroyed_triggers[entity_id] = true;
 
-    DeathTriggerComponent* allocated_trigger = &m_death_triggers[entity_id];
-    allocated_trigger->death_trigger_id = NO_CALLBACK_SET;
+    DestroyedTriggerComponent* allocated_trigger = &m_destroyed_triggers[entity_id];
+    allocated_trigger->callback_id = NO_CALLBACK_SET;
 
     return allocated_trigger;
 }
 
-void TriggerSystem::ReleaseDeathTrigger(uint32_t entity_id)
+void TriggerSystem::ReleaseDestroyedTrigger(uint32_t entity_id)
 {
-    DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
- 
-    m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.death_trigger_id);
-    allocated_trigger.death_trigger_id = NO_CALLBACK_SET;
+    DestroyedTriggerComponent& allocated_trigger = m_destroyed_triggers[entity_id];
 
-    m_active_death_triggers[entity_id] = false;
+    switch(allocated_trigger.trigger_type)
+    {
+    case shared::DestroyedTriggerType::ON_DEATH:
+        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.callback_id);
+        break;
+    case shared::DestroyedTriggerType::ON_DESTORYED:
+        m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger.callback_id);
+        break;
+    };
+    allocated_trigger.callback_id = NO_CALLBACK_SET;
+
+    m_active_destroyed_triggers[entity_id] = false;
 }
 
-void TriggerSystem::AddDeathTrigger(uint32_t entity_id, uint32_t trigger_hash)
+void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, shared::DestroyedTriggerType type)
 {
-    DeathTriggerComponent& allocated_trigger = m_death_triggers[entity_id];
+    DestroyedTriggerComponent& allocated_trigger = m_destroyed_triggers[entity_id];
     allocated_trigger.trigger_hash = trigger_hash;
 
-    if(allocated_trigger.death_trigger_id != NO_CALLBACK_SET)
-        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.death_trigger_id);
+    switch(type)
+    {
+    case shared::DestroyedTriggerType::ON_DEATH:
+    {
+        if(allocated_trigger.callback_id != NO_CALLBACK_SET)
+            m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger.callback_id);
 
-    const DamageCallback callback = [this, trigger_hash](uint32_t id, int damage, uint32_t id_who_did_damage, DamageType type) {
-        EmitTrigger(trigger_hash);
+        const DamageCallback callback = [this, trigger_hash](uint32_t id, int damage, uint32_t id_who_did_damage, DamageType type) {
+            EmitTrigger(trigger_hash);
+        };
+        allocated_trigger.callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);
+
+        break;
+    }
+    case shared::DestroyedTriggerType::ON_DESTORYED:
+    {
+        if(allocated_trigger.callback_id != NO_CALLBACK_SET)
+            m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger.callback_id);
+
+        const ReleaseCallback callback = [this, trigger_hash](uint32_t id) {
+            EmitTrigger(trigger_hash);
+        };
+        allocated_trigger.callback_id = m_entity_system->AddReleaseCallback(entity_id, callback);
+
+        break;
+    }
     };
-
-    allocated_trigger.death_trigger_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);
 }
 
 AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_id)
