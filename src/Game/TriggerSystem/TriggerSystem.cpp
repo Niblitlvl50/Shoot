@@ -359,7 +359,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
         if(game::g_draw_triggers)
         {
             const char* hash_string = mono::HashLookup(trigger_hash);
-            game::g_debug_drawer->DrawScreenText(hash_string, math::Vector(1, 1), mono::Color::BLACK);
+            game::g_debug_drawer->DrawScreenTextFading(hash_string, math::Vector(1, 2), mono::Color::BLACK, 2000);
         }
     }
 }

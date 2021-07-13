@@ -51,7 +51,7 @@ namespace game
         mono::ISprite* m_sprite;
         mono::IBody* m_body;
 
-        const math::Vector* m_target_position;
+        const struct PlayerInfo* m_target_player_info;
         float m_current_heading;
 
         mono::IEntityManager* m_entity_manager;

@@ -125,20 +125,19 @@ void BlackSquareController::AwakeState(const mono::UpdateContext& update_context
 void BlackSquareController::ToHunt()
 {
     const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const game::PlayerInfo* player_info = game::GetClosestActivePlayer(entity_position);
-    m_target_position = (player_info != nullptr) ? &player_info->position : nullptr;
+    m_target_player_info = game::GetClosestActivePlayer(entity_position);
 }
 
 void BlackSquareController::HuntState(const mono::UpdateContext& update_context)
 {
-    if(!m_target_position)
+    if(!m_target_player_info || m_target_player_info->player_state != PlayerState::ALIVE)
     {
         m_states.TransitionTo(States::SLEEPING);
         return;
     }
 
     const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const math::Vector& target_position = *m_target_position;
+    const math::Vector& target_position = m_target_player_info->position;
 
     const math::Vector& delta = math::Normalized(target_position - entity_position);
 
