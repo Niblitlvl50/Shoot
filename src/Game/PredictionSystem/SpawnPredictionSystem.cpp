@@ -6,7 +6,7 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Util/Algorithm.h"
 
 using namespace game;
@@ -33,7 +33,7 @@ void SpawnPredictionSystem::HandleSpawnMessage(const SpawnMessage& spawn_message
 
 uint32_t SpawnPredictionSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* SpawnPredictionSystem::Name() const

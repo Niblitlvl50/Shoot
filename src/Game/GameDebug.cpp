@@ -10,7 +10,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 #include "TransformSystem/TransformSystem.h"
 #include "Math/MathFunctions.h"
@@ -80,7 +80,7 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
     const bool input_entered = ImGui::InputText("Trigger", out_buffer, std::size(out_buffer), ImGuiInputTextFlags_EnterReturnsTrue);
     if(input_entered)
     {
-        const uint32_t hash_value = mono::Hash(out_buffer);
+        const uint32_t hash_value = hash::Hash(out_buffer);
         trigger_system->EmitTrigger(hash_value);
     }
     

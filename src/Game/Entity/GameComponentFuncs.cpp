@@ -22,7 +22,7 @@
 #include "Component.h"
 #include "CollisionConfiguration.h"
 
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "System/System.h"
 #include "Math/EasingFunctions.h"
 
@@ -249,12 +249,12 @@ namespace
         std::string enable_trigger;
         const bool found_enable = FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
         if(found_enable)
-            spawn_point.enable_trigger = mono::Hash(enable_trigger.c_str());
+            spawn_point.enable_trigger = hash::Hash(enable_trigger.c_str());
 
         std::string disable_trigger;
         const bool found_disable = FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
         if(found_disable)
-            spawn_point.disable_trigger = mono::Hash(disable_trigger.c_str());
+            spawn_point.disable_trigger = hash::Hash(disable_trigger.c_str());
 
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
         spawn_system->SetSpawnPointData(entity->id, spawn_point);
@@ -294,14 +294,14 @@ namespace
         uint32_t faction;
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
 
-        const uint32_t enter_trigger_hash = mono::Hash(enter_trigger_name.c_str());
-        const uint32_t exit_trigger_hash = mono::Hash(exit_trigger_name.c_str());
+        const uint32_t enter_trigger_hash = hash::Hash(enter_trigger_name.c_str());
+        const uint32_t exit_trigger_hash = hash::Hash(exit_trigger_name.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction);
 
-        mono::HashRegisterString(enter_trigger_name.c_str());
-        mono::HashRegisterString(exit_trigger_name.c_str());
+        hash::HashRegisterString(enter_trigger_name.c_str());
+        hash::HashRegisterString(exit_trigger_name.c_str());
 
         return true;
     }
@@ -335,10 +335,10 @@ namespace
         int trigger_type;
         FindAttribute(DESTROYED_TRIGGER_TYPE_ATTRIBUTE, properties, trigger_type, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, shared::DestroyedTriggerType(trigger_type));
-        mono::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -381,12 +381,12 @@ namespace
         const math::Matrix& world_transform = transform_system->GetWorld(entity->id);
         const math::Quad world_bb = math::Transform(world_transform, math::Quad(-half_width_height, half_width_height));
 
-        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddAreaEntityTrigger(
             entity->id, trigger_hash, world_bb, faction, shared::AreaTriggerOperation(operation), n_entities);
-        mono::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -418,10 +418,10 @@ namespace
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
         FindAttribute(REPEATING_ATTRIBUTE, properties, repeating, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
+        const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddTimeTrigger(entity->id, trigger_hash, timeout_ms, repeating);
-        mono::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -456,14 +456,14 @@ namespace
         FindAttribute(COUNT_ATTRIBUTE, properties, count, FallbackMode::SET_DEFAULT);
         FindAttribute(RESET_ON_COMPLETED_ATTRIBUTE, properties, reset_on_completed, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = mono::Hash(trigger_name.c_str());
-        const uint32_t completed_trigger_hash = mono::Hash(trigger_name_completed.c_str());
+        const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
+        const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddCounterTrigger(entity->id, trigger_hash, completed_trigger_hash, count, reset_on_completed);
 
-        mono::HashRegisterString(trigger_name.c_str());
-        mono::HashRegisterString(trigger_name_completed.c_str());
+        hash::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name_completed.c_str());
 
         return true;
     }
@@ -524,7 +524,7 @@ namespace
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AddSpriteAnimation(entity->id, mono::Hash(trigger_name.c_str()), animation_index);
+        animation_system->AddSpriteAnimation(entity->id, hash::Hash(trigger_name.c_str()), animation_index);
 
         return true;
     }
@@ -566,7 +566,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddTranslationComponent(
-            entity->id, mono::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), translation);
+            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), translation);
 
         return true;
     }
@@ -608,7 +608,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddRotationComponent(
-            entity->id, mono::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), rotation);
+            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), rotation);
 
         return true;
     }
@@ -642,7 +642,7 @@ namespace
         FindAttribute(ZOOM_LEVEL_ATTRIBUTE, properties, zoom_value, FallbackMode::SET_DEFAULT);
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), zoom_value);
+        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.c_str()), zoom_value);
         return true;
     }
 
@@ -675,7 +675,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, point, FallbackMode::SET_DEFAULT);
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, mono::Hash(trigger_name.c_str()), point);
+        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.c_str()), point);
         return true;
     }
 
@@ -708,8 +708,8 @@ namespace
         FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
 
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
-        interaction_system->AddComponent(entity->id, mono::Hash(trigger_name.c_str()), interaction_type);
-        mono::HashRegisterString(trigger_name.c_str());
+        interaction_system->AddComponent(entity->id, hash::Hash(trigger_name.c_str()), interaction_type);
+        hash::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -732,10 +732,10 @@ namespace
         
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
-            entity->id, mono::Hash(on_trigger_name.c_str()), mono::Hash(off_trigger_name.c_str()), interaction_type);
+            entity->id, hash::Hash(on_trigger_name.c_str()), hash::Hash(off_trigger_name.c_str()), interaction_type);
 
-        mono::HashRegisterString(on_trigger_name.c_str());
-        mono::HashRegisterString(off_trigger_name.c_str());
+        hash::HashRegisterString(on_trigger_name.c_str());
+        hash::HashRegisterString(off_trigger_name.c_str());
 
         return true;
     }

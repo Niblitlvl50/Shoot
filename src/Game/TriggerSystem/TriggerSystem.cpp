@@ -2,7 +2,7 @@
 #include "TriggerSystem.h"
 #include "DamageSystem.h"
 #include "Util/Algorithm.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Physics/IShape.h"
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -322,7 +322,7 @@ void TriggerSystem::EmitTrigger(uint32_t trigger_hash)
 
 uint32_t TriggerSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* TriggerSystem::Name() const
@@ -358,7 +358,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
         if(game::g_draw_triggers)
         {
-            const char* hash_string = mono::HashLookup(trigger_hash);
+            const char* hash_string = hash::HashLookup(trigger_hash);
             game::g_debug_drawer->DrawScreenTextFading(hash_string, math::Vector(1, 2), mono::Color::BLACK, 2000);
         }
     }

@@ -1,7 +1,7 @@
 
 #include "PickupSystem.h"
 
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Physics/PhysicsSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -97,7 +97,7 @@ void PickupSystem::UnregisterPickupTarget(uint32_t target_id)
 
 uint32_t PickupSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* PickupSystem::Name() const

@@ -10,7 +10,7 @@
 #include "Math/MathFunctions.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Algorithm.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Util/Random.h"
 
 #include <algorithm>
@@ -59,7 +59,7 @@ CameraSystem::~CameraSystem()
 
 uint32_t CameraSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* CameraSystem::Name() const

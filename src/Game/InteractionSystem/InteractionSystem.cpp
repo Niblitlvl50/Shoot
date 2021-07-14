@@ -5,7 +5,7 @@
 
 #include "Math/MathFunctions.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 using namespace game;
 
@@ -50,7 +50,7 @@ void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t on_interaction
 
 uint32_t InteractionSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* InteractionSystem::Name() const

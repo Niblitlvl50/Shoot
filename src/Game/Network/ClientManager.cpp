@@ -7,7 +7,7 @@
 #include "EventHandler/EventHandler.h"
 #include "System/Network.h"
 #include "System/System.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 using namespace game;
 
@@ -133,7 +133,7 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
 
 uint32_t ClientManager::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* ClientManager::Name() const

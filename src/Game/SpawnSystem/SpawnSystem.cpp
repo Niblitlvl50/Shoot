@@ -5,7 +5,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 
 #include "Math/MathFunctions.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Util/Random.h"
 #include "Util/Algorithm.h"
 #include "System/File.h"
@@ -110,7 +110,7 @@ const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
 
 uint32_t SpawnSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* SpawnSystem::Name() const

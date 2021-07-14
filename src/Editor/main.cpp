@@ -8,19 +8,23 @@
 #include "Engine.h"
 #include "SystemContext.h"
 
-#include "Editor.h"
-#include "EditorConfig.h"
-#include "FontIds.h"
-
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Paths/PathSystem.h"
 #include "RoadSystem/RoadSystem.h"
+#include "Physics/PhysicsSystem.h"
 
 #include "Component.h"
 #include "Entity/ComponentFunctions.h"
 #include "Entity/LoadEntity.h"
+
+#include "DamageSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
+
+#include "Editor.h"
+#include "EditorConfig.h"
+#include "FontIds.h"
 
 int main()
 {
@@ -53,8 +57,17 @@ int main()
         system_context.CreateSystem<mono::RoadSystem>(max_entities);
         system_context.CreateSystem<mono::LightSystem>(max_entities);
 
+        mono::PhysicsSystemInitParams physics_init_params;
+        physics_init_params.n_bodies = max_entities;
+
+        mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
+
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
             max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+
+        game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);
+        system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+
 
         shared::RegisterSharedComponents(entity_system);
         shared::LoadFonts();

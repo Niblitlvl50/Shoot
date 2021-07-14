@@ -11,7 +11,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Util/Algorithm.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -58,7 +58,7 @@ ServerReplicator::ServerReplicator(
         LevelMetadataMessage metadata_message;
         metadata_message.camera_position = level_metadata.camera_position;
         metadata_message.camera_size = level_metadata.camera_size;
-        metadata_message.background_texture_hash = mono::Hash(level_metadata.background_texture.c_str());
+        metadata_message.background_texture_hash = hash::Hash(level_metadata.background_texture.c_str());
         metadata_message.world_file_hash = 0;
 
         NetworkMessage message;

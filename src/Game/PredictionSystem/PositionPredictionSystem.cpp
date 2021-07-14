@@ -3,7 +3,7 @@
 #include "Network/NetworkMessage.h"
 #include "Network/ClientManager.h"
 
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Math/Matrix.h"
 #include "System/System.h"
@@ -32,7 +32,7 @@ PositionPredictionSystem::PositionPredictionSystem(
 
 uint32_t PositionPredictionSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* PositionPredictionSystem::Name() const

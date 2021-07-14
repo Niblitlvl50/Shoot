@@ -7,7 +7,7 @@
 
 #include "System/Network.h"
 #include "System/System.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 #include <functional>
 #include <thread>
@@ -216,7 +216,7 @@ void ServerManager::PurgeZombieClients()
 
 uint32_t ServerManager::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* ServerManager::Name() const

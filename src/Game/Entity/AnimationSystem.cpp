@@ -5,7 +5,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Util/Algorithm.h"
 
 using namespace game;
@@ -167,7 +167,7 @@ void AnimationSystem::AddTransformAnimatonToUpdate(TransformAnimationComponent* 
 
 uint32_t AnimationSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* AnimationSystem::Name() const

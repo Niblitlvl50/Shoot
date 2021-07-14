@@ -1,7 +1,7 @@
 
 #include "SpriteResources.h"
 #include "System/File.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 #include <string>
 
@@ -20,7 +20,7 @@ namespace
         for(const auto& list_entry : json[json_node_name])
         {
             const std::string sprite_string = list_entry;
-            mono::HashRegisterString(sprite_string.c_str());
+            hash::HashRegisterString(sprite_string.c_str());
         }
 
         return true;
@@ -44,5 +44,5 @@ bool game::LoadAllWorlds(const char* all_worlds_file)
 
 const char* game::HashToFilename(uint32_t hash)
 {
-    return mono::HashLookup(hash);
+    return hash::HashLookup(hash);
 }

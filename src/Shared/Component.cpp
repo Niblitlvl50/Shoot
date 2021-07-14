@@ -1,12 +1,12 @@
 
 #include "Component.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "System/System.h"
 
 struct DefaultAttribute
 {
     DefaultAttribute(const char* string, const Variant& default_value, const char* tooltip = "")
-        : hash(mono::Hash(string))
+        : hash(hash::Hash(string))
         , string(string)
         , default_value(default_value)
         , tooltip(tooltip)
@@ -176,35 +176,35 @@ extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE = default_attributes[65].
 
 
 
-extern const uint32_t NULL_COMPONENT                = mono::Hash("null");
-extern const uint32_t NAME_FOLDER_COMPONENT         = mono::Hash("name_folder");
-extern const uint32_t TRANSFORM_COMPONENT           = mono::Hash("transform");
-extern const uint32_t SPRITE_COMPONENT              = mono::Hash("sprite");
-extern const uint32_t TEXT_COMPONENT                = mono::Hash("text");
-extern const uint32_t PHYSICS_COMPONENT             = mono::Hash("physics");
-extern const uint32_t CIRCLE_SHAPE_COMPONENT        = mono::Hash("circle_shape");
-extern const uint32_t BOX_SHAPE_COMPONENT           = mono::Hash("box_shape");
-extern const uint32_t SEGMENT_SHAPE_COMPONENT       = mono::Hash("segment_shape");
-extern const uint32_t POLYGON_SHAPE_COMPONENT       = mono::Hash("polygon_shape");
-extern const uint32_t HEALTH_COMPONENT              = mono::Hash("health");
-extern const uint32_t BEHAVIOUR_COMPONENT           = mono::Hash("entity_behaviour");
-extern const uint32_t SPAWN_POINT_COMPONENT         = mono::Hash("spawn_point");
-extern const uint32_t SHAPE_TRIGGER_COMPONENT       = mono::Hash("shape_trigger");
-extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = mono::Hash("destroyed_trigger");
-extern const uint32_t AREA_TRIGGER_COMPONENT        = mono::Hash("area_entity_trigger");
-extern const uint32_t TIME_TRIGGER_COMPONENT        = mono::Hash("time_trigger");
-extern const uint32_t COUNTER_TRIGGER_COMPONENT     = mono::Hash("counter_trigger");
-extern const uint32_t PICKUP_COMPONENT              = mono::Hash("pickup");
-extern const uint32_t ANIMATION_COMPONENT           = mono::Hash("set_animation");
-extern const uint32_t TRANSLATION_COMPONENT         = mono::Hash("set_translation");
-extern const uint32_t ROTATION_COMPONENT            = mono::Hash("set_rotation");
-extern const uint32_t CAMERA_ZOOM_COMPONENT         = mono::Hash("camera_zoom");
-extern const uint32_t CAMERA_POINT_COMPONENT        = mono::Hash("camera_point");
-extern const uint32_t INTERACTION_COMPONENT         = mono::Hash("interaction");
-extern const uint32_t INTERACTION_SWITCH_COMPONENT  = mono::Hash("interaction_switch");
-extern const uint32_t PATH_COMPONENT                = mono::Hash("path");
-extern const uint32_t ROAD_COMPONENT                = mono::Hash("road");
-extern const uint32_t LIGHT_COMPONENT               = mono::Hash("light");
+extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
+extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
+extern const uint32_t TRANSFORM_COMPONENT           = hash::Hash("transform");
+extern const uint32_t SPRITE_COMPONENT              = hash::Hash("sprite");
+extern const uint32_t TEXT_COMPONENT                = hash::Hash("text");
+extern const uint32_t PHYSICS_COMPONENT             = hash::Hash("physics");
+extern const uint32_t CIRCLE_SHAPE_COMPONENT        = hash::Hash("circle_shape");
+extern const uint32_t BOX_SHAPE_COMPONENT           = hash::Hash("box_shape");
+extern const uint32_t SEGMENT_SHAPE_COMPONENT       = hash::Hash("segment_shape");
+extern const uint32_t POLYGON_SHAPE_COMPONENT       = hash::Hash("polygon_shape");
+extern const uint32_t HEALTH_COMPONENT              = hash::Hash("health");
+extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
+extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
+extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
+extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
+extern const uint32_t AREA_TRIGGER_COMPONENT        = hash::Hash("area_entity_trigger");
+extern const uint32_t TIME_TRIGGER_COMPONENT        = hash::Hash("time_trigger");
+extern const uint32_t COUNTER_TRIGGER_COMPONENT     = hash::Hash("counter_trigger");
+extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
+extern const uint32_t ANIMATION_COMPONENT           = hash::Hash("set_animation");
+extern const uint32_t TRANSLATION_COMPONENT         = hash::Hash("set_translation");
+extern const uint32_t ROTATION_COMPONENT            = hash::Hash("set_rotation");
+extern const uint32_t CAMERA_ZOOM_COMPONENT         = hash::Hash("camera_zoom");
+extern const uint32_t CAMERA_POINT_COMPONENT        = hash::Hash("camera_point");
+extern const uint32_t INTERACTION_COMPONENT         = hash::Hash("interaction");
+extern const uint32_t INTERACTION_SWITCH_COMPONENT  = hash::Hash("interaction_switch");
+extern const uint32_t PATH_COMPONENT                = hash::Hash("path");
+extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
+extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 
 
 const char* ComponentNameFromHash(uint32_t hash)

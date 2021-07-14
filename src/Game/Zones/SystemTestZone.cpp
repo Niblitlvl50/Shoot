@@ -12,7 +12,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include "Particle/ParticleSystem.h"
 
 #include "Hud/GameOverScreen.h"
@@ -37,7 +37,7 @@
 
 namespace
 {
-    const uint32_t level_completed_hash = mono::Hash("level_completed");
+    const uint32_t level_completed_hash = hash::Hash("level_completed");
 }
 
 using namespace game;

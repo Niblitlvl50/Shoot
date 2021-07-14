@@ -5,7 +5,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Events/ScoreEvent.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 #include <limits>
 #include <cassert>
 
@@ -122,7 +122,7 @@ void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)
 
 uint32_t DamageSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* DamageSystem::Name() const

@@ -1,7 +1,7 @@
 
 #include "EntityLogicSystem.h"
 #include "IEntityLogic.h"
-#include "Util/Hash.h"
+#include "System/Hash.h"
 
 #include <algorithm>
 #include <cassert>
@@ -40,7 +40,7 @@ void EntityLogicSystem::ReleaseLogic(uint32_t entity_id)
 
 uint32_t EntityLogicSystem::Id() const
 {
-    return mono::Hash(Name());
+    return hash::Hash(Name());
 }
 
 const char* EntityLogicSystem::Name() const
