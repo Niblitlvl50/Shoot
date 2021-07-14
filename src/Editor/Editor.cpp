@@ -845,12 +845,12 @@ void Editor::SelectItemCallback(int index)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
 
     const std::string& selected_item = m_context.modal_items[index];
-    std::vector<IObjectProxyPtr> loaded_objects = LoadComponentObjects(selected_item.c_str(), &m_entity_manager, transform_system, this);
-    if(loaded_objects.empty())
+    editor::World loaded_world = ::LoadWorld(selected_item.c_str(), &m_entity_manager, transform_system, this);
+    if(loaded_world.loaded_proxies.empty())
         return;
 
     Selection new_selection;
-    for(auto& object : loaded_objects)
+    for(auto& object : loaded_world.loaded_proxies)
     {
         new_selection.push_back(object->Id());
         m_proxies.push_back(std::move(object));
@@ -1036,10 +1036,9 @@ void Editor::ReExportEntities()
 
     for(auto entity_file : all_entities)
     {
-        std::vector<IObjectProxyPtr> loaded_objects =
-            LoadComponentObjects(entity_file.c_str(), &m_entity_manager, transform_system, this);
+        editor::World loaded_world = ::LoadWorld(entity_file.c_str(), &m_entity_manager, transform_system, this);
 
-        for(IObjectProxyPtr& proxy : loaded_objects)
+        for(IObjectProxyPtr& proxy : loaded_world.loaded_proxies)
         {
             std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
             std::replace(filename.begin(), filename.end(), ' ', '_');

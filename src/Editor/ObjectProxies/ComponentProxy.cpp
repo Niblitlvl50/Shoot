@@ -41,6 +41,11 @@ ComponentProxy::~ComponentProxy()
     m_entity_manager->ReleaseEntity(m_entity_id);
 }
 
+uint32_t ComponentProxy::Uuid() const
+{
+    return m_entity_manager->GetEntityUuid(m_entity_id);
+}
+
 uint32_t ComponentProxy::Id() const
 {
     return m_entity_id;

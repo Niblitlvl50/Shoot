@@ -30,6 +30,7 @@ namespace editor
         
         ~ComponentProxy();
 
+        uint32_t Uuid() const override;
         uint32_t Id() const override;
         std::string Name() const override;
         std::string GetFolder() const override;

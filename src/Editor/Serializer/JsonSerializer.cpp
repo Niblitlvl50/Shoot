@@ -4,10 +4,6 @@
 #include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
 
-#include "Math/Serialize.h"
-#include "Math/Matrix.h"
-#include "Rendering/Serialize.h"
-
 #include "System/File.h"
 
 #include "Component.h"
@@ -61,6 +57,7 @@ void JsonSerializer::Accept(ComponentProxy* proxy)
     }
 
     nlohmann::json json_entity;
+    json_entity["uuid_hash"] = proxy->Uuid();
     json_entity["name"] = proxy->Name();
     json_entity["folder"] = proxy->GetFolder();
     json_entity["entity_properties"] = proxy->GetEntityProperties();

@@ -21,6 +21,7 @@ mono::EntityData shared::LoadEntityFile(const char* entity_file)
     const nlohmann::json& first_entity = json["entities"][0];
 
     mono::EntityData entity_data;
+    entity_data.entity_uuid = first_entity.value("uuid_hash", 0);
     entity_data.entity_name = first_entity.value("name", "Unnamed");
     entity_data.entity_properties = first_entity.value("entity_properties", 0);
 

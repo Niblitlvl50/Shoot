@@ -45,11 +45,12 @@ namespace
 
         for(const auto& json_entity : entities)
         {
+            const uint32_t uuid_hash = json_entity["uuid_hash"];
             const std::string& entity_name = json_entity["name"];
             const std::string& entity_folder = json_entity.value("folder", ""); 
             const uint32_t entity_properties = json_entity["entity_properties"];
 
-            mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
+            mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, std::vector<uint32_t>());
             entity_manager->SetEntityProperties(new_entity.id, entity_properties);
 
             std::vector<Component> components;

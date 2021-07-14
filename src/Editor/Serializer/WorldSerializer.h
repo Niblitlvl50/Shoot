@@ -1,22 +1,13 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "ObjectProxies/IObjectProxy.h"
 #include "WorldFile.h"
 #include <vector>
 
-namespace mono
-{
-    class TransformSystem;
-}
-
 namespace editor
 {
-    class ObjectFactory;
-    class Editor;
-
-    std::vector<IObjectProxyPtr> LoadComponentObjects(const char* file_name, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, Editor* editor);
-
     struct World
     {
         shared::LevelData leveldata;
@@ -27,7 +18,7 @@ namespace editor
         const char* file_name,
         mono::IEntityManager* entity_manager,
         mono::TransformSystem* transform_system,
-        Editor* editor);
+        class Editor* editor);
 
     void SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const shared::LevelMetadata& level_data);
 }

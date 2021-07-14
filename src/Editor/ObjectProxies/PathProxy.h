@@ -22,8 +22,9 @@ namespace editor
 
         ~PathProxy();
 
-        std::string Name() const override;
+        uint32_t Uuid() const override;
         uint32_t Id() const override;
+        std::string Name() const override;
         void SetSelected(bool selected) override;
         bool Intersects(const math::Vector& position) const override;
         bool Intersects(const math::Quad& world_bb) const override;

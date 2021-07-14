@@ -34,6 +34,11 @@ PathProxy::PathProxy(
 PathProxy::~PathProxy()
 { }
 
+uint32_t PathProxy::Uuid() const
+{
+    return 0;
+}
+
 uint32_t PathProxy::Id() const
 {
     return m_entity_id;
