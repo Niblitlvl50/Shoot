@@ -85,7 +85,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "nice_you_did_it"
+            "name": "nice_you_did_it",
+            "uuid_hash": 999363917
         },
         {
             "components": [
@@ -145,14 +146,14 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
+                            "id": 128336118,
+                            "name": "layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 905328841,
-                            "name": "sprite_sort_offset",
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         },
@@ -199,7 +200,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "ork_flag"
+            "name": "ork_flag",
+            "uuid_hash": 189028799
         },
         {
             "components": [
@@ -259,14 +261,14 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
+                            "id": 128336118,
+                            "name": "layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 905328841,
-                            "name": "sprite_sort_offset",
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         },
@@ -313,7 +315,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "screen_surprised"
+            "name": "screen_surprised",
+            "uuid_hash": 817353105
         },
         {
             "components": [
@@ -373,14 +376,14 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
+                            "id": 128336118,
+                            "name": "layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 905328841,
-                            "name": "sprite_sort_offset",
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         },
@@ -427,7 +430,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "screen_neutral"
+            "name": "screen_neutral",
+            "uuid_hash": 720721305
         }
     ],
     "metadata": {

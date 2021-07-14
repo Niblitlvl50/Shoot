@@ -124,7 +124,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "mega_text_2"
+            "name": "mega_text_2",
+            "uuid_hash": 831254255
         },
         {
             "components": [
@@ -211,7 +212,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "mega_text_1"
+            "name": "mega_text_1",
+            "uuid_hash": 2149541589
         }
     ],
     "metadata": {

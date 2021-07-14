@@ -58,14 +58,14 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
+                            "id": 128336118,
+                            "name": "layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 905328841,
-                            "name": "sprite_sort_offset",
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         },
@@ -124,7 +124,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "screen_right"
+            "name": "screen_right",
+            "uuid_hash": 3303335157
         },
         {
             "components": [
@@ -249,7 +250,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "spline"
+            "name": "spline",
+            "uuid_hash": 1070453452
         }
     ],
     "metadata": {
