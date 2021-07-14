@@ -153,7 +153,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "caco_explosion"
+            "name": "caco_explosion",
+            "uuid_hash": 1062898916
         }
     ],
     "metadata": {

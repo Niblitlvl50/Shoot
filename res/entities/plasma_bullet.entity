@@ -58,14 +58,14 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 2565644130,
-                            "name": "sprite_layer",
+                            "id": 128336118,
+                            "name": "layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
                         {
-                            "id": 905328841,
-                            "name": "sprite_sort_offset",
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         },
@@ -131,10 +131,22 @@
                             }
                         },
                         {
-                            "id": 2310526180,
-                            "name": "light_flickering",
+                            "id": 226247311,
+                            "name": "flicker",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -198,7 +210,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "plasma_bullet"
+            "name": "plasma_bullet",
+            "uuid_hash": 763265137
         }
     ],
     "metadata": {

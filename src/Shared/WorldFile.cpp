@@ -33,24 +33,40 @@ namespace
         const std::vector<byte> file_data = file::FileRead(file);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-        const nlohmann::json& json_metadata = json["metadata"];
-        level_data.metadata.camera_position = json_metadata["camera_position"];
-        level_data.metadata.camera_size = json_metadata["camera_size"];
-        level_data.metadata.player_spawn_point = json_metadata["player_spawn_point"];
-        level_data.metadata.background_color = json_metadata.value("background_color", mono::Color::BLACK);
-        level_data.metadata.ambient_shade = json_metadata.value("ambient_shade", mono::Color::WHITE);
-        level_data.metadata.background_texture = json_metadata["background_texture"];
+        const bool has_metadata = json.contains("metadata");
+        if(has_metadata)
+        {
+            const nlohmann::json& json_metadata = json["metadata"];
+            level_data.metadata.camera_position = json_metadata.value("camera_position", math::ZeroVec);
+            level_data.metadata.camera_size = json_metadata.value("camera_size", math::ZeroVec);
+            level_data.metadata.player_spawn_point = json_metadata.value("player_spawn_point", math::ZeroVec);
+            level_data.metadata.background_color = json_metadata.value("background_color", mono::Color::BLACK);
+            level_data.metadata.ambient_shade = json_metadata.value("ambient_shade", mono::Color::WHITE);
+            level_data.metadata.background_texture = json_metadata.value("background_texture", "");
+        }
 
         const nlohmann::json& entities = json["entities"];
 
         for(const auto& json_entity : entities)
         {
-            const uint32_t uuid_hash = json_entity["uuid_hash"];
+            const bool has_uuid_hash = json_entity.contains("uuid_hash");
+
             const std::string& entity_name = json_entity["name"];
             const std::string& entity_folder = json_entity.value("folder", ""); 
             const uint32_t entity_properties = json_entity["entity_properties"];
 
-            mono::Entity new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, std::vector<uint32_t>());
+            mono::Entity new_entity;
+
+            if(has_uuid_hash)
+            {
+                const uint32_t uuid_hash = json_entity["uuid_hash"];
+                new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, std::vector<uint32_t>());
+            }
+            else
+            {
+                new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
+            }
+
             entity_manager->SetEntityProperties(new_entity.id, entity_properties);
 
             std::vector<Component> components;
@@ -88,6 +104,15 @@ namespace
                 {
                     //System::Log("WorldFile|Failed to setup component with name '%s' for entity named '%s'", ComponentNameFromHash(component.hash), entity_name.c_str());
                 }
+            }
+
+            // Patch the exported entities to have name and folder component, remove later.
+            Component* name_folder = FindComponentFromHash(NAME_FOLDER_COMPONENT, components);
+            if(!name_folder)
+            {
+                Component name_folder_component = DefaultComponentFromHash(NAME_FOLDER_COMPONENT);
+                SetAttribute(NAME_ATTRIBUTE, name_folder_component.properties, entity_name);
+                components.push_back(name_folder_component);
             }
 
             if(!ignored_components.empty())

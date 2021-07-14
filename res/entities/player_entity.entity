@@ -237,7 +237,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "player_entity"
+            "name": "player_entity",
+            "uuid_hash": 4042732925
         }
     ],
     "metadata": {
