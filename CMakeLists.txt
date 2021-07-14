@@ -29,19 +29,19 @@ include_directories("Mono1/src" "Mono1/third_party" "src/Shared")
 
 
 # Shared lib
-file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp" "src/Shared/*.h")
+file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
 add_library(shared STATIC ${shared_source_files})
 
 
 # Game lib
-file(GLOB_RECURSE game_source_files "src/Game/*.cpp" "src/Game/*.h")
+file(GLOB_RECURSE game_source_files "src/Game/*.cpp")
 list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
 add_library(game_lib STATIC ${game_source_files})
 target_include_directories(game_lib PRIVATE "src/Game")
 
 
 # Editor exe
-file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp" "src/Editor/*.h")
+file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
 add_executable(editor MACOSX_BUNDLE ${editor_source_files})
 add_dependencies(editor game_lib mono shared imgui)
 target_include_directories(editor PRIVATE "src/Editor" "src/Game")
