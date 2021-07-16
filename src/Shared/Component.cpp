@@ -375,8 +375,8 @@ void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vecto
         Attribute* attribute = nullptr;
         if(FindAttribute(input.id, result_attributes, attribute))
             attribute->value = input.value;
-//        else
-//            result_attributes.push_back(input);
+        else
+            result_attributes.push_back(input);
     }
 }
 

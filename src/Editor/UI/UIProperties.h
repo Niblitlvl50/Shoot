@@ -40,7 +40,15 @@ namespace editor
     SpritePickerResult DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context);
 
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
-    bool DrawEntityReferenceProperty(const char* name, const char* entity_name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback);
+
+    using EnablePickCallback = std::function<void (uint32_t* target)>;
+    using SelectReferenceCallback = std::function<void (uint32_t reference)>;
+    bool DrawEntityReferenceProperty(
+        const char* name,
+        const char* entity_name,
+        uint32_t& entity_reference,
+        const EnablePickCallback& pick_callback,
+        const SelectReferenceCallback& select_callback);
 
     struct PaletteResult
     {

@@ -313,7 +313,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         uint32_t& entity_id = std::get<uint32_t>(attribute.value);
         const char* entity_name = ui_context.entity_name_callback(entity_id);
-        return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback);
+        return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback, ui_context.select_reference_callback);
     }
     else if(attribute.id == TEXTURE_ATTRIBUTE)
     {
@@ -658,19 +658,32 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     return point_added || point_removed;
 }
 
-bool editor::DrawEntityReferenceProperty(const char* name, const char* entity_name, uint32_t& entity_reference, const std::function<void (uint32_t* target)>& pick_callback)
+bool editor::DrawEntityReferenceProperty(
+    const char* name,
+    const char* entity_name,
+    uint32_t& entity_reference,
+    const EnablePickCallback& pick_callback,
+    const SelectReferenceCallback& select_callback)
 {
     const ImGuiStyle& style = ImGui::GetStyle();
     const float item_width = ImGui::CalcItemWidth();
 
+    const float item_spacing = style.ItemInnerSpacing.x - 1.0f;
+    const float tiny_button_width = 19.0f;
+
     char label[32] = {};
     std::sprintf(label, "%s (%u)", entity_name, entity_reference);
 
-    const bool enable_pick = ImGui::Button(label, ImVec2(item_width, 0));
+    const bool enable_pick = ImGui::Button(label, ImVec2(item_width - tiny_button_width - item_spacing, 0));
     if(enable_pick)
         pick_callback(&entity_reference);
 
-    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
+    ImGui::SameLine(0.0f, item_spacing);
+    const bool select_picked_entity = ImGui::Button(">", ImVec2(tiny_button_width, 0));
+    if(select_picked_entity)
+        select_callback(entity_reference);
+
+    ImGui::SameLine(0.0f, item_spacing);
     ImGui::Text("%s", name);
 
     return enable_pick;

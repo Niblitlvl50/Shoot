@@ -188,6 +188,11 @@ Editor::Editor(
         EnterMode(EditorMode::REFERENCE_PICKING);
     };
 
+    m_context.select_reference_callback = [this](uint32_t entity_reference) {
+        const uint32_t entity_id = m_entity_manager.GetEntityIdFromUuid(entity_reference);
+        SetSelection({ entity_id });
+    };
+
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
     m_context.select_object_callback = [this](uint32_t entity_id) {
@@ -211,7 +216,8 @@ Editor::Editor(
     m_context.ambient_shade_callback = std::bind(&Editor::SetAmbientShade, this, _1);
     m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
 
-    m_context.entity_name_callback = [&entity_manager](uint32_t entity_id){
+    m_context.entity_name_callback = [&entity_manager](uint32_t entity_uuid_hash){
+        const uint32_t entity_id = entity_manager.GetEntityIdFromUuid(entity_uuid_hash);
         return entity_manager.GetEntityName(entity_id);
     };
 
@@ -484,7 +490,10 @@ void Editor::SetSelection(const Selection& selected_ids)
     {
         if(!selected_ids.empty())
         {
-            *m_pick_target = selected_ids.front();
+            const uint32_t selected_entity_id = selected_ids.front();
+            const uint32_t entity_uuid = m_entity_manager.GetEntityUuid(selected_entity_id);
+
+            *m_pick_target = entity_uuid;
             m_pick_target = nullptr;
             m_mode_stack.pop();
         }

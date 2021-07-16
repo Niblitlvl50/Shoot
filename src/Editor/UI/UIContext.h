@@ -109,6 +109,7 @@ namespace editor
         std::function<void ()> delete_callback;
         std::function<void (const std::string& new_world)> switch_world;
         std::function<void (uint32_t* target_data)> pick_callback;
+        std::function<void (uint32_t entity_reference)> select_reference_callback;
         
         std::function<void (uint32_t component_hash)> add_component;
         std::function<void (uint32_t component_index)> delete_component;
