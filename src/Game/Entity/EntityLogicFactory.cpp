@@ -12,6 +12,8 @@
 #include "Enemies/TurretSpawnerController.h"
 #include "Enemies/ExplodableController.h"
 
+#include "SystemContext.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Paths/PathFactory.h"
 #include "Component.h"
 
@@ -55,7 +57,10 @@ IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, cons
         if(!found_path_property)
             return nullptr;
 
-        return new game::InvaderPathController(entity_id, entity_reference, m_system_context, m_event_handler);
+        mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+        const uint32_t path_entity_id = entity_manager->GetEntityIdFromUuid(entity_reference);
+
+        return new game::InvaderPathController(entity_id, path_entity_id, m_system_context, m_event_handler);
     }
 
     return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
