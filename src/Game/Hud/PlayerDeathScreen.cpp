@@ -1,5 +1,5 @@
 
-#include "GameOverScreen.h"
+#include "PlayerDeathScreen.h"
 
 #include "Player/PlayerInfo.h"
 #include "FontIds.h"
@@ -15,7 +15,7 @@
 
 using namespace game;
 
-GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler)
+PlayerDeathScreen::PlayerDeathScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler)
     : UIOverlay(1200.0f, 1200.0f / mono::GetWindowAspect())
     , m_player_info(player_info)
     , m_event_handler(event_handler)
@@ -44,7 +44,7 @@ GameOverScreen::GameOverScreen(const PlayerInfo& player_info, mono::EventHandler
     AddChild(continue_text);
 }
 
-void GameOverScreen::Update(const mono::UpdateContext& update_context)
+void PlayerDeathScreen::Update(const mono::UpdateContext& update_context)
 {
     UIOverlay::Update(update_context);
 

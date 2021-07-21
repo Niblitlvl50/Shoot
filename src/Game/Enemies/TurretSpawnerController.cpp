@@ -93,7 +93,7 @@ void TurretSpawnerController::Attacking(const mono::UpdateContext& update_contex
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
 
-    game::WeaponState fire_state = m_weapon->Fire(world_position, m_attack_position, update_context.timestamp);
-    if(fire_state == game::WeaponState::FIRE)
-        m_states.TransitionTo(TurretStates::IDLE);
+//    game::WeaponState fire_state = m_weapon->Fire(world_position, m_attack_position, update_context.timestamp);
+//    if(fire_state == game::WeaponState::FIRE)
+//        m_states.TransitionTo(TurretStates::IDLE);
 }

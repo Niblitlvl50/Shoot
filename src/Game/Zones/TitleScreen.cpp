@@ -37,6 +37,7 @@ namespace
 
         CheckControllerInput(TitleScreen* title_screen)
             : m_title_screen(title_screen)
+            , m_last_state{}
         { }
 
         void Update(const mono::UpdateContext& update_context)

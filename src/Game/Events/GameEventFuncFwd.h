@@ -15,6 +15,7 @@ namespace game
     struct ScoreEvent;
     struct AddDrawableEvent;
     struct RemoveDrawableEvent;
+    struct GameOverEvent;
 
     using ShockwaveFunc = std::function<mono::EventResult (const game::ShockwaveEvent&)>;
     using PlayerConnectedFunc = std::function<mono::EventResult (const game::PlayerConnectedEvent&)>; 
@@ -26,4 +27,6 @@ namespace game
 
     using AddDrawableFunc = std::function<mono::EventResult (const game::AddDrawableEvent&)>;
     using RemoveDrawableFunc = std::function<mono::EventResult (const game::RemoveDrawableEvent&)>;
+
+    using GameOverFunc = std::function<mono::EventResult (const game::GameOverEvent&)>;
 }

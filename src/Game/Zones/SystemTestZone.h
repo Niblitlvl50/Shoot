@@ -4,6 +4,7 @@
 #include "GameZone.h"
 #include "ZoneCreationContext.h"
 #include "GameConfig.h"
+#include "EventHandler/EventToken.h"
 
 #include <memory>
 
@@ -31,10 +32,12 @@ namespace game
         int m_next_zone;
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
-        std::unique_ptr<class GameOverScreen> m_gameover_screen;
+        std::unique_ptr<class PlayerDeathScreen> m_player_death_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
         std::unique_ptr<class FogOverlay> m_fog;
 
         std::unique_ptr<class AngelDust> m_angeldust_effect;
+
+        mono::EventToken<struct GameOverEvent> m_gameover_token;
     };
 }

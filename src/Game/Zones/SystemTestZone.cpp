@@ -6,6 +6,8 @@
 #include "EntitySystem/EntitySystem.h"
 #include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
+#include "Events/GameEvents.h"
+#include "Events/GameEventFuncFwd.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
 #include "Rendering/IRenderer.h"
@@ -15,7 +17,7 @@
 #include "System/Hash.h"
 #include "Particle/ParticleSystem.h"
 
-#include "Hud/GameOverScreen.h"
+#include "Hud/PlayerDeathScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/ClientViewportVisualizer.h"
@@ -48,10 +50,19 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)
     , m_next_zone(TITLE_SCREEN)
-{ }
+{
+    const GameOverFunc on_game_over = [this](const game::GameOverEvent& event) {
+        m_next_zone = ZoneFlow::GAME_OVER_SCREEN;
+        m_event_handler->DispatchEvent(event::QuitEvent());
+        return mono::EventResult::PASS_ON;
+    };
+    m_gameover_token = m_event_handler->AddListener(on_game_over);
+}
 
 SystemTestZone::~SystemTestZone()
-{ }
+{
+    m_event_handler->RemoveListener(m_gameover_token);
+}
 
 void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
@@ -74,8 +85,8 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     server_manager->StartServer();
 
     const auto level_completed_func = [this](uint32_t trigger_id) {
-        m_event_handler->DispatchEvent(event::QuitEvent());
         m_next_zone = END_SCREEN;
+        m_event_handler->DispatchEvent(event::QuitEvent());
     };
     m_level_completed_trigger =
         trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
@@ -95,13 +106,13 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, entity_system, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
     
-    m_gameover_screen = std::make_unique<GameOverScreen>(game::g_players[0], m_event_handler);
+    m_player_death_screen = std::make_unique<PlayerDeathScreen>(game::g_players[0], m_event_handler);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
     //m_fog = std::make_unique<FogOverlay>();
 
     m_angeldust_effect = std::make_unique<AngelDust>(particle_system, entity_system, math::Quad(-50.0f, -50.0f, 50.0f, 50.0f));
 
-    AddUpdatableDrawable(m_gameover_screen.get(), LayerId::UI);
+    AddUpdatableDrawable(m_player_death_screen.get(), LayerId::UI);
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     //AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
 
@@ -125,7 +136,7 @@ int SystemTestZone::OnUnload()
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
 
-    RemoveUpdatableDrawable(m_gameover_screen.get());
+    RemoveUpdatableDrawable(m_player_death_screen.get());
     RemoveUpdatableDrawable(m_player_ui.get());
     //RemoveUpdatableDrawable(m_fog.get());
 

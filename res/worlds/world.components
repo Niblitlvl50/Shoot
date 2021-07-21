@@ -4656,7 +4656,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.4431009292602539,
+                                "x": 0.4595756530761719,
                                 "y": -0.5024173259735107
                             }
                         },
@@ -13529,6 +13529,47 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.46626296639442444,
+                                "green": 0.748089611530304,
+                                "red": 0.970588207244873
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -13644,6 +13685,47 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.46626296639442444,
+                                "green": 0.748089611530304,
+                                "red": 0.970588207244873
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -13680,8 +13762,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.862541913986206,
-                                "y": -0.7620642185211182
+                                "x": -0.798114538192749,
+                                "y": -1.5780847072601318
                             }
                         },
                         {
@@ -19768,7 +19850,7 @@
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
-                            "variant_value": 0.10000000149011612
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -21087,13 +21169,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "goblin"
+                            "variant_value": "crazy_wizard"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "vegetation_forest"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -21106,8 +21188,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.4976696968078613,
-                                "y": -6.020383358001709
+                                "x": -0.8552241325378418,
+                                "y": -6.634418487548828
                             }
                         },
                         {
@@ -21221,8 +21303,8 @@
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "green": 0.9999932050704956,
+                                "red": 0.9999899864196777
                             }
                         },
                         {
@@ -21247,8 +21329,8 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
-            "name": "goblin",
+            "folder": "",
+            "name": "crazy_wizard",
             "uuid_hash": 185179095
         },
         {
@@ -22611,7 +22693,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.0,
+                                "x": -2.006948947906494,
                                 "y": -6.0
                             }
                         },
@@ -22707,8 +22789,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.2549019455909729,
-                                "green": 0.7370204925537109,
+                                "blue": 0.0,
+                                "green": 0.6470521688461304,
                                 "red": 1.0
                             }
                         },
@@ -22742,9 +22824,9 @@
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.5882293581962585,
-            "green": 0.5882293581962585,
-            "red": 0.5882352590560913
+            "blue": 0.666659951210022,
+            "green": 0.666659951210022,
+            "red": 0.6666666269302368
         },
         "background_color": {
             "alpha": 1.0,

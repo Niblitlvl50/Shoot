@@ -1,6 +1,7 @@
 {
     "all_worlds": [
         "res/worlds/empty_world.components",
+        "res/worlds/game_over.components",
         "res/worlds/end_screen.components",
         "res/worlds/title_screen.components",
         "res/worlds/world.components"

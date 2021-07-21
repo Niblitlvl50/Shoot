@@ -22,11 +22,11 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
     , m_fire_cooldown(0)
     //, m_path(std::move(path))
 {
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_transform = &transform_system->GetTransform(entity_id);
+    //mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+    //m_transform = &transform_system->GetTransform(entity_id);
 
     //m_path_behaviour = std::make_unique<PathBehaviour>(enemy, m_path.get(), m_event_handler);
-    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
+    //m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
 InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)

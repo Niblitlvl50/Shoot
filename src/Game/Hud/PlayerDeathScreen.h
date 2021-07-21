@@ -11,11 +11,11 @@ namespace game
 {
     struct PlayerInfo;
 
-    class GameOverScreen : public game::UIOverlay
+    class PlayerDeathScreen : public game::UIOverlay
     {
     public:
 
-        GameOverScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler);
+        PlayerDeathScreen(const PlayerInfo& player_info, mono::EventHandler* event_handler);
         void Update(const mono::UpdateContext& update_context) override;
 
     private:

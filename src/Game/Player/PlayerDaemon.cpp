@@ -17,6 +17,7 @@
 #include "Events/ControllerEvent.h"
 #include "Events/PlayerConnectedEvent.h"
 #include "Events/ScoreEvent.h"
+#include "Events/GameEvents.h"
 
 #include "Network/NetworkMessage.h"
 #include "Network/INetworkPipe.h"
@@ -172,6 +173,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
             {
                 DespawnPlayer(allocated_player_info);
                 m_camera_system->Unfollow();
+                m_event_handler->DispatchEvent(game::GameOverEvent());
             }
         }
         else if(type == DamageType::DAMAGED)
