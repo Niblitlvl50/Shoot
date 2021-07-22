@@ -25,15 +25,17 @@ namespace
 
         component_view.rotation = 0.0f;
 
-        component_view.color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 1.0f);
+        component_view.color = mono::Color::OFF_WHITE;
         component_view.gradient = mono::Color::MakeGradient<3>(
             { 0.0f, 1.0f, 1.0f},
-            { component_view.color, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.5f), mono::Color::RGBA() }
+            { component_view.color, mono::Color::RGBA(0.9f, 0.9f, 0.9f, 0.5f), mono::Color::RGBA() }
         );
 
-        component_view.size = 16.0f;
-        component_view.start_size = 16.0f;
-        component_view.end_size = 16.0f;
+        constexpr float size = 32.0f;
+
+        component_view.size = size;
+        component_view.start_size = size;
+        component_view.end_size = size;
 
         component_view.start_life = 100 + life;
         component_view.life = 100 + life;

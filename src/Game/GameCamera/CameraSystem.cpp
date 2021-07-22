@@ -101,7 +101,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
     if(m_camera_shake_timer_ms > 0)
     {
-        constexpr float magnitude = 0.5f;
+        constexpr float magnitude = 0.25f;
 
         math::Vector camera_shake(
             mono::Random(-magnitude, magnitude),
@@ -113,8 +113,8 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
         if(m_camera_shake_timer_ms == 0)
             camera_shake = math::ZeroVec;
-        
-        m_camera->SetTargetPosition(m_camera->GetTargetPosition() + camera_shake);
+
+        m_camera->SetPositionOffset(camera_shake);
     }
 
     game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_entity_id);

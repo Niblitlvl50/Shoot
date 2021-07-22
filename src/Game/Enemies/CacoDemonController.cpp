@@ -46,18 +46,19 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack");
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
 
-    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        m_states.TransitionTo(CacoStates::DEAD);
-    };
 
     game::DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     damage_system->PreventReleaseOnDeath(entity_id, true);
-    uint32_t callback_id = damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
+
+    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+        m_states.TransitionTo(CacoStates::DEAD);
+    };
+    damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
     const CacoStateMachine::StateTable state_table = {
-        CacoStateMachine::MakeState(CacoStates::IDLE, &CacodemonController::OnIdle, &CacodemonController::Idle, this),
-        CacoStateMachine::MakeState(CacoStates::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack, this),
-        CacoStateMachine::MakeState(CacoStates::DEAD, &CacodemonController::OnDead, &CacodemonController::Dead, this),
+        CacoStateMachine::MakeState(CacoStates::IDLE,   &CacodemonController::OnIdle,   &CacodemonController::Idle,     this),
+        CacoStateMachine::MakeState(CacoStates::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack,   this),
+        CacoStateMachine::MakeState(CacoStates::DEAD,   &CacodemonController::OnDead,   &CacodemonController::Dead,     this),
     };
 
     m_states.SetStateTableAndState(state_table, CacoStates::IDLE);
@@ -148,8 +149,7 @@ void CacodemonController::Attack(const mono::UpdateContext& update_context)
 void CacodemonController::OnDead()
 {
     m_entity_sprite->SetAnimation(m_death_animation);
-    const uint32_t new_properties = m_entity_sprite->GetProperties() & ~mono::SpriteProperty::SHADOW;
-    m_entity_sprite->SetProperties(new_properties);
+    m_entity_sprite->ClearProperty(mono::SpriteProperty::SHADOW);
 }
 
 void CacodemonController::Dead(const mono::UpdateContext& update_context)
