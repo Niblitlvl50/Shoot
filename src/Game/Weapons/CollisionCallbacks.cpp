@@ -77,6 +77,9 @@ void game::StandardCollision(
     if(other_entity_id != std::numeric_limits<uint32_t>::max() && flags & game::BulletCollisionFlag::APPLY_DAMAGE)
     {
         const DamageResult result = damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
+        if(result.did_damage && result.health_left <= 0)
+            SpawnEntityWithAnimation("res/entities/explosion_small.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+
         did_damage = result.did_damage;
     }
 

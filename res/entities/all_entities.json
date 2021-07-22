@@ -6,6 +6,7 @@
         "res/entities/cacodemon.entity",
         "res/entities/dropzone.entity",
         "res/entities/explosion.entity",
+        "res/entities/explosion_small.entity",
         "res/entities/flag.entity",
         "res/entities/flak_bullet.entity",
         "res/entities/floor_dude.entity",
