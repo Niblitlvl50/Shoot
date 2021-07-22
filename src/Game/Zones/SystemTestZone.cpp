@@ -37,9 +37,30 @@
 #include "World/FogOverlay.h"
 #include "Effects/AngelDust.h"
 
+#include "System/System.h"
+
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
+
+    mono::EventResult GameOverAndQuit(int& next_zone, mono::EventHandler* event_handler)
+    {
+        next_zone = game::ZoneFlow::GAME_OVER_SCREEN;
+
+        const auto send_quit = [](void* data) {
+            mono::EventHandler* event_handler = static_cast<mono::EventHandler*>(data);
+            event_handler->DispatchEvent(event::QuitEvent());
+        };
+        System::CreateTimer(1000, System::TimerProperties::AUTO_DELETE | System::TimerProperties::ONE_SHOT, send_quit, event_handler);
+
+        return mono::EventResult::PASS_ON;
+    }
+
+    void GameCompleted(int32_t trigger_id, int& next_zone, mono::EventHandler* event_handler)
+    {
+        next_zone = game::ZoneFlow::END_SCREEN;
+        event_handler->DispatchEvent(event::QuitEvent());
+    }
 }
 
 using namespace game;
@@ -51,11 +72,7 @@ SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
     , m_game_config(*context.game_config)
     , m_next_zone(TITLE_SCREEN)
 {
-    const GameOverFunc on_game_over = [this](const game::GameOverEvent& event) {
-        m_next_zone = ZoneFlow::GAME_OVER_SCREEN;
-        m_event_handler->DispatchEvent(event::QuitEvent());
-        return mono::EventResult::PASS_ON;
-    };
+    const GameOverFunc on_game_over = std::bind(GameOverAndQuit, std::ref(m_next_zone), m_event_handler);
     m_gameover_token = m_event_handler->AddListener(on_game_over);
 }
 
@@ -84,12 +101,11 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
     server_manager->StartServer();
 
-    const auto level_completed_func = [this](uint32_t trigger_id) {
-        m_next_zone = END_SCREEN;
-        m_event_handler->DispatchEvent(event::QuitEvent());
-    };
-    m_level_completed_trigger =
-        trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_func, mono::INVALID_ID);
+    using namespace std::placeholders;
+    m_level_completed_trigger = trigger_system->RegisterTriggerCallback(
+        level_completed_hash,
+        std::bind(GameCompleted, _1, std::ref(m_next_zone), m_event_handler),
+        mono::INVALID_ID);
 
     ServerReplicator* server_replicator = new ServerReplicator(
         m_event_handler,

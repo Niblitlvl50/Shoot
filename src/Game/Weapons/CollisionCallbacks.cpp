@@ -127,5 +127,7 @@ void game::CacoPlasmaCollision(
     mono::TransformSystem* transform_system)
 {
     StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
-    SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+
+    if(details.colliding_body)
+        SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }
