@@ -1,0 +1,165 @@
+{
+    "animations": [
+        {
+            "frame_duration": 80,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "loop": false,
+            "name": "idle"
+        }
+    ],
+    "category": "explosion_big",
+    "frames": [
+        {
+            "h": 15,
+            "name": "explosion_big_idle_1",
+            "w": 15,
+            "x": 1145,
+            "y": 372
+        },
+        {
+            "h": 50,
+            "name": "explosion_big_idle_2",
+            "w": 50,
+            "x": 1707,
+            "y": 287
+        },
+        {
+            "h": 65,
+            "name": "explosion_big_idle_3",
+            "w": 63,
+            "x": 996,
+            "y": 228
+        },
+        {
+            "h": 64,
+            "name": "explosion_big_idle_4",
+            "w": 63,
+            "x": 1498,
+            "y": 237
+        },
+        {
+            "h": 76,
+            "name": "explosion_big_idle_5",
+            "w": 78,
+            "x": 301,
+            "y": 188
+        },
+        {
+            "h": 82,
+            "name": "explosion_big_idle_6",
+            "w": 80,
+            "x": 1193,
+            "y": 142
+        },
+        {
+            "h": 79,
+            "name": "explosion_big_idle_7",
+            "w": 83,
+            "x": 2,
+            "y": 188
+        },
+        {
+            "h": 77,
+            "name": "explosion_big_idle_8",
+            "w": 82,
+            "x": 89,
+            "y": 188
+        },
+        {
+            "h": 73,
+            "name": "explosion_big_idle_9",
+            "w": 81,
+            "x": 499,
+            "y": 188
+        },
+        {
+            "h": 67,
+            "name": "explosion_big_idle_10",
+            "w": 80,
+            "x": 1347,
+            "y": 220
+        },
+        {
+            "h": 64,
+            "name": "explosion_big_idle_11",
+            "w": 79,
+            "x": 1130,
+            "y": 228
+        },
+        {
+            "h": 62,
+            "name": "explosion_big_idle_12",
+            "w": 79,
+            "x": 1565,
+            "y": 237
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

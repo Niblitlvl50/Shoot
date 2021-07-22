@@ -16,15 +16,15 @@
             "h": 16,
             "name": "caco_bullet_default_1",
             "w": 16,
-            "x": 623,
-            "y": 339
+            "x": 1224,
+            "y": 371
         },
         {
             "h": 15,
             "name": "caco_bullet_default_2",
             "w": 15,
-            "x": 366,
-            "y": 340
+            "x": 1403,
+            "y": 372
         }
     ],
     "frames_offsets": [

@@ -15,8 +15,8 @@
             "h": 15,
             "name": "health_pack_small",
             "w": 13,
-            "x": 422,
-            "y": 340
+            "x": 1440,
+            "y": 372
         }
     ],
     "frames_offsets": [
