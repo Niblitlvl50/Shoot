@@ -68,28 +68,28 @@
             "h": 67,
             "name": "cacodemon_dead_2",
             "w": 63,
-            "x": 1968,
-            "y": 211
-        },
-        {
-            "h": 67,
-            "name": "cacodemon_dead_3",
-            "w": 63,
             "x": 1277,
             "y": 226
         },
         {
             "h": 67,
+            "name": "cacodemon_dead_3",
+            "w": 63,
+            "x": 722,
+            "y": 228
+        },
+        {
+            "h": 67,
             "name": "cacodemon_dead_4",
             "w": 63,
-            "x": 789,
-            "y": 228
+            "x": 1968,
+            "y": 211
         },
         {
             "h": 67,
             "name": "cacodemon_dead_5",
             "w": 63,
-            "x": 722,
+            "x": 789,
             "y": 228
         },
         {

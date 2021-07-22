@@ -35,6 +35,8 @@
         "res/sprites/emote_star.sprite",
         "res/sprites/emote_swirl.sprite",
         "res/sprites/explosion_big.sprite",
+        "res/sprites/explosion_medium.sprite",
+        "res/sprites/explosion_small.sprite",
         "res/sprites/eye_monster.sprite",
         "res/sprites/eye_monster_small.sprite",
         "res/sprites/fern.sprite",
