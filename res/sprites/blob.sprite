@@ -38,7 +38,6 @@
             "name": "jump"
         }
     ],
-    "category": "blob",
     "frames": [
         {
             "h": 13,
@@ -219,6 +218,7 @@
             "y": 0.015625
         }
     ],
+    "source_folder": "res/images/creatures/blob/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

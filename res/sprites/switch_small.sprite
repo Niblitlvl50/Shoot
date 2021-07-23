@@ -31,7 +31,6 @@
             "name": "off_on_off"
         }
     ],
-    "category": "switches",
     "frames": [
         {
             "h": 13,
@@ -58,6 +57,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/switches/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

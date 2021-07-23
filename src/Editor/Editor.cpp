@@ -126,7 +126,7 @@ namespace
                 sprite_data->frames.front().uv_upper_left,
                 sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
-                sprite_data->category
+                sprite_data->source_folder
             };
         }
     }

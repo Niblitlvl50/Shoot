@@ -20,7 +20,6 @@
             "name": "idle"
         }
     ],
-    "category": "explosion_big",
     "frames": [
         {
             "h": 15,
@@ -157,6 +156,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/explosions/explosion_big/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

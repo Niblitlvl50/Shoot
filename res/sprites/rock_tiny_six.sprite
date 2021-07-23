@@ -9,7 +9,6 @@
             "name": "default"
         }
     ],
-    "category": "vegetation",
     "frames": [
         {
             "h": 14,
@@ -25,6 +24,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

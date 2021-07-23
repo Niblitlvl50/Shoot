@@ -22,7 +22,6 @@
             "name": "dead"
         }
     ],
-    "category": "misc",
     "frames": [
         {
             "h": 24,
@@ -60,6 +59,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

@@ -34,7 +34,6 @@
             "name": "idle"
         }
     ],
-    "category": "cacodemon",
     "frames": [
         {
             "h": 65,
@@ -171,6 +170,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/creatures/cacodemon/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

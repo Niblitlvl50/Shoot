@@ -27,7 +27,6 @@
             "name": "look_around"
         }
     ],
-    "category": "mugshots",
     "frames": [
         {
             "h": 60,
@@ -87,6 +86,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/mugshots/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

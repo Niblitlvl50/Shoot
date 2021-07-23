@@ -13,7 +13,6 @@
             "name": "default"
         }
     ],
-    "category": "bat",
     "frames": [
         {
             "h": 6,
@@ -73,6 +72,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/creatures/bat/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

@@ -15,7 +15,6 @@
             "name": "idle"
         }
     ],
-    "category": "explosion_small",
     "frames": [
         {
             "h": 10,
@@ -97,6 +96,7 @@
             "y": 0.140625
         }
     ],
+    "source_folder": "res/images/explosions/explosion_small/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

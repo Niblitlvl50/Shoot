@@ -44,7 +44,6 @@
             "name": "idle"
         }
     ],
-    "category": "portals",
     "frames": [
         {
             "h": 1,
@@ -291,6 +290,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/portals/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

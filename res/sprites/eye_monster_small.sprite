@@ -27,7 +27,6 @@
             "name": "idle"
         }
     ],
-    "category": "eye_monster_small",
     "frames": [
         {
             "h": 11,
@@ -164,6 +163,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/creatures/eye_monster_small/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

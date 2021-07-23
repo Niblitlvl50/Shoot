@@ -18,7 +18,6 @@
             "name": "thrust"
         }
     ],
-    "category": "shuttle",
     "frames": [
         {
             "h": 26,
@@ -56,6 +55,7 @@
             "y": -0.015625
         }
     ],
+    "source_folder": "res/images/creatures/shuttle/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

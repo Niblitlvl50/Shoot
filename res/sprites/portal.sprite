@@ -17,7 +17,6 @@
             "name": "idle"
         }
     ],
-    "category": "misc",
     "frames": [
         {
             "h": 56,
@@ -121,6 +120,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

@@ -14,7 +14,6 @@
             "name": "default"
         }
     ],
-    "category": "props",
     "frames": [
         {
             "h": 15,
@@ -85,6 +84,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/props/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

@@ -10,7 +10,6 @@
             "name": "default"
         }
     ],
-    "category": "shuttle",
     "frames": [
         {
             "h": 12,
@@ -37,6 +36,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/creatures/shuttle/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

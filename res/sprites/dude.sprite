@@ -25,7 +25,6 @@
             "name": "run"
         }
     ],
-    "category": "dude",
     "frames": [
         {
             "h": 15,
@@ -140,6 +139,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/creatures/dude/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

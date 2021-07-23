@@ -35,7 +35,6 @@
             "name": "run"
         }
     ],
-    "category": "wizard",
     "frames": [
         {
             "h": 31,
@@ -260,6 +259,7 @@
             "y": 0.0
         }
     ],
+    "source_folder": "res/images/wizard/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
