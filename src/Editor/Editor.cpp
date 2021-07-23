@@ -121,12 +121,22 @@ namespace
             const mono::SpriteData* sprite_data =
                 mono::GetSpriteFactory()->GetSpriteDataForFile(full_sprite_path.c_str());
 
+            std::string category = sprite_data->source_folder;
+
+            const size_t pos = category.find("res/images/");
+            if(pos != std::string::npos)
+            {
+                const size_t offset = std::size("res/images/");
+                const size_t slash_pos = category.find_first_of('/', offset);
+                category = category.substr(offset - 1, slash_pos - offset + 1);
+            }
+
             context.ui_icons[sprite_file] = {
                 mono::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
                 sprite_data->frames.front().uv_upper_left,
                 sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
-                sprite_data->source_folder
+                category
             };
         }
     }
