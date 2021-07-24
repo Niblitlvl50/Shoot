@@ -20,50 +20,50 @@
             "h": 8,
             "name": "small_explosion_default_1",
             "w": 8,
-            "x": 625,
-            "y": 428
+            "x": 1833,
+            "y": 432
         },
         {
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 637,
-            "y": 428
+            "x": 1458,
+            "y": 433
         },
         {
             "h": 10,
             "name": "small_explosion_default_3",
             "w": 11,
-            "x": 1874,
-            "y": 427
+            "x": 589,
+            "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_4",
             "w": 11,
-            "x": 1889,
-            "y": 427
+            "x": 574,
+            "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_5",
             "w": 10,
-            "x": 1959,
-            "y": 427
+            "x": 688,
+            "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_6",
             "w": 11,
-            "x": 1904,
-            "y": 427
+            "x": 604,
+            "y": 432
         },
         {
             "h": 11,
             "name": "small_explosion_default_7",
             "w": 11,
-            "x": 1182,
-            "y": 426
+            "x": 467,
+            "y": 432
         }
     ],
     "frames_offsets": [

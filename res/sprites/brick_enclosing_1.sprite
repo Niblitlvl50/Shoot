@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 14,
-            "name": "note_1",
-            "w": 10,
-            "x": 1471,
-            "y": 415
+            "h": 90,
+            "name": "brick_enclosing_1",
+            "w": 73,
+            "x": 1388,
+            "y": 134
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/notes/",
+    "source_folder": "res/images/unique_pieces/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
