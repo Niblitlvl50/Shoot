@@ -25,24 +25,24 @@
     "frames": [
         {
             "h": 24,
-            "name": "heart_1",
+            "name": "heart_idle_1",
             "w": 16,
-            "x": 988,
-            "y": 347
+            "x": 160,
+            "y": 378
         },
         {
             "h": 24,
-            "name": "heart_2",
+            "name": "heart_idle_2",
             "w": 16,
-            "x": 1965,
-            "y": 341
+            "x": 1202,
+            "y": 351
         },
         {
             "h": 24,
-            "name": "heart_3",
+            "name": "heart_idle_3",
             "w": 16,
-            "x": 968,
-            "y": 344
+            "x": 459,
+            "y": 377
         }
     ],
     "frames_offsets": [
