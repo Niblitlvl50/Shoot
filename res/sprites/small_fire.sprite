@@ -16,21 +16,21 @@
             "h": 41,
             "name": "small_fire_default_1",
             "w": 23,
-            "x": 56,
+            "x": 29,
             "y": 336
         },
         {
             "h": 41,
             "name": "small_fire_default_2",
             "w": 23,
-            "x": 2,
+            "x": 56,
             "y": 336
         },
         {
             "h": 41,
             "name": "small_fire_default_3",
             "w": 23,
-            "x": 29,
+            "x": 2,
             "y": 336
         }
     ],
@@ -48,7 +48,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/props/campfire/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
