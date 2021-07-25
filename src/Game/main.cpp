@@ -136,6 +136,8 @@ int main(int argc, char* argv[])
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
+        render_params.light_mask_texture = "res/textures/light_mask_3.png";
+        render_params.sprite_shadow_texture = "res/textures/roundshadow.png";
         render_params.window = window;
         mono::InitializeRender(render_params);
 
