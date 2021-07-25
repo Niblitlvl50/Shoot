@@ -85,6 +85,7 @@ namespace editor
         bool snap_to_grid = false;
         math::Vector grid_size;
         bool draw_all_objects = false;
+        bool draw_lights = true;
 
         // Worlds
         std::string selected_world;
@@ -124,6 +125,7 @@ namespace editor
 
         std::function<void (bool new_value)> draw_object_names_callback;
         std::function<void (bool new_value)> draw_snappers_callback;
+        std::function<void (bool new_value)> draw_lights_callback;
         std::function<void (const mono::Color::RGBA& color)> background_color_callback;
         std::function<void (const mono::Color::RGBA& ambient_shade)> ambient_shade_callback;
         std::function<void (const std::string& background_texture)> background_texture_callback;

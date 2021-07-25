@@ -113,6 +113,9 @@ namespace editor
         bool DrawLevelMetadata() const;
         void EnableDrawLevelMetadata(bool enable);
 
+        bool DrawLights() const;
+        void EnableLights(bool enable);
+
         const mono::Color::RGBA& BackgroundColor() const;
         void SetBackgroundColor(const mono::Color::RGBA& color);
         const mono::Color::RGBA& AmbientShade() const;

@@ -78,6 +78,8 @@ namespace
             ImGui::InputFloat2("", &context.grid_size.x);
 
             ImGui::Checkbox("Draw all Objects, A", &context.draw_all_objects);
+            if(ImGui::Checkbox("Draw Lights, Ctrl + L", &context.draw_lights))
+                context.draw_lights_callback(context.draw_lights);
 
             ImGui::EndMenu();
         }

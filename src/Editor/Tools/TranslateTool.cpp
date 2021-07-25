@@ -1,22 +1,12 @@
 
 #include "TranslateTool.h"
-#include "Math/Vector.h"
-#include "Math/Matrix.h"
-#include "Math/MathFunctions.h"
-#include "TransformSystem/TransformSystem.h"
-#include "Component.h"
-
 #include "Editor.h"
-
-#include <limits>
+#include "Math/MathFunctions.h"
 
 using namespace editor;
 
-constexpr uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
-
 TranslateTool::TranslateTool(Editor* editor)
     : m_editor(editor)
-    , m_entity_id(NO_ENTITY)
 { }
 
 void TranslateTool::Begin()
@@ -24,12 +14,12 @@ void TranslateTool::Begin()
 
 void TranslateTool::End()
 {
-    m_entity_id = NO_ENTITY;
+    m_proxy_start_positions.clear();
 }
 
 bool TranslateTool::IsActive() const
 {
-    return m_entity_id != NO_ENTITY;
+    return !m_proxy_start_positions.empty();
 }
 
 void TranslateTool::HandleContextMenu(int menu_index)
@@ -37,11 +27,16 @@ void TranslateTool::HandleContextMenu(int menu_index)
 
 void TranslateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
-    m_entity_id = entity_id;
-    if(m_entity_id == NO_ENTITY)
-        return;
+    assert(m_proxy_start_positions.empty());
+    m_proxy_start_positions.clear();
 
     m_begin_translate = world_pos;
+
+    for(uint32_t id : m_editor->GetSelection())
+    {
+        IObjectProxy* proxy = m_editor->FindProxyObject(id);
+        m_proxy_start_positions.push_back(proxy->GetPosition());
+    }
 }
 
 void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
@@ -51,30 +46,25 @@ void TranslateTool::HandleMouseUp(const math::Vector& world_pos)
 
 void TranslateTool::HandleMousePosition(const math::Vector& world_pos)
 {
-    if(m_entity_id == NO_ENTITY)
-        return;
-
-    const math::Vector& delta = world_pos - m_begin_translate;
-    MoveObjects(m_entity_id, delta);
-
-    m_begin_translate = world_pos;
+    if(IsActive())
+        MoveObjects(world_pos - m_begin_translate);
 }
 
 void TranslateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
 { }
 
-void TranslateTool::MoveObjects(uint32_t entity_id, const math::Vector& delta)
+void TranslateTool::MoveObjects(const math::Vector& delta)
 {
-    std::vector<uint32_t> selected_proxies = m_editor->GetSelection();
+    const std::vector<uint32_t> selected_proxies = m_editor->GetSelection();
 
-    for(uint32_t id : selected_proxies)
+    for(size_t index = 0; index < selected_proxies.size(); ++index)
     {
+        const uint32_t id = selected_proxies[index];
+        const math::Vector& start_position = m_proxy_start_positions[index];
+
         IObjectProxy* proxy = m_editor->FindProxyObject(id);
         if(proxy)
-        {
-            const math::Vector new_pos = proxy->GetPosition() + delta;
-            proxy->SetPosition(new_pos);
-        }
+            proxy->SetPosition(start_position + delta);
     }
 
     m_editor->UpdateGrabbers();

@@ -299,7 +299,12 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     else if(event.key == Keycode::O)
         m_editor->EnableDrawOutline(!m_editor->DrawOutline());
     else if(event.key == Keycode::L)
-        m_editor->EnableDrawLevelMetadata(!m_editor->DrawLevelMetadata());
+    {
+        if(event.ctrl)
+            m_editor->EnableLights(!m_editor->DrawLights());
+        else
+            m_editor->EnableDrawLevelMetadata(!m_editor->DrawLevelMetadata());
+    }
     else if(event.key == Keycode::G && event.alt)
         m_editor->EnableDrawGrid(!m_editor->DrawGrid());
     else if(event.key == Keycode::G)
@@ -331,7 +336,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         else if(event.key == Keycode::DOWN)
             delta.y -= offset;
 
-        m_translate_tool.MoveObjects(0, delta);
+        m_translate_tool.MoveObjects(delta);
     }
 
     return mono::EventResult::PASS_ON;

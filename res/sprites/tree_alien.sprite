@@ -1,7 +1,7 @@
 {
     "animations": [
         {
-            "frame_duration": 100,
+            "frame_duration": 1000,
             "frames": [
                 0,
                 1

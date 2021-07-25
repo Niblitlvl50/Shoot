@@ -222,6 +222,7 @@ Editor::Editor(
 
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
+    m_context.draw_lights_callback = std::bind(&Editor::EnableLights, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
     m_context.ambient_shade_callback = std::bind(&Editor::SetAmbientShade, this, _1);
     m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
@@ -939,6 +940,18 @@ bool Editor::DrawLevelMetadata() const
 void Editor::EnableDrawLevelMetadata(bool enable)
 {
     m_context.draw_level_metadata = enable;
+}
+
+bool Editor::DrawLights() const
+{
+    return m_context.draw_lights;
+}
+
+void Editor::EnableLights(bool enable)
+{
+    m_context.draw_lights = enable;
+    const mono::Color::RGBA ambient = enable ? m_context.ambient_shade : mono::Color::WHITE;
+    m_renderer->SetAmbientShade(ambient);
 }
 
 const mono::Color::RGBA& Editor::BackgroundColor() const
