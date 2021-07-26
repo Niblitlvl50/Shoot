@@ -14,6 +14,15 @@
 #include "Physics/PhysicsSystem.h"
 #include "Paths/PathSystem.h"
 #include "Paths/PathFactory.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteProperties.h"
+
+namespace tweak_values
+{
+    constexpr float attack_distance = 5.0f;
+    constexpr float path_speed = 1.0f;
+}
 
 using namespace game;
 
@@ -36,15 +45,20 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
 
+    mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_sprite = sprite_system->GetSprite(entity_id);
+
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    mono::IBody* entity_body = physics_system->GetBody(entity_id);
+    m_body = physics_system->GetBody(entity_id);
 
     mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
     const mono::PathComponent* path_component = path_system->GetPath(path_entity_id);
     const math::Matrix& path_entity_transform = transform_system->GetWorld(path_entity_id);
 
     m_path = mono::CreatePath(path_component->points, path_entity_transform);
-    m_path_behaviour = std::make_unique<PathBehaviour>(entity_body, m_path.get(), physics_system, event_handler);
+    m_path_behaviour = std::make_unique<PathBehaviour>(m_body, m_path.get(), physics_system, event_handler);
+    m_path_behaviour->SetTrackingSpeed(tweak_values::path_speed);
+
     m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
@@ -54,6 +68,11 @@ InvaderPathController::~InvaderPathController()
 void InvaderPathController::Update(const mono::UpdateContext& update_context)
 {
     m_path_behaviour->Run(update_context.delta_ms);
+
+    const math::Vector velocity = m_body->GetVelocity();
+    const bool is_going_left = (velocity.x < 0.0f);
+    is_going_left ?
+        m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL) : m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     if(m_fire_cooldown > 0)
     {
@@ -71,7 +90,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
         return;
 
     const float distance = math::Length(player_info->position - enemy_position);
-    if(distance < 7.0f)
+    if(distance < tweak_values::attack_distance)
     {
         const float angle = math::AngleBetweenPoints(player_info->position, enemy_position) + math::PI_2();
         m_fire_count += (m_weapon->Fire(enemy_position, angle, update_context.timestamp) == WeaponState::FIRE);

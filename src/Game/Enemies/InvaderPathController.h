@@ -5,6 +5,8 @@
 #include "Math/MathFwd.h"
 #include "Entity/IEntityLogic.h"
 #include "Weapons/IWeaponFactory.h"
+#include "Rendering/RenderFwd.h"
+#include "Physics/PhysicsFwd.h"
 
 #include <memory>
 
@@ -30,5 +32,7 @@ namespace game
         IWeaponPtr m_weapon;
 
         math::Matrix* m_transform;
+        mono::ISprite* m_sprite;
+        mono::IBody* m_body;
     };
 }
