@@ -336,7 +336,12 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         else if(event.key == Keycode::DOWN)
             delta.y -= offset;
 
-        m_translate_tool.MoveObjects(delta);
+        for(uint32_t id : m_editor->GetSelection())
+        {
+            IObjectProxy* proxy = m_editor->FindProxyObject(id);
+            if(proxy)
+                proxy->SetPosition(proxy->GetPosition() + delta);
+        }
     }
 
     return mono::EventResult::PASS_ON;
