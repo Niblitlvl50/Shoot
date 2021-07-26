@@ -12,7 +12,7 @@
 using namespace game;
 
 PathBehaviour::PathBehaviour(
-    mono::IBody* entity_body, const mono::IPath* path, mono::PhysicsSystem* physics_system, mono::EventHandler& event_handler)
+    mono::IBody* entity_body, const mono::IPath* path, mono::PhysicsSystem* physics_system)
     : m_path(path)
     , m_physics_system(physics_system)
     , m_current_position(0.0f)
@@ -35,6 +35,10 @@ void PathBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+//#include "Factories.h"
+//#include "IDebugDrawer.h"
+//#include "Rendering/Color.h"
+
 void PathBehaviour::Run(uint32_t delta_ms)
 {
     m_current_position += m_meter_per_second * float(delta_ms) / 1000.0f;
@@ -45,4 +49,6 @@ void PathBehaviour::Run(uint32_t delta_ms)
 
     if(m_current_position > m_path->Length())
         m_current_position = 0.0f;
+
+    //game::g_debug_drawer->DrawPoint(m_point, 5.0f, mono::Color::CYAN);
 }

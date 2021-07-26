@@ -13,7 +13,7 @@ namespace game
     {
     public:
 
-        PathBehaviour(mono::IBody* body, const mono::IPath* path, mono::PhysicsSystem* physics_system, mono::EventHandler& event_handler);
+        PathBehaviour(mono::IBody* body, const mono::IPath* path, mono::PhysicsSystem* physics_system);
         ~PathBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
