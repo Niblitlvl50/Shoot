@@ -12,23 +12,24 @@
 
 namespace game
 {
-    class TitleScreen : public GameZone
+    class SetupGameScreen : public GameZone
     {
     public:
 
-        TitleScreen(const ZoneCreationContext& context);
-        ~TitleScreen();
+        SetupGameScreen(const ZoneCreationContext& context);
+        ~SetupGameScreen();
         
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
         void Continue();
+        void Remote();
         void Quit();
 
         mono::EventHandler& m_event_handler;
         mono::SystemContext* m_system_context;
         mono::EventToken<event::KeyUpEvent> m_key_token;
-        int m_exit_zone = 0;
+        int m_exit_zone;
 
         std::unique_ptr<class ScreenSparkles> m_sparkles;
         std::vector<uint32_t> m_loaded_entities;

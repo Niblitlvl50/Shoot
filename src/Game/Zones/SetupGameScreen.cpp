@@ -1,5 +1,5 @@
 
-#include "TitleScreen.h"
+#include "SetupGameScreen.h"
 #include "ZoneFlow.h"
 #include "Effects/ScreenSparkles.h"
 
@@ -35,7 +35,7 @@ namespace
     {
     public:
 
-        CheckControllerInput(TitleScreen* title_screen)
+        CheckControllerInput(SetupGameScreen* title_screen)
             : m_title_screen(title_screen)
             , m_last_state{}
         { }
@@ -46,24 +46,28 @@ namespace
 
             const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
             const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+            const bool x_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::X);
 
             if(a_pressed)
                 m_title_screen->Continue();
             else if(y_pressed)
                 m_title_screen->Quit();
+            else if(x_pressed)
+                m_title_screen->Remote();
 
             m_last_state = state;
         }
 
-        TitleScreen* m_title_screen;
+        SetupGameScreen* m_title_screen;
         System::ControllerState m_last_state;
     };
 }
 
-TitleScreen::TitleScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/title_screen.components")
+SetupGameScreen::SetupGameScreen(const ZoneCreationContext& context)
+    : GameZone(context, "res/worlds/setup_game_screen.components")
     , m_event_handler(*context.event_handler)
     , m_system_context(context.system_context)
+    , m_exit_zone(ZoneFlow::TITLE_SCREEN)
 {
     const event::KeyUpEventFunc key_callback =
         [this](const event::KeyUpEvent& event) -> mono::EventResult
@@ -72,6 +76,8 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
             Continue();
         else if(event.key == Keycode::Q)
             Quit();
+        else if(event.key == Keycode::C)
+            Remote();
 
         return mono::EventResult::PASS_ON;
     };
@@ -79,36 +85,37 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
     m_key_token = m_event_handler.AddListener(key_callback);
 }
 
-TitleScreen::~TitleScreen()
+SetupGameScreen::~SetupGameScreen()
 {
     m_event_handler.RemoveListener(m_key_token);
 }
 
-void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
+void SetupGameScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     GameZone::OnLoad(camera, renderer);
-
     AddUpdatable(new CheckControllerInput(this));
-    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
-    mono::IEntityManager* entity_system = m_system_context->GetSystem<mono::IEntityManager>();
-    m_sparkles = std::make_unique<ScreenSparkles>(
-        particle_system, entity_system, camera->GetPosition(), camera->GetViewportSize());
 }
 
-int TitleScreen::OnUnload()
+int SetupGameScreen::OnUnload()
 {
     GameZone::OnUnload();
     return m_exit_zone;
 }
 
-void TitleScreen::Continue()
+void SetupGameScreen::Continue()
 {
-    m_exit_zone = SETUP_GAME_SCREEN;
+    m_exit_zone = TEST_ZONE;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
 
-void TitleScreen::Quit()
+void SetupGameScreen::Remote()
 {
-    m_exit_zone = QUIT;
+    m_exit_zone = REMOTE_ZONE;
+    m_event_handler.DispatchEvent(event::QuitEvent());
+}
+
+void SetupGameScreen::Quit()
+{
+    m_exit_zone = TITLE_SCREEN;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
