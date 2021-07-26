@@ -24,7 +24,7 @@ namespace tweak_values
 {
     constexpr float trigger_distance = 5.0f;
     constexpr uint32_t time_before_hunt_ms = 300;
-    constexpr uint32_t collision_damage = 45;
+    constexpr uint32_t collision_damage = 25;
     constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 120.0f;
@@ -82,8 +82,10 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        //m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
-        m_entity_manager->ReleaseEntity(m_entity_id);
+        m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
+        m_damage_system->ApplyDamage(m_entity_id, 1000, m_entity_id);
+
+        //m_entity_manager->ReleaseEntity(m_entity_id);
     }
 
     return mono::CollisionResolve::NORMAL;

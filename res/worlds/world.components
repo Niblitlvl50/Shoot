@@ -3111,8 +3111,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.476861953735352,
-                                "y": -15.991347312927246
+                                "x": -6.603826522827148,
+                                "y": -16.46310806274414
                             }
                         },
                         {
@@ -13467,8 +13467,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.51182222366333,
-                                "y": -14.475799560546875
+                                "x": -22.094802856445313,
+                                "y": -5.642690658569336
                             }
                         },
                         {
@@ -13602,7 +13602,7 @@
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
-                            "variant_value": 10.0
+                            "variant_value": 50.0
                         },
                         {
                             "id": 1995093780,
@@ -14100,8 +14100,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.50574254989624,
-                                "y": -6.019989967346191
+                                "x": -2.712639331817627,
+                                "y": -6.083462715148926
                             }
                         },
                         {
@@ -20244,8 +20244,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.8552241325378418,
-                                "y": -6.634418487548828
+                                "x": -4.473168849945068,
+                                "y": -5.888614654541016
                             }
                         },
                         {
@@ -20418,8 +20418,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.8229081630706787,
-                                "y": -20.46337127685547
+                                "x": 1.8167369365692139,
+                                "y": -20.643749237060547
                             }
                         },
                         {
@@ -20513,6 +20513,47 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.16892538964748383,
+                                "green": 0.16892538964748383,
+                                "red": 0.9313725233078003
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -20760,6 +20801,47 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.5444059371948242,
+                                "green": 0.5444059371948242,
+                                "red": 0.8676470518112183
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -21084,6 +21166,47 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.2578335404396057,
+                                "green": 0.2578335404396057,
+                                "red": 0.906862735748291
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -24067,13 +24190,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "barrel_wood"
+                            "variant_value": "note_3"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "notes"
                         }
                     ]
                 },
@@ -24168,8 +24291,8 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "test",
-            "name": "barrel_wood",
+            "folder": "notes",
+            "name": "note_3",
             "uuid_hash": 2931895808
         },
         {
@@ -24182,13 +24305,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "barrel_wood"
+                            "variant_value": "note_3"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "notes"
                         }
                     ]
                 },
@@ -24283,8 +24406,8 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "test",
-            "name": "barrel_wood",
+            "folder": "notes",
+            "name": "note_3",
             "uuid_hash": 1081468486
         },
         {
@@ -32421,9 +32544,9 @@
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.12744972109794617,
-            "green": 0.12744972109794617,
-            "red": 0.12745100259780884
+            "blue": 0.36274147033691406,
+            "green": 0.36274147033691406,
+            "red": 0.36274510622024536
         },
         "background_color": {
             "alpha": 1.0,

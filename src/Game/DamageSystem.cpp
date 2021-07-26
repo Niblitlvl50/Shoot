@@ -1,10 +1,12 @@
 
 #include "DamageSystem.h"
+#include "Weapons/CollisionCallbacks.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/ScoreEvent.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 #include "System/Hash.h"
 #include <limits>
 #include <cassert>
@@ -18,9 +20,13 @@ using namespace game;
 
 DamageSystem::DamageSystem(
     size_t num_records,
+    mono::TransformSystem* tranform_system,
+    mono::SpriteSystem* sprite_system,
     mono::IEntityManager* entity_manager,
     mono::EventHandler* event_handler)
-    : m_entity_manager(entity_manager)
+    : m_transform_system(tranform_system)
+    , m_sprite_system(sprite_system)
+    , m_entity_manager(entity_manager)
     , m_event_handler(event_handler)
     , m_timestamp(0)
     , m_damage_records(num_records)
@@ -144,6 +150,8 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         {
             if(damage_record.release_entity_on_death)
                 m_entity_manager->ReleaseEntity(entity_id);
+
+            game::SpawnEntityWithAnimation("res/entities/explosion_small.entity", 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
         }
     }
 }

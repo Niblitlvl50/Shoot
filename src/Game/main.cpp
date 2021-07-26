@@ -160,7 +160,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<mono::LightSystem>(max_entities);
 
         game::DamageSystem* damage_system =
-            system_context.CreateSystem<game::DamageSystem>(max_entities, entity_system, &event_handler);
+            system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
         game::TriggerSystem* trigger_system =
             system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
