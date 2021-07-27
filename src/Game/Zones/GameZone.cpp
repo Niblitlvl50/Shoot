@@ -69,6 +69,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::g_navmesh = &m_navmesh;
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
+    entity_system->PushEntityStackRecord(m_world_file);
+
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
     mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
@@ -116,7 +118,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int GameZone::OnUnload()
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    entity_system->ReleaseAllEntities();
+    entity_system->PopEntityStackRecord();
 
     return 0;
 }

@@ -52,6 +52,9 @@ int main()
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
+        mono::EntitySystem* entity_system =
+            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
@@ -64,8 +67,6 @@ int main()
 
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
 
-        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
-            max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
 
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);

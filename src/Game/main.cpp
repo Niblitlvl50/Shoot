@@ -147,9 +147,9 @@ int main(int argc, char* argv[])
         mono::SystemContext system_context;
         mono::Camera camera;
 
-        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
