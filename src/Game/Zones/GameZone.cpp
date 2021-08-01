@@ -44,6 +44,9 @@
 #include "InteractionSystem/InteractionSystem.h"
 #include "InteractionSystem/InteractionSystemDrawer.h"
 
+#include "DialogSystem/DialogSystem.h"
+#include "DialogSystem/DialogSystemDrawer.h"
+
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
@@ -83,6 +86,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
     SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
+    DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
 
     m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
@@ -100,8 +104,9 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system), LayerId::PARTICLES);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system), LayerId::UI);
+    AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
+    AddDrawable(new DialogSystemDrawer(dialog_system), LayerId::UI);
 
     // Debug
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);

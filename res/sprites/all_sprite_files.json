@@ -31,6 +31,7 @@
         "res/sprites/bush_dead_3.sprite",
         "res/sprites/bush_large.sprite",
         "res/sprites/bush_small.sprite",
+        "res/sprites/button_indication.sprite",
         "res/sprites/caco_bullet.sprite",
         "res/sprites/caco_explosion.sprite",
         "res/sprites/cacodemon.sprite",

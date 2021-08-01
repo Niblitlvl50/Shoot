@@ -28,7 +28,7 @@
 
 int main()
 {
-    constexpr size_t max_entities = 500;
+    constexpr size_t max_entities = 1000;
 
     System::InitializeContext init_context;
     init_context.working_directory = ".";

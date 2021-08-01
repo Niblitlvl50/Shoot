@@ -52,6 +52,7 @@ namespace game
         void SelectWeapon(WeaponType weapon);
         void SelectSecondaryWeapon(WeaponType weapon);
         
+        void MoveInDirection(const math::Vector& direction);
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
         void SetVelocity(const math::Vector& velocity);

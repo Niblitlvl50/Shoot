@@ -33,6 +33,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
+#include "DialogSystem/DialogSystem.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -103,7 +104,7 @@ namespace
 
 int main(int argc, char* argv[])
 {
-    constexpr size_t max_entities = 500;
+    constexpr size_t max_entities = 1000;
     const Options options = ParseCommandline(argc, argv);
 
     System::InitializeContext system_context;
@@ -169,6 +170,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
+        system_context.CreateSystem<game::DialogSystem>(max_entities);
 
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

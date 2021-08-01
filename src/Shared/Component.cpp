@@ -205,6 +205,7 @@ extern const uint32_t INTERACTION_SWITCH_COMPONENT  = hash::Hash("interaction_sw
 extern const uint32_t PATH_COMPONENT                = hash::Hash("path");
 extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
+extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -267,6 +268,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "road";
     else if(hash == LIGHT_COMPONENT)
         return "light";
+    else if(hash == DIALOG_COMPONENT)
+        return "dialog";
 
     return "Unknown";
 }
@@ -294,6 +297,7 @@ const Component default_components[] = {
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
+    MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),

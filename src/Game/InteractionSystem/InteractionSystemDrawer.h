@@ -20,7 +20,8 @@ namespace game
         InteractionSystemDrawer(
             class InteractionSystem* interaction_system,
             mono::SpriteSystem* sprite_system,
-            const mono::TransformSystem* transform_system);
+            const mono::TransformSystem* transform_system,
+            const mono::EntitySystem* entity_system);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -28,11 +29,14 @@ namespace game
         InteractionSystem* m_interaction_system;
         mono::SpriteSystem* m_sprite_system;
         const mono::TransformSystem* m_transform_system;
+        const mono::EntitySystem* m_entity_system;
 
-        std::vector<mono::ISpritePtr> m_sprites;
-        std::vector<mono::SpriteDrawBuffers> m_sprite_buffers;
+        mono::ISpritePtr m_sprite;
+        mono::SpriteDrawBuffers m_sprite_buffer;
+
         std::vector<mono::TextDrawBuffers> m_verb_buffers;
         std::vector<float> m_verb_widths;
+
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct BackupData

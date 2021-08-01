@@ -170,6 +170,7 @@ extern const uint32_t INTERACTION_SWITCH_COMPONENT;
 extern const uint32_t PATH_COMPONENT;
 extern const uint32_t ROAD_COMPONENT;
 extern const uint32_t LIGHT_COMPONENT;
+extern const uint32_t DIALOG_COMPONENT;
 
 struct Component
 {

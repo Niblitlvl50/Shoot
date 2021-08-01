@@ -29,6 +29,7 @@
 
 namespace tweak_values
 {
+    constexpr float force_multiplier = 250.0f;
     constexpr uint32_t blink_duration_ms = 200;
     constexpr float blink_distance = 2.0f;
 }
@@ -294,6 +295,15 @@ void PlayerLogic::SelectSecondaryWeapon(WeaponType weapon)
     m_secondary_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
 }
 
+void PlayerLogic::MoveInDirection(const math::Vector& direction)
+{
+    const float length_squared = math::LengthSquared(direction);
+    if(length_squared <= FLT_EPSILON)
+        ResetForces();
+    else
+        ApplyForce(direction * tweak_values::force_multiplier);
+}
+
 void PlayerLogic::ApplyImpulse(const math::Vector& force)
 {
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
@@ -347,7 +357,7 @@ void PlayerLogic::SetAimDirection(float aim_direction)
         math::CreateMatrixWithPosition(math::Vector(weapon_offset, -0.1f)) *
         math::CreateMatrixFromZRotation(aim_direction + math::PI_2()) *
         math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f)) *
-        math::CreateMatrixWithScale(math::Vector(0.4f, 0.4f));
+        math::CreateMatrixWithScale(math::Vector(0.3f, 0.3f));
 }
 
 void PlayerLogic::Blink(BlinkDirection direction)

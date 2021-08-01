@@ -29,7 +29,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.0,
+                                "x": -1.25,
                                 "y": 3.0
                             }
                         },
@@ -84,7 +84,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 2
+                            "variant_value": 6
                         },
                         {
                             "id": 4153965,
@@ -232,7 +232,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.5,
+                                "x": 3.25,
                                 "y": 2.0
                             }
                         },
@@ -308,7 +308,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -738,7 +738,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.0,
+                                "x": 3.75,
                                 "y": 2.0
                             }
                         },
@@ -814,7 +814,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -892,7 +892,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.5,
+                                "x": 4.25,
                                 "y": 2.0
                             }
                         },
@@ -968,7 +968,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -1104,6 +1104,71 @@
             "folder": "",
             "name": "quit_text",
             "uuid_hash": 2894242677
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "message_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "message_test"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.6572247743606567,
+                                "y": -0.9924031496047974
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 619841764,
+                    "name": "message",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "hello world!"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "message_test",
+            "name": "message_1",
+            "uuid_hash": 287967627
         }
     ],
     "metadata": {
