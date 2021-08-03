@@ -237,6 +237,7 @@ Editor::Editor(
     editor::LoadAllPaths("res/paths/all_paths.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
     editor::LoadAllWorlds("res/worlds/all_worlds.json");
+    editor::LoadAllConditions("res/worlds/global_conditions.json");
 
     SetupIcons(m_context);
     SetupSpriteIcons(editor::GetAllSprites(), m_context);

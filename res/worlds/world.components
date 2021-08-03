@@ -21055,6 +21055,30 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 1834554033,
+                    "name": "set_condition",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "level_pickup_done"
+                        },
+                        {
+                            "id": 3524459198,
+                            "name": "condition",
+                            "variant_type": 6,
+                            "variant_value": "world"
+                        },
+                        {
+                            "id": 264394244,
+                            "name": "condition_state",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -55757,7 +55781,7 @@
                 },
                 {
                     "hash": 619841764,
-                    "name": "message",
+                    "name": "dialog",
                     "properties": [
                         {
                             "id": 3185987134,

@@ -315,6 +315,20 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         const char* entity_name = ui_context.entity_name_callback(entity_id);
         return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback, ui_context.select_reference_callback);
     }
+    else if(attribute.id == CONDITION_ATTRIBUTE)
+    {
+        std::vector<std::string> all_condition_names;
+
+        for(const game::ConditionData& condition : editor::GetAllConditions())
+            all_condition_names.push_back(condition.name);
+
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_condition_names, out_index);
+        if(changed)
+            attribute.value = all_condition_names[out_index];
+        
+        return changed;
+    }
     else if(attribute.id == TEXTURE_ATTRIBUTE)
     {
         const std::vector<std::string>& all_textures = editor::GetAllTextures();

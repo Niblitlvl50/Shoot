@@ -89,6 +89,8 @@ const DefaultAttribute default_attributes[] = {
     { "frequency",              Variant(1.0f) },
     { "percentage",             Variant(0.5f) },
     { "destroyed_type",         Variant(0) },
+    { "condition",              Variant(std::string()) },
+    { "condition_state",        Variant(true) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -172,7 +174,9 @@ extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[62].has
 extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].hash;
 extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
 
-extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE = default_attributes[65].hash;
+extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[65].hash;
+extern const uint32_t CONDITION_ATTRIBUTE               = default_attributes[66].hash;
+extern const uint32_t CONDITION_STATE_ATTRIBUTE         = default_attributes[67].hash;
 
 
 
@@ -206,6 +210,7 @@ extern const uint32_t PATH_COMPONENT                = hash::Hash("path");
 extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
+extern const uint32_t SET_CONDITION_COMPONENT       = hash::Hash("set_condition");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -270,6 +275,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "light";
     else if(hash == DIALOG_COMPONENT)
         return "dialog";
+    else if(hash == SET_CONDITION_COMPONENT)
+        return "set_condition";
 
     return "Unknown";
 }
@@ -308,6 +315,7 @@ const Component default_components[] = {
     MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
+    MakeComponent(SET_CONDITION_COMPONENT,      NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, CONDITION_ATTRIBUTE, CONDITION_STATE_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,   true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
     MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,     true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,     true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),

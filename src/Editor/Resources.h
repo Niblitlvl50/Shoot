@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "ConditionSystem/ConditionFile.h"
+
 #include <cstring>
 #include <vector>
 #include <string>
@@ -30,4 +32,7 @@ namespace editor
 
     bool LoadAllWorlds(const char* filename);
     const std::vector<std::string>& GetAllWorlds();
+
+    bool LoadAllConditions(const char* filename);
+    const std::vector<game::ConditionData>& GetAllConditions();
 }

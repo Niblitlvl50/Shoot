@@ -91,6 +91,9 @@ extern const uint32_t FLICKER_ATTRIBUTE;
 extern const uint32_t FREQUENCY_ATTRIBUTE;
 extern const uint32_t PERCENTAGE_ATTRIBUTE;
 
+extern const uint32_t CONDITION_ATTRIBUTE;
+extern const uint32_t CONDITION_STATE_ATTRIBUTE;
+
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -171,6 +174,7 @@ extern const uint32_t PATH_COMPONENT;
 extern const uint32_t ROAD_COMPONENT;
 extern const uint32_t LIGHT_COMPONENT;
 extern const uint32_t DIALOG_COMPONENT;
+extern const uint32_t SET_CONDITION_COMPONENT;
 
 struct Component
 {

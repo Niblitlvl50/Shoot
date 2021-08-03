@@ -34,6 +34,8 @@
 #include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "DialogSystem/DialogSystem.h"
+#include "ConditionSystem/ConditionSystem.h"
+#include "ConditionSystem/ConditionFile.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -171,12 +173,15 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
         system_context.CreateSystem<game::DialogSystem>(max_entities);
+        game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
 
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
         game::RegisterGameComponents(entity_system);
         shared::RegisterSharedComponents(entity_system);
+
+        game::LoadConditionsFromFile("res/worlds/global_conditions.json", condition_system);
 
         game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
