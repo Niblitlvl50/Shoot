@@ -22,6 +22,8 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     json_metadata["background_color"] = level_metadata.background_color;
     json_metadata["ambient_shade"] = level_metadata.ambient_shade;
     json_metadata["background_texture"] = level_metadata.background_texture;
+    json_metadata["triggers"] = level_metadata.triggers;
+    json_metadata["conditions"] = level_metadata.conditions;
 
     nlohmann::json json;
     json["metadata"] = json_metadata;

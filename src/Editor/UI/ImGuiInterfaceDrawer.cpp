@@ -283,6 +283,31 @@ namespace
             context.background_texture_callback(context.background_texture);
         }
 
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        ImGui::TextDisabled("Triggers");
+
+        const bool triggers_box_open = ImGui::BeginListBox("##triggers");
+        if(triggers_box_open)
+        {
+            for(const std::string& trigger : context.triggers)
+                ImGui::Selectable(trigger.c_str());
+            ImGui::EndListBox();
+        }
+
+        ImGui::Spacing();
+        ImGui::TextDisabled("Conditions");
+
+        const bool conditions_box_open = ImGui::BeginListBox("##conditions");
+        if(conditions_box_open)
+        {
+            for(const std::string& condition : context.conditions)
+                ImGui::Selectable(condition.c_str());
+            ImGui::EndListBox();
+        }
+
         ImGui::End();
     }
 

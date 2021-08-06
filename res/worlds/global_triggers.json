@@ -1,0 +1,6 @@
+{
+    "triggers" : [
+        "global_thing",
+        "level_completed"
+    ]
+}

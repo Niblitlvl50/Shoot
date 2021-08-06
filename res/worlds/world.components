@@ -21034,13 +21034,13 @@
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
-                            "variant_value": "level_pickup"
+                            "variant_value": "global_thing"
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
                             "variant_type": 6,
-                            "variant_value": "level_pickup_done"
+                            "variant_value": "level_completed"
                         },
                         {
                             "id": 967958004,
@@ -21064,13 +21064,13 @@
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
-                            "variant_value": "level_pickup_done"
+                            "variant_value": "hello"
                         },
                         {
                             "id": 3524459198,
                             "name": "condition",
                             "variant_type": 6,
-                            "variant_value": "world"
+                            "variant_value": "player_alive"
                         },
                         {
                             "id": 264394244,
@@ -61153,9 +61153,19 @@
             "x": 12.0,
             "y": 8.0
         },
+        "conditions": [
+            "boss_dead",
+            "player_alive",
+            "collected_all_hearts"
+        ],
         "player_spawn_point": {
             "x": -3.0,
             "y": -10.0
-        }
+        },
+        "triggers": [
+            "hello",
+            "another_trigger",
+            "one_more"
+        ]
     }
 }

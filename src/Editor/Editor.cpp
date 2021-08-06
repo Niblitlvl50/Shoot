@@ -237,7 +237,6 @@ Editor::Editor(
     editor::LoadAllPaths("res/paths/all_paths.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
     editor::LoadAllWorlds("res/worlds/all_worlds.json");
-    editor::LoadAllConditions("res/worlds/global_conditions.json");
 
     SetupIcons(m_context);
     SetupSpriteIcons(editor::GetAllSprites(), m_context);
@@ -380,6 +379,8 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_context.background_color = world.leveldata.metadata.background_color;
     m_context.ambient_shade = world.leveldata.metadata.ambient_shade;
     m_context.background_texture = world.leveldata.metadata.background_texture;
+    m_context.triggers = world.leveldata.metadata.triggers;
+    m_context.conditions = world.leveldata.metadata.conditions;
 
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
@@ -414,6 +415,8 @@ void Editor::Save()
     metadata.background_color = m_context.background_color;
     metadata.ambient_shade = m_context.ambient_shade;
     metadata.background_texture = m_context.background_texture;
+    metadata.triggers = m_context.triggers;
+    metadata.conditions = m_context.conditions;
 
     SaveWorld(m_world_filename.c_str(), m_proxies, metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);

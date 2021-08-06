@@ -7,6 +7,7 @@
 
 #include "Physics/PhysicsFwd.h"
 #include "TriggerTypes.h"
+#include "Util/ActiveVector.h"
 
 #include <cstdint>
 #include <vector>
@@ -63,13 +64,28 @@ namespace game
         int counter;
     };
 
+    struct SetConditionTriggerComponent
+    {
+        uint32_t trigger_hash;
+        uint32_t condition_hash;
+        bool condition_state;
+
+        // Internal data
+        uint32_t callback_id;
+    };
+
     using TriggerCallback = std::function<void (uint32_t trigger_id)>;
 
     class TriggerSystem : public mono::IGameSystem
     {
     public:
 
-        TriggerSystem(size_t n_triggers, class DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system);
+        TriggerSystem(
+            size_t n_triggers,
+            class DamageSystem* damage_system,
+            class ConditionSystem* condition_system,
+            mono::PhysicsSystem* physics_system,
+            mono::IEntityManager* entity_system);
 
         ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
         void ReleaseShapeTrigger(uint32_t entity_id);
@@ -94,6 +110,10 @@ namespace game
         void AddCounterTrigger(
             uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int count, bool reset_on_completed);
 
+        SetConditionTriggerComponent* AllocateSetConditionTrigger(uint32_t entity_id);
+        void ReleaseSetConditionTrigger(uint32_t entity_id);
+        void AddSetConditionTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t condition_hash, bool new_condition_state);
+
         [[nodiscard]]
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
         void RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id);
@@ -103,58 +123,39 @@ namespace game
         void EmitTrigger(uint32_t trigger_hash);
 
         template<typename T>
-        void ForEachShapeTrigger(T&& callable) const
+        void ForEachShapeTrigger(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active_shape_triggers.size(); ++index)
-            {
-                const bool is_active = m_active_shape_triggers[index];
-                if(is_active)
-                    callable(index, m_shape_triggers[index]);
-            }
+            m_shape_triggers.ForEach(callable);
         }
 
         template<typename T>
-        void ForEachDestroyedTrigger(T&& callable) const
+        void ForEachDestroyedTrigger(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active_destroyed_triggers.size(); ++index)
-            {
-                const bool is_active = m_active_destroyed_triggers[index];
-                if(is_active)
-                    callable(index, m_destroyed_triggers[index]);
-            }
+            m_destroyed_triggers.ForEach(callable);
         }
 
         template<typename T>
-        void ForEachAreaTrigger(T&& callable) const
+        void ForEachAreaTrigger(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active_area_triggers.size(); ++index)
-            {
-                const bool is_active = m_active_area_triggers[index];
-                if(is_active)
-                    callable(index, m_area_triggers[index]);
-            }
+            m_area_triggers.ForEach(callable);
         }
 
         template<typename T>
-        void ForEachTimeTrigger(T&& callable) const
+        void ForEachTimeTrigger(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active_time_triggers.size(); ++index)
-            {
-                const bool is_active = m_active_time_triggers[index];
-                if(is_active)
-                    callable(index, m_time_triggers[index]);
-            }
+            m_time_triggers.ForEach(callable);
         }
 
         template<typename T>
-        void ForEachCounterTrigger(T&& callable) const
+        void ForEachCounterTrigger(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active_counter_triggers.size(); ++index)
-            {
-                const bool is_active = m_active_counter_triggers[index];
-                if(is_active)
-                    callable(index, m_counter_triggers[index]);
-            }
+            m_counter_triggers.ForEach(callable);
+        }
+
+        template<typename T>
+        void ForEachSetCondition(T&& callable)
+        {
+            m_set_condition_triggers.ForEach(callable);
         }
 
         uint32_t Id() const override;
@@ -167,27 +168,21 @@ namespace game
         void UpdateTimeTriggers(const mono::UpdateContext& update_context);
 
         class DamageSystem* m_damage_system;
+        class ConditionSystem* m_condition_system;
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_system;
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
 
-        std::vector<ShapeTriggerComponent> m_shape_triggers;
-        std::vector<bool> m_active_shape_triggers;
+        mono::ActiveVector<ShapeTriggerComponent> m_shape_triggers;
+        mono::ActiveVector<DestroyedTriggerComponent> m_destroyed_triggers;
+        mono::ActiveVector<AreaEntityTriggerComponent> m_area_triggers;
+        mono::ActiveVector<TimeTriggerComponent> m_time_triggers;
+        mono::ActiveVector<CounterTriggerComponent> m_counter_triggers;
+        mono::ActiveVector<SetConditionTriggerComponent> m_set_condition_triggers;
 
-        std::vector<DestroyedTriggerComponent> m_destroyed_triggers;
-        std::vector<bool> m_active_destroyed_triggers;
-
-        std::vector<AreaEntityTriggerComponent> m_area_triggers;
-        std::vector<bool> m_active_area_triggers;
         uint32_t m_area_trigger_timer;
-
-        std::vector<TimeTriggerComponent> m_time_triggers;
-        std::vector<bool> m_active_time_triggers;
-
-        std::vector<CounterTriggerComponent> m_counter_triggers;
-        std::vector<bool> m_active_counter_triggers;
 
         std::vector<uint32_t> m_triggers_to_emit;
 

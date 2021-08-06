@@ -32,7 +32,7 @@ namespace
     }
 }
 
-TriggerDebugDrawer::TriggerDebugDrawer(const bool& enabled, const class TriggerSystem* trigger_system, const mono::TransformSystem* transform_system)
+TriggerDebugDrawer::TriggerDebugDrawer(const bool& enabled, TriggerSystem* trigger_system, const mono::TransformSystem* transform_system)
     : m_enabled(enabled)
     , m_trigger_system(trigger_system)
     , m_transform_system(transform_system)

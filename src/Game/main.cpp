@@ -164,8 +164,9 @@ int main(int argc, char* argv[])
 
         game::DamageSystem* damage_system =
             system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
+        game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
         game::TriggerSystem* trigger_system =
-            system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+            system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, condition_system, physics_system, entity_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
         system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
@@ -173,7 +174,6 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
         system_context.CreateSystem<game::DialogSystem>(max_entities);
-        game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
 
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

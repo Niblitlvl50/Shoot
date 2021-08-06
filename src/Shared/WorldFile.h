@@ -22,6 +22,9 @@ namespace shared
         mono::Color::RGBA background_color;
         mono::Color::RGBA ambient_shade;
         std::string background_texture;
+
+        std::vector<std::string> triggers;
+        std::vector<std::string> conditions;
     };
 
     struct LevelData
