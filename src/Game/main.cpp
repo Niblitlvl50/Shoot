@@ -35,7 +35,6 @@
 #include "RoadSystem/RoadSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "ConditionSystem/ConditionSystem.h"
-#include "ConditionSystem/ConditionFile.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -180,8 +179,6 @@ int main(int argc, char* argv[])
 
         game::RegisterGameComponents(entity_system);
         shared::RegisterSharedComponents(entity_system);
-
-        game::LoadConditionsFromFile("res/worlds/global_conditions.json", condition_system);
 
         game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
