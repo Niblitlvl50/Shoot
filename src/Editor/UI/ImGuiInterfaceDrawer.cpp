@@ -288,25 +288,13 @@ namespace
         ImGui::Spacing();
 
         ImGui::TextDisabled("Triggers");
-
-        const bool triggers_box_open = ImGui::BeginListBox("##triggers");
-        if(triggers_box_open)
-        {
-            for(const std::string& trigger : context.triggers)
-                ImGui::Selectable(trigger.c_str());
-            ImGui::EndListBox();
-        }
+        static uint32_t selected_trigger_index = -1;
+        editor::DrawListboxWidget("##triggers", context.triggers, selected_trigger_index);
 
         ImGui::Spacing();
         ImGui::TextDisabled("Conditions");
-
-        const bool conditions_box_open = ImGui::BeginListBox("##conditions");
-        if(conditions_box_open)
-        {
-            for(const std::string& condition : context.conditions)
-                ImGui::Selectable(condition.c_str());
-            ImGui::EndListBox();
-        }
+        static uint32_t selected_condition_index = -1;
+        editor::DrawListboxWidget("##conditions", context.conditions, selected_condition_index);
 
         ImGui::End();
     }

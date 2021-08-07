@@ -785,3 +785,71 @@ editor::PaletteResult editor::DrawPaletteView(const std::vector<mono::Color::RGB
 
     return result;
 }
+
+bool editor::DrawListboxWidget(const char* label, std::vector<std::string>& items, uint32_t& selected_index)
+{
+    bool changed = false;
+
+    const bool triggers_box_open = ImGui::BeginListBox(label);
+    if(triggers_box_open)
+    {
+        for(uint32_t index = 0; index < items.size(); ++index)
+        {
+            const bool is_selected = (index == selected_index);
+            const bool new_index_selected = ImGui::Selectable(items[index].c_str(), is_selected);
+            if(new_index_selected)
+                selected_index = index;
+        }
+        ImGui::EndListBox();
+    }
+
+    const std::string add_button_label = "Add" + std::string("##") + label + "add";
+    const std::string remove_button_label = "Remove" + std::string("##") + label + "remove";
+
+    const bool add_trigger = ImGui::Button(add_button_label.c_str());
+    ImGui::SameLine();
+    const bool remove_trigger = ImGui::Button(remove_button_label.c_str());
+    if(remove_trigger)
+    {
+        if(items.size() > selected_index)
+        {
+            items.erase(items.begin() + selected_index);
+            changed = true;
+        }
+    }
+
+    if(add_trigger)
+        ImGui::OpenPopup(add_button_label.c_str());
+
+    const bool add_trigger_open = ImGui::BeginPopupModal(add_button_label.c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+    if(add_trigger_open)
+    {
+        char text_buffer[1024] = { };
+        ImGui::InputText("Name", text_buffer, std::size(text_buffer), ImGuiInputTextFlags_CharsNoBlank);
+        const bool hit_enter = ImGui::IsItemDeactivatedAfterEdit();
+
+        ImGui::Spacing();
+        ImGui::Separator();
+
+        const bool hit_ok = ImGui::Button("OK", ImVec2(120, 0)) || hit_enter;
+        ImGui::SameLine();
+        const bool hit_cancel = ImGui::Button("Cancel", ImVec2(120, 0));
+
+        if(hit_ok || hit_cancel)
+            ImGui::CloseCurrentPopup();
+
+        if(hit_ok)
+        {
+            std::string new_trigger_name = text_buffer;
+            if(!new_trigger_name.empty())
+            {
+                items.push_back(new_trigger_name);
+                changed = true;
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    return changed;
+}

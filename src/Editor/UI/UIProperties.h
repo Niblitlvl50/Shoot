@@ -59,4 +59,6 @@ namespace editor
     };
 
     PaletteResult DrawPaletteView(const std::vector<mono::Color::RGBA>& colors, int selected_index);
+
+    bool DrawListboxWidget(const char* label, std::vector<std::string>& items, uint32_t& selected_index);
 }

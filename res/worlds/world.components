@@ -21034,13 +21034,13 @@
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
-                            "variant_value": "global_thing"
+                            "variant_value": "hello"
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
                             "variant_type": 6,
-                            "variant_value": "level_completed"
+                            "variant_value": "one_more"
                         },
                         {
                             "id": 967958004,
@@ -61156,7 +61156,8 @@
         "conditions": [
             "boss_dead",
             "player_alive",
-            "collected_all_hearts"
+            "collected_all_hearts",
+            "condition"
         ],
         "player_spawn_point": {
             "x": -3.0,
@@ -61165,7 +61166,9 @@
         "triggers": [
             "hello",
             "another_trigger",
-            "one_more"
+            "one_more",
+            "halsldas",
+            "23232323"
         ]
     }
 }
