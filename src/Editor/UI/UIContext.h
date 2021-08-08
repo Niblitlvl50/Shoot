@@ -74,6 +74,7 @@ namespace editor
         std::vector<std::string> conditions;
         
         // Objects
+        uint32_t max_entities;
         bool draw_outline = false;
         std::vector<class IObjectProxy*> selected_proxies;
         class IObjectProxy* preselected_proxy_object = nullptr;

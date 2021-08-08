@@ -2,8 +2,8 @@
 #pragma once
 
 #include "IGameSystem.h"
+#include "Util/ActiveVector.h"
 #include <string>
-#include <vector>
 
 namespace game
 {
@@ -30,17 +30,11 @@ namespace game
         template <typename T>
         inline void ForEach(T&& callable)
         {
-            for(uint32_t index = 0; index < m_active.size(); ++index)
-            {
-                const bool is_active = m_active[index];
-                if(is_active)
-                    callable(index, m_components[index]);
-            }
+            m_components.ForEach(callable);
         }
 
     private:
     
-        std::vector<DialogComponent> m_components;
-        std::vector<bool> m_active;
+        mono::ActiveVector<DialogComponent> m_components;
     };
 }

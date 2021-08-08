@@ -3,6 +3,8 @@
 #include "System/Hash.h"
 #include "System/System.h"
 
+#include <cassert>
+
 struct DefaultAttribute
 {
     DefaultAttribute(const char* string, const Variant& default_value, const char* tooltip = "")

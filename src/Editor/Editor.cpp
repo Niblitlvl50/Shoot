@@ -176,7 +176,8 @@ Editor::Editor(
     mono::IEntityManager& entity_manager,
     mono::EventHandler& event_handler,
     mono::SystemContext& system_context,
-    Config& editor_config)
+    Config& editor_config,
+    uint32_t max_entities)
     : m_window(window)
     , m_entity_manager(entity_manager)
     , m_event_handler(event_handler)
@@ -189,6 +190,7 @@ Editor::Editor(
 
     using namespace std::placeholders;
 
+    m_context.max_entities = max_entities;
     m_context.all_proxy_objects = &m_proxies;
 
     m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);

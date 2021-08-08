@@ -23,6 +23,7 @@
 #include "EntitySystem/EntitySystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
+#include "System/Hash.h"
 
 #include "Player/PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
@@ -51,6 +52,7 @@
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "SpawnSystem/SpawnSystemDrawer.h"
+#include "ConditionSystem/ConditionSystem.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -87,12 +89,16 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
     SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
+    ConditionSystem* condition_system = m_system_context->GetSystem<ConditionSystem>();
 
     m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
     camera->SetViewportSize(m_leveldata.metadata.camera_size);
     renderer->SetClearColor(m_leveldata.metadata.background_color);
     renderer->SetAmbientShade(m_leveldata.metadata.ambient_shade);
+
+    for(const std::string& condition : m_leveldata.metadata.conditions)
+        condition_system->RegisterCondition(hash::Hash(condition.c_str()), false);
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
@@ -124,6 +130,9 @@ int GameZone::OnUnload()
 {
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     entity_system->PopEntityStackRecord();
+
+    ConditionSystem* condition_system = m_system_context->GetSystem<ConditionSystem>();
+    condition_system->ClearAllConditions();
 
     return 0;
 }

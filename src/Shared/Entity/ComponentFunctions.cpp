@@ -39,6 +39,8 @@ bool UpdateTransform(mono::Entity* entity, const std::vector<Attribute>& propert
     transform = math::CreateMatrixFromZRotation(rotation);
     math::Position(transform, position);
 
+    transform_system->SetTransformState(entity->id, mono::TransformState::CLIENT);
+
     return true;
 }
 

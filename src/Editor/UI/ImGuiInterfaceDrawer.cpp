@@ -134,7 +134,7 @@ namespace
         ImGui::Begin("Objects", nullptr, flags);
 
         const size_t n_objects = context.all_proxy_objects->size();
-        ImGui::TextDisabled("%zu / 500 objects", n_objects);
+        ImGui::TextDisabled("%zu / %u objects", n_objects, context.max_entities);
 
         int id = 0;
 

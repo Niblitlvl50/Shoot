@@ -5,27 +5,24 @@
 using namespace game;
 
 DialogSystem::DialogSystem(uint32_t n)
-{
-    m_components.resize(n);
-    m_active.resize(n, false);
-}
+    : m_components(n)
+{ }
 
 DialogComponent* DialogSystem::AllocateComponent(uint32_t entity_id)
 {
-    m_active[entity_id] = true;
-    return &m_components[entity_id];
+    return m_components.Set(entity_id, DialogComponent());
 }
 
 void DialogSystem::ReleaseComponent(uint32_t entity_id)
 {
-    m_active[entity_id] = false;
+    m_components.Release(entity_id);
 }
 
 void DialogSystem::AddComponent(uint32_t entity_id, const std::string& message, float duration)
 {
-    DialogComponent& component = m_components[entity_id];
-    component.message = message;
-    component.duration = duration;
+    DialogComponent* component = m_components.Get(entity_id);
+    component->message = message;
+    component->duration = duration;
 }
 
 uint32_t DialogSystem::Id() const

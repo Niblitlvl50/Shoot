@@ -78,7 +78,7 @@ int main()
         shared::LoadFonts();
 
         mono::Camera camera;
-        auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config);
+        auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config, max_entities);
         mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
 
         const System::Position& position = window->Position();

@@ -42,7 +42,8 @@ namespace editor
             mono::IEntityManager& entity_manager,
             mono::EventHandler& event_handler,
             mono::SystemContext& system_context,
-            struct Config& editor_config
+            struct Config& editor_config,
+            uint32_t max_entities
         );
 
         virtual ~Editor();
