@@ -3,6 +3,7 @@
 
 #include "Math/Vector.h"
 #include <vector>
+#include <cstdint>
 
 namespace game
 {
