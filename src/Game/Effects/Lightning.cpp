@@ -2,6 +2,8 @@
 #include "Lightning.h"
 #include "Util/Random.h"
 
+#include <algorithm>
+
 std::vector<math::Vector> game::GenerateLightning(const math::Vector& from, const math::Vector& to, uint32_t points_per_meter)
 {
     const math::Vector diff = to - from;
