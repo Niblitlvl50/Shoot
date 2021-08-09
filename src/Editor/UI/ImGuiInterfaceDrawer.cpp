@@ -246,55 +246,70 @@ namespace
             ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoSavedSettings;
 
-        const float metadata_width = 310;
+        const float metadata_width = 350;
         const float window_width = ImGui::GetIO().DisplaySize.x;
 
-        //ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
+        ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
         ImGui::SetNextWindowPos(ImVec2(window_width / 2.0f - metadata_width / 2.0f, 40));
 
         ImGui::Begin("Level Metadata", nullptr, flags);
 
-        ImGui::TextDisabled("Player");
-        ImGui::InputFloat2("Spawn", &context.player_spawn_point.x);
-        ImGui::Spacing();
-
-        ImGui::TextDisabled("Game Camera");
-        ImGui::InputFloat2("Position", &context.camera_position.x);
-        ImGui::InputFloat2("Size", &context.camera_size.x);
-        const float ratio = context.camera_size.x / context.camera_size.y;
-        ImGui::TextDisabled("Ratio: %f", ratio);
-        ImGui::Spacing();
-
-        ImGui::TextDisabled("Colors");
-        if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
-            context.background_color_callback(context.background_color);
-
-        if(ImGui::ColorEdit3("Ambient Shade", &context.ambient_shade.red))
-            context.ambient_shade_callback(context.ambient_shade);
-        ImGui::Spacing();
-
-        ImGui::TextDisabled("Background");
-        const std::vector<std::string>& all_textures = editor::GetAllTextures();
-        int out_index;
-        const bool changed = editor::DrawStringPicker("Texture", context.background_texture, all_textures, out_index);
-        if(changed)
+        if(ImGui::BeginTabBar("metadata_tabs"))
         {
-            context.background_texture = all_textures[out_index];
-            context.background_texture_callback(context.background_texture);
+            if(ImGui::BeginTabItem("Metadata"))
+            {
+                ImGui::TextDisabled("Player");
+                ImGui::InputFloat2("Spawn", &context.player_spawn_point.x);
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Game Camera");
+                ImGui::InputFloat2("Position", &context.camera_position.x);
+                ImGui::InputFloat2("Size", &context.camera_size.x);
+                const float ratio = context.camera_size.x / context.camera_size.y;
+                ImGui::TextDisabled("Ratio: %f", ratio);
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Colors");
+                if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
+                    context.background_color_callback(context.background_color);
+
+                if(ImGui::ColorEdit3("Ambient Shade", &context.ambient_shade.red))
+                    context.ambient_shade_callback(context.ambient_shade);
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Background");
+                const std::vector<std::string>& all_textures = editor::GetAllTextures();
+                int out_index;
+                const bool changed = editor::DrawStringPicker("Texture", context.background_texture, all_textures, out_index);
+                if(changed)
+                {
+                    context.background_texture = all_textures[out_index];
+                    context.background_texture_callback(context.background_texture);
+                }
+
+                ImGui::EndTabItem();
+            }
+
+            if(ImGui::BeginTabItem("Triggers"))
+            {
+                ImGui::TextDisabled("Triggers");
+                static uint32_t selected_trigger_index = -1;
+                editor::DrawListboxWidget("##triggers", context.triggers, selected_trigger_index);
+
+                ImGui::EndTabItem();
+            }
+
+            if(ImGui::BeginTabItem("Conditions"))
+            {
+                ImGui::TextDisabled("Conditions");
+                static uint32_t selected_condition_index = -1;
+                editor::DrawListboxWidget("##conditions", context.conditions, selected_condition_index);
+
+                ImGui::EndTabItem();
+            }
+
+            ImGui::EndTabBar();
         }
-
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        ImGui::TextDisabled("Triggers");
-        static uint32_t selected_trigger_index = -1;
-        editor::DrawListboxWidget("##triggers", context.triggers, selected_trigger_index);
-
-        ImGui::Spacing();
-        ImGui::TextDisabled("Conditions");
-        static uint32_t selected_condition_index = -1;
-        editor::DrawListboxWidget("##conditions", context.conditions, selected_condition_index);
 
         ImGui::End();
     }
