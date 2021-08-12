@@ -5,39 +5,94 @@
             "frames": [
                 0,
                 1,
-                2
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                8
+            ],
+            "loop": true,
+            "name": "put_out"
         }
     ],
     "frames": [
         {
-            "h": 41,
-            "name": "small_fire_default_1",
-            "w": 23,
-            "x": 56,
-            "y": 336
+            "h": 27,
+            "name": "small_fire_idle_1",
+            "w": 16,
+            "x": 73,
+            "y": 380
         },
         {
-            "h": 41,
-            "name": "small_fire_default_2",
-            "w": 23,
-            "x": 29,
-            "y": 336
+            "h": 28,
+            "name": "small_fire_idle_2",
+            "w": 16,
+            "x": 1882,
+            "y": 354
         },
         {
-            "h": 41,
-            "name": "small_fire_default_3",
-            "w": 23,
-            "x": 2,
-            "y": 336
+            "h": 26,
+            "name": "small_fire_idle_3",
+            "w": 16,
+            "x": 113,
+            "y": 380
+        },
+        {
+            "h": 25,
+            "name": "small_fire_idle_4",
+            "w": 16,
+            "x": 1691,
+            "y": 386
+        },
+        {
+            "h": 27,
+            "name": "small_fire_idle_5",
+            "w": 16,
+            "x": 93,
+            "y": 380
+        },
+        {
+            "h": 28,
+            "name": "small_fire_idle_6",
+            "w": 16,
+            "x": 141,
+            "y": 368
+        },
+        {
+            "h": 22,
+            "name": "small_fire_idle_7",
+            "w": 16,
+            "x": 1842,
+            "y": 388
+        },
+        {
+            "h": 24,
+            "name": "small_fire_idle_8",
+            "w": 16,
+            "x": 1225,
+            "y": 387
+        },
+        {
+            "h": 8,
+            "name": "small_fire_put_out_1",
+            "w": 16,
+            "x": 1736,
+            "y": 433
         }
     ],
     "frames_offsets": [
         {
             "x": 0.0,
-            "y": 0.0
+            "y": -0.015625
         },
         {
             "x": 0.0,
@@ -45,7 +100,31 @@
         },
         {
             "x": 0.0,
+            "y": -0.03125
+        },
+        {
+            "x": 0.0,
+            "y": -0.046875
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
             "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.09375
+        },
+        {
+            "x": 0.0,
+            "y": -0.0625
+        },
+        {
+            "x": 0.0,
+            "y": -0.3125
         }
     ],
     "source_folder": "res/images/props/campfire/",
