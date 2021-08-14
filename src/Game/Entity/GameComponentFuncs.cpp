@@ -680,6 +680,36 @@ namespace
         return true;
     }
 
+    bool CreateCameraRestore(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AllocateRestoreComponent(entity->id);
+        return true;
+    }
+
+    bool ReleaseCameraRestore(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->ReleaseRestoreComponent(entity->id);
+        return true;
+    }
+
+    bool UpdateCameraRestore(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
+            return false;
+        }
+
+        game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
+        camera_system->AddRestoreComponent(entity->id, hash::Hash(trigger_name.c_str()));
+        return true;
+    }
+
     bool CreateInteraction(mono::Entity* entity, mono::SystemContext* context)
     {
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
@@ -793,6 +823,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(ROTATION_COMPONENT, CreateRotation, ReleaseRotation, UpdateRotation);
     entity_manager->RegisterComponent(CAMERA_ZOOM_COMPONENT, CreateCameraZoom, ReleaseCameraZoom, UpdateCameraZoom);
     entity_manager->RegisterComponent(CAMERA_POINT_COMPONENT, CreateCameraPoint, ReleaseCameraPoint, UpdateCameraPoint);
+    entity_manager->RegisterComponent(CAMERA_RESTORE_COMPONENT, CreateCameraRestore, ReleaseCameraRestore, UpdateCameraRestore);
     entity_manager->RegisterComponent(INTERACTION_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteraction);
     entity_manager->RegisterComponent(INTERACTION_SWITCH_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteractionSwitch);
     entity_manager->RegisterComponent(DIALOG_COMPONENT, CreateDialog, ReleaseDialog, UpdateDialog);

@@ -67,6 +67,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::Controlle
 
 mono::EventResult ClientPlayerDaemon::ClientSpawned(const ClientPlayerSpawned& message)
 {
-    m_camera_system->Follow(message.client_entity_id, math::Vector(0.0f, 3.0f));
+    m_camera_system->FollowEntity(message.client_entity_id);
+    m_camera_system->FollowEntityOffset(math::Vector(0.0f, 3.0f));
     return mono::EventResult::PASS_ON;
 }

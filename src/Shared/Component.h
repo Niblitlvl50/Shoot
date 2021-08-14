@@ -168,6 +168,7 @@ extern const uint32_t TRANSLATION_COMPONENT;
 extern const uint32_t ROTATION_COMPONENT;
 extern const uint32_t CAMERA_ZOOM_COMPONENT;
 extern const uint32_t CAMERA_POINT_COMPONENT;
+extern const uint32_t CAMERA_RESTORE_COMPONENT;
 extern const uint32_t INTERACTION_COMPONENT;
 extern const uint32_t INTERACTION_SWITCH_COMPONENT;
 extern const uint32_t PATH_COMPONENT;

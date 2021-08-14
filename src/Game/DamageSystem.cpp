@@ -5,16 +5,15 @@
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/ScoreEvent.h"
-#include "TransformSystem/TransformSystem.h"
+#include "Math/MathFunctions.h"
+#include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "System/Hash.h"
+#include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
+
 #include <limits>
 #include <cassert>
-
-
-#include "Math/MathFunctions.h"
-#include "Util/Random.h"
-#include "Physics/PhysicsSystem.h"
 
 using namespace game;
 
@@ -145,13 +144,14 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         if(!m_active[entity_id])
             continue;
 
-        DamageRecord& damage_record = m_damage_records[entity_id];
+        const DamageRecord& damage_record = m_damage_records[entity_id];
         if(damage_record.health <= 0)
         {
             if(damage_record.release_entity_on_death)
                 m_entity_manager->ReleaseEntity(entity_id);
 
             game::SpawnEntityWithAnimation("res/entities/explosion_small.entity", 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
+            m_active[entity_id] = false;
         }
     }
 }
