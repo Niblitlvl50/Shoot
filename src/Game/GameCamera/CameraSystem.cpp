@@ -22,6 +22,8 @@ namespace
 {
     constexpr const uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
+
+    constexpr float dead_zone = 2.0f;
 }
 
 using namespace game;
@@ -74,7 +76,17 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     {
         const math::Matrix& world_transform = m_transform_system->GetWorld(m_current_follow_entity_id);
         const math::Vector& position = math::GetPosition(world_transform);
-        m_camera->SetTargetPosition(position + m_current_follow_offset);
+        const math::Vector camera_position = m_camera->GetTargetPosition();
+
+        const float distance = math::DistanceBetween(position, camera_position);
+        if(distance > dead_zone)
+        {
+            const math::Vector delta = position - camera_position;
+            const float fraction = distance - dead_zone;
+            const math::Vector new_camera_position = (delta * fraction) + camera_position;
+
+            m_camera->SetTargetPosition(new_camera_position + m_current_follow_offset);
+        }
     }
 
     const auto process_camera_anims = [this](CameraAnimationComponent* camera_anim)
@@ -94,6 +106,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
             m_camera->SetTargetPosition(math::Vector(camera_anim->point_x, camera_anim->point_y));
             break;
         case CameraAnimationType::CENTER_ON_ENTITY:
+            m_current_follow_entity_id = camera_anim->entity_id;
             break;
         };
 
