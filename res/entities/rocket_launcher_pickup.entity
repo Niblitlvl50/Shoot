@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "player_bullet22"
+                            "variant_value": "rocket_launcher_pickup"
                         },
                         {
                             "id": 3647911389,
@@ -29,15 +29,33 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0,
-                                "y": 1.0
+                                "x": -7.691525936126709,
+                                "y": 3.8839035034179688
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1767436421,
+                    "name": "pickup",
+                    "properties": [
+                        {
+                            "id": 3090788814,
+                            "name": "pickup_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 4152741449,
+                            "name": "amount",
+                            "variant_type": 1,
+                            "variant_value": 10
                         }
                     ]
                 },
@@ -49,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "generic1.sprite"
+                            "variant_value": "rocket_launcher.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -75,7 +93,7 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.22549021244049072,
+                                "blue": 1.0,
                                 "green": 1.0,
                                 "red": 1.0
                             }
@@ -141,13 +159,13 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.17000000178813934
+                            "variant_value": 0.4000000059604645
                         },
                         {
                             "id": 2471448074,
@@ -162,15 +180,15 @@
                             "id": 2209756795,
                             "name": "sensor",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "player_bullet22",
-            "uuid_hash": 967235727
+            "name": "rocket_launcher_pickup",
+            "uuid_hash": 3859100103
         }
     ],
     "metadata": {
@@ -195,9 +213,11 @@
             "x": 0.0,
             "y": 0.0
         },
+        "conditions": [],
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "triggers": []
     }
 }

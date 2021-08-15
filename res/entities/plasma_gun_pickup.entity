@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "score_100"
+                            "variant_value": "plasma_gun_pickup"
                         },
                         {
                             "id": 3647911389,
@@ -29,15 +29,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0,
-                                "y": 0.0
+                                "x": -7.691525936126709,
+                                "y": 3.8839035034179688
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49,13 +49,13 @@
                             "id": 3090788814,
                             "name": "pickup_type",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 4
                         },
                         {
                             "id": 4152741449,
                             "name": "amount",
                             "variant_type": 1,
-                            "variant_value": 100
+                            "variant_value": 10
                         }
                     ]
                 },
@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "laser1.sprite"
+                            "variant_value": "bolter.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -93,7 +93,7 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
+                                "blue": 1.0,
                                 "green": 1.0,
                                 "red": 1.0
                             }
@@ -165,7 +165,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.20000000298023224
+                            "variant_value": 0.4000000059604645
                         },
                         {
                             "id": 2471448074,
@@ -187,8 +187,8 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "score_100",
-            "uuid_hash": 4095164297
+            "name": "plasma_gun_pickup",
+            "uuid_hash": 3859100103
         }
     ],
     "metadata": {
@@ -213,9 +213,11 @@
             "x": 0.0,
             "y": 0.0
         },
+        "conditions": [],
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "triggers": []
     }
 }

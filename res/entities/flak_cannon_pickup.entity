@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "floor_dude"
+                            "variant_value": "flak_cannon_pickup"
                         },
                         {
                             "id": 3647911389,
@@ -29,15 +29,33 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 8.724872589111328,
-                                "y": -3.922196865081787
+                                "x": -7.691525936126709,
+                                "y": 3.8839035034179688
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": -0.0
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1767436421,
+                    "name": "pickup",
+                    "properties": [
+                        {
+                            "id": 3090788814,
+                            "name": "pickup_type",
+                            "variant_type": 1,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 4152741449,
+                            "name": "amount",
+                            "variant_type": 1,
+                            "variant_value": 10
                         }
                     ]
                 },
@@ -49,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "table.sprite"
+                            "variant_value": "flak_cannon.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -117,7 +135,7 @@
                             "id": 3836179294,
                             "name": "body_type",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 0
                         },
                         {
                             "id": 3749132497,
@@ -134,52 +152,43 @@
                     ]
                 },
                 {
-                    "hash": 1760643940,
-                    "name": "segment_shape",
+                    "hash": 3996803839,
+                    "name": "circle_shape",
                     "properties": [
                         {
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1697318111,
-                            "name": "start",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -15.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1787721130,
-                            "name": "end",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 15.0,
-                                "y": 0.0
-                            }
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 2209756795,
                             "name": "sensor",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "floor_dude",
-            "uuid_hash": 2265921179
+            "name": "flak_cannon_pickup",
+            "uuid_hash": 3859100103
         }
     ],
     "metadata": {
@@ -204,9 +213,11 @@
             "x": 0.0,
             "y": 0.0
         },
+        "conditions": [],
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "triggers": []
     }
 }

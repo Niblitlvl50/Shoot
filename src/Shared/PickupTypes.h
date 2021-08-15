@@ -10,12 +10,18 @@ namespace shared
         AMMO,
         HEALTH,
         SCORE,
+        WEAPON_PISOL,
+        WEAPON_PLASMA,
+        WEAPON_SHOTGUN
     };
 
     constexpr const char* pickup_items[] = {
         "Ammo",
         "Health",
         "Score",
+        "Pistol",
+        "Plasma Gun",
+        "Shotgun",
     };
 
     inline const char* PickupTypeToString(PickupType pickup_type)

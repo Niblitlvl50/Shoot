@@ -34,6 +34,21 @@ namespace tweak_values
     constexpr float blink_distance = 2.0f;
 }
 
+namespace
+{
+    const std::unordered_map<shared::PickupType, game::WeaponType> g_pickup_to_weapon = {
+        { shared::PickupType::WEAPON_PISOL,     game::WeaponType::GENERIC },
+        { shared::PickupType::WEAPON_PLASMA,    game::WeaponType::STANDARD },
+        { shared::PickupType::WEAPON_SHOTGUN,   game::WeaponType::FLAK_CANON },
+    };
+
+    const std::unordered_map<game::WeaponType, const char*> g_weapon_to_entity = {
+        { game::WeaponType::STANDARD,   "res/entities/plasma_gun_pickup.entity" },
+        { game::WeaponType::GENERIC,    "res/entities/rocket_launcher_pickup.entity" },
+        { game::WeaponType::FLAK_CANON, "res/entities/flak_cannon_pickup.entity" },
+    };
+}
+
 using namespace game;
 
 PlayerLogic::PlayerLogic(
@@ -78,6 +93,12 @@ PlayerLogic::PlayerLogic(
         }
         case shared::PickupType::SCORE:
             m_player_info->score += amount;
+            break;
+
+        case shared::PickupType::WEAPON_PISOL:
+        case shared::PickupType::WEAPON_PLASMA:
+        case shared::PickupType::WEAPON_SHOTGUN:
+            HandleWeaponPickup(type);
             break;
         };
     };
@@ -293,6 +314,30 @@ void PlayerLogic::SelectWeapon(WeaponType weapon)
 void PlayerLogic::SelectSecondaryWeapon(WeaponType weapon)
 {
     m_secondary_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
+}
+
+void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
+{
+    const auto it = g_pickup_to_weapon.find(type);
+    if(it == g_pickup_to_weapon.end())
+        return;
+
+    const WeaponType weapon_type = it->second;
+    m_weapon = g_weapon_factory->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
+
+    const auto it_second = g_weapon_to_entity.find(m_weapon_type);
+    if(it_second != g_weapon_to_entity.end())
+    {
+        const math::Matrix& player_transform = m_transform_system->GetTransform(m_entity_id);
+
+        mono::Entity spawned_entity = m_entity_system->CreateEntity(it_second->second);
+        math::Matrix& transform = m_transform_system->GetTransform(spawned_entity.id);
+        math::Position(transform, math::GetPosition(player_transform) + math::Vector(1.0f, 1.0f));
+
+        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+    }
+    
+    m_weapon_type = weapon_type;
 }
 
 void PlayerLogic::MoveInDirection(const math::Vector& direction)

@@ -11,6 +11,8 @@
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/IWeaponFactory.h"
 
+#include "PickupTypes.h"
+
 #include <memory>
 
 namespace game
@@ -51,6 +53,7 @@ namespace game
 
         void SelectWeapon(WeaponType weapon);
         void SelectSecondaryWeapon(WeaponType weapon);
+        void HandleWeaponPickup(shared::PickupType type);
         
         void MoveInDirection(const math::Vector& direction);
         void ApplyImpulse(const math::Vector& force);
