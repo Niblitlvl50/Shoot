@@ -45,8 +45,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     WeaponConfiguration weapon_config;
-    weapon_config.owner_id = owner_id;
-    BulletConfiguration& bullet_config = weapon_config.bullet_config;
+    BulletConfiguration bullet_config;
 
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
     bullet_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
@@ -54,7 +53,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
 
     switch(weapon_type)
     {
-        case game::WeaponType::STANDARD:
+        case game::WeaponType::PLASMA_GUN:
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
@@ -62,7 +61,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback = std::bind(
                 StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/plasma_bullet.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 100;
@@ -85,7 +84,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback
                 = std::bind(RocketCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/rocket_bullet.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 5;
@@ -105,7 +104,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback
                 = std::bind(CacoPlasmaCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/caco_bullet.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 30;
@@ -125,7 +124,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback
                 = std::bind(StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/green_blob.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.reload_time_ms = 1000;
             weapon_config.magazine_size = 40;
@@ -142,7 +141,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback
                 = std::bind(StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/flak_bullet.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.projectiles_per_fire = 6;
             weapon_config.magazine_size = 30;
@@ -167,7 +166,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             bullet_config.collision_callback = std::bind(
                 StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/laser_bullet.entity";
-            bullet_config.sound_file = nullptr;
+            bullet_config.sound_file;
 
             weapon_config.reload_time_ms = 500;
             weapon_config.magazine_size = 50;
@@ -187,13 +186,12 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
             break;
     }
 
-    return std::make_unique<game::Weapon>(weapon_config, m_entity_manager, m_system_context);
+    return std::make_unique<game::Weapon>(owner_id, weapon_config, bullet_config, m_entity_manager, m_system_context);
 }
 
 IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponType weapon_type, WeaponFaction faction, uint32_t owner_id)
 {
     ThrowableWeaponConfig weapon_config;
-    weapon_config.owner_id = owner_id;
 
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
     weapon_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;

@@ -18,7 +18,12 @@ namespace game
     {
     public:
 
-        Weapon(const WeaponConfiguration& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
+        Weapon(
+            uint32_t owner_id,
+            const WeaponConfiguration& weapon_config,
+            const BulletConfiguration& bullet_config,
+            mono::IEntityManager* entity_manager,
+            mono::SystemContext* system_context);
         ~Weapon();
 
         WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
@@ -31,7 +36,9 @@ namespace game
 
     private:
 
+        const uint32_t m_owner_id;
         const WeaponConfiguration m_weapon_config;
+        const BulletConfiguration m_bullet_config;
         mono::IEntityManager* m_entity_manager;
         uint32_t m_last_fire_timestamp;
         uint32_t m_last_reload_timestamp;

@@ -5,7 +5,7 @@ namespace game
 {
     enum class WeaponType : int
     {
-        STANDARD,
+        PLASMA_GUN,
         FLAK_CANON,
         ROCKET_LAUNCHER,
         CACOPLASMA,

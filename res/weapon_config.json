@@ -1,0 +1,41 @@
+{
+    "bullets": [
+        {
+            "name": "plasma_bullet",
+
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
+            
+            "entity_file": "res/entities/plasma_bullet.entity",
+            "sound_file": "",
+
+            "behaviour": "jumper"
+        }
+    ],
+    "weapons": [
+        {
+            "name": "plasma_gun",
+
+            "magazine_size": 100,
+            "reload_time_ms":  1000,
+
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 8.0,
+            "fire_rate_multiplier": 1.1,
+            "max_fire_rate": 2.0,
+
+            "bullet_force": 10.0,
+            "bullet_spread_degrees": 2.0,
+            "bullet_force_random": true,
+            "bullet_want_direction": false,
+
+            "fire_sound": "res/sound/plasma_fire.wav",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        }
+    ],
+    "weapon_setups": [
+        "plasma_gun|plasma_bullet",
+        "flak_gun|flak_bullet"
+    ]
+}

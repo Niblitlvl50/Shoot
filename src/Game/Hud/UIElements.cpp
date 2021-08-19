@@ -108,6 +108,11 @@ void UITextElement::SetText(const std::string& new_text)
     m_text = new_text;
 }
 
+void UITextElement::SetColor(const mono::Color::RGBA& new_color)
+{
+    m_color = new_color;
+}
+
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     UIElement::Draw(renderer);

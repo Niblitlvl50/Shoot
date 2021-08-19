@@ -6,6 +6,7 @@
 #include "CollisionConfiguration.h"
 #include "Math/Vector.h"
 
+#include <string>
 #include <functional>
 
 namespace game
@@ -43,8 +44,8 @@ namespace game
         float life_span = 1.0f;
         float fuzzy_life_span = 0.0f;
 
-        const char* entity_file = nullptr;
-        const char* sound_file = nullptr;
+        std::string entity_file;
+        std::string sound_file;
 
         BulletCollisionBehaviour bullet_behaviour = BulletCollisionBehaviour::NORMAL;
         shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
@@ -54,7 +55,6 @@ namespace game
 
     struct WeaponConfiguration
     {
-        uint32_t owner_id = 0;
         int magazine_size = 10;
         int projectiles_per_fire = 1;
         float rounds_per_second = 1.0f;
@@ -67,16 +67,13 @@ namespace game
 
         uint32_t reload_time_ms = 1000;
         
-        const char* fire_sound = nullptr;
-        const char* out_of_ammo_sound = nullptr;
-        const char* reload_sound = nullptr;
-
-        BulletConfiguration bullet_config;
+        std::string fire_sound;
+        std::string out_of_ammo_sound;
+        std::string reload_sound;
     };
 
     struct ThrowableWeaponConfig
     {
-        uint32_t owner_id = 0;
         int magazine_size = 10;
         int projectiles_per_fire = 1;
         float cooldown_seconds = 2.0f;

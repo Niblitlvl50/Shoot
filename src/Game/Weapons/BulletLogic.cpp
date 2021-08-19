@@ -28,9 +28,9 @@ BulletLogic::BulletLogic(
     const float life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
     m_life_span = life_span * 1000.0f;
 
-    if(config.sound_file)
+    if(!config.sound_file.empty())
     {
-        m_sound = audio::CreateSound(config.sound_file, audio::SoundPlayback::LOOPING);
+        m_sound = audio::CreateSound(config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
         m_sound->Play();
     }
     else

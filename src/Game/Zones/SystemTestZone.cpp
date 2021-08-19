@@ -19,6 +19,7 @@
 
 #include "Hud/PlayerDeathScreen.h"
 #include "Hud/PlayerUIElement.h"
+#include "Hud/RegionDrawer.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/ClientViewportVisualizer.h"
 
@@ -130,6 +131,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddUpdatableDrawable(m_player_death_screen.get(), LayerId::UI);
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
+    AddUpdatableDrawable(new RegionDrawer(trigger_system), LayerId::UI);
     //AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
 
     // Nav mesh

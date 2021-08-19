@@ -59,7 +59,7 @@ void PlayerDeathScreen::Update(const mono::UpdateContext& update_context)
         {
             m_position.x =
                 math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-            m_timer -= float(update_context.delta_ms) / 1000.0f;
+            m_timer -= update_context.delta_s;
         }
 
         break;
@@ -71,7 +71,7 @@ void PlayerDeathScreen::Update(const mono::UpdateContext& update_context)
         {
             m_position.x =
                 math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-            m_timer += float(update_context.delta_ms) / 1000.0f;
+            m_timer += update_context.delta_s;
         }
 
         const System::ControllerState& state = System::GetController(System::ControllerId::Primary);

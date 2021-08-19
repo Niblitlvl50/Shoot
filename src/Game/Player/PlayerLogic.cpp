@@ -38,12 +38,12 @@ namespace
 {
     const std::unordered_map<shared::PickupType, game::WeaponType> g_pickup_to_weapon = {
         { shared::PickupType::WEAPON_PISOL,     game::WeaponType::GENERIC },
-        { shared::PickupType::WEAPON_PLASMA,    game::WeaponType::STANDARD },
+        { shared::PickupType::WEAPON_PLASMA,    game::WeaponType::PLASMA_GUN },
         { shared::PickupType::WEAPON_SHOTGUN,   game::WeaponType::FLAK_CANON },
     };
 
     const std::unordered_map<game::WeaponType, const char*> g_weapon_to_entity = {
-        { game::WeaponType::STANDARD,   "res/entities/plasma_gun_pickup.entity" },
+        { game::WeaponType::PLASMA_GUN, "res/entities/plasma_gun_pickup.entity" },
         { game::WeaponType::GENERIC,    "res/entities/rocket_launcher_pickup.entity" },
         { game::WeaponType::FLAK_CANON, "res/entities/flak_cannon_pickup.entity" },
     };
@@ -115,7 +115,7 @@ PlayerLogic::PlayerLogic(
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
     // Make sure we have a weapon
-    SelectWeapon(WeaponType::STANDARD);
+    SelectWeapon(WeaponType::PLASMA_GUN);
     SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
     SetAimDirection(math::PI_2());
 
