@@ -16,7 +16,7 @@ namespace game
     {
     public:
     
-        SystemTestZone(const ZoneCreationContext& context);
+        SystemTestZone(const ZoneCreationContext& context, const char* zone_file);
         ~SystemTestZone();
 
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
@@ -39,5 +39,21 @@ namespace game
         std::unique_ptr<class AngelDust> m_angeldust_effect;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
+    };
+
+    class WorldZone : public SystemTestZone
+    {
+    public:
+        WorldZone(const ZoneCreationContext& context)
+            : SystemTestZone(context, "res/worlds/world.components")
+        { }
+    };
+
+    class TinyArenaZone : public SystemTestZone
+    {
+    public:
+        TinyArenaZone(const ZoneCreationContext& context)
+            : SystemTestZone(context, "res/worlds/tiny_arena.components")
+        { }
     };
 }

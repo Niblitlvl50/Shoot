@@ -31,7 +31,8 @@ ZoneManager::ZoneManager(
     m_zones[REMOTE_ZONE] = LoadZone<game::RemoteZone>;
     m_zones[GAME_OVER_SCREEN] = LoadZone<game::GameOverScreen>;
     m_zones[END_SCREEN] = LoadZone<game::EndScreen>;
-    m_zones[TEST_ZONE] = LoadZone<game::SystemTestZone>;
+    m_zones[TEST_ZONE] = LoadZone<game::WorldZone>;
+    m_zones[TINY_ARENA_ZONE] = LoadZone<game::TinyArenaZone>;
     m_zones[EMPTY_ZONE] = LoadZone<game::EmptyZone>;
 }
 

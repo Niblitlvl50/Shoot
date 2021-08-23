@@ -8,6 +8,7 @@ namespace game
         QUIT,
         TITLE_SCREEN,
         TEST_ZONE,
+        TINY_ARENA_ZONE,
         REMOTE_ZONE,
         SETUP_GAME_SCREEN,
         GAME_OVER_SCREEN,

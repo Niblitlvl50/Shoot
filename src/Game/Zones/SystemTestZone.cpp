@@ -66,8 +66,8 @@ namespace
 
 using namespace game;
 
-SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/world.components")
+SystemTestZone::SystemTestZone(const ZoneCreationContext& context, const char* zone_file)
+    : GameZone(context, zone_file)
     , m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)

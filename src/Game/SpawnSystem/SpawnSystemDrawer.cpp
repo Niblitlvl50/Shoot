@@ -62,8 +62,11 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
             const float scale_value = math::Scale01Clamped(time_to_spawn, 300, 225);
             const uint32_t n_indices = scale_value * buffers.indices->Size();
 
-            renderer.DrawAnnotatedTrianges(
-                buffers.vertices.get(), buffers.anotations.get(), buffers.indices.get(), m_texture.get(), color, 0, n_indices);
+            if(n_indices > 0)
+            {
+                renderer.DrawAnnotatedTrianges(
+                    buffers.vertices.get(), buffers.anotations.get(), buffers.indices.get(), m_texture.get(), color, 0, n_indices);
+            }
 
             if(!spawn_effect.emit_smoke)
             {
