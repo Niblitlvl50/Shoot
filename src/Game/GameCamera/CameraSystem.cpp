@@ -82,7 +82,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         if(distance > dead_zone)
         {
             const math::Vector delta = position - camera_position;
-            const float fraction = distance - dead_zone;
+            const float fraction = std::clamp(distance - dead_zone, 0.0f, 1.0f);
             const math::Vector new_camera_position = (delta * fraction) + camera_position;
 
             m_camera->SetTargetPosition(new_camera_position + m_current_follow_offset);
