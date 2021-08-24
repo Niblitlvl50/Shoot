@@ -12,6 +12,7 @@
 
 #include "nlohmann/json.hpp"
 
+#include <algorithm>
 #include <cassert>
 
 using namespace game;
@@ -38,6 +39,11 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
             spawn_def.entity_file = spawn_props["entity"];
             m_spawn_definitions.push_back(spawn_def);
         }
+
+        const auto sort_by_value = [](const SpawnDefinition& left, const SpawnDefinition& right){
+            return left.value < right.value;
+        };
+        std::sort(m_spawn_definitions.begin(), m_spawn_definitions.end(), sort_by_value);
     }
 }
 
@@ -160,7 +166,19 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(!time_to_spawn)
             continue;
 
-        const SpawnDefinition&  spawn_definition = m_spawn_definitions.front();
+        struct FindByValue
+        {
+            bool operator() (const SpawnDefinition& spawn_def, int i) const { return spawn_def.value < i; }
+            bool operator() (int i, const SpawnDefinition& spawn_def) const { return i < spawn_def.value; }
+        };
+
+        const auto pair_it = mono::equal_range(m_spawn_definitions.begin(), m_spawn_definitions.end(), 1, FindByValue());
+
+        const uint32_t offset_from_start = std::distance(m_spawn_definitions.begin(), pair_it.first);
+        const uint32_t range = std::distance(pair_it.first, pair_it.second);
+        const uint32_t spawn_def_index = mono::RandomInt(0, range - 1) + offset_from_start;
+
+        const SpawnDefinition&  spawn_definition = m_spawn_definitions[spawn_def_index];
         mono::Entity spawned_entity = m_entity_manager->CreateEntity(spawn_definition.entity_file.c_str());
 
         m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform);

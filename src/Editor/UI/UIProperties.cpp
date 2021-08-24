@@ -165,7 +165,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         std::string sprite_file;
         const bool success = FindAttribute(SPRITE_ATTRIBUTE, sprite_component->properties, sprite_file, FallbackMode::REQUIRE_ATTRIBUTE);
-        if(!success)
+        if(!success || sprite_file.empty())
             return false;
 
         char sprite_filename[1024] = { 0 };

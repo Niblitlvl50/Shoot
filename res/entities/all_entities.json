@@ -5,6 +5,7 @@
         "res/entities/cacodemon.entity",
         "res/entities/explosion.entity",
         "res/entities/explosion_small.entity",
+        "res/entities/eye_monster_small.entity",
         "res/entities/flak_bullet.entity",
         "res/entities/flak_cannon_pickup.entity",
         "res/entities/goblin.entity",
