@@ -34,6 +34,7 @@ namespace game
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class PlayerDeathScreen> m_player_death_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
+        std::unique_ptr<class RegionDrawer> m_region_ui;
         std::unique_ptr<class FogOverlay> m_fog;
 
         std::unique_ptr<class AngelDust> m_angeldust_effect;

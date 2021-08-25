@@ -125,13 +125,14 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     
     m_player_death_screen = std::make_unique<PlayerDeathScreen>(game::g_players[0], m_event_handler);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
+    m_region_ui = std::make_unique<RegionDrawer>(trigger_system);
     //m_fog = std::make_unique<FogOverlay>();
 
     m_angeldust_effect = std::make_unique<AngelDust>(particle_system, entity_system, math::Quad(-50.0f, -50.0f, 50.0f, 50.0f));
 
     AddUpdatableDrawable(m_player_death_screen.get(), LayerId::UI);
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
-    AddUpdatableDrawable(new RegionDrawer(trigger_system), LayerId::UI);
+    AddUpdatableDrawable(m_region_ui.get(), LayerId::UI);
     //AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
 
     // Nav mesh
@@ -156,6 +157,7 @@ int SystemTestZone::OnUnload()
 
     RemoveUpdatableDrawable(m_player_death_screen.get());
     RemoveUpdatableDrawable(m_player_ui.get());
+    RemoveUpdatableDrawable(m_region_ui.get());
     //RemoveUpdatableDrawable(m_fog.get());
 
     return m_next_zone;
