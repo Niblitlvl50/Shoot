@@ -1,33 +1,69 @@
 
 #include "HomingBehaviour.h"
 
-#include "Physics/PhysicsSystem.h"
-#include "Physics/IBody.h"
-#include "Physics/IConstraint.h"
-
+#include "IUpdatable.h"
+#include "Math/MathFunctions.h"
 #include "Math/Vector.h"
+#include "Physics/IBody.h"
 
 #include <cassert>
 
 using namespace game;
 
-HomingBehaviour::HomingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system)
-    : m_physics_system(physics_system)
-{
-    assert(body->GetType() == mono::BodyType::DYNAMIC);
+HomingBehaviour::HomingBehaviour()
+    : m_body(nullptr)
+    , m_current_heading(0.0f)
+    , m_forward_velocity(0.1f)
+    , m_angular_velocity(180.0f)
+{ }
 
-    m_control_body = m_physics_system->CreateKinematicBody();
-    m_control_body->SetPosition(body->GetPosition());
-    m_spring = m_physics_system->CreateSpring(body, m_control_body, 0.0f, 50.0f, 0.5f);
+HomingBehaviour::HomingBehaviour(mono::IBody* body)
+    : HomingBehaviour()
+{
+    SetBody(body);
 }
 
-HomingBehaviour::~HomingBehaviour()
+void HomingBehaviour::SetBody(mono::IBody* body)
 {
-    m_physics_system->ReleaseConstraint(m_spring);
-    m_physics_system->ReleaseKinematicBody(m_control_body);
+    m_body = body;
+    m_current_heading = m_body->GetAngle();
 }
 
-void HomingBehaviour::SetHomingPosition(const math::Vector& position)
+void HomingBehaviour::SetTargetPosition(const math::Vector& position)
 {
-    m_control_body->SetPosition(position);
+    m_target_position = position;
+}
+
+void HomingBehaviour::SetForwardVelocity(float velocity)
+{
+    m_forward_velocity = velocity;
+}
+
+void HomingBehaviour::SetAngularVelocity(float degrees_per_second)
+{
+    m_angular_velocity = degrees_per_second;
+}
+
+HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
+{
+    const math::Vector& entity_position = m_body->GetPosition();
+    const math::Vector& delta = math::Normalized(m_target_position - entity_position);
+
+    const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
+
+    const float dot_value = math::Dot(delta, vector_angle);
+    const float cross_value = math::Cross(delta, vector_angle);
+
+    const float scaled_clamped_dot = math::Scale01Clamped(dot_value, 1.0f, 0.5f);
+    const float scale_value = scaled_clamped_dot * ((cross_value < 0.0f) ? 1.0f : -1.0f);
+
+    const float radians_turn = update_context.delta_s * math::ToRadians(m_angular_velocity);
+    const float turn_value = scale_value * radians_turn;
+
+    m_current_heading += turn_value;
+
+    const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
+    m_body->ApplyLocalImpulse(angle1 * m_forward_velocity, math::ZeroVec);
+
+    return { m_current_heading, math::DistanceBetween(m_target_position, entity_position) };
 }

@@ -37,7 +37,6 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
     : m_entity_id(entity_id)
     , m_event_handler(event_handler)
     , m_awake_state_timer(0)
-    , m_current_heading(0.0f)
 {
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
@@ -46,8 +45,12 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
     m_sprite = sprite_system->GetSprite(entity_id);
 
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    m_body = m_physics_system->GetBody(entity_id);
-    m_body->AddCollisionHandler(this);
+    mono::IBody* body = m_physics_system->GetBody(entity_id);
+    body->AddCollisionHandler(this);
+
+    m_homing_behaviour.SetBody(body);
+    m_homing_behaviour.SetForwardVelocity(tweak_values::velocity);
+    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
 
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
@@ -84,8 +87,6 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
         m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
         m_damage_system->ApplyDamage(m_entity_id, 1000, m_entity_id);
-
-        //m_entity_manager->ReleaseEntity(m_entity_id);
     }
 
     return mono::CollisionResolve::NORMAL;
@@ -95,9 +96,7 @@ void BlackSquareController::OnSeparateFrom(mono::IBody* body)
 { }
 
 void BlackSquareController::ToSleep()
-{
-    m_body->ResetForces();
-}
+{ }
 
 void BlackSquareController::SleepState(const mono::UpdateContext& update_context)
 {
@@ -106,7 +105,7 @@ void BlackSquareController::SleepState(const mono::UpdateContext& update_context
     if(!player_info)
         return;
 
-    const float distance = math::Length(player_info->position - entity_position);
+    const float distance = math::DistanceBetween(player_info->position, entity_position);
     if(distance < tweak_values::trigger_distance)
         m_states.TransitionTo(States::AWAKE);
 }
@@ -138,36 +137,15 @@ void BlackSquareController::HuntState(const mono::UpdateContext& update_context)
         return;
     }
 
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const math::Vector& target_position = m_target_player_info->position;
+    m_homing_behaviour.SetTargetPosition(m_target_player_info->position);
+    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
 
-    const math::Vector& delta = math::Normalized(target_position - entity_position);
-
-    if(delta.x < 0.0f)
+    if(new_direction.x < 0.0f)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
-
-    const float dot_value = math::Dot(delta, vector_angle);
-    const float cross_value = math::Cross(delta, vector_angle);
-
-    const float scaled_clamped_dot = math::Scale01Clamped(dot_value, 1.0f, 0.5f);
-    const float scale_value = scaled_clamped_dot * ((cross_value < 0.0f) ? 1.0f : -1.0f);
-
-    const float radians_turn = update_context.delta_s * math::ToRadians(tweak_values::degrees_per_second);
-    const float turn_value = scale_value * radians_turn;
-
-    m_current_heading += turn_value;
-
-    const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
-
-    //m_body->SetVelocity(angle1 * tweak_values::velocity);
-    m_body->ApplyLocalImpulse(angle1 * tweak_values::velocity, math::ZeroVec);
-    //m_body->ApplyLocalForce(angle1 * tweak_values::velocity, math::ZeroVec);
-
-    const float distance = math::DistanceBetween(target_position, entity_position);
-    if(distance > tweak_values::trigger_distance)
+    if(result.distance_to_target > tweak_values::trigger_distance)
         m_states.TransitionTo(States::SLEEPING);
 }

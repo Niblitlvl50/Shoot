@@ -8,6 +8,8 @@
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
+#include "Behaviour/HomingBehaviour.h"
+
 namespace game
 {
     class BlackSquareController : public IEntityLogic, public mono::ICollisionHandler
@@ -46,13 +48,12 @@ namespace game
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
+        HomingBehaviour m_homing_behaviour;
 
         math::Matrix* m_transform;
         mono::ISprite* m_sprite;
-        mono::IBody* m_body;
 
         const struct PlayerInfo* m_target_player_info;
-        float m_current_heading;
 
         mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;
