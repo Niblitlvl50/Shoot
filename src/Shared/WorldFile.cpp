@@ -45,6 +45,10 @@ namespace
             level_data.metadata.background_texture = json_metadata.value("background_texture", "");
             level_data.metadata.triggers = json_metadata.value("triggers", std::vector<std::string>());
             level_data.metadata.conditions = json_metadata.value("conditions", std::vector<std::string>());
+
+            level_data.metadata.navmesh_start = json_metadata.value("navmesh_start", math::ZeroVec);
+            level_data.metadata.navmesh_end = json_metadata.value("navmesh_end", math::ZeroVec);
+            level_data.metadata.navmesh_density = json_metadata.value("navmesh_density", 1.0f);
         }
 
         const nlohmann::json& entities = json["entities"];

@@ -7,6 +7,8 @@
 #include "Rendering/Texture/ITextureFactory.h"
 #include "UINotification.h"
 
+#include "WorldFile.h"
+
 #include <functional>
 #include <vector>
 #include <string>
@@ -64,14 +66,7 @@ namespace editor
 
         // Level metadata
         bool draw_level_metadata = true;
-        math::Vector camera_position;
-        math::Vector camera_size;
-        math::Vector player_spawn_point;
-        mono::Color::RGBA background_color;
-        mono::Color::RGBA ambient_shade;
-        std::string background_texture;
-        std::vector<std::string> triggers;
-        std::vector<std::string> conditions;
+        shared::LevelMetadata level_metadata;
         
         // Objects
         uint32_t max_entities;

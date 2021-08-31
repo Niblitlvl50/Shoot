@@ -10,10 +10,15 @@
 #include <cmath>
 
 std::vector<math::Vector> game::GenerateMeshPoints(
-    const math::Vector start, float width, float height, float density, const std::vector<ExcludeZone>& exclude_zones)
+    const math::Vector start, const math::Vector& end, float density, const std::vector<ExcludeZone>& exclude_zones)
 {
-    const int n_width_points = width / density;
-    const int n_height_points = height / density;
+    const math::Vector delta = end - start;
+    const math::Vector multiplier = {
+        delta.x > 0.0f ? 1.0f : -1.0f, 
+        delta.y > 0.0f ? 1.0f : -1.0f, };
+
+    const int n_width_points = std::fabs(delta.x) / density + 1;
+    const int n_height_points = std::fabs(delta.y) / density + 1;
 
     std::vector<math::Vector> nav_mesh;
     nav_mesh.reserve(n_width_points * n_height_points);
@@ -22,12 +27,12 @@ std::vector<math::Vector> game::GenerateMeshPoints(
     {
         for(int height_index = 0; height_index < n_height_points; ++height_index)
         {
-            const math::Vector& point = math::Vector(width_index * density, height_index * density) + start;
+            const math::Vector& point = math::Vector(width_index, height_index) * density * multiplier + start;
             nav_mesh.emplace_back(point);
         }
     }
 
-    const auto func = [&exclude_zones](const math::Vector& point) {
+    const auto is_within_exclude_zone = [&exclude_zones](const math::Vector& point) {
         for(const ExcludeZone& exclude_zone : exclude_zones)
         {
             if(math::PointInsidePolygon(point, exclude_zone.polygon_vertices))
@@ -36,8 +41,7 @@ std::vector<math::Vector> game::GenerateMeshPoints(
 
         return false;
     };
-
-    mono::remove_if(nav_mesh, func);
+    mono::remove_if(nav_mesh, is_within_exclude_zone);
 
     return nav_mesh;
 }
@@ -54,11 +58,11 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
 
         NavmeshNode node;
         node.data_index = index;
-        node.neighbours_index.fill(-1);
+        std::fill(std::begin(node.neighbours_index), std::end(node.neighbours_index), -1);
 
         size_t neighbour_count = 0;
 
-        for(size_t inner_index = 0; inner_index < points.size() && neighbour_count < node.neighbours_index.size(); ++inner_index)
+        for(size_t inner_index = 0; inner_index < points.size() && neighbour_count < std::size(node.neighbours_index); ++inner_index)
         {
             const math::Vector& inner_point = points[inner_index];
             const float distance = math::Length(point - inner_point);

@@ -24,6 +24,9 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     json_metadata["background_texture"] = level_metadata.background_texture;
     json_metadata["triggers"] = level_metadata.triggers;
     json_metadata["conditions"] = level_metadata.conditions;
+    json_metadata["navmesh_start"] = level_metadata.navmesh_start;
+    json_metadata["navmesh_end"] = level_metadata.navmesh_end;
+    json_metadata["navmesh_density"] = level_metadata.navmesh_density;
 
     nlohmann::json json;
     json["metadata"] = json_metadata;

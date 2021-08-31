@@ -32,7 +32,6 @@ NavmeshVisualizer::NavmeshVisualizer(const NavmeshContext& context, mono::EventH
     }
 
     using namespace std::placeholders;
-    
     const event::MouseUpEventFunc mouse_up_func = std::bind(&NavmeshVisualizer::OnMouseUp, this, _1);
     m_mouse_up_token = m_event_handler.AddListener(mouse_up_func);
 }

@@ -137,8 +137,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     // Nav mesh
     std::vector<ExcludeZone> exclude_zones;
-    m_navmesh.points = game::GenerateMeshPoints(math::Vector(-100, -50), 150, 100, 3, exclude_zones);
-    m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, 5, exclude_zones);
+    m_navmesh.points = game::GenerateMeshPoints(
+        m_leveldata.metadata.navmesh_start, m_leveldata.metadata.navmesh_end, m_leveldata.metadata.navmesh_density, exclude_zones);
+    m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, m_leveldata.metadata.navmesh_density * 1.5f, exclude_zones);
 
     // Debug
     AddDrawable(new ClientViewportVisualizer(server_manager->GetConnectedClients()), LayerId::UI);

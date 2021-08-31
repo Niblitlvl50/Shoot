@@ -24,11 +24,11 @@ namespace game
 
         void SetTrackingSpeed(float meter_per_second);
         void SetTrackingPosition(const math::Vector& tracking_position);
+        bool UpdatePath();
+
         TrackingResult Run(uint32_t delta_ms);
 
     private:
-
-        bool UpdatePath();
 
         mono::IBody* m_entity_body;
         mono::PhysicsSystem* m_physics_system;

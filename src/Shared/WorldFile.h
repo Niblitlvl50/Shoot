@@ -25,6 +25,10 @@ namespace shared
 
         std::vector<std::string> triggers;
         std::vector<std::string> conditions;
+
+        math::Vector navmesh_start;
+        math::Vector navmesh_end;
+        float navmesh_density;
     };
 
     struct LevelData

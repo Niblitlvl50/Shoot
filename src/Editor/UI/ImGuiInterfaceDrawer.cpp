@@ -259,33 +259,39 @@ namespace
             if(ImGui::BeginTabItem("Metadata"))
             {
                 ImGui::TextDisabled("Player");
-                ImGui::InputFloat2("Spawn", &context.player_spawn_point.x);
+                ImGui::InputFloat2("Spawn", &context.level_metadata.player_spawn_point.x);
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Game Camera");
-                ImGui::InputFloat2("Position", &context.camera_position.x);
-                ImGui::InputFloat2("Size", &context.camera_size.x);
-                const float ratio = context.camera_size.x / context.camera_size.y;
+                ImGui::InputFloat2("Position", &context.level_metadata.camera_position.x);
+                ImGui::InputFloat2("Size", &context.level_metadata.camera_size.x);
+                const float ratio = context.level_metadata.camera_size.x / context.level_metadata.camera_size.y;
                 ImGui::TextDisabled("Ratio: %f", ratio);
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Colors");
-                if(ImGui::ColorEdit3("Background Color", &context.background_color.red))
-                    context.background_color_callback(context.background_color);
+                if(ImGui::ColorEdit3("Background Color", &context.level_metadata.background_color.red))
+                    context.background_color_callback(context.level_metadata.background_color);
 
-                if(ImGui::ColorEdit3("Ambient Shade", &context.ambient_shade.red))
-                    context.ambient_shade_callback(context.ambient_shade);
+                if(ImGui::ColorEdit3("Ambient Shade", &context.level_metadata.ambient_shade.red))
+                    context.ambient_shade_callback(context.level_metadata.ambient_shade);
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Background");
                 const std::vector<std::string>& all_textures = editor::GetAllTextures();
                 int out_index;
-                const bool changed = editor::DrawStringPicker("Texture", context.background_texture, all_textures, out_index);
+                const bool changed = editor::DrawStringPicker("Texture", context.level_metadata.background_texture, all_textures, out_index);
                 if(changed)
                 {
-                    context.background_texture = all_textures[out_index];
-                    context.background_texture_callback(context.background_texture);
+                    context.level_metadata.background_texture = all_textures[out_index];
+                    context.background_texture_callback(context.level_metadata.background_texture);
                 }
+
+                ImGui::Spacing();
+                ImGui::TextDisabled("Navmesh");
+                ImGui::InputFloat2("Start", &context.level_metadata.navmesh_start.x);
+                ImGui::InputFloat2("End", &context.level_metadata.navmesh_end.x);
+                ImGui::InputFloat("Density", &context.level_metadata.navmesh_density);
 
                 ImGui::EndTabItem();
             }
@@ -294,7 +300,7 @@ namespace
             {
                 ImGui::TextDisabled("Triggers");
                 static uint32_t selected_trigger_index = -1;
-                editor::DrawListboxWidget("##triggers", context.triggers, selected_trigger_index);
+                editor::DrawListboxWidget("##triggers", context.level_metadata.triggers, selected_trigger_index);
 
                 ImGui::EndTabItem();
             }
@@ -303,7 +309,7 @@ namespace
             {
                 ImGui::TextDisabled("Conditions");
                 static uint32_t selected_condition_index = -1;
-                editor::DrawListboxWidget("##conditions", context.conditions, selected_condition_index);
+                editor::DrawListboxWidget("##conditions", context.level_metadata.conditions, selected_condition_index);
 
                 ImGui::EndTabItem();
             }

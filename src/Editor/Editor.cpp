@@ -313,13 +313,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
-    AddDrawable(
-        new GameCameraVisualizer(
-            m_context.draw_level_metadata,
-            m_context.player_spawn_point,
-            m_context.camera_position,
-            m_context.camera_size),
-        RenderLayer::UI);
+    AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), RenderLayer::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
@@ -375,14 +369,7 @@ void Editor::LoadWorld(const std::string& world_filename)
     editor::World world = ::LoadWorld(world_filename.c_str(), &m_entity_manager, transform_system, this);
     m_proxies = std::move(world.loaded_proxies);
 
-    m_context.camera_position = world.leveldata.metadata.camera_position;
-    m_context.camera_size = world.leveldata.metadata.camera_size;
-    m_context.player_spawn_point = world.leveldata.metadata.player_spawn_point;
-    m_context.background_color = world.leveldata.metadata.background_color;
-    m_context.ambient_shade = world.leveldata.metadata.ambient_shade;
-    m_context.background_texture = world.leveldata.metadata.background_texture;
-    m_context.triggers = world.leveldata.metadata.triggers;
-    m_context.conditions = world.leveldata.metadata.conditions;
+    m_context.level_metadata = world.leveldata.metadata;
 
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
@@ -410,17 +397,7 @@ void Editor::LoadWorld(const std::string& world_filename)
 
 void Editor::Save()
 {
-    shared::LevelMetadata metadata;
-    metadata.camera_position = m_context.camera_position;
-    metadata.camera_size = m_context.camera_size;
-    metadata.player_spawn_point = m_context.player_spawn_point;
-    metadata.background_color = m_context.background_color;
-    metadata.ambient_shade = m_context.ambient_shade;
-    metadata.background_texture = m_context.background_texture;
-    metadata.triggers = m_context.triggers;
-    metadata.conditions = m_context.conditions;
-
-    SaveWorld(m_world_filename.c_str(), m_proxies, metadata);
+    SaveWorld(m_world_filename.c_str(), m_proxies, m_context.level_metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }
 
@@ -956,29 +933,29 @@ bool Editor::DrawLights() const
 void Editor::EnableLights(bool enable)
 {
     m_context.draw_lights = enable;
-    const mono::Color::RGBA ambient = enable ? m_context.ambient_shade : mono::Color::WHITE;
+    const mono::Color::RGBA ambient = enable ? m_context.level_metadata.ambient_shade : mono::Color::WHITE;
     m_renderer->SetAmbientShade(ambient);
 }
 
 const mono::Color::RGBA& Editor::BackgroundColor() const
 {
-    return m_context.background_color;
+    return m_context.level_metadata.background_color;
 }
 
 void Editor::SetBackgroundColor(const mono::Color::RGBA& color)
 {
-    m_context.background_color = color;
+    m_context.level_metadata.background_color = color;
     m_renderer->SetClearColor(color);
 }
 
 const mono::Color::RGBA& Editor::AmbientShade() const
 {
-    return m_context.background_color;
+    return m_context.level_metadata.background_color;
 }
 
 void Editor::SetAmbientShade(const mono::Color::RGBA& color)
 {
-    m_context.ambient_shade = color;
+    m_context.level_metadata.ambient_shade = color;
     m_renderer->SetAmbientShade(color);
 }
 
