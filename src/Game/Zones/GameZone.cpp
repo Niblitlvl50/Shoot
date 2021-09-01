@@ -12,6 +12,7 @@
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
+#include "Physics/PhysicsSpace.h"
 
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
@@ -31,6 +32,7 @@
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
 
+#include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -56,6 +58,25 @@
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
+#include "Util/Algorithm.h"
+#include "CollisionConfiguration.h"
+
+namespace
+{
+    void SetupNavmesh(game::NavmeshContext& navmesh_context, const shared::LevelMetadata& metadata, mono::PhysicsSpace* space)
+    {
+        std::vector<game::ExcludeZone> exclude_zones;
+        navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density, exclude_zones);
+
+        const auto remove_on_collision = [space](const math::Vector& point) {
+            return space->QueryNearest(point, 0.0f, shared::CollisionCategory::STATIC) != nullptr;
+        };
+        mono::remove_if(navmesh_context.points, remove_on_collision);
+
+        navmesh_context.nodes = game::GenerateMeshNodes(navmesh_context.points, metadata.navmesh_density * 1.5f, exclude_zones);
+    }
+}
+
 using namespace game;
 
 GameZone::GameZone(const ZoneCreationContext& context, const char* world_file)
@@ -70,8 +91,6 @@ GameZone::~GameZone()
 void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     SetLastLightingLayer(LayerId::FOG);
-
-    game::g_navmesh = &m_navmesh;
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     entity_system->PushEntityStackRecord(m_world_file);
@@ -99,6 +118,10 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     for(const std::string& condition : m_leveldata.metadata.conditions)
         condition_system->RegisterCondition(hash::Hash(condition.c_str()), false);
+
+    // Nav mesh
+    SetupNavmesh(m_navmesh, m_leveldata.metadata, physics_system->GetSpace());
+    game::g_navmesh = &m_navmesh;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 

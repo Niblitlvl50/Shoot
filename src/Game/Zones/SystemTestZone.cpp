@@ -23,9 +23,6 @@
 #include "Hud/Debug/NetworkStatusDrawer.h"
 #include "Hud/Debug/ClientViewportVisualizer.h"
 
-#include "Navigation/NavmeshFactory.h"
-#include "Navigation/NavMeshVisualizer.h"
-
 #include "Network/ServerManager.h"
 #include "Network/ServerReplicator.h"
 
@@ -134,12 +131,6 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     AddUpdatableDrawable(m_region_ui.get(), LayerId::UI);
     //AddUpdatableDrawable(m_fog.get(), LayerId::FOG);
-
-    // Nav mesh
-    std::vector<ExcludeZone> exclude_zones;
-    m_navmesh.points = game::GenerateMeshPoints(
-        m_leveldata.metadata.navmesh_start, m_leveldata.metadata.navmesh_end, m_leveldata.metadata.navmesh_density, exclude_zones);
-    m_navmesh.nodes = game::GenerateMeshNodes(m_navmesh.points, m_leveldata.metadata.navmesh_density * 1.5f, exclude_zones);
 
     // Debug
     AddDrawable(new ClientViewportVisualizer(server_manager->GetConnectedClients()), LayerId::UI);
