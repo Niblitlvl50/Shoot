@@ -43,6 +43,7 @@
 #include "Camera/ICamera.h"
 #include "GameDebug.h"
 #include "GameDebugDrawer.h"
+#include "Factories.h"
 
 #include "InteractionSystem/InteractionSystem.h"
 #include "InteractionSystem/InteractionSystemDrawer.h"
@@ -151,6 +152,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int GameZone::OnUnload()
 {
+    game::g_navmesh = nullptr;
+
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     entity_system->PopEntityStackRecord();
 

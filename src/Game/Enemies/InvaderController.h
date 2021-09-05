@@ -31,10 +31,12 @@ namespace game
     private:
 
         void ToIdle();
-        void ToTracking();
-        void ToAttacking();
         void Idle(const mono::UpdateContext& update_context);
+
+        void ToTracking();
         void Tracking(const mono::UpdateContext& update_context);
+
+        void ToAttacking();
         void Attacking(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;

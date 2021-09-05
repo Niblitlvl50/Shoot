@@ -56,7 +56,6 @@ namespace game
 
     constexpr int n_players = 4;
     extern PlayerInfo g_players[n_players];
-    extern struct NavmeshContext* g_navmesh;
 
     void InitializePlayerInfo();
 

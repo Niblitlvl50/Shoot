@@ -94,8 +94,8 @@ bool PathProxy::Intersects(const math::Vector& world_position) const
 
         for(size_t index = 0; index < local_points.size() -1; ++index)
         {
-            const math::Vector& line_point = math::ClosestPointOnLine(local_points[index], local_points[index+1], local_position);
-            const float distance = math::DistanceBetween(line_point, local_position);
+            const math::PointOnLineResult result = math::ClosestPointOnLine(local_points[index], local_points[index+1], local_position);
+            const float distance = math::DistanceBetween(result.point, local_position);
             min_distance = std::min(min_distance, distance);
         }
 

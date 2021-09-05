@@ -2,7 +2,6 @@
 #include "PathBehaviour.h"
 
 #include "Paths/IPath.h"
-
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSystem.h"
@@ -16,12 +15,11 @@ PathBehaviour::PathBehaviour(
     : m_path(path)
     , m_physics_system(physics_system)
     , m_current_position(0.0f)
-    , m_meter_per_second(2.0f)
+    , m_meter_per_second(1.0f)
 {
-    //assert(body->GetType() == mono::BodyType::DYNAMIC);
-
+    assert(body->GetType() == mono::BodyType::DYNAMIC);
     m_control_body = m_physics_system->CreateKinematicBody();
-    m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, 1.0f, 20.0f, 0.5f);
+    m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, 0.0f, 200.0f, 10.0f);
 }
 
 PathBehaviour::~PathBehaviour()
@@ -35,20 +33,13 @@ void PathBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
-//#include "Factories.h"
-//#include "IDebugDrawer.h"
-//#include "Rendering/Color.h"
-
-void PathBehaviour::Run(uint32_t delta_ms)
+void PathBehaviour::Run(const mono::UpdateContext& update_context)
 {
-    m_current_position += m_meter_per_second * float(delta_ms) / 1000.0f;
+    m_current_position += m_meter_per_second * update_context.delta_s;
 
     const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-    m_point = path_position;
-    m_control_body->SetPosition(m_point);
+    m_control_body->SetPosition(path_position);
 
     if(m_current_position > m_path->Length())
         m_current_position = 0.0f;
-
-    //game::g_debug_drawer->DrawPoint(m_point, 5.0f, mono::Color::CYAN);
 }

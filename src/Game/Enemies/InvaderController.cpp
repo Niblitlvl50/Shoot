@@ -38,16 +38,12 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
 
-    using namespace std::placeholders;
-
-    const std::unordered_map<InvaderStates, InvaderStateMachine::State>& state_table = {
-        { InvaderStates::IDLE,      { std::bind(&InvaderController::ToIdle,      this), std::bind(&InvaderController::Idle,      this, _1) } },
-        { InvaderStates::TRACKING,  { std::bind(&InvaderController::ToTracking,  this), std::bind(&InvaderController::Tracking,  this, _1) } },
-        { InvaderStates::ATTACKING, { std::bind(&InvaderController::ToAttacking, this), std::bind(&InvaderController::Attacking, this, _1) } }
+    const InvaderStateMachine::StateTable& state_table = {
+        InvaderStateMachine::MakeState(InvaderStates::IDLE, &InvaderController::ToIdle, &InvaderController::Idle, this),
+        InvaderStateMachine::MakeState(InvaderStates::TRACKING, &InvaderController::ToTracking, &InvaderController::Tracking, this),
+        InvaderStateMachine::MakeState(InvaderStates::ATTACKING, &InvaderController::ToAttacking, &InvaderController::Attacking, this),
     };
-
-    m_states.SetStateTable(state_table);
-    m_states.TransitionTo(InvaderStates::IDLE);
+    m_states.SetStateTableAndState(state_table, InvaderStates::IDLE);
 }
 
 InvaderController::~InvaderController()
@@ -66,17 +62,6 @@ void InvaderController::ToIdle()
     m_idle_timer = 0;
 }
 
-void InvaderController::ToTracking()
-{
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f);
-    m_sprite->SetShade(color);
-}
-
-void InvaderController::ToAttacking()
-{
-
-}
-
 void InvaderController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer += update_context.delta_ms;
@@ -86,29 +71,49 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
     if(!player_info)
         return;
 
-    const float distance_to_player = std::fabs(math::Length(position - player_info->position));
-    if(m_idle_timer > 2000 && distance_to_player < 3)
-        m_states.TransitionTo(InvaderStates::ATTACKING);
+    const float distance_to_player = math::DistanceBetween(position, player_info->position);
+    if(m_idle_timer > 2000)
+    {
+        //if(distance_to_player < 3)
+        //    m_states.TransitionTo(InvaderStates::ATTACKING);
+        if(distance_to_player > 1.0f && distance_to_player < 10.0f)
+            m_states.TransitionTo(InvaderStates::TRACKING);
+    }
+}
 
-    //if(m_idle_timer > 2000 && distance_to_player < 5)
-    //    m_states.TransitionTo(InvaderStates::TRACKING);
+void InvaderController::ToTracking()
+{
+    constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f);
+    m_sprite->SetShade(color);
 }
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
 {
-    /*
     const math::Vector& position = math::GetPosition(*m_transform);
-    const float distance_to_player = math::Length(g_player_one.position - position);
-    if(distance_to_player < 5.0f)
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
+    if(!player_info)
     {
-        m_states.TransitionTo(InvaderStates::ATTACKING);
+        m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
 
-    const TrackingResult result = m_tracking_behaviour->Run(update_context.delta_ms);
+    const float distance_to_player = math::DistanceBetween(position, player_info->position);
+    if(distance_to_player < 1.0f)
+    {
+        //m_states.TransitionTo(InvaderStates::ATTACKING);
+        //return;
+    }
+
+    const TrackingResult result = m_tracking_behaviour->Run(update_context, player_info->position);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
         m_states.TransitionTo(InvaderStates::IDLE);
-        */
+
+    std::printf("%s\n", TrackingResultToString(result));
+}
+
+void InvaderController::ToAttacking()
+{
+
 }
 
 void InvaderController::Attacking(const mono::UpdateContext& update_context)

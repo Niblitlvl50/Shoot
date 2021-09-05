@@ -15,6 +15,19 @@ namespace game
         NO_PATH
     };
 
+    inline const char* TrackingResultToString(TrackingResult result)
+    {
+        switch(result)
+        {
+        case TrackingResult::AT_TARGET:
+            return "At Target";
+        case TrackingResult::TRACKING:
+            return "Tracking";
+        case TrackingResult::NO_PATH:
+            return "No Path";
+        };
+    }
+
     class TrackingBehaviour
     {
     public:
@@ -23,23 +36,21 @@ namespace game
         ~TrackingBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
-        void SetTrackingPosition(const math::Vector& tracking_position);
-        bool UpdatePath();
+        bool UpdatePath(const math::Vector& tracking_position);
 
-        TrackingResult Run(uint32_t delta_ms);
+        TrackingResult Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position);
 
     private:
 
         mono::IBody* m_entity_body;
         mono::PhysicsSystem* m_physics_system;
-        uint32_t m_tracking_timer;
+
+        math::Vector m_tracking_position;
         float m_current_position;
         float m_meter_per_second;
-        math::Vector m_tracking_position;
-        
+
         mono::IBody* m_control_body;
         mono::IConstraint* m_spring;
         mono::IPathPtr m_path;
-        //std::shared_ptr<class AStarPathDrawer> m_astar_drawer;
     };
 }

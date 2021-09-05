@@ -3,8 +3,6 @@
 
 #include "MonoFwd.h"
 #include "Physics/PhysicsFwd.h"
-#include "Math/Vector.h"
-
 #include <cstdint>
 
 namespace game
@@ -17,7 +15,7 @@ namespace game
         ~PathBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
-        void Run(uint32_t delta_ms);
+        void Run(const mono::UpdateContext& update_context);
 
     private:
 
@@ -29,6 +27,5 @@ namespace game
 
         mono::IBody* m_control_body;
         mono::IConstraint* m_spring;
-        math::Vector m_point;
     };
 }

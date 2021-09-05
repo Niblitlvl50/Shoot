@@ -10,6 +10,9 @@
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
 
+#include "Paths/IPath.h"
+#include "Paths/PathFactory.h"
+
 #include "NavMesh.h"
 #include "GameDebug.h"
 
@@ -32,13 +35,18 @@ NavmeshVisualizer::NavmeshVisualizer(const NavmeshContext& context, mono::EventH
     }
 
     using namespace std::placeholders;
+
     const event::MouseUpEventFunc mouse_up_func = std::bind(&NavmeshVisualizer::OnMouseUp, this, _1);
     m_mouse_up_token = m_event_handler.AddListener(mouse_up_func);
+
+    const event::MouseMotionEventFunc mouse_motion_func = std::bind(&NavmeshVisualizer::OnMouseMove, this, _1);
+    m_mouse_motion_token = m_event_handler.AddListener(mouse_motion_func);
 }
 
 NavmeshVisualizer::~NavmeshVisualizer()
 {
     m_event_handler.RemoveListener(m_mouse_up_token);
+    m_event_handler.RemoveListener(m_mouse_motion_token);
 }
 
 void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
@@ -52,11 +60,16 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
 
-    constexpr mono::Color::RGBA point_color(1.0f, 0.0f, 1.0f);
-    renderer.DrawPoints(m_navmesh_context.points, point_color, 2.0f);
+    renderer.DrawPoints(m_navmesh_context.points, mono::Color::MAGENTA, 2.0f);
 
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 1.0f);
-    renderer.DrawPolyline(m_navigation_points, color, 2.0f);
+    if(m_path)
+    {
+        const std::vector<math::Vector>& path_points = m_path->GetPathPoints();
+        renderer.DrawPolyline(path_points, mono::Color::MAGENTA, 2.0f);
+
+        const math::Vector point_on_line = m_path->GetPositionByLength(m_at_length);
+        renderer.DrawPoints({ point_on_line }, mono::Color::CYAN, 4.0f);
+    }
 
     std::vector<math::Vector> start_node_points;
     const game::NavmeshNode& start_node = m_navmesh_context.nodes[m_start];
@@ -84,10 +97,17 @@ mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
     else
         m_end = game::FindClosestIndex(m_navmesh_context, position);
 
-    m_navigation_points.clear();
-        
-    for(int index : game::AStar(m_navmesh_context, m_start, m_end))
-        m_navigation_points.push_back(m_navmesh_context.points[index]);
+    const std::vector<int>& nav_path = game::AStar(m_navmesh_context, m_start, m_end);
+    const std::vector<math::Vector>& nav_points = game::PathToPoints(m_navmesh_context, nav_path);
+    m_path = mono::CreatePath(nav_points);
+
+    return mono::EventResult::PASS_ON;
+}
+
+mono::EventResult NavmeshVisualizer::OnMouseMove(const event::MouseMotionEvent& event)
+{
+    if(m_path)
+        m_at_length = m_path->GetLengthFromPosition(math::Vector(event.world_x, event.world_y));
 
     return mono::EventResult::PASS_ON;
 }

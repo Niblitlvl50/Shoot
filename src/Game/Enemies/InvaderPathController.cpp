@@ -67,7 +67,7 @@ InvaderPathController::~InvaderPathController()
 
 void InvaderPathController::Update(const mono::UpdateContext& update_context)
 {
-    m_path_behaviour->Run(update_context.delta_ms);
+    m_path_behaviour->Run(update_context);
 
     const math::Vector velocity = m_body->GetVelocity();
     const bool is_going_left = (velocity.x < 0.0f);

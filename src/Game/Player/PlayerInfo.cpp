@@ -5,7 +5,6 @@
 #include <algorithm>
 
 game::PlayerInfo game::g_players[n_players];
-game::NavmeshContext* game::g_navmesh = nullptr;
 
 void game::InitializePlayerInfo()
 {
