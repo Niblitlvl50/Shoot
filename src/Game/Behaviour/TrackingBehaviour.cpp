@@ -49,11 +49,11 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
     const float distance_to_last = math::DistanceBetween(m_tracking_position, tracking_position);
     if(distance_to_last > 1.0f)
     {
-        m_tracking_position = tracking_position;
-
         const bool path_updated = UpdatePath(tracking_position);
         if(!path_updated)
             return TrackingResult::NO_PATH;
+
+        m_tracking_position = tracking_position;
     }
 
     m_current_position += m_meter_per_second * update_context.delta_s;

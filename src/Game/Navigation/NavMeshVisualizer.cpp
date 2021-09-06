@@ -90,23 +90,26 @@ math::Quad NavmeshVisualizer::BoundingBox() const
 
 mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
 {
-    const math::Vector position(event.world_x, event.world_y);
+    if(game::g_draw_navmesh)
+    {
+        const math::Vector position(event.world_x, event.world_y);
 
-    if(event.key == MouseButton::LEFT)
-        m_start = game::FindClosestIndex(m_navmesh_context, position);
-    else
-        m_end = game::FindClosestIndex(m_navmesh_context, position);
+        if(event.key == MouseButton::LEFT)
+            m_start = game::FindClosestIndex(m_navmesh_context, position);
+        else
+            m_end = game::FindClosestIndex(m_navmesh_context, position);
 
-    const std::vector<int>& nav_path = game::AStar(m_navmesh_context, m_start, m_end);
-    const std::vector<math::Vector>& nav_points = game::PathToPoints(m_navmesh_context, nav_path);
-    m_path = mono::CreatePath(nav_points);
+        const std::vector<int>& nav_path = game::AStar(m_navmesh_context, m_start, m_end);
+        const std::vector<math::Vector>& nav_points = game::PathToPoints(m_navmesh_context, nav_path);
+        m_path = mono::CreatePath(nav_points);
+    }
 
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult NavmeshVisualizer::OnMouseMove(const event::MouseMotionEvent& event)
 {
-    if(m_path)
+    if(game::g_draw_navmesh && m_path)
         m_at_length = m_path->GetLengthFromPosition(math::Vector(event.world_x, event.world_y));
 
     return mono::EventResult::PASS_ON;

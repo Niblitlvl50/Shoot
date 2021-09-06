@@ -31,7 +31,7 @@ void GameCameraVisualizer::Draw(mono::IRenderer& renderer) const
         const math::Quad navmesh_quad = { m_metadata.navmesh_start, m_metadata.navmesh_end };
         renderer.DrawQuad(navmesh_quad, mono::Color::GREEN, 2.0f);
 
-        const std::vector<math::Vector>& points = game::GenerateMeshPoints(m_metadata.navmesh_start, m_metadata.navmesh_end, m_metadata.navmesh_density, {});
+        const std::vector<math::Vector>& points = game::GenerateMeshPoints(m_metadata.navmesh_start, m_metadata.navmesh_end, m_metadata.navmesh_density);
         renderer.DrawPoints(points, mono::Color::GREEN, 2.0f);
     }
 }

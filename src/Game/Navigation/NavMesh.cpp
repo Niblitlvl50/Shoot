@@ -9,8 +9,7 @@
 #include <unordered_map>
 #include <cmath>
 
-std::vector<math::Vector> game::GenerateMeshPoints(
-    const math::Vector start, const math::Vector& end, float density, const std::vector<ExcludeZone>& exclude_zones)
+std::vector<math::Vector> game::GenerateMeshPoints(const math::Vector start, const math::Vector& end, float density)
 {
     const math::Vector delta = end - start;
     const math::Vector multiplier = {
@@ -32,22 +31,11 @@ std::vector<math::Vector> game::GenerateMeshPoints(
         }
     }
 
-    const auto is_within_exclude_zone = [&exclude_zones](const math::Vector& point) {
-        for(const ExcludeZone& exclude_zone : exclude_zones)
-        {
-            if(math::PointInsidePolygon(point, exclude_zone.polygon_vertices))
-                return true;
-        }
-
-        return false;
-    };
-    mono::remove_if(nav_mesh, is_within_exclude_zone);
-
     return nav_mesh;
 }
 
 std::vector<game::NavmeshNode> game::GenerateMeshNodes(
-    const std::vector<math::Vector>& points,  float connection_distance, const std::vector<ExcludeZone>& static_polygons)
+    const std::vector<math::Vector>& points,  float connection_distance, NavmeshConnectionFilter filter_function)
 {
     std::vector<game::NavmeshNode> nodes;
     nodes.reserve(points.size());
@@ -65,23 +53,15 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
         for(size_t inner_index = 0; inner_index < points.size() && neighbour_count < std::size(node.neighbours_index); ++inner_index)
         {
             const math::Vector& inner_point = points[inner_index];
-            const float distance = math::Length(point - inner_point);
+            const float distance = math::DistanceBetween(point, inner_point);
             if(distance == 0.0f)
                 continue;
 
             if(distance > connection_distance)
                 continue;
 
-            bool intersects_exclude_zone = false;
-
-            for(const ExcludeZone& exclude_zone : static_polygons)
-            {
-                intersects_exclude_zone = math::LineIntersectsPolygon(point, inner_point, exclude_zone.polygon_vertices);
-                if(intersects_exclude_zone)
-                    break;
-            }
-
-            if(!intersects_exclude_zone)
+            const bool discard_connection = filter_function(point, inner_point);
+            if(!discard_connection)
             {
                 node.neighbours_index[neighbour_count] = inner_index;
                 neighbour_count++;
@@ -96,9 +76,7 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
 
 float Heuristics(const game::NavmeshContext& context, int from, int to)
 {
-    const math::Vector& first = context.points[from];
-    const math::Vector& second = context.points[to];
-    return math::Length(first - second);
+    return math::DistanceBetween(context.points[from], context.points[to]);
 }
 
 std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int end)
@@ -183,13 +161,19 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
     std::vector<int> path_indices;
     int current = end;
 
-    do
+    while(current != start)
     {
         path_indices.push_back(current);
-        current = came_from[current];  
-    } while(current != start);
+        const auto it = came_from.find(current);
+        if(it == came_from.end())
+            break;
+
+        current = it->second;
+    }
+
+    if(current == start)
+        path_indices.push_back(start);
     
-    path_indices.push_back(start);
     std::reverse(path_indices.begin(), path_indices.end());
 
     return path_indices;
@@ -214,7 +198,7 @@ int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vect
     for(int index = 0, end = context.points.size(); index < end; ++index)
     {
         const math::Vector& node_point = context.points[index];
-        const float distance = std::fabs(math::Length(point - node_point));
+        const float distance = math::DistanceBetween(point, node_point);
         if(distance < closest_distance)
         {
             closest_distance = distance;
