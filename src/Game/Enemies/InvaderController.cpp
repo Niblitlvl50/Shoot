@@ -20,6 +20,12 @@
 
 #include <cmath>
 
+namespace tweak_values
+{
+    constexpr uint32_t idle_time = 2000;
+    constexpr float attack_distance = 3.0f;
+}
+
 using namespace game;
 
 InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
@@ -56,9 +62,7 @@ void InvaderController::Update(const mono::UpdateContext& update_context)
 
 void InvaderController::ToIdle()
 {
-    constexpr mono::Color::RGBA color(0.2, 0.2, 0.2);
-    m_sprite->SetShade(color);
-
+    m_sprite->SetShade(mono::Color::DARK_GRAY);
     m_idle_timer = 0;
 }
 
@@ -71,20 +75,19 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
     if(!player_info)
         return;
 
-    const float distance_to_player = math::DistanceBetween(position, player_info->position);
-    if(m_idle_timer > 2000)
+    if(m_idle_timer > tweak_values::idle_time)
     {
-        //if(distance_to_player < 3)
-        //    m_states.TransitionTo(InvaderStates::ATTACKING);
-        if(distance_to_player > 1.0f && distance_to_player < 10.0f)
+        const float distance_to_player = math::DistanceBetween(position, player_info->position);
+        if(distance_to_player < tweak_values::attack_distance)
+            m_states.TransitionTo(InvaderStates::ATTACKING);
+        else if(distance_to_player > 1.0f && distance_to_player < 10.0f)
             m_states.TransitionTo(InvaderStates::TRACKING);
     }
 }
 
 void InvaderController::ToTracking()
 {
-    constexpr mono::Color::RGBA color(1.0f, 0.0f, 0.0f);
-    m_sprite->SetShade(color);
+    m_sprite->SetShade(mono::Color::RED);
 }
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
@@ -100,15 +103,13 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
     const float distance_to_player = math::DistanceBetween(position, player_info->position);
     if(distance_to_player < 1.0f)
     {
-        //m_states.TransitionTo(InvaderStates::ATTACKING);
-        //return;
+        m_states.TransitionTo(InvaderStates::ATTACKING);
+        return;
     }
 
     const TrackingResult result = m_tracking_behaviour->Run(update_context, player_info->position);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
         m_states.TransitionTo(InvaderStates::IDLE);
-
-    std::printf("%s\n", TrackingResultToString(result));
 }
 
 void InvaderController::ToAttacking()
@@ -126,10 +127,9 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
         return;
     }
 
-    const float distance_to_player = math::Length(player_info->position - position);
+    const float distance_to_player = math::DistanceBetween(player_info->position, position);
     if(distance_to_player > 5.0f)
     {
-        //m_states.TransitionTo(InvaderStates::TRACKING);
         m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
