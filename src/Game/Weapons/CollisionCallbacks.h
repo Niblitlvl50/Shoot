@@ -25,7 +25,7 @@ namespace game
     void StandardCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags,
+        game::BulletImpactFlag flags,
         const CollisionDetails& details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
@@ -36,7 +36,7 @@ namespace game
     void RocketCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags,
+        game::BulletImpactFlag flags,
         const CollisionDetails& details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
@@ -47,7 +47,7 @@ namespace game
     void CacoPlasmaCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
-        game::BulletCollisionFlag flags,
+        game::BulletImpactFlag flags,
         const CollisionDetails& details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,

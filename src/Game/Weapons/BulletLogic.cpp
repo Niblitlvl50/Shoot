@@ -51,18 +51,18 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
     if(m_life_span < 0)
     {
         CollisionDetails details;
-        details.colliding_body = nullptr;
-        details.collision_point = math::ZeroVec;
-        details.collision_normal = math::ZeroVec;
+        details.body = nullptr;
+        details.point = math::ZeroVec;
+        details.normal = math::ZeroVec;
 
-        m_collision_callback(m_entity_id, m_owner_entity_id, BulletCollisionFlag::DESTROY_THIS, details);
+        m_collision_callback(m_entity_id, m_owner_entity_id, BulletImpactFlag::DESTROY_THIS, details);
     }
 }
 
 mono::CollisionResolve BulletLogic::OnCollideWith(
     mono::IBody* colliding_body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
 {
-    if(m_bullet_behaviour == BulletCollisionBehaviour::JUMPER)
+    if(m_bullet_behaviour == BulletCollisionFlag::JUMPER)
     {
         const bool collide_with_static = (colliding_body->GetType() == mono::BodyType::STATIC);
         if(collide_with_static)
@@ -118,18 +118,18 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     }
 
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
-    BulletCollisionFlag collision_flags = BulletCollisionFlag(APPLY_DAMAGE | DESTROY_THIS);
+    BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
 
-    if(m_jumps_left > 0 && m_bullet_behaviour == BulletCollisionBehaviour::JUMPER)
+    if(m_jumps_left > 0 && (m_bullet_behaviour & BulletCollisionFlag::JUMPER))
     {
         resolve_type = mono::CollisionResolve::IGNORE;
-        collision_flags = BulletCollisionFlag(collision_flags & ~DESTROY_THIS);
+        collision_flags = BulletImpactFlag(collision_flags & ~DESTROY_THIS);
     }
 
     CollisionDetails details;
-    details.colliding_body = colliding_body;
-    details.collision_point = collision_point;
-    details.collision_normal = collision_normal;
+    details.body = colliding_body;
+    details.point = collision_point;
+    details.normal = collision_normal;
 
     m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, details);
     return resolve_type;

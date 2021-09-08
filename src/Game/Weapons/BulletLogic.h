@@ -29,7 +29,7 @@ namespace game
         audio::ISoundPtr m_sound;
 
         mono::PhysicsSystem* m_physics_system;
-        BulletCollisionBehaviour m_bullet_behaviour;
+        uint32_t m_bullet_behaviour;
 
         std::vector<uint32_t> m_jump_ids;
         int m_jumps_left;

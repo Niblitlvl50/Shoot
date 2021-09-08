@@ -9,19 +9,21 @@
 #include <string>
 #include <functional>
 
+#define ENUM_BIT(n) (1 << (n))
+
 namespace game
 {
-    enum BulletCollisionFlag
+    enum BulletImpactFlag
     {
-        APPLY_DAMAGE = 1,
-        DESTROY_THIS = 2,
+        APPLY_DAMAGE = ENUM_BIT(0),
+        DESTROY_THIS = ENUM_BIT(1),
     };
 
     struct CollisionDetails
     {
-        mono::IBody* colliding_body;
-        math::Vector collision_point;
-        math::Vector collision_normal;
+        mono::IBody* body;
+        math::Vector point;
+        math::Vector normal;
     };
 
     // entity_id is the bullet that collides with something
@@ -29,14 +31,13 @@ namespace game
     // imact_flags is what to do on impact
     // details contains more data on the collision
     using BulletImpactCallback =
-        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletCollisionFlag impact_flags, const CollisionDetails& details)>;
+        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, BulletImpactFlag impact_flags, const CollisionDetails& details)>;
 
-    enum class BulletCollisionBehaviour
+    enum BulletCollisionFlag : uint8_t
     {
-        NORMAL,
-        BOUNCE,
-        JUMPER,
-        PASS_THROUGH
+        BOUNCE          = ENUM_BIT(0),
+        JUMPER          = ENUM_BIT(1),
+        PASS_THROUGH    = ENUM_BIT(2),
     };
 
     struct BulletConfiguration
@@ -47,7 +48,8 @@ namespace game
         std::string entity_file;
         std::string sound_file;
 
-        BulletCollisionBehaviour bullet_behaviour = BulletCollisionBehaviour::NORMAL;
+        uint32_t bullet_behaviour = 0;
+
         shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
@@ -84,6 +86,7 @@ namespace game
         // Throwable data
         const char* thrown_entity = nullptr;
         const char* spawned_entity = nullptr;
+
         shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;

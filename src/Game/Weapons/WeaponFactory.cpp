@@ -57,7 +57,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.bullet_behaviour = BulletCollisionBehaviour::JUMPER;
+            bullet_config.bullet_behaviour = BulletCollisionFlag::JUMPER;
             bullet_config.collision_callback = std::bind(
                 StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/plasma_bullet.entity";
@@ -162,7 +162,7 @@ IWeaponPtr WeaponFactory::CreateBulletWeapon(WeaponType weapon_type, WeaponFacti
         {
             bullet_config.life_span = 10.0f;
             bullet_config.fuzzy_life_span = 0;
-            bullet_config.bullet_behaviour = BulletCollisionBehaviour::NORMAL;
+            bullet_config.bullet_behaviour = 0; //BulletCollisionBehaviour::NORMAL;
             bullet_config.collision_callback = std::bind(
                 StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
             bullet_config.entity_file = "res/entities/laser_bullet.entity";
