@@ -1,41 +1,150 @@
 {
     "bullets": [
         {
-            "name": "plasma_bullet",
-
+            "name": "generic_bullet",
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
-            
+            "entity_file": "res/entities/green_blob.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
+            "name": "plasma_bullet",
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
             "entity_file": "res/entities/plasma_bullet.entity",
             "sound_file": "",
-
             "behaviour": "jumper"
+        },
+        {
+            "name": "flak_bullet",
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
+            "entity_file": "res/entities/flak_bullet.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
+            "name": "caco_bullet",
+            "life_span": 2.0,
+            "fuzzy_life_span": 0.3,
+            "entity_file": "res/entities/caco_bullet.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
+            "name": "rocket",
+            "life_span": 2.0,
+            "fuzzy_life_span": 0.3,
+            "entity_file": "res/entities/rocket_bullet.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
+            "name": "laser",
+            "life_span": 10.0,
+            "fuzzy_life_span": 0,
+            "entity_file": "res/entities/laser_bullet.entity",
+            "sound_file": "",
+            "behaviour": ""
         }
     ],
     "weapons": [
         {
+            "name": "generic",
+            "reload_time_ms": 1000,
+            "magazine_size": 40,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 1.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_spread_degrees": 0.0,
+            "bullet_force": 10.0,
+            "bullet_force_random": false,
+            "bullet_want_direction": false,
+            "fire_sound": "",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
             "name": "plasma_gun",
-
             "magazine_size": 100,
             "reload_time_ms":  1000,
-
             "projectiles_per_fire": 1,
             "rounds_per_second": 8.0,
             "fire_rate_multiplier": 1.1,
             "max_fire_rate": 2.0,
-
             "bullet_force": 10.0,
             "bullet_spread_degrees": 2.0,
             "bullet_force_random": true,
             "bullet_want_direction": false,
-
             "fire_sound": "res/sound/plasma_fire.wav",
             "out_of_ammo_sound": "",
             "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "flak_gun",
+            "magazine_size": 30,
+            "reload_time_ms":  1000,
+            "projectiles_per_fire": 6,
+            "rounds_per_second": 2.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_force": 25.0,
+            "bullet_spread_degrees": 4.0,
+            "bullet_force_random": true,
+            "bullet_want_direction": false,
+            "fire_sound": "res/sound/shotgun_fire.wav",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "cacoplasma",
+            "magazine_size": 30,
+            "reload_time_ms":  1000,
+            "projectiles_per_fire": 6,
+            "rounds_per_second": 50.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_force": 5.0,
+            "bullet_spread_degrees": 10.0,
+            "bullet_force_random": true,
+            "bullet_want_direction": false,
+            "fire_sound": "res/sound/shotgun_fire.wav",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "rocketlauncher",
+            "magazine_size": 5,
+            "reload_time_ms":  1000,
+            "projectiles_per_fire": 6,
+            "rounds_per_second": 1.5,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_force": 10.0,
+            "bullet_spread_degrees": 0.0,
+            "bullet_force_random": false,
+            "bullet_want_direction": true,
+            "fire_sound": "res/sound/rocket_fire2.wav",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "blaster",
+            "magazine_size": 50,
+            "reload_time_ms": 500,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 6.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 2.0,
+            "bullet_force": 10.0,
+            "bullet_spread_degrees": 1.0,
+            "bullet_force_random": false,
+            "bullet_want_direction": true,
+            "fire_sound": "res/sound/blaster-probe-gun.wav",
+            "out_of_ammo_sound": "",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
         }
-    ],
-    "weapon_setups": [
-        "plasma_gun|plasma_bullet",
-        "flak_gun|flak_bullet"
     ]
 }

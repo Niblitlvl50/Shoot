@@ -22,6 +22,7 @@ namespace game
             uint32_t owner_id,
             const WeaponConfiguration& weapon_config,
             const BulletConfiguration& bullet_config,
+            const CollisionConfiguration& collision_config,
             mono::IEntityManager* entity_manager,
             mono::SystemContext* system_context);
         ~Weapon();
@@ -39,6 +40,7 @@ namespace game
         const uint32_t m_owner_id;
         const WeaponConfiguration m_weapon_config;
         const BulletConfiguration m_bullet_config;
+        const CollisionConfiguration m_collision_config;
         mono::IEntityManager* m_entity_manager;
         uint32_t m_last_fire_timestamp;
         uint32_t m_last_reload_timestamp;

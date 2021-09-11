@@ -4,7 +4,7 @@
 
 using namespace game;
 
-WeaponAIModule::WeaponAIModule(WeaponType weapon_type)
+WeaponAIModule::WeaponAIModule()
 {
     //m_weapon = g_weapon_factory->CreateWeapon(weapon_type, faction, owner_id);
 }

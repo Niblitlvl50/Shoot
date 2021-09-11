@@ -36,11 +36,13 @@ Weapon::Weapon(
     uint32_t owner_id,
     const WeaponConfiguration& weapon_config,
     const BulletConfiguration& bullet_config,
+    const CollisionConfiguration& collision_config,
     mono::IEntityManager* entity_manager,
     mono::SystemContext* system_context)
     : m_owner_id(owner_id)
     , m_weapon_config(weapon_config)
     , m_bullet_config(bullet_config)
+    , m_collision_config(collision_config)
     , m_entity_manager(entity_manager)
     , m_last_fire_timestamp(0)
     , m_last_reload_timestamp(0)
@@ -116,7 +118,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
 
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
-        BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_owner_id, m_bullet_config, m_physics_system);
+        BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_owner_id, m_bullet_config, m_collision_config, m_physics_system);
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
@@ -133,7 +135,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
         for(mono::IShape* shape : shapes)
-            shape->SetCollisionFilter(m_bullet_config.collision_category, m_bullet_config.collision_mask);
+            shape->SetCollisionFilter(m_collision_config.collision_category, m_collision_config.collision_mask);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 

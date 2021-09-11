@@ -2,31 +2,41 @@
 #pragma once
 
 #include "WeaponConfiguration.h"
+#include "Util/StringFunctions.h"
 #include "nlohmann/json.hpp"
 
 namespace game
 {
-    // Vector
-    inline void to_json(nlohmann::json& j, const BulletConfiguration& bullet_config)
-    {
-        j = nlohmann::json{
-            { "life_span",       bullet_config.life_span },
-            { "fuzzy_life_span", bullet_config.fuzzy_life_span },
-            { "entity_file",     bullet_config.entity_file },
-            { "sound_file",      bullet_config.sound_file },
-            { "behaviour",       "" }
-        };
-    }
-
     inline void from_json(const nlohmann::json& json, BulletConfiguration& bullet_config)
     {
-        bullet_config.life_span = json["life_span"].get<float>();
-        bullet_config.fuzzy_life_span = json["fuzzy_life_span"].get<float>();
-        bullet_config.entity_file = json["entity_file"].get<std::string>();
-        bullet_config.sound_file = json["sound_file"].get<std::string>();
+        bullet_config.name              = json["name"].get<std::string>();
+        bullet_config.life_span         = json["life_span"].get<float>();
+        bullet_config.fuzzy_life_span   = json["fuzzy_life_span"].get<float>();
+        bullet_config.entity_file       = json["entity_file"].get<std::string>();
+        bullet_config.sound_file        = json["sound_file"].get<std::string>();
+        bullet_config.bullet_behaviour  = 0;
 
-        bullet_config.bullet_behaviour;
+        const std::string behaviour_string = json["behaviour"];
+        const std::vector<std::string> parts = mono::SplitString(behaviour_string, '|');
+        for(const std::string& flag_string : parts)
+            bullet_config.bullet_behaviour |= StringToBulletCollisionFlag(flag_string.c_str());
+    }
 
-        //BulletCollisionBehaviour bullet_behaviour = BulletCollisionBehaviour::NORMAL;
+    inline void from_json(const nlohmann::json& json, WeaponConfiguration& weapon_config)
+    {
+        weapon_config.name                  = json["name"].get<std::string>();
+        weapon_config.magazine_size         = json["magazine_size"].get<int>();
+        weapon_config.projectiles_per_fire  = json["projectiles_per_fire"].get<int>();
+        weapon_config.rounds_per_second     = json["rounds_per_second"].get<float>();
+        weapon_config.fire_rate_multiplier  = json["fire_rate_multiplier"].get<float>();
+        weapon_config.max_fire_rate         = json["max_fire_rate"].get<float>();
+        weapon_config.bullet_force          = json["bullet_force"].get<float>();
+        weapon_config.bullet_spread_degrees = json["bullet_spread_degrees"].get<float>();
+        weapon_config.bullet_force_random   = json["bullet_force_random"].get<bool>();
+        weapon_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();
+        weapon_config.reload_time_ms        = json["reload_time_ms"].get<uint32_t>();
+        weapon_config.fire_sound            = json["fire_sound"].get<std::string>();
+        weapon_config.out_of_ammo_sound     = json["out_of_ammo_sound"].get<std::string>();
+        weapon_config.reload_sound          = json["reload_sound"].get<std::string>();
     }
 }

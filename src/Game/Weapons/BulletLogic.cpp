@@ -20,10 +20,14 @@
 using namespace game;
 
 BulletLogic::BulletLogic(
-    uint32_t entity_id, uint32_t owner_entity_id, const BulletConfiguration& config, mono::PhysicsSystem* physics_system)
+    uint32_t entity_id,
+    uint32_t owner_entity_id,
+    const BulletConfiguration& config,
+    const CollisionConfiguration& collision_config,
+    mono::PhysicsSystem* physics_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
-    , m_collision_callback(config.collision_callback)
+    , m_collision_callback(collision_config.collision_callback)
 {
     const float life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
     m_life_span = life_span * 1000.0f;

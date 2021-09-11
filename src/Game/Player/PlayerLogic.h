@@ -51,8 +51,8 @@ namespace game
 
         void TriggerInteraction();
 
-        void SelectWeapon(WeaponType weapon);
-        void SelectSecondaryWeapon(WeaponType weapon);
+        void SelectWeapon(WeaponSetup weapon);
+        void SelectSecondaryWeapon(WeaponSetup weapon);
         void HandleWeaponPickup(shared::PickupType type);
         
         void MoveInDirection(const math::Vector& direction);
@@ -93,7 +93,7 @@ namespace game
         bool m_fire;
         bool m_secondary_fire;
         int m_total_ammo_left;
-        WeaponType m_weapon_type;
+        WeaponSetup m_weapon_type;
         IWeaponPtr m_weapon;
         IWeaponPtr m_secondary_weapon;
         float m_aim_direction;

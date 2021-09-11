@@ -10,7 +10,7 @@ namespace game
     {
     public:
 
-        WeaponAIModule(WeaponType weapon_type);
+        WeaponAIModule();
         //IWeaponPtr m_weapon;
     };
 }

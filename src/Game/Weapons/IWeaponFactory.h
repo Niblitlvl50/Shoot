@@ -2,6 +2,7 @@
 #pragma once
 
 #include "WeaponTypes.h"
+#include "WeaponConfiguration.h"
 #include <memory>
 #include <cstdint>
 
@@ -13,6 +14,6 @@ namespace game
     {
     public:
         virtual ~IWeaponFactory() = default;
-        virtual IWeaponPtr CreateWeapon(WeaponType weapon, WeaponFaction faction, uint32_t owner_id) = 0;
+        virtual IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id) = 0;
     };
 }

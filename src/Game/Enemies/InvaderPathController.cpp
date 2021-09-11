@@ -59,7 +59,7 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     m_path_behaviour = std::make_unique<PathBehaviour>(m_body, m_path.get(), physics_system);
     m_path_behaviour->SetTrackingSpeed(tweak_values::path_speed);
 
-    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
+    m_weapon = g_weapon_factory->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
 InvaderPathController::~InvaderPathController()

@@ -68,6 +68,7 @@ file(
     "res/worlds/*"
     "res/game_config.json"
     "res/spawn_config.json"
+    "res/weapon_config.json"
     "res/sprite_atlas.png")
 
 # Individually set the file's path properties

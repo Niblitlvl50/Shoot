@@ -46,10 +46,10 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else if(right_shoulder)
         ++m_current_weapon_index;
 
-    m_current_weapon_index = std::clamp(m_current_weapon_index, 0, N_WEAPON_TYPES);
+    m_current_weapon_index = std::clamp(m_current_weapon_index, 0, (int)std::size(g_weapon_list));
         
     if(left_shoulder || right_shoulder)
-        m_player_logic->SelectWeapon(static_cast<WeaponType>(m_current_weapon_index));
+        m_player_logic->SelectWeapon(g_weapon_list[m_current_weapon_index]);
     
     const math::Vector force(m_state.left_x, m_state.left_y);
     m_player_logic->MoveInDirection(math::Vector(m_state.left_x, m_state.left_y));

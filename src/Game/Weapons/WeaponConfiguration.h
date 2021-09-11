@@ -40,38 +40,51 @@ namespace game
         PASS_THROUGH    = ENUM_BIT(2),
     };
 
+    inline uint8_t StringToBulletCollisionFlag(const char* string)
+    {
+        if(strcmp(string, "bounce") == 0)
+            return BulletCollisionFlag::BOUNCE;
+        else if(strcmp(string, "jumper") == 0)
+            return BulletCollisionFlag::JUMPER;
+        else if(strcmp(string, "pass_through") == 0)
+            return BulletCollisionFlag::PASS_THROUGH;
+
+        return 0;
+    }
+
     struct BulletConfiguration
     {
-        float life_span = 1.0f;
-        float fuzzy_life_span = 0.0f;
-
+        std::string name;
+        float life_span;
+        float fuzzy_life_span;
         std::string entity_file;
         std::string sound_file;
-
-        uint32_t bullet_behaviour = 0;
-
-        shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
-        uint32_t collision_mask = 0;
-        BulletImpactCallback collision_callback;
+        uint32_t bullet_behaviour;
     };
 
     struct WeaponConfiguration
     {
-        int magazine_size = 10;
-        int projectiles_per_fire = 1;
-        float rounds_per_second = 1.0f;
-        float fire_rate_multiplier = 1.0f;
-        float max_fire_rate = 1.0f;
-        float bullet_force = 1.0f;
-        float bullet_spread_degrees = 0.0f;
-        bool bullet_force_random = false;
-        bool bullet_want_direction = false;
-
-        uint32_t reload_time_ms = 1000;
-        
+        std::string name;
+        int magazine_size;
+        int projectiles_per_fire;
+        float rounds_per_second;
+        float fire_rate_multiplier;
+        float max_fire_rate;
+        float bullet_force;
+        float bullet_spread_degrees;
+        bool bullet_force_random;
+        bool bullet_want_direction;
+        uint32_t reload_time_ms;
         std::string fire_sound;
         std::string out_of_ammo_sound;
         std::string reload_sound;
+    };
+
+    struct CollisionConfiguration
+    {
+        shared::CollisionCategory collision_category;
+        uint32_t collision_mask;
+        BulletImpactCallback collision_callback;
     };
 
     struct ThrowableWeaponConfig

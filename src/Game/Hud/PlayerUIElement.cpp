@@ -170,7 +170,7 @@ void PlayerUIElement::Update(const mono::UpdateContext& update_context)
     std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
 
     m_ammo_text->SetText(ammo_text);
-    m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
+    //m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
     m_weapon_state_text->SetText(WeaponStateToString(m_player_info.weapon_state));
 
     if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)

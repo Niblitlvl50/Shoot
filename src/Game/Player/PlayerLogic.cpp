@@ -36,17 +36,17 @@ namespace tweak_values
 
 namespace
 {
-    const std::unordered_map<shared::PickupType, game::WeaponType> g_pickup_to_weapon = {
-        { shared::PickupType::WEAPON_PISOL,     game::WeaponType::GENERIC },
-        { shared::PickupType::WEAPON_PLASMA,    game::WeaponType::PLASMA_GUN },
-        { shared::PickupType::WEAPON_SHOTGUN,   game::WeaponType::FLAK_CANON },
+    const std::unordered_map<shared::PickupType, game::WeaponSetup> g_pickup_to_weapon = {
+//        { shared::PickupType::WEAPON_PISOL,     game::GENERIC },
+//        { shared::PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
+//        { shared::PickupType::WEAPON_SHOTGUN,   game::FLAK_CANON },
     };
 
-    const std::unordered_map<game::WeaponType, const char*> g_weapon_to_entity = {
-        { game::WeaponType::PLASMA_GUN, "res/entities/plasma_gun_pickup.entity" },
-        { game::WeaponType::GENERIC,    "res/entities/rocket_launcher_pickup.entity" },
-        { game::WeaponType::FLAK_CANON, "res/entities/flak_cannon_pickup.entity" },
-    };
+//    const std::unordered_map<game::WeaponType, const char*> g_weapon_to_entity = {
+//        { game::WeaponType::PLASMA_GUN, "res/entities/plasma_gun_pickup.entity" },
+//        { game::WeaponType::GENERIC,    "res/entities/rocket_launcher_pickup.entity" },
+//        { game::WeaponType::FLAK_CANON, "res/entities/flak_cannon_pickup.entity" },
+//    };
 }
 
 using namespace game;
@@ -115,8 +115,8 @@ PlayerLogic::PlayerLogic(
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
     // Make sure we have a weapon
-    SelectWeapon(WeaponType::PLASMA_GUN);
-    SelectSecondaryWeapon(WeaponType::ROCKET_LAUNCHER);
+    SelectWeapon(game::PLASMA_GUN);
+    SelectSecondaryWeapon(game::ROCKET_LAUNCHER);
     SetAimDirection(math::PI_2());
 
     const PlayerStateMachine::StateTable state_table = {
@@ -305,13 +305,13 @@ void PlayerLogic::TriggerInteraction()
     System::PlayRumble(System::ControllerId(m_controller_id), 0.5f, 1000);
 }
 
-void PlayerLogic::SelectWeapon(WeaponType weapon)
+void PlayerLogic::SelectWeapon(WeaponSetup weapon)
 {
     m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
     m_weapon_type = weapon;
 }
 
-void PlayerLogic::SelectSecondaryWeapon(WeaponType weapon)
+void PlayerLogic::SelectSecondaryWeapon(WeaponSetup weapon)
 {
     m_secondary_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
 }
@@ -322,7 +322,8 @@ void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
     if(it == g_pickup_to_weapon.end())
         return;
 
-    const WeaponType weapon_type = it->second;
+    const WeaponSetup weapon_type = it->second;
+/*
     m_weapon = g_weapon_factory->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
 
     const auto it_second = g_weapon_to_entity.find(m_weapon_type);
@@ -336,6 +337,7 @@ void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
 
         m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
     }
+    */
     
     m_weapon_type = weapon_type;
 }

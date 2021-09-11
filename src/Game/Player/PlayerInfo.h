@@ -43,7 +43,7 @@ namespace game
         math::Vector velocity;
         float direction;
 
-        WeaponType weapon_type;
+        WeaponSetup weapon_type;
         WeaponState weapon_state;
         int magazine_left;
         int magazine_capacity;

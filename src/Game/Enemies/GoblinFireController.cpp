@@ -33,7 +33,7 @@ using namespace game;
 GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(WeaponType::CACOPLASMA, WeaponFaction::ENEMY, entity_id);
+    m_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
