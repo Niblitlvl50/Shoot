@@ -12336,8 +12336,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.0,
-                                "y": 0.0
+                                "x": 1.9786701202392578,
+                                "y": -0.24792861938476563
                             }
                         },
                         {
@@ -12356,7 +12356,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "invader1.sprite"
+                            "variant_value": "eye_monster.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -12382,8 +12382,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
+                                "blue": 0.9999943971633911,
+                                "green": 0.9999899864196777,
                                 "red": 1.0
                             }
                         },
@@ -12391,7 +12391,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -12399,14 +12399,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.4000000059604645
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1015133031,
@@ -12454,7 +12454,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.10000000149011612
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 2471448074,
@@ -12462,7 +12462,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": 0.10000000149011612
                             }
                         },
                         {
