@@ -62,7 +62,7 @@ void InvaderController::Update(const mono::UpdateContext& update_context)
 
 void InvaderController::ToIdle()
 {
-    m_sprite->SetShade(mono::Color::DARK_GRAY);
+    //m_sprite->SetShade(mono::Color::DARK_GRAY);
     m_idle_timer = 0;
 }
 
@@ -87,7 +87,7 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
 
 void InvaderController::ToTracking()
 {
-    m_sprite->SetShade(mono::Color::RED);
+    //m_sprite->SetShade(mono::Color::RED);
 }
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
