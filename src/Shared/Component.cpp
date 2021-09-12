@@ -93,6 +93,7 @@ const DefaultAttribute default_attributes[] = {
     { "destroyed_type",         Variant(0) },
     { "condition",              Variant(std::string()) },
     { "condition_state",        Variant(true) },
+    { "offset",                 Variant(math::ZeroVec) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -179,6 +180,8 @@ extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].has
 extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[65].hash;
 extern const uint32_t CONDITION_ATTRIBUTE               = default_attributes[66].hash;
 extern const uint32_t CONDITION_STATE_ATTRIBUTE         = default_attributes[67].hash;
+
+extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
 
 
 
@@ -308,7 +311,7 @@ const Component default_components[] = {
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
-    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
+    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),

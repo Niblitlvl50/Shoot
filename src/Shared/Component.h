@@ -10,6 +10,7 @@ extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
 extern const uint32_t RADIUS_ATTRIBUTE;
 extern const uint32_t SIZE_ATTRIBUTE;
+extern const uint32_t OFFSET_ATTRIBUTE;
 extern const uint32_t TIME_STAMP_ATTRIBUTE;
 extern const uint32_t SPAWN_TAG_ATTRIBUTE;
 extern const uint32_t PATH_FILE_ATTRIBUTE;
@@ -23,7 +24,6 @@ extern const uint32_t AMOUNT_ATTRIBUTE;
 
 extern const uint32_t BODY_TYPE_ATTRIBUTE;
 extern const uint32_t MASS_ATTRIBUTE;
-// extern const uint32_t INERTIA_ATTRIBUTE;
 extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;

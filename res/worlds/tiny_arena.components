@@ -368,6 +368,15 @@
                             "variant_value": 3.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.5
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -603,6 +612,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -1382,6 +1400,15 @@
                             "variant_value": 2.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -1538,6 +1565,15 @@
                             "variant_value": 2.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -1692,6 +1728,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -2508,6 +2553,15 @@
                             "variant_value": 3.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.5
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -2743,6 +2797,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -2994,6 +3057,15 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -3241,6 +3313,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -3492,6 +3573,15 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -3739,6 +3829,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -11014,6 +11113,15 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -11447,6 +11555,15 @@
                             "variant_value": 2.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -11661,6 +11778,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 3.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
