@@ -143,7 +143,7 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
     math::Position(transform, new_position);
     m_transform_system->SetTransformState(m_entity_id, mono::TransformState::CLIENT);
 
-    m_move_counter += float(update_context.delta_ms) / 1000.0f;
+    m_move_counter += update_context.delta_s;
 
     if(m_move_counter >= duration)
     {

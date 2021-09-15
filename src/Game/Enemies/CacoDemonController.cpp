@@ -100,7 +100,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
     if(angle_diff_abs >= tweak_values::face_angle)
     {
         const float direction = angle_diff > 0.0f ? -1.0f : 1.0f;
-        const float add = tweak_values::radians_per_second * float(update_context.delta_ms) / 1000.0f * direction;
+        const float add = tweak_values::radians_per_second * update_context.delta_s * direction;
         m_entity_body->SetAngle(current_rotation + add);
     }
 
