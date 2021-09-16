@@ -124,7 +124,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
-        transform = (m_weapon_config.bullet_want_direction) ? 
+        transform = (m_bullet_config.bullet_want_direction) ? 
             math::CreateMatrixWithPositionRotation(position, bullet_direction) : math::CreateMatrixWithPosition(position);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
 

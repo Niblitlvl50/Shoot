@@ -4,6 +4,7 @@
             "name": "generic_bullet",
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
             "entity_file": "res/entities/green_blob.entity",
             "sound_file": "",
             "behaviour": ""
@@ -12,6 +13,7 @@
             "name": "plasma_bullet",
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
             "entity_file": "res/entities/plasma_bullet.entity",
             "sound_file": "",
             "behaviour": "jumper"
@@ -20,6 +22,7 @@
             "name": "flak_bullet",
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
             "entity_file": "res/entities/flak_bullet.entity",
             "sound_file": "",
             "behaviour": ""
@@ -28,6 +31,7 @@
             "name": "caco_bullet",
             "life_span": 2.0,
             "fuzzy_life_span": 0.3,
+            "bullet_want_direction": false,
             "entity_file": "res/entities/caco_bullet.entity",
             "sound_file": "",
             "behaviour": ""
@@ -36,6 +40,7 @@
             "name": "rocket",
             "life_span": 2.0,
             "fuzzy_life_span": 0.3,
+            "bullet_want_direction": true,
             "entity_file": "res/entities/rocket_bullet.entity",
             "sound_file": "",
             "behaviour": ""
@@ -44,6 +49,7 @@
             "name": "laser",
             "life_span": 10.0,
             "fuzzy_life_span": 0,
+            "bullet_want_direction": true,
             "entity_file": "res/entities/laser_bullet.entity",
             "sound_file": "",
             "behaviour": ""

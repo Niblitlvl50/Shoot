@@ -9,12 +9,13 @@ namespace game
 {
     inline void from_json(const nlohmann::json& json, BulletConfiguration& bullet_config)
     {
-        bullet_config.name              = json["name"].get<std::string>();
-        bullet_config.life_span         = json["life_span"].get<float>();
-        bullet_config.fuzzy_life_span   = json["fuzzy_life_span"].get<float>();
-        bullet_config.entity_file       = json["entity_file"].get<std::string>();
-        bullet_config.sound_file        = json["sound_file"].get<std::string>();
-        bullet_config.bullet_behaviour  = 0;
+        bullet_config.name                  = json["name"].get<std::string>();
+        bullet_config.life_span             = json["life_span"].get<float>();
+        bullet_config.fuzzy_life_span       = json["fuzzy_life_span"].get<float>();
+        bullet_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();
+        bullet_config.entity_file           = json["entity_file"].get<std::string>();
+        bullet_config.sound_file            = json["sound_file"].get<std::string>();
+        bullet_config.bullet_behaviour      = 0;
 
         const std::string behaviour_string = json["behaviour"];
         const std::vector<std::string> parts = mono::SplitString(behaviour_string, '|');
@@ -33,7 +34,6 @@ namespace game
         weapon_config.bullet_force          = json["bullet_force"].get<float>();
         weapon_config.bullet_spread_degrees = json["bullet_spread_degrees"].get<float>();
         weapon_config.bullet_force_random   = json["bullet_force_random"].get<bool>();
-        weapon_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();
         weapon_config.reload_time_ms        = json["reload_time_ms"].get<uint32_t>();
         weapon_config.fire_sound            = json["fire_sound"].get<std::string>();
         weapon_config.out_of_ammo_sound     = json["out_of_ammo_sound"].get<std::string>();
