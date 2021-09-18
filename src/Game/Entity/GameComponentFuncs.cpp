@@ -65,6 +65,7 @@ namespace
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
         mono::IBody* body = physics_system->GetBody(entity->id);
         body->SetMass(body_args.mass);
+        body->SetPreventRotation(prevent_rotation);
         body->SetMoment(body_args.inertia);
         body->SetType(body_args.type);
 

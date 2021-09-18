@@ -9,6 +9,9 @@ game::PlayerInfo game::g_players[n_players];
 void game::InitializePlayerInfo()
 {
     std::memset(g_players, 0, sizeof(g_players));
+
+    for(game::PlayerInfo& info : game::g_players)
+        info.killer_entity_id = -1;
 }
 
 game::PlayerInfo* game::AllocatePlayerInfo(int player_index)

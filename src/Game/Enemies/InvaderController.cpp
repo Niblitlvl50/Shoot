@@ -11,6 +11,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -62,7 +63,6 @@ void InvaderController::Update(const mono::UpdateContext& update_context)
 
 void InvaderController::ToIdle()
 {
-    //m_sprite->SetShade(mono::Color::DARK_GRAY);
     m_idle_timer = 0;
 }
 
@@ -86,9 +86,7 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
 }
 
 void InvaderController::ToTracking()
-{
-    //m_sprite->SetShade(mono::Color::RED);
-}
+{ }
 
 void InvaderController::Tracking(const mono::UpdateContext& update_context)
 {
@@ -99,6 +97,13 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
         m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
+
+    const math::Vector delta = position - player_info->position;
+    const bool left_of_player = (delta.x < 0.0f);
+    if(left_of_player)
+        m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     const float distance_to_player = math::DistanceBetween(position, player_info->position);
     if(distance_to_player < 1.0f)
@@ -113,9 +118,7 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
 }
 
 void InvaderController::ToAttacking()
-{
-
-}
+{ }
 
 void InvaderController::Attacking(const mono::UpdateContext& update_context)
 {

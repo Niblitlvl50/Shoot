@@ -169,6 +169,8 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
         {
             allocated_player_info->player_state = game::PlayerState::DEAD;
             allocated_player_info->lives--;
+            allocated_player_info->killer_entity_id = id_who_did_damage;
+
             if(allocated_player_info->lives <= 0)
             {
                 DespawnPlayer(allocated_player_info);

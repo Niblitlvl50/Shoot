@@ -37,6 +37,7 @@ namespace game
     {
         PlayerState player_state;
         uint32_t entity_id;
+        uint32_t killer_entity_id;
 
         math::Quad viewport;
         math::Vector position;
