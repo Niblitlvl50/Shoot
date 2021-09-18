@@ -69,13 +69,14 @@ namespace
         navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density);
 
         const auto remove_on_collision = [space](const math::Vector& point) {
-            return space->QueryNearest(point, 0.0f, shared::CollisionCategory::STATIC) != nullptr;
+            const mono::QueryResult query_result = space->QueryNearest(point, 0.0f, shared::CollisionCategory::STATIC);
+            return query_result.body != nullptr;
         };
         mono::remove_if(navmesh_context.points, remove_on_collision);
 
         const auto filter_connection_func = [space](const math::Vector& first, const math::Vector& second){
-            const mono::IBody* found_body = space->QueryFirst(first, second, shared::CollisionCategory::STATIC);
-            return found_body != nullptr;
+            const mono::QueryResult query_result = space->QueryFirst(first, second, shared::CollisionCategory::STATIC);
+            return query_result.body != nullptr;
         };
 
         navmesh_context.nodes = game::GenerateMeshNodes(navmesh_context.points, metadata.navmesh_density * 1.5f, filter_connection_func);

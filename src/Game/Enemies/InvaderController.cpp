@@ -16,8 +16,11 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/PhysicsSpace.h"
 
 #include "Math/MathFunctions.h"
+
+#include "CollisionConfiguration.h"
 
 #include <cmath>
 
@@ -25,6 +28,7 @@ namespace tweak_values
 {
     constexpr uint32_t idle_time = 2000;
     constexpr float attack_distance = 3.0f;
+    constexpr float max_attack_distance = 5.0f;
 }
 
 using namespace game;
@@ -34,10 +38,10 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
 {
     m_weapon = g_weapon_factory->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
 
-    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    mono::IBody* entity_body = physics_system->GetBody(entity_id);
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
 
-    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, physics_system);
+    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -80,7 +84,7 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
         const float distance_to_player = math::DistanceBetween(position, player_info->position);
         if(distance_to_player < tweak_values::attack_distance)
             m_states.TransitionTo(InvaderStates::ATTACKING);
-        else if(distance_to_player > 1.0f && distance_to_player < 10.0f)
+        else if(distance_to_player > 1.0f && distance_to_player < 7.0f)
             m_states.TransitionTo(InvaderStates::TRACKING);
     }
 }
@@ -106,10 +110,19 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     const float distance_to_player = math::DistanceBetween(position, player_info->position);
-    if(distance_to_player < 1.0f)
+    if(distance_to_player < tweak_values::attack_distance)
     {
-        m_states.TransitionTo(InvaderStates::ATTACKING);
-        return;
+        mono::PhysicsSpace* space = m_physics_system->GetSpace();
+        const mono::QueryResult query_result = space->QueryFirst(position, player_info->position, shared::CollisionCategory::ALL);
+        if(query_result.body)
+        {
+            const bool is_player = (query_result.collision_category & shared::CollisionCategory::PLAYER);
+            if(is_player)
+            {
+                m_states.TransitionTo(InvaderStates::ATTACKING);
+                return;
+            }
+        }
     }
 
     const TrackingResult result = m_tracking_behaviour->Run(update_context, player_info->position);
@@ -131,7 +144,7 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
     }
 
     const float distance_to_player = math::DistanceBetween(player_info->position, position);
-    if(distance_to_player > 5.0f)
+    if(distance_to_player > tweak_values::max_attack_distance)
     {
         m_states.TransitionTo(InvaderStates::IDLE);
         return;

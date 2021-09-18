@@ -21,6 +21,7 @@ namespace game
         uint32_t last_damaged_timestamp;
         bool release_entity_on_death;
         bool is_boss;
+        bool is_invincible;
     };
 
     struct DamageResult

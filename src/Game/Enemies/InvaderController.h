@@ -42,6 +42,7 @@ namespace game
         const uint32_t m_entity_id;
 
         IWeaponPtr m_weapon;
+        mono::PhysicsSystem* m_physics_system;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         uint32_t m_idle_timer;

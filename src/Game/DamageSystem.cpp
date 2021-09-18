@@ -45,6 +45,8 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     new_record.multipier = 1;
     new_record.last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
     new_record.release_entity_on_death = true;
+    new_record.is_boss = false;
+    new_record.is_invincible = false;
 
     return &new_record;
 }
@@ -86,7 +88,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     DamageResult result = { false, 0 };
 
     DamageRecord& damage_record = m_damage_records[id];
-    if(damage_record.health <= 0)
+    if(damage_record.health <= 0 || damage_record.is_invincible)
         return result;
 
     damage_record.health -= damage * damage_record.multipier;

@@ -103,10 +103,10 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
                 return (radians < math::ToRadians(45.0f));
             };
 
-            const mono::IBody* found_body = space->QueryNearest(collision_point, 2.0f, shared::CollisionCategory::ENEMY, query_filter);
-            if(found_body)
+            const mono::QueryResult query_result = space->QueryNearest(collision_point, 2.0f, shared::CollisionCategory::ENEMY, query_filter);
+            if(query_result.body)
             {
-                const math::Vector found_body_position = found_body->GetPosition();
+                const math::Vector found_body_position = query_result.body->GetPosition();
                 const math::Vector unit_direction = math::Normalized(found_body_position - bullet_position);
 
                 const math::Vector bullet_velocity = bullet_body->GetVelocity();
