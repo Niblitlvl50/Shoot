@@ -66,29 +66,10 @@ UserInputController::UserInputController(
     m_keyDownToken = m_event_handler.AddListener(key_down);
     m_key_up_token = m_event_handler.AddListener(key_up);
 
-    g_tools[ToolsMenuOptions::TRANSLATE_TOOL] = {
-        &m_translate_tool,
-        Notification(editor::wrench_texture, "Translate tool", 2000),
-        { }
-    };
-
-    g_tools[ToolsMenuOptions::ROTATE_TOOL] = {
-        &m_rotate_tool,
-        Notification(editor::wrench_texture, "Rotate tool", 2000),
-        { }
-    };
-
-    g_tools[ToolsMenuOptions::MEASURE_TOOL] = {
-        &m_measure_tool,
-        Notification(editor::wrench_texture, "Measure tool", 2000),
-        { }
-    };
-
-    g_tools[ToolsMenuOptions::PALETTE_TOOL] = {
-        &m_palette_tool,
-        Notification(editor::wrench_texture, "Palette Tool", 2000),
-        { }
-    };
+    g_tools[ToolsMenuOptions::TRANSLATE_TOOL]   = { &m_translate_tool, Notification(editor::wrench_texture, "Translate tool", 2000), { } };
+    g_tools[ToolsMenuOptions::ROTATE_TOOL]      = { &m_rotate_tool, Notification(editor::wrench_texture, "Rotate tool", 2000), { } };
+    g_tools[ToolsMenuOptions::MEASURE_TOOL]     = { &m_measure_tool, Notification(editor::wrench_texture, "Measure tool", 2000), { } };
+    g_tools[ToolsMenuOptions::PALETTE_TOOL]     = { &m_palette_tool, Notification(editor::wrench_texture, "Palette Tool", 2000), { } };
 
     SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
 }
@@ -172,10 +153,10 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
                 {
                     m_editor->ClearSelection();
                 }
-            }
 
-            m_active_tool->HandleMouseDown(world_position, entity_id);
-            handled = m_active_tool->IsActive();
+                m_active_tool->HandleMouseDown(world_position, entity_id);
+                handled = m_active_tool->IsActive();
+            }
         }
     }
 
