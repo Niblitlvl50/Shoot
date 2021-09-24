@@ -6,6 +6,7 @@
         "res/worlds/setup_game_screen.components",
         "res/worlds/title_screen.components",
         "res/worlds/world.components",
-        "res/worlds/tiny_arena.components"
+        "res/worlds/tiny_arena.components",
+        "res/worlds/enemy_testbed.components"
     ]
 }

@@ -8,6 +8,7 @@
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/PhysicsSpace.h"
 
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -24,6 +25,7 @@ namespace tweak_values
 {
     constexpr float trigger_distance = 5.0f;
     constexpr uint32_t time_before_hunt_ms = 300;
+    constexpr uint32_t visibility_check_interval = 1000;
     constexpr uint32_t collision_damage = 25;
     constexpr float shockwave_magnitude = 5.0f;
 
@@ -96,7 +98,9 @@ void BlackSquareController::OnSeparateFrom(mono::IBody* body)
 { }
 
 void BlackSquareController::ToSleep()
-{ }
+{
+    m_visibility_check_timer = 0;
+}
 
 void BlackSquareController::SleepState(const mono::UpdateContext& update_context)
 {
@@ -107,7 +111,21 @@ void BlackSquareController::SleepState(const mono::UpdateContext& update_context
 
     const float distance = math::DistanceBetween(player_info->position, entity_position);
     if(distance < tweak_values::trigger_distance)
-        m_states.TransitionTo(States::AWAKE);
+    {
+        m_visibility_check_timer += update_context.delta_ms;
+
+        if(m_visibility_check_timer > tweak_values::visibility_check_interval)
+        {
+            const uint32_t query_category = shared::CollisionCategory::PLAYER | shared::CollisionCategory::STATIC;
+            mono::PhysicsSpace* space = m_physics_system->GetSpace();
+            const mono::QueryResult result = space->QueryFirst(entity_position, player_info->position, query_category);
+            const bool sees_player = (result.body != nullptr && result.collision_category & shared::CollisionCategory::PLAYER);
+            if(sees_player)
+                m_states.TransitionTo(States::AWAKE);
+
+            m_visibility_check_timer = 0;
+        }
+    }
 }
 
 void BlackSquareController::ToAwake()

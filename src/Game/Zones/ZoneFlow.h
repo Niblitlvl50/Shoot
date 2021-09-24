@@ -13,6 +13,7 @@ namespace game
         SETUP_GAME_SCREEN,
         GAME_OVER_SCREEN,
         END_SCREEN,
-        EMPTY_ZONE
+        EMPTY_ZONE,
+        ENEMY_TESTBED_ZONE
     };
 }

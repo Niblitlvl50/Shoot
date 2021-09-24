@@ -45,6 +45,7 @@ namespace game
         const uint32_t m_entity_id;
         mono::EventHandler& m_event_handler;
         uint32_t m_awake_state_timer;
+        uint32_t m_visibility_check_timer;
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;

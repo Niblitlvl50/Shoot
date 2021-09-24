@@ -57,4 +57,12 @@ namespace game
             : SystemTestZone(context, "res/worlds/tiny_arena.components")
         { }
     };
+
+    class EnemyTestbedZone : public SystemTestZone
+    {
+    public:
+        EnemyTestbedZone(const ZoneCreationContext& context)
+            : SystemTestZone(context, "res/worlds/enemy_testbed.components")
+        { }
+    };
 }
