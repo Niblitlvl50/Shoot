@@ -263,6 +263,45 @@ namespace
         return true;
     }
 
+    bool CreateEntitySpawnPoint(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->AllocateEntitySpawnPoint(entity->id);
+        return true;
+    }
+
+    bool ReleaseEntitySpawnPoint(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->ReleaseEntitySpawnPoint(entity->id);
+        return true;
+    }
+
+    bool UpdateEntitySpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string entity_file;
+        float spawn_radius = 0.0f;
+        uint32_t spawn_trigger = 0;
+
+        const bool success = FindAttribute(ENTITY_FILE_ATTRIBUTE, properties, entity_file, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!success)
+        {
+            System::Log("UpdateEntitySpawnPoint|Missing entity file parameters, unable to update component");
+            return false;
+        }
+
+        FindAttribute(RADIUS_ATTRIBUTE, properties, spawn_radius, FallbackMode::SET_DEFAULT);
+
+        std::string spawn_trigger_name;
+        const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, spawn_trigger_name, FallbackMode::SET_DEFAULT);
+        if(found_enable)
+            spawn_trigger = hash::Hash(spawn_trigger_name.c_str());
+
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->SetEntitySpawnPointData(entity->id, entity_file, spawn_radius, spawn_trigger);
+        return true;
+    }
+
     bool CreateShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
@@ -813,6 +852,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(HEALTH_COMPONENT, CreateHealth, ReleaseHealth, UpdateHealth);
     entity_manager->RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager->RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
+    entity_manager->RegisterComponent(ENTITY_SPAWN_POINT_COMPONENT, CreateEntitySpawnPoint, ReleaseEntitySpawnPoint, UpdateEntitySpawnPoint);
     entity_manager->RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateShapeTrigger, ReleaseShapeTrigger, UpdateShapeTrigger);
     entity_manager->RegisterComponent(DESTROYED_TRIGGER_COMPONENT, CreateDestroyedTrigger, ReleaseDestroyedTrigger, UpdateDestroyedTrigger);
     entity_manager->RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);

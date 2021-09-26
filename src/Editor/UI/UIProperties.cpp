@@ -349,6 +349,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         
         return changed;
     }
+    else if(attribute.id == ENTITY_FILE_ATTRIBUTE)
+    {
+        const std::vector<std::string>& all_entities = editor::GetAllEntities();
+
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_entities, out_index);
+        if(changed)
+            attribute.value = all_entities[out_index];
+        
+        return changed;
+    }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value);

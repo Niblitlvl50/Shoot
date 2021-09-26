@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.5,
-                                "y": 2.5
+                                "x": 6.5,
+                                "y": 11.5
                             }
                         },
                         {
@@ -144,13 +144,22 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.5176470875740051,
-                                "green": 0.18039216101169586,
+                                "blue": 0.9999940991401672,
+                                "green": 0.9999899864196777,
                                 "red": 1.0
                             }
                         },
@@ -247,7 +256,7 @@
             "entity_properties": 0,
             "folder": "monsters",
             "name": "eye_monster_small",
-            "uuid_hash": 26721882
+            "uuid_hash": 1308115134
         }
     ],
     "metadata": {
@@ -273,6 +282,15 @@
             "y": 0.0
         },
         "conditions": [],
+        "navmesh_density": 4.6833689129763186e+23,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0

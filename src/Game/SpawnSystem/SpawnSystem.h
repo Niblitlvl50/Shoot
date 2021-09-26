@@ -6,6 +6,8 @@
 #include "Math/Matrix.h"
 #include "MonoFwd.h"
 
+#include "Util/ActiveVector.h"
+
 #include <vector>
 #include <string>
 
@@ -24,14 +26,23 @@ namespace game
 
             uint32_t enable_trigger;
             uint32_t disable_trigger;
-        };
 
-        struct SpawnPointInternalData
-        {
+            // Internal data
             bool active;
             int counter;
             uint32_t enable_callback_id;
             uint32_t disable_callback_id;
+        };
+
+        struct EntitySpawnPointComponent
+        {
+            std::string entity_file;
+            float radius;
+            uint32_t spawn_trigger;
+
+            // Internal data
+            uint32_t entity_id;
+            uint32_t callback_id;
         };
 
         struct SpawnDefinition
@@ -46,6 +57,9 @@ namespace game
             uint32_t spawned_entity_id;
             math::Matrix transform;
             uint32_t timestamp_to_spawn;
+
+            int spawn_score;
+            std::string entity_file;
         };
 
         static const uint32_t spawn_delay_time_ms = 500;
@@ -57,6 +71,10 @@ namespace game
         bool IsAllocated(uint32_t entity_id);
         void SetSpawnPointData(uint32_t entity_id, const SpawnPointComponent& component_data);
 
+        EntitySpawnPointComponent* AllocateEntitySpawnPoint(uint32_t entity_id);
+        void ReleaseEntitySpawnPoint(uint32_t entity_id);
+        void SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger);
+
         const std::vector<SpawnEvent>& GetSpawnEvents() const;
 
         uint32_t Id() const override;
@@ -65,32 +83,28 @@ namespace game
         void Sync() override;
 
         template <typename T>
-        inline void ForEeach(T&& func)
+        inline void ForEachSpawnPoint(T&& func)
         {
-            for(uint32_t entity_id = 0; entity_id < m_spawn_points.size(); ++entity_id)
-            {
-                if(m_alive[entity_id])
-                    func(entity_id, m_spawn_points[entity_id]);
-            }
+            m_spawn_points.ForEach(func);
         }
 
         template <typename T>
-        inline void ForEeachWithInternalData(T&& func)
+        inline void ForEachEntitySpawnPoint(T&& func)
         {
-            for(uint32_t entity_id = 0; entity_id < m_spawn_points.size(); ++entity_id)
-            {
-                if(m_alive[entity_id])
-                    func(entity_id, m_spawn_points[entity_id], m_spawn_points_internal[entity_id]);
-            }
+            m_entity_spawn_points.ForEach(func);
         }
+
+    private:
 
         game::TriggerSystem* m_trigger_system;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
+
         std::vector<SpawnDefinition> m_spawn_definitions;
-        std::vector<SpawnPointComponent> m_spawn_points;
-        std::vector<SpawnPointInternalData> m_spawn_points_internal;
-        std::vector<bool> m_alive;
+
+        mono::ActiveVector<SpawnPointComponent> m_spawn_points;
+        mono::ActiveVector<EntitySpawnPointComponent> m_entity_spawn_points;
+        std::vector<EntitySpawnPointComponent*> m_active_entity_spawn_points;
 
         std::vector<SpawnEvent> m_spawn_events;
     };

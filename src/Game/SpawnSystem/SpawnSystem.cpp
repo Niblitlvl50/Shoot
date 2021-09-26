@@ -21,11 +21,9 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     : m_trigger_system(trigger_system)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
+    , m_spawn_points(n)
+    , m_entity_spawn_points(n)
 {
-    m_spawn_points.resize(n);
-    m_spawn_points_internal.resize(n);
-    m_alive.resize(n, false);
-
     file::FilePtr config_file = file::OpenAsciiFile("res/spawn_config.json");
     if(config_file)
     {
@@ -49,64 +47,99 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
 
 SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)
 {
-    assert(!m_alive[entity_id]);
-    m_alive[entity_id] = true;
+    SpawnPointComponent component = {};
+    return m_spawn_points.Set(entity_id, std::move(component));
 
-    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
-    std::memset(&spawn_point, 0, sizeof(SpawnPointComponent));
+    //SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
+    //std::memset(&spawn_point, 0, sizeof(SpawnPointComponent));
 
-    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
-    std::memset(&internal_data, 0, sizeof(SpawnPointInternalData));
-
-    return &spawn_point;
+    //return &spawn_point;
 }
 
 void SpawnSystem::ReleaseSpawnPoint(uint32_t entity_id)
 {
-    m_alive[entity_id] = false;
+    SpawnPointComponent* spawn_point = m_spawn_points.Get(entity_id);
+    if(spawn_point->enable_callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(spawn_point->enable_trigger, spawn_point->enable_callback_id, entity_id);
 
-    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
-    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
+    if(spawn_point->disable_callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(spawn_point->disable_trigger, spawn_point->disable_callback_id, entity_id);
 
-    if(internal_data.enable_callback_id != 0)
-        m_trigger_system->RemoveTriggerCallback(spawn_point.enable_trigger, internal_data.enable_callback_id, entity_id);
-
-    if(internal_data.disable_callback_id != 0)
-        m_trigger_system->RemoveTriggerCallback(spawn_point.disable_trigger, internal_data.disable_callback_id, entity_id);
+    m_spawn_points.Release(entity_id);
 }
 
 bool SpawnSystem::IsAllocated(uint32_t entity_id)
 {
-    return m_alive[entity_id];
+    return m_spawn_points.IsActive(entity_id);
 }
 
 void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::SpawnPointComponent& component_data)
 {
-    assert(m_alive[sprite_id]);
-    assert(component_data.interval > spawn_delay_frames);
+    SpawnPointComponent* spawn_point = m_spawn_points.Get(entity_id);
+    spawn_point->spawn_score = component_data.spawn_score;
+    spawn_point->radius = component_data.radius;
+    spawn_point->interval = component_data.interval;
+    spawn_point->properties = component_data.properties;
+    spawn_point->enable_trigger = component_data.enable_trigger;
+    spawn_point->disable_trigger = component_data.disable_trigger;
 
-    SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
-    spawn_point = component_data;
-
-    SpawnPointInternalData& internal_data = m_spawn_points_internal[entity_id];
-
-    if(spawn_point.enable_trigger != 0)
+    if(spawn_point->enable_trigger != 0)
     {
-        const game::TriggerCallback enable_callback = [&internal_data](uint32_t entity_id) {
-            internal_data.active = true;
+        const game::TriggerCallback enable_callback = [spawn_point](uint32_t entity_id) {
+            spawn_point->active = true;
         };
-        internal_data.enable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.enable_trigger, enable_callback, entity_id);
+        spawn_point->enable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point->enable_trigger, enable_callback, entity_id);
     }
 
-    if(spawn_point.disable_trigger != 0)
+    if(spawn_point->disable_trigger != 0)
     {
-        const game::TriggerCallback disable_callback = [&internal_data](uint32_t entity_id) {
-            internal_data.active = false;
+        const game::TriggerCallback disable_callback = [spawn_point](uint32_t entity_id) {
+            spawn_point->active = false;
         };
-        internal_data.disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point.disable_trigger, disable_callback, entity_id);
+        spawn_point->disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point->disable_trigger, disable_callback, entity_id);
     }
 
-    internal_data.active = false;
+    spawn_point->active = false;
+}
+
+SpawnSystem::EntitySpawnPointComponent* SpawnSystem::AllocateEntitySpawnPoint(uint32_t entity_id)
+{
+    EntitySpawnPointComponent* allocated_component = m_entity_spawn_points.Set(entity_id, EntitySpawnPointComponent());
+    allocated_component->entity_id = entity_id;
+
+    return allocated_component;
+}
+
+void SpawnSystem::ReleaseEntitySpawnPoint(uint32_t entity_id)
+{
+    EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
+    if(component->callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
+
+    m_entity_spawn_points.Release(entity_id);
+}
+
+void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger)
+{
+    EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
+    component->entity_file = entity_file;
+    component->radius = spawn_radius;
+    component->spawn_trigger = spawn_trigger;
+
+    if(component->callback_id != 0)
+        m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
+
+    if(component->spawn_trigger != 0)
+    {
+        const game::TriggerCallback enable_callback = [this, component](uint32_t entity_id) {
+            printf("spawn spawn!\n");
+
+            const bool is_added = mono::contains(m_active_entity_spawn_points, component);
+            if(!is_added)
+                m_active_entity_spawn_points.push_back(component);
+        };
+        component->callback_id = m_trigger_system->RegisterTriggerCallback(component->spawn_trigger, enable_callback, entity_id);
+    }
 }
 
 const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
@@ -126,59 +159,83 @@ const char* SpawnSystem::Name() const
 
 void SpawnSystem::Update(const mono::UpdateContext& update_context)
 {
-    for(uint32_t index = 0; index < m_alive.size(); ++index)
-    {
-        if(!m_alive[index])
-            continue;
+    const auto collect_spawn_points = [&](uint32_t entity_id, SpawnPointComponent& spawn_point) {
+        if(!spawn_point.active)
+            return;
 
-        SpawnPointInternalData& internal_data = m_spawn_points_internal[index];
-        if(!internal_data.active)
-            continue;
-
-        SpawnPointComponent& spawn_point = m_spawn_points[index];
-
-        internal_data.counter += update_context.delta_ms;
-        if(internal_data.counter < spawn_point.interval)
-            continue;
+        spawn_point.counter += update_context.delta_ms;
+        if(spawn_point.counter < spawn_point.interval)
+            return;
 
         const float random_length = mono::Random(0.0f, spawn_point.radius);
         const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
 
-        math::Matrix world_transform = m_transform_system->GetWorld(index);
+        math::Matrix world_transform = m_transform_system->GetWorld(entity_id);
         math::Translate(world_transform, random_vector);
 
         SpawnEvent spawn_event;
-        spawn_event.spawner_id = index;
+        spawn_event.spawn_score = spawn_point.spawn_score;
+        spawn_event.spawner_id = entity_id;
         spawn_event.spawned_entity_id = 0;
         spawn_event.transform = world_transform;
         spawn_event.timestamp_to_spawn = update_context.timestamp + spawn_delay_time_ms;
         m_spawn_events.push_back(spawn_event);
 
-        internal_data.counter = 0;
+        spawn_point.counter = 0;
+    };
+
+    m_spawn_points.ForEach(collect_spawn_points);
+
+    for(const EntitySpawnPointComponent* spawn_point : m_active_entity_spawn_points)
+    {
+        const float random_length = mono::Random(0.0f, spawn_point->radius);
+        const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
+
+        math::Matrix world_transform = m_transform_system->GetWorld(spawn_point->entity_id);
+        math::Translate(world_transform, random_vector);
+
+        SpawnEvent spawn_event;
+        spawn_event.spawner_id = spawn_point->entity_id;
+        spawn_event.spawned_entity_id = 0;
+        spawn_event.transform = world_transform;
+        spawn_event.timestamp_to_spawn = update_context.timestamp + spawn_delay_time_ms;
+
+        spawn_event.entity_file = spawn_point->entity_file;
+        spawn_event.spawn_score = 0;
+
+        m_spawn_events.push_back(spawn_event);
     }
 
     for(SpawnEvent& spawn_event : m_spawn_events)
     {
-        // From spawn_score, lookup some entities to spawn. 
-        //spawn_point.spawn_score;
-
         const bool time_to_spawn = (spawn_event.timestamp_to_spawn < update_context.timestamp);
         if(!time_to_spawn)
             continue;
 
-        struct FindByValue
+        SpawnDefinition spawn_definition;
+        spawn_definition.entity_file = spawn_event.entity_file;
+        spawn_definition.value = spawn_event.spawn_score;
+
+        if(spawn_definition.entity_file.empty())
         {
-            bool operator() (const SpawnDefinition& spawn_def, int i) const { return spawn_def.value < i; }
-            bool operator() (int i, const SpawnDefinition& spawn_def) const { return i < spawn_def.value; }
-        };
+            // From spawn_score, lookup some entities to spawn. 
+            //spawn_point.spawn_score;
 
-        const auto pair_it = mono::equal_range(m_spawn_definitions.begin(), m_spawn_definitions.end(), 1, FindByValue());
+            struct FindByValue
+            {
+                bool operator() (const SpawnDefinition& spawn_def, int i) const { return spawn_def.value < i; }
+                bool operator() (int i, const SpawnDefinition& spawn_def) const { return i < spawn_def.value; }
+            };
 
-        const uint32_t offset_from_start = std::distance(m_spawn_definitions.begin(), pair_it.first);
-        const uint32_t range = std::distance(pair_it.first, pair_it.second);
-        const uint32_t spawn_def_index = mono::RandomInt(0, range - 1) + offset_from_start;
+            const auto pair_it = mono::equal_range(m_spawn_definitions.begin(), m_spawn_definitions.end(), 1, FindByValue());
 
-        const SpawnDefinition&  spawn_definition = m_spawn_definitions[spawn_def_index];
+            const uint32_t offset_from_start = std::distance(m_spawn_definitions.begin(), pair_it.first);
+            const uint32_t range = std::distance(pair_it.first, pair_it.second);
+            const uint32_t spawn_def_index = mono::RandomInt(0, range - 1) + offset_from_start;
+
+            spawn_definition = m_spawn_definitions[spawn_def_index];
+        }
+
         mono::Entity spawned_entity = m_entity_manager->CreateEntity(spawn_definition.entity_file.c_str());
 
         m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform);
@@ -190,9 +247,10 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
 
 void SpawnSystem::Sync()
 {
+    m_active_entity_spawn_points.clear();
+
     const auto remove_if_spawned = [](const SpawnEvent& spawn_event) {
         return (spawn_event.spawned_entity_id != 0);
     };
-
     mono::remove_if(m_spawn_events, remove_if_spawned);
 }

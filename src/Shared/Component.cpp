@@ -94,6 +94,7 @@ const DefaultAttribute default_attributes[] = {
     { "condition",              Variant(std::string()) },
     { "condition_state",        Variant(true) },
     { "offset",                 Variant(math::ZeroVec) },
+    { "entity_file",            Variant(std::string()) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -182,6 +183,7 @@ extern const uint32_t CONDITION_ATTRIBUTE               = default_attributes[66]
 extern const uint32_t CONDITION_STATE_ATTRIBUTE         = default_attributes[67].hash;
 
 extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
+extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[69].hash;
 
 
 
@@ -198,6 +200,7 @@ extern const uint32_t POLYGON_SHAPE_COMPONENT       = hash::Hash("polygon_shape"
 extern const uint32_t HEALTH_COMPONENT              = hash::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
+extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
 extern const uint32_t AREA_TRIGGER_COMPONENT        = hash::Hash("area_entity_trigger");
@@ -247,6 +250,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "entity_behaviour";
     else if(hash == SPAWN_POINT_COMPONENT)
         return "spawn_point";
+    else if(hash == ENTITY_SPAWN_POINT_COMPONENT)
+        return "entity_spawn_point";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
         return "shape_trigger";
     else if(hash == DESTROYED_TRIGGER_COMPONENT)
@@ -305,6 +310,7 @@ const Component default_components[] = {
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,     false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
