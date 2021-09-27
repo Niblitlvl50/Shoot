@@ -131,6 +131,14 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
     renderer.DrawLines({ math::ZeroVec, math::Vector(1.0f, 0.0f) }, mono::Color::BLUE, 3.0f);
 }
 
+void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    float radius = 1.0f;
+    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
+    renderer.DrawCircle(math::ZeroVec, radius, 8, 5.0f, mono::Color::BLUE);
+    renderer.DrawLines({ math::ZeroVec, math::Vector(1.0f, 0.0f) }, mono::Color::BLUE, 3.0f);
+}
+
 void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
