@@ -35,8 +35,6 @@
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
-#include "Component.h"
-//#include "WorldFile.h"
 
 using namespace game;
 
