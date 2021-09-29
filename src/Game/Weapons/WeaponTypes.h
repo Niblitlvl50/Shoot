@@ -2,6 +2,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 namespace game
 {
@@ -14,12 +15,12 @@ namespace game
     struct WeaponSetup
     {
         WeaponSetup()
-        {}
+        { }
 
         WeaponSetup(uint32_t weapon_hash, uint32_t bullet_hash)
             : weapon_hash(weapon_hash)
             , bullet_hash(bullet_hash)
-        {}
+        { }
 
         uint32_t weapon_hash;
         uint32_t bullet_hash;
@@ -28,19 +29,13 @@ namespace game
     extern const WeaponSetup GENERIC;
     extern const WeaponSetup PLASMA_GUN;
     extern const WeaponSetup FLAK_CANON;
+    extern const WeaponSetup FLAK_CANON_PLASMA;
     extern const WeaponSetup CACO_PLASMA;
     extern const WeaponSetup ROCKET_LAUNCHER;
     extern const WeaponSetup LASER_BLASTER;
 
     extern const WeaponSetup TURRET;
 
-
-    static const WeaponSetup g_weapon_list[] = {
-        GENERIC,
-        PLASMA_GUN,
-        FLAK_CANON,
-        CACO_PLASMA,
-        ROCKET_LAUNCHER,
-        LASER_BLASTER
-    };
+    std::vector<WeaponSetup> GetWeaponList();
+    std::vector<WeaponSetup> GetSupportWeaponList();
 }
