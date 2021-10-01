@@ -27,6 +27,8 @@
 #include "EntitySystem/IEntityManager.h"
 #include "WorldFile.h"
 
+#include "BackgroundMusic.h"
+
 using namespace game;
 
 namespace
@@ -93,11 +95,14 @@ void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::IEntityManager* entity_system = m_system_context->GetSystem<mono::IEntityManager>();
     m_sparkles = std::make_unique<ScreenSparkles>(
         particle_system, entity_system, camera->GetPosition(), camera->GetViewportSize());
+
+    game::PlayBackgroundMusic(game::RussianTrack);
 }
 
 int TitleScreen::OnUnload()
 {
     GameZone::OnUnload();
+    game::StopBackgroundMusic();
     return m_exit_zone;
 }
 

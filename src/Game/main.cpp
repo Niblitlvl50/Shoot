@@ -45,6 +45,7 @@
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/LoadEntity.h"
 #include "Component.h"
+#include "BackgroundMusic.h"
 
 #include <cassert>
 #include <cstring>
@@ -122,6 +123,7 @@ int main(int argc, char* argv[])
     game::PrintNetworkMessageSize();
 
     audio::Initialize();
+    game::InitializeBackgroundMusic();
 
     mono::PhysicsSystemInitParams physics_system_params;
     physics_system_params.n_bodies = max_entities;
@@ -200,6 +202,7 @@ int main(int argc, char* argv[])
     }
 
     mono::ShutdownRender();
+    game::ShutdownBackgroundMusic();
     audio::Shutdown();
 
     network::Shutdown();
