@@ -208,7 +208,8 @@ Editor::Editor(
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
     m_context.select_object_callback = [this](uint32_t entity_id) {
-        SetSelection({ entity_id });
+        const System::ModifierState& state = System::GetModifierState();
+        (state.ctrl) ? AddToSelection({ entity_id }) : SetSelection({ entity_id });
     };
     m_context.preselect_object_callback = std::bind(&Editor::PreselectProxyObject, this, _1);
     m_context.teleport_to_object_callback = [this](uint32_t entity_id) {
