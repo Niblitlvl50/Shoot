@@ -30,14 +30,25 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_player_logic->StopFire();
 
-    const bool secondary_fire = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::Y);
-    if(secondary_fire)
-        m_player_logic->SecondaryFire();
+    const bool a = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::A);
+    if(a)
+        m_player_logic->TriggerInteraction();
+
+    const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
+    const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
+    if(b)
+        m_event_handler->DispatchEvent(event::TimeScaleEvent(0.1f));
+    else if(b_changed)
+        m_event_handler->DispatchEvent(event::TimeScaleEvent(1.0f));
 
     const bool reload =
         System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::X);
     if(reload)
         m_player_logic->Reload(update_context.timestamp);
+
+    const bool blink = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::Y);
+    if(blink)
+        m_player_logic->Blink(math::Vector(m_state.left_x, m_state.left_y));
 
     const bool left_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT_SHOULDER);
     const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
@@ -60,13 +71,6 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_player_logic->SetAimDirection(aim_direction);
     }
 
-    const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
-    const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
-    if(b)
-        m_event_handler->DispatchEvent(event::TimeScaleEvent(0.1f));
-    else if(b_changed)
-        m_event_handler->DispatchEvent(event::TimeScaleEvent(1.0f));
-
     const bool left_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT);
     const bool right_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT);
     const bool up_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::UP);
@@ -74,23 +78,19 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 
     if(left_triggered || right_triggered || up_triggered || down_triggered)
     {
-        BlinkDirection direction;
+        ItemSlotIndex slot_index;
 
         if(left_triggered)
-            direction = BlinkDirection::LEFT;
+            slot_index = ItemSlotIndex::LEFT;
         else if(right_triggered)
-            direction = BlinkDirection::RIGHT;
+            slot_index = ItemSlotIndex::RIGHT;
         else if(up_triggered)
-            direction = BlinkDirection::UP;
+            slot_index = ItemSlotIndex::UP;
         else
-            direction = BlinkDirection::DOWN;
+            slot_index = ItemSlotIndex::DOWN;
 
-        m_player_logic->Blink(direction);
+        m_player_logic->UseItemSlot(slot_index);
     }
-
-    const bool a = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::A);
-    if(a)
-        m_player_logic->TriggerInteraction();
 
     m_last_state = m_state;
 }

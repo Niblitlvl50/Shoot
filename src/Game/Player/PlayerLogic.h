@@ -19,7 +19,7 @@ namespace game
 {
     struct PlayerInfo;
 
-    enum class BlinkDirection
+    enum ItemSlotIndex
     {
         LEFT,
         RIGHT,
@@ -45,9 +45,9 @@ namespace game
 
         void Fire();
         void StopFire();
-        void Reload(uint32_t);
-
-        void SecondaryFire();
+        void Reload(uint32_t timestamp);
+        void UseItemSlot(ItemSlotIndex slot_index);
+        void HandlePickup(shared::PickupType type, int amount);
 
         void TriggerInteraction();
 
@@ -62,7 +62,7 @@ namespace game
         void ResetForces();
 
         void SetAimDirection(float aim_direction);
-        void Blink(BlinkDirection direction);
+        void Blink(const math::Vector& direction);
 
         void ToDefault();
         void DefaultState(const mono::UpdateContext& update_context);
@@ -91,18 +91,16 @@ namespace game
         uint32_t m_weapon_entity;
 
         bool m_fire;
-        bool m_secondary_fire;
         int m_total_ammo_left;
         WeaponSetup m_weapon_type;
         IWeaponPtr m_weapon;
-        IWeaponPtr m_secondary_weapon;
         float m_aim_direction;
 
         int m_idle_anim_id;
         int m_run_anim_id;
 
         uint32_t m_blink_counter;
-        BlinkDirection m_blink_direction;
+        math::Vector m_blink_direction;
 
         std::unique_ptr<class TrailEffect> m_trail_effect;
         std::unique_ptr<class BlinkEffect> m_blink_effect;
@@ -113,7 +111,12 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
         mono::IEntityManager* m_entity_system;
+        class DamageSystem* m_damage_system;
         class PickupSystem* m_pickup_system;
         class InteractionSystem* m_interaction_system;
+
+        struct ItemSlot
+        {};
+        ItemSlot m_item_slots[4];
     };
 }

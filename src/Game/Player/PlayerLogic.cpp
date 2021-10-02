@@ -45,7 +45,6 @@ PlayerLogic::PlayerLogic(
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
     , m_fire(false)
-    , m_secondary_fire(false)
     , m_total_ammo_left(500)
     , m_aim_direction(0.0f)
 {
@@ -53,6 +52,7 @@ PlayerLogic::PlayerLogic(
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
+    m_damage_system = system_context->GetSystem<DamageSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
 
@@ -60,33 +60,9 @@ PlayerLogic::PlayerLogic(
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = sprite->GetAnimationIdFromName("run");
 
-    DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
-
-    const PickupCallback pickup_callback = [this, damage_system](shared::PickupType type, int amount) {
-        switch(type)
-        {
-        case shared::PickupType::AMMO:
-            m_total_ammo_left += amount;
-            break;
-        case shared::PickupType::HEALTH:
-        {
-            DamageRecord* record = damage_system->GetDamageRecord(m_entity_id);
-            record->health += amount;
-            break;
-        }
-        case shared::PickupType::SCORE:
-            m_player_info->score += amount;
-            break;
-
-        case shared::PickupType::WEAPON_PISOL:
-        case shared::PickupType::WEAPON_PLASMA:
-        case shared::PickupType::WEAPON_SHOTGUN:
-            HandleWeaponPickup(type);
-            break;
-        };
-    };
-
-    m_pickup_system->RegisterPickupTarget(m_entity_id, pickup_callback);
+    using namespace std::placeholders;
+    game::PickupCallback handle_pickups = std::bind(&PlayerLogic::HandlePickup, this, _1, _2);
+    m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_blink_effect = std::make_unique<BlinkEffect>(particle_system, m_entity_system);
@@ -99,7 +75,6 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(game::PLASMA_GUN);
-    SelectSecondaryWeapon(game::ROCKET_LAUNCHER);
     SetAimDirection(math::PI_2());
 
     const PlayerStateMachine::StateTable state_table = {
@@ -167,13 +142,6 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
         m_player_info->weapon_state = m_weapon->Fire(position + offset, m_aim_direction, update_context.timestamp);
     }
 
-    if(m_secondary_fire)
-    {
-        const math::Vector target = position + math::VectorFromAngle(m_aim_direction) * 2.0f;
-        m_secondary_weapon->Fire(position, target, update_context.timestamp);
-        m_secondary_fire = false;
-    }
-
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
 
     m_player_info->position = position;
@@ -226,25 +194,10 @@ void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
     if(m_blink_counter >= tweak_values::blink_duration_ms)
     {
         mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-        math::Vector new_position = body->GetPosition();
 
-        switch(m_blink_direction)
-        {
-        case BlinkDirection::LEFT:
-            new_position.x -= tweak_values::blink_distance;
-            break;
-        case BlinkDirection::RIGHT:
-            new_position.x += tweak_values::blink_distance;
-            break;
-        case BlinkDirection::UP:
-            new_position.y += tweak_values::blink_distance;
-            break;
-        case BlinkDirection::DOWN:
-            new_position.y -= tweak_values::blink_distance;
-            break;
-        }
-
+        const math::Vector new_position = body->GetPosition() + (m_blink_direction * tweak_values::blink_distance);
         body->SetPosition(new_position);
+
         m_blink_effect->EmitBlinkBackAt(new_position);
         m_state.TransitionTo(PlayerStates::DEFAULT);
     }
@@ -271,12 +224,36 @@ void PlayerLogic::Reload(uint32_t timestamp)
     */
 
     m_weapon->Reload(timestamp);
-    m_secondary_weapon->Reload(timestamp);
 }
 
-void PlayerLogic::SecondaryFire()
+void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 {
-    m_secondary_fire = true;
+    ItemSlot& item_slot = m_item_slots[slot_index];
+}
+
+void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
+{
+    switch(type)
+    {
+    case shared::PickupType::AMMO:
+        m_total_ammo_left += amount;
+        break;
+    case shared::PickupType::HEALTH:
+    {
+        DamageRecord* record = m_damage_system->GetDamageRecord(m_entity_id);
+        record->health += amount;
+        break;
+    }
+    case shared::PickupType::SCORE:
+        m_player_info->score += amount;
+        break;
+
+    case shared::PickupType::WEAPON_PISOL:
+    case shared::PickupType::WEAPON_PLASMA:
+    case shared::PickupType::WEAPON_SHOTGUN:
+        HandleWeaponPickup(type);
+        break;
+    };
 }
 
 void PlayerLogic::TriggerInteraction()
@@ -288,11 +265,6 @@ void PlayerLogic::SelectWeapon(WeaponSetup weapon)
 {
     m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
     m_weapon_type = weapon;
-}
-
-void PlayerLogic::SelectSecondaryWeapon(WeaponSetup weapon)
-{
-    m_secondary_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
 }
 
 void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
@@ -349,8 +321,7 @@ void PlayerLogic::ApplyImpulse(const math::Vector& force)
 
 void PlayerLogic::ApplyForce(const math::Vector& force)
 {
-    const float multiplier = (m_fire || m_secondary_fire) ? 0.5f : 1.0;
-
+    const float multiplier = m_fire ? 0.5f : 1.0;
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     body->ApplyLocalForce(force * multiplier, math::ZeroVec);
 }
@@ -387,7 +358,7 @@ void PlayerLogic::SetAimDirection(float aim_direction)
         math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f));
 }
 
-void PlayerLogic::Blink(BlinkDirection direction)
+void PlayerLogic::Blink(const math::Vector& direction)
 {
     m_blink_direction = direction;
     m_state.TransitionTo(PlayerStates::BLINK);
