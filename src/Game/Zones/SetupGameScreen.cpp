@@ -105,8 +105,8 @@ int SetupGameScreen::OnUnload()
 void SetupGameScreen::Continue()
 {
     //m_exit_zone = TEST_ZONE;
-    //m_exit_zone = TINY_ARENA_ZONE;
-    m_exit_zone = ENEMY_TESTBED_ZONE;
+    m_exit_zone = TINY_ARENA_ZONE;
+    //m_exit_zone = ENEMY_TESTBED_ZONE;
     m_event_handler.DispatchEvent(event::QuitEvent());
 }
 

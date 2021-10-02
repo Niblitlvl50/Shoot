@@ -27,35 +27,35 @@
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 1707,
+            "x": 1950,
             "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_3",
             "w": 11,
-            "x": 1234,
+            "x": 1181,
             "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_4",
             "w": 11,
-            "x": 1181,
+            "x": 1234,
             "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_5",
             "w": 10,
-            "x": 1249,
+            "x": 1263,
             "y": 432
         },
         {
             "h": 10,
             "name": "small_explosion_default_6",
             "w": 11,
-            "x": 685,
+            "x": 586,
             "y": 432
         },
         {

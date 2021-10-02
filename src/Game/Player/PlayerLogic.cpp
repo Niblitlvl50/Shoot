@@ -279,13 +279,9 @@ void PlayerLogic::SecondaryFire()
     m_secondary_fire = true;
 }
 
-#include "System/System.h"
-
 void PlayerLogic::TriggerInteraction()
 {
     m_interaction_system->TryTriggerInteraction(m_entity_id);
-
-    System::PlayRumble(System::ControllerId(m_controller_id), 0.5f, 1000);
 }
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)
@@ -379,26 +375,16 @@ void PlayerLogic::SetAimDirection(float aim_direction)
     m_aim_direction = aim_direction;
 
     mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity);
-    sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-
-    float weapon_offset = 0.0f;
     if(aim_direction < math::PI())
-    {
         sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
-        weapon_offset = 0.05f;
-    }
     else
-    {
         sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
-        weapon_offset = -0.05f;
-    }
 
     math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
     weapon_transform =
-        math::CreateMatrixWithPosition(math::Vector(weapon_offset, -0.1f)) *
+        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
         math::CreateMatrixFromZRotation(aim_direction + math::PI_2()) *
-        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f)) *
-        math::CreateMatrixWithScale(math::Vector(0.3f, 0.3f));
+        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f));
 }
 
 void PlayerLogic::Blink(BlinkDirection direction)

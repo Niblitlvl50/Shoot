@@ -49,7 +49,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "bolter.sprite"
+                            "variant_value": "sg2.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -138,9 +138,20 @@
             "x": 0.0,
             "y": 0.0
         },
+        "conditions": [],
+        "navmesh_density": 1778558959616.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "triggers": []
     }
 }

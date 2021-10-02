@@ -12566,7 +12566,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -12774,7 +12774,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
