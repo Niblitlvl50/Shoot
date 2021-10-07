@@ -29,6 +29,11 @@ void HomingBehaviour::SetBody(mono::IBody* body)
     m_current_heading = m_body->GetAngle();
 }
 
+void HomingBehaviour::SetHeading(float heading)
+{
+    m_current_heading = heading;
+}
+
 void HomingBehaviour::SetTargetPosition(const math::Vector& position)
 {
     m_target_position = position;

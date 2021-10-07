@@ -130,8 +130,15 @@ void BlackSquareController::SleepState(const mono::UpdateContext& update_context
 
 void BlackSquareController::ToAwake()
 {
-    m_sprite->SetShade(mono::Color::WHITE);
     m_awake_state_timer = 0;
+
+    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
+
+    const math::Vector delta = (entity_position - player_info->position);
+    const float angle = math::AngleFromVector(delta);
+
+    m_homing_behaviour.SetHeading(angle);
 }
 
 void BlackSquareController::AwakeState(const mono::UpdateContext& update_context)

@@ -38,9 +38,9 @@ namespace
 
         using namespace mono::Color;
 
-        component_view.gradient = MakeGradient<3>(
-            { 0.0f, 0.5f, 1.0f },
-            { RGBA(1.0f, 1.0f, 0.0f, 0.0f), RGBA(0.0f, 1.0f, 0.0f, 1.0f), RGBA(0.0f, 1.0f, 0.0f, 0.0f) }
+        component_view.gradient = MakeGradient<4>(
+            { 0.0f, 0.5f, 1.0f, 1.0f },
+            { RGBA(1.0f, 1.0f, 0.0f, 0.0f), RGBA(0.0f, 1.0f, 0.0f, 1.0f), RGBA(0.0f, 1.0f, 0.0f, 0.0f), RGBA() }
         );
         component_view.start_size = mono::Random(158.0f, 176.0f);
         component_view.end_size = mono::Random(2.0f, 6.0f);

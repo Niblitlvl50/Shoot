@@ -66,6 +66,13 @@
             "problemMatcher": []
         },
         {
+            "label": "mono test",
+            "type": "process",
+            "command": "./bin/unittest",
+            "args": [],
+            "problemMatcher": []
+        },
+        {
             "label": "editor",
             "type": "process",
             "command": "./bin/editor.app/Contents/MacOS/editor",

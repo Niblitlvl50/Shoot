@@ -13944,9 +13944,9 @@
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.18137070536613464,
-            "green": 0.18137070536613464,
-            "red": 0.1813725233078003
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
         },
         "background_color": {
             "alpha": 1.0,

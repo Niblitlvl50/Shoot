@@ -8,6 +8,10 @@
 
 #include <memory>
 
+
+
+#include "Effects/SmokeEffect.h"
+
 class ImGuiInputHandler;
 
 namespace game
@@ -22,7 +26,7 @@ namespace game
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
-    private:
+    protected:
 
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
@@ -56,6 +60,11 @@ namespace game
         TinyArenaZone(const ZoneCreationContext& context)
             : SystemTestZone(context, "res/worlds/tiny_arena.components")
         { }
+
+        void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
+    private:
+        std::unique_ptr<class SmokePillarEffect> m_smoke_pillar;
+        std::unique_ptr<class SmokePillarEffect> m_smoke_pillar_2;
     };
 
     class EnemyTestbedZone : public SystemTestZone

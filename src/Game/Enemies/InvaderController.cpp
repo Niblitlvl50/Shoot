@@ -29,6 +29,7 @@ namespace tweak_values
     constexpr uint32_t idle_time = 2000;
     constexpr float attack_distance = 3.0f;
     constexpr float max_attack_distance = 5.0f;
+    constexpr float track_to_player_distance = 7.0f;
 }
 
 using namespace game;
@@ -60,9 +61,31 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
 InvaderController::~InvaderController()
 { }
 
+#include "IDebugDrawer.h"
+#include "Factories.h"
+
 void InvaderController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+
+    std::string state_text;
+
+    InvaderStates current_state = m_states.ActiveState();
+    if(current_state == InvaderStates::IDLE)
+    {
+        state_text = "Idle";
+    }
+    else if(current_state == InvaderStates::TRACKING)
+    {
+        state_text = "Tracking";
+    }
+    else
+    {
+        state_text = "Attacking";
+    }
+
+    const math::Vector world_position = math::GetPosition(*m_transform);
+    g_debug_drawer->DrawWorldText(state_text.c_str(), world_position, mono::Color::RED);
 }
 
 void InvaderController::ToIdle()
@@ -84,8 +107,10 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
         const float distance_to_player = math::DistanceBetween(position, player_info->position);
         if(distance_to_player < tweak_values::attack_distance)
             m_states.TransitionTo(InvaderStates::ATTACKING);
-        else if(distance_to_player > 1.0f && distance_to_player < 7.0f)
+        else if(distance_to_player > tweak_values::attack_distance && distance_to_player < tweak_values::track_to_player_distance)
             m_states.TransitionTo(InvaderStates::TRACKING);
+        else
+            m_idle_timer = 0;
     }
 }
 
@@ -113,7 +138,8 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
     if(distance_to_player < tweak_values::attack_distance)
     {
         mono::PhysicsSpace* space = m_physics_system->GetSpace();
-        const mono::QueryResult query_result = space->QueryFirst(position, player_info->position, shared::CollisionCategory::ALL);
+        const uint32_t query_category = shared::CollisionCategory::PLAYER | shared::CollisionCategory::STATIC;
+        const mono::QueryResult query_result = space->QueryFirst(position, player_info->position, query_category);
         if(query_result.body)
         {
             const bool is_player = (query_result.collision_category & shared::CollisionCategory::PLAYER);
@@ -149,6 +175,8 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
         m_states.TransitionTo(InvaderStates::IDLE);
         return;
     }
+
+    // Attack anticipation here
 
     const float angle = math::AngleBetweenPoints(player_info->position, position) + math::PI_2();
     m_weapon->Fire(position, angle, update_context.timestamp);

@@ -29,9 +29,11 @@ namespace
         //pool.rotation[index] = mono::Random(0.0f, math::PI() * 2.0f);
         //pool.angular_velocity[index] = angular_velocity;
 
-        pool.gradient = mono::Color::MakeGradient<3>(
-            { 0.0f, 0.5f, 1.0f },
-            { mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.0f), mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.25f), mono::Color::RGBA(1.0f, 1.0f, 0.0f, 0.0f) }
+        using namespace mono::Color;
+
+        pool.gradient = mono::Color::MakeGradient<4>(
+            { 0.0f, 0.5f, 1.0f, 1.0f },
+            { RGBA(1.0f, 1.0f, 0.0f, 0.0f), RGBA(1.0f, 1.0f, 0.0f, 0.25f), RGBA(1.0f, 1.0f, 0.0f, 0.0f), RGBA() }
         );
 
         pool.start_size = 64.0f;

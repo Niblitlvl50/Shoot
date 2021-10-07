@@ -21,7 +21,10 @@ namespace game
         HomingBehaviour(mono::IBody* body);
 
         void SetBody(mono::IBody* body);
+        
+        void SetHeading(float heading);
         void SetTargetPosition(const math::Vector& position);
+
         void SetForwardVelocity(float velocity);
         void SetAngularVelocity(float degrees_per_second);
 

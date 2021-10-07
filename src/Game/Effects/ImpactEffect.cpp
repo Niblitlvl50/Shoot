@@ -31,9 +31,11 @@ namespace
         component_view.rotation = 0.0f;
         component_view.angular_velocity = 10.0f;
 
-        component_view.gradient = mono::Color::MakeGradient<3>(
-            { 0.0f, 1.0f, 1.0f },
-            { mono::Color::BLACK, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f), mono::Color::RGBA() }
+        using namespace mono::Color;
+
+        component_view.gradient = mono::Color::MakeGradient<4>(
+            { 0.0f, 1.0f, 1.0f, 1.0f },
+            { BLACK, RGBA(0.0f, 0.0f, 0.0f, 0.0f), RGBA(), RGBA() }
         );
 
         component_view.size = size;

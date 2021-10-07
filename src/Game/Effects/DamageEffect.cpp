@@ -26,9 +26,9 @@ namespace
         component_view.rotation = 0.0f;
 
         component_view.color = mono::Color::OFF_WHITE;
-        component_view.gradient = mono::Color::MakeGradient<3>(
-            { 0.0f, 1.0f, 1.0f},
-            { component_view.color, mono::Color::RGBA(0.9f, 0.9f, 0.9f, 0.5f), mono::Color::RGBA() }
+        component_view.gradient = mono::Color::MakeGradient<4>(
+            { 0.0f, 1.0f, 1.0f, 1.0f },
+            { component_view.color, mono::Color::RGBA(0.9f, 0.9f, 0.9f, 0.5f), mono::Color::RGBA(), mono::Color::RGBA() }
         );
 
         constexpr float size = 32.0f;

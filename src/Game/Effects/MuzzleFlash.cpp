@@ -29,9 +29,9 @@ namespace
         component_view.rotation = 0.0f;
         component_view.velocity = velocity * velocity_variation;
 
-        component_view.gradient = mono::Color::MakeGradient<3>(
-            { 0.0f, 1.0f, 1.0f },
-            { mono::Color::RGBA(1.0f, 0.8f, 0.0f, 1.0f), mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f), mono::Color::RGBA() }
+        component_view.gradient = mono::Color::MakeGradient<4>(
+            { 0.0f, 1.0f, 1.0f, 1.0f },
+            { mono::Color::RGBA(1.0f, 0.8f, 0.0f, 1.0f), mono::Color::RGBA(0.5f, 0.1f, 0.0f, 0.0f), mono::Color::RGBA(), mono::Color::RGBA() }
         );
 
         component_view.start_size = size;
@@ -41,30 +41,25 @@ namespace
         component_view.life = life;
     }
 
-    void GibsUpdater(mono::ParticlePoolComponent& pool, size_t count, uint32_t delta_ms)
+    void GibsUpdater(mono::ParticlePoolComponentView& component_view, float delta_s)
     {
-        const float float_delta = float(delta_ms) / 1000.0f;
+        const float t = 1.0f - float(component_view.life) / float(component_view.start_life);
+        //const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
+        //const float duration = float(pool.start_life[index]); // / 1000.0f;
 
-        for(size_t index = 0; index < count; ++index)
-        {
-            const float t = 1.0f - float(pool.life[index]) / float(pool.start_life[index]);
-            //const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
-            //const float duration = float(pool.start_life[index]); // / 1000.0f;
+        component_view.velocity *= 0.90;
+        component_view.position += component_view.velocity * delta_s;
+        //pool.m_size[index] = pool.m_start_size[index];
 
-            pool.velocity[index] *= 0.90;
-            pool.position[index] += pool.velocity[index] * float_delta;
-            //pool.m_size[index] = pool.m_start_size[index];
+        component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);
 
-            pool.color[index] = mono::Color::ColorFromGradient(pool.gradient[index], t);
-
-            /*
-            const float alpha1 = pool.start_color[index].alpha;
-            const float alpha2 = pool.end_color[index].alpha;
-            pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-            pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
-            */
-        }
-    }    
+        /*
+        const float alpha1 = pool.start_color[index].alpha;
+        const float alpha2 = pool.end_color[index].alpha;
+        pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
+        pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
+        */
+    }
 }
 
 MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
