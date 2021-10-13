@@ -14,7 +14,8 @@ namespace game
     void InitWeaponCallbacks(mono::SystemContext* system_context);
     void CleanupWeaponCallbacks();
 
-    void SpawnEntityWithAnimation(
+    // Returns the spawned entities id
+    uint32_t SpawnEntityWithAnimation(
         const char* entity_file,
         int animation_id,
         uint32_t position_at_transform_id,

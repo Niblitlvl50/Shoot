@@ -16,6 +16,7 @@ namespace game
     {
         IDLE,
         TRACKING,
+        ATTACK_ANTICIPATION,
         ATTACKING
     };
 
@@ -36,20 +37,27 @@ namespace game
         void ToTracking();
         void Tracking(const mono::UpdateContext& update_context);
 
+        void ToAttackAnticipation();
+        void AttackAnticipation(const mono::UpdateContext& update_context);
+
         void ToAttacking();
         void Attacking(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
 
-        IWeaponPtr m_weapon;
+        mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_manager;
+
+        IWeaponPtr m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         uint32_t m_idle_timer;
         using InvaderStateMachine = StateMachine<InvaderStates, const mono::UpdateContext&>;
         InvaderStateMachine m_states;
 
-        mono::ISprite* m_sprite;
-        math::Matrix* m_transform;
+        math::Vector m_attack_target;
+        int m_bullets_fired;
     };
 }

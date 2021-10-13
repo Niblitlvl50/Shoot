@@ -99,7 +99,10 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     const uint32_t modified_delta = delta * m_current_fire_rate;
 
     if(modified_delta < weapon_delta)
+    {
+        m_state = WeaponState::IDLE;
         return m_state;
+    }
 
     if(delta > weapon_delta)
         m_current_fire_rate = 1.0f;

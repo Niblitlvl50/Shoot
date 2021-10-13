@@ -65,7 +65,7 @@
             "fire_rate_multiplier": 1.0,
             "max_fire_rate": 1.0,
             "bullet_spread_degrees": 0.0,
-            "bullet_force": 10.0,
+            "bullet_force": 5.0,
             "bullet_force_random": false,
             "bullet_want_direction": false,
             "fire_sound": "",

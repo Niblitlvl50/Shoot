@@ -40,7 +40,7 @@ void game::CleanupWeaponCallbacks()
     g_impact_effect = nullptr;
 }
 
-void game::SpawnEntityWithAnimation(
+uint32_t game::SpawnEntityWithAnimation(
     const char* entity_file,
     int animation_id,
     uint32_t position_at_transform_id,
@@ -58,6 +58,8 @@ void game::SpawnEntityWithAnimation(
         entity_manager->ReleaseEntity(spawned_entity.id);
     };
     spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
+
+    return spawned_entity.id;
 }
 
 void game::StandardCollision(
