@@ -62,35 +62,9 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
 InvaderController::~InvaderController()
 { }
 
-#include "IDebugDrawer.h"
-#include "Factories.h"
-
 void InvaderController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
-
-    std::string state_text;
-
-    InvaderStates current_state = m_states.ActiveState();
-    if(current_state == InvaderStates::IDLE)
-    {
-        state_text = "Idle";
-    }
-    else if(current_state == InvaderStates::TRACKING)
-    {
-        state_text = "Tracking";
-    }
-    else if(current_state == InvaderStates::ATTACK_ANTICIPATION)
-    {
-        state_text = "Attack Anticipation";
-    }
-    else
-    {
-        state_text = "Attacking";
-    }
-
-    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
-    g_debug_drawer->DrawWorldText(state_text.c_str(), position, mono::Color::RED);
 }
 
 void InvaderController::ToIdle()
@@ -180,7 +154,7 @@ void InvaderController::ToAttackAnticipation()
         return;
     }
 
-    m_attack_target = player_info->position;
+    m_attack_target = player_info;
 
     const uint32_t spawned_entity = game::SpawnEntityWithAnimation(
         "res/entities/explosion_small.entity", 0, m_entity_id, m_entity_manager, m_transform_system, m_sprite_system);
@@ -204,7 +178,7 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
     if(m_bullets_fired < tweak_values::bullets_to_emit)
     {
         const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
-        const float angle = math::AngleBetweenPoints(m_attack_target, position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(m_attack_target->position, position) + math::PI_2();
         const game::WeaponState fire_state = m_weapon->Fire(position, angle, update_context.timestamp);
         if(fire_state == game::WeaponState::FIRE)
             m_bullets_fired++;

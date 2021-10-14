@@ -57,7 +57,7 @@ namespace game
         using InvaderStateMachine = StateMachine<InvaderStates, const mono::UpdateContext&>;
         InvaderStateMachine m_states;
 
-        math::Vector m_attack_target;
+        const struct PlayerInfo* m_attack_target;
         int m_bullets_fired;
     };
 }
