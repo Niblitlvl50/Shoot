@@ -95,6 +95,10 @@ const DefaultAttribute default_attributes[] = {
     { "condition_state",        Variant(true) },
     { "offset",                 Variant(math::ZeroVec) },
     { "entity_file",            Variant(std::string()) },
+    { "pool_size",              Variant(10) },
+    { "blend_mode",             Variant(0) },
+    { "emit_rate",              Variant(1.0f) },
+    { "emitter_type",           Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -184,7 +188,10 @@ extern const uint32_t CONDITION_STATE_ATTRIBUTE         = default_attributes[67]
 
 extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
 extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[69].hash;
-
+extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[70].hash;
+extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[71].hash;
+extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[72].hash;
+extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[73].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -220,6 +227,8 @@ extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
 extern const uint32_t SET_CONDITION_COMPONENT       = hash::Hash("set_condition");
+extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
+extern const uint32_t PARTICLE_EMITTER_COMPONENT    = hash::Hash("partile_emitter");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -290,6 +299,10 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "dialog";
     else if(hash == SET_CONDITION_COMPONENT)
         return "set_condition";
+    else if(hash == PARTICLE_SYSTEM_COMPONENT)
+        return "particle_system";
+    else if(hash == PARTICLE_EMITTER_COMPONENT)
+        return "particle_emitter";
 
     return "Unknown";
 }
@@ -305,38 +318,40 @@ Component MakeComponent(
 }
 
 const Component default_components[] = {
-    MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,     false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE }),
-    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,     false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
-    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,     false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
-    MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,  false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,     false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
-    MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,     false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
-    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
-    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,     false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
-    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,     false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
-    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
-    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
-    MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,     false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
-    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,     false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
-    MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,     false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
-    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,     false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
-    MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
-    MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
-    MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
-    MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,  true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
-    MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE }),
-    MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
-    MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
-    MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
-    MakeComponent(SET_CONDITION_COMPONENT,      NULL_COMPONENT,     false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, CONDITION_ATTRIBUTE, CONDITION_STATE_ATTRIBUTE }),
-    MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,   true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
-    MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,     true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
-    MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,     true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
-    MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
-    MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
-    MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,     false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
-    MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,     false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
+    MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE }),
+    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
+    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, SCORE_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
+    MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
+    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
+    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
+    MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
+    MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
+    MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
+    MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
+    MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
+    MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE }),
+    MakeComponent(PARTICLE_EMITTER_COMPONENT,   PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE }),
+    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
+    MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
+    MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
+    MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
+    MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
+    MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE }),
+    MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
+    MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
+    MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
+    MakeComponent(SET_CONDITION_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, CONDITION_ATTRIBUTE, CONDITION_STATE_ATTRIBUTE }),
+    MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
+    MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
+    MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
+    MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
+    MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
+    MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

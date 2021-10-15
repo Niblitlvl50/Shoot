@@ -8399,7 +8399,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -2.0500640869140625,
-                                "y": -8.529003143310547
+                                "y": -8.614896774291992
                             }
                         },
                         {
@@ -16670,6 +16670,101 @@
             "folder": "",
             "name": "grass_tiny_2",
             "uuid_hash": 3025209803
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "particle_system"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.3374924659729,
+                                "y": -4.893746376037598
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2943553953,
+                    "name": "particle_system",
+                    "properties": [
+                        {
+                            "id": 4183502093,
+                            "name": "pool_size",
+                            "variant_type": 1,
+                            "variant_value": 50
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/white_square.png"
+                        },
+                        {
+                            "id": 3513758418,
+                            "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 410729569,
+                    "name": "particle_emitter",
+                    "properties": [
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": -1.0
+                        },
+                        {
+                            "id": 1259388949,
+                            "name": "emit_rate",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 481665254,
+                            "name": "emitter_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "particle_system",
+            "uuid_hash": 1811560961
         }
     ],
     "metadata": {

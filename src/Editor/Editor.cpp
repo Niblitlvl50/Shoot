@@ -17,6 +17,8 @@
 
 #include "RoadSystem/RoadSystem.h"
 #include "RoadSystem/RoadBatchDrawer.h"
+#include "Particle/ParticleSystem.h"
+#include "Particle/ParticleSystemDrawer.h"
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
@@ -281,6 +283,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
     mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context.GetSystem<mono::RoadSystem>();
+    mono::ParticleSystem* particle_system = m_system_context.GetSystem<mono::ParticleSystem>();
 
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
@@ -319,6 +322,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system), RenderLayer::PARTICLES);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
 
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);

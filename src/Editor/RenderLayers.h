@@ -7,6 +7,7 @@ namespace editor
     {
         BACKGROUND,
         OBJECTS,
+        PARTICLES,
         GRABBERS,
         UI,
     };
