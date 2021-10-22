@@ -20,6 +20,8 @@
 #include "Rendering/Sprite/SpriteData.h"
 #include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITexture.h"
+#include "Rendering/BlendMode.h"
+#include "Particle/ParticleSystem.h"
 #include "Paths/PathTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
@@ -95,6 +97,10 @@ bool DrawGenericProperty(const char* text, Variant& value)
         void operator()(std::vector<math::Vector>& value)
         {
             m_is_changed = editor::DrawPolygonProperty(m_property_text, value);
+        }
+        void operator()(math::Interval& value)
+        {
+            m_is_changed = ImGui::InputFloat2(m_property_text, &value.min);
         }
 
         bool WasPropertyChanged() const
@@ -359,6 +365,28 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
             attribute.value = all_entities[out_index];
         
         return changed;
+    }
+    else if(attribute.id == BLEND_MODE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = mono::BlendModeToString(mono::BlendMode(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::blend_mode_strings));
+    }
+    else if(attribute.id == EMITTER_TYPE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = mono::EmitterTypeToString(mono::EmitterType(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::emitter_type_strings));
     }
     else
     {

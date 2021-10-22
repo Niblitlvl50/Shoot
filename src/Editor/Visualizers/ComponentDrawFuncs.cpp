@@ -229,6 +229,15 @@ void editor::DrawSpriteDetails(mono::IRenderer& renderer, const std::vector<Attr
     renderer.DrawLines(line, mono::Color::CYAN, 1.0f);
 }
 
+void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    math::Vector area_size;
+    FindAttribute(SIZE_ATTRIBUTE, component_properties, area_size, FallbackMode::SET_DEFAULT);
+
+    const mono::Color::RGBA color = { 1.0f, 0.0f, 0.5f, 0.25f};
+    renderer.DrawFilledQuad(math::Quad(-area_size / 2.0, area_size / 2.0f), color);
+}
+
 void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::vector<math::Vector> vertices;

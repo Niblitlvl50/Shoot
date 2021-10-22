@@ -286,6 +286,55 @@ bool UpdateParticleEmitter(mono::Entity* entity, const std::vector<Attribute>& p
     return true;
 }
 
+bool CreateBoxEmitter(mono::Entity* entity, mono::SystemContext* context)
+{
+    return true;
+}
+
+bool ReleaseBoxEmitter(mono::Entity* entity, mono::SystemContext* context)
+{
+    return true;
+}
+
+bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+{
+    float duration;
+    float emit_rate;
+    int emitter_type;
+    mono::ParticleGeneratorProperties generator_properties;
+
+    FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
+    FindAttribute(EMIT_RATE_ATTRIBUTE, properties, emit_rate, FallbackMode::SET_DEFAULT);
+    FindAttribute(EMITTER_TYPE_ATTRIBUTE, properties, emitter_type, FallbackMode::SET_DEFAULT);
+
+    FindAttribute(SIZE_ATTRIBUTE, properties, generator_properties.emit_area, FallbackMode::SET_DEFAULT);
+    FindAttribute(X_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.x_velocity_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(Y_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.y_velocity_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.angular_velocity_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(LIFE_INTERVAL_ATTRIBUTE, properties, generator_properties.life_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(SIZE_INTERVAL_ATTRIBUTE, properties, generator_properties.size_interval, FallbackMode::SET_DEFAULT);
+
+    mono::ParticleSystem* particle_system = context->GetSystem<mono::ParticleSystem>();
+    const std::vector<mono::ParticleEmitterComponent*>& attached_emitters = particle_system->GetAttachedEmitters(entity->id);
+    if(attached_emitters.empty())
+    {
+        particle_system->AttachAreaEmitter(
+            entity->id, duration, emit_rate, mono::EmitterType(emitter_type), generator_properties);
+    }
+    else
+    {
+        mono::ParticleEmitterComponent* emitter = attached_emitters.front();
+        emitter->duration = duration;
+        emitter->emit_rate = emit_rate;
+        emitter->type = mono::EmitterType(emitter_type);
+
+        particle_system->SetGeneratorProperties(emitter, generator_properties);
+        particle_system->RestartEmitter(emitter);
+    }
+
+    return true;
+}
+
 void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
@@ -296,4 +345,6 @@ void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight);
     entity_manager->RegisterComponent(PARTICLE_SYSTEM_COMPONENT, CreateParticleSystem, ReleaseParticleSystem, UpdateParticleSystem);
     entity_manager->RegisterComponent(PARTICLE_EMITTER_COMPONENT, CreateParticleEmitter, ReleaseParticleEmitter, UpdateParticleEmitter);
+    entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
+    entity_manager->RegisterComponent(CONE_EMITTER_COMPONENT, CreateParticleEmitter, ReleaseParticleEmitter, UpdateParticleEmitter);
 }

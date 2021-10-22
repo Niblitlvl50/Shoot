@@ -51,5 +51,8 @@ inline void from_json(const nlohmann::json& json, Attribute& attribute)
     case VariantTypeIndex::POLYGON:
         attribute.value = json["variant_value"].get<std::vector<math::Vector>>();
         break;
+    case VariantTypeIndex::INTERVAL:
+        attribute.value = json["variant_value"].get<math::Interval>();
+        break;
     }
 }
