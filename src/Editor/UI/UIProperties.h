@@ -3,6 +3,7 @@
 
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
+#include "Rendering/Color.h"
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -40,6 +41,7 @@ namespace editor
     SpritePickerResult DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context);
 
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
+    bool DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient);
 
     using EnablePickCallback = std::function<void (uint32_t* target)>;
     using SelectReferenceCallback = std::function<void (uint32_t reference)>;

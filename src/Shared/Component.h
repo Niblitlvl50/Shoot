@@ -104,6 +104,7 @@ extern const uint32_t LIFE_INTERVAL_ATTRIBUTE;
 extern const uint32_t X_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t Y_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE;
+extern const uint32_t GRADIENT4_ATTRIBUTE;
 
 
 const char* AttributeNameFromHash(uint32_t hash);

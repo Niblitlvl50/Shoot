@@ -102,6 +102,10 @@ bool DrawGenericProperty(const char* text, Variant& value)
         {
             m_is_changed = ImGui::InputFloat2(m_property_text, &value.min);
         }
+        void operator()(mono::Color::Gradient<4>& gradient)
+        {
+            m_is_changed = editor::DrawGradientProperty(m_property_text, gradient);
+        }
 
         bool WasPropertyChanged() const
         {
@@ -718,6 +722,27 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     ImGui::Text("%s", name);
 
     return point_added || point_removed;
+}
+
+bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient)
+{
+    //ImGui::TextDisabled("Gradient");
+
+    ImGui::Spacing();
+
+    const bool changed_0 = ImGui::SliderFloat4("t", gradient.t, 0.0f, 1.0f);
+
+    const bool changed_1 = ImGui::ColorEdit4("MyColor##0", (float*)&gradient.color[0], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    ImGui::SameLine();
+    const bool changed_2 = ImGui::ColorEdit4("MyColor##1", (float*)&gradient.color[1], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    ImGui::SameLine();
+    const bool changed_3 = ImGui::ColorEdit4("MyColor##2", (float*)&gradient.color[2], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    ImGui::SameLine();
+    const bool changed_4 = ImGui::ColorEdit4("MyColor##3", (float*)&gradient.color[3], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+
+    ImGui::Spacing();
+
+    return changed_0 || changed_1 || changed_2 || changed_3 || changed_4;
 }
 
 bool editor::DrawEntityReferenceProperty(

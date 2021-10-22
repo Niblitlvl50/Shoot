@@ -54,5 +54,8 @@ inline void from_json(const nlohmann::json& json, Attribute& attribute)
     case VariantTypeIndex::INTERVAL:
         attribute.value = json["variant_value"].get<math::Interval>();
         break;
+    case VariantTypeIndex::GRADIENT_4:
+        attribute.value = json["variant_value"].get<mono::Color::Gradient<4>>();
+        break;
     }
 }

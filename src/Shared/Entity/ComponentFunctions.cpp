@@ -308,6 +308,7 @@ bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& proper
     FindAttribute(EMITTER_TYPE_ATTRIBUTE, properties, emitter_type, FallbackMode::SET_DEFAULT);
 
     FindAttribute(SIZE_ATTRIBUTE, properties, generator_properties.emit_area, FallbackMode::SET_DEFAULT);
+    FindAttribute(GRADIENT4_ATTRIBUTE, properties, generator_properties.color_gradient, FallbackMode::SET_DEFAULT);
     FindAttribute(X_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.x_velocity_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(Y_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.y_velocity_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.angular_velocity_interval, FallbackMode::SET_DEFAULT);
