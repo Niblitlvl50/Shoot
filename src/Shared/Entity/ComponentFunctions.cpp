@@ -237,12 +237,14 @@ bool UpdateParticleSystem(mono::Entity* entity, const std::vector<Attribute>& pr
     int pool_size;
     std::string texture_file;
     int blend_mode;
+    float damping;
     FindAttribute(POOL_SIZE_ATTRIBUTE, properties, pool_size, FallbackMode::SET_DEFAULT);
     FindAttribute(TEXTURE_ATTRIBUTE, properties, texture_file, FallbackMode::SET_DEFAULT);
     FindAttribute(BLEND_MODE_ATTRIBUTE, properties, blend_mode, FallbackMode::SET_DEFAULT);
+    FindAttribute(DAMPING_ATTRIBUTE, properties, damping, FallbackMode::SET_DEFAULT);
 
     mono::ParticleSystem* particle_system = context->GetSystem<mono::ParticleSystem>();
-    particle_system->SetPoolData(entity->id, pool_size, texture_file.c_str(), mono::BlendMode(blend_mode), mono::DefaultUpdater);
+    particle_system->SetPoolData(entity->id, pool_size, texture_file.c_str(), mono::BlendMode(blend_mode), damping, mono::DefaultUpdater);
 
     return true;
 }
@@ -274,7 +276,8 @@ bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& proper
     FindAttribute(MAGNITUDE_INTERVAL_ATTRIBUTE, properties, generator_properties.magnitude_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.angular_velocity_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(LIFE_INTERVAL_ATTRIBUTE, properties, generator_properties.life_interval, FallbackMode::SET_DEFAULT);
-    FindAttribute(SIZE_INTERVAL_ATTRIBUTE, properties, generator_properties.size_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(START_SIZE_SPREAD_ATTRIBUTE, properties, generator_properties.start_size_spread, FallbackMode::SET_DEFAULT);
+    FindAttribute(END_SIZE_SPREAD_ATTRIBUTE, properties, generator_properties.end_size_spread, FallbackMode::SET_DEFAULT);
 
     mono::ParticleSystem* particle_system = context->GetSystem<mono::ParticleSystem>();
     const std::vector<mono::ParticleEmitterComponent*>& attached_emitters = particle_system->GetAttachedEmitters(entity->id);

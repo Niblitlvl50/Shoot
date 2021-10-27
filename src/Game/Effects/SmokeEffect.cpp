@@ -54,46 +54,6 @@ namespace
         component_view.size = (1.0f - t) * component_view.start_size + t * component_view.end_size;
         component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);
     }
-
-    void SmokePillarGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
-    {
-        const float x_offset = mono::Random(-0.025f, 0.025f);
-        const math::Vector velocity = math::Vector(x_offset, 0.125f);
-
-        const float start_size = 32.0f;
-        const float end_size = mono::Random(128.0f, 256.0f);
-        const float life = mono::Random(25.0f, 30.0f);
-
-        component_view.position = position;
-        component_view.rotation = 0.0f;
-        component_view.velocity = velocity;
-        component_view.angular_velocity = 0.0f;
-
-        using namespace mono::Color;
-        component_view.gradient = mono::Color::MakeGradient<4>(
-            { 0.0f, 0.1f, 0.8f, 1.0f },
-            { RGBA(1.0f, 0.0f, 1.0f, 0.0f), RGBA(1.0f, 0.0f, 1.0f, 0.5f), RGBA(0.0f, 0.0f, 0.0f, 0.8f), RGBA(0.0f, 0.0f, 0.0f, 0.0f) }
-            //{ RED, GREEN, BLUE, BLACK }
-        );
-
-        component_view.size = start_size;
-        component_view.start_size = start_size;
-        component_view.end_size = end_size;
-
-        component_view.life = life;
-        component_view.start_life = life;
-    }
-
-    void SmokePillarUpdater(mono::ParticlePoolComponentView& component_view, float delta_s)
-    {
-        const float t = 1.0f - float(component_view.life) / float(component_view.start_life);
-
-        component_view.velocity *= 0.9999f;
-        component_view.position += component_view.velocity * delta_s;
-        component_view.size = (1.0f - t) * component_view.start_size + t * component_view.end_size;
-        component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);
-        component_view.rotation += component_view.angular_velocity * delta_s;
-    }
 }
 
 SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
@@ -119,30 +79,4 @@ void SmokeEffect::EmitSmokeAt(const math::Vector& position)
 {
     m_particle_system->AttachEmitter(
         m_particle_entity, position, 0.5f, 20.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, SmokeGenerator);
-}
-
-
-SmokePillarEffect::SmokePillarEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system, mono::BlendMode blend_mode)
-    : m_particle_system(particle_system)
-    , m_entity_system(entity_system)
-{
-    mono::Entity particle_entity = m_entity_system->CreateEntity("smoke_pillar_effect", {});
-    particle_system->AllocatePool(particle_entity.id, 100, SmokePillarUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, blend_mode);
-
-    m_particle_entity = particle_entity.id;
-}
-
-SmokePillarEffect::~SmokePillarEffect()
-{
-    m_particle_system->ReleasePool(m_particle_entity);
-    m_entity_system->ReleaseEntity(m_particle_entity);
-}
-
-void SmokePillarEffect::EmitSmokeAt(const math::Vector& position)
-{
-    m_particle_system->AttachEmitter(
-        m_particle_entity, position, -1.0f, 2.5f, mono::EmitterType::CONTINOUS, SmokePillarGenerator);
 }

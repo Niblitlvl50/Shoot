@@ -99,12 +99,14 @@ extern const uint32_t POOL_SIZE_ATTRIBUTE;
 extern const uint32_t BLEND_MODE_ATTRIBUTE;
 extern const uint32_t EMIT_RATE_ATTRIBUTE;
 extern const uint32_t EMITTER_TYPE_ATTRIBUTE;
-extern const uint32_t SIZE_INTERVAL_ATTRIBUTE;
+extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE;
+extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE;
 extern const uint32_t LIFE_INTERVAL_ATTRIBUTE;
 extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE;
 extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE;
 extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t GRADIENT4_ATTRIBUTE;
+extern const uint32_t DAMPING_ATTRIBUTE;
 
 
 const char* AttributeNameFromHash(uint32_t hash);

@@ -21,6 +21,8 @@ using namespace editor;
 
 namespace
 {
+    static bool g_show_imgui_demo = false;
+
     void DrawMainMenuBar(editor::UIContext& context)
     {
         ImGui::BeginMainMenuBar();
@@ -80,6 +82,8 @@ namespace
             ImGui::Checkbox("Draw all Objects, A", &context.draw_all_objects);
             if(ImGui::Checkbox("Draw Lights, Ctrl + L", &context.draw_lights))
                 context.draw_lights_callback(context.draw_lights);
+
+            ImGui::Checkbox("Show ImGui Demo", &g_show_imgui_demo);
 
             ImGui::EndMenu();
         }
@@ -442,7 +446,9 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
 
-//    ImGui::ShowDemoWindow();
+    if(g_show_imgui_demo)
+        ImGui::ShowDemoWindow();
+    
     // Update UI stuff below
 
     const auto remove_notification_func = [&renderer](Notification& note) {

@@ -158,13 +158,4 @@ int SystemTestZone::OnUnload()
 void TinyArenaZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     SystemTestZone::OnLoad(camera, renderer);
-
-    mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
-    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
-
-    m_smoke_pillar = std::make_unique<SmokePillarEffect>(particle_system, entity_system, mono::BlendMode::ONE);
-    m_smoke_pillar->EmitSmokeAt(math::Vector(-5.0f, -4.0f));
-
-    m_smoke_pillar_2 = std::make_unique<SmokePillarEffect>(particle_system, entity_system, mono::BlendMode::SOURCE_ALPHA);
-    m_smoke_pillar_2->EmitSmokeAt(math::Vector(-3.0f, -4.0f));
 }

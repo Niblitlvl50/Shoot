@@ -80,7 +80,7 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         void operator()(float& value)
         {
-            m_is_changed = ImGui::InputFloat(m_property_text, &value);
+            m_is_changed = ImGui::InputFloat(m_property_text, &value, 0.0f, 0.0f, "%.5f");
         }
         void operator()(math::Vector& value)
         {
@@ -101,6 +101,16 @@ bool DrawGenericProperty(const char* text, Variant& value)
         void operator()(math::Interval& value)
         {
             m_is_changed = ImGui::DragFloatRange2(m_property_text, &value.min, &value.max);
+        }
+        void operator()(math::ValueSpread& value_spread)
+        {
+            m_is_changed = ImGui::InputFloat3(m_property_text, &value_spread.value);
+            /*
+            const bool value_changed = ImGui::InputFloat("", &value_spread.value);
+            ImGui::SameLine();
+            const bool spread_changed = ImGui::DragFloatRange2(m_property_text, &value_spread.spread.min, &value_spread.spread.max);
+            m_is_changed = value_changed || spread_changed;
+            */
         }
         void operator()(mono::Color::Gradient<4>& gradient)
         {
@@ -726,19 +736,23 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
 
 bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient)
 {
-    //ImGui::TextDisabled("Gradient");
+    constexpr int flags = ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel;
 
     ImGui::Spacing();
 
-    const bool changed_0 = ImGui::SliderFloat4("t", gradient.t, 0.0f, 1.0f);
+    const bool changed_0 = ImGui::SliderFloat4("T", gradient.t, 0.0f, 1.0f);
 
-    const bool changed_1 = ImGui::ColorEdit4("MyColor##0", (float*)&gradient.color[0], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    ImGui::PushItemWidth(100.0f);
+    const bool changed_1 = ImGui::ColorEdit4("Color##0", &gradient.color[0].red, flags);
     ImGui::SameLine();
-    const bool changed_2 = ImGui::ColorEdit4("MyColor##1", (float*)&gradient.color[1], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    const bool changed_2 = ImGui::ColorEdit4("Color##1", &gradient.color[1].red, flags);
     ImGui::SameLine();
-    const bool changed_3 = ImGui::ColorEdit4("MyColor##2", (float*)&gradient.color[2], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    const bool changed_3 = ImGui::ColorEdit4("Color##2", &gradient.color[2].red, flags);
     ImGui::SameLine();
-    const bool changed_4 = ImGui::ColorEdit4("MyColor##3", (float*)&gradient.color[3], ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+    const bool changed_4 = ImGui::ColorEdit4("Color##3", &gradient.color[3].red, flags);
+    ImGui::SameLine();
+    ImGui::PopItemWidth();
+    ImGui::Text("Gradient");
 
     ImGui::Spacing();
 

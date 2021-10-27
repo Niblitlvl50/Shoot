@@ -99,12 +99,14 @@ const DefaultAttribute default_attributes[] = {
     { "blend_mode",             Variant(0) },
     { "emit_rate",              Variant(1.0f) },
     { "emitter_type",           Variant(0) },
-    { "size_interval",          Variant(math::Interval()) },
+    { "start_size_spread",      Variant(math::ValueSpread()) },
+    { "end_size_spread",        Variant(math::ValueSpread()) },
     { "life_interval",          Variant(math::Interval()) },
     { "direction_interval",     Variant(math::Interval()) },
     { "magnitude_interval",     Variant(math::Interval()) },
     { "angular_velocity_interval",  Variant(math::Interval()) },
     { "gradient_4",                 Variant(mono::Color::Gradient<4>()) },
+    { "damping",                    Variant(0.0f) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -199,13 +201,14 @@ extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[70]
 extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[71].hash;
 extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[72].hash;
 extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[73].hash;
-extern const uint32_t SIZE_INTERVAL_ATTRIBUTE           = default_attributes[74].hash;
-extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[75].hash;
-extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[76].hash;
-extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[77].hash;
-extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[78].hash;
-extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[79].hash;
-
+extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE       = default_attributes[74].hash;
+extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE         = default_attributes[75].hash;
+extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[76].hash;
+extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[77].hash;
+extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[78].hash;
+extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[79].hash;
+extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[80].hash;
+extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[81].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -345,8 +348,8 @@ const Component default_components[] = {
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
-    MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE }),
-    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, SIZE_INTERVAL_ATTRIBUTE }),
+    MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
+    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
