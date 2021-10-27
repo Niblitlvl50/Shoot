@@ -29,7 +29,7 @@ namespace
         //const float sign = mono::RandomInt(0, 1) == 0 ? 1.0f : -1.0f;
         //const float angular_velocity = mono::Random(0.3f, 1.0f) * sign;
 
-        const int life = mono::RandomInt(0, 500) + 10000;
+        const float life = mono::Random(0.0f, 0.5f) + 10.0f;
 
         component_view.position = position + math::Vector(x, y);
         component_view.velocity = math::Vector(velocity_x, velocity_y);

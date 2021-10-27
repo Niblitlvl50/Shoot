@@ -26,7 +26,7 @@ namespace
         const float velocity_variation = mono::Random(1.0f, 3.0f);
         const float size = mono::Random(48.0f, 64.0f);
         const float end_size = mono::Random(64.0f, 80.0f);
-        const int life = mono::RandomInt(200, 400);
+        const float life = mono::Random(0.2f, 0.4f);
 
         component_view.position = position + math::Vector(x_variation, y_variation);
         component_view.rotation = 0.0f;
@@ -62,7 +62,7 @@ namespace
 
         const float start_size = 32.0f;
         const float end_size = mono::Random(128.0f, 256.0f);
-        const int life = mono::RandomInt(25000, 30000);
+        const float life = mono::Random(25.0f, 30.0f);
 
         component_view.position = position;
         component_view.rotation = 0.0f;

@@ -20,7 +20,7 @@ namespace
         math::Vector velocity = math::VectorFromAngle(direction_variation);
         math::Normalize(velocity);
 
-        const int life = mono::RandomInt(100, 150);
+        const float life = mono::Random(0.1f, 0.15f);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
         const float size = mono::Random(12.0f, 16.0f);
 
@@ -44,7 +44,7 @@ namespace
         math::Vector velocity = math::VectorFromAngle(direction_variation);
         math::Normalize(velocity);
 
-        const int life = mono::RandomInt(100, 150);
+        const float life = mono::Random(0.1f, 0.15f);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
         const float size = mono::Random(12.0f, 16.0f);
 

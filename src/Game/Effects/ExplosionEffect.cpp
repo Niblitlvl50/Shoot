@@ -19,7 +19,7 @@ namespace
         constexpr float area = 1.0f;
         const float x = mono::Random(-area, area);
         const float y = mono::Random(-area, area);
-        const float life = mono::Random(100.0f, 250.0f);
+        const float life = mono::Random(0.1f, 0.25f);
 
         component_view.position = position + math::Vector(x, y);
         component_view.rotation = 0.0f;
@@ -34,8 +34,8 @@ namespace
         component_view.start_size = size;
         component_view.end_size = size;
 
-        component_view.start_life = 100 + life;
-        component_view.life = 100 + life;
+        component_view.start_life = 0.1f + life;
+        component_view.life = 0.1f + life;
     }
 }
 

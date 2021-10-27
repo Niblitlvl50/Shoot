@@ -22,7 +22,7 @@ namespace
         const float velocity_x = mono::Random(-1.0f, 1.0f);
         const float velocity_y = mono::Random(-0.25f, 0.25f);
 
-        const int life = mono::RandomInt(0, 500) + 5000;
+        const float life = mono::Random(0.0f, 0.5f) + 5.0f;
 
         pool.position = position + math::Vector(x, y);
         pool.velocity = math::Vector(velocity_x, velocity_y);

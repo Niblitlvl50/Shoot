@@ -17,7 +17,7 @@ namespace
 {
     void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
     {
-        constexpr int life = 300;
+        constexpr float life = 0.3f;
 
         const float radians = mono::Random(0.0f, math::PI() * 2.0f);
         const math::Vector offset = math::VectorFromAngle(radians) * 0.1f;

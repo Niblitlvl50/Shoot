@@ -18,7 +18,7 @@ namespace
     {
         const float x = mono::Random(-4.0f, 4.0f);
         const float y = mono::Random(-4.0f, 4.0f);
-        const float life = mono::Random(0.0f, 250.0f);
+        const float life = mono::Random(0.0f, 0.25f);
 
         component_view.position = position;
         component_view.velocity = math::Vector(x, y);
@@ -37,8 +37,8 @@ namespace
         component_view.start_size = size;
         component_view.end_size = size;
 
-        component_view.start_life = 100 + life;
-        component_view.life = 100 + life;
+        component_view.start_life = 0.1f + life;
+        component_view.life = 0.1f + life;
     }
 }
 

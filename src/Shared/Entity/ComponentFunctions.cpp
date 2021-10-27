@@ -247,45 +247,6 @@ bool UpdateParticleSystem(mono::Entity* entity, const std::vector<Attribute>& pr
     return true;
 }
 
-bool CreateParticleEmitter(mono::Entity* entity, mono::SystemContext* context)
-{
-    return true;
-}
-
-bool ReleaseParticleEmitter(mono::Entity* entity, mono::SystemContext* context)
-{
-    return true;
-}
-
-bool UpdateParticleEmitter(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
-{
-    float duration;
-    float emit_rate;
-    int emitter_type;
-
-    FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
-    FindAttribute(EMIT_RATE_ATTRIBUTE, properties, emit_rate, FallbackMode::SET_DEFAULT);
-    FindAttribute(EMITTER_TYPE_ATTRIBUTE, properties, emitter_type, FallbackMode::SET_DEFAULT);
-
-    mono::ParticleSystem* particle_system = context->GetSystem<mono::ParticleSystem>();
-    const std::vector<mono::ParticleEmitterComponent*>& attached_emitters = particle_system->GetAttachedEmitters(entity->id);
-    if(attached_emitters.empty())
-    {
-        particle_system->AttachEmitter(entity->id, math::ZeroVec, duration, emit_rate, mono::EmitterType(emitter_type), mono::DefaultGenerator);
-    }
-    else
-    {
-        mono::ParticleEmitterComponent* emitter = attached_emitters.front();
-        emitter->duration = duration;
-        emitter->emit_rate = emit_rate;
-        emitter->type = mono::EmitterType(emitter_type);
-
-        particle_system->RestartEmitter(emitter);
-    }
-
-    return true;
-}
-
 bool CreateBoxEmitter(mono::Entity* entity, mono::SystemContext* context)
 {
     return true;
@@ -309,8 +270,8 @@ bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& proper
 
     FindAttribute(SIZE_ATTRIBUTE, properties, generator_properties.emit_area, FallbackMode::SET_DEFAULT);
     FindAttribute(GRADIENT4_ATTRIBUTE, properties, generator_properties.color_gradient, FallbackMode::SET_DEFAULT);
-    FindAttribute(X_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.x_velocity_interval, FallbackMode::SET_DEFAULT);
-    FindAttribute(Y_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.y_velocity_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(DIRECTION_INTERVAL_ATTRIBUTE, properties, generator_properties.direction_interval, FallbackMode::SET_DEFAULT);
+    FindAttribute(MAGNITUDE_INTERVAL_ATTRIBUTE, properties, generator_properties.magnitude_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.angular_velocity_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(LIFE_INTERVAL_ATTRIBUTE, properties, generator_properties.life_interval, FallbackMode::SET_DEFAULT);
     FindAttribute(SIZE_INTERVAL_ATTRIBUTE, properties, generator_properties.size_interval, FallbackMode::SET_DEFAULT);
@@ -345,7 +306,5 @@ void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(ROAD_COMPONENT, CreateRoad, ReleaseRoad, UpdateRoad);
     entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight);
     entity_manager->RegisterComponent(PARTICLE_SYSTEM_COMPONENT, CreateParticleSystem, ReleaseParticleSystem, UpdateParticleSystem);
-    entity_manager->RegisterComponent(PARTICLE_EMITTER_COMPONENT, CreateParticleEmitter, ReleaseParticleEmitter, UpdateParticleEmitter);
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
-    entity_manager->RegisterComponent(CONE_EMITTER_COMPONENT, CreateParticleEmitter, ReleaseParticleEmitter, UpdateParticleEmitter);
 }

@@ -101,8 +101,8 @@ extern const uint32_t EMIT_RATE_ATTRIBUTE;
 extern const uint32_t EMITTER_TYPE_ATTRIBUTE;
 extern const uint32_t SIZE_INTERVAL_ATTRIBUTE;
 extern const uint32_t LIFE_INTERVAL_ATTRIBUTE;
-extern const uint32_t X_VELOCITY_INTERVAL_ATTRIBUTE;
-extern const uint32_t Y_VELOCITY_INTERVAL_ATTRIBUTE;
+extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE;
+extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE;
 extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t GRADIENT4_ATTRIBUTE;
 
@@ -190,8 +190,6 @@ extern const uint32_t LIGHT_COMPONENT;
 extern const uint32_t DIALOG_COMPONENT;
 extern const uint32_t SET_CONDITION_COMPONENT;
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT;
-extern const uint32_t PARTICLE_EMITTER_COMPONENT;
-extern const uint32_t CONE_EMITTER_COMPONENT;
 extern const uint32_t AREA_EMITTER_COMPONENT;
 
 struct Component

@@ -14,7 +14,7 @@ namespace
 {
     void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
     {
-        constexpr int life = 500;
+        constexpr float life = 0.5f;
 
         component_view.position = position;
         component_view.rotation = 0.0f;

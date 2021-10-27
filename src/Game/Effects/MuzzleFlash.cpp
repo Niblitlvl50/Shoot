@@ -21,7 +21,7 @@ namespace
         const float direction_variation = mono::Random(-ten_degrees, ten_degrees);
         const math::Vector& velocity = math::VectorFromAngle(direction + direction_variation);
 
-        const int life = mono::RandomInt(100, 150);
+        const float life = mono::Random(0.1f, 0.15f);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
         const float size = mono::Random(2.0f, 6.0f);
 
