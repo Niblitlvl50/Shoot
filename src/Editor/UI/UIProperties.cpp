@@ -100,7 +100,7 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         void operator()(math::Interval& value)
         {
-            m_is_changed = ImGui::InputFloat2(m_property_text, &value.min);
+            m_is_changed = ImGui::DragFloatRange2(m_property_text, &value.min, &value.max);
         }
         void operator()(mono::Color::Gradient<4>& gradient)
         {
