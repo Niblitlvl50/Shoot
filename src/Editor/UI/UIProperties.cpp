@@ -105,12 +105,6 @@ bool DrawGenericProperty(const char* text, Variant& value)
         void operator()(math::ValueSpread& value_spread)
         {
             m_is_changed = ImGui::InputFloat3(m_property_text, &value_spread.value);
-            /*
-            const bool value_changed = ImGui::InputFloat("", &value_spread.value);
-            ImGui::SameLine();
-            const bool spread_changed = ImGui::DragFloatRange2(m_property_text, &value_spread.spread.min, &value_spread.spread.max);
-            m_is_changed = value_changed || spread_changed;
-            */
         }
         void operator()(mono::Color::Gradient<4>& gradient)
         {
@@ -736,13 +730,11 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
 
 bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient)
 {
-    constexpr int flags = ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel;
-
     ImGui::Spacing();
 
-    const bool changed_0 = ImGui::SliderFloat4("T", gradient.t, 0.0f, 1.0f);
+    const bool changed_0 = ImGui::DragFloat4("T", gradient.t, 0.01f, 0.0f, 1.0f);
 
-    ImGui::PushItemWidth(100.0f);
+    constexpr int flags = ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel;
     const bool changed_1 = ImGui::ColorEdit4("Color##0", &gradient.color[0].red, flags);
     ImGui::SameLine();
     const bool changed_2 = ImGui::ColorEdit4("Color##1", &gradient.color[1].red, flags);
@@ -751,7 +743,6 @@ bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gr
     ImGui::SameLine();
     const bool changed_4 = ImGui::ColorEdit4("Color##3", &gradient.color[3].red, flags);
     ImGui::SameLine();
-    ImGui::PopItemWidth();
     ImGui::Text("Gradient");
 
     ImGui::Spacing();
