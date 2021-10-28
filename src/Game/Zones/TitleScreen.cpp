@@ -1,7 +1,6 @@
 
 #include "TitleScreen.h"
 #include "ZoneFlow.h"
-#include "Effects/ScreenSparkles.h"
 
 #include "RenderLayers.h"
 
@@ -89,13 +88,7 @@ TitleScreen::~TitleScreen()
 void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     GameZone::OnLoad(camera, renderer);
-
     AddUpdatable(new CheckControllerInput(this));
-    mono::ParticleSystem* particle_system = m_system_context->GetSystem<mono::ParticleSystem>();
-    mono::IEntityManager* entity_system = m_system_context->GetSystem<mono::IEntityManager>();
-    m_sparkles = std::make_unique<ScreenSparkles>(
-        particle_system, entity_system, camera->GetPosition(), camera->GetViewportSize());
-
     game::PlayBackgroundMusic(game::RussianTrack);
 }
 

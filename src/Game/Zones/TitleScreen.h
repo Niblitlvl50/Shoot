@@ -30,7 +30,6 @@ namespace game
         mono::EventToken<event::KeyUpEvent> m_key_token;
         int m_exit_zone = 0;
 
-        std::unique_ptr<class ScreenSparkles> m_sparkles;
         std::vector<uint32_t> m_loaded_entities;
     };
 }

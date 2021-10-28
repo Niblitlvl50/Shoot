@@ -214,6 +214,215 @@
             "folder": "",
             "name": "mega_text_1",
             "uuid_hash": 2149541589
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "hearts"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2943553953,
+                    "name": "particle_system",
+                    "properties": [
+                        {
+                            "id": 4183502093,
+                            "name": "pool_size",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/heart.png"
+                        },
+                        {
+                            "id": 3513758418,
+                            "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3820847801,
+                    "name": "area_emitter",
+                    "properties": [
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": -1.0
+                        },
+                        {
+                            "id": 1259388949,
+                            "name": "emit_rate",
+                            "variant_type": 3,
+                            "variant_value": 100.0
+                        },
+                        {
+                            "id": 481665254,
+                            "name": "emitter_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 800.0,
+                                "y": 530.0
+                            }
+                        },
+                        {
+                            "id": 521277070,
+                            "name": "direction_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 80.0,
+                                "min": 100.0
+                            }
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 15.0,
+                                "min": 7.0
+                            }
+                        },
+                        {
+                            "id": 3254309326,
+                            "name": "gradient_4",
+                            "variant_type": 10,
+                            "variant_value": {
+                                "gradient": [
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 0.5196078419685364,
+                                        "green": 1.0,
+                                        "red": 0.8728373646736145
+                                    },
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 0.4338234066963196,
+                                        "green": 1.0,
+                                        "red": 0.4166666865348816
+                                    },
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    }
+                                ],
+                                "t": [
+                                    0.0,
+                                    0.10000000149011612,
+                                    0.800000011920929,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 15.0,
+                                "min": 10.0
+                            }
+                        },
+                        {
+                            "id": 3951746801,
+                            "name": "start_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 180.0,
+                                    "min": 150.0
+                                },
+                                "value": 0.0
+                            }
+                        },
+                        {
+                            "id": 3546283052,
+                            "name": "end_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 0.0,
+                                    "min": 0.0
+                                },
+                                "value": 16.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "hearts",
+            "uuid_hash": 3814723900
         }
     ],
     "metadata": {
@@ -238,9 +447,20 @@
             "x": 800.0,
             "y": 530.0
         },
+        "conditions": [],
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "triggers": []
     }
 }
