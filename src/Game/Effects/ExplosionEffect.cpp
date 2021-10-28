@@ -47,7 +47,7 @@ ExplosionEffect::ExplosionEffect(mono::ParticleSystem* particle_system, mono::IE
     particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE);
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);
 
     m_particle_entity = particle_entity.id;
 }

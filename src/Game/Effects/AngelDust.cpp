@@ -51,7 +51,7 @@ AngelDust::AngelDust(mono::ParticleSystem* particle_system, mono::IEntityManager
     particle_system->AllocatePool(sparkles_entity.id, 1000, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
-    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
+    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);
 
     const auto generator_proxy = [area](const math::Vector& position, mono::ParticlePoolComponentView& pool) {
         Generator(position, pool, area);

@@ -66,7 +66,7 @@ ScreenSparkles::ScreenSparkles(
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/x4.png");
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/heart.png");
     //const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
-    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE);
+    particle_system->SetPoolDrawData(sparkles_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);
 
     const auto generator_proxy = [viewport_size](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
         Generator(position, component_view, viewport_size);

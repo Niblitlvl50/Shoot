@@ -64,7 +64,7 @@ SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
     particle_system->AllocatePool(particle_entity.id, 100, GibsUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA, mono::ParticleTransformSpace::LOCAL);
 
     m_particle_entity = particle_entity.id;
 }

@@ -55,7 +55,7 @@ ImpactEffect::ImpactEffect(mono::ParticleSystem* particle_system, mono::IEntityM
     particle_system->AllocatePool(particle_entity.id, 50, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA);
+    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA, mono::ParticleTransformSpace::LOCAL);
 
     m_particle_entity = particle_entity.id;
 }
