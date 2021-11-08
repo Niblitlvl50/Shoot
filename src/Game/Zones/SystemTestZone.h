@@ -37,8 +37,6 @@ namespace game
         std::unique_ptr<class RegionDrawer> m_region_ui;
         std::unique_ptr<class FogOverlay> m_fog;
 
-        std::unique_ptr<class AngelDust> m_angeldust_effect;
-
         mono::EventToken<struct GameOverEvent> m_gameover_token;
     };
 
