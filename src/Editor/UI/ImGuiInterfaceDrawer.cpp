@@ -100,6 +100,15 @@ namespace
             ImGui::EndMenu();
         }
 
+        ImGui::SameLine(ImGui::GetWindowWidth() -380);
+        {
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
+            if(ImGui::Button("Reset Zoom"))
+                context.reset_zoom_callback();
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+        }
         ImGui::SameLine(ImGui::GetWindowWidth() -250);
         ImGui::TextDisabled("mouse: %.2f %.2f", context.world_mouse_position.x, context.world_mouse_position.y);
         ImGui::SameLine(ImGui::GetWindowWidth() -100);
@@ -254,7 +263,7 @@ namespace
         const float window_width = ImGui::GetIO().DisplaySize.x;
 
         ImGui::SetNextWindowSize(ImVec2(metadata_width, -1));
-        ImGui::SetNextWindowPos(ImVec2(window_width / 2.0f - metadata_width / 2.0f, 40));
+        ImGui::SetNextWindowPos(ImVec2(window_width - metadata_width - 30, 40));
 
         ImGui::Begin("Level Metadata", nullptr, flags);
 
