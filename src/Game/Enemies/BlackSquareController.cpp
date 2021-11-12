@@ -134,11 +134,12 @@ void BlackSquareController::ToAwake()
 
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
-
-    const math::Vector delta = (entity_position - player_info->position);
-    const float angle = math::AngleFromVector(delta);
-
-    m_homing_behaviour.SetHeading(angle);
+    if(player_info)
+    {
+        const math::Vector delta = (entity_position - player_info->position);
+        const float angle = math::AngleFromVector(delta);
+        m_homing_behaviour.SetHeading(angle);
+    }
 }
 
 void BlackSquareController::AwakeState(const mono::UpdateContext& update_context)
