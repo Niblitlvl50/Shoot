@@ -180,8 +180,7 @@ void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
     m_attack_timer += update_context.delta_ms;
     if(m_attack_timer > tweak_values::attack_sequence_delay)
     {
-        const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
-        const math::Vector& world_position = math::GetPosition(world_transform);
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
         const float angle = math::AngleBetweenPoints(m_attack_position, world_position) + math::PI_2();
         game::WeaponState fire_state = m_weapon->Fire(world_position, angle, update_context.timestamp);

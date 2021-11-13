@@ -30,7 +30,7 @@ namespace game
         const uint32_t m_owner_entity_id;
 
         BulletImpactCallback m_collision_callback;
-        int m_life_span;
+        float m_life_span;
         audio::ISoundPtr m_sound;
 
         mono::PhysicsSystem* m_physics_system;

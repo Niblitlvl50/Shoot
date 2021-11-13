@@ -4098,7 +4098,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -4421,7 +4421,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -4629,7 +4629,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -10214,7 +10214,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -16909,8 +16909,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5824331641197205,
-                                "y": -1.4622074365615845
+                                "x": 0.18474191427230835,
+                                "y": -1.135074496269226
                             }
                         },
                         {
@@ -17297,6 +17297,157 @@
             "folder": "particles",
             "name": "explosion_effect",
             "uuid_hash": 1189464131
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "oak_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.482193946838379,
+                                "y": 0.6599473357200623
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "push_button"
+                        },
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "switch_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "push_button"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "oak_medium",
+            "uuid_hash": 936884191
         }
     ],
     "metadata": {
@@ -17341,7 +17492,8 @@
             "level_completed",
             "start_spawning",
             "stop_spawning",
-            "none"
+            "none",
+            "push_button"
         ]
     }
 }

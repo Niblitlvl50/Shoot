@@ -23,7 +23,7 @@ namespace
 
         const float life = mono::Random(0.1f, 0.15f);
         const float velocity_variation = mono::Random(10.0f, 16.0f);
-        const float size = mono::Random(2.0f, 6.0f);
+        const float size = mono::Random(20.0f, 60.0f);
 
         component_view.position = position;
         component_view.rotation = 0.0f;
@@ -40,26 +40,6 @@ namespace
         component_view.start_life = life;
         component_view.life = life;
     }
-
-    void GibsUpdater(mono::ParticlePoolComponentView& component_view, float delta_s)
-    {
-        const float t = 1.0f - float(component_view.life) / float(component_view.start_life);
-        //const float t2 = float(pool.start_life[index]) - float(pool.life[index]);
-        //const float duration = float(pool.start_life[index]); // / 1000.0f;
-
-        component_view.velocity *= 0.90;
-        component_view.position += component_view.velocity * delta_s;
-        //pool.m_size[index] = pool.m_start_size[index];
-
-        component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);
-
-        /*
-        const float alpha1 = pool.start_color[index].alpha;
-        const float alpha2 = pool.end_color[index].alpha;
-        pool.color[index] = mono::Color::LerpRGB(pool.start_color[index], pool.end_color[index], t);
-        pool.color[index].alpha = math::EaseInCubic(t2, duration, alpha1, alpha2 - alpha1);
-        */
-    }
 }
 
 MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
@@ -67,7 +47,7 @@ MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system, mono::IEntityMan
     , m_entity_system(entity_system)
 {
     mono::Entity particle_entity = m_entity_system->CreateEntity("muzzleflash", {});
-    particle_system->AllocatePool(particle_entity.id, 500, GibsUpdater);
+    particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
 
     const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
     particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);

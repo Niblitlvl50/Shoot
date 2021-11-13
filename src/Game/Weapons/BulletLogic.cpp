@@ -29,8 +29,7 @@ BulletLogic::BulletLogic(
     , m_owner_entity_id(owner_entity_id)
     , m_collision_callback(collision_config.collision_callback)
 {
-    const float life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
-    m_life_span = life_span * 1000.0f;
+    m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
 
     if(!config.sound_file.empty())
     {
@@ -51,8 +50,9 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 {
     //m_sound->Position(0.0f, 0.0f);
 
-    m_life_span -= update_context.delta_ms;
-    if(m_life_span < 0)
+    m_life_span -= update_context.delta_s;
+
+    if(m_life_span < 0.0f)
     {
         CollisionDetails details;
         details.body = nullptr;
