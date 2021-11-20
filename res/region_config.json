@@ -1,0 +1,7 @@
+{
+    "regions": [
+        { "trigger_name": "region_first", "text": "First Area", "sub_text": "Noob world..." },
+        { "trigger_name": "region_swamp", "text": "Swamp Area", "sub_text": "Its a swamp" },
+        { "trigger_name": "region_shitty_plains", "text": "Shitty Plains", "sub_text": "...everything is shit here." }
+    ]
+}

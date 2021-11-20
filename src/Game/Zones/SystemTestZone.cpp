@@ -120,7 +120,9 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     
     m_player_death_screen = std::make_unique<PlayerDeathScreen>(game::g_players[0], m_event_handler);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
-    m_region_ui = std::make_unique<RegionDrawer>(trigger_system);
+
+    const std::vector<game::RegionDescription> regions = game::ParseRegionConfig("res/region_config.json");
+    m_region_ui = std::make_unique<RegionDrawer>(regions, trigger_system);
     //m_fog = std::make_unique<FogOverlay>();
 
     AddUpdatableDrawable(m_player_death_screen.get(), LayerId::UI);

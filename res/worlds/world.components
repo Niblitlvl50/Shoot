@@ -62549,6 +62549,10 @@
             "green": 0.6225427985191345,
             "red": 0.6225490570068359
         },
+        "background_size": {
+            "x": 80.0,
+            "y": 80.0
+        },
         "background_texture": "res/textures/grass_02.png",
         "camera_position": {
             "x": -3.0,

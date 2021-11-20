@@ -233,7 +233,7 @@ Editor::Editor(
     m_context.draw_lights_callback = std::bind(&Editor::EnableLights, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
     m_context.ambient_shade_callback = std::bind(&Editor::SetAmbientShade, this, _1);
-    m_context.background_texture_callback = std::bind(&Editor::SetBackgroundTexture, this, _1);
+    m_context.background_callback = std::bind(&Editor::SetBackgroundTexture, this, _1, _2);
 
     m_context.entity_name_callback = [&entity_manager](uint32_t entity_uuid_hash){
         const uint32_t entity_id = entity_manager.GetEntityIdFromUuid(entity_uuid_hash);
@@ -386,7 +386,7 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     SetBackgroundColor(world.leveldata.metadata.background_color);
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
-    SetBackgroundTexture(world.leveldata.metadata.background_texture);
+    SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
 
     for(IObjectProxyPtr& proxy : m_proxies)
     {
@@ -969,12 +969,12 @@ void Editor::SetAmbientShade(const mono::Color::RGBA& color)
     m_renderer->SetAmbientShade(color);
 }
 
-void Editor::SetBackgroundTexture(const std::string& background_texture)
+void Editor::SetBackgroundTexture(const math::Vector& size, const std::string& background_texture)
 {
     if(background_texture.empty())
         m_static_background->Clear();
     else
-        m_static_background->Load(background_texture.c_str(), mono::TextureModeFlags::REPEAT);
+        m_static_background->Load(size, background_texture.c_str(), mono::TextureModeFlags::REPEAT);
 }
 
 bool Editor::DrawGrid() const

@@ -113,6 +113,11 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
     m_color = new_color;
 }
 
+void UITextElement::SetAlpha(float alpha)
+{
+    m_color.alpha = alpha;
+}
+
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     UIElement::Draw(renderer);

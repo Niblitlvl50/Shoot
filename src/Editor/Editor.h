@@ -122,7 +122,7 @@ namespace editor
         const mono::Color::RGBA& AmbientShade() const;
         void SetAmbientShade(const mono::Color::RGBA& color);
 
-        void SetBackgroundTexture(const std::string& background_texture);
+        void SetBackgroundTexture(const math::Vector& size, const std::string& background_texture);
 
         bool DrawGrid() const;
         void EnableDrawGrid(bool enable);

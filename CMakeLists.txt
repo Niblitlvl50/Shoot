@@ -67,6 +67,7 @@ file(
     "res/textures/*"
     "res/worlds/*"
     "res/game_config.json"
+    "res/region_config.json"
     "res/spawn_config.json"
     "res/weapon_config.json"
     "res/sprite_atlas.png")

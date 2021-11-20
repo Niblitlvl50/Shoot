@@ -68,6 +68,7 @@ namespace game
         UITextElement(int font_id, const std::string& text, mono::FontCentering centering, const mono::Color::RGBA& color);
         void SetText(const std::string& new_text);
         void SetColor(const mono::Color::RGBA& new_color);
+        void SetAlpha(float alpha);
 
     private:
 

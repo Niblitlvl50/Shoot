@@ -21,6 +21,8 @@ namespace shared
         math::Vector player_spawn_point;
         mono::Color::RGBA background_color;
         mono::Color::RGBA ambient_shade;
+
+        math::Vector background_size;
         std::string background_texture;
 
         std::vector<std::string> triggers;

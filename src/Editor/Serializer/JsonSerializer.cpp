@@ -21,6 +21,7 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     json_metadata["player_spawn_point"] = level_metadata.player_spawn_point;
     json_metadata["background_color"] = level_metadata.background_color;
     json_metadata["ambient_shade"] = level_metadata.ambient_shade;
+    json_metadata["background_size"] = level_metadata.background_size;
     json_metadata["background_texture"] = level_metadata.background_texture;
     json_metadata["triggers"] = level_metadata.triggers;
     json_metadata["conditions"] = level_metadata.conditions;

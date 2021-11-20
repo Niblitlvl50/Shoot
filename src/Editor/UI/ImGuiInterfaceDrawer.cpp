@@ -291,13 +291,15 @@ namespace
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Background");
+                const bool background_size_changed = ImGui::InputFloat2("Size2", &context.level_metadata.background_size.x);
                 const std::vector<std::string>& all_textures = editor::GetAllTextures();
                 int out_index;
-                const bool changed = editor::DrawStringPicker("Texture", context.level_metadata.background_texture, all_textures, out_index);
-                if(changed)
+                const bool background_texture_changed = editor::DrawStringPicker("Texture", context.level_metadata.background_texture, all_textures, out_index);
+
+                if(background_size_changed || background_texture_changed)
                 {
                     context.level_metadata.background_texture = all_textures[out_index];
-                    context.background_texture_callback(context.level_metadata.background_texture);
+                    context.background_callback(context.level_metadata.background_size, context.level_metadata.background_texture);
                 }
 
                 ImGui::Spacing();
