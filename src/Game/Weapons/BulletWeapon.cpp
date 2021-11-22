@@ -150,7 +150,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
         m_bullet_id_to_callback[bullet_entity.id] = callback_id;
     }
 
-    m_muzzle_flash->EmittAt(position, direction);
+    //m_muzzle_flash->EmittAt(position, direction);
 
     m_fire_sound->Play();
 

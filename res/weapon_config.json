@@ -11,8 +11,8 @@
         },
         {
             "name": "plasma_bullet",
-            "life_span": 10.0,
-            "fuzzy_life_span": 0.0,
+            "life_span": 0.2,
+            "fuzzy_life_span": 0.2,
             "bullet_want_direction": false,
             "entity_file": "res/entities/plasma_bullet.entity",
             "sound_file": "",

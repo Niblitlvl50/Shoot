@@ -23,6 +23,10 @@
         "res/textures/smoke.png",
         "res/textures/square.png",
         "res/textures/stone_tileablestone.png",
+        "res/textures/superpowers-rocks-1a-tiling.png",
+        "res/textures/superpowers-rocks-2a-tiling.png",
+        "res/textures/superpowers-rocks-3-tiling.png",
+        "res/textures/superpowers-rocks-4-tiling.png",
         "res/textures/white_box_placeholder.png"
     ]
 }
