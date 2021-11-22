@@ -101,6 +101,23 @@ void game::StandardCollision(
         entity_manager->ReleaseEntity(entity_id);
 }
 
+void game::PlasmaCollision(
+    uint32_t entity_id,
+    uint32_t owner_entity_id,
+    game::BulletImpactFlag flags,
+    const CollisionDetails& details,
+    mono::IEntityManager* entity_manager,
+    game::DamageSystem* damage_system,
+    mono::PhysicsSystem* physics_system,
+    mono::SpriteSystem* sprite_system,
+    mono::TransformSystem* transform_system)
+{
+    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+
+    if(!details.body)
+        SpawnEntityWithAnimation("res/entities/hex_tiny.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+}
+
 void game::RocketCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,

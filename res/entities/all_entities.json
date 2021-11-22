@@ -11,6 +11,7 @@
         "res/entities/flak_cannon_pickup.entity",
         "res/entities/goblin.entity",
         "res/entities/green_blob.entity",
+        "res/entities/hex_tiny.entity",
         "res/entities/laser_bullet.entity",
         "res/entities/pink_blolb.entity",
         "res/entities/plasma_bullet.entity",

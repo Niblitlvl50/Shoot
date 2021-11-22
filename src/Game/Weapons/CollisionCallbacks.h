@@ -34,6 +34,17 @@ namespace game
         mono::SpriteSystem* sprite_system,
         mono::TransformSystem* transform_system);
 
+    void PlasmaCollision(
+        uint32_t entity_id,
+        uint32_t owner_entity_id,
+        game::BulletImpactFlag flags,
+        const CollisionDetails& details,
+        mono::IEntityManager* entity_manager,
+        game::DamageSystem* damage_system,
+        mono::PhysicsSystem* physics_system,
+        mono::SpriteSystem* sprite_system,
+        mono::TransformSystem* transform_system);
+
     void RocketCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
