@@ -80,3 +80,8 @@ void CameraTool::HandleMultiGesture(const math::Vector& screen_position, float d
     const float multiplier = (distance < 0.0f) ? -1.0f : 1.0f;
     HandleMouseWheel(0.0f, multiplier);
 }
+
+void CameraTool::MoveCamera(const math::Vector& delta)
+{
+    m_camera->Move(delta);
+}

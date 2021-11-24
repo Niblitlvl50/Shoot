@@ -16726,7 +16726,7 @@
                             "id": 1013213428,
                             "name": "texture",
                             "variant_type": 6,
-                            "variant_value": "res/textures/particles/square.png"
+                            "variant_value": "res/textures/particles/tiny_flower.png"
                         },
                         {
                             "id": 3513758418,
@@ -16804,10 +16804,10 @@
                                         "red": 0.9901960492134094
                                     },
                                     {
-                                        "alpha": 0.5,
+                                        "alpha": 1.0,
                                         "blue": 1.0,
-                                        "green": 0.6960784196853638,
-                                        "red": 0.9999998807907104
+                                        "green": 1.0,
+                                        "red": 1.0
                                     },
                                     {
                                         "alpha": 0.800000011920929,

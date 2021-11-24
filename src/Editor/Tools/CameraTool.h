@@ -25,6 +25,8 @@ namespace editor
         void HandleMouseWheel(float x, float y);
         void HandleMultiGesture(const math::Vector& screen_position, float distance);
 
+        void MoveCamera(const math::Vector& delta);
+
     private:
     
         mono::ICamera* m_camera;

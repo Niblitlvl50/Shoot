@@ -317,11 +317,19 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         else if(event.key == Keycode::DOWN)
             delta.y -= offset;
 
-        for(uint32_t id : m_editor->GetSelection())
+        const std::vector<uint32_t> selection = m_editor->GetSelection();
+        if(selection.empty())
         {
-            IObjectProxy* proxy = m_editor->FindProxyObject(id);
-            if(proxy)
-                proxy->SetPosition(proxy->GetPosition() + delta);
+            m_camera_tool.MoveCamera(delta);
+        }
+        else
+        {
+            for(uint32_t id : m_editor->GetSelection())
+            {
+                IObjectProxy* proxy = m_editor->FindProxyObject(id);
+                if(proxy)
+                    proxy->SetPosition(proxy->GetPosition() + delta);
+            }
         }
     }
 
