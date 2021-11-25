@@ -104,12 +104,12 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         {
             const auto scope = mono::MakeTransformScope(draw_data.transform, &renderer);
 
-            const math::Vector text_size = mono::MeasureString(shared::FontId::PIXELETTE_TINY, draw_data.name);
-            const math::Vector half_text_size = text_size / 2.0f;
+            const float padding = 0.1f;
 
-            const math::Quad background_quad(
-                -half_text_size.x, -half_text_size.y,
-                half_text_size.x, half_text_size.y);
+            const math::Vector text_size = mono::MeasureString(shared::FontId::PIXELETTE_TINY, draw_data.name);
+            const math::Vector half_text_size = (text_size / 2.0f) + math::Vector(padding, padding);
+
+            const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
             renderer.RenderText(shared::FontId::PIXELETTE_TINY, draw_data.name, mono::Color::OFF_WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
@@ -121,7 +121,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const float width_padding = 0.1f;
 
             const math::Matrix projection = math::Ortho(0.0f, 12.0f, 0.0f, 8.0f, 0.0f, 1.0f);
-            const math::Matrix transform = math::CreateMatrixWithPosition(math::Vector(8.0f, 2.0f));
+            const math::Matrix transform = math::CreateMatrixWithPosition(math::Vector(10.0f, 1.5f));
 
             const auto projection_scope = mono::MakeProjectionScope(projection, &renderer);
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
@@ -132,7 +132,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Quad background_quad(
                 -(half_sprite_width + width_padding), -0.25f,
-                current_frame.size.x + verb_width + width_padding, 0.25f);
+                (current_frame.size.x + verb_width + width_padding), 0.25f);
             renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
             mono::ITexture* texture = m_sprite->GetTexture();

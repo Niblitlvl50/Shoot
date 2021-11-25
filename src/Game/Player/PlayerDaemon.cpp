@@ -40,7 +40,8 @@ namespace
         mono::EventHandler* event_handler,
         game::DamageCallback damage_callback)
     {
-        mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
+        //mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
+        mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_alien.entity");
 
         mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(player_entity.id);

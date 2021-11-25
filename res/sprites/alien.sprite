@@ -1,0 +1,205 @@
+{
+    "animations": [
+        {
+            "frame_duration": 200,
+            "frames": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 150,
+            "frames": [
+                4,
+                5,
+                6
+            ],
+            "loop": true,
+            "name": "punch"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                7,
+                8,
+                9,
+                10
+            ],
+            "loop": true,
+            "name": "run"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                11
+            ],
+            "loop": true,
+            "name": "sit"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                12
+            ],
+            "loop": true,
+            "name": "stand"
+        }
+    ],
+    "frames": [
+        {
+            "h": 14,
+            "name": "alien_idle_1",
+            "w": 8,
+            "x": 152,
+            "y": 432
+        },
+        {
+            "h": 15,
+            "name": "alien_idle_2",
+            "w": 8,
+            "x": 448,
+            "y": 410
+        },
+        {
+            "h": 14,
+            "name": "alien_idle_3",
+            "w": 8,
+            "x": 448,
+            "y": 429
+        },
+        {
+            "h": 14,
+            "name": "alien_idle_4",
+            "w": 8,
+            "x": 164,
+            "y": 432
+        },
+        {
+            "h": 14,
+            "name": "alien_punch_1",
+            "w": 9,
+            "x": 2,
+            "y": 432
+        },
+        {
+            "h": 14,
+            "name": "alien_punch_2",
+            "w": 12,
+            "x": 1946,
+            "y": 416
+        },
+        {
+            "h": 14,
+            "name": "alien_punch_3",
+            "w": 12,
+            "x": 866,
+            "y": 417
+        },
+        {
+            "h": 15,
+            "name": "alien_run_1",
+            "w": 8,
+            "x": 1526,
+            "y": 414
+        },
+        {
+            "h": 14,
+            "name": "alien_run_2",
+            "w": 9,
+            "x": 662,
+            "y": 431
+        },
+        {
+            "h": 14,
+            "name": "alien_run_3",
+            "w": 8,
+            "x": 15,
+            "y": 432
+        },
+        {
+            "h": 14,
+            "name": "alien_run_4",
+            "w": 9,
+            "x": 113,
+            "y": 432
+        },
+        {
+            "h": 15,
+            "name": "alien_sit_1",
+            "w": 12,
+            "x": 1227,
+            "y": 415
+        },
+        {
+            "h": 14,
+            "name": "alien_stand_1",
+            "w": 11,
+            "x": 647,
+            "y": 431
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.015625,
+            "y": 0.0
+        },
+        {
+            "x": 0.015625,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/alien/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
