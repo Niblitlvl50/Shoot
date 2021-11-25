@@ -68,7 +68,7 @@ HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
     m_current_heading += turn_value;
 
     const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
-    m_body->ApplyLocalImpulse(angle1 * m_forward_velocity, math::ZeroVec);
+    m_body->ApplyLocalImpulse(angle1 * m_forward_velocity * update_context.delta_s, math::ZeroVec);
 
     return { m_current_heading, math::DistanceBetween(m_target_position, entity_position) };
 }
