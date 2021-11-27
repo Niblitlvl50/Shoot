@@ -22,7 +22,7 @@
             "name": "punch"
         },
         {
-            "frame_duration": 100,
+            "frame_duration": 50,
             "frames": [
                 7,
                 8,
