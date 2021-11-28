@@ -4,9 +4,11 @@
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Rendering/Color.h"
+
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <functional>
 
 struct Attribute;
 struct Component;

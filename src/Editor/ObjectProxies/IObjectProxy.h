@@ -5,6 +5,7 @@
 #include "Math/MathFwd.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 struct Component;
 
