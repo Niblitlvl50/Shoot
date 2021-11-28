@@ -2,6 +2,7 @@
 #include "TranslateTool.h"
 #include "Editor.h"
 #include "Math/MathFunctions.h"
+#include <cassert>
 
 using namespace editor;
 

@@ -18,6 +18,8 @@
 
 #include "imgui/imgui.h"
 
+#include <cassert>
+
 using namespace editor;
 
 ComponentProxy::ComponentProxy(

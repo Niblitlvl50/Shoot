@@ -7,6 +7,8 @@
 #include "TransformSystem/TransformSystem.h"
 #include "System/Hash.h"
 
+#include <iterator>
+
 using namespace game;
 
 namespace

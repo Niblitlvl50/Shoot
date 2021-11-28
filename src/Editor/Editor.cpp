@@ -61,6 +61,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <cassert>
 
 namespace
 {
