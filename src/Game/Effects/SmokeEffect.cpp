@@ -49,7 +49,7 @@ namespace
     {
         const float t = 1.0f - float(component_view.life) / float(component_view.start_life);
 
-        component_view.velocity *= 0.90;
+        component_view.velocity *= 0.90f;
         component_view.position += component_view.velocity * delta_s;
         component_view.size = (1.0f - t) * component_view.start_size + t * component_view.end_size;
         component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);

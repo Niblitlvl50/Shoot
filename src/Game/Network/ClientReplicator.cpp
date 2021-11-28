@@ -24,9 +24,11 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
     RemoteInputMessage remote_input;
     remote_input.controller_state = System::GetController(System::ControllerId::Primary);
 
-    NetworkMessage message;
-    message.payload = SerializeMessage(remote_input);
-    m_remote_connection->SendMessage(message);
+    {
+        NetworkMessage message;
+        message.payload = SerializeMessage(remote_input);
+        m_remote_connection->SendMessage(message);
+    }
 
     m_replicate_timer += update_context.delta_ms;
     if(m_replicate_timer > 16)
