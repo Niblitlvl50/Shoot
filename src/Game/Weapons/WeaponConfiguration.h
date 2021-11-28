@@ -8,6 +8,7 @@
 
 #include <string>
 #include <functional>
+#include <cstring>
 
 #define ENUM_BIT(n) (1 << (n))
 
@@ -42,11 +43,11 @@ namespace game
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
     {
-        if(strcmp(string, "bounce") == 0)
+        if(std::strcmp(string, "bounce") == 0)
             return BulletCollisionFlag::BOUNCE;
-        else if(strcmp(string, "jumper") == 0)
+        else if(std::strcmp(string, "jumper") == 0)
             return BulletCollisionFlag::JUMPER;
-        else if(strcmp(string, "pass_through") == 0)
+        else if(std::strcmp(string, "pass_through") == 0)
             return BulletCollisionFlag::PASS_THROUGH;
 
         return 0;
