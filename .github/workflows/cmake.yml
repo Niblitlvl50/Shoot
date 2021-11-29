@@ -64,13 +64,8 @@ jobs:
       working-directory: ${{github.workspace}}
       run: ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
       
-    - name: List Artifacts
-      if: runner.os == 'Windows'
-      shell: bash
-      run: dir bin
-      
     - name: Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: dist-without-markdown
+        name: binaries ${{ matrix.os }}
         path: ./bin/**
