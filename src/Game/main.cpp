@@ -109,9 +109,16 @@ int main(int argc, char* argv[])
     constexpr size_t max_entities = 1000;
     const Options options = ParseCommandline(argc, argv);
 
-    System::InitializeContext system_context;
-    system_context.log_file = options.log_file;
-    System::Initialize(system_context);
+    System::InitializeContext system_init_context;
+    system_init_context.log_file = options.log_file;
+
+#ifdef __APPLE__
+    char application_path_buffer[1024] = {};
+    System::GetApplicationPath(application_path_buffer, std::size(application_path_buffer));
+    system_init_context.working_directory = application_path_buffer;
+#endif
+
+    System::Initialize(system_init_context);
 
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
