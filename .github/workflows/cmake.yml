@@ -67,5 +67,10 @@ jobs:
     - name: Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: binaries ${{ matrix.os }}
-        path: ./bin/**
+        name: binaries-${{ matrix.os }}
+        path: |
+          ./bin/${{matrix.bin_subdir}}editor*
+          ./bin/${{matrix.bin_subdir}}game_exe*
+          ./bin/${{matrix.bin_subdir}}game_test_exe*
+          ./bin/${{matrix.bin_subdir}}unittest*
+
