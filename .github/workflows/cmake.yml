@@ -15,12 +15,15 @@ jobs:
         include:
           - os: ubuntu-latest
             bin_subdir: ''
+            app_suffix: ''
             exe_suffix: ''
           - os: macos-latest
             bin_subdir: ''
+            app_suffix: '.app'
             exe_suffix: ''
           - os: windows-latest
             bin_subdir:  'Release/'
+            app_suffix: '.exe'
             exe_suffix: '.exe'
 
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -69,8 +72,8 @@ jobs:
       with:
         name: binaries-${{ matrix.os }}
         path: |
-          ./bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
-          ./bin/${{matrix.bin_subdir}}game_exe${{matrix.exe_suffix}}
+          ./bin/${{matrix.bin_subdir}}editor${{matrix.app_suffix}}
+          ./bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
           ./bin/${{matrix.bin_subdir}}unittest${{matrix.exe_suffix}}
 
