@@ -72,7 +72,7 @@ jobs:
       with:
         name: binaries-${{ matrix.os }}
         path: |
-          ./bin/${{matrix.bin_subdir}}editor${{matrix.app_suffix}}
+          ./bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
           ./bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
           ./bin/${{matrix.bin_subdir}}unittest${{matrix.exe_suffix}}
