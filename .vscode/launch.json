@@ -49,11 +49,8 @@
             "name": "editor",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/editor.app/Contents/MacOS/editor",
-            "args": [
-                "res/worlds/world.components"
-                // "res/worlds/empty_world.components"
-            ],
+            "program": "${workspaceRoot}/bin/editor",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
