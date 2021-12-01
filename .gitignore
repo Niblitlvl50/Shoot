@@ -14,6 +14,7 @@ game_log.log
 bin/
 build/
 xcode_build/
+build_xcode/
 CMakeFiles/
 DerivedData/
 res/editor_config.json

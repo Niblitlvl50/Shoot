@@ -75,10 +75,8 @@
         {
             "label": "editor",
             "type": "process",
-            "command": "./bin/editor.app/Contents/MacOS/editor",
-            "args": [
-                "res/worlds/world.components"
-            ],
+            "command": "./bin/editor",
+            "args": [],
             "problemMatcher": []
         }
     ]
