@@ -38,28 +38,28 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 385,
+            "x": 477,
             "y": 432
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 402,
+            "x": 460,
             "y": 432
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 419,
+            "x": 420,
             "y": 432
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 460,
+            "x": 403,
             "y": 432
         }
     ],
