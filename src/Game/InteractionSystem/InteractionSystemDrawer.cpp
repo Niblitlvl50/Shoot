@@ -33,8 +33,11 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
 {
-    m_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/button_indication.sprite");
-    m_sprite_buffer = mono::BuildSpriteDrawBuffers(m_sprite->GetSpriteData());
+    m_button_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/button_indication.sprite");
+    m_button_sprite_buffer = mono::BuildSpriteDrawBuffers(m_button_sprite->GetSpriteData());
+
+    m_cross_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/button_cross.sprite");
+    m_cross_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cross_sprite->GetSpriteData());
 
     for(const char* verb : shared::interaction_type_verb)
     {
@@ -128,7 +131,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
             const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
 
-            const mono::SpriteFrame current_frame = m_sprite->GetCurrentFrame();
+            const mono::SpriteFrame current_frame = m_button_sprite->GetCurrentFrame();
             const float half_sprite_width = current_frame.size.x / 2.0f;
 
             const math::Quad background_quad(
@@ -136,16 +139,16 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
                 (current_frame.size.x + verb_width + width_padding), 0.25f);
             renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
-            mono::ITexture* texture = m_sprite->GetTexture();
-            const int offset = m_sprite->GetCurrentFrameIndex() * m_sprite_buffer.vertices_per_sprite;
+            mono::ITexture* texture = m_button_sprite->GetTexture();
+            const int offset = m_button_sprite->GetCurrentFrameIndex() * m_button_sprite_buffer.vertices_per_sprite;
 
             renderer.DrawSprite(
-                m_sprite.get(),
-                m_sprite_buffer.vertices.get(),
-                m_sprite_buffer.offsets.get(),
-                m_sprite_buffer.uv.get(),
-                m_sprite_buffer.uv_flipped.get(),
-                m_sprite_buffer.heights.get(),
+                m_button_sprite.get(),
+                m_button_sprite_buffer.vertices.get(),
+                m_button_sprite_buffer.offsets.get(),
+                m_button_sprite_buffer.uv.get(),
+                m_button_sprite_buffer.uv_flipped.get(),
+                m_button_sprite_buffer.heights.get(),
                 m_indices.get(),
                 texture,
                 offset);

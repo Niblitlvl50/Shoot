@@ -6,16 +6,16 @@
                 0
             ],
             "loop": true,
-            "name": "default"
+            "name": "down"
         }
     ],
     "frames": [
         {
-            "h": 14,
-            "name": "rock_tiny_6",
-            "w": 16,
-            "x": 1745,
-            "y": 417
+            "h": 12,
+            "name": "button_cross_down_1",
+            "w": 12,
+            "x": 34,
+            "y": 433
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/rocks/",
+    "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

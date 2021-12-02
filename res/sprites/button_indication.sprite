@@ -38,7 +38,7 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 477,
+            "x": 420,
             "y": 432
         },
         {
@@ -52,7 +52,7 @@
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 420,
+            "x": 477,
             "y": 432
         },
         {

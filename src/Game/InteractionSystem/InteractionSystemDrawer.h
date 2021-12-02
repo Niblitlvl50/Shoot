@@ -31,8 +31,11 @@ namespace game
         const mono::TransformSystem* m_transform_system;
         const mono::EntitySystem* m_entity_system;
 
-        mono::ISpritePtr m_sprite;
-        mono::SpriteDrawBuffers m_sprite_buffer;
+        mono::ISpritePtr m_button_sprite;
+        mono::SpriteDrawBuffers m_button_sprite_buffer;
+
+        mono::ISpritePtr m_cross_sprite;
+        mono::SpriteDrawBuffers m_cross_sprite_buffer;
 
         std::vector<mono::TextDrawBuffers> m_verb_buffers;
         std::vector<float> m_verb_widths;
