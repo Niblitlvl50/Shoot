@@ -89,7 +89,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     }
 
     if(up_triggered)
-        m_player_logic->Throw();
+        m_player_logic->ThrowAction();
 
     if(down_triggered)
         m_player_logic->PickupDrop();

@@ -48,7 +48,8 @@ namespace game
         void UseItemSlot(ItemSlotIndex slot_index);
         void HandlePickup(shared::PickupType type, int amount);
 
-        void Throw();
+        void Throw(float throw_force);
+        void ThrowAction();
         void PickupDrop();
 
         void TriggerInteraction();
