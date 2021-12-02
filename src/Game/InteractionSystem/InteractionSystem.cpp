@@ -20,34 +20,40 @@ InteractionSystem::InteractionSystem(
     uint32_t n, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system)
     : m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
+    , m_components(n)
 {
-    m_components.resize(n);
-    m_active.resize(n, false);
+    m_component_details.resize(n, { false, true});
 }
 
 InteractionComponent* InteractionSystem::AllocateComponent(uint32_t entity_id)
 {
-    m_active[entity_id] = true;
-    return &m_components[entity_id];
+    InteractionComponent component;
+    return m_components.Set(entity_id, std::move(component));
 }
 
 void InteractionSystem::ReleaseComponent(uint32_t entity_id)
 {
-    m_active[entity_id] = false;
+    m_components.Release(entity_id);
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type)
+void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type, bool draw_name)
 {
-    AddComponent(entity_id, interaction_hash, NO_HASH, interaction_type);
+    AddComponent(entity_id, interaction_hash, NO_HASH, interaction_type, draw_name);
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type)
+void InteractionSystem::AddComponent(
+    uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type, bool draw_name)
 {
-    InteractionComponent& component = m_components[entity_id];
-    component.on_interaction_hash = on_interaction_hash;
-    component.off_interaction_hash = off_interaction_hash;
-    component.type = interaction_type;
-    component.triggered = false;
+    InteractionComponent* component = m_components.Get(entity_id);
+    component->on_interaction_hash = on_interaction_hash;
+    component->off_interaction_hash = off_interaction_hash;
+    component->type = interaction_type;
+    component->draw_name = draw_name;
+
+    // Internal data
+    InteractionComponentDetails& details = m_component_details[entity_id];
+    details.triggered = false;
+    details.enabled = true;
 }
 
 uint32_t InteractionSystem::Id() const
@@ -69,6 +75,10 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 
     const auto collect_active_interactions = [&, this](uint32_t interaction_id, InteractionComponent& interaction) {
         
+        InteractionComponentDetails& details = m_component_details[interaction_id];
+        if(!details.enabled)
+            return;
+
         math::Quad interaction_bb = m_transform_system->GetWorldBoundingBox(interaction_id);
         math::ResizeQuad(interaction_bb, 0.25f);
 
@@ -81,17 +91,17 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
             const bool overlaps = math::QuadOverlaps(interaction_bb, player_bb);
             if(overlaps)
             {
-                m_interaction_data.active.push_back({ interaction_id, player_info->entity_id, interaction.type });
+                m_interaction_data.active.push_back({ interaction_id, player_info->entity_id, interaction.type, interaction.draw_name });
 
                 const auto it = std::find(m_player_triggers.begin(), m_player_triggers.end(), player_info->entity_id);
                 if(it != m_player_triggers.end())
                 {
                     const bool has_off_hash = (interaction.off_interaction_hash != NO_HASH);
                     const uint32_t hash =
-                        (interaction.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
+                        (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
                     m_trigger_system->EmitTrigger(hash);
 
-                    interaction.triggered = !interaction.triggered;
+                    details.triggered = !details.triggered;
                 }
             }
         }
@@ -118,6 +128,17 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 void InteractionSystem::TryTriggerInteraction(uint32_t entity_id)
 {
     m_player_triggers.push_back(entity_id);
+}
+
+bool InteractionSystem::CanPlayerTriggerInteraction(uint32_t player_entity_id)
+{
+    for(const InteractionAndTrigger& active_interaction : m_interaction_data.active)
+    {
+        if(active_interaction.trigger_id == player_entity_id)
+            return true;
+    }
+
+    return false;
 }
 
 const FrameInteractionData& InteractionSystem::GetFrameInteractionData() const

@@ -81,8 +81,8 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(0.0f, 0.2f);
 
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
-        const char* entity_name = m_entity_system->GetEntityName(interaction_trigger.interaction_id);
 
+        const char* entity_name = interaction_trigger.draw_name ? m_entity_system->GetEntityName(interaction_trigger.interaction_id) : nullptr;
         active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type, entity_name });
     }
 
@@ -101,6 +101,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
     for(const InteractionDrawData& draw_data : active_interactions)
     {
         // Name
+        if(draw_data.name != nullptr)
         {
             const auto scope = mono::MakeTransformScope(draw_data.transform, &renderer);
 

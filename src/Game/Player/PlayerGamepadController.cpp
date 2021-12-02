@@ -76,21 +76,23 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     const bool up_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::UP);
     const bool down_triggered = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::DOWN);
 
-    if(left_triggered || right_triggered || up_triggered || down_triggered)
+    if(left_triggered || right_triggered)
     {
         ItemSlotIndex slot_index;
 
         if(left_triggered)
             slot_index = ItemSlotIndex::LEFT;
-        else if(right_triggered)
-            slot_index = ItemSlotIndex::RIGHT;
-        else if(up_triggered)
-            slot_index = ItemSlotIndex::UP;
         else
-            slot_index = ItemSlotIndex::DOWN;
+            slot_index = ItemSlotIndex::RIGHT;
 
         m_player_logic->UseItemSlot(slot_index);
     }
+
+    if(up_triggered)
+        m_player_logic->Throw();
+
+    if(down_triggered)
+        m_player_logic->PickupDrop();
 
     m_last_state = m_state;
 }

@@ -23,8 +23,7 @@ namespace game
     {
         LEFT,
         RIGHT,
-        UP,
-        DOWN
+        N_SLOTS
     };
 
     class PlayerLogic : public IEntityLogic
@@ -48,6 +47,9 @@ namespace game
         void Reload(uint32_t timestamp);
         void UseItemSlot(ItemSlotIndex slot_index);
         void HandlePickup(shared::PickupType type, int amount);
+
+        void Throw();
+        void PickupDrop();
 
         void TriggerInteraction();
 
@@ -117,6 +119,6 @@ namespace game
 
         struct ItemSlot
         {};
-        ItemSlot m_item_slots[4];
+        ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
     };
 }

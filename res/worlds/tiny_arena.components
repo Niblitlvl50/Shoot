@@ -126,6 +126,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -424,6 +430,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -670,6 +682,12 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -852,6 +870,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1038,6 +1062,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -1220,6 +1250,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -1901,6 +1937,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -2074,6 +2116,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -2296,6 +2344,12 @@
                             "name": "interaction_type",
                             "variant_type": 1,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 },
@@ -2609,6 +2663,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -2851,6 +2911,12 @@
                         {
                             "id": 3749132497,
                             "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
                             "variant_type": 3,
                             "variant_value": 1.0
                         },
@@ -3113,6 +3179,12 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -3367,6 +3439,12 @@
                         {
                             "id": 3749132497,
                             "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
                             "variant_type": 3,
                             "variant_value": 1.0
                         },
@@ -3629,6 +3707,12 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -3887,6 +3971,12 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -4093,6 +4183,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 1000.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -4418,6 +4514,12 @@
                             "variant_value": 1000.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -4624,6 +4726,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 1000.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -5087,6 +5195,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -5299,6 +5413,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -5485,6 +5605,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -5675,6 +5801,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -5861,6 +5993,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -6051,6 +6189,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -6237,6 +6381,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -6427,6 +6577,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -6613,6 +6769,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -6803,6 +6965,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -6989,6 +7157,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -7179,6 +7353,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -7365,6 +7545,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -7555,6 +7741,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -7741,6 +7933,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -7931,6 +8129,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -8117,6 +8321,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -8307,6 +8517,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -8493,6 +8709,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -8683,6 +8905,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -8869,6 +9097,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -9059,6 +9293,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -9245,6 +9485,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -9435,6 +9681,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -9621,6 +9873,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -9811,6 +10069,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -9997,6 +10261,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -10211,6 +10481,12 @@
                             "variant_value": 100.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -10395,6 +10671,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -10567,6 +10849,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -10737,6 +11025,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -10925,6 +11219,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -11173,6 +11473,12 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -11379,6 +11685,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 100.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -11840,6 +12152,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -12010,6 +12328,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -12185,6 +12509,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -12373,6 +12703,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -12587,6 +12923,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -12793,6 +13135,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -13087,6 +13435,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -14066,6 +14420,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -14252,6 +14612,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -14442,6 +14808,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -14628,6 +15000,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -14818,6 +15196,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -15004,6 +15388,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -15194,6 +15584,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -15380,6 +15776,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -15570,6 +15972,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -15758,6 +16166,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -15930,6 +16344,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -16100,6 +16520,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -16275,6 +16701,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -17088,157 +17520,6 @@
             "folder": "particles",
             "name": "pixie_lights",
             "uuid_hash": 4178241099
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "Button"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "Interactables"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -3.6577882766723633,
-                                "y": -4.702412128448486
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2050902347,
-                    "name": "interaction",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
-                        },
-                        {
-                            "id": 648402708,
-                            "name": "interaction_type",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "switch_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 1052622306,
-                    "name": "set_animation",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "Interactables",
-            "name": "Button",
-            "uuid_hash": 936884191
         },
         {
             "components": [
@@ -22933,6 +23214,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -23062,6 +23349,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -25746,8 +26039,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.263936519622803,
-                                "y": -2.419365882873535
+                                "x": -5.68385124206543,
+                                "y": -4.276185035705566
                             }
                         },
                         {
@@ -25861,8 +26154,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.661269187927246,
-                                "y": -2.5213277339935303
+                                "x": -5.081183910369873,
+                                "y": -4.378147125244141
                             }
                         },
                         {
@@ -25976,8 +26269,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.1724419593811035,
-                                "y": -2.8463187217712402
+                                "x": -6.5923566818237305,
+                                "y": -4.7031378746032715
                             }
                         },
                         {
@@ -26091,8 +26384,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.048030853271484,
-                                "y": -2.9646975994110107
+                                "x": -5.467945575714111,
+                                "y": -4.821516990661621
                             }
                         },
                         {
@@ -26206,8 +26499,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.544102668762207,
-                                "y": -3.310243606567383
+                                "x": -4.1290507316589355,
+                                "y": -5.050558567047119
                             }
                         },
                         {
@@ -26215,6 +26508,30 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -26281,6 +26598,72 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 100.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.25,
+                                "y": 0.25
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }

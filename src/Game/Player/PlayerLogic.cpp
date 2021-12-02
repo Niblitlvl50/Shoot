@@ -228,6 +228,12 @@ void PlayerLogic::Reload(uint32_t timestamp)
 
 void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 {
+    const bool can_trigger_interaction = m_interaction_system->CanPlayerTriggerInteraction(m_entity_id);
+    if(can_trigger_interaction)
+    {
+
+    }
+
     ItemSlot& item_slot = m_item_slots[slot_index];
 }
 
@@ -248,12 +254,22 @@ void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
         m_player_info->score += amount;
         break;
 
-    case shared::PickupType::WEAPON_PISOL:
+    case shared::PickupType::WEAPON_PISTOL:
     case shared::PickupType::WEAPON_PLASMA:
     case shared::PickupType::WEAPON_SHOTGUN:
         HandleWeaponPickup(type);
         break;
     };
+}
+
+void PlayerLogic::Throw()
+{
+    System::Log("Throw the thing!");
+}
+
+void PlayerLogic::PickupDrop()
+{
+    System::Log("Pickup or Drop it...");
 }
 
 void PlayerLogic::TriggerInteraction()
@@ -270,7 +286,7 @@ void PlayerLogic::SelectWeapon(WeaponSetup weapon)
 void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
 {
     static const std::unordered_map<shared::PickupType, game::WeaponSetup> g_pickup_to_weapon = {
-        { shared::PickupType::WEAPON_PISOL,     game::GENERIC },
+        { shared::PickupType::WEAPON_PISTOL,    game::GENERIC },
         { shared::PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
         { shared::PickupType::WEAPON_SHOTGUN,   game::FLAK_CANON },
     };

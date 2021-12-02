@@ -54,7 +54,7 @@ const DefaultAttribute default_attributes[] = {
     { "boss_health",        Variant(false) },
     { "sprite_file",        Variant(std::string()) },
     { "animation",          Variant(0) },
-    { "unused",             Variant(false) },
+    { "draw_name",          Variant(false) },
     { "sort_offset",        Variant(0.0f) },
     { "layer",              Variant(0) },
     { "sprite_properties",  Variant(0u) },
@@ -126,7 +126,7 @@ extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[12].has
 
 extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[13].hash;
 extern const uint32_t MASS_ATTRIBUTE                = default_attributes[14].hash;
-//extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[15].hash;
+extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[15].hash;
 extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[16].hash;
 
 extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[17].hash;
@@ -144,7 +144,7 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[26].has
 
 extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[27].hash;
 extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[28].hash;
-extern const uint32_t UNUSED_3                      = default_attributes[29].hash;
+extern const uint32_t DRAW_NAME_ATTRIBUTE           = default_attributes[29].hash;
 extern const uint32_t SORT_OFFSET_ATTRIBUTE         = default_attributes[30].hash;
 extern const uint32_t LAYER_ATTRIBUTE               = default_attributes[31].hash;
 extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].hash;
@@ -340,8 +340,8 @@ const Component default_components[] = {
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
-    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
-    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE }),
+    MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
+    MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE }),
@@ -350,7 +350,7 @@ const Component default_components[] = {
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
     MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
-    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
+    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),

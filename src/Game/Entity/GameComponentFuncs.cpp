@@ -54,13 +54,10 @@ namespace
 
         FindAttribute(BODY_TYPE_ATTRIBUTE, properties, (int&)body_args.type, FallbackMode::SET_DEFAULT);
         FindAttribute(MASS_ATTRIBUTE, properties, body_args.mass, FallbackMode::SET_DEFAULT);
-        //FindAttribute(INERTIA_ATTRIBUTE, properties, body_args.inertia, FallbackMode::SET_DEFAULT);
+        FindAttribute(INERTIA_ATTRIBUTE, properties, body_args.inertia, FallbackMode::SET_DEFAULT);
 
         bool prevent_rotation = false;
         FindAttribute(PREVENT_ROTATION_ATTRIBUTE, properties, prevent_rotation, FallbackMode::SET_DEFAULT);
-
-        if(prevent_rotation)
-            body_args.inertia = math::INF;
 
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
         mono::IBody* body = physics_system->GetBody(entity->id);
@@ -778,8 +775,11 @@ namespace
         shared::InteractionType interaction_type;
         FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
 
+        bool draw_name = false;
+        FindAttribute(DRAW_NAME_ATTRIBUTE, properties, draw_name, FallbackMode::SET_DEFAULT);
+
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
-        interaction_system->AddComponent(entity->id, hash::Hash(trigger_name.c_str()), interaction_type);
+        interaction_system->AddComponent(entity->id, hash::Hash(trigger_name.c_str()), interaction_type, draw_name);
         hash::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -800,10 +800,13 @@ namespace
 
         shared::InteractionType interaction_type;
         FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
-        
+
+        bool draw_name = false;
+        FindAttribute(DRAW_NAME_ATTRIBUTE, properties, draw_name, FallbackMode::SET_DEFAULT);
+
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
-            entity->id, hash::Hash(on_trigger_name.c_str()), hash::Hash(off_trigger_name.c_str()), interaction_type);
+            entity->id, hash::Hash(on_trigger_name.c_str()), hash::Hash(off_trigger_name.c_str()), interaction_type, draw_name);
 
         hash::HashRegisterString(on_trigger_name.c_str());
         hash::HashRegisterString(off_trigger_name.c_str());

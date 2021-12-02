@@ -24,6 +24,7 @@ extern const uint32_t AMOUNT_ATTRIBUTE;
 
 extern const uint32_t BODY_TYPE_ATTRIBUTE;
 extern const uint32_t MASS_ATTRIBUTE;
+extern const uint32_t INERTIA_ATTRIBUTE;
 extern const uint32_t PREVENT_ROTATION_ATTRIBUTE;
 
 extern const uint32_t FACTION_ATTRIBUTE;
@@ -40,7 +41,7 @@ extern const uint32_t BOSS_HEALTH_ATTRIBUTE;
 
 extern const uint32_t SPRITE_ATTRIBUTE;
 extern const uint32_t ANIMATION_ATTRIBUTE;
-//extern const uint32_t FLIP_VERTICAL_ATTRIBUTE;
+extern const uint32_t DRAW_NAME_ATTRIBUTE;
 extern const uint32_t SORT_OFFSET_ATTRIBUTE;
 extern const uint32_t LAYER_ATTRIBUTE;
 extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE;

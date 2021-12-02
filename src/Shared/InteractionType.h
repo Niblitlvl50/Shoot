@@ -8,18 +8,21 @@ namespace shared
         BUTTON,
         NPC,
         SIGN,
+        PICKUP,
     };
 
     constexpr const char* interaction_type_strings[] = {
         "Button",
         "NPC",
-        "Sign"
+        "Sign",
+        "Pickup",
     };
 
     constexpr const char* interaction_type_verb[] = {
         "Push",
         "Talk",
         "Read",
+        "Take",
     };
 
     inline const char* InteractionTypeToString(InteractionType interaction_type)

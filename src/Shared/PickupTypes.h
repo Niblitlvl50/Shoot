@@ -10,7 +10,7 @@ namespace shared
         AMMO,
         HEALTH,
         SCORE,
-        WEAPON_PISOL,
+        WEAPON_PISTOL,
         WEAPON_PLASMA,
         WEAPON_SHOTGUN
     };
