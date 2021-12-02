@@ -31,14 +31,14 @@ namespace game
         const mono::TransformSystem* m_transform_system;
         const mono::EntitySystem* m_entity_system;
 
-        mono::ISpritePtr m_button_sprite;
-        mono::SpriteDrawBuffers m_button_sprite_buffer;
-
-        mono::ISpritePtr m_cross_sprite;
-        mono::SpriteDrawBuffers m_cross_sprite_buffer;
-
-        std::vector<mono::TextDrawBuffers> m_verb_buffers;
-        std::vector<float> m_verb_widths;
+        struct VerbSpriteBuffer
+        {
+            mono::ISpritePtr sprite;
+            mono::SpriteDrawBuffers sprite_buffer;
+        };
+        std::vector<VerbSpriteBuffer> m_verb_sprites_buffers;
+        std::vector<mono::TextDrawBuffers> m_verb_text_buffers;
+        std::vector<float> m_verb_text_widths;
 
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
@@ -46,7 +46,6 @@ namespace game
         {
             mono::Color::RGBA shade;
         };
-
         mutable std::unordered_map<uint32_t, BackupData> m_backup_data;
     };
 }

@@ -21,6 +21,18 @@
 
 #include "FontIds.h"
 
+namespace
+{
+    constexpr const char* g_interaction_type_sprite[] = {
+        "res/sprites/button_indication.sprite",
+        "res/sprites/button_indication.sprite",
+        "res/sprites/button_indication.sprite",
+        "res/sprites/button_cross.sprite",
+    };
+
+    static_assert(std::size(g_interaction_type_sprite) == std::size(shared::interaction_type_verb));
+}
+
 using namespace game;
 
 InteractionSystemDrawer::InteractionSystemDrawer(
@@ -33,17 +45,26 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
 {
-    m_button_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/button_indication.sprite");
-    m_button_sprite_buffer = mono::BuildSpriteDrawBuffers(m_button_sprite->GetSpriteData());
+    for(uint32_t index = 0; index < std::size(shared::interaction_type_verb); ++index)
+    {
+        const char* verb = shared::interaction_type_verb[index];
 
-    m_cross_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/button_cross.sprite");
-    m_cross_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cross_sprite->GetSpriteData());
+        m_verb_text_buffers.push_back(
+            mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, verb, mono::FontCentering::VERTICAL));
+        m_verb_text_widths.push_back(mono::MeasureString(shared::FontId::PIXELETTE_TINY, verb).x);
+
+        VerbSpriteBuffer verb_sprite_buffer;
+        verb_sprite_buffer.sprite = mono::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
+        verb_sprite_buffer.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer.sprite->GetSpriteData());
+
+        m_verb_sprites_buffers.push_back(std::move(verb_sprite_buffer));
+    }
 
     for(const char* verb : shared::interaction_type_verb)
     {
-        m_verb_buffers.push_back(
+        m_verb_text_buffers.push_back(
             mono::BuildTextDrawBuffers(shared::FontId::PIXELETTE_TINY, verb, mono::FontCentering::VERTICAL));
-        m_verb_widths.push_back(mono::MeasureString(shared::FontId::PIXELETTE_TINY, verb).x);
+        m_verb_text_widths.push_back(mono::MeasureString(shared::FontId::PIXELETTE_TINY, verb).x);
     }
 
     constexpr uint16_t indices[] = {
@@ -121,7 +142,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
         // Verb
         {
-            const float verb_width = m_verb_widths[draw_data.sprite_index];
+            const float verb_width = m_verb_text_widths[draw_data.sprite_index];
             const float width_padding = 0.1f;
 
             const math::Matrix projection = math::Ortho(0.0f, 12.0f, 0.0f, 8.0f, 0.0f, 1.0f);
@@ -131,7 +152,11 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
             const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
 
-            const mono::SpriteFrame current_frame = m_button_sprite->GetCurrentFrame();
+            const VerbSpriteBuffer& sprite_and_buffer = m_verb_sprites_buffers[draw_data.sprite_index];
+            const mono::ISprite* button_sprite = sprite_and_buffer.sprite.get();
+            const mono::SpriteDrawBuffers& button_buffers = sprite_and_buffer.sprite_buffer;
+
+            const mono::SpriteFrame current_frame = button_sprite->GetCurrentFrame();
             const float half_sprite_width = current_frame.size.x / 2.0f;
 
             const math::Quad background_quad(
@@ -139,21 +164,21 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
                 (current_frame.size.x + verb_width + width_padding), 0.25f);
             renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
-            mono::ITexture* texture = m_button_sprite->GetTexture();
-            const int offset = m_button_sprite->GetCurrentFrameIndex() * m_button_sprite_buffer.vertices_per_sprite;
+            mono::ITexture* texture = button_sprite->GetTexture();
+            const int offset = sprite_and_buffer.sprite->GetCurrentFrameIndex() * button_buffers.vertices_per_sprite;
 
             renderer.DrawSprite(
-                m_button_sprite.get(),
-                m_button_sprite_buffer.vertices.get(),
-                m_button_sprite_buffer.offsets.get(),
-                m_button_sprite_buffer.uv.get(),
-                m_button_sprite_buffer.uv_flipped.get(),
-                m_button_sprite_buffer.heights.get(),
+                button_sprite,
+                button_buffers.vertices.get(),
+                button_buffers.offsets.get(),
+                button_buffers.uv.get(),
+                button_buffers.uv_flipped.get(),
+                button_buffers.heights.get(),
                 m_indices.get(),
                 texture,
                 offset);
 
-            const mono::TextDrawBuffers& text_buffers = m_verb_buffers[draw_data.sprite_index];
+            const mono::TextDrawBuffers& text_buffers = m_verb_text_buffers[draw_data.sprite_index];
             const mono::ITexturePtr font_texture = mono::GetFontTexture(shared::FontId::PIXELETTE_TINY);
 
             math::Matrix text_transform = transform;
