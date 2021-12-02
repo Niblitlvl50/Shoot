@@ -120,5 +120,8 @@ namespace game
         struct ItemSlot
         {};
         ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
+
+        uint32_t m_picked_up_id;
+        mono::IConstraint* m_pickup_constraint;
     };
 }

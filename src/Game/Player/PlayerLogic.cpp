@@ -47,6 +47,8 @@ PlayerLogic::PlayerLogic(
     , m_fire(false)
     , m_total_ammo_left(500)
     , m_aim_direction(0.0f)
+    , m_picked_up_id(mono::INVALID_ID)
+    , m_pickup_constraint(nullptr)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -264,17 +266,53 @@ void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
 
 void PlayerLogic::Throw()
 {
-    System::Log("Throw the thing!");
+    if(m_picked_up_id != mono::INVALID_ID)
+    {
+        mono::IBody* body = m_physics_system->GetBody(m_picked_up_id);
+        if(body)
+        {
+            m_physics_system->ReleaseConstraint(m_pickup_constraint);
+            m_pickup_constraint = nullptr;
+
+            const math::Vector throw_direction = math::Normalized(math::VectorFromAngle(m_aim_direction));
+            body->ApplyLocalImpulse(throw_direction * 100.0f, math::ZeroVec);
+        }
+
+        m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
+        m_picked_up_id = mono::INVALID_ID;
+    }
 }
 
 void PlayerLogic::PickupDrop()
 {
-    System::Log("Pickup or Drop it...");
+    if(m_picked_up_id == mono::INVALID_ID)
+    {
+        const InteractionCallback interaction_callback = [this](uint32_t interaction_id, shared::InteractionType interaction_type) {
+            if(interaction_type == shared::InteractionType::PICKUP)
+            {
+                m_interaction_system->SetInteractionEnabled(interaction_id, false);
+                m_picked_up_id = interaction_id;
+
+                mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
+                mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
+
+                m_pickup_constraint = m_physics_system->CreateSpring(player_body, pickup_body, 0.25f, 100.0f, 0.5f);
+            }
+        };
+        m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
+    }
+    else
+    {
+        m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
+        m_picked_up_id = mono::INVALID_ID;
+
+        m_physics_system->ReleaseConstraint(m_pickup_constraint);
+        m_pickup_constraint = nullptr;
+    }
 }
 
 void PlayerLogic::TriggerInteraction()
 {
-    m_interaction_system->TryTriggerInteraction(m_entity_id);
 }
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)

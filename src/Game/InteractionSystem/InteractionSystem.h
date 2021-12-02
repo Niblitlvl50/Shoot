@@ -6,6 +6,7 @@
 #include "InteractionType.h"
 #include "Util/ActiveVector.h"
 #include <vector>
+#include <functional>
 
 namespace game
 {
@@ -31,6 +32,8 @@ namespace game
         std::vector<InteractionAndTrigger> deactivated;
     };
 
+    using InteractionCallback = std::function<void (uint32_t entity_id, shared::InteractionType interaction_type)>;
+
     class InteractionSystem : public mono::IGameSystem
     {
     public:
@@ -46,8 +49,9 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        void TryTriggerInteraction(uint32_t entity_id);
+        void TryTriggerInteraction(uint32_t entity_id, const InteractionCallback& callback);
         bool CanPlayerTriggerInteraction(uint32_t player_entity_id);
+        void SetInteractionEnabled(uint32_t entity_id, bool enabled);
 
         const FrameInteractionData& GetFrameInteractionData() const;
 
@@ -74,6 +78,11 @@ namespace game
         std::vector<InteractionAndTrigger> m_previous_active_interactions;
         FrameInteractionData m_interaction_data;
 
-        std::vector<uint32_t> m_player_triggers;
+        struct PlayerTriggerData
+        {
+            uint32_t player_entity_id;
+            InteractionCallback callback;
+        };
+        std::vector<PlayerTriggerData> m_player_triggers;
     };
 }

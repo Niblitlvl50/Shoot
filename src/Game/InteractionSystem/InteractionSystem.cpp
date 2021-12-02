@@ -22,7 +22,7 @@ InteractionSystem::InteractionSystem(
     , m_trigger_system(trigger_system)
     , m_components(n)
 {
-    m_component_details.resize(n, { false, true});
+    m_component_details.resize(n, { false, true });
 }
 
 InteractionComponent* InteractionSystem::AllocateComponent(uint32_t entity_id)
@@ -93,15 +93,26 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
             {
                 m_interaction_data.active.push_back({ interaction_id, player_info->entity_id, interaction.type, interaction.draw_name });
 
-                const auto it = std::find(m_player_triggers.begin(), m_player_triggers.end(), player_info->entity_id);
+                const auto find_player_func = [player_info](const PlayerTriggerData& player_trigger_data) {
+                    return player_trigger_data.player_entity_id == player_info->entity_id;
+                };
+
+                const auto it = std::find_if(m_player_triggers.begin(), m_player_triggers.end(), find_player_func);
                 if(it != m_player_triggers.end())
                 {
+                    const bool has_on_hash = (interaction.on_interaction_hash != NO_HASH);
                     const bool has_off_hash = (interaction.off_interaction_hash != NO_HASH);
-                    const uint32_t hash =
-                        (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
-                    m_trigger_system->EmitTrigger(hash);
 
-                    details.triggered = !details.triggered;
+                    if(has_on_hash || has_off_hash)
+                    {
+                        const uint32_t hash =
+                            (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
+                        m_trigger_system->EmitTrigger(hash);
+                        details.triggered = !details.triggered;
+                    }
+
+                    if(it->callback != nullptr)
+                        it->callback(interaction_id, interaction.type);
                 }
             }
         }
@@ -125,9 +136,9 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
     m_player_triggers.clear();
 }
 
-void InteractionSystem::TryTriggerInteraction(uint32_t entity_id)
+void InteractionSystem::TryTriggerInteraction(uint32_t entity_id, const InteractionCallback& callback)
 {
-    m_player_triggers.push_back(entity_id);
+    m_player_triggers.push_back({ entity_id, callback});
 }
 
 bool InteractionSystem::CanPlayerTriggerInteraction(uint32_t player_entity_id)
@@ -139,6 +150,11 @@ bool InteractionSystem::CanPlayerTriggerInteraction(uint32_t player_entity_id)
     }
 
     return false;
+}
+
+void InteractionSystem::SetInteractionEnabled(uint32_t entity_id, bool enabled)
+{
+    m_component_details[entity_id].enabled = enabled;
 }
 
 const FrameInteractionData& InteractionSystem::GetFrameInteractionData() const
