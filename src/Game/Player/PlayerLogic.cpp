@@ -5,6 +5,7 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/IShape.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
@@ -277,6 +278,10 @@ void PlayerLogic::Throw(float throw_force)
 
         const math::Vector throw_direction = math::Normalized(math::VectorFromAngle(m_aim_direction));
         body->ApplyLocalImpulse(throw_direction * throw_force, math::ZeroVec);
+
+        const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
+        for(mono::IShape* shape : shapes)
+            shape->SetCollisionBit(shared::CollisionCategory::PLAYER);
     }
 
     m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
@@ -304,8 +309,11 @@ void PlayerLogic::PickupDrop()
 
             mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
             mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
+            m_pickup_constraint = m_physics_system->CreateSlideJoint(player_body, pickup_body, math::ZeroVec, math::ZeroVec, 0.05f, 0.25f);
 
-            m_pickup_constraint = m_physics_system->CreateSpring(player_body, pickup_body, 0.25f, 100.0f, 0.5f);
+            const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
+            for(mono::IShape* shape : shapes)
+                shape->ClearCollisionBit(shared::CollisionCategory::PLAYER);
         }
     };
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
