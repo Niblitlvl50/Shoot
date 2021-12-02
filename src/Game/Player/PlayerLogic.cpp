@@ -297,7 +297,7 @@ void PlayerLogic::PickupDrop()
     }
 
     const InteractionCallback interaction_callback = [this](uint32_t interaction_id, shared::InteractionType interaction_type) {
-        if(interaction_type == shared::InteractionType::PICKUP)
+        if(interaction_type == shared::InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
         {
             m_interaction_system->SetInteractionEnabled(interaction_id, false);
             m_picked_up_id = interaction_id;
