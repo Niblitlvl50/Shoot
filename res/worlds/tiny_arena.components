@@ -17210,8 +17210,8 @@
                             "name": "direction_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": -10.0,
-                                "min": 10.0
+                                "max": 10.0,
+                                "min": -10.0
                             }
                         },
                         {
