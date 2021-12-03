@@ -322,8 +322,8 @@
                             "name": "direction_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 80.0,
-                                "min": 100.0
+                                "max": 100.0,
+                                "min": 80.0
                             }
                         },
                         {
