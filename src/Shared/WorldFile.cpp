@@ -24,13 +24,8 @@ namespace
     {
         shared::LevelData level_data;
 
-        file::FilePtr file = file::OpenAsciiFile(filename);
-        if(!file)
-            return level_data;
-
         System::Log("WorldFile|Loading world '%s'.", filename);
-
-        const std::vector<byte> file_data = file::FileRead(file);
+        const std::vector<byte> file_data = file::FileReadAll(filename);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
 
         const bool has_metadata = json.contains("metadata");
