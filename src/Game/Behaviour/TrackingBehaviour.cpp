@@ -35,8 +35,8 @@ TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* phy
 
 TrackingBehaviour::~TrackingBehaviour()
 {
-    m_physics_system->ReleaseKinematicBody(m_control_body);
     m_physics_system->ReleaseConstraint(m_spring);
+    m_physics_system->ReleaseKinematicBody(m_control_body);
 }
 
 void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
