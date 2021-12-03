@@ -408,6 +408,12 @@ void Editor::LoadWorld(const std::string& world_filename)
 
 void Editor::Save()
 {
+    if(m_world_filename.empty())
+    {
+        System::Log("editor|Unable to save world, empty filename.");
+        return;
+    }
+
     SaveWorld(m_world_filename.c_str(), m_proxies, m_context.level_metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }
