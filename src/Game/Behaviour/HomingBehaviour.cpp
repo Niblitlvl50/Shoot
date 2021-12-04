@@ -57,7 +57,7 @@ HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
     const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
 
     const float dot_value = math::Dot(delta, vector_angle);
-    const float cross_value = math::Cross(delta, vector_angle);
+    const float cross_value = math::Cross(delta, vector_angle); // This gives the direction to turn in, i think.
 
     const float scaled_clamped_dot = math::Scale01Clamped(dot_value, 1.0f, 0.5f);
     const float scale_value = scaled_clamped_dot * ((cross_value < 0.0f) ? 1.0f : -1.0f);

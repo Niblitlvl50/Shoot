@@ -41,6 +41,7 @@ namespace game
 
         void Update(const mono::UpdateContext& update_context) override;
         void UpdateAnimation(float aim_direction, const math::Vector& player_velocity);
+        void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
 
         void Fire();
         void StopFire();
@@ -51,6 +52,7 @@ namespace game
         void Throw(float throw_force);
         void ThrowAction();
         void PickupDrop();
+        bool HoldingPickup() const; 
 
         void TriggerInteraction();
 
@@ -98,6 +100,7 @@ namespace game
         WeaponSetup m_weapon_type;
         IWeaponPtr m_weapon;
         float m_aim_direction;
+        float m_aim_target;
 
         int m_idle_anim_id;
         int m_run_anim_id;

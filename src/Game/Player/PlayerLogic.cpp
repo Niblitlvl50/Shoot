@@ -79,6 +79,7 @@ PlayerLogic::PlayerLogic(
     // Make sure we have a weapon
     SelectWeapon(game::PLASMA_GUN);
     SetAimDirection(math::PI_2());
+    m_aim_direction = math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {
         PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),
@@ -125,6 +126,40 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& playe
     sprite->SetAnimationPlaybackSpeed(anim_speed);
 }
 
+void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
+{
+    const math::Vector target_vector = math::VectorFromAngle(m_aim_target);
+    const math::Vector direction_vector = math::VectorFromAngle(m_aim_direction);
+
+    const bool rotate_clockwise = (math::Cross(target_vector, direction_vector) < 0.0f);
+    const float multiplier = rotate_clockwise ? 1.0f : -1.0f;
+
+    m_aim_direction += (multiplier * update_context.delta_s * math::ToRadians(360.0f));
+    m_aim_direction = math::NormalizeAngle(m_aim_direction);
+
+    {
+        // Need something better here to determine if we should clamp or not. Perhaps cross again.
+        const bool go_right_and_more = (rotate_clockwise && m_aim_direction > m_aim_target);
+        const bool go_left_and_less = (!rotate_clockwise && m_aim_direction < m_aim_target);
+        if(go_right_and_more || go_left_and_less)
+            m_aim_direction = m_aim_target;
+    }
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity);
+    if(m_aim_direction < math::PI())
+        sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
+    else
+        sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
+
+    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
+    weapon_transform =
+        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
+        math::CreateMatrixFromZRotation(m_aim_direction + math::PI_2()) *
+        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f));
+
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, !HoldingPickup());
+}
+
 void PlayerLogic::ToDefault()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, true);
@@ -158,6 +193,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->ammunition_left = m_total_ammo_left;
 
+    UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, m_player_info->velocity);
 
     if(m_player_info->player_state == PlayerState::DEAD)
@@ -208,6 +244,9 @@ void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
 
 void PlayerLogic::Fire()
 {
+    if(HoldingPickup())
+        return;
+
     m_fire = true;
 }
 
@@ -267,7 +306,7 @@ void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
 
 void PlayerLogic::Throw(float throw_force)
 {
-    if(m_picked_up_id == mono::INVALID_ID)
+    if(!HoldingPickup())
         return;
 
     mono::IBody* body = m_physics_system->GetBody(m_picked_up_id);
@@ -295,7 +334,7 @@ void PlayerLogic::ThrowAction()
 
 void PlayerLogic::PickupDrop()
 {
-    if(m_picked_up_id != mono::INVALID_ID)
+    if(HoldingPickup())
     {
         Throw(0.0f);
         return;
@@ -319,8 +358,14 @@ void PlayerLogic::PickupDrop()
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
 }
 
+bool PlayerLogic::HoldingPickup() const
+{
+    return (m_picked_up_id != mono::INVALID_ID);
+}
+
 void PlayerLogic::TriggerInteraction()
 {
+
 }
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)
@@ -405,19 +450,7 @@ void PlayerLogic::ResetForces()
 
 void PlayerLogic::SetAimDirection(float aim_direction)
 {
-    m_aim_direction = aim_direction;
-
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity);
-    if(aim_direction < math::PI())
-        sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
-    else
-        sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
-
-    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
-    weapon_transform =
-        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
-        math::CreateMatrixFromZRotation(aim_direction + math::PI_2()) *
-        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f));
+    m_aim_target = aim_direction;
 }
 
 void PlayerLogic::Blink(const math::Vector& direction)
