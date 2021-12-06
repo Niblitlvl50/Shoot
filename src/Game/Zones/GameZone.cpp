@@ -62,8 +62,19 @@
 #include "Util/Algorithm.h"
 #include "CollisionConfiguration.h"
 
+#include "GameMode/IGameMode.h"
+
 namespace
 {
+    class DefaultGameMode : public game::IGameMode
+    {
+    public:
+
+        void Begin(mono::IZone* zone, mono::SystemContext* system_context, mono::EventHandler* event_handler) override {}
+        int End(mono::IZone* zone) override { return 0; }
+        void Update(const mono::UpdateContext& update_context) override {}
+    };
+
     void SetupNavmesh(game::NavmeshContext& navmesh_context, const shared::LevelMetadata& metadata, mono::PhysicsSpace* space)
     {
         navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density);
@@ -160,10 +171,18 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new DebugUpdater(trigger_system, transform_system, m_event_handler), LayerId::UI);
+
+    m_game_mode = CreateGameMode();
+    m_game_mode->Begin(this, m_system_context, m_event_handler);
+
+    AddUpdatable(m_game_mode.get());
 }
 
 int GameZone::OnUnload()
 {
+    RemoveUpdatable(m_game_mode.get());
+    const int game_mode_result = m_game_mode->End(this);
+
     game::g_navmesh = nullptr;
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
@@ -172,5 +191,10 @@ int GameZone::OnUnload()
     ConditionSystem* condition_system = m_system_context->GetSystem<ConditionSystem>();
     condition_system->ClearAllConditions();
 
-    return 0;
+    return game_mode_result;
+}
+
+std::unique_ptr<IGameMode> GameZone::CreateGameMode()
+{
+    return std::make_unique<DefaultGameMode>();
 }

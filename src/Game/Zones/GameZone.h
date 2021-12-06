@@ -23,6 +23,8 @@ namespace game
 
     protected:
 
+        virtual std::unique_ptr<class IGameMode> CreateGameMode();
+
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
         const char* m_world_file;
@@ -31,5 +33,7 @@ namespace game
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
         NavmeshContext m_navmesh;
+
+        std::unique_ptr<IGameMode> m_game_mode;
     };
 }
