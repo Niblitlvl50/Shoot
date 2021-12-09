@@ -5,6 +5,7 @@
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
+#include "Events/PlayerConnectedEvent.h"
 #include "Player/PlayerDaemon.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Network/ServerManager.h"
@@ -17,6 +18,7 @@
 #include "SystemContext.h"
 #include "System/Hash.h"
 #include "Zone/IZone.h"
+#include "Math/EasingFunctions.h"
 
 namespace
 {
@@ -45,14 +47,22 @@ namespace
 
 using namespace game;
 
-PacketDeliveryGameMode::PacketDeliveryGameMode(const math::Vector& player_spawn_point)
-    : m_player_spawn_point(player_spawn_point)
-    , m_next_zone(ZoneFlow::TITLE_SCREEN)
-{ }
+PacketDeliveryGameMode::PacketDeliveryGameMode()
+    : m_next_zone(ZoneFlow::TITLE_SCREEN)
+{
+    const GameModeStateMachine::StateTable state_table = {
+        GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
+        GameModeStateMachine::MakeState(GameModeStates::RUN_GAME, &PacketDeliveryGameMode::ToGameLogic, &PacketDeliveryGameMode::GameLogic, this),
+        GameModeStateMachine::MakeState(GameModeStates::PLAYER_DEAD, &PacketDeliveryGameMode::ToPlayerDead, &PacketDeliveryGameMode::PlayerDead, this),
+        GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
+    };
+    m_states.SetStateTableAndState(state_table, GameModeStates::FADE_IN);
+}
 
 PacketDeliveryGameMode::~PacketDeliveryGameMode() = default;
 
-void PacketDeliveryGameMode::Begin(mono::IZone* zone, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+void PacketDeliveryGameMode::Begin(
+    mono::IZone* zone, const math::Vector& player_spawn, mono::SystemContext* system_context, mono::EventHandler* event_handler)
 {
     m_event_handler = event_handler;
 
@@ -65,24 +75,23 @@ void PacketDeliveryGameMode::Begin(mono::IZone* zone, mono::SystemContext* syste
 
     // Player
     m_player_daemon = std::make_unique<PlayerDaemon>(
-        server_manager, entity_system, system_context, m_event_handler, m_player_spawn_point);
+        server_manager, entity_system, system_context, m_event_handler, player_spawn);
 
     using namespace std::placeholders;
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(
-        level_completed_hash,
-        std::bind(GameCompleted, _1, std::ref(m_next_zone), m_event_handler),
-        mono::INVALID_ID);
+        level_completed_hash, std::bind(GameCompleted, _1, std::ref(m_next_zone), m_event_handler), mono::INVALID_ID);
 
-    m_player_death_screen = std::make_unique<PlayerDeathScreen>(game::g_players[0], m_event_handler);
+    m_fade_screen = std::make_unique<BigTextScreen>(
+        "You are Dead!", "Press button to continue", mono::Color::BLACK, mono::Color::BLACK, mono::Color::OFF_WHITE, mono::Color::GRAY);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
 
-    zone->AddUpdatableDrawable(m_player_death_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_fade_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
-    zone->RemoveUpdatableDrawable(m_player_death_screen.get());
+    zone->RemoveUpdatableDrawable(m_fade_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
 
     m_event_handler->RemoveListener(m_gameover_token);
@@ -93,5 +102,89 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
 
 void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 {
+    m_states.UpdateState(update_context);
+}
 
+void PacketDeliveryGameMode::ToFadeIn()
+{
+    m_fade_in_timer = 0.0f;
+}
+
+void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
+{
+    const float alpha = math::EaseInCubic(m_fade_in_timer, 2.0f, 1.0f, -1.0f);
+    m_fade_screen->SetAlpha(alpha);
+
+    if(m_fade_in_timer > 2.0f)
+        m_states.TransitionTo(GameModeStates::RUN_GAME);
+    m_fade_in_timer += update_context.delta_s;
+}
+
+void PacketDeliveryGameMode::ToGameLogic()
+{
+}
+
+void PacketDeliveryGameMode::GameLogic(const mono::UpdateContext& update_context)
+{
+    UpdateOnPlayerState(update_context);
+}
+
+void PacketDeliveryGameMode::ToPlayerDead()
+{
+    m_last_state.button_state = 0;
+}
+
+void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_context)
+{
+    PlayerInfo& player_info = game::g_players[0];
+
+    const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
+    const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
+    const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+
+    if(a_pressed)
+        m_event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
+    else if(y_pressed)
+        m_event_handler->DispatchEvent(event::QuitEvent());
+
+    m_last_state = state;
+}
+
+void PacketDeliveryGameMode::ToFadeOut()
+{
+    m_fade_out_timer = 0.0f;
+}
+
+void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
+{
+    const float alpha = math::EaseOutCubic(m_fade_out_timer, 2.0f, 0.0f, 1.0f);
+    m_fade_screen->SetAlpha(alpha);
+    m_fade_out_timer += update_context.delta_s;
+}
+
+void PacketDeliveryGameMode::UpdateOnPlayerState(const mono::UpdateContext& update_context)
+{
+    PlayerInfo& player_info = game::g_players[0];
+
+    switch(player_info.player_state)
+    {
+    case game::PlayerState::NOT_SPAWNED:
+        break;
+
+    case game::PlayerState::ALIVE:
+    {
+        const bool is_in_dead_state = (m_states.ActiveState() == GameModeStates::PLAYER_DEAD);
+        if(is_in_dead_state)
+            m_states.TransitionTo(GameModeStates::FADE_IN);
+        break;
+    }
+
+    case game::PlayerState::DEAD:
+    {
+        const bool is_in_game_state = (m_states.ActiveState() == GameModeStates::RUN_GAME);
+        if(is_in_game_state)
+            m_states.TransitionTo(GameModeStates::FADE_OUT);
+        break;
+    }
+    };
 }
