@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "Math/MathFwd.h"
 #include "IUpdatable.h"
 
 namespace game
@@ -10,7 +11,7 @@ namespace game
     {
     public:
 
-        virtual void Begin(mono::IZone* zone, mono::SystemContext* system_context, mono::EventHandler* event_handler) = 0;
+        virtual void Begin(mono::IZone* zone, const math::Vector& player_spawn, mono::SystemContext* system_context, mono::EventHandler* event_handler) = 0;
         virtual int End(mono::IZone* zone) = 0;
     };
 }
