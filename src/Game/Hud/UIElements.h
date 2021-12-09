@@ -115,12 +115,21 @@ namespace game
 
         void Draw(mono::IRenderer& renderer) const override;
 
+        void SetColor(const mono::Color::RGBA& color);
+        const mono::Color::RGBA& GetColor() const;
+
+        void SetBorderColor(const mono::Color::RGBA& color);
+        const mono::Color::RGBA& GetBorderColor() const;
+
     private:
 
         std::unique_ptr<mono::IRenderBuffer> m_vertices;
         std::unique_ptr<mono::IRenderBuffer> m_colors;
         std::unique_ptr<mono::IRenderBuffer> m_border_colors;
         std::unique_ptr<mono::IElementBuffer> m_indices;
+
         const float m_border_width;
+        mono::Color::RGBA m_color;
+        mono::Color::RGBA m_border_color;
     };
 }

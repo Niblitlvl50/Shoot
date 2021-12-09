@@ -193,6 +193,8 @@ UISquareElement::UISquareElement(float width, float height, const mono::Color::R
 UISquareElement::UISquareElement(
     float width, float height, const mono::Color::RGBA& color, const mono::Color::RGBA& border_color, float border_width)
     : m_border_width(border_width)
+    , m_color(color)
+    , m_border_color(border_color)
 {
     const std::vector<math::Vector> vertex_data = {
         { 0.0f, 0.0f },
@@ -200,12 +202,11 @@ UISquareElement::UISquareElement(
         { width, height },
         { width, 0.0f }
     };
-    const std::vector<mono::Color::RGBA> color_data(vertex_data.size(), color);
-    const std::vector<mono::Color::RGBA> border_color_data(vertex_data.size(), border_color);
 
     m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
-    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
-    m_border_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, border_color_data.data());
+
+    SetColor(m_color);
+    SetBorderColor(m_border_color);
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3,   // Two triangles
@@ -224,4 +225,26 @@ void UISquareElement::Draw(mono::IRenderer& renderer) const
     renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
     if(m_border_width > 0.0f)
         renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
+}
+
+void UISquareElement::SetColor(const mono::Color::RGBA& color)
+{
+    const std::vector<mono::Color::RGBA> color_data(4, color);
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
+}
+
+const mono::Color::RGBA& UISquareElement::GetColor() const
+{
+    return m_color;
+}
+
+void UISquareElement::SetBorderColor(const mono::Color::RGBA& color)
+{
+    const std::vector<mono::Color::RGBA> border_color_data(4, color);
+    m_border_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, border_color_data.data());
+}
+
+const mono::Color::RGBA& UISquareElement::GetBorderColor() const
+{
+    return m_border_color;
 }
