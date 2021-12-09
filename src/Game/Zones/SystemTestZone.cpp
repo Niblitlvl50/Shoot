@@ -97,5 +97,5 @@ int SystemTestZone::OnUnload()
 
 std::unique_ptr<IGameMode> SystemTestZone::CreateGameMode()
 {
-    return std::make_unique<PacketDeliveryGameMode>(math::ZeroVec);
+    return std::make_unique<PacketDeliveryGameMode>();
 }
