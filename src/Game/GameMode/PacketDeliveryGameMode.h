@@ -32,8 +32,8 @@ namespace game
         void ToFadeIn();
         void FadeIn(const mono::UpdateContext& update_context);
 
-        void ToGameLogic();
-        void GameLogic(const mono::UpdateContext& update_context);
+        void ToRunGameMode();
+        void RunGameMode(const mono::UpdateContext& update_context);
 
         void ToPlayerDead();
         void PlayerDead(const mono::UpdateContext& update_context);
@@ -46,7 +46,7 @@ namespace game
         enum class GameModeStates
         {
             FADE_IN,
-            RUN_GAME,
+            RUN_GAME_MODE,
             PLAYER_DEAD,
             FADE_OUT
         };

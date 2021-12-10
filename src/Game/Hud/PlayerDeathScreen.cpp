@@ -103,7 +103,8 @@ BigTextScreen::BigTextScreen(
     const float half_height = m_height / 2.0f;
     const float square_height = m_height * 0.3f;
 
-    m_background = new UISquareElement(m_width, m_height, color, border_color, 1.0f);
+    m_background = new UISquareElement(m_width, square_height, color, border_color, 1.0f);
+    m_background->SetPosition(math::Vector(0.0f, half_height - (square_height / 2.0f)));
 
     m_main_text_element = new UITextElement(
         shared::FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);

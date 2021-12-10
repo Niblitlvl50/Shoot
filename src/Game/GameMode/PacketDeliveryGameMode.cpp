@@ -25,6 +25,10 @@ namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
 }
+namespace tweak_values
+{
+    constexpr float fade_duration_s = 2.0f;
+}
 
 using namespace game;
 
@@ -33,7 +37,7 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
-        GameModeStateMachine::MakeState(GameModeStates::RUN_GAME, &PacketDeliveryGameMode::ToGameLogic, &PacketDeliveryGameMode::GameLogic, this),
+        GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
         GameModeStateMachine::MakeState(GameModeStates::PLAYER_DEAD, &PacketDeliveryGameMode::ToPlayerDead, &PacketDeliveryGameMode::PlayerDead, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
     };
@@ -72,10 +76,15 @@ void PacketDeliveryGameMode::Begin(
     game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
     m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_system, system_context, m_event_handler, player_spawn);
 
+    // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
-        "You are Dead!", "Press cross to try again, triangle to quit", mono::Color::BLACK, mono::Color::BLACK, mono::Color::OFF_WHITE, mono::Color::GRAY);
+        "You are Dead!",
+        "Press cross to try again, triangle to quit",
+        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
+        mono::Color::BLACK,
+        mono::Color::OFF_WHITE,
+        mono::Color::GRAY);
     m_dead_screen->Hide();
-
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
 
     zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
@@ -104,17 +113,17 @@ void PacketDeliveryGameMode::ToFadeIn()
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseInCubic(m_fade_in_timer, 2.0f, 0.0f, 1.0f);
+    const float alpha = math::EaseInCubic(m_fade_in_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
 
-    if(m_fade_in_timer > 2.0f)
-        m_states.TransitionTo(GameModeStates::RUN_GAME);
+    if(m_fade_in_timer > tweak_values::fade_duration_s)
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
     m_fade_in_timer += update_context.delta_s;
 }
 
-void PacketDeliveryGameMode::ToGameLogic()
+void PacketDeliveryGameMode::ToRunGameMode()
 { }
-void PacketDeliveryGameMode::GameLogic(const mono::UpdateContext& update_context)
+void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_context)
 {
     UpdateOnPlayerState(update_context);
 }
@@ -139,7 +148,7 @@ void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_contex
     if(a_pressed)
     {
         m_event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
-        new_game_mode = GameModeStates::RUN_GAME;
+        new_game_mode = GameModeStates::RUN_GAME_MODE;
     }
     else if(y_pressed)
     {
@@ -156,13 +165,14 @@ void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_contex
 void PacketDeliveryGameMode::ToFadeOut()
 {
     m_fade_out_timer = 0.0f;
+    m_player_daemon->DespawnPlayer(&game::g_players[0]);
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseOutCubic(m_fade_out_timer, 2.0f, 1.0f, -1.0f);
+    const float alpha = math::EaseOutCubic(m_fade_out_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
 
-    if(m_fade_out_timer > 2.0f)
+    if(m_fade_out_timer > tweak_values::fade_duration_s)
         m_event_handler->DispatchEvent(event::QuitEvent());
     m_fade_out_timer += update_context.delta_s;
 }
@@ -186,7 +196,7 @@ void PacketDeliveryGameMode::UpdateOnPlayerState(const mono::UpdateContext& upda
 
     case game::PlayerState::DEAD:
     {
-        const bool is_in_game_state = (m_states.ActiveState() == GameModeStates::RUN_GAME);
+        const bool is_in_game_state = (m_states.ActiveState() == GameModeStates::RUN_GAME_MODE);
         if(is_in_game_state)
             m_states.TransitionTo(GameModeStates::PLAYER_DEAD);
         break;
