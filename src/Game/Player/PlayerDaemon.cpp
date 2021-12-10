@@ -200,6 +200,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
 
 void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
 {
+    m_camera_system->Unfollow();
     m_entity_system->ReleaseEntity(player_info->entity_id);
     ReleasePlayerInfo(player_info);
 }
