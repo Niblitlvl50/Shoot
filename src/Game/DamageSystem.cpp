@@ -40,8 +40,6 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 
     DamageRecord& new_record = m_damage_records[id];
     new_record.health = 100;
-    new_record.strong_against = 0;
-    new_record.weak_against = 0;
     new_record.multipier = 1;
     new_record.last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
     new_record.release_entity_on_death = true;
@@ -77,6 +75,15 @@ bool DamageSystem::IsAllocated(uint32_t id) const
     return m_active[id];
 }
 
+void DamageSystem::ReactivateDamageRecord(uint32_t id)
+{
+    m_active[id] = true;
+
+    DamageRecord* record = GetDamageRecord(id);
+    record->health = record->full_health;
+    record->last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
+}
+
 DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
 {
     assert(m_active[id]);
@@ -109,7 +116,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 
     if(damage_type == DamageType::DESTROYED)
     {
-        m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, damage_record.score));
+        m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, 10));
         if(!damage_record.release_entity_on_death)
             m_destroyed_but_not_released.push_back(id);
     }

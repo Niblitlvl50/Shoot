@@ -29,6 +29,8 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        void Show();
+        void Hide();
         void SetPosition(const math::Vector& position);
         void SetPosition(float x, float y);
         void SetScale(const math::Vector& scale);
@@ -45,6 +47,7 @@ namespace game
         math::Vector m_scale;
         float m_rotation;
         std::vector<UIElement*> m_ui_elements;
+        bool m_show;
     };
 
     class UIOverlay : public UIElement

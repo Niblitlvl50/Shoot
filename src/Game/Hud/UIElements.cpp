@@ -15,6 +15,7 @@ using namespace game;
 UIElement::UIElement()
     : m_scale(1.0f, 1.0f)
     , m_rotation(0.0f)
+    , m_show(true)
 { }
 
 void UIElement::Update(const mono::UpdateContext& context)
@@ -25,6 +26,9 @@ void UIElement::Update(const mono::UpdateContext& context)
 
 void UIElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_show)
+        return;
+
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
@@ -35,6 +39,15 @@ void UIElement::Draw(mono::IRenderer& renderer) const
 math::Quad UIElement::BoundingBox() const
 {
     return math::InfQuad;
+}
+
+void UIElement::Show()
+{
+    m_show = true;
+}
+void UIElement::Hide()
+{
+    m_show = false;
 }
 
 void UIElement::SetPosition(const math::Vector& position)

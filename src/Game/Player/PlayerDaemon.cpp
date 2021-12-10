@@ -332,9 +332,7 @@ mono::EventResult PlayerDaemon::OnRespawnPlayer(const RespawnPlayerEvent& event)
         transform_system->SetTransformState(event.entity_id, mono::TransformState::CLIENT);
 
         game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
-        game::DamageRecord* record = damage_system->GetDamageRecord(event.entity_id);
-        record->health = record->full_health;
-        record->last_damaged_timestamp = 0;
+        damage_system->ReactivateDamageRecord(event.entity_id);
 
         player_info->player_state = game::PlayerState::ALIVE;
     }

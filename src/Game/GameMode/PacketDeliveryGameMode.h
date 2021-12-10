@@ -60,7 +60,7 @@ namespace game
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
 
-        std::unique_ptr<class BigTextScreen> m_fade_screen;
+        std::unique_ptr<class BigTextScreen> m_dead_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
