@@ -20,7 +20,12 @@ namespace game
         PacketDeliveryGameMode();
         ~PacketDeliveryGameMode();
 
-        void Begin(mono::IZone* zone, const math::Vector& player_spawn, mono::SystemContext* system_context, mono::EventHandler* event_handler) override;
+        void Begin(
+            mono::IZone* zone,
+            mono::IRenderer* renderer,
+            mono::SystemContext* system_context,
+            mono::EventHandler* event_handler,
+            const math::Vector& player_spawn) override;
         int End(mono::IZone* zone) override;
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -49,7 +54,7 @@ namespace game
         using GameModeStateMachine = StateMachine<GameModeStates, const mono::UpdateContext&>;
         GameModeStateMachine m_states;
 
-        mono::SystemContext* m_system_context;
+        mono::IRenderer* m_renderer;
         mono::EventHandler* m_event_handler;
         class TriggerSystem* m_trigger_system;
 

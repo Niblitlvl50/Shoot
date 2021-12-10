@@ -10,6 +10,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "Network/ServerManager.h"
 #include "RenderLayers.h"
+#include "Rendering/IRenderer.h"
 
 
 #include "EntitySystem/EntitySystem.h"
@@ -62,8 +63,13 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
 PacketDeliveryGameMode::~PacketDeliveryGameMode() = default;
 
 void PacketDeliveryGameMode::Begin(
-    mono::IZone* zone, const math::Vector& player_spawn, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+    mono::IZone* zone,
+    mono::IRenderer* renderer,
+    mono::SystemContext* system_context,
+    mono::EventHandler* event_handler,
+    const math::Vector& player_spawn)
 {
+    m_renderer = renderer;
     m_event_handler = event_handler;
 
     mono::EntitySystem* entity_system = system_context->GetSystem<mono::EntitySystem>();
@@ -85,13 +91,13 @@ void PacketDeliveryGameMode::Begin(
         "You are Dead!", "Press button to continue", mono::Color::BLACK, mono::Color::BLACK, mono::Color::OFF_WHITE, mono::Color::GRAY);
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
 
-    zone->AddUpdatableDrawable(m_fade_screen.get(), LayerId::UI);
+    //zone->AddUpdatableDrawable(m_fade_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
-    zone->RemoveUpdatableDrawable(m_fade_screen.get());
+    //zone->RemoveUpdatableDrawable(m_fade_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
 
     m_event_handler->RemoveListener(m_gameover_token);
@@ -112,8 +118,9 @@ void PacketDeliveryGameMode::ToFadeIn()
 
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseInCubic(m_fade_in_timer, 2.0f, 1.0f, -1.0f);
-    m_fade_screen->SetAlpha(alpha);
+    const float alpha = math::EaseInCubic(m_fade_in_timer, 2.0f, 0.0f, 1.0f);
+    m_renderer->SetScreenFadeAlpha(alpha);
+    //m_fade_screen->SetAlpha(alpha);
 
     if(m_fade_in_timer > 2.0f)
         m_states.TransitionTo(GameModeStates::RUN_GAME);
@@ -157,8 +164,10 @@ void PacketDeliveryGameMode::ToFadeOut()
 
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseOutCubic(m_fade_out_timer, 2.0f, 0.0f, 1.0f);
-    m_fade_screen->SetAlpha(alpha);
+    const float alpha = math::EaseOutCubic(m_fade_out_timer, 2.0f, 1.0f, -1.0f);
+    //m_fade_screen->SetAlpha(alpha);
+    m_renderer->SetScreenFadeAlpha(alpha);
+
     m_fade_out_timer += update_context.delta_s;
 }
 
