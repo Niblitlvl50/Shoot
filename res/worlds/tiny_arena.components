@@ -246,16 +246,16 @@
                             "variant_value": 1000
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -475,6 +475,24 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "alien_tree_destroyed"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -534,16 +552,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -2479,16 +2497,16 @@
                             "variant_value": 1000
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -2708,6 +2726,24 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "alien_tree_destroyed"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -2767,16 +2803,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -3031,16 +3067,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -3295,16 +3331,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -3559,16 +3595,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -3823,16 +3859,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -4087,16 +4123,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -4176,7 +4212,7 @@
                             "id": 3836179294,
                             "name": "body_type",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 3749132497,
@@ -4416,16 +4452,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -4505,7 +4541,7 @@
                             "id": 3836179294,
                             "name": "body_type",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 3749132497,
@@ -4630,16 +4666,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -4719,7 +4755,7 @@
                             "id": 3836179294,
                             "name": "body_type",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 3749132497,
@@ -5316,8 +5352,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0,
-                                "y": 5.0
+                                "x": -2.9777650833129883,
+                                "y": 4.888829231262207
                             }
                         },
                         {
@@ -10383,16 +10419,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -11325,16 +11361,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -11589,16 +11625,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -11968,16 +12004,16 @@
                             "variant_value": 1000
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -12825,16 +12861,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -13039,16 +13075,16 @@
                             "variant_value": 200
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -13253,16 +13289,16 @@
                             "variant_value": 1000
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -13480,6 +13516,24 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "alien_tree_destroyed"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -14093,8 +14147,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.2273669242858887,
-                                "y": 3.8636474609375
+                                "x": -3.236781120300293,
+                                "y": 3.760092258453369
                             }
                         },
                         {
@@ -14208,8 +14262,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.7821593284606934,
-                                "y": 4.007299423217773
+                                "x": -2.7536134719848633,
+                                "y": 3.922659397125244
                             }
                         },
                         {
@@ -21000,8 +21054,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.685832977294922,
-                                "y": 5.594725131988525
+                                "x": -4.614541053771973,
+                                "y": 5.720639228820801
                             }
                         },
                         {
@@ -21230,8 +21284,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.1858329772949219,
-                                "y": 6.094725131988525
+                                "x": -1.3040180206298828,
+                                "y": 5.901968479156494
                             }
                         },
                         {
@@ -25874,8 +25928,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.355550765991211,
-                                "y": -4.529406547546387
+                                "x": -7.2146453857421875,
+                                "y": 2.5359725952148438
                             }
                         },
                         {
@@ -26250,121 +26304,6 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "alien"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -6.5923566818237305,
-                                "y": -4.7031378746032715
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "alien.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "alien",
-            "uuid_hash": 3576732410
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
                             "variant_value": "cardboard_box"
                         },
                         {
@@ -26522,16 +26461,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -26751,16 +26690,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -26927,6 +26866,83 @@
             "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 834978938
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "counter_trigger"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "zone_logic"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -15.400633811950684,
+                                "y": 7.24833869934082
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1929184408,
+                    "name": "counter_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "alien_tree_destroyed"
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 6,
+                            "variant_value": "level_completed"
+                        },
+                        {
+                            "id": 967958004,
+                            "name": "count",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 2291324515,
+                            "name": "reset_on_compeleted",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "zone_logic",
+            "name": "counter_trigger",
+            "uuid_hash": 3936533445
         }
     ],
     "metadata": {
@@ -26978,7 +26994,8 @@
             "none",
             "push_button",
             "region_first",
-            "region_shitty_plains"
+            "region_shitty_plains",
+            "alien_tree_destroyed"
         ]
     }
 }

@@ -447,6 +447,10 @@
             "green": 0.7499924898147583,
             "red": 0.75
         },
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,

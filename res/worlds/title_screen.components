@@ -176,7 +176,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Interdimensional Delivery"
+                            "variant_value": "Dimensional Delivery Boy"
                         },
                         {
                             "id": 3902434344,
@@ -270,7 +270,7 @@
                             "id": 1013213428,
                             "name": "texture",
                             "variant_type": 6,
-                            "variant_value": "res/textures/particles/heart.png"
+                            "variant_value": "res/textures/particles/white_square.png"
                         },
                         {
                             "id": 3513758418,
@@ -348,16 +348,16 @@
                                         "red": 1.0
                                     },
                                     {
-                                        "alpha": 1.0,
-                                        "blue": 0.5196078419685364,
+                                        "alpha": 0.7215686440467834,
+                                        "blue": 0.5215686559677124,
                                         "green": 1.0,
-                                        "red": 0.8728373646736145
+                                        "red": 0.8745098114013672
                                     },
                                     {
-                                        "alpha": 1.0,
-                                        "blue": 0.4338234066963196,
+                                        "alpha": 0.5647059082984924,
+                                        "blue": 0.43529412150382996,
                                         "green": 1.0,
-                                        "red": 0.4166666865348816
+                                        "red": 0.4156862795352936
                                     },
                                     {
                                         "alpha": 0.0,
@@ -398,10 +398,10 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 180.0,
-                                    "min": 150.0
+                                    "max": 32.0,
+                                    "min": 64.0
                                 },
-                                "value": 0.0
+                                "value": 32.0
                             }
                         },
                         {

@@ -49,7 +49,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "dude.sprite"
+                            "variant_value": "alien.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -213,13 +213,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "heart_small"
+                            "variant_value": "alien_tree"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "hearts"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -232,8 +232,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.25,
-                                "y": 2.0
+                                "x": -3.3225135803222656,
+                                "y": -0.7323954105377197
                             }
                         },
                         {
@@ -252,7 +252,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "heart_small.sprite"
+                            "variant_value": "tree_alien.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -311,50 +311,11 @@
                             "variant_value": true
                         }
                     ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.10000000149011612
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "hearts",
-            "name": "heart_small",
+            "folder": "",
+            "name": "alien_tree",
             "uuid_hash": 83571089
         },
         {
@@ -406,7 +367,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Your mission is to Find Three of these ->"
+                            "variant_value": "These alien trees are spawning stuff..."
                         },
                         {
                             "id": 3902434344,
@@ -474,8 +435,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.5,
-                                "y": 1.0
+                                "x": -1.0,
+                                "y": 1.5
                             }
                         },
                         {
@@ -494,7 +455,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "...and Then go north!"
+                            "variant_value": "... destroy them!"
                         },
                         {
                             "id": 3902434344,
@@ -719,314 +680,6 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "heart_small"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "hearts"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 3.75,
-                                "y": 2.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "heart_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.10000000149011612
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "hearts",
-            "name": "heart_small",
-            "uuid_hash": 509646760
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "heart_small"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "hearts"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 4.25,
-                                "y": 2.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "heart_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.10000000149011612
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "hearts",
-            "name": "heart_small",
-            "uuid_hash": 2600378687
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
                             "variant_value": "quit_text"
                         },
                         {
@@ -1115,13 +768,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "message_1"
+                            "variant_value": "alien_tree"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "message_test"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -1134,8 +787,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.6572247743606567,
-                                "y": -0.9924031496047974
+                                "x": -0.5440587997436523,
+                                "y": -1.2071373462677002
                             }
                         },
                         {
@@ -1147,28 +800,193 @@
                     ]
                 },
                 {
-                    "hash": 619841764,
-                    "name": "dialog",
+                    "hash": 2179094556,
+                    "name": "sprite",
                     "properties": [
                         {
-                            "id": 3185987134,
-                            "name": "text",
+                            "id": 910774975,
+                            "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "hello world!"
+                            "variant_value": "tree_alien.sprite"
                         },
                         {
-                            "id": 799079693,
-                            "name": "duration",
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "message_test",
-            "name": "message_1",
-            "uuid_hash": 287967627
+            "folder": "",
+            "name": "alien_tree",
+            "uuid_hash": 3371250122
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "alien_tree"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.413741111755371,
+                                "y": -0.5003001689910889
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "tree_alien.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "alien_tree",
+            "uuid_hash": 2294391340
         }
     ],
     "metadata": {
@@ -1183,6 +1001,10 @@
             "blue": 0.6304066181182861,
             "green": 0.8088235259056091,
             "red": 0.7930808663368225
+        },
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
         },
         "background_texture": "",
         "camera_position": {
