@@ -17,20 +17,26 @@ namespace
         CheckControllerInput(mono::EventHandler* event_handler)
             : m_event_handler(event_handler)
             , m_last_state{}
+            , m_delay_counter_s(0.0f)
         { }
 
         void Update(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
-            if(state.button_state != m_last_state.button_state)
-                m_event_handler->DispatchEvent(event::QuitEvent());
+            m_delay_counter_s += update_context.delta_s;
+            if(m_delay_counter_s > 1.0f)
+            {
+                if(state.button_state != m_last_state.button_state)
+                    m_event_handler->DispatchEvent(event::QuitEvent());
+            }
 
             m_last_state = state;
         }
 
         mono::EventHandler* m_event_handler;
         System::ControllerState m_last_state;
+        float m_delay_counter_s;
     };
 }
 

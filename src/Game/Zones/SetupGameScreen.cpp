@@ -37,28 +37,34 @@ namespace
         CheckControllerInput(SetupGameScreen* title_screen)
             : m_title_screen(title_screen)
             , m_last_state{}
+            , m_delay_counter_s(0.0f)
         { }
 
         void Update(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
-            const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
-            const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
-            const bool x_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::X);
+            m_delay_counter_s += update_context.delta_s;
+            if(m_delay_counter_s > 1.0f)
+            {
+                const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
+                const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+                const bool x_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::X);
 
-            if(a_pressed)
-                m_title_screen->Continue();
-            else if(y_pressed)
-                m_title_screen->Quit();
-            else if(x_pressed)
-                m_title_screen->Remote();
+                if(a_pressed)
+                    m_title_screen->Continue();
+                else if(y_pressed)
+                    m_title_screen->Quit();
+                else if(x_pressed)
+                    m_title_screen->Remote();
+            }
 
             m_last_state = state;
         }
 
         SetupGameScreen* m_title_screen;
         System::ControllerState m_last_state;
+        float m_delay_counter_s;
     };
 }
 

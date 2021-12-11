@@ -39,25 +39,31 @@ namespace
         CheckControllerInput(TitleScreen* title_screen)
             : m_title_screen(title_screen)
             , m_last_state{}
+            , m_delay_counter_s(0.0f)
         { }
 
         void Update(const mono::UpdateContext& update_context)
         {
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
-            const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
-            const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+            m_delay_counter_s += update_context.delta_s;
+            if(m_delay_counter_s > 1.0f)
+            {
+                const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
+                const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
 
-            if(a_pressed)
-                m_title_screen->Continue();
-            else if(y_pressed)
-                m_title_screen->Quit();
+                if(a_pressed)
+                    m_title_screen->Continue();
+                else if(y_pressed)
+                    m_title_screen->Quit();
+            }
 
             m_last_state = state;
         }
 
         TitleScreen* m_title_screen;
         System::ControllerState m_last_state;
+        float m_delay_counter_s;
     };
 }
 

@@ -23,7 +23,7 @@ namespace
     constexpr const uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
 
-    constexpr float dead_zone = 1.5f;
+    constexpr float dead_zone = 1.0f;
 }
 
 using namespace game;
