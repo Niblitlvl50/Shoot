@@ -86,7 +86,9 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     if(m_ammunition == 0)
     {
         m_current_fire_rate = 1.0f;
-        m_ooa_sound->Play();
+
+        if(!m_ooa_sound->IsPlaying())
+            m_ooa_sound->Play();
 
         m_state = WeaponState::OUT_OF_AMMO;
         return m_state;

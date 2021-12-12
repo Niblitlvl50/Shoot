@@ -83,7 +83,7 @@
             "bullet_spread_degrees": 2.0,
             "bullet_force_random": false,
             "fire_sound": "res/sound/plasma_fire.wav",
-            "out_of_ammo_sound": "",
+            "out_of_ammo_sound": "res/sound/ooa_sound.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
         },
         {
@@ -98,7 +98,7 @@
             "bullet_spread_degrees": 5.0,
             "bullet_force_random": true,
             "fire_sound": "res/sound/shotgun_fire.wav",
-            "out_of_ammo_sound": "",
+            "out_of_ammo_sound": "res/sound/ooa_sound.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
         },
         {
