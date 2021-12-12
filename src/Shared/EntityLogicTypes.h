@@ -9,9 +9,9 @@ namespace shared
     {
         BAT,
         GOBLIN_FIRE,
-        BLACK_SQUARE,
+        EYE_MONSTER,
         CACODEMON,
-        INVADER,
+        FLYING_MONSTER,
         INVADER_PATH,
         BLOB,
         TURRET_SPAWNER,
@@ -21,9 +21,9 @@ namespace shared
     constexpr const char* entity_logic_strings[] = {
         "Bat",
         "Goblin Fire",
-        "Black Square",
+        "Eye Monster",
         "Cacodemon",
-        "Invader",
+        "Flying Monster",
         "Path Invader",
         "Blob",
         "Turret Spawner",

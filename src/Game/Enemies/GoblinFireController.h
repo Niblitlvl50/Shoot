@@ -33,7 +33,7 @@ namespace game
         void ToAttacking();
         void Attacking(const mono::UpdateContext& update_context);
 
-        enum class GoblinStates
+        enum class States
         {
             NONE,
             IDLE,
@@ -49,7 +49,7 @@ namespace game
         int m_idle_anim_id;
         int m_run_anim_id;
 
-        using GoblinStateMachine = StateMachine<GoblinStates, const mono::UpdateContext&>;
+        using GoblinStateMachine = StateMachine<States, const mono::UpdateContext&>;
         GoblinStateMachine m_states;
 
         uint32_t m_idle_timer;

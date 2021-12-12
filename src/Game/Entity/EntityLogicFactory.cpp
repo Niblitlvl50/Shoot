@@ -4,9 +4,9 @@
 
 #include "Enemies/BatController.h"
 #include "Enemies/GoblinFireController.h"
-#include "Enemies/BlackSquareController.h"
+#include "Enemies/EyeMonsterController.h"
 #include "Enemies/CacoDemonController.h"
-#include "Enemies/InvaderController.h"
+#include "Enemies/FlyingMonsterController.h"
 #include "Enemies/InvaderPathController.h"
 #include "Enemies/BlobController.h"
 #include "Enemies/TurretSpawnerController.h"
@@ -31,9 +31,9 @@ namespace
     constexpr CreateLogicFunc create_functions[] = {
         MakeController<game::BatController>,
         MakeController<game::GoblinFireController>,
-        MakeController<game::BlackSquareController>,
+        MakeController<game::EyeMonsterController>,
         MakeController<game::CacodemonController>,
-        MakeController<game::InvaderController>,
+        MakeController<game::FlyingMonsterController>,
         MakeController<game::InvaderPathController>,
         MakeController<game::BlobController>,
         MakeController<game::TurretSpawnerController>,

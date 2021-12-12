@@ -38,13 +38,13 @@ namespace game
         math::Vector m_move_delta;
         float m_move_counter;
 
-        enum class BlobStates
+        enum class States
         {
             IDLE,
             MOVING
         };
 
-        using BlobStateMachine = StateMachine<BlobStates, const mono::UpdateContext&>;
+        using BlobStateMachine = StateMachine<States, const mono::UpdateContext&>;
         BlobStateMachine m_states;
     };
 }

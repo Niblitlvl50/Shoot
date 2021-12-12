@@ -51,17 +51,17 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     damage_system->PreventReleaseOnDeath(entity_id, true);
 
     const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        m_states.TransitionTo(CacoStates::DEAD);
+        m_states.TransitionTo(States::DEAD);
     };
     damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
     const CacoStateMachine::StateTable state_table = {
-        CacoStateMachine::MakeState(CacoStates::IDLE,   &CacodemonController::OnIdle,   &CacodemonController::Idle,     this),
-        CacoStateMachine::MakeState(CacoStates::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack,   this),
-        CacoStateMachine::MakeState(CacoStates::DEAD,   &CacodemonController::OnDead,   &CacodemonController::Dead,     this),
+        CacoStateMachine::MakeState(States::IDLE,   &CacodemonController::OnIdle,   &CacodemonController::Idle,     this),
+        CacoStateMachine::MakeState(States::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack,   this),
+        CacoStateMachine::MakeState(States::DEAD,   &CacodemonController::OnDead,   &CacodemonController::Dead,     this),
     };
 
-    m_states.SetStateTableAndState(state_table, CacoStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
 CacodemonController::~CacodemonController()
@@ -116,7 +116,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 200.0f, math::ZeroVec);
 
     if(angle_diff_abs <= tweak_values::face_angle)
-        m_states.TransitionTo(CacoStates::ATTACK);
+        m_states.TransitionTo(States::ATTACK);
 }
 
 void CacodemonController::OnAttack()
@@ -142,7 +142,7 @@ void CacodemonController::Attack(const mono::UpdateContext& update_context)
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_weapon->Reload(update_context.timestamp);
-        m_states.TransitionTo(CacoStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
     }
 }
 

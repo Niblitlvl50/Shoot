@@ -27,7 +27,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
 
     const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        m_states.TransitionTo(ExplodableStates::DEAD);
+        m_states.TransitionTo(States::DEAD);
     };
 
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
@@ -38,11 +38,11 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     m_explosion_effect = std::make_unique<ExplosionEffect>(particle_system, m_entity_system);
 
     const ExplodableStateMachine::StateTable state_table = {
-        ExplodableStateMachine::MakeState(ExplodableStates::IDLE, &ExplodableController::OnIdle, &ExplodableController::Idle, this),
-        ExplodableStateMachine::MakeState(ExplodableStates::DEAD, &ExplodableController::OnDead, &ExplodableController::Dead, this),
+        ExplodableStateMachine::MakeState(States::IDLE, &ExplodableController::OnIdle, &ExplodableController::Idle, this),
+        ExplodableStateMachine::MakeState(States::DEAD, &ExplodableController::OnDead, &ExplodableController::Dead, this),
     };
 
-    m_states.SetStateTableAndState(state_table, ExplodableStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
 void ExplodableController::Update(const mono::UpdateContext& update_context)

@@ -28,11 +28,11 @@ BatController::BatController(uint32_t entity_id, mono::SystemContext* system_con
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
 
     const BatStateMachine::StateTable state_table = {
-        BatStateMachine::MakeState(BatStates::IDLE, &BatController::ToIdle, &BatController::Idle, this),
-        BatStateMachine::MakeState(BatStates::MOVING, &BatController::ToMoving, &BatController::Moving, this),
+        BatStateMachine::MakeState(States::IDLE, &BatController::ToIdle, &BatController::Idle, this),
+        BatStateMachine::MakeState(States::MOVING, &BatController::ToMoving, &BatController::Moving, this),
     };
 
-    m_states.SetStateTableAndState(state_table, BatStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 
     const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
@@ -55,7 +55,7 @@ void BatController::Idle(const mono::UpdateContext& update_context)
 {
     m_chill_time -= update_context.delta_s;
     if(m_chill_time <= 0.0f)
-        m_states.TransitionTo(BatStates::MOVING);
+        m_states.TransitionTo(States::MOVING);
 }
 
 void BatController::ToMoving()
@@ -92,5 +92,5 @@ void BatController::Moving(const mono::UpdateContext& update_context)
 
     m_move_counter += update_context.delta_s;
     if(m_move_counter >= duration)
-        m_states.TransitionTo(BatStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
 }

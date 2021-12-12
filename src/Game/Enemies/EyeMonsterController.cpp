@@ -1,5 +1,5 @@
 
-#include "BlackSquareController.h"
+#include "EyeMonsterController.h"
 
 #include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
@@ -35,7 +35,7 @@ namespace tweak_values
 
 using namespace game;
 
-BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
     , m_event_handler(event_handler)
     , m_awake_state_timer(0)
@@ -60,22 +60,22 @@ BlackSquareController::BlackSquareController(uint32_t entity_id, mono::SystemCon
     using namespace std::placeholders;
 
     const MyStateMachine::StateTable& state_table = {
-        MyStateMachine::MakeState(States::SLEEPING, &BlackSquareController::ToSleep, &BlackSquareController::SleepState, this),
-        MyStateMachine::MakeState(States::AWAKE,    &BlackSquareController::ToAwake, &BlackSquareController::AwakeState, this),
-        MyStateMachine::MakeState(States::HUNT,     &BlackSquareController::ToHunt,  &BlackSquareController::HuntState, this),
+        MyStateMachine::MakeState(States::SLEEPING, &EyeMonsterController::ToSleep, &EyeMonsterController::SleepState, this),
+        MyStateMachine::MakeState(States::AWAKE,    &EyeMonsterController::ToAwake, &EyeMonsterController::AwakeState, this),
+        MyStateMachine::MakeState(States::HUNT,     &EyeMonsterController::ToHunt,  &EyeMonsterController::HuntState, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
 }
 
-BlackSquareController::~BlackSquareController()
+EyeMonsterController::~EyeMonsterController()
 { }
 
-void BlackSquareController::Update(const mono::UpdateContext& update_context)
+void EyeMonsterController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
 }
 
-mono::CollisionResolve BlackSquareController::OnCollideWith(
+mono::CollisionResolve EyeMonsterController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
@@ -94,15 +94,15 @@ mono::CollisionResolve BlackSquareController::OnCollideWith(
     return mono::CollisionResolve::NORMAL;
 }
 
-void BlackSquareController::OnSeparateFrom(mono::IBody* body)
+void EyeMonsterController::OnSeparateFrom(mono::IBody* body)
 { }
 
-void BlackSquareController::ToSleep()
+void EyeMonsterController::ToSleep()
 {
     m_visibility_check_timer = 0;
 }
 
-void BlackSquareController::SleepState(const mono::UpdateContext& update_context)
+void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
 {
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
@@ -128,7 +128,7 @@ void BlackSquareController::SleepState(const mono::UpdateContext& update_context
     }
 }
 
-void BlackSquareController::ToAwake()
+void EyeMonsterController::ToAwake()
 {
     m_awake_state_timer = 0;
 
@@ -142,20 +142,20 @@ void BlackSquareController::ToAwake()
     }
 }
 
-void BlackSquareController::AwakeState(const mono::UpdateContext& update_context)
+void EyeMonsterController::AwakeState(const mono::UpdateContext& update_context)
 {
     m_awake_state_timer += update_context.delta_ms;
     if(m_awake_state_timer > tweak_values::time_before_hunt_ms)
         m_states.TransitionTo(States::HUNT);
 }
 
-void BlackSquareController::ToHunt()
+void EyeMonsterController::ToHunt()
 {
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     m_target_player_info = game::GetClosestActivePlayer(entity_position);
 }
 
-void BlackSquareController::HuntState(const mono::UpdateContext& update_context)
+void EyeMonsterController::HuntState(const mono::UpdateContext& update_context)
 {
     if(!m_target_player_info || m_target_player_info->player_state != PlayerState::ALIVE)
     {

@@ -30,7 +30,7 @@ namespace game
         void ToAttacking();
         void Attacking(const mono::UpdateContext& update_context);
 
-        enum class TurretStates
+        enum class States
         {
             NONE,
             IDLE,
@@ -43,7 +43,7 @@ namespace game
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
 
-        using TurretStateMachine = StateMachine<TurretStates, const mono::UpdateContext&>;
+        using TurretStateMachine = StateMachine<States, const mono::UpdateContext&>;
         TurretStateMachine m_states;
 
         uint32_t m_idle_timer;

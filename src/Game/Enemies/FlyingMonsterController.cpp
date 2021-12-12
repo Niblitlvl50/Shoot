@@ -1,5 +1,5 @@
 
-#include "InvaderController.h"
+#include "FlyingMonsterController.h"
 
 #include "Player/PlayerInfo.h"
 #include "Behaviour/TrackingBehaviour.h"
@@ -37,7 +37,7 @@ namespace tweak_values
 
 using namespace game;
 
-InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
@@ -50,29 +50,29 @@ InvaderController::InvaderController(uint32_t entity_id, mono::SystemContext* sy
     mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
     m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system);
 
-    const InvaderStateMachine::StateTable& state_table = {
-        InvaderStateMachine::MakeState(InvaderStates::IDLE, &InvaderController::ToIdle, &InvaderController::Idle, this),
-        InvaderStateMachine::MakeState(InvaderStates::TRACKING, &InvaderController::ToTracking, &InvaderController::Tracking, this),
-        InvaderStateMachine::MakeState(InvaderStates::ATTACK_ANTICIPATION, &InvaderController::ToAttackAnticipation, &InvaderController::AttackAnticipation, this),
-        InvaderStateMachine::MakeState(InvaderStates::ATTACKING, &InvaderController::ToAttacking, &InvaderController::Attacking, this),
+    const FlyingMonsterStateMachine::StateTable& state_table = {
+        FlyingMonsterStateMachine::MakeState(States::IDLE, &FlyingMonsterController::ToIdle, &FlyingMonsterController::Idle, this),
+        FlyingMonsterStateMachine::MakeState(States::TRACKING, &FlyingMonsterController::ToTracking, &FlyingMonsterController::Tracking, this),
+        FlyingMonsterStateMachine::MakeState(States::ATTACK_ANTICIPATION, &FlyingMonsterController::ToAttackAnticipation, &FlyingMonsterController::AttackAnticipation, this),
+        FlyingMonsterStateMachine::MakeState(States::ATTACKING, &FlyingMonsterController::ToAttacking, &FlyingMonsterController::Attacking, this),
     };
-    m_states.SetStateTableAndState(state_table, InvaderStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
-InvaderController::~InvaderController()
+FlyingMonsterController::~FlyingMonsterController()
 { }
 
-void InvaderController::Update(const mono::UpdateContext& update_context)
+void FlyingMonsterController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
 }
 
-void InvaderController::ToIdle()
+void FlyingMonsterController::ToIdle()
 {
     m_idle_timer = 0;
 }
 
-void InvaderController::Idle(const mono::UpdateContext& update_context)
+void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer += update_context.delta_ms;
 
@@ -85,24 +85,24 @@ void InvaderController::Idle(const mono::UpdateContext& update_context)
     {
         const float distance_to_player = math::DistanceBetween(position, player_info->position);
         if(distance_to_player < tweak_values::attack_distance)
-            m_states.TransitionTo(InvaderStates::ATTACK_ANTICIPATION);
+            m_states.TransitionTo(States::ATTACK_ANTICIPATION);
         else if(distance_to_player > tweak_values::attack_distance && distance_to_player < tweak_values::track_to_player_distance)
-            m_states.TransitionTo(InvaderStates::TRACKING);
+            m_states.TransitionTo(States::TRACKING);
         else
             m_idle_timer = 0;
     }
 }
 
-void InvaderController::ToTracking()
+void FlyingMonsterController::ToTracking()
 { }
 
-void InvaderController::Tracking(const mono::UpdateContext& update_context)
+void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context)
 {
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
     if(!player_info)
     {
-        m_states.TransitionTo(InvaderStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
         return;
     }
 
@@ -126,7 +126,7 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
             const bool is_player = (query_result.collision_category & shared::CollisionCategory::PLAYER);
             if(is_player)
             {
-                m_states.TransitionTo(InvaderStates::ATTACK_ANTICIPATION);
+                m_states.TransitionTo(States::ATTACK_ANTICIPATION);
                 return;
             }
         }
@@ -134,23 +134,23 @@ void InvaderController::Tracking(const mono::UpdateContext& update_context)
 
     const TrackingResult result = m_tracking_behaviour->Run(update_context, player_info->position);
     if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
-        m_states.TransitionTo(InvaderStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
 }
 
-void InvaderController::ToAttackAnticipation()
+void FlyingMonsterController::ToAttackAnticipation()
 {
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
     if(!player_info)
     {
-        m_states.TransitionTo(InvaderStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
         return;
     }
 
     const float distance_to_player = math::DistanceBetween(player_info->position, position);
     if(distance_to_player > tweak_values::max_attack_distance)
     {
-        m_states.TransitionTo(InvaderStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
         return;
     }
 
@@ -160,20 +160,20 @@ void InvaderController::ToAttackAnticipation()
         "res/entities/explosion_small.entity", 0, m_entity_id, m_entity_manager, m_transform_system, m_sprite_system);
 
     const auto transision_to_attack = [this](uint32_t entity_id) {
-        m_states.TransitionTo(InvaderStates::ATTACKING);
+        m_states.TransitionTo(States::ATTACKING);
     };
     m_entity_manager->AddReleaseCallback(spawned_entity, transision_to_attack);
 }
 
-void InvaderController::AttackAnticipation(const mono::UpdateContext& update_context)
+void FlyingMonsterController::AttackAnticipation(const mono::UpdateContext& update_context)
 { }
 
-void InvaderController::ToAttacking()
+void FlyingMonsterController::ToAttacking()
 {
     m_bullets_fired = 0;
 }
 
-void InvaderController::Attacking(const mono::UpdateContext& update_context)
+void FlyingMonsterController::Attacking(const mono::UpdateContext& update_context)
 {
     if(m_bullets_fired < tweak_values::bullets_to_emit)
     {
@@ -187,6 +187,6 @@ void InvaderController::Attacking(const mono::UpdateContext& update_context)
     }
     else
     {
-        m_states.TransitionTo(InvaderStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
     }
 }

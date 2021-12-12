@@ -44,14 +44,14 @@ namespace game
 
         IWeaponPtr m_weapon;
 
-        enum class CacoStates
+        enum class States
         {
             IDLE,
             ATTACK,
             DEAD,
         };
 
-        using CacoStateMachine = StateMachine<CacoStates, const mono::UpdateContext&>;
+        using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
         CacoStateMachine m_states;
     };
 }

@@ -26,12 +26,12 @@ TurretSpawnerController::TurretSpawnerController(uint32_t entity_id, mono::Syste
     m_sprite = sprite_system->GetSprite(entity_id);
 
     const TurretStateMachine::StateTable state_table = {
-        TurretStateMachine::MakeState(TurretStates::IDLE, &TurretSpawnerController::ToIdle, &TurretSpawnerController::Idle, this),
-        TurretStateMachine::MakeState(TurretStates::PREPARE_ATTACK, &TurretSpawnerController::ToPrepareAttack, &TurretSpawnerController::PrepareAttack, this),
-        TurretStateMachine::MakeState(TurretStates::ATTACKING, &TurretSpawnerController::ToAttacking, &TurretSpawnerController::Attacking, this),
+        TurretStateMachine::MakeState(States::IDLE, &TurretSpawnerController::ToIdle, &TurretSpawnerController::Idle, this),
+        TurretStateMachine::MakeState(States::PREPARE_ATTACK, &TurretSpawnerController::ToPrepareAttack, &TurretSpawnerController::PrepareAttack, this),
+        TurretStateMachine::MakeState(States::ATTACKING, &TurretSpawnerController::ToAttacking, &TurretSpawnerController::Attacking, this),
     };
 
-    m_states.SetStateTableAndState(state_table, TurretStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
 void TurretSpawnerController::Update(const mono::UpdateContext& update_context)
@@ -66,7 +66,7 @@ void TurretSpawnerController::Idle(const mono::UpdateContext& update_context)
     {
         const bool transision = mono::Chance(20);
         if(transision)
-            m_states.TransitionTo(TurretStates::PREPARE_ATTACK);
+            m_states.TransitionTo(States::PREPARE_ATTACK);
         
         m_idle_timer = 0;
     }
@@ -82,7 +82,7 @@ void TurretSpawnerController::PrepareAttack(const mono::UpdateContext& update_co
 {
     m_prepare_timer += update_context.delta_ms;
     if(m_prepare_timer > 500)
-        m_states.TransitionTo(TurretStates::ATTACKING);
+        m_states.TransitionTo(States::ATTACKING);
 }
 
 void TurretSpawnerController::ToAttacking()
@@ -95,5 +95,5 @@ void TurretSpawnerController::Attacking(const mono::UpdateContext& update_contex
 
 //    game::WeaponState fire_state = m_weapon->Fire(world_position, m_attack_position, update_context.timestamp);
 //    if(fire_state == game::WeaponState::FIRE)
-//        m_states.TransitionTo(TurretStates::IDLE);
+//        m_states.TransitionTo(States::IDLE);
 }

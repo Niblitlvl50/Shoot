@@ -43,13 +43,13 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     m_run_anim_id = m_sprite->GetAnimationIdFromName("walk");
 
     const GoblinStateMachine::StateTable state_table = {
-        GoblinStateMachine::MakeState(GoblinStates::IDLE, &GoblinFireController::ToIdle, &GoblinFireController::Idle, this),
-        GoblinStateMachine::MakeState(GoblinStates::REPOSITION, &GoblinFireController::ToReposition, &GoblinFireController::Reposition, this),
-        GoblinStateMachine::MakeState(GoblinStates::PREPARE_ATTACK, &GoblinFireController::ToPrepareAttack, &GoblinFireController::PrepareAttack, this),
-        GoblinStateMachine::MakeState(GoblinStates::ATTACKING, &GoblinFireController::ToAttacking, &GoblinFireController::Attacking, this),
+        GoblinStateMachine::MakeState(States::IDLE, &GoblinFireController::ToIdle, &GoblinFireController::Idle, this),
+        GoblinStateMachine::MakeState(States::REPOSITION, &GoblinFireController::ToReposition, &GoblinFireController::Reposition, this),
+        GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &GoblinFireController::ToPrepareAttack, &GoblinFireController::PrepareAttack, this),
+        GoblinStateMachine::MakeState(States::ATTACKING, &GoblinFireController::ToAttacking, &GoblinFireController::Attacking, this),
     };
 
-    m_states.SetStateTableAndState(state_table, GoblinStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
 void GoblinFireController::Update(const mono::UpdateContext& update_context)
@@ -96,9 +96,9 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
 
     const bool transition_to_attack = mono::Chance(25);
     if(transition_to_attack)
-        m_states.TransitionTo(GoblinStates::PREPARE_ATTACK);
+        m_states.TransitionTo(States::PREPARE_ATTACK);
     else
-        m_states.TransitionTo(GoblinStates::REPOSITION);
+        m_states.TransitionTo(States::REPOSITION);
 
     m_idle_timer = 0;
 }
@@ -148,7 +148,7 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
     if(m_move_counter >= duration)
     {
         const bool fire = mono::Chance(75);
-        const GoblinStates new_state = fire ? GoblinStates::PREPARE_ATTACK : GoblinStates::IDLE;
+        const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
     }
 }
@@ -163,7 +163,7 @@ void GoblinFireController::PrepareAttack(const mono::UpdateContext& update_conte
 {
     m_prepare_timer += update_context.delta_ms;
     if(m_prepare_timer > tweak_values::attack_start_delay)
-        m_states.TransitionTo(GoblinStates::ATTACKING);
+        m_states.TransitionTo(States::ATTACKING);
 }
 
 void GoblinFireController::ToAttacking()
@@ -175,7 +175,7 @@ void GoblinFireController::ToAttacking()
 void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
 {
     if(m_n_attacks >= tweak_values::n_attacks || m_weapon->UpdateWeaponState(update_context.timestamp) == game::WeaponState::RELOADING)
-        m_states.TransitionTo(GoblinStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
 
     m_attack_timer += update_context.delta_ms;
     if(m_attack_timer > tweak_values::attack_sequence_delay)

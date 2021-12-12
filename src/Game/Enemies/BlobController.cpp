@@ -35,11 +35,11 @@ BlobController::BlobController(uint32_t entity_id, mono::SystemContext* system_c
     m_jump_anim_length = m_sprite->GetAnimationLength(m_jump_anim_id);
 
     const BlobStateMachine::StateTable state_table = {
-        BlobStateMachine::MakeState(BlobStates::IDLE, &BlobController::ToIdle, &BlobController::Idle, this),
-        BlobStateMachine::MakeState(BlobStates::MOVING, &BlobController::ToMoving, &BlobController::Moving, this),
+        BlobStateMachine::MakeState(States::IDLE, &BlobController::ToIdle, &BlobController::Idle, this),
+        BlobStateMachine::MakeState(States::MOVING, &BlobController::ToMoving, &BlobController::Moving, this),
     };
 
-    m_states.SetStateTableAndState(state_table, BlobStates::IDLE);
+    m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
 void BlobController::Update(const mono::UpdateContext& update_context)
@@ -61,7 +61,7 @@ void BlobController::Idle(const mono::UpdateContext& update_context)
     {
         const bool move = mono::Chance(tweak_values::percentage_to_move);
         if(move)
-            m_states.TransitionTo(BlobStates::MOVING);
+            m_states.TransitionTo(States::MOVING);
 
         m_idle_timer = 0;
     }
@@ -102,5 +102,5 @@ void BlobController::Moving(const mono::UpdateContext& update_context)
     m_move_counter += update_context.delta_ms;
 
     if(m_move_counter > duration)
-        m_states.TransitionTo(BlobStates::IDLE);
+        m_states.TransitionTo(States::IDLE);
 }

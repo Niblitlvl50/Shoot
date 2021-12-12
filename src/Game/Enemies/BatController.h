@@ -32,13 +32,13 @@ namespace game
         float m_move_counter;
         float m_chill_time;
 
-        enum class BatStates
+        enum class States
         {
             IDLE,
             MOVING
         };
 
-        using BatStateMachine = StateMachine<BatStates, const mono::UpdateContext&>;
+        using BatStateMachine = StateMachine<States, const mono::UpdateContext&>;
         BatStateMachine m_states;
     };
 }

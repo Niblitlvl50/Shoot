@@ -38,14 +38,14 @@ namespace game
         std::unique_ptr<class ExplosionEffect> m_explosion_effect;
         audio::ISoundPtr m_explosion_sound;
 
-        enum class ExplodableStates
+        enum class States
         {
             IDLE,
             ATTACK,
             DEAD,
         };
 
-        using ExplodableStateMachine = StateMachine<ExplodableStates, const mono::UpdateContext&>;
+        using ExplodableStateMachine = StateMachine<States, const mono::UpdateContext&>;
         ExplodableStateMachine m_states;
 
         uint32_t m_wait_timer;
