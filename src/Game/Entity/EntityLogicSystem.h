@@ -2,6 +2,8 @@
 #pragma once
 
 #include "IGameSystem.h"
+
+#include <cstddef>
 #include <vector>
 
 namespace game

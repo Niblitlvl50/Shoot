@@ -5,6 +5,7 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 
+#include <cstddef>
 #include <vector>
 #include <array>
 

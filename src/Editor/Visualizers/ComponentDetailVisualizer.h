@@ -5,6 +5,7 @@
 #include "Math/MathFwd.h"
 #include "Rendering/IDrawable.h"
 
+#include <cstdint>
 #include <vector>
 #include <unordered_map>
 
