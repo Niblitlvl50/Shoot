@@ -16,7 +16,6 @@
 #include "Events/EventFuncFwd.h"
 #include "Events/ControllerEvent.h"
 #include "Events/PlayerConnectedEvent.h"
-#include "Events/ScoreEvent.h"
 #include "Events/GameEvents.h"
 
 #include "Network/NetworkMessage.h"
@@ -93,7 +92,6 @@ PlayerDaemon::PlayerDaemon(
     const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
     const DespawnPlayerFunc& despawn_player_func = std::bind(&PlayerDaemon::OnDespawnPlayer, this, _1);
     const RespawnPlayerFunc& respawn_player_func = std::bind(&PlayerDaemon::OnRespawnPlayer, this, _1);
-    const ScoreFunc& score_func = std::bind(&PlayerDaemon::PlayerScore, this, _1);
 
     m_player_connected_token = m_event_handler->AddListener(connected_func);
     m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
@@ -106,8 +104,6 @@ PlayerDaemon::PlayerDaemon(
 
     const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemon::RemotePlayerViewport, this, _1);
     m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
-
-    m_score_token = m_event_handler->AddListener(score_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary), true);
@@ -128,7 +124,6 @@ PlayerDaemon::~PlayerDaemon()
     m_event_handler->RemoveListener(m_respawn_player_token);
     m_event_handler->RemoveListener(m_remote_input_token);
     m_event_handler->RemoveListener(m_remote_viewport_token);
-    m_event_handler->RemoveListener(m_score_token);
 
     for(int index = 0; index < game::n_players; ++index)
     {
@@ -297,15 +292,6 @@ mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& mess
     auto it = m_remote_players.find(message.sender);
     if(it != m_remote_players.end())
         it->second.player_info->viewport = message.viewport;
-
-    return mono::EventResult::PASS_ON;
-}
-
-mono::EventResult PlayerDaemon::PlayerScore(const ScoreEvent& event)
-{
-    game::PlayerInfo* player_info = FindPlayerInfoFromEntityId(event.entity_id);
-    if(player_info)
-        player_info->score += event.score;
 
     return mono::EventResult::PASS_ON;
 }

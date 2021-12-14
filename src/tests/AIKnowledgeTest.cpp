@@ -43,18 +43,18 @@ TEST(PlayerInfoTest, FindPlayerInfo)
     game::PlayerInfo* player_info_1 = game::AllocatePlayerInfo();
     player_info_1->player_state = game::PlayerState::ALIVE;
     player_info_1->entity_id = 666;
-    player_info_1->score = 666;
+    player_info_1->lives = 3;
 
     game::PlayerInfo* player_info_2 = game::AllocatePlayerInfo();
     player_info_2->player_state = game::PlayerState::ALIVE;
     player_info_2->entity_id = 777;
-    player_info_2->score = 777;
+    player_info_2->lives = 11;
 
     const game::PlayerInfo* found_player_info_1 = game::FindPlayerInfoFromEntityId(666);
-    EXPECT_EQ(found_player_info_1->score, player_info_1->score);
+    EXPECT_EQ(found_player_info_1->lives, player_info_1->lives);
 
     const game::PlayerInfo* found_player_info_2 = game::FindPlayerInfoFromEntityId(777);
-    EXPECT_EQ(found_player_info_2->score, player_info_2->score);
+    EXPECT_EQ(found_player_info_2->lives, player_info_2->lives);
 }
 
 TEST(PlayerInfoTest, GetClosestActivePlayer)

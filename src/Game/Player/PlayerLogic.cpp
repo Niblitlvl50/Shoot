@@ -293,7 +293,6 @@ void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
         break;
     }
     case shared::PickupType::SCORE:
-        m_player_info->score += amount;
         break;
 
     case shared::PickupType::WEAPON_PISTOL:

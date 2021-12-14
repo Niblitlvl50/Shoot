@@ -51,7 +51,6 @@ namespace game
         int ammunition_left;
         int weapon_reload_percentage;
 
-        int score;
         int lives;
     };
 

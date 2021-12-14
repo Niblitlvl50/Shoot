@@ -108,7 +108,6 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     : UIOverlay(16.0f, 16.0f / mono::GetWindowAspect())
     , m_player_info(player_info)
     , m_timer(0)
-    , m_current_score(m_player_info.score)
 {
 
     m_position = m_offscreen_position = math::Vector(0.0f, -5.0f);
@@ -133,9 +132,6 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
     m_weapon_state_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
     m_weapon_state_text->SetPosition(3.25f, 1.0f);
 
-    m_score_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-    m_score_text->SetPosition(8.0f, 0.5f);
-
     ReloadLine* weapon_reload_line = new ReloadLine(m_player_info);
     weapon_reload_line->SetPosition(12.0f, 0.5f);
     weapon_reload_line->SetScale(math::Vector(3.0f, 1.0f));
@@ -154,17 +150,6 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
 void PlayerUIElement::Update(const mono::UpdateContext& update_context)
 {
     UIOverlay::Update(update_context);
-
-    if(m_player_info.score != m_current_score)
-    {
-        //const int score_diff = m_player_info.score - m_current_score;
-        m_current_score += 10;
-        m_current_score = std::min(m_player_info.score, m_current_score);
-    }
-
-    char score_buffer[256] = { 0 };
-    std::snprintf(score_buffer, std::size(score_buffer), "score %010d", m_current_score);
-    m_score_text->SetText(score_buffer);
 
     char ammo_text[32] = { '\0' };
     std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);

@@ -44,7 +44,6 @@ namespace game
         mono::EventResult RemotePlayerDisconnected(const PlayerDisconnectedEvent& event);
         mono::EventResult RemotePlayerInput(const RemoteInputMessage& event);
         mono::EventResult RemotePlayerViewport(const ViewportMessage& message);
-        mono::EventResult PlayerScore(const ScoreEvent& event);
 
         mono::EventResult OnSpawnPlayer(const SpawnPlayerEvent& event);
         mono::EventResult OnDespawnPlayer(const DespawnPlayerEvent& event);
@@ -64,7 +63,6 @@ namespace game
         mono::EventToken<PlayerDisconnectedEvent> m_player_disconnected_token;
         mono::EventToken<RemoteInputMessage> m_remote_input_token;
         mono::EventToken<ViewportMessage> m_remote_viewport_token;
-        mono::EventToken<ScoreEvent> m_score_token;
         mono::EventToken<SpawnPlayerEvent> m_spawn_player_token;
         mono::EventToken<DespawnPlayerEvent> m_despawn_player_token;
         mono::EventToken<RespawnPlayerEvent> m_respawn_player_token;

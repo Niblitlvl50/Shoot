@@ -23,11 +23,8 @@ namespace game
         math::Vector m_offscreen_position;
         float m_timer;
 
-        int m_current_score;
-
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_weapon_sprites;
         class UITextElement* m_weapon_state_text;
-        class UITextElement* m_score_text;
     };
 }
