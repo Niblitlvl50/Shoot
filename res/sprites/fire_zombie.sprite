@@ -1,0 +1,274 @@
+{
+    "animations": [
+        {
+            "frame_duration": 214,
+            "frames": [
+                0,
+                1
+            ],
+            "loop": true,
+            "name": "attack"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                2,
+                3,
+                4
+            ],
+            "loop": false,
+            "name": "die"
+        },
+        {
+            "frame_duration": 158,
+            "frames": [
+                5,
+                6
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 155,
+            "frames": [
+                7,
+                8
+            ],
+            "loop": true,
+            "name": "idle_down"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                9,
+                10
+            ],
+            "loop": true,
+            "name": "idle_up"
+        },
+        {
+            "frame_duration": 149,
+            "frames": [
+                11,
+                12
+            ],
+            "loop": true,
+            "name": "walk"
+        },
+        {
+            "frame_duration": 144,
+            "frames": [
+                13,
+                14
+            ],
+            "loop": true,
+            "name": "walk_down"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                15,
+                16
+            ],
+            "loop": true,
+            "name": "walk_up"
+        }
+    ],
+    "frames": [
+        {
+            "h": 22,
+            "name": "fire_zombie_attack_1",
+            "w": 16,
+            "x": 1063,
+            "y": 389
+        },
+        {
+            "h": 21,
+            "name": "fire_zombie_attack_2",
+            "w": 16,
+            "x": 1938,
+            "y": 392
+        },
+        {
+            "h": 13,
+            "name": "fire_zombie_die_1",
+            "w": 17,
+            "x": 1006,
+            "y": 435
+        },
+        {
+            "h": 13,
+            "name": "fire_zombie_die_2",
+            "w": 19,
+            "x": 1679,
+            "y": 434
+        },
+        {
+            "h": 12,
+            "name": "fire_zombie_die_3",
+            "w": 12,
+            "x": 1853,
+            "y": 435
+        },
+        {
+            "h": 22,
+            "name": "fire_zombie_idle_1",
+            "w": 14,
+            "x": 1353,
+            "y": 389
+        },
+        {
+            "h": 21,
+            "name": "fire_zombie_idle_2",
+            "w": 15,
+            "x": 133,
+            "y": 400
+        },
+        {
+            "h": 21,
+            "name": "fire_zombie_idle_down_1",
+            "w": 13,
+            "x": 368,
+            "y": 408
+        },
+        {
+            "h": 20,
+            "name": "fire_zombie_idle_down_2",
+            "w": 15,
+            "x": 174,
+            "y": 410
+        },
+        {
+            "h": 20,
+            "name": "fire_zombie_idle_up_1",
+            "w": 15,
+            "x": 113,
+            "y": 410
+        },
+        {
+            "h": 21,
+            "name": "fire_zombie_idle_up_2",
+            "w": 13,
+            "x": 460,
+            "y": 409
+        },
+        {
+            "h": 21,
+            "name": "fire_zombie_walk_1",
+            "w": 17,
+            "x": 882,
+            "y": 392
+        },
+        {
+            "h": 22,
+            "name": "fire_zombie_walk_2",
+            "w": 13,
+            "x": 1633,
+            "y": 388
+        },
+        {
+            "h": 23,
+            "name": "fire_zombie_walk_down_1",
+            "w": 13,
+            "x": 1817,
+            "y": 387
+        },
+        {
+            "h": 22,
+            "name": "fire_zombie_walk_down_2",
+            "w": 14,
+            "x": 1371,
+            "y": 389
+        },
+        {
+            "h": 23,
+            "name": "fire_zombie_walk_up_1",
+            "w": 13,
+            "x": 1571,
+            "y": 387
+        },
+        {
+            "h": 22,
+            "name": "fire_zombie_walk_up_2",
+            "w": 14,
+            "x": 1464,
+            "y": 389
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.03125
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": -0.015625,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": -0.03125,
+            "y": -0.015625
+        },
+        {
+            "x": 0.03125,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.015625
+        },
+        {
+            "x": -0.015625,
+            "y": 0.0
+        },
+        {
+            "x": 0.03125,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        }
+    ],
+    "source_folder": "res/images/creatures/fire_zombie/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
