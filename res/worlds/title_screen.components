@@ -398,8 +398,8 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 32.0,
-                                    "min": 64.0
+                                    "max": 64.0,
+                                    "min": 32.0
                                 },
                                 "value": 32.0
                             }
