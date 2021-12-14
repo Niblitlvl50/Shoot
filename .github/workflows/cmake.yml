@@ -82,5 +82,5 @@ jobs:
     - name: Artifacts [resources]
       uses: actions/upload-artifact@v2
       with:
-        name: resource
+        name: res
         path: ./res/
