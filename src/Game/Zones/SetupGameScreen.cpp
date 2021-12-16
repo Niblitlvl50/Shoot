@@ -45,7 +45,7 @@ namespace
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
             m_delay_counter_s += update_context.delta_s;
-            if(m_delay_counter_s > 1.0f)
+            if(m_delay_counter_s > 0.5f)
             {
                 const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
                 const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);

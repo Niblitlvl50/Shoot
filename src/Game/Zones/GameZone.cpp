@@ -28,6 +28,7 @@
 
 #include "Player/PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
+#include "Hud/PlayerReloadDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
@@ -164,6 +165,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
+    AddDrawable(new PlayerReloadDrawer(transform_system), LayerId::UI);
     AddDrawable(new DialogSystemDrawer(dialog_system), LayerId::UI);
 
     // Debug

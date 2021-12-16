@@ -25,7 +25,7 @@ namespace
             const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
 
             m_delay_counter_s += update_context.delta_s;
-            if(m_delay_counter_s > 1.0f)
+            if(m_delay_counter_s > 0.5f)
             {
                 if(state.button_state != m_last_state.button_state)
                     m_event_handler->DispatchEvent(event::QuitEvent());
