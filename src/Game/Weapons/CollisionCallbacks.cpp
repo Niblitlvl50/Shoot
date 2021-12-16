@@ -84,7 +84,7 @@ void game::StandardCollision(
 
     if(details.body)
     {
-        const float direction = math::AngleFromVector(details.normal);
+        const float direction = math::AngleFromVector(details.normal) + math::PI();
         if(did_damage)
         {
             g_damage_effect->EmitGibsAt(details.point, direction);
