@@ -79,56 +79,58 @@ ServerReplicator::~ServerReplicator()
 void ServerReplicator::Update(const mono::UpdateContext& update_context)
 {
     //SCOPED_TIMER_AUTO();
-
-    std::vector<uint32_t> transforms_to_replicate;
-    std::vector<uint32_t> sprites_to_replicate;
-    std::vector<uint32_t> damage_info_to_replicate;
-    std::vector<uint32_t> spawns_this_frame;
-
-    const auto collect_entities = [&](const mono::Entity& entity) {
-        transforms_to_replicate.push_back(entity.id);
-
-        if(mono::contains(entity.components, SPRITE_COMPONENT))
-            sprites_to_replicate.push_back(entity.id);
-
-        if(mono::contains(entity.components, HEALTH_COMPONENT))
-            damage_info_to_replicate.push_back(entity.id);
-    };
-    m_entity_system->ForEachEntity(collect_entities);
-
-    for(const auto& spawn_event : m_entity_system->GetSpawnEvents())
-    {
-        if(spawn_event.spawned)
-            spawns_this_frame.push_back(spawn_event.entity_id);
-    }
-
-    std::unordered_set<network::Address> known_clients;
-
     const std::unordered_map<network::Address, ClientData>& clients = m_server_manager->GetConnectedClients();
-    for(const auto& client : clients)
+    if(!clients.empty())
     {
-        const bool force_replicate = (m_known_clients.find(client.first) == m_known_clients.end());
+        std::vector<uint32_t> transforms_to_replicate;
+        std::vector<uint32_t> sprites_to_replicate;
+        std::vector<uint32_t> damage_info_to_replicate;
+        std::vector<uint32_t> spawns_this_frame;
 
-        BatchedMessageSender batch_sender(client.first, m_message_queue);
-        ReplicateSpawns(batch_sender, update_context);
+        const auto collect_entities = [&](const mono::Entity& entity) {
+            transforms_to_replicate.push_back(entity.id);
 
-        const int replicated_transforms =
-            ReplicateTransforms(transforms_to_replicate, spawns_this_frame, force_replicate, batch_sender, client.second.viewport, update_context);
-        const int replicated_sprites =
-            ReplicateSprites(sprites_to_replicate, spawns_this_frame, force_replicate, batch_sender, update_context);
-        const int replicated_damages =
-            ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, force_replicate, batch_sender, update_context);
-    
-        System::Log(
-            "replications, transforms: %u, sprites: %u, damages: %u",
-            replicated_transforms,
-            replicated_sprites,
-            replicated_damages);
+            if(mono::contains(entity.components, SPRITE_COMPONENT))
+                sprites_to_replicate.push_back(entity.id);
 
-        known_clients.insert(client.first);
+            if(mono::contains(entity.components, HEALTH_COMPONENT))
+                damage_info_to_replicate.push_back(entity.id);
+        };
+        m_entity_system->ForEachEntity(collect_entities);
+
+        for(const auto& spawn_event : m_entity_system->GetSpawnEvents())
+        {
+            if(spawn_event.spawned)
+                spawns_this_frame.push_back(spawn_event.entity_id);
+        }
+
+        std::unordered_set<network::Address> known_clients;
+
+        for(const auto& client : clients)
+        {
+            const bool force_replicate = (m_known_clients.find(client.first) == m_known_clients.end());
+
+            BatchedMessageSender batch_sender(client.first, m_message_queue);
+            ReplicateSpawns(batch_sender, update_context);
+
+            const int replicated_transforms =
+                ReplicateTransforms(transforms_to_replicate, spawns_this_frame, force_replicate, batch_sender, client.second.viewport, update_context);
+            const int replicated_sprites =
+                ReplicateSprites(sprites_to_replicate, spawns_this_frame, force_replicate, batch_sender, update_context);
+            const int replicated_damages =
+                ReplicateDamageInfos(damage_info_to_replicate, spawns_this_frame, force_replicate, batch_sender, update_context);
+        
+            System::Log(
+                "replications, transforms: %u, sprites: %u, damages: %u",
+                replicated_transforms,
+                replicated_sprites,
+                replicated_damages);
+
+            known_clients.insert(client.first);
+        }
+
+        m_known_clients = known_clients;
     }
-
-    m_known_clients = known_clients;
 
     while(!m_message_queue.empty())
     {

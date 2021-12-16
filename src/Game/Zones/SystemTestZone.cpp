@@ -59,7 +59,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<game::TriggerSystem>();
     game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
-    server_manager->StartServer();
+    //server_manager->StartServer();
 
     ServerReplicator* server_replicator = new ServerReplicator(
         m_event_handler,

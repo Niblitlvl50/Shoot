@@ -19,18 +19,6 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     , m_game_config(game_config)
     , m_dispatcher(event_handler)
     , m_beacon_timer(0)
-{ }
-
-ServerManager::~ServerManager()
-{
-    m_event_handler->RemoveListener(m_ping_func_token);
-    m_event_handler->RemoveListener(m_connect_token);
-    m_event_handler->RemoveListener(m_disconnect_token);
-    m_event_handler->RemoveListener(m_heartbeat_token);
-    m_event_handler->RemoveListener(m_viewport_token);
-}
-
-void ServerManager::StartServer()
 {
     using namespace std::placeholders;
     const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
@@ -44,7 +32,19 @@ void ServerManager::StartServer()
     m_disconnect_token = m_event_handler->AddListener(disconnect_func);
     m_heartbeat_token = m_event_handler->AddListener(heartbeat_func);
     m_viewport_token = m_event_handler->AddListener(viewport_func);
+ }
 
+ServerManager::~ServerManager()
+{
+    m_event_handler->RemoveListener(m_ping_func_token);
+    m_event_handler->RemoveListener(m_connect_token);
+    m_event_handler->RemoveListener(m_disconnect_token);
+    m_event_handler->RemoveListener(m_heartbeat_token);
+    m_event_handler->RemoveListener(m_viewport_token);
+}
+
+void ServerManager::StartServer()
+{
     network::ISocketPtr socket;
     if(m_game_config->use_port_range)
     {
