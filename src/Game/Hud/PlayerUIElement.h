@@ -25,6 +25,5 @@ namespace game
 
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_weapon_sprites;
-        class UITextElement* m_weapon_state_text;
     };
 }
