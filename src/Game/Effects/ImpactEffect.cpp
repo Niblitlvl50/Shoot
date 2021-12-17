@@ -9,6 +9,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
+#include "Component.h"
 
 using namespace game;
 
@@ -51,18 +52,21 @@ ImpactEffect::ImpactEffect(mono::ParticleSystem* particle_system, mono::IEntityM
     : m_particle_system(particle_system)
     , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("impacteffect", {});
-    particle_system->AllocatePool(particle_entity.id, 50, mono::DefaultUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/white_square.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA, mono::ParticleTransformSpace::LOCAL);
+    mono::Entity particle_entity = m_entity_system->CreateEntity("ImpactEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
+    m_particle_system->SetPoolData(
+        particle_entity.id,
+        50,
+        "res/textures/particles/white_square.png",
+        mono::BlendMode::SOURCE_ALPHA,
+        mono::ParticleTransformSpace::LOCAL,
+        0.0f,
+        mono::DefaultUpdater);
 
     m_particle_entity = particle_entity.id;
 }
 
 ImpactEffect::~ImpactEffect()
 {
-    m_particle_system->ReleasePool(m_particle_entity);
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 

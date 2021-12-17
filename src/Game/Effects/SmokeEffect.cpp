@@ -9,6 +9,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
+#include "Component.h"
 
 using namespace game;
 
@@ -60,18 +61,20 @@ SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
     : m_particle_system(particle_system)
     , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("smokeeffect", {});
-    particle_system->AllocatePool(particle_entity.id, 100, GibsUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/smoke_white_4.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::SOURCE_ALPHA, mono::ParticleTransformSpace::LOCAL);
+    mono::Entity particle_entity = m_entity_system->CreateEntity("SmokeEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
+    particle_system->SetPoolData(particle_entity.id,
+        100,
+        "res/textures/particles/smoke_white_4.png",
+        mono::BlendMode::SOURCE_ALPHA,
+        mono::ParticleTransformSpace::LOCAL,
+        0.0f,
+        GibsUpdater);
 
     m_particle_entity = particle_entity.id;
 }
 
 SmokeEffect::~SmokeEffect()
 {
-    m_particle_system->ReleasePool(m_particle_entity);
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 

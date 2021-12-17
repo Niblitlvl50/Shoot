@@ -10,6 +10,8 @@
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
 
+#include "Component.h"
+
 using namespace game;
 
 namespace
@@ -76,18 +78,21 @@ BlinkEffect::BlinkEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
     : m_particle_system(particle_system)
     , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("blinkeffect", {});
-    particle_system->AllocatePool(particle_entity.id, 100, GibsUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);
+    mono::Entity particle_entity = m_entity_system->CreateEntity("BlinkEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
+    m_particle_system->SetPoolData(
+        particle_entity.id,
+        100,
+        "res/textures/particles/flare.png",
+        mono::BlendMode::ONE,
+        mono::ParticleTransformSpace::LOCAL,
+        0.0f,
+        GibsUpdater);
 
     m_particle_entity = particle_entity.id;
 }
 
 BlinkEffect::~BlinkEffect()
 {
-    m_particle_system->ReleasePool(m_particle_entity);
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 

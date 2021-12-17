@@ -7,6 +7,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
+#include "Component.h"
 
 using namespace game;
 
@@ -39,17 +40,20 @@ TrailEffect::TrailEffect(
     : m_particle_system(particle_system)
     , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("traileffect", {});
-    particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::WORLD);
+    mono::Entity particle_entity = m_entity_system->CreateEntity("TrailEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
+    particle_system->SetPoolData(
+        particle_entity.id,
+        500,
+        "res/textures/particles/flare.png",
+        mono::BlendMode::ONE, 
+        mono::ParticleTransformSpace::WORLD,
+        0.0,
+        mono::DefaultUpdater);
 
     const auto generator_proxy = [transform_system, follow_id](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
         const math::Matrix& world_transform = transform_system->GetWorld(follow_id);
         TrailGenerator(math::GetPosition(world_transform), component_view);
     };
-
     m_particle_system->AttachEmitter(particle_entity.id, math::ZeroVec, -1.0f, 100.0f, mono::EmitterType::CONTINOUS, generator_proxy);
 
     m_particle_entity = particle_entity.id;
@@ -57,6 +61,5 @@ TrailEffect::TrailEffect(
 
 TrailEffect::~TrailEffect()
 {
-    m_particle_system->ReleasePool(m_particle_entity);
     m_entity_system->ReleaseEntity(m_particle_entity);
 }

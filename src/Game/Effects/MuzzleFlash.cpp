@@ -9,6 +9,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
+#include "Component.h"
 
 using namespace game;
 
@@ -46,18 +47,21 @@ MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system, mono::IEntityMan
     : m_particle_system(particle_system)
     , m_entity_system(entity_system)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("muzzleflash", {});
-    particle_system->AllocatePool(particle_entity.id, 500, mono::DefaultUpdater);
-
-    const mono::ITexturePtr texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/flare.png");
-    particle_system->SetPoolDrawData(particle_entity.id, texture, mono::BlendMode::ONE, mono::ParticleTransformSpace::LOCAL);
+    mono::Entity particle_entity = m_entity_system->CreateEntity("MuzzleFlash", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
+    particle_system->SetPoolData(
+        particle_entity.id,
+        500,
+        "res/textures/particles/flare.png",
+        mono::BlendMode::ONE,
+        mono::ParticleTransformSpace::LOCAL,
+        0.0f,
+        mono::DefaultUpdater);
 
     m_particle_entity = particle_entity.id;
 }
 
 MuzzleFlash::~MuzzleFlash()
 {
-    m_particle_system->ReleasePool(m_particle_entity);
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 
