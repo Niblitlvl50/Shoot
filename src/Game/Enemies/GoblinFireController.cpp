@@ -1,5 +1,7 @@
 
 #include "GoblinFireController.h"
+
+#include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteProperties.h"
@@ -20,12 +22,11 @@ namespace tweak_values
 {
     constexpr float activate_distance_to_player_threshold = 6.0f;
     constexpr float distance_to_player_threshold = 3.0f;
-    constexpr float move_speed = 1.0f;
+    constexpr float move_speed = 25.0f;
+    constexpr float degrees_per_second = 360.0f;
     constexpr uint32_t attack_start_delay = 500;
     constexpr uint32_t attack_sequence_delay = 50;
     constexpr uint32_t n_attacks = 3;
-
-    constexpr math::EaseFunction ease_function = math::LinearTween;
 }
 
 using namespace game;
@@ -35,6 +36,13 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
 {
     m_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+
+    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* body = physics_system->GetBody(entity_id);
+
+    m_homing_behaviour.SetBody(body);
+    m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
+    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -105,47 +113,37 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
 
 void GoblinFireController::ToReposition()
 {
-    const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& world_position = math::GetPosition(world_transform);
-
-    m_start_position = world_position;
-
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
     if(!player_info)
         return;
 
     const math::Vector delta = player_info->position - world_position;
-    
-    // Move towards player
-    m_move_delta = delta / 2.0f;
-    
     const float distance_to_player = math::Length(delta);
+
+    math::Vector homing_target = world_position;
+
+    // Move towards player
+    const math::Vector halfway_delta = delta / 2.0f;
 
     if(distance_to_player < tweak_values::distance_to_player_threshold)
     {
         const float multiplier = mono::Chance(50) ? -1.0f : 1.0f;
-        m_move_delta = math::Perpendicular(m_move_delta) * multiplier; // Move sideways
+        homing_target += math::Perpendicular(halfway_delta) * multiplier; // Move sideways
+    }
+    else
+    {
+        homing_target += halfway_delta;
     }
 
-    m_move_counter = 0.0f;
     m_sprite->SetAnimation(m_run_anim_id);
+    m_homing_behaviour.SetTargetPosition(homing_target);
 }
 
 void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
 {
-    const float duration = math::Length(m_move_delta) / tweak_values::move_speed;
-
-    math::Vector new_position;
-    new_position.x = tweak_values::ease_function(m_move_counter, duration, m_start_position.x, m_move_delta.x);
-    new_position.y = tweak_values::ease_function(m_move_counter, duration, m_start_position.y, m_move_delta.y);
-
-    math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
-    math::Position(transform, new_position);
-    m_transform_system->SetTransformState(m_entity_id, mono::TransformState::CLIENT);
-
-    m_move_counter += update_context.delta_s;
-
-    if(m_move_counter >= duration)
+    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    if(result.distance_to_target < 0.1f)
     {
         const bool fire = mono::Chance(75);
         const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;

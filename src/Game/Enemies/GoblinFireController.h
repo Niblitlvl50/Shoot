@@ -7,6 +7,7 @@
 #include "StateMachine.h"
 #include "Weapons/IWeaponFactory.h"
 #include "Math/Vector.h"
+#include "Behaviour/HomingBehaviour.h"
 
 #include <memory>
 
@@ -57,9 +58,8 @@ namespace game
         uint32_t m_n_attacks;
         uint32_t m_attack_timer;
 
+        HomingBehaviour m_homing_behaviour;
+
         math::Vector m_attack_position;
-        math::Vector m_move_delta;
-        math::Vector m_start_position;
-        float m_move_counter;
     };
 }
