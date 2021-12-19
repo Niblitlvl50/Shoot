@@ -31,7 +31,11 @@ namespace game
     class DebugUpdater : public mono::IDrawable
     {
     public:
-        DebugUpdater(TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::EventHandler* event_handler);
+        DebugUpdater(
+            TriggerSystem* trigger_system,
+            mono::TransformSystem* transform_system,
+            mono::IEntityManager* entity_manager,
+            mono::EventHandler* event_handler);
         ~DebugUpdater();
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;

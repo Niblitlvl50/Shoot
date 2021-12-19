@@ -7,14 +7,18 @@
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
 #include "Events/PlayerConnectedEvent.h"
+#include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
 #include "ImGuiImpl/ImGuiWidgets.h"
 #include "System/Hash.h"
+#include "System/System.h"
 
 #include "TransformSystem/TransformSystem.h"
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
+
+#include "Component.h"
 
 #include "imgui/imgui.h"
 
@@ -166,9 +170,11 @@ constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 class DebugUpdater::PlayerDebugHandler
 {
 public:
-    PlayerDebugHandler(const bool& enabled, mono::TransformSystem* transform_system, mono::EventHandler* event_handler)
+    PlayerDebugHandler(
+        const bool& enabled, mono::TransformSystem* transform_system, mono::IEntityManager* entity_manager, mono::EventHandler* event_handler)
         : m_enabled(enabled)
         , m_transform_system(transform_system)
+        , m_entity_manager(entity_manager)
         , m_event_handler(event_handler)
         , m_player_id(NO_ID)
     {
@@ -192,19 +198,32 @@ public:
     mono::EventResult OnMouseDown(const event::MouseDownEvent& event)
     {
         const math::Vector world_click = {event.world_x, event.world_y};
-        const game::PlayerInfo* player = game::GetClosestActivePlayer(world_click);
-        if(player)
-        {
-            const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(player->entity_id);
-            const bool inside_bb = math::PointInsideQuad(world_click, world_bb);
-            if(inside_bb)
-            {
-                m_player_id = player->entity_id;
-                m_previous_position = world_click;
-            }
-        }
+   
+        uint32_t found_index = NO_ID;
 
-        return player ? mono::EventResult::HANDLED : mono::EventResult::PASS_ON;
+        const auto check_if_in_bb = [&, this](const mono::TransformSystem::Component& component, uint32_t index)
+        {
+            const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(index);
+            const bool found_entity = math::PointInsideQuad(world_click, world_bb);
+            if(found_entity)
+                found_index = index;
+
+            return found_entity;
+        };
+        m_transform_system->ForEachComponentBreak(check_if_in_bb);
+
+        if(found_index != NO_ID)
+        {
+            const mono::Entity* found_entity = m_entity_manager->GetEntity(found_index);
+            System::Log("Found id %u '%s'", found_index, found_entity->name);
+
+            for(uint32_t component_hash : found_entity->components)
+                System::Log("\t%s", ComponentNameFromHash(component_hash));
+
+            m_player_id = found_index;
+            m_previous_position = world_click;
+        }
+        return found_index != NO_ID ? mono::EventResult::HANDLED : mono::EventResult::PASS_ON;
     }
 
     mono::EventResult OnMouseUp(const event::MouseUpEvent& event)
@@ -232,6 +251,7 @@ public:
 
     const bool& m_enabled;
     mono::TransformSystem* m_transform_system;
+    mono::IEntityManager* m_entity_manager;
     mono::EventHandler* m_event_handler;
 
     mono::EventToken<event::MouseDownEvent> m_mouse_down_token;
@@ -242,7 +262,8 @@ public:
     math::Vector m_previous_position;
 };
 
-DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::EventHandler* event_handler)
+DebugUpdater::DebugUpdater(
+    TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_manager, mono::EventHandler* event_handler)
     : m_trigger_system(trigger_system)
     , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
@@ -258,10 +279,9 @@ DebugUpdater::DebugUpdater(TriggerSystem* trigger_system, mono::TransformSystem*
 
         return mono::EventResult::PASS_ON;
     };
-
     m_keyup_token = m_event_handler->AddListener(key_up_func);
 
-    m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, event_handler);
+    m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, entity_manager, event_handler);
 }
 
 DebugUpdater::~DebugUpdater()

@@ -47,12 +47,12 @@ namespace
             level_data.metadata.navmesh_density = json_metadata.value("navmesh_density", 1.0f);
         }
 
-        const nlohmann::json& entities = json["entities"];
-
-        for(const auto& json_entity : entities)
+        const nlohmann::json& json_entities = json["entities"];
+        for(uint32_t index = 0; index < json_entities.size(); ++index)
         {
-            const bool has_uuid_hash = json_entity.contains("uuid_hash");
+            const auto& json_entity = json_entities[index];
 
+            const bool has_uuid_hash = json_entity.contains("uuid_hash");
             const std::string& entity_name = json_entity["name"];
             const std::string& entity_folder = json_entity.value("folder", ""); 
             const uint32_t entity_properties = json_entity["entity_properties"];
@@ -62,11 +62,11 @@ namespace
             if(has_uuid_hash)
             {
                 const uint32_t uuid_hash = json_entity["uuid_hash"];
-                new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, std::vector<uint32_t>());
+                new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, { });
             }
             else
             {
-                new_entity = entity_manager->CreateEntity(entity_name.c_str(), std::vector<uint32_t>());
+                new_entity = entity_manager->CreateEntity(entity_name.c_str(), { });
             }
 
             entity_manager->SetEntityProperties(new_entity.id, entity_properties);
@@ -74,7 +74,8 @@ namespace
             std::vector<Component> components;
             std::vector<uint32_t> ignored_components;
 
-            for(const auto& json_component : json_entity["components"])
+            const nlohmann::json& json_components = json_entity["components"];
+            for(const auto& json_component : json_components)
             {
                 const uint32_t component_hash = json_component["hash"];
                 const std::string component_name = json_component["name"];

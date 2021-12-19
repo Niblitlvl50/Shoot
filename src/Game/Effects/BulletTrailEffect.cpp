@@ -64,6 +64,9 @@ BulletTrailEffect::BulletTrailEffect(
 
 BulletTrailEffect::~BulletTrailEffect()
 {
+    for(auto& id_emitter : m_bullet_id_to_emitter)
+        m_particle_system->ReleaseEmitter(m_particle_entity, id_emitter.second);
+
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 
