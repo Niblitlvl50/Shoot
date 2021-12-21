@@ -85,7 +85,7 @@ void PacketDeliveryGameMode::Begin(
         mono::Color::OFF_WHITE,
         mono::Color::GRAY);
     m_dead_screen->Hide();
-    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players[0]);
+    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players);
 
     zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);

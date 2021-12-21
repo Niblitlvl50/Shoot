@@ -16,6 +16,18 @@
 
 namespace game
 {
+    const std::vector<std::string> g_weapon_sprite_files = {
+        "res/sprites/bolter.sprite",
+        "res/sprites/flak_cannon.sprite",
+        "res/sprites/rocket_launcher.sprite",
+        "res/sprites/bolter.sprite",
+        "res/sprites/flak_cannon.sprite",
+        "res/sprites/bolter.sprite",
+    };
+
+    constexpr float g_player_element_width = 5.5f;
+    constexpr float g_player_element_height = 1.0f;
+
     class HeartContainer : public game::UIElement
     {
     public:
@@ -66,65 +78,100 @@ namespace game
         int m_deafault_id;
         int m_dead_id;
     };
+
+    class PlayerElement : public game::UIElement
+    {
+    public:
+
+        PlayerElement(const PlayerInfo& player_info, const math::Vector& onscreen_position, const math::Vector& offscreen_position)
+            : m_player_info(player_info)
+            , m_timer(0)
+        {
+            m_position = m_offscreen_position = offscreen_position;
+            m_screen_position = onscreen_position;
+
+            UISquareElement* background = new UISquareElement(
+                g_player_element_width, g_player_element_height, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
+
+            HeartContainer* hearts = new HeartContainer(player_info);
+            hearts->SetPosition(0.5f, 0.5f);
+
+            m_weapon_sprites = new UISpriteElement(g_weapon_sprite_files);
+            m_weapon_sprites->SetPosition(3.5f, 0.5f);
+
+            m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            m_ammo_text->SetPosition(4.5f, 0.5f);
+
+            AddChild(background);
+            AddChild(hearts);
+            AddChild(m_weapon_sprites);
+            AddChild(m_ammo_text);
+        }
+
+        void Update(const mono::UpdateContext& update_context) override
+        {
+            UIElement::Update(update_context);
+
+            char ammo_text[32] = { '\0' };
+            std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
+            m_ammo_text->SetText(ammo_text);
+
+            //m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
+
+            if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)
+            {
+                m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_timer += update_context.delta_s;
+            }
+            else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
+            {
+                m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_timer -= update_context.delta_s;
+            }
+
+            m_timer = std::clamp(m_timer, 0.0f, 1.0f);
+        }
+
+        const PlayerInfo& m_player_info;
+
+        math::Vector m_screen_position;
+        math::Vector m_offscreen_position;
+        float m_timer;
+
+        class UITextElement* m_ammo_text;
+        class UISpriteElement* m_weapon_sprites;
+    };
 }
 
 using namespace game;
 
-PlayerUIElement::PlayerUIElement(const PlayerInfo& player_info)
+PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players)
     : UIOverlay(16.0f, 16.0f / mono::GetWindowAspect())
-    , m_player_info(player_info)
-    , m_timer(0)
 {
-    m_position = m_offscreen_position = math::Vector(0.0f, -5.0f);
-    m_screen_position = math::Vector(0.0f, 0.0f);
+    const float position_x = m_width - g_player_element_width;
+    const float position_y = m_height - g_player_element_height;
 
-    UISquareElement* background = new UISquareElement(5.5f, 1.0f, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
-
-    HeartContainer* hearts = new HeartContainer(player_info);
-    hearts->SetPosition(0.5f, 0.5f);
-
-    const std::vector<std::string> sprite_files = {
-        "res/sprites/bolter.sprite",
-        "res/sprites/flak_cannon.sprite",
-        "res/sprites/rocket_launcher.sprite",
-        "res/sprites/bolter.sprite",
-        "res/sprites/flak_cannon.sprite",
-        "res/sprites/bolter.sprite",
+    const math::Vector hud_positions[] = {
+        { 0.0f, 0.0f },
+        { position_x, 0.0f },
+        { 0.0f, position_y },
+        { position_x, position_y }
     };
-    m_weapon_sprites = new UISpriteElement(sprite_files);
-    m_weapon_sprites->SetPosition(3.5f, 0.5f);
 
-    m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-    m_ammo_text->SetPosition(4.5f, 0.5f);
+    const math::Vector hud_offscreen_delta_positions[] = {
+        { -g_player_element_width, 0.0f },
+        { +g_player_element_width, 0.0f },
+        { -g_player_element_width, 0.0f },
+        { +g_player_element_width, 0.0f }
+    };
 
-    AddChild(background);
-    AddChild(hearts);
-    AddChild(m_weapon_sprites);
-    AddChild(m_ammo_text);
-}
-
-void PlayerUIElement::Update(const mono::UpdateContext& update_context)
-{
-    UIOverlay::Update(update_context);
-
-    char ammo_text[32] = { '\0' };
-    std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
-    m_ammo_text->SetText(ammo_text);
-
-    //m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
-
-    if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)
+    for(int index = 0; index < n_players; ++index)
     {
-        m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-        m_position.y = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-        m_timer += update_context.delta_s;
+        const math::Vector on_screen_position = hud_positions[index];
+        const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta_positions[index];
+        PlayerElement* player_element = new PlayerElement(player_infos[index], on_screen_position, off_screen_position);
+        AddChild(player_element);
     }
-    else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
-    {
-        m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-        m_position.y = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-        m_timer -= update_context.delta_s;
-    }
-
-    m_timer = std::clamp(m_timer, 0.0f, 1.0f);
 }
