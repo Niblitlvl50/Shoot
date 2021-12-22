@@ -32,13 +32,12 @@ namespace game
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
-            const math::Vector& player_spawn);
+            const math::Vector& player_spawn,
+            const PlayerSpawnedCallback& player_spawned_cb);
         ~PlayerDaemon();
 
         void SpawnLocalPlayer(int player_index, int controller_id, bool follow_player);
         void DespawnPlayer(PlayerInfo* player_info);
-        void RegisterSpawnedCallback(const PlayerSpawnedCallback& callback);
-
         std::vector<uint32_t> GetPlayerIds() const;
 
     private:

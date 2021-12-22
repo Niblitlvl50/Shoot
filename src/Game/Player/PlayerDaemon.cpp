@@ -33,12 +33,14 @@ PlayerDaemon::PlayerDaemon(
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
-    const math::Vector& player_spawn)
+    const math::Vector& player_spawn,
+    const PlayerSpawnedCallback& player_spawned_cb)
     : m_remote_connection(remote_connection)
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
     , m_player_spawn(player_spawn)
+    , m_player_spawned_callback(player_spawned_cb)
 {
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -160,11 +162,6 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
     m_camera_system->Unfollow();
     m_entity_system->ReleaseEntity(player_info->entity_id);
     ReleasePlayerInfo(player_info);
-}
-
-void PlayerDaemon::RegisterSpawnedCallback(const PlayerSpawnedCallback& callback)
-{
-    m_player_spawned_callback = callback;
 }
 
 uint32_t PlayerDaemon::SpawnPlayer(

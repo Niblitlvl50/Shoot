@@ -79,8 +79,6 @@ void PacketDeliveryGameMode::Begin(
     // Player
     mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
     game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
-    m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_manager, system_context, m_event_handler, player_spawn);
-    
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -111,7 +109,8 @@ void PacketDeliveryGameMode::Begin(
 
         // throw them out from the portal
     };
-    m_player_daemon->RegisterSpawnedCallback(player_spawned_cb);
+    m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
+    //m_player_daemon->RegisterSpawnedCallback(player_spawned_cb);
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
