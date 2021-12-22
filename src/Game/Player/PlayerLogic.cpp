@@ -148,7 +148,7 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     }
 
     mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
-    if(m_aim_direction < math::PI())
+    if(m_aim_direction > 0.0f)
         weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
     else
         weapon_sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
