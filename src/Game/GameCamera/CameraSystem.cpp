@@ -20,9 +20,7 @@
 
 namespace
 {
-    constexpr const uint32_t NO_ENTITY = std::numeric_limits<uint32_t>::max();
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
-
     constexpr float dead_zone = 1.0f;
 }
 
@@ -36,7 +34,6 @@ CameraSystem::CameraSystem(
     , m_trigger_system(trigger_system)
     , m_controller(camera, *event_handler)
     , m_debug_camera(false)
-    , m_current_follow_entity_id(NO_ENTITY)
     , m_camera_shake_timer_ms(0)
     , m_animation_components(n)
     , m_restore_components(n)
@@ -72,16 +69,26 @@ const char* CameraSystem::Name() const
 
 void CameraSystem::Update(const mono::UpdateContext& update_context)
 {
-    if(m_current_follow_entity_id != NO_ENTITY)
+    if(!m_follow_entities.empty())
     {
-        const math::Matrix& world_transform = m_transform_system->GetWorld(m_current_follow_entity_id);
-        const math::Vector& position = math::GetPosition(world_transform);
-        const math::Vector camera_position = m_camera->GetTargetPosition();
+        std::vector<math::Vector> points;
+        for(uint32_t entity_id : m_follow_entities)
+            points.push_back(m_transform_system->GetWorldPosition(entity_id));
 
-        const float distance = math::DistanceBetween(position, camera_position);
+        math::Vector centroid;
+
+        if(points.size() == 1)
+            centroid = points.front();
+        else if(points.size() == 2)
+            centroid = points[0] + ((points[1] - points[0]) / 2.0f);
+        else if(points.size() > 2)
+            centroid = math::CentroidOfPolygon(points);
+
+        const math::Vector camera_position = m_camera->GetTargetPosition();
+        const float distance = math::DistanceBetween(centroid, camera_position);
         if(distance > dead_zone)
         {
-            const math::Vector delta = position - camera_position;
+            const math::Vector delta = centroid - camera_position;
             const float fraction = std::clamp(distance - dead_zone, 0.0f, 1.0f);
             const math::Vector new_camera_position = (delta * fraction) + camera_position;
 
@@ -106,7 +113,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
             m_camera->SetTargetPosition(math::Vector(camera_anim->point_x, camera_anim->point_y));
             break;
         case CameraAnimationType::CENTER_ON_ENTITY:
-            m_current_follow_entity_id = camera_anim->entity_id;
+            //m_current_follow_entity_id = camera_anim->entity_id;
             break;
         };
 
@@ -133,17 +140,19 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         m_camera->SetPositionOffset(camera_shake);
     }
 
+/*
     game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_current_follow_entity_id);
     if(player_info)
     {
         const math::Quad& viewport = m_camera->GetViewport();
         player_info->viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
     }
+*/
 }
 
 void CameraSystem::FollowEntity(uint32_t entity_id)
 {
-    m_current_follow_entity_id = entity_id;
+    m_follow_entities.push_back(entity_id);
 }
 
 void CameraSystem::FollowEntityOffset(const math::Vector& offset)
@@ -151,16 +160,16 @@ void CameraSystem::FollowEntityOffset(const math::Vector& offset)
     m_current_follow_offset = offset;
 }
 
-void CameraSystem::Unfollow()
+void CameraSystem::Unfollow(uint32_t entity_id)
 {
-    m_current_follow_entity_id = NO_ENTITY;
+    mono::remove(m_follow_entities, entity_id);
 }
 
 void CameraSystem::PushCameraData(uint32_t entity_id)
 {
     CameraStackData stack_data;
     stack_data.camera_size = m_current_camera_size = m_camera->GetTargetViewportSize();
-    stack_data.follow_entity_id = m_current_follow_entity_id;
+    //stack_data.follow_entity_id = m_current_follow_entity_id;
     stack_data.follow_offset = m_current_follow_offset;
     stack_data.debug_entity_id = entity_id;
 
@@ -173,7 +182,7 @@ void CameraSystem::PopCameraData()
 
     const CameraStackData stack_data = m_camera_stack.top();
     m_current_camera_size = stack_data.camera_size;
-    m_current_follow_entity_id = stack_data.follow_entity_id;
+    //m_current_follow_entity_id = stack_data.follow_entity_id;
     m_current_follow_offset = stack_data.follow_offset;
 
     m_camera->SetTargetViewportSize(m_current_camera_size);

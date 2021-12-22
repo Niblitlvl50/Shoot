@@ -61,7 +61,7 @@ namespace game
 
         void FollowEntity(uint32_t entity_id);
         void FollowEntityOffset(const math::Vector& offset);
-        void Unfollow();
+        void Unfollow(uint32_t entity_id);
 
         void PushCameraData(uint32_t debug_entity_id);
         void PopCameraData();
@@ -87,7 +87,7 @@ namespace game
         bool m_debug_camera;
 
         math::Vector m_current_camera_size;
-        uint32_t m_current_follow_entity_id;
+        std::vector<uint32_t> m_follow_entities;
         math::Vector m_current_follow_offset;
 
         struct CameraStackData

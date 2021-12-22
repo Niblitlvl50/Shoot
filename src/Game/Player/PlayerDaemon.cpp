@@ -94,9 +94,9 @@ PlayerDaemon::~PlayerDaemon()
         game::PlayerInfo& player_info = g_players[index];
         if(player_info.player_state == game::PlayerState::ALIVE)
             DespawnPlayer(&player_info);
+    
+        m_camera_system->Unfollow(player_info.entity_id);
     }
-
-    m_camera_system->Unfollow();
 }
 
 std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
@@ -134,7 +134,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
             if(allocated_player_info->lives <= 0)
             {
                 DespawnPlayer(allocated_player_info);
-                m_camera_system->Unfollow();
+                m_camera_system->Unfollow(entity_id);
                 m_event_handler->DispatchEvent(game::GameOverEvent());
             }
         }
@@ -159,7 +159,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
 
 void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
 {
-    m_camera_system->Unfollow();
+    m_camera_system->Unfollow(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
     ReleasePlayerInfo(player_info);
 }
@@ -214,7 +214,6 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     {
         DespawnPlayer(it->second);
         m_controller_id_to_player_info.erase(event.controller_id);
-        m_camera_system->Unfollow();
     }
 
     return mono::EventResult::PASS_ON;
@@ -299,7 +298,7 @@ mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& mess
 
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    SpawnLocalPlayer(event.player_index, event.player_index, false);
+    SpawnLocalPlayer(event.player_index, event.player_index, true);
     return mono::EventResult::HANDLED;
 }
 

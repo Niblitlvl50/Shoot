@@ -40,7 +40,7 @@ ClientPlayerDaemon::~ClientPlayerDaemon()
     m_event_handler->RemoveListener(m_removed_token);
     m_event_handler->RemoveListener(m_client_spawned_token);
 
-    m_camera_system->Unfollow();
+    m_camera_system->Unfollow(0);
 }
 
 void ClientPlayerDaemon::SpawnLocalRemotePlayer(int controller_id)
@@ -60,7 +60,7 @@ mono::EventResult ClientPlayerDaemon::OnControllerAdded(const event::ControllerA
 mono::EventResult ClientPlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
     if(event.controller_id == m_player_one_controller_id)
-        m_camera_system->Unfollow();
+        m_camera_system->Unfollow(0);
 
     return mono::EventResult::PASS_ON;
 }
