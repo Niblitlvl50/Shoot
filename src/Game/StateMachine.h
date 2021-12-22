@@ -14,17 +14,28 @@ public:
     {
         std::function<void ()> enter_state = nullptr;
         std::function<void (const UpdateContext&)> update_state = nullptr;
+        std::function<void ()> exit_state = nullptr;
     };
 
     template <typename T>
-    static std::pair<StateId, State> MakeState(StateId id, void(T::*enter_func)(), void(T::*update_func)(const UpdateContext& context), T* this_ptr)
+    static std::pair<StateId, State> MakeState(
+        StateId id, void(T::*enter_func)(), void(T::*update_func)(const UpdateContext& context), void(T::*exit_func)(), T* this_ptr)
+    {
+        using namespace std::placeholders;
+        return { id, { std::bind(enter_func, this_ptr), std::bind(update_func, this_ptr, _1), std::bind(exit_func, this_ptr) } };
+    }
+
+    template <typename T>
+    static std::pair<StateId, State> MakeState(
+        StateId id, void(T::*enter_func)(), void(T::*update_func)(const UpdateContext& context), T* this_ptr)
     {
         using namespace std::placeholders;
         return { id, { std::bind(enter_func, this_ptr), std::bind(update_func, this_ptr, _1) } };
     }
 
     template <typename T>
-    static std::pair<StateId, State> MakeState(StateId id, void(T::*enter_func)(), T* this_ptr)
+    static std::pair<StateId, State> MakeState(
+        StateId id, void(T::*enter_func)(), T* this_ptr)
     {
         using namespace std::placeholders;
         return { id, { std::bind(enter_func, this_ptr), nullptr } };
@@ -65,6 +76,13 @@ public:
     {
         if(m_active_state != m_wanted_state)
         {
+            if(m_active_state != StateId(-1))
+            {
+                State& old_state = m_states.at(m_active_state);
+                if(old_state.exit_state)
+                    old_state.exit_state();
+            }
+
             State& state = m_states.at(m_wanted_state);
             if(state.enter_state)
                 state.enter_state();

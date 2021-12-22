@@ -20,6 +20,7 @@
         "res/entities/player_bullet.entity",
         "res/entities/player_entity.entity",
         "res/entities/player_weapon.entity",
+        "res/entities/portal_green.entity",
         "res/entities/rocket_bullet.entity",
         "res/entities/rocket_launcher_pickup.entity",
         "res/entities/throwable_thing.entity",

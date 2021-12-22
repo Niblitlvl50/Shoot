@@ -78,13 +78,12 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(game::PLASMA_GUN);
-    SetAimDirection(math::PI_2());
-    m_aim_direction = math::PI_2();
+    m_aim_target = m_aim_direction = 0.0f;
 
     const PlayerStateMachine::StateTable state_table = {
         PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),
-        PlayerStateMachine::MakeState(PlayerStates::DEAD, &PlayerLogic::ToDead, &PlayerLogic::DeadState, this),
-        PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, this),
+        PlayerStateMachine::MakeState(PlayerStates::DEAD, &PlayerLogic::ToDead, &PlayerLogic::DeadState, &PlayerLogic::ExitDead, this),
+        PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, &PlayerLogic::ExitBlink, this),
     };
 
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
@@ -106,7 +105,7 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& playe
     float anim_speed = 1.0f;
     int anim_id = m_idle_anim_id;
 
-    const bool facing_left = (aim_direction < math::PI());
+    const bool facing_left = (aim_direction > 0.0f);
     const float velocity_magnitude = math::Length(player_velocity);
 
     if(velocity_magnitude > 0.2f)
@@ -131,25 +130,28 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     const math::Vector target_vector = math::VectorFromAngle(m_aim_target);
     const math::Vector direction_vector = math::VectorFromAngle(m_aim_direction);
 
-    const bool rotate_clockwise = (math::Cross(target_vector, direction_vector) < 0.0f);
-    const float multiplier = rotate_clockwise ? 1.0f : -1.0f;
+    const float cross_value = math::Cross(target_vector, direction_vector);
 
-    m_aim_direction += (multiplier * update_context.delta_s * math::ToRadians(360.0f));
-    m_aim_direction = math::NormalizeAngle(m_aim_direction);
-
+    if(!math::IsPrettyMuchEquals(cross_value, 0.0f))
     {
-        // Need something better here to determine if we should clamp or not. Perhaps cross again.
-        const bool go_right_and_more = (rotate_clockwise && m_aim_direction > m_aim_target);
-        const bool go_left_and_less = (!rotate_clockwise && m_aim_direction < m_aim_target);
-        if(go_right_and_more || go_left_and_less)
-            m_aim_direction = m_aim_target;
+        const bool rotate_clockwise = (cross_value < 0.0f);
+        const float multiplier = rotate_clockwise ? 1.0f : -1.0f;
+        m_aim_direction += (multiplier * update_context.delta_s * math::ToRadians(360.0f));
+
+        {
+            // Need something better here to determine if we should clamp or not. Perhaps cross again.
+            const bool go_right_and_more = (rotate_clockwise && m_aim_direction > m_aim_target);
+            const bool go_left_and_less = (!rotate_clockwise && m_aim_direction < m_aim_target);
+            if(go_right_and_more || go_left_and_less)
+                m_aim_direction = m_aim_target;
+        }
     }
 
-    mono::Sprite* sprite = m_sprite_system->GetSprite(m_weapon_entity);
+    mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
     if(m_aim_direction < math::PI())
-        sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
+        weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
     else
-        sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
+        weapon_sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
 
     math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
     weapon_transform =
@@ -161,10 +163,7 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 }
 
 void PlayerLogic::ToDefault()
-{
-    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
-    m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
-}
+{ }
 
 void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
@@ -212,6 +211,12 @@ void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
         m_state.TransitionTo(PlayerStates::DEFAULT);
 }
 
+void PlayerLogic::ExitDead()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
+}
+
 void PlayerLogic::ToBlink()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
@@ -240,6 +245,12 @@ void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
         m_blink_effect->EmitBlinkBackAt(new_position);
         m_state.TransitionTo(PlayerStates::DEFAULT);
     }
+}
+
+void PlayerLogic::ExitBlink()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+    m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
 }
 
 void PlayerLogic::Fire()

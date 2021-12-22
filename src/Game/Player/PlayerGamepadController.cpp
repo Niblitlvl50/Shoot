@@ -66,8 +66,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 
     if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)
     {
-        const math::Vector direction(m_state.right_x, m_state.right_y);
-        const float aim_direction = math::NormalizeAngle(math::AngleBetweenPoints(math::ZeroVec, direction) - math::PI_2());
+        const float aim_direction = math::AngleFromVector(math::Vector(m_state.right_x, m_state.right_y));
         m_player_logic->SetAimDirection(aim_direction);
     }
 

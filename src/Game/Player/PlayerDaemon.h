@@ -9,6 +9,7 @@
 
 #include "Events/GameEventFuncFwd.h"
 #include "Player/PlayerInfo.h"
+#include "DamageSystem.h"
 
 #include <vector>
 #include <unordered_map>
@@ -19,6 +20,8 @@ namespace game
     struct RemoteInputMessage;
     struct ViewportMessage;
     struct ClientPlayerSpawned;
+
+    using PlayerSpawnedCallback = std::function<void (uint32_t entity_id, const math::Vector& position)>;
 
     class PlayerDaemon
     {
@@ -34,9 +37,20 @@ namespace game
 
         void SpawnLocalPlayer(int player_index, int controller_id, bool follow_player);
         void DespawnPlayer(PlayerInfo* player_info);
+        void RegisterSpawnedCallback(const PlayerSpawnedCallback& callback);
+
         std::vector<uint32_t> GetPlayerIds() const;
 
     private:
+
+        uint32_t SpawnPlayer(
+            game::PlayerInfo* player_info,
+            const math::Vector& spawn_position,
+            const System::ControllerState& controller,
+            mono::IEntityManager* entity_system,
+            mono::SystemContext* system_context,
+            mono::EventHandler* event_handler,
+            const game::DamageCallback& damage_callback);
 
         mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
@@ -75,5 +89,7 @@ namespace game
             System::ControllerState controller_state;
         };
         std::unordered_map<network::Address, RemotePlayerData> m_remote_players;
+
+        PlayerSpawnedCallback m_player_spawned_callback;
     };
 }

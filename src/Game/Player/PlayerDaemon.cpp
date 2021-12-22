@@ -28,44 +28,6 @@
 
 using namespace game;
 
-namespace
-{
-    uint32_t SpawnPlayer(
-        game::PlayerInfo* player_info,
-        const math::Vector& spawn_position,
-        const System::ControllerState& controller,
-        mono::IEntityManager* entity_system,
-        mono::SystemContext* system_context,
-        mono::EventHandler* event_handler,
-        game::DamageCallback damage_callback)
-    {
-        //mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
-        mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_alien.entity");
-
-        mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-        math::Matrix& transform = transform_system->GetTransform(player_entity.id);
-        math::Position(transform, spawn_position);
-        transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
-
-        // No need to store the callback id, when destroyed this callback will be cleared up.
-        game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
-        damage_system->PreventReleaseOnDeath(player_entity.id, true);
-        const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::ALL, damage_callback);
-        (void)callback_id;
-
-        game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
-        entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
-
-        IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, event_handler, controller, system_context);
-        logic_system->AddLogic(player_entity.id, player_logic);
-
-        player_info->entity_id = player_entity.id;
-        player_info->player_state = game::PlayerState::ALIVE;
-
-        return player_entity.id;
-    }
-}
-
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
@@ -200,6 +162,48 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
     ReleasePlayerInfo(player_info);
 }
 
+void PlayerDaemon::RegisterSpawnedCallback(const PlayerSpawnedCallback& callback)
+{
+    m_player_spawned_callback = callback;
+}
+
+uint32_t PlayerDaemon::SpawnPlayer(
+    game::PlayerInfo* player_info,
+    const math::Vector& spawn_position,
+    const System::ControllerState& controller,
+    mono::IEntityManager* entity_system,
+    mono::SystemContext* system_context,
+    mono::EventHandler* event_handler,
+    const game::DamageCallback& damage_callback)
+{
+    //mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
+    mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_alien.entity");
+
+    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+    transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
+    transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
+
+    // No need to store the callback id, when destroyed this callback will be cleared up.
+    game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
+    damage_system->PreventReleaseOnDeath(player_entity.id, true);
+    const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::ALL, damage_callback);
+    (void)callback_id;
+
+    game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
+    entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
+
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, event_handler, controller, system_context);
+    logic_system->AddLogic(player_entity.id, player_logic);
+
+    player_info->entity_id = player_entity.id;
+    player_info->player_state = game::PlayerState::ALIVE;
+
+    if(m_player_spawned_callback)
+        m_player_spawned_callback(player_entity.id, spawn_position);
+
+    return player_entity.id;
+}
+
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id, true);
@@ -238,8 +242,8 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
     remote_player_data.player_info = allocated_player_info;
 
-    const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
-
+    const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type)
+    {
         allocated_player_info->player_state = game::PlayerState::DEAD;
         allocated_player_info->lives--;
         if(allocated_player_info->lives <= 0)

@@ -74,9 +74,11 @@ namespace game
 
         void ToDead();
         void DeadState(const mono::UpdateContext& update_context);
+        void ExitDead();
 
         void ToBlink();
         void BlinkState(const mono::UpdateContext& update_context);
+        void ExitBlink();
 
         const uint32_t m_entity_id;
         const uint32_t m_controller_id;
