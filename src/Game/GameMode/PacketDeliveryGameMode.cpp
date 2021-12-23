@@ -93,9 +93,9 @@ void PacketDeliveryGameMode::Begin(
 
         mono::Sprite* portal_sprite = sprite_system->GetSprite(portal_entity_id);
 
-        const mono::SpriteAnimationCallback set_idle_anim = [portal_entity_id, player_entity_id, portal_sprite, sprite_system, physics_system, entity_manager]() {
-            const mono::SpriteAnimationCallback set_end_anim = [portal_entity_id, portal_sprite, entity_manager]() {
-                const mono::SpriteAnimationCallback destroy_when_finish = [portal_entity_id, entity_manager]() {
+        const mono::SpriteAnimationCallback set_idle_anim = [=]() {
+            const mono::SpriteAnimationCallback set_end_anim = [=]() {
+                const mono::SpriteAnimationCallback destroy_when_finish = [=]() {
                     entity_manager->ReleaseEntity(portal_entity_id);
                 };
                 portal_sprite->SetAnimation("end", destroy_when_finish);
@@ -110,7 +110,6 @@ void PacketDeliveryGameMode::Begin(
         // throw them out from the portal
     };
     m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
-    //m_player_daemon->RegisterSpawnedCallback(player_spawned_cb);
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(

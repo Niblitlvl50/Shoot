@@ -26200,8 +26200,8 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 1.0,
-                                    "min": 64.0
+                                    "max": 64.0,
+                                    "min": 1.0
                                 },
                                 "value": 64.0
                             }
@@ -26212,8 +26212,8 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 1.0,
-                                    "min": 64.0
+                                    "max": 64.0,
+                                    "min": 1.0
                                 },
                                 "value": 64.0
                             }
