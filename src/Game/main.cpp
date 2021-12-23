@@ -54,8 +54,8 @@ namespace
 {
     struct Options
     {
-        int x = 0;
-        int y = 0;
+        int x = 100;
+        int y = 100;
         int width = 1200;
         int height = 800;
         int start_zone = 1;
@@ -142,8 +142,8 @@ int main(int argc, char* argv[])
 
     {
         //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
-        const System::WindowOptions window_options = System::WindowOptions::NONE;
-        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, window_options);
+        const int window_options = System::WindowOptions::NONE;
+        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, System::WindowOptions(window_options));
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
