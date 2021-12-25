@@ -7,11 +7,11 @@
 
 namespace game
 {
-    class PlayerReloadDrawer : public mono::IDrawable
+    class PlayerAuxiliaryDrawer : public mono::IDrawable
     {
     public:
 
-        PlayerReloadDrawer(const mono::TransformSystem* transform_system);
+        PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
