@@ -61,7 +61,6 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_player_logic->SelectWeapon(weapon_list[m_current_weapon_index]);
     }
 
-    const math::Vector force(m_state.left_x, m_state.left_y);
     m_player_logic->MoveInDirection(math::Vector(m_state.left_x, m_state.left_y));
 
     if(std::fabs(m_state.right_x) > 0.1f || std::fabs(m_state.right_y) > 0.1f)

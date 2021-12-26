@@ -91,7 +91,8 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             continue;
 
         const OffsetCount& offset_count = GenerateAimLine(aim_lines_vertices, aim_lines_colors, aim_lines_indices);
-        aimline_commands.push_back({ m_transform_system->GetWorld(player_info->entity_id), offset_count.offset, offset_count.count });
+        const math::Matrix& aimline_transform = math::CreateMatrixWithPositionRotation(player_info->position, player_info->aim_direction + math::PI_2());
+        aimline_commands.push_back({ aimline_transform, offset_count.offset, offset_count.count });
 
         const bool is_reloading = (player_info->weapon_state == game::WeaponState::RELOADING);
         if(is_reloading)
