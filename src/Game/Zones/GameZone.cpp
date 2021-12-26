@@ -28,7 +28,7 @@
 
 #include "Player/PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
-#include "Hud/PlayerReloadDrawer.h"
+#include "Hud/PlayerAuxiliaryDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
@@ -164,8 +164,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system), LayerId::PARTICLES);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
-    AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::UI);
-    AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::UI);
+    AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new DialogSystemDrawer(dialog_system), LayerId::UI);
 
     // Debug
@@ -181,7 +181,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
-
     AddUpdatable(m_game_mode.get());
 }
 

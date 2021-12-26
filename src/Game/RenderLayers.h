@@ -8,6 +8,7 @@ namespace game
         BACKGROUND,
         GAMEOBJECTS,
         PARTICLES,
+        GAMEOBJECTS_UI,
         FOG,
 
         GAMEOBJECTS_DEBUG,
