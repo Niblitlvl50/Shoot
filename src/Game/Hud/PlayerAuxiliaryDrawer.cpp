@@ -24,7 +24,7 @@ namespace
         constexpr float offset = 0.25f;
         constexpr float mid_point_offset = 1.0f;
         constexpr float length = 5.0f;
-        constexpr float width = 0.05f;
+        constexpr float width = 0.025f;
 
         const uint32_t index_offset = aim_lines_vertices.size();
 
@@ -37,8 +37,8 @@ namespace
 
         aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
         aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
-        aim_lines_colors.emplace_back(mono::Color::RED);
-        aim_lines_colors.emplace_back(mono::Color::RED);
+        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.6f);
+        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.6f);
         aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
         aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
 
