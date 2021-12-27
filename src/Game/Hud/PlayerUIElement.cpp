@@ -143,6 +143,57 @@ namespace game
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_weapon_sprites;
     };
+
+
+    class PlayerDeathElement : public game::UIElement
+    {
+    public:
+
+        static constexpr float transision_duration_s = 0.5f;
+    
+        PlayerDeathElement(const PlayerInfo& player_info, const math::Vector& onscreen_position, const math::Vector& offscreen_position)
+            : m_player_info(player_info)
+            , m_timer(0)
+        {
+            m_position = m_offscreen_position = offscreen_position;
+            m_screen_position = onscreen_position;
+
+            UISquareElement* background = new UISquareElement(
+                g_player_element_width, g_player_element_height, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f), mono::Color::BLACK, 1.0f);
+
+            UITextElement* death_text = new UITextElement(
+                shared::FontId::PIXELETTE_TINY, "IM DEAD!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            death_text->SetPosition(2.5f, 0.5f);
+
+            AddChild(background);
+            AddChild(death_text);
+        }
+
+        void Update(const mono::UpdateContext& update_context) override
+        {
+            UIElement::Update(update_context);
+
+            if(m_player_info.player_state == game::PlayerState::ALIVE && m_timer > 0.0f)
+            {
+                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_timer -= update_context.delta_s;
+            }
+            else if(m_player_info.player_state == game::PlayerState::DEAD && m_timer < transision_duration_s)
+            {
+                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_timer += update_context.delta_s;
+            }
+
+            m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
+        }
+
+        const PlayerInfo& m_player_info;
+        float m_timer;
+        math::Vector m_screen_position;
+        math::Vector m_offscreen_position;
+   };
 }
 
 using namespace game;
@@ -167,11 +218,17 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players)
         { +g_player_element_width, 0.0f }
     };
 
+    const math::Vector death_element_offset = math::Vector(0.0f, 0.5f);
+
     for(int index = 0; index < n_players; ++index)
     {
         const math::Vector on_screen_position = hud_positions[index];
         const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta_positions[index];
         PlayerElement* player_element = new PlayerElement(player_infos[index], on_screen_position, off_screen_position);
         AddChild(player_element);
+
+        PlayerDeathElement* player_death_element = new PlayerDeathElement(
+            player_infos[index], on_screen_position + death_element_offset, off_screen_position + death_element_offset);
+        AddChild(player_death_element);
     }
 }

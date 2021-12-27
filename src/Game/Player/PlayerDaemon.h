@@ -21,7 +21,12 @@ namespace game
     struct ViewportMessage;
     struct ClientPlayerSpawned;
 
-    using PlayerSpawnedCallback = std::function<void (uint32_t entity_id, const math::Vector& position)>;
+    enum class PlayerSpawnState
+    {
+        SPAWNED,
+        RESPAWNED
+    };
+    using PlayerSpawnedCallback = std::function<void (PlayerSpawnState spawn_state, uint32_t entity_id, const math::Vector& position)>;
 
     class PlayerDaemon
     {

@@ -83,7 +83,8 @@ void PacketDeliveryGameMode::Begin(
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
 
-    const PlayerSpawnedCallback player_spawned_cb = [entity_manager, transform_system, sprite_system, physics_system](uint32_t player_entity_id, const math::Vector& position)
+    const PlayerSpawnedCallback player_spawned_cb = [entity_manager, transform_system, sprite_system, physics_system]
+        (game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position)
     {
         sprite_system->SetSpriteEnabled(player_entity_id, false);
 
@@ -106,8 +107,6 @@ void PacketDeliveryGameMode::Begin(
             player_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
         };
         portal_sprite->SetAnimation("begin", set_idle_anim);
-
-        // throw them out from the portal
     };
     m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
 

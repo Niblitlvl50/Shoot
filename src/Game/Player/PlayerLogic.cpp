@@ -374,9 +374,11 @@ bool PlayerLogic::HoldingPickup() const
     return (m_picked_up_id != mono::INVALID_ID);
 }
 
+#include "Shockwave.h"
+
 void PlayerLogic::TriggerInteraction()
 {
-
+    game::ShockwaveAt(m_physics_system, m_player_info->position, 10.0f);
 }
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)

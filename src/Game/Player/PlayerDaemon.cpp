@@ -120,6 +120,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
         return;
     }
 
+    allocated_player_info->controller_id = controller_id;
     allocated_player_info->lives = 3;
     m_controller_id_to_player_info[controller_id] = allocated_player_info;
 
@@ -196,7 +197,7 @@ uint32_t PlayerDaemon::SpawnPlayer(
     player_info->player_state = game::PlayerState::ALIVE;
 
     if(m_player_spawned_callback)
-        m_player_spawned_callback(player_entity.id, spawn_position);
+        m_player_spawned_callback(game::PlayerSpawnState::SPAWNED, player_entity.id, spawn_position);
 
     return player_entity.id;
 }
@@ -322,6 +323,9 @@ mono::EventResult PlayerDaemon::OnRespawnPlayer(const RespawnPlayerEvent& event)
         damage_system->ReactivateDamageRecord(event.entity_id);
 
         player_info->player_state = game::PlayerState::ALIVE;
+
+        if(m_player_spawned_callback)
+            m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, m_player_spawn);
     }
 
     return mono::EventResult::HANDLED;
