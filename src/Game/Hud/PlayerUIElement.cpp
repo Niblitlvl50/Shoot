@@ -118,20 +118,22 @@ namespace game
 
             //m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
 
-            if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < 1.0f)
+            constexpr float transision_duration_s = 0.5f;
+
+            if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < transision_duration_s)
             {
-                m_position.x = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseOutCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
                 m_timer += update_context.delta_s;
             }
             else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
             {
-                m_position.x = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseInCubic(m_timer, 1.0f, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                m_position.x = math::EaseInCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                m_position.y = math::EaseInCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
                 m_timer -= update_context.delta_s;
             }
 
-            m_timer = std::clamp(m_timer, 0.0f, 1.0f);
+            m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
         }
 
         const PlayerInfo& m_player_info;
@@ -148,8 +150,6 @@ namespace game
     class PlayerDeathElement : public game::UIElement
     {
     public:
-
-        static constexpr float transision_duration_s = 0.5f;
     
         PlayerDeathElement(const PlayerInfo& player_info, const math::Vector& onscreen_position, const math::Vector& offscreen_position)
             : m_player_info(player_info)
@@ -172,6 +172,8 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override
         {
             UIElement::Update(update_context);
+
+            constexpr float transision_duration_s = 0.5f;
 
             if(m_player_info.player_state == game::PlayerState::ALIVE && m_timer > 0.0f)
             {
@@ -218,7 +220,12 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players)
         { +g_player_element_width, 0.0f }
     };
 
-    const math::Vector death_element_offset = math::Vector(0.0f, 0.5f);
+    const math::Vector hud_death_element_offset[] = {
+        { -0.5f, +0.25f },
+        { +0.5f, +0.25f },
+        { -0.5f, -0.25f },
+        { +0.5f, -0.25f }
+    };
 
     for(int index = 0; index < n_players; ++index)
     {
@@ -227,8 +234,9 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players)
         PlayerElement* player_element = new PlayerElement(player_infos[index], on_screen_position, off_screen_position);
         AddChild(player_element);
 
-        PlayerDeathElement* player_death_element = new PlayerDeathElement(
-            player_infos[index], on_screen_position + death_element_offset, off_screen_position + death_element_offset);
+        const math::Vector on_screen_death_position = on_screen_position + hud_death_element_offset[index];
+        const math::Vector off_screen_death_position = off_screen_position + hud_death_element_offset[index];
+        PlayerDeathElement* player_death_element = new PlayerDeathElement(player_infos[index], on_screen_death_position, off_screen_death_position);
         AddChild(player_death_element);
     }
 }
