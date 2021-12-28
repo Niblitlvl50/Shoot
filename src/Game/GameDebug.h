@@ -27,12 +27,14 @@ namespace game
     extern bool g_draw_spawn_points;
 
     class TriggerSystem;
+    class DamageSystem;
 
     class DebugUpdater : public mono::IDrawable
     {
     public:
         DebugUpdater(
             TriggerSystem* trigger_system,
+            DamageSystem* damage_system,
             mono::TransformSystem* transform_system,
             mono::IEntityManager* entity_manager,
             mono::EventHandler* event_handler);
@@ -43,6 +45,7 @@ namespace game
     private:
 
         TriggerSystem* m_trigger_system;
+        DamageSystem* m_damage_system;
         mono::EventHandler* m_event_handler;
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
 

@@ -2,6 +2,7 @@
 #include "GameDebug.h"
 #include "Player/PlayerInfo.h"
 #include "TriggerSystem/TriggerSystem.h"
+#include "DamageSystem.h"
 
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
@@ -35,6 +36,8 @@ bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 bool game::g_draw_debug_players = false;
 bool game::g_draw_spawn_points = false;
+
+constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
 void DrawDebugMenu(uint32_t fps)
 {
@@ -91,13 +94,13 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
     ImGui::End();
 }
 
-void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
+void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono::EventHandler* event_handler)
 {
     constexpr int flags =
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::SetNextWindowSize(ImVec2(600, -1));
+    ImGui::SetNextWindowSize(ImVec2(660, -1));
 
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
@@ -117,6 +120,7 @@ void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
     ImGui::SetColumnWidth(2, 100);
     ImGui::SetColumnWidth(3, 60);
     ImGui::SetColumnWidth(5, 170);
+    ImGui::SetColumnWidth(6, 170);
 
     for(int index = 0; index < game::n_players; ++index)
     {
@@ -155,6 +159,21 @@ void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
                 event_handler->DispatchEvent(game::DespawnPlayerEvent(index));
         }
 
+        
+        ImGui::SameLine();
+
+        const bool player_alive = (player_info.player_state == game::PlayerState::ALIVE);
+        const char* kill_button_text = player_alive ? "Kill" : "Respawn";
+
+        const bool kill_player = ImGui::SmallButton(kill_button_text);
+        if(kill_player)
+        {
+            if(player_alive)
+                damage_system->ApplyDamage(player_info.entity_id, 1000000, NO_ID);
+            else
+                event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
+        }
+
         ImGui::PopID();
 
         ImGui::NextColumn();
@@ -164,8 +183,6 @@ void DrawDebugPlayers(bool& show_window, mono::EventHandler* event_handler)
 }
 
 using namespace game;
-
-constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
 class DebugUpdater::PlayerDebugHandler
 {
@@ -263,8 +280,13 @@ public:
 };
 
 DebugUpdater::DebugUpdater(
-    TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_manager, mono::EventHandler* event_handler)
+    TriggerSystem* trigger_system,
+    DamageSystem* damage_system,
+    mono::TransformSystem* transform_system,
+    mono::IEntityManager* entity_manager,
+    mono::EventHandler* event_handler)
     : m_trigger_system(trigger_system)
+    , m_damage_system(damage_system)
     , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
     , m_draw_trigger_input(false)
@@ -300,7 +322,7 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
 
     if(game::g_draw_debug_players)
-        DrawDebugPlayers(game::g_draw_debug_players, m_event_handler);
+        DrawDebugPlayers(game::g_draw_debug_players, m_damage_system, m_event_handler);
 }
 
 math::Quad DebugUpdater::BoundingBox() const

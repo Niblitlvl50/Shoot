@@ -162,11 +162,15 @@ namespace game
                 g_player_element_width, g_player_element_height, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f), mono::Color::BLACK, 1.0f);
 
             UITextElement* death_text = new UITextElement(
-                shared::FontId::PIXELETTE_TINY, "IM DEAD!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-            death_text->SetPosition(2.5f, 0.5f);
+                shared::FontId::PIXELETTE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            death_text->SetPosition(3.5f, 0.5f);
+
+            UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes1.sprite");
+            skull_sprite->SetPosition(1.5f, 0.5f);
 
             AddChild(background);
             AddChild(death_text);
+            AddChild(skull_sprite);
         }
 
         void Update(const mono::UpdateContext& update_context) override

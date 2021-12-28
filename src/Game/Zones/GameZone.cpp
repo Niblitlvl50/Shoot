@@ -177,7 +177,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_interact_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
-    AddDrawable(new DebugUpdater(trigger_system, transform_system, entity_system, m_event_handler), LayerId::UI);
+    AddDrawable(new DebugUpdater(trigger_system, damage_system, transform_system, entity_system, m_event_handler), LayerId::UI);
 
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);

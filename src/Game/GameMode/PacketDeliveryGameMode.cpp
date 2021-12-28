@@ -170,6 +170,12 @@ void PacketDeliveryGameMode::ToPlayerDead()
 void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_context)
 {
     PlayerInfo& player_info = game::g_players[0];
+    if(player_info.player_state == game::PlayerState::ALIVE)
+    {
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+        m_dead_screen->Hide();
+        return;
+    }
 
     const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
     const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
@@ -177,21 +183,13 @@ void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_contex
 
     m_last_state = state;
 
-    GameModeStates new_game_mode;
-
     if(a_pressed)
     {
         m_event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
-        new_game_mode = GameModeStates::RUN_GAME_MODE;
     }
     else if(y_pressed)
     {
-        new_game_mode = GameModeStates::FADE_OUT;
-    }
-
-    if(a_pressed || y_pressed)
-    {
-        m_states.TransitionTo(new_game_mode);
+        m_states.TransitionTo(GameModeStates::FADE_OUT);
         m_dead_screen->Hide();
     }
 }
