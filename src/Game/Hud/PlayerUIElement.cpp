@@ -13,18 +13,10 @@
 #include "Rendering/RenderSystem.h"
 
 #include <cstdio>
+#include <unordered_map>
 
 namespace game
 {
-    const std::vector<std::string> g_weapon_sprite_files = {
-        "res/sprites/bolter.sprite",
-        "res/sprites/flak_cannon.sprite",
-        "res/sprites/rocket_launcher.sprite",
-        "res/sprites/bolter.sprite",
-        "res/sprites/flak_cannon.sprite",
-        "res/sprites/bolter.sprite",
-    };
-
     constexpr float g_player_element_width = 5.5f;
     constexpr float g_player_element_height = 1.0f;
 
@@ -96,7 +88,19 @@ namespace game
             HeartContainer* hearts = new HeartContainer(player_info);
             hearts->SetPosition(0.5f, 0.5f);
 
-            m_weapon_sprites = new UISpriteElement(g_weapon_sprite_files);
+            std::vector<std::string> weapon_sprites;
+
+            const std::vector<game::WeaponSetup> weapon_list = game::GetWeaponList();
+            for(uint32_t index = 0; index < weapon_list.size(); ++index)
+            {
+                const game::WeaponSetup& weapon_setup = weapon_list[index];
+                const char* weapon_sprite = game::GetWeaponSpriteFromHash(weapon_setup.weapon_hash);
+                weapon_sprites.push_back(weapon_sprite);
+
+                m_weapon_hash_to_index[weapon_setup.weapon_hash] = index;
+            }
+
+            m_weapon_sprites = new UISpriteElement(weapon_sprites);
             m_weapon_sprites->SetPosition(3.5f, 0.5f);
 
             m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
@@ -116,7 +120,8 @@ namespace game
             std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
             m_ammo_text->SetText(ammo_text);
 
-            //m_weapon_sprites->SetActiveSprite((size_t)m_player_info.weapon_type);
+            const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
+            m_weapon_sprites->SetActiveSprite(weapon_index);
 
             constexpr float transision_duration_s = 0.5f;
 
@@ -142,6 +147,7 @@ namespace game
         math::Vector m_offscreen_position;
         float m_timer;
 
+        std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_weapon_sprites;
     };

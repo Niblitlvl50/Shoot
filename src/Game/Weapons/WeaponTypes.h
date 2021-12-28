@@ -38,4 +38,6 @@ namespace game
 
     std::vector<WeaponSetup> GetWeaponList();
     std::vector<WeaponSetup> GetSupportWeaponList();
+
+    const char* GetWeaponSpriteFromHash(uint32_t weapon_hash);
 }
