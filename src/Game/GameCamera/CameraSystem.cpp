@@ -124,7 +124,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
     if(m_camera_shake_timer_ms > 0)
     {
-        constexpr float magnitude = 0.25f;
+        constexpr float magnitude = 0.1f;
 
         math::Vector camera_shake(
             mono::Random(-magnitude, magnitude),
