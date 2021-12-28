@@ -163,13 +163,18 @@ namespace game
 
             UITextElement* death_text = new UITextElement(
                 shared::FontId::PIXELETTE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
-            death_text->SetPosition(3.5f, 0.5f);
+            death_text->SetPosition(3.5f, 0.65f);
+
+            UITextElement* death_text_2 = new UITextElement(
+                shared::FontId::PIXELETTE_TINY, "Continue?", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            death_text_2->SetPosition(3.5f, 0.35f);
 
             UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes1.sprite");
             skull_sprite->SetPosition(1.5f, 0.5f);
 
             AddChild(background);
             AddChild(death_text);
+            AddChild(death_text_2);
             AddChild(skull_sprite);
         }
 
