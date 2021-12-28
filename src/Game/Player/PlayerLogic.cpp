@@ -78,7 +78,7 @@ PlayerLogic::PlayerLogic(
 
     // Make sure we have a weapon
     SelectWeapon(game::PLASMA_GUN);
-    m_aim_target = m_aim_direction = 0.0f;
+    m_aim_target = m_aim_direction = -math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {
         PlayerStateMachine::MakeState(PlayerStates::DEFAULT, &PlayerLogic::ToDefault, &PlayerLogic::DefaultState, this),

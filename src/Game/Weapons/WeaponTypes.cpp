@@ -36,17 +36,17 @@ const char* game::GetWeaponSpriteFromHash(uint32_t weapon_hash)
     if(weapon_hash == GENERIC.weapon_hash)
         return "res/sprites/bolter.sprite";
     else if(weapon_hash == PLASMA_GUN.weapon_hash)
-        return "res/sprites/bolter.sprite";
+        return "res/sprites/sg2.sprite";
     else if(weapon_hash == FLAK_CANON.weapon_hash)
         return "res/sprites/flak_cannon.sprite";
     else if(weapon_hash == FLAK_CANON_PLASMA.weapon_hash)
         return "res/sprites/flak_cannon.sprite";
     else if(weapon_hash == CACO_PLASMA.weapon_hash)
-        return "res/sprites/rocket_launcher.sprite";
+        return "res/sprites/pow9.sprite";
     else if(weapon_hash == ROCKET_LAUNCHER.weapon_hash)
         return "res/sprites/rocket_launcher.sprite";
     else if(weapon_hash == LASER_BLASTER.weapon_hash)
-        return "res/sprites/rocket_launcher.sprite";
+        return "res/sprites/bolter.sprite";
     else if(weapon_hash == TURRET.weapon_hash)
         return "res/sprites/rocket_launcher.sprite";
 
