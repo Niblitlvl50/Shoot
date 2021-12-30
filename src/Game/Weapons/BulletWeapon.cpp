@@ -114,10 +114,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
         const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
-
-        float force_multiplier = 1.0f;
-        if(m_weapon_config.bullet_force_random)
-            force_multiplier = mono::Random(0.8f, 1.2f);
+        const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
         
         const math::Vector& unit = math::Normalized(math::VectorFromAngle(bullet_direction));
         const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
