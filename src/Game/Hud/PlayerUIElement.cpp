@@ -290,14 +290,4 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, 
         const math::Vector off_screen_death_position = off_screen_position + hud_death_element_offset[index];
         AddChild(new PlayerDeathElement(player_infos[index], event_handler, on_screen_death_position, off_screen_death_position));
     }
-
-
-/*
-    {
-        const math::Vector on_screen_position(0.0f, 0.0f);
-        const math::Vector off_screen_position = on_screen_position - math::Vector(g_player_element_width, 0.0f);
-        AddChild(new PlayerElement(player_infos[0], on_screen_position, off_screen_position));
-        AddChild(new PlayerDeathElement(player_infos[0], event_handler, on_screen_death_position, off_screen_death_position));
-    }
-*/
 }
