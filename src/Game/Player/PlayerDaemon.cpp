@@ -28,6 +28,16 @@
 
 using namespace game;
 
+namespace
+{
+    constexpr const char* g_player_entities[] = {
+        "res/entities/player_dude.entity",
+        "res/entities/player_alien.entity",
+        "res/entities/player_girl.entity",
+        "res/entities/player_fire_zombie.entity",
+    };
+}
+
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
