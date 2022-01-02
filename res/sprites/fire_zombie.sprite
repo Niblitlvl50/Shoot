@@ -72,6 +72,15 @@
             ],
             "loop": true,
             "name": "walk_up"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                11,
+                12
+            ],
+            "loop": true,
+            "name": "run"
         }
     ],
     "frames": [

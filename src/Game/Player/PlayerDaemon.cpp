@@ -7,6 +7,7 @@
 #include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
 
 #include "DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
@@ -184,8 +185,10 @@ uint32_t PlayerDaemon::SpawnPlayer(
     mono::EventHandler* event_handler,
     const game::DamageCallback& damage_callback)
 {
-    //mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_entity.entity");
-    mono::Entity player_entity = entity_system->CreateEntity("res/entities/player_alien.entity");
+    const int index = mono::Random(0, std::size(g_player_entities));
+    const char* player_entity_file = g_player_entities[index];
+
+    mono::Entity player_entity = entity_system->CreateEntity(player_entity_file);
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
