@@ -16,7 +16,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/ControllerEvent.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 #include "Events/GameEvents.h"
 
 #include "Network/NetworkMessage.h"

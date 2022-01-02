@@ -4,7 +4,7 @@
 #include "Player/PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"

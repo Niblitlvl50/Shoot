@@ -7,7 +7,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"

@@ -5,7 +5,7 @@
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 #include "Player/PlayerDaemon.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Network/ServerManager.h"

@@ -3,7 +3,7 @@
 #include "EventHandler/EventHandler.h"
 #include "RemoteConnection.h"
 #include "GameConfig.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 
 #include "System/Network.h"
 #include "System/System.h"

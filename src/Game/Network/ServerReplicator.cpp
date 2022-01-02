@@ -18,7 +18,7 @@
 #include "Entity/EntityProperties.h"
 
 #include "Events/GameEventFuncFwd.h"
-#include "Events/PlayerConnectedEvent.h"
+#include "Events/PlayerEvents.h"
 #include "ScopedTimer.h"
 #include "Player/PlayerInfo.h"
 #include "WorldFile.h"
