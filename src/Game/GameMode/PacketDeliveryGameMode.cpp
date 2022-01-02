@@ -119,7 +119,7 @@ void PacketDeliveryGameMode::Begin(
         mono::Color::OFF_WHITE,
         mono::Color::GRAY);
     m_dead_screen->Hide();
-    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players);
+    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, m_event_handler);
 
     zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
@@ -211,6 +211,7 @@ void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 
 void PacketDeliveryGameMode::UpdateOnPlayerState(const mono::UpdateContext& update_context)
 {
+    /*
     PlayerInfo& player_info = game::g_players[0];
 
     switch(player_info.player_state)
@@ -234,4 +235,5 @@ void PacketDeliveryGameMode::UpdateOnPlayerState(const mono::UpdateContext& upda
         break;
     }
     };
+    */
 }
