@@ -29,16 +29,6 @@
 
 using namespace game;
 
-namespace
-{
-    constexpr const char* g_player_entities[] = {
-        "res/entities/player_dude.entity",
-        "res/entities/player_alien.entity",
-        "res/entities/player_girl.entity",
-        "res/entities/player_fire_zombie.entity",
-    };
-}
-
 PlayerDaemon::PlayerDaemon(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
@@ -53,6 +43,14 @@ PlayerDaemon::PlayerDaemon(
     , m_player_spawn(player_spawn)
     , m_player_spawned_callback(player_spawned_cb)
 {
+    m_player_entities = {
+        "res/entities/player_dude.entity",
+        "res/entities/player_alien.entity",
+        "res/entities/player_girl.entity",
+        "res/entities/player_fire_zombie.entity",
+    };
+    std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
+
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
     using namespace std::placeholders;
@@ -185,9 +183,8 @@ uint32_t PlayerDaemon::SpawnPlayer(
     mono::EventHandler* event_handler,
     const game::DamageCallback& damage_callback)
 {
-    const int index = mono::Random(0, std::size(g_player_entities));
-    const char* player_entity_file = g_player_entities[index];
-
+    const uint32_t player_index = game::FindPlayerIndex(player_info);
+    const char* player_entity_file = m_player_entities[player_index];
     mono::Entity player_entity = entity_system->CreateEntity(player_entity_file);
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();

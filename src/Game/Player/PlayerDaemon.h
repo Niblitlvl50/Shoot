@@ -74,6 +74,9 @@ namespace game
         mono::EventHandler* m_event_handler;
 
         math::Vector m_player_spawn;
+        PlayerSpawnedCallback m_player_spawned_callback;
+
+        std::vector<const char*> m_player_entities;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
@@ -94,6 +97,5 @@ namespace game
         };
         std::unordered_map<network::Address, RemotePlayerData> m_remote_players;
 
-        PlayerSpawnedCallback m_player_spawned_callback;
     };
 }

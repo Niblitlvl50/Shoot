@@ -47,6 +47,16 @@ void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
         std::memset(it, 0, sizeof(game::PlayerInfo));
 }
 
+uint32_t game::FindPlayerIndex(const game::PlayerInfo* player_info)
+{
+    const auto find_func = [player_info](const PlayerInfo& other_player_info){
+        return player_info == &other_player_info;
+    };
+
+    game::PlayerInfo* it = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+    return std::distance(std::begin(g_players), it);
+}
+
 game::PlayerInfo* game::FindPlayerInfoFromEntityId(uint32_t entity_id)
 {
     const auto find_func = [entity_id](const PlayerInfo& player_info){
