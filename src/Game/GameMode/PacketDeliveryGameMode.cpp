@@ -38,7 +38,8 @@ namespace tweak_values
 using namespace game;
 
 PacketDeliveryGameMode::PacketDeliveryGameMode()
-    : m_next_zone(ZoneFlow::TITLE_SCREEN)
+    : m_package_spawned(false)
+    , m_next_zone(ZoneFlow::TITLE_SCREEN)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
@@ -136,6 +137,7 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
                 m_entity_manager->ReleaseEntity(portal_entity_id);
             };
             portal_sprite->SetAnimation("end", destroy_when_finish);
+            SpawnPackage(position);
         };
         portal_sprite->SetAnimation("idle", set_end_anim);
         m_sprite_system->SetSpriteEnabled(player_entity_id, true);
@@ -144,15 +146,21 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
     };
 
     portal_sprite->SetAnimation("begin", set_idle_anim);
-
-    SpawnPackage(position);
 }
 
 void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 {
+    if(m_package_spawned)
+        return;
+
+    m_package_spawned = true;
+
     const mono::Entity package_entity = m_entity_manager->CreateEntity("res/entities/cardboard_box.entity");
     m_transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(position));
     m_transform_system->SetTransformState(package_entity.id, mono::TransformState::CLIENT);
+
+    mono::IBody* package_body = m_physics_system->GetBody(package_entity.id);
+    package_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);

@@ -69,6 +69,7 @@ namespace game
         std::unique_ptr<class PlayerUIElement> m_player_ui;
         mono::EventToken<struct GameOverEvent> m_gameover_token;
 
+        bool m_package_spawned;
         int m_next_zone;
         uint32_t m_level_completed_trigger;
 
