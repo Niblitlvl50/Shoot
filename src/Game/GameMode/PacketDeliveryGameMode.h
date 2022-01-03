@@ -29,25 +29,26 @@ namespace game
         int End(mono::IZone* zone) override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        void OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position);
+        void SpawnPackage(const math::Vector& position);
+
         void ToFadeIn();
         void FadeIn(const mono::UpdateContext& update_context);
 
         void ToRunGameMode();
         void RunGameMode(const mono::UpdateContext& update_context);
 
-        void ToPlayerDead();
-        void PlayerDead(const mono::UpdateContext& update_context);
+        void ToPackageDestroyed();
+        void PackageDestroyed(const mono::UpdateContext& update_context);
 
         void ToFadeOut();
         void FadeOut(const mono::UpdateContext& update_context);
-
-        void UpdateOnPlayerState(const mono::UpdateContext& update_context);
 
         enum class GameModeStates
         {
             FADE_IN,
             RUN_GAME_MODE,
-            PLAYER_DEAD,
+            PACKAGE_DESTROYED,
             FADE_OUT
         };
 
@@ -58,11 +59,14 @@ namespace game
         mono::EventHandler* m_event_handler;
         class TriggerSystem* m_trigger_system;
 
-        std::unique_ptr<class PlayerDaemon> m_player_daemon;
+        mono::IEntityManager* m_entity_manager;
+        mono::TransformSystem* m_transform_system;
+        mono::SpriteSystem* m_sprite_system;
+        mono::PhysicsSystem* m_physics_system;
 
+        std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class BigTextScreen> m_dead_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
-
         mono::EventToken<struct GameOverEvent> m_gameover_token;
 
         int m_next_zone;

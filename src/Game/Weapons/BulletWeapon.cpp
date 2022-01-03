@@ -141,7 +141,7 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 
-        const ReleaseCallback release_callback = [this](uint32_t entity_id) {
+        const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
             m_bullet_trail->RemoveEmitterFromBullet(entity_id);
             m_bullet_id_to_callback.erase(entity_id);
         };

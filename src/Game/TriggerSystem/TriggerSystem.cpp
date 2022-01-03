@@ -164,7 +164,7 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
         if(allocated_trigger->callback_id != NO_CALLBACK_SET)
             m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
 
-        const ReleaseCallback callback = [this, trigger_hash](uint32_t id) {
+        const mono::ReleaseCallback callback = [this, trigger_hash](uint32_t id) {
             EmitTrigger(trigger_hash);
         };
         allocated_trigger->callback_id = m_entity_system->AddReleaseCallback(entity_id, callback);

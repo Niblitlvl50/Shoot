@@ -43,7 +43,7 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
-        GameModeStateMachine::MakeState(GameModeStates::PLAYER_DEAD, &PacketDeliveryGameMode::ToPlayerDead, &PacketDeliveryGameMode::PlayerDead, this),
+        GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::PackageDestroyed, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
     };
     m_states.SetStateTableAndState(state_table, GameModeStates::FADE_IN);
@@ -61,6 +61,10 @@ void PacketDeliveryGameMode::Begin(
     m_renderer = renderer;
     m_event_handler = event_handler;
     m_trigger_system = system_context->GetSystem<game::TriggerSystem>();
+    m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -77,42 +81,17 @@ void PacketDeliveryGameMode::Begin(
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
 
     // Player
-    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
     game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
-    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
 
-    const PlayerSpawnedCallback player_spawned_cb = [entity_manager, transform_system, sprite_system, physics_system]
-        (game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position)
-    {
-        sprite_system->SetSpriteEnabled(player_entity_id, false);
-
-        const uint32_t portal_entity_id = entity_manager->CreateEntity("res/entities/portal_green.entity").id;
-        transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
-        transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
-
-        mono::Sprite* portal_sprite = sprite_system->GetSprite(portal_entity_id);
-
-        const mono::SpriteAnimationCallback set_idle_anim = [=]() {
-            const mono::SpriteAnimationCallback set_end_anim = [=]() {
-                const mono::SpriteAnimationCallback destroy_when_finish = [=]() {
-                    entity_manager->ReleaseEntity(portal_entity_id);
-                };
-                portal_sprite->SetAnimation("end", destroy_when_finish);
-            };
-            portal_sprite->SetAnimation("idle", set_end_anim);
-            sprite_system->SetSpriteEnabled(player_entity_id, true);
-            mono::IBody* player_body = physics_system->GetBody(player_entity_id);
-            player_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
-        };
-        portal_sprite->SetAnimation("begin", set_idle_anim);
+    const PlayerSpawnedCallback player_spawned_cb =
+        [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
+        OnSpawnPlayer(player_entity_id, position);
     };
-    m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
+    m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, m_entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
-        "You are Dead!",
+        "Delivery failed, your package was destroyed!",
         "Press cross to try again, triangle to quit",
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
         mono::Color::BLACK,
@@ -141,6 +120,46 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
 }
 
+void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
+{
+    m_sprite_system->SetSpriteEnabled(player_entity_id, false);
+
+    const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
+    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
+    m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
+
+    mono::Sprite* portal_sprite = m_sprite_system->GetSprite(portal_entity_id);
+
+    const mono::SpriteAnimationCallback set_idle_anim = [=]() {
+        const mono::SpriteAnimationCallback set_end_anim = [=]() {
+            const mono::SpriteAnimationCallback destroy_when_finish = [=]() {
+                m_entity_manager->ReleaseEntity(portal_entity_id);
+            };
+            portal_sprite->SetAnimation("end", destroy_when_finish);
+        };
+        portal_sprite->SetAnimation("idle", set_end_anim);
+        m_sprite_system->SetSpriteEnabled(player_entity_id, true);
+        mono::IBody* player_body = m_physics_system->GetBody(player_entity_id);
+        player_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
+    };
+
+    portal_sprite->SetAnimation("begin", set_idle_anim);
+
+    SpawnPackage(position);
+}
+
+void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
+{
+    const mono::Entity package_entity = m_entity_manager->CreateEntity("res/entities/cardboard_box.entity");
+    m_transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(position));
+    m_transform_system->SetTransformState(package_entity.id, mono::TransformState::CLIENT);
+
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+        m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+    };
+    m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
+}
+
 void PacketDeliveryGameMode::ToFadeIn()
 {
     m_fade_in_timer = 0.0f;
@@ -158,46 +177,30 @@ void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 void PacketDeliveryGameMode::ToRunGameMode()
 { }
 void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_context)
-{
-    UpdateOnPlayerState(update_context);
-}
+{ }
 
-void PacketDeliveryGameMode::ToPlayerDead()
+void PacketDeliveryGameMode::ToPackageDestroyed()
 {
     m_last_state.button_state = 0;
     m_dead_screen->Show();
 }
-void PacketDeliveryGameMode::PlayerDead(const mono::UpdateContext& update_context)
+void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_context)
 {
-    PlayerInfo& player_info = game::g_players[0];
-    if(player_info.player_state == game::PlayerState::ALIVE)
-    {
-        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
-        m_dead_screen->Hide();
-        return;
-    }
-
     const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
-    const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
-    const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
-
-    m_last_state = state;
-
-    if(a_pressed)
-    {
-        m_event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
-    }
-    else if(y_pressed)
+    const bool abxy_pressed =
+        System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::ABXY);
+    if(abxy_pressed)
     {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
         m_dead_screen->Hide();
     }
+
+    m_last_state = state;
 }
 
 void PacketDeliveryGameMode::ToFadeOut()
 {
     m_fade_out_timer = 0.0f;
-    m_player_daemon->DespawnPlayer(&game::g_players[0]);
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
@@ -207,33 +210,4 @@ void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
     if(m_fade_out_timer > tweak_values::fade_duration_s)
         m_event_handler->DispatchEvent(event::QuitEvent());
     m_fade_out_timer += update_context.delta_s;
-}
-
-void PacketDeliveryGameMode::UpdateOnPlayerState(const mono::UpdateContext& update_context)
-{
-    /*
-    PlayerInfo& player_info = game::g_players[0];
-
-    switch(player_info.player_state)
-    {
-    case game::PlayerState::NOT_SPAWNED:
-        break;
-
-    case game::PlayerState::ALIVE:
-    {
-        const bool is_in_dead_state = (m_states.ActiveState() == GameModeStates::PLAYER_DEAD);
-        if(is_in_dead_state)
-            m_states.TransitionTo(GameModeStates::FADE_IN);
-        break;
-    }
-
-    case game::PlayerState::DEAD:
-    {
-        const bool is_in_game_state = (m_states.ActiveState() == GameModeStates::RUN_GAME_MODE);
-        if(is_in_game_state)
-            m_states.TransitionTo(GameModeStates::PLAYER_DEAD);
-        break;
-    }
-    };
-    */
 }
