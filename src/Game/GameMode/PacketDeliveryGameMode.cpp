@@ -92,8 +92,8 @@ void PacketDeliveryGameMode::Begin(
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
-        "Delivery failed, your package was destroyed!",
-        "Press cross to try again, triangle to quit",
+        "Delivery failed!",
+        "Your package was destroyed, press button to quit",
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
         mono::Color::BLACK,
         mono::Color::OFF_WHITE,
