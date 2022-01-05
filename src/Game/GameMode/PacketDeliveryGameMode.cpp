@@ -29,7 +29,9 @@
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
+    const uint32_t package_delivered_hash = hash::Hash("package_delivered");
 }
+
 namespace tweak_values
 {
     constexpr float fade_duration_s = 1.0f;
@@ -80,6 +82,7 @@ void PacketDeliveryGameMode::Begin(
         m_next_zone = game::ZoneFlow::END_SCREEN;
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
+    m_package_delivered_trigger = m_trigger_system->RegisterTriggerCallback(package_delivered_hash, level_completed_callback, mono::INVALID_ID);
 
     // Player
     game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
@@ -111,7 +114,8 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_player_ui.get());
 
     m_event_handler->RemoveListener(m_gameover_token);
-    m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, 0);
+    m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(package_delivered_hash, m_package_delivered_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }
@@ -123,10 +127,12 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 
 void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
+    const math::Vector local_position = position; // Fix for lambda bug?
+
     m_sprite_system->SetSpriteEnabled(player_entity_id, false);
 
     const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
-    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
+    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(local_position));
     m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
 
     mono::Sprite* portal_sprite = m_sprite_system->GetSprite(portal_entity_id);
@@ -137,7 +143,7 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
                 m_entity_manager->ReleaseEntity(portal_entity_id);
             };
             portal_sprite->SetAnimation("end", destroy_when_finish);
-            SpawnPackage(position);
+            SpawnPackage(local_position);
         };
         portal_sprite->SetAnimation("idle", set_end_anim);
         m_sprite_system->SetSpriteEnabled(player_entity_id, true);
@@ -198,10 +204,7 @@ void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_
     const bool abxy_pressed =
         System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::ABXY);
     if(abxy_pressed)
-    {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
-        m_dead_screen->Hide();
-    }
 
     m_last_state = state;
 }

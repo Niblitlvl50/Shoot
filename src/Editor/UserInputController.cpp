@@ -290,6 +290,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawGrid(!m_editor->DrawGrid());
     else if(event.key == Keycode::G)
         m_editor->EnableSnapToGrid(!m_editor->SnapToGrid());
+    else if(event.key == Keycode::H)
+        m_editor->MoveSelectionToHere();
     else if(event.key == Keycode::A)
         m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
     else if(event.key == Keycode::BACKSPACE)

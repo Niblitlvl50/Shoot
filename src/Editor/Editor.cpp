@@ -563,7 +563,16 @@ void Editor::UpdateSelection()
 
     UpdateSnappers();
     UpdateGrabbers();
+}
 
+void Editor::MoveSelectionToHere()
+{
+    for(uint32_t id : GetSelection())
+    {
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(proxy)
+            proxy->SetPosition(m_camera->GetPosition());
+    }
 }
 
 void Editor::SetSelectionPoint(const math::Vector& selection_point)

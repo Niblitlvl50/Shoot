@@ -67,6 +67,7 @@ namespace editor
         void RemoveFromSelection(const Selection& selected_ids) override;
         void ClearSelection() override;
         void UpdateSelection();
+        void MoveSelectionToHere();
 
         void SetSelectionPoint(const math::Vector& selection_point);
         void SetSelectionBox(const math::Quad& selection_box);
