@@ -12,87 +12,67 @@ using namespace game;
 
 namespace
 {
-    struct OffsetCount
-    {
-        uint32_t offset;
-        uint32_t count;
-    };
-
-    OffsetCount GenerateAimLine(
+    void GenerateAimLine(
         std::vector<math::Vector>& aim_lines_vertices, std::vector<mono::Color::RGBA>& aim_lines_colors, std::vector<uint16_t>& aim_lines_indices)
     {
         constexpr float offset = 0.25f;
         constexpr float mid_point_offset = 1.0f;
-        constexpr float length = 5.0f;
+        constexpr float length = 7.0f;
         constexpr float width = 0.025f;
 
-        const uint32_t index_offset = aim_lines_vertices.size();
+        aim_lines_vertices = {
+            math::Vector(offset, 0.0f),
+            math::Vector(offset, width),
+            math::Vector(mid_point_offset, 0.0f),
+            math::Vector(mid_point_offset, width),
+            math::Vector(length, 0.0f),
+            math::Vector(length, width),
+        };
 
-        aim_lines_vertices.emplace_back(offset, 0.0f);
-        aim_lines_vertices.emplace_back(offset, width);
-        aim_lines_vertices.emplace_back(mid_point_offset, 0.0f);
-        aim_lines_vertices.emplace_back(mid_point_offset, width);
-        aim_lines_vertices.emplace_back(length, 0.0f);
-        aim_lines_vertices.emplace_back(length, width);
+        aim_lines_colors = {
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.6f),
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.6f),
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
+            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
+        };
 
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.6f);
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.6f);
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
-        aim_lines_colors.emplace_back(1.0f, 0.0f, 0.0f, 0.0f);
-
-
-        aim_lines_indices.push_back(index_offset + 0);
-        aim_lines_indices.push_back(index_offset + 1);
-        aim_lines_indices.push_back(index_offset + 2);
-
-        aim_lines_indices.push_back(index_offset + 1);
-        aim_lines_indices.push_back(index_offset + 3);
-        aim_lines_indices.push_back(index_offset + 2);
-
-        aim_lines_indices.push_back(index_offset + 2);
-        aim_lines_indices.push_back(index_offset + 3);
-        aim_lines_indices.push_back(index_offset + 4);
-
-        aim_lines_indices.push_back(index_offset + 3);
-        aim_lines_indices.push_back(index_offset + 5);
-        aim_lines_indices.push_back(index_offset + 4);
-
-        return { index_offset, 12 };
+        aim_lines_indices = {
+            0, 1, 2,
+            1, 3, 2,
+            2, 3, 4,
+            3, 5, 4,
+        };
     }
 }
 
-PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system)
+PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system, mono::IRenderer* renderer)
     : m_transform_system(transform_system)
-{ }
-
-void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
     std::vector<math::Vector> aim_lines_vertices;
     std::vector<mono::Color::RGBA> aim_lines_colors;
     std::vector<uint16_t> aim_lines_indices;
+    GenerateAimLine(aim_lines_vertices, aim_lines_colors, aim_lines_indices);
 
+    m_laser_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, aim_lines_vertices.size(), aim_lines_vertices.data());
+    m_laser_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, aim_lines_colors.size(), aim_lines_colors.data());
+    m_laser_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, aim_lines_indices.size(), aim_lines_indices.data());
+}
+
+void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
+{
     std::vector<math::Vector> reload_lines;
     std::vector<math::Vector> points;
-
-    struct AimLineTransform
-    {
-        math::Matrix transform;
-        uint32_t offset;
-        uint32_t count;
-    };
-
-    std::vector<AimLineTransform> aimline_commands;
+    std::vector<math::Matrix> aimline_transforms;
 
     for(const game::PlayerInfo* player_info : GetActivePlayers())
     {
         if(!player_info)
             continue;
 
-        const OffsetCount& offset_count = GenerateAimLine(aim_lines_vertices, aim_lines_colors, aim_lines_indices);
         const math::Matrix& aimline_transform = math::CreateMatrixWithPositionRotation(player_info->position, player_info->aim_direction + math::PI_2());
-        aimline_commands.push_back({ aimline_transform, offset_count.offset, offset_count.count });
+        aimline_transforms.push_back(aimline_transform);
 
         const bool is_reloading = (player_info->weapon_state == game::WeaponState::RELOADING);
         if(is_reloading)
@@ -110,17 +90,10 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         }
     }
 
-    if(!aimline_commands.empty())
+    for(const math::Matrix& transform : aimline_transforms)
     {
-        auto vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, aim_lines_vertices.size(), aim_lines_vertices.data());
-        auto color_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, aim_lines_colors.size(), aim_lines_colors.data());
-        auto index_buffer = mono::CreateElementBuffer(mono::BufferType::STATIC, aim_lines_indices.size(), aim_lines_indices.data());
-
-        for(const AimLineTransform& cmd : aimline_commands)
-        {
-            const auto transform_scope = mono::MakeTransformScope(cmd.transform, &renderer);
-            renderer.DrawTrianges(vertices.get(), color_buffer.get(), index_buffer.get(), cmd.offset, cmd.count);
-        }
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+        renderer.DrawTrianges(m_laser_vertices.get(), m_laser_colors.get(), m_laser_indices.get(), 0, m_laser_indices->Size());
     }
 
     renderer.DrawLines(reload_lines, mono::Color::OFF_WHITE, 4.0f);
