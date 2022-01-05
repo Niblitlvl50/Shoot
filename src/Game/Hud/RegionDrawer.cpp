@@ -113,7 +113,7 @@ void RegionDrawer::Update(const mono::UpdateContext& context)
 void RegionDrawer::HandleRegionTrigger(uint32_t trigger_hash)
 {
     const auto find_by_hash = [](const RegionDescription& left, uint32_t trigger_hash) {
-        return left.trigger_hash == trigger_hash;
+        return left.trigger_hash < trigger_hash;
     };
     const auto it = std::lower_bound(m_region_descriptions.begin(), m_region_descriptions.end(), trigger_hash, find_by_hash);
 
