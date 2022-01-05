@@ -47,7 +47,7 @@ namespace
     }
 }
 
-PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system, mono::IRenderer* renderer)
+PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
 {
     std::vector<math::Vector> aim_lines_vertices;

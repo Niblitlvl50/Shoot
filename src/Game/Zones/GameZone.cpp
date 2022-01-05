@@ -165,7 +165,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new PlayerAuxiliaryDrawer(transform_system, renderer), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new DialogSystemDrawer(dialog_system), LayerId::UI);
 
     // Debug
