@@ -82,7 +82,8 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Vector left = bottom_center - math::Vector(0.3f, 0.15f);
             const math::Vector right = bottom_center + math::Vector(0.3f, -0.15f);
-            const math::Vector reload_dot = ((right - left) * float(player_info->weapon_reload_percentage) / 100.0f) + left;
+            const math::Vector reload_dot =
+                ((right - left) * float(player_info->weapon_reload_percentage) / 100.0f) + left;
 
             reload_lines.push_back(left);
             reload_lines.push_back(right);
