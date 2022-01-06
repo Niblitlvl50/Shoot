@@ -502,6 +502,46 @@ namespace
         return true;
     }
 
+    bool CreateRelayTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AllocateRelayTrigger(entity->id);
+        return true;
+    }
+
+    bool ReleaseRelayTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->ReleaseRelayTrigger(entity->id);
+        return true;
+    }
+
+    bool UpdateRelayTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        std::string trigger_name_completed;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+        const bool found_trigger_name_completed =
+            FindAttribute(TRIGGER_NAME_COMPLETED_ATTRIBUTE, properties, trigger_name_completed, FallbackMode::REQUIRE_ATTRIBUTE);
+        if(!found_trigger_name || !found_trigger_name_completed)
+            return false;
+
+        int delay_ms;
+        FindAttribute(TIME_STAMP_ATTRIBUTE, properties, delay_ms, FallbackMode::SET_DEFAULT);
+
+        const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
+        const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.c_str());
+
+        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        trigger_system->AddRelayTrigger(entity->id, trigger_hash, completed_trigger_hash, delay_ms);
+
+        hash::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name_completed.c_str());
+
+        return true;
+    }
+
     bool CreatePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
@@ -857,6 +897,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);
     entity_manager->RegisterComponent(TIME_TRIGGER_COMPONENT, CreateTimeTrigger, ReleaseTimeTrigger, UpdateTimeTrigger);
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
+    entity_manager->RegisterComponent(RELAY_TRIGGER_COMPONENT, CreateRelayTrigger, ReleaseRelayTrigger, UpdateRelayTrigger);
     entity_manager->RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
     entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);

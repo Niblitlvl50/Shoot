@@ -178,6 +178,7 @@ extern const uint32_t DESTROYED_TRIGGER_COMPONENT;
 extern const uint32_t AREA_TRIGGER_COMPONENT;
 extern const uint32_t TIME_TRIGGER_COMPONENT;
 extern const uint32_t COUNTER_TRIGGER_COMPONENT;
+extern const uint32_t RELAY_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
@@ -191,7 +192,6 @@ extern const uint32_t PATH_COMPONENT;
 extern const uint32_t ROAD_COMPONENT;
 extern const uint32_t LIGHT_COMPONENT;
 extern const uint32_t DIALOG_COMPONENT;
-extern const uint32_t SET_CONDITION_COMPONENT;
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT;
 extern const uint32_t AREA_EMITTER_COMPONENT;
 

@@ -229,6 +229,7 @@ extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trig
 extern const uint32_t AREA_TRIGGER_COMPONENT        = hash::Hash("area_entity_trigger");
 extern const uint32_t TIME_TRIGGER_COMPONENT        = hash::Hash("time_trigger");
 extern const uint32_t COUNTER_TRIGGER_COMPONENT     = hash::Hash("counter_trigger");
+extern const uint32_t RELAY_TRIGGER_COMPONENT       = hash::Hash("relay_trigger");
 extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT           = hash::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT         = hash::Hash("set_translation");
@@ -242,7 +243,6 @@ extern const uint32_t PATH_COMPONENT                = hash::Hash("path");
 extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
-extern const uint32_t SET_CONDITION_COMPONENT       = hash::Hash("set_condition");
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
 extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter");
 
@@ -287,6 +287,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "time_trigger";
     else if(hash == COUNTER_TRIGGER_COMPONENT)
         return "counter_trigger";
+    else if(hash == RELAY_TRIGGER_COMPONENT)
+        return "relay_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == ANIMATION_COMPONENT)
@@ -313,8 +315,6 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "light";
     else if(hash == DIALOG_COMPONENT)
         return "dialog";
-    else if(hash == SET_CONDITION_COMPONENT)
-        return "set_condition";
     else if(hash == PARTICLE_SYSTEM_COMPONENT)
         return "particle_system";
     else if(hash == AREA_EMITTER_COMPONENT)
@@ -360,7 +360,7 @@ const Component default_components[] = {
     MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
-    MakeComponent(SET_CONDITION_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, CONDITION_ATTRIBUTE, CONDITION_STATE_ATTRIBUTE }),
+    MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
     MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),

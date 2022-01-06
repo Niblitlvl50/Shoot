@@ -64,7 +64,7 @@ namespace game
         int counter;
     };
 
-    struct DelayedRelayTriggerComponent
+    struct RelayTriggerComponent
     {
         uint32_t listen_trigger_hash;
         uint32_t completed_trigger_hash;
@@ -109,9 +109,9 @@ namespace game
         void AddCounterTrigger(
             uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int count, bool reset_on_completed);
 
-        DelayedRelayTriggerComponent* AllocateDelayedRelayTrigger(uint32_t entity_id);
-        void ReleaseDelayedRelayTrigger(uint32_t entity_id);
-        void AddDelayedRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms);
+        RelayTriggerComponent* AllocateRelayTrigger(uint32_t entity_id);
+        void ReleaseRelayTrigger(uint32_t entity_id);
+        void AddRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms);
 
         [[nodiscard]]
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
@@ -174,16 +174,16 @@ namespace game
         mono::ActiveVector<AreaEntityTriggerComponent> m_area_triggers;
         mono::ActiveVector<TimeTriggerComponent> m_time_triggers;
         mono::ActiveVector<CounterTriggerComponent> m_counter_triggers;
-        mono::ActiveVector<DelayedRelayTriggerComponent> m_delayed_relay_triggers;
+        mono::ActiveVector<RelayTriggerComponent> m_relay_triggers;
 
         uint32_t m_area_trigger_timer;
 
-        struct DelayTrigger
+        struct DelayRelayTrigger
         {
-            uint32_t trigger_hash;
+            uint32_t relay_trigger_hash;
             int delay_ms;
         };
-        std::vector<DelayTrigger> m_delay_triggers;
+        std::vector<DelayRelayTrigger> m_delay_relay_triggers;
         std::vector<uint32_t> m_triggers_to_emit;
 
         // Debug data

@@ -62,7 +62,7 @@ TriggerSystem::TriggerSystem(
     , m_area_triggers(n_triggers)
     , m_time_triggers(n_triggers)
     , m_counter_triggers(n_triggers)
-    , m_delayed_relay_triggers(n_triggers)
+    , m_relay_triggers(n_triggers)
     , m_area_trigger_timer(0)
 { }
 
@@ -271,15 +271,14 @@ void TriggerSystem::AddCounterTrigger(uint32_t entity_id, uint32_t listener_hash
     counter_trigger->callback_id = RegisterTriggerCallback(listener_hash, counter_callback, entity_id);
 }
 
-DelayedRelayTriggerComponent* TriggerSystem::AllocateDelayedRelayTrigger(uint32_t entity_id)
+RelayTriggerComponent* TriggerSystem::AllocateRelayTrigger(uint32_t entity_id)
 {
-    m_delayed_relay_triggers.Set(entity_id, DelayedRelayTriggerComponent());
-    return m_delayed_relay_triggers.Get(entity_id);
+    return m_relay_triggers.Set(entity_id, RelayTriggerComponent());
 }
 
-void TriggerSystem::ReleaseDelayedRelayTrigger(uint32_t entity_id)
+void TriggerSystem::ReleaseRelayTrigger(uint32_t entity_id)
 {
-    DelayedRelayTriggerComponent* trigger = m_delayed_relay_triggers.Get(entity_id);
+    RelayTriggerComponent* trigger = m_relay_triggers.Get(entity_id);
 
     if(trigger->callback_id != NO_CALLBACK_SET)
     {
@@ -287,12 +286,12 @@ void TriggerSystem::ReleaseDelayedRelayTrigger(uint32_t entity_id)
         trigger->callback_id = NO_CALLBACK_SET;
     }
 
-    m_delayed_relay_triggers.Release(entity_id);
+    m_relay_triggers.Release(entity_id);
 }
 
-void TriggerSystem::AddDelayedRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms)
+void TriggerSystem::AddRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms)
 {
-    DelayedRelayTriggerComponent* trigger = m_delayed_relay_triggers.Get(entity_id);
+    RelayTriggerComponent* trigger = m_relay_triggers.Get(entity_id);
     
     trigger->listen_trigger_hash = listener_hash;
     trigger->completed_trigger_hash = completed_hash;
@@ -306,11 +305,11 @@ void TriggerSystem::AddDelayedRelayTrigger(uint32_t entity_id, uint32_t listener
 
     const auto counter_callback = [this, trigger](uint32_t trigger_id)
     {
-        DelayTrigger delay_trigger;
-        delay_trigger.trigger_hash = trigger->completed_trigger_hash;
+        DelayRelayTrigger delay_trigger;
+        delay_trigger.relay_trigger_hash = trigger->completed_trigger_hash;
         delay_trigger.delay_ms = trigger->delay_ms;
 
-        m_delay_triggers.push_back(delay_trigger);
+        m_delay_relay_triggers.push_back(delay_trigger);
     };
 
     trigger->callback_id = RegisterTriggerCallback(trigger->listen_trigger_hash, counter_callback, entity_id);
@@ -445,15 +444,15 @@ void TriggerSystem::UpdateTimeTriggers(const mono::UpdateContext& update_context
 
 void TriggerSystem::UpdateDelayedRelayTriggers(const mono::UpdateContext& update_context)
 {
-    const auto update_and_remove = [this, &update_context](DelayTrigger& delay_trigger) {
+    const auto update_and_remove = [this, &update_context](DelayRelayTrigger& delay_trigger) {
         delay_trigger.delay_ms -= update_context.delta_ms;
         if(delay_trigger.delay_ms <= 0)
         {
-            EmitTrigger(delay_trigger.trigger_hash);
+            EmitTrigger(delay_trigger.relay_trigger_hash);
             return true;
         }
 
         return false;
     };
-    mono::remove_if(m_delay_triggers, update_and_remove);
+    mono::remove_if(m_delay_relay_triggers, update_and_remove);
 }
