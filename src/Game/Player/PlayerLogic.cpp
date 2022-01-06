@@ -192,6 +192,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     m_player_info->magazine_capacity = m_weapon->MagazineSize();
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->ammunition_left = m_total_ammo_left;
+    m_player_info->laser_sight = (HoldingPickup() == false);
 
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, m_player_info->velocity);

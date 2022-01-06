@@ -109,7 +109,7 @@
                             "id": 128336118,
                             "name": "layer",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 2483026461,
@@ -257,7 +257,7 @@
             "y": 0.0
         },
         "conditions": [],
-        "navmesh_density": -1.3339285942493007e-07,
+        "navmesh_density": -1.0574876796454191e-05,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0

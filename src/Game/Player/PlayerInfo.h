@@ -52,6 +52,7 @@ namespace game
         int magazine_capacity;
         int ammunition_left;
         int weapon_reload_percentage;
+        bool laser_sight;
 
         int lives;
     };

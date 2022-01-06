@@ -71,8 +71,11 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         if(!player_info)
             continue;
 
-        const math::Matrix& aimline_transform = math::CreateMatrixWithPositionRotation(player_info->position, player_info->aim_direction + math::PI_2());
-        aimline_transforms.push_back(aimline_transform);
+        if(player_info->laser_sight)
+        {
+            const math::Matrix& aimline_transform = math::CreateMatrixWithPositionRotation(player_info->position, player_info->aim_direction + math::PI_2());
+            aimline_transforms.push_back(aimline_transform);
+        }
 
         const bool is_reloading = (player_info->weapon_state == game::WeaponState::RELOADING);
         if(is_reloading)
