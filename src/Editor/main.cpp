@@ -72,8 +72,8 @@ int main()
 
 
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
-        game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
-        system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, condition_system, physics_system, entity_system);
+        //game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
+        system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
 
 
         shared::RegisterSharedComponents(entity_system);

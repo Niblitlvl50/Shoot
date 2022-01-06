@@ -64,11 +64,11 @@ namespace game
         int counter;
     };
 
-    struct SetConditionTriggerComponent
+    struct DelayedRelayTriggerComponent
     {
-        uint32_t trigger_hash;
-        uint32_t condition_hash;
-        bool condition_state;
+        uint32_t listen_trigger_hash;
+        uint32_t completed_trigger_hash;
+        int delay_ms;
 
         // Internal data
         uint32_t callback_id;
@@ -83,7 +83,6 @@ namespace game
         TriggerSystem(
             size_t n_triggers,
             class DamageSystem* damage_system,
-            class ConditionSystem* condition_system,
             mono::PhysicsSystem* physics_system,
             mono::IEntityManager* entity_system);
 
@@ -110,9 +109,9 @@ namespace game
         void AddCounterTrigger(
             uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int count, bool reset_on_completed);
 
-        SetConditionTriggerComponent* AllocateSetConditionTrigger(uint32_t entity_id);
-        void ReleaseSetConditionTrigger(uint32_t entity_id);
-        void AddSetConditionTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t condition_hash, bool new_condition_state);
+        DelayedRelayTriggerComponent* AllocateDelayedRelayTrigger(uint32_t entity_id);
+        void ReleaseDelayedRelayTrigger(uint32_t entity_id);
+        void AddDelayedRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms);
 
         [[nodiscard]]
         uint32_t RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id);
@@ -152,12 +151,6 @@ namespace game
             m_counter_triggers.ForEach(callable);
         }
 
-        template<typename T>
-        void ForEachSetCondition(T&& callable)
-        {
-            m_set_condition_triggers.ForEach(callable);
-        }
-
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -166,6 +159,7 @@ namespace game
 
         void UpdateAreaEntityTriggers(const mono::UpdateContext& update_context);
         void UpdateTimeTriggers(const mono::UpdateContext& update_context);
+        void UpdateDelayedRelayTriggers(const mono::UpdateContext& update_context);
 
         class DamageSystem* m_damage_system;
         class ConditionSystem* m_condition_system;
@@ -180,10 +174,16 @@ namespace game
         mono::ActiveVector<AreaEntityTriggerComponent> m_area_triggers;
         mono::ActiveVector<TimeTriggerComponent> m_time_triggers;
         mono::ActiveVector<CounterTriggerComponent> m_counter_triggers;
-        mono::ActiveVector<SetConditionTriggerComponent> m_set_condition_triggers;
+        mono::ActiveVector<DelayedRelayTriggerComponent> m_delayed_relay_triggers;
 
         uint32_t m_area_trigger_timer;
 
+        struct DelayTrigger
+        {
+            uint32_t trigger_hash;
+            int delay_ms;
+        };
+        std::vector<DelayTrigger> m_delay_triggers;
         std::vector<uint32_t> m_triggers_to_emit;
 
         // Debug data

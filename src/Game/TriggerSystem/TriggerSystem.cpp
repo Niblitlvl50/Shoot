@@ -53,9 +53,8 @@ namespace
 }
 
 TriggerSystem::TriggerSystem(
-    size_t n_triggers, DamageSystem* damage_system, ConditionSystem* condition_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
+    size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
-    , m_condition_system(condition_system)
     , m_physics_system(physics_system)
     , m_entity_system(entity_system)
     , m_shape_triggers(n_triggers)
@@ -63,7 +62,7 @@ TriggerSystem::TriggerSystem(
     , m_area_triggers(n_triggers)
     , m_time_triggers(n_triggers)
     , m_counter_triggers(n_triggers)
-    , m_set_condition_triggers(n_triggers)
+    , m_delayed_relay_triggers(n_triggers)
     , m_area_trigger_timer(0)
 { }
 
@@ -272,44 +271,49 @@ void TriggerSystem::AddCounterTrigger(uint32_t entity_id, uint32_t listener_hash
     counter_trigger->callback_id = RegisterTriggerCallback(listener_hash, counter_callback, entity_id);
 }
 
-SetConditionTriggerComponent* TriggerSystem::AllocateSetConditionTrigger(uint32_t entity_id)
+DelayedRelayTriggerComponent* TriggerSystem::AllocateDelayedRelayTrigger(uint32_t entity_id)
 {
-    m_set_condition_triggers.Set(entity_id, SetConditionTriggerComponent());
-    return m_set_condition_triggers.Get(entity_id);
+    m_delayed_relay_triggers.Set(entity_id, DelayedRelayTriggerComponent());
+    return m_delayed_relay_triggers.Get(entity_id);
 }
 
-void TriggerSystem::ReleaseSetConditionTrigger(uint32_t entity_id)
+void TriggerSystem::ReleaseDelayedRelayTrigger(uint32_t entity_id)
 {
-    SetConditionTriggerComponent* trigger = m_set_condition_triggers.Get(entity_id);
+    DelayedRelayTriggerComponent* trigger = m_delayed_relay_triggers.Get(entity_id);
 
     if(trigger->callback_id != NO_CALLBACK_SET)
     {
-        RemoveTriggerCallback(trigger->trigger_hash, trigger->callback_id, entity_id);
+        RemoveTriggerCallback(trigger->listen_trigger_hash, trigger->callback_id, entity_id);
         trigger->callback_id = NO_CALLBACK_SET;
     }
 
-    m_set_condition_triggers.Release(entity_id);
+    m_delayed_relay_triggers.Release(entity_id);
 }
 
-void TriggerSystem::AddSetConditionTrigger(uint32_t entity_id, uint32_t trigger_hash, uint32_t condition_hash, bool new_condition_state)
+void TriggerSystem::AddDelayedRelayTrigger(uint32_t entity_id, uint32_t listener_hash, uint32_t completed_hash, int delay_ms)
 {
-    SetConditionTriggerComponent* trigger = m_set_condition_triggers.Get(entity_id);
-    trigger->trigger_hash = trigger_hash;
-    trigger->condition_hash = condition_hash;
-    trigger->condition_state = new_condition_state;
+    DelayedRelayTriggerComponent* trigger = m_delayed_relay_triggers.Get(entity_id);
+    
+    trigger->listen_trigger_hash = listener_hash;
+    trigger->completed_trigger_hash = completed_hash;
+    trigger->delay_ms = delay_ms;
 
     if(trigger->callback_id != NO_CALLBACK_SET)
     {
-        RemoveTriggerCallback(trigger->trigger_hash, trigger->callback_id, entity_id);
+        RemoveTriggerCallback(trigger->listen_trigger_hash, trigger->callback_id, entity_id);
         trigger->callback_id = NO_CALLBACK_SET;
     }
 
     const auto counter_callback = [this, trigger](uint32_t trigger_id)
     {
-        m_condition_system->SetCondition(trigger->condition_hash, trigger->condition_state);
+        DelayTrigger delay_trigger;
+        delay_trigger.trigger_hash = trigger->completed_trigger_hash;
+        delay_trigger.delay_ms = trigger->delay_ms;
+
+        m_delay_triggers.push_back(delay_trigger);
     };
 
-    trigger->callback_id = RegisterTriggerCallback(trigger_hash, counter_callback, entity_id);
+    trigger->callback_id = RegisterTriggerCallback(trigger->listen_trigger_hash, counter_callback, entity_id);
 }
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id)
@@ -363,6 +367,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
     }
 
     UpdateTimeTriggers(update_context);
+    UpdateDelayedRelayTriggers(update_context);
 
     const std::vector<uint32_t> local_triggers_to_emit = m_triggers_to_emit;
     m_triggers_to_emit.clear();
@@ -436,4 +441,19 @@ void TriggerSystem::UpdateTimeTriggers(const mono::UpdateContext& update_context
     };
 
     m_time_triggers.ForEach(update_time_trigger);
+}
+
+void TriggerSystem::UpdateDelayedRelayTriggers(const mono::UpdateContext& update_context)
+{
+    const auto update_and_remove = [this, &update_context](DelayTrigger& delay_trigger) {
+        delay_trigger.delay_ms -= update_context.delta_ms;
+        if(delay_trigger.delay_ms <= 0)
+        {
+            EmitTrigger(delay_trigger.trigger_hash);
+            return true;
+        }
+
+        return false;
+    };
+    mono::remove_if(m_delay_triggers, update_and_remove);
 }
