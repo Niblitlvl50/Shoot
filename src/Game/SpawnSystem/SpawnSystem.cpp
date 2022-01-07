@@ -17,6 +17,11 @@
 
 using namespace game;
 
+namespace
+{
+    constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
+}
+
 SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_trigger_system(trigger_system)
     , m_entity_manager(entity_manager)
@@ -48,21 +53,18 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
 SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)
 {
     SpawnPointComponent component = {};
+    component.enable_callback_id = NO_CALLBACK_SET;
+    component.disable_callback_id = NO_CALLBACK_SET;
     return m_spawn_points.Set(entity_id, std::move(component));
-
-    //SpawnPointComponent& spawn_point = m_spawn_points[entity_id];
-    //std::memset(&spawn_point, 0, sizeof(SpawnPointComponent));
-
-    //return &spawn_point;
 }
 
 void SpawnSystem::ReleaseSpawnPoint(uint32_t entity_id)
 {
     SpawnPointComponent* spawn_point = m_spawn_points.Get(entity_id);
-    if(spawn_point->enable_callback_id != 0)
+    if(spawn_point->enable_callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(spawn_point->enable_trigger, spawn_point->enable_callback_id, entity_id);
 
-    if(spawn_point->disable_callback_id != 0)
+    if(spawn_point->disable_callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(spawn_point->disable_trigger, spawn_point->disable_callback_id, entity_id);
 
     m_spawn_points.Release(entity_id);
@@ -106,6 +108,7 @@ SpawnSystem::EntitySpawnPointComponent* SpawnSystem::AllocateEntitySpawnPoint(ui
 {
     EntitySpawnPointComponent* allocated_component = m_entity_spawn_points.Set(entity_id, EntitySpawnPointComponent());
     allocated_component->entity_id = entity_id;
+    allocated_component->callback_id = NO_CALLBACK_SET;
 
     return allocated_component;
 }
@@ -113,7 +116,7 @@ SpawnSystem::EntitySpawnPointComponent* SpawnSystem::AllocateEntitySpawnPoint(ui
 void SpawnSystem::ReleaseEntitySpawnPoint(uint32_t entity_id)
 {
     EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
-    if(component->callback_id != 0)
+    if(component->callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
 
     m_entity_spawn_points.Release(entity_id);
@@ -126,7 +129,7 @@ void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string&
     component->radius = spawn_radius;
     component->spawn_trigger = spawn_trigger;
 
-    if(component->callback_id != 0)
+    if(component->callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
 
     if(component->spawn_trigger != 0)

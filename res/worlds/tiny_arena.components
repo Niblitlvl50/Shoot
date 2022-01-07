@@ -26263,7 +26263,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         }
                     ]
                 }
@@ -30369,6 +30369,77 @@
             "folder": "campfire",
             "name": "tiny_grass",
             "uuid_hash": 942306792
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "package_explosion_spawn"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "zone_logic"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 10.71857738494873,
+                                "y": 8.165619850158691
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2511960119,
+                    "name": "entity_spawn_point",
+                    "properties": [
+                        {
+                            "id": 615778801,
+                            "name": "entity_file",
+                            "variant_type": 6,
+                            "variant_value": "res/entities/package_explosion.entity"
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "zone_logic",
+            "name": "package_explosion_spawn",
+            "uuid_hash": 2682684711
         }
     ],
     "metadata": {
