@@ -904,6 +904,7 @@ bool editor::DrawListboxWidget(const char* label, std::vector<std::string>& item
             if(!new_trigger_name.empty())
             {
                 items.push_back(new_trigger_name);
+                std::sort(items.begin(), items.end());
                 changed = true;
             }
         }

@@ -92,8 +92,8 @@ extern const uint32_t FLICKER_ATTRIBUTE;
 extern const uint32_t FREQUENCY_ATTRIBUTE;
 extern const uint32_t PERCENTAGE_ATTRIBUTE;
 
-extern const uint32_t CONDITION_ATTRIBUTE;
-extern const uint32_t CONDITION_STATE_ATTRIBUTE;
+extern const uint32_t UNUSED_1;
+extern const uint32_t UNUSED_2;
 extern const uint32_t ENTITY_FILE_ATTRIBUTE;
 
 extern const uint32_t POOL_SIZE_ATTRIBUTE;

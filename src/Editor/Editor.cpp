@@ -414,6 +414,7 @@ void Editor::Save()
         return;
     }
 
+    std::sort(m_context.level_metadata.triggers.begin(), m_context.level_metadata.triggers.end());
     SaveWorld(m_world_filename.c_str(), m_proxies, m_context.level_metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
 }

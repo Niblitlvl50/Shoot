@@ -91,8 +91,8 @@ const DefaultAttribute default_attributes[] = {
     { "frequency",              Variant(1.0f) },
     { "percentage",             Variant(0.5f) },
     { "destroyed_type",         Variant(0) },
-    { "condition",              Variant(std::string()) },
-    { "condition_state",        Variant(true) },
+    { "unused_1",               Variant(std::string()) },
+    { "unused_2",               Variant(true) },
     { "offset",                 Variant(math::ZeroVec) },
     { "entity_file",            Variant(std::string()) },
     { "pool_size",              Variant(10) },
@@ -191,8 +191,8 @@ extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].has
 extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
 
 extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[65].hash;
-extern const uint32_t CONDITION_ATTRIBUTE               = default_attributes[66].hash;
-extern const uint32_t CONDITION_STATE_ATTRIBUTE         = default_attributes[67].hash;
+extern const uint32_t UNUSED_1               = default_attributes[66].hash;
+extern const uint32_t UNUSED_2         = default_attributes[67].hash;
 
 extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
 extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[69].hash;

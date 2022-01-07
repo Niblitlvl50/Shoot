@@ -30387,18 +30387,18 @@
             "y": -6.0
         },
         "triggers": [
-            "spawn_small_monster",
-            "read_note",
-            "level_completed",
-            "start_spawning",
-            "stop_spawning",
-            "none",
-            "push_button",
-            "region_first",
-            "region_shitty_plains",
             "alien_tree_destroyed",
+            "level_completed",
+            "none",
             "package_delivered",
-            "region_frog_forest"
+            "push_button",
+            "read_note",
+            "region_first",
+            "region_frog_forest",
+            "region_shitty_plains",
+            "spawn_small_monster",
+            "start_spawning",
+            "stop_spawning"
         ]
     }
 }
