@@ -354,15 +354,6 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         
         return changed;
     }
-    else if(attribute.id == CONDITION_ATTRIBUTE)
-    {
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), ui_context.level_metadata.conditions, out_index);
-        if(changed)
-            attribute.value = ui_context.level_metadata.conditions[out_index];
-        
-        return changed;
-    }
     else if(attribute.id == ENTITY_FILE_ATTRIBUTE)
     {
         const std::vector<std::string>& all_entities = editor::GetAllEntities();

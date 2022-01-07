@@ -34,7 +34,6 @@
 #include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "DialogSystem/DialogSystem.h"
-#include "ConditionSystem/ConditionSystem.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -172,7 +171,6 @@ int main(int argc, char* argv[])
 
         game::DamageSystem* damage_system =
             system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
-        //game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
         game::TriggerSystem* trigger_system =
             system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities);

@@ -320,15 +320,6 @@ namespace
                 ImGui::EndTabItem();
             }
 
-            if(ImGui::BeginTabItem("Conditions"))
-            {
-                ImGui::TextDisabled("Conditions");
-                static uint32_t selected_condition_index = -1;
-                editor::DrawListboxWidget("##conditions", context.level_metadata.conditions, selected_condition_index);
-
-                ImGui::EndTabItem();
-            }
-
             ImGui::EndTabBar();
         }
 

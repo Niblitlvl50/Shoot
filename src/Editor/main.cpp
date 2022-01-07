@@ -22,7 +22,6 @@
 
 #include "DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
-#include "ConditionSystem/ConditionSystem.h"
 
 #include "Editor.h"
 #include "EditorConfig.h"
@@ -69,12 +68,8 @@ int main()
         physics_init_params.n_bodies = max_entities;
 
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
-
-
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
-        //game::ConditionSystem* condition_system = system_context.CreateSystem<game::ConditionSystem>();
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
-
 
         shared::RegisterSharedComponents(entity_system);
         shared::LoadFonts();

@@ -26,7 +26,6 @@ namespace shared
         std::string background_texture;
 
         std::vector<std::string> triggers;
-        std::vector<std::string> conditions;
 
         math::Vector navmesh_start;
         math::Vector navmesh_end;
