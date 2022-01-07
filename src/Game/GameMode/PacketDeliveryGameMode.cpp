@@ -29,7 +29,6 @@
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
-    const uint32_t package_delivered_hash = hash::Hash("package_delivered");
 }
 
 namespace tweak_values
@@ -82,7 +81,6 @@ void PacketDeliveryGameMode::Begin(
         m_next_zone = game::ZoneFlow::END_SCREEN;
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
-    m_package_delivered_trigger = m_trigger_system->RegisterTriggerCallback(package_delivered_hash, level_completed_callback, mono::INVALID_ID);
 
     // Player
     game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
@@ -115,7 +113,6 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
 
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(package_delivered_hash, m_package_delivered_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }
