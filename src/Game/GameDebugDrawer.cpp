@@ -102,6 +102,27 @@ void GameDebugDrawer::DrawLine(const std::vector<math::Vector>& polyline, float 
     DrawLineFading(polyline, width, color, 0);
 }
 
+void GameDebugDrawer::DrawCircle(const math::Vector& position, float radius, const mono::Color::RGBA& color)
+{
+    constexpr int circle_segments = 32;
+
+    std::vector<math::Vector> vertices;
+    vertices.reserve(circle_segments +1);
+
+    const float coef = 2.0f * math::PI() / float(circle_segments);
+
+    for(int index = 0; index < circle_segments +1; ++index)
+    {
+        const float radians = index * coef;
+        const float x = radius * std::cos(radians) + position.x;
+        const float y = radius * std::sin(radians) + position.y;
+
+        vertices.emplace_back(x, y);
+    }
+
+    DrawLine(vertices, 1.0f, color);
+}
+
 void GameDebugDrawer::DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color)
 {
     DrawScreenTextFading(text, position, color, 0);

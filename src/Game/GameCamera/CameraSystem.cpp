@@ -1,16 +1,22 @@
 
 #include "CameraSystem.h"
-#include "TriggerSystem/TriggerSystem.h"
 #include "Player/PlayerInfo.h"
+#include "TriggerSystem/TriggerSystem.h"
+
+// Debug
+#include "GameDebug.h"
+#include "Factories.h"
+#include "IDebugDrawer.h"
+#include "Rendering/Color.h"
 
 #include "Camera/ICamera.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/KeyEvent.h"
 #include "Math/MathFunctions.h"
+#include "System/Hash.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Algorithm.h"
-#include "System/Hash.h"
 #include "Util/Random.h"
 
 #include <algorithm>
@@ -21,7 +27,7 @@
 namespace
 {
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
-    constexpr float dead_zone = 1.0f;
+    constexpr float g_dead_zone = 1.0f;
 }
 
 using namespace game;
@@ -86,13 +92,19 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
         const math::Vector camera_position = m_camera->GetTargetPosition();
         const float distance = math::DistanceBetween(centroid, camera_position);
-        if(distance > dead_zone)
+        if(distance > g_dead_zone)
         {
             const math::Vector delta = centroid - camera_position;
-            const float fraction = std::clamp(distance - dead_zone, 0.0f, 1.0f);
+            const float fraction = std::clamp(distance - g_dead_zone, 0.0f, 1.0f);
             const math::Vector new_camera_position = (delta * fraction) + camera_position;
 
             m_camera->SetTargetPosition(new_camera_position + m_current_follow_offset);
+        }
+
+        if(game::g_draw_camera_debug)
+        {
+            g_debug_drawer->DrawPoint(centroid, 4.0f, mono::Color::MAGENTA);
+            g_debug_drawer->DrawCircle(camera_position, g_dead_zone, mono::Color::MAGENTA);
         }
     }
 

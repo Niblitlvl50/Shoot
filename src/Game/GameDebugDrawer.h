@@ -25,6 +25,7 @@ namespace game
         void DrawPoint(const math::Vector& position, float size, const mono::Color::RGBA& color) override;
         void DrawLine(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color) override;
         void DrawLine(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color) override;
+        void DrawCircle(const math::Vector& position, float radius, const mono::Color::RGBA& color) override;
         void DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
         void DrawWorldText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
 

@@ -36,6 +36,7 @@ bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 bool game::g_draw_debug_players = false;
 bool game::g_draw_spawn_points = false;
+bool game::g_draw_camera_debug = false;
 
 constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
@@ -62,6 +63,7 @@ void DrawDebugMenu(uint32_t fps)
         ImGui::Checkbox("Prediction System",    &game::g_draw_position_prediction);
         ImGui::Checkbox("Players",              &game::g_draw_debug_players);
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
+        ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
 
         ImGui::EndMenu();
     }

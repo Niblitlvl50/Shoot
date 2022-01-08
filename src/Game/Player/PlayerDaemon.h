@@ -41,7 +41,7 @@ namespace game
             const PlayerSpawnedCallback& player_spawned_cb);
         ~PlayerDaemon();
 
-        void SpawnLocalPlayer(int player_index, int controller_id, bool follow_player);
+        void SpawnLocalPlayer(int player_index, int controller_id);
         void DespawnPlayer(PlayerInfo* player_info);
         std::vector<uint32_t> GetPlayerIds() const;
 

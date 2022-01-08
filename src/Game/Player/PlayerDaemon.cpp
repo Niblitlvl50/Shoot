@@ -79,10 +79,10 @@ PlayerDaemon::PlayerDaemon(
     m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary), true);
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary), false);
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
 }
 
 PlayerDaemon::~PlayerDaemon()
@@ -120,7 +120,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool follow_player)
+void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
 {
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo(player_index);
     if(!allocated_player_info)
@@ -163,8 +163,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id, bool fo
         m_event_handler,
         destroyed_func);
     
-    if(follow_player)
-        m_camera_system->FollowEntity(spawned_id);
+    m_camera_system->FollowEntity(spawned_id);
 }
 
 void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
@@ -214,7 +213,7 @@ uint32_t PlayerDaemon::SpawnPlayer(
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id, true);
+    SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id);
     return mono::EventResult::PASS_ON;
 }
 
@@ -309,7 +308,7 @@ mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& mess
 
 mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    SpawnLocalPlayer(event.player_index, event.player_index, true);
+    SpawnLocalPlayer(event.player_index, event.player_index);
     return mono::EventResult::HANDLED;
 }
 

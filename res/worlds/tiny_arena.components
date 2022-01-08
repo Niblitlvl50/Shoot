@@ -3025,7 +3025,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "eye_monster_small"
+                            "variant_value": "fire_skull"
                         },
                         {
                             "id": 3647911389,
@@ -3064,13 +3064,13 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 100
+                            "variant_value": 1000
                         },
                         {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 3526332565,
@@ -3088,13 +3088,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "eye_monster_small.sprite"
+                            "variant_value": "fire_skull.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 128336118,
@@ -3173,8 +3173,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.5176470875740051,
-                                "green": 0.18039216101169586,
+                                "blue": 1.0,
+                                "green": 1.0,
                                 "red": 1.0
                             }
                         },
@@ -3276,7 +3276,7 @@
             ],
             "entity_properties": 0,
             "folder": "monsters",
-            "name": "eye_monster_small",
+            "name": "fire_skull",
             "uuid_hash": 26721882
         },
         {
@@ -16785,7 +16785,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "particles"
+                            "variant_value": "campfire"
                         }
                     ]
                 },
@@ -16974,7 +16974,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "particles",
+            "folder": "campfire",
             "name": "another_emitter",
             "uuid_hash": 2436153238
         },
