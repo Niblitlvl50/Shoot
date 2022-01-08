@@ -8,6 +8,7 @@
 #include "Rendering/RenderSystem.h"
 #include "System/Hash.h"
 #include "System/File.h"
+#include "System/System.h"
 
 #include "nlohmann/json.hpp"
 
@@ -41,9 +42,7 @@ std::vector<game::RegionDescription> game::ParseRegionConfig(const char* region_
     std::sort(regions.begin(), regions.end(), sort_by_hash);
 
     for(const auto& region : regions)
-    {
-        printf("[%u] %s|%s\n", region.trigger_hash, region.text.c_str(), region.sub_text.c_str());
-    }
+        System::Log("[%u] %s|%s\n", region.trigger_hash, region.text.c_str(), region.sub_text.c_str());
 
     return regions;
 }
