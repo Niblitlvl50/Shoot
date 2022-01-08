@@ -101,7 +101,7 @@ PlayerDaemon::~PlayerDaemon()
     for(int index = 0; index < game::n_players; ++index)
     {
         game::PlayerInfo& player_info = g_players[index];
-        if(player_info.player_state == game::PlayerState::ALIVE)
+        if(player_info.player_state != game::PlayerState::NOT_SPAWNED)
             DespawnPlayer(&player_info);
     
         m_camera_system->Unfollow(player_info.entity_id);
@@ -137,16 +137,16 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
 
         if(type == DamageType::DESTROYED)
         {
+            m_camera_system->Unfollow(entity_id);
+            
             allocated_player_info->player_state = game::PlayerState::DEAD;
             allocated_player_info->lives--;
             allocated_player_info->killer_entity_id = id_who_did_damage;
 
             if(allocated_player_info->lives <= 0)
-            {
                 DespawnPlayer(allocated_player_info);
-                m_camera_system->Unfollow(entity_id);
-                m_event_handler->DispatchEvent(game::GameOverEvent());
-            }
+            
+            //m_event_handler->DispatchEvent(game::GameOverEvent());
         }
         else if(type == DamageType::DAMAGED)
         {
@@ -250,6 +250,8 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
 
     const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type)
     {
+        m_camera_system->Unfollow(allocated_player_info->entity_id);
+    
         allocated_player_info->player_state = game::PlayerState::DEAD;
         allocated_player_info->lives--;
         if(allocated_player_info->lives <= 0)
@@ -332,6 +334,8 @@ mono::EventResult PlayerDaemon::OnRespawnPlayer(const RespawnPlayerEvent& event)
         damage_system->ReactivateDamageRecord(event.entity_id);
 
         player_info->player_state = game::PlayerState::ALIVE;
+
+        m_camera_system->FollowEntity(event.entity_id);
 
         if(m_player_spawned_callback)
             m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, m_player_spawn);
