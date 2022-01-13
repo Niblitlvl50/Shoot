@@ -11,6 +11,7 @@
 #include "Rendering/IDrawable.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Text/TextFlags.h"
+#include "Rendering/Texture/ITextureFactory.h"
 
 #include <string>
 #include <vector>
@@ -90,8 +91,8 @@ namespace game
         UISpriteElement(const std::string& sprite_file);
         UISpriteElement(const std::vector<std::string>& sprite_files);
 
-        void SetActiveSprite(size_t index);
-        mono::ISprite* GetSprite(size_t index);
+        void SetActiveSprite(uint32_t index);
+        mono::ISprite* GetSprite(uint32_t index);
 
         void Update(const mono::UpdateContext& context) override;
         void Draw(mono::IRenderer& renderer) const override;
@@ -101,7 +102,22 @@ namespace game
         std::vector<mono::ISpritePtr> m_sprites;
         std::vector<mono::SpriteDrawBuffers> m_sprite_buffers;
         std::unique_ptr<mono::IElementBuffer> m_indices;
-        size_t m_active_sprite;
+        uint32_t m_active_sprite;
+    };
+
+    class UITextureElement : public UIElement
+    {
+    public:
+
+        UITextureElement(const char* texture);
+        void Draw(mono::IRenderer& renderer) const override;
+
+    private:
+
+        std::unique_ptr<mono::IRenderBuffer> m_vertices;
+        std::unique_ptr<mono::IRenderBuffer> m_uv;
+        std::unique_ptr<mono::IElementBuffer> m_indices;
+        mono::ITexturePtr m_texture;
     };
 
     class UISquareElement : public UIElement

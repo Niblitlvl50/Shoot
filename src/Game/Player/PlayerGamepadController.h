@@ -2,6 +2,8 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "Events/EventFwd.h"
+#include "EventHandler/EventToken.h"
 #include "IUpdatable.h"
 #include "System/System.h"
 
@@ -13,6 +15,7 @@ namespace game
         
         PlayerGamepadController(
             class PlayerLogic* player_logic, mono::EventHandler* event_handler, const System::ControllerState& controller);
+        ~PlayerGamepadController();
         void Update(const mono::UpdateContext& update_context);
         
     private:
@@ -23,6 +26,8 @@ namespace game
         const System::ControllerState& m_state;
         System::ControllerState m_last_state;
 
-        int m_current_weapon_index = 0;
+        int m_current_weapon_index;
+        bool m_pause;
+        mono::EventToken<event::ControllerButtonDownEvent> m_controller_token;
     };
 }

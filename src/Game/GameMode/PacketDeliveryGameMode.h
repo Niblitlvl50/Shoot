@@ -6,6 +6,7 @@
 #include "EventHandler/EventToken.h"
 #include "Math/Vector.h"
 
+#include "Events/EventFwd.h"
 #include "StateMachine.h"
 #include "System/System.h"
 
@@ -41,6 +42,10 @@ namespace game
         void ToPackageDestroyed();
         void PackageDestroyed(const mono::UpdateContext& update_context);
 
+        void ToPaused();
+        void Paused(const mono::UpdateContext& update_context);
+        void ExitPaused();
+
         void ToFadeOut();
         void FadeOut(const mono::UpdateContext& update_context);
 
@@ -49,6 +54,7 @@ namespace game
             FADE_IN,
             RUN_GAME_MODE,
             PACKAGE_DESTROYED,
+            PAUSED,
             FADE_OUT
         };
 
@@ -66,8 +72,11 @@ namespace game
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class BigTextScreen> m_dead_screen;
+        std::unique_ptr<class PauseScreen> m_pause_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
+
         mono::EventToken<struct GameOverEvent> m_gameover_token;
+        mono::EventToken<event::PauseEvent> m_pause_token;
 
         bool m_package_spawned;
         int m_next_zone;

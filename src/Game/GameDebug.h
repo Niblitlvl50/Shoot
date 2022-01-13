@@ -52,6 +52,7 @@ namespace game
 
         mutable bool m_draw_debug_menu;
         mutable bool m_draw_trigger_input;
+        bool m_pause;
         mutable mono::FpsCounter m_counter;
 
         class PlayerDebugHandler;

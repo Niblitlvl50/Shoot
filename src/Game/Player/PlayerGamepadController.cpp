@@ -4,11 +4,16 @@
 #include "Weapons/WeaponTypes.h"
 
 #include "Events/TimeScaleEvent.h"
+#include "Events/PauseEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "System/System.h"
 
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
+
+
+#include "Events/EventFuncFwd.h"
+#include "Events/ControllerEvent.h"
 
 #include <algorithm>
 #include <cmath>
@@ -20,7 +25,25 @@ PlayerGamepadController::PlayerGamepadController(
     : m_player_logic(player_logic)
     , m_event_handler(event_handler)
     , m_state(controller)
-{ }
+    , m_current_weapon_index(0)
+    , m_pause(false)
+{
+    event::ControllerButtonDownFunc on_controller_down = [this](const event::ControllerButtonDownEvent& event) {
+        if(event.button == System::ControllerButton::START)
+        {
+            m_pause = !m_pause;
+            m_event_handler->DispatchEvent(event::PauseEvent(m_pause)); 
+        }
+
+        return mono::EventResult::PASS_ON;
+    };
+    m_controller_token = m_event_handler->AddListener(on_controller_down);
+}
+
+PlayerGamepadController::~PlayerGamepadController()
+{
+    m_event_handler->RemoveListener(m_controller_token);
+}
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {

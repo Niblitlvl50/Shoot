@@ -1,12 +1,13 @@
 
 #include "UIElements.h"
+
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
-
 #include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
+#include "Rendering/Texture/ITexture.h"
 
 #include "Util/Algorithm.h"
 
@@ -160,12 +161,12 @@ UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
 }
 
-void UISpriteElement::SetActiveSprite(size_t index)
+void UISpriteElement::SetActiveSprite(uint32_t index)
 {
     m_active_sprite = index;
 }
 
-mono::ISprite* UISpriteElement::GetSprite(size_t index)
+mono::ISprite* UISpriteElement::GetSprite(uint32_t index)
 {
     return m_sprites[index].get();
 }
@@ -198,6 +199,48 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
         sprite->GetTexture(),
         sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }
+
+
+UITextureElement::UITextureElement(const char* texture)
+{
+    m_texture = mono::GetTextureFactory()->CreateTexture(texture);
+
+    const float half_width = m_texture->Width() / 2.0f;
+    const float half_height = m_texture->Height() / 2.0f;
+
+    const math::Vector vertex_data[] = {
+        { -half_width, -half_height },
+        { -half_width, +half_height },
+        { +half_width, +half_height },
+        { +half_width, -half_height }
+    };
+
+    const math::Vector uv_data[] = {
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f }
+    };
+
+    const uint16_t index_data[] = {
+        0, 1, 2,
+        0, 2, 3
+    };
+
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data);
+    m_uv = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, uv_data);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, index_data);
+}
+
+void UITextureElement::Draw(mono::IRenderer& renderer) const
+{
+    UIElement::Draw(renderer);
+
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+    renderer.DrawGeometry(m_vertices.get(), m_uv.get(), m_indices.get(), m_texture.get(), false, m_indices->Size());
+}
+
 
 UISquareElement::UISquareElement(float width, float height, const mono::Color::RGBA& color)
     : UISquareElement(width, height, color, color, 0.0f)

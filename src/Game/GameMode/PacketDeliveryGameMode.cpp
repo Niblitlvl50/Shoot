@@ -1,6 +1,7 @@
 
 #include "PacketDeliveryGameMode.h"
 #include "Hud/PlayerDeathScreen.h"
+#include "Hud/PauseScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
@@ -20,6 +21,8 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Events/QuitEvent.h"
+#include "Events/PauseEvent.h"
+#include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
 #include "SystemContext.h"
 #include "System/Hash.h"
@@ -46,6 +49,7 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
         GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::PackageDestroyed, this),
+        GameModeStateMachine::MakeState(GameModeStates::PAUSED, &PacketDeliveryGameMode::ToPaused, &PacketDeliveryGameMode::Paused, &PacketDeliveryGameMode::ExitPaused, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
     };
     m_states.SetStateTableAndState(state_table, GameModeStates::FADE_IN);
@@ -76,6 +80,13 @@ void PacketDeliveryGameMode::Begin(
     };
     m_gameover_token = m_event_handler->AddListener(on_game_over);
 
+    const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
+        const GameModeStates new_state = pause_event.pause ? GameModeStates::PAUSED : GameModeStates::RUN_GAME_MODE;
+        m_states.TransitionTo(new_state);
+        return mono::EventResult::PASS_ON;
+    };
+    m_pause_token = m_event_handler->AddListener(on_pause);
+
     const TriggerCallback level_completed_callback = [this](uint32_t trigger_id) {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
         m_next_zone = game::ZoneFlow::END_SCREEN;
@@ -100,15 +111,21 @@ void PacketDeliveryGameMode::Begin(
         mono::Color::OFF_WHITE,
         mono::Color::GRAY);
     m_dead_screen->Hide();
+
+    m_pause_screen = std::make_unique<PauseScreen>();
+    m_pause_screen->Hide();
+
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, m_event_handler);
 
     zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
     zone->RemoveUpdatableDrawable(m_dead_screen.get());
+    zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
 
     m_event_handler->RemoveListener(m_gameover_token);
@@ -204,6 +221,19 @@ void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_
         m_states.TransitionTo(GameModeStates::FADE_OUT);
 
     m_last_state = state;
+}
+
+void PacketDeliveryGameMode::ToPaused()
+{
+    m_pause_screen->Show();
+}
+void PacketDeliveryGameMode::Paused(const mono::UpdateContext& update_context)
+{
+
+}
+void PacketDeliveryGameMode::ExitPaused()
+{
+    m_pause_screen->Hide();
 }
 
 void PacketDeliveryGameMode::ToFadeOut()

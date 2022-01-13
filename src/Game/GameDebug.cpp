@@ -7,6 +7,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
+#include "Events/PauseEvent.h"
 #include "Events/PlayerEvents.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -292,6 +293,7 @@ DebugUpdater::DebugUpdater(
     , m_event_handler(event_handler)
     , m_draw_debug_menu(false)
     , m_draw_trigger_input(false)
+    , m_pause(false)
 {
     const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
@@ -300,6 +302,11 @@ DebugUpdater::DebugUpdater(
             m_draw_trigger_input = !m_draw_trigger_input;
         else if(event.key == Keycode::P)
             game::g_draw_debug_players = !game::g_draw_debug_players;
+        else if(event.key == Keycode::O)
+        {
+            m_pause = !m_pause;
+            m_event_handler->DispatchEvent(event::PauseEvent(m_pause)); 
+        }
 
         return mono::EventResult::PASS_ON;
     };
