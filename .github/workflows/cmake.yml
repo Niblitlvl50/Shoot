@@ -72,7 +72,7 @@ jobs:
     - name: Artifacts [binaries]
       uses: actions/upload-artifact@v2
       with:
-        name: binaries-${{ matrix.os }}
+        name: ${{ matrix.os }}-${GITHUB_RUN_NUMBER}
         path: |
           ./bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
           ./bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
