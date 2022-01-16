@@ -26,7 +26,7 @@
 
 #include "Math/MathFunctions.h"
 #include "Camera/ICamera.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include <unordered_set>
 

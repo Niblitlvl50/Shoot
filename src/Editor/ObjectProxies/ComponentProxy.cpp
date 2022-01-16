@@ -4,7 +4,7 @@
 #include "Grabber.h"
 
 #include "EntitySystem/ObjectAttribute.h"
-#include "Component.h"
+#include "Entity/Component.h"
 #include "UI/UIProperties.h"
 #include "IObjectVisitor.h"
 #include "Math/MathFunctions.h"

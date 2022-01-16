@@ -4,7 +4,7 @@
 #include "Rendering/Serialize.h"
 
 #include "EntitySystem/IEntityManager.h"
-#include "Component.h"
+#include "Entity/Component.h"
 #include "Entity/Serialize.h"
 
 #include "System/File.h"

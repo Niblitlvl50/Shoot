@@ -22,7 +22,7 @@
 #include "Particle/ParticleSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 //#include "System/System.h"
 

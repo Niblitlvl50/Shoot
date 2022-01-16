@@ -11,7 +11,7 @@
 #include "Rendering/Texture/ITexture.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
-#include "Component.h"
+#include "Entity/Component.h"
 #include "EntitySystem/ObjectAttribute.h"
 
 #include <algorithm>

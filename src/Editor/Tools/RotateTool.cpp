@@ -3,7 +3,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
 #include "Math/Quad.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include "Editor.h"
 

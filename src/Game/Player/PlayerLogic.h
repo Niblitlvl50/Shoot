@@ -11,7 +11,7 @@
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/IWeaponFactory.h"
 
-#include "PickupTypes.h"
+#include "Pickups/PickupTypes.h"
 
 #include <memory>
 

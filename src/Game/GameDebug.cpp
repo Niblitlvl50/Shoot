@@ -20,7 +20,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include "imgui/imgui.h"
 

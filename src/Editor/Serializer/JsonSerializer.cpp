@@ -6,7 +6,7 @@
 
 #include "System/File.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 #include "Entity/Serialize.h"
 
 #include "nlohmann/json.hpp"

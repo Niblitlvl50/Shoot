@@ -23,7 +23,7 @@
 #include "Network/INetworkPipe.h"
 #include "Network/NetworkSerialize.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include <functional>
 

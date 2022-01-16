@@ -11,7 +11,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include <cassert>
 

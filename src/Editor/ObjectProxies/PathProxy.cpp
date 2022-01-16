@@ -14,7 +14,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 using namespace editor;
 

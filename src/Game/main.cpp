@@ -43,7 +43,7 @@
 #include "Entity/GameComponentFuncs.h"
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/LoadEntity.h"
-#include "Component.h"
+#include "Entity/Component.h"
 #include "BackgroundMusic.h"
 
 #include <cassert>

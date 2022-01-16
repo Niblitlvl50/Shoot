@@ -9,7 +9,7 @@
 #include "Util/Random.h"
 #include "Util/StringFunctions.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 
 using namespace editor;
 

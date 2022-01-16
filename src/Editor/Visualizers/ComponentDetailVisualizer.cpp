@@ -8,7 +8,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "EntitySystem/ObjectAttribute.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 using namespace editor;
 

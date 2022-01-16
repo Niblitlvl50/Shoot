@@ -9,7 +9,7 @@
 #include "Rendering/RenderSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "EntitySystem/IEntityManager.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 using namespace game;
 

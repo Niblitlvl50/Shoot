@@ -34,7 +34,7 @@
 #include "ImGuiImpl/ImGuiInputHandler.h"
 #include "Resources.h"
 #include "RenderLayers.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 #include "ObjectProxies/PathProxy.h"
 

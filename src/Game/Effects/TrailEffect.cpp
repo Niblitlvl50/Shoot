@@ -7,7 +7,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
-#include "Component.h"
+#include "Entity/Component.h"
 
 using namespace game;
 

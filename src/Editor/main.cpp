@@ -16,7 +16,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Particle/ParticleSystem.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 #include "Entity/ComponentFunctions.h"
 #include "Entity/LoadEntity.h"
 

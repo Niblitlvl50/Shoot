@@ -34,12 +34,7 @@ add_compile_definitions(NDEBUG)
 
 # Mono
 add_subdirectory("Mono1/")
-include_directories("Mono1/src" "Mono1/third_party" "src/Shared")
-
-
-# Shared lib
-file(GLOB_RECURSE shared_source_files "src/Shared/*.cpp")
-add_library(shared STATIC ${shared_source_files})
+include_directories("Mono1/src" "Mono1/third_party")
 
 
 # Game lib
@@ -52,9 +47,9 @@ target_include_directories(game_lib PRIVATE "src/Game")
 # Editor exe
 file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
 add_executable(editor ${editor_source_files})
-add_dependencies(editor game_lib mono shared imgui)
+add_dependencies(editor game_lib mono imgui)
 target_include_directories(editor PRIVATE "src/Editor" "src/Game")
-target_link_libraries(editor game_lib mono shared)
+target_link_libraries(editor game_lib mono)
 
 
 # Game exe
@@ -94,9 +89,9 @@ foreach(RES_FILE ${game_exe_resource_files})
 endforeach(RES_FILE)
 
 add_executable(game_exe MACOSX_BUNDLE "src/Game/main.cpp" ${osx_bundle_icons} ${game_exe_resource_files})
-add_dependencies(game_exe game_lib mono shared)
+add_dependencies(game_exe game_lib mono)
 target_include_directories(game_exe PRIVATE "src/Game")
-target_link_libraries(game_exe game_lib shared mono)
+target_link_libraries(game_exe game_lib mono)
 
 # set_target_properties(game_exe PROPERTIES
 #     XCODE_GENERATE_SCHEME TRUE
@@ -106,7 +101,7 @@ target_link_libraries(game_exe game_lib shared mono)
 # Game test exe
 file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
 add_executable(game_test_exe ${game_test_source_files})
-add_dependencies(game_test_exe game_lib shared mono)
+add_dependencies(game_test_exe game_lib mono)
 target_include_directories(game_test_exe PRIVATE "src/Game" "Mono1/third_party/gtest-1.7.0/include")
 target_compile_definitions(game_test_exe PRIVATE GTEST_HAS_TR1_TUPLE=0)
-target_link_libraries(game_test_exe gtest game_lib shared mono)
+target_link_libraries(game_test_exe gtest game_lib mono)

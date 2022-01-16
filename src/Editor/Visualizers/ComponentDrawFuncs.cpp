@@ -6,7 +6,7 @@
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
-#include "Component.h"
+#include "Entity/Component.h"
 #include "FontIds.h"
 
 namespace
