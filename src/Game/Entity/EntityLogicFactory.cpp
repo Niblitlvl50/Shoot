@@ -48,9 +48,9 @@ EntityLogicFactory::EntityLogicFactory(mono::SystemContext* system_context, mono
     , m_event_handler(event_handler)
 { }
 
-IEntityLogic* EntityLogicFactory::CreateLogic(shared::EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
+IEntityLogic* EntityLogicFactory::CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
 {
-    if(type == shared::EntityLogicType::INVADER_PATH)
+    if(type == EntityLogicType::INVADER_PATH)
     {
         uint32_t entity_reference;
         const bool found_path_property = FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, entity_reference, FallbackMode::REQUIRE_ATTRIBUTE);

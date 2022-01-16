@@ -151,14 +151,14 @@ int main(int argc, char* argv[])
         render_params.window = window;
         mono::InitializeRender(render_params);
 
-        shared::LoadFonts();
+        game::LoadFonts();
 
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
         mono::Camera camera;
 
         mono::EntitySystem* entity_system =
-            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
 
@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
         game::RegisterGameComponents(entity_system);
-        shared::RegisterSharedComponents(entity_system);
+        game::RegisterSharedComponents(entity_system);
 
         game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);

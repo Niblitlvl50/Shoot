@@ -93,7 +93,7 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
         renderer.DrawCircle(math::ZeroVec, spawn_point.radius, 16, 1.0f, mono::Color::RED);
-        renderer.RenderText(shared::PIXELETTE_TINY, text_buffer, mono::Color::CYAN, mono::FontCentering::HORIZONTAL);
+        renderer.RenderText(PIXELETTE_TINY, text_buffer, mono::Color::CYAN, mono::FontCentering::HORIZONTAL);
     };
     m_spawn_system->ForEachSpawnPoint(draw_spawn_points);
 
@@ -101,7 +101,7 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
         renderer.DrawCircle(math::ZeroVec, spawn_point.radius, 16, 1.0f, mono::Color::RED);
-        renderer.RenderText(shared::PIXELETTE_TINY, spawn_point.entity_file.c_str(), mono::Color::CYAN, mono::FontCentering::HORIZONTAL);
+        renderer.RenderText(PIXELETTE_TINY, spawn_point.entity_file.c_str(), mono::Color::CYAN, mono::FontCentering::HORIZONTAL);
     };
     m_spawn_system->ForEachEntitySpawnPoint(draw_entity_spawn_points);
 }

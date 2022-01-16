@@ -92,7 +92,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
+        const game::FactionPair& faction_pair = game::g_faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -111,7 +111,7 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, shape_params.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
+        const game::FactionPair& faction_pair = game::g_faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -131,7 +131,7 @@ namespace
         FindAttribute(END_ATTRIBUTE, properties, shape_params.end, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
+        const game::FactionPair& faction_pair = game::g_faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -149,7 +149,7 @@ namespace
         FindAttribute(POLYGON_ATTRIBUTE, properties, shape_params.vertices, FallbackMode::SET_DEFAULT);
         FindAttribute(SENSOR_ATTRIBUTE, properties, shape_params.is_sensor, FallbackMode::SET_DEFAULT);
 
-        const shared::FactionPair& faction_pair = shared::faction_lookup_table[faction];
+        const game::FactionPair& faction_pair = game::g_faction_lookup_table[faction];
         shape_params.category = faction_pair.category;
         shape_params.mask = faction_pair.mask;
 
@@ -210,7 +210,7 @@ namespace
         if(!found_property)
             return false;
 
-        game::IEntityLogic* entity_logic = game::g_logic_factory->CreateLogic(shared::EntityLogicType(logic_type_value), properties, entity->id);
+        game::IEntityLogic* entity_logic = game::g_logic_factory->CreateLogic(game::EntityLogicType(logic_type_value), properties, entity->id);
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
         logic_system->AddLogic(entity->id, entity_logic);
 
@@ -371,7 +371,7 @@ namespace
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, shared::DestroyedTriggerType(trigger_type));
+        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, game::DestroyedTriggerType(trigger_type));
         hash::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -419,7 +419,7 @@ namespace
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
         trigger_system->AddAreaEntityTrigger(
-            entity->id, trigger_hash, world_bb, faction, shared::AreaTriggerOperation(operation), n_entities);
+            entity->id, trigger_hash, world_bb, faction, game::AreaTriggerOperation(operation), n_entities);
         hash::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -640,7 +640,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddTranslationComponent(
-            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), translation);
+            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), translation);
 
         return true;
     }
@@ -682,7 +682,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddRotationComponent(
-            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], shared::AnimationMode(animation_mode), rotation);
+            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), rotation);
 
         return true;
     }
@@ -808,7 +808,7 @@ namespace
             return false;
         }
 
-        shared::InteractionType interaction_type;
+        game::InteractionType interaction_type;
         FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
 
         bool draw_name = false;
@@ -834,7 +834,7 @@ namespace
             return false;
         }
 
-        shared::InteractionType interaction_type;
+        game::InteractionType interaction_type;
         FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
 
         bool draw_name = false;

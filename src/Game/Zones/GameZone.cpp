@@ -80,18 +80,18 @@ namespace
         void Update(const mono::UpdateContext& update_context) override {}
     };
 
-    void SetupNavmesh(game::NavmeshContext& navmesh_context, const shared::LevelMetadata& metadata, mono::PhysicsSpace* space)
+    void SetupNavmesh(game::NavmeshContext& navmesh_context, const game::LevelMetadata& metadata, mono::PhysicsSpace* space)
     {
         navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density);
 
         const auto remove_on_collision = [space](const math::Vector& point) {
-            const mono::QueryResult query_result = space->QueryNearest(point, 0.0f, shared::CollisionCategory::STATIC);
+            const mono::QueryResult query_result = space->QueryNearest(point, 0.0f, game::CollisionCategory::STATIC);
             return query_result.body != nullptr;
         };
         mono::remove_if(navmesh_context.points, remove_on_collision);
 
         const auto filter_connection_func = [space](const math::Vector& first, const math::Vector& second){
-            const mono::QueryResult query_result = space->QueryFirst(first, second, shared::CollisionCategory::STATIC);
+            const mono::QueryResult query_result = space->QueryFirst(first, second, game::CollisionCategory::STATIC);
             return query_result.body != nullptr;
         };
 
@@ -131,7 +131,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
 
-    m_leveldata = shared::ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
+    m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     camera->SetPosition(m_leveldata.metadata.camera_position);
     camera->SetViewportSize(m_leveldata.metadata.camera_size);
     renderer->SetClearColor(m_leveldata.metadata.background_color);

@@ -109,7 +109,7 @@ namespace game
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
             m_weapon_sprites->SetPosition(3.5f, 0.5f);
 
-            m_ammo_text = new UITextElement(shared::FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            m_ammo_text = new UITextElement(FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
             m_ammo_text->SetPosition(4.5f, 0.5f);
 
             AddChild(background);
@@ -182,11 +182,11 @@ namespace game
             skull_sprite->SetPosition(0.5f, 0.5f);
 
             UITextElement* death_text = new UITextElement(
-                shared::FontId::PIXELETTE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+                FontId::PIXELETTE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
             death_text->SetPosition(2.5f, 0.65f);
 
             UITextElement* death_text_2 = new UITextElement(
-                shared::FontId::PIXELETTE_TINY, "Continue?", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+                FontId::PIXELETTE_TINY, "Continue?", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
             death_text_2->SetPosition(2.5f, 0.35f);
 
             AddChild(background);

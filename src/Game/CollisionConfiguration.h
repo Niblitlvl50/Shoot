@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace shared
+namespace game
 {
     enum CollisionCategory : uint32_t
     {
@@ -16,7 +16,7 @@ namespace shared
         PROPS = 16,
         PICKUPS = 32,
         STATIC = 64,
-        ALL = (~(uint32_t)0)
+        CC_ALL = (~(uint32_t)0)
     };
 
     constexpr uint32_t STATIC_MASK =
@@ -69,7 +69,7 @@ namespace shared
         uint32_t mask;
     };
 
-    constexpr FactionPair faction_lookup_table[] = {
+    constexpr FactionPair g_faction_lookup_table[] = {
         //{ CollisionCategory::NONE,          0 },
         { CollisionCategory::PLAYER,        PLAYER_MASK },
         { CollisionCategory::PLAYER_BULLET, PLAYER_BULLET_MASK },
@@ -111,7 +111,7 @@ namespace shared
             return "Pickups";
         case CollisionCategory::STATIC:
             return "Static";
-        case CollisionCategory::ALL:
+        case CollisionCategory::CC_ALL:
             return "All";
         };
 

@@ -16,13 +16,13 @@
 
 namespace
 {
-    shared::LevelData ReadWorldComponents(
+    game::LevelData ReadWorldComponents(
         const char* filename,
         mono::IEntityManager* entity_manager,
-        shared::ComponentFilterCallback component_filter,
-        shared::EntityCreationCallback creation_callback)
+        game::ComponentFilterCallback component_filter,
+        game::EntityCreationCallback creation_callback)
     {
-        shared::LevelData level_data;
+        game::LevelData level_data;
 
         System::Log("WorldFile|Loading world '%s'.", filename);
         const std::vector<byte> file_data = file::FileReadAll(filename);
@@ -138,14 +138,14 @@ namespace
     }
 }
 
-shared::LevelData shared::ReadWorldComponentObjects(
-        const char* filename, mono::IEntityManager* entity_manager, EntityCreationCallback creation_callback)
+game::LevelData game::ReadWorldComponentObjects(
+        const char* filename, mono::IEntityManager* entity_manager, game::EntityCreationCallback creation_callback)
 {
     return ReadWorldComponents(filename, entity_manager, nullptr, creation_callback);
 }
 
-shared::LevelData shared::ReadWorldComponentObjectsFiltered(
-        const char* filename, mono::IEntityManager* entity_manager, ComponentFilterCallback component_filter)
+game::LevelData game::ReadWorldComponentObjectsFiltered(
+        const char* filename, mono::IEntityManager* entity_manager, game::ComponentFilterCallback component_filter)
 {
     return ReadWorldComponents(filename, entity_manager, component_filter, nullptr);
 }

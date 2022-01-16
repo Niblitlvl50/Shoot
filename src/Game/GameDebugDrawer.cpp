@@ -69,7 +69,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix world_transform = math::CreateMatrixWithPosition(text.position);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
 
-        renderer.RenderText(shared::FontId::PIXELETTE_TINY, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
+        renderer.RenderText(FontId::PIXELETTE_TINY, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
         text.color.alpha = 1.0f - float(text.time_to_live) / 5000.0f;
         text.time_to_live -= renderer.GetDeltaTimeMS();

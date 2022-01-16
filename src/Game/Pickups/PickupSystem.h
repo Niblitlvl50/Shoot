@@ -17,11 +17,11 @@ namespace game
 {
     struct Pickup
     {
-        shared::PickupType type;
+        PickupType type;
         int amount;
     };
 
-    using PickupCallback = std::function<void (shared::PickupType type, int amount)>;
+    using PickupCallback = std::function<void (PickupType type, int amount)>;
 
     class PickupSystem : public mono::IGameSystem
     {
@@ -44,7 +44,7 @@ namespace game
 
     private:
 
-        void PlayPickupSound(shared::PickupType type);
+        void PlayPickupSound(PickupType type);
 
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;

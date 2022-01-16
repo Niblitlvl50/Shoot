@@ -146,7 +146,7 @@ namespace
 
     void SetupComponents(editor::UIContext& context)
     {
-        for(const Component* component : shared::GetAllDefaultComponents())
+        for(const Component* component : component::GetAllDefaultComponents())
             context.component_items.push_back({component->hash, component->allow_multiple, ComponentNameFromHash(component->hash), component->category});
     }
 
@@ -395,7 +395,7 @@ void Editor::LoadWorld(const std::string& world_filename)
         const bool found = (FindComponentFromHash(NAME_FOLDER_COMPONENT, components) != nullptr);
         if(!found)
         {
-            const std::vector<Component*> added_components = shared::AddComponent(NAME_FOLDER_COMPONENT, components);
+            const std::vector<Component*> added_components = component::AddComponent(NAME_FOLDER_COMPONENT, components);
             for(Component* component : added_components)
                 m_entity_manager.AddComponent(proxy->Id(), component->hash);
 
@@ -433,7 +433,7 @@ void Editor::ExportEntity()
         editor::JsonSerializer serializer;
         proxy->Visit(serializer);
 
-        shared::LevelMetadata metadata;
+        game::LevelMetadata metadata;
         serializer.WriteComponentEntities(filename, metadata);
 
         editor::AddNewEntity(filename.c_str());
@@ -838,11 +838,11 @@ void Editor::AddComponent(uint32_t component_hash)
 
         std::vector<Component>& components = proxy_object->GetComponents();
 
-        const std::vector<Component*> added_components = shared::AddComponent(component_hash, components);
+        const std::vector<Component*> added_components = component::AddComponent(component_hash, components);
         for(Component* component : added_components)
             m_entity_manager.AddComponent(id, component->hash);
 
-        shared::SortComponentsByPriority(components);
+        component::SortComponentsByPriority(components);
     }
 }
 
@@ -1088,7 +1088,7 @@ void Editor::ReExportEntities()
             editor::JsonSerializer serializer;
             proxy->Visit(serializer);
 
-            shared::LevelMetadata metadata;
+            game::LevelMetadata metadata;
             serializer.WriteComponentEntities(filename, metadata);
         }
     }

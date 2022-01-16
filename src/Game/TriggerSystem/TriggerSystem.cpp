@@ -126,10 +126,10 @@ void TriggerSystem::ReleaseDestroyedTrigger(uint32_t entity_id)
 
     switch(allocated_trigger->trigger_type)
     {
-    case shared::DestroyedTriggerType::ON_DEATH:
+    case DestroyedTriggerType::ON_DEATH:
         m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
         break;
-    case shared::DestroyedTriggerType::ON_DESTORYED:
+    case DestroyedTriggerType::ON_DESTORYED:
         m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
         break;
     };
@@ -138,14 +138,14 @@ void TriggerSystem::ReleaseDestroyedTrigger(uint32_t entity_id)
     m_destroyed_triggers.Release(entity_id);
 }
 
-void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, shared::DestroyedTriggerType type)
+void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, DestroyedTriggerType type)
 {
     DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Get(entity_id);
     allocated_trigger->trigger_hash = trigger_hash;
 
     switch(type)
     {
-    case shared::DestroyedTriggerType::ON_DEATH:
+    case DestroyedTriggerType::ON_DEATH:
     {
         if(allocated_trigger->callback_id != NO_CALLBACK_SET)
             m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
@@ -157,7 +157,7 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
 
         break;
     }
-    case shared::DestroyedTriggerType::ON_DESTORYED:
+    case DestroyedTriggerType::ON_DESTORYED:
     {
         if(allocated_trigger->callback_id != NO_CALLBACK_SET)
             m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
@@ -184,7 +184,7 @@ void TriggerSystem::ReleaseAreaTrigger(uint32_t entity_id)
 }
 
 void TriggerSystem::AddAreaEntityTrigger(
-    uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, shared::AreaTriggerOperation operation, int n_entities)
+    uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, AreaTriggerOperation operation, int n_entities)
 {
     AreaEntityTriggerComponent* area_trigger = m_area_triggers.Get(entity_id);
 
@@ -401,13 +401,13 @@ void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_c
 
         switch(area_trigger.operation)
         {
-        case shared::AreaTriggerOperation::EQUAL_TO:
+        case AreaTriggerOperation::EQUAL_TO:
             emit_trigger = (n_found_bodies == area_trigger.n_entities);
             break;
-        case shared::AreaTriggerOperation::LESS_THAN:
+        case AreaTriggerOperation::LESS_THAN:
             emit_trigger = (n_found_bodies < area_trigger.n_entities);
             break;
-        case shared::AreaTriggerOperation::GREATER_THAN:
+        case AreaTriggerOperation::GREATER_THAN:
             emit_trigger = (n_found_bodies > area_trigger.n_entities);
             break;
         }

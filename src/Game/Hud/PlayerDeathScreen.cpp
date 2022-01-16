@@ -32,11 +32,11 @@ PlayerDeathScreen::PlayerDeathScreen(const PlayerInfo& player_info, mono::EventH
     background->SetPosition(math::Vector(-half_width, -(square_height / 2.0f)));
 
     UITextElement* gameover_text = new UITextElement(
-        shared::FontId::RUSSOONE_MEGA, "You are Dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
+        FontId::RUSSOONE_MEGA, "You are Dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::BLACK);
     gameover_text->SetPosition(math::Vector(0.0f, 20.0f));
 
     UITextElement* continue_text = new UITextElement(
-        shared::FontId::RUSSOONE_LARGE, "Press button to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::RGBA(0.7f, 0.7f, 0.7f));
+        FontId::RUSSOONE_LARGE, "Press button to continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::RGBA(0.7f, 0.7f, 0.7f));
     continue_text->SetPosition(math::Vector(0.0f, -40.0f));
 
     AddChild(background);
@@ -107,11 +107,11 @@ BigTextScreen::BigTextScreen(
     m_background->SetPosition(math::Vector(0.0f, half_height - (square_height / 2.0f)));
 
     m_main_text_element = new UITextElement(
-        shared::FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);
+        FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);
     m_main_text_element->SetPosition(math::Vector(half_width, half_height + 20.0f));
 
     m_sub_text_element = new UITextElement(
-        shared::FontId::RUSSOONE_LARGE, sub_text, mono::FontCentering::HORIZONTAL_VERTICAL, subtext_color);
+        FontId::RUSSOONE_LARGE, sub_text, mono::FontCentering::HORIZONTAL_VERTICAL, subtext_color);
     m_sub_text_element->SetPosition(math::Vector(half_width, half_height - 40.0f));
 
     AddChild(m_background);

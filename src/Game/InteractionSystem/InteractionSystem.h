@@ -14,7 +14,7 @@ namespace game
     {
         uint32_t on_interaction_hash;
         uint32_t off_interaction_hash;
-        shared::InteractionType type;
+        InteractionType type;
         bool draw_name;
     };
 
@@ -22,7 +22,7 @@ namespace game
     {
         uint32_t interaction_id;
         uint32_t trigger_id;
-        shared::InteractionType interaction_type;
+        InteractionType interaction_type;
         bool draw_name;
     };
 
@@ -32,7 +32,7 @@ namespace game
         std::vector<InteractionAndTrigger> deactivated;
     };
 
-    using InteractionCallback = std::function<void (uint32_t entity_id, shared::InteractionType interaction_type)>;
+    using InteractionCallback = std::function<void (uint32_t entity_id, InteractionType interaction_type)>;
 
     class InteractionSystem : public mono::IGameSystem
     {
@@ -42,8 +42,8 @@ namespace game
 
         InteractionComponent* AllocateComponent(uint32_t entity_id);
         void ReleaseComponent(uint32_t entity_id);
-        void AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type, bool draw_name);
-        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type, bool draw_name);
+        void AddComponent(uint32_t entity_id, uint32_t interaction_hash, InteractionType interaction_type, bool draw_name);
+        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, InteractionType interaction_type, bool draw_name);
 
         uint32_t Id() const override;
         const char* Name() const override;

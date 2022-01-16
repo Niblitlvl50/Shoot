@@ -37,7 +37,7 @@ namespace game
         float duration_counter;
 
         math::EaseFunction ease_function;
-        shared::AnimationMode animation_flags;
+        AnimationMode animation_flags;
         TransformAnimType transform_type;
 
         bool is_initialized;
@@ -77,7 +77,7 @@ namespace game
             uint32_t trigger_hash,
             float duration,
             math::EaseFunction func,
-            shared::AnimationMode mode,
+            AnimationMode mode,
             const math::Vector& translation_delta);
 
         TransformAnimationComponent* AddRotationComponent(
@@ -85,7 +85,7 @@ namespace game
             uint32_t trigger_hash,
             float duration,
             math::EaseFunction func,
-            shared::AnimationMode mode,
+            AnimationMode mode,
             float rotation_delta);
 
         uint32_t Id() const override;

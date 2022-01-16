@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace shared
+namespace game
 {
     enum class AreaTriggerOperation : int
     {

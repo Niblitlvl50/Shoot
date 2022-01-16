@@ -12,7 +12,7 @@
 
 struct Component;
 
-namespace shared
+namespace game
 {
     struct LevelMetadata
     {

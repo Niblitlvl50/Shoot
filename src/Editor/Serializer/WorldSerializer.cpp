@@ -22,11 +22,11 @@ editor::World editor::LoadWorld(
         world.loaded_proxies.push_back(std::move(component_proxy));
     };
 
-    world.leveldata = shared::ReadWorldComponentObjects(file_name, entity_manager, entity_callback);
+    world.leveldata = game::ReadWorldComponentObjects(file_name, entity_manager, entity_callback);
     return world;
 }
 
-void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const shared::LevelMetadata& level_data)
+void editor::SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const game::LevelMetadata& level_data)
 {
     JsonSerializer serializer;
 

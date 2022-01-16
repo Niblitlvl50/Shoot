@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace shared
+namespace game
 {
     enum InteractionType : int
     {

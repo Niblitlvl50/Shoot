@@ -26,7 +26,7 @@ void ObjectNameVisualizer::Draw(mono::IRenderer& renderer) const
         const math::Matrix world_transform = math::CreateMatrixWithPosition(position);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
 
-        renderer.RenderText(shared::FontId::PIXELETTE_TINY, proxy->Name().c_str(), mono::Color::WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
+        renderer.RenderText(game::FontId::PIXELETTE_TINY, proxy->Name().c_str(), mono::Color::WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
     }
 }
 

@@ -24,9 +24,9 @@ void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
     const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
 
     const auto collect_messages = [&](uint32_t entity_id, DialogComponent& message) {
-        const math::Vector message_size = mono::MeasureString(shared::FontId::PIXELETTE_SMALL, message.message.c_str());
+        const math::Vector message_size = mono::MeasureString(FontId::PIXELETTE_SMALL, message.message.c_str());
         renderer.DrawFilledQuad(math::Quad(math::ZeroVec, message_size), mono::Color::CYAN);
-        renderer.RenderText(shared::FontId::PIXELETTE_SMALL, message.message.c_str(), mono::Color::RED, mono::FontCentering::DEFAULT_CENTER);
+        renderer.RenderText(FontId::PIXELETTE_SMALL, message.message.c_str(), mono::Color::RED, mono::FontCentering::DEFAULT_CENTER);
     };
     m_message_system->ForEach(collect_messages);
 }

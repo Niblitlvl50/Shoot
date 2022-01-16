@@ -31,7 +31,7 @@ namespace game
     {
         DESTROYED = 1,
         DAMAGED = 2,
-        ALL = DESTROYED | DAMAGED,
+        DT_ALL = DESTROYED | DAMAGED,
     };
 
     using DamageCallback = std::function<void (uint32_t id, int damage, uint32_t who_did_damage, DamageType type)>;

@@ -5,7 +5,7 @@
 
 #define ENUM_BIT(n) (1 << (n))
 
-namespace shared
+namespace game
 {
     enum SpawnProperties : uint32_t
     {

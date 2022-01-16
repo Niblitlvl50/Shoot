@@ -66,7 +66,7 @@ namespace editor
 
         // Level metadata
         bool draw_level_metadata = true;
-        shared::LevelMetadata level_metadata;
+        game::LevelMetadata level_metadata;
         
         // Objects
         uint32_t max_entities;

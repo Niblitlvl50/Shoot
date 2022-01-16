@@ -301,7 +301,7 @@ bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& proper
     return true;
 }
 
-void shared::RegisterSharedComponents(mono::IEntityManager* entity_manager)
+void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);

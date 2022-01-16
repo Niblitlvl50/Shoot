@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace shared
+namespace game
 {
     enum FontId : uint32_t
     {

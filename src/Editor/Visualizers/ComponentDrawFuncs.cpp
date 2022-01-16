@@ -120,7 +120,7 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
 
     renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
     if(is_sensor)
-        renderer.RenderText(shared::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+        renderer.RenderText(game::FontId::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -143,7 +143,7 @@ void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const s
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -156,21 +156,21 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
 
     const math::Vector half_width_height = width_height / 2.0f;
     renderer.DrawFilledQuad(math::Quad(-half_width_height, half_width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -184,7 +184,7 @@ void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const
     FindAttribute(COUNT_ATTRIBUTE, component_properties, count, FallbackMode::SET_DEFAULT);
 
     const std::string output = std::to_string(count) + " x " + name + " -> " + completed_name;
-    renderer.RenderText(shared::FontId::PIXELETTE_TINY, output.c_str(), mono::Color::ORANGE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), mono::Color::ORANGE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)

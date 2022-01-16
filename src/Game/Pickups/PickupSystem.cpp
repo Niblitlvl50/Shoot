@@ -125,7 +125,7 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
     m_pickups_to_process.clear();
 }
 
-void PickupSystem::PlayPickupSound(shared::PickupType type)
+void PickupSystem::PlayPickupSound(PickupType type)
 {
     switch(type)
     {

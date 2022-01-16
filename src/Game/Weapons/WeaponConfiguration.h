@@ -83,7 +83,7 @@ namespace game
 
     struct CollisionConfiguration
     {
-        shared::CollisionCategory collision_category;
+        CollisionCategory collision_category;
         uint32_t collision_mask;
         BulletImpactCallback collision_callback;
     };
@@ -101,7 +101,7 @@ namespace game
         const char* thrown_entity = nullptr;
         const char* spawned_entity = nullptr;
 
-        shared::CollisionCategory collision_category = shared::CollisionCategory::STATIC;
+        CollisionCategory collision_category = CollisionCategory::STATIC;
         uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
     };

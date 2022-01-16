@@ -127,8 +127,8 @@ mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& me
     const char* world_filename = game::HashToFilename(metadata_message.world_file_hash);
     if(world_filename)
     {
-        const shared::LevelData level_data =
-            shared::ReadWorldComponentObjectsFiltered(world_filename, m_entity_manager, component_filter);
+        const game::LevelData level_data =
+            game::ReadWorldComponentObjectsFiltered(world_filename, m_entity_manager, component_filter);
 
         m_camera->SetPosition(level_data.metadata.camera_position);
         m_camera->SetViewportSize(level_data.metadata.camera_size);

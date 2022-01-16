@@ -519,7 +519,7 @@ namespace
     };
 }
 
-std::vector<const Component*> shared::GetAllDefaultComponents()
+std::vector<const Component*> component::GetAllDefaultComponents()
 {
     std::vector<const Component*> components;
 
@@ -529,7 +529,7 @@ std::vector<const Component*> shared::GetAllDefaultComponents()
     return components;
 }
 
-std::vector<Component*> shared::AddComponent(uint32_t hash, std::vector<Component>& components)
+std::vector<Component*> component::AddComponent(uint32_t hash, std::vector<Component>& components)
 {
     const uint32_t num_components = components.size();
     add_component_recursivly(hash, components);
@@ -544,7 +544,7 @@ std::vector<Component*> shared::AddComponent(uint32_t hash, std::vector<Componen
     return added_components;
 }
 
-int shared::ComponentPriorityForHash(uint32_t hash)
+int component::ComponentPriorityForHash(uint32_t hash)
 {
     const auto find_func = [hash](const Component& component) {
         return component.hash == hash;
@@ -553,10 +553,10 @@ int shared::ComponentPriorityForHash(uint32_t hash)
     return std::distance(std::begin(default_components), it);
 }
 
-void shared::SortComponentsByPriority(std::vector<Component>& components)
+void component::SortComponentsByPriority(std::vector<Component>& components)
 {
     const auto sort_by_prio = [](const Component& left, const Component& right) {
-        return shared::ComponentPriorityForHash(left.hash) < shared::ComponentPriorityForHash(right.hash);
+        return ComponentPriorityForHash(left.hash) < ComponentPriorityForHash(right.hash);
     };
     std::sort(components.begin(), components.end(), sort_by_prio);
 }

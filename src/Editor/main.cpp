@@ -54,7 +54,7 @@ int main()
         mono::SystemContext system_context;
 
         mono::EntitySystem* entity_system =
-            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, shared::LoadEntityFile, ComponentNameFromHash);
+            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
@@ -71,8 +71,8 @@ int main()
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, &event_handler);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
 
-        shared::RegisterSharedComponents(entity_system);
-        shared::LoadFonts();
+        game::RegisterSharedComponents(entity_system);
+        game::LoadFonts();
 
         mono::Camera camera;
         auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config, max_entities);

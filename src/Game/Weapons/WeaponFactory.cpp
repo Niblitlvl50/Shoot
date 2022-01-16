@@ -66,8 +66,8 @@ IWeaponPtr WeaponFactory::CreateWeapon(WeaponSetup setup, WeaponFaction faction,
     CollisionConfiguration collision_config;
 
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
-    collision_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
-    collision_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
+    collision_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
+    collision_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
     collision_config.collision_callback = nullptr;
 
     const auto it = m_bullet_callbacks.find(setup.bullet_hash);
@@ -88,8 +88,8 @@ IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction
     ThrowableWeaponConfig weapon_config;
 
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
-    weapon_config.collision_category = enemy_weapon ? shared::CollisionCategory::ENEMY_BULLET : shared::CollisionCategory::PLAYER_BULLET;
-    weapon_config.collision_mask = enemy_weapon ? shared::ENEMY_BULLET_MASK : shared::PLAYER_BULLET_MASK;
+    weapon_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
+    weapon_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
 
 /*
     switch(weapon_type)

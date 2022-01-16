@@ -3,7 +3,7 @@
 
 #include "Rendering/IDrawable.h"
 
-namespace shared
+namespace game
 {
     struct LevelMetadata;
 }
@@ -14,11 +14,11 @@ namespace editor
     {
     public:
 
-        GameCameraVisualizer(const bool& enabled, const shared::LevelMetadata& metadata);
+        GameCameraVisualizer(const bool& enabled, const game::LevelMetadata& metadata);
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         const bool& m_enabled;
-        const shared::LevelMetadata& m_metadata;
+        const game::LevelMetadata& m_metadata;
     };
 }

@@ -10,7 +10,7 @@ namespace editor
 {
     struct World
     {
-        shared::LevelData leveldata;
+        game::LevelData leveldata;
         std::vector<IObjectProxyPtr> loaded_proxies;
     };
 
@@ -20,5 +20,5 @@ namespace editor
         mono::TransformSystem* transform_system,
         class Editor* editor);
 
-    void SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const shared::LevelMetadata& level_data);
+    void SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const game::LevelMetadata& level_data);
 }

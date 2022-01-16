@@ -20,13 +20,13 @@ PauseScreen::PauseScreen()
     background_element->SetPosition(background_x, background_y);
 
     UITextElement* pause_text =
-        new UITextElement(shared::FontId::RUSSOONE_MEDIUM, "Pause", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
+        new UITextElement(FontId::RUSSOONE_MEDIUM, "Pause", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
     pause_text->SetPosition(background_x + 50.0f, background_y + background_height - 50.0f);
 
-    const math::Vector text_size = mono::MeasureString(shared::FontId::RUSSOONE_MEDIUM, "start to exit");
+    const math::Vector text_size = mono::MeasureString(FontId::RUSSOONE_MEDIUM, "start to exit");
 
     UITextElement* exit_text =
-        new UITextElement(shared::FontId::RUSSOONE_MEDIUM, "start to exit", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+        new UITextElement(FontId::RUSSOONE_MEDIUM, "start to exit", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
     exit_text->SetPosition(background_x + background_width - text_size.x - 50.0f, background_y + 30.0f);
 
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");

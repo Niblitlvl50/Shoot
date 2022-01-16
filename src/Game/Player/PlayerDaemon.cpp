@@ -193,7 +193,7 @@ uint32_t PlayerDaemon::SpawnPlayer(
     // No need to store the callback id, when destroyed this callback will be cleared up.
     game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
     damage_system->PreventReleaseOnDeath(player_entity.id, true);
-    const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, game::DamageType::ALL, damage_callback);
+    const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
     (void)callback_id;
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();

@@ -119,11 +119,11 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
     if(distance_to_player < tweak_values::attack_distance)
     {
         mono::PhysicsSpace* space = m_physics_system->GetSpace();
-        const uint32_t query_category = shared::CollisionCategory::PLAYER | shared::CollisionCategory::STATIC;
+        const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::STATIC;
         const mono::QueryResult query_result = space->QueryFirst(position, player_info->position, query_category);
         if(query_result.body)
         {
-            const bool is_player = (query_result.collision_category & shared::CollisionCategory::PLAYER);
+            const bool is_player = (query_result.collision_category & CollisionCategory::PLAYER);
             if(is_player)
             {
                 m_states.TransitionTo(States::ATTACK_ANTICIPATION);

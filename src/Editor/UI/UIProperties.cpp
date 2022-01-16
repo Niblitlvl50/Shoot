@@ -135,12 +135,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), shared::pickup_items, std::size(shared::pickup_items));
+            attribute_name, &std::get<int>(attribute.value), game::pickup_items, std::size(game::pickup_items));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), shared::entity_logic_strings, std::size(shared::entity_logic_strings));
+            attribute_name, &std::get<int>(attribute.value), game::entity_logic_strings, std::size(game::entity_logic_strings));
     }
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
@@ -151,17 +151,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::CollisionCategoryToString(shared::all_collision_categories[idx]);
+            (*out_text) = game::CollisionCategoryToString(game::all_collision_categories[idx]);
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::all_collision_categories));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::all_collision_categories));
     }
     else if(attribute.id == FACTION_PICKER_ATTRIBUTE)
     {
         return DrawBitfieldProperty(
-            attribute_name, std::get<uint32_t>(attribute.value), shared::all_collision_categories, shared::CollisionCategoryToString);
+            attribute_name, std::get<uint32_t>(attribute.value), game::all_collision_categories, game::CollisionCategoryToString);
     }
     else if(attribute.id == SPRITE_ATTRIBUTE)
     {
@@ -243,23 +243,23 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::AreaTriggerOpToString(shared::AreaTriggerOperation(idx));
+            (*out_text) = game::AreaTriggerOpToString(game::AreaTriggerOperation(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::area_trigger_op_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::area_trigger_op_strings));
     }
     else if(attribute.id == DESTROYED_TRIGGER_TYPE_ATTRIBUTE)
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::DestroyedTriggerTypeToString(shared::DestroyedTriggerType(idx));
+            (*out_text) = game::DestroyedTriggerTypeToString(game::DestroyedTriggerType(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::destroyed_trigger_type_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::destroyed_trigger_type_strings));
     }
     else if(attribute.id == ROTATION_ATTRIBUTE)
     {
@@ -274,7 +274,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         uint32_t int_value = std::get<int>(attribute.value);
         const bool changed = DrawBitfieldProperty(
-            attribute_name, int_value, shared::all_animation_modes, shared::AnimationModeToString);
+            attribute_name, int_value, game::all_animation_modes, game::AnimationModeToString);
         if(changed)
             attribute.value = (int)int_value;
 
@@ -284,12 +284,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::FontIdToString(shared::FontId(idx));
+            (*out_text) = game::FontIdToString(game::FontId(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::font_id_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::font_id_strings));
     }
     else if(attribute.id == CENTER_FLAGS_ATTRIBUTE)
     {
@@ -305,12 +305,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = shared::InteractionTypeToString(shared::InteractionType(idx));
+            (*out_text) = game::InteractionTypeToString(game::InteractionType(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(shared::interaction_type_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::interaction_type_strings));
     }
     else if(attribute.id == PATH_TYPE_ATTRIBUTE)
     {
@@ -402,7 +402,7 @@ void editor::AddDynamicProperties(Component& component)
             FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
         if(found_logic)
         {
-            if(shared::EntityLogicType(logic_type) == shared::EntityLogicType::INVADER_PATH)
+            if(game::EntityLogicType(logic_type) == game::EntityLogicType::INVADER_PATH)
             {
                 uint32_t dummy_value;
                 const bool has_path_file = FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, component.properties, dummy_value, FallbackMode::REQUIRE_ATTRIBUTE);

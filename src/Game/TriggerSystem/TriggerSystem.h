@@ -29,7 +29,7 @@ namespace game
     struct DestroyedTriggerComponent
     {
         uint32_t trigger_hash;
-        shared::DestroyedTriggerType trigger_type;
+        DestroyedTriggerType trigger_type;
 
         // Internal data
         uint32_t callback_id;
@@ -41,7 +41,7 @@ namespace game
         math::Quad world_bb;
         uint32_t faction;
         int n_entities;
-        shared::AreaTriggerOperation operation;
+        AreaTriggerOperation operation;
     };
 
     struct TimeTriggerComponent
@@ -93,12 +93,12 @@ namespace game
 
         DestroyedTriggerComponent* AllocateDestroyedTrigger(uint32_t entity_id);
         void ReleaseDestroyedTrigger(uint32_t entity_id);
-        void AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, shared::DestroyedTriggerType type);
+        void AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, DestroyedTriggerType type);
 
         AreaEntityTriggerComponent* AllocateAreaTrigger(uint32_t entity_id);
         void ReleaseAreaTrigger(uint32_t entity_id);
         void AddAreaEntityTrigger(
-            uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, shared::AreaTriggerOperation operation, int n_entities);
+            uint32_t entity_id, uint32_t trigger_hash, const math::Quad& world_bb, uint32_t faction, AreaTriggerOperation operation, int n_entities);
 
         TimeTriggerComponent* AllocateTimeTrigger(uint32_t entity_id);
         void ReleaseTimeTrigger(uint32_t entity_id);

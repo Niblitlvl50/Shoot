@@ -210,7 +210,7 @@ Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& componen
 const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components);
 void StripUnknownProperties(Component& component);
 
-namespace shared
+namespace component
 {
     std::vector<const Component*> GetAllDefaultComponents();
     std::vector<Component*> AddComponent(uint32_t hash, std::vector<Component>& components);

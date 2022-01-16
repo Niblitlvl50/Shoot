@@ -47,7 +47,7 @@ namespace game
         void StopFire();
         void Reload(uint32_t timestamp);
         void UseItemSlot(ItemSlotIndex slot_index);
-        void HandlePickup(shared::PickupType type, int amount);
+        void HandlePickup(PickupType type, int amount);
 
         void Throw(float throw_force);
         void ThrowAction();
@@ -58,7 +58,7 @@ namespace game
 
         void SelectWeapon(WeaponSetup weapon);
         void SelectSecondaryWeapon(WeaponSetup weapon);
-        void HandleWeaponPickup(shared::PickupType type);
+        void HandleWeaponPickup(PickupType type);
         
         void MoveInDirection(const math::Vector& direction);
         void ApplyImpulse(const math::Vector& force);

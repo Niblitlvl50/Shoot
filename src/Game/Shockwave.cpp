@@ -21,7 +21,7 @@ void game::ShockwaveAndDamageAt(
     uint32_t who_did_damage)
 {
     const std::vector<mono::QueryResult> found_bodies =
-        physics_system->GetSpace()->QueryRadius(world_position, 3.0f, shared::CollisionCategory::ALL);
+        physics_system->GetSpace()->QueryRadius(world_position, 3.0f, CollisionCategory::CC_ALL);
 
     for(const mono::QueryResult& query_result : found_bodies)
     {

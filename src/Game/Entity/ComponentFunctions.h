@@ -1,12 +1,9 @@
 
 #pragma once
 
-namespace mono
-{
-    class IEntityManager;
-}
+#include "MonoFwd.h"
 
-namespace shared
+namespace game
 {
     void RegisterSharedComponents(mono::IEntityManager* entity_manager);
 }

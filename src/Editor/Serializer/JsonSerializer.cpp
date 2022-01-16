@@ -13,7 +13,7 @@
 
 using namespace editor;
 
-void JsonSerializer::WriteComponentEntities(const std::string& file_path, const shared::LevelMetadata& level_metadata) const
+void JsonSerializer::WriteComponentEntities(const std::string& file_path, const game::LevelMetadata& level_metadata) const
 {
     nlohmann::json json_metadata;
     json_metadata["camera_position"] = level_metadata.camera_position;

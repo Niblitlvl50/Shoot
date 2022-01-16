@@ -94,7 +94,7 @@ bool AnimationSystem::IsAnimationContainerAllocated(uint32_t entity_id)
 }
 
 TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, const math::Vector& translation_delta)
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, const math::Vector& translation_delta)
 {
     TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
     allocated_component->target_id = container_id;
@@ -110,7 +110,7 @@ TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
     allocated_component->delta_x = translation_delta.x;
     allocated_component->delta_y = translation_delta.y;
 
-    if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
+    if(mode & AnimationMode::TRIGGER_ACTIVATED)
     {
         const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
             AddTransformAnimatonToUpdate(allocated_component);
@@ -127,7 +127,7 @@ TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
 }
 
 TransformAnimationComponent* AnimationSystem::AddRotationComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, shared::AnimationMode mode, float rotation_delta)
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, float rotation_delta)
 {
     TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
     allocated_component->target_id = container_id;
@@ -142,7 +142,7 @@ TransformAnimationComponent* AnimationSystem::AddRotationComponent(
 
     allocated_component->delta_x = rotation_delta;
 
-    if(mode & shared::AnimationMode::TRIGGER_ACTIVATED)
+    if(mode & AnimationMode::TRIGGER_ACTIVATED)
     {
         const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
             AddTransformAnimatonToUpdate(allocated_component);
@@ -231,8 +231,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
         // Check if done
         bool is_done = (transform_anim->duration - transform_anim->duration_counter) <= 0.0f;
         
-        const bool ping_pong = (transform_anim->animation_flags & shared::AnimationMode::PING_PONG);
-        const bool reversable = (transform_anim->animation_flags & shared::AnimationMode::TRIGGER_REVERSE);
+        const bool ping_pong = (transform_anim->animation_flags & AnimationMode::PING_PONG);
+        const bool reversable = (transform_anim->animation_flags & AnimationMode::TRIGGER_REVERSE);
         if(is_done && (ping_pong || reversable))
         {
             transform_anim->is_initialized = false;
@@ -243,7 +243,7 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             is_done = ping_pong ? false : true;
         }
 
-        if(transform_anim->animation_flags & shared::AnimationMode::ONE_SHOT && transform_anim->callback_id != NO_CALLBACK_SET)
+        if(transform_anim->animation_flags & AnimationMode::ONE_SHOT && transform_anim->callback_id != NO_CALLBACK_SET)
         {
             m_trigger_system->RemoveTriggerCallback(
                 transform_anim->trigger_hash, transform_anim->callback_id, transform_anim->target_id);

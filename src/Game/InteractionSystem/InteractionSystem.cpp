@@ -36,13 +36,13 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
     m_components.Release(entity_id);
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, shared::InteractionType interaction_type, bool draw_name)
+void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, InteractionType interaction_type, bool draw_name)
 {
     AddComponent(entity_id, interaction_hash, NO_HASH, interaction_type, draw_name);
 }
 
 void InteractionSystem::AddComponent(
-    uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, shared::InteractionType interaction_type, bool draw_name)
+    uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, InteractionType interaction_type, bool draw_name)
 {
     InteractionComponent* component = m_components.Get(entity_id);
     component->on_interaction_hash = on_interaction_hash;

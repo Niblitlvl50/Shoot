@@ -14,7 +14,7 @@ namespace game
     public:
 
         EntityLogicFactory(mono::SystemContext* system_context, mono::EventHandler& event_handler);
-        class IEntityLogic* CreateLogic(shared::EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
+        class IEntityLogic* CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
 
     private:
         mono::SystemContext* m_system_context;

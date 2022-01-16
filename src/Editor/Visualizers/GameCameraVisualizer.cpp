@@ -9,7 +9,7 @@
 
 using namespace editor;
 
-GameCameraVisualizer::GameCameraVisualizer(const bool& enabled, const shared::LevelMetadata& metadata)
+GameCameraVisualizer::GameCameraVisualizer(const bool& enabled, const game::LevelMetadata& metadata)
     : m_enabled(enabled)
     , m_metadata(metadata)
 { }

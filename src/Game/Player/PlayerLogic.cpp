@@ -292,25 +292,25 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
     ItemSlot& item_slot = m_item_slots[slot_index];
 }
 
-void PlayerLogic::HandlePickup(shared::PickupType type, int amount)
+void PlayerLogic::HandlePickup(PickupType type, int amount)
 {
     switch(type)
     {
-    case shared::PickupType::AMMO:
+    case PickupType::AMMO:
         m_total_ammo_left += amount;
         break;
-    case shared::PickupType::HEALTH:
+    case PickupType::HEALTH:
     {
         DamageRecord* record = m_damage_system->GetDamageRecord(m_entity_id);
         record->health += amount;
         break;
     }
-    case shared::PickupType::SCORE:
+    case PickupType::SCORE:
         break;
 
-    case shared::PickupType::WEAPON_PISTOL:
-    case shared::PickupType::WEAPON_PLASMA:
-    case shared::PickupType::WEAPON_SHOTGUN:
+    case PickupType::WEAPON_PISTOL:
+    case PickupType::WEAPON_PLASMA:
+    case PickupType::WEAPON_SHOTGUN:
         HandleWeaponPickup(type);
         break;
     };
@@ -332,7 +332,7 @@ void PlayerLogic::Throw(float throw_force)
 
         const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
         for(mono::IShape* shape : shapes)
-            shape->SetCollisionBit(shared::CollisionCategory::PLAYER);
+            shape->SetCollisionBit(CollisionCategory::PLAYER);
     }
 
     m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
@@ -352,8 +352,8 @@ void PlayerLogic::PickupDrop()
         return;
     }
 
-    const InteractionCallback interaction_callback = [this](uint32_t interaction_id, shared::InteractionType interaction_type) {
-        if(interaction_type == shared::InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
+    const InteractionCallback interaction_callback = [this](uint32_t interaction_id, InteractionType interaction_type) {
+        if(interaction_type == InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
         {
             m_interaction_system->SetInteractionEnabled(interaction_id, false);
             m_picked_up_id = interaction_id;
@@ -364,7 +364,7 @@ void PlayerLogic::PickupDrop()
 
             const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
             for(mono::IShape* shape : shapes)
-                shape->ClearCollisionBit(shared::CollisionCategory::PLAYER);
+                shape->ClearCollisionBit(CollisionCategory::PLAYER);
         }
     };
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
@@ -388,12 +388,12 @@ void PlayerLogic::SelectWeapon(WeaponSetup weapon)
     m_weapon_type = weapon;
 }
 
-void PlayerLogic::HandleWeaponPickup(shared::PickupType type)
+void PlayerLogic::HandleWeaponPickup(PickupType type)
 {
-    static const std::unordered_map<shared::PickupType, game::WeaponSetup> g_pickup_to_weapon = {
-        { shared::PickupType::WEAPON_PISTOL,    game::GENERIC },
-        { shared::PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
-        { shared::PickupType::WEAPON_SHOTGUN,   game::FLAK_CANON },
+    static const std::unordered_map<PickupType, game::WeaponSetup> g_pickup_to_weapon = {
+        { PickupType::WEAPON_PISTOL,    game::GENERIC },
+        { PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
+        { PickupType::WEAPON_SHOTGUN,   game::FLAK_CANON },
     };
 
     static const std::unordered_map<uint32_t, const char*> g_weapon_to_entity = {

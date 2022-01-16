@@ -29,7 +29,7 @@ namespace game
         mono::EventHandler* m_event_handler;
         const char* m_world_file;
 
-        shared::LevelData m_leveldata;
+        LevelData m_leveldata;
 
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
         NavmeshContext m_navmesh;

@@ -64,10 +64,10 @@ RegionDrawer::RegionDrawer(const std::vector<game::RegionDescription>& region_de
         m_registred_triggers.push_back(trigger_id);
     }
 
-    m_region_text = new UITextElement(shared::FontId::RUSSOONE_MEGA, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_region_text = new UITextElement(FontId::RUSSOONE_MEGA, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
     m_region_text->SetPosition(100, 700);
 
-    m_region_subtext = new UITextElement(shared::FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::DARK_GRAY);
+    m_region_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::DARK_GRAY);
     m_region_subtext->SetPosition(110, 670);
 
     AddChild(m_region_text);

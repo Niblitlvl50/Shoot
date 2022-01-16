@@ -49,7 +49,7 @@ public:
         char text_buffer[512] = { 0 };
         std::sprintf(text_buffer, "%.2f", radius);
         renderer.RenderText(
-            shared::FontId::PIXELETTE_SMALL,
+            game::FontId::PIXELETTE_SMALL,
             text_buffer,
             mono::Color::BLUE,
             mono::FontCentering::HORIZONTAL_VERTICAL);

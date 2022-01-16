@@ -7,7 +7,7 @@
 #include "System/File.h"
 #include "nlohmann/json.hpp"
 
-mono::EntityData shared::LoadEntityFile(const char* entity_file)
+mono::EntityData game::LoadEntityFile(const char* entity_file)
 {
     file::FilePtr file = file::OpenAsciiFile(entity_file);
     if(!file)

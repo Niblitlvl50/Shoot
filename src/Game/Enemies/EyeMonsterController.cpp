@@ -81,7 +81,7 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
     if(m_states.ActiveState() == States::SLEEPING)
         m_states.TransitionTo(States::AWAKE);
 
-    if(category == shared::CollisionCategory::PLAYER)
+    if(category == CollisionCategory::PLAYER)
     {
         const math::Vector& entity_position = math::GetPosition(*m_transform);
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_magnitude);
@@ -116,10 +116,10 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
 
         if(m_visibility_check_timer > tweak_values::visibility_check_interval)
         {
-            const uint32_t query_category = shared::CollisionCategory::PLAYER | shared::CollisionCategory::STATIC;
+            const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::STATIC;
             mono::PhysicsSpace* space = m_physics_system->GetSpace();
             const mono::QueryResult result = space->QueryFirst(entity_position, player_info->position, query_category);
-            const bool sees_player = (result.body != nullptr && result.collision_category & shared::CollisionCategory::PLAYER);
+            const bool sees_player = (result.body != nullptr && result.collision_category & CollisionCategory::PLAYER);
             if(sees_player)
                 m_states.TransitionTo(States::AWAKE);
 

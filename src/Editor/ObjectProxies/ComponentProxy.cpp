@@ -35,7 +35,7 @@ ComponentProxy::ComponentProxy(
     , m_transform_system(transform_system)
     , m_editor(editor)
 {
-    shared::SortComponentsByPriority(m_components);
+    component::SortComponentsByPriority(m_components);
 }
 
 ComponentProxy::~ComponentProxy()

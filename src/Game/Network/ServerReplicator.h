@@ -10,7 +10,7 @@
 #include <queue>
 #include <unordered_set>
 
-namespace shared
+namespace game
 {
     struct LevelMetadata;
 }
@@ -34,7 +34,7 @@ namespace game
             mono::SpriteSystem* sprite_system,
             DamageSystem* damage_system,
             ServerManager* server_manager,
-            const shared::LevelMetadata& level_metadata,
+            const game::LevelMetadata& level_metadata,
             uint32_t replication_interval);
         ~ServerReplicator();
 

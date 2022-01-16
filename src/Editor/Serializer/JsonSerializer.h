@@ -15,7 +15,7 @@ namespace editor
     {
     public:
 
-        void WriteComponentEntities(const std::string& file_path, const shared::LevelMetadata& level_metadata) const;
+        void WriteComponentEntities(const std::string& file_path, const game::LevelMetadata& level_metadata) const;
 
     private:
 

@@ -39,7 +39,7 @@ ServerReplicator::ServerReplicator(
     mono::SpriteSystem* sprite_system,
     DamageSystem* damage_system,
     ServerManager* server_manager,
-    const shared::LevelMetadata& level_metadata,
+    const LevelMetadata& level_metadata,
     uint32_t replication_interval)
     : m_event_handler(event_handler)
     , m_entity_system(entity_system)
