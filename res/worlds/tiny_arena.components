@@ -3025,7 +3025,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "fire_skull"
+                            "variant_value": "Fire Skull"
                         },
                         {
                             "id": 3647911389,
@@ -3276,7 +3276,7 @@
             ],
             "entity_properties": 0,
             "folder": "monsters",
-            "name": "fire_skull",
+            "name": "Fire Skull",
             "uuid_hash": 26721882
         },
         {
