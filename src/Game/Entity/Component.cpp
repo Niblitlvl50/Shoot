@@ -379,7 +379,7 @@ const char* AttributeNameFromHash(uint32_t hash)
     }
 
     assert(false);
-    return nullptr;
+    return "Unknown";
 }
 
 const char* AttributeTooltipFromHash(uint32_t hash)
