@@ -42,14 +42,16 @@ namespace
 
             const float percentage_length = bar.width * bar.health_percentage;
             const float half_length = bar.width / 2.0f;
+            const float half_thickness = bar_thickness / 2.0f;
 
-            const math::Vector& top_left = bar.position - math::Vector(half_length, 0.0f);
+            const math::Vector& top_left = bar.position - math::Vector(half_length, half_thickness);
+            const math::Vector& bottom_left = bar.position - math::Vector(half_length, -half_thickness);
+
             const math::Vector& top_mid_right = top_left + math::Vector(percentage_length, 0.0f);
-            const math::Vector& bottom_left = top_left - math::Vector(0.0f, bar_thickness);
             const math::Vector& bottom_mid_right = bottom_left + math::Vector(percentage_length, 0.0f);
 
             const math::Vector& top_right = top_left + math::Vector(bar.width, 0.0f);
-            const math::Vector& bottom_right = top_left + math::Vector(bar.width, -bar_thickness);
+            const math::Vector& bottom_right = bottom_left + math::Vector(bar.width, 0.0f);
 
             out_vertices.emplace_back(bottom_left);
             out_vertices.emplace_back(top_left);
