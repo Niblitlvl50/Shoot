@@ -23,6 +23,7 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
+#include "Util/Random.h"
 
 #include "Effects/SmokeEffect.h"
 #include "Pickups/PickupSystem.h"
@@ -238,6 +239,10 @@ void PlayerLogic::ToBlink()
 
     math::Matrix& decoy_transform = m_transform_system->GetTransform(decoy_entity.id);
     math::Position(decoy_transform, position);
+
+    const float degree_offset = mono::Random(-10.0f, 10.0f);
+    math::RotateZ(decoy_transform, math::ToRadians(degree_offset));
+
     m_transform_system->SetTransformState(decoy_entity.id, mono::TransformState::CLIENT);
 
     m_smoke_effect->EmitSmokeAt(position);
