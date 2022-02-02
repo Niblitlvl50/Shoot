@@ -210,6 +210,7 @@
         "res/sprites/wall_straight.sprite",
         "res/sprites/wall_straight_n.sprite",
         "res/sprites/wizard_crazy.sprite",
+        "res/sprites/wooden_log.sprite",
         "res/sprites/xbox_one_a.sprite"
     ]
 }

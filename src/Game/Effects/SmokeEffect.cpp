@@ -25,9 +25,9 @@ namespace
         const float x_variation = mono::Random(-0.2f, 0.2f);
         const float y_variation = mono::Random(-0.2f, 0.2f);
         const float velocity_variation = mono::Random(1.0f, 3.0f);
-        const float size = mono::Random(48.0f, 64.0f);
-        const float end_size = mono::Random(64.0f, 80.0f);
-        const float life = mono::Random(0.2f, 0.4f);
+        const float size = mono::Random(64.0f, 80.0f);
+        const float end_size = mono::Random(80.0f, 100.0f);
+        const float life = mono::Random(0.4f, 0.8f);
 
         component_view.position = position + math::Vector(x_variation, y_variation);
         component_view.rotation = 0.0f;

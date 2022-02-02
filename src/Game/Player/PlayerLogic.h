@@ -110,8 +110,7 @@ namespace game
         uint32_t m_blink_counter;
         math::Vector m_blink_direction;
 
-        std::unique_ptr<class TrailEffect> m_trail_effect;
-        std::unique_ptr<class BlinkEffect> m_blink_effect;
+        std::unique_ptr<class SmokeEffect> m_smoke_effect;
 
         audio::ISoundPtr m_blink_sound;
 
@@ -122,6 +121,7 @@ namespace game
         class DamageSystem* m_damage_system;
         class PickupSystem* m_pickup_system;
         class InteractionSystem* m_interaction_system;
+        class EntityLogicSystem* m_logic_system;
 
         struct ItemSlot
         {};

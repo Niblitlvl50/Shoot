@@ -28,6 +28,7 @@
         "res/entities/rocket_bullet.entity",
         "res/entities/rocket_launcher_pickup.entity",
         "res/entities/throwable_thing.entity",
-        "res/entities/torch_small.entity"
+        "res/entities/torch_small.entity",
+        "res/entities/wooden_log.entity"
     ]
 }

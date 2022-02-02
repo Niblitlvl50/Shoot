@@ -1,6 +1,10 @@
 
 #include "PlayerLogic.h"
+#include "DecoyLogic.h"
 #include "Player/PlayerInfo.h"
+
+#include "Entity/EntityLogicSystem.h"
+#include "Entity/Component.h"
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -20,8 +24,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
 
-#include "Effects/TrailEffect.h"
-#include "Effects/BlinkEffect.h"
+#include "Effects/SmokeEffect.h"
 #include "Pickups/PickupSystem.h"
 
 #include <cmath>
@@ -58,6 +61,7 @@ PlayerLogic::PlayerLogic(
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
+    m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
@@ -68,8 +72,9 @@ PlayerLogic::PlayerLogic(
     m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_blink_effect = std::make_unique<BlinkEffect>(particle_system, m_entity_system);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+
+    m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
 
     const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
     m_weapon_entity = spawned_weapon.id;
@@ -224,10 +229,18 @@ void PlayerLogic::ToBlink()
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
 
-    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform);
+    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
 
-    m_blink_effect->EmitBlinkAwayAt(position);
+    const mono::Entity decoy_entity = m_entity_system->CreateEntity("res/entities/wooden_log.entity");
+    m_entity_system->AddComponent(decoy_entity.id, BEHAVIOUR_COMPONENT);
+    DecoyLogic* decoy_logic = new DecoyLogic(decoy_entity.id, m_entity_system);
+    m_logic_system->AddLogic(decoy_entity.id, decoy_logic);
+
+    math::Matrix& decoy_transform = m_transform_system->GetTransform(decoy_entity.id);
+    math::Position(decoy_transform, position);
+    m_transform_system->SetTransformState(decoy_entity.id, mono::TransformState::CLIENT);
+
+    m_smoke_effect->EmitSmokeAt(position);
     m_blink_sound->Play();
 
     m_blink_counter = 0;
@@ -243,8 +256,6 @@ void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
 
         const math::Vector new_position = body->GetPosition() + (m_blink_direction * tweak_values::blink_distance);
         body->SetPosition(new_position);
-
-        m_blink_effect->EmitBlinkBackAt(new_position);
         m_state.TransitionTo(PlayerStates::DEFAULT);
     }
 }
