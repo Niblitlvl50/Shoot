@@ -211,6 +211,9 @@ void PlayerLogic::ToDead()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
+
+    if(HoldingPickup())
+        Throw(0.0f);
 }
 
 void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
