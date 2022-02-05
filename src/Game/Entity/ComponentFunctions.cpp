@@ -123,7 +123,10 @@ bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, 
     FindAttribute(FONT_ID_ATTRIBUTE, properties, text_component.font_id, FallbackMode::SET_DEFAULT);
     FindAttribute(COLOR_ATTRIBUTE, properties, text_component.tint, FallbackMode::SET_DEFAULT);
     FindAttribute(CENTER_FLAGS_ATTRIBUTE, properties, (uint32_t&)text_component.center_flags, FallbackMode::SET_DEFAULT);
+
     FindAttribute(TEXT_SHADOW_ATTRIBUTE, properties, text_component.draw_shadow, FallbackMode::SET_DEFAULT);
+    FindAttribute(OFFSET_ATTRIBUTE, properties, text_component.shadow_offset, FallbackMode::SET_DEFAULT);
+    FindAttribute(SHADOW_COLOR_ATTRIBUTE, properties, text_component.shadow_color, FallbackMode::SET_DEFAULT);
 
     mono::TextSystem* text_system = context->GetSystem<mono::TextSystem>();
     text_system->SetTextData(entity->id, text_component);

@@ -22,5 +22,11 @@ bool game::LoadFonts()
     mono::LoadFont(FontId::MONOTON_LARGE,  "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 3.0f);
     mono::LoadFont(FontId::MONOTON_MEGA,   "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 1.5f);
 
+    mono::LoadFont(FontId::BLACK_HAN_SANS_TINY,     "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 25.0f);
+    mono::LoadFont(FontId::BLACK_HAN_SANS_SMALL,    "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 10.0f);
+    mono::LoadFont(FontId::BLACK_HAN_SANS_MEDIUM,   "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 5.0f);
+    mono::LoadFont(FontId::BLACK_HAN_SANS_LARGE,    "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 3.0f);
+    mono::LoadFont(FontId::BLACK_HAN_SANS_MEGA,     "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 1.5f);
+
     return true;
 }

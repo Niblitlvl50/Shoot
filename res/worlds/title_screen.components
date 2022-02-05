@@ -55,7 +55,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 7
+                            "variant_value": 17
                         },
                         {
                             "id": 1031692888,
@@ -79,6 +79,26 @@
                             "name": "text_shadow",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
                         }
                     ]
                 },
@@ -137,95 +157,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "mega_text_1"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 70.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3185987134,
-                    "name": "text",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "Delivery Boy"
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 9
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 124392387,
-                            "name": "text_shadow",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "mega_text_1",
-            "uuid_hash": 2149541589
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "hearts"
+                            "variant_value": "particles"
                         },
                         {
                             "id": 3647911389,
@@ -270,7 +202,7 @@
                             "id": 1013213428,
                             "name": "texture",
                             "variant_type": 6,
-                            "variant_value": "res/textures/particles/white_square.png"
+                            "variant_value": "res/textures/particles/smoke_white_4.png"
                         },
                         {
                             "id": 3513758418,
@@ -349,15 +281,15 @@
                                     },
                                     {
                                         "alpha": 0.30588236451148987,
-                                        "blue": 0.5215686559677124,
-                                        "green": 1.0,
-                                        "red": 0.8745098114013672
+                                        "blue": 0.6059978008270264,
+                                        "green": 0.5215686559677124,
+                                        "red": 1.0
                                     },
                                     {
-                                        "alpha": 0.27450981736183167,
-                                        "blue": 0.43529412150382996,
-                                        "green": 1.0,
-                                        "red": 0.4156862795352936
+                                        "alpha": 0.7843137383460999,
+                                        "blue": 0.9490196108818054,
+                                        "green": 0.4156862795352936,
+                                        "red": 1.0
                                     },
                                     {
                                         "alpha": 0.0,
@@ -388,7 +320,7 @@
                             "name": "life_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 15.0,
+                                "max": 12.0,
                                 "min": 10.0
                             }
                         },
@@ -421,7 +353,7 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "hearts",
+            "name": "particles",
             "uuid_hash": 3814723900
         },
         {
@@ -453,8 +385,332 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
+                                "x": 4.0,
+                                "y": 65.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Delivery inc"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 19
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.5049570202827454,
+                                "green": 0.9460784196853638,
+                                "red": 0.49158975481987
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.0,
+                                "y": 4.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "mega_text_1",
+            "uuid_hash": 1670617782
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "author_text"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -235.0,
+                                "y": -234.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "NIBLIT_LVL50"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 0.5098039507865906,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
                                 "x": 0.0,
-                                "y": 117.0
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "author_text",
+            "uuid_hash": 3093156356
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "author_text"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -341.0,
+                                "y": -234.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "A game by"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 0.5098039507865906,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "author_text",
+            "uuid_hash": 429601478
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "mega_text_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 117.13211059570313
                             }
                         },
                         {
@@ -479,7 +735,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 9
+                            "variant_value": 19
                         },
                         {
                             "id": 1031692888,
@@ -487,9 +743,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
+                                "blue": 0.5049570202827454,
+                                "green": 0.9460784196853638,
+                                "red": 0.49158975481987
                             }
                         },
                         {
@@ -502,7 +758,27 @@
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.0,
+                                "y": 4.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
                         }
                     ]
                 }
@@ -510,7 +786,7 @@
             "entity_properties": 0,
             "folder": "",
             "name": "mega_text_1",
-            "uuid_hash": 1482711290
+            "uuid_hash": 4019776581
         }
     ],
     "metadata": {
@@ -522,9 +798,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.7205809950828552,
-            "green": 0.7205809950828552,
-            "red": 0.720588207244873
+            "blue": 0.35784316062927246,
+            "green": 0.6978085041046143,
+            "red": 1.0
         },
         "background_size": {
             "x": 0.0,
@@ -537,9 +813,8 @@
         },
         "camera_size": {
             "x": 800.0,
-            "y": 530.0
+            "y": 500.0
         },
-        "conditions": [],
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
