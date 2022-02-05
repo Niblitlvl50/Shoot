@@ -173,6 +173,8 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
     if(m_package_spawned)
         return;
 
+    System::Log("PacketDeliveryGameMode|Spawning package at position %.2f %.2f", position.x, position.y);
+
     m_package_spawned = true;
 
     const mono::Entity package_entity = m_entity_manager->CreateEntity("res/entities/cardboard_box.entity");

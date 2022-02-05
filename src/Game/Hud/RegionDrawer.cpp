@@ -42,7 +42,7 @@ std::vector<game::RegionDescription> game::ParseRegionConfig(const char* region_
     std::sort(regions.begin(), regions.end(), sort_by_hash);
 
     for(const auto& region : regions)
-        System::Log("[%u] %s|%s\n", region.trigger_hash, region.text.c_str(), region.sub_text.c_str());
+        System::Log("[%u] %s|%s", region.trigger_hash, region.text.c_str(), region.sub_text.c_str());
 
     return regions;
 }
