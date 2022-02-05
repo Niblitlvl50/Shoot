@@ -107,7 +107,8 @@ namespace game
         int m_idle_anim_id;
         int m_run_anim_id;
 
-        uint32_t m_blink_counter;
+        uint32_t m_blink_duration_counter;
+        uint32_t  m_blink_cooldown;
         math::Vector m_blink_direction;
 
         std::unique_ptr<class SmokeEffect> m_smoke_effect;

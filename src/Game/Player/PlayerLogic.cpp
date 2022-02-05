@@ -35,6 +35,7 @@ namespace tweak_values
     constexpr float force_multiplier = 250.0f;
     constexpr uint32_t blink_duration_ms = 200;
     constexpr float blink_distance = 2.0f;
+    constexpr uint32_t blink_cooldown_threshold_ms = 2000;
 }
 
 using namespace game;
@@ -52,6 +53,7 @@ PlayerLogic::PlayerLogic(
     , m_fire(false)
     , m_total_ammo_left(500)
     , m_aim_direction(0.0f)
+    , m_blink_cooldown(0)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -104,6 +106,8 @@ PlayerLogic::~PlayerLogic()
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     m_state.UpdateState(update_context);
+
+    m_blink_cooldown += update_context.delta_ms;
 }
 
 void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& player_velocity)
@@ -251,14 +255,15 @@ void PlayerLogic::ToBlink()
     m_smoke_effect->EmitSmokeAt(position);
     m_blink_sound->Play();
 
-    m_blink_counter = 0;
+    m_blink_duration_counter = 0;
+    m_blink_cooldown = 0;
 }
 
 void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
 {
-    m_blink_counter += update_context.delta_ms;
+    m_blink_duration_counter += update_context.delta_ms;
 
-    if(m_blink_counter >= tweak_values::blink_duration_ms)
+    if(m_blink_duration_counter >= tweak_values::blink_duration_ms)
     {
         mono::IBody* body = m_physics_system->GetBody(m_entity_id);
 
@@ -488,6 +493,9 @@ void PlayerLogic::SetAimDirection(float aim_direction)
 
 void PlayerLogic::Blink(const math::Vector& direction)
 {
+    if(m_blink_cooldown < tweak_values::blink_cooldown_threshold_ms)
+        return;
+
     m_blink_direction = direction;
     m_state.TransitionTo(PlayerStates::BLINK);
 }
