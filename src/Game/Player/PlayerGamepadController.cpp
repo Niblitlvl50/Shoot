@@ -55,7 +55,10 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 
     const bool a = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::A);
     if(a)
-        m_player_logic->TriggerInteraction();
+    {
+        m_player_logic->Shockwave();
+        //m_player_logic->TriggerInteraction();
+    }
 
     const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
     const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);

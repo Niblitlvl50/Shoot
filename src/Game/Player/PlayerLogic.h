@@ -7,10 +7,10 @@
 #include "System/Audio.h"
 
 #include "Entity/IEntityLogic.h"
+#include "PlayerAbilities.h"
 #include "PlayerGamepadController.h"
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/IWeaponFactory.h"
-
 #include "Pickups/PickupTypes.h"
 
 #include <memory>
@@ -40,6 +40,7 @@ namespace game
         ~PlayerLogic();
 
         void Update(const mono::UpdateContext& update_context) override;
+        void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateAnimation(float aim_direction, const math::Vector& player_velocity);
         void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
 
@@ -68,6 +69,7 @@ namespace game
 
         void SetAimDirection(float aim_direction);
         void Blink(const math::Vector& direction);
+        void Shockwave();
 
         void ToDefault();
         void DefaultState(const mono::UpdateContext& update_context);
@@ -98,7 +100,7 @@ namespace game
         uint32_t m_weapon_entity;
 
         bool m_fire;
-        int m_total_ammo_left;
+        bool m_stop_fire;
         WeaponSetup m_weapon_type;
         IWeaponPtr m_weapon;
         float m_aim_direction;
@@ -107,13 +109,13 @@ namespace game
         int m_idle_anim_id;
         int m_run_anim_id;
 
-        uint32_t m_blink_duration_counter;
-        uint32_t  m_blink_cooldown;
+        float m_blink_duration_counter;
+        float m_blink_cooldown;
         math::Vector m_blink_direction;
-
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
-
         audio::ISoundPtr m_blink_sound;
+
+        float m_shockwave_cooldown;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
@@ -127,6 +129,8 @@ namespace game
         struct ItemSlot
         {};
         ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
+
+        int m_active_cooldowns[PlayerAbility::N_ABILITIES];
 
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;

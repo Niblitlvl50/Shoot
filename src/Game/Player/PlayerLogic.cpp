@@ -27,15 +27,17 @@
 
 #include "Effects/SmokeEffect.h"
 #include "Pickups/PickupSystem.h"
+#include "Shockwave.h"
 
 #include <cmath>
 
 namespace tweak_values
 {
     constexpr float force_multiplier = 250.0f;
-    constexpr uint32_t blink_duration_ms = 200;
+    constexpr float blink_duration_s = 0.2f;
     constexpr float blink_distance = 2.0f;
-    constexpr uint32_t blink_cooldown_threshold_ms = 2000;
+    constexpr float blink_cooldown_threshold_s = 2.0f;
+    constexpr float shockwave_cooldown_s = 2.0f;
 }
 
 using namespace game;
@@ -51,9 +53,10 @@ PlayerLogic::PlayerLogic(
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
     , m_fire(false)
-    , m_total_ammo_left(500)
+    , m_stop_fire(false)
     , m_aim_direction(0.0f)
-    , m_blink_cooldown(0)
+    , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
+    , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -107,7 +110,44 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     m_state.UpdateState(update_context);
 
-    m_blink_cooldown += update_context.delta_ms;
+    m_blink_cooldown += update_context.delta_s;
+    m_shockwave_cooldown += update_context.delta_s;
+
+    m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = m_weapon->ReloadPercentage();
+    m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s * 100.0f;
+    m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s * 100.0f;
+
+    UpdatePlayerInfo(update_context.timestamp);
+}
+
+void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
+{
+    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+
+    m_player_info->position = math::GetPosition(transform);
+    m_player_info->velocity = body->GetVelocity();
+    m_player_info->direction = math::GetZRotation(transform);
+    m_player_info->aim_direction = m_aim_direction;
+
+    m_player_info->weapon_type = m_weapon_type;
+    m_player_info->weapon_state = m_weapon->UpdateWeaponState(timestamp);
+    m_player_info->magazine_capacity = m_weapon->MagazineSize();
+    m_player_info->magazine_left = m_weapon->AmmunitionLeft();
+    m_player_info->laser_sight = (HoldingPickup() == false);
+
+
+    const auto find_active_cooldown = [](int cooldown){
+        return cooldown < 100;
+    };
+
+    const auto cooldown_it = std::find_if(std::begin(m_active_cooldowns), std::end(m_active_cooldowns), find_active_cooldown);
+    if(cooldown_it != std::end(m_active_cooldowns))
+    {
+        const int index = std::distance(std::begin(m_active_cooldowns), cooldown_it);
+        m_player_info->cooldown_id = index;
+        m_player_info->cooldown_fraction = m_active_cooldowns[index];
+    }
 }
 
 void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& player_velocity)
@@ -179,30 +219,17 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
     m_gamepad_controller.Update(update_context);
 
-    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& position = math::GetPosition(transform);
-    const float direction = math::GetZRotation(transform);
-
     if(m_fire)
     {
+        const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
         const math::Vector offset = math::VectorFromAngle(m_aim_direction) * 0.5f;
         m_player_info->weapon_state = m_weapon->Fire(position + offset, m_aim_direction, update_context.timestamp);
     }
-
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-
-    m_player_info->position = position;
-    m_player_info->velocity = body->GetVelocity();
-    m_player_info->direction = direction;
-    m_player_info->aim_direction = m_aim_direction;
-
-    m_player_info->weapon_type = m_weapon_type;
-    m_player_info->weapon_state = m_weapon->UpdateWeaponState(update_context.timestamp);
-    m_player_info->weapon_reload_percentage = m_weapon->ReloadPercentage();
-    m_player_info->magazine_capacity = m_weapon->MagazineSize();
-    m_player_info->magazine_left = m_weapon->AmmunitionLeft();
-    m_player_info->ammunition_left = m_total_ammo_left;
-    m_player_info->laser_sight = (HoldingPickup() == false);
+    else if(m_stop_fire)
+    {
+        m_stop_fire = false;
+        m_weapon->StopFire(update_context.timestamp);
+    }
 
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, m_player_info->velocity);
@@ -255,15 +282,15 @@ void PlayerLogic::ToBlink()
     m_smoke_effect->EmitSmokeAt(position);
     m_blink_sound->Play();
 
-    m_blink_duration_counter = 0;
-    m_blink_cooldown = 0;
+    m_blink_duration_counter = 0.0f;
+    m_blink_cooldown = 0.0f;
 }
 
 void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
 {
-    m_blink_duration_counter += update_context.delta_ms;
+    m_blink_duration_counter += update_context.delta_s;
 
-    if(m_blink_duration_counter >= tweak_values::blink_duration_ms)
+    if(m_blink_duration_counter >= tweak_values::blink_duration_s)
     {
         mono::IBody* body = m_physics_system->GetBody(m_entity_id);
 
@@ -289,19 +316,13 @@ void PlayerLogic::Fire()
 
 void PlayerLogic::StopFire()
 {
+    // Only stop fire if fire was true.
+    m_stop_fire = m_fire;
     m_fire = false;
 }
 
 void PlayerLogic::Reload(uint32_t timestamp)
 {
-    /*
-    m_total_ammo_left -= m_weapon->MagazineSize() + m_weapon->AmmunitionLeft();
-    m_total_ammo_left = std::max(0, m_total_ammo_left);
-
-    if(m_total_ammo_left != 0)
-        m_weapon->Reload(timestamp);
-    */
-
     m_weapon->Reload(timestamp);
 }
 
@@ -321,7 +342,6 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     switch(type)
     {
     case PickupType::AMMO:
-        m_total_ammo_left += amount;
         break;
     case PickupType::HEALTH:
     {
@@ -399,11 +419,9 @@ bool PlayerLogic::HoldingPickup() const
     return (m_picked_up_id != mono::INVALID_ID);
 }
 
-#include "Shockwave.h"
-
 void PlayerLogic::TriggerInteraction()
 {
-    game::ShockwaveAt(m_physics_system, m_player_info->position, 10.0f);
+    System::Log("playerlogic|Trigger Interaction");
 }
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)
@@ -493,9 +511,18 @@ void PlayerLogic::SetAimDirection(float aim_direction)
 
 void PlayerLogic::Blink(const math::Vector& direction)
 {
-    if(m_blink_cooldown < tweak_values::blink_cooldown_threshold_ms)
+    if(m_blink_cooldown < tweak_values::blink_cooldown_threshold_s)
         return;
 
     m_blink_direction = direction;
     m_state.TransitionTo(PlayerStates::BLINK);
+}
+
+void PlayerLogic::Shockwave()
+{
+    if(m_shockwave_cooldown < tweak_values::shockwave_cooldown_s)
+        return;
+
+    game::ShockwaveAt(m_physics_system, m_player_info->position, 10.0f);
+    m_shockwave_cooldown = 0;
 }

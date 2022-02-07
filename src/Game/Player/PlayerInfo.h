@@ -50,8 +50,9 @@ namespace game
         WeaponState weapon_state;
         int magazine_left;
         int magazine_capacity;
-        int ammunition_left;
-        int weapon_reload_percentage;
+
+        uint32_t cooldown_id;
+        float cooldown_fraction;
         bool laser_sight;
 
         int lives;

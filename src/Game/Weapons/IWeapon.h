@@ -17,6 +17,7 @@ namespace game
         virtual WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) = 0;
         virtual WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) = 0;
 
+        virtual void StopFire(uint32_t timestamp) = 0;
         virtual void Reload(uint32_t timestamp) = 0;
         virtual WeaponState UpdateWeaponState(uint32_t timestamp) = 0;
 

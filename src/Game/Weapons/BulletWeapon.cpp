@@ -168,6 +168,11 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     return m_state;
 }
 
+void Weapon::StopFire(uint32_t timestamp)
+{
+
+}
+
 void Weapon::Reload(uint32_t timestamp)
 {
     m_last_reload_timestamp = timestamp;

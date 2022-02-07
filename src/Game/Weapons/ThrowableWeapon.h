@@ -16,6 +16,7 @@ namespace game
 
         WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
         WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override;
+        void StopFire(uint32_t timestamp) override;
         void Reload(uint32_t timestamp) override;
         WeaponState UpdateWeaponState(uint32_t timestamp) override;
         int AmmunitionLeft() const override;

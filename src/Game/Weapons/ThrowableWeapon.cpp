@@ -86,6 +86,11 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vect
     return m_state;
 }
 
+void ThrowableWeapon::StopFire(uint32_t timestamp)
+{
+    
+}
+
 void ThrowableWeapon::Reload(uint32_t timestamp)
 {
     m_ammunition = m_config.magazine_size;
