@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "mega_text_2"
+                            "variant_value": "start_text"
                         },
                         {
                             "id": 3647911389,
@@ -30,7 +30,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -20.0
+                                "y": -55.0
                             }
                         },
                         {
@@ -49,7 +49,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Hit Enter or X button to start"
+                            "variant_value": "Push some button to start!"
                         },
                         {
                             "id": 3902434344,
@@ -144,7 +144,7 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "mega_text_2",
+            "name": "start_text",
             "uuid_hash": 831254255
         },
         {
@@ -202,19 +202,19 @@
                             "id": 1013213428,
                             "name": "texture",
                             "variant_type": 6,
-                            "variant_value": "res/textures/particles/smoke_white_4.png"
+                            "variant_value": "res/textures/particles/flare.png"
                         },
                         {
                             "id": 3513758418,
                             "name": "blend_mode",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 3143743637,
                             "name": "damping",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.0010000000474974513
                         }
                     ]
                 },
@@ -232,7 +232,7 @@
                             "id": 1259388949,
                             "name": "emit_rate",
                             "variant_type": 3,
-                            "variant_value": 30.0
+                            "variant_value": 20.0
                         },
                         {
                             "id": 481665254,
@@ -280,15 +280,15 @@
                                         "red": 1.0
                                     },
                                     {
-                                        "alpha": 0.30588236451148987,
-                                        "blue": 0.6059978008270264,
-                                        "green": 0.5215686559677124,
+                                        "alpha": 1.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
                                         "red": 1.0
                                     },
                                     {
-                                        "alpha": 0.7843137383460999,
-                                        "blue": 0.9490196108818054,
-                                        "green": 0.4156862795352936,
+                                        "alpha": 1.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
                                         "red": 1.0
                                     },
                                     {
@@ -366,7 +366,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "mega_text_1"
+                            "variant_value": "inc"
                         },
                         {
                             "id": 3647911389,
@@ -385,8 +385,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.0,
-                                "y": 65.0
+                                "x": 139.34640502929688,
+                                "y": 45.303619384765625
                             }
                         },
                         {
@@ -405,13 +405,13 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Delivery inc"
+                            "variant_value": "Inc"
                         },
                         {
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 19
+                            "variant_value": 18
                         },
                         {
                             "id": 1031692888,
@@ -419,9 +419,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.5049570202827454,
-                                "green": 0.9460784196853638,
-                                "red": 0.49158975481987
+                                "blue": 0.89532870054245,
+                                "green": 1.0,
+                                "red": 0.8921568393707275
                             }
                         },
                         {
@@ -441,8 +441,8 @@
                             "name": "offset",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.0,
-                                "y": 4.0
+                                "x": -0.5,
+                                "y": 0.5
                             }
                         },
                         {
@@ -461,7 +461,7 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "mega_text_1",
+            "name": "inc",
             "uuid_hash": 1670617782
         },
         {
@@ -493,8 +493,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -235.0,
-                                "y": -234.0
+                                "x": -201.71670532226563,
+                                "y": -173.97305297851563
                             }
                         },
                         {
@@ -513,7 +513,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "NIBLIT_LVL50"
+                            "variant_value": "A game by Niblit_lvl50"
                         },
                         {
                             "id": 3902434344,
@@ -559,116 +559,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "author_text",
-            "uuid_hash": 3093156356
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "author_text"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -341.0,
-                                "y": -234.0
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3185987134,
-                    "name": "text",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "A game by"
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 0.5098039507865906,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 124392387,
-                            "name": "text_shadow",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1849128429,
-                            "name": "shadow_color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
+                                "blue": 1.0,
+                                "green": 0.17647075653076172,
                                 "red": 0.0
                             }
                         }
@@ -690,7 +582,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "mega_text_1"
+                            "variant_value": "title_text_1"
                         },
                         {
                             "id": 3647911389,
@@ -709,8 +601,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.0,
-                                "y": 117.13211059570313
+                                "x": 0.0,
+                                "y": 73.13211059570313
                             }
                         },
                         {
@@ -785,8 +677,116 @@
             ],
             "entity_properties": 0,
             "folder": "",
-            "name": "mega_text_1",
+            "name": "title_text_1",
             "uuid_hash": 4019776581
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "title_text_2"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 22.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Delivery"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 19
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.5049570202827454,
+                                "green": 0.9460784196853638,
+                                "red": 0.49158975481987
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.0,
+                                "y": 4.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "title_text_2",
+            "uuid_hash": 2330394745
         }
     ],
     "metadata": {
@@ -812,8 +812,8 @@
             "y": 0.0
         },
         "camera_size": {
-            "x": 800.0,
-            "y": 500.0
+            "x": 600.0,
+            "y": 375.0
         },
         "navmesh_density": 1.0,
         "navmesh_end": {
