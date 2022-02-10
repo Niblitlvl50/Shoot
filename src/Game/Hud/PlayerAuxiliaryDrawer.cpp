@@ -95,8 +95,6 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             points.push_back(reload_dot);
 
             cooldown_color = g_ability_to_color[player_info->cooldown_id];
-
-            printf("%f\n", player_info->cooldown_fraction);
         }
     }
 

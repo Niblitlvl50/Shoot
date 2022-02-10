@@ -113,9 +113,9 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_blink_cooldown += update_context.delta_s;
     m_shockwave_cooldown += update_context.delta_s;
 
-    m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = m_weapon->ReloadPercentage();
-    m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s * 100.0f;
-    m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s * 100.0f;
+    m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = float(m_weapon->ReloadPercentage()) / 100.0f;
+    m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s;
+    m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s;
 
     UpdatePlayerInfo(update_context.timestamp);
 }
@@ -136,9 +136,12 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->laser_sight = (HoldingPickup() == false);
 
+    m_player_info->cooldown_id = 0;
+    m_player_info->cooldown_fraction = 1.0f;
 
-    const auto find_active_cooldown = [](int cooldown){
-        return cooldown < 100;
+
+    const auto find_active_cooldown = [](float cooldown){
+        return cooldown < 1.0f;
     };
 
     const auto cooldown_it = std::find_if(std::begin(m_active_cooldowns), std::end(m_active_cooldowns), find_active_cooldown);

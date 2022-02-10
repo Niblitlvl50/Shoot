@@ -130,7 +130,7 @@ namespace game
         {};
         ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
 
-        int m_active_cooldowns[PlayerAbility::N_ABILITIES];
+        float m_active_cooldowns[PlayerAbility::N_ABILITIES];
 
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;
