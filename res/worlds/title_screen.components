@@ -493,8 +493,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -201.71670532226563,
-                                "y": -173.97305297851563
+                                "x": 0.0,
+                                "y": -177.97305297851563
                             }
                         },
                         {
@@ -519,7 +519,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 16
                         },
                         {
                             "id": 1031692888,
