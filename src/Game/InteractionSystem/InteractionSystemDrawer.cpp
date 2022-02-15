@@ -31,6 +31,8 @@ namespace
     };
 
     static_assert(std::size(g_interaction_type_sprite) == std::size(game::interaction_type_verb));
+
+    constexpr game::FontId g_verb_font = game::FontId::RUSSOONE_TINY;
 }
 
 using namespace game;
@@ -49,9 +51,8 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     {
         const char* verb = interaction_type_verb[index];
 
-        m_verb_text_buffers.push_back(
-            mono::BuildTextDrawBuffers(FontId::PIXELETTE_TINY, verb, mono::FontCentering::VERTICAL));
-        m_verb_text_widths.push_back(mono::MeasureString(FontId::PIXELETTE_TINY, verb).x);
+        m_verb_text_buffers.push_back(mono::BuildTextDrawBuffers(g_verb_font, verb, mono::FontCentering::VERTICAL));
+        m_verb_text_widths.push_back(mono::MeasureString(g_verb_font, verb).x);
 
         VerbSpriteBuffer verb_sprite_buffer;
         verb_sprite_buffer.sprite = mono::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
@@ -62,9 +63,8 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
     for(const char* verb : interaction_type_verb)
     {
-        m_verb_text_buffers.push_back(
-            mono::BuildTextDrawBuffers(FontId::PIXELETTE_TINY, verb, mono::FontCentering::VERTICAL));
-        m_verb_text_widths.push_back(mono::MeasureString(FontId::PIXELETTE_TINY, verb).x);
+        m_verb_text_buffers.push_back(mono::BuildTextDrawBuffers(g_verb_font, verb, mono::FontCentering::VERTICAL));
+        m_verb_text_widths.push_back(mono::MeasureString(g_verb_font, verb).x);
     }
 
     constexpr uint16_t indices[] = {
@@ -131,13 +131,13 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const float padding = 0.1f;
 
-            const math::Vector text_size = mono::MeasureString(FontId::PIXELETTE_TINY, draw_data.name);
+            const math::Vector text_size = mono::MeasureString(g_verb_font, draw_data.name);
             const math::Vector half_text_size = (text_size / 2.0f) + math::Vector(padding, padding);
 
             const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
 
-            renderer.RenderText(FontId::PIXELETTE_TINY, draw_data.name, mono::Color::OFF_WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
+            renderer.RenderText(g_verb_font, draw_data.name, mono::Color::OFF_WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
         }
 
         // Verb
@@ -179,7 +179,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
                 offset);
 
             const mono::TextDrawBuffers& text_buffers = m_verb_text_buffers[draw_data.sprite_index];
-            const mono::ITexturePtr font_texture = mono::GetFontTexture(FontId::PIXELETTE_TINY);
+            const mono::ITexturePtr font_texture = mono::GetFontTexture(g_verb_font);
 
             math::Matrix text_transform = transform;
             math::Translate(text_transform, math::Vector(0.35f, 0.0f));
