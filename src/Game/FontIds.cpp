@@ -16,12 +16,6 @@ bool game::LoadFonts()
     mono::LoadFont(FontId::RUSSOONE_LARGE,  "res/fonts/russoone-regular.ttf", 40.0f, 1.0f); // / 3.0f);
     mono::LoadFont(FontId::RUSSOONE_MEGA,   "res/fonts/russoone-regular.ttf", 72.0f, 1.0f); // / 1.5f);
 
-    mono::LoadFont(FontId::MONOTON_TINY,   "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 25.0f);
-    mono::LoadFont(FontId::MONOTON_SMALL,  "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 10.0f);
-    mono::LoadFont(FontId::MONOTON_MEDIUM, "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 5.0f);
-    mono::LoadFont(FontId::MONOTON_LARGE,  "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 3.0f);
-    mono::LoadFont(FontId::MONOTON_MEGA,   "res/fonts/monoton-regular.ttf", 72.0f, 1.0f / 1.5f);
-
     mono::LoadFont(FontId::BLACK_HAN_SANS_TINY,     "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 25.0f);
     mono::LoadFont(FontId::BLACK_HAN_SANS_SMALL,    "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 10.0f);
     mono::LoadFont(FontId::BLACK_HAN_SANS_MEDIUM,   "res/fonts/blackhansans-regular.ttf", 72.0f, 1.0f / 5.0f);
