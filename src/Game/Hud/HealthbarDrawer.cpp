@@ -202,7 +202,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
         const Healthbar& boss_healthbar = boss_healthbars.back();
         renderer.RenderText(
-            FontId::PIXELETTE_TINY,
+            FontId::RUSSOONE_TINY,
             boss_healthbar.name.c_str(),
             mono::Color::BLACK,
             mono::FontCentering::HORIZONTAL_VERTICAL);
