@@ -109,7 +109,7 @@ namespace game
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
             m_weapon_sprites->SetPosition(3.5f, 0.5f);
 
-            m_ammo_text = new UITextElement(FontId::PIXELETTE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
             m_ammo_text->SetPosition(4.5f, 0.5f);
 
             AddChild(background);
