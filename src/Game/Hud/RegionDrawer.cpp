@@ -50,7 +50,7 @@ std::vector<game::RegionDescription> game::ParseRegionConfig(const char* region_
 using namespace game;
 
 RegionDrawer::RegionDrawer(const std::vector<game::RegionDescription>& region_descriptions, TriggerSystem* trigger_system)
-    : UIOverlay(100.0f, 100.0f / mono::GetWindowAspect())
+    : UIOverlay(50.0f, 50.0f / mono::GetWindowAspect())
     , m_region_descriptions(region_descriptions)
     , m_trigger_system(trigger_system)
 {
@@ -65,10 +65,10 @@ RegionDrawer::RegionDrawer(const std::vector<game::RegionDescription>& region_de
     }
 
     m_region_text = new UITextElement(FontId::RUSSOONE_MEGA, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    m_region_text->SetPosition(1, m_height - 3);
+    m_region_text->SetPosition(1.0f, m_height - 3.0f);
 
     m_region_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::DARK_GRAY);
-    m_region_subtext->SetPosition(2, m_height - 4);
+    m_region_subtext->SetPosition(1.5f, m_height - 4.5f);
 
     AddChild(m_region_text);
     AddChild(m_region_subtext);
