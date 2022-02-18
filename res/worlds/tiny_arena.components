@@ -10508,13 +10508,13 @@
                             "id": 3836179294,
                             "name": "body_type",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
-                            "variant_value": 100.0
+                            "variant_value": 10000.0
                         },
                         {
                             "id": 3447918833,

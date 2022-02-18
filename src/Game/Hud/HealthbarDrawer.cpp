@@ -171,7 +171,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     GenerateHealthbarVertices(healthbars, 0.05f, vertices, colors, indices);
     const uint32_t n_healthbar_indices = indices.size();
 
-    const float boss_healthbar_thickness = viewport_height * 0.025f;
+    const float boss_healthbar_thickness = viewport_height * 0.035f;
     GenerateHealthbarVertices(boss_healthbars, boss_healthbar_thickness, vertices, colors, indices);
     const uint32_t n_boss_indices = indices.size() - n_healthbar_indices;
 

@@ -29,7 +29,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -8.0,
+                                "x": 0.0,
                                 "y": 2.0
                             }
                         },
@@ -55,7 +55,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 7
                         },
                         {
                             "id": 1031692888,
@@ -72,13 +72,33 @@
                             "id": 2611375224,
                             "name": "center_flags",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.05000000074505806,
+                                "y": 0.10000000149011612
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
                         }
                     ]
                 }
@@ -784,7 +804,6 @@
             "x": 24.0,
             "y": 16.0
         },
-        "conditions": [],
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,

@@ -97,7 +97,7 @@ BigTextScreen::BigTextScreen(
     const mono::Color::RGBA& border_color,
     const mono::Color::RGBA& text_color,
     const mono::Color::RGBA& subtext_color)
-    : UIOverlay(1200.0f, 1200.0f / mono::GetWindowAspect())
+    : UIOverlay(50.0f, 50.0f / mono::GetWindowAspect())
 {
     const float half_width = m_width / 2.0f;
     const float half_height = m_height / 2.0f;
@@ -106,13 +106,13 @@ BigTextScreen::BigTextScreen(
     m_background = new UISquareElement(m_width, square_height, color, border_color, 1.0f);
     m_background->SetPosition(math::Vector(0.0f, half_height - (square_height / 2.0f)));
 
-    m_main_text_element = new UITextElement(
-        FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);
-    m_main_text_element->SetPosition(math::Vector(half_width, half_height + 20.0f));
+    m_main_text_element =
+        new UITextElement(FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);
+    m_main_text_element->SetPosition(math::Vector(half_width, half_height + 1.5f));
 
-    m_sub_text_element = new UITextElement(
-        FontId::RUSSOONE_LARGE, sub_text, mono::FontCentering::HORIZONTAL_VERTICAL, subtext_color);
-    m_sub_text_element->SetPosition(math::Vector(half_width, half_height - 40.0f));
+    m_sub_text_element =
+        new UITextElement(FontId::RUSSOONE_LARGE, sub_text, mono::FontCentering::HORIZONTAL_VERTICAL, subtext_color);
+    m_sub_text_element->SetPosition(math::Vector(half_width, half_height - 1.0f));
 
     AddChild(m_background);
     AddChild(m_main_text_element);
