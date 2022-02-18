@@ -17,7 +17,7 @@ namespace game
             mono::IRenderer* renderer,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
-            const math::Vector& player_spawn) = 0;
+            const struct LevelMetadata& level_metadata) = 0;
         virtual int End(mono::IZone* zone) = 0;
     };
 }

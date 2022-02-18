@@ -29,6 +29,8 @@
 #include "Zone/IZone.h"
 #include "Math/EasingFunctions.h"
 
+#include "WorldFile.h"
+
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
@@ -62,7 +64,7 @@ void PacketDeliveryGameMode::Begin(
     mono::IRenderer* renderer,
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
-    const math::Vector& player_spawn)
+    const LevelMetadata& level_metadata)
 {
     m_renderer = renderer;
     m_event_handler = event_handler;
@@ -100,7 +102,8 @@ void PacketDeliveryGameMode::Begin(
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-    m_player_daemon = std::make_unique<PlayerDaemon>(server_manager, m_entity_manager, system_context, m_event_handler, player_spawn, player_spawned_cb);
+    m_player_daemon = std::make_unique<PlayerDaemon>(
+        server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(

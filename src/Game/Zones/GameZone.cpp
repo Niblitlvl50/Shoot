@@ -75,7 +75,7 @@ namespace
             mono::IRenderer* renderer,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
-            const math::Vector& player_spawn) override { }
+            const game::LevelMetadata& level_metadata) override { }
         int End(mono::IZone* zone) override { return 0; }
         void Update(const mono::UpdateContext& update_context) override {}
     };
@@ -175,7 +175,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new DebugUpdater(trigger_system, damage_system, transform_system, entity_system, m_event_handler), LayerId::UI);
 
     m_game_mode = CreateGameMode();
-    m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, m_leveldata.metadata.player_spawn_point);
+    m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, m_leveldata.metadata);
     AddUpdatable(m_game_mode.get());
 }
 

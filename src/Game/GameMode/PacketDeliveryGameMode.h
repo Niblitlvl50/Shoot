@@ -26,7 +26,7 @@ namespace game
             mono::IRenderer* renderer,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
-            const math::Vector& player_spawn) override;
+            const LevelMetadata& level_metadata) override;
         int End(mono::IZone* zone) override;
         void Update(const mono::UpdateContext& update_context) override;
 
