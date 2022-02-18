@@ -92,7 +92,7 @@ const DefaultAttribute default_attributes[] = {
     { "percentage",             Variant(0.5f) },
     { "destroyed_type",         Variant(0) },
     { "shadow_color",           Variant(mono::Color::BLACK) },
-    { "unused_2",               Variant(true) },
+    { "emit_once",              Variant(false) },
     { "offset",                 Variant(math::ZeroVec) },
     { "entity_file",            Variant(std::string()) },
     { "pool_size",              Variant(10) },
@@ -192,7 +192,7 @@ extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].has
 
 extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[65].hash;
 extern const uint32_t SHADOW_COLOR_ATTRIBUTE            = default_attributes[66].hash;
-extern const uint32_t UNUSED_2         = default_attributes[67].hash;
+extern const uint32_t EMIT_ONCE_ATTRIBUTE               = default_attributes[67].hash;
 
 extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
 extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[69].hash;
@@ -358,7 +358,7 @@ const Component default_components[] = {
     MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE }),
     MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
     MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE }),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),

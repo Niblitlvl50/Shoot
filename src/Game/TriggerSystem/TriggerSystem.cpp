@@ -25,27 +25,43 @@ namespace
     {
     public:
 
-        TriggerHandler(uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, TriggerSystem* trigger_system)
+        TriggerHandler(uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, bool trigger_once, TriggerSystem* trigger_system)
             : m_trigger_hash_enter(trigger_hash_enter)
             , m_trigger_hash_exit(trigger_hash_exit)
+            , m_trigger_once(trigger_once)
             , m_trigger_system(trigger_system)
+            , m_emit_enter(true)
+            , m_emit_exit(true)
         { }
 
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_hash_enter);
+            if(m_emit_enter)
+                m_trigger_system->EmitTrigger(m_trigger_hash_enter);
+
+            if(m_trigger_once)
+                m_emit_enter = false;
+    
             return mono::CollisionResolve::IGNORE;
         }
 
         void OnSeparateFrom(mono::IBody* body) override
         {
-            m_trigger_system->EmitTrigger(m_trigger_hash_exit);
+            if(m_emit_exit)
+                m_trigger_system->EmitTrigger(m_trigger_hash_exit);
+
+            if(m_trigger_once)
+                m_emit_exit = false;
         }
 
         const uint32_t m_trigger_hash_enter;
         const uint32_t m_trigger_hash_exit;
+        const bool m_trigger_once;
         TriggerSystem* m_trigger_system;
+
+        bool m_emit_enter;
+        bool m_emit_exit;
     };
 
     constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
@@ -89,7 +105,7 @@ void TriggerSystem::ReleaseShapeTrigger(uint32_t entity_id)
 }
 
 void TriggerSystem::AddShapeTrigger(
-    uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask)
+    uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask, bool trigger_once)
 {
     ShapeTriggerComponent* allocated_trigger = m_shape_triggers.Get(entity_id);
     allocated_trigger->trigger_hash_enter = trigger_hash_enter;
@@ -101,7 +117,7 @@ void TriggerSystem::AddShapeTrigger(
         if(allocated_trigger->shape_trigger_handler)
             body->RemoveCollisionHandler(allocated_trigger->shape_trigger_handler.get());
 
-        allocated_trigger->shape_trigger_handler = std::make_unique<TriggerHandler>(trigger_hash_enter, trigger_hash_exit, this);
+        allocated_trigger->shape_trigger_handler = std::make_unique<TriggerHandler>(trigger_hash_enter, trigger_hash_exit, trigger_once, this);
         body->AddCollisionHandler(allocated_trigger->shape_trigger_handler.get());
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);

@@ -23,6 +23,8 @@ namespace game
         uint32_t trigger_hash_enter;
         uint32_t trigger_hash_exit;
         uint32_t collision_mask;
+
+        // Internal data
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
     };
 
@@ -89,7 +91,7 @@ namespace game
         ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
         void ReleaseShapeTrigger(uint32_t entity_id);
         void AddShapeTrigger(
-            uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask);
+            uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask, bool trigger_once);
 
         DestroyedTriggerComponent* AllocateDestroyedTrigger(uint32_t entity_id);
         void ReleaseDestroyedTrigger(uint32_t entity_id);

@@ -5314,6 +5314,12 @@
                             "name": "faction_picker",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -22720,6 +22726,12 @@
                             "name": "faction_picker",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -22857,6 +22869,12 @@
                             "name": "faction_picker",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -30016,6 +30034,12 @@
                             "name": "faction_picker",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }

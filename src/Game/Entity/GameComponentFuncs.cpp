@@ -326,13 +326,15 @@ namespace
         }
 
         uint32_t faction;
+        bool emit_once;
         FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
+        FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
 
         const uint32_t enter_trigger_hash = hash::Hash(enter_trigger_name.c_str());
         const uint32_t exit_trigger_hash = hash::Hash(exit_trigger_name.c_str());
 
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction);
+        trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction, emit_once);
 
         hash::HashRegisterString(enter_trigger_name.c_str());
         hash::HashRegisterString(exit_trigger_name.c_str());

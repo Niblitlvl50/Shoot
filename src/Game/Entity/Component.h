@@ -93,7 +93,7 @@ extern const uint32_t FREQUENCY_ATTRIBUTE;
 extern const uint32_t PERCENTAGE_ATTRIBUTE;
 
 extern const uint32_t SHADOW_COLOR_ATTRIBUTE;
-extern const uint32_t UNUSED_2;
+extern const uint32_t EMIT_ONCE_ATTRIBUTE;
 extern const uint32_t ENTITY_FILE_ATTRIBUTE;
 
 extern const uint32_t POOL_SIZE_ATTRIBUTE;
