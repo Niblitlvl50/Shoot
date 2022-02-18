@@ -44,6 +44,8 @@ namespace
             level_data.metadata.navmesh_start = json_metadata.value("navmesh_start", math::ZeroVec);
             level_data.metadata.navmesh_end = json_metadata.value("navmesh_end", math::ZeroVec);
             level_data.metadata.navmesh_density = json_metadata.value("navmesh_density", 1.0f);
+
+            level_data.metadata.time_limit_s = json_metadata.value("time_limit_s", 0);
         }
 
         const nlohmann::json& json_entities = json["entities"];

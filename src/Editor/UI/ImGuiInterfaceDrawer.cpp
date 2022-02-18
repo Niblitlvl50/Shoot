@@ -100,12 +100,14 @@ namespace
             ImGui::EndMenu();
         }
 
-        ImGui::SameLine(ImGui::GetWindowWidth() -380);
+        ImGui::SameLine(ImGui::GetWindowWidth() -480);
         {
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
             ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
             if(ImGui::Button("Reset Zoom"))
                 context.reset_zoom_callback();
+            if(ImGui::Button("Reset Position"))
+                context.reset_position_callback();
             ImGui::PopStyleVar();
             ImGui::PopStyleColor();
         }
@@ -307,6 +309,10 @@ namespace
                 ImGui::InputFloat2("Start", &context.level_metadata.navmesh_start.x);
                 ImGui::InputFloat2("End", &context.level_metadata.navmesh_end.x);
                 ImGui::InputFloat("Density", &context.level_metadata.navmesh_density);
+
+                ImGui::Spacing();
+                ImGui::TextDisabled("Other");
+                ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
 
                 ImGui::EndTabItem();
             }

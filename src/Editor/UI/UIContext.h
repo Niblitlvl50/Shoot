@@ -121,6 +121,7 @@ namespace editor
         std::function<void (EditorMenuOptions option)> editor_menu_callback;
         std::function<void (ToolsMenuOptions option)> tools_menu_callback;
         std::function<void ()> reset_zoom_callback;
+        std::function<void ()> reset_position_callback;
 
         std::function<void (bool new_value)> draw_object_names_callback;
         std::function<void (bool new_value)> draw_snappers_callback;

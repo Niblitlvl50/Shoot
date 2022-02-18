@@ -29,7 +29,9 @@ namespace game
 
         math::Vector navmesh_start;
         math::Vector navmesh_end;
-        float navmesh_density;
+        float navmesh_density = 1.0f;
+
+        int time_limit_s = 0;
     };
 
     struct LevelData

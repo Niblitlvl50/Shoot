@@ -228,6 +228,9 @@ Editor::Editor(
     m_context.reset_zoom_callback = [this] {
         m_camera->SetTargetViewportSize(m_context.level_metadata.camera_size);
     };
+    m_context.reset_position_callback = [this] {
+        m_camera->SetTargetPosition(m_context.level_metadata.camera_position);
+    };
 
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
