@@ -48,6 +48,7 @@ Weapon::Weapon(
     , m_last_reload_timestamp(0)
     , m_current_fire_rate(1.0f)
     , m_ammunition(weapon_config.magazine_size)
+    , m_reload_percentage(100)
     , m_state(WeaponState::IDLE)
 {
     m_fire_sound = audio::CreateNullSound();
