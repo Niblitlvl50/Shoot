@@ -53,26 +53,26 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_player_logic->StopFire();
 
-    const bool a = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::A);
-    if(a)
+    const bool do_shockwave = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_BOTTOM);
+    if(do_shockwave)
     {
         m_player_logic->Shockwave();
         //m_player_logic->TriggerInteraction();
     }
 
-    const bool b = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
-    const bool b_changed = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::B);
-    if(b)
+    const bool timescale_slow = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_RIGHT);
+    const bool timescale_normal = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_RIGHT);
+    if(timescale_slow)
         m_event_handler->DispatchEvent(event::TimeScaleEvent(0.1f));
-    else if(b_changed)
+    else if(timescale_normal)
         m_event_handler->DispatchEvent(event::TimeScaleEvent(1.0f));
 
     const bool reload =
-        System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::X);
+        System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_LEFT);
     if(reload)
         m_player_logic->Reload(update_context.timestamp);
 
-    const bool blink = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::Y);
+    const bool blink = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_TOP);
     if(blink)
         m_player_logic->Blink(math::Vector(m_state.left_x, m_state.left_y));
 

@@ -64,7 +64,7 @@ void ExplodableController::OnDead()
     const math::Vector world_position = math::GetPosition(m_transform_system->GetWorld(m_entity_id));
     m_explosion_effect->ExplodeAt(world_position);
 
-    game::ShockwaveAndDamageAt(m_physics_system, m_damage_system, world_position, 50.0f, 10, m_entity_id);
+    game::ShockwaveAndDamageAt(m_physics_system, m_damage_system, world_position, 15.0f, 10, m_entity_id);
 
     m_wait_timer = 0;
 }

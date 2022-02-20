@@ -204,16 +204,16 @@ namespace game
             if(m_player_info.player_state == game::PlayerState::DEAD)
             {
                 const System::ControllerState& state = System::GetController(System::ControllerId(m_player_info.controller_id));
-                const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
-                const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+                const bool respawn_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_BOTTOM);
+                const bool quit_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_TOP);
 
                 m_last_state = state;
 
-                if(a_pressed)
+                if(respawn_pressed)
                 {
                     m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_info.entity_id));
                 }
-                else if(y_pressed)
+                else if(quit_pressed)
                 {
                     //m_states.TransitionTo(GameModeStates::FADE_OUT);
                 }

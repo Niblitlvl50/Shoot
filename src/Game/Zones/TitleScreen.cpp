@@ -49,12 +49,12 @@ namespace
             m_delay_counter_s += update_context.delta_s;
             if(m_delay_counter_s > 0.5f)
             {
-                const bool a_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::A);
-                const bool y_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::Y);
+                const bool continue_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_BOTTOM);
+                const bool quit_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_TOP);
 
-                if(a_pressed)
+                if(continue_pressed)
                     m_title_screen->Continue();
-                else if(y_pressed)
+                else if(quit_pressed)
                     m_title_screen->Quit();
             }
 

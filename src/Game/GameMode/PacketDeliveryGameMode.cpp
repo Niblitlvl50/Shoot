@@ -125,6 +125,7 @@ void PacketDeliveryGameMode::Begin(
     m_level_has_timelimit = (m_level_timer > 0);
 
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
+    m_timer_screen->SetSeconds(m_level_timer);
     if(!m_level_has_timelimit)
         m_timer_screen->Hide();
 
@@ -240,9 +241,9 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
 void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_context)
 {
     const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
-    const bool abxy_pressed =
-        System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::ABXY);
-    if(abxy_pressed)
+    const bool any_pressed =
+        System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_ANY);
+    if(any_pressed)
         m_states.TransitionTo(GameModeStates::FADE_OUT);
 
     m_last_state = state;
