@@ -74,6 +74,7 @@ namespace game
         std::unique_ptr<class BigTextScreen> m_dead_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
+        std::unique_ptr<class LevelTimerUIElement> m_timer_screen;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<event::PauseEvent> m_pause_token;
@@ -85,6 +86,9 @@ namespace game
 
         float m_fade_in_timer;
         float m_fade_out_timer;
+
+        bool m_level_has_timelimit;
+        float m_level_timer;
 
         System::ControllerState m_last_state;
     };

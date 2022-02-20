@@ -3,6 +3,7 @@
 #include "Hud/PlayerDeathScreen.h"
 #include "Hud/PauseScreen.h"
 #include "Hud/PlayerUIElement.h"
+#include "Hud/LevelTimerUIElement.h"
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
@@ -120,9 +121,17 @@ void PacketDeliveryGameMode::Begin(
 
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, m_event_handler);
 
+    m_level_timer = level_metadata.time_limit_s;
+    m_level_has_timelimit = (m_level_timer > 0);
+
+    m_timer_screen = std::make_unique<LevelTimerUIElement>();
+    if(!m_level_has_timelimit)
+        m_timer_screen->Hide();
+
     zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
@@ -130,6 +139,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_dead_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
+    zone->RemoveUpdatableDrawable(m_timer_screen.get());
 
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
@@ -210,7 +220,17 @@ void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 void PacketDeliveryGameMode::ToRunGameMode()
 { }
 void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_context)
-{ }
+{
+    m_level_timer -= update_context.delta_s;
+    m_timer_screen->SetSeconds(m_level_timer);
+
+    if(m_level_has_timelimit && m_level_timer < 1.0f)
+    {
+        // Time out, game over. Should proably be a different fail state.
+        m_dead_screen->SetSubText("Man, you were too slow!");
+        m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+    }
+}
 
 void PacketDeliveryGameMode::ToPackageDestroyed()
 {
