@@ -10,6 +10,7 @@ namespace game
         WEAPON_RELOAD,
         BLINK,
         SHOCKWAVE,
+        WEAPON_AMMUNITION,
 
         N_ABILITIES
     };
@@ -17,6 +18,7 @@ namespace game
     constexpr mono::Color::RGBA g_ability_to_color[] = {
         mono::Color::BLACK,
         mono::Color::RED,
-        mono::Color::GREEN
+        mono::Color::GREEN,
+        mono::Color::MAGENTA
     };
 }

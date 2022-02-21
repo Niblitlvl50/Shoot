@@ -49,7 +49,6 @@ namespace game
         WeaponSetup weapon_type;
         WeaponState weapon_state;
         int magazine_left;
-        int magazine_capacity;
 
         uint32_t cooldown_id;
         float cooldown_fraction;

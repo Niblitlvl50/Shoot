@@ -116,6 +116,8 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = float(m_weapon->ReloadPercentage()) / 100.0f;
     m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s;
     m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s;
+    m_active_cooldowns[PlayerAbility::WEAPON_AMMUNITION] =
+        float(m_weapon->AmmunitionLeft()) / float(m_weapon->MagazineSize());
 
     UpdatePlayerInfo(update_context.timestamp);
 }
@@ -132,7 +134,6 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
 
     m_player_info->weapon_type = m_weapon_type;
     m_player_info->weapon_state = m_weapon->UpdateWeaponState(timestamp);
-    m_player_info->magazine_capacity = m_weapon->MagazineSize();
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->laser_sight = (HoldingPickup() == false);
 
