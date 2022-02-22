@@ -17,29 +17,29 @@
             "h": 12,
             "name": "plasmaball_idle_1",
             "w": 14,
-            "x": 1507,
-            "y": 437
+            "x": 782,
+            "y": 438
         },
         {
             "h": 14,
             "name": "plasmaball_idle_2",
             "w": 15,
-            "x": 2008,
-            "y": 436
+            "x": 1308,
+            "y": 437
         },
         {
             "h": 14,
             "name": "plasmaball_idle_3",
             "w": 15,
-            "x": 734,
+            "x": 1289,
             "y": 437
         },
         {
             "h": 15,
             "name": "plasmaball_idle_4",
             "w": 15,
-            "x": 614,
-            "y": 434
+            "x": 170,
+            "y": 435
         }
     ],
     "frames_offsets": [

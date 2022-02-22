@@ -19,43 +19,43 @@
             "h": 9,
             "name": "heart_small_idle_1",
             "w": 10,
-            "x": 579,
-            "y": 453
+            "x": 227,
+            "y": 454
         },
         {
             "h": 9,
             "name": "heart_small_idle_2",
             "w": 10,
-            "x": 593,
-            "y": 453
+            "x": 241,
+            "y": 454
         },
         {
             "h": 10,
             "name": "heart_small_idle_3",
             "w": 10,
-            "x": 68,
-            "y": 453
+            "x": 30,
+            "y": 454
         },
         {
             "h": 9,
             "name": "heart_small_idle_4",
             "w": 10,
-            "x": 607,
-            "y": 453
+            "x": 269,
+            "y": 454
         },
         {
             "h": 10,
             "name": "heart_small_idle_5",
             "w": 10,
-            "x": 1988,
-            "y": 452
+            "x": 16,
+            "y": 454
         },
         {
             "h": 9,
             "name": "heart_small_idle_6",
             "w": 10,
-            "x": 621,
-            "y": 453
+            "x": 255,
+            "y": 454
         }
     ],
     "frames_offsets": [

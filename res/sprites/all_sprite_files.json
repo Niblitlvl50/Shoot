@@ -125,6 +125,7 @@
         "res/sprites/pine_small_dead.sprite",
         "res/sprites/plasma.sprite",
         "res/sprites/plasmaball.sprite",
+        "res/sprites/player_background_hud.sprite",
         "res/sprites/player_point.sprite",
         "res/sprites/portal.sprite",
         "res/sprites/portal_green.sprite",

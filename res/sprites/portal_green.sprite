@@ -49,28 +49,28 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 191,
+            "x": 792,
             "y": 454
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 1593,
-            "y": 453
+            "x": 620,
+            "y": 454
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 677,
-            "y": 453
+            "x": 314,
+            "y": 454
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 994,
+            "x": 1365,
             "y": 416
         },
         {
@@ -112,35 +112,35 @@
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 770,
+            "x": 1194,
             "y": 416
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 646,
-            "y": 453
+            "x": 283,
+            "y": 454
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 1562,
-            "y": 453
+            "x": 589,
+            "y": 454
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 150,
+            "x": 751,
             "y": 454
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 2,
+            "x": 704,
             "y": 454
         },
         {
