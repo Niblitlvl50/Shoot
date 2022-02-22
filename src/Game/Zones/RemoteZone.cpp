@@ -2,7 +2,7 @@
 #include "RemoteZone.h"
 #include "ZoneFlow.h"
 #include "Factories.h"
-#include "SpriteResources.h"
+#include "Resources.h"
 #include "RenderLayers.h"
 #include "GameDebug.h"
 

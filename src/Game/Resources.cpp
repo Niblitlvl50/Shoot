@@ -1,5 +1,5 @@
 
-#include "SpriteResources.h"
+#include "Resources.h"
 #include "System/File.h"
 #include "System/Hash.h"
 

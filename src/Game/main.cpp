@@ -20,7 +20,7 @@
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
-#include "SpriteResources.h"
+#include "Resources.h"
 #include "Weapons/WeaponFactory.h"
 #include "Zones/ZoneManager.h"
 
