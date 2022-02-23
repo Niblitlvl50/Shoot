@@ -22,8 +22,10 @@
 
 namespace game
 {
-    constexpr float g_player_element_width = 5.5f;
-    constexpr float g_player_death_element_width = 5.0f;
+    constexpr float g_player_element_width = 2.5f;
+    constexpr float g_player_element_half_width = g_player_element_width / 2.0f;
+    constexpr float g_player_death_element_width = 3.0f;
+    constexpr float g_player_death_element_width_delta = g_player_death_element_width - g_player_element_width;
     constexpr float g_player_element_height = 1.0f;
 
     class HeartContainer : public game::UIElement
@@ -81,18 +83,22 @@ namespace game
     {
     public:
 
-        PlayerElement(const PlayerInfo& player_info, const math::Vector& onscreen_position, const math::Vector& offscreen_position)
+        PlayerElement(
+            const PlayerInfo& player_info,
+            const char* player_sprite,
+            const math::Vector& onscreen_position,
+            const math::Vector& offscreen_position)
             : m_player_info(player_info)
             , m_timer(0)
         {
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
 
-            UISquareElement* background = new UISquareElement(
-                g_player_element_width, g_player_element_height, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.5f), mono::Color::BLACK, 1.0f);
+            UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
+            background_hud->SetPosition(0.0f, 0.5f);
 
-            HeartContainer* hearts = new HeartContainer(player_info);
-            hearts->SetPosition(0.5f, 0.5f);
+            UISpriteElement* mugshot_hud = new UISpriteElement(player_sprite);
+            mugshot_hud->SetPosition(-0.6f, 0.5f);
 
             std::vector<std::string> weapon_sprites;
 
@@ -107,13 +113,15 @@ namespace game
             }
 
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
-            m_weapon_sprites->SetPosition(3.5f, 0.5f);
+            m_weapon_sprites->SetPosition(0.25f, 0.45f);
 
-            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-            m_ammo_text->SetPosition(4.5f, 0.5f);
+            m_ammo_text = new UITextElement(
+                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            m_ammo_text->SetPosition(0.5f, 0.35f);
+            m_ammo_text->SetScale(0.5f);
 
-            AddChild(background);
-            AddChild(hearts);
+            AddChild(background_hud);
+            AddChild(mugshot_hud);
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
         }
@@ -179,15 +187,17 @@ namespace game
                 g_player_death_element_width, g_player_element_height, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f), mono::Color::BLACK, 1.0f);
 
             UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes1.sprite");
-            skull_sprite->SetPosition(0.5f, 0.5f);
+            skull_sprite->SetPosition(0.4f, 0.5f);
 
             UITextElement* death_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
-            death_text->SetPosition(2.5f, 0.70f);
+            death_text->SetPosition(1.75f, 0.60f);
+            death_text->SetScale(0.7f);
 
             UITextElement* death_text_2 = new UITextElement(
                 FontId::RUSSOONE_TINY, "Continue?", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
-            death_text_2->SetPosition(2.5f, 0.30f);
+            death_text_2->SetPosition(1.75f, 0.35f);
+            death_text_2->SetScale(0.7f);
 
             AddChild(background);
             AddChild(skull_sprite);
@@ -254,40 +264,42 @@ namespace game
 using namespace game;
 
 PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, mono::EventHandler* event_handler)
-    : UIOverlay(16.0f, 16.0f / mono::GetWindowAspect())
+    : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
 {
-    const float position_x = m_width - g_player_element_width;
-    const float position_y = m_height - g_player_element_height;
+    const float position_x = m_width - g_player_element_half_width;
 
     const math::Vector hud_positions[] = {
-        { 0.0f, 0.0f },
+        { g_player_element_half_width, 0.0f },
         { position_x, 0.0f },
-        { 0.0f, position_y },
-        { position_x, position_y }
+        { m_width / 2.0f, 0.0f },
     };
 
-    const math::Vector hud_offscreen_delta_positions[] = {
+    const math::Vector hud_offscreen_delta[] = {
         { -g_player_element_width, 0.0f },
         { +g_player_element_width, 0.0f },
-        { -g_player_element_width, 0.0f },
-        { +g_player_element_width, 0.0f }
+        { 0.0f, -2.0f },
     };
 
-    const math::Vector hud_death_element_offset[] = {
-        { 0.0f, +0.25f },
-        { 0.5f, +0.25f },
-        { 0.0f, -0.25f },
-        { 0.5f, -0.25f }
+    const math::Vector death_element_offset[] = {
+        { (-g_player_death_element_width / 2.0f) + 0.25f, 0.0f },
+        { (-g_player_death_element_width / 2.0f) - 0.25f, 0.0f },
+        { (-g_player_death_element_width / 2.0f), 0.0f },
+    };
+
+    const math::Vector death_element_offscreen_delta[] = {
+        { -g_player_death_element_width, 0.0f },
+        { g_player_death_element_width, 0.0f },
+        { 0.0f, -2.0f },
     };
 
     for(int index = 0; index < n_players; ++index)
     {
         const math::Vector on_screen_position = hud_positions[index];
-        const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta_positions[index];
-        AddChild(new PlayerElement(player_infos[index], on_screen_position, off_screen_position));
+        const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta[index];
+        AddChild(new PlayerElement(player_infos[index], "res/sprites/fire_zombie.sprite", on_screen_position, off_screen_position));
 
-        const math::Vector on_screen_death_position = on_screen_position + hud_death_element_offset[index];
-        const math::Vector off_screen_death_position = off_screen_position + hud_death_element_offset[index];
+        const math::Vector on_screen_death_position = on_screen_position + death_element_offset[index];
+        const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];
         AddChild(new PlayerDeathElement(player_infos[index], event_handler, on_screen_death_position, off_screen_death_position));
     }
 }

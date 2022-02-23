@@ -57,7 +57,7 @@ namespace game
         int lives;
     };
 
-    constexpr int n_players = 4;
+    constexpr int n_players = 3;
     extern PlayerInfo g_players[n_players];
 
     void InitializePlayerInfo();
