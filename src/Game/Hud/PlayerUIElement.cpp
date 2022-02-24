@@ -142,10 +142,6 @@ namespace game
         {
             UIElement::Update(update_context);
             m_states.UpdateState(update_context.delta_s);
-
-            if(m_player_info.player_state == PlayerState::ALIVE)
-                m_states.TransitionTo(States::APPEAR);
-
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
         }
 
