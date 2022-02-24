@@ -136,6 +136,9 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     UIElement::Draw(renderer);
 
+    if(m_color.alpha == 0.0f)
+        return;
+
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
     renderer.RenderText(m_font_id, m_text.c_str(), m_color, m_centering);
