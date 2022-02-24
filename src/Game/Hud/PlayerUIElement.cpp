@@ -1,9 +1,10 @@
 
 #include "PlayerUIElement.h"
-
 #include "Player/PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
+#include "Resources.h"
+
 #include "Math/EasingFunctions.h"
 
 #include "EventHandler/EventHandler.h"
@@ -11,11 +12,13 @@
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "Rendering/Sprite/ISprite.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteFactory.h"
 #include "Rendering/RenderSystem.h"
 
 #include "System/System.h"
+#include "StateMachine.h"
 
 #include <cstdio>
 #include <unordered_map>
@@ -25,7 +28,6 @@ namespace game
     constexpr float g_player_element_width = 2.5f;
     constexpr float g_player_element_half_width = g_player_element_width / 2.0f;
     constexpr float g_player_death_element_width = 3.0f;
-    constexpr float g_player_death_element_width_delta = g_player_death_element_width - g_player_element_width;
     constexpr float g_player_element_height = 1.0f;
 
     class HeartContainer : public game::UIElement
@@ -83,13 +85,16 @@ namespace game
     {
     public:
 
+        static constexpr float transision_duration_s = 0.5f;
+
         PlayerElement(
             const PlayerInfo& player_info,
-            const char* player_sprite,
             const math::Vector& onscreen_position,
-            const math::Vector& offscreen_position)
+            const math::Vector& offscreen_position,
+            mono::SpriteSystem* sprite_system)
             : m_player_info(player_info)
-            , m_timer(0)
+            , m_sprite_system(sprite_system)
+            , m_timer(0.0f)
         {
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
@@ -97,8 +102,8 @@ namespace game
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
             background_hud->SetPosition(0.0f, 0.5f);
 
-            UISpriteElement* mugshot_hud = new UISpriteElement(player_sprite);
-            mugshot_hud->SetPosition(-0.6f, 0.5f);
+            m_mugshot_hud = new UISpriteElement();
+            m_mugshot_hud->SetPosition(-0.6f, 0.5f);
 
             std::vector<std::string> weapon_sprites;
 
@@ -121,15 +126,48 @@ namespace game
             m_ammo_text->SetScale(0.5f);
 
             AddChild(background_hud);
-            AddChild(mugshot_hud);
+            AddChild( m_mugshot_hud);
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
+
+            const PlayerUIStateMachine::StateTable states = {
+                PlayerUIStateMachine::MakeState(States::APPEAR, &PlayerElement::ToAppear, &PlayerElement::Appearing, this),
+                PlayerUIStateMachine::MakeState(States::ACTIVE, &PlayerElement::ToActive, &PlayerElement::Active, this),
+                PlayerUIStateMachine::MakeState(States::DISAPPEAR, &PlayerElement::ToDisappear, &PlayerElement::Disappearing, this)
+            };
+            m_states.SetStateTableAndState(states, States::DISAPPEAR);
         }
 
         void Update(const mono::UpdateContext& update_context) override
         {
             UIElement::Update(update_context);
+            m_states.UpdateState(update_context.delta_s);
 
+            if(m_player_info.player_state == PlayerState::ALIVE)
+                m_states.TransitionTo(States::APPEAR);
+
+            m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
+        }
+
+        void ToAppear()
+        {
+            const mono::Sprite* player_sprite = m_sprite_system->GetSprite(m_player_info.entity_id);
+            const char* sprite_filename = game::HashToFilename(player_sprite->GetSpriteHash());
+            m_mugshot_hud->SetSprite(sprite_filename);
+        }
+        void Appearing(const float& delta_s)
+        {
+            AnimatePlayerElement(m_timer);
+            m_timer += delta_s;
+
+            if(m_timer >= transision_duration_s)
+                m_states.TransitionTo(States::ACTIVE);
+        }
+
+        void ToActive()
+        { }
+        void Active(const float& delta_s)
+        {
             char ammo_text[32] = { '\0' };
             std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
             m_ammo_text->SetText(ammo_text);
@@ -137,25 +175,31 @@ namespace game
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
             m_weapon_sprites->SetActiveSprite(weapon_index);
 
-            constexpr float transision_duration_s = 0.5f;
+            if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
+                m_states.TransitionTo(States::DISAPPEAR);
+        }
 
-            if(m_player_info.player_state != game::PlayerState::NOT_SPAWNED && m_timer < transision_duration_s)
-            {
-                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                m_timer += update_context.delta_s;
-            }
-            else if(m_player_info.player_state == game::PlayerState::NOT_SPAWNED && m_timer > 0.0f)
-            {
-                m_position.x = math::EaseInCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseInCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                m_timer -= update_context.delta_s;
-            }
+        void ToDisappear()
+        { }
+        void Disappearing(const float& delta_s)
+        {
+            AnimatePlayerElement(m_timer);
+            m_timer -= delta_s;
 
-            m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
+            if(m_player_info.player_state == PlayerState::ALIVE)
+                m_states.TransitionTo(States::APPEAR);
+        }
+
+        void AnimatePlayerElement(float time)
+        {
+            m_position.x = math::EaseInCubic(
+                time, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+            m_position.y = math::EaseInCubic(
+                time, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
         }
 
         const PlayerInfo& m_player_info;
+        mono::SpriteSystem* m_sprite_system;
 
         math::Vector m_screen_position;
         math::Vector m_offscreen_position;
@@ -163,7 +207,18 @@ namespace game
 
         std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
         class UITextElement* m_ammo_text;
+        class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
+
+        enum class States
+        {
+            APPEAR,
+            DISAPPEAR,
+            ACTIVE
+        };
+
+        using PlayerUIStateMachine = StateMachine<States, float>;
+        PlayerUIStateMachine m_states;
     };
 
 
@@ -263,7 +318,7 @@ namespace game
 
 using namespace game;
 
-PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, mono::EventHandler* event_handler)
+PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
     : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
@@ -294,12 +349,14 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, 
 
     for(int index = 0; index < n_players; ++index)
     {
+        const PlayerInfo& player_info = player_infos[index];
+
         const math::Vector on_screen_position = hud_positions[index];
         const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta[index];
-        AddChild(new PlayerElement(player_infos[index], "res/sprites/fire_zombie.sprite", on_screen_position, off_screen_position));
+        AddChild(new PlayerElement(player_info, on_screen_position, off_screen_position, sprite_system));
 
         const math::Vector on_screen_death_position = on_screen_position + death_element_offset[index];
         const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];
-        AddChild(new PlayerDeathElement(player_infos[index], event_handler, on_screen_death_position, off_screen_death_position));
+        AddChild(new PlayerDeathElement(player_info, event_handler, on_screen_death_position, off_screen_death_position));
     }
 }

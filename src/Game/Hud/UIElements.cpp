@@ -141,24 +141,42 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
     renderer.RenderText(m_font_id, m_text.c_str(), m_color, m_centering);
 }
 
-
-UISpriteElement::UISpriteElement(const std::string& sprite_file)
-    : UISpriteElement(std::vector<std::string>{ sprite_file })
-{ }
-
-UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
+UISpriteElement::UISpriteElement()
     : m_active_sprite(0)
 {
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+}
+
+UISpriteElement::UISpriteElement(const std::string& sprite_file)
+    : UISpriteElement()
+{
+    SetSprite(sprite_file);
+}
+
+UISpriteElement::UISpriteElement(const std::vector<std::string>& sprite_files)
+    : UISpriteElement()
+{
+    SetSprites(sprite_files);
+}
+
+void UISpriteElement::SetSprite(const std::string& sprite_file)
+{
+    SetSprites({ sprite_file });
+}
+
+void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
+{
+    m_sprites.clear();
+    m_sprite_buffers.clear();
+
     for(const std::string& sprite_file : sprite_files)
     {
         m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
         m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
     }
-
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
 }
 
 void UISpriteElement::SetActiveSprite(uint32_t index)
@@ -182,6 +200,9 @@ void UISpriteElement::Update(const mono::UpdateContext& update_context)
 void UISpriteElement::Draw(mono::IRenderer& renderer) const
 {
     UIElement::Draw(renderer);
+
+    if(m_sprites.empty() || m_sprite_buffers.empty())
+        return;
 
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);

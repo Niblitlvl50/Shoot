@@ -88,8 +88,12 @@ namespace game
     {
     public:
     
+        UISpriteElement();
         UISpriteElement(const std::string& sprite_file);
         UISpriteElement(const std::vector<std::string>& sprite_files);
+
+        void SetSprite(const std::string& sprite_file);
+        void SetSprites(const std::vector<std::string>& sprite_files);
 
         void SetActiveSprite(uint32_t index);
         mono::ISprite* GetSprite(uint32_t index);
