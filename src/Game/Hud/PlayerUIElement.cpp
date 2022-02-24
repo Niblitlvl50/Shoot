@@ -30,57 +30,6 @@ namespace game
     constexpr float g_player_death_element_width = 3.0f;
     constexpr float g_player_element_height = 1.0f;
 
-    class HeartContainer : public game::UIElement
-    {
-    public:
-
-        static constexpr const int max_lives = 3;
-        static constexpr const char* heart_sprite = "res/sprites/heart.sprite";
-
-        HeartContainer(const PlayerInfo& player_info)
-            : m_player_info(player_info)
-        {
-            for(size_t index = 0; index < std::size(m_hearts); ++index)
-            {
-                game::UISpriteElement* element = new game::UISpriteElement(heart_sprite);
-                element->SetPosition(math::Vector(index * 0.8f, 0.0f));
-                m_hearts[index] = element;
-                AddChild(element);
-            }
-
-            mono::ISprite* sprite = m_hearts[0]->GetSprite(0);
-            m_deafault_id = sprite->GetAnimationIdFromName("default");
-            m_dead_id = sprite->GetAnimationIdFromName("dead");
-        }
-
-        void Update(const mono::UpdateContext& update_context) override
-        {
-            UIElement::Update(update_context);
-            SetLives(m_player_info.lives);
-        }
-
-        void SetLives(int lives)
-        {
-            for(int index = 0; index < max_lives; ++index)
-            {
-                const mono::Color::RGBA shade = (index < lives) ? mono::Color::WHITE : mono::Color::GRAY;
-                const int animation =
-                    (((index +1) == lives) && m_player_info.player_state == PlayerState::ALIVE) ? m_deafault_id : m_dead_id;
-
-                mono::ISprite* sprite = m_hearts[index]->GetSprite(0);
-                sprite->SetShade(shade);
-
-                if(animation != sprite->GetActiveAnimation())
-                    sprite->SetAnimation(animation);
-            }
-        }
-
-        const PlayerInfo& m_player_info;
-        game::UISpriteElement* m_hearts[max_lives];
-        int m_deafault_id;
-        int m_dead_id;
-    };
-
     class PlayerElement : public game::UIElement
     {
     public:
