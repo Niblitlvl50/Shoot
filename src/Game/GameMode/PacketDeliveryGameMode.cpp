@@ -4,6 +4,7 @@
 #include "Hud/PauseScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/LevelTimerUIElement.h"
+#include "Hud/PlayerAuxiliaryDrawer.h"
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
@@ -106,6 +107,10 @@ void PacketDeliveryGameMode::Begin(
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
+    // Package
+    m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
+    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
+
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
         "Delivery failed!",
@@ -137,6 +142,7 @@ void PacketDeliveryGameMode::Begin(
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
+    zone->RemoveDrawable(m_package_aux_drawer.get());
     zone->RemoveUpdatableDrawable(m_dead_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
@@ -200,8 +206,11 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        m_package_aux_drawer->SetPackageId(-1);
     };
     m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
+
+    m_package_aux_drawer->SetPackageId(package_entity.id);
 }
 
 void PacketDeliveryGameMode::ToFadeIn()

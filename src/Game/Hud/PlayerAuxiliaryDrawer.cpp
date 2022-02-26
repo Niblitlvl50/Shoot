@@ -1,6 +1,7 @@
 
 #include "PlayerAuxiliaryDrawer.h"
 #include "Math/Quad.h"
+#include "Math/MathFunctions.h"
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
 
@@ -112,3 +113,59 @@ math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
 {
     return math::InfQuad;
 }
+
+
+PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* transform_system)
+    : m_transform_system(transform_system)
+    , m_package_id(-1)
+{ }
+
+void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
+{
+    if(m_package_id == uint32_t(-1))
+        return;
+
+    const math::Vector package_world_position = m_transform_system->GetWorldPosition(m_package_id);
+    const bool is_in_view = renderer.Cull(math::Quad(package_world_position, 0.1f));
+    if(!is_in_view)
+    {
+        const math::Quad viewport = renderer.GetViewport();
+        const math::Vector top_left = math::TopLeft(viewport);
+        const math::Vector top_right = math::TopRight(viewport);
+        const math::Vector bottom_left = math::BottomLeft(viewport);
+        const math::Vector bottom_right = math::BottomRight(viewport);
+
+        const math::PointOnLineResult results[] = {
+            math::ClosestPointOnLine(top_left, top_right, package_world_position),
+            math::ClosestPointOnLine(top_right, bottom_right, package_world_position),
+            math::ClosestPointOnLine(bottom_right, bottom_left, package_world_position),
+            math::ClosestPointOnLine(bottom_left, top_left, package_world_position),
+        };
+
+        float closest_distance = 1000000000.0f;
+        math::Vector closest_point;
+
+        for(const math::PointOnLineResult& result : results)
+        {
+            const float distance = math::DistanceBetween(package_world_position, result.point);
+            if(distance < closest_distance)
+            {
+                closest_distance = distance;
+                closest_point = result.point;
+            }
+        }
+
+        renderer.DrawFilledCircle(closest_point, math::Vector(0.2f, 0.2f), 16, mono::Color::MAGENTA);
+    }
+}
+
+math::Quad PackageAuxiliaryDrawer::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+void PackageAuxiliaryDrawer::SetPackageId(uint32_t package_id)
+{
+    m_package_id = package_id;
+}
+
