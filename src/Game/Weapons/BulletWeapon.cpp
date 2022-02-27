@@ -204,6 +204,11 @@ WeaponState Weapon::UpdateWeaponState(uint32_t timestamp)
     return m_state;
 }
 
+void Weapon::AddAmmunition(int amount)
+{
+    m_ammunition = std::clamp(m_ammunition + amount, 0, m_weapon_config.magazine_size);
+}
+
 int Weapon::AmmunitionLeft() const
 {
     return m_ammunition;

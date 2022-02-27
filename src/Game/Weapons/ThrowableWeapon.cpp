@@ -120,6 +120,11 @@ WeaponState ThrowableWeapon::UpdateWeaponState(uint32_t timestamp)
     return m_state;
 }
 
+void ThrowableWeapon::AddAmmunition(int amount)
+{
+    m_ammunition = std::clamp(m_ammunition + amount, 0, m_config.magazine_size);
+}
+
 int ThrowableWeapon::AmmunitionLeft() const
 {
     return m_ammunition;

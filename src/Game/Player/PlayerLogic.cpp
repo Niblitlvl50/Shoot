@@ -346,6 +346,7 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     switch(type)
     {
     case PickupType::AMMO:
+        m_weapon->AddAmmunition(amount);
         break;
     case PickupType::HEALTH:
     {
