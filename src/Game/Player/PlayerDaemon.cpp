@@ -130,7 +130,6 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
     }
 
     allocated_player_info->controller_id = controller_id;
-    allocated_player_info->lives = 3;
     m_controller_id_to_player_info[controller_id] = allocated_player_info;
 
     const auto destroyed_func = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
@@ -138,13 +137,8 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
         if(type == DamageType::DESTROYED)
         {
             m_camera_system->Unfollow(entity_id);
-            
             allocated_player_info->player_state = game::PlayerState::DEAD;
-            allocated_player_info->lives--;
             allocated_player_info->killer_entity_id = id_who_did_damage;
-
-            if(allocated_player_info->lives <= 0)
-                DespawnPlayer(allocated_player_info);
         }
         else if(type == DamageType::DAMAGED)
         {
@@ -251,18 +245,13 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
         return mono::EventResult::HANDLED;
     }
 
-    allocated_player_info->lives = 3;
     PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
     remote_player_data.player_info = allocated_player_info;
 
     const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type)
     {
         m_camera_system->Unfollow(allocated_player_info->entity_id);
-    
         allocated_player_info->player_state = game::PlayerState::DEAD;
-        allocated_player_info->lives--;
-        if(allocated_player_info->lives <= 0)
-            DespawnPlayer(allocated_player_info);
     };
 
     const uint32_t spawned_id = SpawnPlayer(

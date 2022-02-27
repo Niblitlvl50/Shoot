@@ -130,6 +130,7 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
     if(!is_in_view)
     {
         const math::Quad viewport = renderer.GetViewport();
+
         const math::Vector top_left = math::TopLeft(viewport);
         const math::Vector top_right = math::TopRight(viewport);
         const math::Vector bottom_left = math::BottomLeft(viewport);
@@ -142,7 +143,7 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             math::ClosestPointOnLine(bottom_left, top_left, package_world_position),
         };
 
-        float closest_distance = 1000000000.0f;
+        float closest_distance = math::INF;
         math::Vector closest_point;
 
         for(const math::PointOnLineResult& result : results)
