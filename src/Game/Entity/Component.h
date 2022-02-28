@@ -50,6 +50,7 @@ extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE;
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
+extern const uint32_t SPAWN_LIMIT_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE;
 

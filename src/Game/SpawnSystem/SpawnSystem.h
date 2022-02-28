@@ -17,11 +17,18 @@ namespace game
     {
     public:
 
+        struct SpawnIdAndCallback
+        {
+            uint32_t spawned_entity_id;
+            uint32_t callback_id;
+        };
+
         struct SpawnPointComponent
         {
             int spawn_score;
             float radius;
-            int interval;
+            int interval_ms;
+            int spawn_limit; // Zero means infinite
             uint32_t properties;
 
             uint32_t enable_trigger;
@@ -29,9 +36,10 @@ namespace game
 
             // Internal data
             bool active;
-            int counter;
+            int counter_ms;
             uint32_t enable_callback_id;
             uint32_t disable_callback_id;
+            std::vector<SpawnIdAndCallback> active_spawns;
         };
 
         struct EntitySpawnPointComponent

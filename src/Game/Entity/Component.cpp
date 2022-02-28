@@ -25,85 +25,86 @@ static const std::vector<math::Vector> polygon_default = {
 };
 
 const DefaultAttribute default_attributes[] = {
-    { "position",           Variant(math::ZeroVec) },
-    { "rotation",           Variant(0.0f) },
-    { "radius",             Variant(1.0f) },
-    { "size",               Variant(math::Vector(1.0f, 1.0f)) },
-    { "time_stamp",         Variant(1000) },
-    { "spawn_tag",          Variant(std::string()) },
-    { "path_file",          Variant(std::string()) },
-    { "trigger_radius",     Variant(1.0f) },
-    { "color",              Variant(mono::Color::WHITE) },
-    { "shadow_offset",      Variant(math::ZeroVec) },
-    { "shadow_size",        Variant(1.0f) },
-    { "pickup_type",        Variant(0) },
-    { "amount",             Variant(10) },
-    { "body_type",          Variant(0) },
-    { "mass",               Variant(10.0f) },
-    { "inertia",            Variant(1.0f) },
-    { "prevent_rotation",   Variant(false) },
-    { "faction",            Variant(0) },
-    { "faction_picker",     Variant(0u) },
-    { "zoom_level",         Variant(1.0f), "multiples, 0.5 means half zoom, 2.0f means double zoom." },
-    { "width",              Variant(1.0f) },
-    { "start",              Variant(math::ZeroVec) },
-    { "end",                Variant(math::ZeroVec) },
-    { "sensor",             Variant(false) },
-    { "health",             Variant(100) },
-    { "score",              Variant(90) },
-    { "boss_health",        Variant(false) },
-    { "sprite_file",        Variant(std::string()) },
-    { "animation",          Variant(0) },
-    { "draw_name",          Variant(false) },
-    { "sort_offset",        Variant(0.0f) },
-    { "layer",              Variant(0) },
-    { "sprite_properties",  Variant(0u) },
-    { "behaviour",          Variant(0) },
-    { "spawn_score",        Variant(10) },
-    { "trigger_name",       Variant(std::string()) },
-    { "trigger_name_exit",  Variant(std::string()) },
-    { "enable_trigger",     Variant(std::string()) },
-    { "disable_trigger",    Variant(std::string()) },
-    { "duration",           Variant(1.0f) },
-    { "easing_func",        Variant(0) },
-    { "logic_op",           Variant(0) },
-    { "num_entities",       Variant(0) },
-    { "font_id",            Variant(0) },
-    { "text",               Variant(std::string()) },
-    { "text_shadow",        Variant(false) },
-    { "animation_mode",     Variant(0) },
-    { "repeating",          Variant(false) },
-    { "polygon",            Variant(polygon_default) },
-    { "random_start_frame", Variant(false) },
-    { "trigger_name_completed", Variant(std::string()) },
-    { "count",                  Variant(2) },
-    { "reset_on_compeleted",    Variant(false) },
-    { "center_flags",           Variant(0u) },
-    { "interaction_type",       Variant(0) },
-    { "path_type",              Variant(0) },
-    { "path_points",            Variant(polygon_default) },
-    { "path_closed",            Variant(false) },
-    { "entity_reference",       Variant(0u) },
-    { "texture",                Variant(std::string()) },
-    { "name",                   Variant(std::string()) },
-    { "folder",                 Variant(std::string()) },
-    { "flicker",                Variant(false) },
-    { "frequency",              Variant(1.0f) },
-    { "percentage",             Variant(0.5f) },
-    { "destroyed_type",         Variant(0) },
-    { "shadow_color",           Variant(mono::Color::BLACK) },
-    { "emit_once",              Variant(false) },
-    { "offset",                 Variant(math::ZeroVec) },
-    { "entity_file",            Variant(std::string()) },
-    { "pool_size",              Variant(10) },
-    { "blend_mode",             Variant(0) },
-    { "emit_rate",              Variant(1.0f) },
-    { "emitter_type",           Variant(0) },
-    { "start_size_spread",      Variant(math::ValueSpread()) },
-    { "end_size_spread",        Variant(math::ValueSpread()) },
-    { "life_interval",          Variant(math::Interval()) },
-    { "direction_interval",     Variant(math::Interval()) },
-    { "magnitude_interval",     Variant(math::Interval()) },
+    { "position",                   Variant(math::ZeroVec) },
+    { "rotation",                   Variant(0.0f) },
+    { "radius",                     Variant(1.0f) },
+    { "size",                       Variant(math::Vector(1.0f, 1.0f)) },
+    { "time_stamp",                 Variant(1000) },
+    { "spawn_tag",                  Variant(std::string()) },
+    { "path_file",                  Variant(std::string()) },
+    { "trigger_radius",             Variant(1.0f) },
+    { "color",                      Variant(mono::Color::WHITE) },
+    { "shadow_offset",              Variant(math::ZeroVec) },
+    { "shadow_size",                Variant(1.0f) },
+    { "pickup_type",                Variant(0) },
+    { "amount",                     Variant(10) },
+    { "body_type",                  Variant(0) },
+    { "mass",                       Variant(10.0f) },
+    { "inertia",                    Variant(1.0f) },
+    { "prevent_rotation",           Variant(false) },
+    { "faction",                    Variant(0) },
+    { "faction_picker",             Variant(0u) },
+    { "zoom_level",                 Variant(1.0f), "multiples, 0.5 means half zoom, 2.0f means double zoom." },
+    { "width",                      Variant(1.0f) },
+    { "start",                      Variant(math::ZeroVec) },
+    { "end",                        Variant(math::ZeroVec) },
+    { "sensor",                     Variant(false) },
+    { "health",                     Variant(100) },
+    { "score",                      Variant(90) },
+    { "boss_health",                Variant(false) },
+    { "sprite_file",                Variant(std::string()) },
+    { "animation",                  Variant(0) },
+    { "draw_name",                  Variant(false) },
+    { "sort_offset",                Variant(0.0f) },
+    { "layer",                      Variant(0) },
+    { "sprite_properties",          Variant(0u) },
+    { "behaviour",                  Variant(0) },
+    { "spawn_score",                Variant(10) },
+    { "spawn_limit",                Variant(0), "Limits active spawns, zero means no limit." },
+    { "trigger_name",               Variant(std::string()) },
+    { "trigger_name_exit",          Variant(std::string()) },
+    { "enable_trigger",             Variant(std::string()) },
+    { "disable_trigger",            Variant(std::string()) },
+    { "duration",                   Variant(1.0f) },
+    { "easing_func",                Variant(0) },
+    { "logic_op",                   Variant(0) },
+    { "num_entities",               Variant(0) },
+    { "font_id",                    Variant(0) },
+    { "text",                       Variant(std::string()) },
+    { "text_shadow",                Variant(false) },
+    { "animation_mode",             Variant(0) },
+    { "repeating",                  Variant(false) },
+    { "polygon",                    Variant(polygon_default) },
+    { "random_start_frame",         Variant(false) },
+    { "trigger_name_completed",     Variant(std::string()) },
+    { "count",                      Variant(2) },
+    { "reset_on_compeleted",        Variant(false) },
+    { "center_flags",               Variant(0u) },
+    { "interaction_type",           Variant(0) },
+    { "path_type",                  Variant(0) },
+    { "path_points",                Variant(polygon_default) },
+    { "path_closed",                Variant(false) },
+    { "entity_reference",           Variant(0u) },
+    { "texture",                    Variant(std::string()) },
+    { "name",                       Variant(std::string()) },
+    { "folder",                     Variant(std::string()) },
+    { "flicker",                    Variant(false) },
+    { "frequency",                  Variant(1.0f) },
+    { "percentage",                 Variant(0.5f) },
+    { "destroyed_type",             Variant(0) },
+    { "shadow_color",               Variant(mono::Color::BLACK) },
+    { "emit_once",                  Variant(false) },
+    { "offset",                     Variant(math::ZeroVec) },
+    { "entity_file",                Variant(std::string()) },
+    { "pool_size",                  Variant(10) },
+    { "blend_mode",                 Variant(0) },
+    { "emit_rate",                  Variant(1.0f) },
+    { "emitter_type",               Variant(0) },
+    { "start_size_spread",          Variant(math::ValueSpread()) },
+    { "end_size_spread",            Variant(math::ValueSpread()) },
+    { "life_interval",              Variant(math::Interval()) },
+    { "direction_interval",         Variant(math::Interval()) },
+    { "magnitude_interval",         Variant(math::Interval()) },
     { "angular_velocity_interval",  Variant(math::Interval()) },
     { "gradient_4",                 Variant(mono::Color::Gradient<4>()) },
     { "damping",                    Variant(0.0f) },
@@ -151,64 +152,65 @@ extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].has
 
 extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[33].hash;
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[34].hash;
+extern const uint32_t SPAWN_LIMIT_ATTRIBUTE         = default_attributes[35].hash;
 
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[35].hash;
-extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[36].hash;
-extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE      = default_attributes[37].hash;
-extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE     = default_attributes[38].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[36].hash;
+extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[37].hash;
+extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE      = default_attributes[38].hash;
+extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE     = default_attributes[39].hash;
 
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[39].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[40].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[41].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[42].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[40].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[41].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[42].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[43].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[43].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[44].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[45].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[46].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[47].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[48].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[49].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[44].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[45].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[46].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[47].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[48].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[49].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[50].hash;
 
-extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[50].hash;
-extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[51].hash;
-extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[52].hash;
-extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[53].hash;
-extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[54].hash;
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[51].hash;
+extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[52].hash;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[53].hash;
+extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[54].hash;
+extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[55].hash;
 
-extern const uint32_t PATH_TYPE_ATTRIBUTE       = default_attributes[55].hash;
-extern const uint32_t PATH_POINTS_ATTRIBUTE     = default_attributes[56].hash;
-extern const uint32_t PATH_CLOSED_ATTRIBUTE     = default_attributes[57].hash;
+extern const uint32_t PATH_TYPE_ATTRIBUTE           = default_attributes[56].hash;
+extern const uint32_t PATH_POINTS_ATTRIBUTE         = default_attributes[57].hash;
+extern const uint32_t PATH_CLOSED_ATTRIBUTE         = default_attributes[58].hash;
 
-extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[58].hash;
-extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[59].hash;
+extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[59].hash;
+extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[60].hash;
 
-extern const uint32_t NAME_ATTRIBUTE                = default_attributes[60].hash;
-extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[61].hash;
+extern const uint32_t NAME_ATTRIBUTE                = default_attributes[61].hash;
+extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[62].hash;
 
-extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[62].hash;
-extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[63].hash;
-extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[64].hash;
+extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[63].hash;
+extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[64].hash;
+extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[65].hash;
 
-extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[65].hash;
-extern const uint32_t SHADOW_COLOR_ATTRIBUTE            = default_attributes[66].hash;
-extern const uint32_t EMIT_ONCE_ATTRIBUTE               = default_attributes[67].hash;
+extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[66].hash;
+extern const uint32_t SHADOW_COLOR_ATTRIBUTE            = default_attributes[67].hash;
+extern const uint32_t EMIT_ONCE_ATTRIBUTE               = default_attributes[68].hash;
 
-extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[68].hash;
-extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[69].hash;
+extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[69].hash;
+extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[70].hash;
 
-extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[70].hash;
-extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[71].hash;
-extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[72].hash;
-extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[73].hash;
-extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE       = default_attributes[74].hash;
-extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE         = default_attributes[75].hash;
-extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[76].hash;
-extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[77].hash;
-extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[78].hash;
-extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[79].hash;
-extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[80].hash;
-extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[81].hash;
+extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[71].hash;
+extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[72].hash;
+extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[73].hash;
+extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[74].hash;
+extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE       = default_attributes[75].hash;
+extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE         = default_attributes[76].hash;
+extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[77].hash;
+extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[78].hash;
+extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[79].hash;
+extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[80].hash;
+extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[81].hash;
+extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[82].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -338,7 +340,7 @@ const Component default_components[] = {
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "general",      { SPAWN_SCORE_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "general",      { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),

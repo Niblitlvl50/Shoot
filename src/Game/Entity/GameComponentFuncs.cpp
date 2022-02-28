@@ -238,8 +238,9 @@ namespace
         spawn_point.disable_trigger = 0;
 
         FindAttribute(SPAWN_SCORE_ATTRIBUTE, properties, spawn_point.spawn_score, FallbackMode::SET_DEFAULT);
+        FindAttribute(SPAWN_LIMIT_ATTRIBUTE, properties, spawn_point.spawn_limit, FallbackMode::SET_DEFAULT);
         FindAttribute(RADIUS_ATTRIBUTE, properties, spawn_point.radius, FallbackMode::SET_DEFAULT);
-        FindAttribute(TIME_STAMP_ATTRIBUTE, properties, spawn_point.interval, FallbackMode::SET_DEFAULT);
+        FindAttribute(TIME_STAMP_ATTRIBUTE, properties, spawn_point.interval_ms, FallbackMode::SET_DEFAULT);
 
         std::string enable_trigger;
         const bool found_enable = FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);

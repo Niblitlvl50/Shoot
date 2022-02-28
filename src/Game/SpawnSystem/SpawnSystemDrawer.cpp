@@ -88,7 +88,15 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
         const char* active_string = spawn_point.active ? "Active" : "Inactive";
 
         char text_buffer[128] = { };
-        std::snprintf(text_buffer, std::size(text_buffer), "%s|%d/%d", active_string, spawn_point.counter, spawn_point.interval);
+        std::snprintf(
+            text_buffer,
+            std::size(text_buffer),
+            "%s|%d/%d|%d/%d",
+            active_string,
+            spawn_point.counter_ms,
+            spawn_point.interval_ms,
+            (int)spawn_point.active_spawns.size(),
+            spawn_point.spawn_limit);
 
         const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
