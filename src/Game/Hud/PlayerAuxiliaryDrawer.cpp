@@ -8,6 +8,9 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
+#include "Rendering/Sprite/ISprite.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/RenderSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
 using namespace game;
@@ -118,7 +121,15 @@ math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
 PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
     , m_package_id(-1)
-{ }
+{
+    m_package_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
+    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+}
 
 void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
@@ -129,7 +140,7 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
     const bool is_in_view = renderer.Cull(math::Quad(package_world_position, 0.1f));
     if(!is_in_view)
     {
-        const math::Quad viewport = renderer.GetViewport();
+        const math::Quad viewport = math::ResizeQuad(renderer.GetViewport(), -0.25f);
 
         const math::Vector top_left = math::TopLeft(viewport);
         const math::Vector top_right = math::TopRight(viewport);
@@ -156,7 +167,20 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             }
         }
 
-        renderer.DrawFilledCircle(closest_point, math::Vector(0.2f, 0.2f), 16, mono::Color::MAGENTA);
+        const math::Matrix& transform = math::CreateMatrixWithPosition(closest_point);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 16, mono::Color::BLACK);
+        renderer.DrawSprite(
+            m_package_sprite.get(),
+            m_sprite_buffers.vertices.get(),
+            m_sprite_buffers.offsets.get(),
+            m_sprite_buffers.uv.get(),
+            m_sprite_buffers.uv_flipped.get(),
+            m_sprite_buffers.heights.get(),
+            m_indices.get(),
+            m_package_sprite->GetTexture(),
+            0);
     }
 }
 
