@@ -223,8 +223,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.0167169570922852,
-                                "y": 3.0734262466430664
+                                "x": -0.7211060523986816,
+                                "y": 2.921142101287842
                             }
                         },
                         {
@@ -273,7 +273,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -285,7 +285,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 5000
+                            "variant_value": 2500
                         },
                         {
                             "id": 2200757869,
@@ -2512,7 +2512,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -2524,7 +2524,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 4000
+                            "variant_value": 2000
                         },
                         {
                             "id": 2200757869,
@@ -5529,7 +5529,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -1.5,
-                                "y": 4.5
+                                "y": 4.829799652099609
                             }
                         },
                         {
@@ -13304,7 +13304,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -13316,7 +13316,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 5000
+                            "variant_value": 2500
                         },
                         {
                             "id": 2200757869,
