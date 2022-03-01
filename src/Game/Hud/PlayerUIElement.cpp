@@ -92,6 +92,7 @@ namespace game
             UIElement::Update(update_context);
             m_states.UpdateState(update_context.delta_s);
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
+            AnimatePlayerElement(m_timer);
         }
 
         void ToAppear()
@@ -102,9 +103,7 @@ namespace game
         }
         void Appearing(const float& delta_s)
         {
-            AnimatePlayerElement(m_timer);
             m_timer += delta_s;
-
             if(m_timer >= transision_duration_s)
                 m_states.TransitionTo(States::ACTIVE);
         }
@@ -128,9 +127,7 @@ namespace game
         { }
         void Disappearing(const float& delta_s)
         {
-            AnimatePlayerElement(m_timer);
             m_timer -= delta_s;
-
             if(m_player_info.player_state == PlayerState::ALIVE)
                 m_states.TransitionTo(States::APPEAR);
         }

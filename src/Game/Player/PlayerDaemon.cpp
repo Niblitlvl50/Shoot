@@ -164,6 +164,7 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
     m_entity_system->ReleaseEntity(player_info->entity_id);
     ReleasePlayerInfo(player_info);
 
+/*
     const auto is_null = [](const game::PlayerInfo* player_info) {
         return player_info == nullptr;
     };
@@ -172,6 +173,7 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
     const bool all_players_dead = std::all_of(active_players.begin(), active_players.end(), is_null);
     if(all_players_dead)
         m_event_handler->DispatchEvent(game::GameOverEvent());
+*/
 }
 
 uint32_t PlayerDaemon::SpawnPlayer(

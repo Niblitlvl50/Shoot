@@ -170,7 +170,7 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& transform = math::CreateMatrixWithPosition(closest_point);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 16, mono::Color::BLACK);
+        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.275f, 0.275f), 32, mono::Color::GRAY);
         renderer.DrawSprite(
             m_package_sprite.get(),
             m_sprite_buffers.vertices.get(),

@@ -48,6 +48,8 @@ using namespace game;
 PacketDeliveryGameMode::PacketDeliveryGameMode()
     : m_package_spawned(false)
     , m_next_zone(ZoneFlow::TITLE_SCREEN)
+    , m_package_release_callback(0)
+    , m_package_entity_id(mono::INVALID_ID)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
@@ -109,7 +111,7 @@ void PacketDeliveryGameMode::Begin(
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
-    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
+    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::UI);
 
     // UI
     m_dead_screen = std::make_unique<BigTextScreen>(
@@ -147,6 +149,9 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
+
+    if(m_package_entity_id != mono::INVALID_ID)
+        m_entity_manager->RemoveReleaseCallback(m_package_entity_id, m_package_release_callback);
 
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
@@ -208,7 +213,8 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         m_package_aux_drawer->SetPackageId(-1);
     };
-    m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
+    m_package_release_callback = m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
+    m_package_entity_id = package_entity.id;
 
     m_package_aux_drawer->SetPackageId(package_entity.id);
 }

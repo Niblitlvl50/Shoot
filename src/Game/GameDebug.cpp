@@ -114,14 +114,14 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::Text("State"); ImGui::NextColumn();
     ImGui::Text("Position"); ImGui::NextColumn();
     ImGui::Text("Viewport"); ImGui::NextColumn();
-    ImGui::NextColumn();
+    ImGui::Text("Actions"); ImGui::NextColumn();
     ImGui::Separator();
 
     ImGui::SetColumnWidth(0, 60);
     ImGui::SetColumnWidth(1, 60);
     ImGui::SetColumnWidth(2, 100);
+    ImGui::SetColumnWidth(4, 200);
     ImGui::SetColumnWidth(5, 170);
-    ImGui::SetColumnWidth(6, 170);
 
     for(int index = 0; index < game::n_players; ++index)
     {
@@ -157,18 +157,18 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 event_handler->DispatchEvent(game::DespawnPlayerEvent(index));
         }
 
-        
         ImGui::SameLine();
 
-        const bool player_alive = (player_info.player_state == game::PlayerState::ALIVE);
-        const char* kill_button_text = player_alive ? "Kill" : "Respawn";
-
-        const bool kill_player = ImGui::SmallButton(kill_button_text);
-        if(kill_player)
+        if(player_info.player_state == game::PlayerState::ALIVE)
         {
-            if(player_alive)
+            const bool kill_player = ImGui::SmallButton("Kill");
+            if(kill_player)
                 damage_system->ApplyDamage(player_info.entity_id, 1000000, NO_ID);
-            else
+        }
+        else if(player_info.player_state == game::PlayerState::DEAD)
+        {
+            const bool respawn_player = ImGui::SmallButton("Respawn");
+            if(respawn_player)
                 event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
         }
 
