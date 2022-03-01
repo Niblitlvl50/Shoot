@@ -76,5 +76,5 @@ TEST(PlayerInfoTest, GetClosestActivePlayer)
     EXPECT_FLOAT_EQ(found_player_info_2->position.x, player_info_2->position.x);
 
     const game::PlayerInfo* found_player_info_3 = game::GetClosestActivePlayer(math::Vector(2.1f, 0.0f));
-    EXPECT_FLOAT_EQ(found_player_info_3->position.x, player_info_3->position.x);
+    EXPECT_FLOAT_EQ(found_player_info_3->position.x, player_info_2->position.x);
 }
