@@ -3,8 +3,6 @@
 #include "Weapons/CollisionCallbacks.h"
 
 #include "EntitySystem/IEntityManager.h"
-#include "EventHandler/EventHandler.h"
-#include "Events/ScoreEvent.h"
 #include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -21,12 +19,10 @@ DamageSystem::DamageSystem(
     size_t num_records,
     mono::TransformSystem* tranform_system,
     mono::SpriteSystem* sprite_system,
-    mono::IEntityManager* entity_manager,
-    mono::EventHandler* event_handler)
+    mono::IEntityManager* entity_manager)
     : m_transform_system(tranform_system)
     , m_sprite_system(sprite_system)
     , m_entity_manager(entity_manager)
-    , m_event_handler(event_handler)
     , m_timestamp(0)
     , m_damage_records(num_records)
     , m_damage_callbacks(num_records)
@@ -51,15 +47,29 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 
 uint32_t DamageSystem::SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback)
 {
-    const size_t free_index = FindFreeCallbackIndex(id);
+    DamageCallbacks& damage_callbacks = m_damage_callbacks[id];
+    const size_t free_index = FindFreeCallbackIndex(damage_callbacks);
     assert(free_index != std::numeric_limits<size_t>::max());
-    m_damage_callbacks[id][free_index] = { callback_types, damage_callback };
+    damage_callbacks[free_index] = { callback_types, damage_callback };
     return free_index;
 }
 
 void DamageSystem::RemoveDamageCallback(uint32_t id, uint32_t callback_id)
 {
     m_damage_callbacks[id][callback_id].callback = nullptr;
+}
+
+uint32_t DamageSystem::SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback)
+{
+    const size_t free_index = FindFreeCallbackIndex(m_global_damage_callbacks);
+    assert(free_index != std::numeric_limits<size_t>::max());
+    m_global_damage_callbacks[free_index] = { callback_types, damage_callback };
+    return free_index;
+}
+
+void DamageSystem::RemoveGlobalDamageCallback(uint32_t callback_id)
+{
+    m_global_damage_callbacks[callback_id].callback = nullptr;
 }
 
 void DamageSystem::ReleaseRecord(uint32_t id)
@@ -108,18 +118,9 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
 
-    for(const auto& callback_data : m_damage_callbacks[id])
-    {
-        if(callback_data.callback && callback_data.callback_types & damage_type)
-            callback_data.callback(id, damage, id_who_did_damage, damage_type);
-    }
-
-    if(damage_type == DamageType::DESTROYED)
-    {
-        m_event_handler->DispatchEvent(game::ScoreEvent(id_who_did_damage, 10));
-        if(!damage_record.release_entity_on_death)
-            m_destroyed_but_not_released.push_back(id);
-    }
+    m_damage_events.push_back(
+        { id, id_who_did_damage, damage, damage_type }
+    );
 
     return result;
 }
@@ -148,6 +149,27 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
 {
     m_timestamp = update_context.timestamp;
 
+    const auto call_callbacks = [](const DamageEvent& damage_event, DamageCallbacks& callbacks) {
+        for(const auto& callback_data : callbacks)
+        {
+            if(callback_data.callback && callback_data.callback_types & damage_event.damage_result)
+            {
+                callback_data.callback(
+                    damage_event.id,
+                    damage_event.damage,
+                    damage_event.id_who_did_damage,
+                    damage_event.damage_result);
+            }
+        }
+    };
+
+    for(const DamageEvent& damage_event : m_damage_events)
+    {
+        call_callbacks(damage_event, m_damage_callbacks[damage_event.id]);
+        call_callbacks(damage_event, m_global_damage_callbacks);
+    }
+    m_damage_events.clear();
+
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {
         if(!m_active[entity_id])
@@ -168,10 +190,9 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
 void DamageSystem::Destroy()
 { }
 
-size_t DamageSystem::FindFreeCallbackIndex(uint32_t id) const
+size_t DamageSystem::FindFreeCallbackIndex(const DamageCallbacks& callbacks) const
 {
-    const DamageCallbacks& callbacks = m_damage_callbacks[id];
-    for(size_t index = 0; index < callbacks.size(); ++index)
+    for(size_t index = 0; index < std::size(callbacks); ++index)
     {
         if(callbacks[index].callback == nullptr)
             return index;

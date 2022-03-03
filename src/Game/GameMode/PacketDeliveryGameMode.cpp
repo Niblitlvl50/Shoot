@@ -10,6 +10,7 @@
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
 #include "Player/PlayerDaemon.h"
+#include "Pickups/EnemyPickupSpawner.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Network/ServerManager.h"
 #include "RenderLayers.h"
@@ -78,6 +79,8 @@ void PacketDeliveryGameMode::Begin(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
 
+    DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
+
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
@@ -108,6 +111,9 @@ void PacketDeliveryGameMode::Begin(
     };
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
+
+    // Pickups
+    m_pickup_spawner = std::make_unique<EnemyPickupSpawner>(damage_system, m_transform_system, m_entity_manager);
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);

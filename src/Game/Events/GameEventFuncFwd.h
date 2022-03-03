@@ -12,7 +12,6 @@ namespace game
     struct SpawnPlayerEvent;
     struct DespawnPlayerEvent;
     struct RespawnPlayerEvent;
-    struct ScoreEvent;
     struct AddDrawableEvent;
     struct RemoveDrawableEvent;
     struct GameOverEvent;
@@ -23,7 +22,6 @@ namespace game
     using SpawnPlayerFunc = std::function<mono::EventResult (const game::SpawnPlayerEvent&)>;
     using DespawnPlayerFunc = std::function<mono::EventResult (const game::DespawnPlayerEvent&)>;
     using RespawnPlayerFunc = std::function<mono::EventResult (const game::RespawnPlayerEvent&)>;
-    using ScoreFunc = std::function<mono::EventResult (const game::ScoreEvent&)>;
 
     using AddDrawableFunc = std::function<mono::EventResult (const game::AddDrawableEvent&)>;
     using RemoveDrawableFunc = std::function<mono::EventResult (const game::RemoveDrawableEvent&)>;

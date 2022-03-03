@@ -15,6 +15,7 @@
         "res/entities/hex_tiny.entity",
         "res/entities/laser_bullet.entity",
         "res/entities/package_explosion.entity",
+        "res/entities/pickup_ammo_10.entity",
         "res/entities/pickup_health_10.entity",
         "res/entities/pink_blolb.entity",
         "res/entities/plasma_bullet.entity",

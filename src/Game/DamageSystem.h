@@ -43,8 +43,7 @@ namespace game
             size_t num_records,
             mono::TransformSystem* tranform_system,
             mono::SpriteSystem* sprite_system,
-            mono::IEntityManager* entity_manager,
-            mono::EventHandler* event_handler);
+            mono::IEntityManager* entity_manager);
 
         DamageRecord* CreateRecord(uint32_t id);
         void ReleaseRecord(uint32_t id);
@@ -54,6 +53,9 @@ namespace game
 
         uint32_t SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback);
         void RemoveDamageCallback(uint32_t id, uint32_t callback_id);
+
+        uint32_t SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback);
+        void RemoveGlobalDamageCallback(uint32_t callback_id);
 
         DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
         const std::vector<DamageRecord>& GetDamageRecords() const;
@@ -77,26 +79,34 @@ namespace game
 
     private:
 
-        size_t FindFreeCallbackIndex(uint32_t id) const;
-
-        mono::TransformSystem* m_transform_system;
-        mono::SpriteSystem* m_sprite_system;
-        mono::IEntityManager* m_entity_manager;
-        mono::EventHandler* m_event_handler;
-        uint32_t m_timestamp;
-        
-        std::vector<DamageRecord> m_damage_records;
-
         struct DamageCallbackData
         {
             uint32_t callback_types;
             DamageCallback callback;
         };
-
         using DamageCallbacks = std::array<DamageCallbackData, 8>;
+
+        size_t FindFreeCallbackIndex(const DamageCallbacks& callbacks) const;
+
+        mono::TransformSystem* m_transform_system;
+        mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_manager;
+        uint32_t m_timestamp;
+        
+        std::vector<DamageRecord> m_damage_records;
         std::vector<DamageCallbacks> m_damage_callbacks;
         std::vector<bool> m_active;
 
-        std::vector<uint32_t> m_destroyed_but_not_released;
+        DamageCallbacks m_global_damage_callbacks;
+
+        struct DamageEvent
+        {
+            uint32_t id;
+            uint32_t id_who_did_damage;
+            int damage;
+            DamageType damage_result;
+        };
+
+        std::vector<DamageEvent> m_damage_events;
     };
 }

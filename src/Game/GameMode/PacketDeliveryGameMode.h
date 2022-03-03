@@ -71,6 +71,7 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
 
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
+        std::unique_ptr<class EnemyPickupSpawner> m_pickup_spawner;
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
         std::unique_ptr<class BigTextScreen> m_dead_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
