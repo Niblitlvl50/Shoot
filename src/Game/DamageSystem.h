@@ -58,6 +58,7 @@ namespace game
         void RemoveGlobalDamageCallback(uint32_t callback_id);
 
         DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
+        void GainHealth(uint32_t id, int health_gain);
         const std::vector<DamageRecord>& GetDamageRecords() const;
 
         void PreventReleaseOnDeath(uint32_t id, bool enable);

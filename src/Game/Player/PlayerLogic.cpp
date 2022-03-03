@@ -350,8 +350,7 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         break;
     case PickupType::HEALTH:
     {
-        DamageRecord* record = m_damage_system->GetDamageRecord(m_entity_id);
-        record->health += amount;
+        m_damage_system->GainHealth(m_entity_id, amount);
         break;
     }
     case PickupType::SCORE:

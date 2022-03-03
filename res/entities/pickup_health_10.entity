@@ -273,7 +273,7 @@
             "x": 0.0,
             "y": 0.0
         },
-        "navmesh_density": -2.029039023909718e-06,
+        "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0
@@ -286,6 +286,7 @@
             "x": 0.0,
             "y": 0.0
         },
+        "time_limit_s": 0,
         "triggers": []
     }
 }

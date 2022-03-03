@@ -117,12 +117,18 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     result.health_left = damage_record.health;
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
-
     m_damage_events.push_back(
         { id, id_who_did_damage, damage, damage_type }
     );
 
     return result;
+}
+
+void DamageSystem::GainHealth(uint32_t id, int health_gain)
+{
+    DamageRecord* record = GetDamageRecord(id);
+    record->health += health_gain;
+    record->last_damaged_timestamp = m_timestamp;
 }
 
 const std::vector<DamageRecord>& DamageSystem::GetDamageRecords() const
