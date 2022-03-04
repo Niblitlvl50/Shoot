@@ -21,7 +21,7 @@
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
 
-
+#include "Entity/EntityLogicSystem.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Events/QuitEvent.h"
 #include "Events/PauseEvent.h"
@@ -80,6 +80,7 @@ void PacketDeliveryGameMode::Begin(
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
+    EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -113,7 +114,8 @@ void PacketDeliveryGameMode::Begin(
         server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
     // Pickups
-    m_pickup_spawner = std::make_unique<EnemyPickupSpawner>(damage_system, m_transform_system, m_entity_manager);
+    m_pickup_spawner =
+        std::make_unique<EnemyPickupSpawner>(damage_system, logic_system, m_transform_system, m_entity_manager);
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);

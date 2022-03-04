@@ -14,12 +14,16 @@ namespace game
     public:
     
         EnemyPickupSpawner(
-            DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_manager);
+            DamageSystem* damage_system,
+            class EntityLogicSystem* logic_system,
+            mono::TransformSystem* transform_system,
+            mono::IEntityManager* entity_manager);
         ~EnemyPickupSpawner();
 
         void HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type);
 
         DamageSystem* m_damage_system;
+        class EntityLogicSystem* m_logic_system;
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
 

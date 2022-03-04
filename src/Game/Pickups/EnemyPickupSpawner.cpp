@@ -1,5 +1,8 @@
 
 #include "EnemyPickupSpawner.h"
+#include "EnemyPickupLogic.h"
+#include "Entity/EntityLogicSystem.h"
+#include "Entity/Component.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Player/PlayerInfo.h"
 #include "Util/Random.h"
@@ -11,8 +14,12 @@
 using namespace game;
 
 EnemyPickupSpawner::EnemyPickupSpawner(
-    DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_manager)
+    DamageSystem* damage_system,
+    EntityLogicSystem* logic_system,
+    mono::TransformSystem* transform_system,
+    mono::IEntityManager* entity_manager)
     : m_damage_system(damage_system)
+    , m_logic_system(logic_system)
     , m_transform_system(transform_system)
     , m_entity_manager(entity_manager)
 {
@@ -56,6 +63,9 @@ void EnemyPickupSpawner::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_
     const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
 
     mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
+
+    m_entity_manager->AddComponent(spawned_entity.id, BEHAVIOUR_COMPONENT);
+    m_logic_system->AddLogic(spawned_entity.id, new EnemyPickupLogic(spawned_entity.id, m_entity_manager));
 
     const math::Matrix& transform = m_transform_system->GetWorld(id);
     m_transform_system->SetTransform(spawned_entity.id, transform);
