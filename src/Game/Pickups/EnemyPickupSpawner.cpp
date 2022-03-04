@@ -5,6 +5,9 @@
 #include "Util/Random.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "System/File.h"
+#include "nlohmann/json.hpp"
+
 using namespace game;
 
 EnemyPickupSpawner::EnemyPickupSpawner(
@@ -17,6 +20,21 @@ EnemyPickupSpawner::EnemyPickupSpawner(
         HandleSpawnEnemyPickup(id, damage, who_did_damage, type);
     };
     m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
+
+    file::FilePtr config_file = file::OpenAsciiFile("res/pickup_config.json");
+    if(config_file)
+    {
+        const std::vector<byte>& file_data = file::FileRead(config_file);
+        const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+        for(const auto& pickup_config : json["pickups"])
+        {
+            PickupDefinition pickup_def;
+            pickup_def.entity_file = pickup_config["entity_file"];
+            pickup_def.drop_chance_percentage = pickup_config["drop_chance"];
+            m_pickup_definitions.push_back(pickup_def);
+        }
+    }
 }
 
 EnemyPickupSpawner::~EnemyPickupSpawner()
@@ -30,19 +48,16 @@ void EnemyPickupSpawner::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_
     if(is_player)
         return;
 
-    constexpr const char* known_pickups[] = {
-        "res/entities/pickup_health_10.entity",
-        "res/entities/pickup_ammo_10.entity"
-    };
+    const bool spawn_pickup = mono::Chance(10);
+    if(!spawn_pickup)
+        return;
 
-    const bool success = mono::Chance(10);
-    if(success)
-    {
-        const int picked_index = mono::RandomInt(0, std::size(known_pickups) - 1);
-        mono::Entity spawned_entity = m_entity_manager->CreateEntity(known_pickups[picked_index]);
+    const int picked_index = mono::RandomInt(0, m_pickup_definitions.size() - 1);
+    const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
 
-        const math::Matrix& transform = m_transform_system->GetWorld(id);
-        m_transform_system->SetTransform(spawned_entity.id, transform);
-        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
-    }
+    mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
+
+    const math::Matrix& transform = m_transform_system->GetWorld(id);
+    m_transform_system->SetTransform(spawned_entity.id, transform);
+    m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
 }

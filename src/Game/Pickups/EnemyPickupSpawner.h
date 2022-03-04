@@ -4,6 +4,9 @@
 #include "MonoFwd.h"
 #include "DamageSystem.h"
 
+#include <vector>
+#include <string>
+
 namespace game
 {
     class EnemyPickupSpawner
@@ -21,5 +24,12 @@ namespace game
         mono::IEntityManager* m_entity_manager;
 
         uint32_t m_damage_callback_id;
+
+        struct PickupDefinition
+        {
+            std::string entity_file;
+            float drop_chance_percentage;
+        };
+        std::vector<PickupDefinition> m_pickup_definitions;
     };
 }
