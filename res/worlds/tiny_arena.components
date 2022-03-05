@@ -30053,7 +30053,7 @@
             "x": -5.0,
             "y": -6.0
         },
-        "time_limit_s": 120,
+        "time_limit_s": 240,
         "triggers": [
             "alien_tree_destroyed",
             "level_completed",

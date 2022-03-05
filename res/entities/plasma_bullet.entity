@@ -99,7 +99,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 0.11999999731779099
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
@@ -118,6 +118,15 @@
                             "name": "radius",
                             "variant_type": 3,
                             "variant_value": 1.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 1031692888,
@@ -165,6 +174,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -227,6 +242,10 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,
@@ -236,9 +255,20 @@
             "x": 0.0,
             "y": 0.0
         },
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "time_limit_s": 0,
+        "triggers": []
     }
 }

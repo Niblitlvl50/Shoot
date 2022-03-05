@@ -127,7 +127,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 void DamageSystem::GainHealth(uint32_t id, int health_gain)
 {
     DamageRecord* record = GetDamageRecord(id);
-    record->health += health_gain;
+    record->health = std::clamp(record->health + health_gain, 0, record->full_health);
     record->last_damaged_timestamp = m_timestamp;
 }
 

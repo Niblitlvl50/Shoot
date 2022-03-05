@@ -94,8 +94,8 @@
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "green": 0.08823537826538086,
+                                "red": 0.0
                             }
                         },
                         {

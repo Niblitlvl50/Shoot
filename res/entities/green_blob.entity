@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0,
-                                "y": 1.0
+                                "x": -3.987003803253174,
+                                "y": 1.5156149864196777
                             }
                         },
                         {
@@ -84,7 +84,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -92,14 +92,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.30000001192092896
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1015133031,
@@ -124,6 +124,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1995093780,
@@ -186,6 +192,10 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,
@@ -195,9 +205,20 @@
             "x": 0.0,
             "y": 0.0
         },
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "time_limit_s": 0,
+        "triggers": []
     }
 }

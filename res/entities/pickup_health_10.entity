@@ -93,8 +93,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
                                 "red": 1.0
                             }
                         },
@@ -102,7 +102,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4
                         },
                         {
                             "id": 4153965,
