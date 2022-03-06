@@ -963,8 +963,7 @@ bool Editor::DrawLights() const
 void Editor::EnableLights(bool enable)
 {
     m_context.draw_lights = enable;
-    const mono::Color::RGBA ambient = enable ? m_context.level_metadata.ambient_shade : mono::Color::WHITE;
-    m_renderer->SetAmbientShade(ambient);
+    m_renderer->ToggleLighting();
 }
 
 const mono::Color::RGBA& Editor::BackgroundColor() const

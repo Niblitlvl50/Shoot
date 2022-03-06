@@ -38,7 +38,8 @@ namespace game
             DamageSystem* damage_system,
             mono::TransformSystem* transform_system,
             mono::IEntityManager* entity_manager,
-            mono::EventHandler* event_handler);
+            mono::EventHandler* event_handler,
+            mono::IRenderer* renderer);
         ~DebugUpdater();
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;

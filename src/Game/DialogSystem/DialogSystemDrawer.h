@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "Rendering/IDrawable.h"
 
 namespace game
@@ -9,7 +10,7 @@ namespace game
     {
     public:
 
-        DialogSystemDrawer(class DialogSystem* message_system);
+        DialogSystemDrawer(class DialogSystem* message_system, const mono::TransformSystem* transform_system);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -17,5 +18,6 @@ namespace game
     private:
 
         DialogSystem* m_message_system;
+        const mono::TransformSystem* m_transform_system;
     };
 }

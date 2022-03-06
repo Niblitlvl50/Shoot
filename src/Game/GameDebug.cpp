@@ -19,6 +19,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
+#include "Rendering/IRenderer.h"
 
 #include "Entity/Component.h"
 
@@ -282,7 +283,8 @@ DebugUpdater::DebugUpdater(
     DamageSystem* damage_system,
     mono::TransformSystem* transform_system,
     mono::IEntityManager* entity_manager,
-    mono::EventHandler* event_handler)
+    mono::EventHandler* event_handler,
+    mono::IRenderer* renderer)
     : m_trigger_system(trigger_system)
     , m_damage_system(damage_system)
     , m_event_handler(event_handler)
@@ -290,7 +292,7 @@ DebugUpdater::DebugUpdater(
     , m_draw_trigger_input(false)
     , m_pause(false)
 {
-    const event::KeyUpEventFunc key_up_func = [this](const event::KeyUpEvent& event) {
+    const event::KeyUpEventFunc key_up_func = [this, renderer](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
             m_draw_debug_menu = !m_draw_debug_menu;
         else if(event.key == Keycode::T)
@@ -302,6 +304,8 @@ DebugUpdater::DebugUpdater(
             m_pause = !m_pause;
             m_event_handler->DispatchEvent(event::PauseEvent(m_pause)); 
         }
+        else if(event.key == Keycode::L && event.ctrl)
+            renderer->ToggleLighting();
 
         return mono::EventResult::PASS_ON;
     };

@@ -132,25 +132,24 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
-    camera->SetPosition(m_leveldata.metadata.camera_position);
-    camera->SetViewportSize(m_leveldata.metadata.camera_size);
-    renderer->SetClearColor(m_leveldata.metadata.background_color);
-    renderer->SetAmbientShade(m_leveldata.metadata.ambient_shade);
+    const game::LevelMetadata& metadata = m_leveldata.metadata;
+
+    camera->SetPosition(metadata.camera_position);
+    camera->SetViewportSize(metadata.camera_size);
+    renderer->SetClearColor(metadata.background_color);
+    renderer->SetAmbientShade(metadata.ambient_shade);
 
     // Nav mesh
-    SetupNavmesh(m_navmesh, m_leveldata.metadata, physics_system->GetSpace());
+    SetupNavmesh(m_navmesh, metadata, physics_system->GetSpace());
     game::g_navmesh = &m_navmesh;
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
-    if(!m_leveldata.metadata.background_texture.empty())
+    if(!metadata.background_texture.empty())
     {
-        AddDrawable(
-            new mono::StaticBackground(
-                m_leveldata.metadata.background_size,
-                m_leveldata.metadata.background_texture.c_str(),
-                mono::TextureModeFlags::REPEAT),
-            LayerId::BACKGROUND);
+        mono::StaticBackground* background = new mono::StaticBackground(
+            metadata.background_size, metadata.background_texture.c_str(), mono::TextureModeFlags::REPEAT);
+        AddDrawable(background, LayerId::BACKGROUND);
     }
     
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
@@ -161,7 +160,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new DialogSystemDrawer(dialog_system), LayerId::UI);
+    AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
 
     // Debug
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
@@ -172,10 +171,10 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::PhysicsDebugDrawer(g_draw_physics, g_interact_physics, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
-    AddDrawable(new DebugUpdater(trigger_system, damage_system, transform_system, entity_system, m_event_handler), LayerId::UI);
+    AddDrawable(new DebugUpdater(trigger_system, damage_system, transform_system, entity_system, m_event_handler, renderer), LayerId::UI);
 
     m_game_mode = CreateGameMode();
-    m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, m_leveldata.metadata);
+    m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, metadata);
     AddUpdatable(m_game_mode.get());
 }
 
