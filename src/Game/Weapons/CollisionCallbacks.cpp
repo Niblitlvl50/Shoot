@@ -130,7 +130,6 @@ void game::RocketCollision(
     mono::TransformSystem* transform_system)
 {
     StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
-    //event_handler.DispatchEvent(game::ShockwaveEvent(explosion_config.position, 150));
 }
 
 void game::CacoPlasmaCollision(
