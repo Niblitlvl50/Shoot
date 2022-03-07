@@ -10,30 +10,30 @@ namespace
 {
     std::vector<math::Vector> BuildGridVertices(const math::Quad& bounds)
     {
-        constexpr float cellSize = 50.0f;
+        constexpr float cell_size = 50.0f;
 
-        const float width = bounds.mB.x - bounds.mA.x;
-        const float height = bounds.mB.y - bounds.mA.y;
+        const float width = math::Width(bounds);
+        const float height = math::Height(bounds);
 
-        const float cellsWidth = width / cellSize;
-        const float cellsHeight = height / cellSize;
+        const float cells_width = width / cell_size;
+        const float cells_height = height / cell_size;
 
         std::vector<math::Vector> vertices;
 
-        for(int index = 0; index < cellsWidth; ++index)
+        for(int index = 0; index < cells_width; ++index)
         {
-            const float x = bounds.mA.x + index * cellSize;
+            const float x = bounds.bottom_left.x + index * cell_size;
 
-            vertices.push_back(math::Vector(x, bounds.mA.y));
-            vertices.push_back(math::Vector(x, bounds.mB.y));
+            vertices.push_back(math::Vector(x, bounds.bottom_left.y));
+            vertices.push_back(math::Vector(x, bounds.top_right.y));
         }
 
-        for(int index = 0; index < cellsHeight; ++index)
+        for(int index = 0; index < cells_height; ++index)
         {
-            const float y = bounds.mA.y + index * cellSize;
+            const float y = bounds.bottom_left.y + index * cell_size;
 
-            vertices.push_back(math::Vector(bounds.mA.x, y));
-            vertices.push_back(math::Vector(bounds.mB.x, y));
+            vertices.push_back(math::Vector(bounds.bottom_left.x, y));
+            vertices.push_back(math::Vector(bounds.top_right.x, y));
         }
         
         return vertices;

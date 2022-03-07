@@ -76,8 +76,8 @@ void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<At
     const math::Vector half_size = width_height / 2.0f;
 
     math::Quad box;
-    box.mA = offset - half_size;
-    box.mB = offset + half_size;
+    box.bottom_left = offset - half_size;
+    box.top_right = offset + half_size;
 
     mono::Color::RGBA color = is_sensor ? mono::Color::BLUE : mono::Color::MAGENTA;
     color.alpha = 0.5f;

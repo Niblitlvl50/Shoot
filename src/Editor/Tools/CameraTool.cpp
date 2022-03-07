@@ -4,16 +4,14 @@
 #include "Camera/ICamera.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
-#include "System/System.h"
 
 #include <cmath>
 
 using namespace editor;
 
-CameraTool::CameraTool(mono::ICamera* camera, const System::IWindow* window)
-    : m_camera(camera),
-      m_window(window),
-      m_translate(false)
+CameraTool::CameraTool(mono::ICamera* camera)
+    : m_camera(camera)
+    , m_translate(false)
 { }
 
 bool CameraTool::IsActive() const
@@ -37,14 +35,13 @@ void CameraTool::HandleMousePosition(const math::Vector& screen_position)
     if(!m_translate)
         return;
 
-    const System::Size& size = m_window->Size();
-    const math::Vector window_size(size.width, size.height);
+    const math::Vector window_size = m_camera->GetWindowSize();
     const float ratio = window_size.x / window_size.y;
 
     math::Quad viewport = m_camera->GetViewport();
-    viewport.mB.y = viewport.mB.x / ratio;
+    viewport.top_right.y = viewport.bottom_left.y + math::Width(viewport) / ratio;
 
-    const math::Vector& scale = viewport.mB / window_size;
+    const math::Vector& scale = math::Size(viewport) / window_size;
 
     math::Vector delta = (screen_position - m_last_position);
     delta.y = -delta.y;

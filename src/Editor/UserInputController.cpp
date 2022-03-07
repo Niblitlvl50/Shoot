@@ -38,7 +38,7 @@ UserInputController::UserInputController(
     , m_event_handler(event_handler)
     , m_editor(editor)
     , m_context(context)
-    , m_camera_tool(camera, window)
+    , m_camera_tool(camera)
     , m_translate_tool(editor)
     , m_rotate_tool(editor)
     , m_measure_tool(editor)

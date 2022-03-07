@@ -776,7 +776,7 @@ void Editor::UpdateGrabbers()
 float Editor::GetPickingDistance() const
 {
     const System::Size& size = m_window->Size();
-    return m_camera->GetViewport().mB.x / size.width * 5.0f;
+    return math::Width(m_camera->GetViewport()) / size.width * 5.0f;
 }
 
 SnapPair Editor::FindSnapPosition(const math::Vector& position) const

@@ -46,6 +46,27 @@
             }
         },
         {
+            "name": "mono test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/unittest",
+            "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb"
+            }
+        },
+        {
             "name": "editor",
             "type": "cppdbg",
             "request": "launch",

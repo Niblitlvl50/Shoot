@@ -4,18 +4,13 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 
-namespace System
-{
-    class IWindow;
-}
-
 namespace editor
 {
     class CameraTool
     {
     public:
 
-        CameraTool(mono::ICamera* camera, const System::IWindow* window);
+        CameraTool(mono::ICamera* camera);
 
         bool IsActive() const;
         void HandleMouseDown(const math::Vector& screen_position);
@@ -30,8 +25,6 @@ namespace editor
     private:
     
         mono::ICamera* m_camera;
-        const System::IWindow* m_window;
-
         bool m_translate;
         math::Vector m_last_position;
     };

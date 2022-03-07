@@ -41,11 +41,9 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
         message.payload = SerializeMessage(camera_message);
         m_remote_connection->SendMessage(message);
 
-        const math::Quad& viewport = m_camera->GetViewport();
-
         ViewportMessage viewport_message;
         viewport_message.sender = m_remote_connection->GetClientAddress();
-        viewport_message.viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
+        viewport_message.viewport = m_camera->GetViewport();
 
         NetworkMessage message2;
         message2.payload = SerializeMessage(viewport_message);

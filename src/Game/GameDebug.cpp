@@ -141,7 +141,12 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGui::NextColumn();
 
         const math::Quad& viewport = player_info.viewport;
-        ImGui::Text("%.1f %.1f %.1f %.1f", viewport.mA.x, viewport.mA.y, viewport.mB.x, viewport.mB.y);
+        ImGui::Text(
+            "%.1f %.1f %.1f %.1f",
+            viewport.bottom_left.x,
+            viewport.bottom_left.y,
+            viewport.top_right.x,
+            viewport.top_right.y);
         ImGui::NextColumn();
 
         ImGui::PushID(index);
