@@ -12,6 +12,7 @@
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITextureFactory.h"
+#include "Rendering/Texture/TextureBufferFactory.h"
 
 #include <string>
 #include <vector>
@@ -118,9 +119,7 @@ namespace game
 
     private:
 
-        std::unique_ptr<mono::IRenderBuffer> m_vertices;
-        std::unique_ptr<mono::IRenderBuffer> m_uv;
-        std::unique_ptr<mono::IElementBuffer> m_indices;
+        mono::TextureDrawBuffers m_draw_buffers;
         mono::ITexturePtr m_texture;
     };
 

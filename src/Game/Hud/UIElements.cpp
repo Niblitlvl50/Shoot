@@ -228,32 +228,7 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
 UITextureElement::UITextureElement(const char* texture)
 {
     m_texture = mono::GetTextureFactory()->CreateTexture(texture);
-
-    const float half_width = m_texture->Width() / 2.0f;
-    const float half_height = m_texture->Height() / 2.0f;
-
-    const math::Vector vertex_data[] = {
-        { -half_width, -half_height },
-        { -half_width, +half_height },
-        { +half_width, +half_height },
-        { +half_width, -half_height }
-    };
-
-    const math::Vector uv_data[] = {
-        { 0.0f, 1.0f },
-        { 0.0f, 0.0f },
-        { 1.0f, 0.0f },
-        { 1.0f, 1.0f }
-    };
-
-    const uint16_t index_data[] = {
-        0, 1, 2,
-        0, 2, 3
-    };
-
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data);
-    m_uv = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, uv_data);
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, index_data);
+    m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
 }
 
 void UITextureElement::Draw(mono::IRenderer& renderer) const
@@ -262,7 +237,13 @@ void UITextureElement::Draw(mono::IRenderer& renderer) const
 
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-    renderer.DrawGeometry(m_vertices.get(), m_uv.get(), m_indices.get(), m_texture.get(), false, m_indices->Size());
+    renderer.DrawGeometry(
+        m_draw_buffers.vertices.get(),
+        m_draw_buffers.uv.get(),
+        m_draw_buffers.indices.get(),
+        m_texture.get(),
+        false,
+        m_draw_buffers.indices->Size());
 }
 
 
