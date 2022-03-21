@@ -109,7 +109,8 @@ void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::Spawn
         spawn_point->disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point->disable_trigger, disable_callback, entity_id);
     }
 
-    spawn_point->active = false;
+    // If the enable trigger is not set, its enabled from the start.
+    spawn_point->active = (spawn_point->enable_trigger == 0);
 }
 
 SpawnSystem::EntitySpawnPointComponent* SpawnSystem::AllocateEntitySpawnPoint(uint32_t entity_id)

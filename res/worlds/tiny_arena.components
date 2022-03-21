@@ -291,13 +291,13 @@
                             "id": 2200757869,
                             "name": "enable_trigger",
                             "variant_type": 6,
-                            "variant_value": "start_spawning"
+                            "variant_value": ""
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
                             "variant_type": 6,
-                            "variant_value": "stop_spawning"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -2530,13 +2530,13 @@
                             "id": 2200757869,
                             "name": "enable_trigger",
                             "variant_type": 6,
-                            "variant_value": "start_spawning"
+                            "variant_value": ""
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
                             "variant_type": 6,
-                            "variant_value": "stop_spawning"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -3226,7 +3226,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.15000000596046448
                             }
                         },
                         {
@@ -5148,162 +5148,6 @@
             "folder": "",
             "name": "grass_tiny_2",
             "uuid_hash": 2303376603
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "spawn_trigger"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "spawners"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.464988648891449,
-                                "y": -0.9701176881790161
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "name": "body_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 958098175,
-                    "name": "polygon_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 85768329,
-                            "name": "polygon",
-                            "variant_type": 7,
-                            "variant_value": [
-                                {
-                                    "x": -7.857943534851074,
-                                    "y": 4.365751266479492
-                                },
-                                {
-                                    "x": -0.8289908766746521,
-                                    "y": 5.25748348236084
-                                },
-                                {
-                                    "x": 6.382354736328125,
-                                    "y": 4.590096473693848
-                                },
-                                {
-                                    "x": 6.463692665100098,
-                                    "y": -3.6655988693237305
-                                },
-                                {
-                                    "x": -5.899517059326172,
-                                    "y": -3.889275550842285
-                                },
-                                {
-                                    "x": -8.563301086425781,
-                                    "y": -0.9814804792404175
-                                }
-                            ]
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "start_spawning"
-                        },
-                        {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
-                            "variant_type": 6,
-                            "variant_value": "stop_spawning"
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "spawners",
-            "name": "spawn_trigger",
-            "uuid_hash": 1654938515
         },
         {
             "components": [
@@ -13322,13 +13166,13 @@
                             "id": 2200757869,
                             "name": "enable_trigger",
                             "variant_type": 6,
-                            "variant_value": "start_spawning"
+                            "variant_value": ""
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
                             "variant_type": 6,
-                            "variant_value": "stop_spawning"
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -16983,8 +16827,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.18474191427230835,
-                                "y": -1.135074496269226
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -30122,7 +29966,6 @@
         "triggers": [
             "alien_tree_destroyed",
             "level_completed",
-            "none",
             "package_delivered",
             "push_button",
             "read_note",

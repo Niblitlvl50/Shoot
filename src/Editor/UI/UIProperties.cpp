@@ -347,10 +347,16 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         attribute.id == DISABLE_TRIGGER_ATTRIBUTE ||
         attribute.id == TRIGGER_NAME_COMPLETED_ATTRIBUTE )
     {
+        std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
+        local_triggers.push_back("[none]");
+
         int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), ui_context.level_metadata.triggers, out_index);
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), local_triggers, out_index);
         if(changed)
-            attribute.value = ui_context.level_metadata.triggers[out_index];
+        {
+            const std::string picked_value = local_triggers[out_index];
+            attribute.value = (picked_value == "[none]") ? "" : picked_value;
+        }
         
         return changed;
     }

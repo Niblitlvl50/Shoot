@@ -244,12 +244,12 @@ namespace
 
         std::string enable_trigger;
         const bool found_enable = FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
-        if(found_enable)
+        if(found_enable && !enable_trigger.empty())
             spawn_point.enable_trigger = hash::Hash(enable_trigger.c_str());
 
         std::string disable_trigger;
         const bool found_disable = FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
-        if(found_disable)
+        if(found_disable && !disable_trigger.empty())
             spawn_point.disable_trigger = hash::Hash(disable_trigger.c_str());
 
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
