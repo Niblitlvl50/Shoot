@@ -3020,8 +3020,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.5,
-                                "y": 2.5
+                                "x": 2.5227298736572266,
+                                "y": 2.7992427349090576
                             }
                         },
                         {
@@ -3107,14 +3107,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.4000000059604645
+                                "y": -0.6000000238418579
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1015133031,
@@ -3132,7 +3132,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 2.0
                         },
                         {
                             "id": 348705738,
@@ -3140,7 +3140,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.25
                             }
                         },
                         {
@@ -3149,16 +3149,16 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "blue": 0.0,
+                                "green": 0.608564019203186,
+                                "red": 0.9852941036224365
                             }
                         },
                         {
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
@@ -3245,7 +3245,7 @@
                             "id": 2951636756,
                             "name": "behaviour",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 9
                         }
                     ]
                 }

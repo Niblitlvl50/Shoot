@@ -11,6 +11,7 @@
 #include "Enemies/BlobController.h"
 #include "Enemies/TurretSpawnerController.h"
 #include "Enemies/ExplodableController.h"
+#include "Enemies/FlamingSkullBossController.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/IEntityManager.h"
@@ -38,6 +39,7 @@ namespace
         MakeController<game::BlobController>,
         MakeController<game::TurretSpawnerController>,
         MakeController<game::ExplodableController>,
+        MakeController<game::FlamingSkullBossController>,
     };
 }
 
