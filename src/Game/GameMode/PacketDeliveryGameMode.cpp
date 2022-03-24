@@ -245,14 +245,17 @@ void PacketDeliveryGameMode::ToRunGameMode()
 { }
 void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_context)
 {
-    m_level_timer -= update_context.delta_s;
-    m_timer_screen->SetSeconds(m_level_timer);
-
-    if(m_level_has_timelimit && m_level_timer < 1.0f)
+    if(m_package_spawned)
     {
-        // Time out, game over. Should proably be a different fail state.
-        m_dead_screen->SetSubText("Man, you were too slow!");
-        m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        m_level_timer -= update_context.delta_s;
+        m_timer_screen->SetSeconds(m_level_timer);
+
+        if(m_level_has_timelimit && m_level_timer < 1.0f)
+        {
+            // Time out, game over. Should proably be a different fail state.
+            m_dead_screen->SetSubText("Man, you were too slow!");
+            m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        }
     }
 }
 
