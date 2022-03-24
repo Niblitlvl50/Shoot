@@ -175,7 +175,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
 
         if(spawn_point.spawn_limit > 0)
         {
-            if(spawn_point.active_spawns.size() >= spawn_point.spawn_limit)
+            if(spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit))
                 return;
         }
 

@@ -27,7 +27,7 @@ InteractionSystem::InteractionSystem(
 
 InteractionComponent* InteractionSystem::AllocateComponent(uint32_t entity_id)
 {
-    InteractionComponent component;
+    InteractionComponent component = {};
     return m_components.Set(entity_id, std::move(component));
 }
 
