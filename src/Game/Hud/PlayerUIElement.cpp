@@ -231,17 +231,31 @@ namespace game
         {
             constexpr float transision_duration_s = 0.5f;
 
-            if(m_player_info.player_state == game::PlayerState::ALIVE && m_timer > 0.0f)
+            switch(m_player_info.player_state)
             {
-                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                m_timer -= update_context.delta_s;
+            case game::PlayerState::NOT_SPAWNED:
+            case game::PlayerState::ALIVE:
+            {
+                if(m_timer > 0.0f)
+                {
+                    m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                    m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                    m_timer -= update_context.delta_s;
+                }
+                
+                break;
             }
-            else if(m_player_info.player_state == game::PlayerState::DEAD && m_timer < transision_duration_s)
+            case game::PlayerState::DEAD:
             {
-                m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                m_timer += update_context.delta_s;
+                if(m_timer < transision_duration_s)
+                {
+                    m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+                    m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
+                    m_timer += update_context.delta_s;
+                }
+
+                break;
+            }
             }
 
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
