@@ -120,6 +120,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
+        mono::LightSystem* m_light_system;
         mono::IEntityManager* m_entity_system;
         class DamageSystem* m_damage_system;
         class PickupSystem* m_pickup_system;

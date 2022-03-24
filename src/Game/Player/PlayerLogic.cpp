@@ -13,6 +13,7 @@
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "Particle/ParticleSystem.h"
 
 #include "DamageSystem.h"
@@ -63,6 +64,7 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_light_system = system_context->GetSystem<mono::LightSystem>();
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
@@ -246,6 +248,7 @@ void PlayerLogic::ToDead()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
+    m_light_system->SetLightEnabled(m_entity_id, false);
 
     if(HoldingPickup())
         Throw(0.0f);
@@ -261,6 +264,8 @@ void PlayerLogic::ExitDead()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, true);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
+
+    m_light_system->SetLightEnabled(m_entity_id, true);
 }
 
 void PlayerLogic::ToBlink()
