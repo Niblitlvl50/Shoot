@@ -3057,6 +3057,48 @@
                     ]
                 },
                 {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -3200,7 +3242,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
