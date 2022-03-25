@@ -54,4 +54,12 @@ namespace game
             : SystemTestZone(context, "res/worlds/enemy_testbed.components")
         { }
     };
+
+    class TutorialDeliveryZone : public SystemTestZone
+    {
+    public:
+        TutorialDeliveryZone(const ZoneCreationContext& context)
+            : SystemTestZone(context, "res/worlds/tutorial_delivery.components")
+        { }
+    };
 }

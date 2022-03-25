@@ -14,6 +14,7 @@ namespace game
         GAME_OVER_SCREEN,
         END_SCREEN,
         EMPTY_ZONE,
-        ENEMY_TESTBED_ZONE
+        ENEMY_TESTBED_ZONE,
+        TUTORIAL_DELIVERY_ZONE
     };
 }

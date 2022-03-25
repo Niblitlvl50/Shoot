@@ -36,6 +36,7 @@ ZoneManager::ZoneManager(
     m_zones[EMPTY_ZONE] = LoadZone<game::EmptyZone>;
 
     m_zones[ENEMY_TESTBED_ZONE] = LoadZone<game::EnemyTestbedZone>;
+    m_zones[TUTORIAL_DELIVERY_ZONE] = LoadZone<game::TutorialDeliveryZone>;
 }
 
 void ZoneManager::Run()

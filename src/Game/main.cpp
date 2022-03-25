@@ -56,7 +56,7 @@ namespace
         int x = 100;
         int y = 100;
         int width = 1200;
-        int height = 800;
+        int height = 750;
         int start_zone = 1;
         const char* game_config = "res/game_config.json";
         const char* log_file = "game_log.log";

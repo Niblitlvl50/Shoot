@@ -29989,7 +29989,7 @@
         },
         "camera_size": {
             "x": 10.0,
-            "y": 6.659999847412109
+            "y": 6.25
         },
         "navmesh_density": 1.0,
         "navmesh_end": {
