@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0,
-                                "y": 3.0
+                                "x": 2.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -210,8 +210,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.19022369384765625,
-                                "y": 2.2760043144226074
+                                "x": 0.8097763061523438,
+                                "y": 0.2760043144226074
                             }
                         },
                         {
@@ -375,8 +375,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.6009469032287598,
-                                "y": 1.6107120513916016
+                                "x": -2.6009464263916016,
+                                "y": -0.38928794860839844
                             }
                         },
                         {
@@ -490,8 +490,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.1427345275878906,
-                                "y": 1.4822731018066406
+                                "x": -2.1427345275878906,
+                                "y": -0.5177268981933594
                             }
                         },
                         {
@@ -605,8 +605,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.660965919494629,
-                                "y": 1.5764665603637695
+                                "x": -1.660965919494629,
+                                "y": -0.42353343963623047
                             }
                         },
                         {
@@ -720,8 +720,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.392331123352051,
-                                "y": 1.7306599617004395
+                                "x": -2.392331123352051,
+                                "y": -0.26934003829956055
                             }
                         },
                         {
@@ -835,8 +835,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.9155843257904053,
-                                "y": 1.7554388046264648
+                                "x": -1.9155845642089844,
+                                "y": -0.24456119537353516
                             }
                         },
                         {
@@ -950,8 +950,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.869802474975586,
-                                "y": 1.8523178100585938
+                                "x": -2.869802474975586,
+                                "y": -0.14768218994140625
                             }
                         },
                         {
@@ -1065,8 +1065,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.071221828460693,
-                                "y": 1.5965708494186401
+                                "x": -3.0712223052978516,
+                                "y": -0.40342915058135986
                             }
                         },
                         {
@@ -1180,8 +1180,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.776937484741211,
-                                "y": 1.3151302337646484
+                                "x": -1.776937484741211,
+                                "y": -0.6848697662353516
                             }
                         },
                         {
@@ -1295,8 +1295,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.6026053428649902,
-                                "y": 1.3362512588500977
+                                "x": -2.6026058197021484,
+                                "y": -0.6637487411499023
                             }
                         },
                         {
@@ -1410,8 +1410,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.998814582824707,
-                                "y": 1.4140030145645142
+                                "x": -2.998814582824707,
+                                "y": -0.5859969854354858
                             }
                         },
                         {
@@ -1525,8 +1525,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.299933671951294,
-                                "y": 1.3415719270706177
+                                "x": -2.299933433532715,
+                                "y": -0.6584280729293823
                             }
                         },
                         {
@@ -1640,8 +1640,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.440204620361328,
-                                "y": 1.931257724761963
+                                "x": -2.440204620361328,
+                                "y": -0.06874227523803711
                             }
                         },
                         {
@@ -1755,8 +1755,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.28132963180542,
-                                "y": 1.5156500339508057
+                                "x": -1.2813301086425781,
+                                "y": -0.48434996604919434
                             }
                         },
                         {
@@ -1870,8 +1870,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.2735567092895508,
-                                "y": 2.2760043144226074
+                                "x": -0.2735567092895508,
+                                "y": 0.2760043144226074
                             }
                         },
                         {
@@ -2059,8 +2059,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.0,
-                                "y": 3.0
+                                "x": 0.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2240,8 +2240,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0,
-                                "y": 3.0
+                                "x": -2.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2421,8 +2421,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.0,
-                                "y": 3.0
+                                "x": -4.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2602,8 +2602,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.0,
-                                "y": 3.0
+                                "x": -6.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2783,8 +2783,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.0,
-                                "y": 3.0
+                                "x": 4.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2964,8 +2964,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 5.0,
-                                "y": 3.0
+                                "x": 6.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -3145,8 +3145,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 7.0,
-                                "y": 3.0
+                                "x": 8.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -3326,8 +3326,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.908329486846924,
-                                "y": 2.3794105052948
+                                "x": -6.908329010009766,
+                                "y": 0.3794105052947998
                             }
                         },
                         {
@@ -3434,8 +3434,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -9.0,
-                                "y": 3.0
+                                "x": -8.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -3615,8 +3615,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -11.0,
-                                "y": 3.0
+                                "x": -10.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -3796,8 +3796,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -13.0,
-                                "y": 3.0
+                                "x": -12.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -3977,8 +3977,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -15.0,
-                                "y": 3.0
+                                "x": -14.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -4158,8 +4158,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 9.0,
-                                "y": 3.0
+                                "x": 10.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -4339,8 +4339,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 11.0,
-                                "y": 3.0
+                                "x": 12.0,
+                                "y": 1.0
                             }
                         },
                         {
@@ -4520,8 +4520,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 5.632942199707031,
-                                "y": 1.1796391010284424
+                                "x": 4.7068634033203125,
+                                "y": -2.155266523361206
                             }
                         },
                         {
@@ -4635,8 +4635,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.332396388053894,
-                                "y": 0.5976354479789734
+                                "x": 1.0,
+                                "y": 3.0
                             }
                         },
                         {
@@ -4692,8 +4692,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 40.0,
-                                "y": 40.0
+                                "x": 32.0,
+                                "y": 32.0
                             }
                         },
                         {
@@ -4748,6 +4748,345 @@
             "folder": "logic",
             "name": "region_event",
             "uuid_hash": 2813400699
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "outline_left"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "outline"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -9.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.0,
+                                "y": 16.0
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "outline",
+            "name": "outline_left",
+            "uuid_hash": 4019586966
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "outline_right"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "outline"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 9.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.0,
+                                "y": 16.0
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "outline",
+            "name": "outline_right",
+            "uuid_hash": 2780259440
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "outline_bottom"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "outline"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -9.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 20.0,
+                                "y": 2.0
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "outline",
+            "name": "outline_bottom",
+            "uuid_hash": 2864270828
         }
     ],
     "metadata": {
@@ -4764,13 +5103,13 @@
             "red": 0.8725489974021912
         },
         "background_size": {
-            "x": 100.0,
-            "y": 100.0
+            "x": 48.0,
+            "y": 48.0
         },
-        "background_texture": "res/textures/prototype1.png",
+        "background_texture": "res/textures/prototype2.png",
         "camera_position": {
-            "x": -4.0,
-            "y": 0.5
+            "x": 0.0,
+            "y": -2.0
         },
         "camera_size": {
             "x": 10.0,
@@ -4786,8 +5125,8 @@
             "y": 0.0
         },
         "player_spawn_point": {
-            "x": -4.0,
-            "y": 0.5
+            "x": 0.0,
+            "y": -2.0
         },
         "time_limit_s": 0,
         "triggers": [
