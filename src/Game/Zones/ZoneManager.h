@@ -2,10 +2,10 @@
 #pragma once
 
 #include "ZoneCreationContext.h"
+#include "ZoneFlow.h"
 #include "MonoFwd.h"
 #include "Engine.h"
 
-#include <unordered_map>
 #include <memory>
 
 namespace game
@@ -26,6 +26,6 @@ namespace game
         int m_active_zone;
 
         using LoadFunction = game::IZonePtr(*)(const ZoneCreationContext& zone_context);
-        std::unordered_map<int, LoadFunction> m_zones;
+        LoadFunction m_zones[N_ZONES];
     };
 }

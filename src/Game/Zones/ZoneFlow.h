@@ -15,6 +15,8 @@ namespace game
         END_SCREEN,
         EMPTY_ZONE,
         ENEMY_TESTBED_ZONE,
-        TUTORIAL_DELIVERY_ZONE
+        TUTORIAL_DELIVERY_ZONE,
+
+        N_ZONES
     };
 }

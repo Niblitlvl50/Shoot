@@ -1,30 +1,14 @@
 
 #include "SetupGameScreen.h"
 #include "ZoneFlow.h"
-
-#include "RenderLayers.h"
-
-#include "Math/Quad.h"
-#include "Camera/ICamera.h"
-#include "Rendering/Color.h"
+#include "IUpdatable.h"
 
 #include "Events/KeyEvent.h"
 #include "Events/QuitEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
 
-#include "SystemContext.h"
-#include "Particle/ParticleSystem.h"
-#include "Particle/ParticleSystemDrawer.h"
-#include "Rendering/Sprite/SpriteBatchDrawer.h"
-#include "Rendering/Sprite/SpriteSystem.h"
-#include "Rendering/Text/TextSystem.h"
-#include "Rendering/Text/TextBatchDrawer.h"
-#include "TransformSystem/TransformSystem.h"
 #include "System/System.h"
-
-#include "EntitySystem/IEntityManager.h"
-#include "WorldFile.h"
 
 using namespace game;
 
@@ -71,11 +55,9 @@ namespace
 SetupGameScreen::SetupGameScreen(const ZoneCreationContext& context)
     : GameZone(context, "res/worlds/setup_game_screen.components")
     , m_event_handler(*context.event_handler)
-    , m_system_context(context.system_context)
     , m_exit_zone(ZoneFlow::TITLE_SCREEN)
 {
-    const event::KeyUpEventFunc key_callback =
-        [this](const event::KeyUpEvent& event) -> mono::EventResult
+    const event::KeyUpEventFunc key_callback = [this](const event::KeyUpEvent& event)
     {
         if(event.key == Keycode::ENTER)
             Continue();
