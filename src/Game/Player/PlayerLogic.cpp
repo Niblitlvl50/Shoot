@@ -10,6 +10,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/IShape.h"
+#include "Physics/PhysicsSpace.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
@@ -132,7 +133,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->position = math::GetPosition(transform);
     m_player_info->velocity = body->GetVelocity();
     m_player_info->direction = math::GetZRotation(transform);
-    m_player_info->aim_direction = m_aim_direction;
+    m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
 
     m_player_info->weapon_type = m_weapon_type;
     m_player_info->weapon_state = m_weapon->UpdateWeaponState(timestamp);
@@ -225,20 +226,27 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
     m_gamepad_controller.Update(update_context);
 
+    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction); // * 0.5f;
+    const math::Vector fire_position = position + (aim_vector * 0.5f);
+    const math::Vector target_fire_position = position + (aim_vector * 100.0f);
+
     if(m_fire)
     {
-        const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
-        const math::Vector offset = math::VectorFromAngle(m_aim_direction) * 0.5f;
-        m_player_info->weapon_state = m_weapon->Fire(position + offset, m_aim_direction, update_context.timestamp);
+        m_player_info->weapon_state = m_weapon->Fire(fire_position, m_aim_direction, update_context.timestamp);
     }
     else if(m_stop_fire)
     {
-        m_stop_fire = false;
         m_weapon->StopFire(update_context.timestamp);
+        m_stop_fire = false;
     }
 
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, m_player_info->velocity);
+
+    mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
+    mono::QueryResult query_result = physics_space->QueryFirst(fire_position, target_fire_position, PLAYER_BULLET_MASK);
+    m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : math::ZeroVec;
 
     if(m_player_info->player_state == PlayerState::DEAD)
         m_state.TransitionTo(PlayerStates::DEAD);

@@ -7,10 +7,19 @@
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
 
+#include "Player/PlayerInfo.h"
+
 #include <memory>
 
 namespace game
 {
+    struct AimlineRenderData
+    {
+        std::unique_ptr<mono::IRenderBuffer> vertices;
+        std::unique_ptr<mono::IRenderBuffer> colors;
+        std::unique_ptr<mono::IElementBuffer> indices;
+    };
+
     class PlayerAuxiliaryDrawer : public mono::IDrawable
     {
     public:
@@ -22,9 +31,7 @@ namespace game
 
         const mono::TransformSystem* m_transform_system;
 
-        std::unique_ptr<mono::IRenderBuffer> m_laser_vertices;
-        std::unique_ptr<mono::IRenderBuffer> m_laser_colors;
-        std::unique_ptr<mono::IElementBuffer> m_laser_indices;
+        mutable AimlineRenderData m_aimline_data[n_players];
     };
 
     class PackageAuxiliaryDrawer : public mono::IDrawable

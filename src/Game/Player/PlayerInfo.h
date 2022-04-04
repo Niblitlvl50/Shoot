@@ -44,7 +44,9 @@ namespace game
         math::Vector position;
         math::Vector velocity;
         float direction;
-        float aim_direction;
+        
+        math::Vector aim_direction;
+        math::Vector aim_target;
 
         WeaponSetup weapon_type;
         WeaponState weapon_state;
