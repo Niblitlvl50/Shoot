@@ -68,8 +68,8 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transf
 
 void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
-    std::vector<math::Vector> reload_lines;
-    std::vector<math::Vector> points;
+    std::vector<math::Vector> cooldown_lines;
+    std::vector<math::Vector> cooldown_points;
 
     struct AimlineData
     {
@@ -77,7 +77,7 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         uint32_t render_data_index;
     };
     std::vector<AimlineData> aimline_transforms;
-    //std::vector<math::Vector> aim_target_points;
+    std::vector<math::Vector> aim_target_points;
 
     mono::Color::RGBA cooldown_color;
 
@@ -97,7 +97,7 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
             m_aimline_data[player_index] = GenerateAimLine(start_offset, mid_point_offset, length, width, laser_length);
             aimline_transforms.push_back({ aimline_transform, player_index });
-            //aim_target_points.push_back(player_info->aim_target);
+            aim_target_points.push_back(player_info->aim_target);
         }
 
         const bool ability_on_cooldown = (player_info->cooldown_fraction < 1.0f);
@@ -110,9 +110,9 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             const math::Vector right = bottom_center + math::Vector(0.3f, -0.15f);
             const math::Vector reload_dot = ((right - left) * player_info->cooldown_fraction) + left;
 
-            reload_lines.push_back(left);
-            reload_lines.push_back(right);
-            points.push_back(reload_dot);
+            cooldown_lines.push_back(left);
+            cooldown_lines.push_back(right);
+            cooldown_points.push_back(reload_dot);
 
             cooldown_color = g_ability_to_color[player_info->cooldown_id];
         }
@@ -131,10 +131,11 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             render_data.indices->Size());
     }
 
-    //renderer.DrawPoints(aim_target_points, mono::Color::CYAN, 16.0f);
+    constexpr mono::Color::RGBA laser_red = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.7f);
+    renderer.DrawPoints(aim_target_points, laser_red, 12.0f);
 
-    renderer.DrawLines(reload_lines, mono::Color::OFF_WHITE, 4.0f);
-    renderer.DrawPoints(points, cooldown_color, 8.0f);
+    renderer.DrawLines(cooldown_lines, mono::Color::OFF_WHITE, 4.0f);
+    renderer.DrawPoints(cooldown_points, cooldown_color, 8.0f);
 }
 
 math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
