@@ -81,7 +81,7 @@ Weapon::~Weapon()
 
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    const math::Vector target = math::VectorFromAngle(direction);
+    const math::Vector target = math::VectorFromAngle(direction) * 10.0f;
     return Fire(position, position + target, timestamp);
 }
 
@@ -123,8 +123,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
         const float fire_direction_deviation =
-            math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
-        const math::Vector modified_fire_direction = math::Rotate(fire_direction, fire_direction_deviation);
+            mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees);
+        const math::Vector modified_fire_direction = math::Rotate(fire_direction, math::ToRadians(fire_direction_deviation));
 
         const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
         const math::Vector& impulse =

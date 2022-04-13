@@ -33,6 +33,7 @@ WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemC
     m_bullet_callbacks = {
         { GENERIC.bullet_hash,          std::bind(StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { PLASMA_GUN.bullet_hash,       std::bind(PlasmaCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { PLASMA_GUN_HOMING.bullet_hash,std::bind(PlasmaCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { ROCKET_LAUNCHER.bullet_hash,  std::bind(RocketCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { CACO_PLASMA.bullet_hash,      std::bind(CacoPlasmaCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { FLAK_CANON.bullet_hash,       std::bind(StandardCollision, _1, _2, _3, _4, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
