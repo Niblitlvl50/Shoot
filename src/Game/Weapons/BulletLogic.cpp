@@ -22,6 +22,7 @@ using namespace game;
 BulletLogic::BulletLogic(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    const math::Vector& target,
     const BulletConfiguration& config,
     const CollisionConfiguration& collision_config,
     mono::PhysicsSystem* physics_system)
@@ -44,6 +45,12 @@ BulletLogic::BulletLogic(
     m_physics_system = physics_system;
     m_bullet_behaviour = config.bullet_behaviour;
     m_jumps_left = 3;
+
+    mono::IBody* bullet_body = physics_system->GetBody(entity_id);
+    m_homing_behaviour.SetBody(bullet_body);
+    m_homing_behaviour.SetForwardVelocity(1.0f);
+    m_homing_behaviour.SetAngularVelocity(90.0f);
+    m_homing_behaviour.SetTargetPosition(target);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
@@ -61,12 +68,18 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
         m_collision_callback(m_entity_id, m_owner_entity_id, BulletImpactFlag::DESTROY_THIS, details);
     }
+
+    if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
+    {
+        const HomingResult& homing_result = m_homing_behaviour.Run(update_context);
+
+    }
 }
 
 mono::CollisionResolve BulletLogic::OnCollideWith(
     mono::IBody* colliding_body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
 {
-    if(m_bullet_behaviour == BulletCollisionFlag::JUMPER)
+    if(m_bullet_behaviour & BulletCollisionFlag::JUMPER)
     {
         const bool collide_with_static = (colliding_body->GetType() == mono::BodyType::STATIC);
         if(collide_with_static)

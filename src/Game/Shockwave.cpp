@@ -9,7 +9,13 @@
 
 void game::ShockwaveAt(mono::PhysicsSystem* physics_system, const math::Vector& world_position, float magnitude)
 {
-    ShockwaveAndDamageAt(physics_system, nullptr, world_position, magnitude, 0, 0);
+    ShockwaveAndDamageAt(physics_system, nullptr, world_position, magnitude, 0, 0, CollisionCategory::CC_ALL);
+}
+
+void game::ShockwaveAtForTypes(
+    mono::PhysicsSystem* physics_system, const math::Vector& world_position, float magnitude, uint32_t object_types)
+{
+    ShockwaveAndDamageAt(physics_system, nullptr, world_position, magnitude, 0, 0, object_types);
 }
 
 void game::ShockwaveAndDamageAt(
@@ -18,10 +24,11 @@ void game::ShockwaveAndDamageAt(
     const math::Vector& world_position,
     float magnitude,
     int damage,
-    uint32_t who_did_damage)
+    uint32_t who_did_damage,
+    uint32_t object_types)
 {
     const std::vector<mono::QueryResult> found_bodies =
-        physics_system->GetSpace()->QueryRadius(world_position, 3.0f, CollisionCategory::CC_ALL);
+        physics_system->GetSpace()->QueryRadius(world_position, 3.0f, object_types);
 
     for(const mono::QueryResult& query_result : found_bodies)
     {

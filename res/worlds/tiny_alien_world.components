@@ -5722,6 +5722,12 @@
                             "variant_value": 10
                         },
                         {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
@@ -5831,6 +5837,12 @@
                             "name": "faction_picker",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -7808,6 +7820,7 @@
             "x": -3.0,
             "y": -10.0
         },
+        "time_limit_s": 0,
         "triggers": [
             "enter_death_valley",
             "enter_oak_forest",

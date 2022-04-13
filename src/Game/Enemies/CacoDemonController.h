@@ -26,15 +26,23 @@ namespace game
         void OnIdle();
         void Idle(const mono::UpdateContext& update_context);
 
-        void OnAttack();
-        void Attack(const mono::UpdateContext& update_context);
+        void OnActive();
+        void Active(const mono::UpdateContext& update_context);
+
+        void OnAction();
+        void ActionShockwave(const mono::UpdateContext& update_context);
+        void ActionFireHoming(const mono::UpdateContext& update_context);
+        void ActionFireBeam(const mono::UpdateContext& update_context);
 
         void OnDead();
         void Dead(const mono::UpdateContext& update_context);
 
     private:
 
-        math::Matrix* m_transform;
+        const uint32_t m_entity_id;
+        mono::TransformSystem* m_transform_system;
+        mono::PhysicsSystem* m_physics_system;
+
         mono::IBody* m_entity_body;
         mono::ISprite* m_entity_sprite;
         uint32_t m_idle_animation;
@@ -42,16 +50,20 @@ namespace game
         uint32_t m_death_animation;
         bool m_ready_to_attack;
 
-        IWeaponPtr m_weapon;
+        IWeaponPtr m_primary_weapon;
+        IWeaponPtr m_secondary_weapon;
 
         enum class States
         {
             IDLE,
-            ATTACK,
+            ACTIVE,
+            ACTION_SHOCKWAVE,
+            ACTION_FIRE_HOMING,
+            ACTION_FIRE_BEAM,
             DEAD,
         };
 
-        using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
-        CacoStateMachine m_states;
+        using StateMachine = StateMachine<States, const mono::UpdateContext&>;
+        StateMachine m_states;
     };
 }

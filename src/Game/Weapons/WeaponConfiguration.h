@@ -39,6 +39,7 @@ namespace game
         BOUNCE          = ENUM_BIT(0),
         JUMPER          = ENUM_BIT(1),
         PASS_THROUGH    = ENUM_BIT(2),
+        HOMING          = ENUM_BIT(3),
     };
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
@@ -49,6 +50,8 @@ namespace game
             return BulletCollisionFlag::JUMPER;
         else if(std::strcmp(string, "pass_through") == 0)
             return BulletCollisionFlag::PASS_THROUGH;
+        else if(std::strcmp(string, "homing") == 0)
+            return BulletCollisionFlag::HOMING;
 
         return 0;
     }

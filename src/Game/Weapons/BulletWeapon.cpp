@@ -81,6 +81,12 @@ Weapon::~Weapon()
 
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
+    const math::Vector target = math::VectorFromAngle(direction);
+    return Fire(position, position + target, timestamp);
+}
+
+WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
+{
     if(m_state == WeaponState::RELOADING)
         return m_state;
 
@@ -112,29 +118,34 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
 
     m_last_fire_timestamp = timestamp;
 
+    const math::Vector fire_direction = target - position;
+
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
-        const float bullet_direction = direction + math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
+        const float fire_direction_deviation =
+            math::ToRadians(mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees));
+        const math::Vector modified_fire_direction = math::Rotate(fire_direction, fire_direction_deviation);
+
         const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
-        
-        const math::Vector& unit = math::Normalized(math::VectorFromAngle(bullet_direction));
-        const math::Vector& impulse = unit * m_weapon_config.bullet_force * force_multiplier;
+        const math::Vector& impulse =
+            math::Normalized(modified_fire_direction) * m_weapon_config.bullet_force * force_multiplier;
 
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
-        BulletLogic* bullet_logic = new BulletLogic(bullet_entity.id, m_owner_id, m_bullet_config, m_collision_config, m_physics_system);
+        BulletLogic* bullet_logic =
+            new BulletLogic(bullet_entity.id, m_owner_id, target, m_bullet_config, m_collision_config, m_physics_system);
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
         transform = (m_bullet_config.bullet_want_direction) ? 
-            math::CreateMatrixWithPositionRotation(position, bullet_direction) : math::CreateMatrixWithPosition(position);
+            math::CreateMatrixWithPositionRotation(position, math::AngleFromVector(modified_fire_direction)) : math::CreateMatrixWithPosition(position);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
-        body->SetVelocity(impulse);
-        body->SetNoDamping();
         body->AddCollisionHandler(bullet_logic);
+        body->SetNoDamping();
+        body->SetVelocity(impulse);
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
         for(mono::IShape* shape : shapes)
@@ -160,12 +171,6 @@ WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t
     m_ammunition--;
 
     m_state = WeaponState::FIRE;
-    return m_state;
-}
-
-WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
-{
-    assert(false); // Use the other fire for now...
     return m_state;
 }
 

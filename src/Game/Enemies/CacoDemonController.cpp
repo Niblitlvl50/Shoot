@@ -6,6 +6,8 @@
 #include "Factories.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
+#include "Shockwave.h"
+#include "CollisionConfiguration.h"
 
 #include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
@@ -28,14 +30,14 @@ namespace tweak_values
 using namespace game;
 
 CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+    : m_entity_id(entity_id)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+    m_primary_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+    m_secondary_weapon = g_weapon_factory->CreateWeapon(game::PLASMA_GUN_HOMING, WeaponFaction::ENEMY, entity_id);
 
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_transform = &transform_system->GetTransform(entity_id);
-
-    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    m_entity_body = physics_system->GetBody(entity_id);
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_entity_body = m_physics_system->GetBody(entity_id);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     sprite_system->SetSpriteLayer(entity_id, -1);
@@ -55,12 +57,20 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     };
     damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
-    const CacoStateMachine::StateTable state_table = {
-        CacoStateMachine::MakeState(States::IDLE,   &CacodemonController::OnIdle,   &CacodemonController::Idle,     this),
-        CacoStateMachine::MakeState(States::ATTACK, &CacodemonController::OnAttack, &CacodemonController::Attack,   this),
-        CacoStateMachine::MakeState(States::DEAD,   &CacodemonController::OnDead,   &CacodemonController::Dead,     this),
+    const StateMachine::StateTable state_table = {
+        StateMachine::MakeState(
+            States::IDLE, &CacodemonController::OnIdle, &CacodemonController::Idle, this),
+        StateMachine::MakeState(
+            States::ACTIVE, &CacodemonController::OnActive, &CacodemonController::Active, this),
+        StateMachine::MakeState(
+            States::ACTION_SHOCKWAVE, &CacodemonController::OnAction, &CacodemonController::ActionShockwave, this),
+        StateMachine::MakeState(
+            States::ACTION_FIRE_HOMING, &CacodemonController::OnAction, &CacodemonController::ActionFireHoming, this),
+        StateMachine::MakeState(
+            States::ACTION_FIRE_BEAM, &CacodemonController::OnAction, &CacodemonController::ActionFireBeam, this),
+        StateMachine::MakeState(
+            States::DEAD, &CacodemonController::OnDead, &CacodemonController::Dead, this),
     };
-
     m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
@@ -70,7 +80,8 @@ CacodemonController::~CacodemonController()
 void CacodemonController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
-    m_weapon->UpdateWeaponState(update_context.timestamp);
+    m_primary_weapon->UpdateWeaponState(update_context.timestamp);
+    m_secondary_weapon->UpdateWeaponState(update_context.timestamp);
 }
 
 void CacodemonController::OnIdle()
@@ -80,7 +91,9 @@ void CacodemonController::OnIdle()
 
 void CacodemonController::Idle(const mono::UpdateContext& update_context)
 {
-    const math::Vector position = math::GetPosition(*m_transform);
+    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector position = math::GetPosition(world_transform);
+
     const PlayerInfo* closest_player = game::GetClosestActivePlayer(position);
 
     bool is_visible = false;
@@ -93,7 +106,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
             target_angle = math::AngleBetweenPoints(closest_player->position, position);
     }
 
-    const float current_rotation = math::GetZRotation(*m_transform);
+    const float current_rotation = math::GetZRotation(world_transform);
     const float angle_diff = current_rotation - target_angle - math::PI_2() + math::PI();
     const float angle_diff_abs = std::fabs(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
 
@@ -116,10 +129,16 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 200.0f, math::ZeroVec);
 
     if(angle_diff_abs <= tweak_values::face_angle)
-        m_states.TransitionTo(States::ATTACK);
+        m_states.TransitionTo(States::ACTION_FIRE_HOMING);
 }
 
-void CacodemonController::OnAttack()
+void CacodemonController::OnActive()
+{}
+
+void CacodemonController::Active(const mono::UpdateContext& update_context)
+{}
+
+void CacodemonController::OnAction()
 {
     m_ready_to_attack = false;
 
@@ -129,21 +148,57 @@ void CacodemonController::OnAttack()
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
 }
 
-void CacodemonController::Attack(const mono::UpdateContext& update_context)
+void CacodemonController::ActionShockwave(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
 
-    const math::Vector position = math::GetPosition(*m_transform);
-    const float rotation = math::GetZRotation(*m_transform) + math::PI();
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    game::ShockwaveAtForTypes(m_physics_system, position, 10.0f, PLAYER | PLAYER_BULLET);
+
+    m_states.TransitionTo(States::ACTIVE);
+}
+
+void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_context)
+{
+    if(!m_ready_to_attack)
+        return;
+
+    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector position = math::GetPosition(world_transform);
+    const float rotation = math::GetZRotation(world_transform) + math::PI();
+
     const math::Vector offset_vector = math::VectorFromAngle(rotation) * 0.5f;
 
-    const WeaponState fire_result = m_weapon->Fire(position + offset_vector, rotation, update_context.timestamp);
+    const WeaponState fire_result = m_secondary_weapon->Fire(position + offset_vector, rotation, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
-        m_weapon->Reload(update_context.timestamp);
+        m_secondary_weapon->Reload(update_context.timestamp);
         m_states.TransitionTo(States::IDLE);
     }
+
+    //m_states.TransitionTo(States::ACTIVE);
+}
+
+void CacodemonController::ActionFireBeam(const mono::UpdateContext& update_context)
+{
+    if(!m_ready_to_attack)
+        return;
+
+    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector position = math::GetPosition(world_transform);
+    const float rotation = math::GetZRotation(world_transform) + math::PI();
+
+    const math::Vector offset_vector = math::VectorFromAngle(rotation) * 0.5f;
+
+    const WeaponState fire_result = m_primary_weapon->Fire(position + offset_vector, rotation, update_context.timestamp);
+    if(fire_result == WeaponState::OUT_OF_AMMO)
+    {
+        m_primary_weapon->Reload(update_context.timestamp);
+        m_states.TransitionTo(States::IDLE);
+    }
+
+    m_states.TransitionTo(States::ACTIVE);
 }
 
 void CacodemonController::OnDead()
