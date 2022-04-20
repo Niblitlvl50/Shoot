@@ -48,7 +48,12 @@ namespace game
         uint32_t m_idle_animation;
         uint32_t m_attack_animation;
         uint32_t m_death_animation;
+
+        const struct PlayerInfo* m_target_player;
         bool m_ready_to_attack;
+        float m_shockwave_cooldown;
+        float m_fire_homing_cooldown;
+        float m_fire_beam_cooldown;
 
         IWeaponPtr m_primary_weapon;
         IWeaponPtr m_secondary_weapon;

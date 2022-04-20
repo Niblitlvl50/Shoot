@@ -4,6 +4,7 @@
 #include "Player/PlayerInfo.h"
 #include "DamageSystem.h"
 #include "Factories.h"
+#include "IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 #include "Shockwave.h"
@@ -17,23 +18,34 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "System/System.h"
+
 #include <cmath>
 
 namespace tweak_values
 {
-    constexpr float radians_per_second = math::ToRadians(90.0f);
+    //constexpr float radians_per_second = math::ToRadians(90.0f);
     constexpr float face_angle = math::ToRadians(5.0f);
-    constexpr float retreat_distance = 3.5f;
-    constexpr float advance_distance = 5.5f;
+    constexpr float retreat_distance = 3.0f;
+    constexpr float advance_distance = 4.5f;
+    constexpr float attack_distance = 4.0f;
+    constexpr float shockwave_distance = 1.5f;
+
+    constexpr float shockwave_cooldown_s = 3.0f;
+    constexpr float homing_attack_cooldown_s = 3.0f;
+    constexpr float beam_attack_cooldown_s = 3.0f;
 }
 
 using namespace game;
 
 CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
+    , m_shockwave_cooldown(0.0f)
+    , m_fire_homing_cooldown(0.0f)
+    , m_fire_beam_cooldown(0.0f)
 {
     m_primary_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
-    m_secondary_weapon = g_weapon_factory->CreateWeapon(game::PLASMA_GUN_HOMING, WeaponFaction::ENEMY, entity_id);
+    m_secondary_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA_HOMING, WeaponFaction::ENEMY, entity_id);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -82,6 +94,16 @@ void CacodemonController::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
     m_primary_weapon->UpdateWeaponState(update_context.timestamp);
     m_secondary_weapon->UpdateWeaponState(update_context.timestamp);
+
+    m_shockwave_cooldown = std::clamp(m_shockwave_cooldown - update_context.delta_s, 0.0f, 10.0f);
+    m_fire_homing_cooldown = std::clamp(m_fire_homing_cooldown - update_context.delta_s, 0.0f, 10.0f);
+    m_fire_beam_cooldown = std::clamp(m_fire_beam_cooldown - update_context.delta_s, 0.0f, 10.0f);
+
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    game::g_debug_drawer->DrawCircle(world_position, tweak_values::retreat_distance, mono::Color::MAGENTA);
+    game::g_debug_drawer->DrawCircle(world_position, tweak_values::advance_distance, mono::Color::MAGENTA);
+    game::g_debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
+    game::g_debug_drawer->DrawCircle(world_position, tweak_values::shockwave_distance, mono::Color::RED);
 }
 
 void CacodemonController::OnIdle()
@@ -91,21 +113,12 @@ void CacodemonController::OnIdle()
 
 void CacodemonController::Idle(const mono::UpdateContext& update_context)
 {
-    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector position = math::GetPosition(world_transform);
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_target_player = game::GetClosestActivePlayer(position);
+    if(!m_target_player)
+        return;
 
-    const PlayerInfo* closest_player = game::GetClosestActivePlayer(position);
-
-    bool is_visible = false;
-    float target_angle = math::PI_2();
-
-    if(closest_player)
-    {
-        is_visible = math::PointInsideQuad(position, closest_player->viewport);
-        if(is_visible)
-            target_angle = math::AngleBetweenPoints(closest_player->position, position);
-    }
-
+    /*
     const float current_rotation = math::GetZRotation(world_transform);
     const float angle_diff = current_rotation - target_angle - math::PI_2() + math::PI();
     const float angle_diff_abs = std::fabs(math::NormalizeAngle(angle_diff) - math::PI() * 2.0f);
@@ -116,20 +129,21 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         const float add = tweak_values::radians_per_second * update_context.delta_s * direction;
         m_entity_body->SetAngle(current_rotation + add);
     }
+    */
 
-    if(!is_visible || !closest_player)
-        return;
 
-    const math::Vector position_diff = position - closest_player->position;
+    const math::Vector position_diff = position - m_target_player->position;
     const math::Vector position_diff_normalized = math::Normalized(position_diff);
     const float distance_to_player = math::Length(position_diff);
     if(distance_to_player < tweak_values::retreat_distance)
-        m_entity_body->ApplyLocalImpulse(position_diff_normalized * 200.0f, math::ZeroVec);
+        m_entity_body->ApplyLocalImpulse(position_diff_normalized * 10.0f, math::ZeroVec);
     else if(distance_to_player > tweak_values::advance_distance)
-        m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 200.0f, math::ZeroVec);
+        m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
 
-    if(angle_diff_abs <= tweak_values::face_angle)
+    if(distance_to_player < tweak_values::attack_distance && m_fire_homing_cooldown == 0.0f)
         m_states.TransitionTo(States::ACTION_FIRE_HOMING);
+    else if(distance_to_player < tweak_values::shockwave_distance && m_shockwave_cooldown == 0.0f)
+        m_states.TransitionTo(States::ACTION_SHOCKWAVE);
 }
 
 void CacodemonController::OnActive()
@@ -154,9 +168,10 @@ void CacodemonController::ActionShockwave(const mono::UpdateContext& update_cont
         return;
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    game::ShockwaveAtForTypes(m_physics_system, position, 10.0f, PLAYER | PLAYER_BULLET);
+    game::ShockwaveAtForTypes(m_physics_system, position, 100.0f, PLAYER | PLAYER_BULLET);
 
-    m_states.TransitionTo(States::ACTIVE);
+    m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
+    m_states.TransitionTo(States::IDLE);
 }
 
 void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_context)
@@ -164,20 +179,17 @@ void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_con
     if(!m_ready_to_attack)
         return;
 
-    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector position = math::GetPosition(world_transform);
-    const float rotation = math::GetZRotation(world_transform) + math::PI();
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector fire_position = position + math::Vector(0.0f, 1.0f);
+    const math::Vector target_position = position + math::Vector(0.0f, 2.0f);
 
-    const math::Vector offset_vector = math::VectorFromAngle(rotation) * 0.5f;
-
-    const WeaponState fire_result = m_secondary_weapon->Fire(position + offset_vector, rotation, update_context.timestamp);
+    const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, target_position, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_secondary_weapon->Reload(update_context.timestamp);
+        m_fire_homing_cooldown = tweak_values::homing_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
-
-    //m_states.TransitionTo(States::ACTIVE);
 }
 
 void CacodemonController::ActionFireBeam(const mono::UpdateContext& update_context)
@@ -185,20 +197,16 @@ void CacodemonController::ActionFireBeam(const mono::UpdateContext& update_conte
     if(!m_ready_to_attack)
         return;
 
-    const math::Matrix world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector position = math::GetPosition(world_transform);
-    const float rotation = math::GetZRotation(world_transform) + math::PI();
+    const math::Vector& fire_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_position = m_target_player->position;
 
-    const math::Vector offset_vector = math::VectorFromAngle(rotation) * 0.5f;
-
-    const WeaponState fire_result = m_primary_weapon->Fire(position + offset_vector, rotation, update_context.timestamp);
+    const WeaponState fire_result = m_primary_weapon->Fire(fire_position, target_position, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_primary_weapon->Reload(update_context.timestamp);
+        m_fire_beam_cooldown = tweak_values::beam_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
-
-    m_states.TransitionTo(States::ACTIVE);
 }
 
 void CacodemonController::OnDead()

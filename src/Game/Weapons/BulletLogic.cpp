@@ -8,11 +8,13 @@
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
+#include "TransformSystem/TransformSystem.h"
 
 #include "System/System.h"
 
 #include "IDebugDrawer.h"
 #include "Factories.h"
+#include "Player/PlayerInfo.h"
 #include "Rendering/Color.h"
 
 #include <cmath>
@@ -28,7 +30,10 @@ BulletLogic::BulletLogic(
     mono::PhysicsSystem* physics_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
+    , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
+    , m_physics_system(physics_system)
+    , m_homing_delay_s(1.0f)
 {
     m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
 
@@ -42,15 +47,12 @@ BulletLogic::BulletLogic(
         m_sound = audio::CreateNullSound();
     }
 
-    m_physics_system = physics_system;
     m_bullet_behaviour = config.bullet_behaviour;
     m_jumps_left = 3;
 
-    mono::IBody* bullet_body = physics_system->GetBody(entity_id);
+    mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
     m_homing_behaviour.SetBody(bullet_body);
-    m_homing_behaviour.SetForwardVelocity(1.0f);
-    m_homing_behaviour.SetAngularVelocity(90.0f);
-    m_homing_behaviour.SetTargetPosition(target);
+    m_homing_behaviour.SetAngularVelocity(120.0f);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
@@ -71,8 +73,22 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
     {
-        const HomingResult& homing_result = m_homing_behaviour.Run(update_context);
+        m_homing_delay_s -= update_context.delta_s;
 
+        const bool time_to_start_homing = (m_homing_delay_s <= 0.0f);
+        const game::PlayerInfo* player_info = game::GetClosestActivePlayer(m_target);
+        if(time_to_start_homing && player_info)
+        {
+            // This only needs to be done once.
+            mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
+            const float velocity_magnitude = math::Length(bullet_body->GetVelocity());
+            m_homing_behaviour.SetForwardVelocity(velocity_magnitude);
+            //
+
+            m_homing_behaviour.SetTargetPosition(player_info->position);
+            const HomingResult& homing_result = m_homing_behaviour.Run(update_context);
+            (void)homing_result;
+        }
     }
 }
 

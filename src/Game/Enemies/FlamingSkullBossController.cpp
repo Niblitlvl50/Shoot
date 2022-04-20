@@ -30,7 +30,7 @@ namespace tweak_values
     constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 180.0f;
-    constexpr float velocity = 5.0f;
+    constexpr float velocity = 1.0f;
 }
 
 using namespace game;

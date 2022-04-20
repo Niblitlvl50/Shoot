@@ -124,7 +124,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     {
         const float fire_direction_deviation =
             mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees);
-        const math::Vector modified_fire_direction = math::Rotate(fire_direction, math::ToRadians(fire_direction_deviation));
+        const math::Vector modified_fire_direction = math::RotateAroundZero(fire_direction, math::ToRadians(fire_direction_deviation));
 
         const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
         const math::Vector& impulse =

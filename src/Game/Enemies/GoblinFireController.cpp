@@ -22,7 +22,7 @@ namespace tweak_values
 {
     constexpr float activate_distance_to_player_threshold = 6.0f;
     constexpr float distance_to_player_threshold = 3.0f;
-    constexpr float move_speed = 25.0f;
+    constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
     constexpr uint32_t attack_start_delay = 500;
     constexpr uint32_t attack_sequence_delay = 50;

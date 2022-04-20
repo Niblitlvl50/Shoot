@@ -28,10 +28,10 @@ namespace game
 
     extern const WeaponSetup GENERIC;
     extern const WeaponSetup PLASMA_GUN;
-    extern const WeaponSetup PLASMA_GUN_HOMING;
     extern const WeaponSetup FLAK_CANON;
     extern const WeaponSetup FLAK_CANON_PLASMA;
     extern const WeaponSetup CACO_PLASMA;
+    extern const WeaponSetup CACO_PLASMA_HOMING;
     extern const WeaponSetup ROCKET_LAUNCHER;
     extern const WeaponSetup LASER_BLASTER;
 

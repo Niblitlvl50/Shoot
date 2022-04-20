@@ -36,6 +36,7 @@ namespace game
 
         const uint32_t m_entity_id;
         const uint32_t m_owner_entity_id;
+        const math::Vector m_target;
 
         BulletImpactCallback m_collision_callback;
         float m_life_span;
@@ -48,5 +49,6 @@ namespace game
         int m_jumps_left;
 
         HomingBehaviour m_homing_behaviour;
+        float m_homing_delay_s;
     };
 }
