@@ -3,6 +3,8 @@
 
 #include "MonoFwd.h"
 #include "Rendering/IDrawable.h"
+#include "Rendering/Texture/ITextureFactory.h"
+#include "Rendering/Texture/TextureBufferFactory.h"
 
 namespace game
 {
@@ -19,5 +21,8 @@ namespace game
 
         DialogSystem* m_message_system;
         const mono::TransformSystem* m_transform_system;
+
+        mono::ITexturePtr m_texture;
+        mono::TextureDrawBuffers m_draw_buffers;
     };
 }
