@@ -98,12 +98,15 @@ void CacodemonController::Update(const mono::UpdateContext& update_context)
     m_shockwave_cooldown = std::clamp(m_shockwave_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_fire_homing_cooldown = std::clamp(m_fire_homing_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_fire_beam_cooldown = std::clamp(m_fire_beam_cooldown - update_context.delta_s, 0.0f, 10.0f);
+}
 
+void CacodemonController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    game::g_debug_drawer->DrawCircle(world_position, tweak_values::retreat_distance, mono::Color::MAGENTA);
-    game::g_debug_drawer->DrawCircle(world_position, tweak_values::advance_distance, mono::Color::MAGENTA);
-    game::g_debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
-    game::g_debug_drawer->DrawCircle(world_position, tweak_values::shockwave_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::retreat_distance, mono::Color::MAGENTA);
+    debug_drawer->DrawCircle(world_position, tweak_values::advance_distance, mono::Color::MAGENTA);
+    debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::shockwave_distance, mono::Color::RED);
 }
 
 void CacodemonController::OnIdle()

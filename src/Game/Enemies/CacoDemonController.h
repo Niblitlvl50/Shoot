@@ -22,6 +22,7 @@ namespace game
         ~CacodemonController();
 
         void Update(const mono::UpdateContext& update_context) override;
+        void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
 
         void OnIdle();
         void Idle(const mono::UpdateContext& update_context);
