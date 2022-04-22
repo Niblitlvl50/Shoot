@@ -2,6 +2,8 @@
 #include "EntityLogicSystem.h"
 #include "IEntityLogic.h"
 #include "System/Hash.h"
+#include "Factories.h"
+#include "GameDebug.h"
 
 #include <algorithm>
 #include <cassert>
@@ -54,5 +56,14 @@ void EntityLogicSystem::Update(const mono::UpdateContext& update_context)
     {
         if(logic)
             logic->Update(update_context);
+    }
+
+    if(g_draw_entity_logic_debug)
+    {
+        for(IEntityLogic* logic : m_logics)
+        {
+            if(logic)
+                logic->DrawDebugInfo(g_debug_drawer);
+        }
     }
 }

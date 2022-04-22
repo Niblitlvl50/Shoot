@@ -8,5 +8,9 @@ namespace game
 {
     class IEntityLogic : public mono::IUpdatable
     {
+    public:
+
+        virtual void DrawDebugInfo(class IDebugDrawer* debug_drawer) const
+        { }
     };
 }
