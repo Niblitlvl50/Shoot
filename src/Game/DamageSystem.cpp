@@ -104,6 +104,10 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 {
     DamageResult result = { false, 0 };
 
+    const bool has_damage_record = IsAllocated(id);
+    if(!has_damage_record)
+        return result;
+
     DamageRecord& damage_record = m_damage_records[id];
     if(damage_record.health <= 0 || damage_record.is_invincible)
         return result;
