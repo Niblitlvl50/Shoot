@@ -27,7 +27,7 @@ namespace
         std::string name;
     };
 
-    constexpr mono::Color::RGBA healthbar_red(1.0f, 0.3f, 0.3f, 1.0f);
+    constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
 
     void GenerateHealthbarVertices(
         const std::vector<Healthbar>& healthbars,
