@@ -19,6 +19,12 @@
 
 #include <cmath>
 
+namespace tweak_values
+{
+    constexpr float homing_delay_s = 1.0f;
+    constexpr float homing_duration_s = 5.0f;
+}
+
 using namespace game;
 
 BulletLogic::BulletLogic(
@@ -33,7 +39,6 @@ BulletLogic::BulletLogic(
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
     , m_physics_system(physics_system)
-    , m_homing_delay_s(1.0f)
 {
     m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
 
@@ -53,6 +58,8 @@ BulletLogic::BulletLogic(
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
     m_homing_behaviour.SetBody(bullet_body);
     m_homing_behaviour.SetAngularVelocity(120.0f);
+    m_homing_behaviour.SetHomingStartDelay(tweak_values::homing_delay_s);
+    m_homing_behaviour.SetHomingDuration(tweak_values::homing_duration_s);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
@@ -73,11 +80,8 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
     {
-        m_homing_delay_s -= update_context.delta_s;
-
-        const bool time_to_start_homing = (m_homing_delay_s <= 0.0f);
         const game::PlayerInfo* player_info = game::GetClosestActivePlayer(m_target);
-        if(time_to_start_homing && player_info)
+        if(player_info)
         {
             // This only needs to be done once.
             mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);

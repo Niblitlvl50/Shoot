@@ -27,6 +27,8 @@ namespace game
 
         void SetForwardVelocity(float velocity);
         void SetAngularVelocity(float degrees_per_second);
+        void SetHomingStartDelay(float delay_s);
+        void SetHomingDuration(float duration_s);
 
         HomingResult Run(const mono::UpdateContext& update_context);
 
@@ -38,5 +40,8 @@ namespace game
         math::Vector m_target_position;
         float m_forward_velocity;
         float m_angular_velocity; // Degrees per second
+
+        float m_homing_start_delay_s;
+        float m_homing_duration_s;
     };
 }

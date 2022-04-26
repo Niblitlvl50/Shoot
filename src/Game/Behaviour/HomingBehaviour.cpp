@@ -15,6 +15,8 @@ HomingBehaviour::HomingBehaviour()
     , m_current_heading(0.0f)
     , m_forward_velocity(0.1f)
     , m_angular_velocity(180.0f)
+    , m_homing_start_delay_s(0.0f)
+    , m_homing_duration_s(math::INF)
 { }
 
 HomingBehaviour::HomingBehaviour(mono::IBody* body)
@@ -49,13 +51,35 @@ void HomingBehaviour::SetAngularVelocity(float degrees_per_second)
     m_angular_velocity = degrees_per_second;
 }
 
+void HomingBehaviour::SetHomingStartDelay(float delay_s)
+{
+    m_homing_start_delay_s = delay_s;
+}
+
+void HomingBehaviour::SetHomingDuration(float duration_s)
+{
+    m_homing_duration_s = duration_s;
+}
+
 HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
 {
     const math::Vector& entity_position = m_body->GetPosition();
     const math::Vector& delta = math::Normalized(m_target_position - entity_position);
 
-    const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
+    HomingResult result;
+    result.distance_to_target = math::DistanceBetween(m_target_position, entity_position);
+    result.new_heading = m_current_heading;
 
+    m_homing_start_delay_s -= update_context.delta_s;
+    if(m_homing_start_delay_s > 0.0f)
+        return result;
+
+    if(m_homing_duration_s < 0.0f)
+        return result;
+
+    m_homing_duration_s -= update_context.delta_s;
+
+    const math::Vector& vector_angle = math::VectorFromAngle(m_current_heading);
     const float dot_value = math::Dot(delta, vector_angle);
     const float cross_value = math::Cross(delta, vector_angle); // This gives the direction to turn in, i think.
 
@@ -71,5 +95,6 @@ HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
     //m_body->ApplyLocalImpulse(angle1 * m_forward_velocity * update_context.delta_s, math::ZeroVec);
     m_body->SetVelocity(angle1 * m_forward_velocity);
 
-    return { m_current_heading, math::DistanceBetween(m_target_position, entity_position) };
+    result.new_heading = m_current_heading;
+    return result;
 }
