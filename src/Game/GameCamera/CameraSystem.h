@@ -93,7 +93,7 @@ namespace game
         struct CameraStackData
         {
             math::Vector camera_size;
-            uint32_t follow_entity_id;
+            std::vector<uint32_t> follow_entities;
             math::Vector follow_offset;
             uint32_t debug_entity_id;
         };

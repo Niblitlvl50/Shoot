@@ -125,7 +125,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
             m_camera->SetTargetPosition(math::Vector(camera_anim->point_x, camera_anim->point_y));
             break;
         case CameraAnimationType::CENTER_ON_ENTITY:
-            //m_current_follow_entity_id = camera_anim->entity_id;
+            FollowEntity(camera_anim->entity_id);
             break;
         };
 
@@ -151,15 +151,6 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
         m_camera->SetPositionOffset(camera_shake);
     }
-
-/*
-    game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_current_follow_entity_id);
-    if(player_info)
-    {
-        const math::Quad& viewport = m_camera->GetViewport();
-        player_info->viewport = math::Quad(viewport.mA, viewport.mA + viewport.mB);
-    }
-*/
 }
 
 void CameraSystem::FollowEntity(uint32_t entity_id)
@@ -181,7 +172,7 @@ void CameraSystem::PushCameraData(uint32_t entity_id)
 {
     CameraStackData stack_data;
     stack_data.camera_size = m_current_camera_size = m_camera->GetTargetViewportSize();
-    //stack_data.follow_entity_id = m_current_follow_entity_id;
+    stack_data.follow_entities = m_follow_entities;
     stack_data.follow_offset = m_current_follow_offset;
     stack_data.debug_entity_id = entity_id;
 
@@ -194,7 +185,7 @@ void CameraSystem::PopCameraData()
 
     const CameraStackData stack_data = m_camera_stack.top();
     m_current_camera_size = stack_data.camera_size;
-    //m_current_follow_entity_id = stack_data.follow_entity_id;
+    m_follow_entities = stack_data.follow_entities;
     m_current_follow_offset = stack_data.follow_offset;
 
     m_camera->SetTargetViewportSize(m_current_camera_size);
