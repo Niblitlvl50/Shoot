@@ -228,12 +228,17 @@ namespace
 
         if(result.component_index != std::numeric_limits<uint32_t>::max())
         {
-            const Component& src_component = first_components[result.component_index];
+            Component& src_component = first_components[result.component_index];
+            first_proxy->ComponentChanged(src_component, result.attribute_hash);
+
             const Attribute* src_attribute;
             FindAttribute(result.attribute_hash, src_component.properties, src_attribute);
 
             for(IObjectProxy* proxy : context.selected_proxies)
             {
+                if(proxy == first_proxy)
+                    continue;
+
                 Component* target_component = FindComponentFromHash(result.component_hash, proxy->GetComponents());
                 if(!target_component)
                     continue;
