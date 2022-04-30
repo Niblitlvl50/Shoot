@@ -22,6 +22,7 @@ using namespace editor;
 namespace
 {
     static bool g_show_imgui_demo = false;
+    static bool g_show_stack_tool_imgui = false;
 
     void DrawMainMenuBar(editor::UIContext& context)
     {
@@ -83,7 +84,10 @@ namespace
             if(ImGui::Checkbox("Draw Lights, Ctrl + L", &context.draw_lights))
                 context.draw_lights_callback(context.draw_lights);
 
+            ImGui::Separator();
+
             ImGui::Checkbox("Show ImGui Demo", &g_show_imgui_demo);
+            ImGui::Checkbox("Show ImGui Stack Tool", &g_show_stack_tool_imgui);
 
             ImGui::EndMenu();
         }
@@ -456,6 +460,9 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
 
     if(g_show_imgui_demo)
         ImGui::ShowDemoWindow();
+
+    if(g_show_stack_tool_imgui)
+        ImGui::ShowStackToolWindow();
     
     // Update UI stuff below
 
