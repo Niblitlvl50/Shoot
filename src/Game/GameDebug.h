@@ -18,6 +18,7 @@ namespace game
     extern bool g_draw_triggers;
     extern bool g_draw_physics;
     extern bool g_interact_physics;
+    extern bool g_body_introspection;
     extern uint32_t g_draw_physics_subcomponents;
     extern bool g_draw_physics_stats;
     extern bool g_draw_particle_stats;
