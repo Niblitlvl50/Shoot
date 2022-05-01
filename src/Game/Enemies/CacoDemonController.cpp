@@ -69,18 +69,18 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     };
     damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
-    const StateMachine::StateTable state_table = {
-        StateMachine::MakeState(
+    const CacoStateMachine::StateTable state_table = {
+        CacoStateMachine::MakeState(
             States::IDLE, &CacodemonController::OnIdle, &CacodemonController::Idle, this),
-        StateMachine::MakeState(
+        CacoStateMachine::MakeState(
             States::ACTIVE, &CacodemonController::OnActive, &CacodemonController::Active, this),
-        StateMachine::MakeState(
+        CacoStateMachine::MakeState(
             States::ACTION_SHOCKWAVE, &CacodemonController::OnAction, &CacodemonController::ActionShockwave, this),
-        StateMachine::MakeState(
+        CacoStateMachine::MakeState(
             States::ACTION_FIRE_HOMING, &CacodemonController::OnAction, &CacodemonController::ActionFireHoming, this),
-        StateMachine::MakeState(
+        CacoStateMachine::MakeState(
             States::ACTION_FIRE_BEAM, &CacodemonController::OnAction, &CacodemonController::ActionFireBeam, this),
-        StateMachine::MakeState(
+        CacoStateMachine::MakeState(
             States::DEAD, &CacodemonController::OnDead, &CacodemonController::Dead, this),
     };
     m_states.SetStateTableAndState(state_table, States::IDLE);

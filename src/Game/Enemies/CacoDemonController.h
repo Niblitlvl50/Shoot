@@ -69,7 +69,7 @@ namespace game
             DEAD,
         };
 
-        using StateMachine = StateMachine<States, const mono::UpdateContext&>;
-        StateMachine m_states;
+        using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
+        CacoStateMachine m_states;
     };
 }
