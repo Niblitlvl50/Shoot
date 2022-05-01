@@ -42,15 +42,10 @@ BulletLogic::BulletLogic(
 {
     m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
 
-    if(!config.sound_file.empty())
-    {
-        m_sound = audio::CreateSound(config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
-        m_sound->Play();
-    }
-    else
-    {
-        m_sound = audio::CreateNullSound();
-    }
+    m_sound = config.sound_file.empty() ?
+        audio::CreateNullSound() :
+        audio::CreateSound(config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
+    m_sound->Play();
 
     m_bullet_behaviour = config.bullet_behaviour;
     m_jumps_left = 3;
@@ -64,8 +59,6 @@ BulletLogic::BulletLogic(
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
 {
-    //m_sound->Position(0.0f, 0.0f);
-
     m_life_span -= update_context.delta_s;
 
     if(m_life_span < 0.0f)

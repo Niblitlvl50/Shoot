@@ -34,7 +34,7 @@ namespace game
         weapon_config.bullet_force          = json["bullet_force"].get<float>();
         weapon_config.bullet_spread_degrees = json["bullet_spread_degrees"].get<float>();
         weapon_config.bullet_force_random   = json["bullet_force_random"].get<bool>();
-        weapon_config.reload_time_ms        = json["reload_time_ms"].get<uint32_t>();
+        weapon_config.reload_time           = json["reload_time"].get<float>();
         weapon_config.fire_sound            = json["fire_sound"].get<std::string>();
         weapon_config.out_of_ammo_sound     = json["out_of_ammo_sound"].get<std::string>();
         weapon_config.reload_sound          = json["reload_sound"].get<std::string>();

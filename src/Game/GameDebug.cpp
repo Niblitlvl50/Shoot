@@ -109,83 +109,77 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGuiWindowFlags_NoResize;
 
     ImGui::SetNextWindowSize(ImVec2(660, -1));
-
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    ImGui::Columns(6, "mycolumns");
-    ImGui::Separator();
-    ImGui::Text("Index"); ImGui::NextColumn();
-    ImGui::Text("Entity"); ImGui::NextColumn();
-    ImGui::Text("State"); ImGui::NextColumn();
-    ImGui::Text("Position"); ImGui::NextColumn();
-    ImGui::Text("Viewport"); ImGui::NextColumn();
-    ImGui::Text("Actions"); ImGui::NextColumn();
-    ImGui::Separator();
-
-    ImGui::SetColumnWidth(0, 60);
-    ImGui::SetColumnWidth(1, 60);
-    ImGui::SetColumnWidth(2, 100);
-    ImGui::SetColumnWidth(4, 200);
-    ImGui::SetColumnWidth(5, 170);
-
-    for(int index = 0; index < game::n_players; ++index)
+    const bool table_result = ImGui::BeginTable("player_table", 6, ImGuiTableFlags_BordersInnerV);
+    if(table_result)
     {
-        game::PlayerInfo& player_info = game::g_players[index];
+        ImGui::TableSetupColumn("Index", 0, 60);
+        ImGui::TableSetupColumn("Entity", 0, 60);
+        ImGui::TableSetupColumn("State", 0, 100);
+        ImGui::TableSetupColumn("Position", 0, 150);
+        ImGui::TableSetupColumn("Viewport", 0, 150);
+        ImGui::TableSetupColumn("Actions");
+        ImGui::TableHeadersRow();
 
-        ImGui::Text("%d", index);
-        ImGui::NextColumn();
-        
-        ImGui::Text("%u", player_info.entity_id);
-        ImGui::NextColumn();
+        ImGui::TableNextRow();
 
-        ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
-        ImGui::NextColumn();
-
-        ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
-        ImGui::NextColumn();
-
-        const math::Quad& viewport = player_info.viewport;
-        ImGui::Text(
-            "%.1f %.1f %.1f %.1f",
-            viewport.bottom_left.x,
-            viewport.bottom_left.y,
-            viewport.top_right.x,
-            viewport.top_right.y);
-        ImGui::NextColumn();
-
-        ImGui::PushID(index);
-
-        const bool not_spawned = (player_info.player_state == game::PlayerState::NOT_SPAWNED);
-        const char* button_text = not_spawned ? "Spawn" : "Despawn";
-
-        const bool spawn_player_index = ImGui::SmallButton(button_text);
-        if(spawn_player_index)
+        for(int index = 0; index < game::n_players; ++index)
         {
-            if(not_spawned)
-                event_handler->DispatchEvent(game::SpawnPlayerEvent(index));
-            else
-                event_handler->DispatchEvent(game::DespawnPlayerEvent(index));
+            game::PlayerInfo& player_info = game::g_players[index];
+
+            ImGui::TableNextColumn(); ImGui::Text("%d", index);
+            ImGui::TableNextColumn(); ImGui::Text("%u", player_info.entity_id);
+            ImGui::TableNextColumn(); ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
+            ImGui::TableNextColumn(); ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
+            ImGui::TableNextColumn();
+            const math::Quad& viewport = player_info.viewport;
+            ImGui::Text(
+                "%.1f %.1f %.1f %.1f",
+                viewport.bottom_left.x,
+                viewport.bottom_left.y,
+                viewport.top_right.x,
+                viewport.top_right.y);
+
+            {
+                // Buttons
+                ImGui::TableNextColumn();
+                ImGui::PushID(index);
+
+                const bool not_spawned = (player_info.player_state == game::PlayerState::NOT_SPAWNED);
+                const char* button_text = not_spawned ? "Spawn" : "Despawn";
+
+                const bool spawn_player_index = ImGui::SmallButton(button_text);
+                if(spawn_player_index)
+                {
+                    if(not_spawned)
+                        event_handler->DispatchEvent(game::SpawnPlayerEvent(index));
+                    else
+                        event_handler->DispatchEvent(game::DespawnPlayerEvent(index));
+                }
+
+                ImGui::SameLine();
+
+                if(player_info.player_state == game::PlayerState::ALIVE)
+                {
+                    const bool kill_player = ImGui::SmallButton("Kill");
+                    if(kill_player)
+                        damage_system->ApplyDamage(player_info.entity_id, 1000000, NO_ID);
+                }
+                else if(player_info.player_state == game::PlayerState::DEAD)
+                {
+                    const bool respawn_player = ImGui::SmallButton("Respawn");
+                    if(respawn_player)
+                        event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
+                }
+
+                ImGui::PopID();
+            }
         }
 
-        ImGui::SameLine();
-
-        if(player_info.player_state == game::PlayerState::ALIVE)
-        {
-            const bool kill_player = ImGui::SmallButton("Kill");
-            if(kill_player)
-                damage_system->ApplyDamage(player_info.entity_id, 1000000, NO_ID);
-        }
-        else if(player_info.player_state == game::PlayerState::DEAD)
-        {
-            const bool respawn_player = ImGui::SmallButton("Respawn");
-            if(respawn_player)
-                event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
-        }
-
-        ImGui::PopID();
-
-        ImGui::NextColumn();
+        ImGui::EndTable();
     }
+
 
     ImGui::End();
 }

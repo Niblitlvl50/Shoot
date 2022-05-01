@@ -24,7 +24,7 @@
 
 #include "Entity/Component.h"
 
-//#include "System/System.h"
+#include "System/System.h"
 
 #include <cmath>
 #include <algorithm>
@@ -55,14 +55,14 @@ Weapon::Weapon(
     m_ooa_sound = audio::CreateNullSound();
     m_reload_sound = audio::CreateNullSound();
 
-    if(!weapon_config.fire_sound.empty())
-        m_fire_sound = audio::CreateSound(weapon_config.fire_sound.c_str(), audio::SoundPlayback::ONCE);
+    if(!m_weapon_config.fire_sound.empty())
+        m_fire_sound = audio::CreateSound(m_weapon_config.fire_sound.c_str(), audio::SoundPlayback::ONCE);
 
-    if(!weapon_config.out_of_ammo_sound.empty())
-        m_ooa_sound = audio::CreateSound(weapon_config.out_of_ammo_sound.c_str(), audio::SoundPlayback::ONCE);
+    if(!m_weapon_config.out_of_ammo_sound.empty())
+        m_ooa_sound = audio::CreateSound(m_weapon_config.out_of_ammo_sound.c_str(), audio::SoundPlayback::ONCE);
     
-    if(!weapon_config.reload_sound.empty())
-        m_reload_sound = audio::CreateSound(weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
+    if(!m_weapon_config.reload_sound.empty())
+        m_reload_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -70,7 +70,7 @@ Weapon::Weapon(
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 
     m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system, m_entity_manager);
-    m_bullet_trail = std::make_unique<BulletTrailEffect>(m_transform_system, m_particle_system, entity_manager);
+    m_bullet_trail = std::make_unique<BulletTrailEffect>(m_transform_system, m_particle_system, m_entity_manager);
 }
 
 Weapon::~Weapon()
@@ -118,6 +118,11 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
     m_last_fire_timestamp = timestamp;
 
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+        m_bullet_trail->RemoveEmitterFromBullet(entity_id);
+        m_bullet_id_to_callback.erase(entity_id);
+    };
+
     const math::Vector fire_direction = target - position;
 
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
@@ -127,7 +132,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         const math::Vector modified_fire_direction = math::RotateAroundZero(fire_direction, math::ToRadians(fire_direction_deviation));
 
         const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
-        const math::Vector& impulse =
+        const math::Vector& velocity =
             math::Normalized(modified_fire_direction) * m_weapon_config.bullet_force * force_multiplier;
 
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
@@ -138,14 +143,21 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
-        transform = (m_bullet_config.bullet_want_direction) ? 
-            math::CreateMatrixWithPositionRotation(position, math::AngleFromVector(modified_fire_direction)) : math::CreateMatrixWithPosition(position);
+        transform = (m_bullet_config.bullet_want_direction) ?
+            math::CreateMatrixWithPositionRotation(position, math::AngleFromVector(modified_fire_direction)) :
+            math::CreateMatrixWithPosition(position);
+
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
+
+        const float velocity_length = math::Length(velocity);
+        const float body_mass = body->GetMass();
+        System::Log("[%u]%s m: %.2f velocity: %.2f", bullet_entity.id, m_weapon_config.name.c_str(), body_mass, velocity_length);
+
         body->AddCollisionHandler(bullet_logic);
         body->SetNoDamping();
-        body->SetVelocity(impulse);
+        body->SetVelocity(velocity);
 
         std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
         for(mono::IShape* shape : shapes)
@@ -153,15 +165,9 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 
-        const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
-            m_bullet_trail->RemoveEmitterFromBullet(entity_id);
-            m_bullet_id_to_callback.erase(entity_id);
-        };
         const uint32_t callback_id = m_entity_manager->AddReleaseCallback(bullet_entity.id, release_callback);
         m_bullet_id_to_callback[bullet_entity.id] = callback_id;
     }
-
-    //m_muzzle_flash->EmittAt(position, direction);
 
     m_fire_sound->Play();
 
@@ -193,10 +199,10 @@ WeaponState Weapon::UpdateWeaponState(uint32_t timestamp)
     {
     case WeaponState::RELOADING:
     {
-        const uint32_t reload_delta = timestamp - m_last_reload_timestamp;
-        m_reload_percentage = float(reload_delta) / float(m_weapon_config.reload_time_ms) * 100.0f;
+        const float reload_delta = float(timestamp - m_last_reload_timestamp) / 1000.0f;
+        m_reload_percentage = reload_delta / m_weapon_config.reload_time * 100.0f;
 
-        const bool still_reloading = reload_delta < m_weapon_config.reload_time_ms;
+        const bool still_reloading = reload_delta < m_weapon_config.reload_time;
         if(!still_reloading)
             m_state = WeaponState::IDLE;
 

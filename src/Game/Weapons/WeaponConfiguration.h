@@ -78,7 +78,7 @@ namespace game
         float bullet_force;
         float bullet_spread_degrees;
         bool bullet_force_random;
-        uint32_t reload_time_ms;
+        float reload_time;
         std::string fire_sound;
         std::string out_of_ammo_sound;
         std::string reload_sound;
@@ -96,7 +96,7 @@ namespace game
         int magazine_size = 10;
         int projectiles_per_fire = 1;
         float cooldown_seconds = 2.0f;
-        uint32_t reload_time_ms = 1000;
+        float reload_time = 1.0f;
         float max_distance = 5.0f;
         float target_accuracy = 0.0f; // Radius
 
