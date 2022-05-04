@@ -108,10 +108,10 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::SetNextWindowSize(ImVec2(660, -1));
+    ImGui::SetNextWindowSize(ImVec2(800, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 6, ImGuiTableFlags_BordersInnerV);
+    const bool table_result = ImGui::BeginTable("player_table", 7, ImGuiTableFlags_BordersInnerV);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);
@@ -119,14 +119,15 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGui::TableSetupColumn("State", 0, 100);
         ImGui::TableSetupColumn("Position", 0, 150);
         ImGui::TableSetupColumn("Viewport", 0, 150);
-        ImGui::TableSetupColumn("Actions");
+        ImGui::TableSetupColumn("GodMode", 0, 60);
+        ImGui::TableSetupColumn("Actions", 0, 150);
         ImGui::TableHeadersRow();
-
-        ImGui::TableNextRow();
 
         for(int index = 0; index < game::n_players; ++index)
         {
             game::PlayerInfo& player_info = game::g_players[index];
+
+            ImGui::TableNextRow();
 
             ImGui::TableNextColumn(); ImGui::Text("%d", index);
             ImGui::TableNextColumn(); ImGui::Text("%u", player_info.entity_id);
@@ -140,6 +141,14 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 viewport.bottom_left.y,
                 viewport.top_right.x,
                 viewport.top_right.y);
+
+            {
+                bool god_mode = damage_system->IsInvincible(player_info.entity_id);
+                ImGui::TableNextColumn();
+                const bool changed = ImGui::Checkbox("", &god_mode);
+                if(changed)
+                    damage_system->SetInvincible(player_info.entity_id, god_mode);
+            }
 
             {
                 // Buttons
@@ -179,7 +188,6 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
 
         ImGui::EndTable();
     }
-
 
     ImGui::End();
 }

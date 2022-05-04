@@ -63,6 +63,9 @@ namespace game
 
         void PreventReleaseOnDeath(uint32_t id, bool enable);
 
+        bool IsInvincible(uint32_t id) const;
+        void SetInvincible(uint32_t id, bool invincible);
+
         template <typename T>
         inline void ForEeach(T&& func)
         {

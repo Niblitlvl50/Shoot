@@ -82,6 +82,9 @@ void DamageSystem::ReleaseRecord(uint32_t id)
 
 bool DamageSystem::IsAllocated(uint32_t id) const
 {
+    if(id < 0 || id >= m_active.size())
+        return false;
+
     return m_active[id];
 }
 
@@ -143,6 +146,22 @@ const std::vector<DamageRecord>& DamageSystem::GetDamageRecords() const
 void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)
 {
     m_damage_records[id].release_entity_on_death = !enable;
+}
+
+bool DamageSystem::IsInvincible(uint32_t id) const
+{
+    const bool has_damage_record = IsAllocated(id);
+    if(!has_damage_record)
+        return false;
+
+    return m_damage_records[id].is_invincible;
+}
+
+void DamageSystem::SetInvincible(uint32_t id, bool invincible)
+{
+    const bool has_damage_record = IsAllocated(id);
+    if(has_damage_record)
+        m_damage_records[id].is_invincible = invincible;
 }
 
 uint32_t DamageSystem::Id() const

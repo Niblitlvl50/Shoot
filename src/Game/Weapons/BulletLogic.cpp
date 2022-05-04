@@ -39,6 +39,7 @@ BulletLogic::BulletLogic(
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
     , m_physics_system(physics_system)
+    , m_bullet_behaviour(config.bullet_behaviour)
 {
     m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
 
@@ -47,7 +48,6 @@ BulletLogic::BulletLogic(
         audio::CreateSound(config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
     m_sound->Play();
 
-    m_bullet_behaviour = config.bullet_behaviour;
     m_jumps_left = 3;
 
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
