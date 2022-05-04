@@ -127,6 +127,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         {
             game::PlayerInfo& player_info = game::g_players[index];
 
+            ImGui::PushID(index);
             ImGui::TableNextRow();
 
             ImGui::TableNextColumn(); ImGui::Text("%d", index);
@@ -153,7 +154,6 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
             {
                 // Buttons
                 ImGui::TableNextColumn();
-                ImGui::PushID(index);
 
                 const bool not_spawned = (player_info.player_state == game::PlayerState::NOT_SPAWNED);
                 const char* button_text = not_spawned ? "Spawn" : "Despawn";
@@ -182,8 +182,9 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                         event_handler->DispatchEvent(game::RespawnPlayerEvent(player_info.entity_id));
                 }
 
-                ImGui::PopID();
             }
+
+            ImGui::PopID();
         }
 
         ImGui::EndTable();
