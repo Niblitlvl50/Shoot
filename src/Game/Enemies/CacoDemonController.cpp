@@ -17,6 +17,7 @@
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
 
 #include "System/System.h"
 
@@ -182,8 +183,10 @@ void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_con
     if(!m_ready_to_attack)
         return;
 
+    const float x_diff = mono::Random(-0.2f, 0.2f);
+
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector fire_position = position + math::Vector(0.0f, 1.0f);
+    const math::Vector fire_position = position + math::Vector(x_diff, -0.35f);
     const math::Vector target_position = position + math::Vector(0.0f, 2.0f);
 
     const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, target_position, update_context.timestamp);

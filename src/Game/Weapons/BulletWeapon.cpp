@@ -142,11 +142,11 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
-        math::Matrix& transform = m_transform_system->GetTransform(bullet_entity.id);
-        transform = (m_bullet_config.bullet_want_direction) ?
+        const math::Matrix& transform = (m_bullet_config.bullet_want_direction) ?
             math::CreateMatrixWithPositionRotation(position, math::AngleFromVector(modified_fire_direction)) :
             math::CreateMatrixWithPosition(position);
 
+        m_transform_system->SetTransform(bullet_entity.id, transform);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
