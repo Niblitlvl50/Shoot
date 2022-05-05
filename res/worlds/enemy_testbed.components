@@ -2063,7 +2063,7 @@
                             "id": 2209756795,
                             "name": "sensor",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         }
                     ]
                 },

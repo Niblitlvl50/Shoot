@@ -23,6 +23,7 @@
 #include "Rendering/BlendMode.h"
 #include "Particle/ParticleSystem.h"
 #include "Paths/PathTypes.h"
+#include "Physics/IBody.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 
@@ -57,74 +58,62 @@ bool editor::DrawStringProperty(const char* name, std::string& value)
 
 bool DrawGenericProperty(const char* text, Variant& value)
 {
-    class DrawVariantsVisitor
+    struct DrawVariantsVisitor
     {
-    public:
+        const char* m_property_text;
 
         DrawVariantsVisitor(const char* property_text)
             : m_property_text(property_text)
-            , m_is_changed(false)
         { }
-
-        void operator()(bool& value)
+        bool operator()(bool& value)
         {
-            m_is_changed = ImGui::Checkbox(m_property_text, &value);
+            return ImGui::Checkbox(m_property_text, &value);
         }
-        void operator()(int& value)
+        bool operator()(int& value)
         {
-            m_is_changed = ImGui::InputInt(m_property_text, &value);
+            return ImGui::InputInt(m_property_text, &value);
         }
-        void operator()(uint32_t& value)
+        bool operator()(uint32_t& value)
         {
             ImGui::TextDisabled("Wait what, uint32_t has no UI!!!");
+            return false;
         }
-        void operator()(float& value)
+        bool operator()(float& value)
         {
-            m_is_changed = ImGui::InputFloat(m_property_text, &value, 0.0f, 0.0f, "%.5f");
+            return ImGui::InputFloat(m_property_text, &value, 0.0f, 0.0f, "%.5f");
         }
-        void operator()(math::Vector& value)
+        bool operator()(math::Vector& value)
         {
-            m_is_changed = ImGui::InputFloat2(m_property_text, &value.x);
+            return ImGui::InputFloat2(m_property_text, &value.x);
         }
-        void operator()(mono::Color::RGBA& value)
+        bool operator()(mono::Color::RGBA& value)
         {
-            m_is_changed = ImGui::ColorEdit4(m_property_text, &value.red);
+            return ImGui::ColorEdit4(m_property_text, &value.red);
         }
-        void operator()(std::string& value)
+        bool operator()(std::string& value)
         {
-            m_is_changed = editor::DrawStringProperty(m_property_text, value);
+            return editor::DrawStringProperty(m_property_text, value);
         }
-        void operator()(std::vector<math::Vector>& value)
+        bool operator()(std::vector<math::Vector>& value)
         {
-            m_is_changed = editor::DrawPolygonProperty(m_property_text, value);
+            return editor::DrawPolygonProperty(m_property_text, value);
         }
-        void operator()(math::Interval& value)
+        bool operator()(math::Interval& value)
         {
-            m_is_changed = ImGui::DragFloatRange2(m_property_text, &value.min, &value.max);
+            return ImGui::DragFloatRange2(m_property_text, &value.min, &value.max);
         }
-        void operator()(math::ValueSpread& value_spread)
+        bool operator()(math::ValueSpread& value_spread)
         {
-            m_is_changed = ImGui::InputFloat3(m_property_text, &value_spread.value);
+            return ImGui::InputFloat3(m_property_text, &value_spread.value);
         }
-        void operator()(mono::Color::Gradient<4>& gradient)
+        bool operator()(mono::Color::Gradient<4>& gradient)
         {
-            m_is_changed = editor::DrawGradientProperty(m_property_text, gradient);
+            return editor::DrawGradientProperty(m_property_text, gradient);
         }
-
-        bool WasPropertyChanged() const
-        {
-            return m_is_changed;
-        }
-
-    private:
-
-        const char* m_property_text;
-        bool m_is_changed;
     };
 
     DrawVariantsVisitor visitor(text);
-    std::visit(visitor, value);
-    return visitor.WasPropertyChanged();
+    return std::visit(visitor, value);
 }
 
 bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
@@ -145,7 +134,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), body_types, std::size(body_types));
+            attribute_name, &std::get<int>(attribute.value), mono::g_body_types, std::size(mono::g_body_types));
     }
     else if(attribute.id == FACTION_ATTRIBUTE)
     {
@@ -436,13 +425,18 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
     for(size_t index = 0; index < components.size(); ++index)
     {
+        Component& component = components[index];
+
+        const ComponentDecorator* decorator = nullptr;
+        const auto decorator_it = ui_context.component_decorators.find(component.hash);
+        if(decorator_it != ui_context.component_decorators.end())
+            decorator = &decorator_it->second;
+
         ImGui::Separator();
         ImGui::Spacing();
-
-        Component& component = components[index];
-        AddDynamicProperties(component);
-
         ImGui::PushID(index);
+
+        AddDynamicProperties(component);
 
         const std::string name = PrettifyString(ComponentNameFromHash(component.hash));
         ImGui::TextDisabled("%s", name.c_str());
@@ -458,18 +452,36 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
             ImGui::PopStyleColor();
         }
 
+        bool component_header_changed = false;
+        bool component_changed = false;
+        bool component_footer_changed = false;
+        int component_attribute_hash = 0;
+
+        if(decorator && decorator->header_decorator)
+            component_header_changed = decorator->header_decorator(ui_context, index, component);
+
         for(Attribute& property : component.properties)
         {
-            if(DrawProperty(property, components, ui_context))
+            const bool property_changed = DrawProperty(property, components, ui_context);
+            if(property_changed)
             {
-                result.component_index = index;
-                result.component_hash = component.hash;
-                result.attribute_hash = property.id;
+                component_changed = true;
+                component_attribute_hash = property.id;
             }
-
+            
             const char* tooltip = AttributeTooltipFromHash(property.id);
             if(tooltip && strlen(tooltip) > 0 && ImGui::IsItemHovered())
                 ImGui::SetTooltip("%s", tooltip);
+        }
+
+        if(decorator && decorator->footer_decorator)
+            component_footer_changed = decorator->footer_decorator(ui_context, index, component);
+
+        if(component_header_changed || component_changed || component_footer_changed)
+        {
+            result.component_index = index;
+            result.component_hash = component.hash;
+            result.attribute_hash = component_attribute_hash;
         }
 
         ImGui::Spacing();

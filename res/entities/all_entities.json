@@ -29,6 +29,7 @@
         "res/entities/portal_green.entity",
         "res/entities/rocket_bullet.entity",
         "res/entities/rocket_launcher_pickup.entity",
+        "res/entities/shockwave_effect.entity",
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
         "res/entities/wooden_log.entity"

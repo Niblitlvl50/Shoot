@@ -31,6 +31,7 @@
 
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
+#include "UI/UIDecorators.h"
 #include "ImGuiImpl/ImGuiInputHandler.h"
 #include "Resources.h"
 #include "RenderLayers.h"
@@ -148,6 +149,8 @@ namespace
     {
         for(const Component* component : component::GetAllDefaultComponents())
             context.component_items.push_back({component->hash, component->allow_multiple, ComponentNameFromHash(component->hash), component->category});
+
+        context.component_decorators[AREA_EMITTER_COMPONENT] = { nullptr, editor::AreaEmitterFooter };
     }
 
     class SyncPoint : public mono::IUpdatable
@@ -193,6 +196,7 @@ Editor::Editor(
 
     using namespace std::placeholders;
 
+    m_context.system_context = &system_context;
     m_context.max_entities = max_entities;
     m_context.all_proxy_objects = &m_proxies;
 
@@ -262,9 +266,9 @@ Editor::~Editor()
 
 void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    SetLastLightingLayer(RenderLayer::OBJECTS);
-
     m_renderer = renderer;
+
+    SetLastLightingLayer(RenderLayer::OBJECTS);
 
     EnableDrawObjectNames(m_editor_config.draw_object_names);
     EnableDrawSnappers(m_editor_config.draw_snappers);
@@ -275,19 +279,18 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     
     camera->SetPosition(m_editor_config.camera_position);
     camera->SetViewportSize(m_editor_config.camera_viewport);
+    m_camera = camera;
 
     m_context.grid_size = m_editor_config.grid_size;
 
-    m_camera = camera;
-
     m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
+    m_user_input_controller =
+        std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
     mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
     mono::LightSystem* light_system = m_system_context.GetSystem<mono::LightSystem>();
-    m_user_input_controller =
-        std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
     mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context.GetSystem<mono::RoadSystem>();
     mono::ParticleSystem* particle_system = m_system_context.GetSystem<mono::ParticleSystem>();
@@ -310,8 +313,9 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
 
-    m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
     m_static_background = std::make_unique<mono::StaticBackground>();
+    m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
+    m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
@@ -320,10 +324,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), RenderLayer::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), RenderLayer::GRABBERS);
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
-
-    m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
     AddDrawable(m_selection_visualizer, RenderLayer::UI);
-
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
     AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
     AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), RenderLayer::UI);
@@ -332,7 +333,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system), RenderLayer::PARTICLES);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
-
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
 }
 
@@ -392,6 +392,7 @@ void Editor::LoadWorld(const std::string& world_filename)
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
     SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
 
+    /*
     for(IObjectProxyPtr& proxy : m_proxies)
     {
         std::vector<Component>& components = proxy->GetComponents();
@@ -407,6 +408,7 @@ void Editor::LoadWorld(const std::string& world_filename)
             SetAttribute(FOLDER_ATTRIBUTE, name_folder->properties, proxy->GetFolder());
         }
     }
+    */
 }
 
 void Editor::Save()

@@ -7,12 +7,6 @@
 
 namespace editor
 {
-    constexpr const char* body_types[] = {
-        "Dynamic",
-        "Kinetic",
-        "Static"
-    };
-
     bool LoadAllSprites(const char* all_sprites_file);
     const std::vector<std::string>& GetAllSprites();
 

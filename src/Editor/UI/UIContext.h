@@ -17,6 +17,8 @@
 
 namespace editor
 {
+    class IObjectProxy;
+
     constexpr const char* placeholder_texture = "res/textures/placeholder.png";
     constexpr const char* export_texture = "res/textures/icons/export.png";
     constexpr const char* import_texture = "res/textures/icons/import.png";
@@ -54,15 +56,22 @@ namespace editor
         std::string category;
     };
 
+    using DecoratorFunc = bool (*)(const struct UIContext& ui_context, uint32_t component_index, Component& component);
+    struct ComponentDecorator
+    {
+        DecoratorFunc header_decorator = nullptr;
+        DecoratorFunc footer_decorator = nullptr;
+    };
+
     struct UIContext
     {
         float fps;
         math::Vector world_mouse_position;
+        std::unordered_map<std::string, UIIcon> ui_icons;
+        mono::SystemContext* system_context;
 
         // User tools
         int active_tool_index = 0;
-
-        std::unordered_map<std::string, UIIcon> ui_icons;
 
         // Level metadata
         bool draw_level_metadata = true;
@@ -71,8 +80,8 @@ namespace editor
         // Objects
         uint32_t max_entities;
         bool draw_outline = false;
-        std::vector<class IObjectProxy*> selected_proxies;
-        class IObjectProxy* preselected_proxy_object = nullptr;
+        std::vector<IObjectProxy*> selected_proxies;
+        IObjectProxy* preselected_proxy_object = nullptr;
         std::vector<std::unique_ptr<IObjectProxy>>* all_proxy_objects = nullptr;
         std::vector<UIFolder> folders;
 
@@ -96,6 +105,7 @@ namespace editor
         // Components
         std::vector<UIComponentItem> component_items;
         bool open_add_component = false;
+        std::unordered_map<uint32_t, ComponentDecorator> component_decorators;
 
         // Item selection
         bool show_modal_item_selection = false;

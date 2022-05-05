@@ -219,9 +219,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.15686273574829102,
-            "green": 0.15686273574829102,
-            "red": 0.15686273574829102
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
         },
         "background_size": {
             "x": 0.0,
@@ -233,8 +233,8 @@
             "y": 0.0
         },
         "camera_size": {
-            "x": 16.0,
-            "y": 10.0
+            "x": 0.0,
+            "y": 0.0
         },
         "navmesh_density": 1.0,
         "navmesh_end": {
