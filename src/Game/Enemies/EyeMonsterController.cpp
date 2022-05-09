@@ -5,6 +5,7 @@
 #include "CollisionConfiguration.h"
 #include "DamageSystem.h"
 #include "Shockwave.h"
+#include "IDebugDrawer.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -23,7 +24,7 @@
 
 namespace tweak_values
 {
-    constexpr float trigger_distance = 5.0f;
+    constexpr float trigger_distance = 4.0f;
     constexpr uint32_t time_before_hunt_ms = 300;
     constexpr uint32_t visibility_check_interval = 1000;
     constexpr uint32_t collision_damage = 25;
@@ -40,8 +41,7 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
     , m_event_handler(event_handler)
     , m_awake_state_timer(0)
 {
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_transform = &transform_system->GetTransform(entity_id);
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -75,6 +75,12 @@ void EyeMonsterController::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
 }
 
+void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
+}
+
 mono::CollisionResolve EyeMonsterController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
@@ -83,7 +89,7 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
 
     if(category == CollisionCategory::PLAYER)
     {
-        const math::Vector& entity_position = math::GetPosition(*m_transform);
+        const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
@@ -104,7 +110,7 @@ void EyeMonsterController::ToSleep()
 
 void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
 {
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
     if(!player_info)
         return;
@@ -132,7 +138,7 @@ void EyeMonsterController::ToAwake()
 {
     m_awake_state_timer = 0;
 
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
     if(player_info)
     {
@@ -151,7 +157,7 @@ void EyeMonsterController::AwakeState(const mono::UpdateContext& update_context)
 
 void EyeMonsterController::ToHunt()
 {
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     m_target_player_info = game::GetClosestActivePlayer(entity_position);
 }
 

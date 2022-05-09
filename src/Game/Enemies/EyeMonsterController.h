@@ -20,6 +20,7 @@ namespace game
         virtual ~EyeMonsterController();
 
         void Update(const mono::UpdateContext& update_context) override;
+        void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category) override;
         void OnSeparateFrom(mono::IBody* body) override;
@@ -51,11 +52,11 @@ namespace game
         MyStateMachine m_states;
         HomingBehaviour m_homing_behaviour;
 
-        math::Matrix* m_transform;
         mono::ISprite* m_sprite;
 
         const struct PlayerInfo* m_target_player_info;
 
+        mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;
