@@ -9,6 +9,7 @@
 #include "StateMachine.h"
 
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/StaggerBehaviour.h"
 
 namespace game
 {
@@ -50,6 +51,7 @@ namespace game
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
         HomingBehaviour m_homing_behaviour;
+        StaggerBehaviour m_stagger_behaviour;
 
         math::Matrix* m_transform;
         mono::ISprite* m_sprite;

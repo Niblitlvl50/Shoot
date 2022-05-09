@@ -10,6 +10,7 @@ namespace game
         WEAPON_RELOAD,
         BLINK,
         SHOCKWAVE,
+        SHIELD,
         WEAPON_AMMUNITION,
 
         N_ABILITIES
@@ -19,6 +20,7 @@ namespace game
         mono::Color::BLACK,
         mono::Color::RED,
         mono::Color::GREEN,
-        mono::Color::MAGENTA
+        mono::Color::MAGENTA,
+        mono::Color::CYAN
     };
 }

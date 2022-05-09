@@ -28,6 +28,7 @@
 #include "Util/Random.h"
 
 #include "Effects/SmokeEffect.h"
+#include "Effects/ShockwaveEffect.h"
 #include "Pickups/PickupSystem.h"
 #include "Shockwave.h"
 
@@ -40,6 +41,7 @@ namespace tweak_values
     constexpr float blink_distance = 2.0f;
     constexpr float blink_cooldown_threshold_s = 2.0f;
     constexpr float shockwave_cooldown_s = 2.0f;
+    constexpr float shield_cooldown_s = 2.0f;
 }
 
 using namespace game;
@@ -59,6 +61,7 @@ PlayerLogic::PlayerLogic(
     , m_aim_direction(0.0f)
     , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
     , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
+    , m_shield_cooldown(tweak_values::shield_cooldown_s)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -84,6 +87,7 @@ PlayerLogic::PlayerLogic(
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
 
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
+    m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
 
     const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
     m_weapon_entity = spawned_weapon.id;
@@ -115,10 +119,12 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     m_blink_cooldown += update_context.delta_s;
     m_shockwave_cooldown += update_context.delta_s;
+    m_shield_cooldown += update_context.delta_s;
 
     m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = float(m_weapon->ReloadPercentage()) / 100.0f;
     m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s;
     m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s;
+    m_active_cooldowns[PlayerAbility::SHIELD] = m_shield_cooldown / tweak_values::shield_cooldown_s;
     m_active_cooldowns[PlayerAbility::WEAPON_AMMUNITION] =
         float(m_weapon->AmmunitionLeft()) / float(m_weapon->MagazineSize());
 
@@ -542,4 +548,16 @@ void PlayerLogic::Shockwave()
 
     game::ShockwaveAt(m_physics_system, m_player_info->position, 10.0f);
     m_shockwave_cooldown = 0;
+
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_shockwave_effect->EmittAt(world_position);
+}
+
+void PlayerLogic::Shield()
+{
+    if(m_shield_cooldown < tweak_values::shield_cooldown_s)
+        return;
+
+    m_shield_cooldown = 0;
+
 }

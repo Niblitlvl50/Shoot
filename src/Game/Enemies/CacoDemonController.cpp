@@ -9,8 +9,11 @@
 #include "Weapons/IWeaponFactory.h"
 #include "Shockwave.h"
 #include "CollisionConfiguration.h"
+#include "Effects/ShockwaveEffect.h"
 
+#include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
+#include "Particle/ParticleSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -61,6 +64,10 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack");
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
 
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
+
+    m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, entity_manager);
 
     game::DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     damage_system->PreventReleaseOnDeath(entity_id, true);
@@ -173,6 +180,8 @@ void CacodemonController::ActionShockwave(const mono::UpdateContext& update_cont
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
     game::ShockwaveAtForTypes(m_physics_system, position, 100.0f, PLAYER | PLAYER_BULLET);
+
+    m_shockwave_effect->EmittAt(position);
 
     m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
     m_states.TransitionTo(States::IDLE);

@@ -54,6 +54,8 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     m_homing_behaviour.SetForwardVelocity(tweak_values::velocity);
     m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
 
+    m_stagger_behaviour.SetChanceAndDuration(0.1f, 1.0f);
+
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
 
@@ -73,6 +75,7 @@ FlamingSkullBossController::~FlamingSkullBossController()
 void FlamingSkullBossController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+    m_stagger_behaviour.Update(update_context);
 }
 
 mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
@@ -89,6 +92,10 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
         m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
         //m_damage_system->ApplyDamage(m_entity_id, 1000, m_entity_id);
+    }
+    else if(category == CollisionCategory::PLAYER_BULLET)
+    {
+        m_stagger_behaviour.TestForStaggering();
     }
 
     return mono::CollisionResolve::NORMAL;
@@ -162,6 +169,10 @@ void FlamingSkullBossController::HuntState(const mono::UpdateContext& update_con
         m_states.TransitionTo(States::SLEEPING);
         return;
     }
+
+    const bool in_stagger = m_stagger_behaviour.IsStaggering();
+    if(in_stagger)
+        return;
 
     m_homing_behaviour.SetTargetPosition(m_target_player_info->position);
     const game::HomingResult result = m_homing_behaviour.Run(update_context);

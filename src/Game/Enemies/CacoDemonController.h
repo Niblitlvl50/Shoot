@@ -50,6 +50,8 @@ namespace game
         uint32_t m_attack_animation;
         uint32_t m_death_animation;
 
+        std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
+
         const struct PlayerInfo* m_target_player;
         bool m_ready_to_attack;
         float m_shockwave_cooldown;

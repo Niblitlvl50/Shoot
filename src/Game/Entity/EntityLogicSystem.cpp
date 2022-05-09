@@ -11,33 +11,36 @@
 using namespace game;
 
 EntityLogicSystem::EntityLogicSystem(size_t n_entities)
-    : m_logics(n_entities, nullptr)
+    : m_logics(n_entities)
 { }
 
 EntityLogicSystem::~EntityLogicSystem()
 {
+    /*
     const auto all_is_nullptr = [](IEntityLogic* logic) {
         return logic == nullptr;
     };
 
     (void)all_is_nullptr;
     assert(std::all_of(m_logics.begin(), m_logics.end(), all_is_nullptr));
+    */
 }
 
 void EntityLogicSystem::AddLogic(uint32_t entity_id, IEntityLogic* entity_logic)
 {
-    assert(m_logics[entity_id] == nullptr);
-    m_logics[entity_id] = entity_logic;
+    EntityLogicComponent logic_component;
+    logic_component.logic = entity_logic;
+
+    m_logics.Set(entity_id, std::move(logic_component));
 }
 
 void EntityLogicSystem::ReleaseLogic(uint32_t entity_id)
 {
-    assert(m_logics[entity_id] != nullptr);
+    EntityLogicComponent* logic_component = m_logics.Get(entity_id);
+    delete logic_component->logic;
+    logic_component->logic = nullptr;
 
-    IEntityLogic* logic = m_logics[entity_id];
-    delete logic;
-
-    m_logics[entity_id] = nullptr;
+    m_logics.Release(entity_id);
 }
 
 uint32_t EntityLogicSystem::Id() const
@@ -52,18 +55,16 @@ const char* EntityLogicSystem::Name() const
 
 void EntityLogicSystem::Update(const mono::UpdateContext& update_context)
 {
-    for(IEntityLogic* logic : m_logics)
-    {
-        if(logic)
-            logic->Update(update_context);
-    }
+    const auto update_logic = [&update_context](uint32_t index, EntityLogicComponent& logic_component) {
+        logic_component.logic->Update(update_context);
+    };
+    m_logics.ForEach(update_logic);
 
     if(g_draw_entity_logic_debug)
     {
-        for(IEntityLogic* logic : m_logics)
-        {
-            if(logic)
-                logic->DrawDebugInfo(g_debug_drawer);
-        }
+        const auto debug_draw_logic = [](uint32_t index, EntityLogicComponent& logic_component) {
+            logic_component.logic->DrawDebugInfo(g_debug_drawer);
+        };
+        m_logics.ForEach(debug_draw_logic);
     }
 }

@@ -70,6 +70,7 @@ namespace game
         void SetAimDirection(float aim_direction);
         void Blink(const math::Vector& direction);
         void Shockwave();
+        void Shield();
 
         void ToDefault();
         void DefaultState(const mono::UpdateContext& update_context);
@@ -113,9 +114,11 @@ namespace game
         float m_blink_cooldown;
         math::Vector m_blink_direction;
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
+        std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
         audio::ISoundPtr m_blink_sound;
 
         float m_shockwave_cooldown;
+        float m_shield_cooldown;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;

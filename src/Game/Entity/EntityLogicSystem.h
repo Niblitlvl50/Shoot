@@ -2,6 +2,7 @@
 #pragma once
 
 #include "IGameSystem.h"
+#include "Util/ActiveVector.h"
 
 #include <cstddef>
 #include <vector>
@@ -9,6 +10,11 @@
 namespace game
 {
     class IEntityLogic;
+
+    struct EntityLogicComponent
+    {
+        IEntityLogic* logic;
+    };
 
     class EntityLogicSystem : public mono::IGameSystem
     {
@@ -24,6 +30,6 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        std::vector<IEntityLogic*> m_logics;
+        mono::ActiveVector<EntityLogicComponent> m_logics;
     };
 }

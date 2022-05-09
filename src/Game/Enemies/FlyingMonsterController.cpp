@@ -4,6 +4,7 @@
 #include "Player/PlayerInfo.h"
 #include "Behaviour/TrackingBehaviour.h"
 #include "Factories.h"
+#include "IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/IWeaponFactory.h"
 #include "Weapons/CollisionCallbacks.h"
@@ -29,9 +30,9 @@
 namespace tweak_values
 {
     constexpr uint32_t idle_time = 2000;
-    constexpr float attack_distance = 3.0f;
-    constexpr float max_attack_distance = 5.0f;
-    constexpr float track_to_player_distance = 7.0f;
+    constexpr float attack_distance = 2.0f;
+    constexpr float max_attack_distance = 3.5f;
+    constexpr float track_to_player_distance = 5.0f;
     constexpr int bullets_to_emit = 3;
 }
 
@@ -65,6 +66,14 @@ FlyingMonsterController::~FlyingMonsterController()
 void FlyingMonsterController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+}
+
+void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    debug_drawer->DrawCircle(world_position, tweak_values::track_to_player_distance, mono::Color::CYAN);
+    debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
 }
 
 void FlyingMonsterController::ToIdle()
