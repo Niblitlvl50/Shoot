@@ -21,6 +21,8 @@ namespace game
 
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
+
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category) override;
         void OnSeparateFrom(mono::IBody* body) override;

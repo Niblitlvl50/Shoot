@@ -21,6 +21,9 @@ namespace game
         virtual ~FlamingSkullBossController();
 
         void Update(const mono::UpdateContext& update_context) override;
+        void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
+
         mono::CollisionResolve OnCollideWith(
             mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category) override;
         void OnSeparateFrom(mono::IBody* body) override;
@@ -58,6 +61,7 @@ namespace game
 
         const struct PlayerInfo* m_target_player_info;
 
+        mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;

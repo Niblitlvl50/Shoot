@@ -21,6 +21,7 @@ namespace game
         virtual ~FlyingMonsterController();
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
 
     private:
 

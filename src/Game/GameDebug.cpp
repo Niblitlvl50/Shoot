@@ -3,7 +3,9 @@
 #include "Player/PlayerInfo.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "DamageSystem.h"
+#include "Entity/EntityLogicSystem.h"
 
+#include "SystemContext.h"
 #include "Events/KeyEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
@@ -40,11 +42,10 @@ bool game::g_draw_position_prediction = false;
 bool game::g_draw_debug_players = false;
 bool game::g_draw_spawn_points = false;
 bool game::g_draw_camera_debug = false;
-bool game::g_draw_entity_logic_debug = false;
 
 constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
-void DrawDebugMenu(uint32_t fps)
+void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps)
 {
     ImGui::BeginMainMenuBar();
     if(ImGui::BeginMenu("Options"))
@@ -69,7 +70,21 @@ void DrawDebugMenu(uint32_t fps)
         ImGui::Checkbox("Players",              &game::g_draw_debug_players);
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
-        ImGui::Checkbox("Entity Logic Debug",   &game::g_draw_entity_logic_debug);
+
+        ImGui::EndMenu();
+    }
+
+    if(ImGui::BeginMenu("Debug Logic"))
+    {
+        const std::vector<game::EntityDebugCategory>& debug_categories = logic_system->GetDebugCategories();
+
+        for(const game::EntityDebugCategory& debug_category : debug_categories)
+        {
+            bool enabled = debug_category.active;
+            const bool changed = ImGui::Checkbox(debug_category.category, &enabled);
+            if(changed)
+                logic_system->SetDebugCategory(debug_category.category, enabled);
+        }
 
         ImGui::EndMenu();
     }
@@ -291,19 +306,18 @@ public:
 };
 
 DebugUpdater::DebugUpdater(
-    TriggerSystem* trigger_system,
-    DamageSystem* damage_system,
-    mono::TransformSystem* transform_system,
-    mono::IEntityManager* entity_manager,
+    mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
     mono::IRenderer* renderer)
-    : m_trigger_system(trigger_system)
-    , m_damage_system(damage_system)
-    , m_event_handler(event_handler)
+    : m_event_handler(event_handler)
     , m_draw_debug_menu(false)
     , m_draw_trigger_input(false)
     , m_pause(false)
 {
+    m_trigger_system = system_context->GetSystem<TriggerSystem>();
+    m_damage_system = system_context->GetSystem<DamageSystem>();
+    m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+
     const event::KeyUpEventFunc key_up_func = [this, renderer](const event::KeyUpEvent& event) {
         if(event.key == Keycode::R)
             m_draw_debug_menu = !m_draw_debug_menu;
@@ -323,6 +337,8 @@ DebugUpdater::DebugUpdater(
     };
     m_keyup_token = m_event_handler->AddListener(key_up_func);
 
+    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, entity_manager, event_handler);
 }
 
@@ -336,7 +352,7 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
     m_counter++;
 
     if(m_draw_debug_menu)
-        DrawDebugMenu(m_counter.Fps());
+        DrawDebugMenu(m_logic_system, m_counter.Fps());
 
     if(m_draw_trigger_input)
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);

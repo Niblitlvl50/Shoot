@@ -10,6 +10,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 #include "Util/Random.h"
+#include "IDebugDrawer.h"
 
 #include "Player/PlayerInfo.h"
 #include "Factories.h"
@@ -63,6 +64,18 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
 void GoblinFireController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+}
+
+void GoblinFireController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
+    debug_drawer->DrawCircle(world_position, tweak_values::distance_to_player_threshold, mono::Color::CYAN);
+}
+
+const char* GoblinFireController::GetDebugCategory() const
+{
+    return "Goblin Fire";
 }
 
 void GoblinFireController::ToIdle()

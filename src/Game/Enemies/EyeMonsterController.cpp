@@ -81,6 +81,11 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
 }
 
+const char* EyeMonsterController::GetDebugCategory() const
+{
+    return "Flying Eye Monster";
+}
+
 mono::CollisionResolve EyeMonsterController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {

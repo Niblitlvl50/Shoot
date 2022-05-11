@@ -27,19 +27,16 @@ namespace game
     extern bool g_draw_debug_players;
     extern bool g_draw_spawn_points;
     extern bool g_draw_camera_debug;
-    extern bool g_draw_entity_logic_debug;
 
     class TriggerSystem;
     class DamageSystem;
+    class EntityLogicSystem;
 
     class DebugUpdater : public mono::IDrawable
     {
     public:
         DebugUpdater(
-            TriggerSystem* trigger_system,
-            DamageSystem* damage_system,
-            mono::TransformSystem* transform_system,
-            mono::IEntityManager* entity_manager,
+            mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
             mono::IRenderer* renderer);
         ~DebugUpdater();
@@ -48,14 +45,16 @@ namespace game
 
     private:
 
-        TriggerSystem* m_trigger_system;
-        DamageSystem* m_damage_system;
         mono::EventHandler* m_event_handler;
-        mono::EventToken<event::KeyUpEvent> m_keyup_token;
-
         mutable bool m_draw_debug_menu;
         mutable bool m_draw_trigger_input;
         bool m_pause;
+
+        TriggerSystem* m_trigger_system;
+        DamageSystem* m_damage_system;
+        EntityLogicSystem* m_logic_system;
+        mono::EventToken<event::KeyUpEvent> m_keyup_token;
+
         mutable mono::FpsCounter m_counter;
 
         class PlayerDebugHandler;

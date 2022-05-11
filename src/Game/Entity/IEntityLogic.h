@@ -2,6 +2,8 @@
 #pragma once
 
 #include "IUpdatable.h"
+#include "EntityLogicTypes.h"
+
 #include <cstdint>
 
 namespace game
@@ -12,5 +14,10 @@ namespace game
 
         virtual void DrawDebugInfo(class IDebugDrawer* debug_drawer) const
         { }
+
+        virtual const char* GetDebugCategory() const
+        {
+            return "Unknown";
+        }
     };
 }

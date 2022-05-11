@@ -117,6 +117,11 @@ void CacodemonController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::shockwave_distance, mono::Color::RED);
 }
 
+const char* CacodemonController::GetDebugCategory() const
+{
+    return "Cacodemon";
+}
+
 void CacodemonController::OnIdle()
 {
     m_entity_sprite->SetAnimation(m_idle_animation);

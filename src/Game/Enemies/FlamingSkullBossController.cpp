@@ -5,6 +5,7 @@
 #include "CollisionConfiguration.h"
 #include "DamageSystem.h"
 #include "Shockwave.h"
+#include "IDebugDrawer.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -40,8 +41,8 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     , m_event_handler(event_handler)
     , m_awake_state_timer(0)
 {
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_transform = &transform_system->GetTransform(entity_id);
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_transform = &m_transform_system->GetTransform(entity_id);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -76,6 +77,17 @@ void FlamingSkullBossController::Update(const mono::UpdateContext& update_contex
 {
     m_states.UpdateState(update_context);
     m_stagger_behaviour.Update(update_context);
+}
+
+void FlamingSkullBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
+}
+
+const char* FlamingSkullBossController::GetDebugCategory() const
+{
+    return "Flaming Skull Boss";
 }
 
 mono::CollisionResolve FlamingSkullBossController::OnCollideWith(

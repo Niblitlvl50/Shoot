@@ -76,6 +76,11 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
 }
 
+const char* FlyingMonsterController::GetDebugCategory() const
+{
+    return "Flying Monster";
+}
+
 void FlyingMonsterController::ToIdle()
 {
     m_idle_timer = 0;

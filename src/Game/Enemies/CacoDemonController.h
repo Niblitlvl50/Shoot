@@ -23,6 +23,7 @@ namespace game
 
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
 
         void OnIdle();
         void Idle(const mono::UpdateContext& update_context);
