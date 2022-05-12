@@ -11,7 +11,8 @@ void game::InitializeBackgroundMusic()
 {
     g_music_tracks[game::RussianTrack] = audio::CreateSound("res/sound/background_music/russian_track.wav", audio::SoundPlayback::LOOPING);
     g_music_tracks[game::Song18] = audio::CreateSound("res/sound/background_music/song18.wav", audio::SoundPlayback::LOOPING);
-    g_music_tracks[game::WindsOfStories] = audio::CreateSound("res/sound/background_music/winds_of_stories.wav", audio::SoundPlayback::LOOPING);
+    //g_music_tracks[game::WindsOfStories] = audio::CreateSound("res/sound/background_music/winds_of_stories.wav", audio::SoundPlayback::LOOPING);
+    g_music_tracks[game::WindsOfStories] = audio::CreateSound("res/sound/background_music/winds_of_stories.ogg", audio::SoundPlayback::LOOPING);
 }
 
 void game::ShutdownBackgroundMusic()
