@@ -190,22 +190,24 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& playe
 
 void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
 {
-    const math::Vector target_vector = math::VectorFromAngle(m_aim_target);
-    const math::Vector direction_vector = math::VectorFromAngle(m_aim_direction);
+    const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
+    const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
 
-    const float cross_value = math::Cross(target_vector, direction_vector);
-
-    if(!math::IsPrettyMuchEquals(cross_value, 0.0f))
+    const float cross_value = math::Cross(aim_target_vector, aim_direction_vector);
+    const bool is_at_target = math::IsPrettyMuchEquals(cross_value, 0.0f);
+    if(!is_at_target)
     {
         const bool rotate_clockwise = (cross_value < 0.0f);
         const float multiplier = rotate_clockwise ? 1.0f : -1.0f;
         m_aim_direction += (multiplier * update_context.delta_s * math::ToRadians(360.0f));
 
         {
-            // Need something better here to determine if we should clamp or not. Perhaps cross again.
-            const bool go_right_and_more = (rotate_clockwise && m_aim_direction > m_aim_target);
-            const bool go_left_and_less = (!rotate_clockwise && m_aim_direction < m_aim_target);
-            if(go_right_and_more || go_left_and_less)
+            // Check if we went passed the aim target, and if so clamp to target. 
+            const float updated_cross_value = math::Cross(aim_target_vector, math::VectorFromAngle(m_aim_direction));
+            const bool updated_rotate_clockwise = (updated_cross_value < 0.0f);
+
+            const bool changed_direction = (rotate_clockwise != updated_rotate_clockwise);
+            if(changed_direction)
                 m_aim_direction = m_aim_target;
         }
     }
