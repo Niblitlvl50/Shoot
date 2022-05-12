@@ -47,6 +47,15 @@ namespace game
         { }
     };
 
+    class BossArenaZone : public SystemTestZone
+    {
+    public:
+
+        BossArenaZone(const ZoneCreationContext& context)
+            : SystemTestZone(context, "res/worlds/boss_arena.components")
+        { }
+    };
+
     class EnemyTestbedZone : public SystemTestZone
     {
     public:
