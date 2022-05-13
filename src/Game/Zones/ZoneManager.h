@@ -16,14 +16,13 @@ namespace game
     {
     public:
 
-        ZoneManager(System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context, int initial_zone);
-        void Run();
+        ZoneManager(System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context);
+        void Run(int active_zone);
 
     private:
 
         mono::Engine m_engine;
         ZoneCreationContext m_zone_context;
-        int m_active_zone;
 
         using LoadFunction = game::IZonePtr(*)(const ZoneCreationContext& zone_context);
         LoadFunction m_zones[N_ZONES];

@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "GameZone.h"
+#include "SystemTestZone.h"
 
 namespace game
 {
-    class EmptyZone : public GameZone
+    class EmptyZone : public SystemTestZone
     {
     public:
 
