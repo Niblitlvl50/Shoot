@@ -199,7 +199,7 @@ int main(int argc, char* argv[])
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;
 
-        game::ZoneManager(window, &camera, zone_context).Run(options.start_zone);
+        game::ZoneManager(window, &camera, zone_context).Run("res/worlds/tiny_arena.components");
 
         system_context.DestroySystems();
 

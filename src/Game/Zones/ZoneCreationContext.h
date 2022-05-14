@@ -14,5 +14,6 @@ namespace game
         mono::EventHandler* event_handler = nullptr;
         mono::SystemContext* system_context = nullptr;
         game::Config* game_config = nullptr;
+        const char* zone_filename = nullptr;
     };
 }

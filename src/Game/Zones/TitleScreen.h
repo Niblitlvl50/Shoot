@@ -21,8 +21,8 @@ namespace game
         void Continue();
         void Quit();
 
-        mono::EventHandler& m_event_handler;
+        mono::EventHandler* m_event_handler;
         mono::EventToken<event::KeyUpEvent> m_key_token;
-        int m_exit_zone = 0;
+        int m_exit_zone;
     };
 }

@@ -53,9 +53,9 @@ namespace
 }
 
 SetupGameScreen::SetupGameScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/setup_game_screen.components")
-    , m_event_handler(*context.event_handler)
-    , m_exit_zone(ZoneFlow::TITLE_SCREEN)
+    : GameZone(context)
+    , m_event_handler(context.event_handler)
+    , m_exit_zone(game::ZoneResult::ZR_ABORTED)
 {
     const event::KeyUpEventFunc key_callback = [this](const event::KeyUpEvent& event)
     {
@@ -68,13 +68,12 @@ SetupGameScreen::SetupGameScreen(const ZoneCreationContext& context)
 
         return mono::EventResult::PASS_ON;
     };
-
-    m_key_token = m_event_handler.AddListener(key_callback);
+    m_key_token = m_event_handler->AddListener(key_callback);
 }
 
 SetupGameScreen::~SetupGameScreen()
 {
-    m_event_handler.RemoveListener(m_key_token);
+    m_event_handler->RemoveListener(m_key_token);
 }
 
 void SetupGameScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
@@ -92,19 +91,19 @@ int SetupGameScreen::OnUnload()
 void SetupGameScreen::Continue()
 {
     //m_exit_zone = TEST_ZONE;
-    m_exit_zone = TINY_ARENA_ZONE;
+    m_exit_zone = game::ZoneResult::ZR_COMPLETED;
     //m_exit_zone = ENEMY_TESTBED_ZONE;
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    m_event_handler->DispatchEvent(event::QuitEvent());
 }
 
 void SetupGameScreen::Remote()
 {
-    m_exit_zone = REMOTE_ZONE;
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    //m_exit_zone = REMOTE_ZONE;
+    //m_event_handler->DispatchEvent(event::QuitEvent());
 }
 
 void SetupGameScreen::Quit()
 {
-    m_exit_zone = TITLE_SCREEN;
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    m_exit_zone = game::ZoneResult::ZR_ABORTED;
+    m_event_handler->DispatchEvent(event::QuitEvent());
 }

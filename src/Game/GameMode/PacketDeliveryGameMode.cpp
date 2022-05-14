@@ -48,7 +48,7 @@ using namespace game;
 
 PacketDeliveryGameMode::PacketDeliveryGameMode()
     : m_package_spawned(false)
-    , m_next_zone(ZoneFlow::TITLE_SCREEN)
+    , m_next_zone(game::ZoneResult::ZR_ABORTED)
     , m_package_release_callback(0)
     , m_package_entity_id(mono::INVALID_ID)
 {
@@ -85,7 +85,7 @@ void PacketDeliveryGameMode::Begin(
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
-        m_next_zone = game::ZoneFlow::GAME_OVER_SCREEN;
+        m_next_zone = game::ZoneResult::ZR_GAME_OVER;
         return mono::EventResult::PASS_ON;
     };
     m_gameover_token = m_event_handler->AddListener(on_game_over);
@@ -99,7 +99,7 @@ void PacketDeliveryGameMode::Begin(
 
     const TriggerCallback level_completed_callback = [this](uint32_t trigger_id) {
         m_states.TransitionTo(GameModeStates::FADE_OUT);
-        m_next_zone = game::ZoneFlow::END_SCREEN;
+        m_next_zone = game::ZoneResult::ZR_COMPLETED;
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
 

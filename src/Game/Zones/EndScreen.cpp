@@ -43,7 +43,7 @@ namespace
 using namespace game;
 
 EndScreen::EndScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/end_screen.components")
+    : GameZone(context)
     , m_event_handler(context.event_handler)
 { }
 
@@ -56,5 +56,5 @@ void EndScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int EndScreen::OnUnload()
 {
     GameZone::OnUnload();
-    return TITLE_SCREEN;
+    return game::ZoneResult::ZR_COMPLETED;
 }

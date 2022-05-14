@@ -1,5 +1,6 @@
 
 #include "GameZone.h"
+#include "Zones/ZoneFlow.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -76,7 +77,7 @@ namespace
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
             const game::LevelMetadata& level_metadata) override { }
-        int End(mono::IZone* zone) override { return 0; }
+        int End(mono::IZone* zone) override { return game::ZoneResult::ZR_COMPLETED; }
         void Update(const mono::UpdateContext& update_context) override {}
     };
 
@@ -101,10 +102,10 @@ namespace
 
 using namespace game;
 
-GameZone::GameZone(const ZoneCreationContext& context, const char* world_file)
+GameZone::GameZone(const ZoneCreationContext& context)
     : m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
-    , m_world_file(world_file)
+    , m_world_file(context.zone_filename)
 { }
 
 GameZone::~GameZone()

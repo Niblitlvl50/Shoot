@@ -51,8 +51,9 @@ namespace
 }
 
 TitleScreen::TitleScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/title_screen.components")
-    , m_event_handler(*context.event_handler)
+    : GameZone(context)
+    , m_event_handler(context.event_handler)
+    , m_exit_zone(game::ZoneResult::ZR_ABORTED)
 {
     const event::KeyUpEventFunc key_callback = [this](const event::KeyUpEvent& event)
     {
@@ -60,16 +61,14 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
             Continue();
         else if(event.key == Keycode::Q)
             Quit();
-
         return mono::EventResult::PASS_ON;
     };
-
-    m_key_token = m_event_handler.AddListener(key_callback);
+    m_key_token = m_event_handler->AddListener(key_callback);
 }
 
 TitleScreen::~TitleScreen()
 {
-    m_event_handler.RemoveListener(m_key_token);
+    m_event_handler->RemoveListener(m_key_token);
 }
 
 void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
@@ -89,12 +88,12 @@ int TitleScreen::OnUnload()
 
 void TitleScreen::Continue()
 {
-    m_exit_zone = SETUP_GAME_SCREEN;
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    m_exit_zone = game::ZoneResult::ZR_COMPLETED;
+    m_event_handler->DispatchEvent(event::QuitEvent());
 }
 
 void TitleScreen::Quit()
 {
-    m_exit_zone = QUIT;
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    m_exit_zone = game::ZoneResult::ZR_ABORTED;
+    m_event_handler->DispatchEvent(event::QuitEvent());
 }

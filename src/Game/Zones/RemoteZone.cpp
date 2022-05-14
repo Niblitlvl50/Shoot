@@ -110,7 +110,7 @@ int RemoteZone::OnUnload()
     client_manager->Disconnect();
 
     RemoveDrawable(m_console_drawer.get());
-    return SETUP_GAME_SCREEN;
+    return game::ZoneResult::ZR_ABORTED;
 }
 
 mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& metadata_message)

@@ -11,20 +11,18 @@
 namespace game
 {
     using IZonePtr = std::unique_ptr<mono::IZone>;
+    using LoadFunction = game::IZonePtr(*)(const ZoneCreationContext& zone_context);
 
     class ZoneManager
     {
     public:
 
         ZoneManager(System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context);
-        void Run(int active_zone);
+        void Run(const char* zone_filename);
 
     private:
 
         mono::Engine m_engine;
         ZoneCreationContext m_zone_context;
-
-        using LoadFunction = game::IZonePtr(*)(const ZoneCreationContext& zone_context);
-        LoadFunction m_zones[N_ZONES];
     };
 }

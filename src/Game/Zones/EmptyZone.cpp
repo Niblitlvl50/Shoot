@@ -1,5 +1,6 @@
 
 #include "EmptyZone.h"
+#include "Zones/ZoneFlow.h"
 
 #include "Network/INetworkPipe.h"
 #include "Player/PlayerDaemon.h"
@@ -27,7 +28,7 @@ namespace
 }
 
 EmptyZone::EmptyZone(const ZoneCreationContext& context)
-    : SystemTestZone(context, "res/worlds/empty_world.components")
+    : SystemTestZone(context)
     , m_event_handler(context.event_handler)
 { }
 
@@ -49,5 +50,5 @@ void EmptyZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int EmptyZone::OnUnload()
 {
     GameZone::OnUnload();
-    return 0;
+    return game::ZoneResult::ZR_COMPLETED;
 }

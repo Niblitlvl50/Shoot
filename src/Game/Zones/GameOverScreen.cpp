@@ -60,7 +60,7 @@ namespace
 using namespace game;
 
 GameOverScreen::GameOverScreen(const ZoneCreationContext& context)
-    : GameZone(context, "res/worlds/game_over.components")
+    : GameZone(context)
     , m_event_handler(context.event_handler)
 { }
 
@@ -73,5 +73,5 @@ void GameOverScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int GameOverScreen::OnUnload()
 {
     GameZone::OnUnload();
-    return ZoneFlow::TITLE_SCREEN;
+    return game::ZoneResult::ZR_COMPLETED;
 }

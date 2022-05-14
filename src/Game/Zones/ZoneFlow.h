@@ -3,21 +3,12 @@
 
 namespace game
 {
-    enum ZoneFlow
+    enum ZoneResult
     {
-        QUIT,
-        TITLE_SCREEN,
-        TEST_ZONE,
-        TINY_ARENA_ZONE,
-        BOSS_ARENA_ZONE,
-        REMOTE_ZONE,
-        SETUP_GAME_SCREEN,
-        GAME_OVER_SCREEN,
-        END_SCREEN,
-        EMPTY_ZONE,
-        ENEMY_TESTBED_ZONE,
-        TUTORIAL_DELIVERY_ZONE,
+        ZR_GAME_OVER,
+        ZR_COMPLETED,
+        ZR_ABORTED,
 
-        N_ZONES
+        ZR_COUNT
     };
 }

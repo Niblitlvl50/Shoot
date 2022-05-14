@@ -16,7 +16,7 @@ namespace game
     {
     public:
 
-        GameZone(const ZoneCreationContext& context, const char* world_file);
+        GameZone(const ZoneCreationContext& context);
         ~GameZone();
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
@@ -30,10 +30,8 @@ namespace game
         const char* m_world_file;
 
         LevelData m_leveldata;
-
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
         NavmeshContext m_navmesh;
-
         std::unique_ptr<IGameMode> m_game_mode;
     };
 }
