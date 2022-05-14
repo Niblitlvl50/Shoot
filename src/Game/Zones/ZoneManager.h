@@ -18,7 +18,7 @@ namespace game
     public:
 
         ZoneManager(System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context);
-        void Run(const char* zone_filename);
+        void Run(const char* zone_filename = nullptr);
 
     private:
 

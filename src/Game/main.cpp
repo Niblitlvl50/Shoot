@@ -57,7 +57,7 @@ namespace
         int y = 100;
         int width = 1200;
         int height = 750;
-        int start_zone = 1;
+        const char* start_zone = nullptr;
         const char* game_config = "res/game_config.json";
         const char* log_file = "game_log.log";
     };
@@ -69,32 +69,26 @@ namespace
         for(int index = 0; index < argc; ++index)
         {
             const char* arg = argv[index];
-            if(std::strcmp("--position", arg) == 0)
+            if(std::strcmp(arg, "-position") == 0)
             {
-                assert((index + 2) < argc);
                 options.x = atoi(argv[++index]);
                 options.y = atoi(argv[++index]);
-
             }
-            else if(std::strcmp("--size", arg) == 0)
+            else if(std::strcmp(arg, "-size") == 0)
             {
-                assert((index + 2) < argc);
                 options.width = atoi(argv[++index]);
                 options.height = atoi(argv[++index]);
             }
-            else if(std::strcmp("--zone", arg) == 0)
+            else if(std::strcmp(arg, "-zone") == 0)
             {
-                assert((index + 1) < argc);
-                options.start_zone = atoi(argv[++index]);
+                options.start_zone = argv[++index];
             }
-            else if(std::strcmp("--config", arg) == 0)
+            else if(std::strcmp(arg, "-config") == 0)
             {
-                assert((index + 1) < argc);
                 options.game_config = argv[++index];
             }
-            else if(std::strcmp("--log-file", arg) == 0)
+            else if(std::strcmp(arg, "-log-file") == 0)
             {
-                assert((index + 1) < argc);
                 options.log_file = argv[++index];
             }
         }
@@ -199,7 +193,7 @@ int main(int argc, char* argv[])
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;
 
-        game::ZoneManager(window, &camera, zone_context).Run("res/worlds/tiny_arena.components");
+        game::ZoneManager(window, &camera, zone_context).Run(options.start_zone);
 
         system_context.DestroySystems();
 

@@ -98,6 +98,7 @@
         "stack": "cpp",
         "bit": "cpp",
         "complex": "cpp",
-        "condition_variable": "cpp"
+        "condition_variable": "cpp",
+        "stb_vorbis.c": "cpp"
     }
 }
