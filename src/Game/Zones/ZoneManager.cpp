@@ -122,6 +122,7 @@ void ZoneManager::Run(const char* zone_filename)
 
         game::IZonePtr zone = load_func(m_zone_context);
         const int zone_run_result = m_engine.Run(zone.get());
+        assert(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
         zone_hash = zone_transition.zone[zone_run_result];
     }
 }

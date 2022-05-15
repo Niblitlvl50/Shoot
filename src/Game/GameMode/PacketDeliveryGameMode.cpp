@@ -261,6 +261,8 @@ void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_conte
 
 void PacketDeliveryGameMode::ToPackageDestroyed()
 {
+    m_next_zone = game::ZoneResult::ZR_GAME_OVER;
+
     m_last_state.button_state = 0;
     m_dead_screen->Show();
 }
