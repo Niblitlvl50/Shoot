@@ -88,8 +88,7 @@ namespace game
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
-        float m_fade_in_timer;
-        float m_fade_out_timer;
+        float m_fade_timer;
 
         bool m_level_has_timelimit;
         float m_level_timer;

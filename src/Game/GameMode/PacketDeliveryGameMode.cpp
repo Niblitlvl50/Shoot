@@ -229,16 +229,16 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
 void PacketDeliveryGameMode::ToFadeIn()
 {
-    m_fade_in_timer = 0.0f;
+    m_fade_timer = 0.0f;
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseInCubic(m_fade_in_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
+    const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
 
-    if(m_fade_in_timer > tweak_values::fade_duration_s)
+    if(m_fade_timer > tweak_values::fade_duration_s)
         m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
-    m_fade_in_timer += update_context.delta_s;
+    m_fade_timer += update_context.delta_s;
 }
 
 void PacketDeliveryGameMode::ToRunGameMode()
@@ -292,14 +292,14 @@ void PacketDeliveryGameMode::ExitPaused()
 
 void PacketDeliveryGameMode::ToFadeOut()
 {
-    m_fade_out_timer = 0.0f;
+    m_fade_timer = 0.0f;
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseOutCubic(m_fade_out_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
+    const float alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
 
-    if(m_fade_out_timer > tweak_values::fade_duration_s)
+    if(m_fade_timer > tweak_values::fade_duration_s)
         m_event_handler->DispatchEvent(event::QuitEvent());
-    m_fade_out_timer += update_context.delta_s;
+    m_fade_timer += update_context.delta_s;
 }
