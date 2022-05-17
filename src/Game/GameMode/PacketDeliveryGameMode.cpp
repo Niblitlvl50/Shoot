@@ -1,6 +1,6 @@
 
 #include "PacketDeliveryGameMode.h"
-#include "Hud/PlayerDeathScreen.h"
+#include "Hud/BigTextScreen.h"
 #include "Hud/PauseScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/LevelTimerUIElement.h"

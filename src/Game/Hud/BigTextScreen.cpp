@@ -1,5 +1,5 @@
 
-#include "PlayerDeathScreen.h"
+#include "BigTextScreen.h"
 
 #include "FontIds.h"
 #include "Rendering/RenderSystem.h"
