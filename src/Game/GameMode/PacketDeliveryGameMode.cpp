@@ -122,14 +122,14 @@ void PacketDeliveryGameMode::Begin(
     zone->AddDrawable(m_package_aux_drawer.get(), LayerId::UI);
 
     // UI
-    m_dead_screen = std::make_unique<BigTextScreen>(
+    m_big_text_screen = std::make_unique<BigTextScreen>(
         "Delivery failed!",
         "Your package was destroyed, press button to quit",
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
         mono::Color::BLACK,
         mono::Color::OFF_WHITE,
         mono::Color::GRAY);
-    m_dead_screen->Hide();
+    m_big_text_screen->Hide();
 
     m_pause_screen = std::make_unique<PauseScreen>();
     m_pause_screen->Hide();
@@ -144,7 +144,7 @@ void PacketDeliveryGameMode::Begin(
     if(!m_level_has_timelimit)
         m_timer_screen->Hide();
 
-    zone->AddUpdatableDrawable(m_dead_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
@@ -153,7 +153,7 @@ void PacketDeliveryGameMode::Begin(
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
     zone->RemoveDrawable(m_package_aux_drawer.get());
-    zone->RemoveUpdatableDrawable(m_dead_screen.get());
+    zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
@@ -253,7 +253,7 @@ void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_conte
         if(m_level_has_timelimit && m_level_timer < 1.0f)
         {
             // Time out, game over. Should proably be a different fail state.
-            m_dead_screen->SetSubText("Man, you were too slow!");
+            m_big_text_screen->SetSubText("Man, you were too slow!");
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         }
     }
@@ -264,7 +264,7 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
     m_last_state.button_state = 0;
-    m_dead_screen->Show();
+    m_big_text_screen->Show();
 }
 void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_context)
 {

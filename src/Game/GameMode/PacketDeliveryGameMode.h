@@ -73,7 +73,7 @@ namespace game
         std::unique_ptr<class PlayerDaemon> m_player_daemon;
         std::unique_ptr<class EnemyPickupSpawner> m_pickup_spawner;
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
-        std::unique_ptr<class BigTextScreen> m_dead_screen;
+        std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
         std::unique_ptr<class LevelTimerUIElement> m_timer_screen;
@@ -89,6 +89,7 @@ namespace game
         uint32_t m_package_entity_id;
 
         float m_fade_timer;
+        float m_big_text_animation_timer;
 
         bool m_level_has_timelimit;
         float m_level_timer;
