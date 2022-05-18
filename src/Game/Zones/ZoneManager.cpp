@@ -8,6 +8,7 @@
 #include "EmptyZone.h"
 #include "EndScreen.h"
 #include "GameOverScreen.h"
+#include "SystemContext.h"
 
 
 #include "System/System.h"
@@ -124,5 +125,7 @@ void ZoneManager::Run(const char* zone_filename)
         const int zone_run_result = m_engine.Run(zone.get());
         assert(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
         zone_hash = zone_transition.zone[zone_run_result];
+
+        m_zone_context.system_context->Reset();
     }
 }

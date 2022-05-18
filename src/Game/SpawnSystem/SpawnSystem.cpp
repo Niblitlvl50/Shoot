@@ -288,3 +288,8 @@ void SpawnSystem::Sync()
     };
     mono::remove_if(m_spawn_events, remove_if_spawned);
 }
+
+void SpawnSystem::Reset()
+{
+    m_spawn_events.clear();
+}

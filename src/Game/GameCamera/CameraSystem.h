@@ -58,6 +58,7 @@ namespace game
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
+        void Reset() override;
 
         void FollowEntity(uint32_t entity_id);
         void FollowEntityOffset(const math::Vector& offset);

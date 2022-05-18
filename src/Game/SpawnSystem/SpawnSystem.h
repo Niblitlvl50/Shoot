@@ -89,6 +89,7 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
         void Sync() override;
+        void Reset() override;
 
         template <typename T>
         inline void ForEachSpawnPoint(T&& func)

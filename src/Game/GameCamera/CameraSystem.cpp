@@ -153,6 +153,14 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
+void CameraSystem::Reset()
+{
+    m_follow_entities.clear();
+
+    //while(!m_camera_stack.empty())
+    //    m_camera_stack.pop();
+}
+
 void CameraSystem::FollowEntity(uint32_t entity_id)
 {
     m_follow_entities.push_back(entity_id);
