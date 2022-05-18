@@ -264,10 +264,17 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
     m_last_state.button_state = 0;
+    m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
+
+    m_big_text_animation_timer = 0.0f;
 }
 void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_context)
 {
+    m_big_text_animation_timer = std::clamp(m_big_text_animation_timer + update_context.delta_s, 0.0f, 1.0f);
+    const float alpha = math::EaseOutCubic(m_big_text_animation_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
+    m_big_text_screen->SetAlpha(alpha);
+
     const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
     const bool any_pressed =
         System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_ANY);
