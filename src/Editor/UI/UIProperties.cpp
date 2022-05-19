@@ -104,7 +104,7 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         bool operator()(math::ValueSpread& value_spread)
         {
-            return ImGui::InputFloat3(m_property_text, &value_spread.value);
+            return editor::DrawValueSpreadProperty(m_property_text, value_spread);
         }
         bool operator()(mono::Color::Gradient<4>& gradient)
         {
@@ -370,6 +370,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::blend_mode_strings));
+    }
+    else if(attribute.id == TRANSFORM_SPACE_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = mono::ParticleTransformSpaceToString(mono::ParticleTransformSpace(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::particle_transform_space_strings));
     }
     else if(attribute.id == EMITTER_TYPE_ATTRIBUTE)
     {
@@ -737,11 +748,20 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     return point_added || point_removed;
 }
 
+bool editor::DrawValueSpreadProperty(const char* name, math::ValueSpread& value_spread)
+{
+    ImGui::PushID(name);
+    ImGui::TextDisabled("%s", name);
+    const bool value_changed = ImGui::InputFloat("Value", &value_spread.value);
+    const bool spread_changed = ImGui::InputFloat2("Spread", &value_spread.spread.min);
+    ImGui::PopID();
+    return value_changed || spread_changed;
+}
+
 bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient)
 {
     ImGui::Spacing();
-
-    const bool changed_0 = ImGui::DragFloat4("T", gradient.t, 0.01f, 0.0f, 1.0f);
+    //ImGui::TextDisabled("%s", name);
 
     constexpr int flags = ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel;
     const bool changed_1 = ImGui::ColorEdit4("Color##0", &gradient.color[0].red, flags);
@@ -754,6 +774,7 @@ bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gr
     ImGui::SameLine();
     ImGui::Text("Gradient");
 
+    const bool changed_0 = ImGui::DragFloat4("T", gradient.t, 0.01f, 0.0f, 1.0f);
     ImGui::Spacing();
 
     return changed_0 || changed_1 || changed_2 || changed_3 || changed_4;

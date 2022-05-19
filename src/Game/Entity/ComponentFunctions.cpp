@@ -240,15 +240,23 @@ bool UpdateParticleSystem(mono::Entity* entity, const std::vector<Attribute>& pr
     int pool_size;
     std::string texture_file;
     int blend_mode;
-    bool local_space = true;
+    int transform_space;
     float damping;
     FindAttribute(POOL_SIZE_ATTRIBUTE, properties, pool_size, FallbackMode::SET_DEFAULT);
     FindAttribute(TEXTURE_ATTRIBUTE, properties, texture_file, FallbackMode::SET_DEFAULT);
     FindAttribute(BLEND_MODE_ATTRIBUTE, properties, blend_mode, FallbackMode::SET_DEFAULT);
+    FindAttribute(TRANSFORM_SPACE_ATTRIBUTE, properties, transform_space, FallbackMode::SET_DEFAULT);
     FindAttribute(DAMPING_ATTRIBUTE, properties, damping, FallbackMode::SET_DEFAULT);
 
     mono::ParticleSystem* particle_system = context->GetSystem<mono::ParticleSystem>();
-    particle_system->SetPoolData(entity->id, pool_size, texture_file.c_str(), mono::BlendMode(blend_mode), mono::ParticleTransformSpace::LOCAL, damping, mono::DefaultUpdater);
+    particle_system->SetPoolData(
+        entity->id,
+        pool_size,
+        texture_file.c_str(),
+        mono::BlendMode(blend_mode),
+        mono::ParticleTransformSpace(transform_space),
+        damping,
+        mono::DefaultUpdater);
 
     return true;
 }

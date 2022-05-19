@@ -110,6 +110,8 @@ extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t GRADIENT4_ATTRIBUTE;
 extern const uint32_t DAMPING_ATTRIBUTE;
 
+extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE;
+
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

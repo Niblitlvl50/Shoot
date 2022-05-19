@@ -43,6 +43,7 @@ namespace editor
     SpritePickerResult DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context);
 
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
+    bool DrawValueSpreadProperty(const char* name, math::ValueSpread& value_spread);
     bool DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient);
 
     using EnablePickCallback = std::function<void (uint32_t* target)>;
