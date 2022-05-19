@@ -13,7 +13,7 @@ bool editor::AreaEmitterFooter(const editor::UIContext& ui_context, uint32_t com
     const bool restart_emitter = ImGui::Button("Restart");
     if(restart_emitter)
     {
-        mono::ParticleSystem* particle_system = ui_context.system_context->GetSystem<mono::ParticleSystem>();
+        //mono::ParticleSystem* particle_system = ui_context.system_context->GetSystem<mono::ParticleSystem>();
         //particle_system->Ge
     }
 

@@ -62,7 +62,7 @@ int main()
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::RoadSystem>(max_entities);
         system_context.CreateSystem<mono::LightSystem>(max_entities);
-        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100);
+        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 
         mono::PhysicsSystemInitParams physics_init_params;
         physics_init_params.n_bodies = max_entities;
