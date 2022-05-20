@@ -257,7 +257,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::NEW);
     else if(event.key == Keycode::S && event.ctrl)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::SAVE);
-    else if(event.key == Keycode::T && event.ctrl)
+    else if(event.key == Keycode::F)
         m_editor->TeleportToSelectedProxyObject();
     else if(event.key == Keycode::A && event.ctrl)
         m_editor->AddComponentUI();
