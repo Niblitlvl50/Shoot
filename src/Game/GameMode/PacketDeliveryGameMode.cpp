@@ -231,19 +231,26 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 void PacketDeliveryGameMode::ToFadeIn()
 {
     m_fade_timer = 0.0f;
-    m_big_text_screen->SetTextColor(mono::Color::GREEN);
     m_big_text_screen->Show();
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 {
-    const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-    m_renderer->SetScreenFadeAlpha(alpha);
-
-    if(m_fade_timer > tweak_values::fade_duration_s + 2.0f)
+    if(m_fade_timer < tweak_values::fade_duration_s)
     {
-        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
-        m_big_text_screen->Hide();
+        const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
+        m_renderer->SetScreenFadeAlpha(alpha);
     }
+    else if(m_fade_timer < tweak_values::fade_duration_s + 1.0f)
+    {
+        const float alpha = math::EaseInCubic(m_fade_timer - tweak_values::fade_duration_s, 1.0f, 1.0f, -1.0f);
+        m_big_text_screen->SetAlpha(alpha);
+    }
+    else
+    {
+        m_big_text_screen->Hide();
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+    }
+
     m_fade_timer += update_context.delta_s;
 }
 
