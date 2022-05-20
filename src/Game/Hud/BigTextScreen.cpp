@@ -51,6 +51,16 @@ void BigTextScreen::SetSubText(const char* sub_text)
     m_sub_text_element->SetText(sub_text);
 }
 
+void BigTextScreen::SetTextColor(const mono::Color::RGBA& color)
+{
+    m_main_text_element->SetColor(color);
+}
+
+void BigTextScreen::SetSubTextColor(const mono::Color::RGBA& color)
+{
+    m_sub_text_element->SetColor(color);
+}
+
 void BigTextScreen::SetAlpha(float alpha)
 {
     mono::Color::RGBA color = m_background->GetColor();

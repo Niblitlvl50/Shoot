@@ -23,6 +23,8 @@ namespace game
 
         void SetText(const char* text);
         void SetSubText(const char* sub_text);
+        void SetTextColor(const mono::Color::RGBA& color);
+        void SetSubTextColor(const mono::Color::RGBA& color);
         void SetAlpha(float alpha);
 
     private:

@@ -39402,7 +39402,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -39601,7 +39601,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -39800,7 +39800,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -39999,7 +39999,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -40198,7 +40198,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -40397,7 +40397,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -40596,7 +40596,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -40657,6 +40657,8 @@
             "x": 10.0,
             "y": 6.25
         },
+        "level_description": "Its a woody place...",
+        "level_name": "Forest Level",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 8.0,

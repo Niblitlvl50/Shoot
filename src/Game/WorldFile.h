@@ -16,6 +16,9 @@ namespace game
 {
     struct LevelMetadata
     {
+        std::string level_name;
+        std::string level_description;
+
         math::Vector camera_position;
         math::Vector camera_size;
         math::Vector player_spawn_point;

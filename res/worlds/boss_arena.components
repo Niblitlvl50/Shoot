@@ -4721,6 +4721,8 @@
             "x": 12.0,
             "y": 7.5
         },
+        "level_description": "Watch out for hooming bullets",
+        "level_name": "Boss man!",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 20.0,

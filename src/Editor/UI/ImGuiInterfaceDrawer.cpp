@@ -282,6 +282,12 @@ namespace
         {
             if(ImGui::BeginTabItem("Metadata"))
             {
+                ImGui::TextDisabled("Level");
+                editor::DrawStringProperty("Name", context.level_metadata.level_name);
+                editor::DrawStringProperty("Description", context.level_metadata.level_description);
+                ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
+                ImGui::Spacing();
+
                 ImGui::TextDisabled("Player");
                 ImGui::InputFloat2("Spawn", &context.level_metadata.player_spawn_point.x);
                 ImGui::Spacing();
@@ -318,10 +324,6 @@ namespace
                 ImGui::InputFloat2("Start", &context.level_metadata.navmesh_start.x);
                 ImGui::InputFloat2("End", &context.level_metadata.navmesh_end.x);
                 ImGui::InputFloat("Density", &context.level_metadata.navmesh_density);
-
-                ImGui::Spacing();
-                ImGui::TextDisabled("Other");
-                ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
 
                 ImGui::EndTabItem();
             }

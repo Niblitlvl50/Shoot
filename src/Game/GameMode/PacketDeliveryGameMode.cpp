@@ -123,8 +123,8 @@ void PacketDeliveryGameMode::Begin(
 
     // UI
     m_big_text_screen = std::make_unique<BigTextScreen>(
-        "Delivery failed!",
-        "Your package was destroyed, press button to quit",
+        level_metadata.level_name.c_str(),
+        level_metadata.level_description.c_str(),
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
         mono::Color::BLACK,
         mono::Color::OFF_WHITE,
@@ -217,6 +217,7 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        m_big_text_screen->SetSubText("Your package was destroyed, press button to quit");
         m_package_aux_drawer->SetPackageId(-1);
     };
     m_package_release_callback = m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
@@ -230,14 +231,19 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 void PacketDeliveryGameMode::ToFadeIn()
 {
     m_fade_timer = 0.0f;
+    m_big_text_screen->SetTextColor(mono::Color::GREEN);
+    m_big_text_screen->Show();
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 {
     const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
 
-    if(m_fade_timer > tweak_values::fade_duration_s)
+    if(m_fade_timer > tweak_values::fade_duration_s + 2.0f)
+    {
         m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+        m_big_text_screen->Hide();
+    }
     m_fade_timer += update_context.delta_s;
 }
 
@@ -264,7 +270,9 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
     m_last_state.button_state = 0;
+    m_big_text_screen->SetText("Delivery failed!");
     m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->SetTextColor(mono::Color::OFF_WHITE);
     m_big_text_screen->Show();
 
     m_big_text_animation_timer = 0.0f;

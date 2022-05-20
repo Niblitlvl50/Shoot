@@ -16,6 +16,8 @@ using namespace editor;
 void JsonSerializer::WriteComponentEntities(const std::string& file_path, const game::LevelMetadata& level_metadata) const
 {
     nlohmann::json json_metadata;
+    json_metadata["level_name"] = level_metadata.level_name;
+    json_metadata["level_description"] = level_metadata.level_description;
     json_metadata["camera_position"] = level_metadata.camera_position;
     json_metadata["camera_size"] = level_metadata.camera_size;
     json_metadata["player_spawn_point"] = level_metadata.player_spawn_point;
