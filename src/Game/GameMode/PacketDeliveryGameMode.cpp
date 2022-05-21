@@ -56,6 +56,7 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
         GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::PackageDestroyed, this),
+        GameModeStateMachine::MakeState(GameModeStates::LEVEL_COMPLETED, &PacketDeliveryGameMode::ToLevelCompleted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::PAUSED, &PacketDeliveryGameMode::ToPaused, &PacketDeliveryGameMode::Paused, &PacketDeliveryGameMode::ExitPaused, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
     };
@@ -84,8 +85,7 @@ void PacketDeliveryGameMode::Begin(
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
-        m_states.TransitionTo(GameModeStates::FADE_OUT);
-        m_next_zone = game::ZoneResult::ZR_GAME_OVER;
+        m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         return mono::EventResult::PASS_ON;
     };
     m_gameover_token = m_event_handler->AddListener(on_game_over);
@@ -98,8 +98,7 @@ void PacketDeliveryGameMode::Begin(
     m_pause_token = m_event_handler->AddListener(on_pause);
 
     const TriggerCallback level_completed_callback = [this](uint32_t trigger_id) {
-        m_states.TransitionTo(GameModeStates::FADE_OUT);
-        m_next_zone = game::ZoneResult::ZR_COMPLETED;
+        m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
 
@@ -239,10 +238,11 @@ void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
     {
         const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
         m_renderer->SetScreenFadeAlpha(alpha);
+        m_big_text_screen->SetAlpha(alpha);
     }
-    else if(m_fade_timer < tweak_values::fade_duration_s + 1.0f)
+    else if(m_fade_timer < tweak_values::fade_duration_s + 3.0f)
     {
-        const float alpha = math::EaseInCubic(m_fade_timer - tweak_values::fade_duration_s, 1.0f, 1.0f, -1.0f);
+        const float alpha = math::EaseInCubic(m_fade_timer - tweak_values::fade_duration_s, 3.0f, 1.0f, -1.0f);
         m_big_text_screen->SetAlpha(alpha);
     }
     else
@@ -299,14 +299,35 @@ void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_
     m_last_state = state;
 }
 
+void PacketDeliveryGameMode::ToLevelCompleted()
+{
+    m_next_zone = game::ZoneResult::ZR_COMPLETED;
+
+    m_big_text_screen->Show();
+    m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->SetText("Completed!");
+    m_big_text_screen->SetSubText("God job...");
+
+    m_fade_timer = 0.0f;
+}
+
+void PacketDeliveryGameMode::LevelCompleted(const mono::UpdateContext& update_context)
+{
+    const float alpha = math::EaseInCubic(m_fade_timer, 1.0f, 0.0f, 1.0f);
+    m_big_text_screen->SetAlpha(alpha);
+
+    m_fade_timer += update_context.delta_s;
+
+    if(m_fade_timer >= 3.0f)
+        m_states.TransitionTo(GameModeStates::FADE_OUT);
+}
+
 void PacketDeliveryGameMode::ToPaused()
 {
     m_pause_screen->Show();
 }
 void PacketDeliveryGameMode::Paused(const mono::UpdateContext& update_context)
-{
-
-}
+{ }
 void PacketDeliveryGameMode::ExitPaused()
 {
     m_pause_screen->Hide();
@@ -320,6 +341,7 @@ void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
     const float alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
     m_renderer->SetScreenFadeAlpha(alpha);
+    m_big_text_screen->SetAlpha(alpha);
 
     if(m_fade_timer > tweak_values::fade_duration_s)
         m_event_handler->DispatchEvent(event::QuitEvent());

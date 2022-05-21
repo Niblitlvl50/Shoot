@@ -42,6 +42,9 @@ namespace game
         void ToPackageDestroyed();
         void PackageDestroyed(const mono::UpdateContext& update_context);
 
+        void ToLevelCompleted();
+        void LevelCompleted(const mono::UpdateContext& update_context);
+
         void ToPaused();
         void Paused(const mono::UpdateContext& update_context);
         void ExitPaused();
@@ -54,6 +57,7 @@ namespace game
             FADE_IN,
             RUN_GAME_MODE,
             PACKAGE_DESTROYED,
+            LEVEL_COMPLETED,
             PAUSED,
             FADE_OUT
         };
