@@ -274,7 +274,7 @@ namespace game
 
 using namespace game;
 
-PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
+PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int num_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
     : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
@@ -303,7 +303,7 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int n_players, 
         { 0.0f, -2.0f },
     };
 
-    for(int index = 0; index < n_players; ++index)
+    for(int index = 0; index < num_players; ++index)
     {
         const PlayerInfo& player_info = player_infos[index];
 

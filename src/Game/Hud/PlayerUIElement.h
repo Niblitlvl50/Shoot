@@ -13,6 +13,6 @@ namespace game
     public:
 
         PlayerUIElement(
-            const PlayerInfo* player_infos, int n_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler);
+            const PlayerInfo* player_infos, int num_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler);
     };
 }
