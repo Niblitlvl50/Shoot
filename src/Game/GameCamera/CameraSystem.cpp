@@ -28,9 +28,13 @@
 namespace
 {
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
-    constexpr float g_dead_zone = 1.0f;
-    constexpr float g_camera_velocity = 2.5f;
-    constexpr float g_halflife = 0.8f;
+}
+
+namespace tweak_values
+{
+    constexpr float dead_zone = 1.0f;
+    constexpr float camera_velocity = 2.5f;
+    constexpr float halflife = 0.8f;
 }
 
 using namespace game;
@@ -88,12 +92,12 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         const math::Vector camera_position = m_camera->GetTargetPosition();
 
         const float distance = math::DistanceBetween(centroid, camera_position);
-        if(distance > g_dead_zone)
+        if(distance > tweak_values::dead_zone)
         {
             math::Vector local_camera_position = camera_position;
-            math::Vector camera_velocity = math::Normalized(centroid - camera_position) * g_camera_velocity;
+            math::Vector camera_velocity = math::Normalized(centroid - camera_position) * tweak_values::camera_velocity;
             critical_spring_damper(
-                local_camera_position, camera_velocity, centroid, camera_velocity, g_halflife, update_context.delta_s);
+                local_camera_position, camera_velocity, centroid, camera_velocity, tweak_values::halflife, update_context.delta_s);
 
             m_camera->SetTargetPosition(local_camera_position);
         }
@@ -101,7 +105,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         if(game::g_draw_camera_debug)
         {
             g_debug_drawer->DrawPoint(centroid, 4.0f, mono::Color::MAGENTA);
-            g_debug_drawer->DrawCircle(camera_position, g_dead_zone, mono::Color::MAGENTA);
+            g_debug_drawer->DrawCircle(camera_position, tweak_values::dead_zone, mono::Color::MAGENTA);
         }
     }
 
