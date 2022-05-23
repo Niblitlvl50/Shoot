@@ -107,9 +107,9 @@ ZoneManager::ZoneManager(
 {
 }
 
-void ZoneManager::Run(const char* zone_filename)
+void ZoneManager::Run(const char* initial_zone_filename)
 {
-    uint32_t zone_hash = (zone_filename != nullptr) ? hash::Hash(zone_filename) : TITLE_SCREEN_HASH;
+    uint32_t zone_hash = (initial_zone_filename != nullptr) ? hash::Hash(initial_zone_filename) : TITLE_SCREEN_HASH;
 
     while(true)
     {
