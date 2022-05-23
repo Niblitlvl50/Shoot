@@ -16,6 +16,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <cassert>
 
 using namespace game;
 
