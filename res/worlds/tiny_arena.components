@@ -40658,7 +40658,7 @@
             "y": 6.25
         },
         "level_description": "Its a woody place...",
-        "level_name": "Forest Level",
+        "level_name": "Forest World",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 8.0,

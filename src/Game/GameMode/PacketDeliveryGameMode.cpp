@@ -124,10 +124,11 @@ void PacketDeliveryGameMode::Begin(
     m_big_text_screen = std::make_unique<BigTextScreen>(
         level_metadata.level_name.c_str(),
         level_metadata.level_description.c_str(),
-        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f),
-        mono::Color::BLACK,
-        mono::Color::OFF_WHITE,
-        mono::Color::GRAY);
+        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
+        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
+        mono::Color::SUNFLOWER,
+        mono::Color::GRAY,
+        BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
     m_pause_screen = std::make_unique<PauseScreen>();
@@ -279,7 +280,6 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_last_state.button_state = 0;
     m_big_text_screen->SetText("Delivery failed!");
     m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->SetTextColor(mono::Color::OFF_WHITE);
     m_big_text_screen->Show();
 
     m_big_text_animation_timer = 0.0f;

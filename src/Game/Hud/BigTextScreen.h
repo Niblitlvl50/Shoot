@@ -6,11 +6,21 @@
 #include "Rendering/RenderFwd.h"
 #include "UIElements.h"
 
+#define ENUM_BIT(n) (1 << (n))
+
 namespace game
 {
     class BigTextScreen : public game::UIOverlay
     {
     public:
+
+        enum Components
+        {
+            BACKGROUND  = ENUM_BIT(0),
+            TEXT        = ENUM_BIT(1),
+            SUBTEXT     = ENUM_BIT(2),
+            ALL         = (~(uint32_t)0),
+        };
 
         BigTextScreen(
             const char* main_text,
@@ -18,7 +28,8 @@ namespace game
             const mono::Color::RGBA& color,
             const mono::Color::RGBA& border_color,
             const mono::Color::RGBA& text_color,
-            const mono::Color::RGBA& subtext_color);
+            const mono::Color::RGBA& subtext_color,
+            uint32_t component_flags = Components::ALL);
         void Update(const mono::UpdateContext& update_context) override;
 
         void SetText(const char* text);

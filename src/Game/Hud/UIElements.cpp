@@ -134,6 +134,9 @@ void UITextElement::SetAlpha(float alpha)
 
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_show)
+        return;
+
     UIElement::Draw(renderer);
 
     if(m_color.alpha == 0.0f)
@@ -202,6 +205,9 @@ void UISpriteElement::Update(const mono::UpdateContext& update_context)
 
 void UISpriteElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_show)
+        return;
+
     UIElement::Draw(renderer);
 
     if(m_sprites.empty() || m_sprite_buffers.empty())
@@ -233,6 +239,9 @@ UITextureElement::UITextureElement(const char* texture)
 
 void UITextureElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_show)
+        return;
+
     UIElement::Draw(renderer);
 
     const math::Matrix& transform = renderer.GetTransform() * Transform();
@@ -278,6 +287,9 @@ UISquareElement::UISquareElement(
 
 void UISquareElement::Draw(mono::IRenderer& renderer) const
 {
+    if(!m_show)
+        return;
+
     UIElement::Draw(renderer);
 
     const math::Matrix& transform = renderer.GetTransform() * Transform();
