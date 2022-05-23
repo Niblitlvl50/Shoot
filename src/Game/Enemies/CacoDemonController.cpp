@@ -56,8 +56,6 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_entity_body = m_physics_system->GetBody(entity_id);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
-    sprite_system->SetSpriteLayer(entity_id, -1);
-
     m_entity_sprite = sprite_system->GetSprite(entity_id);
 
     m_idle_animation = m_entity_sprite->GetAnimationIdFromName("idle");
