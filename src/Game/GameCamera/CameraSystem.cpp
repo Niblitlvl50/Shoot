@@ -13,6 +13,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/KeyEvent.h"
+#include "Math/CriticalDampedSpring.h"
 #include "Math/MathFunctions.h"
 #include "System/Hash.h"
 #include "TransformSystem/TransformSystem.h"
@@ -28,6 +29,8 @@ namespace
 {
     constexpr const uint32_t NO_CALLBACK = std::numeric_limits<uint32_t>::max();
     constexpr float g_dead_zone = 1.0f;
+    constexpr float g_camera_velocity = 2.5f;
+    constexpr float g_halflife = 0.8f;
 }
 
 using namespace game;
@@ -81,24 +84,18 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         for(uint32_t entity_id : m_follow_entities)
             points.push_back(m_transform_system->GetWorldPosition(entity_id));
 
-        math::Vector centroid;
-
-        if(points.size() == 1)
-            centroid = points.front();
-        else if(points.size() == 2)
-            centroid = points[0] + ((points[1] - points[0]) / 2.0f);
-        else if(points.size() > 2)
-            centroid = math::CentroidOfPolygon(points);
-
+        const math::Vector centroid = math::CentroidOfPolygon(points);
         const math::Vector camera_position = m_camera->GetTargetPosition();
+
         const float distance = math::DistanceBetween(centroid, camera_position);
         if(distance > g_dead_zone)
         {
-            const math::Vector delta = centroid - camera_position;
-            const float fraction = std::clamp(distance - g_dead_zone, 0.0f, 1.0f);
-            const math::Vector new_camera_position = (delta * fraction) + camera_position;
+            math::Vector local_camera_position = camera_position;
+            math::Vector camera_velocity = math::Normalized(centroid - camera_position) * g_camera_velocity;
+            critical_spring_damper(
+                local_camera_position, camera_velocity, centroid, camera_velocity, g_halflife, update_context.delta_s);
 
-            m_camera->SetTargetPosition(new_camera_position + m_current_follow_offset);
+            m_camera->SetTargetPosition(local_camera_position);
         }
 
         if(game::g_draw_camera_debug)
