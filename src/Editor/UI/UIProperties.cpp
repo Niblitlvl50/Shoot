@@ -26,6 +26,7 @@
 #include "Physics/IBody.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
+#include "imgui/imgui_internal.h"
 
 #include "System/Keycodes.h"
 #include "System/System.h"
@@ -761,23 +762,62 @@ bool editor::DrawValueSpreadProperty(const char* name, math::ValueSpread& value_
 bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient)
 {
     ImGui::Spacing();
-    //ImGui::TextDisabled("%s", name);
+    ImGui::TextDisabled("%s", "Gradient");
 
-    constexpr int flags = ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel;
-    const bool changed_1 = ImGui::ColorEdit4("Color##0", &gradient.color[0].red, flags);
-    ImGui::SameLine();
-    const bool changed_2 = ImGui::ColorEdit4("Color##1", &gradient.color[1].red, flags);
-    ImGui::SameLine();
-    const bool changed_3 = ImGui::ColorEdit4("Color##2", &gradient.color[2].red, flags);
-    ImGui::SameLine();
-    const bool changed_4 = ImGui::ColorEdit4("Color##3", &gradient.color[3].red, flags);
-    ImGui::SameLine();
-    ImGui::Text("Gradient");
+    const float item_width = ImGui::CalcItemWidth();
+    const float item_width_4 = item_width / 4.0f;
+    
+    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
+    ImGui::PushID("Colors");
 
-    const bool changed_0 = ImGui::DragFloat4("T", gradient.t, 0.01f, 0.0f, 1.0f);
+    bool gradient_color_changed = false;
+
+    for(int index = 0; index < 4; ++index)
+    {
+        ImGuiContext* g = ImGui::GetCurrentContext();
+
+        mono::Color::RGBA& local_color = gradient.color[index];
+        const ImVec4 imgui_color = ImVec4(local_color.red, local_color.green, local_color.blue, local_color.alpha);
+        constexpr int button_flags = ImGuiColorEditFlags_AlphaPreview;
+
+        ImGui::PushID(index);
+        const bool pushed = ImGui::ColorButton("", imgui_color, button_flags, ImVec2(item_width_4, 0));
+        if(pushed)
+        {
+            ImGui::GetCurrentContext()->ColorPickerRef = imgui_color;
+            ImGui::OpenPopup("picker");
+        }
+
+        if (ImGui::BeginPopup("picker"))
+        {
+            ImVec4 imgui_color = ImVec4(local_color.red, local_color.green, local_color.blue, local_color.alpha);
+            const bool changed = ImGui::ColorPicker4("", &imgui_color.x, 0, &g->ColorPickerRef.x);
+            if(changed)
+            {
+                local_color.red = imgui_color.x;
+                local_color.green = imgui_color.y;
+                local_color.blue = imgui_color.z;
+                local_color.alpha = imgui_color.w;
+                gradient_color_changed = true;
+            }
+
+            ImGui::EndPopup();
+        }
+
+        ImGui::PopID();
+        ImGui::SameLine();
+    }
+    ImGui::PopID();
+    ImGui::PopStyleVar();
+
+    const ImGuiStyle& style = ImGui::GetStyle();
+    ImGui::SameLine(0, style.ItemInnerSpacing.x);
+    ImGui::Text("Colors");
+
+    const bool changed_0 = ImGui::DragFloat4("Fraction", gradient.t, 0.01f, 0.0f, 1.0f);
     ImGui::Spacing();
 
-    return changed_0 || changed_1 || changed_2 || changed_3 || changed_4;
+    return changed_0 || gradient_color_changed;
 }
 
 bool editor::DrawEntityReferenceProperty(
