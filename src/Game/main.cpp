@@ -134,8 +134,7 @@ int main(int argc, char* argv[])
     game::InitializePlayerInfo();
 
     {
-        //const System::WindowOptions window_options = System::WindowOptions::DISABLE_VSYNC;
-        const int window_options = System::WindowOptions::NONE;
+        const int window_options = System::WindowOptions::FULLSCREEN; // | System::WindowOptions::DISABLE_VSYNC;
         System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, System::WindowOptions(window_options));
 
         mono::RenderInitParams render_params;
