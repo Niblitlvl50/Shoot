@@ -90,9 +90,7 @@ int SetupGameScreen::OnUnload()
 
 void SetupGameScreen::Continue()
 {
-    //m_exit_zone = TEST_ZONE;
     m_exit_zone = game::ZoneResult::ZR_COMPLETED;
-    //m_exit_zone = ENEMY_TESTBED_ZONE;
     m_event_handler->DispatchEvent(event::QuitEvent());
 }
 
