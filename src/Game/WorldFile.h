@@ -28,6 +28,8 @@ namespace game
         math::Vector background_size;
         std::string background_texture;
 
+        int background_music;
+
         std::vector<std::string> triggers;
 
         math::Vector navmesh_start;

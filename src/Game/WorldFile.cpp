@@ -41,6 +41,7 @@ namespace
             level_data.metadata.background_color = json_metadata.value("background_color", mono::Color::BLACK);
             level_data.metadata.ambient_shade = json_metadata.value("ambient_shade", mono::Color::WHITE);
             level_data.metadata.background_texture = json_metadata.value("background_texture", "");
+            level_data.metadata.background_music = json_metadata.value("background_music", 0);
             level_data.metadata.triggers = json_metadata.value("triggers", std::vector<std::string>());
 
             level_data.metadata.navmesh_start = json_metadata.value("navmesh_start", math::ZeroVec);

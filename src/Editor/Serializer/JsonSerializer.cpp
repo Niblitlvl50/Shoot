@@ -25,6 +25,7 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     json_metadata["ambient_shade"] = level_metadata.ambient_shade;
     json_metadata["background_size"] = level_metadata.background_size;
     json_metadata["background_texture"] = level_metadata.background_texture;
+    json_metadata["background_music"] = level_metadata.background_music;
     json_metadata["triggers"] = level_metadata.triggers;
     json_metadata["navmesh_start"] = level_metadata.navmesh_start;
     json_metadata["navmesh_end"] = level_metadata.navmesh_end;
