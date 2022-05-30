@@ -9,7 +9,6 @@
 #include "EventHandler/EventHandler.h"
 
 #include "System/System.h"
-#include "BackgroundMusic.h"
 
 using namespace game;
 
@@ -75,14 +74,11 @@ void TitleScreen::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     GameZone::OnLoad(camera, renderer);
     AddUpdatable(new CheckControllerInput(this));
-    //game::PlayBackgroundMusic(game::RussianTrack);
-    game::PlayBackgroundMusic(game::WindsOfStories);
 }
 
 int TitleScreen::OnUnload()
 {
     GameZone::OnUnload();
-    game::StopBackgroundMusic();
     return m_exit_zone;
 }
 

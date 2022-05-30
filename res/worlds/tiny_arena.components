@@ -40644,6 +40644,7 @@
             "green": 0.0,
             "red": 0.0
         },
+        "background_music": 4,
         "background_size": {
             "x": 60.0,
             "y": 50.0
