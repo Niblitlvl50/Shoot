@@ -217,7 +217,7 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        m_big_text_screen->SetSubText("Your package was destroyed, press button to quit");
+        m_big_text_screen->SetSubText("Your package was destroyed.");
         m_package_aux_drawer->SetPackageId(-1);
     };
     m_package_release_callback = m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
@@ -306,7 +306,7 @@ void PacketDeliveryGameMode::ToLevelCompleted()
     m_big_text_screen->Show();
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->SetText("Completed!");
-    m_big_text_screen->SetSubText("God job...");
+    m_big_text_screen->SetSubText("Your manager approves.");
 
     m_fade_timer = 0.0f;
 }
