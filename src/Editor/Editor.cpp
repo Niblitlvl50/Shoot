@@ -331,7 +331,8 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system), RenderLayer::PARTICLES);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), RenderLayer::PRE_GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
 }

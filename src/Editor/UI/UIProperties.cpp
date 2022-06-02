@@ -383,6 +383,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::particle_transform_space_strings));
     }
+    else if(attribute.id == PARTICLE_DRAW_LAYER)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = mono::ParticleDrawLayerToString(mono::ParticleDrawLayer(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::particle_draw_layer_strings));
+    }
     else if(attribute.id == EMITTER_TYPE_ATTRIBUTE)
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool

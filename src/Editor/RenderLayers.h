@@ -6,8 +6,9 @@ namespace editor
     enum RenderLayer
     {
         BACKGROUND,
+        PRE_GAMEOBJECTS,
         OBJECTS,
-        PARTICLES,
+        POST_GAMEOBJECTS,
         GRABBERS,
         UI,
     };

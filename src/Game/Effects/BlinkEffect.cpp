@@ -84,6 +84,7 @@ BlinkEffect::BlinkEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
         100,
         "res/textures/particles/flare.png",
         mono::BlendMode::ONE,
+        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
         0.0f,
         GibsUpdater);

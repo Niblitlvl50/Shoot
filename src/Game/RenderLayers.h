@@ -6,8 +6,9 @@ namespace game
     enum LayerId
     {
         BACKGROUND,
+        PRE_GAMEOBJECTS,
         GAMEOBJECTS,
-        PARTICLES,
+        POST_GAMEOBJECTS,
         GAMEOBJECTS_UI,
         FOG,
 

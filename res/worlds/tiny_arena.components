@@ -3020,8 +3020,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.646428108215332,
-                                "y": 2.636463165283203
+                                "x": 2.5586977005004883,
+                                "y": 2.3136181831359863
                             }
                         },
                         {
@@ -3235,6 +3235,12 @@
                         {
                             "id": 3513758418,
                             "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },
@@ -16649,6 +16655,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 453870866,
                             "name": "transform_space",
                             "variant_type": 1,
@@ -16860,6 +16872,12 @@
                         {
                             "id": 3513758418,
                             "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
                             "variant_type": 1,
                             "variant_value": 0
                         },

@@ -111,6 +111,7 @@ extern const uint32_t GRADIENT4_ATTRIBUTE;
 extern const uint32_t DAMPING_ATTRIBUTE;
 
 extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE;
+extern const uint32_t PARTICLE_DRAW_LAYER;
 
 
 const char* AttributeNameFromHash(uint32_t hash);

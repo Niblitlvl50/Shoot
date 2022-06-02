@@ -46,6 +46,7 @@ TrailEffect::TrailEffect(
         500,
         "res/textures/particles/flare.png",
         mono::BlendMode::ONE, 
+        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
         mono::ParticleTransformSpace::WORLD,
         0.0,
         mono::DefaultUpdater);
