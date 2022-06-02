@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.28552675247192383,
-                                "y": -1.7863715887069702
+                                "x": -1.0903053283691406,
+                                "y": -3.13114333152771
                             }
                         },
                         {
@@ -84,7 +84,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 2
+                            "variant_value": 0
                         },
                         {
                             "id": 4153965,
@@ -195,6 +195,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": 125346905,
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -208,6 +209,8 @@
             "x": 0.0,
             "y": 0.0
         },
+        "level_description": "",
+        "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,

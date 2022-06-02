@@ -41,6 +41,7 @@ namespace
 
 namespace tweak_values
 {
+    constexpr float level_result_duration_s = 3.0f;
     constexpr float fade_duration_s = 1.0f;
 }
 
@@ -55,7 +56,8 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
-        GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::PackageDestroyed, this),
+        GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::LevelCompleted, this),
+        GameModeStateMachine::MakeState(GameModeStates::TIMEOUT, &PacketDeliveryGameMode::ToTimeout, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_COMPLETED, &PacketDeliveryGameMode::ToLevelCompleted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::PAUSED, &PacketDeliveryGameMode::ToPaused, &PacketDeliveryGameMode::Paused, &PacketDeliveryGameMode::ExitPaused, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
@@ -265,11 +267,7 @@ void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_conte
         m_timer_screen->SetSeconds(m_level_timer);
 
         if(m_level_has_timelimit && m_level_timer < 1.0f)
-        {
-            // Time out, game over. Should proably be a different fail state.
-            m_big_text_screen->SetSubText("Man, you were too slow!");
-            m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        }
+            m_states.TransitionTo(GameModeStates::TIMEOUT);
     }
 }
 
@@ -277,36 +275,34 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
 {
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
-    m_last_state.button_state = 0;
     m_big_text_screen->SetText("Delivery failed!");
+    m_big_text_screen->SetSubText("");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 
-    m_big_text_animation_timer = 0.0f;
+    m_fade_timer = 0.0f;
 }
-void PacketDeliveryGameMode::PackageDestroyed(const mono::UpdateContext& update_context)
+
+void PacketDeliveryGameMode::ToTimeout()
 {
-    m_big_text_animation_timer = std::clamp(m_big_text_animation_timer + update_context.delta_s, 0.0f, 1.0f);
-    const float alpha = math::EaseOutCubic(m_big_text_animation_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-    m_big_text_screen->SetAlpha(alpha);
+    m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
-    const System::ControllerState& state = System::GetController(System::ControllerId::Primary);
-    const bool any_pressed =
-        System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_ANY);
-    if(any_pressed)
-        m_states.TransitionTo(GameModeStates::FADE_OUT);
+    m_big_text_screen->SetText("Delivery failed!");
+    m_big_text_screen->SetSubText("Man, you were too slow!");
+    m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->Show();
 
-    m_last_state = state;
+    m_fade_timer = 0.0f;
 }
 
 void PacketDeliveryGameMode::ToLevelCompleted()
 {
     m_next_zone = game::ZoneResult::ZR_COMPLETED;
 
-    m_big_text_screen->Show();
-    m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->SetText("Completed!");
     m_big_text_screen->SetSubText("Your manager approves.");
+    m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->Show();
 
     m_fade_timer = 0.0f;
 }
@@ -317,8 +313,7 @@ void PacketDeliveryGameMode::LevelCompleted(const mono::UpdateContext& update_co
     m_big_text_screen->SetAlpha(alpha);
 
     m_fade_timer += update_context.delta_s;
-
-    if(m_fade_timer >= 3.0f)
+    if(m_fade_timer >= tweak_values::level_result_duration_s)
         m_states.TransitionTo(GameModeStates::FADE_OUT);
 }
 

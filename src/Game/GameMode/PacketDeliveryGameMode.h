@@ -8,7 +8,6 @@
 
 #include "Events/EventFwd.h"
 #include "StateMachine.h"
-#include "System/System.h"
 
 #include <memory>
 
@@ -40,8 +39,7 @@ namespace game
         void RunGameMode(const mono::UpdateContext& update_context);
 
         void ToPackageDestroyed();
-        void PackageDestroyed(const mono::UpdateContext& update_context);
-
+        void ToTimeout();
         void ToLevelCompleted();
         void LevelCompleted(const mono::UpdateContext& update_context);
 
@@ -57,6 +55,7 @@ namespace game
             FADE_IN,
             RUN_GAME_MODE,
             PACKAGE_DESTROYED,
+            TIMEOUT,
             LEVEL_COMPLETED,
             PAUSED,
             FADE_OUT
@@ -93,11 +92,8 @@ namespace game
         uint32_t m_package_entity_id;
 
         float m_fade_timer;
-        float m_big_text_animation_timer;
 
         bool m_level_has_timelimit;
         float m_level_timer;
-
-        System::ControllerState m_last_state;
     };
 }
