@@ -276,7 +276,7 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
     m_big_text_screen->SetText("Delivery failed!");
-    m_big_text_screen->SetSubText("");
+    m_big_text_screen->SetSubText("You lost your package...");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 
