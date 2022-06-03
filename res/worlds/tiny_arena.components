@@ -16658,7 +16658,7 @@
                             "id": 3927152552,
                             "name": "particle_draw_layer",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 453870866,
@@ -16756,7 +16756,7 @@
                                 ],
                                 "t": [
                                     0.0,
-                                    0.10000000149011612,
+                                    0.20000000298023224,
                                     0.800000011920929,
                                     1.0
                                 ]
@@ -29600,71 +29600,6 @@
             "folder": "zone_logic",
             "name": "package_explosion_spawn",
             "uuid_hash": 2682684711
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "dialogue_test"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "dialogue"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -14.22390365600586,
-                                "y": 11.34530258178711
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 619841764,
-                    "name": "dialog",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "hello, i am something."
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "dialogue",
-            "name": "dialogue_test",
-            "uuid_hash": 2853153852
         },
         {
             "components": [
