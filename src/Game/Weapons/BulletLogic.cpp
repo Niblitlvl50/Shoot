@@ -39,6 +39,7 @@ BulletLogic::BulletLogic(
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
     , m_physics_system(physics_system)
+    , m_damage(config.damage)
     , m_bullet_behaviour(config.bullet_behaviour)
 {
     m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
@@ -68,7 +69,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         details.point = math::ZeroVec;
         details.normal = math::ZeroVec;
 
-        m_collision_callback(m_entity_id, m_owner_entity_id, BulletImpactFlag::DESTROY_THIS, details);
+        m_collision_callback(m_entity_id, m_owner_entity_id, 0, BulletImpactFlag::DESTROY_THIS, details);
     }
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
@@ -147,6 +148,11 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         }
     }
 
+    if(m_bullet_behaviour & BulletCollisionFlag::EXPLODES)
+    {
+        System::Log("EXPLODE THE BULLET PLX");
+    }
+
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
     BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
 
@@ -161,7 +167,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     details.point = collision_point;
     details.normal = collision_normal;
 
-    m_collision_callback(m_entity_id, m_owner_entity_id, collision_flags, details);
+    m_collision_callback(m_entity_id, m_owner_entity_id, m_damage, collision_flags, details);
     return resolve_type;
 }
 

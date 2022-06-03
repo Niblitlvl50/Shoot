@@ -10,6 +10,7 @@ namespace game
     inline void from_json(const nlohmann::json& json, BulletConfiguration& bullet_config)
     {
         bullet_config.name                  = json["name"].get<std::string>();
+        bullet_config.damage                = json["damage"].get<int>();
         bullet_config.life_span             = json["life_span"].get<float>();
         bullet_config.fuzzy_life_span       = json["fuzzy_life_span"].get<float>();
         bullet_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();

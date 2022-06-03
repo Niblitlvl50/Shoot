@@ -65,6 +65,7 @@ uint32_t game::SpawnEntityWithAnimation(
 void game::StandardCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    int damage,
     game::BulletImpactFlag flags,
     const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
@@ -78,7 +79,7 @@ void game::StandardCollision(
     const uint32_t other_entity_id = physics_system->GetIdFromBody(details.body);
     if(other_entity_id != std::numeric_limits<uint32_t>::max() && (flags & game::BulletImpactFlag::APPLY_DAMAGE))
     {
-        const DamageResult result = damage_system->ApplyDamage(other_entity_id, 20, owner_entity_id);
+        const DamageResult result = damage_system->ApplyDamage(other_entity_id, damage, owner_entity_id);
         did_damage = result.did_damage;
     }
 
@@ -104,6 +105,7 @@ void game::StandardCollision(
 void game::PlasmaCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    int damage,
     game::BulletImpactFlag flags,
     const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
@@ -112,7 +114,8 @@ void game::PlasmaCollision(
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+    StandardCollision(
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
 
     //if(!details.body)
     //    SpawnEntityWithAnimation("res/entities/hex_tiny.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
@@ -121,6 +124,7 @@ void game::PlasmaCollision(
 void game::RocketCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    int damage,
     game::BulletImpactFlag flags,
     const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
@@ -129,12 +133,14 @@ void game::RocketCollision(
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+    StandardCollision(
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
 }
 
 void game::CacoPlasmaCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    int damage,
     game::BulletImpactFlag flags,
     const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
@@ -143,7 +149,8 @@ void game::CacoPlasmaCollision(
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
-    StandardCollision(entity_id, owner_entity_id, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+    StandardCollision(
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
 
     if(details.body)
         SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
