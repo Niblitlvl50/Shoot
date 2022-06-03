@@ -6689,6 +6689,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 453870866,
                             "name": "transform_space",
                             "variant_type": 1,
@@ -16193,8 +16199,8 @@
             "y": -8.0
         },
         "camera_size": {
-            "x": 14.0,
-            "y": 8.600000381469727
+            "x": 10.0,
+            "y": 6.25
         },
         "level_description": "Watch out for hooming bullets",
         "level_name": "Boss World",
