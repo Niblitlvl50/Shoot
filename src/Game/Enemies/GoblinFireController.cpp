@@ -193,8 +193,7 @@ void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
     {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
-        const float angle = math::AngleBetweenPoints(m_attack_position, world_position);
-        game::WeaponState fire_state = m_weapon->Fire(world_position, angle, update_context.timestamp);
+        game::WeaponState fire_state = m_weapon->Fire(world_position, m_attack_position, update_context.timestamp);
         if(fire_state == game::WeaponState::FIRE)
             m_n_attacks++;
         else if(fire_state == game::WeaponState::OUT_OF_AMMO)

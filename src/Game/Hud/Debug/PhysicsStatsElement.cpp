@@ -25,9 +25,16 @@ void PhysicsStatsElement::Draw(mono::IRenderer& renderer) const
         ImGuiWindowFlags_NoResize;
 
     ImGui::Begin("Physics Stats", &game::g_draw_physics_stats, flags);
-    ImGui::Text("bodies: %u shapes: %u constraints %u", stats.bodies, stats.shapes, stats.constraints);
-    ImGui::Text("circles %u segments %u polygons %u", stats.circle_shapes, stats.segment_shapes, stats.polygon_shapes);
-    ImGui::Text("pivots %u gears %u springs %u", stats.pivot_joints, stats.gear_joints, stats.damped_springs);
+    ImGui::Text("bodies: %u shapes: %u constraints %u",
+        stats.bodies, stats.shapes, stats.constraints);
+    ImGui::Text("circles %u/%u segments %u/%u polygons %u/%u",
+        stats.circle_shapes, stats.circle_shapes_max,
+        stats.segment_shapes, stats.segment_shapes_max,
+        stats.polygon_shapes, stats.polygon_shapes_max);
+    ImGui::Text("pivots %u/%u gears %u/%u springs %u/%u",
+        stats.pivot_joints, stats.pivot_joints_max,
+        stats.gear_joints, stats.gear_joints_max,
+        stats.damped_springs, stats.damped_springs_max);
     ImGui::End();
 }
 
