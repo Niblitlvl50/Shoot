@@ -25,6 +25,7 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
+#include "Math/CriticalDampedSpring.h"
 #include "Util/Random.h"
 
 #include "Effects/SmokeEffect.h"
@@ -105,6 +106,8 @@ PlayerLogic::PlayerLogic(
     };
 
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
+
+    m_aim_velocity = 0.0f;
 }
 
 PlayerLogic::~PlayerLogic()
@@ -192,25 +195,11 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 {
     const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
     const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
+    const float delta_angle_between = math::AngleBetweenPoints(aim_target_vector, aim_direction_vector);
 
-    const float cross_value = math::Cross(aim_target_vector, aim_direction_vector);
-    const bool is_at_target = math::IsPrettyMuchEquals(cross_value, 0.0f);
-    if(!is_at_target)
-    {
-        const bool rotate_clockwise = (cross_value < 0.0f);
-        const float multiplier = rotate_clockwise ? 1.0f : -1.0f;
-        m_aim_direction += (multiplier * update_context.delta_s * math::ToRadians(360.0f));
-
-        {
-            // Check if we went passed the aim target, and if so clamp to target. 
-            const float updated_cross_value = math::Cross(aim_target_vector, math::VectorFromAngle(m_aim_direction));
-            const bool updated_rotate_clockwise = (updated_cross_value < 0.0f);
-
-            const bool changed_direction = (rotate_clockwise != updated_rotate_clockwise);
-            if(changed_direction)
-                m_aim_direction = m_aim_target;
-        }
-    }
+    math::simple_spring_damper_implicit(
+        m_aim_direction, m_aim_velocity, m_aim_direction - delta_angle_between, 0.1f, update_context.delta_s);
+    m_aim_direction = math::NormalizeAngle(m_aim_direction);
 
     mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
     if(m_aim_direction > 0.0f)

@@ -192,7 +192,7 @@ void FlyingMonsterController::Attacking(const mono::UpdateContext& update_contex
     if(m_bullets_fired < tweak_values::bullets_to_emit)
     {
         const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
-        const float angle = math::AngleBetweenPoints(m_attack_target->position, position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(m_attack_target->position, position);
         const game::WeaponState fire_state = m_weapon->Fire(position, angle, update_context.timestamp);
         if(fire_state == game::WeaponState::FIRE)
             m_bullets_fired++;

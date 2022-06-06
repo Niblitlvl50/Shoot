@@ -92,7 +92,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
     const float distance = math::Length(player_info->position - enemy_position);
     if(distance < tweak_values::attack_distance)
     {
-        const float angle = math::AngleBetweenPoints(player_info->position, enemy_position) + math::PI_2();
+        const float angle = math::AngleBetweenPoints(player_info->position, enemy_position);
         m_fire_count += (m_weapon->Fire(enemy_position, angle, update_context.timestamp) == WeaponState::FIRE);
     }
 
