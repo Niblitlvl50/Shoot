@@ -64,6 +64,18 @@
                             "variant_value": 1
                         },
                         {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 453870866,
+                            "name": "transform_space",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3143743637,
                             "name": "damping",
                             "variant_type": 3,
@@ -223,6 +235,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": -1152680928,
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -236,7 +249,9 @@
             "x": 0.0,
             "y": 0.0
         },
-        "navmesh_density": 4.5922339853803505e-37,
+        "level_description": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0
@@ -249,6 +264,7 @@
             "x": 0.0,
             "y": 0.0
         },
+        "time_limit_s": 0,
         "triggers": []
     }
 }

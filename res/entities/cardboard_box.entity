@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.1290507316589355,
-                                "y": -5.050558567047119
+                                "x": -3.8938746452331543,
+                                "y": -5.177898406982422
                             }
                         },
                         {
@@ -56,12 +56,6 @@
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
                         }
                     ]
                 },
@@ -132,7 +126,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -140,14 +134,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.15000000596046448
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.6000000238418579
                         },
                         {
                             "id": 1015133031,
@@ -243,6 +237,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": -1218913248,
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -256,8 +251,9 @@
             "x": 0.0,
             "y": 0.0
         },
-        "conditions": [],
-        "navmesh_density": -1.0574876796454191e-05,
+        "level_description": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0
@@ -270,6 +266,7 @@
             "x": 0.0,
             "y": 0.0
         },
+        "time_limit_s": 0,
         "triggers": []
     }
 }
