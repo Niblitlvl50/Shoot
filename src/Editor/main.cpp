@@ -32,6 +32,8 @@ int main()
     constexpr size_t max_entities = 1000;
 
     System::InitializeContext init_context;
+    init_context.application = "Risky Delivery Inc";
+    init_context.organization = "Nib-Games";
     init_context.working_directory = ".";
     System::Initialize(init_context);
 

@@ -104,6 +104,8 @@ int main(int argc, char* argv[])
 
     System::InitializeContext system_init_context;
     system_init_context.log_file = options.log_file;
+    system_init_context.application = "Risky Delivery Inc";
+    system_init_context.organization = "Nib-Games";
 
 #ifdef __APPLE__
     char application_path_buffer[1024] = {};
