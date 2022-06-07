@@ -1,13 +1,14 @@
 {
     "all_worlds": [
         "res/worlds/empty_world.components",
+        "res/worlds/title_screen.components",
+        "res/worlds/setup_game_screen.components",
+        "res/worlds/tiny_arena.components",
+        "res/worlds/pickup_arena.components",
         "res/worlds/boss_arena.components",
         "res/worlds/game_over.components",
         "res/worlds/end_screen.components",
-        "res/worlds/setup_game_screen.components",
-        "res/worlds/title_screen.components",
         "res/worlds/world.components",
-        "res/worlds/tiny_arena.components",
         "res/worlds/tiny_alien_world.components",
         "res/worlds/enemy_testbed.components",
         "res/worlds/tutorial_delivery.components"

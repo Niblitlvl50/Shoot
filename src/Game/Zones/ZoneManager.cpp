@@ -35,6 +35,7 @@ namespace
     static const uint32_t END_SCREEN_HASH           = hash::Hash("res/worlds/end_screen.components");
     static const uint32_t WORLD_ARENA_HASH          = hash::Hash("res/worlds/world.components");
     static const uint32_t TINY_ARENA_HASH           = hash::Hash("res/worlds/tiny_arena.components");
+    static const uint32_t PICKUP_ARENA_HASH         = hash::Hash("res/worlds/pickup_arena.components");
     static const uint32_t BOSS_ARENA_HASH           = hash::Hash("res/worlds/boss_arena.components");
     static const uint32_t EMPTY_ARENA_HASH          = hash::Hash("res/worlds/empty_world.components");
     static const uint32_t ENEMY_TESTBED_HASH        = hash::Hash("res/worlds/enemy_testbed.components");
@@ -48,6 +49,7 @@ namespace
         { END_SCREEN_HASH,          LoadZone<game::EndScreen> },
         { WORLD_ARENA_HASH,         LoadZone<game::SystemTestZone> },
         { TINY_ARENA_HASH,          LoadZone<game::SystemTestZone> },
+        { PICKUP_ARENA_HASH,        LoadZone<game::SystemTestZone> },
         { BOSS_ARENA_HASH,          LoadZone<game::SystemTestZone> },
         { EMPTY_ARENA_HASH,         LoadZone<game::EmptyZone> },
         { ENEMY_TESTBED_HASH,       LoadZone<game::SystemTestZone> },
@@ -73,7 +75,8 @@ namespace
 
         // Arenas
         { WORLD_ARENA_HASH,         { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
-        { TINY_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    BOSS_ARENA_HASH,        TITLE_SCREEN_HASH } },
+        { TINY_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    PICKUP_ARENA_HASH,      TITLE_SCREEN_HASH } },
+        { PICKUP_ARENA_HASH,        { GAME_OVER_SCREEN_HASH,    BOSS_ARENA_HASH,        TITLE_SCREEN_HASH } },
         { BOSS_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
 
         // Testing
@@ -91,6 +94,7 @@ namespace
         { END_SCREEN_HASH,          "res/worlds/end_screen.components" },
         { WORLD_ARENA_HASH,         "res/worlds/world.components" },
         { TINY_ARENA_HASH,          "res/worlds/tiny_arena.components" },
+        { PICKUP_ARENA_HASH,        "res/worlds/pickup_arena.components" },
         { BOSS_ARENA_HASH,          "res/worlds/boss_arena.components" },
         { EMPTY_ARENA_HASH,         "res/worlds/empty_world.components" },
         { ENEMY_TESTBED_HASH,       "res/worlds/enemy_testbed.components" },
