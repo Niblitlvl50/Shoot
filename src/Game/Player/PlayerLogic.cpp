@@ -242,7 +242,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     UpdateAnimation(m_aim_direction, m_player_info->velocity);
 
     mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
-    mono::QueryResult query_result = physics_space->QueryFirst(fire_position, target_fire_position, PLAYER_BULLET_MASK);
+    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, PLAYER_BULLET_MASK);
     m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : math::InfVec;
 
     if(m_player_info->player_state == PlayerState::DEAD)
