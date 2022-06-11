@@ -14,6 +14,13 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
+namespace tweak_values
+{
+    constexpr float magnitude = 5.0f;
+    constexpr int damage = 10;
+    constexpr float wait_duration = 0.5f;
+}
+
 using namespace game;
 
 ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
@@ -66,14 +73,20 @@ void ExplodableController::OnDead()
     m_explosion_effect->ExplodeAt(world_position);
 
     game::ShockwaveAndDamageAt(
-        m_physics_system, m_damage_system, world_position, 15.0f, 10, m_entity_id, CollisionCategory::CC_ALL);
+        m_physics_system,
+        m_damage_system,
+        world_position,
+        tweak_values::magnitude,
+        tweak_values::damage,
+        m_entity_id,
+        CollisionCategory::CC_ALL);
 
-    m_wait_timer = 0;
+    m_wait_timer_s = 0.0f;
 }
 
 void ExplodableController::Dead(const mono::UpdateContext& update_context)
 {
-    m_wait_timer += update_context.delta_ms;
-    if(m_wait_timer > 500)
+    m_wait_timer_s += update_context.delta_s;
+    if(m_wait_timer_s > tweak_values::wait_duration)
         m_entity_system->ReleaseEntity(m_entity_id);
 }

@@ -48,6 +48,6 @@ namespace game
         using ExplodableStateMachine = StateMachine<States, const mono::UpdateContext&>;
         ExplodableStateMachine m_states;
 
-        uint32_t m_wait_timer;
+        float m_wait_timer_s;
     };
 }

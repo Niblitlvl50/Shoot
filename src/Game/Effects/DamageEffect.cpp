@@ -53,7 +53,7 @@ DamageEffect::DamageEffect(mono::ParticleSystem* particle_system, mono::IEntityM
         500,
         "res/textures/particles/white_square.png",
         mono::BlendMode::SOURCE_ALPHA,
-        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
+        mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
         0.0f,
         mono::DefaultUpdater);

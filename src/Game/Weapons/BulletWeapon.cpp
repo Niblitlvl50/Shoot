@@ -151,9 +151,9 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
         mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
 
-        const float velocity_length = math::Length(velocity);
-        const float body_mass = body->GetMass();
-        System::Log("[%u]%s m: %.2f velocity: %.2f", bullet_entity.id, m_weapon_config.name.c_str(), body_mass, velocity_length);
+        //const float velocity_length = math::Length(velocity);
+        //const float body_mass = body->GetMass();
+        //System::Log("[%u]%s m: %.2f velocity: %.2f", bullet_entity.id, m_weapon_config.name.c_str(), body_mass, velocity_length);
 
         body->AddCollisionHandler(bullet_logic);
         body->SetNoDamping();
