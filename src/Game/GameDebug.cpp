@@ -105,7 +105,8 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
         ImGuiWindowFlags_NoResize;
 
     ImGui::Begin("TriggerInput", &draw_trigger_input, flags);
-
+    ImGui::SetKeyboardFocusHere();
+    
     char out_buffer[128] = {};
     const bool input_entered = ImGui::InputText("Trigger", out_buffer, std::size(out_buffer), ImGuiInputTextFlags_EnterReturnsTrue);
     if(input_entered)
