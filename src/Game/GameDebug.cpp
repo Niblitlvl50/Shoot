@@ -104,18 +104,22 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::Begin("TriggerInput", &draw_trigger_input, flags);
-    ImGui::SetKeyboardFocusHere();
-    
-    char out_buffer[128] = {};
-    const bool input_entered = ImGui::InputText("Trigger", out_buffer, std::size(out_buffer), ImGuiInputTextFlags_EnterReturnsTrue);
-    if(input_entered)
+    if(ImGui::Begin("TriggerInput", &draw_trigger_input, flags))
     {
-        const uint32_t hash_value = hash::Hash(out_buffer);
-        trigger_system->EmitTrigger(hash_value);
+        // Set focus to next widget, but this cause the window to not being able to be closed.
+        //ImGui::SetKeyboardFocusHere();
+        
+        char out_buffer[128] = {};
+        const bool input_entered = ImGui::InputText(
+            "Trigger", out_buffer, std::size(out_buffer), ImGuiInputTextFlags_EnterReturnsTrue);
+        if(input_entered)
+        {
+            const uint32_t hash_value = hash::Hash(out_buffer);
+            trigger_system->EmitTrigger(hash_value);
+        }
+
+        ImGui::End();
     }
-    
-    ImGui::End();
 }
 
 void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono::EventHandler* event_handler)
