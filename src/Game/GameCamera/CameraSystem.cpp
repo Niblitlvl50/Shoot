@@ -34,9 +34,7 @@ namespace
 namespace tweak_values
 {
     constexpr float dead_zone = 1.0f;
-    constexpr float camera_velocity = 2.5f;
-    constexpr float camera_velocity_max = 5.0;
-    constexpr float halflife = 0.8f;
+    constexpr float halflife = 0.2f;
 }
 
 using namespace game;
@@ -96,16 +94,14 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         const float distance = math::DistanceBetween(centroid, camera_position);
         if(distance > tweak_values::dead_zone)
         {
-            const float camera_speed = math::EaseOutCubic(
-                distance,
-                10.0f,
-                tweak_values::camera_velocity,
-                tweak_values::camera_velocity_max);
-
             math::Vector local_camera_position = camera_position;
-            math::Vector camera_velocity = math::Normalized(centroid - camera_position) * camera_speed;
-            critical_spring_damper(
-                local_camera_position, camera_velocity, centroid, camera_velocity, tweak_values::halflife, update_context.delta_s);
+            math::critical_spring_damper(
+                local_camera_position,
+                m_current_camera_speed,
+                centroid,
+                math::ZeroVec,
+                tweak_values::halflife,
+                update_context.delta_s);
 
             m_camera->SetTargetPosition(local_camera_position);
         }

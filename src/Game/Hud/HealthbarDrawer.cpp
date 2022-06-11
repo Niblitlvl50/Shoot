@@ -11,6 +11,9 @@
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/IEntityManager.h"
 
+#include "Rendering/RenderSystem.h"
+#include "Rendering/Sprite/ISprite.h"
+
 #include <limits>
 #include <string>
 
@@ -23,6 +26,8 @@ namespace
         math::Vector position;
         float health_percentage;
         float width;
+        float height;
+        bool boss;
         uint32_t last_damaged_timestamp;
         std::string name;
     };
@@ -31,10 +36,10 @@ namespace
 
     void GenerateHealthbarVertices(
         const std::vector<Healthbar>& healthbars,
-        float bar_thickness,
         std::vector<math::Vector>& out_vertices,
         std::vector<mono::Color::RGBA>& out_colors,
-        std::vector<uint16_t>& out_indices)
+        std::vector<uint16_t>& out_indices,
+        std::vector<math::Vector>& out_boss_icon_positions)
     {
         for(const Healthbar& bar : healthbars)
         {
@@ -42,7 +47,7 @@ namespace
 
             const float percentage_length = bar.width * bar.health_percentage;
             const float half_length = bar.width / 2.0f;
-            const float half_thickness = bar_thickness / 2.0f;
+            const float half_thickness = bar.height / 2.0f;
 
             const math::Vector& top_left = bar.position - math::Vector(half_length, half_thickness);
             const math::Vector& bottom_left = bar.position - math::Vector(half_length, -half_thickness);
@@ -86,6 +91,12 @@ namespace
             out_indices.push_back(base_index + 5);
             out_indices.push_back(base_index + 6);
             out_indices.push_back(base_index + 7);
+
+            if(bar.boss)
+            {
+                const math::Vector icon_position = bar.position - math::Vector(half_length, 0.0f);
+                out_boss_icon_positions.push_back(icon_position);
+            }
         }
     }
 }
@@ -94,20 +105,22 @@ HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::Transf
     : m_damage_system(damage_system)
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
-{ }
+{
+    m_package_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
+    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+}
 
 void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 {
     constexpr uint32_t max_uint = std::numeric_limits<uint32_t>::max();
     const uint32_t timestamp = renderer.GetTimestamp();
-    const math::Quad viewport = renderer.GetViewport();
-
-    const float viewport_width = 10.0f;
-    const float ratio = math::Width(viewport) / math::Height(viewport);
-    const float viewport_height = viewport_width * ratio;
 
     std::vector<Healthbar> healthbars;
-    std::vector<Healthbar> boss_healthbars;
 
     const auto collect_func = [&](uint32_t entity_id, DamageRecord& record) {
         const bool ignore_record = (record.last_damaged_timestamp == max_uint);
@@ -125,34 +138,18 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         bar.last_damaged_timestamp = record.last_damaged_timestamp;
         bar.health_percentage = float(record.health) / float(record.full_health);
         bar.name = m_entity_system->GetEntityName(entity_id);
+        bar.boss = record.is_boss;
         
-        if(record.is_boss)
-        {
-            bar.position = math::ZeroVec;
-            bar.width = viewport_width * 0.9f;
-            boss_healthbars.push_back(bar);
-        }
-        else
-        {
-            const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(entity_id);
-            bar.position = math::BottomCenter(world_bb);
-            bar.width = std::max(math::Width(world_bb) * 1.25f, 0.5f);
-            healthbars.push_back(bar);
-        }
+        const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(entity_id);
+        bar.position = math::BottomCenter(world_bb);
+        bar.width = std::max(math::Width(world_bb) * 1.25f, 0.5f);
+        bar.height = bar.boss ? 0.075f : 0.05f;
+        healthbars.push_back(bar);
     };
 
     m_damage_system->ForEeach(collect_func);
 
-    if(!boss_healthbars.empty())
-    {
-        const auto sort_on_timestamp = [](const Healthbar& first, const Healthbar& second) {
-            return first.last_damaged_timestamp > second.last_damaged_timestamp;
-        };
-        std::sort(boss_healthbars.begin(), boss_healthbars.end(), sort_on_timestamp);
-        boss_healthbars.erase(boss_healthbars.begin() +1, boss_healthbars.end());
-    }
-
-    const int n_healthbars = healthbars.size() + boss_healthbars.size();
+    const int n_healthbars = healthbars.size();
     if(n_healthbars == 0)
         return;
 
@@ -168,12 +165,10 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     std::vector<uint16_t> indices;
     indices.reserve(indices_needed);
 
-    GenerateHealthbarVertices(healthbars, 0.05f, vertices, colors, indices);
-    const uint32_t n_healthbar_indices = indices.size();
+    std::vector<math::Vector> boss_icon_positions;
 
-    const float boss_healthbar_thickness = viewport_height * 0.035f;
-    GenerateHealthbarVertices(boss_healthbars, boss_healthbar_thickness, vertices, colors, indices);
-    const uint32_t n_boss_indices = indices.size() - n_healthbar_indices;
+    GenerateHealthbarVertices(healthbars, vertices, colors, indices, boss_icon_positions);
+    const uint32_t n_healthbar_indices = indices.size();
 
     auto vertex_buffer = mono::CreateRenderBuffer(
         mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices_needed, vertices.data());
@@ -187,25 +182,21 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 
     // Boss health bars
 
-    if(!boss_healthbars.empty())
+    for(const math::Vector& icon_position : boss_icon_positions)
     {
-        const math::Matrix projection = math::Ortho(0.0f, viewport_width, 0.0f, viewport_height, -10.0f, 10.0f);
-        const mono::ScopedTransform projection_raii = mono::MakeProjectionScope(projection, &renderer);
-        const mono::ScopedTransform view_transform = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+        const math::Matrix& world_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(icon_position);
+        auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
 
-        math::Matrix transform;
-        math::Translate(transform, math::Vector(viewport_width / 2.0f, viewport_height * 0.95f));
-        const mono::ScopedTransform transform_scope = mono::MakeTransformScope(transform, &renderer);
-
-        renderer.DrawTrianges(
-            vertex_buffer.get(), color_buffer.get(), index_buffer.get(), n_healthbar_indices, n_boss_indices);
-
-        const Healthbar& boss_healthbar = boss_healthbars.back();
-        renderer.RenderText(
-            FontId::RUSSOONE_TINY,
-            boss_healthbar.name.c_str(),
-            mono::Color::BLACK,
-            mono::FontCentering::HORIZONTAL_VERTICAL);
+        renderer.DrawSprite(
+            m_package_sprite.get(),
+            m_sprite_buffers.vertices.get(),
+            m_sprite_buffers.offsets.get(),
+            m_sprite_buffers.uv.get(),
+            m_sprite_buffers.uv_flipped.get(),
+            m_sprite_buffers.heights.get(),
+            m_indices.get(),
+            m_package_sprite->GetTexture(),
+            0);
     }
 }
 

@@ -88,6 +88,7 @@ namespace game
         bool m_debug_camera;
 
         math::Vector m_current_camera_size;
+        math::Vector m_current_camera_speed;
         std::vector<uint32_t> m_follow_entities;
         math::Vector m_current_follow_offset;
 

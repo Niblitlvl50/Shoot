@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 14,
-            "name": "wooden_log",
-            "w": 12,
-            "x": 1397,
-            "y": 437
+            "h": 8,
+            "name": "ladybug",
+            "w": 7,
+            "x": 1481,
+            "y": 450
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/healthbar/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

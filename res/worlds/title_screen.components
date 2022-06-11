@@ -211,6 +211,12 @@
                             "variant_value": 1
                         },
                         {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 453870866,
                             "name": "transform_space",
                             "variant_type": 1,
@@ -804,9 +810,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.35784316062927246,
-            "green": 0.6978085041046143,
-            "red": 1.0
+            "blue": 0.7304882407188416,
+            "green": 0.7304882407188416,
+            "red": 0.9313725233078003
         },
         "background_music": 2,
         "background_size": {

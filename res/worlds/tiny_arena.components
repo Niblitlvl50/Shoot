@@ -12698,7 +12698,7 @@
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 3526332565,
@@ -12912,7 +12912,7 @@
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 3526332565,
