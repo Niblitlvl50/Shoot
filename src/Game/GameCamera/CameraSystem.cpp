@@ -161,9 +161,10 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 void CameraSystem::Reset()
 {
     m_follow_entities.clear();
+    m_camera_anims_to_process.clear();
 
-    //while(!m_camera_stack.empty())
-    //    m_camera_stack.pop();
+    while(!m_camera_stack.empty())
+        PopCameraData();
 }
 
 void CameraSystem::FollowEntity(uint32_t entity_id)
@@ -285,6 +286,10 @@ CameraRestoreComponent* CameraSystem::AllocateRestoreComponent(uint32_t entity_i
 
 void CameraSystem::ReleaseRestoreComponent(uint32_t entity_id)
 {
+    CameraRestoreComponent* component = m_restore_components.Get(entity_id);
+    if(component->callback_id != NO_CALLBACK)
+        m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
+
     m_restore_components.Release(entity_id);
 }
 
@@ -296,11 +301,9 @@ void CameraSystem::AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash
     if(component->callback_id != NO_CALLBACK)
         m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
 
-    
     const auto callback = [this](uint32_t trigger_id) {
         PopCameraData();
     };
-
     component->callback_id = m_trigger_system->RegisterTriggerCallback(component->trigger_hash, callback, entity_id);
 }
 

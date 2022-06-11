@@ -64,9 +64,6 @@ namespace game
         void FollowEntityOffset(const math::Vector& offset);
         void Unfollow(uint32_t entity_id);
 
-        void PushCameraData(uint32_t debug_entity_id);
-        void PopCameraData();
-
         CameraAnimationComponent* AllocateCameraAnimation(uint32_t entity_id);
         void ReleaseCameraAnimation(uint32_t entity_id);
         void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, float new_zoom_level);
@@ -78,6 +75,11 @@ namespace game
         void AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash);
 
         void AddCameraShake(uint32_t time_ms);
+
+private:
+
+        void PushCameraData(uint32_t debug_entity_id);
+        void PopCameraData();
 
         mono::ICamera* m_camera;
         mono::TransformSystem* m_transform_system;
