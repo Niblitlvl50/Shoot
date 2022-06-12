@@ -1885,7 +1885,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         }
                     ]
                 }
@@ -1938,7 +1938,7 @@
             "x": 0.0,
             "y": -5.0
         },
-        "time_limit_s": 500,
+        "time_limit_s": 300,
         "triggers": [
             "level_completed",
             "push_button"
