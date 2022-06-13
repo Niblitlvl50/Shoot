@@ -53,10 +53,10 @@
             },
             "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
-                "-position",
-                "300",
-                "50",
-//                "-zone", "res/worlds/boss_arena.components"
+//                "-position",
+//                "300",
+//                "50",
+                "-zone", "res/worlds/end_screen.components"
             ],
             "problemMatcher": []
         },

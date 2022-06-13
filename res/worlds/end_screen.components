@@ -227,7 +227,7 @@
                             "name": "direction_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 1.0,
+                                "max": 0.0,
                                 "min": 0.0
                             }
                         },
@@ -236,7 +236,7 @@
                             "name": "magnitude_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 1.0,
+                                "max": 0.0,
                                 "min": 0.0
                             }
                         },
@@ -253,7 +253,7 @@
                                         "red": 1.0
                                     },
                                     {
-                                        "alpha": 1.0,
+                                        "alpha": 0.49803921580314636,
                                         "blue": 1.0,
                                         "green": 1.0,
                                         "red": 1.0
@@ -293,8 +293,8 @@
                             "name": "life_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 2.0,
-                                "min": 1.0
+                                "max": 5.0,
+                                "min": 2.0
                             }
                         },
                         {
@@ -303,8 +303,8 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 1.0,
-                                    "min": 16.0
+                                    "max": 16.0,
+                                    "min": 0.0
                                 },
                                 "value": 16.0
                             }
@@ -315,8 +315,8 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 1.0,
-                                    "min": 16.0
+                                    "max": 16.0,
+                                    "min": 0.0
                                 },
                                 "value": 16.0
                             }
