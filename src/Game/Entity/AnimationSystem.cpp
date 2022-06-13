@@ -233,6 +233,8 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
         
         const bool ping_pong = (transform_anim->animation_flags & AnimationMode::PING_PONG);
         const bool reversable = (transform_anim->animation_flags & AnimationMode::TRIGGER_REVERSE);
+        const bool looping = (transform_anim->animation_flags & AnimationMode::LOOPING);
+
         if(is_done && (ping_pong || reversable))
         {
             transform_anim->is_initialized = false;
@@ -241,6 +243,11 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             transform_anim->delta_y = -transform_anim->delta_y;
 
             is_done = ping_pong ? false : true;
+        }
+        else if(is_done && looping)
+        {
+            transform_anim->duration_counter = 0.0f;
+            is_done = false;
         }
 
         if(transform_anim->animation_flags & AnimationMode::ONE_SHOT && transform_anim->callback_id != NO_CALLBACK_SET)
