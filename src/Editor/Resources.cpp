@@ -147,6 +147,19 @@ bool editor::LoadAllWorlds(const char* filename)
     return false;
 }
 
+bool editor::AddNewWorld(const char* world_filename)
+{
+    const auto it = std::find(g_all_worlds.begin(), g_all_worlds.end(), world_filename);
+    if(it != g_all_worlds.end())
+        return false;
+
+    g_all_worlds.push_back(world_filename);
+    std::sort(g_all_worlds.begin(), g_all_worlds.end());
+    WriteListFile(g_all_worlds_filename, "all_worlds", g_all_worlds);
+
+    return true;
+}
+
 const std::vector<std::string>& editor::GetAllWorlds()
 {
     return g_all_worlds;

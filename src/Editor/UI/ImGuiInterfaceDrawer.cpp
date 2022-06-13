@@ -93,6 +93,8 @@ namespace
             ImGui::EndMenu();
         }
 
+        bool open_new_world_popup = false;
+
         if(ImGui::BeginMenu("Worlds"))
         {
             for(const std::string& world : context.all_worlds)
@@ -102,7 +104,12 @@ namespace
                 if(ImGui::MenuItem(world.c_str(), "", is_selected))
                     context.switch_world(world);
             }
+
+            ImGui::Separator();
+
+            open_new_world_popup = ImGui::Button("Add World");
             ImGui::EndMenu();
+
         }
 
         ImGui::SameLine(ImGui::GetWindowWidth() -480);
@@ -121,6 +128,32 @@ namespace
         ImGui::SameLine(ImGui::GetWindowWidth() -100);
         ImGui::TextDisabled("fps: %.2f", context.fps);
         ImGui::EndMainMenuBar();
+
+
+        if(open_new_world_popup)
+            ImGui::OpenPopup("New World");
+
+        const bool add_world_open = ImGui::BeginPopupModal("New World", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+        if(add_world_open)
+        {
+            std::string world_name;
+            DrawStringProperty("", world_name, ImGuiInputTextFlags_CharsNoBlank);
+            const bool got_new_name = ImGui::IsItemDeactivatedAfterEdit();
+
+            ImGui::SameLine();
+            const bool ok_pressed = ImGui::Button("Ok");
+
+            ImGui::SameLine();
+            const bool cancel_pressed = ImGui::Button("Cancel");
+
+            if(got_new_name || ok_pressed || cancel_pressed)
+                ImGui::CloseCurrentPopup();
+
+            if(got_new_name || ok_pressed)
+                context.create_new_world(world_name);
+
+            ImGui::EndPopup();
+        }
     }
 
     void DrawObjectOutline(editor::UIContext& context)

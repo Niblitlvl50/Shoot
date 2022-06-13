@@ -15,7 +15,7 @@ struct Component;
 
 namespace editor
 {
-    bool DrawStringProperty(const char* name, std::string& value);
+    bool DrawStringProperty(const char* name, std::string& value, int imgui_flags = 0);
     bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
     void AddDynamicProperties(Component& component);
 

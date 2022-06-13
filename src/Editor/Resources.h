@@ -23,5 +23,6 @@ namespace editor
     const std::vector<std::string>& GetAllTextures();
 
     bool LoadAllWorlds(const char* filename);
+    bool AddNewWorld(const char* world_filename);
     const std::vector<std::string>& GetAllWorlds();
 }

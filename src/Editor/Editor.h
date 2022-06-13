@@ -53,6 +53,7 @@ namespace editor
         void PostUpdate() override;
 
         void SwitchWorld(const std::string& new_world_filename);
+        void CreateNewWorld(const std::string& new_world);
         void LoadWorld(const std::string& world_filename);
 
         void Save();

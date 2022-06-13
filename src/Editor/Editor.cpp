@@ -60,6 +60,8 @@
 #include "Util/FpsCounter.h"
 #include "Math/MathFunctions.h"
 
+#include "System/File.h"
+
 #include <algorithm>
 #include <limits>
 #include <cassert>
@@ -214,6 +216,7 @@ Editor::Editor(
 
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
+    m_context.create_new_world = std::bind(&Editor::CreateNewWorld, this, _1);
     m_context.select_object_callback = [this](uint32_t entity_id) {
         const System::ModifierState& state = System::GetModifierState();
         (state.ctrl) ? AddToSelection({ entity_id }) : SetSelection({ entity_id });
@@ -367,6 +370,24 @@ void Editor::SwitchWorld(const std::string& new_world_filename)
     m_new_world_filename = new_world_filename;
 }
 
+void Editor::CreateNewWorld(const std::string& new_world)
+{
+    const std::string world_filename = "res/worlds/" + new_world + ".components";
+    const bool file_exists_already = file::Exists(world_filename.c_str());
+    if(file_exists_already)
+    {
+        System::Log("'%s' already exists.", world_filename.c_str());
+        return;
+    }
+
+    System::Log("%s", world_filename.c_str());
+
+    std::vector<IObjectProxyPtr> proxies;
+    game::LevelMetadata level_metadata;
+    SaveWorld(world_filename.c_str(), proxies, level_metadata);
+    AddNewWorld(world_filename.c_str());
+}
+
 void Editor::LoadWorld(const std::string& world_filename)
 {
     ClearSelection();
@@ -392,24 +413,6 @@ void Editor::LoadWorld(const std::string& world_filename)
     SetBackgroundColor(world.leveldata.metadata.background_color);
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
     SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
-
-    /*
-    for(IObjectProxyPtr& proxy : m_proxies)
-    {
-        std::vector<Component>& components = proxy->GetComponents();
-        const bool found = (FindComponentFromHash(NAME_FOLDER_COMPONENT, components) != nullptr);
-        if(!found)
-        {
-            const std::vector<Component*> added_components = component::AddComponent(NAME_FOLDER_COMPONENT, components);
-            for(Component* component : added_components)
-                m_entity_manager.AddComponent(proxy->Id(), component->hash);
-
-            Component* name_folder = added_components.front();
-            SetAttribute(NAME_ATTRIBUTE, name_folder->properties, proxy->Name());
-            SetAttribute(FOLDER_ATTRIBUTE, name_folder->properties, proxy->GetFolder());
-        }
-    }
-    */
 }
 
 void Editor::Save()

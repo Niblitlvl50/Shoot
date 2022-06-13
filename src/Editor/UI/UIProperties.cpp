@@ -44,11 +44,11 @@ std::string PrettifyString(const std::string& text)
     return out_string;
 }
 
-bool editor::DrawStringProperty(const char* name, std::string& value)
+bool editor::DrawStringProperty(const char* name, std::string& value, int imgui_flags)
 {
     char text_buffer[VariantStringMaxLength] = { 0 };
     std::snprintf(text_buffer, VariantStringMaxLength, "%s", value.c_str());
-    if(ImGui::InputText(name, text_buffer, VariantStringMaxLength))
+    if(ImGui::InputText(name, text_buffer, VariantStringMaxLength, imgui_flags))
     {
         value = text_buffer;
         return true;
