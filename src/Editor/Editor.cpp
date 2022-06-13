@@ -390,6 +390,13 @@ void Editor::CreateNewWorld(const std::string& new_world)
 
 void Editor::LoadWorld(const std::string& world_filename)
 {
+    const bool world_exists = file::Exists(world_filename.c_str());
+    if(!world_exists)
+    {
+        System::Log("'%s' does not exist. Abort loading...", world_filename.c_str());
+        return;
+    }
+
     ClearSelection();
     PreselectProxyObject(nullptr);
 
