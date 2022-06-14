@@ -11,11 +11,6 @@
 
 using namespace game;
 
-namespace
-{
-    constexpr uint32_t NO_HASH = std::numeric_limits<uint32_t>::max();
-}
-
 InteractionSystem::InteractionSystem(
     uint32_t n, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system)
     : m_transform_system(transform_system)
@@ -38,7 +33,7 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
 
 void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, InteractionType interaction_type, bool draw_name)
 {
-    AddComponent(entity_id, interaction_hash, NO_HASH, interaction_type, draw_name);
+    AddComponent(entity_id, interaction_hash, hash::NO_HASH, interaction_type, draw_name);
 }
 
 void InteractionSystem::AddComponent(
@@ -89,31 +84,33 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 
             const math::Quad player_bb = m_transform_system->GetWorldBoundingBox(player_info->entity_id);
             const bool overlaps = math::QuadOverlaps(interaction_bb, player_bb);
-            if(overlaps)
+            if(!overlaps)
+                continue;
+
+            m_interaction_data.active.push_back(
+                { interaction_id, player_info->entity_id, interaction.type, interaction.draw_name }
+            );
+
+            const auto find_player_func = [player_info](const PlayerTriggerData& player_trigger_data) {
+                return player_trigger_data.player_entity_id == player_info->entity_id;
+            };
+
+            const auto it = std::find_if(m_player_triggers.begin(), m_player_triggers.end(), find_player_func);
+            if(it != m_player_triggers.end())
             {
-                m_interaction_data.active.push_back({ interaction_id, player_info->entity_id, interaction.type, interaction.draw_name });
+                const bool has_on_hash = (interaction.on_interaction_hash != hash::NO_HASH);
+                const bool has_off_hash = (interaction.off_interaction_hash != hash::NO_HASH);
 
-                const auto find_player_func = [player_info](const PlayerTriggerData& player_trigger_data) {
-                    return player_trigger_data.player_entity_id == player_info->entity_id;
-                };
-
-                const auto it = std::find_if(m_player_triggers.begin(), m_player_triggers.end(), find_player_func);
-                if(it != m_player_triggers.end())
+                if(has_on_hash || has_off_hash)
                 {
-                    const bool has_on_hash = (interaction.on_interaction_hash != NO_HASH);
-                    const bool has_off_hash = (interaction.off_interaction_hash != NO_HASH);
-
-                    if(has_on_hash || has_off_hash)
-                    {
-                        const uint32_t hash =
-                            (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
-                        m_trigger_system->EmitTrigger(hash);
-                        details.triggered = !details.triggered;
-                    }
-
-                    if(it->callback != nullptr)
-                        it->callback(interaction_id, interaction.type);
+                    const uint32_t hash =
+                        (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
+                    m_trigger_system->EmitTrigger(hash);
+                    details.triggered = !details.triggered;
                 }
+
+                if(it->callback != nullptr)
+                    it->callback(interaction_id, interaction.type);
             }
         }
     };
