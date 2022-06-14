@@ -55,7 +55,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 7
+                            "variant_value": 6
                         },
                         {
                             "id": 1031692888,
@@ -1778,7 +1778,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -4.0
+                                "y": -3.75
                             }
                         },
                         {
@@ -2806,8 +2806,8 @@
             "y": 0.0
         },
         "camera_size": {
-            "x": 15.0,
-            "y": 10.0
+            "x": 12.800000190734863,
+            "y": 8.0
         },
         "level_description": "",
         "level_name": "",
