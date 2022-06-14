@@ -4209,6 +4209,7 @@
             "green": 0.7352941036224365,
             "red": 0.7352941036224365
         },
+        "background_music": 0,
         "background_size": {
             "x": 70.0,
             "y": 50.0
@@ -4222,6 +4223,8 @@
             "x": 10.0,
             "y": 6.25
         },
+        "level_description": "",
+        "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 30.0,
