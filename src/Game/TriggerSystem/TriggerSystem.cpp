@@ -332,7 +332,7 @@ void TriggerSystem::AddRelayTrigger(uint32_t entity_id, uint32_t listener_hash, 
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id)
 {
-    m_entity_id_to_trigger_hashes[trigger_hash].push_back(debug_entity_id);
+    m_trigger_hash_to_entity_ids[trigger_hash].push_back(debug_entity_id);
 
     TriggerCallbacks& callback_array = m_trigger_callbacks[trigger_hash];
     const auto it = std::find(callback_array.begin(), callback_array.end(), nullptr);
@@ -348,12 +348,12 @@ uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCa
 void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id)
 {
     m_trigger_callbacks[trigger_hash][callback_id] = nullptr;
-    mono::remove(m_entity_id_to_trigger_hashes[trigger_hash], debug_entity_id);
+    mono::remove(m_trigger_hash_to_entity_ids[trigger_hash], debug_entity_id);
 }
 
 const std::unordered_map<uint32_t, std::vector<uint32_t>>& TriggerSystem::GetTriggerTargets() const
 {
-    return m_entity_id_to_trigger_hashes;
+    return m_trigger_hash_to_entity_ids;
 }
 
 void TriggerSystem::EmitTrigger(uint32_t trigger_hash)
@@ -400,8 +400,24 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
         if(game::g_draw_triggers)
         {
+            math::Vector text_position = math::Vector(1.0f, 4.0f);
+
             const char* hash_string = hash::HashLookup(trigger_hash);
-            game::g_debug_drawer->DrawScreenTextFading(hash_string, math::Vector(1, 2), mono::Color::OFF_WHITE, 2000);
+            game::g_debug_drawer->DrawScreenTextFading(hash_string, text_position, mono::Color::GRAY, 2000);
+
+            const auto it = m_trigger_hash_to_entity_ids.find(trigger_hash);
+            if(it != m_trigger_hash_to_entity_ids.end())
+            {
+                for(uint32_t entity_id : it->second)
+                {
+                    if(entity_id == mono::INVALID_ID)
+                        continue;
+
+                    text_position -= math::Vector(0.0f, 0.5f);
+                    const char* entity_name = m_entity_system->GetEntityName(entity_id);
+                    game::g_debug_drawer->DrawScreenTextFading(entity_name, text_position, mono::Color::OFF_WHITE, 2000);
+                }
+            }
         }
     }
 }

@@ -189,6 +189,6 @@ namespace game
         std::vector<uint32_t> m_triggers_to_emit;
 
         // Debug data
-        std::unordered_map<uint32_t, std::vector<uint32_t>> m_entity_id_to_trigger_hashes;
+        std::unordered_map<uint32_t, std::vector<uint32_t>> m_trigger_hash_to_entity_ids;
     };
 }
