@@ -5,7 +5,6 @@
 #include "SetupGameScreen.h"
 #include "RemoteZone.h"
 #include "SystemTestZone.h"
-#include "EmptyZone.h"
 #include "EndScreen.h"
 #include "GameOverScreen.h"
 #include "SystemContext.h"
@@ -51,7 +50,7 @@ namespace
         { TINY_ARENA_HASH,          LoadZone<game::SystemTestZone> },
         { PICKUP_ARENA_HASH,        LoadZone<game::SystemTestZone> },
         { BOSS_ARENA_HASH,          LoadZone<game::SystemTestZone> },
-        { EMPTY_ARENA_HASH,         LoadZone<game::EmptyZone> },
+        { EMPTY_ARENA_HASH,         LoadZone<game::SystemTestZone> },
         { ENEMY_TESTBED_HASH,       LoadZone<game::SystemTestZone> },
         { TUTORIAL_DELIVERY_HASH,   LoadZone<game::SystemTestZone> },
         { REMOTE_NETWORK_HASH,      LoadZone<game::RemoteZone> },
@@ -65,26 +64,26 @@ namespace
     static const std::unordered_map<uint32_t, ZoneTransition> g_zone_transitions = {
 
         // Screens
-        { TITLE_SCREEN_HASH,        { QUIT_HASH,                SETUP_GAME_SCREEN_HASH, QUIT_HASH } },
-        { GAME_OVER_SCREEN_HASH,    { GAME_OVER_SCREEN_HASH,    TITLE_SCREEN_HASH,      TITLE_SCREEN_HASH } },
-        { END_SCREEN_HASH,          { GAME_OVER_SCREEN_HASH,    TITLE_SCREEN_HASH,      TITLE_SCREEN_HASH } },
-        { SETUP_GAME_SCREEN_HASH,   { GAME_OVER_SCREEN_HASH,    TINY_ARENA_HASH,        TITLE_SCREEN_HASH } },
+        { TITLE_SCREEN_HASH,        { QUIT_HASH,                SETUP_GAME_SCREEN_HASH, QUIT_HASH           } },
+        { GAME_OVER_SCREEN_HASH,    { TITLE_SCREEN_HASH,        TITLE_SCREEN_HASH,      TITLE_SCREEN_HASH   } },
+        { END_SCREEN_HASH,          { GAME_OVER_SCREEN_HASH,    TITLE_SCREEN_HASH,      TITLE_SCREEN_HASH   } },
+        { SETUP_GAME_SCREEN_HASH,   { GAME_OVER_SCREEN_HASH,    TINY_ARENA_HASH,        TITLE_SCREEN_HASH   } },
         
         // Tutorials
-        { TUTORIAL_DELIVERY_HASH,   { GAME_OVER_SCREEN_HASH,    TINY_ARENA_HASH,        TITLE_SCREEN_HASH } },
+        { TUTORIAL_DELIVERY_HASH,   { GAME_OVER_SCREEN_HASH,    TINY_ARENA_HASH,        TITLE_SCREEN_HASH   } },
 
         // Arenas
-        { WORLD_ARENA_HASH,         { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
-        { TINY_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    PICKUP_ARENA_HASH,      TITLE_SCREEN_HASH } },
-        { PICKUP_ARENA_HASH,        { GAME_OVER_SCREEN_HASH,    BOSS_ARENA_HASH,        TITLE_SCREEN_HASH } },
-        { BOSS_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
+        { WORLD_ARENA_HASH,         { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH   } },
+        { TINY_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    PICKUP_ARENA_HASH,      TITLE_SCREEN_HASH   } },
+        { PICKUP_ARENA_HASH,        { GAME_OVER_SCREEN_HASH,    BOSS_ARENA_HASH,        TITLE_SCREEN_HASH   } },
+        { BOSS_ARENA_HASH,          { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH   } },
 
         // Testing
-        { EMPTY_ARENA_HASH,         { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
-        { ENEMY_TESTBED_HASH,       { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
+        { EMPTY_ARENA_HASH,         { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH   } },
+        { ENEMY_TESTBED_HASH,       { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH   } },
 
         // Special
-        { REMOTE_NETWORK_HASH,      { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH } },
+        { REMOTE_NETWORK_HASH,      { GAME_OVER_SCREEN_HASH,    END_SCREEN_HASH,        TITLE_SCREEN_HASH   } },
     };
 
     std::unordered_map<uint32_t, std::string> g_zone_names = {
