@@ -288,7 +288,10 @@ void TriggerSystem::AddCounterTrigger(uint32_t entity_id, uint32_t listener_hash
 
 RelayTriggerComponent* TriggerSystem::AllocateRelayTrigger(uint32_t entity_id)
 {
-    return m_relay_triggers.Set(entity_id, RelayTriggerComponent());
+    RelayTriggerComponent component;
+    component.callback_id = NO_CALLBACK_SET;
+    
+    return m_relay_triggers.Set(entity_id, std::move(component));
 }
 
 void TriggerSystem::ReleaseRelayTrigger(uint32_t entity_id)
