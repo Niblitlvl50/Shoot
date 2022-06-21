@@ -126,6 +126,7 @@ int main(int argc, char* argv[])
 
     audio::Initialize();
     game::InitializeBackgroundMusic();
+    game::InitializePlayerInfo();
 
     mono::PhysicsSystemInitParams physics_system_params;
     physics_system_params.n_bodies = max_entities;
@@ -133,11 +134,13 @@ int main(int argc, char* argv[])
     physics_system_params.n_segment_shapes = max_entities;
     physics_system_params.n_polygon_shapes = max_entities;
 
-    game::InitializePlayerInfo();
-
     {
+        const System::Size window_size = System::GetCurrentWindowSize();
+        const float window_ratio = float(window_size.width) / float(window_size.height);
+        const int height = float(options.width) / window_ratio;
+
         const int window_options = System::WindowOptions::FULLSCREEN; // | System::WindowOptions::DISABLE_VSYNC;
-        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, options.height, System::WindowOptions(window_options));
+        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, height, System::WindowOptions(window_options));
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
