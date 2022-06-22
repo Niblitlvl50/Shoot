@@ -423,9 +423,9 @@ namespace
             float window_alpha = 0.6f;
             ImColor tint = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-            if(note.time_left < 500)
+            if(note.time_left_s < 0.5f)
             {
-                const float alpha_scale = float(note.time_left) / 500.0f;
+                const float alpha_scale = note.time_left_s / 0.5f;
                 window_alpha *= alpha_scale;
                 tint.Value.w *= alpha_scale;
             }
@@ -511,8 +511,8 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
     // Update UI stuff below
 
     const auto remove_notification_func = [&renderer](Notification& note) {
-        note.time_left -= renderer.GetDeltaTimeMS();
-        return note.time_left <= 0;
+        note.time_left_s -= renderer.GetDeltaTime();
+        return note.time_left_s <= 0.0f;
     };
 
     mono::remove_if(m_context.notifications, remove_notification_func);
