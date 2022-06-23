@@ -44,7 +44,7 @@ namespace
     }
 
     constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
-    constexpr uint32_t SELECTION_FADE_TIMER = 1000;
+    constexpr float SELECTION_FADE_TIMER = 1.0f;
 }
 
 using namespace editor;
@@ -100,22 +100,22 @@ void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
         const math::Vector offset = { 0.1f, 0.1f };
         const math::Quad box = { m_selection_point - offset, m_selection_point + offset };
 
-        const float scale = 1.0f - math::Scale01(m_selection_point_timer, 0u, SELECTION_FADE_TIMER);
+        const float scale = 1.0f - math::Scale01(m_selection_point_timer, 0.0f, SELECTION_FADE_TIMER);
         mono::Color::RGBA color = mono::Color::WHITE;
         color.alpha = scale;
 
         BuildQuad(box, color, vertices, colors, indices);
-        m_selection_point_timer += renderer.GetDeltaTimeMS();
+        m_selection_point_timer += renderer.GetDeltaTime();
     }
 
     if(m_selection_box_timer < SELECTION_FADE_TIMER)
     {
-        const float scale = 1.0f - math::Scale01(m_selection_box_timer, 0u, SELECTION_FADE_TIMER);
+        const float scale = 1.0f - math::Scale01(m_selection_box_timer, 0.0f, SELECTION_FADE_TIMER);
         mono::Color::RGBA color = mono::Color::WHITE;
         color.alpha = scale;
 
         BuildQuad(m_selection_box, color, vertices, colors, indices);
-        m_selection_box_timer += renderer.GetDeltaTimeMS();
+        m_selection_box_timer += renderer.GetDeltaTime();
     }
 
     if(!vertices.empty())

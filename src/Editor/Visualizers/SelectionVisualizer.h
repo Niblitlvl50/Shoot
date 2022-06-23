@@ -31,9 +31,9 @@ namespace editor
         mono::TransformSystem* m_transform_system;
 
         math::Vector m_selection_point;
-        mutable uint32_t m_selection_point_timer;
+        mutable float m_selection_point_timer;
 
         math::Quad m_selection_box;
-        mutable uint32_t m_selection_box_timer;
+        mutable float m_selection_box_timer;
     };
 }

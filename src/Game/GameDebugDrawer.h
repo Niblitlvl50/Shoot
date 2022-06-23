@@ -29,16 +29,16 @@ namespace game
         void DrawScreenText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
         void DrawWorldText(const char* text, const math::Vector& position, const mono::Color::RGBA& color) override;
 
-        void DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, int time) override;
-        void DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, int time) override;
-        void DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, int time) override;
+        void DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, float time_s) override;
+        void DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, float time_s) override;
+        void DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, float time_s) override;
         
         struct DebugPoint
         {
             math::Vector position;
             mono::Color::RGBA color;
             float size;
-            int time_to_live;
+            float time_to_live_s;
         };
 
         struct DebugLine
@@ -46,14 +46,14 @@ namespace game
             std::vector<math::Vector> points;
             mono::Color::RGBA color;
             float width;
-            int time_to_live;
+            float time_to_live_s;
         };
 
         struct DebugText
         {
             math::Vector position;
             mono::Color::RGBA color;
-            int time_to_live;
+            float time_to_live_s;
             std::string text;
         };
 

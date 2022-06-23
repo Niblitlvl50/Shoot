@@ -15,7 +15,7 @@ namespace
     template <typename T>
     bool remove_if_0(const T& item)
     {
-        return item.time_to_live < 0;
+        return item.time_to_live_s < 0.0f;
     }
 }
 
@@ -36,14 +36,14 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
         const std::vector<math::Vector> points = { point.position };
         renderer.DrawPoints(points, point.color, point.size);
 
-        point.time_to_live -= renderer.GetDeltaTimeMS();
+        point.time_to_live_s -= renderer.GetDeltaTime();
     }
 
     for(DebugLine& line : m_debug_lines)
     {
         renderer.DrawPolyline(line.points, line.color, line.width);
-        line.color.alpha = 1.0f - float(line.time_to_live) / 5000.0f;
-        line.time_to_live -= renderer.GetDeltaTimeMS();
+        line.color.alpha = 1.0f - (line.time_to_live_s / 5.0f);
+        line.time_to_live_s -= renderer.GetDeltaTime();
     }
 
     for(DebugText& text : m_debug_texts_world)
@@ -53,8 +53,8 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.RenderText(0, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
-        text.color.alpha = 1.0f - float(text.time_to_live) / 5000.0f;
-        text.time_to_live -= renderer.GetDeltaTimeMS();
+        text.color.alpha = 1.0f - (text.time_to_live_s / 5.0f);
+        text.time_to_live_s -= renderer.GetDeltaTime();
     }
 
     const math::Quad viewport = renderer.GetViewport();
@@ -71,8 +71,8 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.RenderText(FontId::PIXELETTE_TINY, text.text.c_str(), text.color, mono::FontCentering::DEFAULT_CENTER);
 
-        text.color.alpha = 1.0f - float(text.time_to_live) / 5000.0f;
-        text.time_to_live -= renderer.GetDeltaTimeMS();
+        text.color.alpha = 1.0f - (text.time_to_live_s / 5.0f);
+        text.time_to_live_s -= renderer.GetDeltaTime();
     }
 
     mono::remove_if(m_debug_points, remove_if_0<DebugPoint>);
@@ -134,19 +134,19 @@ void GameDebugDrawer::DrawWorldText(const char* text, const math::Vector& positi
     m_debug_texts_world.push_back(new_text);
 }
 
-void GameDebugDrawer::DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, int time)
+void GameDebugDrawer::DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, float time_s)
 {
-    DrawLineFading({ start_position, end_position }, width, color, time);
+    DrawLineFading({ start_position, end_position }, width, color, time_s);
 }
 
-void GameDebugDrawer::DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, int time)
+void GameDebugDrawer::DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, float time_s)
 {
-    const DebugLine new_line = { polyline, color, width, time };
+    const DebugLine new_line = { polyline, color, width, time_s };
     m_debug_lines.push_back(new_line);
 }
 
-void GameDebugDrawer::DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, int time)
+void GameDebugDrawer::DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, float time_s)
 {
-    const DebugText new_text = { position, color, time, text };
+    const DebugText new_text = { position, color, time_s, text };
     m_debug_texts_screen.push_back(new_text);
 }
