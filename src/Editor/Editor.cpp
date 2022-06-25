@@ -432,7 +432,7 @@ void Editor::Save()
 
     std::sort(m_context.level_metadata.triggers.begin(), m_context.level_metadata.triggers.end());
     SaveWorld(m_world_filename.c_str(), m_proxies, m_context.level_metadata);
-    m_context.notifications.emplace_back(save_texture, "Saved...", 2000);
+    m_context.notifications.emplace_back(save_texture, "Saved...", 2.0f);
 }
 
 void Editor::ExportEntity()
@@ -453,7 +453,7 @@ void Editor::ExportEntity()
         serializer.WriteComponentEntities(filename, metadata);
 
         editor::AddNewEntity(filename.c_str());
-        m_context.notifications.emplace_back(export_texture, "Exported entity...", 2000);
+        m_context.notifications.emplace_back(export_texture, "Exported entity...", 2.0f);
     }
 }
 
@@ -904,7 +904,7 @@ void Editor::SelectItemCallback(int index)
 
     SetSelection(new_selection);
     TeleportToProxyObject(m_proxies.back().get());
-    m_context.notifications.emplace_back(import_texture, "Imported Entity...", 2000);
+    m_context.notifications.emplace_back(import_texture, "Imported Entity...", 2.0f);
 }
 
 void Editor::EditorMenuCallback(EditorMenuOptions option)
@@ -1030,7 +1030,7 @@ void Editor::EnableSnapToGrid(bool enable)
 
     char text_buffer[128];
     std::snprintf(text_buffer, std::size(text_buffer), "Snap to Grid: %s", enable ? "Enabled" : "Disabled");
-    m_context.notifications.push_back({information_texture, text_buffer, 1000});
+    m_context.notifications.push_back({information_texture, text_buffer, 1.0f});
 }
 
 math::Vector Editor::GridSize() const
@@ -1126,7 +1126,7 @@ void Editor::EnterMode(EditorMode new_mode)
 
     char text_buffer[128] = {};
     std::snprintf(text_buffer, std::size(text_buffer), "%s", mode_text);
-    m_context.notifications.push_back({information_texture, text_buffer, 5000});
+    m_context.notifications.push_back({information_texture, text_buffer, 5.0f});
 }
 
 void Editor::PopMode()

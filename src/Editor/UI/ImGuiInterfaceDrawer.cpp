@@ -106,10 +106,9 @@ namespace
             }
 
             ImGui::Separator();
+            open_new_world_popup = ImGui::Button("Add new World");
 
-            open_new_world_popup = ImGui::Button("Add World");
             ImGui::EndMenu();
-
         }
 
         ImGui::SameLine(ImGui::GetWindowWidth() -480);
