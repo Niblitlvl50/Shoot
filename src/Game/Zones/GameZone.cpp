@@ -64,7 +64,7 @@
 #include "CollisionConfiguration.h"
 
 #include "GameMode/IGameMode.h"
-#include "BackgroundMusic.h"
+#include "Sound/SoundSystem.h"
 
 namespace
 {
@@ -141,7 +141,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     renderer->SetClearColor(metadata.background_color);
     renderer->SetAmbientShade(metadata.ambient_shade);
 
-    game::PlayBackgroundMusic(game::MusicTrack(metadata.background_music));
+    SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
+    sound_system->PlayBackgroundMusic(game::MusicTrack(metadata.background_music));
 
     // Nav mesh
     SetupNavmesh(m_navmesh, metadata, physics_system->GetSpace());
@@ -186,7 +187,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int GameZone::OnUnload()
 {
-    game::StopBackgroundMusic();
+    SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
+    sound_system->StopBackgroundMusic();
 
     RemoveUpdatable(m_game_mode.get());
     const int game_mode_result = m_game_mode->End(this);

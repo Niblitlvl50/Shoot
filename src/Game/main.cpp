@@ -34,6 +34,7 @@
 #include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "DialogSystem/DialogSystem.h"
+#include "Sound/SoundSystem.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -44,7 +45,6 @@
 #include "Entity/EntityLogicFactory.h"
 #include "Entity/LoadEntity.h"
 #include "Entity/Component.h"
-#include "BackgroundMusic.h"
 
 #include <cassert>
 #include <cstring>
@@ -125,7 +125,6 @@ int main(int argc, char* argv[])
     game::PrintNetworkMessageSize();
 
     audio::Initialize();
-    game::InitializeBackgroundMusic();
     game::InitializePlayerInfo();
 
     mono::PhysicsSystemInitParams physics_system_params;
@@ -178,6 +177,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
         system_context.CreateSystem<game::DialogSystem>(max_entities);
+        system_context.CreateSystem<game::SoundSystem>();
 
         system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
@@ -205,7 +205,6 @@ int main(int argc, char* argv[])
     }
 
     mono::ShutdownRender();
-    game::ShutdownBackgroundMusic();
     audio::Shutdown();
 
     network::Shutdown();

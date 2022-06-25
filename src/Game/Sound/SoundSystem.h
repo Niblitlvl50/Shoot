@@ -1,6 +1,9 @@
 
 #pragma once
 
+#include "IGameSystem.h"
+#include "System/Audio.h"
+
 namespace game
 {
     enum MusicTrack : int
@@ -31,9 +34,20 @@ namespace game
         return g_music_track_strings[static_cast<int>(track)];
     }
 
-    void InitializeBackgroundMusic();
-    void ShutdownBackgroundMusic();
+    class SoundSystem : public mono::IGameSystem
+    {
+    public:
 
-    void PlayBackgroundMusic(MusicTrack track);
-    void StopBackgroundMusic();
+        SoundSystem();
+        ~SoundSystem();
+
+        void PlayBackgroundMusic(MusicTrack track);
+        void StopBackgroundMusic();
+
+        uint32_t Id() const override;
+        const char* Name() const override;
+        void Update(const mono::UpdateContext& update_context) override;
+
+        audio::ISoundPtr m_music_tracks[game::N_MUSIC_TRACKS];
+    };
 }
