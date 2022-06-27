@@ -142,7 +142,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     renderer->SetAmbientShade(metadata.ambient_shade);
 
     SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
-    sound_system->PlayBackgroundMusic(game::MusicTrack(metadata.background_music));
+    sound_system->PlayBackgroundMusic(game::MusicTrack(metadata.background_music), SoundTransition::CrossFade);
 
     // Nav mesh
     SetupNavmesh(m_navmesh, metadata, physics_system->GetSpace());
@@ -187,9 +187,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
 int GameZone::OnUnload()
 {
-    SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
-    sound_system->StopBackgroundMusic();
-
     RemoveUpdatable(m_game_mode.get());
     const int game_mode_result = m_game_mode->End(this);
     m_game_mode = nullptr;

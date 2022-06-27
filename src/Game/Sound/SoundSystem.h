@@ -34,6 +34,14 @@ namespace game
         return g_music_track_strings[static_cast<int>(track)];
     }
 
+    enum class SoundTransition
+    {
+        None,
+        Cut,
+        CrossFade,
+        FadeOutFadeIn
+    };
+
     class SoundSystem : public mono::IGameSystem
     {
     public:
@@ -41,7 +49,7 @@ namespace game
         SoundSystem();
         ~SoundSystem();
 
-        void PlayBackgroundMusic(MusicTrack track);
+        void PlayBackgroundMusic(MusicTrack track, SoundTransition transition);
         void StopBackgroundMusic();
 
         uint32_t Id() const override;
@@ -49,5 +57,11 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         audio::ISoundPtr m_music_tracks[game::N_MUSIC_TRACKS];
+
+        MusicTrack m_current_track;
+        MusicTrack m_requested_track;
+
+        SoundTransition m_current_transition;
+        float m_transition_timer; 
     };
 }
