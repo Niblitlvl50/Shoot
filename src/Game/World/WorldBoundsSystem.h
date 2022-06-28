@@ -15,7 +15,9 @@ namespace game
 
         WorldBoundsSystem();
 
-        void AddPolygon(const std::vector<math::Vector>& vertices, const std::string& texture_file);
+        void AllocateTexturedPolygon(uint32_t id);
+        void ReleaseTexturedPolygon(uint32_t id);
+        void AddPolygon(uint32_t id, const std::vector<math::Vector>& vertices, const std::string& texture_file);
 
         uint32_t Id() const override;
         const char* Name() const override;

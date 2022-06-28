@@ -320,13 +320,15 @@ namespace
 
     bool CreateTexturedPolygon(mono::Entity* entity, mono::SystemContext* context)
     {
-        //game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
+        game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
+        world_system->AllocateTexturedPolygon(entity->id);
         return true;
     }
     
     bool ReleaseTexturedPolygon(mono::Entity* entity, mono::SystemContext* context)
     {
-        //game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
+        game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
+        world_system->ReleaseTexturedPolygon(entity->id);
         return true;
     }
     
@@ -339,7 +341,7 @@ namespace
         FindAttribute(POLYGON_ATTRIBUTE, properties, vertices, FallbackMode::SET_DEFAULT);
 
         game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
-        world_system->AddPolygon(vertices, texture_file);
+        world_system->AddPolygon(entity->id, vertices, texture_file);
 
         return true;
     }

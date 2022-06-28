@@ -1,6 +1,7 @@
 
 #include "WorldBoundsSystem.h"
 #include "System/Hash.h"
+#include "System/System.h"
 
 using namespace game;
 
@@ -9,9 +10,19 @@ WorldBoundsSystem::WorldBoundsSystem()
 
 }
 
-void WorldBoundsSystem::AddPolygon(const std::vector<math::Vector>& vertices, const std::string& texture_file)
+void WorldBoundsSystem::AllocateTexturedPolygon(uint32_t id)
 {
-    
+    System::Log("Allocate %u", id);
+}
+
+void WorldBoundsSystem::ReleaseTexturedPolygon(uint32_t id)
+{
+    System::Log("Release %u", id);
+}
+
+void WorldBoundsSystem::AddPolygon(uint32_t id, const std::vector<math::Vector>& vertices, const std::string& texture_file)
+{
+    System::Log("Add Polygon to %u", id);
 }
 
 uint32_t WorldBoundsSystem::Id() const
