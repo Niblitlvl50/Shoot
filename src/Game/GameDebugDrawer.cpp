@@ -5,7 +5,7 @@
 #include "Rendering/IRenderer.h"
 #include "Util/Algorithm.h"
 #include "FontIds.h"
-
+#include "Rendering/RenderSystem.h"
 #include "Factories.h"
 
 using namespace game;
@@ -57,8 +57,12 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
         text.time_to_live_s -= renderer.GetDeltaTime();
     }
 
-    const math::Quad viewport = renderer.GetViewport();
-    const math::Matrix projection = math::Ortho(0.0f, math::Width(viewport), 0.0f, math::Height(viewport), -10.0f, 10.0f);
+
+    const float aspect_ratio = mono::GetWindowAspect();
+    const float projection_width = 32.0f;
+    const float projection_height = projection_width / aspect_ratio;
+
+    const math::Matrix projection = math::Ortho(0.0f, projection_width, 0.0f, projection_height, 0.0f, 1.0f);
 
     mono::ScopedTransform projection_scope = mono::MakeProjectionScope(projection, &renderer);
     mono::ScopedTransform view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
