@@ -19,6 +19,7 @@
 #include "imgui/imgui.h"
 
 #include <cassert>
+#include <algorithm>
 
 using namespace editor;
 
@@ -108,40 +109,54 @@ bool ComponentProxy::Intersects(const math::Quad& world_bb) const
 
 std::vector<Grabber> ComponentProxy::GetGrabbers()
 {
-    std::vector<Grabber> grabbers;
+    const uint32_t components_with_grabbers[] = {
+        POLYGON_ATTRIBUTE,
+        PATH_POINTS_ATTRIBUTE
+    };
 
-    Component* polygon_shape_component = FindComponentFromHash(POLYGON_SHAPE_COMPONENT, m_components);
-    if(!polygon_shape_component)
+    struct ComponentAndAttribute
     {
-        polygon_shape_component = FindComponentFromHash(PATH_COMPONENT, m_components);
-        if(!polygon_shape_component)
-            return grabbers;
-    }
+        Component* component;
+        Attribute* attribute;
+    };
 
-    Attribute* polygon_attribute = nullptr;
-    const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
-    if(!found_polygon)
+    std::vector<ComponentAndAttribute> grabber_attributes;
+
+    for(Component& component : m_components)
     {
-        const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, polygon_shape_component->properties, polygon_attribute);
-        if(!found_path)
-            return grabbers;
+        for(Attribute& attribute : component.properties)
+        {
+            const bool valid_attribute = std::any_of(
+                std::begin(components_with_grabbers),
+                std::end(components_with_grabbers),
+                [&attribute](uint32_t id) { return attribute.id == id; }
+            );
+
+            if(valid_attribute)
+                grabber_attributes.push_back({&component, &attribute});
+        }
     }
 
     const math::Matrix& local_to_world = m_transform_system->GetTransform(m_entity_id);
-    std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(polygon_attribute->value);
-    grabbers.reserve(points.size());
 
-    for(math::Vector& point : points)
+    std::vector<Grabber> grabbers;
+
+    for(ComponentAndAttribute& comp_attr : grabber_attributes)
     {
-        Grabber grabber;
-        grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
-        grabber.callback = [this, polygon_shape_component, &local_to_world, &point](const math::Vector& new_position) {
-            const math::Matrix& world_to_local = math::Inverse(local_to_world);
-            point = math::Transform(world_to_local, new_position);
-            m_entity_manager->SetComponentData(m_entity_id, polygon_shape_component->hash, polygon_shape_component->properties);
-        };
+        const Component* local_component = comp_attr.component;
+        std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(comp_attr.attribute->value);
+        for(math::Vector& point : points)
+        {
+            Grabber grabber;
+            grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
+            grabber.callback = [this, local_component, &local_to_world, &point](const math::Vector& new_position) {
+                const math::Matrix& world_to_local = math::Inverse(local_to_world);
+                point = math::Transform(world_to_local, new_position);
+                m_entity_manager->SetComponentData(m_entity_id, local_component->hash, local_component->properties);
+            };
 
-        grabbers.push_back(grabber);
+            grabbers.push_back(grabber);
+        }
     }
 
     return grabbers;
