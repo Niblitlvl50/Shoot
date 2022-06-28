@@ -200,6 +200,8 @@ extern const uint32_t DIALOG_COMPONENT;
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT;
 extern const uint32_t AREA_EMITTER_COMPONENT;
 
+extern const uint32_t TEXTURED_POLYGON_COMPONENT;
+
 struct Component
 {
     uint32_t hash;

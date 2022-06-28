@@ -22,6 +22,7 @@
 
 #include "DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
+#include "World/WorldBoundsSystem.h"
 
 #include "Editor.h"
 #include "EditorConfig.h"
@@ -72,6 +73,8 @@ int main()
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+
+        system_context.CreateSystem<game::WorldBoundsSystem>();
 
         game::RegisterSharedComponents(entity_system);
         game::LoadFonts();

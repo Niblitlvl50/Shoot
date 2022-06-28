@@ -253,6 +253,8 @@ extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
 extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter");
 
+extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polygon");
+
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -328,6 +330,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "particle_system";
     else if(hash == AREA_EMITTER_COMPONENT)
         return "area_emitter";
+    else if(hash == TEXTURED_POLYGON_COMPONENT)
+        return "textured_polygon";
 
     return "Unknown";
 }
@@ -378,6 +382,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_TRACK_ENTITY_COMPONENT,NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
+    MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, POLYGON_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)
