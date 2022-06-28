@@ -37,8 +37,6 @@
 #include "RenderLayers.h"
 #include "Entity/Component.h"
 
-#include "ObjectProxies/PathProxy.h"
-
 #include "ObjectProxies/ComponentProxy.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EntitySystem/EntitySystem.h"
@@ -475,35 +473,6 @@ void Editor::NewEntity()
 
     auto proxy = std::make_unique<ComponentProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(m_camera->GetPosition());
-
-    m_proxies.push_back(std::move(proxy));
-
-    const Selection new_selection = { new_entity.id };
-    SetSelection(new_selection);
-}
-
-void Editor::AddPath(const std::vector<math::Vector>& path_points)
-{
-    // Make points local
-    const math::Vector position = path_points.front();
-
-    std::vector<math::Vector> local_points = path_points;
-    for(math::Vector& point : local_points)
-        point -= position;
-
-    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
-    mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { TRANSFORM_COMPONENT, PATH_COMPONENT });
-
-    std::vector<Component> components = {
-        DefaultComponentFromHash(TRANSFORM_COMPONENT),
-        DefaultComponentFromHash(PATH_COMPONENT),
-    };
-
-    SetAttribute(POSITION_ATTRIBUTE, components.front().properties, position);
-    SetAttribute(PATH_POINTS_ATTRIBUTE, components.back().properties, local_points);
-
-    auto proxy = std::make_unique<PathProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
-    proxy->SetPosition(position);
 
     m_proxies.push_back(std::move(proxy));
 

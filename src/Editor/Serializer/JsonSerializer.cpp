@@ -1,7 +1,6 @@
 
 #include "JsonSerializer.h"
 
-#include "ObjectProxies/PathProxy.h"
 #include "ObjectProxies/ComponentProxy.h"
 
 #include "System/File.h"
@@ -40,10 +39,6 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
 
     file::FilePtr file = file::CreateAsciiFile(file_path.c_str());
     std::fwrite(serialized_json.data(), serialized_json.length(), sizeof(char), file.get());
-}
-
-void JsonSerializer::Accept(PathProxy* proxy)
-{
 }
 
 void JsonSerializer::Accept(ComponentProxy* proxy)

@@ -19,7 +19,6 @@ namespace editor
 
     private:
 
-        void Accept(PathProxy* proxy) override;
         void Accept(ComponentProxy* proxy) override;
 
         std::vector<std::string> m_path_names;

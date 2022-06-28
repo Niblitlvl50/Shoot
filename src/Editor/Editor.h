@@ -60,8 +60,6 @@ namespace editor
         void ImportEntity();
         void ExportEntity();
 
-        void AddPath(const std::vector<math::Vector>& path_points);
-
         void SetSelection(const Selection& selected_ids) override;
         const Selection& GetSelection() const override;
         void AddToSelection(const Selection& selected_ids) override;
