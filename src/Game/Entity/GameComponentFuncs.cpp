@@ -416,7 +416,7 @@ namespace
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
         const math::Matrix& world_transform = transform_system->GetWorld(entity->id);
-        const math::Quad world_bb = math::Transform(world_transform, math::Quad(-half_width_height, half_width_height));
+        const math::Quad world_bb = math::Transformed(world_transform, math::Quad(-half_width_height, half_width_height));
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.c_str());
 

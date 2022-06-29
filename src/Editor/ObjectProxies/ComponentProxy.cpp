@@ -148,10 +148,10 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
         for(math::Vector& point : points)
         {
             Grabber grabber;
-            grabber.position = math::Transform(local_to_world, static_cast<const math::Vector&>(point));
+            grabber.position = math::Transformed(local_to_world, static_cast<const math::Vector&>(point));
             grabber.callback = [this, local_component, &local_to_world, &point](const math::Vector& new_position) {
                 const math::Matrix& world_to_local = math::Inverse(local_to_world);
-                point = math::Transform(world_to_local, new_position);
+                point = math::Transformed(world_to_local, new_position);
                 m_entity_manager->SetComponentData(m_entity_id, local_component->hash, local_component->properties);
             };
 
