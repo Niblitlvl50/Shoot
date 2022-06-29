@@ -36,7 +36,7 @@ namespace game
         inline void ForEachComponent(T&& func) const
         {
             for(uint32_t index = 0; index < m_components.size(); ++index)
-                func(m_components[index], index);
+                func(m_components[index]);
         }
 
         mono::TransformSystem* m_transform_system;

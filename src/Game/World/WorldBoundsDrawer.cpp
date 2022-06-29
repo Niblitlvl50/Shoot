@@ -16,8 +16,8 @@ WorldBoundsDrawer::WorldBoundsDrawer(const mono::TransformSystem* transform_syst
 
 void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
 {
-    const auto draw_world_bounds = [this, &renderer](const WorldBoundsComponent& component, uint32_t index) {
-        const math::Matrix world_transform = m_transform_system->GetWorld(index);
+    const auto draw_world_bounds = [this, &renderer](const WorldBoundsComponent& component) {
+        const math::Matrix world_transform = renderer.GetTransform() * m_transform_system->GetWorld(component.id);
         const auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
         renderer.DrawClosedPolyline(component.vertices, mono::Color::RED, 1.0f);
     };

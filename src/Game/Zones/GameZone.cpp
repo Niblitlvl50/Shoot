@@ -57,6 +57,8 @@
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "SpawnSystem/SpawnSystemDrawer.h"
+#include "World/WorldBoundsSystem.h"
+#include "World/WorldBoundsDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -132,6 +134,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
     SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
+    WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -167,6 +170,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
+    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
 
     // Debug
     AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);

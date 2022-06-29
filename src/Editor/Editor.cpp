@@ -28,6 +28,8 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Paths/PathSystem.h"
 #include "Paths/PathBatchDrawer.h"
+#include "World/WorldBoundsDrawer.h"
+#include "World/WorldBoundsSystem.h"
 
 #include "UserInputController.h"
 #include "UI/ImGuiInterfaceDrawer.h"
@@ -295,6 +297,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context.GetSystem<mono::RoadSystem>();
     mono::ParticleSystem* particle_system = m_system_context.GetSystem<mono::ParticleSystem>();
+    game::WorldBoundsSystem* world_bounds_system = m_system_context.GetSystem<game::WorldBoundsSystem>();
 
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
@@ -336,6 +339,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::BACKGROUND);
 }
 
 int Editor::OnUnload()
