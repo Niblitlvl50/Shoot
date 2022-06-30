@@ -5321,8 +5321,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.468567371368408,
-                                "y": -0.8443102836608887
+                                "x": -6.464569568634033,
+                                "y": -1.0122456550598145
                             }
                         },
                         {
@@ -5393,6 +5393,108 @@
             "folder": "polygons",
             "name": "textured_polygon",
             "uuid_hash": 3469072146
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "textured_polygon"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "polygons"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -6.333018779754639,
+                                "y": -5.067040920257568
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2771478017,
+                    "name": "textured_polygon",
+                    "properties": [
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/placeholder.png"
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.7480502128601074,
+                                    "y": -0.9062285423278809
+                                },
+                                {
+                                    "x": 0.06237363815307617,
+                                    "y": -0.07779550552368164
+                                },
+                                {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                {
+                                    "x": 0.620112419128418,
+                                    "y": -1.520216464996338
+                                },
+                                {
+                                    "x": 0.5,
+                                    "y": -0.25
+                                },
+                                {
+                                    "x": -1.8345918655395508,
+                                    "y": -2.2623367309570313
+                                },
+                                {
+                                    "x": -2.2722530364990234,
+                                    "y": -0.9112973213195801
+                                },
+                                {
+                                    "x": -3.0944275856018066,
+                                    "y": 0.8041167259216309
+                                },
+                                {
+                                    "x": -1.5224547386169434,
+                                    "y": -0.4740023612976074
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "polygons",
+            "name": "textured_polygon",
+            "uuid_hash": 4243664956
         }
     ],
     "metadata": {

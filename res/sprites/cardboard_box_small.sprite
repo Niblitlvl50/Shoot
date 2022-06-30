@@ -11,10 +11,10 @@
     ],
     "frames": [
         {
-            "h": 10,
+            "h": 9,
             "name": "cardboard_box_small_idle_1",
             "w": 10,
-            "x": 30,
+            "x": 267,
             "y": 454
         }
     ],

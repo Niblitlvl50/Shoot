@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.8938746452331543,
-                                "y": -5.177898406982422
+                                "x": -3.7282495498657227,
+                                "y": -4.859148025512695
                             }
                         },
                         {
@@ -134,14 +134,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.05000000074505806
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 0.6000000238418579
+                            "variant_value": 0.4000000059604645
                         },
                         {
                             "id": 1015133031,
@@ -237,7 +237,7 @@
             "green": 1.0,
             "red": 1.0
         },
-        "background_music": -1218913248,
+        "background_music": 60687360,
         "background_size": {
             "x": 0.0,
             "y": 0.0
