@@ -612,13 +612,27 @@ void Editor::TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxi
     const math::Vector position = math::Center(bb);
     m_camera->SetTargetPosition(position);
 
-    const float length_squared =
-        math::DistanceBetween(math::TopLeft(bb), math::BottomRight(bb)) * 8;
-
     const math::Quad viewport = m_camera->GetViewport();
-    const float ratio = math::Width(viewport) * math::Height(viewport);
-    const float height = length_squared * ratio;
-    m_camera->SetTargetViewportSize(math::Vector(length_squared, height));
+    const float ratio = math::Width(viewport) / math::Height(viewport);
+
+    float width = 0.0f;
+    float height = 0.0f;
+
+    const float bb_width = math::Width(bb);
+    const float bb_height = math::Height(bb);
+
+    if(bb_width > bb_height)
+    {
+        width = bb_width;
+        height = bb_width / ratio;
+    }
+    else
+    {
+        width = bb_height * ratio;
+        height = bb_height;
+    }
+
+    m_camera->SetTargetViewportSize(math::Vector(width, height) * 3.0f);
 }
 
 void Editor::TeleportToSelectedProxyObject()
