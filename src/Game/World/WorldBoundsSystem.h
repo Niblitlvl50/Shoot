@@ -5,6 +5,7 @@
 #include "IGameSystem.h"
 #include "Math/Vector.h"
 #include "Rendering/Texture/ITextureFactory.h"
+#include "Rendering/Objects/Triangulate.h"
 
 #include <vector>
 #include <string>
@@ -14,8 +15,10 @@ namespace game
     struct WorldBoundsComponent
     {
         uint32_t id;
+        uint32_t timestamp;
         mono::ITexturePtr texture;
-        std::vector<math::Vector> vertices;
+        std::vector<math::Vector> outline;
+        mono::TriangulatedPoints triangulated_points;
     };
 
     class WorldBoundsSystem : public mono::IGameSystem

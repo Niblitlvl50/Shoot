@@ -6,6 +6,9 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Rendering/RenderSystem.h"
+#include "Rendering/Objects/Triangulate.h"
+
+#include "ScopedTimer.h"
 
 using namespace game;
 
@@ -45,11 +48,13 @@ void WorldBoundsSystem::AddPolygon(uint32_t id, const std::vector<math::Vector>&
 
     WorldBoundsComponent& component = *it;
     component.id = id;
+    component.timestamp = System::GetMilliseconds();
     component.texture = mono::GetTextureFactory()->CreateTexture(texture_file.c_str());
-    component.vertices = vertices;
+    component.outline = vertices;
+    component.triangulated_points = mono::Triangulate(component.outline);
 
     math::Quad local_polygon_bounds = { math::INF, math::INF, -math::INF, -math::INF };
-    for(const math::Vector& vertex : component.vertices)
+    for(const math::Vector& vertex : component.outline)
         local_polygon_bounds |= vertex;
 
     math::Quad& bounding_box = m_transform_system->GetBoundingBox(id);
