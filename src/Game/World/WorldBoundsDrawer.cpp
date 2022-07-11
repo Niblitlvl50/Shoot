@@ -6,6 +6,7 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
+#include "Rendering/Texture/ITexture.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
@@ -28,12 +29,13 @@ void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
         if(no_triangles)
             return;
 
+        mono::ITexture* texture = component.texture.get();
+        if(!texture)
+            return;
+
         const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(component.id);
         if(!renderer.Cull(world_bb))
             return;
-
-        const math::Matrix world_transform = renderer.GetTransform() * m_transform_system->GetWorld(component.id);
-        const auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
 
         BuildBuffers(component);
         const InternalRenderData& render_data = m_id_to_buffers[component.id];
@@ -41,9 +43,8 @@ void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
         //    render_data.vertices.get(), render_data.colors.get(), render_data.indices.get(), 0, render_data.indices->Size());
         //renderer.DrawFog(render_data.vertices.get(), render_data.indices.get(), m_texture.get());
 
-        mono::ITexture* texture = component.texture.get();
-        if(!texture)
-            return;
+        const math::Matrix world_transform = renderer.GetTransform() * m_transform_system->GetWorld(component.id);
+        const auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
 
         renderer.DrawGeometry(
             render_data.vertices.get(),
@@ -71,19 +72,31 @@ void WorldBoundsDrawer::BuildBuffers(const WorldBoundsComponent& component) cons
             return;
     }
 
+
+
     const uint32_t n_vertices = component.triangulated_points.vertices.size();
     const uint32_t n_indices = component.triangulated_points.triangles.size();
 
     const std::vector<mono::Color::RGBA> colors(n_vertices, mono::Color::CYAN);
-    
-
     const math::Quad local_bb = m_transform_system->GetBoundingBox(component.id);
+
+    math::Vector repeate = math::Vector(1.0f, 1.0f);
+    
+    {
+        const float pixels_per_meter = mono::PixelsPerMeter();
+        const float background_width = math::Width(local_bb);
+        const float background_height = math::Height(local_bb);
+        repeate = math::Vector(
+            background_width / component.texture->Width(),
+            background_height / component.texture->Height()) * pixels_per_meter;
+    }
+
 
     std::vector<math::Vector> uv_data;
     uv_data.reserve(n_vertices);
 
     for(const math::Vector& vertex : component.triangulated_points.vertices)
-        uv_data.push_back(math::MapVectorInQuad(vertex, local_bb));
+        uv_data.push_back(math::MapVectorInQuad(vertex, local_bb) * repeate);
 
     InternalRenderData& render_data = m_id_to_buffers[component.id];
     render_data.timestamp = component.timestamp;
