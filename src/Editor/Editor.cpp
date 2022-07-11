@@ -534,18 +534,12 @@ void Editor::ClearSelection()
 
 void Editor::UpdateSelection()
 {
-    for(auto& proxy : m_proxies)
-        proxy->SetSelected(false);
-
     std::vector<IObjectProxy*> selected_proxies;
     for(uint32_t id : m_selected_ids)
     {
         IObjectProxy* proxy = FindProxyObject(id);
         if(proxy)
-        {
-            proxy->SetSelected(true);
             selected_proxies.push_back(proxy);
-        }
     }
 
     m_context.selected_proxies = selected_proxies;
@@ -577,16 +571,7 @@ void Editor::SetSelectionBox(const math::Quad& selection_box)
 
 void Editor::PreselectProxyObject(IObjectProxy* proxy_object)
 {
-    if(proxy_object)
-    {
-        proxy_object->SetSelected(true);
-        m_preselected_id = proxy_object->Id();
-    }
-    else
-    {
-        m_preselected_id = NO_SELECTION;
-    }
-    
+    m_preselected_id = (proxy_object != nullptr) ? proxy_object->Id() : NO_SELECTION;
     m_context.preselected_proxy_object = proxy_object;
 }
 

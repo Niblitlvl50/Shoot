@@ -35,7 +35,9 @@ namespace editor
         std::string Name() const override;
         std::string GetFolder() const override;
 
-        void SetSelected(bool selected) override;
+        void SetLock(bool locked) override;
+        bool IsLocked() const override;
+
         bool Intersects(const math::Vector& position) const override;
         bool Intersects(const math::Quad& world_bb) const override;
         std::vector<Grabber> GetGrabbers() override;
@@ -64,7 +66,7 @@ namespace editor
     private:
 
         const uint32_t m_entity_id;
-        uint32_t m_entity_properties;
+        bool m_locked;
         std::vector<Component> m_components;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;

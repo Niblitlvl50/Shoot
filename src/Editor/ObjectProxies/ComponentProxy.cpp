@@ -30,7 +30,6 @@ ComponentProxy::ComponentProxy(
     mono::TransformSystem* transform_system,
     Editor* editor)
     : m_entity_id(entity_id)
-    , m_entity_properties(0)
     , m_components(components)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
@@ -90,9 +89,14 @@ std::string ComponentProxy::GetFolder() const
     return folder;
 }
 
-void ComponentProxy::SetSelected(bool selected)
+void ComponentProxy::SetLock(bool locked)
 {
+    m_locked = locked;
+}
 
+bool ComponentProxy::IsLocked() const
+{
+    return m_locked;
 }
 
 bool ComponentProxy::Intersects(const math::Vector& position) const
@@ -208,12 +212,12 @@ void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_h
 
 uint32_t ComponentProxy::GetEntityProperties() const
 {
-    return m_entity_properties;
+    return m_entity_manager->GetEntityProperties(m_entity_id);
 }
 
 void ComponentProxy::SetEntityProperties(uint32_t properties)
 {
-    m_entity_properties = properties;
+    m_entity_manager->SetEntityProperties(m_entity_id, properties);
 }
 
 math::Vector ComponentProxy::GetPosition() const
