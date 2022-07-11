@@ -686,7 +686,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
                 ImGui::TableSetColumnIndex(0);
             }
 
-            void* texture_id = reinterpret_cast<void*>(sprite_icon.icon.texture->Id());
+            const ImTextureID texture_id = reinterpret_cast<ImTextureID>(sprite_icon.icon.texture->Id());
             const math::Vector& size = sprite_icon.icon.size;
 
             constexpr float button_max_size = 64.0f;
@@ -801,14 +801,14 @@ bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gr
 
         if (ImGui::BeginPopup("picker"))
         {
-            ImVec4 imgui_color = ImVec4(local_color.red, local_color.green, local_color.blue, local_color.alpha);
-            const bool changed = ImGui::ColorPicker4("", &imgui_color.x, 0, &g->ColorPickerRef.x);
+            ImVec4 imgui_color_picker = ImVec4(local_color.red, local_color.green, local_color.blue, local_color.alpha);
+            const bool changed = ImGui::ColorPicker4("", &imgui_color_picker.x, 0, &g->ColorPickerRef.x);
             if(changed)
             {
-                local_color.red = imgui_color.x;
-                local_color.green = imgui_color.y;
-                local_color.blue = imgui_color.z;
-                local_color.alpha = imgui_color.w;
+                local_color.red = imgui_color_picker.x;
+                local_color.green = imgui_color_picker.y;
+                local_color.blue = imgui_color_picker.z;
+                local_color.alpha = imgui_color_picker.w;
                 gradient_color_changed = true;
             }
 
