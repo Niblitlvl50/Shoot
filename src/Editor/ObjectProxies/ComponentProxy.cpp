@@ -89,16 +89,6 @@ std::string ComponentProxy::GetFolder() const
     return folder;
 }
 
-void ComponentProxy::SetLock(bool locked)
-{
-    m_locked = locked;
-}
-
-bool ComponentProxy::IsLocked() const
-{
-    return m_locked;
-}
-
 bool ComponentProxy::Intersects(const math::Vector& position) const
 {
     const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
