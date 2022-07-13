@@ -55,6 +55,8 @@ namespace game
         uint32_t cooldown_id;
         float cooldown_fraction;
         bool laser_sight;
+        bool auto_aim;
+        bool auto_reload;
     };
 
     constexpr int n_players = 3;

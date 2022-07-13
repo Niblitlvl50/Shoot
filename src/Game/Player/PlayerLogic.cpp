@@ -132,6 +132,18 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
         float(m_weapon->AmmunitionLeft()) / float(m_weapon->MagazineSize());
 
     UpdatePlayerInfo(update_context.timestamp);
+
+    if(m_player_info->auto_aim)
+    {
+        mono::PhysicsSpace* space = m_physics_system->GetSpace();
+        mono::QueryResult query_result = space->QueryNearest(m_player_info->position, 3.0f, CollisionCategory::ENEMY);
+        if(query_result.body)
+        {
+            const math::Vector delta_to_target = (query_result.body->GetPosition() - m_player_info->position);
+            const float aim_direction = math::AngleFromVector(delta_to_target);
+            SetAimDirection(aim_direction);
+        }
+    }
 }
 
 void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -231,6 +243,9 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     if(m_fire)
     {
         m_player_info->weapon_state = m_weapon->Fire(fire_position, m_aim_direction, update_context.timestamp);
+
+        if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->auto_reload)
+            Reload(update_context.timestamp);
     }
     else if(m_stop_fire)
     {
