@@ -56,6 +56,11 @@ namespace game
             mono::EventHandler* event_handler,
             const game::DamageCallback& damage_callback);
 
+        uint32_t SpawnPlayerFamiliar(
+            mono::IEntityManager* entity_system,
+            mono::SystemContext* system_context,
+            mono::EventHandler* event_handler);
+
         mono::EventResult OnControllerAdded(const event::ControllerAddedEvent& event);
         mono::EventResult OnControllerRemoved(const event::ControllerRemovedEvent& event);
         mono::EventResult RemotePlayerConnected(const PlayerConnectedEvent& event);
@@ -75,8 +80,10 @@ namespace game
 
         math::Vector m_player_spawn;
         PlayerSpawnedCallback m_player_spawned_callback;
+        uint32_t m_spawned_player_familiar;
 
         std::vector<const char*> m_player_entities;
+        std::vector<const char*> m_player_familiar_entities;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;

@@ -2,6 +2,7 @@
 #include "PlayerDaemon.h"
 #include "PlayerLogic.h"
 #include "Player/PlayerInfo.h"
+#include "PlayerFamiliarLogic.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/Entity.h"
@@ -51,6 +52,11 @@ PlayerDaemon::PlayerDaemon(
     };
     std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
 
+    m_player_familiar_entities = {
+        "res/entities/secondary_player_bat.entity",
+    };
+    std::shuffle(m_player_familiar_entities.begin(), m_player_familiar_entities.end(), mono::UniformRandomBitGenerator());
+
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
     using namespace std::placeholders;
@@ -83,6 +89,8 @@ PlayerDaemon::PlayerDaemon(
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
+
+    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 PlayerDaemon::~PlayerDaemon()
@@ -106,6 +114,8 @@ PlayerDaemon::~PlayerDaemon()
     
         m_camera_system->Unfollow(player_info.entity_id);
     }
+
+    m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 }
 
 std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
@@ -212,6 +222,21 @@ uint32_t PlayerDaemon::SpawnPlayer(
         m_player_spawned_callback(game::PlayerSpawnState::SPAWNED, player_entity.id, spawn_position);
 
     return player_entity.id;
+}
+
+uint32_t PlayerDaemon::SpawnPlayerFamiliar(
+    mono::IEntityManager* entity_system, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+{
+    const char* player_familiar_entity_file = m_player_familiar_entities.front();
+    mono::Entity player_familiar_entity = entity_system->CreateEntity(player_familiar_entity_file);
+
+    game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
+    entity_system->AddComponent(player_familiar_entity.id, BEHAVIOUR_COMPONENT);
+
+    IEntityLogic* player_logic = new PlayerFamiliarLogic(player_familiar_entity.id, event_handler, system_context);
+    logic_system->AddLogic(player_familiar_entity.id, player_logic);
+
+    return player_familiar_entity.id;
 }
 
 mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
