@@ -62,6 +62,8 @@ namespace game
     constexpr int n_players = 3;
     extern PlayerInfo g_players[n_players];
 
+    extern float g_coop_powerup_value;
+
     void InitializePlayerInfo();
 
     constexpr int ANY_PLAYER_INFO = -1;

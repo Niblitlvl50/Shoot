@@ -270,11 +270,38 @@ namespace game
 
         System::ControllerState m_last_state;
    };
+
+
+    class PlayerCoopPowerupElement : public game::UIElement
+    {
+    public:
+
+        PlayerCoopPowerupElement(const math::Vector& element_position)
+        {
+            m_position = element_position;
+
+            m_powerup_text = new UITextElement(
+                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            m_powerup_text->SetScale(0.5f);
+            AddChild(m_powerup_text);
+        }
+
+        void Update(const mono::UpdateContext& context) override
+        {
+            char buffer[256] = { 0 };
+            std::snprintf(buffer, std::size(buffer), "powerup %.1f", game::g_coop_powerup_value);
+            m_powerup_text->SetText(buffer);
+        }
+
+
+        UITextElement* m_powerup_text;
+    };
 }
 
 using namespace game;
 
-PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int num_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
+PlayerUIElement::PlayerUIElement(
+    const PlayerInfo* player_infos, int num_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
     : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
@@ -315,4 +342,7 @@ PlayerUIElement::PlayerUIElement(const PlayerInfo* player_infos, int num_players
         const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];
         AddChild(new PlayerDeathElement(player_info, event_handler, on_screen_death_position, off_screen_death_position));
     }
+
+    const math::Vector powerup_element_position = math::Vector(m_width - 1.0f, m_height - 1.0f);
+    AddChild(new PlayerCoopPowerupElement(powerup_element_position));
 }

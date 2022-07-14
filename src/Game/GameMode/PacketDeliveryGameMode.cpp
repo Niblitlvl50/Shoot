@@ -32,6 +32,8 @@
 #include "Zone/IZone.h"
 #include "Math/EasingFunctions.h"
 
+#include "Player/CoopPowerupManager.h"
+
 #include "WorldFile.h"
 
 namespace
@@ -114,6 +116,9 @@ void PacketDeliveryGameMode::Begin(
     m_player_daemon = std::make_unique<PlayerDaemon>(
         server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
+
+    m_coop_power_manager = std::make_unique<CoopPowerupManager>(damage_system);
+
     // Pickups
     m_pickup_spawner =
         std::make_unique<EnemyPickupSpawner>(damage_system, logic_system, m_transform_system, m_entity_manager);
@@ -146,6 +151,7 @@ void PacketDeliveryGameMode::Begin(
     if(!m_level_has_timelimit)
         m_timer_screen->Hide();
 
+    zone->AddUpdatable(m_coop_power_manager.get());
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
@@ -154,6 +160,7 @@ void PacketDeliveryGameMode::Begin(
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
 {
+    zone->RemoveUpdatable(m_coop_power_manager.get());
     zone->RemoveDrawable(m_package_aux_drawer.get());
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());

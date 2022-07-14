@@ -5,6 +5,7 @@
 #include <algorithm>
 
 game::PlayerInfo game::g_players[n_players];
+float game::g_coop_powerup_value = 0.0f;
 
 void game::InitializePlayerInfo()
 {
