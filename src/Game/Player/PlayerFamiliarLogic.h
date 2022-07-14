@@ -30,9 +30,12 @@ namespace game
         mono::EventHandler* m_event_handler;
         mono::SpriteSystem* m_sprite_system;
         mono::TransformSystem* m_transform_system;
+        mono::ParticleSystem* m_particle_system;
+        mono::LightSystem* m_light_system;
 
         mono::EventToken<event::MouseMotionEvent> m_mouse_motion_token;
 
+        bool m_last_show_state;
         float m_idle_timer;
         math::Vector m_target_position;
         math::Vector m_move_velocity;

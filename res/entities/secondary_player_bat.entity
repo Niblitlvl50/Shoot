@@ -158,6 +158,180 @@
                             "variant_value": 0.5
                         }
                     ]
+                },
+                {
+                    "hash": 2943553953,
+                    "name": "particle_system",
+                    "properties": [
+                        {
+                            "id": 4183502093,
+                            "name": "pool_size",
+                            "variant_type": 1,
+                            "variant_value": 40
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/smoke_white_4.png"
+                        },
+                        {
+                            "id": 3513758418,
+                            "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 453870866,
+                            "name": "transform_space",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        }
+                    ]
+                },
+                {
+                    "hash": 3820847801,
+                    "name": "area_emitter",
+                    "properties": [
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 1259388949,
+                            "name": "emit_rate",
+                            "variant_type": 3,
+                            "variant_value": 20.0
+                        },
+                        {
+                            "id": 481665254,
+                            "name": "emitter_type",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 521277070,
+                            "name": "direction_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 90.0,
+                                "min": 90.0
+                            }
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 3.0,
+                                "min": -3.0
+                            }
+                        },
+                        {
+                            "id": 3254309326,
+                            "name": "gradient_4",
+                            "variant_type": 10,
+                            "variant_value": {
+                                "gradient": [
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    }
+                                ],
+                                "t": [
+                                    0.0,
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.800000011920929,
+                                "min": 0.4000000059604645
+                            }
+                        },
+                        {
+                            "id": 3951746801,
+                            "name": "start_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 20.0,
+                                    "min": 0.0
+                                },
+                                "value": 64.0
+                            }
+                        },
+                        {
+                            "id": 3546283052,
+                            "name": "end_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 20.0,
+                                    "min": 0.0
+                                },
+                                "value": 80.0
+                            }
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -179,7 +353,7 @@
             "green": 1.0,
             "red": 1.0
         },
-        "background_music": -359634160,
+        "background_music": 2004904240,
         "background_size": {
             "x": 0.0,
             "y": 0.0

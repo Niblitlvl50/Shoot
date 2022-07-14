@@ -5,15 +5,17 @@
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
 
-#include "SystemContext.h"
-#include "System/System.h"
+#include "Math/CriticalDampedSpring.h"
 
+#include "Particle/ParticleSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteProperties.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "Math/CriticalDampedSpring.h"
+#include "SystemContext.h"
+
 
 namespace tweak_values
 {
@@ -27,12 +29,16 @@ PlayerFamiliarLogic::PlayerFamiliarLogic(
     uint32_t entity_id, mono::EventHandler* event_handler, mono::SystemContext* system_context)
     : m_entity_id(entity_id)
     , m_event_handler(event_handler)
+    , m_last_show_state(false)
     , m_idle_timer(tweak_values::idle_threshold_s)
 {
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    m_light_system = system_context->GetSystem<mono::LightSystem>();
 
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+    m_light_system->SetLightEnabled(m_entity_id, false);
 
     using namespace std::placeholders;
     const event::MouseMotionEventFunc mouse_motion_func = std::bind(&PlayerFamiliarLogic::OnMouseMotion, this, _1);
@@ -50,6 +56,16 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 
     const bool show_sprite = (m_idle_timer < tweak_values::idle_threshold_s);
     m_sprite_system->SetSpriteEnabled(m_entity_id, show_sprite);
+    m_light_system->SetLightEnabled(m_entity_id, show_sprite);
+
+    if(show_sprite != m_last_show_state)
+    {
+        const std::vector<mono::ParticleEmitterComponent*>& emitters = m_particle_system->GetAttachedEmitters(m_entity_id);
+        if(!emitters.empty())
+            m_particle_system->RestartEmitter(emitters.front());
+
+        m_last_show_state = show_sprite;
+    }
 
     if(show_sprite)
     {
