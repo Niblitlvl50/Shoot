@@ -271,7 +271,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     m_renderer = renderer;
 
-    SetLastLightingLayer(RenderLayer::OBJECTS);
+    SetLastLightingLayer(RenderLayer::GRABBERS);
 
     EnableDrawObjectNames(m_editor_config.draw_object_names);
     EnableDrawSnappers(m_editor_config.draw_snappers);
@@ -339,7 +339,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
-    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::BACKGROUND);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::POST_GAMEOBJECTS);
 }
 
 int Editor::OnUnload()

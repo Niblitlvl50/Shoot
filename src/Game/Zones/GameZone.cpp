@@ -173,7 +173,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
 
     // Debug
-    AddDrawable(new GameDebugDrawer(), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
     AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
     AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
@@ -183,6 +182,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new DebugUpdater(m_system_context, m_event_handler, renderer), LayerId::UI);
+    AddDrawable(new GameDebugDrawer(), LayerId::UI_DEBUG);
 
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, metadata);

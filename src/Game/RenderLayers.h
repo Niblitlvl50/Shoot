@@ -13,6 +13,7 @@ namespace game
         FOG,
 
         GAMEOBJECTS_DEBUG,
-        UI
+        UI,
+        UI_DEBUG
     };
 }
