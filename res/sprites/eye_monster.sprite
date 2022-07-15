@@ -17,29 +17,29 @@
             "h": 24,
             "name": "eye_monster_idle_0",
             "w": 34,
-            "x": 1650,
-            "y": 387
+            "x": 1640,
+            "y": 388
         },
         {
             "h": 25,
             "name": "eye_monster_idle_1",
             "w": 35,
-            "x": 739,
-            "y": 387
+            "x": 1105,
+            "y": 388
         },
         {
             "h": 24,
             "name": "eye_monster_idle_2",
             "w": 27,
-            "x": 1903,
-            "y": 387
+            "x": 1426,
+            "y": 389
         },
         {
             "h": 25,
             "name": "eye_monster_idle_3",
             "w": 35,
-            "x": 977,
-            "y": 387
+            "x": 1144,
+            "y": 388
         }
     ],
     "frames_offsets": [

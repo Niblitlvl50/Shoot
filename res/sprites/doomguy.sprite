@@ -53,14 +53,14 @@
             "h": 58,
             "name": "doomguy_look_around_2",
             "w": 48,
-            "x": 1733,
+            "x": 1954,
             "y": 288
         },
         {
             "h": 58,
             "name": "doomguy_look_around_3",
             "w": 48,
-            "x": 1954,
+            "x": 1733,
             "y": 288
         }
     ],
