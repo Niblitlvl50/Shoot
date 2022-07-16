@@ -16,7 +16,8 @@ namespace game
         BLOB,
         TURRET_SPAWNER,
         EXPLODABLE,
-        FLAMING_SKULL_BOSS
+        FLAMING_SKULL_BOSS,
+        IMP,
     };
 
     constexpr const char* entity_logic_strings[] = {
@@ -29,7 +30,8 @@ namespace game
         "Blob",
         "Turret Spawner",
         "Explodable",
-        "Flaming Skull Boss"
+        "Flaming Skull Boss",
+        "Imp",
     };
 
     inline const char* EntityLogicToString(EntityLogicType logic_type)
