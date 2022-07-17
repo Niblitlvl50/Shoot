@@ -4673,8 +4673,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -9.089868545532227,
-                                "y": 2.069984197616577
+                                "x": -8.606855392456055,
+                                "y": 1.9377912282943726
                             }
                         },
                         {
@@ -5994,8 +5994,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.100248336791992,
-                                "y": -1.145681619644165
+                                "x": -2.9455013275146484,
+                                "y": -0.29457294940948486
                             }
                         },
                         {
@@ -6109,8 +6109,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.5,
-                                "y": 2.5
+                                "x": -2.7395849227905273,
+                                "y": 1.1228065490722656
                             }
                         },
                         {
@@ -8433,7 +8433,7 @@
             "x": 40.0,
             "y": 40.0
         },
-        "background_texture": "res/textures/grass_01.png",
+        "background_texture": "res/textures/grass_02.png",
         "camera_position": {
             "x": 0.0,
             "y": -5.0
