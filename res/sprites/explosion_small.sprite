@@ -20,14 +20,14 @@
             "h": 10,
             "name": "explosion_small_idle_1",
             "w": 10,
-            "x": 1673,
+            "x": 1628,
             "y": 460
         },
         {
             "h": 18,
             "name": "explosion_small_idle_2",
             "w": 18,
-            "x": 1456,
+            "x": 1338,
             "y": 417
         },
         {
@@ -41,14 +41,14 @@
             "h": 27,
             "name": "explosion_small_idle_4",
             "w": 27,
-            "x": 158,
+            "x": 288,
             "y": 380
         },
         {
             "h": 28,
             "name": "explosion_small_idle_5",
             "w": 28,
-            "x": 524,
+            "x": 492,
             "y": 379
         },
         {
@@ -62,7 +62,7 @@
             "h": 19,
             "name": "explosion_small_idle_7",
             "w": 26,
-            "x": 1209,
+            "x": 1041,
             "y": 417
         }
     ],

@@ -42,49 +42,49 @@
             "h": 13,
             "name": "switch_block_default_1",
             "w": 14,
-            "x": 201,
+            "x": 176,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_2",
             "w": 14,
-            "x": 219,
+            "x": 194,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_3",
             "w": 14,
-            "x": 255,
+            "x": 230,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_4",
             "w": 14,
-            "x": 237,
+            "x": 212,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_5",
             "w": 14,
-            "x": 165,
+            "x": 140,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_6",
             "w": 14,
-            "x": 291,
+            "x": 266,
             "y": 459
         },
         {
             "h": 13,
             "name": "switch_block_default_7",
             "w": 14,
-            "x": 273,
+            "x": 248,
             "y": 459
         }
     ],

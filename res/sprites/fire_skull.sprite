@@ -57,50 +57,50 @@
             "h": 26,
             "name": "fire_skull_active_4",
             "w": 17,
-            "x": 1210,
+            "x": 1231,
             "y": 387
         },
         {
             "h": 23,
             "name": "fire_skull_active_5",
             "w": 17,
-            "x": 994,
-            "y": 390
+            "x": 2,
+            "y": 411
         },
         {
             "h": 23,
             "name": "fire_skull_active_6",
             "w": 17,
-            "x": 2,
+            "x": 23,
             "y": 411
         },
         {
             "h": 26,
             "name": "fire_skull_active_7",
             "w": 17,
-            "x": 1231,
-            "y": 387
+            "x": 658,
+            "y": 380
         },
         {
             "h": 26,
             "name": "fire_skull_active_8",
             "w": 17,
-            "x": 1252,
+            "x": 1791,
             "y": 387
         },
         {
             "h": 23,
             "name": "fire_skull_idle_1",
             "w": 17,
-            "x": 86,
+            "x": 44,
             "y": 411
         },
         {
             "h": 23,
             "name": "fire_skull_idle_2",
             "w": 17,
-            "x": 65,
-            "y": 411
+            "x": 1875,
+            "y": 389
         },
         {
             "h": 26,
@@ -113,21 +113,21 @@
             "h": 26,
             "name": "fire_skull_idle_4",
             "w": 17,
-            "x": 1791,
+            "x": 1252,
             "y": 387
         },
         {
             "h": 23,
             "name": "fire_skull_idle_5",
             "w": 17,
-            "x": 44,
-            "y": 411
+            "x": 992,
+            "y": 390
         },
         {
             "h": 23,
             "name": "fire_skull_idle_6",
             "w": 17,
-            "x": 23,
+            "x": 65,
             "y": 411
         },
         {
@@ -141,8 +141,8 @@
             "h": 26,
             "name": "fire_skull_idle_8",
             "w": 17,
-            "x": 658,
-            "y": 380
+            "x": 1210,
+            "y": 387
         }
     ],
     "frames_offsets": [

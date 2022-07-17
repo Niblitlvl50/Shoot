@@ -71,22 +71,22 @@
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 2030,
-            "y": 389
+            "x": 385,
+            "y": 409
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 1553,
-            "y": 389
+            "x": 1183,
+            "y": 388
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 2030,
-            "y": 460
+            "x": 700,
+            "y": 461
         }
     ],
     "frames_offsets": [
