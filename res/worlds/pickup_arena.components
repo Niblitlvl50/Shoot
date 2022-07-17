@@ -728,7 +728,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.8848757927544284e-08,
+                                "x": 0.0,
                                 "y": 1.0987572807152901e-07
                             }
                         },
@@ -809,8 +809,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 10.0,
-                                "y": 10.0
+                                "x": 20.0,
+                                "y": 20.0
                             }
                         },
                         {
@@ -950,7 +950,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 1.1920928955078125e-07
+                                "y": 1.0987572807152901e-07
                             }
                         },
                         {
@@ -1030,8 +1030,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 10.0,
-                                "y": 10.0
+                                "x": 20.0,
+                                "y": 20.0
                             }
                         },
                         {
@@ -1903,8 +1903,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.305025815963745,
-                                "y": -3.240478515625
+                                "x": 0.22736740112304688,
+                                "y": -4.055152893066406
                             }
                         },
                         {
@@ -2485,8 +2485,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.0169262886047363,
-                                "y": -1.5455724000930786
+                                "x": -3.0052247047424316,
+                                "y": -1.323257565498352
                             }
                         },
                         {
@@ -4931,8 +4931,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.8969898223876953,
-                                "y": 4.921771049499512
+                                "x": 0.5,
+                                "y": 4.0
                             }
                         },
                         {
@@ -5447,15 +5447,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -15.010648727416992,
-                                "y": 3.0715322494506836
+                                "x": -21.0,
+                                "y": 4.0
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.4235121011734009
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -5475,20 +5475,20 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": -4.410150527954102,
-                                    "y": 2.7749075889587402
+                                    "x": -3.265880584716797,
+                                    "y": 0.8021650314331055
                                 },
                                 {
-                                    "x": 4.387487411499023,
-                                    "y": -6.249924182891846
+                                    "x": 3.0707225799560547,
+                                    "y": -4.312521934509277
                                 },
                                 {
-                                    "x": 4.259845733642578,
-                                    "y": 2.6761040687561035
+                                    "x": 2.9927520751953125,
+                                    "y": 1.3330316543579102
                                 },
                                 {
-                                    "x": -4.286645889282227,
-                                    "y": -6.092696189880371
+                                    "x": -3.684986114501953,
+                                    "y": -4.22709321975708
                                 }
                             ]
                         }
@@ -5994,8 +5994,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.9509902000427246,
-                                "y": -0.5021378993988037
+                                "x": -3.100248336791992,
+                                "y": -1.145681619644165
                             }
                         },
                         {
@@ -6109,8 +6109,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.001086711883545,
-                                "y": 2.6870224475860596
+                                "x": -6.5,
+                                "y": 2.5
                             }
                         },
                         {
@@ -6224,8 +6224,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.887692928314209,
-                                "y": -0.2638053894042969
+                                "x": -6.661372184753418,
+                                "y": -0.9016175270080566
                             }
                         },
                         {
@@ -6339,8 +6339,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.827796459197998,
-                                "y": -0.6869826316833496
+                                "x": -6.511022090911865,
+                                "y": -1.828871726989746
                             }
                         },
                         {
@@ -6454,8 +6454,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.748378753662109,
-                                "y": -1.875654935836792
+                                "x": -5.815564155578613,
+                                "y": -2.500746965408325
                             }
                         },
                         {
@@ -6569,8 +6569,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.919134140014648,
-                                "y": -0.7603204250335693
+                                "x": -5.877985000610352,
+                                "y": -1.8919227123260498
                             }
                         },
                         {
@@ -6684,8 +6684,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -8.767935752868652,
-                                "y": -2.2395243644714355
+                                "x": -7.019095420837402,
+                                "y": -2.4041213989257813
                             }
                         },
                         {
@@ -6799,8 +6799,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.219184875488281,
-                                "y": -2.846008539199829
+                                "x": -2.656083106994629,
+                                "y": -1.1087005138397217
                             }
                         },
                         {
@@ -6914,8 +6914,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.885646820068359,
-                                "y": -2.5193116664886475
+                                "x": -2.1169519424438477,
+                                "y": -2.3777923583984375
                             }
                         },
                         {
@@ -7029,8 +7029,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.7222981452941895,
-                                "y": -2.9116551876068115
+                                "x": -2.6567349433898926,
+                                "y": -1.6424002647399902
                             }
                         },
                         {
@@ -7144,8 +7144,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.2708420753479,
-                                "y": -2.500324249267578
+                                "x": -2.540592670440674,
+                                "y": -1.3570518493652344
                             }
                         },
                         {
@@ -7246,7 +7246,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7259,8 +7259,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.0,
-                                "y": -4.5
+                                "x": 4.5,
+                                "y": 5.0
                             }
                         },
                         {
@@ -7297,7 +7297,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 1031692888,
@@ -7305,9 +7305,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "blue": 0.3451556861400604,
+                                "green": 0.3451556861400604,
+                                "red": 0.8382352590560913
                             }
                         },
                         {
@@ -7338,10 +7338,76 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 476683955
         },
@@ -7361,7 +7427,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7374,8 +7440,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.5,
-                                "y": -4.5
+                                "x": 3.0,
+                                "y": 6.0
                             }
                         },
                         {
@@ -7412,7 +7478,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 1031692888,
@@ -7420,9 +7486,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "blue": 0.31084200739860535,
+                                "green": 0.31084200739860535,
+                                "red": 0.8235294222831726
                             }
                         },
                         {
@@ -7453,10 +7519,76 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 3837271119
         },
@@ -7476,7 +7608,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7489,8 +7621,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.5,
-                                "y": -5.0
+                                "x": 1.0,
+                                "y": 5.5
                             }
                         },
                         {
@@ -7527,7 +7659,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 1031692888,
@@ -7568,10 +7700,76 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 3253771295
         },
@@ -7591,7 +7789,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7604,8 +7802,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.0,
-                                "y": -5.0
+                                "x": -1.0,
+                                "y": 6.0
                             }
                         },
                         {
@@ -7642,7 +7840,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 1031692888,
@@ -7683,10 +7881,76 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 1057536447
         },
@@ -7706,7 +7970,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7719,8 +7983,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.0,
-                                "y": -5.5
+                                "x": 2.5,
+                                "y": 6.5
                             }
                         },
                         {
@@ -7801,7 +8065,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 482068522
         },
@@ -7821,7 +8085,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "brick_walls"
                         }
                     ]
                 },
@@ -7834,8 +8098,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.5,
-                                "y": -5.5
+                                "x": 2.0,
+                                "y": 6.5
                             }
                         },
                         {
@@ -7916,9 +8180,354 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "brick_walls",
             "name": "brick_wall_1",
             "uuid_hash": 775337058
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pebble_tiny_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.20418119430542,
+                                "y": -1.9721574783325195
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pebble_tiny_3.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "pebble_tiny_1",
+            "uuid_hash": 1042771850
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pebble_tiny_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -1.5981049537658691,
+                                "y": -2.6850993633270264
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pebble_tiny_3.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "pebble_tiny_1",
+            "uuid_hash": 3442894933
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "girl"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.0,
+                                "y": -4.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "girl.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "girl",
+            "uuid_hash": 2105597713
         }
     ],
     "metadata": {
