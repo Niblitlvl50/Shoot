@@ -23,22 +23,22 @@
             "h": 26,
             "name": "shuttle_idle",
             "w": 25,
-            "x": 61,
-            "y": 381
+            "x": 1103,
+            "y": 392
         },
         {
             "h": 30,
             "name": "shuttle_thrust_1",
             "w": 25,
-            "x": 1558,
-            "y": 355
+            "x": 2,
+            "y": 384
         },
         {
             "h": 31,
             "name": "shuttle_thrust_2",
             "w": 25,
-            "x": 755,
-            "y": 352
+            "x": 1919,
+            "y": 357
         }
     ],
     "frames_offsets": [

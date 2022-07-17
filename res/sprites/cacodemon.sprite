@@ -39,56 +39,56 @@
             "h": 65,
             "name": "cacodemon_attack_1",
             "w": 63,
-            "x": 739,
-            "y": 231
+            "x": 415,
+            "y": 268
         },
         {
             "h": 69,
             "name": "cacodemon_attack_2",
             "w": 63,
-            "x": 1733,
-            "y": 215
+            "x": 941,
+            "y": 228
         },
         {
             "h": 71,
             "name": "cacodemon_attack_3",
-            "w": 63,
-            "x": 1666,
-            "y": 215
-        },
-        {
-            "h": 67,
-            "name": "cacodemon_dead_1",
-            "w": 63,
-            "x": 1078,
-            "y": 228
-        },
-        {
-            "h": 67,
-            "name": "cacodemon_dead_2",
             "w": 63,
             "x": 1887,
             "y": 222
         },
         {
             "h": 67,
+            "name": "cacodemon_dead_1",
+            "w": 63,
+            "x": 1291,
+            "y": 228
+        },
+        {
+            "h": 67,
+            "name": "cacodemon_dead_2",
+            "w": 63,
+            "x": 1358,
+            "y": 228
+        },
+        {
+            "h": 67,
             "name": "cacodemon_dead_3",
             "w": 63,
-            "x": 1145,
+            "x": 1425,
             "y": 228
         },
         {
             "h": 67,
             "name": "cacodemon_dead_4",
             "w": 63,
-            "x": 1212,
-            "y": 228
+            "x": 739,
+            "y": 231
         },
         {
             "h": 67,
             "name": "cacodemon_dead_5",
             "w": 63,
-            "x": 1279,
+            "x": 1224,
             "y": 228
         },
         {
@@ -102,22 +102,22 @@
             "h": 66,
             "name": "cacodemon_dead_7",
             "w": 69,
-            "x": 1346,
-            "y": 228
+            "x": 1492,
+            "y": 237
         },
         {
             "h": 49,
             "name": "cacodemon_dead_8",
             "w": 73,
-            "x": 1215,
-            "y": 299
+            "x": 1473,
+            "y": 307
         },
         {
             "h": 66,
             "name": "cacodemon_idle_1",
             "w": 63,
-            "x": 1419,
-            "y": 228
+            "x": 1565,
+            "y": 237
         }
     ],
     "frames_offsets": [

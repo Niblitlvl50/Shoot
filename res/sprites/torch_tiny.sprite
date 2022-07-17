@@ -16,22 +16,22 @@
             "h": 11,
             "name": "torch_tiny_default_1",
             "w": 4,
-            "x": 1201,
-            "y": 459
+            "x": 942,
+            "y": 468
         },
         {
             "h": 11,
             "name": "torch_tiny_default_2",
             "w": 4,
-            "x": 667,
-            "y": 459
+            "x": 1823,
+            "y": 468
         },
         {
             "h": 12,
             "name": "torch_tiny_default_3",
             "w": 4,
-            "x": 485,
-            "y": 459
+            "x": 1564,
+            "y": 467
         }
     ],
     "frames_offsets": [
@@ -45,7 +45,7 @@
         },
         {
             "x": 0.0,
-            "y": 0.0
+            "y": 0.015625
         }
     ],
     "source_folder": "res/images/props/torch/",
