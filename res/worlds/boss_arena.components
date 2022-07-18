@@ -16719,7 +16719,7 @@
             "x": 50.0,
             "y": 40.0
         },
-        "background_texture": "res/textures/superpowers-rocks-4-tiling.png",
+        "background_texture": "res/textures/background/superpowers-rocks-4-tiling.png",
         "camera_position": {
             "x": 0.0,
             "y": -8.0

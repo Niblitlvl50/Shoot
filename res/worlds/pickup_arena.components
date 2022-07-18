@@ -6224,8 +6224,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.661372184753418,
-                                "y": -0.9016175270080566
+                                "x": 2.211276054382324,
+                                "y": -5.509429931640625
                             }
                         },
                         {
@@ -6339,8 +6339,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.511022090911865,
-                                "y": -1.828871726989746
+                                "x": 2.361626148223877,
+                                "y": -6.4366841316223145
                             }
                         },
                         {
@@ -6454,8 +6454,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.815564155578613,
-                                "y": -2.500746965408325
+                                "x": 3.057084083557129,
+                                "y": -7.108559608459473
                             }
                         },
                         {
@@ -6569,8 +6569,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.877985000610352,
-                                "y": -1.8919227123260498
+                                "x": 2.9946632385253906,
+                                "y": -6.499734878540039
                             }
                         },
                         {
@@ -6684,8 +6684,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.019095420837402,
-                                "y": -2.4041213989257813
+                                "x": 1.8535528182983398,
+                                "y": -7.01193380355835
                             }
                         },
                         {
@@ -10450,14 +10450,129 @@
             "folder": "",
             "name": "tent_hunter",
             "uuid_hash": 2534663285
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 4.170299053192139,
+                                "y": -4.413527488708496
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "boulder_4",
+            "uuid_hash": 2660492871
         }
     ],
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.6225490570068359,
-            "green": 0.6225490570068359,
-            "red": 0.6225490570068359
+            "blue": 0.2647058963775635,
+            "green": 0.2647058963775635,
+            "red": 0.2647058963775635
         },
         "background_color": {
             "alpha": 1.0,
@@ -10470,7 +10585,7 @@
             "x": 40.0,
             "y": 40.0
         },
-        "background_texture": "res/textures/grass_02.png",
+        "background_texture": "res/textures/background/grass_01.png",
         "camera_position": {
             "x": 0.0,
             "y": -5.0

@@ -19,7 +19,7 @@ namespace editor
 {
     class IObjectProxy;
 
-    constexpr const char* placeholder_texture = "res/textures/placeholder.png";
+    constexpr const char* placeholder_texture = "res/textures/background/placeholder.png";
     constexpr const char* export_texture = "res/textures/icons/export.png";
     constexpr const char* import_texture = "res/textures/icons/import.png";
     constexpr const char* information_texture = "res/textures/icons/information.png";

@@ -227,7 +227,7 @@
             "x": 50.0,
             "y": 50.0
         },
-        "background_texture": "res/textures/prototype2.png",
+        "background_texture": "res/textures/background/prototype2.png",
         "camera_position": {
             "x": 0.0,
             "y": 0.0

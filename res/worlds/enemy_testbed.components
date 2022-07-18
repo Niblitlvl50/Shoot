@@ -4214,7 +4214,7 @@
             "x": 70.0,
             "y": 50.0
         },
-        "background_texture": "res/textures/white_box_placeholder.png",
+        "background_texture": "res/textures/background/white_box_placeholder.png",
         "camera_position": {
             "x": 15.0,
             "y": 0.0

@@ -63015,7 +63015,7 @@
             "x": 80.0,
             "y": 80.0
         },
-        "background_texture": "res/textures/grass_02.png",
+        "background_texture": "res/textures/background/grass_02.png",
         "camera_position": {
             "x": -3.0,
             "y": -10.0
