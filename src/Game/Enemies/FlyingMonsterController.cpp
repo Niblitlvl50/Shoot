@@ -123,7 +123,7 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
     mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
 
     const math::Vector delta = position - player_info->position;
-    const bool left_of_player = (delta.x < 0.0f);
+    const bool left_of_player = (delta.x > 0.0f);
     if(left_of_player)
         sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else

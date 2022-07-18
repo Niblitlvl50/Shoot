@@ -79,7 +79,7 @@ void BlobController::ToMoving()
     m_move_delta = math::Vector(x, y);
     m_move_counter = 0.0f;
 
-    if(m_move_delta.x > 0.0f)
+    if(m_move_delta.x < 0.0f)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
