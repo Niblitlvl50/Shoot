@@ -30,6 +30,7 @@
 
 #include "Effects/SmokeEffect.h"
 #include "Effects/ShockwaveEffect.h"
+#include "Effects/FootStepsEffect.h"
 #include "Pickups/PickupSystem.h"
 #include "Shockwave.h"
 
@@ -89,6 +90,8 @@ PlayerLogic::PlayerLogic(
 
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
+    m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);
+    //m_footsteps_effect->AttachEmitterToBullet(m_entity_id);
 
     const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
     m_weapon_entity = spawned_weapon.id;
@@ -178,7 +181,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     }
 }
 
-void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& player_velocity)
+void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
 {
     float anim_speed = 1.0f;
     int anim_id = m_idle_anim_id;
@@ -190,6 +193,7 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& playe
     {
         anim_id = m_run_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
+        m_footsteps_effect->EmitFootStepsAt(world_position - math::Vector(0.0f, 0.15f));
     }
 
     mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
@@ -254,7 +258,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     }
 
     UpdateWeaponAnimation(update_context);
-    UpdateAnimation(m_aim_direction, m_player_info->velocity);
+    UpdateAnimation(m_aim_direction, position, m_player_info->velocity);
 
     mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
     mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, PLAYER_BULLET_MASK);

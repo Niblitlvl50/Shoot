@@ -41,7 +41,7 @@ namespace game
 
         void Update(const mono::UpdateContext& update_context) override;
         void UpdatePlayerInfo(uint32_t timestamp);
-        void UpdateAnimation(float aim_direction, const math::Vector& player_velocity);
+        void UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
 
         void Fire();
@@ -115,6 +115,7 @@ namespace game
         math::Vector m_blink_direction;
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
         std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
+        std::unique_ptr<class FootStepsEffect> m_footsteps_effect;
         audio::ISoundPtr m_blink_sound;
 
         float m_shockwave_cooldown;
