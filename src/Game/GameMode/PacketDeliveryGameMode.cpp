@@ -183,12 +183,12 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 
 void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
-    const math::Vector local_position = position; // Fix for lambda bug?
+    m_spawn_package_position = position;
 
     m_sprite_system->SetSpriteEnabled(player_entity_id, false);
 
     const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
-    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(local_position));
+    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
     m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
 
     mono::Sprite* portal_sprite = m_sprite_system->GetSprite(portal_entity_id);
@@ -199,7 +199,7 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
                 m_entity_manager->ReleaseEntity(portal_entity_id);
             };
             portal_sprite->SetAnimation("end", destroy_when_finish);
-            SpawnPackage(local_position);
+            SpawnPackage(m_spawn_package_position);
         };
         portal_sprite->SetAnimation("idle", set_end_anim);
         m_sprite_system->SetSpriteEnabled(player_entity_id, true);
