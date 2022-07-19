@@ -11,21 +11,6 @@
 
 namespace
 {
-    std::vector<math::Vector> GenerateArrow(const math::Vector& start, const math::Vector& end, float scale)
-    {
-        const float angle = math::AngleBetweenPoints(start, end);
-
-        const float x1 = ( std::sin(angle + math::PI() + math::PI_4())) * scale + end.x;
-        const float y1 = (-std::cos(angle + math::PI() + math::PI_4())) * scale + end.y;
-
-        const float x2 = ( std::sin(angle - math::PI_4())) * scale + end.x;
-        const float y2 = (-std::cos(angle - math::PI_4())) * scale + end.y;
-
-        return {
-            math::Vector(x1, y1), end, end, math::Vector(x2, y2)
-        };
-    }
-
     std::vector<math::Vector> GenerateArc(const math::Vector& position, float start_radians, float end_radians, int segments)
     {
         std::vector<math::Vector> vertices;
@@ -192,11 +177,8 @@ void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vec
     math::Vector delta_position;
     FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
 
-    const math::Vector end_position = delta_position;
-    renderer.DrawLines({ math::ZeroVec, end_position }, mono::Color::CYAN, 2.0f);
-
-    const std::vector<math::Vector>& arrow_points = GenerateArrow(math::ZeroVec, end_position, 0.5f);
-    renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
+    renderer.DrawLines({ math::ZeroVec, delta_position }, mono::Color::CYAN, 2.0f);
+    renderer.DrawPoints({ delta_position }, mono::Color::CYAN, 10.0f);
 }
 
 void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -206,12 +188,7 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
 
     const std::vector<math::Vector>& arc_points = GenerateArc(math::ZeroVec, 0.0f, delta_rotation, 20);
     renderer.DrawPolyline(arc_points, mono::Color::CYAN, 2.0f);
-
-    const uint32_t almost_last_point = arc_points.size() -2;
-    const uint32_t last_point = arc_points.size() -1;
-
-    const std::vector<math::Vector>& arrow_points = GenerateArrow(arc_points[almost_last_point], arc_points[last_point], 0.5f);
-    renderer.DrawLines(arrow_points, mono::Color::CYAN, 2.0f);
+    renderer.DrawPoints({ arc_points.back() }, mono::Color::CYAN, 10.0f);
 }
 
 void editor::DrawSpriteDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)

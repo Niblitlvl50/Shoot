@@ -45,28 +45,33 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
 
     std::unordered_map<uint32_t, std::vector<uint32_t>> trigger_hash_to_emitter_ids;
 
-    const auto collect_shape_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const ShapeTriggerComponent& trigger)
+    const auto collect_shape_triggers = [&](uint32_t entity_id, const ShapeTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.trigger_hash_enter].push_back(entity_id);
         trigger_hash_to_emitter_ids[trigger.trigger_hash_exit].push_back(entity_id);
     };
 
-    const auto collect_death_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const DestroyedTriggerComponent& trigger)
+    const auto collect_death_triggers = [&](uint32_t entity_id, const DestroyedTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.trigger_hash].push_back(entity_id);
     };
 
-    const auto collect_area_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const AreaEntityTriggerComponent& trigger)
+    const auto collect_area_triggers = [&](uint32_t entity_id, const AreaEntityTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.trigger_hash].push_back(entity_id);
     };
 
-    const auto collect_time_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const TimeTriggerComponent& trigger)
+    const auto collect_time_triggers = [&](uint32_t entity_id, const TimeTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.trigger_hash].push_back(entity_id);
     };
 
-    const auto collect_counter_triggers = [&trigger_hash_to_emitter_ids](uint32_t entity_id, const CounterTriggerComponent& trigger)
+    const auto collect_counter_triggers = [&](uint32_t entity_id, const CounterTriggerComponent& trigger)
+    {
+        trigger_hash_to_emitter_ids[trigger.completed_trigger_hash].push_back(entity_id);
+    };
+
+    const auto collect_relay_triggers = [&](uint32_t entity_id, const RelayTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.completed_trigger_hash].push_back(entity_id);
     };
@@ -76,6 +81,7 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
     m_trigger_system->ForEachAreaTrigger(collect_area_triggers);
     m_trigger_system->ForEachTimeTrigger(collect_time_triggers);
     m_trigger_system->ForEachCounterTrigger(collect_counter_triggers);
+    m_trigger_system->ForEeachRelayTrigger(collect_relay_triggers);
 
     const std::unordered_map<uint32_t, std::vector<uint32_t>>& targets = m_trigger_system->GetTriggerTargets();
 

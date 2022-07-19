@@ -153,6 +153,12 @@ namespace game
             m_counter_triggers.ForEach(callable);
         }
 
+        template<typename T>
+        void ForEeachRelayTrigger(T&& callable)
+        {
+            m_relay_triggers.ForEach(callable);
+        }
+
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
