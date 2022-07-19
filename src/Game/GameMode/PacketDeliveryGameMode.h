@@ -86,7 +86,7 @@ namespace game
         mono::EventToken<event::PauseEvent> m_pause_token;
 
         bool m_package_spawned;
-        math::Vector m_spawn_package_position;
+        math::Vector m_package_spawn_position;
         int m_next_zone;
 
         uint32_t m_level_completed_trigger;

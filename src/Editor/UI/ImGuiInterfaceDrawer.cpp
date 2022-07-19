@@ -326,6 +326,8 @@ namespace
 
                 ImGui::TextDisabled("Player");
                 ImGui::InputFloat2("Spawn", &context.level_metadata.player_spawn_point.x);
+                ImGui::Checkbox("Use Package Spawn", &context.level_metadata.use_package_spawn_position);
+                ImGui::InputFloat2("Package Spawn Position", &context.level_metadata.package_spawn_position.x);
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Game Camera");

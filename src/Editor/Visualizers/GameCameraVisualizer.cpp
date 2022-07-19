@@ -26,6 +26,11 @@ void GameCameraVisualizer::Draw(mono::IRenderer& renderer) const
         renderer.DrawPoints({ m_metadata.player_spawn_point }, mono::Color::CYAN, 10.0f);
     }
 
+    {
+        if(m_metadata.use_package_spawn_position)
+            renderer.DrawPoints({ m_metadata.package_spawn_position }, mono::Color::MAGENTA, 10.0f);
+    }
+
     // Navmesh
     {
         const math::Quad navmesh_quad = { m_metadata.navmesh_start, m_metadata.navmesh_end };

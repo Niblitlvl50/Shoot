@@ -37,6 +37,9 @@ namespace
             level_data.metadata.camera_position = json_metadata.value("camera_position", math::ZeroVec);
             level_data.metadata.camera_size = json_metadata.value("camera_size", math::ZeroVec);
             level_data.metadata.player_spawn_point = json_metadata.value("player_spawn_point", math::ZeroVec);
+            level_data.metadata.use_package_spawn_position = json_metadata.value("use_custom_package_spawn_position", false);
+            level_data.metadata.package_spawn_position = json_metadata.value("package_spawn_position", math::ZeroVec);
+
             level_data.metadata.background_size = json_metadata.value("background_size", math::ZeroVec);
             level_data.metadata.background_color = json_metadata.value("background_color", mono::Color::BLACK);
             level_data.metadata.ambient_shade = json_metadata.value("ambient_shade", mono::Color::WHITE);

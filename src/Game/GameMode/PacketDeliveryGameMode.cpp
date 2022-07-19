@@ -146,6 +146,9 @@ void PacketDeliveryGameMode::Begin(
     m_level_timer = level_metadata.time_limit_s;
     m_level_has_timelimit = (m_level_timer > 0);
 
+    m_package_spawn_position = level_metadata.use_package_spawn_position ?
+        level_metadata.package_spawn_position : level_metadata.player_spawn_point;
+
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
     m_timer_screen->SetSeconds(m_level_timer);
     if(!m_level_has_timelimit)
@@ -183,8 +186,6 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 
 void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
-    m_spawn_package_position = position;
-
     m_sprite_system->SetSpriteEnabled(player_entity_id, false);
 
     const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
@@ -199,7 +200,7 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
                 m_entity_manager->ReleaseEntity(portal_entity_id);
             };
             portal_sprite->SetAnimation("end", destroy_when_finish);
-            SpawnPackage(m_spawn_package_position);
+            SpawnPackage(m_package_spawn_position);
         };
         portal_sprite->SetAnimation("idle", set_end_anim);
         m_sprite_system->SetSpriteEnabled(player_entity_id, true);

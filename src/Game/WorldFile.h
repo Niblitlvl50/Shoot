@@ -22,13 +22,17 @@ namespace game
         math::Vector camera_position;
         math::Vector camera_size;
         math::Vector player_spawn_point;
+
+        bool use_package_spawn_position = false;
+        math::Vector package_spawn_position;
+
         mono::Color::RGBA background_color;
         mono::Color::RGBA ambient_shade;
 
         math::Vector background_size;
         std::string background_texture;
 
-        int background_music;
+        int background_music = 0;
 
         std::vector<std::string> triggers;
 

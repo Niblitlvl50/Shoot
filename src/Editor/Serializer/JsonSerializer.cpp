@@ -20,6 +20,9 @@ void JsonSerializer::WriteComponentEntities(const std::string& file_path, const 
     json_metadata["camera_position"] = level_metadata.camera_position;
     json_metadata["camera_size"] = level_metadata.camera_size;
     json_metadata["player_spawn_point"] = level_metadata.player_spawn_point;
+    json_metadata["use_custom_package_spawn_position"] = level_metadata.use_package_spawn_position;
+    json_metadata["package_spawn_position"] = level_metadata.package_spawn_position;
+
     json_metadata["background_color"] = level_metadata.background_color;
     json_metadata["ambient_shade"] = level_metadata.ambient_shade;
     json_metadata["background_size"] = level_metadata.background_size;
