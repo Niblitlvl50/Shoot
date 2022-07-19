@@ -1,13 +1,13 @@
 {
     "all_textures": [
-        "res/textures/background/grass/grass01.png",
-        "res/textures/background/grass/grass02.png",
-        "res/textures/background/grass/grass03.png",
+        "res/textures/background/grass/grass_01.png",
+        "res/textures/background/grass/grass_02.png",
+        "res/textures/background/grass/grass_03.png",
+        "res/textures/background/grass/grass_04.png",
+        "res/textures/background/grass/grass_05.png",
         "res/textures/background/brown_stone.png",
         "res/textures/background/brown_stone_small.png",
         "res/textures/background/dark_stone.png",
-        "res/textures/background/grass_01.png",
-        "res/textures/background/grass_02.png",
         "res/textures/background/gray_stone.png",
         "res/textures/background/lava1.png",
         "res/textures/background/lava2.png",

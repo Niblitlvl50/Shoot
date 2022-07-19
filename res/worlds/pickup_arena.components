@@ -29,8 +29,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.8848757927544284e-08,
-                                "y": 1.0987572807152901e-07
+                                "x": 0.12173767387866974,
+                                "y": -0.15841831266880035
                             }
                         },
                         {
@@ -49,7 +49,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "pine_large.sprite"
+                            "variant_value": "pine_small.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -92,14 +92,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -2.0999999046325684
+                                "y": -1.600000023841858
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.2000000476837158
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -153,15 +153,15 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.20000000298023224
+                            "variant_value": 0.10000000149011612
                         },
                         {
                             "id": 2471448074,
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": -1.899999976158142
+                                "x": 0.03999999910593033,
+                                "y": -1.5
                             }
                         },
                         {
@@ -207,8 +207,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.9895839691162109,
-                                "y": 1.0312501192092896
+                                "x": 1.3947372436523438,
+                                "y": 1.393755316734314
                             }
                         },
                         {
@@ -715,7 +715,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "particles"
                         }
                     ]
                 },
@@ -916,7 +916,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "particles",
             "name": "particles1",
             "uuid_hash": 3900617339
         },
@@ -936,7 +936,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "particles"
                         }
                     ]
                 },
@@ -1137,7 +1137,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "particles",
             "name": "particles2",
             "uuid_hash": 236711999
         },
@@ -1170,8 +1170,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.598638534545898,
-                                "y": -1.6094870567321777
+                                "x": 7.357595443725586,
+                                "y": 5.4094696044921875
                             }
                         },
                         {
@@ -1285,8 +1285,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.762828826904297,
-                                "y": -2.712106704711914
+                                "x": 8.61415958404541,
+                                "y": 4.040439605712891
                             }
                         },
                         {
@@ -1400,8 +1400,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.290079116821289,
-                                "y": 1.6373600959777832
+                                "x": 7.049036026000977,
+                                "y": 8.656316757202148
                             }
                         },
                         {
@@ -1515,8 +1515,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.762828826904297,
-                                "y": 0.28789329528808594
+                                "x": 8.521785736083984,
+                                "y": 7.306849956512451
                             }
                         },
                         {
@@ -1630,8 +1630,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.375162124633789,
-                                "y": 6.064348220825195
+                                "x": 4.517765045166016,
+                                "y": 6.657919883728027
                             }
                         },
                         {
@@ -1873,77 +1873,6 @@
             "folder": "",
             "name": "switch_small",
             "uuid_hash": 2779081019
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "level_logic"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "logic"
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.22736740112304688,
-                                "y": -4.055152893066406
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 4160075433,
-                    "name": "relay_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 2000
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "logic",
-            "name": "level_logic",
-            "uuid_hash": 3935268105
         },
         {
             "components": [
@@ -2624,8 +2553,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.8177082538604736,
-                                "y": 0.02083410695195198
+                                "x": -2.780745506286621,
+                                "y": 0.030788082629442215
                             }
                         },
                         {
@@ -3899,8 +3828,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.436887741088867,
-                                "y": 4.686714172363281
+                                "x": -3.00022554397583,
+                                "y": 6.4663496017456055
                             }
                         },
                         {
@@ -4157,8 +4086,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.1030101776123047,
-                                "y": 7.921771049499512
+                                "x": -1.6728734970092773,
+                                "y": 7.496788024902344
                             }
                         },
                         {
@@ -4931,8 +4860,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5,
-                                "y": 4.0
+                                "x": 0.3937540054321289,
+                                "y": 7.428840637207031
                             }
                         },
                         {
@@ -5189,8 +5118,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.8969898223876953,
-                                "y": 1.9217710494995117
+                                "x": 4.906001091003418,
+                                "y": 7.456209182739258
                             }
                         },
                         {
@@ -5631,7 +5560,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "enemies"
                         }
                     ]
                 },
@@ -5644,8 +5573,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.5634539127349854,
-                                "y": -3.3555798530578613
+                                "x": 0.9333150386810303,
+                                "y": 11.235973358154297
                             }
                         },
                         {
@@ -5664,7 +5593,7 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 200
+                            "variant_value": 500
                         },
                         {
                             "id": 1989672395,
@@ -5822,7 +5751,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "enemies",
             "name": "imp",
             "uuid_hash": 3273388119
         },
@@ -5855,8 +5784,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.387880325317383,
-                                "y": 2.3187177181243896
+                                "x": -0.2795991897583008,
+                                "y": 6.5315423011779785
                             }
                         },
                         {
@@ -7259,8 +7188,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.5,
-                                "y": 5.0
+                                "x": 1.2483482360839844,
+                                "y": 7.0
                             }
                         },
                         {
@@ -7440,8 +7369,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.0,
-                                "y": 6.0
+                                "x": 4.961967468261719,
+                                "y": 7.0
                             }
                         },
                         {
@@ -7621,8 +7550,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0,
-                                "y": 5.5
+                                "x": -0.8912186622619629,
+                                "y": 7.0
                             }
                         },
                         {
@@ -7667,9 +7596,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "blue": 0.47846975922584534,
+                                "green": 0.47846975922584534,
+                                "red": 0.6421568393707275
                             }
                         },
                         {
@@ -7802,8 +7731,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.0,
-                                "y": 6.0
+                                "x": -2.959409713745117,
+                                "y": 5.880169868469238
                             }
                         },
                         {
@@ -7983,8 +7912,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.5,
-                                "y": 6.5
+                                "x": -0.5046913623809814,
+                                "y": 6.630340576171875
                             }
                         },
                         {
@@ -8098,8 +8027,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.0,
-                                "y": 6.5
+                                "x": -0.1336679458618164,
+                                "y": 6.661893844604492
                             }
                         },
                         {
@@ -8443,8 +8372,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.6309127807617188,
-                                "y": 5.966564178466797
+                                "x": 1.6705093383789063,
+                                "y": 6.920107841491699
                             }
                         },
                         {
@@ -8608,8 +8537,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.398466110229492,
-                                "y": 4.9754791259765625
+                                "x": 4.178945541381836,
+                                "y": 6.958026885986328
                             }
                         },
                         {
@@ -8760,7 +8689,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -8773,8 +8702,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.624553680419922,
-                                "y": 0.19869506359100342
+                                "x": 6.383510589599609,
+                                "y": 7.217651844024658
                             }
                         },
                         {
@@ -8819,16 +8748,16 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.8292518854141235,
-                                "green": 0.8774510025978088,
-                                "red": 0.33119475841522217
+                                "blue": 0.49725857377052307,
+                                "green": 0.5049020051956177,
+                                "red": 0.41827666759490967
                             }
                         },
                         {
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -8855,7 +8784,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 2938758570
         },
@@ -8875,7 +8804,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -8888,8 +8817,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.110127449035645,
-                                "y": 0.578567385673523
+                                "x": 5.869084358215332,
+                                "y": 7.597524166107178
                             }
                         },
                         {
@@ -8934,16 +8863,16 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.8292518854141235,
-                                "green": 0.8774510025978088,
-                                "red": 0.33119475841522217
+                                "blue": 0.5913138389587402,
+                                "green": 0.5980392098426819,
+                                "red": 0.5218185186386108
                             }
                         },
                         {
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -8970,7 +8899,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 2775157478
         },
@@ -8990,7 +8919,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9003,8 +8932,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.8246488571167,
-                                "y": 0.882386326789856
+                                "x": 7.583605766296387,
+                                "y": 7.901342868804932
                             }
                         },
                         {
@@ -9049,16 +8978,16 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.8292518854141235,
-                                "green": 0.8774510025978088,
-                                "red": 0.33119475841522217
+                                "blue": 0.5275799036026001,
+                                "green": 0.529411792755127,
+                                "red": 0.508650541305542
                             }
                         },
                         {
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -9085,7 +9014,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 791820124
         },
@@ -9105,7 +9034,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9118,8 +9047,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.861099243164063,
-                                "y": 0.030867457389831543
+                                "x": 7.62005615234375,
+                                "y": 7.049824237823486
                             }
                         },
                         {
@@ -9200,7 +9129,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "grass_tiny_6",
             "uuid_hash": 52902278
         },
@@ -9220,7 +9149,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9233,8 +9162,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.469606399536133,
-                                "y": -1.0460965633392334
+                                "x": 9.22856330871582,
+                                "y": 5.972859859466553
                             }
                         },
                         {
@@ -9288,7 +9217,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -9315,7 +9244,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 54420314
         },
@@ -9335,7 +9264,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9348,8 +9277,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 17.434450149536133,
-                                "y": 0.18176794052124023
+                                "x": 9.19340705871582,
+                                "y": 7.2007246017456055
                             }
                         },
                         {
@@ -9403,7 +9332,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 3
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -9430,7 +9359,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 3933357735
         },
@@ -9450,7 +9379,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9463,8 +9392,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.661011695861816,
-                                "y": -1.7713568210601807
+                                "x": 6.211635112762451,
+                                "y": 4.902545928955078
                             }
                         },
                         {
@@ -9518,7 +9447,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 7
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -9545,7 +9474,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 3858963080
         },
@@ -9565,7 +9494,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9578,8 +9507,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 16.308147430419922,
-                                "y": -2.477086067199707
+                                "x": 8.06710433959961,
+                                "y": 4.541870594024658
                             }
                         },
                         {
@@ -9633,7 +9562,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 7
+                            "variant_value": 6
                         },
                         {
                             "id": 4153965,
@@ -9660,7 +9589,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "bush_large",
             "uuid_hash": 2855774602
         },
@@ -9680,7 +9609,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9693,8 +9622,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.85289192199707,
-                                "y": -0.22291290760040283
+                                "x": 6.611848831176758,
+                                "y": 6.796043872833252
                             }
                         },
                         {
@@ -9775,7 +9704,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "grass_tiny_6",
             "uuid_hash": 2650199298
         },
@@ -9795,7 +9724,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -9808,8 +9737,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 14.398856163024902,
-                                "y": -3.3454346656799316
+                                "x": 5.973936557769775,
+                                "y": 6.431676864624023
                             }
                         },
                         {
@@ -9890,7 +9819,7 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "forrest",
             "name": "log_3",
             "uuid_hash": 1381638278
         },
@@ -9923,8 +9852,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 13.814292907714844,
-                                "y": -1.8933935165405273
+                                "x": 5.573249816894531,
+                                "y": 5.125563144683838
                             }
                         },
                         {
@@ -10019,13 +9948,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest_light"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "forrest"
                         }
                     ]
                 },
@@ -10038,8 +9967,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 15.46656322479248,
-                                "y": -0.5746006965637207
+                                "x": 7.225520133972168,
+                                "y": 6.4443559646606445
                             }
                         },
                         {
@@ -10075,9 +10004,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.243848517537117,
-                                "green": 0.843137264251709,
-                                "red": 0.6845020055770874
+                                "blue": 0.06862747669219971,
+                                "green": 0.06862747669219971,
+                                "red": 0.06862747669219971
                             }
                         },
                         {
@@ -10102,354 +10031,9 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
-            "name": "",
+            "folder": "forrest",
+            "name": "forrest_light",
             "uuid_hash": 653149776
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "tent_hunter"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 12.416589736938477,
-                                "y": 1.3709239959716797
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "tent_hunter_2.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "tent_hunter",
-            "uuid_hash": 1070207798
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "tent_hunter"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 9.664677619934082,
-                                "y": 1.354406714439392
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "tent_lumberjack_2.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "tent_hunter",
-            "uuid_hash": 2117431939
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "tent_hunter"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 7.724493026733398,
-                                "y": -0.010112285614013672
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "tent_storage_2.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "folder": "",
-            "name": "tent_hunter",
-            "uuid_hash": 2534663285
         },
         {
             "components": [
@@ -10467,7 +10051,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "boulders"
                         }
                     ]
                 },
@@ -10480,8 +10064,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.170299053192139,
-                                "y": -4.413527488708496
+                                "x": 0.4136843681335449,
+                                "y": 3.54738187789917
                             }
                         },
                         {
@@ -10562,9 +10146,3055 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
+            "folder": "boulders",
             "name": "boulder_4",
             "uuid_hash": 2660492871
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -5.134775638580322,
+                                "y": 7.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 3130620593
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -3.004765272140503,
+                                "y": 7.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 1407635236
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.4136843681335449,
+                                "y": 3.54738187789917
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 242833508
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.6470937728881836,
+                                "y": 4.408166885375977
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 1554748219
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.3175830841064453,
+                                "y": 3.707223653793335
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 1194285241
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.5454883575439453,
+                                "y": 2.324110507965088
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 2099957590
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.358530044555664,
+                                "y": 2.81219482421875
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 2246384288
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "forest"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.989583969116211,
+                                "y": 3.03125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pine_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -2.0999999046325684
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.2000000476837158
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -1.899999976158142
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "forest",
+            "name": "pine_large",
+            "uuid_hash": 3097530330
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pine_large"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "forest"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.20303630828857422,
+                                "y": 3.436948776245117
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pine_large.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -2.0999999046325684
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.2000000476837158
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -1.899999976158142
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "forest",
+            "name": "pine_large",
+            "uuid_hash": 3595759001
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "imp"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "enemies"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.9333150386810303,
+                                "y": 11.235973358154297
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 500
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "imp.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.25
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 50.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.20000000298023224,
+                                "y": 0.4000000059604645
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "enemies",
+            "name": "imp",
+            "uuid_hash": 2948187008
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.0518035888671875,
+                                "y": 7.226890563964844
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1338470111,
+                    "name": "set_translation",
+                    "properties": [
+                        {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 1,
+                            "variant_value": 9
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "push_button"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 816194914
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "boulders"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 5.282774925231934,
+                                "y": 3.6907622814178467
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "boulder_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.5
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "boulders",
+            "name": "boulder_4",
+            "uuid_hash": 2228453275
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.253808498382568,
+                                "y": 8.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_4.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 3452024989
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.140321731567383,
+                                "y": 8.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_3.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.47846975922584534,
+                                "green": 0.47846975922584534,
+                                "red": 0.6421568393707275
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 1128174380
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.013822555541992188,
+                                "y": 8.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3451556861400604,
+                                "green": 0.3451556861400604,
+                                "red": 0.8382352590560913
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 4130599133
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "fire_skull"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "enemies"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.452272891998291,
+                                "y": 8.994979858398438
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 300
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "fire_skull.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.6000000238418579
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.46078431606292725,
+                                "green": 0.46078431606292725,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 50.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 4
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "enemies",
+            "name": "fire_skull",
+            "uuid_hash": 2822594739
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "brick_walls"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 5.748348236083984,
+                                "y": 8.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_wall_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.10000000149011612
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3451556861400604,
+                                "green": 0.3451556861400604,
+                                "red": 0.8382352590560913
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.119999885559082,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "brick_walls",
+            "name": "brick_wall_1",
+            "uuid_hash": 1689258519
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "delivery_zone"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "logic"
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -1.9370808601379395,
+                                "y": -1.1777873039245605
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 427787973,
+                    "name": "area_entity_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "id": 3614677686,
+                            "name": "faction_picker",
+                            "variant_type": 2,
+                            "variant_value": 16
+                        },
+                        {
+                            "id": 2561222109,
+                            "name": "logic_op",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3530705527,
+                            "name": "num_entities",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 6,
+                            "variant_value": "level_completed"
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2000
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "logic",
+            "name": "delivery_zone",
+            "uuid_hash": 3725831984
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "oak_medium"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -7.407833099365234,
+                                "y": -1.078635811805725
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "oak_medium.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -1.2000000476837158
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "oak_medium",
+            "uuid_hash": 2225557767
         }
     ],
     "metadata": {
@@ -10585,7 +13215,7 @@
             "x": 40.0,
             "y": 40.0
         },
-        "background_texture": "res/textures/background/grass_01.png",
+        "background_texture": "res/textures/background/grass/grass_05.png",
         "camera_position": {
             "x": 0.0,
             "y": -5.0
@@ -10612,6 +13242,7 @@
         "time_limit_s": 300,
         "triggers": [
             "level_completed",
+            "package_delivered",
             "push_button",
             "read_sign_1",
             "talk_to_frog"
