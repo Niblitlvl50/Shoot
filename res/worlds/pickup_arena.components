@@ -4344,8 +4344,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -9.558602333068848,
-                                "y": 5.695453643798828
+                                "x": 5.3882646560668945,
+                                "y": 5.974462509155273
                             }
                         },
                         {
@@ -5734,6 +5734,24 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -11633,6 +11651,24 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -19878,6 +19914,24 @@
                     ]
                 },
                 {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
+                        },
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
                     "hash": 522866682,
                     "name": "entity_behaviour",
                     "properties": [
@@ -19894,6 +19948,83 @@
             "folder": "enemies",
             "name": "imp",
             "uuid_hash": 3328725102
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.2754261493682861,
+                                "y": 16.73784637451172
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1929184408,
+                    "name": "counter_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 6,
+                            "variant_value": "boss_completed"
+                        },
+                        {
+                            "id": 967958004,
+                            "name": "count",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 2291324515,
+                            "name": "reset_on_compeleted",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "",
+            "uuid_hash": 1597993562
         }
     ],
     "metadata": {
@@ -19905,9 +20036,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.15686273574829102,
-            "green": 0.15686273574829102,
-            "red": 0.15686273574829102
+            "blue": 0.11693467944860458,
+            "green": 0.2647058963775635,
+            "red": 0.1076989620923996
         },
         "background_music": 5,
         "background_size": {
@@ -19944,6 +20075,8 @@
         },
         "time_limit_s": 300,
         "triggers": [
+            "boss_completed",
+            "boss_defeated",
             "level_completed",
             "package_delivered",
             "push_button",

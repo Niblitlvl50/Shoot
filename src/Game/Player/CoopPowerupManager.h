@@ -20,6 +20,7 @@ namespace game
         game::DamageSystem* m_damage_system;
         uint32_t m_damage_callback_id;
 
-        float m_powerup_value;
+        float m_powerup_value_raw;
+        float m_powerup_value_01;
     };
 }
