@@ -74,14 +74,14 @@
             "h": 18,
             "name": "goblin_black_attack_1",
             "w": 14,
-            "x": 181,
-            "y": 444
+            "x": 642,
+            "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_attack_2",
             "w": 16,
-            "x": 1644,
+            "x": 1014,
             "y": 425
         },
         {
@@ -95,8 +95,8 @@
             "h": 18,
             "name": "goblin_black_attack_4",
             "w": 15,
-            "x": 1664,
-            "y": 425
+            "x": 335,
+            "y": 443
         },
         {
             "h": 18,
@@ -109,8 +109,8 @@
             "h": 21,
             "name": "goblin_black_attack_6",
             "w": 16,
-            "x": 791,
-            "y": 424
+            "x": 2026,
+            "y": 423
         },
         {
             "h": 22,
@@ -144,162 +144,162 @@
             "h": 18,
             "name": "goblin_black_gesture_1",
             "w": 14,
-            "x": 163,
+            "x": 55,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_2",
             "w": 16,
-            "x": 1014,
+            "x": 1644,
             "y": 425
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_3",
             "w": 17,
-            "x": 973,
+            "x": 952,
             "y": 425
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_4",
             "w": 17,
-            "x": 902,
+            "x": 973,
             "y": 425
         },
         {
             "h": 21,
             "name": "goblin_black_gesture_5",
             "w": 16,
-            "x": 932,
+            "x": 791,
             "y": 424
         },
         {
             "h": 22,
             "name": "goblin_black_gesture_6",
             "w": 15,
-            "x": 1093,
+            "x": 1112,
             "y": 422
         },
         {
             "h": 21,
             "name": "goblin_black_gesture_7",
             "w": 16,
-            "x": 1051,
+            "x": 932,
             "y": 424
         },
         {
             "h": 22,
             "name": "goblin_black_gesture_8",
             "w": 15,
-            "x": 1112,
+            "x": 1093,
             "y": 422
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_9",
             "w": 17,
-            "x": 952,
+            "x": 881,
             "y": 425
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_10",
             "w": 17,
-            "x": 881,
+            "x": 902,
             "y": 425
         },
         {
             "h": 18,
             "name": "goblin_black_idle_1",
             "w": 14,
-            "x": 145,
-            "y": 444
+            "x": 409,
+            "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_idle_2",
             "w": 14,
-            "x": 109,
-            "y": 444
+            "x": 373,
+            "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_idle_3",
             "w": 14,
-            "x": 91,
+            "x": 199,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_4",
             "w": 14,
-            "x": 73,
+            "x": 181,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_5",
             "w": 14,
-            "x": 55,
+            "x": 163,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_6",
             "w": 14,
-            "x": 37,
+            "x": 145,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_7",
             "w": 14,
-            "x": 19,
+            "x": 127,
             "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_8",
             "w": 14,
-            "x": 660,
-            "y": 443
+            "x": 73,
+            "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_9",
             "w": 14,
-            "x": 642,
-            "y": 443
+            "x": 91,
+            "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_idle_10",
             "w": 14,
-            "x": 127,
-            "y": 444
+            "x": 391,
+            "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_walk_1",
             "w": 14,
-            "x": 540,
-            "y": 443
+            "x": 109,
+            "y": 444
         },
         {
             "h": 18,
             "name": "goblin_black_walk_2",
             "w": 14,
-            "x": 522,
+            "x": 427,
             "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_walk_3",
             "w": 15,
-            "x": 316,
-            "y": 443
+            "x": 1664,
+            "y": 425
         },
         {
             "h": 18,
@@ -312,28 +312,28 @@
             "h": 18,
             "name": "goblin_black_walk_5",
             "w": 15,
-            "x": 354,
-            "y": 443
+            "x": 1683,
+            "y": 425
         },
         {
             "h": 17,
             "name": "goblin_black_walk_6",
             "w": 14,
-            "x": 1685,
+            "x": 1752,
             "y": 447
         },
         {
             "h": 18,
             "name": "goblin_black_walk_7",
             "w": 14,
-            "x": 445,
+            "x": 660,
             "y": 443
         },
         {
             "h": 18,
             "name": "goblin_black_walk_8",
             "w": 15,
-            "x": 335,
+            "x": 316,
             "y": 443
         },
         {
@@ -347,8 +347,8 @@
             "h": 18,
             "name": "goblin_black_walk_10",
             "w": 15,
-            "x": 1683,
-            "y": 425
+            "x": 354,
+            "y": 443
         }
     ],
     "frames_offsets": [

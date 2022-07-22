@@ -27,7 +27,7 @@
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 173,
+            "x": 161,
             "y": 483
         },
         {
@@ -48,8 +48,8 @@
             "h": 10,
             "name": "small_explosion_default_5",
             "w": 10,
-            "x": 1986,
-            "y": 468
+            "x": 705,
+            "y": 469
         },
         {
             "h": 10,

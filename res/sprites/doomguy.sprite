@@ -46,22 +46,22 @@
             "h": 58,
             "name": "doomguy_look_around_1",
             "w": 48,
-            "x": 806,
-            "y": 297
-        },
-        {
-            "h": 58,
-            "name": "doomguy_look_around_2",
-            "w": 48,
             "x": 1801,
             "y": 291
         },
         {
             "h": 58,
-            "name": "doomguy_look_around_3",
+            "name": "doomguy_look_around_2",
             "w": 48,
             "x": 1989,
             "y": 288
+        },
+        {
+            "h": 58,
+            "name": "doomguy_look_around_3",
+            "w": 48,
+            "x": 806,
+            "y": 297
         }
     ],
     "frames_offsets": [

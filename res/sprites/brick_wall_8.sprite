@@ -6,16 +6,16 @@
                 0
             ],
             "loop": true,
-            "name": "idle"
+            "name": "default"
         }
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "cardboard_box_tiny_idle_1",
-            "w": 8,
-            "x": 221,
-            "y": 483
+            "h": 76,
+            "name": "brick_wall_8",
+            "w": 4,
+            "x": 2034,
+            "y": 109
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/unique_pieces/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
