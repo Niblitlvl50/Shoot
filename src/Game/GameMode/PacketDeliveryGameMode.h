@@ -73,7 +73,7 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         mono::PhysicsSystem* m_physics_system;
 
-        std::unique_ptr<class PlayerDaemon> m_player_daemon;
+        std::unique_ptr<class PlayerDaemonSystem> m_player_daemon;
         std::unique_ptr<class CoopPowerupManager> m_coop_power_manager;
         std::unique_ptr<class EnemyPickupSpawner> m_pickup_spawner;
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;

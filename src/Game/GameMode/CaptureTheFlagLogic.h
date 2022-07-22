@@ -18,7 +18,7 @@ namespace mono
 
 namespace game
 {
-    class PlayerDaemon;
+    class PlayerDaemonSystem;
     class DamageSystem;
 
     class CaptureTheFlagLogic : public mono::IUpdatable
@@ -29,7 +29,7 @@ namespace game
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
             game::DamageSystem* damage_system,
-            const PlayerDaemon* player_daemon,
+            const PlayerDaemonSystem* player_daemon,
             mono::IEntityManager* entity_manager);
         
         void Update(const mono::UpdateContext& update_context) override;
@@ -67,7 +67,7 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         game::DamageSystem* m_damage_system;
-        const PlayerDaemon* m_player_daemon;
+        const PlayerDaemonSystem* m_player_daemon;
         mono::IEntityManager* m_entity_manager;
 
         CaptureTheFlagScore m_score;

@@ -30,7 +30,7 @@
 
 using namespace game;
 
-PlayerDaemon::PlayerDaemon(
+PlayerDaemonSystem::PlayerDaemonSystem(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
@@ -60,17 +60,17 @@ PlayerDaemon::PlayerDaemon(
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
     using namespace std::placeholders;
-    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemon::OnControllerAdded, this, _1);
-    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemon::OnControllerRemoved, this, _1);
+    const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemonSystem::OnControllerAdded, this, _1);
+    const event::ControllerRemovedFunc& removed_func = std::bind(&PlayerDaemonSystem::OnControllerRemoved, this, _1);
 
     m_added_token = m_event_handler->AddListener(added_func);
     m_removed_token = m_event_handler->AddListener(removed_func);
 
-    const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemon::RemotePlayerConnected, this, _1);
-    const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemon::RemotePlayerDisconnected, this, _1);
-    const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemon::OnSpawnPlayer, this, _1);
-    const DespawnPlayerFunc& despawn_player_func = std::bind(&PlayerDaemon::OnDespawnPlayer, this, _1);
-    const RespawnPlayerFunc& respawn_player_func = std::bind(&PlayerDaemon::OnRespawnPlayer, this, _1);
+    const PlayerConnectedFunc& connected_func = std::bind(&PlayerDaemonSystem::RemotePlayerConnected, this, _1);
+    const PlayerDisconnectedFunc& disconnected_func = std::bind(&PlayerDaemonSystem::RemotePlayerDisconnected, this, _1);
+    const SpawnPlayerFunc& spawn_player_func = std::bind(&PlayerDaemonSystem::OnSpawnPlayer, this, _1);
+    const DespawnPlayerFunc& despawn_player_func = std::bind(&PlayerDaemonSystem::OnDespawnPlayer, this, _1);
+    const RespawnPlayerFunc& respawn_player_func = std::bind(&PlayerDaemonSystem::OnRespawnPlayer, this, _1);
 
     m_player_connected_token = m_event_handler->AddListener(connected_func);
     m_player_disconnected_token = m_event_handler->AddListener(disconnected_func);
@@ -78,10 +78,10 @@ PlayerDaemon::PlayerDaemon(
     m_despawn_player_token = m_event_handler->AddListener(despawn_player_func);
     m_respawn_player_token = m_event_handler->AddListener(respawn_player_func);
 
-    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemon::RemotePlayerInput, this, _1);
+    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemonSystem::RemotePlayerInput, this, _1);
     m_remote_input_token = m_event_handler->AddListener(remote_input_func);
 
-    const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemon::RemotePlayerViewport, this, _1);
+    const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemonSystem::RemotePlayerViewport, this, _1);
     m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
@@ -93,7 +93,7 @@ PlayerDaemon::PlayerDaemon(
     m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
-PlayerDaemon::~PlayerDaemon()
+PlayerDaemonSystem::~PlayerDaemonSystem()
 {
     m_event_handler->RemoveListener(m_added_token);
     m_event_handler->RemoveListener(m_removed_token);
@@ -118,7 +118,7 @@ PlayerDaemon::~PlayerDaemon()
     m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 }
 
-std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
+std::vector<uint32_t> PlayerDaemonSystem::GetPlayerIds() const
 {
     std::vector<uint32_t> ids;
     for(const PlayerInfo* player : game::GetActivePlayers())
@@ -130,7 +130,7 @@ std::vector<uint32_t> PlayerDaemon::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
+void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, int controller_id)
 {
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo(player_index);
     if(!allocated_player_info)
@@ -168,7 +168,7 @@ void PlayerDaemon::SpawnLocalPlayer(int player_index, int controller_id)
     m_camera_system->FollowEntity(spawned_id);
 }
 
-void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
+void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
 {
     m_camera_system->Unfollow(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
@@ -186,7 +186,7 @@ void PlayerDaemon::DespawnPlayer(PlayerInfo* player_info)
 */
 }
 
-uint32_t PlayerDaemon::SpawnPlayer(
+uint32_t PlayerDaemonSystem::SpawnPlayer(
     game::PlayerInfo* player_info,
     const math::Vector& spawn_position,
     const System::ControllerState& controller,
@@ -224,7 +224,7 @@ uint32_t PlayerDaemon::SpawnPlayer(
     return player_entity.id;
 }
 
-uint32_t PlayerDaemon::SpawnPlayerFamiliar(
+uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
     mono::IEntityManager* entity_system, mono::SystemContext* system_context, mono::EventHandler* event_handler)
 {
     const char* player_familiar_entity_file = m_player_familiar_entities.front();
@@ -239,13 +239,13 @@ uint32_t PlayerDaemon::SpawnPlayerFamiliar(
     return player_familiar_entity.id;
 }
 
-mono::EventResult PlayerDaemon::OnControllerAdded(const event::ControllerAddedEvent& event)
+mono::EventResult PlayerDaemonSystem::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
     SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id);
     return mono::EventResult::PASS_ON;
 }
 
-mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemovedEvent& event)
+mono::EventResult PlayerDaemonSystem::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
     const auto it = m_controller_id_to_player_info.find(event.controller_id);
     if(it != m_controller_id_to_player_info.end())
@@ -257,13 +257,13 @@ mono::EventResult PlayerDaemon::OnControllerRemoved(const event::ControllerRemov
     return mono::EventResult::PASS_ON;
 }
 
-mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent& event)
+mono::EventResult PlayerDaemonSystem::RemotePlayerConnected(const PlayerConnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
         return mono::EventResult::HANDLED;
 
-    System::Log("PlayerDaemon|Remote player connected, %s", network::AddressToString(event.address).c_str());
+    System::Log("PlayerDaemonSystem|Remote player connected, %s", network::AddressToString(event.address).c_str());
 
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo();
     if(!allocated_player_info)
@@ -272,7 +272,7 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
         return mono::EventResult::HANDLED;
     }
 
-    PlayerDaemon::RemotePlayerData& remote_player_data = m_remote_players[event.address];
+    PlayerDaemonSystem::RemotePlayerData& remote_player_data = m_remote_players[event.address];
     remote_player_data.player_info = allocated_player_info;
 
     const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type)
@@ -301,7 +301,7 @@ mono::EventResult PlayerDaemon::RemotePlayerConnected(const PlayerConnectedEvent
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::RemotePlayerDisconnected(const PlayerDisconnectedEvent& event)
+mono::EventResult PlayerDaemonSystem::RemotePlayerDisconnected(const PlayerDisconnectedEvent& event)
 {
     auto it = m_remote_players.find(event.address);
     if(it != m_remote_players.end())
@@ -313,7 +313,7 @@ mono::EventResult PlayerDaemon::RemotePlayerDisconnected(const PlayerDisconnecte
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::RemotePlayerInput(const RemoteInputMessage& event)
+mono::EventResult PlayerDaemonSystem::RemotePlayerInput(const RemoteInputMessage& event)
 {
     auto it = m_remote_players.find(event.sender);
     if(it != m_remote_players.end())
@@ -322,7 +322,7 @@ mono::EventResult PlayerDaemon::RemotePlayerInput(const RemoteInputMessage& even
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& message)
+mono::EventResult PlayerDaemonSystem::RemotePlayerViewport(const ViewportMessage& message)
 {
     auto it = m_remote_players.find(message.sender);
     if(it != m_remote_players.end())
@@ -331,19 +331,19 @@ mono::EventResult PlayerDaemon::RemotePlayerViewport(const ViewportMessage& mess
     return mono::EventResult::PASS_ON;
 }
 
-mono::EventResult PlayerDaemon::OnSpawnPlayer(const SpawnPlayerEvent& event)
+mono::EventResult PlayerDaemonSystem::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
     SpawnLocalPlayer(event.player_index, event.player_index);
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::OnDespawnPlayer(const DespawnPlayerEvent& event)
+mono::EventResult PlayerDaemonSystem::OnDespawnPlayer(const DespawnPlayerEvent& event)
 {
     DespawnPlayer(&g_players[event.player_index]);
     return mono::EventResult::HANDLED;
 }
 
-mono::EventResult PlayerDaemon::OnRespawnPlayer(const RespawnPlayerEvent& event)
+mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& event)
 {
     game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(event.entity_id);
     if(player_info)

@@ -113,7 +113,7 @@ void PacketDeliveryGameMode::Begin(
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-    m_player_daemon = std::make_unique<PlayerDaemon>(
+    m_player_daemon = std::make_unique<PlayerDaemonSystem>(
         server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
 

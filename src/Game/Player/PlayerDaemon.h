@@ -28,18 +28,18 @@ namespace game
     };
     using PlayerSpawnedCallback = std::function<void (PlayerSpawnState spawn_state, uint32_t entity_id, const math::Vector& position)>;
 
-    class PlayerDaemon
+    class PlayerDaemonSystem
     {
     public:
 
-        PlayerDaemon(
+        PlayerDaemonSystem(
             INetworkPipe* remote_connection,
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
             const math::Vector& player_spawn,
             const PlayerSpawnedCallback& player_spawned_cb);
-        ~PlayerDaemon();
+        ~PlayerDaemonSystem();
 
         void SpawnLocalPlayer(int player_index, int controller_id);
         void DespawnPlayer(PlayerInfo* player_info);

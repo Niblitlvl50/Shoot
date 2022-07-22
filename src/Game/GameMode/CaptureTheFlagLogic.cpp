@@ -22,7 +22,7 @@ CaptureTheFlagLogic::CaptureTheFlagLogic(
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
     game::DamageSystem* damage_system,
-    const PlayerDaemon* player_daemon,
+    const PlayerDaemonSystem* player_daemon,
     mono::IEntityManager* entity_manager)
     : m_transform_system(transform_system)
     , m_damage_system(damage_system)
