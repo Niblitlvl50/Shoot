@@ -24,6 +24,8 @@
 #include "Network/INetworkPipe.h"
 #include "Network/NetworkSerialize.h"
 
+#include "System/Hash.h"
+
 #include "Entity/Component.h"
 
 #include <functional>
@@ -34,15 +36,13 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
-    mono::EventHandler* event_handler,
-    const math::Vector& player_spawn,
-    const PlayerSpawnedCallback& player_spawned_cb)
+    mono::EventHandler* event_handler)
     : m_remote_connection(remote_connection)
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
-    , m_player_spawn(player_spawn)
-    , m_player_spawned_callback(player_spawned_cb)
+//    , m_player_spawn(player_spawn)
+//    , m_player_spawned_callback(player_spawned_cb)
 {
     m_player_entities = {
         "res/entities/player_dude.entity",
@@ -116,6 +116,31 @@ PlayerDaemonSystem::~PlayerDaemonSystem()
     }
 
     m_entity_system->ReleaseEntity(m_spawned_player_familiar);
+}
+
+uint32_t PlayerDaemonSystem::Id() const
+{
+    return hash::Hash(Name());
+}
+
+const char* PlayerDaemonSystem::Name() const
+{
+    return "playerdaemonsystem";
+}
+
+void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
+{
+
+}
+
+void PlayerDaemonSystem::SetPlayerSpawnPoint(const math::Vector& spawn_point)
+{
+    m_player_spawn = spawn_point;
+}
+
+void PlayerDaemonSystem::SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback)
+{
+    m_player_spawned_callback = callback;
 }
 
 std::vector<uint32_t> PlayerDaemonSystem::GetPlayerIds() const

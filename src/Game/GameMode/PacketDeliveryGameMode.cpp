@@ -12,7 +12,6 @@
 #include "Player/PlayerDaemon.h"
 #include "Pickups/EnemyPickupSpawner.h"
 #include "TriggerSystem/TriggerSystem.h"
-#include "Network/ServerManager.h"
 #include "RenderLayers.h"
 #include "Rendering/IRenderer.h"
 
@@ -107,15 +106,15 @@ void PacketDeliveryGameMode::Begin(
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
 
     // Player
-    game::ServerManager* server_manager = system_context->GetSystem<game::ServerManager>();
+    PlayerDaemonSystem* player_system = system_context->GetSystem<PlayerDaemonSystem>();
+    player_system->SetPlayerSpawnPoint(level_metadata.player_spawn_point);
 
     const PlayerSpawnedCallback player_spawned_cb =
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-    m_player_daemon = std::make_unique<PlayerDaemonSystem>(
-        server_manager, m_entity_manager, system_context, m_event_handler, level_metadata.player_spawn_point, player_spawned_cb);
 
+    player_system->SetPlayerSpawnCallback(player_spawned_cb);
 
     m_coop_power_manager = std::make_unique<CoopPowerupManager>(damage_system);
 

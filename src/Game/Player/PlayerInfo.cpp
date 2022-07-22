@@ -5,7 +5,7 @@
 #include <algorithm>
 
 game::PlayerInfo game::g_players[n_players];
-float game::g_coop_powerup_value = 0.0f;
+game::CoopPowerUp game::g_coop_powerup;
 
 void game::InitializePlayerInfo()
 {
@@ -16,6 +16,8 @@ void game::InitializePlayerInfo()
         info.entity_id = -1;
         info.killer_entity_id = -1;
     }
+
+    std::memset(&g_coop_powerup, 0, sizeof(g_coop_powerup));
 }
 
 game::PlayerInfo* game::AllocatePlayerInfo(int player_index)

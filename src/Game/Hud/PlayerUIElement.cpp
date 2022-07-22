@@ -289,7 +289,7 @@ namespace game
         void Update(const mono::UpdateContext& context) override
         {
             char buffer[256] = { 0 };
-            std::snprintf(buffer, std::size(buffer), "powerup %.1f", game::g_coop_powerup_value);
+            std::snprintf(buffer, std::size(buffer), "powerup %.2f", game::g_coop_powerup.powerup_value);
             m_powerup_text->SetText(buffer);
         }
 

@@ -4,11 +4,15 @@
 #include "PlayerInfo.h"
 
 #include "Math/MathFunctions.h"
+#include "System/System.h"
+
+#include <algorithm>
 
 namespace tweak_values
 {
     constexpr float decay_per_second = 100.0f;
     constexpr float power_up_threshold = 1000.0;
+    constexpr float time_activated_s = 5.0f;
 }
 
 using namespace game;
@@ -16,7 +20,7 @@ using namespace game;
 CoopPowerupManager::CoopPowerupManager(game::DamageSystem* damage_system)
     : m_damage_system(damage_system)
     , m_powerup_value_raw(0.0f)
-    , m_powerup_value_01(0.0f)
+    , m_activated_timer_s(0.0f)
 {
     const DamageCallback on_entity_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
         const game::DamageRecord* damage_record = m_damage_system->GetDamageRecord(id);
@@ -34,9 +38,44 @@ CoopPowerupManager::~CoopPowerupManager()
 
 void CoopPowerupManager::Update(const mono::UpdateContext& update_context)
 {
+    switch(g_coop_powerup.state)
+    {
+    case CoopPowerUpState::DISABLED:
+    {
+        const auto not_nullptr = [](const game::PlayerInfo* player_info) {
+            return player_info != nullptr;
+        };
+
+        const PlayerArray players = game::GetActivePlayers();
+        const int num_players = std::count_if(players.begin(), players.end(), not_nullptr);
+        if(num_players > 1)
+            g_coop_powerup.state = CoopPowerUpState::ENABLED;
+
+        break;
+    }
+    case CoopPowerUpState::ENABLED:
+    {
+
+        break;
+    }
+    case CoopPowerUpState::TRIGGERED:
+    {
+        m_activated_timer_s += update_context.delta_s;
+
+        if(m_activated_timer_s >= tweak_values::time_activated_s)
+        {
+            m_activated_timer_s = 0.0f;
+            g_coop_powerup.state = CoopPowerUpState::ENABLED;
+        }
+
+        break;
+    }
+    }
+
     const float frame_decay = update_context.delta_s * tweak_values::decay_per_second;
-    m_powerup_value_raw = m_powerup_value_raw - frame_decay;
-    m_powerup_value_01 = math::Scale01Clamped(m_powerup_value_raw, 0.0f, tweak_values::power_up_threshold);
+    m_powerup_value_raw = std::clamp(m_powerup_value_raw - frame_decay, 0.0f, tweak_values::power_up_threshold);
+
+    const float powerup_value_01 = math::Scale01Clamped(m_powerup_value_raw, 0.0f, tweak_values::power_up_threshold);
 
     if(m_powerup_value_raw > tweak_values::power_up_threshold)
     {
@@ -44,5 +83,5 @@ void CoopPowerupManager::Update(const mono::UpdateContext& update_context)
         // Trigger powerup here
     }
 
-    game::g_coop_powerup_value = m_powerup_value_01;
+    g_coop_powerup.powerup_value = powerup_value_01;
 }

@@ -2,6 +2,8 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "IGameSystem.h"
+
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 #include "System/System.h"
@@ -28,7 +30,7 @@ namespace game
     };
     using PlayerSpawnedCallback = std::function<void (PlayerSpawnState spawn_state, uint32_t entity_id, const math::Vector& position)>;
 
-    class PlayerDaemonSystem
+    class PlayerDaemonSystem : public mono::IGameSystem
     {
     public:
 
@@ -36,10 +38,15 @@ namespace game
             INetworkPipe* remote_connection,
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
-            mono::EventHandler* event_handler,
-            const math::Vector& player_spawn,
-            const PlayerSpawnedCallback& player_spawned_cb);
+            mono::EventHandler* event_handler);
         ~PlayerDaemonSystem();
+
+        uint32_t Id() const override;
+        const char* Name() const override;
+        void Update(const mono::UpdateContext& update_context) override;
+
+        void SetPlayerSpawnPoint(const math::Vector& spawn_point);
+        void SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback);
 
         void SpawnLocalPlayer(int player_index, int controller_id);
         void DespawnPlayer(PlayerInfo* player_info);

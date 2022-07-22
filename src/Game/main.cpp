@@ -17,6 +17,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Player/PlayerInfo.h"
+#include "Player/PlayerDaemon.h"
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
@@ -139,8 +140,12 @@ int main(int argc, char* argv[])
         const float window_ratio = float(window_size.width) / float(window_size.height);
         const int height = float(options.width) / window_ratio;
 
-        const int window_options = System::WindowOptions::FULLSCREEN; // | System::WindowOptions::DISABLE_VSYNC;
-        System::IWindow* window = System::MakeWindow("game", options.x, options.y, options.width, height, System::WindowOptions(window_options));
+        const int window_options = 
+            0;
+            // System::WindowOptions::FULLSCREEN;
+            // System::WindowOptions::DISABLE_VSYNC;
+        System::IWindow* window = System::MakeWindow(
+            "game", options.x, options.y, options.width, height, System::WindowOptions(window_options));
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
@@ -181,8 +186,10 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::SoundSystem>();
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
 
-        system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
+        game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
+
+        system_context.CreateSystem<game::PlayerDaemonSystem>(server_manager, entity_system, &system_context, &event_handler);
 
         game::RegisterGameComponents(entity_system);
         game::RegisterSharedComponents(entity_system);

@@ -291,5 +291,6 @@ void SpawnSystem::Sync()
 
 void SpawnSystem::Reset()
 {
+    Sync();
     m_spawn_events.clear();
 }

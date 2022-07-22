@@ -62,7 +62,20 @@ namespace game
     constexpr int n_players = 3;
     extern PlayerInfo g_players[n_players];
 
-    extern float g_coop_powerup_value;
+    enum class CoopPowerUpState
+    {
+        DISABLED,
+        ENABLED,
+        TRIGGERED
+    };
+
+    struct CoopPowerUp
+    {
+        CoopPowerUpState state;
+        float powerup_value;
+    };
+
+    extern CoopPowerUp g_coop_powerup;
 
     void InitializePlayerInfo();
 
