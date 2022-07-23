@@ -105,17 +105,6 @@ PlayerDaemonSystem::~PlayerDaemonSystem()
     m_event_handler->RemoveListener(m_respawn_player_token);
     m_event_handler->RemoveListener(m_remote_input_token);
     m_event_handler->RemoveListener(m_remote_viewport_token);
-
-    for(int index = 0; index < game::n_players; ++index)
-    {
-        game::PlayerInfo& player_info = g_players[index];
-        if(player_info.player_state != game::PlayerState::NOT_SPAWNED)
-            DespawnPlayer(&player_info);
-    
-        m_camera_system->Unfollow(player_info.entity_id);
-    }
-
-    m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 }
 
 uint32_t PlayerDaemonSystem::Id() const
@@ -131,6 +120,20 @@ const char* PlayerDaemonSystem::Name() const
 void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 {
 
+}
+
+void PlayerDaemonSystem::Reset()
+{
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = g_players[index];
+        if(player_info.player_state != game::PlayerState::NOT_SPAWNED)
+            DespawnPlayer(&player_info);
+    
+        m_camera_system->Unfollow(player_info.entity_id);
+    }
+
+    m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 }
 
 void PlayerDaemonSystem::SetPlayerSpawnPoint(const math::Vector& spawn_point)

@@ -44,6 +44,7 @@ namespace game
         uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
+        void Reset() override;
 
         void SetPlayerSpawnPoint(const math::Vector& spawn_point);
         void SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback);
