@@ -41,8 +41,6 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
-//    , m_player_spawn(player_spawn)
-//    , m_player_spawned_callback(player_spawned_cb)
 {
     m_player_entities = {
         "res/entities/player_dude.entity",
@@ -83,14 +81,6 @@ PlayerDaemonSystem::PlayerDaemonSystem(
 
     const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemonSystem::RemotePlayerViewport, this, _1);
     m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
-
-    if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
-
-    if(System::IsControllerActive(System::ControllerId::Secondary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
-
-    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 PlayerDaemonSystem::~PlayerDaemonSystem()
@@ -120,6 +110,17 @@ const char* PlayerDaemonSystem::Name() const
 void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 {
 
+}
+
+void PlayerDaemonSystem::Begin()
+{
+    if(System::IsControllerActive(System::ControllerId::Primary))
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
+
+    if(System::IsControllerActive(System::ControllerId::Secondary))
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
+
+    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 void PlayerDaemonSystem::Reset()
