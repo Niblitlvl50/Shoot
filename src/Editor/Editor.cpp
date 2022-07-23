@@ -165,7 +165,7 @@ namespace
 
         void Update(const mono::UpdateContext& update_context) override
         {
-            m_entity_manager.Sync();
+            //m_entity_manager.Sync();
             m_fps++;
 
             m_ui_context.fps = m_fps.Fps();
@@ -408,7 +408,7 @@ void Editor::LoadWorld(const std::string& world_filename)
         m_proxies.clear();
     }
 
-    m_entity_manager.Sync();
+    m_system_context.SyncSystems();
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     editor::World world = ::LoadWorld(world_filename.c_str(), &m_entity_manager, transform_system, this);

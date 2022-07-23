@@ -107,6 +107,7 @@ void PacketDeliveryGameMode::Begin(
 
     // Player
     PlayerDaemonSystem* player_system = system_context->GetSystem<PlayerDaemonSystem>();
+    player_system->SetSpawnPlayers(true);
     player_system->SetPlayerSpawnPoint(level_metadata.player_spawn_point);
 
     const PlayerSpawnedCallback player_spawned_cb =

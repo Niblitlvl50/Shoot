@@ -41,6 +41,7 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
+    , m_spawn_players(false)
 {
     m_player_entities = {
         "res/entities/player_dude.entity",
@@ -114,6 +115,9 @@ void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 
 void PlayerDaemonSystem::Begin()
 {
+    if(!m_spawn_players)
+        return;
+
     if(System::IsControllerActive(System::ControllerId::Primary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
 
@@ -125,6 +129,9 @@ void PlayerDaemonSystem::Begin()
 
 void PlayerDaemonSystem::Reset()
 {
+    if(!m_spawn_players)
+        return;
+
     for(int index = 0; index < game::n_players; ++index)
     {
         game::PlayerInfo& player_info = g_players[index];
@@ -135,6 +142,14 @@ void PlayerDaemonSystem::Reset()
     }
 
     m_entity_system->ReleaseEntity(m_spawned_player_familiar);
+
+    m_player_spawned_callback = nullptr;
+    m_spawn_players = false;
+}
+
+void PlayerDaemonSystem::SetSpawnPlayers(bool spawn_players)
+{
+    m_spawn_players = spawn_players;
 }
 
 void PlayerDaemonSystem::SetPlayerSpawnPoint(const math::Vector& spawn_point)

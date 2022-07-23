@@ -48,6 +48,7 @@ namespace game
         void Begin() override;
         void Reset() override;
 
+        void SetSpawnPlayers(bool spawn_players);
         void SetPlayerSpawnPoint(const math::Vector& spawn_point);
         void SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback);
 
@@ -88,6 +89,7 @@ namespace game
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
 
+        bool m_spawn_players;
         math::Vector m_player_spawn;
         PlayerSpawnedCallback m_player_spawned_callback;
         uint32_t m_spawned_player_familiar;
