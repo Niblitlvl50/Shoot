@@ -30,7 +30,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": 2.5
+                                "y": 3.0
                             }
                         },
                         {
@@ -138,7 +138,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": 1.0
+                                "y": 1.25
                             }
                         },
                         {
@@ -245,7 +245,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5,
+                                "x": 0.75,
                                 "y": -3.5
                             }
                         },
@@ -265,7 +265,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Press any key to start"
+                            "variant_value": "press any key to start"
                         },
                         {
                             "id": 3902434344,
@@ -354,7 +354,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": 2.0
+                                "y": 2.5
                             }
                         },
                         {
@@ -481,7 +481,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Esc to quit"
+                            "variant_value": "esc to quit"
                         },
                         {
                             "id": 3902434344,
@@ -570,7 +570,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -2.5,
-                                "y": 1.5
+                                "y": 2.0
                             }
                         },
                         {
@@ -685,7 +685,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 1.5,
-                                "y": 1.5
+                                "y": 2.0
                             }
                         },
                         {
@@ -710,7 +710,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 128336118,
@@ -2065,7 +2065,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -0.9000000953674316,
-                                "y": 0.46666646003723145
+                                "y": 0.75
                             }
                         },
                         {
@@ -2180,7 +2180,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": 0.5
+                                "y": 0.75
                             }
                         },
                         {
@@ -2518,7 +2518,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": -0.5
+                                "y": -0.25
                             }
                         },
                         {
@@ -2626,7 +2626,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -5.5,
-                                "y": -1.0
+                                "y": -0.75
                             }
                         },
                         {
@@ -2703,6 +2703,236 @@
             "folder": "text",
             "name": "text_3",
             "uuid_hash": 3128089712
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.5041546821594238,
+                                "y": -2.6620733737945557
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "eye_monster_small",
+            "uuid_hash": 21179145
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster_small"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.5041546821594238,
+                                "y": -2.6620733737945557
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "eye_monster_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.3499999940395355
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "folder": "",
+            "name": "eye_monster_small",
+            "uuid_hash": 1748990482
         }
     ],
     "metadata": {
