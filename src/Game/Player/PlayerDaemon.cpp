@@ -115,23 +115,18 @@ void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 
 void PlayerDaemonSystem::Begin()
 {
-    if(!m_spawn_players)
-        return;
-
     if(System::IsControllerActive(System::ControllerId::Primary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
 
-    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
+    if(m_spawn_players)
+        m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 void PlayerDaemonSystem::Reset()
 {
-    if(!m_spawn_players)
-        return;
-
     for(int index = 0; index < game::n_players; ++index)
     {
         game::PlayerInfo& player_info = g_players[index];
@@ -141,7 +136,8 @@ void PlayerDaemonSystem::Reset()
         m_camera_system->Unfollow(player_info.entity_id);
     }
 
-    m_entity_system->ReleaseEntity(m_spawned_player_familiar);
+    if(m_spawn_players)
+        m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 
     m_player_spawned_callback = nullptr;
     m_spawn_players = false;
@@ -176,6 +172,9 @@ std::vector<uint32_t> PlayerDaemonSystem::GetPlayerIds() const
 
 void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, int controller_id)
 {
+    if(!m_spawn_players)
+        return;
+
     game::PlayerInfo* allocated_player_info = AllocatePlayerInfo(player_index);
     if(!allocated_player_info)
     {
