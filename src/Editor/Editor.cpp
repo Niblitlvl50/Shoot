@@ -232,12 +232,8 @@ Editor::Editor(
 
     m_context.editor_menu_callback = std::bind(&Editor::EditorMenuCallback, this, _1);
     m_context.tools_menu_callback = std::bind(&Editor::ToolsMenuCallback, this, _1);
-    m_context.reset_zoom_callback = [this] {
-        m_camera->SetTargetViewportSize(m_context.level_metadata.camera_size);
-    };
-    m_context.reset_position_callback = [this] {
-        m_camera->SetTargetPosition(m_context.level_metadata.camera_position);
-    };
+    m_context.reset_zoom_callback = std::bind(&Editor::ResetCameraZoom, this);
+    m_context.reset_position_callback = std::bind(&Editor::ResetCameraPosition, this);
 
     m_context.draw_object_names_callback = std::bind(&Editor::EnableDrawObjectNames, this, _1);
     m_context.draw_snappers_callback = std::bind(&Editor::EnableDrawSnappers, this, _1);
@@ -422,6 +418,9 @@ void Editor::LoadWorld(const std::string& world_filename)
     SetBackgroundColor(world.leveldata.metadata.background_color);
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
     SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
+
+    ResetCameraZoom();
+    ResetCameraPosition();
 }
 
 void Editor::Save()
@@ -979,6 +978,16 @@ void Editor::SetBackgroundTexture(const math::Vector& size, const std::string& b
         m_static_background->Clear();
     else
         m_static_background->Load(size, background_texture.c_str(), mono::TextureModeFlags::REPEAT);
+}
+
+void Editor::ResetCameraZoom()
+{
+    m_camera->SetTargetViewportSize(m_context.level_metadata.camera_size);
+}
+
+void Editor::ResetCameraPosition()
+{
+    m_camera->SetTargetPosition(m_context.level_metadata.camera_position);
 }
 
 bool Editor::DrawGrid() const

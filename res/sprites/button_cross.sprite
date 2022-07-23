@@ -1,12 +1,34 @@
 {
     "animations": [
         {
-            "frame_duration": 100,
+            "frame_duration": 400,
             "frames": [
-                0
+                0,
+                1,
+                1,
+                1
             ],
             "loop": true,
             "name": "down"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                1
+            ],
+            "loop": true,
+            "name": "neutral"
+        },
+        {
+            "frame_duration": 400,
+            "frames": [
+                2,
+                1,
+                1,
+                1
+            ],
+            "loop": true,
+            "name": "up"
         }
     ],
     "frames": [
@@ -14,11 +36,33 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 1261,
+            "x": 1277,
+            "y": 468
+        },
+        {
+            "h": 12,
+            "name": "button_cross_neutral_1",
+            "w": 12,
+            "x": 1245,
+            "y": 468
+        },
+        {
+            "h": 12,
+            "name": "button_cross_up_1",
+            "w": 12,
+            "x": 1229,
             "y": 468
         }
     ],
     "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
         {
             "x": 0.0,
             "y": 0.0

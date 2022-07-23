@@ -123,6 +123,8 @@ namespace editor
         void SetAmbientShade(const mono::Color::RGBA& color);
 
         void SetBackgroundTexture(const math::Vector& size, const std::string& background_texture);
+        void ResetCameraZoom();
+        void ResetCameraPosition();
 
         bool DrawGrid() const;
         void EnableDrawGrid(bool enable);

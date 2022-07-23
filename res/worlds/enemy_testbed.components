@@ -4234,6 +4234,10 @@
             "x": -7.0,
             "y": -4.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 15.0,
             "y": 0.0
@@ -4244,6 +4248,7 @@
             "leave_boss_area",
             "level_completed",
             "none"
-        ]
+        ],
+        "use_custom_package_spawn_position": false
     }
 }

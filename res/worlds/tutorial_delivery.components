@@ -5127,6 +5127,10 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": -2.0
@@ -5134,6 +5138,7 @@
         "time_limit_s": 0,
         "triggers": [
             "region_enter_tutorial"
-        ]
+        ],
+        "use_custom_package_spawn_position": false
     }
 }
