@@ -75,6 +75,17 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
 void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 {
+    {
+        mono::UpdateContext update_context;
+        update_context.delta_s = renderer.GetDeltaTime();
+        update_context.delta_ms = renderer.GetDeltaTime() * 1000.0f;
+        update_context.timestamp = renderer.GetTimestamp();
+        update_context.paused = false;
+
+        for(VerbSpriteBuffer& verb_sprite : m_verb_sprites_buffers)
+            verb_sprite.sprite->Update(update_context);
+    }
+
     struct InteractionDrawData
     {
         math::Matrix transform;
