@@ -24,15 +24,21 @@
 namespace
 {
     constexpr const char* g_interaction_type_sprite[] = {
-        "res/sprites/button_indication.sprite",
-        "res/sprites/button_indication.sprite",
-        "res/sprites/button_indication.sprite",
+        "res/sprites/button_cross.sprite",
+        "res/sprites/button_cross.sprite",
+        "res/sprites/button_cross.sprite",
         "res/sprites/button_cross.sprite",
     };
 
     static_assert(std::size(g_interaction_type_sprite) == std::size(game::interaction_type_verb));
 
     constexpr game::FontId g_verb_font = game::FontId::RUSSOONE_TINY;
+}
+
+namespace tweak_values
+{
+    constexpr mono::Color::RGBA verb_color = mono::Color::RGBA(0.15f, 0.15f, 0.15f);
+    constexpr mono::Color::RGBA background_color = mono::Color::RGBA(0.7f, 0.7f, 0.7f, 0.5f);
 }
 
 using namespace game;
@@ -75,6 +81,7 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
 void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 {
+    // Dirty fix for updating the interaction sprites.
     {
         mono::UpdateContext update_context;
         update_context.delta_s = renderer.GetDeltaTime();
@@ -146,9 +153,9 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const math::Vector half_text_size = (text_size / 2.0f) + math::Vector(padding, padding);
 
             const math::Quad background_quad(-half_text_size, half_text_size);
-            renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
+            renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
 
-            renderer.RenderText(g_verb_font, draw_data.name, mono::Color::OFF_WHITE, mono::FontCentering::HORIZONTAL_VERTICAL);
+            renderer.RenderText(g_verb_font, draw_data.name, tweak_values::verb_color, mono::FontCentering::HORIZONTAL_VERTICAL);
         }
 
         // Verb
@@ -173,7 +180,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const math::Quad background_quad(
                 -(half_sprite_width + width_padding), -0.25f,
                 (current_frame.size.x + verb_width + width_padding), 0.25f);
-            renderer.DrawFilledQuad(background_quad, mono::Color::RGBA(0.2f, 0.2f, 0.2f, 0.7f));
+            renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
 
             mono::ITexture* texture = button_sprite->GetTexture();
             const int offset = sprite_and_buffer.sprite->GetCurrentFrameIndex() * button_buffers.vertices_per_sprite;
@@ -201,7 +208,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
                 text_buffers.uv.get(),
                 text_buffers.indices.get(),
                 font_texture.get(),
-                mono::Color::WHITE);
+                tweak_values::verb_color);
         }
     }
 }

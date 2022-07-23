@@ -31,7 +31,7 @@ namespace
         using namespace mono::Color;
         component_view.gradient = mono::Color::MakeGradient<4>(
             { 0.0f, 1.0f, 1.0f, 1.0f },
-            { RGBA(0.5f, 0.5f, 0.5f, 0.5f), RGBA(0.5f, 0.5f, 0.5f, 0.0f), RGBA(), RGBA() }
+            { RGBA(0.5f, 0.5f, 0.5f, 0.1f), RGBA(0.5f, 0.5f, 0.5f, 0.0f), RGBA(), RGBA() }
         );
         component_view.size = 20.0f;
         component_view.start_size = 20.0f;
