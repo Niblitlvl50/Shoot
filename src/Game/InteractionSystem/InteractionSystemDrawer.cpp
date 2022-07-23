@@ -37,8 +37,8 @@ namespace
 
 namespace tweak_values
 {
-    constexpr mono::Color::RGBA verb_color = mono::Color::RGBA(0.15f, 0.15f, 0.15f);
-    constexpr mono::Color::RGBA background_color = mono::Color::RGBA(0.7f, 0.7f, 0.7f, 0.5f);
+    constexpr mono::Color::RGBA verb_color = mono::Color::RGBA(0.1f, 0.1f, 0.1f);
+    constexpr mono::Color::RGBA background_color = mono::Color::RGBA(0.7f, 0.7f, 0.7f, 0.15f);
 }
 
 using namespace game;

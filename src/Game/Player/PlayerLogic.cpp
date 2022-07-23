@@ -227,7 +227,7 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     weapon_transform =
         math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
         math::CreateMatrixFromZRotation(m_aim_direction + math::PI_2()) *
-        math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f));
+        math::CreateMatrixWithPosition(math::Vector(0.1f, 0.0f));
 
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, !HoldingPickup());
 }
