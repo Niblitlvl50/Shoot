@@ -107,15 +107,12 @@ void PacketDeliveryGameMode::Begin(
 
     // Player
     PlayerDaemonSystem* player_system = system_context->GetSystem<PlayerDaemonSystem>();
-    player_system->SetSpawnPlayers(true);
-    player_system->SetPlayerSpawnPoint(level_metadata.player_spawn_point);
 
     const PlayerSpawnedCallback player_spawned_cb =
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-
-    player_system->SetPlayerSpawnCallback(player_spawned_cb);
+    player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
 
     m_coop_power_manager = std::make_unique<CoopPowerupManager>(damage_system);
 

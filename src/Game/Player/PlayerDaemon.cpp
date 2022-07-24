@@ -143,18 +143,10 @@ void PlayerDaemonSystem::Reset()
     m_spawn_players = false;
 }
 
-void PlayerDaemonSystem::SetSpawnPlayers(bool spawn_players)
+void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback)
 {
-    m_spawn_players = spawn_players;
-}
-
-void PlayerDaemonSystem::SetPlayerSpawnPoint(const math::Vector& spawn_point)
-{
-    m_player_spawn = spawn_point;
-}
-
-void PlayerDaemonSystem::SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback)
-{
+    m_spawn_players = true;
+    m_player_spawn = spawn_position;
     m_player_spawned_callback = callback;
 }
 

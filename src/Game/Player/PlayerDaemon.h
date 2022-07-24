@@ -48,9 +48,7 @@ namespace game
         void Begin() override;
         void Reset() override;
 
-        void SetSpawnPlayers(bool spawn_players);
-        void SetPlayerSpawnPoint(const math::Vector& spawn_point);
-        void SetPlayerSpawnCallback(const PlayerSpawnedCallback& callback);
+        void SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback);
 
         void SpawnLocalPlayer(int player_index, int controller_id);
         void DespawnPlayer(PlayerInfo* player_info);
