@@ -22,7 +22,7 @@ namespace game
         "Push",
         "Talk",
         "Read",
-        "Take",
+        "Pickup",
     };
 
     inline const char* InteractionTypeToString(InteractionType interaction_type)

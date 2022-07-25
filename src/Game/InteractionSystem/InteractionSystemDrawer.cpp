@@ -36,8 +36,8 @@ namespace
 namespace tweak_values
 {
     constexpr game::FontId verb_font = game::FontId::RUSSOONE_TINY;
-    constexpr mono::Color::RGBA verb_color = mono::Color::RGBA(0.1f, 0.1f, 0.1f);
-    constexpr mono::Color::RGBA background_color = mono::Color::RGBA(0.7f, 0.7f, 0.7f, 0.15f);
+    constexpr mono::Color::RGBA verb_color = mono::Color::OFF_WHITE;
+    constexpr mono::Color::RGBA background_color = mono::Color::RGBA(0.4f, 0.4f, 0.4f, 0.5f);
 }
 
 using namespace game;
@@ -153,6 +153,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
+            renderer.DrawQuad(background_quad, mono::Color::BLACK, 1.0f);
 
             renderer.RenderText(tweak_values::verb_font, draw_data.name, tweak_values::verb_color, mono::FontCentering::HORIZONTAL_VERTICAL);
         }
