@@ -35,6 +35,7 @@ namespace
     constexpr mono::Color::RGBA g_collision_color = mono::Color::RGBA(1.0f, 0.0f, 1.0f, 0.25f);
     constexpr mono::Color::RGBA g_sensor_color = mono::Color::RGBA(0.0f, 0.0f, 1.0f, 0.25f);
     constexpr mono::Color::RGBA g_area_trigger_color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.25f);
+    constexpr mono::Color::RGBA g_trigger_name_color = mono::Color::OFF_WHITE;
 }
 
 void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -127,7 +128,7 @@ void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const s
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -156,21 +157,21 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
 
     char text_buffer[1024] = {};
     std::snprintf(text_buffer, std::size(text_buffer), "%s %s %u -> %s", faction_string, op_string, n_entities, name.c_str());
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -184,7 +185,7 @@ void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const
     FindAttribute(COUNT_ATTRIBUTE, component_properties, count, FallbackMode::SET_DEFAULT);
 
     const std::string output = std::to_string(count) + " x " + name + " -> " + completed_name;
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), mono::Color::ORANGE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
