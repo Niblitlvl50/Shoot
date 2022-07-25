@@ -419,8 +419,8 @@ void Editor::LoadWorld(const std::string& world_filename)
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
     SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
 
-    ResetCameraZoom();
-    ResetCameraPosition();
+    //ResetCameraZoom();
+    //ResetCameraPosition();
 }
 
 void Editor::Save()

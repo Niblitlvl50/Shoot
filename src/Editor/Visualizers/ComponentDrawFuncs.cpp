@@ -6,6 +6,9 @@
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 
+#include "CollisionConfiguration.h"
+#include "TriggerSystem/TriggerTypes.h"
+
 #include "Entity/Component.h"
 #include "FontIds.h"
 
@@ -28,6 +31,10 @@ namespace
 
         return vertices;
     }
+
+    constexpr mono::Color::RGBA g_collision_color = mono::Color::RGBA(1.0f, 0.0f, 1.0f, 0.25f);
+    constexpr mono::Color::RGBA g_sensor_color = mono::Color::RGBA(0.0f, 0.0f, 1.0f, 0.25f);
+    constexpr mono::Color::RGBA g_area_trigger_color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.25f);
 }
 
 void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -42,9 +49,7 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
 
     radius_value = std::max(radius_value, 0.0001f);
 
-    mono::Color::RGBA color = is_sensor ? mono::Color::BLUE : mono::Color::MAGENTA;
-    color.alpha = 0.5f;
-    
+    const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
     renderer.DrawFilledCircle(offset, math::Vector(radius_value, radius_value), 20, color);
 }
 
@@ -64,10 +69,9 @@ void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<At
     box.bottom_left = offset - half_size;
     box.top_right = offset + half_size;
 
-    mono::Color::RGBA color = is_sensor ? mono::Color::BLUE : mono::Color::MAGENTA;
-    color.alpha = 0.5f;
-
+    const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
     renderer.DrawFilledQuad(box, color);
+    renderer.DrawQuad(box, mono::Color::BLACK, 1.0f);
 }
 
 void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -83,14 +87,8 @@ void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vecto
     FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
     const std::vector<math::Vector> line = { start, end };
-
-    if(is_sensor)
-    {
-        mono::Color::RGBA sensor_color = mono::Color::BLUE;
-        sensor_color.alpha = 0.25f;
-        renderer.DrawLines(line, sensor_color, 10.0f);
-    }
-    renderer.DrawLines(line, mono::Color::MAGENTA, std::max(radius, 1.0f));
+    const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
+    renderer.DrawLines(line, color, 10.0f);
 }
 
 void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -103,7 +101,8 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
     bool is_sensor;
     FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
-    renderer.DrawClosedPolyline(polygon, mono::Color::MAGENTA, 1.0f);
+    const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
+    renderer.DrawClosedPolyline(polygon, color, 1.0f);
     if(is_sensor)
         renderer.RenderText(game::FontId::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
@@ -139,9 +138,25 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
     std::string name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
 
+    uint32_t faction;
+    FindAttribute(FACTION_PICKER_ATTRIBUTE, component_properties, faction, FallbackMode::SET_DEFAULT);
+    const char* faction_string = game::CollisionCategoryToString(faction);
+
+    int trigger_op;
+    FindAttribute(LOGIC_OP_ATTRIBUTE, component_properties, trigger_op, FallbackMode::SET_DEFAULT);
+    const char* op_string = game::AreaTriggerOpToString(game::AreaTriggerOperation(trigger_op));
+
+    int n_entities;
+    FindAttribute(N_ENTITIES_ATTRIBUTE, component_properties, n_entities, FallbackMode::SET_DEFAULT);
+
     const math::Vector half_width_height = width_height / 2.0f;
-    renderer.DrawFilledQuad(math::Quad(-half_width_height, half_width_height), mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.5f));
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
+    const math::Quad area = math::Quad(-half_width_height, half_width_height);
+    renderer.DrawFilledQuad(area, g_area_trigger_color);
+    renderer.DrawQuad(area, mono::Color::BLACK, 1.0f);
+
+    char text_buffer[1024] = {};
+    std::snprintf(text_buffer, std::size(text_buffer), "%s %s %u -> %s", faction_string, op_string, n_entities, name.c_str());
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
