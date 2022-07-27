@@ -61,7 +61,6 @@ namespace
 
             const bool has_uuid_hash = json_entity.contains("uuid_hash");
             const std::string& entity_name = json_entity["name"];
-            const std::string& entity_folder = json_entity.value("folder", ""); 
             const uint32_t entity_properties = json_entity["entity_properties"];
 
             mono::Entity new_entity;
@@ -139,7 +138,7 @@ namespace
             level_data.loaded_entities.push_back(new_entity.id);
 
             if(creation_callback)
-                creation_callback(new_entity, entity_folder, components);
+                creation_callback(new_entity, components);
         }
 
         return level_data;

@@ -23,6 +23,7 @@ namespace editor
 
         virtual std::string Name() const = 0;
         virtual std::string GetFolder() const = 0;
+        virtual bool IsLocked() const = 0;
 
         virtual bool Intersects(const math::Vector& position) const = 0;
         virtual bool Intersects(const math::Quad& world_bb) const = 0;

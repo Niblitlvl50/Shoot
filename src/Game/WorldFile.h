@@ -49,8 +49,8 @@ namespace game
         std::vector<uint32_t> loaded_entities;
     };
 
-    using EntityCreationCallback
-        = std::function<void (const mono::Entity& entity, const std::string& folder, const std::vector<Component>& components)>;
+    using EntityCreationCallback = std::function<
+        void (const mono::Entity& entity, const std::vector<Component>& components)>;
 
     LevelData ReadWorldComponentObjects(
         const char* filename, mono::IEntityManager* entity_manager, EntityCreationCallback creation_callback);

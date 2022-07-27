@@ -1,5 +1,6 @@
 
 #include "ComponentProxy.h"
+#include "EditorEntityAttributes.h"
 #include "SnapPoint.h"
 #include "Grabber.h"
 
@@ -89,14 +90,37 @@ std::string ComponentProxy::GetFolder() const
     return folder;
 }
 
+bool ComponentProxy::IsLocked() const
+{
+    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    if(!name_folder_component)
+        return false;
+
+    uint32_t editor_attributes;
+    const bool found_attribute =
+        FindAttribute(EDITOR_PROPERTIES_ATTRIBUTE, name_folder_component->properties, editor_attributes, FallbackMode::REQUIRE_ATTRIBUTE);
+    if(!found_attribute)
+        return false;
+    
+    return (editor_attributes & editor::EntityAttribute::LOCKED);
+}
+
 bool ComponentProxy::Intersects(const math::Vector& position) const
 {
+    const bool is_locked = IsLocked();
+    if(is_locked)
+        return false;
+
     const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
     return math::PointInsideQuad(position, world_bb);
 }
 
 bool ComponentProxy::Intersects(const math::Quad& world_bb) const
 {
+    const bool is_locked = IsLocked();
+    if(is_locked)
+        return false;
+
     const math::Quad& proxy_world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
     return math::QuadOverlaps(world_bb, proxy_world_bb);
 }
@@ -176,10 +200,6 @@ void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_h
     m_entity_manager->SetComponentData(m_entity_id, component.hash, component.properties);
 
     const std::string name = Name();
-
-    if(component.hash == NAME_FOLDER_COMPONENT)
-        m_entity_manager->SetEntityEnabled(m_entity_id, name.c_str());
-
     const bool unnamed_or_empty = (name == "unnamed" || name.empty());
 
     // Special case for setting a proper name...

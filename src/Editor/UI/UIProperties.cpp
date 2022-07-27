@@ -4,6 +4,7 @@
 #include "Entity/Component.h"
 #include "UIContext.h"
 #include "Resources.h"
+#include "ObjectProxies/EditorEntityAttributes.h"
 
 #include "Entity/AnimationModes.h"
 #include "Entity/EntityLogicTypes.h"
@@ -404,6 +405,11 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::emitter_type_strings));
+    }
+    else if(attribute.id == EDITOR_PROPERTIES_ATTRIBUTE)
+    {
+        return DrawBitfieldProperty(
+            attribute_name, std::get<uint32_t>(attribute.value), editor::all_entity_attributes, editor::EntityAttributeToString);
     }
     else
     {

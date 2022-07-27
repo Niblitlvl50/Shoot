@@ -198,10 +198,13 @@ namespace
                     std::find(context.selected_proxies.begin(), context.selected_proxies.end(), proxy) != context.selected_proxies.end();
                 const bool pre_selection = (proxy == context.preselected_proxy_object);
                 const bool selected = in_selection || pre_selection;
-                
+                const bool is_locked = proxy->IsLocked();
+
+                const std::string proxy_name = proxy->Name() + (is_locked ? " (L)" : "");
+
                 ImGui::PushID(id++);
 
-                if(ImGui::Selectable(proxy->Name().c_str(), selected, ImGuiSelectableFlags_AllowDoubleClick))
+                if(ImGui::Selectable(proxy_name.c_str(), selected, ImGuiSelectableFlags_AllowDoubleClick))
                 {
                     const uint32_t entity_id = proxy->Id();
                     const bool is_double_click = ImGui::IsMouseDoubleClicked(0);

@@ -34,6 +34,7 @@ namespace editor
         uint32_t Id() const override;
         std::string Name() const override;
         std::string GetFolder() const override;
+        bool IsLocked() const override;
 
         bool Intersects(const math::Vector& position) const override;
         bool Intersects(const math::Quad& world_bb) const override;
@@ -59,6 +60,7 @@ namespace editor
 
         std::unique_ptr<IObjectProxy> Clone() const override;
         void Visit(class IObjectVisitor& visitor) override;
+
 
     private:
 

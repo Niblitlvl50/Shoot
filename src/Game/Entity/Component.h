@@ -113,6 +113,8 @@ extern const uint32_t DAMPING_ATTRIBUTE;
 extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE;
 extern const uint32_t PARTICLE_DRAW_LAYER;
 
+extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE;
+
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

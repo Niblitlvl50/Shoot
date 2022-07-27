@@ -110,6 +110,7 @@ const DefaultAttribute default_attributes[] = {
     { "damping",                    Variant(0.0f) },
     { "transform_space",            Variant(0) },
     { "particle_draw_layer",        Variant(0) },
+    { "editor_properties",          Variant(0u) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -215,6 +216,7 @@ extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes
 extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[82].hash;
 extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE             = default_attributes[83].hash;
 extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes[84].hash;
+extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[85].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -347,7 +349,7 @@ Component MakeComponent(
 }
 
 const Component default_components[] = {
-    MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE }),
+    MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),

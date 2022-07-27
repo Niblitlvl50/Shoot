@@ -14,11 +14,9 @@ editor::World editor::LoadWorld(
 
     const auto entity_callback =
         [&world, entity_manager, transform_system, editor]
-        (const mono::Entity& entity, const std::string& folder, const std::vector<Component>& components)
+        (const mono::Entity& entity, const std::vector<Component>& components)
     {
         auto component_proxy = std::make_unique<ComponentProxy>(entity.id, components, entity_manager, transform_system, editor);
-        component_proxy->SetEntityProperties(entity.properties);
-
         world.loaded_proxies.push_back(std::move(component_proxy));
     };
 
