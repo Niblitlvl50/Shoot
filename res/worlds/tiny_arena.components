@@ -284,7 +284,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 5
+                            "variant_value": 3
                         },
                         {
                             "id": 230313139,
@@ -2583,7 +2583,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 5
+                            "variant_value": 3
                         },
                         {
                             "id": 230313139,
@@ -13481,7 +13481,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 5
+                            "variant_value": 3
                         },
                         {
                             "id": 230313139,
@@ -17061,8 +17061,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 10.764233589172363,
-                                "y": 8.138575553894043
+                                "x": 10.803801536560059,
+                                "y": 8.257280349731445
                             }
                         },
                         {
@@ -17274,7 +17274,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -22843,7 +22843,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -22991,7 +22991,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -26152,8 +26152,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 10.718582153320313,
-                                "y": 8.16561508178711
+                                "x": 10.758151054382324,
+                                "y": 8.157699584960938
                             }
                         },
                         {
@@ -26161,6 +26161,30 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2511960119,
+                    "name": "entity_spawn_point",
+                    "properties": [
+                        {
+                            "id": 615778801,
+                            "name": "entity_file",
+                            "variant_type": 6,
+                            "variant_value": "res/entities/package_explosion.entity"
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
                         }
                     ]
                 },
@@ -26798,7 +26822,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 8.652605056762695,
-                                "y": 9.472625732421875
+                                "y": 9.493124008178711
                             }
                         },
                         {
@@ -30024,7 +30048,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -30509,82 +30533,6 @@
             "entity_properties": 0,
             "name": "tiny_grass",
             "uuid_hash": 942306792
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "package_explosion_spawn"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "zone_logic"
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 10.71857738494873,
-                                "y": 8.165619850158691
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2511960119,
-                    "name": "entity_spawn_point",
-                    "properties": [
-                        {
-                            "id": 615778801,
-                            "name": "entity_file",
-                            "variant_type": 6,
-                            "variant_value": "res/entities/package_explosion.entity"
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "package_explosion_spawn",
-            "uuid_hash": 2682684711
         },
         {
             "components": [
@@ -36594,13 +36542,13 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "spawn_area"
+                            "variant_value": "lights"
                         },
                         {
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
