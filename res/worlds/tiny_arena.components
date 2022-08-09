@@ -363,7 +363,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.699999988079071
+                                "y": -0.6000000238418579
                             }
                         },
                         {
@@ -1967,7 +1967,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.25
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -2153,7 +2153,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.5
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -2662,7 +2662,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.699999988079071
+                                "y": -0.6000000238418579
                             }
                         },
                         {
@@ -4487,7 +4487,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.25
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -4732,8 +4732,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.917607307434082,
-                                "y": -1.324143886566162
+                                "x": 3.7577314376831055,
+                                "y": -1.2950754165649414
                             }
                         },
                         {
@@ -4826,7 +4826,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.25
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -10579,7 +10579,7 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.25
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1015133031,
@@ -13431,8 +13431,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.861998081207275,
-                                "y": -2.976207733154297
+                                "x": 4.959596633911133,
+                                "y": -2.9229722023010254
                             }
                         },
                         {
@@ -13560,7 +13560,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.699999988079071
+                                "y": -0.6000000238418579
                             }
                         },
                         {
@@ -21536,8 +21536,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 9.903804779052734,
-                                "y": 3.613028049468994
+                                "x": 9.561796188354492,
+                                "y": 3.7901711463928223
                             }
                         },
                         {
@@ -26240,7 +26240,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.11999999731779099
                             }
                         },
                         {
@@ -27970,7 +27970,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.11999999731779099
                             }
                         },
                         {
@@ -28090,7 +28090,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.11999999731779099
                             }
                         },
                         {
@@ -29735,8 +29735,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 11.95976734161377,
-                                "y": 9.458365440368652
+                                "x": 12.112969398498535,
+                                "y": 9.464492797851563
                             }
                         },
                         {
@@ -35614,7 +35614,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -35734,7 +35734,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -35854,7 +35854,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37396,7 +37396,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37516,7 +37516,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37636,7 +37636,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37756,7 +37756,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37876,7 +37876,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -37996,7 +37996,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -38116,7 +38116,7 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -40103,7 +40103,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -40307,7 +40307,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -40511,7 +40511,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -40715,7 +40715,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -40919,7 +40919,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -41123,7 +41123,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -41327,7 +41327,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
