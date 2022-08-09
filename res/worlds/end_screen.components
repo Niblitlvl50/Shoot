@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -143,7 +149,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "thanks_for_playing",
             "uuid_hash": 999363917
         },
@@ -164,6 +169,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -364,7 +375,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "particles",
             "uuid_hash": 562771898
         },
@@ -385,6 +395,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -479,7 +495,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "stone_pattern_8",
             "uuid_hash": 158466933
         },
@@ -500,6 +515,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -594,7 +615,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "goblin_black",
             "uuid_hash": 3859029168
         },
@@ -615,6 +635,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -709,7 +735,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 2069779112
         },
@@ -730,6 +755,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -824,7 +855,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 3367487634
         },
@@ -845,6 +875,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -939,7 +975,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 705871451
         },
@@ -960,6 +995,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1054,7 +1095,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 3519150806
         },
@@ -1075,6 +1115,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1169,7 +1215,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_medium_3",
             "uuid_hash": 3213553864
         },
@@ -1190,6 +1235,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1284,7 +1335,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 1283029392
         },
@@ -1305,6 +1355,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1399,7 +1455,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 1732327660
         },
@@ -1420,6 +1475,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1514,7 +1575,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "goblin_black",
             "uuid_hash": 1362191078
         },
@@ -1535,6 +1595,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1629,7 +1695,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "japanese_banner",
             "uuid_hash": 4031686803
         },
@@ -1650,6 +1715,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1744,7 +1815,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "japanese_banner",
             "uuid_hash": 845946728
         },
@@ -1765,6 +1835,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1778,7 +1854,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -3.75
+                                "y": -3.375
                             }
                         },
                         {
@@ -1852,7 +1928,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "initial_commit",
             "uuid_hash": 1198866233
         },
@@ -1873,6 +1948,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1886,7 +1967,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -4.5
+                                "y": -3.875
                             }
                         },
                         {
@@ -1960,7 +2041,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "initial_commit",
             "uuid_hash": 325871195
         },
@@ -1981,6 +2061,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2075,7 +2161,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "fir_large",
             "uuid_hash": 1297701103
         },
@@ -2096,6 +2181,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2190,7 +2281,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "fir_large",
             "uuid_hash": 3928429395
         },
@@ -2211,6 +2301,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2305,7 +2401,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "fir_large",
             "uuid_hash": 2890225344
         },
@@ -2326,6 +2421,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2420,7 +2521,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "fir_large",
             "uuid_hash": 4214884139
         },
@@ -2441,6 +2541,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2535,7 +2641,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "leaf_pile_1",
             "uuid_hash": 1475597201
         },
@@ -2556,6 +2661,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2650,7 +2761,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "leaf_pile_1",
             "uuid_hash": 2442895607
         },
@@ -2671,6 +2781,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2777,7 +2893,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "blob",
             "uuid_hash": 3589280945
         }
@@ -2828,6 +2943,7 @@
             "x": 0.0,
             "y": 0.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
         "triggers": [],
         "use_custom_package_spawn_position": false
