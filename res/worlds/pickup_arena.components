@@ -33381,6 +33381,7 @@
             "x": -8.0,
             "y": 0.0
         },
+        "spawn_package": true,
         "time_limit_s": 300,
         "triggers": [
             "boss_completed",

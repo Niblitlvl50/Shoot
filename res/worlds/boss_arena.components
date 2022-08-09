@@ -1089,7 +1089,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -19327,6 +19327,7 @@
             "x": 0.0,
             "y": -8.0
         },
+        "spawn_package": false,
         "time_limit_s": 0,
         "triggers": [
             "boss_dead",

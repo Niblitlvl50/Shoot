@@ -44118,6 +44118,7 @@
             "x": -20.0,
             "y": -10.0
         },
+        "spawn_package": true,
         "time_limit_s": 300,
         "triggers": [
             "alien_tree_destroyed",
