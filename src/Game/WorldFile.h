@@ -23,6 +23,7 @@ namespace game
         math::Vector camera_size;
         math::Vector player_spawn_point;
 
+        bool spawn_package = true;
         bool use_package_spawn_position = false;
         math::Vector package_spawn_position;
 

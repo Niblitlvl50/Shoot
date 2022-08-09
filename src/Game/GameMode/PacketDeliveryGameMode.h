@@ -84,6 +84,7 @@ namespace game
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<event::PauseEvent> m_pause_token;
 
+        bool m_spawn_package;
         bool m_package_spawned;
         math::Vector m_package_spawn_position;
         int m_next_zone;

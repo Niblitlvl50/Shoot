@@ -143,6 +143,7 @@ void PacketDeliveryGameMode::Begin(
     m_level_timer = level_metadata.time_limit_s;
     m_level_has_timelimit = (m_level_timer > 0);
 
+    m_spawn_package = level_metadata.spawn_package;
     m_package_spawn_position = level_metadata.use_package_spawn_position ?
         level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
@@ -210,6 +211,9 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
 
 void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 {
+    if(!m_spawn_package)
+        return;
+
     if(m_package_spawned)
         return;
 

@@ -329,8 +329,21 @@ namespace
 
                 ImGui::TextDisabled("Player");
                 ImGui::InputFloat2("Spawn", &context.level_metadata.player_spawn_point.x);
-                ImGui::Checkbox("Use Package Spawn", &context.level_metadata.use_package_spawn_position);
-                ImGui::InputFloat2("Package Spawn Position", &context.level_metadata.package_spawn_position.x);
+
+                ImGui::TextDisabled("Package");
+                ImGui::Checkbox("Spawn Package", &context.level_metadata.spawn_package);
+
+                {
+                    ImGui::BeginDisabled(!context.level_metadata.spawn_package);
+                    if(ImGui::RadioButton("Spawn at Player", context.level_metadata.use_package_spawn_position == false))
+                        context.level_metadata.use_package_spawn_position = false;
+                    ImGui::SameLine();
+                    if(ImGui::RadioButton("Use Package Spawn", context.level_metadata.use_package_spawn_position == true))
+                        context.level_metadata.use_package_spawn_position = true;
+                    ImGui::InputFloat2("Package Spawn Position", &context.level_metadata.package_spawn_position.x);
+                    ImGui::EndDisabled();
+                }
+
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Game Camera");
