@@ -602,8 +602,9 @@ void Editor::TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxi
     float width = 0.0f;
     float height = 0.0f;
 
-    const float bb_width = math::Width(bb);
-    const float bb_height = math::Height(bb);
+    // Make the width/height min 1.0f, so that the zoom level is not too close.
+    const float bb_width = std::max(math::Width(bb), 1.0f);
+    const float bb_height = std::max(math::Height(bb), 1.0f);
 
     if(bb_width > bb_height)
     {
