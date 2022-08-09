@@ -283,17 +283,30 @@ namespace game
             m_powerup_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
             m_powerup_text->SetScale(0.5f);
+
+            m_powerup_background = new UISquareElement(0.1f, 1.55f, mono::Color::BLACK);
+            m_powerup_background->SetPosition(0.5f, -2.0f);
+
+            m_powerup_bar = new UISquareElement(0.1f, 1.5f, mono::Color::RED, mono::Color::BLACK, 1.0f);
+            m_powerup_bar->SetPosition(0.5f, -2.0f);
+
+            AddChild(m_powerup_background);
             AddChild(m_powerup_text);
+            AddChild(m_powerup_bar);
         }
 
         void Update(const mono::UpdateContext& context) override
         {
+            const float powerup_value = game::g_coop_powerup.powerup_value;
+            m_powerup_bar->SetScale(math::Vector(1.0f, powerup_value));
+
             char buffer[256] = { 0 };
-            std::snprintf(buffer, std::size(buffer), "powerup %.2f", game::g_coop_powerup.powerup_value);
+            std::snprintf(buffer, std::size(buffer), "powerup %.2f", powerup_value);
             m_powerup_text->SetText(buffer);
         }
 
-
+        UISquareElement* m_powerup_background;
+        UISquareElement* m_powerup_bar;
         UITextElement* m_powerup_text;
     };
 }
