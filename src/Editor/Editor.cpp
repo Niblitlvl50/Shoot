@@ -485,6 +485,8 @@ void Editor::NewEntity()
 
 void Editor::SetSelection(const Selection& selected_ids)
 {
+    m_context.draw_all_objects = false;
+
     const EditorMode mode = m_mode_stack.top();
     if(mode == EditorMode::REFERENCE_PICKING)
     {
@@ -527,6 +529,8 @@ void Editor::RemoveFromSelection(const Selection& selected_ids)
 
 void Editor::ClearSelection()
 {
+    m_context.draw_all_objects = false;
+
     m_selected_ids.clear();
     UpdateSelection();
 }
