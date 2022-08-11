@@ -19,11 +19,19 @@ namespace game
     {
     public:
 
-        WeaponSystem(mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
-        ~WeaponSystem();
+        WeaponSystem(
+            mono::TransformSystem* transform_system,
+            mono::SpriteSystem* sprite_system,
+            mono::PhysicsSystem* physics_system,
+            class DamageSystem* damage_system,
+            mono::IEntityManager* entity_manager,
+            mono::SystemContext* system_context);
 
         uint32_t Id() const override;
         const char* Name() const override;
+        void Begin() override;
+        void Reset() override;
+
         void Update(const mono::UpdateContext& update_context) override;
 
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
@@ -32,7 +40,6 @@ namespace game
 
         IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
 
-
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;
 
@@ -40,5 +47,8 @@ namespace game
 
         std::unordered_map<uint32_t, struct BulletConfiguration> m_bullet_configs;
         std::unordered_map<uint32_t, struct WeaponConfiguration> m_weapon_configs;
+
+        class DamageEffect* m_damage_effect = nullptr;
+        class ImpactEffect* m_impact_effect = nullptr;
     };
 }

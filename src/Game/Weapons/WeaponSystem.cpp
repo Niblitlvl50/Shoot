@@ -24,16 +24,16 @@
 
 using namespace game;
 
-WeaponSystem::WeaponSystem(mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
+WeaponSystem::WeaponSystem(
+    mono::TransformSystem* transform_system,
+    mono::SpriteSystem* sprite_system,
+    mono::PhysicsSystem* physics_system,
+    game::DamageSystem* damage_system,
+    mono::IEntityManager* entity_manager,
+    mono::SystemContext* system_context)
     : m_entity_manager(entity_manager)
     , m_system_context(system_context)
 {
-    InitWeaponCallbacks(system_context);
-
-    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
-    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
-    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     using namespace std::placeholders;
     m_bullet_callbacks = {
@@ -60,11 +60,6 @@ WeaponSystem::WeaponSystem(mono::IEntityManager* entity_manager, mono::SystemCon
     }
 }
 
-WeaponSystem::~WeaponSystem()
-{
-    CleanupWeaponCallbacks();
-}
-
 uint32_t WeaponSystem::Id() const
 {
     return hash::Hash(Name());
@@ -75,11 +70,20 @@ const char* WeaponSystem::Name() const
     return "weaponsystem";
 }
 
+void WeaponSystem::Begin()
+{
+    InitWeaponCallbacks(m_system_context);
+}
+
+void WeaponSystem::Reset()
+{
+    CleanupWeaponCallbacks();
+}
+
 void WeaponSystem::Update(const mono::UpdateContext& update_context)
 {
 
 }
-
 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
@@ -103,7 +107,9 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
         return std::make_unique<game::Weapon>(owner_id, weapon_config, bullet_config, collision_config, m_entity_manager, m_system_context);
     }
     else
+    {
         return CreateThrowableWeapon(setup, faction, owner_id);
+    }
 }
 
 IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
