@@ -1,5 +1,9 @@
 
-#include "WeaponFactory.h"
+#include "WeaponSystem.h"
+#include "System/Hash.h"
+
+
+
 #include "Weapons/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
@@ -16,9 +20,11 @@
 #include "nlohmann/json.hpp"
 #include <functional>
 
+
+
 using namespace game;
 
-WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
+WeaponSystem::WeaponSystem(mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
     : m_entity_manager(entity_manager)
     , m_system_context(system_context)
 {
@@ -54,12 +60,28 @@ WeaponFactory::WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemC
     }
 }
 
-WeaponFactory::~WeaponFactory()
+WeaponSystem::~WeaponSystem()
 {
     CleanupWeaponCallbacks();
 }
 
-IWeaponPtr WeaponFactory::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
+uint32_t WeaponSystem::Id() const
+{
+    return hash::Hash(Name());
+}
+
+const char* WeaponSystem::Name() const
+{
+    return "weaponsystem";
+}
+
+void WeaponSystem::Update(const mono::UpdateContext& update_context)
+{
+
+}
+
+
+IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
     const WeaponConfiguration& weapon_config = m_weapon_configs[setup.weapon_hash];
     const BulletConfiguration& bullet_config = m_bullet_configs[setup.bullet_hash];
@@ -84,7 +106,7 @@ IWeaponPtr WeaponFactory::CreateWeapon(WeaponSetup setup, WeaponFaction faction,
         return CreateThrowableWeapon(setup, faction, owner_id);
 }
 
-IWeaponPtr WeaponFactory::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
+IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
     ThrowableWeaponConfig weapon_config;
 

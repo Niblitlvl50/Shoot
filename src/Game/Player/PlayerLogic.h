@@ -5,12 +5,13 @@
 #include "Math/Vector.h"
 #include "StateMachine.h"
 #include "System/Audio.h"
+#include "Physics/PhysicsFwd.h"
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerAbilities.h"
 #include "PlayerGamepadController.h"
 #include "Weapons/WeaponTypes.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponFwd.h"
 #include "Pickups/PickupTypes.h"
 
 #include <memory>
@@ -130,6 +131,7 @@ namespace game
         class PickupSystem* m_pickup_system;
         class InteractionSystem* m_interaction_system;
         class EntityLogicSystem* m_logic_system;
+        class WeaponSystem* m_weapon_system;
 
         struct ItemSlot
         {};

@@ -22,7 +22,7 @@
 #include "FontIds.h"
 #include "GameConfig.h"
 #include "Resources.h"
-#include "Weapons/WeaponFactory.h"
+#include "Weapons/WeaponSystem.h"
 #include "Zones/ZoneManager.h"
 
 #include "DamageSystem.h"
@@ -142,8 +142,8 @@ int main(int argc, char* argv[])
 
         const int window_options = 
             0;
-            // System::WindowOptions::FULLSCREEN;
-            // System::WindowOptions::DISABLE_VSYNC;
+            //System::WindowOptions::FULLSCREEN;
+            //System::WindowOptions::DISABLE_VSYNC;
         System::IWindow* window = System::MakeWindow(
             "game", options.x, options.y, options.width, height, System::WindowOptions(window_options));
 
@@ -185,6 +185,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::DialogSystem>(max_entities);
         system_context.CreateSystem<game::SoundSystem>();
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
+        system_context.CreateSystem<game::WeaponSystem>(entity_system, &system_context);
 
         game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
@@ -194,10 +195,7 @@ int main(int argc, char* argv[])
         game::RegisterGameComponents(entity_system);
         game::RegisterSharedComponents(entity_system);
 
-        game::WeaponFactory weapon_factory(entity_system, &system_context);
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
-
-        game::g_weapon_factory = &weapon_factory;
         game::g_logic_factory = &logic_factory;
 
         game::ZoneCreationContext zone_context;

@@ -13,10 +13,9 @@
 #include "IDebugDrawer.h"
 
 #include "Player/PlayerInfo.h"
-#include "Factories.h"
 #include "SystemContext.h"
 #include "Weapons/IWeapon.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponSystem.h"
 
 
 namespace tweak_values
@@ -35,7 +34,9 @@ using namespace game;
 GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+    game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    m_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();

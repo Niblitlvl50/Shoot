@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Weapons/WeaponTypes.h"
-#include "Weapons/IWeaponFactory.h"
 
 namespace game
 {

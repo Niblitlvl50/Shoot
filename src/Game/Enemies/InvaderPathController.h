@@ -4,11 +4,9 @@
 #include "MonoPtrFwd.h"
 #include "Math/MathFwd.h"
 #include "Entity/IEntityLogic.h"
-#include "Weapons/IWeaponFactory.h"
 #include "Rendering/RenderFwd.h"
 #include "Physics/PhysicsFwd.h"
-
-#include <memory>
+#include "Weapons/WeaponFwd.h"
 
 namespace game
 {

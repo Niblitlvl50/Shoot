@@ -1,26 +1,37 @@
 
 #pragma once
 
-#include "IWeaponFactory.h"
 #include "MonoFwd.h"
+#include "IGameSystem.h"
+
+#include "WeaponTypes.h"
 #include "WeaponConfiguration.h"
 
 #include <unordered_map>
+#include <memory>
+#include <cstdint>
 
 namespace game
 {
-    class WeaponFactory : public IWeaponFactory
+    using IWeaponPtr = std::unique_ptr<class IWeapon>;
+    
+    class WeaponSystem : public mono::IGameSystem
     {
     public:
-        WeaponFactory(mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
-        ~WeaponFactory();
 
-        IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner) override;
+        WeaponSystem(mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
+        ~WeaponSystem();
+
+        uint32_t Id() const override;
+        const char* Name() const override;
+        void Update(const mono::UpdateContext& update_context) override;
+
+        IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
 
     private:
 
-        IWeaponPtr CreateBulletWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
         IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
+
 
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;

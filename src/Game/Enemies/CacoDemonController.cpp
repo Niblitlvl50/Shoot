@@ -6,7 +6,7 @@
 #include "Factories.h"
 #include "IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponSystem.h"
 #include "Shockwave.h"
 #include "CollisionConfiguration.h"
 #include "Effects/ShockwaveEffect.h"
@@ -48,8 +48,9 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     , m_fire_homing_cooldown(0.0f)
     , m_fire_beam_cooldown(0.0f)
 {
-    m_primary_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
-    m_secondary_weapon = g_weapon_factory->CreateWeapon(game::CACO_PLASMA_HOMING, WeaponFaction::ENEMY, entity_id);
+    game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    m_primary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+    m_secondary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA_HOMING, WeaponFaction::ENEMY, entity_id);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();

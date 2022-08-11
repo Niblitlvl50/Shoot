@@ -8,7 +8,7 @@
 #include "StateMachine.h"
 
 #include "Entity/IEntityLogic.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponFwd.h"
 
 #include <memory>
 

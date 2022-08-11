@@ -19,9 +19,8 @@
 
 #include "DamageSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
-#include "Factories.h"
 #include "Weapons/IWeapon.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
@@ -75,6 +74,7 @@ PlayerLogic::PlayerLogic(
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_pickup_system = system_context->GetSystem<PickupSystem>();
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
+    m_weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
@@ -459,7 +459,7 @@ void PlayerLogic::TriggerInteraction()
 
 void PlayerLogic::SelectWeapon(WeaponSetup weapon)
 {
-    m_weapon = g_weapon_factory->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
+    m_weapon = m_weapon_system->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
     m_weapon_type = weapon;
 }
 
@@ -483,7 +483,7 @@ void PlayerLogic::HandleWeaponPickup(PickupType type)
 
     const WeaponSetup weapon_type = it->second;
 
-    m_weapon = g_weapon_factory->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
+    m_weapon = m_weapon_system->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
 
     const auto it_second = g_weapon_to_entity.find(m_weapon_type.weapon_hash);
     if(it_second != g_weapon_to_entity.end())

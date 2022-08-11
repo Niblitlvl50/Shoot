@@ -2,9 +2,9 @@
 #include "InvaderPathController.h"
 
 #include "Player/PlayerInfo.h"
-#include "Factories.h"
 #include "Behaviour/PathBehaviour.h"
 #include "Weapons/IWeapon.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "Paths/IPath.h"
 #include "Math/MathFunctions.h"
@@ -31,11 +31,6 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
     , m_fire_cooldown(0)
     //, m_path(std::move(path))
 {
-    //mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    //m_transform = &transform_system->GetTransform(entity_id);
-
-    //m_path_behaviour = std::make_unique<PathBehaviour>(enemy, m_path.get(), m_event_handler);
-    //m_weapon = g_weapon_factory->CreateWeapon(WeaponType::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
 InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
@@ -59,7 +54,8 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     m_path_behaviour = std::make_unique<PathBehaviour>(m_body, m_path.get(), physics_system);
     m_path_behaviour->SetTrackingSpeed(tweak_values::path_speed);
 
-    m_weapon = g_weapon_factory->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
+    game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    m_weapon = weapon_system->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
 }
 
 InvaderPathController::~InvaderPathController()

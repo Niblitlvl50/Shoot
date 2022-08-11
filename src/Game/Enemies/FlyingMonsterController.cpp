@@ -3,10 +3,9 @@
 
 #include "Player/PlayerInfo.h"
 #include "Behaviour/TrackingBehaviour.h"
-#include "Factories.h"
 #include "IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponSystem.h"
 #include "Weapons/CollisionCallbacks.h"
 
 #include "Rendering/Color.h"
@@ -46,7 +45,8 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
 
-    m_weapon = g_weapon_factory->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
+    game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    m_weapon = weapon_system->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
 
     mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
     m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system);

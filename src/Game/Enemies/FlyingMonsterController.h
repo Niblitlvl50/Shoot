@@ -6,7 +6,7 @@
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
-#include "Weapons/IWeaponFactory.h"
+#include "Weapons/WeaponFwd.h"
 
 #include <memory>
 
