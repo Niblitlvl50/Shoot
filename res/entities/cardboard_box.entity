@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -177,7 +183,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -219,7 +225,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "cardboard_box",
             "uuid_hash": 2879006953
         }
@@ -237,7 +242,7 @@
             "green": 1.0,
             "red": 1.0
         },
-        "background_music": 60687360,
+        "background_music": 0,
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -262,11 +267,17 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
-        "triggers": []
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }
