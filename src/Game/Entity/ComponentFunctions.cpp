@@ -335,13 +335,15 @@ namespace
     bool UpdateTexturedPolygon(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         std::string texture_file;
+        mono::Color::RGBA color;
         std::vector<math::Vector> vertices;
 
         FindAttribute(TEXTURE_ATTRIBUTE, properties, texture_file, FallbackMode::SET_DEFAULT);
+        FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
         FindAttribute(POLYGON_ATTRIBUTE, properties, vertices, FallbackMode::SET_DEFAULT);
 
         game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
-        world_system->AddPolygon(entity->id, vertices, texture_file);
+        world_system->AddPolygon(entity->id, vertices, texture_file, color);
 
         return true;
     }

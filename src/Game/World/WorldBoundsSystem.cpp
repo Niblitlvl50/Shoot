@@ -33,7 +33,8 @@ void WorldBoundsSystem::ReleaseTexturedPolygon(uint32_t id)
     mono::remove_if(m_components, find_by_id);
 }
 
-void WorldBoundsSystem::AddPolygon(uint32_t id, const std::vector<math::Vector>& vertices, const std::string& texture_file)
+void WorldBoundsSystem::AddPolygon(
+    uint32_t id, const std::vector<math::Vector>& vertices, const std::string& texture_file, const mono::Color::RGBA& color)
 {
     const auto find_by_id = [id](const WorldBoundsComponent& component) {
         return component.id == id;
@@ -50,6 +51,7 @@ void WorldBoundsSystem::AddPolygon(uint32_t id, const std::vector<math::Vector>&
     component.id = id;
     component.timestamp = System::GetMilliseconds();
     component.texture = mono::GetTextureFactory()->CreateTexture(texture_file.c_str());
+    component.color_tint = color;
     component.outline = vertices;
     component.triangulated_points = mono::Triangulate(component.outline);
 

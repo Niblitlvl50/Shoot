@@ -51,6 +51,7 @@ void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
             render_data.uvs.get(),
             render_data.indices.get(),
             texture,
+            component.color_tint,
             false,
             render_data.indices->Size());
     };

@@ -251,6 +251,7 @@ void UITextureElement::Draw(mono::IRenderer& renderer) const
         m_draw_buffers.uv.get(),
         m_draw_buffers.indices.get(),
         m_texture.get(),
+        mono::Color::WHITE,
         false,
         m_draw_buffers.indices->Size());
 }
