@@ -35,6 +35,7 @@ namespace tweak_values
 {
     constexpr float dead_zone = 1.0f;
     constexpr float halflife = 0.2f;
+    constexpr float screen_shake_magnitude = 0.05f;
 }
 
 using namespace game;
@@ -141,18 +142,12 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
     if(m_camera_shake_timer_ms > 0)
     {
-        constexpr float magnitude = 0.1f;
-
-        math::Vector camera_shake(
-            mono::Random(-magnitude, magnitude),
-            mono::Random(-magnitude, magnitude)
-        );
-
         m_camera_shake_timer_ms -= update_context.delta_ms;
         m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, 0);
 
-        if(m_camera_shake_timer_ms == 0)
-            camera_shake = math::ZeroVec;
+        constexpr float magnitude = tweak_values::screen_shake_magnitude;
+        const math::Vector camera_shake = (m_camera_shake_timer_ms == 0) ? 
+            math::ZeroVec : math::Vector(mono::Random(-magnitude, magnitude), mono::Random(-magnitude, magnitude));
 
         m_camera->SetPositionOffset(camera_shake);
     }
@@ -310,4 +305,9 @@ void CameraSystem::AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash
 void CameraSystem::AddCameraShake(uint32_t time_ms)
 {
     m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, (int)time_ms);
+}
+
+const mono::ICamera* CameraSystem::GetActiveCamera() const
+{
+    return m_camera;
 }

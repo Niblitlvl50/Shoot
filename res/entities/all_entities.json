@@ -28,6 +28,7 @@
         "res/entities/player_weapon.entity",
         "res/entities/portal_green.entity",
         "res/entities/rocket_bullet.entity",
+        "res/entities/rocket_explosion.entity",
         "res/entities/rocket_launcher_pickup.entity",
         "res/entities/secondary_player_bat.entity",
         "res/entities/shockwave_effect.entity",

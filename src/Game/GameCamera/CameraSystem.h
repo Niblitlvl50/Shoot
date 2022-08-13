@@ -75,6 +75,7 @@ namespace game
         void AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash);
 
         void AddCameraShake(uint32_t time_ms);
+        const mono::ICamera* GetActiveCamera() const;
 
 private:
 

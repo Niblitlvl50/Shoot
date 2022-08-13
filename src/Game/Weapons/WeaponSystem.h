@@ -24,6 +24,7 @@ namespace game
             mono::SpriteSystem* sprite_system,
             mono::PhysicsSystem* physics_system,
             class DamageSystem* damage_system,
+            class CameraSystem* camera_system,
             mono::IEntityManager* entity_manager,
             mono::SystemContext* system_context);
 

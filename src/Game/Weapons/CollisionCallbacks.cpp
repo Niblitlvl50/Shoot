@@ -2,9 +2,12 @@
 #include "CollisionCallbacks.h"
 
 #include "DamageSystem.h"
+#include "GameCamera/CameraSystem.h"
+#include "Camera/ICamera.h"
 #include "Effects/DamageEffect.h"
 #include "Effects/ImpactEffect.h"
 
+#include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFwd.h"
 #include "Math/MathFunctions.h"
@@ -77,7 +80,7 @@ void game::StandardCollision(
     bool did_damage = false;
 
     const uint32_t other_entity_id = physics_system->GetIdFromBody(details.body);
-    if(other_entity_id != std::numeric_limits<uint32_t>::max() && (flags & game::BulletImpactFlag::APPLY_DAMAGE))
+    if(other_entity_id != mono::INVALID_ID && (flags & game::BulletImpactFlag::APPLY_DAMAGE))
     {
         const DamageResult result = damage_system->ApplyDamage(other_entity_id, damage, owner_entity_id);
         did_damage = result.did_damage;
@@ -85,7 +88,7 @@ void game::StandardCollision(
 
     if(details.body)
     {
-        const float direction = math::AngleFromVector(details.normal) + math::PI();
+        const float direction = math::AngleFromVector(details.normal);
         if(did_damage)
         {
             g_damage_effect->EmitGibsAt(details.point, direction);
@@ -129,12 +132,21 @@ void game::RocketCollision(
     const CollisionDetails& details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
+    game::CameraSystem* camera_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system)
 {
     StandardCollision(
         entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+
+    if(details.body)
+        SpawnEntityWithAnimation("res/entities/rocket_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+
+    const mono::ICamera* camera = camera_system->GetActiveCamera();
+    const bool collision_visible = math::PointInsideQuad(details.point, camera->GetViewport());
+    if(collision_visible)
+        camera_system->AddCameraShake(100);
 }
 
 void game::CacoPlasmaCollision(

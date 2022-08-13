@@ -10,6 +10,7 @@
 namespace game
 {
     class DamageSystem;
+    class CameraSystem;
 
     void InitWeaponCallbacks(mono::SystemContext* system_context);
     void CleanupWeaponCallbacks();
@@ -55,6 +56,7 @@ namespace game
         const CollisionDetails& details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
+        game::CameraSystem* camera_system,
         mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
         mono::TransformSystem* transform_system);

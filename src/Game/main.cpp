@@ -180,13 +180,14 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
         system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
         system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
-        system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
+        game::CameraSystem* camera_system =
+            system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
         system_context.CreateSystem<game::DialogSystem>(max_entities);
         system_context.CreateSystem<game::SoundSystem>();
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
         system_context.CreateSystem<game::WeaponSystem>(
-            transform_system, sprite_system, physics_system, damage_system, entity_system, &system_context);
+            transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
 
         game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

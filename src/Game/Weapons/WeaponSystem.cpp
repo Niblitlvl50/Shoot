@@ -29,6 +29,7 @@ WeaponSystem::WeaponSystem(
     mono::SpriteSystem* sprite_system,
     mono::PhysicsSystem* physics_system,
     game::DamageSystem* damage_system,
+    game::CameraSystem* camera_system,
     mono::IEntityManager* entity_manager,
     mono::SystemContext* system_context)
     : m_entity_manager(entity_manager)
@@ -39,7 +40,7 @@ WeaponSystem::WeaponSystem(
     m_bullet_callbacks = {
         { GENERIC.bullet_hash,          std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { PLASMA_GUN.bullet_hash,       std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { ROCKET_LAUNCHER.bullet_hash,  std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { ROCKET_LAUNCHER.bullet_hash,  std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
         { CACO_PLASMA.bullet_hash,      std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { CACO_PLASMA_HOMING.bullet_hash,std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { FLAK_CANON.bullet_hash,       std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
