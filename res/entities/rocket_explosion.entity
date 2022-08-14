@@ -85,7 +85,7 @@
                             "id": 3143743637,
                             "name": "damping",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -116,8 +116,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "x": 0.699999988079071,
+                                "y": 0.699999988079071
                             }
                         },
                         {
@@ -139,6 +139,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.800000011920929,
+                                "min": 0.20000000298023224
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -153,46 +171,28 @@
                                     {
                                         "alpha": 1.0,
                                         "blue": 0.0,
-                                        "green": 0.489130437374115,
-                                        "red": 1.0
-                                    },
-                                    {
-                                        "alpha": 0.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "green": 0.21000708639621735,
+                                        "red": 0.42934781312942505
                                     },
                                     {
                                         "alpha": 1.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.17155009508132935,
+                                        "green": 0.17155009508132935,
+                                        "red": 0.260869562625885
+                                    },
+                                    {
+                                        "alpha": 0.19607843458652496,
+                                        "blue": 0.0,
+                                        "green": 0.0,
+                                        "red": 0.0
                                     }
                                 ],
                                 "t": [
                                     0.0,
-                                    0.30000001192092896,
-                                    1.0,
-                                    0.0
+                                    0.20000000298023224,
+                                    0.800000011920929,
+                                    1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.4000000059604645,
-                                "min": 0.20000000298023224
                             }
                         },
                         {
@@ -213,10 +213,10 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 10.0,
-                                    "min": -10.0
+                                    "max": 20.0,
+                                    "min": -20.0
                                 },
-                                "value": 155.0
+                                "value": 128.0
                             }
                         }
                     ]

@@ -271,48 +271,6 @@
                     ]
                 },
                 {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 2500
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -490,6 +448,48 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2500
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -2570,48 +2570,6 @@
                     ]
                 },
                 {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 2000
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -2789,6 +2747,48 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -3138,48 +3138,6 @@
                     ]
                 },
                 {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 1000
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -3389,6 +3347,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 2.0,
+                                "min": 1.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -3425,24 +3401,6 @@
                                     1.0,
                                     0.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 2.0,
-                                "min": 1.0
                             }
                         },
                         {
@@ -3531,6 +3489,48 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 },
@@ -12147,48 +12147,6 @@
                     ]
                 },
                 {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 5000
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "none"
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "none"
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -12366,6 +12324,48 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 5000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": "none"
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": "none"
                         }
                     ]
                 }
@@ -13468,48 +13468,6 @@
                     ]
                 },
                 {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 2500
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -13687,6 +13645,48 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2500
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -17165,6 +17165,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 30.0,
+                                "min": 25.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -17201,24 +17219,6 @@
                                     0.800000011920929,
                                     1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 30.0,
-                                "min": 25.0
                             }
                         },
                         {
@@ -17391,6 +17391,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 5.5,
+                                "min": 5.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -17427,24 +17445,6 @@
                                     1.0,
                                     1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 5.5,
-                                "min": 5.0
                             }
                         },
                         {
@@ -26051,30 +26051,6 @@
                     ]
                 },
                 {
-                    "hash": 2511960119,
-                    "name": "entity_spawn_point",
-                    "properties": [
-                        {
-                            "id": 615778801,
-                            "name": "entity_file",
-                            "variant_type": 6,
-                            "variant_value": "res/entities/package_explosion.entity"
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
-                        }
-                    ]
-                },
-                {
                     "hash": 427787973,
                     "name": "area_entity_trigger",
                     "properties": [
@@ -26134,6 +26110,30 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 2000
+                        }
+                    ]
+                },
+                {
+                    "hash": 2511960119,
+                    "name": "entity_spawn_point",
+                    "properties": [
+                        {
+                            "id": 615778801,
+                            "name": "entity_file",
+                            "variant_type": 6,
+                            "variant_value": "res/entities/package_explosion.entity"
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
                         }
                     ]
                 }

@@ -858,6 +858,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 2.0,
+                                "min": 1.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -894,24 +912,6 @@
                                     1.0,
                                     0.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 2.0,
-                                "min": 1.0
                             }
                         },
                         {
@@ -12215,30 +12215,6 @@
                     ]
                 },
                 {
-                    "hash": 2511960119,
-                    "name": "entity_spawn_point",
-                    "properties": [
-                        {
-                            "id": 615778801,
-                            "name": "entity_file",
-                            "variant_type": 6,
-                            "variant_value": "res/entities/package_explosion.entity"
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
-                        }
-                    ]
-                },
-                {
                     "hash": 427787973,
                     "name": "area_entity_trigger",
                     "properties": [
@@ -12298,6 +12274,30 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 2000
+                        }
+                    ]
+                },
+                {
+                    "hash": 2511960119,
+                    "name": "entity_spawn_point",
+                    "properties": [
+                        {
+                            "id": 615778801,
+                            "name": "entity_file",
+                            "variant_type": 6,
+                            "variant_value": "res/entities/package_explosion.entity"
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "package_delivered"
                         }
                     ]
                 }
@@ -25242,6 +25242,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 2.0,
+                                "min": 1.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -25278,24 +25296,6 @@
                                     1.0,
                                     0.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 2.0,
-                                "min": 1.0
                             }
                         },
                         {
@@ -33573,7 +33573,7 @@
                             "id": 3143743637,
                             "name": "damping",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -33604,8 +33604,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "x": 0.699999988079071,
+                                "y": 0.699999988079071
                             }
                         },
                         {
@@ -33627,6 +33627,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.800000011920929,
+                                "min": 0.20000000298023224
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -33641,46 +33659,28 @@
                                     {
                                         "alpha": 1.0,
                                         "blue": 0.0,
-                                        "green": 0.489130437374115,
-                                        "red": 1.0
-                                    },
-                                    {
-                                        "alpha": 0.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "green": 0.21000708639621735,
+                                        "red": 0.42934781312942505
                                     },
                                     {
                                         "alpha": 1.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.17155009508132935,
+                                        "green": 0.17155009508132935,
+                                        "red": 0.260869562625885
+                                    },
+                                    {
+                                        "alpha": 0.19607843458652496,
+                                        "blue": 0.0,
+                                        "green": 0.0,
+                                        "red": 0.0
                                     }
                                 ],
                                 "t": [
                                     0.0,
-                                    0.30000001192092896,
-                                    1.0,
-                                    0.0
+                                    0.20000000298023224,
+                                    0.800000011920929,
+                                    1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.4000000059604645,
-                                "min": 0.20000000298023224
                             }
                         },
                         {
@@ -33701,10 +33701,10 @@
                             "variant_type": 9,
                             "variant_value": {
                                 "spread": {
-                                    "max": 10.0,
-                                    "min": -10.0
+                                    "max": 20.0,
+                                    "min": -20.0
                                 },
-                                "value": 155.0
+                                "value": 128.0
                             }
                         }
                     ]
@@ -33713,6 +33713,121 @@
             "entity_properties": 0,
             "name": "rocket_explosion",
             "uuid_hash": 2545274491
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "spawn_points_test"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 15.0,
+                                "y": 1.75
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1911088522,
+                    "name": "spawn_point_set",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.9486961364746094,
+                                    "y": -0.3160979747772217
+                                },
+                                {
+                                    "x": -0.7380800247192383,
+                                    "y": 0.7650642395019531
+                                },
+                                {
+                                    "x": 0.4554100036621094,
+                                    "y": 0.7229409217834473
+                                },
+                                {
+                                    "x": 0.6632347106933594,
+                                    "y": -0.41005992889404297
+                                },
+                                {
+                                    "x": -0.08517074584960938,
+                                    "y": -0.9339051246643066
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "spawn_points_test",
+            "uuid_hash": 841919531
         }
     ],
     "metadata": {
