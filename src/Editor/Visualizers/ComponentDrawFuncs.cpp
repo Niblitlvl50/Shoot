@@ -36,6 +36,8 @@ namespace
     constexpr mono::Color::RGBA g_sensor_color = mono::Color::RGBA(0.0f, 0.0f, 1.0f, 0.25f);
     constexpr mono::Color::RGBA g_area_trigger_color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.25f);
     constexpr mono::Color::RGBA g_trigger_name_color = mono::Color::OFF_WHITE;
+    
+    constexpr mono::Color::RGBA g_spawn_point_color = mono::Color::RGBA(0.0f, 0.0f, 0.8f, 0.25f);
 }
 
 void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -112,27 +114,19 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
-    renderer.DrawCircle(math::ZeroVec, radius, 8, 5.0f, mono::Color::BLUE);
-    renderer.DrawLines({ math::ZeroVec, math::Vector(radius, 0.0f) }, mono::Color::BLUE, 3.0f);
-}
 
-void editor::DrawSpawnPointSetDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
-{
     std::vector<math::Vector> spawn_points;
     FindAttribute(SPAWN_POINTS_ATTRIBUTE, component_properties, spawn_points, FallbackMode::SET_DEFAULT);
 
     for(const math::Vector& spawn_point : spawn_points)
-    {
-        renderer.DrawFilledCircle(spawn_point, math::Vector(0.25f, 0.25f), 16, mono::Color::RED);
-    }
+        renderer.DrawFilledCircle(spawn_point, math::Vector(radius, radius), 16, g_spawn_point_color);
 }
 
 void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
-    renderer.DrawCircle(math::ZeroVec, radius, 8, 5.0f, mono::Color::BLUE);
-    renderer.DrawLines({ math::ZeroVec, math::Vector(radius, 0.0f) }, mono::Color::BLUE, 3.0f);
+    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 16, g_spawn_point_color);
 }
 
 void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)

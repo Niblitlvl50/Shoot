@@ -26,13 +26,15 @@ namespace game
         struct SpawnPointComponent
         {
             int spawn_score;
-            float radius;
             int interval_ms;
             int spawn_limit; // Zero means infinite
-            uint32_t properties;
+
+            float radius;
 
             uint32_t enable_trigger;
             uint32_t disable_trigger;
+
+            std::vector<math::Vector> points;
 
             // Internal data
             bool active;

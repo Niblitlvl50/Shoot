@@ -252,6 +252,8 @@ namespace
         if(found_disable && !disable_trigger.empty())
             spawn_point.disable_trigger = hash::Hash(disable_trigger.c_str());
 
+        FindAttribute(SPAWN_POINTS_ATTRIBUTE, properties, spawn_point.points, FallbackMode::SET_DEFAULT);
+
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
         spawn_system->SetSpawnPointData(entity->id, spawn_point);
         return true;

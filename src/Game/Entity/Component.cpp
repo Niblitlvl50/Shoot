@@ -24,6 +24,10 @@ static const std::vector<math::Vector> polygon_default = {
     { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f }
 };
 
+static const std::vector<math::Vector> spawn_points_default = {
+    { 0.0f, 0.0f }
+};
+
 const DefaultAttribute default_attributes[] = {
     { "position",                   Variant(math::ZeroVec) },
     { "rotation",                   Variant(0.0f) },
@@ -111,7 +115,7 @@ const DefaultAttribute default_attributes[] = {
     { "transform_space",            Variant(0) },
     { "particle_draw_layer",        Variant(0) },
     { "editor_properties",          Variant(0u) },
-    { "spawn_points",               Variant(polygon_default) },
+    { "spawn_points",               Variant(spawn_points_default) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -233,7 +237,6 @@ extern const uint32_t POLYGON_SHAPE_COMPONENT       = hash::Hash("polygon_shape"
 extern const uint32_t HEALTH_COMPONENT              = hash::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
-extern const uint32_t SPAWN_POINT_SET_COMPONENT     = hash::Hash("spawn_point_set");
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
@@ -289,8 +292,6 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "entity_behaviour";
     else if(hash == SPAWN_POINT_COMPONENT)
         return "spawn_point";
-    else if(hash == SPAWN_POINT_SET_COMPONENT)
-        return "spawn_point_set";
     else if(hash == ENTITY_SPAWN_POINT_COMPONENT)
         return "entity_spawn_point";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
@@ -379,8 +380,7 @@ const Component default_components[] = {
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_SET_COMPONENT,    NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
     MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),

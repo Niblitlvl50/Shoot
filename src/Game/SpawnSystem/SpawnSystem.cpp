@@ -87,11 +87,11 @@ void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::Spawn
     SpawnPointComponent* spawn_point = m_spawn_points.Get(entity_id);
     spawn_point->spawn_score = component_data.spawn_score;
     spawn_point->spawn_limit = component_data.spawn_limit;
-    spawn_point->radius = component_data.radius;
     spawn_point->interval_ms = component_data.interval_ms;
-    spawn_point->properties = component_data.properties;
+    spawn_point->radius = component_data.radius;
     spawn_point->enable_trigger = component_data.enable_trigger;
     spawn_point->disable_trigger = component_data.disable_trigger;
+    spawn_point->points = component_data.points;
 
     if(spawn_point->enable_trigger != 0)
     {
@@ -173,6 +173,9 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(!spawn_point.active)
             return;
 
+        if(spawn_point.points.empty())
+            return;
+
         if(spawn_point.spawn_limit > 0)
         {
             if(spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit))
@@ -186,8 +189,11 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         const float random_length = mono::Random(0.0f, spawn_point.radius);
         const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
 
+        const int spawn_point_index = mono::RandomInt(0, spawn_point.points.size() -1);
+        const math::Vector& local_offset = spawn_point.points[spawn_point_index];
+
         math::Matrix world_transform = m_transform_system->GetWorld(entity_id);
-        math::Translate(world_transform, random_vector);
+        math::Translate(world_transform, local_offset + random_vector);
 
         SpawnEvent spawn_event;
         spawn_event.spawn_score = spawn_point.spawn_score;
