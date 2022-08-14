@@ -471,7 +471,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 3027259768,
@@ -490,6 +490,25 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 1.114497184753418,
+                                    "y": -0.49895524978637695
+                                },
+                                {
+                                    "x": -1.3137590885162354,
+                                    "y": -0.1544816493988037
+                                },
+                                {
+                                    "x": 0.5159039497375488,
+                                    "y": 0.21258044242858887
+                                }
+                            ]
                         }
                     ]
                 }
@@ -2789,6 +2808,17 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
                         }
                     ]
                 }
@@ -3531,6 +3561,17 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
                         }
                     ]
                 },
@@ -12366,6 +12407,17 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": "none"
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
                         }
                     ]
                 }
@@ -13687,6 +13739,17 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
                         }
                     ]
                 }
@@ -17061,8 +17124,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 10.768646240234375,
-                                "y": 8.139312744140625
+                                "x": 10.875,
+                                "y": 8.125
                             }
                         },
                         {
