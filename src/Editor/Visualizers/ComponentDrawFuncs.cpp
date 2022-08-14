@@ -116,6 +116,17 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
     renderer.DrawLines({ math::ZeroVec, math::Vector(radius, 0.0f) }, mono::Color::BLUE, 3.0f);
 }
 
+void editor::DrawSpawnPointSetDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    std::vector<math::Vector> spawn_points;
+    FindAttribute(SPAWN_POINTS_ATTRIBUTE, component_properties, spawn_points, FallbackMode::SET_DEFAULT);
+
+    for(const math::Vector& spawn_point : spawn_points)
+    {
+        renderer.DrawFilledCircle(spawn_point, math::Vector(0.25f, 0.25f), 16, mono::Color::RED);
+    }
+}
+
 void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float radius = 1.0f;

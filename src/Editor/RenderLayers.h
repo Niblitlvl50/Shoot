@@ -7,7 +7,8 @@ namespace editor
     {
         BACKGROUND,
         PRE_GAMEOBJECTS,
-        OBJECTS,
+        GAMEOBJECTS,
+        GAMEOBJECTS_UI,
         POST_GAMEOBJECTS,
         GRABBERS,
         UI,

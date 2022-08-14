@@ -740,7 +740,17 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
     const ImGuiStyle& style = ImGui::GetStyle();
     const float item_width = ImGui::CalcItemWidth();
 
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+
     const bool point_added = ImGui::Button("Add Point", ImVec2(item_width / 2.0f, 0));
+    ImGui::SameLine(0.0f, 1.0f);
+    const bool point_removed = ImGui::Button("Remove Point", ImVec2(item_width / 2.0f, 0));
+
+    ImGui::PopStyleVar();
+
+    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
+    ImGui::Text("%s", name);
+
     if(point_added)
     {
         const bool clockwise = math::IsPolygonClockwise(polygon);
@@ -754,14 +764,8 @@ bool editor::DrawPolygonProperty(const char* name, std::vector<math::Vector>& po
         polygon.push_back(polygon.back() + (new_point / 2.0f) + (new_point_tangent * 0.25f));
     }
 
-    ImGui::SameLine(0.0f, 1.0f);
-
-    const bool point_removed = ImGui::Button("Remove Point", ImVec2(item_width / 2.0f, 0));
     if(point_removed && !polygon.empty())
         polygon.pop_back();
-
-    ImGui::SameLine(0.0f, style.ItemInnerSpacing.x - 1.0f);
-    ImGui::Text("%s", name);
 
     return point_added || point_removed;
 }

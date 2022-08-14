@@ -301,6 +301,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[SEGMENT_SHAPE_COMPONENT] = editor::DrawSegmentShapeDetails;
     draw_funcs[POLYGON_SHAPE_COMPONENT] = editor::DrawPolygonShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
+    draw_funcs[SPAWN_POINT_SET_COMPONENT] = editor::DrawSpawnPointSetDetails;
     draw_funcs[ENTITY_SPAWN_POINT_COMPONENT] = editor::DrawEntitySpawnPointDetails;
     draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawShapeTriggerComponentDetails;
     draw_funcs[AREA_TRIGGER_COMPONENT] = editor::DrawAreaTriggerComponentDetails;
@@ -326,15 +327,15 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new SnapperVisualizer(m_context.draw_snappers, m_snap_points), RenderLayer::GRABBERS);
     AddDrawable(m_selection_visualizer, RenderLayer::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), RenderLayer::UI);
-    AddDrawable(m_component_detail_visualizer.get(), RenderLayer::UI);
+    AddDrawable(m_component_detail_visualizer.get(), RenderLayer::GAMEOBJECTS_UI);
     AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), RenderLayer::UI);
-    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::OBJECTS);
-    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::OBJECTS);
-    AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), RenderLayer::GAMEOBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), RenderLayer::GAMEOBJECTS);
+    AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), RenderLayer::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), RenderLayer::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
-    AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::OBJECTS);
+    AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::POST_GAMEOBJECTS);
 }
 

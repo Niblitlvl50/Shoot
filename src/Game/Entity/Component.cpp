@@ -111,6 +111,7 @@ const DefaultAttribute default_attributes[] = {
     { "transform_space",            Variant(0) },
     { "particle_draw_layer",        Variant(0) },
     { "editor_properties",          Variant(0u) },
+    { "spawn_points",               Variant(polygon_default) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -217,6 +218,7 @@ extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes
 extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE             = default_attributes[83].hash;
 extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes[84].hash;
 extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[85].hash;
+extern const uint32_t SPAWN_POINTS_ATTRIBUTE                = default_attributes[86].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -231,6 +233,7 @@ extern const uint32_t POLYGON_SHAPE_COMPONENT       = hash::Hash("polygon_shape"
 extern const uint32_t HEALTH_COMPONENT              = hash::Hash("health");
 extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
+extern const uint32_t SPAWN_POINT_SET_COMPONENT     = hash::Hash("spawn_point_set");
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
@@ -286,6 +289,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "entity_behaviour";
     else if(hash == SPAWN_POINT_COMPONENT)
         return "spawn_point";
+    else if(hash == SPAWN_POINT_SET_COMPONENT)
+        return "spawn_point_set";
     else if(hash == ENTITY_SPAWN_POINT_COMPONENT)
         return "entity_spawn_point";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
@@ -353,8 +358,6 @@ const Component default_components[] = {
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "general",      { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
-    MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
@@ -364,7 +367,7 @@ const Component default_components[] = {
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
-    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
+    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
@@ -376,6 +379,9 @@ const Component default_components[] = {
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_SET_COMPONENT,    NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
     MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),

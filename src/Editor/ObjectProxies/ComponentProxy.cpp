@@ -127,9 +127,10 @@ bool ComponentProxy::Intersects(const math::Quad& world_bb) const
 
 std::vector<Grabber> ComponentProxy::GetGrabbers()
 {
-    const uint32_t components_with_grabbers[] = {
+    const uint32_t attributes_with_grabbers[] = {
         POLYGON_ATTRIBUTE,
-        PATH_POINTS_ATTRIBUTE
+        PATH_POINTS_ATTRIBUTE,
+        SPAWN_POINTS_ATTRIBUTE,
     };
 
     struct ComponentAndAttribute
@@ -145,8 +146,8 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
         for(Attribute& attribute : component.properties)
         {
             const bool valid_attribute = std::any_of(
-                std::begin(components_with_grabbers),
-                std::end(components_with_grabbers),
+                std::begin(attributes_with_grabbers),
+                std::end(attributes_with_grabbers),
                 [&attribute](uint32_t id) { return attribute.id == id; }
             );
 
@@ -216,7 +217,21 @@ void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_h
         }
     }
 
-    if(attribute_hash == POLYGON_ATTRIBUTE || attribute_hash == PATH_POINTS_ATTRIBUTE)
+    const uint32_t attributes_with_grabbers[] = {
+        POLYGON_ATTRIBUTE,
+        PATH_POINTS_ATTRIBUTE,
+        SPAWN_POINTS_ATTRIBUTE,
+    };
+
+    const auto is_grabber_attribute = [&attribute_hash](uint32_t id)
+    {
+        return attribute_hash == id;
+    };
+    
+    const bool valid_attribute = std::any_of(
+        std::begin(attributes_with_grabbers), std::end(attributes_with_grabbers), is_grabber_attribute);
+
+    if(valid_attribute)
         m_editor->UpdateGrabbers();
 }
 
