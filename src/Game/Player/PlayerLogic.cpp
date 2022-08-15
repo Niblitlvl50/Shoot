@@ -80,6 +80,7 @@ PlayerLogic::PlayerLogic(
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = sprite->GetAnimationIdFromName("run");
+    m_death_anim_id = sprite->GetAnimationIdFromName("death");
 
     using namespace std::placeholders;
     game::PickupCallback handle_pickups = std::bind(&PlayerLogic::HandlePickup, this, _1, _2);
@@ -270,6 +271,9 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
 void PlayerLogic::ToDead()
 {
+    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    sprite->SetAnimation(m_death_anim_id);
+
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
     m_light_system->SetLightEnabled(m_entity_id, false);
