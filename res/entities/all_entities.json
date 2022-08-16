@@ -1,5 +1,6 @@
 {
     "all_entities": [
+        "res/entities/Fire_Skull.entity",
         "res/entities/caco_bullet.entity",
         "res/entities/caco_explosion.entity",
         "res/entities/cacodemon.entity",
@@ -10,6 +11,7 @@
         "res/entities/eye_monster_small.entity",
         "res/entities/flak_bullet.entity",
         "res/entities/flak_cannon_pickup.entity",
+        "res/entities/flying_monster.entity",
         "res/entities/goblin.entity",
         "res/entities/green_blob.entity",
         "res/entities/hex_tiny.entity",

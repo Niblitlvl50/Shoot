@@ -1,6 +1,7 @@
 
 #include "FlamingSkullBossController.h"
 
+#include "AIUtils.h"
 #include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem.h"
@@ -135,10 +136,7 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
 
         if(m_visibility_check_timer > tweak_values::visibility_check_interval)
         {
-            const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::STATIC;
-            mono::PhysicsSpace* space = m_physics_system->GetSpace();
-            const mono::QueryResult result = space->QueryFirst(entity_position, player_info->position, query_category);
-            const bool sees_player = (result.body != nullptr && result.collision_category & CollisionCategory::PLAYER);
+            const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
             if(sees_player)
                 m_states.TransitionTo(States::AWAKE);
 

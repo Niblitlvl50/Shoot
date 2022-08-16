@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "eye_monster_small"
+                            "variant_value": "flying_monster"
                         },
                         {
                             "id": 3647911389,
@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
-                                "y": 3.0
+                                "x": -5.032268524169922,
+                                "y": -2.4915666580200195
                             }
                         },
                         {
@@ -55,13 +55,13 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 100
+                            "variant_value": 200
                         },
                         {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 3526332565,
@@ -79,13 +79,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "eye_monster_small.sprite"
+                            "variant_value": "eye_monster.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 128336118,
@@ -97,7 +97,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": -0.10000000149011612
+                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -105,8 +105,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
+                                "blue": 0.9999943971633911,
+                                "green": 0.9999899864196777,
                                 "red": 1.0
                             }
                         },
@@ -129,63 +129,13 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 0.30000001192092896
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 3801947695,
-                    "name": "light",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.5176470875740051,
-                                "green": 0.18039216101169586,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 226247311,
-                            "name": "flicker",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 800267265,
-                            "name": "frequency",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2538831285,
-                            "name": "percentage",
-                            "variant_type": 3,
-                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -203,7 +153,7 @@
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -215,7 +165,7 @@
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -233,7 +183,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.15000000596046448
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 2471448074,
@@ -241,7 +191,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": 0.10000000149011612
                             }
                         },
                         {
@@ -260,14 +210,14 @@
                             "id": 2951636756,
                             "name": "behaviour",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 4
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
-            "name": "eye_monster_small",
-            "uuid_hash": 1308115134
+            "name": "flying_monster",
+            "uuid_hash": 1618559000
         }
     ],
     "metadata": {

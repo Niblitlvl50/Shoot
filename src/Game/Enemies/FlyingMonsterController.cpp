@@ -7,6 +7,7 @@
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 #include "Weapons/CollisionCallbacks.h"
+#include "AIUtils.h"
 
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -97,13 +98,20 @@ void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
 
     if(m_idle_timer > tweak_values::idle_time)
     {
+        m_idle_timer = 0;
+
         const float distance_to_player = math::DistanceBetween(position, player_info->position);
+        if(distance_to_player > tweak_values::track_to_player_distance)
+            return;
+
+        const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
+        if(!sees_player)
+            return;
+
         if(distance_to_player < tweak_values::attack_distance)
             m_states.TransitionTo(States::ATTACK_ANTICIPATION);
         else if(distance_to_player > tweak_values::attack_distance && distance_to_player < tweak_values::track_to_player_distance)
             m_states.TransitionTo(States::TRACKING);
-        else
-            m_idle_timer = 0;
     }
 }
 
@@ -132,17 +140,11 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
     const float distance_to_player = math::DistanceBetween(position, player_info->position);
     if(distance_to_player < tweak_values::attack_distance)
     {
-        mono::PhysicsSpace* space = m_physics_system->GetSpace();
-        const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::STATIC;
-        const mono::QueryResult query_result = space->QueryFirst(position, player_info->position, query_category);
-        if(query_result.body)
+        const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
+        if(sees_player)
         {
-            const bool is_player = (query_result.collision_category & CollisionCategory::PLAYER);
-            if(is_player)
-            {
-                m_states.TransitionTo(States::ATTACK_ANTICIPATION);
-                return;
-            }
+            m_states.TransitionTo(States::ATTACK_ANTICIPATION);
+            return;
         }
     }
 

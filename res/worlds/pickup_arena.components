@@ -29753,7 +29753,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -10.0,
+                                "x": -7.875,
                                 "y": -2.0
                             }
                         },
@@ -33446,7 +33446,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -8.0,
+                                "x": -10.0,
                                 "y": -1.625
                             }
                         },
