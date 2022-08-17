@@ -51,6 +51,13 @@ add_dependencies(editor game_lib mono imgui)
 target_include_directories(editor PRIVATE "src/Editor" "src/Game")
 target_link_libraries(editor game_lib mono)
 
+# Game test exe
+file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
+add_executable(game_test_exe ${game_test_source_files})
+add_dependencies(game_test_exe game_lib mono)
+target_include_directories(game_test_exe PRIVATE "src/Game" "Mono1/third_party/gtest-1.7.0/include")
+target_compile_definitions(game_test_exe PRIVATE GTEST_HAS_TR1_TUPLE=0)
+target_link_libraries(game_test_exe gtest game_lib mono)
 
 # Game exe
 set(osx_bundle_icons osx/icons.icns)
@@ -98,11 +105,3 @@ target_link_libraries(game_exe game_lib mono)
 #     XCODE_GENERATE_SCHEME TRUE
 #     XCODE_SCHEME_WORKING_DIRECTORY "."
 # )
-
-# Game test exe
-file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
-add_executable(game_test_exe ${game_test_source_files})
-add_dependencies(game_test_exe game_lib mono)
-target_include_directories(game_test_exe PRIVATE "src/Game" "Mono1/third_party/gtest-1.7.0/include")
-target_compile_definitions(game_test_exe PRIVATE GTEST_HAS_TR1_TUPLE=0)
-target_link_libraries(game_test_exe gtest game_lib mono)
