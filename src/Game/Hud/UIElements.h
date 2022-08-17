@@ -154,4 +154,39 @@ namespace game
         mono::Color::RGBA m_color;
         mono::Color::RGBA m_border_color;
     };
+
+    class UIBarElement : public UIElement
+    {
+    public:
+
+        enum class Direction
+        {
+            HORIZONTAL,
+            VERTICAL
+        };
+
+        UIBarElement(
+            float inner_width, float inner_height,
+            float outer_width, float outer_height,
+            const mono::Color::RGBA& inner_color,
+            const mono::Color::RGBA& outer_color);
+
+        void SetFraction(float fraction);
+        void SetDirection(Direction new_direction);
+
+    private:
+
+        void Update(const mono::UpdateContext& context) override;
+        void Draw(mono::IRenderer& renderer) const override;
+
+        float m_fraction;
+        float m_target_fraction;
+        float m_velocity;
+        Direction m_direction;
+
+        std::unique_ptr<mono::IRenderBuffer> m_vertices;
+        std::unique_ptr<mono::IRenderBuffer> m_inner_colors;
+        std::unique_ptr<mono::IRenderBuffer> m_outer_colors;
+        std::unique_ptr<mono::IElementBuffer> m_indices;
+    };
 }

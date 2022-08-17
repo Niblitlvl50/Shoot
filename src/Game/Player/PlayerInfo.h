@@ -54,6 +54,8 @@ namespace game
 
         uint32_t cooldown_id;
         float cooldown_fraction;
+        float health_fraction;
+
         bool laser_sight;
         bool auto_aim;
         bool auto_reload;

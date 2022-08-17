@@ -67,17 +67,21 @@ namespace game
             }
 
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
-            m_weapon_sprites->SetPosition(0.25f, 0.45f);
+            m_weapon_sprites->SetPosition(0.15f, 0.5f);
 
             m_ammo_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-            m_ammo_text->SetPosition(0.5f, 0.35f);
+            m_ammo_text->SetPosition(0.55f, 0.45f);
             m_ammo_text->SetScale(0.5f);
+
+            m_healthbar = new UIBarElement(1.0f, 0.1f, 1.0f, 0.1f, mono::Color::BLACK, mono::Color::RED);
+            m_healthbar->SetPosition(-0.15f, 0.25f);
 
             AddChild(background_hud);
             AddChild( m_mugshot_hud);
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
+            AddChild(m_healthbar);
 
             const PlayerUIStateMachine::StateTable states = {
                 PlayerUIStateMachine::MakeState(States::APPEAR, &PlayerElement::ToAppear, &PlayerElement::Appearing, this),
@@ -93,6 +97,8 @@ namespace game
             m_states.UpdateState(update_context.delta_s);
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
             AnimatePlayerElement(m_timer);
+
+            m_healthbar->SetFraction(m_player_info.health_fraction);
         }
 
         void ToAppear()
@@ -151,6 +157,7 @@ namespace game
         class UITextElement* m_ammo_text;
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
+        class UIBarElement* m_healthbar;
 
         enum class States
         {

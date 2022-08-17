@@ -9,6 +9,7 @@
 #include "Rendering/Sprite/SpriteBufferFactory.h"
 #include "Rendering/Texture/ITexture.h"
 
+#include "Math/CriticalDampedSpring.h"
 #include "Util/Algorithm.h"
 
 using namespace game;
@@ -321,4 +322,69 @@ void UISquareElement::SetBorderColor(const mono::Color::RGBA& color)
 const mono::Color::RGBA& UISquareElement::GetBorderColor() const
 {
     return m_border_color;
+}
+
+
+
+UIBarElement::UIBarElement(
+    float inner_width, float inner_height,
+    float outer_width, float outer_height,
+    const mono::Color::RGBA& inner_color,
+    const mono::Color::RGBA& outer_color)
+    : m_fraction(0.0f)
+    , m_target_fraction(0.0f)
+    , m_velocity(0.0f)
+    , m_direction(Direction::HORIZONTAL)
+{
+    const std::vector<math::Vector> vertex_data = {
+        { 0.0f, 0.0f },
+        { 0.0f, inner_height },
+        { inner_width, inner_height },
+        { inner_width, 0.0f }
+    };
+
+    const std::vector<mono::Color::RGBA> inner_color_data(4, inner_color);
+    const std::vector<mono::Color::RGBA> outer_color_data(4, outer_color);
+
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3,   // Two triangles
+    };
+
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
+    m_inner_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, inner_color_data.data());
+    m_outer_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, outer_color_data.data());
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+}
+
+void UIBarElement::SetFraction(float fraction)
+{
+    m_target_fraction = fraction;
+}
+
+void UIBarElement::SetDirection(Direction new_direction)
+{
+    m_direction = new_direction;
+}
+
+void UIBarElement::Update(const mono::UpdateContext& context)
+{
+    UIElement::Update(context);
+    math::simple_spring_damper_implicit(m_fraction, m_velocity, m_target_fraction, 0.1f, context.delta_s);
+}
+
+void UIBarElement::Draw(mono::IRenderer& renderer) const
+{
+    if(!m_show)
+        return;
+
+    UIElement::Draw(renderer);
+
+    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+    renderer.DrawTrianges(m_vertices.get(), m_inner_colors.get(), m_indices.get(), 0, 6);
+
+    const auto scale_transform_scope = mono::MakeTransformScope(
+        transform * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
+    renderer.DrawTrianges(m_vertices.get(), m_outer_colors.get(), m_indices.get(), 0, 6);
 }
