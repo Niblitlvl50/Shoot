@@ -74,11 +74,12 @@ namespace game
             m_ammo_text->SetPosition(0.55f, 0.45f);
             m_ammo_text->SetScale(0.5f);
 
-            m_healthbar = new UIBarElement(1.0f, 0.1f, 1.0f, 0.1f, mono::Color::BLACK, mono::Color::RED);
+            constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
+            m_healthbar = new UIBarElement(1.0f, 0.05f, 1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
             m_healthbar->SetPosition(-0.15f, 0.25f);
 
             AddChild(background_hud);
-            AddChild( m_mugshot_hud);
+            AddChild(m_mugshot_hud);
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
             AddChild(m_healthbar);

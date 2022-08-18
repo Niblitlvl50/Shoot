@@ -27,6 +27,8 @@ namespace game
         N_SLOTS
     };
 
+    constexpr int N_WEAPONS = 2;
+
     class PlayerLogic : public IEntityLogic
     {
     public:
@@ -51,6 +53,13 @@ namespace game
         void UseItemSlot(ItemSlotIndex slot_index);
         void HandlePickup(PickupType type, int amount);
 
+        enum class WeaponSelection
+        {
+            Next,
+            Previous
+        };
+        void SelectWeapon(WeaponSelection selection);
+
         void Throw(float throw_force);
         void ThrowAction();
         void PickupDrop();
@@ -58,8 +67,6 @@ namespace game
 
         void TriggerInteraction();
 
-        void SelectWeapon(WeaponSetup weapon);
-        void SelectSecondaryWeapon(WeaponSetup weapon);
         void HandleWeaponPickup(PickupType type);
         
         void MoveInDirection(const math::Vector& direction);
@@ -103,10 +110,13 @@ namespace game
 
         bool m_fire;
         bool m_stop_fire;
-        WeaponSetup m_weapon_type;
-        IWeaponPtr m_weapon;
         float m_aim_direction;
         float m_aim_target;
+        float m_aim_velocity;
+
+        int m_weapon_index;
+        WeaponSetup m_weapons[N_WEAPONS];
+        IWeaponPtr m_weapon;
 
         int m_idle_anim_id;
         int m_run_anim_id;
@@ -142,8 +152,5 @@ namespace game
 
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;
-
-
-        float m_aim_velocity;
     };
 }

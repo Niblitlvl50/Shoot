@@ -1,7 +1,6 @@
 
 #include "PlayerGamepadController.h"
 #include "PlayerLogic.h"
-#include "Weapons/WeaponTypes.h"
 
 #include "Events/TimeScaleEvent.h"
 #include "Events/PauseEvent.h"
@@ -10,7 +9,6 @@
 
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
-
 
 #include "Events/EventFuncFwd.h"
 #include "Events/ControllerEvent.h"
@@ -25,7 +23,6 @@ PlayerGamepadController::PlayerGamepadController(
     : m_player_logic(player_logic)
     , m_event_handler(event_handler)
     , m_state(controller)
-    , m_current_weapon_index(0)
     , m_pause(false)
 {
     event::ControllerButtonDownFunc on_controller_down = [this](const event::ControllerButtonDownEvent& event) {
@@ -77,15 +74,12 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_player_logic->Blink(math::Vector(m_state.left_x, m_state.left_y));
 
     const bool left_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::LEFT_SHOULDER);
-    const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
-    if(left_shoulder || right_shoulder)
-    {
-        left_shoulder ? --m_current_weapon_index : ++m_current_weapon_index;
+    if(left_shoulder)
+        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Previous);
 
-        const std::vector<WeaponSetup> weapon_list = game::GetWeaponList();
-        m_current_weapon_index = std::clamp(m_current_weapon_index, 0, (int)weapon_list.size());
-        m_player_logic->SelectWeapon(weapon_list[m_current_weapon_index]);
-    }
+    const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
+    if(right_shoulder)
+        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Next);
 
     m_player_logic->MoveInDirection(math::Vector(m_state.left_x, m_state.left_y));
 

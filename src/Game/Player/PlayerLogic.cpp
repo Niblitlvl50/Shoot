@@ -60,6 +60,9 @@ PlayerLogic::PlayerLogic(
     , m_fire(false)
     , m_stop_fire(false)
     , m_aim_direction(0.0f)
+    , m_aim_target(0.0f)
+    , m_aim_velocity(0.0f)
+    , m_weapon_index(0)
     , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
     , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
     , m_shield_cooldown(tweak_values::shield_cooldown_s)
@@ -92,15 +95,16 @@ PlayerLogic::PlayerLogic(
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
     m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);
-    //m_footsteps_effect->AttachEmitterToBullet(m_entity_id);
 
     const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
     m_weapon_entity = spawned_weapon.id;
-
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
     // Make sure we have a weapon
-    SelectWeapon(game::PLASMA_GUN);
+    m_weapons[0] = game::PLASMA_GUN;
+    m_weapons[1] = game::FLAK_CANON;
+    SelectWeapon(WeaponSelection::Previous);
+
     m_aim_target = m_aim_direction = -math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {
@@ -108,10 +112,7 @@ PlayerLogic::PlayerLogic(
         PlayerStateMachine::MakeState(PlayerStates::DEAD, &PlayerLogic::ToDead, &PlayerLogic::DeadState, &PlayerLogic::ExitDead, this),
         PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, &PlayerLogic::ExitBlink, this),
     };
-
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
-
-    m_aim_velocity = 0.0f;
 }
 
 PlayerLogic::~PlayerLogic()
@@ -160,7 +161,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->direction = math::GetZRotation(transform);
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
 
-    m_player_info->weapon_type = m_weapon_type;
+    m_player_info->weapon_type = m_weapons[m_weapon_index];
     m_player_info->weapon_state = m_weapon->UpdateWeaponState(timestamp);
     m_player_info->magazine_left = m_weapon->AmmunitionLeft();
     m_player_info->laser_sight = (HoldingPickup() == false);
@@ -399,6 +400,13 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     };
 }
 
+void PlayerLogic::SelectWeapon(WeaponSelection selection)
+{
+    const int modifier = (selection == WeaponSelection::Next) ? 1 : -1;
+    m_weapon_index = std::clamp(m_weapon_index + modifier, 0, N_WEAPONS -1);
+    m_weapon = m_weapon_system->CreateWeapon(m_weapons[m_weapon_index], WeaponFaction::PLAYER, m_entity_id);
+}
+
 void PlayerLogic::Throw(float throw_force)
 {
     if(!HoldingPickup())
@@ -463,12 +471,6 @@ void PlayerLogic::TriggerInteraction()
     System::Log("playerlogic|Trigger Interaction");
 }
 
-void PlayerLogic::SelectWeapon(WeaponSetup weapon)
-{
-    m_weapon = m_weapon_system->CreateWeapon(weapon, WeaponFaction::PLAYER, m_entity_id);
-    m_weapon_type = weapon;
-}
-
 void PlayerLogic::HandleWeaponPickup(PickupType type)
 {
     static const std::unordered_map<PickupType, game::WeaponSetup> g_pickup_to_weapon = {
@@ -488,9 +490,9 @@ void PlayerLogic::HandleWeaponPickup(PickupType type)
         return;
 
     const WeaponSetup weapon_type = it->second;
-
     m_weapon = m_weapon_system->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
 
+/*
     const auto it_second = g_weapon_to_entity.find(m_weapon_type.weapon_hash);
     if(it_second != g_weapon_to_entity.end())
     {
@@ -504,6 +506,7 @@ void PlayerLogic::HandleWeaponPickup(PickupType type)
     }
 
     m_weapon_type = weapon_type;
+*/
 }
 
 void PlayerLogic::MoveInDirection(const math::Vector& direction)

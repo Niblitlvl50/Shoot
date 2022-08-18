@@ -20,7 +20,42 @@
 #include "nlohmann/json.hpp"
 #include <functional>
 
+namespace
+{
+    class NullWeapon : public game::IWeapon
+    {
+    public:
 
+        game::WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override
+        {
+            return game::WeaponState::IDLE;
+        }
+        game::WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override
+        {
+            return game::WeaponState::IDLE;
+        }
+        void StopFire(uint32_t timestamp) override { }
+        void Reload(uint32_t timestamp) override { }
+        game::WeaponState UpdateWeaponState(uint32_t timestamp) override
+        {
+            return game::WeaponState::IDLE;
+        }
+        void AddAmmunition(int amount) override { }
+        
+        int AmmunitionLeft() const override
+        {
+            return 0;
+        }
+        int MagazineSize() const override
+        {
+            return 0;
+        }
+        int ReloadPercentage() const override
+        {
+            return 100;
+        }
+    };
+}
 
 using namespace game;
 
@@ -88,6 +123,9 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
+    if(setup == game::NO_WEAPON)
+        return std::make_unique<NullWeapon>();
+
     const WeaponConfiguration& weapon_config = m_weapon_configs[setup.weapon_hash];
     const BulletConfiguration& bullet_config = m_bullet_configs[setup.bullet_hash];
 

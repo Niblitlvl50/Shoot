@@ -133,7 +133,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::SetNextWindowSize(ImVec2(900, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 9, ImGuiTableFlags_BordersInnerV);
+    const bool table_result = ImGui::BeginTable("player_table", 9, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);

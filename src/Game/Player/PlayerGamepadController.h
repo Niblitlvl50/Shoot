@@ -26,7 +26,6 @@ namespace game
         const System::ControllerState& m_state;
         System::ControllerState m_last_state;
 
-        int m_current_weapon_index;
         bool m_pause;
         mono::EventToken<event::ControllerButtonDownEvent> m_controller_token;
     };

@@ -26,6 +26,12 @@ namespace game
         uint32_t bullet_hash;
     };
 
+    inline bool operator == (const WeaponSetup& left, const WeaponSetup& right)
+    {
+        return (left.weapon_hash == right.weapon_hash && left.bullet_hash == right.bullet_hash);
+    }
+
+    extern const WeaponSetup NO_WEAPON;
     extern const WeaponSetup GENERIC;
     extern const WeaponSetup PLASMA_GUN;
     extern const WeaponSetup FLAK_CANON;

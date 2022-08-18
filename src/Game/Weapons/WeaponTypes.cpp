@@ -2,7 +2,7 @@
 #include "WeaponTypes.h"
 #include "System/Hash.h"
 
-
+extern const game::WeaponSetup game::NO_WEAPON { 0, 0 };
 
 extern const game::WeaponSetup game::GENERIC            { hash::Hash("generic"),            hash::Hash("generic_bullet")        };
 extern const game::WeaponSetup game::PLASMA_GUN         { hash::Hash("plasma_gun"),         hash::Hash("plasma_bullet")         };

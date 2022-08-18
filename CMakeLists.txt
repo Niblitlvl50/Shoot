@@ -27,7 +27,7 @@ else()
 endif()
 
 # Disable debug checks for Chipmunk
-add_compile_definitions(NDEBUG)
+# add_compile_definitions(NDEBUG)
 
 
 ########### Projects ###########
