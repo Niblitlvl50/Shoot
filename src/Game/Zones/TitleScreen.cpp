@@ -5,6 +5,7 @@
 #include "IUpdatable.h"
 #include "Events/KeyEvent.h"
 #include "Events/QuitEvent.h"
+#include "Events/ScreenEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
 
@@ -60,6 +61,8 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
             Continue();
         else if(event.key == Keycode::Q)
             Quit();
+        else if(event.key == Keycode::F)
+            Fullscreen();
         return mono::EventResult::PASS_ON;
     };
     m_key_token = m_event_handler->AddListener(key_callback);
@@ -92,4 +95,9 @@ void TitleScreen::Quit()
 {
     m_exit_zone = game::ZoneResult::ZR_ABORTED;
     m_event_handler->DispatchEvent(event::QuitEvent());
+}
+
+void TitleScreen::Fullscreen()
+{
+    m_event_handler->DispatchEvent(event::ScreenEvent(event::ScreenMode::FULLSCREEN));
 }
