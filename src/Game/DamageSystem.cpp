@@ -7,11 +7,11 @@
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "System/Hash.h"
+#include "System/Debug.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 
 #include <limits>
-#include <cassert>
 
 using namespace game;
 
@@ -31,7 +31,7 @@ DamageSystem::DamageSystem(
 
 DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 {
-    assert(!m_active[id]);
+    MONO_ASSERT(!m_active[id]);
     m_active[id] = true;
 
     DamageRecord& new_record = m_damage_records[id];
@@ -49,7 +49,7 @@ uint32_t DamageSystem::SetDamageCallback(uint32_t id, uint32_t callback_types, D
 {
     DamageCallbacks& damage_callbacks = m_damage_callbacks[id];
     const size_t free_index = FindFreeCallbackIndex(damage_callbacks);
-    assert(free_index != std::numeric_limits<size_t>::max());
+    MONO_ASSERT(free_index != std::numeric_limits<size_t>::max());
     damage_callbacks[free_index] = { callback_types, damage_callback };
     return free_index;
 }
@@ -62,7 +62,7 @@ void DamageSystem::RemoveDamageCallback(uint32_t id, uint32_t callback_id)
 uint32_t DamageSystem::SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback)
 {
     const size_t free_index = FindFreeCallbackIndex(m_global_damage_callbacks);
-    assert(free_index != std::numeric_limits<size_t>::max());
+    MONO_ASSERT(free_index != std::numeric_limits<size_t>::max());
     m_global_damage_callbacks[free_index] = { callback_types, damage_callback };
     return free_index;
 }
@@ -99,7 +99,7 @@ void DamageSystem::ReactivateDamageRecord(uint32_t id)
 
 DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
 {
-    assert(m_active[id]);
+    MONO_ASSERT(m_active[id]);
     return &m_damage_records[id];
 }
 

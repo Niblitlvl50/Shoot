@@ -2,7 +2,7 @@
 #include "TranslateTool.h"
 #include "Editor.h"
 #include "Math/MathFunctions.h"
-#include <cassert>
+#include "System/Debug.h"
 
 using namespace editor;
 
@@ -28,7 +28,7 @@ void TranslateTool::HandleContextMenu(int menu_index)
 
 void TranslateTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
-    assert(m_proxy_start_positions.empty());
+    MONO_ASSERT(m_proxy_start_positions.empty());
     m_proxy_start_positions.clear();
 
     m_begin_translate = world_pos;

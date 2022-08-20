@@ -5,8 +5,8 @@
 #include "Physics/IBody.h"
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSystem.h"
+#include "System/Debug.h"
 
-#include <cassert>
 
 using namespace game;
 
@@ -17,7 +17,7 @@ PathBehaviour::PathBehaviour(
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
 {
-    assert(entity_body->GetType() == mono::BodyType::DYNAMIC);
+    MONO_ASSERT(entity_body->GetType() == mono::BodyType::DYNAMIC);
     m_control_body = m_physics_system->CreateKinematicBody();
     m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, 0.0f, 200.0f, 10.0f);
 }

@@ -61,10 +61,10 @@
 #include "Math/MathFunctions.h"
 
 #include "System/File.h"
+#include "System/Debug.h"
 
 #include <algorithm>
 #include <limits>
-#include <cassert>
 
 namespace
 {
@@ -1117,6 +1117,6 @@ void Editor::EnterMode(EditorMode new_mode)
 
 void Editor::PopMode()
 {
-    assert(m_mode_stack.size() > 1);
+    MONO_ASSERT(m_mode_stack.size() > 1);
     m_mode_stack.pop();
 }

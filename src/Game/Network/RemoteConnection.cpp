@@ -3,11 +3,10 @@
 #include "MessageDispatcher.h"
 #include "NetworkSerialize.h"
 #include "System/System.h"
-
-#include <algorithm>
-#include <cassert>
+#include "System/Debug.h"
 
 #include "huffandpuff/huffman.h"
+#include <algorithm>
 
 using namespace game;
 
@@ -32,7 +31,7 @@ namespace
                 const unsigned long decompressed_size = huffman_decompress(
                     message_buffer.data(), bytes_received, message.payload.data(), message.payload.size(), huffbuf_heap);
 
-                assert(decompressed_size != 0);
+                MONO_ASSERT(decompressed_size != 0);
 
                 connection_stats.total_packages_received++;
                 connection_stats.total_byte_received += decompressed_size;

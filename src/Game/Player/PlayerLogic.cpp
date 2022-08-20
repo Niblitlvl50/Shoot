@@ -169,8 +169,12 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->cooldown_id = 0;
     m_player_info->cooldown_fraction = 1.0f;
 
-    const DamageRecord* player_damage_record = m_damage_system->GetDamageRecord(m_entity_id);
-    m_player_info->health_fraction = float(player_damage_record->health) / float(player_damage_record->full_health);
+    const bool is_allocated = m_damage_system->IsAllocated(m_entity_id);
+    if(is_allocated)
+    {
+        const DamageRecord* player_damage_record = m_damage_system->GetDamageRecord(m_entity_id);
+        m_player_info->health_fraction = float(player_damage_record->health) / float(player_damage_record->full_health);
+    }
 
     const auto find_active_cooldown = [](float cooldown){
         return cooldown < 1.0f;

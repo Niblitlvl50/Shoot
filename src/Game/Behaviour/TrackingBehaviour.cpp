@@ -10,11 +10,11 @@
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Color.h"
+#include "System/Debug.h"
 
 #include "IDebugDrawer.h"
 #include "Factories.h"
 
-#include <cassert>
 #include <string>
 
 using namespace game;
@@ -26,7 +26,7 @@ TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* phy
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
 {
-    assert(body->GetType() == mono::BodyType::DYNAMIC);
+    MONO_ASSERT(body->GetType() == mono::BodyType::DYNAMIC);
 
     m_control_body = m_physics_system->CreateKinematicBody();
     m_control_body->SetPosition(body->GetPosition());

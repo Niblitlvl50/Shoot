@@ -33,7 +33,7 @@ ThrowableWeapon::ThrowableWeapon(const ThrowableWeaponConfig& config, mono::IEnt
 
 WeaponState ThrowableWeapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    assert(false); // Use the other fire for now...
+    MONO_ASSERT(false); // Use the other fire for now...
     return m_state;
 }
 

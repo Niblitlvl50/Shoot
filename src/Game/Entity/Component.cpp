@@ -2,8 +2,8 @@
 #include "Component.h"
 #include "System/Hash.h"
 #include "System/System.h"
+#include "System/Debug.h"
 
-#include <cassert>
 
 struct DefaultAttribute
 {
@@ -401,7 +401,7 @@ const char* AttributeNameFromHash(uint32_t hash)
             return hash_string.string;
     }
 
-    assert(false);
+    MONO_ASSERT(false);
     return "Unknown";
 }
 

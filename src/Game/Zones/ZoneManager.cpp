@@ -9,10 +9,10 @@
 #include "GameOverScreen.h"
 
 #include "System/Hash.h"
+#include "System/Debug.h"
 
 #include <string>
 #include <unordered_map>
-#include <cassert>
 
 using namespace game;
 
@@ -124,7 +124,7 @@ void ZoneManager::Run(const char* initial_zone_filename)
 
         game::IZonePtr zone = load_func(m_zone_context);
         const int zone_run_result = m_engine.Run(zone.get());
-        assert(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
+        MONO_ASSERT(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
         zone_hash = zone_transition.zone[zone_run_result];
     }
 }

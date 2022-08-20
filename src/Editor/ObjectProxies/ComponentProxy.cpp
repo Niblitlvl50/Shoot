@@ -16,10 +16,10 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Editor.h"
+#include "System/Debug.h"
 
 #include "imgui/imgui.h"
 
-#include <cassert>
 #include <algorithm>
 
 using namespace editor;
@@ -68,14 +68,14 @@ std::string ComponentProxy::Name() const
 void ComponentProxy::SetName(const std::string& name)
 {
     Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
-    assert(name_folder_component != nullptr);
+    MONO_ASSERT(name_folder_component != nullptr);
     SetAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name);
 }
 
 void ComponentProxy::SetFolder(const std::string& folder)
 {
     Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
-    assert(name_folder_component != nullptr);
+    MONO_ASSERT(name_folder_component != nullptr);
     SetAttribute(FOLDER_ATTRIBUTE, name_folder_component->properties, folder);
 }
 

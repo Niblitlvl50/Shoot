@@ -190,7 +190,7 @@ void CameraSystem::PushCameraData(uint32_t entity_id)
 
 void CameraSystem::PopCameraData()
 {
-    assert(!m_camera_stack.empty());
+    MONO_ASSERT(!m_camera_stack.empty());
 
     const CameraStackData stack_data = m_camera_stack.top();
     m_current_camera_size = stack_data.camera_size;
