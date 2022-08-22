@@ -1,0 +1,306 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "attack_turn"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                8,
+                9,
+                10,
+                11
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19
+            ],
+            "loop": true,
+            "name": "idle_turn"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                20,
+                21
+            ],
+            "loop": true,
+            "name": "turn"
+        }
+    ],
+    "frames": [
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_1",
+            "w": 53,
+            "x": 59,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_2",
+            "w": 54,
+            "x": 879,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_3",
+            "w": 54,
+            "x": 821,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_4",
+            "w": 53,
+            "x": 1111,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_5",
+            "w": 52,
+            "x": 284,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_6",
+            "w": 52,
+            "x": 228,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_7",
+            "w": 53,
+            "x": 1168,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_attack_turn_8",
+            "w": 54,
+            "x": 995,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_1",
+            "w": 46,
+            "x": 494,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_2",
+            "w": 47,
+            "x": 392,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_3",
+            "w": 47,
+            "x": 443,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_4",
+            "w": 48,
+            "x": 340,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_1",
+            "w": 53,
+            "x": 1225,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_2",
+            "w": 54,
+            "x": 763,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_3",
+            "w": 54,
+            "x": 937,
+            "y": 142
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_4",
+            "w": 53,
+            "x": 2,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_5",
+            "w": 52,
+            "x": 116,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_6",
+            "w": 52,
+            "x": 172,
+            "y": 188
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_7",
+            "w": 53,
+            "x": 698,
+            "y": 145
+        },
+        {
+            "h": 87,
+            "name": "demon_green_idle_turn_8",
+            "w": 54,
+            "x": 1053,
+            "y": 142
+        },
+        {
+            "h": 88,
+            "name": "demon_green_turn_1",
+            "w": 45,
+            "x": 1465,
+            "y": 134
+        },
+        {
+            "h": 88,
+            "name": "demon_green_turn_2",
+            "w": 53,
+            "x": 1327,
+            "y": 139
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/demon_green/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

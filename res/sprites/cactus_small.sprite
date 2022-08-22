@@ -1,0 +1,57 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 15,
+            "name": "cactus_small_idle_1",
+            "w": 10,
+            "x": 598,
+            "y": 513
+        },
+        {
+            "h": 15,
+            "name": "cactus_small_idle_2",
+            "w": 10,
+            "x": 1913,
+            "y": 512
+        },
+        {
+            "h": 15,
+            "name": "cactus_small_idle_3",
+            "w": 10,
+            "x": 612,
+            "y": 513
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/cactus_small/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

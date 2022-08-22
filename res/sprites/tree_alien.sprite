@@ -15,15 +15,15 @@
             "h": 50,
             "name": "tree_alien_idle_1",
             "w": 24,
-            "x": 968,
-            "y": 301
+            "x": 1238,
+            "y": 374
         },
         {
             "h": 50,
             "name": "tree_alien_idle_2",
             "w": 24,
-            "x": 858,
-            "y": 302
+            "x": 1927,
+            "y": 373
         }
     ],
     "frames_offsets": [
