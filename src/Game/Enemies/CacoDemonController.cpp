@@ -60,7 +60,7 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_entity_sprite = sprite_system->GetSprite(entity_id);
 
     m_idle_animation = m_entity_sprite->GetAnimationIdFromName("idle");
-    m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack");
+    m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack_turn");
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
@@ -124,6 +124,7 @@ const char* CacodemonController::GetDebugCategory() const
 void CacodemonController::OnIdle()
 {
     m_entity_sprite->SetAnimation(m_idle_animation);
+    m_entity_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
 void CacodemonController::Idle(const mono::UpdateContext& update_context)
@@ -175,6 +176,12 @@ void CacodemonController::OnAction()
         m_ready_to_attack = true;
     };
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
+
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector delta = position - m_target_player->position;
+
+    if(delta.x > 0.0f)
+        m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
 void CacodemonController::ActionShockwave(const mono::UpdateContext& update_context)
@@ -196,11 +203,14 @@ void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_con
     if(!m_ready_to_attack)
         return;
 
+    //const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    //const math::Vector delta = position - m_target_player->position;
+
     const float x_diff = mono::Random(-0.2f, 0.2f);
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector fire_position = position + math::Vector(x_diff, -0.35f);
-    const math::Vector target_position = position + math::Vector(0.0f, 2.0f);
+    const math::Vector fire_position = position + math::Vector(x_diff, 0.0f); //-0.35f);
+    const math::Vector target_position = m_target_player->position; //position + math::Vector(0.0f, 2.0f);
 
     const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, target_position, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)

@@ -915,8 +915,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.9834260940551758,
-                                "y": 2.3029069900512695
+                                "x": 0.75,
+                                "y": 2.5
                             }
                         },
                         {
@@ -953,13 +953,13 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "cacodemon.sprite"
+                            "variant_value": "demon_green.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 1
                         },
                         {
                             "id": 128336118,
@@ -1107,7 +1107,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.800000011920929
+                            "variant_value": 0.6000000238418579
                         },
                         {
                             "id": 2471448074,
@@ -1115,7 +1115,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.10000000149011612
+                                "y": 0.4000000059604645
                             }
                         },
                         {
@@ -31684,7 +31684,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "demon_green"
+                            "variant_value": "torch_tiny"
                         },
                         {
                             "id": 3647911389,
@@ -31709,8 +31709,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.625,
-                                "y": 1.125
+                                "x": -1.0,
+                                "y": 5.25
                             }
                         },
                         {
@@ -31729,19 +31729,19 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "demon_green.sprite"
+                            "variant_value": "torch_tiny.sprite"
                         },
                         {
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 0
                         },
                         {
                             "id": 128336118,
                             "name": "layer",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 2483026461,
@@ -31788,11 +31788,911 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "name": "demon_green",
-            "uuid_hash": 2506471082
+            "name": "torch_tiny",
+            "uuid_hash": 4183908851
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -5.0,
+                                "y": -0.75
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 2947049946
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -4.375,
+                                "y": -4.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 1351238103
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 6.25,
+                                "y": 1.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 1170391497
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.5,
+                                "y": -4.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 3763777586
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 5.125,
+                                "y": 6.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.3202614188194275,
+                                "green": 0.6216839551925659,
+                                "red": 0.9607843160629272
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 2498928524
         }
     ],
     "metadata": {
