@@ -85,11 +85,32 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 {
     if(!m_follow_entities.empty())
     {
-        std::vector<math::Vector> points;
-        for(uint32_t entity_id : m_follow_entities)
-            points.push_back(m_transform_system->GetWorldPosition(entity_id));
+        math::Vector centroid;
 
-        const math::Vector centroid = math::CentroidOfPolygon(points);
+        if(m_follow_entities.size() == 1)
+        {
+            centroid = m_transform_system->GetWorldPosition(m_follow_entities.front());
+        }
+        else
+        {
+            std::vector<math::Vector> points;
+            for(uint32_t entity_id : m_follow_entities)
+                points.push_back(m_transform_system->GetWorldPosition(entity_id));
+
+            const math::Vector world_centroid = math::CentroidOfPolygon(points);
+
+            for(uint32_t index = 0; index < points.size(); ++index)
+            {
+                const uint32_t entity_id = m_follow_entities[index];
+                math::Vector& world_position = points[index];
+
+                const float weight = game::IsPlayer(entity_id) ? 1.0f : 0.5f;
+                world_position = (world_position - world_centroid) * weight;
+            }
+
+            centroid = math::CentroidOfPolygon(points) + world_centroid;
+        }
+
         const math::Vector camera_position = m_camera->GetTargetPosition();
 
         const float distance = math::DistanceBetween(centroid, camera_position);
