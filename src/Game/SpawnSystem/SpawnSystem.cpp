@@ -74,6 +74,11 @@ void SpawnSystem::ReleaseSpawnPoint(uint32_t entity_id)
 
     spawn_point->active_spawns.clear();
 
+    const auto remove_if_spawn_id = [entity_id](const SpawnEvent& spawn_event) {
+        return (spawn_event.spawner_id == entity_id);
+    };
+    mono::remove_if(m_spawn_events, remove_if_spawn_id);
+
     m_spawn_points.Release(entity_id);
 }
 
@@ -127,6 +132,11 @@ void SpawnSystem::ReleaseEntitySpawnPoint(uint32_t entity_id)
     EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
     if(component->callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
+
+    const auto remove_if_spawn_id = [entity_id](const SpawnEvent& spawn_event) {
+        return (spawn_event.spawner_id == entity_id);
+    };
+    mono::remove_if(m_spawn_events, remove_if_spawn_id);
 
     m_entity_spawn_points.Release(entity_id);
 }
@@ -260,22 +270,27 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
 
         mono::Entity spawned_entity = m_entity_manager->CreateEntity(spawn_definition.entity_file.c_str());
 
-        SpawnPointComponent* spawn_component = m_spawn_points.Get(spawn_event.spawner_id);
-        if(spawn_component->spawn_limit > 0)
+        // This spawn might be from a entity spawn point.
+        const bool has_spawn_point_component = m_spawn_points.IsActive(spawn_event.spawner_id);
+        if(has_spawn_point_component)
         {
-            SpawnIdAndCallback spawn_callback_id;
-            spawn_callback_id.spawned_entity_id = spawned_entity.id;
+            SpawnPointComponent* spawn_component = m_spawn_points.Get(spawn_event.spawner_id);
+            if(spawn_component->spawn_limit > 0)
+            {
+                SpawnIdAndCallback spawn_callback_id;
+                spawn_callback_id.spawned_entity_id = spawned_entity.id;
 
-            const mono::ReleaseCallback release_callback = [spawn_component](uint32_t entity_id) {
+                const mono::ReleaseCallback release_callback = [spawn_component](uint32_t entity_id) {
 
-                const auto find_spawn_id = [entity_id](const SpawnIdAndCallback& spawn_callback_id) {
-                    return spawn_callback_id.spawned_entity_id == entity_id;
+                    const auto find_spawn_id = [entity_id](const SpawnIdAndCallback& spawn_callback_id) {
+                        return spawn_callback_id.spawned_entity_id == entity_id;
+                    };
+                    mono::remove_if(spawn_component->active_spawns, find_spawn_id);
                 };
-                mono::remove_if(spawn_component->active_spawns, find_spawn_id);
-            };
-            spawn_callback_id.callback_id = m_entity_manager->AddReleaseCallback(spawned_entity.id, release_callback);
+                spawn_callback_id.callback_id = m_entity_manager->AddReleaseCallback(spawned_entity.id, release_callback);
 
-            spawn_component->active_spawns.push_back(spawn_callback_id);
+                spawn_component->active_spawns.push_back(spawn_callback_id);
+            }
         }
 
         m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform);
