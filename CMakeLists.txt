@@ -72,7 +72,6 @@ file(
     game_exe_resource_files
     "res/entities/*"
     "res/fonts/*"
-    "res/paths/*"
     "res/sound/*"
     "res/sprites/*"
     "res/textures/*"

@@ -14,10 +14,6 @@ namespace editor
     bool AddNewEntity(const char* new_entity_name);
     const std::vector<std::string>& GetAllEntities();
 
-    bool LoadAllPaths(const char* all_paths_file);
-    bool AddNewPath(const char* new_path_name);
-    const std::vector<std::string>& GetAllPaths();
-
     bool LoadAllTextures(const char* filename);
     bool AddNewTexture(const char* new_texture_filename);
     const std::vector<std::string>& GetAllTextures();

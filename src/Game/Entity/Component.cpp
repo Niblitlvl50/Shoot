@@ -35,7 +35,7 @@ const DefaultAttribute default_attributes[] = {
     { "size",                       Variant(math::Vector(1.0f, 1.0f)) },
     { "time_stamp",                 Variant(1000) },
     { "spawn_tag",                  Variant(std::string()) },
-    { "path_file",                  Variant(std::string()) },
+    { "UNUSED_ATTRIBUTE",           Variant(std::string()) },
     { "trigger_radius",             Variant(1.0f) },
     { "color",                      Variant(mono::Color::WHITE) },
     { "shadow_offset",              Variant(math::ZeroVec) },
@@ -124,7 +124,7 @@ extern const uint32_t RADIUS_ATTRIBUTE              = default_attributes[2].hash
 extern const uint32_t SIZE_ATTRIBUTE                = default_attributes[3].hash;
 extern const uint32_t TIME_STAMP_ATTRIBUTE          = default_attributes[4].hash;
 extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[5].hash;
-extern const uint32_t PATH_FILE_ATTRIBUTE           = default_attributes[6].hash;
+extern const uint32_t UNUSED_ATTRIBUTE              = default_attributes[6].hash;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[7].hash;
 extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[8].hash;
 extern const uint32_t SHADOW_OFFSET_ATTRIBUTE       = default_attributes[9].hash;

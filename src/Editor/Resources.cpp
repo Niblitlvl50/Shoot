@@ -11,9 +11,6 @@ namespace
     const char* g_all_entities_filename = nullptr;
     std::vector<std::string> g_all_entities;
 
-    const char* g_all_paths_filename = nullptr;
-    std::vector<std::string> g_all_paths;
-
     const char* g_all_textures_filename = nullptr;
     std::vector<std::string> g_all_textures;
 
@@ -96,31 +93,6 @@ bool editor::AddNewEntity(const char* new_entity_name)
 const std::vector<std::string>& editor::GetAllEntities()
 {
     return g_all_entities;
-}
-
-bool editor::LoadAllPaths(const char* all_paths_file)
-{
-    g_all_paths = ReadListFile(all_paths_file, "all_paths");
-    g_all_paths_filename = all_paths_file;
-    return true;
-}
-
-bool editor::AddNewPath(const char* new_path_name)
-{
-    const auto it = std::find(g_all_paths.begin(), g_all_paths.end(), new_path_name);
-    if(it != g_all_paths.end())
-        return false;
-
-    g_all_paths.push_back(new_path_name);
-    std::sort(g_all_paths.begin(), g_all_paths.end());
-    WriteListFile(g_all_paths_filename, "all_paths", g_all_paths);
-
-    return true;
-}
-
-const std::vector<std::string>& editor::GetAllPaths()
-{
-    return g_all_paths;
 }
 
 bool editor::LoadAllTextures(const char* filename)

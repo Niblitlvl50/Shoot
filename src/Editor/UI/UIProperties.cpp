@@ -208,17 +208,6 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return DrawBitfieldProperty(
             attribute_name, std::get<uint32_t>(attribute.value), all_sprite_properties, mono::SpritePropertyToString);
     }
-    else if(attribute.id == PATH_FILE_ATTRIBUTE)
-    {
-        const std::vector<std::string>& all_paths = editor::GetAllPaths();
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_paths, out_index);
-        if(changed)
-            attribute.value = all_paths[out_index];
-        
-        return changed;
-    }
     else if(attribute.id == EASING_FUNC_ATTRIBUTE)
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
