@@ -22,8 +22,8 @@
             "h": 56,
             "name": "portal_idle_1",
             "w": 29,
-            "x": 1165,
-            "y": 310
+            "x": 1968,
+            "y": 308
         },
         {
             "h": 54,
@@ -43,15 +43,15 @@
             "h": 60,
             "name": "portal_idle_4",
             "w": 32,
-            "x": 2006,
-            "y": 285
+            "x": 1685,
+            "y": 298
         },
         {
             "h": 60,
             "name": "portal_idle_5",
             "w": 32,
-            "x": 1685,
-            "y": 298
+            "x": 2006,
+            "y": 285
         },
         {
             "h": 62,
@@ -78,8 +78,8 @@
             "h": 56,
             "name": "portal_idle_9",
             "w": 29,
-            "x": 1968,
-            "y": 308
+            "x": 1165,
+            "y": 310
         }
     ],
     "frames_offsets": [
@@ -120,7 +120,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/misc/",
+    "source_folder": "res/images/portals/blue/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
