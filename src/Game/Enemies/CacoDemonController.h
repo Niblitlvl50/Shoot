@@ -31,9 +31,15 @@ namespace game
         void OnActive();
         void Active(const mono::UpdateContext& update_context);
 
+        void OnTurn();
+        void TurnToPlayer(const mono::UpdateContext& update_context);
+
         void OnAction();
         void ActionShockwave(const mono::UpdateContext& update_context);
+
+        void OnFireHoming();
         void ActionFireHoming(const mono::UpdateContext& update_context);
+
         void ActionFireBeam(const mono::UpdateContext& update_context);
 
         void OnDead();
@@ -48,6 +54,7 @@ namespace game
         mono::IBody* m_entity_body;
         mono::ISprite* m_entity_sprite;
         uint32_t m_idle_animation;
+        uint32_t m_turn_animation;
         uint32_t m_attack_animation;
         uint32_t m_death_animation;
 
@@ -66,6 +73,7 @@ namespace game
         {
             IDLE,
             ACTIVE,
+            TURN_TO_PLAYER,
             ACTION_SHOCKWAVE,
             ACTION_FIRE_HOMING,
             ACTION_FIRE_BEAM,

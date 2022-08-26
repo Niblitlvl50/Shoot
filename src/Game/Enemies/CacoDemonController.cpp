@@ -60,6 +60,7 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_entity_sprite = sprite_system->GetSprite(entity_id);
 
     m_idle_animation = m_entity_sprite->GetAnimationIdFromName("idle");
+    m_turn_animation = m_entity_sprite->GetAnimationIdFromName("turn");
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack_turn");
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
 
@@ -82,9 +83,11 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
         CacoStateMachine::MakeState(
             States::ACTIVE, &CacodemonController::OnActive, &CacodemonController::Active, this),
         CacoStateMachine::MakeState(
+            States::TURN_TO_PLAYER, &CacodemonController::OnTurn, &CacodemonController::TurnToPlayer, this),
+        CacoStateMachine::MakeState(
             States::ACTION_SHOCKWAVE, &CacodemonController::OnAction, &CacodemonController::ActionShockwave, this),
         CacoStateMachine::MakeState(
-            States::ACTION_FIRE_HOMING, &CacodemonController::OnAction, &CacodemonController::ActionFireHoming, this),
+            States::ACTION_FIRE_HOMING, &CacodemonController::OnFireHoming, &CacodemonController::ActionFireHoming, this),
         CacoStateMachine::MakeState(
             States::ACTION_FIRE_BEAM, &CacodemonController::OnAction, &CacodemonController::ActionFireBeam, this),
         CacoStateMachine::MakeState(
@@ -157,7 +160,7 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
 
     if(distance_to_player < tweak_values::attack_distance && m_fire_homing_cooldown == 0.0f)
-        m_states.TransitionTo(States::ACTION_FIRE_HOMING);
+        m_states.TransitionTo(States::TURN_TO_PLAYER);
     else if(distance_to_player < tweak_values::shockwave_distance && m_shockwave_cooldown == 0.0f)
         m_states.TransitionTo(States::ACTION_SHOCKWAVE);
 }
@@ -167,6 +170,23 @@ void CacodemonController::OnActive()
 
 void CacodemonController::Active(const mono::UpdateContext& update_context)
 {}
+
+void CacodemonController::OnTurn()
+{
+    const auto transition_to_attack = [this]() {
+        m_states.TransitionTo(States::ACTION_FIRE_HOMING);
+    };
+    m_entity_sprite->SetAnimation(m_turn_animation, transition_to_attack);
+
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector delta = position - m_target_player->position;
+
+    if(delta.x > 0.0f)
+        m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+}
+
+void CacodemonController::TurnToPlayer(const mono::UpdateContext& update_context)
+{ }
 
 void CacodemonController::OnAction()
 {
@@ -196,6 +216,22 @@ void CacodemonController::ActionShockwave(const mono::UpdateContext& update_cont
 
     m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
     m_states.TransitionTo(States::IDLE);
+}
+
+void CacodemonController::OnFireHoming()
+{
+    m_ready_to_attack = false;
+
+    const auto set_ready_to_attack = [this] {
+        m_ready_to_attack = true;
+    };
+    m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
+
+    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector delta = position - m_target_player->position;
+
+    if(delta.x > 0.0f)
+        m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
 void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_context)

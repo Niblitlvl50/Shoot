@@ -50,12 +50,12 @@
             "name": "idle_turn"
         },
         {
-            "frame_duration": 100,
+            "frame_duration": 200,
             "frames": [
                 21,
                 22
             ],
-            "loop": true,
+            "loop": false,
             "name": "turn"
         }
     ],
