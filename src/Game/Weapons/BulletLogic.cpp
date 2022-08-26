@@ -31,6 +31,7 @@ BulletLogic::BulletLogic(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     const math::Vector& target,
+    float direction,
     const BulletConfiguration& config,
     const CollisionConfiguration& collision_config,
     mono::PhysicsSystem* physics_system)
@@ -53,6 +54,7 @@ BulletLogic::BulletLogic(
 
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
     m_homing_behaviour.SetBody(bullet_body);
+    m_homing_behaviour.SetHeading(direction);
     m_homing_behaviour.SetAngularVelocity(120.0f);
     m_homing_behaviour.SetHomingStartDelay(tweak_values::homing_delay_s);
     m_homing_behaviour.SetHomingDuration(tweak_values::homing_duration_s);
@@ -81,6 +83,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
             mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
             const float velocity_magnitude = math::Length(bullet_body->GetVelocity());
             m_homing_behaviour.SetForwardVelocity(velocity_magnitude);
+            //m_homing_behaviour.SetHeading();
             //
 
             m_homing_behaviour.SetTargetPosition(player_info->position);

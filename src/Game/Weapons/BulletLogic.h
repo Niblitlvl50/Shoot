@@ -20,6 +20,7 @@ namespace game
             uint32_t entity_id,
             uint32_t owner_entity_id,
             const math::Vector& target,
+            float direction,
             const BulletConfiguration& config,
             const CollisionConfiguration& collision_config,
             mono::PhysicsSystem* physics_system);

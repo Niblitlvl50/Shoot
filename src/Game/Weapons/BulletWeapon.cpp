@@ -135,9 +135,10 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         const math::Vector& velocity =
             math::Normalized(modified_fire_direction) * m_weapon_config.bullet_force * force_multiplier;
 
+        const float bullet_direction = math::AngleFromVector(modified_fire_direction);
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
         BulletLogic* bullet_logic =
-            new BulletLogic(bullet_entity.id, m_owner_id, target, m_bullet_config, m_collision_config, m_physics_system);
+            new BulletLogic(bullet_entity.id, m_owner_id, target, bullet_direction, m_bullet_config, m_collision_config, m_physics_system);
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
