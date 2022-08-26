@@ -24,6 +24,7 @@ namespace game
         
         void SetHeading(float heading);
         void SetTargetPosition(const math::Vector& position);
+        const math::Vector& GetTargetPosition() const;
 
         void SetForwardVelocity(float velocity);
         void SetAngularVelocity(float degrees_per_second);

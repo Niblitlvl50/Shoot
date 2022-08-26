@@ -41,6 +41,11 @@ void HomingBehaviour::SetTargetPosition(const math::Vector& position)
     m_target_position = position;
 }
 
+const math::Vector& HomingBehaviour::GetTargetPosition() const
+{
+    return m_target_position;
+}
+
 void HomingBehaviour::SetForwardVelocity(float velocity)
 {
     m_forward_velocity = velocity;

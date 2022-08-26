@@ -90,6 +90,7 @@ namespace game
     uint32_t FindPlayerIndex(const game::PlayerInfo* player_info);
     game::PlayerInfo* FindPlayerInfoFromEntityId(uint32_t entity_id);
     const PlayerInfo* GetClosestActivePlayer(const math::Vector& world_position);
+    const PlayerInfo* GetClosestActivePlayer(const math::Vector& world_position, float max_distance);
 
     using PlayerArray = std::array<const PlayerInfo*, game::n_players>;
 

@@ -20,8 +20,8 @@
 
 namespace tweak_values
 {
-    constexpr float activate_distance_to_player_threshold = 6.0f;
-    constexpr float distance_to_player_threshold = 3.0f;
+    constexpr float activate_distance_to_player_threshold = 4.0f;
+    constexpr float perpendicular_movement_distance_threshold = 2.0f;
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
     //constexpr uint32_t attack_start_delay = 500;
@@ -72,7 +72,14 @@ void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
-    debug_drawer->DrawCircle(world_position, tweak_values::distance_to_player_threshold, mono::Color::CYAN);
+    debug_drawer->DrawCircle(world_position, tweak_values::perpendicular_movement_distance_threshold, mono::Color::GREEN);
+
+    const math::Vector& target_position = m_homing_behaviour.GetTargetPosition();
+    debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::BLUE);
+    debug_drawer->DrawPoint(target_position, 10.0f, mono::Color::BLUE);
+
+    debug_drawer->DrawLine({ world_position, m_attack_position }, 1.0f, mono::Color::RED);
+    debug_drawer->DrawPoint(m_attack_position, 5.0f, mono::Color::RED);
 }
 
 const char* ImpController::GetDebugCategory() const
@@ -94,25 +101,18 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
 
-    bool is_visible = false;
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
-    if(player_info)
-    {
-        m_attack_position = player_info->position;
-        const float distance = math::DistanceBetween(world_position, player_info->position);
-        is_visible = (distance < tweak_values::activate_distance_to_player_threshold);
-        //is_visible = math::PointInsideQuad(world_position, player_info->viewport);
-    }
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(
+        world_position, tweak_values::activate_distance_to_player_threshold);
+    if(!player_info)
+        return;
+
+    m_attack_position = player_info->position;
 
     const bool is_left_of = (m_attack_position.x < world_position.x);
     if(is_left_of)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-
-    const bool is_player_active = (player_info != nullptr);
-    if(!is_player_active || !is_visible)
-        return;
 
     if(m_idle_timer < 1000)
         return;
@@ -134,21 +134,21 @@ void ImpController::ToReposition()
         return;
 
     const math::Vector delta = player_info->position - world_position;
-    const float distance_to_player = math::Length(delta);
+    const math::Vector normalized_delta = math::Normalized(delta);
 
     math::Vector homing_target = world_position;
 
-    // Move towards player
-    const math::Vector halfway_delta = delta / 2.0f;
-
-    if(distance_to_player < tweak_values::distance_to_player_threshold)
+    const float distance_to_player = math::Length(delta);
+    if(distance_to_player < tweak_values::perpendicular_movement_distance_threshold)
     {
+        // Move sideways
         const float multiplier = mono::Chance(50) ? -1.0f : 1.0f;
-        homing_target += math::Perpendicular(halfway_delta) * multiplier; // Move sideways
+        homing_target += math::Perpendicular(normalized_delta) * multiplier;
     }
     else
     {
-        homing_target += halfway_delta;
+        // Move towards player
+        homing_target += normalized_delta;
     }
 
     m_sprite->SetAnimation(m_run_anim_id);
