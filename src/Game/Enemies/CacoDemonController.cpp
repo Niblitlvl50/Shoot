@@ -121,7 +121,7 @@ void CacodemonController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
 const char* CacodemonController::GetDebugCategory() const
 {
-    return "Cacodemon";
+    return "Green Boss Demon";
 }
 
 void CacodemonController::OnIdle()
