@@ -166,10 +166,9 @@ namespace game
         };
 
         UIBarElement(
-            float inner_width, float inner_height,
-            float outer_width, float outer_height,
-            const mono::Color::RGBA& inner_color,
-            const mono::Color::RGBA& outer_color);
+            float background_width, float background_height, const mono::Color::RGBA& background_color,
+            float foreground_width, float foreground_height, const mono::Color::RGBA& foreground_color
+        );
 
         void SetFraction(float fraction);
         void SetDirection(Direction new_direction);
@@ -185,8 +184,8 @@ namespace game
         Direction m_direction;
 
         std::unique_ptr<mono::IRenderBuffer> m_vertices;
-        std::unique_ptr<mono::IRenderBuffer> m_inner_colors;
-        std::unique_ptr<mono::IRenderBuffer> m_outer_colors;
+        std::unique_ptr<mono::IRenderBuffer> m_background_colors;
+        std::unique_ptr<mono::IRenderBuffer> m_foreground_colors;
         std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 }

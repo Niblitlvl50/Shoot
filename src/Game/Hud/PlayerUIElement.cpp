@@ -75,7 +75,8 @@ namespace game
             m_ammo_text->SetScale(0.5f);
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
-            m_healthbar = new UIBarElement(1.0f, 0.05f, 1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
+            m_healthbar = new UIBarElement(
+                1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
             m_healthbar->SetPosition(-0.15f, 0.25f);
 
             AddChild(background_hud);
@@ -237,36 +238,28 @@ namespace game
 
         void UpdateAnimation(const mono::UpdateContext& update_context)
         {
-            constexpr float transision_duration_s = 0.5f;
-
             switch(m_player_info.player_state)
             {
             case game::PlayerState::NOT_SPAWNED:
             case game::PlayerState::ALIVE:
-            {
-                if(m_timer > 0.0f)
-                {
-                    m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                    m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                    m_timer -= update_context.delta_s;
-                }
-                
+                m_timer -= update_context.delta_s;
                 break;
-            }
             case game::PlayerState::DEAD:
-            {
-                if(m_timer < transision_duration_s)
-                {
-                    m_position.x = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
-                    m_position.y = math::EaseOutCubic(m_timer, transision_duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
-                    m_timer += update_context.delta_s;
-                }
-
+                m_timer += update_context.delta_s;
                 break;
             }
-            }
 
+            constexpr float transision_duration_s = 0.5f;
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
+            AnimatePlayerElement(m_timer, transision_duration_s);
+        }
+
+        void AnimatePlayerElement(float time_s, float duration_s)
+        {
+            m_position.x = math::EaseInCubic(
+                time_s, duration_s, m_offscreen_position.x, m_screen_position.x - m_offscreen_position.x);
+            m_position.y = math::EaseInCubic(
+                time_s, duration_s, m_offscreen_position.y, m_screen_position.y - m_offscreen_position.y);
         }
 
         const PlayerInfo& m_player_info;
@@ -284,37 +277,36 @@ namespace game
     {
     public:
 
-        PlayerCoopPowerupElement(const math::Vector& element_position)
+        PlayerCoopPowerupElement(
+            const PlayerInfo* player_infos, int num_players, float x, float y)
         {
-            m_position = element_position;
+            m_position = math::Vector(x, y);
+
+            m_powerup_bar = new UIBarElement(
+                2.0f, 0.1f, mono::Color::GRAY, 2.0f, 0.1f, mono::Color::RED);
 
             m_powerup_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+                FontId::RUSSOONE_TINY, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
             m_powerup_text->SetScale(0.5f);
+            m_powerup_text->SetPosition(0.0f, -0.2f);
 
-            m_powerup_background = new UISquareElement(0.1f, 1.55f, mono::Color::BLACK);
-            m_powerup_background->SetPosition(0.5f, -2.0f);
-
-            m_powerup_bar = new UISquareElement(0.1f, 1.5f, mono::Color::RED, mono::Color::BLACK, 1.0f);
-            m_powerup_bar->SetPosition(0.5f, -2.0f);
-
-            AddChild(m_powerup_background);
-            AddChild(m_powerup_text);
             AddChild(m_powerup_bar);
+            AddChild(m_powerup_text);
         }
 
         void Update(const mono::UpdateContext& context) override
         {
+            UIElement::Update(context);
+
             const float powerup_value = game::g_coop_powerup.powerup_value;
-            m_powerup_bar->SetScale(math::Vector(1.0f, powerup_value));
+            m_powerup_bar->SetFraction(powerup_value);
 
             char buffer[256] = { 0 };
-            std::snprintf(buffer, std::size(buffer), "powerup %.2f", powerup_value);
+            std::snprintf(buffer, std::size(buffer), "Powerup %.2f", powerup_value);
             m_powerup_text->SetText(buffer);
         }
 
-        UISquareElement* m_powerup_background;
-        UISquareElement* m_powerup_bar;
+        UIBarElement* m_powerup_bar;
         UITextElement* m_powerup_text;
     };
 }
@@ -364,6 +356,5 @@ PlayerUIElement::PlayerUIElement(
         AddChild(new PlayerDeathElement(player_info, event_handler, on_screen_death_position, off_screen_death_position));
     }
 
-    const math::Vector powerup_element_position = math::Vector(m_width - 1.0f, m_height - 1.0f);
-    AddChild(new PlayerCoopPowerupElement(powerup_element_position));
+    AddChild(new PlayerCoopPowerupElement(player_infos, num_players, m_width - 2.5f, m_height - 0.3f));
 }

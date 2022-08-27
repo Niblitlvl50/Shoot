@@ -327,10 +327,8 @@ const mono::Color::RGBA& UISquareElement::GetBorderColor() const
 
 
 UIBarElement::UIBarElement(
-    float inner_width, float inner_height,
-    float outer_width, float outer_height,
-    const mono::Color::RGBA& inner_color,
-    const mono::Color::RGBA& outer_color)
+    float background_width, float background_height, const mono::Color::RGBA& background_color,
+    float foreground_width, float foreground_height, const mono::Color::RGBA& foreground_color)
     : m_fraction(0.0f)
     , m_target_fraction(0.0f)
     , m_velocity(0.0f)
@@ -338,21 +336,21 @@ UIBarElement::UIBarElement(
 {
     const std::vector<math::Vector> vertex_data = {
         { 0.0f, 0.0f },
-        { 0.0f, inner_height },
-        { inner_width, inner_height },
-        { inner_width, 0.0f }
+        { 0.0f, background_height },
+        { background_width, background_height },
+        { background_width, 0.0f }
     };
 
-    const std::vector<mono::Color::RGBA> inner_color_data(4, inner_color);
-    const std::vector<mono::Color::RGBA> outer_color_data(4, outer_color);
+    const std::vector<mono::Color::RGBA> background_color_data(4, background_color);
+    const std::vector<mono::Color::RGBA> foreground_color_data(4, foreground_color);
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3,   // Two triangles
     };
 
     m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
-    m_inner_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, inner_color_data.data());
-    m_outer_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, outer_color_data.data());
+    m_background_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, background_color_data.data());
+    m_foreground_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, foreground_color_data.data());
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
 }
 
@@ -372,6 +370,7 @@ void UIBarElement::Update(const mono::UpdateContext& context)
     math::simple_spring_damper_implicit(m_fraction, m_velocity, m_target_fraction, 0.1f, context.delta_s);
 }
 
+#include "System/System.h"
 void UIBarElement::Draw(mono::IRenderer& renderer) const
 {
     if(!m_show)
@@ -382,9 +381,10 @@ void UIBarElement::Draw(mono::IRenderer& renderer) const
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-    renderer.DrawTrianges(m_vertices.get(), m_inner_colors.get(), m_indices.get(), 0, 6);
+    renderer.DrawTrianges(m_vertices.get(), m_background_colors.get(), m_indices.get(), 0, 6);
 
+    System::Log("fraction %.2f - %.2f", m_fraction, m_target_fraction);
     const auto scale_transform_scope = mono::MakeTransformScope(
         transform * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
-    renderer.DrawTrianges(m_vertices.get(), m_outer_colors.get(), m_indices.get(), 0, 6);
+    renderer.DrawTrianges(m_vertices.get(), m_foreground_colors.get(), m_indices.get(), 0, 6);
 }

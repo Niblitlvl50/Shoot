@@ -96,6 +96,7 @@ namespace game
 
     // You need to check for nullptr for each.
     PlayerArray GetActivePlayers();
+    PlayerArray GetSpawnedPlayers();
 
     bool IsPlayer(uint32_t entity_id);
 }

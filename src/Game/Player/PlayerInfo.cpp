@@ -116,6 +116,19 @@ game::PlayerArray game::GetActivePlayers()
     return active_players;
 }
 
+game::PlayerArray game::GetSpawnedPlayers()
+{
+    PlayerArray spawned_players;
+
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = g_players[index];
+        spawned_players[index] = (player_info.player_state != game::PlayerState::NOT_SPAWNED) ? &player_info : nullptr;
+    }
+
+    return spawned_players;
+}
+
 bool game::IsPlayer(uint32_t entity_id)
 {
     return FindPlayerInfoFromEntityId(entity_id) != nullptr;
