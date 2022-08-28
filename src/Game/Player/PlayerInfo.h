@@ -71,6 +71,21 @@ namespace game
         TRIGGERED
     };
 
+    inline const char* CoopPowerUpStateToString(CoopPowerUpState state)
+    {
+        switch(state)
+        {
+            case CoopPowerUpState::DISABLED:
+                return "Disabled";
+            case CoopPowerUpState::ENABLED:
+                return "Enabled";
+            case CoopPowerUpState::TRIGGERED:
+                return "Triggered";
+        }
+
+        return "Unknown";
+    }
+
     struct CoopPowerUp
     {
         CoopPowerUpState state;

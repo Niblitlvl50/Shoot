@@ -298,11 +298,16 @@ namespace game
         {
             UIElement::Update(context);
 
+            const bool powerup_enabled = (g_coop_powerup.state != CoopPowerUpState::DISABLED);
+            m_show = powerup_enabled;
+
             const float powerup_value = game::g_coop_powerup.powerup_value;
             m_powerup_bar->SetFraction(powerup_value);
 
+            const char* state_string = CoopPowerUpStateToString(g_coop_powerup.state);
+
             char buffer[256] = { 0 };
-            std::snprintf(buffer, std::size(buffer), "Powerup %.2f", powerup_value);
+            std::snprintf(buffer, std::size(buffer), "Powerup %.2f, %s", powerup_value, state_string);
             m_powerup_text->SetText(buffer);
         }
 
