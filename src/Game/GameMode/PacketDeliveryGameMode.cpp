@@ -120,10 +120,6 @@ void PacketDeliveryGameMode::Begin(
     m_pickup_spawner =
         std::make_unique<EnemyPickupSpawner>(damage_system, logic_system, m_transform_system, m_entity_manager);
 
-    // Package
-    m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
-    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::UI);
-
     // UI
     m_big_text_screen = std::make_unique<BigTextScreen>(
         level_metadata.level_name.c_str(),
@@ -157,6 +153,10 @@ void PacketDeliveryGameMode::Begin(
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
+
+    // Package
+    m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
+    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
