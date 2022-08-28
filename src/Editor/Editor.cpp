@@ -153,6 +153,7 @@ namespace
             context.component_items.push_back({component->hash, component->allow_multiple, ComponentNameFromHash(component->hash), component->category});
 
         context.component_decorators[AREA_EMITTER_COMPONENT] = { nullptr, editor::AreaEmitterFooter };
+        context.component_decorators[TEXTURED_POLYGON_COMPONENT] = { nullptr, editor::TexturedPolygonFooter };
     }
 
     class SyncPoint : public mono::IUpdatable
