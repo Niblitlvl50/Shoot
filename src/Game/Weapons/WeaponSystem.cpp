@@ -2,22 +2,17 @@
 #include "WeaponSystem.h"
 #include "System/Hash.h"
 
-
-
 #include "Weapons/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
-#include "Weapons/Serialize.h"
 #include "DamageSystem.h"
 
 #include "SystemContext.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
-#include "System/File.h"
 #include "System/Hash.h"
 
-#include "nlohmann/json.hpp"
 #include <functional>
 
 namespace
@@ -107,6 +102,21 @@ void WeaponSystem::Reset()
 void WeaponSystem::Update(const mono::UpdateContext& update_context)
 {
 
+}
+
+void WeaponSystem::SetWeaponLoadout(
+    uint32_t entity_id, const std::string& primary, const std::string& secondary, const std::string& tertiary)
+{
+    m_weapon_loadout[entity_id] = { primary, secondary, tertiary };
+}
+
+IWeaponPtr WeaponSystem::CreatePrimaryWeapon(uint32_t entity_id, WeaponFaction faction)
+{
+    const auto it = m_weapon_loadout.find(entity_id);
+    if(it == m_weapon_loadout.end())
+        return std::make_unique<NullWeapon>();
+
+    return CreateWeapon(it->second.primary_name.c_str(), faction, entity_id);
 }
 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)

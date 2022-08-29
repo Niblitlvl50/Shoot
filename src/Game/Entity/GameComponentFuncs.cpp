@@ -16,6 +16,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -894,6 +895,30 @@ namespace
 
         return true;
     }
+
+    bool CreateNothing(mono::Entity* entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+    bool DestroyNothing(mono::Entity* entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool UpdateWeaponLoadout(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string primary;
+        std::string secondary;
+        std::string tertiary;
+        FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, primary, FallbackMode::SET_DEFAULT);
+        FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, secondary, FallbackMode::SET_DEFAULT);
+        FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, tertiary, FallbackMode::SET_DEFAULT);
+
+        game::WeaponSystem* weapon_system = context->GetSystem<game::WeaponSystem>();
+        weapon_system->SetWeaponLoadout(entity->id, primary, secondary, tertiary);
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -924,4 +949,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(INTERACTION_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteraction);
     entity_manager->RegisterComponent(INTERACTION_SWITCH_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteractionSwitch);
     entity_manager->RegisterComponent(DIALOG_COMPONENT, CreateDialog, ReleaseDialog, UpdateDialog);
+    entity_manager->RegisterComponent(WEAPON_LOADOUT_COMPONENT, CreateNothing, DestroyNothing, UpdateWeaponLoadout);
 }
