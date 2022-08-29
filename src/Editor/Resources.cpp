@@ -1,7 +1,11 @@
 
 #include "Resources.h"
+#include "Weapons/WeaponTypes.h"
+#include "Weapons/WeaponConfiguration.h"
+
 #include "System/File.h"
 #include "nlohmann/json.hpp"
+
 #include <string>
 
 namespace
@@ -16,6 +20,8 @@ namespace
 
     const char* g_all_worlds_filename = nullptr;
     std::vector<std::string> g_all_worlds;
+
+    std::vector<std::string> g_all_weapons;
 
     void WriteListFile(const char* filename, const char* key_name, const std::vector<std::string>& list)
     {
@@ -67,6 +73,19 @@ bool editor::LoadAllSprites(const char* all_sprites_file)
 const std::vector<std::string>& editor::GetAllSprites()
 {
     return g_all_sprite_files;
+}
+
+bool editor::LoadAllWeapons(const char* weapon_config_file)
+{
+    const game::WeaponConfig weapon_config = game::LoadWeaponConfig(weapon_config_file);
+    g_all_weapons = weapon_config.weapon_names;
+
+    return true;
+}
+
+const std::vector<std::string>& editor::GetAllWeapons()
+{
+    return g_all_weapons;
 }
 
 bool editor::LoadAllEntities(const char* all_entities_file)

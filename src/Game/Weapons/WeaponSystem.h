@@ -36,6 +36,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
+        IWeaponPtr CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id);
 
     private:
 
@@ -44,10 +45,8 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;
 
+        WeaponConfig m_weapon_configuration;
         std::unordered_map<uint32_t, BulletImpactCallback> m_bullet_callbacks;
-
-        std::unordered_map<uint32_t, struct BulletConfiguration> m_bullet_configs;
-        std::unordered_map<uint32_t, struct WeaponConfiguration> m_weapon_configs;
 
         class DamageEffect* m_damage_effect = nullptr;
         class ImpactEffect* m_impact_effect = nullptr;

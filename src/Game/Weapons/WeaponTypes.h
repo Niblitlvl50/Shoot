@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <unordered_map>
 
 namespace game
 {
@@ -46,5 +47,16 @@ namespace game
     std::vector<WeaponSetup> GetWeaponList();
     std::vector<WeaponSetup> GetSupportWeaponList();
 
+    const char* GetWeaponNameFromHash(uint32_t weapon_hash);
     const char* GetWeaponSpriteFromHash(uint32_t weapon_hash);
+
+    struct WeaponConfig
+    {
+        std::unordered_map<uint32_t, struct BulletConfiguration> bullet_configs;
+        std::unordered_map<uint32_t, struct WeaponConfiguration> weapon_configs;
+        std::unordered_map<uint32_t, struct WeaponBulletCombination> weapon_combinations;
+        std::vector<std::string> weapon_names;
+    };
+
+    WeaponConfig LoadWeaponConfig(const char* weapon_config);
 }

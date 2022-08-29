@@ -89,6 +89,13 @@ namespace game
         std::string reload_sound;
     };
 
+    struct WeaponBulletCombination
+    {
+        std::string name;
+        std::string weapon;
+        std::string bullet;
+    };
+
     struct CollisionConfiguration
     {
         CollisionCategory collision_category;

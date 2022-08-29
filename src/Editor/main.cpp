@@ -23,6 +23,7 @@
 #include "DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "World/WorldBoundsSystem.h"
+#include "Weapons/WeaponTypes.h"
 
 #include "Editor.h"
 #include "EditorConfig.h"

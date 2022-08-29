@@ -116,6 +116,9 @@ const DefaultAttribute default_attributes[] = {
     { "particle_draw_layer",        Variant(0) },
     { "editor_properties",          Variant(0u) },
     { "spawn_points",               Variant(spawn_points_default) },
+    { "weapon_primary",             Variant(std::string()) },
+    { "weapon_secondary",           Variant(std::string()) },
+    { "weapon_tertiary",            Variant(std::string()) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -223,6 +226,9 @@ extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE             = default_attributes
 extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes[84].hash;
 extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[85].hash;
 extern const uint32_t SPAWN_POINTS_ATTRIBUTE                = default_attributes[86].hash;
+extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE              = default_attributes[87].hash;
+extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[88].hash;;
+extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[89].hash;;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -260,8 +266,8 @@ extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
 extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter");
-
 extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polygon");
+extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -340,6 +346,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "area_emitter";
     else if(hash == TEXTURED_POLYGON_COMPONENT)
         return "textured_polygon";
+    else if(hash == WEAPON_LOADOUT_COMPONENT)
+        return "weapon_loadout";
 
     return "Unknown";
 }
@@ -390,6 +398,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_TRACK_ENTITY_COMPONENT,NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_ATTRIBUTE }),
+    MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
 

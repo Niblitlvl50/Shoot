@@ -115,6 +115,9 @@ extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE;
 extern const uint32_t PARTICLE_DRAW_LAYER;
 
 extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE;
+extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE;
+extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE;
+extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE;
 
 
 const char* AttributeNameFromHash(uint32_t hash);
@@ -202,8 +205,9 @@ extern const uint32_t LIGHT_COMPONENT;
 extern const uint32_t DIALOG_COMPONENT;
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT;
 extern const uint32_t AREA_EMITTER_COMPONENT;
-
 extern const uint32_t TEXTURED_POLYGON_COMPONENT;
+extern const uint32_t WEAPON_LOADOUT_COMPONENT;
+
 
 struct Component
 {

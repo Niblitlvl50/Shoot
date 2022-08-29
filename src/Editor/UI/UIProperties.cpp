@@ -400,6 +400,20 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return DrawBitfieldProperty(
             attribute_name, std::get<uint32_t>(attribute.value), editor::all_entity_attributes, editor::EntityAttributeToString);
     }
+    else if(
+        attribute.id == WEAPON_PRIMARY_ATTRIBUTE ||
+        attribute.id == WEAPON_SECONDARY_ATTRIBUTE ||
+        attribute.id == WEAPON_TERTIARY_ATTRIBUTE )
+    {
+        std::vector<std::string> weapon_names = editor::GetAllWeapons();
+
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), weapon_names, out_index);
+        if(changed)
+            attribute.value = weapon_names[out_index];
+
+        return changed;
+    }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value);

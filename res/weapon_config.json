@@ -177,5 +177,52 @@
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
         }
+    ],
+    "weapon_setups": [
+        {
+            "name": "Generic",
+            "weapon": "generic",
+            "bullet": "generic_bullet"
+        },
+        {
+            "name": "Plasma Gun",
+            "weapon": "plasma_gun",
+            "bullet": "plasma_bullet"
+        },
+        {
+            "name": "Flak Canon",
+            "weapon": "flak_gun",
+            "bullet": "flak_bullet"
+        },
+        {
+            "name": "Plasma Canon",
+            "weapon": "flak_gun",
+            "bullet": "plasma_bullet"
+        },
+        {
+            "name": "Cacodemon Plasma",
+            "weapon": "cacodemon_plasma",
+            "bullet": "caco_bullet_homing"
+        },
+        {
+            "name": "Caco Plasma",
+            "weapon": "cacoplasma",
+            "bullet": "caco_bullet"
+        },
+        {
+            "name": "Rocket Launcher",
+            "weapon": "rocketlauncher",
+            "bullet": "rocket"
+        },
+        {
+            "name": "Laser Blaster",
+            "weapon": "blaster",
+            "bullet": "laset"
+        },
+        {
+            "name": "Turret",
+            "weapon": "generic",
+            "bullet": "generic_bullet"
+        }
     ]
 }

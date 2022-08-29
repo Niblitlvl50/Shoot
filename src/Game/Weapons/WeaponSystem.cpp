@@ -70,6 +70,7 @@ WeaponSystem::WeaponSystem(
     : m_entity_manager(entity_manager)
     , m_system_context(system_context)
 {
+    m_weapon_configuration = LoadWeaponConfig("res/weapon_config.json");
 
     using namespace std::placeholders;
     m_bullet_callbacks = {
@@ -81,19 +82,6 @@ WeaponSystem::WeaponSystem(
         { FLAK_CANON.bullet_hash,       std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { LASER_BLASTER.bullet_hash,    std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
     };
-
-    file::FilePtr file = file::OpenAsciiFile("res/weapon_config.json");
-    if(file)
-    {
-        const std::vector<byte> file_data = file::FileRead(file);
-        const nlohmann::json& json = nlohmann::json::parse(file_data);
-
-        for(const BulletConfiguration bullet : json["bullets"])
-            m_bullet_configs[hash::Hash(bullet.name.c_str())] =  bullet;
-
-        for(const WeaponConfiguration weapon : json["weapons"])
-            m_weapon_configs[hash::Hash(weapon.name.c_str())] =  weapon;
-    }
 }
 
 uint32_t WeaponSystem::Id() const
@@ -126,8 +114,8 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     if(setup == game::NO_WEAPON)
         return std::make_unique<NullWeapon>();
 
-    const WeaponConfiguration& weapon_config = m_weapon_configs[setup.weapon_hash];
-    const BulletConfiguration& bullet_config = m_bullet_configs[setup.bullet_hash];
+    const WeaponConfiguration& weapon_config = m_weapon_configuration.weapon_configs[setup.weapon_hash];
+    const BulletConfiguration& bullet_config = m_weapon_configuration.bullet_configs[setup.bullet_hash];
 
     CollisionConfiguration collision_config;
 
@@ -149,6 +137,21 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     {
         return CreateThrowableWeapon(setup, faction, owner_id);
     }
+}
+
+IWeaponPtr WeaponSystem::CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id)
+{
+    const auto it = m_weapon_configuration.weapon_combinations.find(hash::Hash(weapon_name));
+    if(it != m_weapon_configuration.weapon_combinations.end())
+    {
+        WeaponSetup weapon_setup;
+        weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());
+        weapon_setup.bullet_hash = hash::Hash(it->second.bullet.c_str());
+
+        return CreateWeapon(weapon_setup, faction, owner_id);
+    }
+
+    return std::make_unique<NullWeapon>();
 }
 
 IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
