@@ -370,7 +370,6 @@ void UIBarElement::Update(const mono::UpdateContext& context)
     math::simple_spring_damper_implicit(m_fraction, m_velocity, m_target_fraction, 0.1f, context.delta_s);
 }
 
-#include "System/System.h"
 void UIBarElement::Draw(mono::IRenderer& renderer) const
 {
     if(!m_show)
@@ -383,7 +382,6 @@ void UIBarElement::Draw(mono::IRenderer& renderer) const
 
     renderer.DrawTrianges(m_vertices.get(), m_background_colors.get(), m_indices.get(), 0, 6);
 
-    System::Log("fraction %.2f - %.2f", m_fraction, m_target_fraction);
     const auto scale_transform_scope = mono::MakeTransformScope(
         transform * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
     renderer.DrawTrianges(m_vertices.get(), m_foreground_colors.get(), m_indices.get(), 0, 6);
