@@ -49,8 +49,11 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     , m_fire_beam_cooldown(0.0f)
 {
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
-    m_primary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
-    m_secondary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA_HOMING, WeaponFaction::ENEMY, entity_id);
+    m_primary_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
+    m_secondary_weapon = weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::ENEMY);
+
+    //m_primary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA, WeaponFaction::ENEMY, entity_id);
+    //m_secondary_weapon = weapon_system->CreateWeapon(game::CACO_PLASMA_HOMING, WeaponFaction::ENEMY, entity_id);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();

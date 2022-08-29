@@ -55,7 +55,7 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     m_path_behaviour->SetTrackingSpeed(tweak_values::path_speed);
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
-    m_weapon = weapon_system->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
+    m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 }
 
 InvaderPathController::~InvaderPathController()

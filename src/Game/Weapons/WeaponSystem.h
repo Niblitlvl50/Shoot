@@ -40,6 +40,8 @@ namespace game
             uint32_t entity_id, const std::string& primary, const std::string& secondary, const std::string& tertiary);
 
         IWeaponPtr CreatePrimaryWeapon(uint32_t entity_id, WeaponFaction faction);
+        IWeaponPtr CreateSecondaryWeapon(uint32_t entity_id, WeaponFaction faction);
+        IWeaponPtr CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction faction);
 
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
         IWeaponPtr CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id);

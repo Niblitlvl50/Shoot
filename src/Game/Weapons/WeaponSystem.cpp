@@ -119,6 +119,24 @@ IWeaponPtr WeaponSystem::CreatePrimaryWeapon(uint32_t entity_id, WeaponFaction f
     return CreateWeapon(it->second.primary_name.c_str(), faction, entity_id);
 }
 
+IWeaponPtr WeaponSystem::CreateSecondaryWeapon(uint32_t entity_id, WeaponFaction faction)
+{
+    const auto it = m_weapon_loadout.find(entity_id);
+    if(it == m_weapon_loadout.end())
+        return std::make_unique<NullWeapon>();
+
+    return CreateWeapon(it->second.secondary_name.c_str(), faction, entity_id);
+}
+
+IWeaponPtr WeaponSystem::CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction faction)
+{
+    const auto it = m_weapon_loadout.find(entity_id);
+    if(it == m_weapon_loadout.end())
+        return std::make_unique<NullWeapon>();
+
+    return CreateWeapon(it->second.tertiary_name.c_str(), faction, entity_id);
+}
+
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
     if(setup == game::NO_WEAPON)

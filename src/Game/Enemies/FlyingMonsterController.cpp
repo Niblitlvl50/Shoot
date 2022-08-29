@@ -47,7 +47,7 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
-    m_weapon = weapon_system->CreateWeapon(game::GENERIC, WeaponFaction::ENEMY, entity_id);
+    m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
     mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
     m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system);
