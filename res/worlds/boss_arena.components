@@ -28197,8 +28197,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 12.625,
-                                "y": 7.125
+                                "x": 9.25,
+                                "y": 8.875
                             }
                         },
                         {
@@ -30827,8 +30827,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 11.5,
-                                "y": 10.375
+                                "x": 14.0,
+                                "y": 7.75
                             }
                         },
                         {
@@ -30866,20 +30866,20 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 0.9491090774536133,
-                                    "y": -7.844647407531738
+                                    "x": -4.0,
+                                    "y": -4.0
                                 },
                                 {
-                                    "x": 0.0,
-                                    "y": 1.0
+                                    "x": -4.0,
+                                    "y": 4.0
                                 },
                                 {
-                                    "x": 8.224504470825195,
-                                    "y": 1.044356346130371
+                                    "x": 4.0,
+                                    "y": 4.0
                                 },
                                 {
-                                    "x": 8.196195602416992,
-                                    "y": -7.363395690917969
+                                    "x": 4.0,
+                                    "y": -4.0
                                 }
                             ]
                         }
@@ -32693,6 +32693,104 @@
             "entity_properties": 0,
             "name": "torch_tiny",
             "uuid_hash": 2498928524
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "smoke"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "darkness"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 16.0,
+                                "y": 5.75
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2771478017,
+                    "name": "textured_polygon",
+                    "properties": [
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/smoke.png"
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.12745100259780884,
+                                "green": 0.12745100259780884,
+                                "red": 0.12745100259780884
+                            }
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -4.0,
+                                    "y": -4.0
+                                },
+                                {
+                                    "x": -4.0,
+                                    "y": 4.0
+                                },
+                                {
+                                    "x": 4.0,
+                                    "y": 4.0
+                                },
+                                {
+                                    "x": 4.0,
+                                    "y": -4.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "smoke",
+            "uuid_hash": 3826946975
         }
     ],
     "metadata": {

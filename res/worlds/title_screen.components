@@ -291,6 +291,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 12.0,
+                                "min": 10.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -327,24 +345,6 @@
                                     0.800000011920929,
                                     1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 12.0,
-                                "min": 10.0
                             }
                         },
                         {
