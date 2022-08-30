@@ -46,6 +46,8 @@ namespace game
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
         IWeaponPtr CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id);
 
+        std::vector<WeaponBulletCombination> GetAllWeaponCombinations() const;
+
     private:
 
         IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);

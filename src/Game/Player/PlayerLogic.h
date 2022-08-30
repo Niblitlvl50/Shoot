@@ -115,8 +115,7 @@ namespace game
         float m_aim_velocity;
 
         int m_weapon_index;
-        WeaponSetup m_weapons[N_WEAPONS];
-        IWeaponPtr m_weapon;
+        IWeaponPtr m_weapons[N_WEAPONS];
 
         int m_idle_anim_id;
         int m_run_anim_id;

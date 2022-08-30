@@ -182,47 +182,56 @@
         {
             "name": "Generic",
             "weapon": "generic",
-            "bullet": "generic_bullet"
+            "bullet": "generic_bullet",
+            "sprite_file": "res/sprites/bolter.sprite"
         },
         {
             "name": "Plasma Gun",
             "weapon": "plasma_gun",
-            "bullet": "plasma_bullet"
+            "bullet": "plasma_bullet",
+            "sprite_file": "res/sprites/sg2.sprite"
         },
         {
             "name": "Flak Canon",
             "weapon": "flak_gun",
-            "bullet": "flak_bullet"
+            "bullet": "flak_bullet",
+            "sprite_file": "res/sprites/flak_cannon.sprite"
         },
         {
             "name": "Plasma Canon",
             "weapon": "flak_gun",
-            "bullet": "plasma_bullet"
+            "bullet": "plasma_bullet",
+            "sprite_file": "res/sprites/flak_cannon.sprite"
         },
         {
             "name": "Cacodemon Plasma",
             "weapon": "cacodemon_plasma",
-            "bullet": "caco_bullet_homing"
+            "bullet": "caco_bullet_homing",
+            "sprite_file": "res/sprites/pow9.sprite"
         },
         {
             "name": "Caco Plasma",
             "weapon": "cacoplasma",
-            "bullet": "caco_bullet"
+            "bullet": "caco_bullet",
+            "sprite_file": "res/sprites/pow9.sprite"
         },
         {
             "name": "Rocket Launcher",
             "weapon": "rocketlauncher",
-            "bullet": "rocket"
+            "bullet": "rocket",
+            "sprite_file": "res/sprites/rocket_launcher.sprite"
         },
         {
             "name": "Laser Blaster",
             "weapon": "blaster",
-            "bullet": "laset"
+            "bullet": "laset",
+            "sprite_file": "res/sprites/bolter.sprite"
         },
         {
             "name": "Turret",
             "weapon": "generic",
-            "bullet": "generic_bullet"
+            "bullet": "generic_bullet",
+            "sprite_file": "res/sprites/rocket_launcher.sprite"
         }
     ]
 }

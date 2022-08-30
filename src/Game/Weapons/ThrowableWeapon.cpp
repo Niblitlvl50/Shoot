@@ -17,8 +17,13 @@
 
 using namespace game;
 
-ThrowableWeapon::ThrowableWeapon(const ThrowableWeaponConfig& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context)
-    : m_config(config)
+ThrowableWeapon::ThrowableWeapon(
+    const WeaponSetup& setup,
+    const ThrowableWeaponConfig& config,
+    mono::IEntityManager* entity_manager,
+    mono::SystemContext* system_context)
+    : m_weapon_setup(setup)
+    , m_config(config)
     , m_entity_manager(entity_manager)
     , m_last_fire_timestamp(0)
     , m_last_reload_timestamp(0)
@@ -138,4 +143,9 @@ int ThrowableWeapon::MagazineSize() const
 int ThrowableWeapon::ReloadPercentage() const
 {
     return m_reload_percentage;
+}
+
+WeaponSetup ThrowableWeapon::GetWeaponSetup() const
+{
+    return m_weapon_setup;
 }

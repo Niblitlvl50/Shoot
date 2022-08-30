@@ -4,6 +4,7 @@
 #include "FontIds.h"
 #include "UIElements.h"
 #include "Resources.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "Math/EasingFunctions.h"
 
@@ -18,6 +19,7 @@
 #include "Rendering/RenderSystem.h"
 
 #include "System/System.h"
+#include "System/Hash.h"
 #include "StateMachine.h"
 
 #include <cstdio>
@@ -40,8 +42,10 @@ namespace game
             const PlayerInfo& player_info,
             const math::Vector& onscreen_position,
             const math::Vector& offscreen_position,
+            game::WeaponSystem* weapon_system,
             mono::SpriteSystem* sprite_system)
             : m_player_info(player_info)
+            , m_weapon_system(weapon_system)
             , m_sprite_system(sprite_system)
             , m_timer(0.0f)
         {
@@ -56,14 +60,14 @@ namespace game
 
             std::vector<std::string> weapon_sprites;
 
-            const std::vector<game::WeaponSetup> weapon_list = game::GetWeaponList();
-            for(uint32_t index = 0; index < weapon_list.size(); ++index)
+            const std::vector<WeaponBulletCombination> weapon_combinations = m_weapon_system->GetAllWeaponCombinations();
+            for(uint32_t index = 0; index < weapon_combinations.size(); ++index)
             {
-                const game::WeaponSetup& weapon_setup = weapon_list[index];
-                const char* weapon_sprite = game::GetWeaponSpriteFromHash(weapon_setup.weapon_hash);
-                weapon_sprites.push_back(weapon_sprite);
+                const WeaponBulletCombination& weapon_combination = weapon_combinations[index];
+                weapon_sprites.push_back(weapon_combination.sprite_file);
 
-                m_weapon_hash_to_index[weapon_setup.weapon_hash] = index;
+                const uint32_t weapon_hash = hash::Hash(weapon_combination.weapon.c_str());
+                m_weapon_hash_to_index[weapon_hash] = index;
             }
 
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
@@ -75,8 +79,7 @@ namespace game
             m_ammo_text->SetScale(0.5f);
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
-            m_healthbar = new UIBarElement(
-                1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
+            m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
             m_healthbar->SetPosition(-0.15f, 0.25f);
 
             AddChild(background_hud);
@@ -149,6 +152,7 @@ namespace game
         }
 
         const PlayerInfo& m_player_info;
+        game::WeaponSystem* m_weapon_system;
         mono::SpriteSystem* m_sprite_system;
 
         math::Vector m_screen_position;
@@ -319,7 +323,11 @@ namespace game
 using namespace game;
 
 PlayerUIElement::PlayerUIElement(
-    const PlayerInfo* player_infos, int num_players, mono::SpriteSystem* sprite_system, mono::EventHandler* event_handler)
+    const PlayerInfo* player_infos,
+    int num_players,
+    game::WeaponSystem* weapon_system,
+    mono::SpriteSystem* sprite_system,
+    mono::EventHandler* event_handler)
     : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
@@ -354,7 +362,7 @@ PlayerUIElement::PlayerUIElement(
 
         const math::Vector on_screen_position = hud_positions[index];
         const math::Vector off_screen_position = on_screen_position + hud_offscreen_delta[index];
-        AddChild(new PlayerElement(player_info, on_screen_position, off_screen_position, sprite_system));
+        AddChild(new PlayerElement(player_info, on_screen_position, off_screen_position, weapon_system, sprite_system));
 
         const math::Vector on_screen_death_position = on_screen_position + death_element_offset[index];
         const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];

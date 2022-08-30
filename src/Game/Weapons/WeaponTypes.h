@@ -32,24 +32,6 @@ namespace game
         return (left.weapon_hash == right.weapon_hash && left.bullet_hash == right.bullet_hash);
     }
 
-    extern const WeaponSetup NO_WEAPON;
-    extern const WeaponSetup GENERIC;
-    extern const WeaponSetup PLASMA_GUN;
-    extern const WeaponSetup FLAK_CANON;
-    extern const WeaponSetup FLAK_CANON_PLASMA;
-    extern const WeaponSetup CACO_PLASMA;
-    extern const WeaponSetup CACO_PLASMA_HOMING;
-    extern const WeaponSetup ROCKET_LAUNCHER;
-    extern const WeaponSetup LASER_BLASTER;
-
-    extern const WeaponSetup TURRET;
-
-    std::vector<WeaponSetup> GetWeaponList();
-    std::vector<WeaponSetup> GetSupportWeaponList();
-
-    const char* GetWeaponNameFromHash(uint32_t weapon_hash);
-    const char* GetWeaponSpriteFromHash(uint32_t weapon_hash);
-
     struct WeaponConfig
     {
         std::unordered_map<uint32_t, struct BulletConfiguration> bullet_configs;

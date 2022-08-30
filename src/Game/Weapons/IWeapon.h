@@ -2,6 +2,7 @@
 #pragma once
 
 #include "WeaponState.h"
+#include "WeaponTypes.h"
 #include "Math/MathFwd.h"
 #include <cstdint>
 
@@ -25,5 +26,7 @@ namespace game
         virtual int AmmunitionLeft() const = 0;
         virtual int MagazineSize() const = 0;
         virtual int ReloadPercentage() const = 0;
+
+        virtual WeaponSetup GetWeaponSetup() const = 0;
     };
 }

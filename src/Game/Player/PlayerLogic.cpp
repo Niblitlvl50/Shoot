@@ -101,8 +101,8 @@ PlayerLogic::PlayerLogic(
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
     // Make sure we have a weapon
-    m_weapons[0] = game::PLASMA_GUN;
-    m_weapons[1] = game::FLAK_CANON;
+    m_weapons[0] = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
+    m_weapons[1] = m_weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::PLAYER);
     SelectWeapon(WeaponSelection::Previous);
 
     m_aim_target = m_aim_direction = -math::PI_2();
@@ -129,12 +129,14 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_shockwave_cooldown += update_context.delta_s;
     m_shield_cooldown += update_context.delta_s;
 
-    m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = float(m_weapon->ReloadPercentage()) / 100.0f;
+    const IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+
+    m_active_cooldowns[PlayerAbility::WEAPON_RELOAD] = float(active_weapon->ReloadPercentage()) / 100.0f;
     m_active_cooldowns[PlayerAbility::BLINK] = m_blink_cooldown / tweak_values::blink_cooldown_threshold_s;
     m_active_cooldowns[PlayerAbility::SHOCKWAVE] = m_shockwave_cooldown / tweak_values::shockwave_cooldown_s;
     m_active_cooldowns[PlayerAbility::SHIELD] = m_shield_cooldown / tweak_values::shield_cooldown_s;
     m_active_cooldowns[PlayerAbility::WEAPON_AMMUNITION] =
-        float(m_weapon->AmmunitionLeft()) / float(m_weapon->MagazineSize());
+        float(active_weapon->AmmunitionLeft()) / float(active_weapon->MagazineSize());
 
     UpdatePlayerInfo(update_context.timestamp);
 
@@ -161,9 +163,11 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->direction = math::GetZRotation(transform);
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
 
-    m_player_info->weapon_type = m_weapons[m_weapon_index];
-    m_player_info->weapon_state = m_weapon->UpdateWeaponState(timestamp);
-    m_player_info->magazine_left = m_weapon->AmmunitionLeft();
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+
+    m_player_info->weapon_type = active_weapon->GetWeaponSetup();
+    m_player_info->weapon_state = active_weapon->UpdateWeaponState(timestamp);
+    m_player_info->magazine_left = active_weapon->AmmunitionLeft();
     m_player_info->laser_sight = (HoldingPickup() == false);
 
     m_player_info->cooldown_id = 0;
@@ -252,16 +256,18 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     const math::Vector fire_position = position + (aim_vector * 0.5f);
     const math::Vector target_fire_position = position + (aim_vector * 100.0f);
 
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+
     if(m_fire)
     {
-        m_player_info->weapon_state = m_weapon->Fire(fire_position, m_aim_direction, update_context.timestamp);
+        m_player_info->weapon_state = active_weapon->Fire(fire_position, m_aim_direction, update_context.timestamp);
 
         if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->auto_reload)
             Reload(update_context.timestamp);
     }
     else if(m_stop_fire)
     {
-        m_weapon->StopFire(update_context.timestamp);
+        active_weapon->StopFire(update_context.timestamp);
         m_stop_fire = false;
     }
 
@@ -367,7 +373,8 @@ void PlayerLogic::StopFire()
 
 void PlayerLogic::Reload(uint32_t timestamp)
 {
-    m_weapon->Reload(timestamp);
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+    active_weapon->Reload(timestamp);
 }
 
 void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
@@ -386,8 +393,11 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     switch(type)
     {
     case PickupType::AMMO:
-        m_weapon->AddAmmunition(amount);
+    {
+        IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+        active_weapon->AddAmmunition(amount);
         break;
+    }
     case PickupType::HEALTH:
     {
         m_damage_system->GainHealth(m_entity_id, amount);
@@ -408,7 +418,6 @@ void PlayerLogic::SelectWeapon(WeaponSelection selection)
 {
     const int modifier = (selection == WeaponSelection::Next) ? 1 : -1;
     m_weapon_index = std::clamp(m_weapon_index + modifier, 0, N_WEAPONS -1);
-    m_weapon = m_weapon_system->CreateWeapon(m_weapons[m_weapon_index], WeaponFaction::PLAYER, m_entity_id);
 }
 
 void PlayerLogic::Throw(float throw_force)
@@ -477,6 +486,7 @@ void PlayerLogic::TriggerInteraction()
 
 void PlayerLogic::HandleWeaponPickup(PickupType type)
 {
+/*
     static const std::unordered_map<PickupType, game::WeaponSetup> g_pickup_to_weapon = {
         { PickupType::WEAPON_PISTOL,    game::GENERIC },
         { PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
@@ -496,7 +506,6 @@ void PlayerLogic::HandleWeaponPickup(PickupType type)
     const WeaponSetup weapon_type = it->second;
     m_weapon = m_weapon_system->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
 
-/*
     const auto it_second = g_weapon_to_entity.find(m_weapon_type.weapon_hash);
     if(it_second != g_weapon_to_entity.end())
     {

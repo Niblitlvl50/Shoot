@@ -14,6 +14,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "RenderLayers.h"
 #include "Rendering/IRenderer.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -85,6 +86,7 @@ void PacketDeliveryGameMode::Begin(
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
+    WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -134,7 +136,8 @@ void PacketDeliveryGameMode::Begin(
     m_pause_screen = std::make_unique<PauseScreen>();
     m_pause_screen->Hide();
 
-    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, m_sprite_system, m_event_handler);
+    m_player_ui = std::make_unique<PlayerUIElement>(
+        game::g_players, game::n_players, weapon_system, m_sprite_system, m_event_handler);
 
     m_level_timer = level_metadata.time_limit_s;
     m_level_has_timelimit = (m_level_timer > 0);

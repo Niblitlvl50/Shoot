@@ -94,6 +94,7 @@ namespace game
         std::string name;
         std::string weapon;
         std::string bullet;
+        std::string sprite_file;
     };
 
     struct CollisionConfiguration

@@ -12,7 +12,11 @@ namespace game
     {
     public:
 
-        ThrowableWeapon(const ThrowableWeaponConfig& config, mono::IEntityManager* entity_manager, mono::SystemContext* system_context);
+        ThrowableWeapon(
+            const WeaponSetup& setup,
+            const ThrowableWeaponConfig& config,
+            mono::IEntityManager* entity_manager,
+            mono::SystemContext* system_context);
 
         WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
         WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override;
@@ -23,9 +27,11 @@ namespace game
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
         int ReloadPercentage() const override;
+        WeaponSetup GetWeaponSetup() const override;
 
     private:
 
+        const WeaponSetup m_weapon_setup;
         const ThrowableWeaponConfig m_config;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;

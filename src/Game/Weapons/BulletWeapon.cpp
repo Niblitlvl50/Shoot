@@ -34,12 +34,14 @@ using namespace game;
 
 Weapon::Weapon(
     uint32_t owner_id,
+    const WeaponSetup& weapon_setup,
     const WeaponConfiguration& weapon_config,
     const BulletConfiguration& bullet_config,
     const CollisionConfiguration& collision_config,
     mono::IEntityManager* entity_manager,
     mono::SystemContext* system_context)
     : m_owner_id(owner_id)
+    , m_weapon_setup(weapon_setup)
     , m_weapon_config(weapon_config)
     , m_bullet_config(bullet_config)
     , m_collision_config(collision_config)
@@ -234,4 +236,9 @@ int Weapon::MagazineSize() const
 int Weapon::ReloadPercentage() const
 {
     return m_reload_percentage;
+}
+
+WeaponSetup Weapon::GetWeaponSetup() const
+{
+    return m_weapon_setup;
 }

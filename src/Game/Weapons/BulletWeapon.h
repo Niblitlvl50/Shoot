@@ -20,6 +20,7 @@ namespace game
 
         Weapon(
             uint32_t owner_id,
+            const WeaponSetup& weapon_setup,
             const WeaponConfiguration& weapon_config,
             const BulletConfiguration& bullet_config,
             const CollisionConfiguration& collision_config,
@@ -36,10 +37,12 @@ namespace game
         int AmmunitionLeft() const override;
         int MagazineSize() const override;
         int ReloadPercentage() const override;
+        WeaponSetup GetWeaponSetup() const override;
 
     private:
 
         const uint32_t m_owner_id;
+        const WeaponSetup m_weapon_setup;
         const WeaponConfiguration m_weapon_config;
         const BulletConfiguration m_bullet_config;
         const CollisionConfiguration m_collision_config;

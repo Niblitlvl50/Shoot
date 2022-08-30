@@ -49,6 +49,10 @@ namespace
         {
             return 100;
         }
+        game::WeaponSetup GetWeaponSetup() const override
+        {
+            return { 0, 0 };
+        }
     };
 }
 
@@ -69,13 +73,13 @@ WeaponSystem::WeaponSystem(
 
     using namespace std::placeholders;
     m_bullet_callbacks = {
-        { GENERIC.bullet_hash,          std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { PLASMA_GUN.bullet_hash,       std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { ROCKET_LAUNCHER.bullet_hash,  std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
-        { CACO_PLASMA.bullet_hash,      std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { CACO_PLASMA_HOMING.bullet_hash,std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { FLAK_CANON.bullet_hash,       std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { LASER_BLASTER.bullet_hash,    std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("generic_bullet"),     std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("plasma_bullet"),      std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("caco_bullet"),        std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("caco_bullet_homing"), std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("flak_bullet"),        std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("laser"),              std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
     };
 }
 
@@ -139,7 +143,9 @@ IWeaponPtr WeaponSystem::CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction 
 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
-    if(setup == game::NO_WEAPON)
+    const auto weapon_config_it = m_weapon_configuration.weapon_configs.find(setup.weapon_hash);
+    const auto bullet_config_it = m_weapon_configuration.bullet_configs.find(setup.bullet_hash);
+    if(weapon_config_it == m_weapon_configuration.weapon_configs.end() || bullet_config_it == m_weapon_configuration.bullet_configs.end())
         return std::make_unique<NullWeapon>();
 
     const WeaponConfiguration& weapon_config = m_weapon_configuration.weapon_configs[setup.weapon_hash];
@@ -159,7 +165,8 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     const bool is_bullet_weapon = true; //IsBulletWeapon(setup);
     if(is_bullet_weapon)
     {
-        return std::make_unique<game::Weapon>(owner_id, weapon_config, bullet_config, collision_config, m_entity_manager, m_system_context);
+        return std::make_unique<game::Weapon>(
+            owner_id, setup, weapon_config, bullet_config, collision_config, m_entity_manager, m_system_context);
     }
     else
     {
@@ -213,5 +220,14 @@ IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction 
     }
     */
 
-    return std::make_unique<game::ThrowableWeapon>(weapon_config, m_entity_manager, m_system_context);
+    return std::make_unique<game::ThrowableWeapon>(setup, weapon_config, m_entity_manager, m_system_context);
+}
+
+std::vector<WeaponBulletCombination> WeaponSystem::GetAllWeaponCombinations() const
+{
+    std::vector<WeaponBulletCombination> weapon_combinations;
+    for(const auto& pair : m_weapon_configuration.weapon_combinations)
+        weapon_combinations.push_back(pair.second);
+
+    return weapon_combinations;
 }

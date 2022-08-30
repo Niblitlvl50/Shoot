@@ -43,8 +43,9 @@ namespace game
 
     inline void from_json(const nlohmann::json& json, WeaponBulletCombination& weapon_setup)
     {
-        weapon_setup.name   = json["name"].get<std::string>();
-        weapon_setup.weapon = json["weapon"].get<std::string>();
-        weapon_setup.bullet = json["bullet"].get<std::string>();
+        weapon_setup.name           = json["name"].get<std::string>();
+        weapon_setup.weapon         = json["weapon"].get<std::string>();
+        weapon_setup.bullet         = json["bullet"].get<std::string>();
+        weapon_setup.sprite_file    = json["sprite_file"].get<std::string>();
     }
 }
