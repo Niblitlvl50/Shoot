@@ -10,13 +10,19 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "player_alien"
+                            "variant_value": "player_dude"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -52,16 +58,16 @@
                             "variant_value": 100
                         },
                         {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
-                        },
-                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 3526332565,
+                            "name": "score",
+                            "variant_type": 1,
+                            "variant_value": 90
                         }
                     ]
                 },
@@ -200,6 +206,12 @@
                             "variant_value": 20.0
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -242,11 +254,34 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Generic"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": "Laser Blaster"
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
-            "name": "player_alien",
+            "name": "player_dude",
             "uuid_hash": 4042732925
         }
     ],
@@ -263,6 +298,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": 0,
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -276,8 +312,9 @@
             "x": 0.0,
             "y": 0.0
         },
-        "conditions": [],
-        "navmesh_density": 1.9150046547234227e-22,
+        "level_description": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0
@@ -286,10 +323,17 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         },
-        "triggers": []
+        "spawn_package": true,
+        "time_limit_s": 0,
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }
