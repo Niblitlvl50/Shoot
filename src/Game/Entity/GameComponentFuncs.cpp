@@ -911,8 +911,8 @@ namespace
         std::string secondary;
         std::string tertiary;
         FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, primary, FallbackMode::SET_DEFAULT);
-        FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, secondary, FallbackMode::SET_DEFAULT);
-        FindAttribute(WEAPON_PRIMARY_ATTRIBUTE, properties, tertiary, FallbackMode::SET_DEFAULT);
+        FindAttribute(WEAPON_SECONDARY_ATTRIBUTE, properties, secondary, FallbackMode::SET_DEFAULT);
+        FindAttribute(WEAPON_TERTIARY_ATTRIBUTE, properties, tertiary, FallbackMode::SET_DEFAULT);
 
         game::WeaponSystem* weapon_system = context->GetSystem<game::WeaponSystem>();
         weapon_system->SetWeaponLoadout(entity->id, primary, secondary, tertiary);
