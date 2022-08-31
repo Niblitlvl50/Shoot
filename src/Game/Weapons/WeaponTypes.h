@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "WeaponConfiguration.h"
+
 #include <cstdint>
 #include <string>
 #include <vector>
