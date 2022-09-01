@@ -80,6 +80,8 @@ namespace game
             DEAD,
         };
 
+        const char* StateToString(States state) const;
+
         using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
         CacoStateMachine m_states;
     };
