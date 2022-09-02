@@ -25,8 +25,10 @@
 #include "Network/NetworkSerialize.h"
 
 #include "System/Hash.h"
-
 #include "Entity/Component.h"
+
+#include "System/File.h"
+#include "nlohmann/json.hpp"
 
 #include <functional>
 
@@ -43,18 +45,14 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_event_handler(event_handler)
     , m_spawn_players(false)
 {
-    m_player_entities = {
-        "res/entities/player_dude.entity",
-        "res/entities/player_alien.entity",
-        "res/entities/player_girl.entity",
-        "res/entities/player_fire_zombie.entity",
-    };
-    std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
+    const std::vector<byte> file_data = file::FileReadAll("res/player_config.json");
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    m_player_familiar_entities = {
-        "res/entities/secondary_player_bat.entity",
-    };
-    std::shuffle(m_player_familiar_entities.begin(), m_player_familiar_entities.end(), mono::UniformRandomBitGenerator());
+    m_player_entities = json["player_entities"];
+    m_familiar_entities = json["familiar_entities"];
+
+    std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
+    std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), mono::UniformRandomBitGenerator());
 
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -231,8 +229,8 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     const game::DamageCallback& damage_callback)
 {
     const uint32_t player_index = game::FindPlayerIndex(player_info);
-    const char* player_entity_file = m_player_entities[player_index];
-    mono::Entity player_entity = entity_system->CreateEntity(player_entity_file);
+    const std::string player_entity_file = m_player_entities[player_index];
+    mono::Entity player_entity = entity_system->CreateEntity(player_entity_file.c_str());
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
@@ -262,8 +260,8 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
     mono::IEntityManager* entity_system, mono::SystemContext* system_context, mono::EventHandler* event_handler)
 {
-    const char* player_familiar_entity_file = m_player_familiar_entities.front();
-    mono::Entity player_familiar_entity = entity_system->CreateEntity(player_familiar_entity_file);
+    const std::string familiar_entity_file = m_familiar_entities.front();
+    mono::Entity player_familiar_entity = entity_system->CreateEntity(familiar_entity_file.c_str());
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
     entity_system->AddComponent(player_familiar_entity.id, BEHAVIOUR_COMPONENT);

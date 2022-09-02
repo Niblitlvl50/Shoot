@@ -92,8 +92,8 @@ namespace game
         PlayerSpawnedCallback m_player_spawned_callback;
         uint32_t m_spawned_player_familiar;
 
-        std::vector<const char*> m_player_entities;
-        std::vector<const char*> m_player_familiar_entities;
+        std::vector<std::string> m_player_entities;
+        std::vector<std::string> m_familiar_entities;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
