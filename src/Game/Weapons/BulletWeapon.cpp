@@ -125,7 +125,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         m_bullet_id_to_callback.erase(entity_id);
     };
 
-    const math::Vector fire_direction = target - position;
+    const math::Vector fire_direction = math::Normalized(target - position);
+    const math::Vector perpendicular_fire_direction = math::Perpendicular(fire_direction);
 
     for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
     {
@@ -145,9 +146,13 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
+        const math::Vector perp_offset =
+            perpendicular_fire_direction * mono::Random(-m_weapon_config.bullet_offset, m_weapon_config.bullet_offset);
+        const math::Vector fire_position = position + perp_offset;
+
         const math::Matrix& transform = (m_bullet_config.bullet_want_direction) ?
-            math::CreateMatrixWithPositionRotation(position, math::AngleFromVector(modified_fire_direction)) :
-            math::CreateMatrixWithPosition(position);
+            math::CreateMatrixWithPositionRotation(fire_position, math::AngleFromVector(modified_fire_direction)) :
+            math::CreateMatrixWithPosition(fire_position);
 
         m_transform_system->SetTransform(bullet_entity.id, transform);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);

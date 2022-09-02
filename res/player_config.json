@@ -1,8 +1,8 @@
 {
     "player_entities": [
         "res/entities/player_dude.entity",
-        "res/entities/player_girl.entity",
         "res/entities/player_alien.entity",
+        "res/entities/player_girl.entity",
         "res/entities/player_fire_zombie.entity"
     ],
     "familiar_entities": [

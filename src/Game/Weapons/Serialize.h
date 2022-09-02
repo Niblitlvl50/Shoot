@@ -34,6 +34,7 @@ namespace game
         weapon_config.max_fire_rate         = json["max_fire_rate"].get<float>();
         weapon_config.bullet_force          = json["bullet_force"].get<float>();
         weapon_config.bullet_spread_degrees = json["bullet_spread_degrees"].get<float>();
+        weapon_config.bullet_offset         = json["bullet_offset"].get<float>();
         weapon_config.bullet_force_random   = json["bullet_force_random"].get<bool>();
         weapon_config.reload_time           = json["reload_time"].get<float>();
         weapon_config.fire_sound            = json["fire_sound"].get<std::string>();
