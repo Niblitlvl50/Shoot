@@ -5,8 +5,6 @@
 #include "Rendering/IDrawable.h"
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 
-#include "Rendering/Texture/ITextureFactory.h"
-
 #include <unordered_map>
 #include <memory>
 
@@ -38,7 +36,5 @@ namespace game
             std::unique_ptr<mono::IElementBuffer> indices;
         };
         mutable std::unordered_map<uint32_t, InternalRenderData> m_id_to_buffers;
-
-        mono::ITexturePtr m_texture;
     };
 }

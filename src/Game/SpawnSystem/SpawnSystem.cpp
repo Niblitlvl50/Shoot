@@ -29,25 +29,21 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     , m_spawn_points(n)
     , m_entity_spawn_points(n)
 {
-    file::FilePtr config_file = file::OpenAsciiFile("res/spawn_config.json");
-    if(config_file)
+    const std::vector<byte> file_data = file::FileReadAll("res/spawn_config.json");
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    for(const auto& spawn_props : json["spawn_definitions"])
     {
-        const std::vector<byte> file_data = file::FileRead(config_file);
-        const nlohmann::json& json = nlohmann::json::parse(file_data);
-
-        for(const auto& spawn_props : json["spawn_definitions"])
-        {
-            SpawnDefinition spawn_def;
-            spawn_def.value = spawn_props["value"];
-            spawn_def.entity_file = spawn_props["entity"];
-            m_spawn_definitions.push_back(spawn_def);
-        }
-
-        const auto sort_by_value = [](const SpawnDefinition& left, const SpawnDefinition& right){
-            return left.value < right.value;
-        };
-        std::sort(m_spawn_definitions.begin(), m_spawn_definitions.end(), sort_by_value);
+        SpawnDefinition spawn_def;
+        spawn_def.value = spawn_props["value"];
+        spawn_def.entity_file = spawn_props["entity"];
+        m_spawn_definitions.push_back(spawn_def);
     }
+
+    const auto sort_by_value = [](const SpawnDefinition& left, const SpawnDefinition& right){
+        return left.value < right.value;
+    };
+    std::sort(m_spawn_definitions.begin(), m_spawn_definitions.end(), sort_by_value);
 }
 
 SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)

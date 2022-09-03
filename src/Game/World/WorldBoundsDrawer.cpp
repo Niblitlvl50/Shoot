@@ -17,9 +17,7 @@ using namespace game;
 WorldBoundsDrawer::WorldBoundsDrawer(const mono::TransformSystem* transform_system, const WorldBoundsSystem* world_system)
     : m_transform_system(transform_system)
     , m_world_system(world_system)
-{
-    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/noise/noise_1.png");
-}
+{ }
 
 void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
 {
@@ -39,9 +37,6 @@ void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
 
         BuildBuffers(component);
         const InternalRenderData& render_data = m_id_to_buffers[component.id];
-        //renderer.DrawTrianges(
-        //    render_data.vertices.get(), render_data.colors.get(), render_data.indices.get(), 0, render_data.indices->Size());
-        //renderer.DrawFog(render_data.vertices.get(), render_data.indices.get(), m_texture.get());
 
         const math::Matrix world_transform = renderer.GetTransform() * m_transform_system->GetWorld(component.id);
         const auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
