@@ -77,6 +77,7 @@ file(
     "res/textures/*"
     "res/worlds/*"
     "res/game_config.json"
+    "res/level_config.json"
     "res/pickup_config.json"
     "res/player_config.json"
     "res/region_config.json"

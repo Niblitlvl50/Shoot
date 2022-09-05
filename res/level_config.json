@@ -1,0 +1,60 @@
+{
+    "levels": [
+        {
+            "name": "title_screen",
+            "filename": "res/worlds/title_screen.components",
+            "transitions": [ "quit", "setup_game_screen", "quit" ]
+        },
+        {
+            "name": "setup_game_screen",
+            "filename": "res/worlds/setup_game_screen.components",
+            "transitions": [ "gameover_screen", "tiny_arena", "title_screen" ]
+        },
+        {
+            "name": "gameover_screen",
+            "filename": "res/worlds/game_over.components",
+            "transitions": [ "title_screen", "title_screen", "title_screen" ]
+        },
+        {
+            "name": "end_screen",
+            "filename": "res/worlds/end_screen.components",
+            "transitions": [ "gameover_screen", "title_screen", "title_screen" ]
+        },
+        {
+            "name": "world",
+            "filename": "res/worlds/world.components",
+            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+        },
+        {
+            "name": "tiny_arena",
+            "filename": "res/worlds/tiny_arena.components",
+            "transitions": [ "gameover_screen", "pickup_arena", "title_screen" ]
+        },
+        {
+            "name": "pickup_arena",
+            "filename": "res/worlds/pickup_arena.components",
+            "transitions": [ "gameover_screen", "boss_arena", "title_screen" ]
+        },
+        {
+            "name": "boss_arena",
+            "filename": "res/worlds/boss_arena.components",
+            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+        },
+        {
+            "name": "empty_world",
+            "filename": "res/worlds/empty_world.components",
+            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+        },
+        {
+            "name": "enemy_testbed",
+            "filename": "res/worlds/enemy_testbed.components",
+            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+        },
+        {
+            "name": "tutorial_delivery",
+            "filename": "res/worlds/tutorial_delivery.components",
+            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+        }
+    ],
+    "start_level": "title_screen"
+}
