@@ -31,6 +31,16 @@
             "behaviour": ""
         },
         {
+            "name": "burst_gun_bullet",
+            "damage": 20,
+            "life_span": 0.75,
+            "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
+            "entity_file": "res/entities/plasma_bullet.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
             "name": "caco_bullet",
             "damage": 20,
             "life_span": 2.0,
@@ -84,6 +94,7 @@
             "bullet_spread_degrees": 0.0,
             "bullet_offset": 0.0,
             "bullet_force_random": false,
+            "auto_reload": false,
             "fire_sound": "",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -100,6 +111,7 @@
             "bullet_spread_degrees": 30.0,
             "bullet_offset": 0.0,
             "bullet_force_random": true,
+            "auto_reload": false,
             "fire_sound": "",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -116,6 +128,7 @@
             "bullet_spread_degrees": 2.0,
             "bullet_offset": 0.0,
             "bullet_force_random": false,
+            "auto_reload": false,
             "fire_sound": "res/sound/plasma_fire.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -132,6 +145,24 @@
             "bullet_spread_degrees": 5.0,
             "bullet_offset": 0.0,
             "bullet_force_random": true,
+            "auto_reload": false,
+            "fire_sound": "res/sound/shotgun_fire.wav",
+            "out_of_ammo_sound": "res/sound/ooa_sound.wav",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "burst_gun",
+            "magazine_size": 3,
+            "reload_time": 0.75,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 15.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_force": 10.0,
+            "bullet_spread_degrees": 2.0,
+            "bullet_offset": 0.0,
+            "bullet_force_random": true,
+            "auto_reload": true,
             "fire_sound": "res/sound/shotgun_fire.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -148,6 +179,7 @@
             "bullet_spread_degrees": 10.0,
             "bullet_offset": 0.0,
             "bullet_force_random": true,
+            "auto_reload": false,
             "fire_sound": "res/sound/shotgun_fire.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -164,6 +196,7 @@
             "bullet_spread_degrees": 0.0,
             "bullet_offset": 0.0,
             "bullet_force_random": false,
+            "auto_reload": false,
             "fire_sound": "res/sound/rocket_fire2.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -180,6 +213,7 @@
             "bullet_spread_degrees": 1.0,
             "bullet_offset": 0.0,
             "bullet_force_random": false,
+            "auto_reload": false,
             "fire_sound": "res/sound/blaster-probe-gun.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
@@ -209,6 +243,12 @@
             "weapon": "flak_gun",
             "bullet": "plasma_bullet",
             "sprite_file": "res/sprites/flak_cannon.sprite"
+        },
+        {
+            "name": "Burst Plasma",
+            "weapon": "burst_gun",
+            "bullet": "burst_gun_bullet",
+            "sprite_file": "res/sprites/pow9.sprite"
         },
         {
             "name": "Cacodemon Plasma",

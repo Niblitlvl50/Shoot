@@ -56,6 +56,7 @@ namespace game
         mono::SystemContext* m_system_context;
 
         WeaponConfig m_weapon_configuration;
+        BulletImpactCallback m_standard_collision;
         std::unordered_map<uint32_t, BulletImpactCallback> m_bullet_callbacks;
 
         struct WeaponLoadoutComponent

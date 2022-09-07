@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.1252105236053467,
-                                "y": -3.544301748275757
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -269,7 +269,7 @@
                             "id": 3576654212,
                             "name": "weapon_secondary",
                             "variant_type": 6,
-                            "variant_value": "Flak Canon"
+                            "variant_value": "Burst Plasma"
                         },
                         {
                             "id": 556824164,

@@ -72,14 +72,14 @@ WeaponSystem::WeaponSystem(
     m_weapon_configuration = LoadWeaponConfig("res/weapon_config.json");
 
     using namespace std::placeholders;
+    m_standard_collision =
+        std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
+
     m_bullet_callbacks = {
-        { hash::Hash("generic_bullet"),     std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("plasma_bullet"),      std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet"),        std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet_homing"), std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { hash::Hash("flak_bullet"),        std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { hash::Hash("laser"),              std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
     };
 }
 
@@ -159,8 +159,7 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     collision_config.collision_callback = nullptr;
 
     const auto it = m_bullet_callbacks.find(setup.bullet_hash);
-    if(it != m_bullet_callbacks.end())
-        collision_config.collision_callback = it->second;
+    collision_config.collision_callback = (it != m_bullet_callbacks.end()) ? it->second : m_standard_collision;
 
     const bool is_bullet_weapon = true; //IsBulletWeapon(setup);
     if(is_bullet_weapon)

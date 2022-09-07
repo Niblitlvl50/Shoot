@@ -216,6 +216,12 @@ WeaponState Weapon::UpdateWeaponState(uint32_t timestamp)
 
         break;
     }
+    case WeaponState::OUT_OF_AMMO:
+    {
+        if(m_weapon_config.auto_reload)
+            Reload(timestamp);
+        break;
+    }
     default:
         break;
     };

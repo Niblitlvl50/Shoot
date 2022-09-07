@@ -84,6 +84,7 @@ namespace game
         float bullet_spread_degrees;
         float bullet_offset;
         bool bullet_force_random;
+        bool auto_reload;
         float reload_time;
         std::string fire_sound;
         std::string out_of_ammo_sound;
