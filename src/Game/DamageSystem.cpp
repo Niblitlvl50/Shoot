@@ -181,7 +181,11 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
     const auto call_callbacks = [](const DamageEvent& damage_event, DamageCallbacks& callbacks) {
         for(const auto& callback_data : callbacks)
         {
-            if(callback_data.callback && callback_data.callback_types & damage_event.damage_result)
+            if(!callback_data.callback)
+                continue;
+    
+            const bool valid_callback_type = (callback_data.callback_types & damage_event.damage_result);
+            if(valid_callback_type)
             {
                 callback_data.callback(
                     damage_event.id,

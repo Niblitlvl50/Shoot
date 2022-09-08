@@ -164,8 +164,8 @@
             "bullet_force_random": true,
             "auto_reload": true,
             "fire_sound": "res/sound/shotgun_fire.wav",
-            "out_of_ammo_sound": "res/sound/ooa_sound.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "out_of_ammo_sound": "",
+            "reload_sound": ""
         },
         {
             "name": "cacoplasma",

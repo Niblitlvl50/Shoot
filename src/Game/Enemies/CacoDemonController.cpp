@@ -53,6 +53,8 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_primary_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
     m_secondary_weapon = weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::ENEMY);
 
+    m_damage_sound = audio::CreateSound("res/sounds/blaster-ricochet.wav", audio::SoundPlayback::ONCE);
+
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_entity_body = m_physics_system->GetBody(entity_id);
@@ -74,9 +76,12 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     damage_system->PreventReleaseOnDeath(entity_id, true);
 
     const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        m_states.TransitionTo(States::DEAD);
+        if(type == DamageType::DAMAGED)
+            OnDamage(who_did_damage, damage);
+        else if(type == DamageType::DESTROYED)
+            m_states.TransitionTo(States::DEAD);
     };
-    damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
+    damage_system->SetDamageCallback(entity_id, DamageType::DT_ALL, destroyed_callback);
 
     const CacoStateMachine::StateTable state_table = {
         CacoStateMachine::MakeState(
@@ -306,4 +311,9 @@ const char* CacodemonController::StateToString(States state) const
     }
 
     return "Unknown";
+}
+
+void CacodemonController::OnDamage(uint32_t who_did_damage, int damage)
+{
+    m_damage_sound->Play();
 }

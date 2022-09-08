@@ -6,6 +6,7 @@
 #include "Physics/PhysicsFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "StateMachine.h"
+#include "System/Audio.h"
 
 #include "Entity/IEntityLogic.h"
 #include "Weapons/WeaponFwd.h"
@@ -45,6 +46,8 @@ namespace game
         void OnDead();
         void Dead(const mono::UpdateContext& update_context);
 
+        void OnDamage(uint32_t who_did_damage, int damage);
+
     private:
 
         const uint32_t m_entity_id;
@@ -68,6 +71,8 @@ namespace game
 
         IWeaponPtr m_primary_weapon;
         IWeaponPtr m_secondary_weapon;
+
+        audio::ISoundPtr m_damage_sound;
 
         enum class States
         {
