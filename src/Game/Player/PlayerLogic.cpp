@@ -113,6 +113,9 @@ PlayerLogic::PlayerLogic(
         PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, &PlayerLogic::ExitBlink, this),
     };
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
+
+    // Make sure the player info is updated when constructed.
+    UpdatePlayerInfo(0);
 }
 
 PlayerLogic::~PlayerLogic()

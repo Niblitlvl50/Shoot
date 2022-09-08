@@ -33266,14 +33266,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -4.375,
-                                "y": -5.375
+                                "y": -5.5
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.03490658476948738
                         }
                     ]
                 },
