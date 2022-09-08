@@ -30,8 +30,9 @@ namespace game
         math::Quad BoundingBox() const override;
 
         const mono::TransformSystem* m_transform_system;
-
         mutable AimlineRenderData m_aimline_data[n_players];
+        mutable float m_cooldown_position;
+        mutable float m_cooldown_velocity;
     };
 
     class PackageAuxiliaryDrawer : public mono::IDrawable

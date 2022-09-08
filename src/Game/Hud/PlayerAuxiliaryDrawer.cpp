@@ -2,6 +2,7 @@
 #include "PlayerAuxiliaryDrawer.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
+#include "Math/CriticalDampedSpring.h"
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
 
@@ -110,9 +111,12 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             const math::Vector right = bottom_center + math::Vector(0.3f, -0.15f);
             const math::Vector reload_dot = ((right - left) * player_info->cooldown_fraction) + left;
 
+            math::simple_spring_damper_implicit(
+                m_cooldown_position, m_cooldown_velocity, reload_dot.x, 0.001f, renderer.GetDeltaTime());
+
             cooldown_lines.push_back(left);
             cooldown_lines.push_back(right);
-            cooldown_points.push_back(reload_dot);
+            cooldown_points.push_back(math::Vector(std::clamp(m_cooldown_position, left.x, right.x), reload_dot.y));
 
             cooldown_color = g_ability_to_color[player_info->cooldown_id];
         }

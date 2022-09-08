@@ -36,7 +36,7 @@
             "life_span": 0.75,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
-            "entity_file": "res/entities/plasma_bullet.entity",
+            "entity_file": "res/entities/plasma_crimson_bullet.entity",
             "sound_file": "",
             "behaviour": ""
         },
