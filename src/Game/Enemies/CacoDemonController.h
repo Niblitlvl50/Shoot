@@ -73,6 +73,7 @@ namespace game
         IWeaponPtr m_secondary_weapon;
 
         audio::ISoundPtr m_damage_sound;
+        audio::ISoundPtr m_death_sound;
 
         enum class States
         {

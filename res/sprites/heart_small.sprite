@@ -19,42 +19,42 @@
             "h": 9,
             "name": "heart_small_idle_1",
             "w": 10,
-            "x": 185,
+            "x": 1970,
             "y": 476
         },
         {
             "h": 9,
             "name": "heart_small_idle_2",
             "w": 10,
-            "x": 199,
+            "x": 1984,
             "y": 476
         },
         {
             "h": 10,
             "name": "heart_small_idle_3",
             "w": 10,
-            "x": 1977,
-            "y": 475
+            "x": 1121,
+            "y": 476
         },
         {
             "h": 9,
             "name": "heart_small_idle_4",
             "w": 10,
-            "x": 213,
+            "x": 2012,
             "y": 476
         },
         {
             "h": 10,
             "name": "heart_small_idle_5",
             "w": 10,
-            "x": 1684,
-            "y": 475
+            "x": 1185,
+            "y": 476
         },
         {
             "h": 9,
             "name": "heart_small_idle_6",
             "w": 10,
-            "x": 157,
+            "x": 2026,
             "y": 476
         }
     ],

@@ -53,7 +53,8 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
     m_primary_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
     m_secondary_weapon = weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::ENEMY);
 
-    m_damage_sound = audio::CreateSound("res/sounds/blaster-ricochet.wav", audio::SoundPlayback::ONCE);
+    m_damage_sound = audio::CreateSound("res/sound/blaster-ricochet.wav", audio::SoundPlayback::ONCE);
+    m_death_sound = audio::CreateSound("res/sound/demon_death.wav", audio::SoundPlayback::ONCE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -285,6 +286,8 @@ void CacodemonController::OnDead()
 {
     m_entity_sprite->SetAnimation(m_death_animation);
     m_entity_sprite->ClearProperty(mono::SpriteProperty::SHADOW);
+
+    m_death_sound->Play();
 }
 
 void CacodemonController::Dead(const mono::UpdateContext& update_context)
@@ -315,5 +318,11 @@ const char* CacodemonController::StateToString(States state) const
 
 void CacodemonController::OnDamage(uint32_t who_did_damage, int damage)
 {
-    m_damage_sound->Play();
+    const bool is_playing_already = m_damage_sound->IsPlaying();
+    if(is_playing_already)
+        return;
+
+    const bool play_sound = mono::Chance(50);
+    if(play_sound || true)
+        m_damage_sound->Play();
 }

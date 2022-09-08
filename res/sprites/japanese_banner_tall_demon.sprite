@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 21,
-            "name": "flower_1",
-            "w": 16,
-            "x": 1408,
-            "y": 431
+            "h": 62,
+            "name": "japanese_banner_tall_demon",
+            "w": 23,
+            "x": 725,
+            "y": 236
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/vegetation/",
+    "source_folder": "res/images/flags/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

@@ -29,64 +29,64 @@
             "h": 27,
             "name": "small_fire_idle_1",
             "w": 16,
-            "x": 142,
+            "x": 617,
             "y": 397
         },
         {
             "h": 28,
             "name": "small_fire_idle_2",
             "w": 16,
-            "x": 378,
-            "y": 396
+            "x": 460,
+            "y": 397
         },
         {
             "h": 26,
             "name": "small_fire_idle_3",
             "w": 16,
-            "x": 987,
+            "x": 1304,
             "y": 402
         },
         {
             "h": 25,
             "name": "small_fire_idle_4",
             "w": 16,
-            "x": 791,
-            "y": 403
+            "x": 1795,
+            "y": 402
         },
         {
             "h": 27,
             "name": "small_fire_idle_5",
             "w": 16,
-            "x": 653,
-            "y": 396
+            "x": 637,
+            "y": 397
         },
         {
             "h": 28,
             "name": "small_fire_idle_6",
             "w": 16,
-            "x": 533,
-            "y": 396
+            "x": 342,
+            "y": 397
         },
         {
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 653,
-            "y": 427
+            "x": 84,
+            "y": 429
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 1942,
-            "y": 403
+            "x": 1208,
+            "y": 404
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 281,
-            "y": 476
+            "x": 55,
+            "y": 489
         }
     ],
     "frames_offsets": [

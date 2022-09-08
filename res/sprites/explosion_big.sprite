@@ -25,14 +25,14 @@
             "h": 15,
             "name": "explosion_big_idle_1",
             "w": 15,
-            "x": 880,
+            "x": 1673,
             "y": 456
         },
         {
             "h": 50,
             "name": "explosion_big_idle_2",
             "w": 50,
-            "x": 927,
+            "x": 952,
             "y": 313
         },
         {
