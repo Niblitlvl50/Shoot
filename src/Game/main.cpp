@@ -17,7 +17,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Player/PlayerInfo.h"
-#include "Player/PlayerDaemon.h"
+#include "Player/PlayerDaemonSystem.h"
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"

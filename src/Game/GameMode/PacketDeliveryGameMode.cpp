@@ -9,7 +9,7 @@
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
-#include "Player/PlayerDaemon.h"
+#include "Player/PlayerDaemonSystem.h"
 #include "Pickups/EnemyPickupSpawner.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "RenderLayers.h"
