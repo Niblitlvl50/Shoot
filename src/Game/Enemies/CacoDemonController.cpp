@@ -43,7 +43,7 @@ namespace tweak_values
 
 using namespace game;
 
-CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
     , m_shockwave_cooldown(0.0f)
     , m_fire_homing_cooldown(0.0f)
@@ -86,27 +86,27 @@ CacodemonController::CacodemonController(uint32_t entity_id, mono::SystemContext
 
     const CacoStateMachine::StateTable state_table = {
         CacoStateMachine::MakeState(
-            States::IDLE, &CacodemonController::OnIdle, &CacodemonController::Idle, this),
+            States::IDLE, &DemonBossController::OnIdle, &DemonBossController::Idle, this),
         CacoStateMachine::MakeState(
-            States::ACTIVE, &CacodemonController::OnActive, &CacodemonController::Active, this),
+            States::ACTIVE, &DemonBossController::OnActive, &DemonBossController::Active, this),
         CacoStateMachine::MakeState(
-            States::TURN_TO_PLAYER, &CacodemonController::OnTurn, &CacodemonController::TurnToPlayer, this),
+            States::TURN_TO_PLAYER, &DemonBossController::OnTurn, &DemonBossController::TurnToPlayer, this),
         CacoStateMachine::MakeState(
-            States::ACTION_SHOCKWAVE, &CacodemonController::OnAction, &CacodemonController::ActionShockwave, this),
+            States::ACTION_SHOCKWAVE, &DemonBossController::OnAction, &DemonBossController::ActionShockwave, this),
         CacoStateMachine::MakeState(
-            States::ACTION_FIRE_HOMING, &CacodemonController::OnFireHoming, &CacodemonController::ActionFireHoming, this),
+            States::ACTION_FIRE_HOMING, &DemonBossController::OnFireHoming, &DemonBossController::ActionFireHoming, this),
         CacoStateMachine::MakeState(
-            States::ACTION_FIRE_BEAM, &CacodemonController::OnAction, &CacodemonController::ActionFireBeam, this),
+            States::ACTION_FIRE_BEAM, &DemonBossController::OnAction, &DemonBossController::ActionFireBeam, this),
         CacoStateMachine::MakeState(
-            States::DEAD, &CacodemonController::OnDead, &CacodemonController::Dead, this),
+            States::DEAD, &DemonBossController::OnDead, &DemonBossController::Dead, this),
     };
     m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
-CacodemonController::~CacodemonController()
+DemonBossController::~DemonBossController()
 { }
 
-void CacodemonController::Update(const mono::UpdateContext& update_context)
+void DemonBossController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
     m_primary_weapon->UpdateWeaponState(update_context.timestamp);
@@ -117,7 +117,7 @@ void CacodemonController::Update(const mono::UpdateContext& update_context)
     m_fire_beam_cooldown = std::clamp(m_fire_beam_cooldown - update_context.delta_s, 0.0f, 10.0f);
 }
 
-void CacodemonController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance, mono::Color::GREEN);
@@ -130,18 +130,18 @@ void CacodemonController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::MAGENTA);
 }
 
-const char* CacodemonController::GetDebugCategory() const
+const char* DemonBossController::GetDebugCategory() const
 {
     return "Green Boss Demon";
 }
 
-void CacodemonController::OnIdle()
+void DemonBossController::OnIdle()
 {
     m_entity_sprite->SetAnimation(m_idle_animation);
     m_entity_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
-void CacodemonController::Idle(const mono::UpdateContext& update_context)
+void DemonBossController::Idle(const mono::UpdateContext& update_context)
 {
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
     m_target_player = game::GetClosestActivePlayer(position);
@@ -165,13 +165,13 @@ void CacodemonController::Idle(const mono::UpdateContext& update_context)
         m_states.TransitionTo(States::ACTION_SHOCKWAVE);
 }
 
-void CacodemonController::OnActive()
+void DemonBossController::OnActive()
 {}
 
-void CacodemonController::Active(const mono::UpdateContext& update_context)
+void DemonBossController::Active(const mono::UpdateContext& update_context)
 {}
 
-void CacodemonController::OnTurn()
+void DemonBossController::OnTurn()
 {
     const auto transition_to_attack = [this]() {
         m_states.TransitionTo(States::ACTION_FIRE_HOMING);
@@ -185,10 +185,10 @@ void CacodemonController::OnTurn()
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
-void CacodemonController::TurnToPlayer(const mono::UpdateContext& update_context)
+void DemonBossController::TurnToPlayer(const mono::UpdateContext& update_context)
 { }
 
-void CacodemonController::OnAction()
+void DemonBossController::OnAction()
 {
     m_ready_to_attack = false;
 
@@ -204,7 +204,7 @@ void CacodemonController::OnAction()
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
-void CacodemonController::ActionShockwave(const mono::UpdateContext& update_context)
+void DemonBossController::ActionShockwave(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
@@ -231,7 +231,7 @@ void CacodemonController::ActionShockwave(const mono::UpdateContext& update_cont
     */
 }
 
-void CacodemonController::OnFireHoming()
+void DemonBossController::OnFireHoming()
 {
     m_ready_to_attack = false;
 
@@ -247,7 +247,7 @@ void CacodemonController::OnFireHoming()
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
-void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_context)
+void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
@@ -265,7 +265,7 @@ void CacodemonController::ActionFireHoming(const mono::UpdateContext& update_con
     }
 }
 
-void CacodemonController::ActionFireBeam(const mono::UpdateContext& update_context)
+void DemonBossController::ActionFireBeam(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
@@ -282,7 +282,7 @@ void CacodemonController::ActionFireBeam(const mono::UpdateContext& update_conte
     }
 }
 
-void CacodemonController::OnDead()
+void DemonBossController::OnDead()
 {
     m_entity_sprite->SetAnimation(m_death_animation);
     m_entity_sprite->ClearProperty(mono::SpriteProperty::SHADOW);
@@ -290,10 +290,10 @@ void CacodemonController::OnDead()
     m_death_sound->Play();
 }
 
-void CacodemonController::Dead(const mono::UpdateContext& update_context)
+void DemonBossController::Dead(const mono::UpdateContext& update_context)
 { }
 
-const char* CacodemonController::StateToString(States state) const
+const char* DemonBossController::StateToString(States state) const
 {
     switch(state)
     {
@@ -316,7 +316,7 @@ const char* CacodemonController::StateToString(States state) const
     return "Unknown";
 }
 
-void CacodemonController::OnDamage(uint32_t who_did_damage, int damage)
+void DemonBossController::OnDamage(uint32_t who_did_damage, int damage)
 {
     const bool is_playing_already = m_damage_sound->IsPlaying();
     if(is_playing_already)

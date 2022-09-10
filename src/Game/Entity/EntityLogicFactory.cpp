@@ -34,7 +34,7 @@ namespace
         MakeController<game::BatController>,
         MakeController<game::GoblinFireController>,
         MakeController<game::EyeMonsterController>,
-        MakeController<game::CacodemonController>,
+        MakeController<game::DemonBossController>,
         MakeController<game::FlyingMonsterController>,
         MakeController<game::InvaderPathController>,
         MakeController<game::BlobController>,

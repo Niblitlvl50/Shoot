@@ -15,12 +15,12 @@
 
 namespace game
 {
-    class CacodemonController : public IEntityLogic
+    class DemonBossController : public IEntityLogic
     {
     public:
 
-        CacodemonController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
-        ~CacodemonController();
+        DemonBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        ~DemonBossController();
 
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
