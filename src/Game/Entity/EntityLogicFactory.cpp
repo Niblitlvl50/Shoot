@@ -5,7 +5,7 @@
 #include "Enemies/BatController.h"
 #include "Enemies/GoblinFireController.h"
 #include "Enemies/EyeMonsterController.h"
-#include "Enemies/CacoDemonController.h"
+#include "Enemies/DemonBossController.h"
 #include "Enemies/FlyingMonsterController.h"
 #include "Enemies/InvaderPathController.h"
 #include "Enemies/BlobController.h"
