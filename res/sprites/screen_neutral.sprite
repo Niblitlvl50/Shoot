@@ -14,8 +14,8 @@
             "h": 23,
             "name": "screen_neutral",
             "w": 26,
-            "x": 1440,
-            "y": 408
+            "x": 32,
+            "y": 430
         }
     ],
     "frames_offsets": [
