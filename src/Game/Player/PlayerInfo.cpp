@@ -5,6 +5,7 @@
 #include <algorithm>
 
 game::PlayerInfo game::g_players[n_players];
+game::PackageInfo game::g_package_info;
 game::CoopPowerUp game::g_coop_powerup;
 
 void game::InitializePlayerInfo()
@@ -17,6 +18,7 @@ void game::InitializePlayerInfo()
         info.killer_entity_id = -1;
     }
 
+    std::memset(&g_package_info, 0, sizeof(g_package_info));
     std::memset(&g_coop_powerup, 0, sizeof(g_coop_powerup));
 }
 

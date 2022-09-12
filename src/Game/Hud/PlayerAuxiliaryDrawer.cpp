@@ -150,7 +150,6 @@ math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
 
 PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
-    , m_package_id(-1)
 {
     m_package_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
     m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
@@ -163,10 +162,10 @@ PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* tran
 
 void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
-    if(m_package_id == uint32_t(-1))
+    if(g_package_info.entity_id == uint32_t(-1))
         return;
 
-    const math::Vector package_world_position = m_transform_system->GetWorldPosition(m_package_id);
+    const math::Vector package_world_position = m_transform_system->GetWorldPosition(g_package_info.entity_id);
     const bool is_in_view = renderer.Cull(math::Quad(package_world_position, 0.1f));
     if(!is_in_view)
     {
@@ -219,9 +218,3 @@ math::Quad PackageAuxiliaryDrawer::BoundingBox() const
 {
     return math::InfQuad;
 }
-
-void PackageAuxiliaryDrawer::SetPackageId(uint32_t package_id)
-{
-    m_package_id = package_id;
-}
-

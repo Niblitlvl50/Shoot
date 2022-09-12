@@ -1,6 +1,7 @@
 
 #include "PlayerDaemonSystem.h"
-#include "PlayerLogic.h"
+#include "Player/PlayerLogic.h"
+#include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "PlayerFamiliarLogic.h"
 
@@ -146,6 +147,31 @@ void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, cons
     m_spawn_players = true;
     m_player_spawn = spawn_position;
     m_player_spawned_callback = callback;
+}
+
+uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
+{
+    const mono::Entity package_entity = m_entity_system->CreateEntity("res/entities/cardboard_box.entity");
+
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(spawn_position));
+    transform_system->SetTransformState(package_entity.id, mono::TransformState::CLIENT);
+
+    m_entity_system->AddComponent(package_entity.id, BEHAVIOUR_COMPONENT);
+
+    game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
+    logic_system->AddLogic(package_entity.id, new PackageLogic(package_entity.id, &g_package_info, m_system_context));
+
+    game::g_package_info.entity_id = package_entity.id;
+    game::g_package_info.state = PackageState::SPAWNED;
+
+    const mono::ReleaseCallback release_callback = [](uint32_t entity_id) {
+        game::g_package_info.entity_id = mono::INVALID_ID;
+        game::g_package_info.state = PackageState::NOT_SPAWNED;
+    };
+    m_entity_system->AddReleaseCallback(package_entity.id, release_callback);
+
+    return package_entity.id;
 }
 
 std::vector<uint32_t> PlayerDaemonSystem::GetPlayerIds() const

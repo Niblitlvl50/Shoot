@@ -34,6 +34,9 @@
 
 #include "Player/CoopPowerupManager.h"
 
+#include "Entity/Component.h"
+#include "Entity/EntityLogicSystem.h"
+
 #include "WorldFile.h"
 
 namespace
@@ -83,6 +86,7 @@ void PacketDeliveryGameMode::Begin(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
@@ -108,13 +112,17 @@ void PacketDeliveryGameMode::Begin(
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
 
     // Player
-    PlayerDaemonSystem* player_system = system_context->GetSystem<PlayerDaemonSystem>();
+    m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
 
     const PlayerSpawnedCallback player_spawned_cb =
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-    player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
+    m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
+
+    m_spawn_package = level_metadata.spawn_package;
+    m_package_spawn_position = level_metadata.use_package_spawn_position ?
+        level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
     m_coop_power_manager = std::make_unique<CoopPowerupManager>(damage_system);
 
@@ -141,10 +149,6 @@ void PacketDeliveryGameMode::Begin(
 
     m_level_timer = level_metadata.time_limit_s;
     m_level_has_timelimit = (m_level_timer > 0);
-
-    m_spawn_package = level_metadata.spawn_package;
-    m_package_spawn_position = level_metadata.use_package_spawn_position ?
-        level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
     m_timer_screen->SetSeconds(m_level_timer);
@@ -222,22 +226,16 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
     m_package_spawned = true;
 
-    const mono::Entity package_entity = m_entity_manager->CreateEntity("res/entities/cardboard_box.entity");
-    m_transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(position));
-    m_transform_system->SetTransformState(package_entity.id, mono::TransformState::CLIENT);
+    m_package_entity_id = m_player_system->SpawnPackageAt(position);
 
-    mono::IBody* package_body = m_physics_system->GetBody(package_entity.id);
+    mono::IBody* package_body = m_physics_system->GetBody(m_package_entity_id);
     package_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         m_big_text_screen->SetSubText("Your package was destroyed.");
-        m_package_aux_drawer->SetPackageId(-1);
     };
-    m_package_release_callback = m_entity_manager->AddReleaseCallback(package_entity.id, release_callback);
-    m_package_entity_id = package_entity.id;
-
-    m_package_aux_drawer->SetPackageId(package_entity.id);
+    m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, release_callback);
 
     System::Log("PacketDeliveryGameMode|Spawning package[id:%u] at position %.2f %.2f", m_package_entity_id, position.x, position.y);
 }

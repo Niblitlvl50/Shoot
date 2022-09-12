@@ -220,6 +220,23 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGui::EndTable();
     }
 
+    const bool package_table_result = ImGui::BeginTable("package_table", 3, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+    if(package_table_result)
+    {
+        ImGui::TableSetupColumn("Entity", 0, 60);
+        ImGui::TableSetupColumn("State", 0, 100);
+        ImGui::TableSetupColumn("Index", 0, 60);
+        ImGui::TableHeadersRow();
+
+        ImGui::TableNextRow();
+
+        ImGui::TableNextColumn(); ImGui::Text("%u", game::g_package_info.entity_id);
+        ImGui::TableNextColumn(); ImGui::Text("%s", game::PackageStateToString(game::g_package_info.state));
+        ImGui::TableNextColumn(); ImGui::Text("%d", 0);
+
+        ImGui::EndTable();
+    }
+
     ImGui::End();
 }
 

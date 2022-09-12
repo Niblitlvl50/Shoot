@@ -64,6 +64,38 @@ namespace game
     constexpr int n_players = 3;
     extern PlayerInfo g_players[n_players];
 
+
+    enum class PackageState
+    {
+        NOT_SPAWNED,
+        SPAWNED,
+        SHIELDED,
+    };
+
+    inline const char* PackageStateToString(PackageState state)
+    {
+        switch(state)
+        {
+            case PackageState::NOT_SPAWNED:
+                return "Not Spawned";
+            case PackageState::SPAWNED:
+                return "Spawned";
+            case PackageState::SHIELDED:
+                return "Shielded";
+        }
+
+        return "Unknown";
+    }
+
+    struct PackageInfo
+    {
+        uint32_t entity_id;
+        PackageState state;
+        float cooldown_fraction;
+    };
+
+    extern PackageInfo g_package_info;
+
     enum class CoopPowerUpState
     {
         DISABLED,

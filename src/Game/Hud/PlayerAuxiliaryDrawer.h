@@ -43,11 +43,7 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        void SetPackageId(uint32_t package_id);
-
         const mono::TransformSystem* m_transform_system;
-        uint32_t m_package_id;
-
         mono::ISpritePtr m_package_sprite;
         mono::SpriteDrawBuffers m_sprite_buffers;
         std::unique_ptr<mono::IElementBuffer> m_indices;
