@@ -18,11 +18,15 @@ namespace game
     public:
 
         ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        ~ImpController();
+
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;
 
     private:
+
+        void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
 
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
@@ -46,7 +50,12 @@ namespace game
         };
 
         uint32_t m_entity_id;
+        uint32_t m_weapon_entity;
+
         mono::TransformSystem* m_transform_system;
+        mono::SpriteSystem* m_sprite_system;
+        mono::IEntityManager* m_entity_system;
+
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
         int m_idle_anim_id;
@@ -61,7 +70,7 @@ namespace game
         uint32_t m_attack_timer;
 
         HomingBehaviour m_homing_behaviour;
-
+        const struct PlayerInfo* m_target_player;
         math::Vector m_attack_position;
     };
 }

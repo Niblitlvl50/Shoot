@@ -17,6 +17,8 @@
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 
+#include "EntitySystem/IEntityManager.h"
+
 
 namespace tweak_values
 {
@@ -34,10 +36,12 @@ using namespace game;
 ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
 {
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
+
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
-
-    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* body = physics_system->GetBody(entity_id);
@@ -46,12 +50,15 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
     m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
 
-    mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
-    m_sprite = sprite_system->GetSprite(entity_id);
+    m_sprite = m_sprite_system->GetSprite(entity_id);
 
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
+
+    const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
+    m_transform_system->ChildTransform(spawned_weapon.id, m_entity_id);
+    m_weapon_entity = spawned_weapon.id;
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &ImpController::ToIdle, &ImpController::Idle, this),
@@ -59,13 +66,19 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
         GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &ImpController::ToPrepareAttack, &ImpController::PrepareAttack, this),
         GoblinStateMachine::MakeState(States::ATTACKING, &ImpController::ToAttacking, &ImpController::Attacking, this),
     };
-
     m_states.SetStateTableAndState(state_table, States::IDLE);
+}
+
+ImpController::~ImpController()
+{
+    m_entity_system->ReleaseEntity(m_weapon_entity);
 }
 
 void ImpController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+
+    UpdateWeaponAnimation(update_context);
 }
 
 void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
@@ -78,8 +91,11 @@ void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::BLUE);
     debug_drawer->DrawPoint(target_position, 10.0f, mono::Color::BLUE);
 
-    debug_drawer->DrawLine({ world_position, m_attack_position }, 1.0f, mono::Color::RED);
-    debug_drawer->DrawPoint(m_attack_position, 5.0f, mono::Color::RED);
+    if(m_target_player)
+    {
+        debug_drawer->DrawLine({ world_position, m_target_player->position }, 1.0f, mono::Color::RED);
+        debug_drawer->DrawPoint(m_target_player->position, 5.0f, mono::Color::RED);
+    }
 }
 
 const char* ImpController::GetDebugCategory() const
@@ -101,14 +117,12 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
 
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(
+    m_target_player = GetClosestActivePlayer(
         world_position, tweak_values::activate_distance_to_player_threshold);
-    if(!player_info)
+    if(!m_target_player)
         return;
 
-    m_attack_position = player_info->position;
-
-    const bool is_left_of = (m_attack_position.x < world_position.x);
+    const bool is_left_of = (m_target_player->position.x < world_position.x);
     if(is_left_of)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else 
@@ -172,6 +186,10 @@ void ImpController::ToPrepareAttack()
         m_states.TransitionTo(States::ATTACKING);
     };
     m_sprite->SetAnimation(m_attack_anim_id, transition_to_attacking);
+
+    m_attack_position = m_target_player->position;
+
+    // Show something here to indicate attack direction
 }
 
 void ImpController::PrepareAttack(const mono::UpdateContext& update_context)
@@ -185,7 +203,10 @@ void ImpController::ToAttacking()
 
 void ImpController::Attacking(const mono::UpdateContext& update_context)
 {
-    if(m_n_attacks >= tweak_values::n_attacks || m_weapon->UpdateWeaponState(update_context.timestamp) == game::WeaponState::RELOADING)
+    if(m_n_attacks >= tweak_values::n_attacks)
+        m_states.TransitionTo(States::IDLE);
+    
+    if(m_weapon->UpdateWeaponState(update_context.timestamp) == game::WeaponState::RELOADING)
         m_states.TransitionTo(States::IDLE);
 
     m_attack_timer += update_context.delta_ms;
@@ -201,4 +222,25 @@ void ImpController::Attacking(const mono::UpdateContext& update_context)
     
         m_attack_timer = 0;
     }
+}
+
+void ImpController::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
+{
+    if(!m_target_player)
+        return;
+
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const float m_aim_direction = math::AngleBetweenPointsSimple(world_position, m_attack_position);
+
+    mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
+    if(m_aim_direction < 0.0f)
+        weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
+    else
+        weapon_sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
+
+    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
+    weapon_transform =
+        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
+        math::CreateMatrixFromZRotation(m_aim_direction) *
+        math::CreateMatrixWithPosition(math::Vector(0.1f, 0.0f));
 }
