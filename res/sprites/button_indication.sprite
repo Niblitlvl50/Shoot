@@ -38,29 +38,29 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 1097,
-            "y": 479
+            "x": 1600,
+            "y": 483
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 1080,
-            "y": 479
+            "x": 931,
+            "y": 483
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 1148,
-            "y": 479
+            "x": 1566,
+            "y": 483
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 1422,
-            "y": 479
+            "x": 1549,
+            "y": 483
         }
     ],
     "frames_offsets": [

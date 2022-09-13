@@ -14,8 +14,8 @@
             "h": 24,
             "name": "player_background_hud",
             "w": 64,
-            "x": 1673,
-            "y": 408
+            "x": 341,
+            "y": 429
         }
     ],
     "frames_offsets": [
