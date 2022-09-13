@@ -5,6 +5,7 @@
 
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/Component.h"
+#include "Events/PackageEvents.h"
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -23,6 +24,7 @@
 #include "Weapons/WeaponSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
+#include "EventHandler/EventHandler.h"
 #include "Math/MathFunctions.h"
 #include "Math/CriticalDampedSpring.h"
 #include "Util/Random.h"
@@ -57,6 +59,7 @@ PlayerLogic::PlayerLogic(
     , m_controller_id(controller.id)
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
+    , m_event_handler(event_handler)
     , m_fire(false)
     , m_stop_fire(false)
     , m_aim_direction(0.0f)
@@ -443,6 +446,10 @@ void PlayerLogic::Throw(float throw_force)
     }
 
     m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
+
+    const PackageAction action = (throw_force > 0.0f) ? PackageAction::THROWN : PackageAction::DROPPED;
+    m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, action));
+
     m_picked_up_id = mono::INVALID_ID;
 }
 
@@ -472,6 +479,8 @@ void PlayerLogic::PickupDrop()
             const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
             for(mono::IShape* shape : shapes)
                 shape->ClearCollisionBit(CollisionCategory::PLAYER);
+
+            m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, PackageAction::PICKED_UP));
         }
     };
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);

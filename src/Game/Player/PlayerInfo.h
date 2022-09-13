@@ -91,6 +91,7 @@ namespace game
     {
         uint32_t entity_id;
         PackageState state;
+        bool shielded;
         float cooldown_fraction;
     };
 

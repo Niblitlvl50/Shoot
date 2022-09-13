@@ -6,6 +6,7 @@
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
 
+#include "EntitySystem/Entity.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
@@ -162,7 +163,7 @@ PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* tran
 
 void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
-    if(g_package_info.entity_id == uint32_t(-1))
+    if(g_package_info.entity_id == mono::INVALID_ID)
         return;
 
     const math::Vector package_world_position = m_transform_system->GetWorldPosition(g_package_info.entity_id);
@@ -211,6 +212,13 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             m_indices.get(),
             m_package_sprite->GetTexture(),
             0);
+    }
+    else
+    {
+        if(g_package_info.shielded)
+        {
+            renderer.DrawCircle(package_world_position, 1.0f, 16, 2.0f, mono::Color::BLUE);
+        }
     }
 }
 

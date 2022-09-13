@@ -160,7 +160,7 @@ uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
     m_entity_system->AddComponent(package_entity.id, BEHAVIOUR_COMPONENT);
 
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
-    logic_system->AddLogic(package_entity.id, new PackageLogic(package_entity.id, &g_package_info, m_system_context));
+    logic_system->AddLogic(package_entity.id, new PackageLogic(package_entity.id, &g_package_info, m_event_handler, m_system_context));
 
     game::g_package_info.entity_id = package_entity.id;
     game::g_package_info.state = PackageState::SPAWNED;
