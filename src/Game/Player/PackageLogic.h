@@ -45,6 +45,7 @@ namespace game
         mono::EventToken<PackagePickupEvent> m_pickup_event_token;
 
         float m_shield_timer_s;
+        float m_shield_cooldown_s;
         bool m_damage_on_impact;
     };
 }

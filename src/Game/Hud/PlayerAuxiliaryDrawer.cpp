@@ -220,6 +220,19 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             renderer.DrawCircle(package_world_position, 1.0f, 16, 2.0f, mono::Color::BLUE);
         }
     }
+
+    if(g_package_info.cooldown_fraction > 0.0f)
+    {
+        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(g_package_info.entity_id);
+        const math::Vector bottom_center = math::BottomCenter(world_bb);
+
+        const math::Vector left = bottom_center - math::Vector(0.3f, 0.15f);
+        const math::Vector right = bottom_center + math::Vector(0.3f, -0.15f);
+        const math::Vector reload_dot = ((right - left) * g_package_info.cooldown_fraction) + left;
+
+        renderer.DrawLines({ left, right }, mono::Color::OFF_WHITE, 4.0f);
+        renderer.DrawPoints({ reload_dot }, mono::Color::RED, 8.0f);
+    }
 }
 
 math::Quad PackageAuxiliaryDrawer::BoundingBox() const

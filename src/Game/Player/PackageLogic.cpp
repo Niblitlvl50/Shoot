@@ -17,6 +17,7 @@
 namespace tweak_values
 {
     constexpr float shield_duration_s = 5.0f;
+    constexpr float shield_cooldown_duration_s = 5.0f;
     constexpr float velocity_threshold = 2.0f;
 }
 
@@ -28,6 +29,7 @@ PackageLogic::PackageLogic(
     , m_package_info(package_info)
     , m_event_handler(event_handler)
     , m_shield_timer_s(0.0f)
+    , m_shield_cooldown_s(0.0f)
     , m_damage_on_impact(false)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
@@ -50,20 +52,34 @@ PackageLogic::~PackageLogic()
 void PackageLogic::Update(const mono::UpdateContext& update_context)
 {
     m_shield_timer_s = std::clamp(m_shield_timer_s - update_context.delta_s, 0.0f, 10.0f);
-    m_package_info->shielded = (m_shield_timer_s > 0.0f);
+    m_shield_cooldown_s = std::clamp(m_shield_cooldown_s - update_context.delta_s, 0.0f, 10.0f);
+
+    const bool was_shielded = m_package_info->shielded;
+
+    const bool enable_shield = (m_shield_timer_s > 0.0f && m_shield_cooldown_s == 0.0f);
+    m_package_info->shielded = enable_shield;
+
+    if(was_shielded && !enable_shield)
+        m_shield_cooldown_s = tweak_values::shield_cooldown_duration_s;
+
+    m_package_info->cooldown_fraction = (m_shield_cooldown_s / tweak_values::shield_cooldown_duration_s);
 
     if(m_damage_on_impact)
     {
         const mono::IBody* body = m_physics_system->GetBody(m_entity_id);
         const float velocity = math::Length(body->GetVelocity());
         m_damage_on_impact = (velocity >= tweak_values::velocity_threshold);
+
+        if(m_shield_cooldown_s == 0.0f)
+            m_shield_timer_s = tweak_values::shield_duration_s;
     }
 }
 
 void PackageLogic::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
-    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    debug_drawer->DrawCircle(position, 1.0f, mono::Color::CYAN);
+    const char* shielded_string = m_package_info->shielded ? "true" : "false";
+    const std::string text = shielded_string + std::string(" ") + std::to_string(m_shield_timer_s) + "/" + std::to_string(m_shield_cooldown_s);
+    debug_drawer->DrawScreenText(text.c_str(), math::Vector(1.0f, 3.0f), mono::Color::BLACK);
 }
 
 const char* PackageLogic::GetDebugCategory() const
@@ -96,15 +112,15 @@ mono::EventResult PackageLogic::OnPackageEvent(const PackagePickupEvent& event)
     switch(event.action)
     {
     case PackageAction::PICKED_UP:
-        System::Log("Picked Up!");
         break;
     case PackageAction::DROPPED:
-        m_shield_timer_s = tweak_values::shield_duration_s;
-        System::Log("Dropped!");
+    {
+        if(m_shield_cooldown_s == 0.0f)
+            m_shield_timer_s = tweak_values::shield_duration_s;
         break;
+    }
     case PackageAction::THROWN:
         m_damage_on_impact = true;
-        System::Log("Thrown!");
         break;
     }
 
