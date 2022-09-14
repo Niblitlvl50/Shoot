@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boss"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -260,7 +266,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boss",
             "name": "caco_boss",
             "uuid_hash": 4218206263
         },
@@ -281,6 +286,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -375,7 +386,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 1843642506
         },
@@ -396,6 +406,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -490,7 +506,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 979697111
         },
@@ -511,6 +526,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -605,7 +626,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 3202497019
         },
@@ -626,6 +646,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -720,7 +746,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 2774254944
         },
@@ -741,6 +766,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -835,7 +866,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 2947952662
         },
@@ -856,6 +886,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -950,7 +986,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 1467763063
         },
@@ -971,6 +1006,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1065,7 +1106,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 966540445
         },
@@ -1086,6 +1126,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1180,7 +1226,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 1001923767
         },
@@ -1201,6 +1246,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1295,7 +1346,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 2104769656
         },
@@ -1316,6 +1366,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1410,7 +1466,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 142144388
         },
@@ -1431,6 +1486,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1525,7 +1586,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 3132831764
         },
@@ -1546,6 +1606,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1640,7 +1706,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 2149447629
         },
@@ -1661,6 +1726,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1755,7 +1826,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 1563812126
         },
@@ -1776,6 +1846,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1870,7 +1946,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 3934464865
         },
@@ -1891,6 +1966,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2084,7 +2165,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 1011444808
         },
@@ -2105,6 +2185,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2199,7 +2285,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 2124714423
         },
@@ -2220,6 +2305,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2314,7 +2405,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "pine_small",
             "uuid_hash": 684152756
         },
@@ -2335,6 +2425,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2429,7 +2525,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "fir_large",
             "uuid_hash": 868297230
         },
@@ -2450,6 +2545,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2544,7 +2645,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "fir_large",
             "uuid_hash": 527251579
         },
@@ -2565,6 +2665,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2709,7 +2815,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 3761025623
         },
@@ -2730,6 +2835,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2874,7 +2985,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 3511783261
         },
@@ -2895,6 +3005,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2989,7 +3105,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin_black",
             "uuid_hash": 3073162579
         },
@@ -3010,6 +3125,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3104,7 +3225,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "japanese_banner",
             "uuid_hash": 4109792065
         },
@@ -3125,6 +3245,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3219,7 +3345,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "japanese_banner",
             "uuid_hash": 3006548369
         },
@@ -3240,6 +3365,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3334,7 +3465,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "japanese_banner",
             "uuid_hash": 161945149
         },
@@ -3355,6 +3485,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3449,7 +3585,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "japanese_banner",
             "uuid_hash": 4079040815
         },
@@ -3470,6 +3605,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_oaks"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3564,7 +3705,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_oaks",
             "name": "rock_pile_one",
             "uuid_hash": 2464814475
         },
@@ -3585,6 +3725,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_oaks"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3679,7 +3825,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_oaks",
             "name": "rock_pile_one",
             "uuid_hash": 2432563178
         },
@@ -3700,6 +3845,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_oaks"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3794,7 +3945,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_oaks",
             "name": "rock_small_two",
             "uuid_hash": 1279258454
         },
@@ -3815,6 +3965,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3909,7 +4065,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation",
             "name": "rock_small_two",
             "uuid_hash": 2711815976
         },
@@ -3930,6 +4085,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4024,7 +4185,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "rock_small_two",
             "uuid_hash": 3289595539
         },
@@ -4045,6 +4205,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4139,7 +4305,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation",
             "name": "rock_tiny_three",
             "uuid_hash": 3353733214
         },
@@ -4160,6 +4325,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4266,7 +4437,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "bat_small",
             "uuid_hash": 3774035883
         },
@@ -4287,6 +4457,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4393,7 +4569,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "bat_small",
             "uuid_hash": 2816855986
         },
@@ -4414,6 +4589,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4520,7 +4701,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "bat_small",
             "uuid_hash": 63110908
         },
@@ -4541,6 +4721,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4647,7 +4833,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "bat_small",
             "uuid_hash": 3791762964
         },
@@ -4668,6 +4853,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4774,7 +4965,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "bat_small",
             "uuid_hash": 956013084
         },
@@ -4795,6 +4985,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4889,7 +5085,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 587397778
         },
@@ -4910,6 +5105,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5091,7 +5292,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 3905752137
         },
@@ -5112,6 +5312,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5206,7 +5412,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 64259735
         },
@@ -5227,6 +5432,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5321,7 +5532,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 1864063125
         },
@@ -5342,6 +5552,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5436,7 +5652,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 3920265954
         },
@@ -5457,6 +5672,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5551,7 +5772,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rock_large",
             "uuid_hash": 3645421804
         },
@@ -5572,6 +5792,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_oaks"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5666,7 +5892,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_oaks",
             "name": "rock_small_two",
             "uuid_hash": 3764871956
         },
@@ -5687,6 +5912,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "spawn_points"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5708,48 +5939,6 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 1645822993,
-                    "name": "spawn_point",
-                    "properties": [
-                        {
-                            "id": 463104021,
-                            "name": "spawn_score",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        },
-                        {
-                            "id": 2084942004,
-                            "name": "spawn_limit",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 5000
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "forest_spawn_enable"
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "forest_spawn_disable"
                         }
                     ]
                 },
@@ -5845,10 +6034,62 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 5000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": "forest_spawn_enable"
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": "forest_spawn_disable"
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "folder": "spawn_points",
             "name": "forest_spawn",
             "uuid_hash": 2378302272
         },
@@ -5869,6 +6110,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6037,7 +6284,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "Wizard",
             "uuid_hash": 185179095
         },
@@ -6058,6 +6304,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6202,7 +6454,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 375532037
         },
@@ -6223,6 +6474,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6367,7 +6624,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 4145625082
         },
@@ -6388,6 +6644,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6532,7 +6794,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 1585891462
         },
@@ -6553,6 +6814,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_test"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6697,7 +6964,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_test",
             "name": "flower_one",
             "uuid_hash": 4120927818
         },
@@ -6718,6 +6984,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_test"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6862,7 +7134,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_test",
             "name": "flower_one",
             "uuid_hash": 331824928
         },
@@ -6883,6 +7154,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -6989,7 +7266,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "bat",
             "uuid_hash": 483274489
         },
@@ -7010,6 +7286,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -7116,7 +7398,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "bat",
             "uuid_hash": 270934433
         },
@@ -7137,6 +7418,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_test"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -7281,7 +7568,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_test",
             "name": "flower_one",
             "uuid_hash": 879305627
         },
@@ -7302,6 +7588,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_test"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -7446,7 +7738,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_test",
             "name": "flower_one",
             "uuid_hash": 1274232623
         },
@@ -7467,6 +7758,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_test"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -7611,7 +7908,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_test",
             "name": "flower_one",
             "uuid_hash": 320971729
         },
@@ -7632,6 +7928,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "vegetation_forest"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -7776,7 +8078,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "vegetation_forest",
             "name": "goblin",
             "uuid_hash": 4005229723
         }
@@ -7805,8 +8106,8 @@
             "y": -10.0
         },
         "camera_size": {
-            "x": 10.0,
-            "y": 6.666600227355957
+            "x": 12.0,
+            "y": 7.5
         },
         "level_description": "",
         "level_name": "",
@@ -7827,6 +8128,7 @@
             "x": -3.0,
             "y": -10.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
         "triggers": [
             "enter_death_valley",
