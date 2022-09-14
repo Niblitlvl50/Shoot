@@ -102,8 +102,10 @@ void PackageLogic::Update(const mono::UpdateContext& update_context)
 void PackageLogic::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const char* shielded_string = StatesToString(m_states.ActiveState());
-    const std::string text = shielded_string + std::string(" ") + std::to_string(m_shield_timer_s) + "/" + std::to_string(m_shield_cooldown_s);
-    debug_drawer->DrawScreenText(text.c_str(), math::Vector(1.0f, 3.0f), mono::Color::BLACK);
+
+    char string_buffer[512] = { 0 };
+    std::snprintf(string_buffer, std::size(string_buffer), "%s %.2f/%.2f", shielded_string, m_shield_timer_s, m_shield_cooldown_s);
+    debug_drawer->DrawScreenText(string_buffer, math::Vector(1.0f, 3.0f), mono::Color::OFF_WHITE);
 }
 
 const char* PackageLogic::GetDebugCategory() const

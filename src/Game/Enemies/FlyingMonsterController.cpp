@@ -67,11 +67,31 @@ FlyingMonsterController::~FlyingMonsterController()
 void FlyingMonsterController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+    m_weapon->UpdateWeaponState(update_context.timestamp);
 }
 
 void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
+    const char* state_string = "Unknown";
+
+    switch(m_states.ActiveState())
+    {
+    case States::IDLE:
+        state_string = "Idle";
+        break;
+    case States::TRACKING:
+        state_string = "Tracking";
+        break;
+    case States::ATTACK_ANTICIPATION:
+        state_string = "Attack Anticipation";
+        break;
+    case States::ATTACKING:
+        state_string = "Attacking";
+        break;
+    }
+
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
     debug_drawer->DrawCircle(world_position, tweak_values::track_to_player_distance, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
