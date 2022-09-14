@@ -60,6 +60,7 @@ namespace game
         mono::EventHandler* m_event_handler;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
+        mono::LightSystem* m_light_system;
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;
         class DamageSystem* m_damage_system;

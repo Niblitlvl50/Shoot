@@ -10,6 +10,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Color.h"
+#include "Rendering/Lights/LightSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "SystemContext.h"
@@ -54,6 +55,7 @@ PackageLogic::PackageLogic(
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_light_system = system_context->GetSystem<mono::LightSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
@@ -66,6 +68,7 @@ PackageLogic::PackageLogic(
 
     m_transform_system->ChildTransform(m_spawned_shield_id, m_entity_id);
     m_sprite_system->SetSpriteEnabled(m_spawned_shield_id, false);
+    m_light_system->SetLightEnabled(m_spawned_shield_id, false);
 
     const std::function<mono::EventResult (const PackagePickupEvent&)> pickup_func =
         std::bind(&PackageLogic::OnPackageEvent, this, std::placeholders::_1);
@@ -160,6 +163,7 @@ void PackageLogic::Idle(const mono::UpdateContext& update_context)
 void PackageLogic::ToShielded()
 {
     m_sprite_system->SetSpriteEnabled(m_spawned_shield_id, true);
+    m_light_system->SetLightEnabled(m_spawned_shield_id, true);
     m_shield_timer_s = tweak_values::shield_duration_s;
 }
 
@@ -172,6 +176,7 @@ void PackageLogic::Shielded(const mono::UpdateContext& update_context)
 void PackageLogic::ExitShielded()
 {
     m_sprite_system->SetSpriteEnabled(m_spawned_shield_id, false);
+    m_light_system->SetLightEnabled(m_spawned_shield_id, false);
     m_shield_cooldown_s = tweak_values::shield_cooldown_duration_s;
 }
 
