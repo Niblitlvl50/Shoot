@@ -56,7 +56,7 @@ namespace game
     static const std::unordered_map<std::string, LoadFunction> g_zone_load_func = {
         { "title_screen",           LoadZone<game::TitleScreen>     },
         { "setup_game_screen",      LoadZone<game::SetupGameScreen> },
-        { "game_over_screen",       LoadZone<game::GameOverScreen>  },
+        { "gameover_screen",        LoadZone<game::GameOverScreen>  },
         { "end_screen",             LoadZone<game::EndScreen>       },
         { "remote_network_zone",    LoadZone<game::RemoteZone>      },
     };
