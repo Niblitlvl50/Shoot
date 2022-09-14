@@ -24,6 +24,24 @@ namespace tweak_values
     constexpr float velocity_threshold = 2.0f;
 }
 
+namespace
+{
+    const char* StatesToString(game::PackageLogic::States state)
+    {
+        switch(state)
+        {
+        case game::PackageLogic::States::IDLE:
+            return "Idle";
+        case game::PackageLogic::States::SHIELDED:
+            return "Shielded";
+        case game::PackageLogic::States::THROWN:
+            return "Thrown";
+        }
+
+        return "Unknown";
+    }
+}
+
 using namespace game;
 
 PackageLogic::PackageLogic(
@@ -131,21 +149,6 @@ mono::EventResult PackageLogic::OnPackageEvent(const PackagePickupEvent& event)
 bool PackageLogic::IsShieldOnCooldown() const
 {
     return m_shield_cooldown_s > 0.0f;
-}
-
-const char* PackageLogic::StatesToString(States state) const
-{
-    switch(state)
-    {
-    case States::IDLE:
-        return "Idle";
-    case States::SHIELDED:
-        return "Shielded";
-    case States::THROWN:
-        return "Thrown";
-    }
-
-    return "Unknown";
 }
 
 void PackageLogic::ToIdle()

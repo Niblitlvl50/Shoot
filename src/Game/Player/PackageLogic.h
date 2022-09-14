@@ -44,7 +44,6 @@ namespace game
         mono::EventResult OnPackageEvent(const PackagePickupEvent& event);
 
         bool IsShieldOnCooldown() const;
-        const char* StatesToString(States state) const;
 
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
