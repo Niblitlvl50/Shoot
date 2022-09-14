@@ -8,6 +8,7 @@
 
 #include "EventHandler/EventToken.h"
 #include "Physics/IBody.h"
+#include "StateMachine.h"
 
 namespace game
 {
@@ -17,6 +18,13 @@ namespace game
     class PackageLogic : public IEntityLogic, public mono::ICollisionHandler
     {
     public:
+
+        enum class States
+        {
+            IDLE,
+            SHIELDED,
+            THROWN
+        };
 
         PackageLogic(
             uint32_t entity_id,
@@ -35,17 +43,35 @@ namespace game
 
         mono::EventResult OnPackageEvent(const PackagePickupEvent& event);
 
+        bool IsShieldOnCooldown() const;
+        const char* StatesToString(States state) const;
+
+        void ToIdle();
+        void Idle(const mono::UpdateContext& update_context);
+
+        void ToShielded();
+        void Shielded(const mono::UpdateContext& update_context);
+        void ExitShielded();
+
+        void ToThrown();
+        void Thrown(const mono::UpdateContext& update_context);
+
         const uint32_t m_entity_id;
         game::PackageInfo* m_package_info;
         mono::EventHandler* m_event_handler;
         mono::TransformSystem* m_transform_system;
+        mono::SpriteSystem* m_sprite_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::IEntityManager* m_entity_manager;
         class DamageSystem* m_damage_system;
 
+        uint32_t m_spawned_shield_id;
         mono::EventToken<PackagePickupEvent> m_pickup_event_token;
+
+        using PackageStateMachine = StateMachine<States, const mono::UpdateContext&>;
+        PackageStateMachine m_states;
 
         float m_shield_timer_s;
         float m_shield_cooldown_s;
-        bool m_damage_on_impact;
     };
 }

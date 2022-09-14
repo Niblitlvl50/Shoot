@@ -213,13 +213,6 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             m_package_sprite->GetTexture(),
             0);
     }
-    else
-    {
-        if(g_package_info.shielded)
-        {
-            renderer.DrawCircle(package_world_position, 1.0f, 16, 2.0f, mono::Color::BLUE);
-        }
-    }
 
     if(g_package_info.cooldown_fraction > 0.0f)
     {
