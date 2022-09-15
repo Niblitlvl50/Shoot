@@ -36,77 +36,77 @@
             "h": 23,
             "name": "fire_skull_active_1",
             "w": 17,
-            "x": 1166,
-            "y": 435
+            "x": 1311,
+            "y": 433
         },
         {
             "h": 23,
             "name": "fire_skull_active_2",
             "w": 17,
-            "x": 1311,
-            "y": 434
+            "x": 176,
+            "y": 431
         },
         {
             "h": 26,
             "name": "fire_skull_active_3",
             "w": 17,
-            "x": 1721,
-            "y": 407
+            "x": 977,
+            "y": 408
         },
         {
             "h": 26,
             "name": "fire_skull_active_4",
             "w": 17,
-            "x": 1412,
-            "y": 407
+            "x": 956,
+            "y": 408
         },
         {
             "h": 23,
             "name": "fire_skull_active_5",
             "w": 17,
-            "x": 795,
-            "y": 436
+            "x": 1060,
+            "y": 435
         },
         {
             "h": 23,
             "name": "fire_skull_active_6",
             "w": 17,
-            "x": 697,
-            "y": 436
+            "x": 1039,
+            "y": 435
         },
         {
             "h": 26,
             "name": "fire_skull_active_7",
             "w": 17,
-            "x": 1391,
+            "x": 1880,
             "y": 407
         },
         {
             "h": 26,
             "name": "fire_skull_active_8",
             "w": 17,
-            "x": 1290,
+            "x": 1752,
             "y": 407
         },
         {
             "h": 23,
             "name": "fire_skull_idle_1",
             "w": 17,
-            "x": 175,
-            "y": 431
+            "x": 536,
+            "y": 430
         },
         {
             "h": 23,
             "name": "fire_skull_idle_2",
             "w": 17,
-            "x": 676,
-            "y": 436
+            "x": 918,
+            "y": 435
         },
         {
             "h": 26,
             "name": "fire_skull_idle_3",
             "w": 17,
-            "x": 951,
+            "x": 1496,
             "y": 408
         },
         {
@@ -120,29 +120,29 @@
             "h": 23,
             "name": "fire_skull_idle_5",
             "w": 17,
-            "x": 1956,
+            "x": 897,
             "y": 435
         },
         {
             "h": 23,
             "name": "fire_skull_idle_6",
             "w": 17,
-            "x": 1935,
+            "x": 708,
             "y": 435
         },
         {
             "h": 26,
             "name": "fire_skull_idle_7",
             "w": 17,
-            "x": 1880,
-            "y": 407
+            "x": 1475,
+            "y": 408
         },
         {
             "h": 26,
             "name": "fire_skull_idle_8",
             "w": 17,
-            "x": 1742,
-            "y": 407
+            "x": 1332,
+            "y": 408
         }
     ],
     "frames_offsets": [

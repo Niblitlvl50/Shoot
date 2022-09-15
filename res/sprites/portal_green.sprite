@@ -49,28 +49,28 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 1321,
+            "x": 1247,
             "y": 500
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 931,
+            "x": 1097,
             "y": 500
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 1011,
+            "x": 867,
             "y": 499
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 1458,
+            "x": 1383,
             "y": 462
         },
         {
@@ -91,7 +91,7 @@
             "h": 40,
             "name": "portal_green_begin_7",
             "w": 13,
-            "x": 2033,
+            "x": 2032,
             "y": 349
         },
         {
@@ -112,35 +112,35 @@
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 1269,
+            "x": 1244,
             "y": 462
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 980,
+            "x": 836,
             "y": 499
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 1094,
+            "x": 1128,
             "y": 500
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 1280,
+            "x": 1206,
             "y": 500
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 1233,
+            "x": 1159,
             "y": 500
         },
         {
@@ -154,7 +154,7 @@
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 1339,
+            "x": 1336,
             "y": 363
         },
         {
@@ -175,14 +175,14 @@
             "h": 42,
             "name": "portal_green_idle_5",
             "w": 25,
-            "x": 1233,
+            "x": 1234,
             "y": 358
         },
         {
             "h": 44,
             "name": "portal_green_idle_6",
             "w": 28,
-            "x": 2001,
+            "x": 2000,
             "y": 349
         },
         {
