@@ -249,6 +249,7 @@ Editor::Editor(
     };
 
     editor::LoadAllSprites("res/sprites/all_sprite_files.json");
+    editor::LoadAllSounds("res/sound/all_sounds.json");
     editor::LoadAllWeapons("res/weapon_config.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllTextures("res/textures/all_textures.json");

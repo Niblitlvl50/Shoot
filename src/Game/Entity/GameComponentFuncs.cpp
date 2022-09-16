@@ -6,6 +6,7 @@
 #include "Factories.h"
 
 #include "DamageSystem.h"
+#include "Sound/SoundSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
@@ -919,6 +920,36 @@ namespace
 
         return true;
     }
+
+    bool CreateSound(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SoundSystem* sound_system = context->GetSystem<game::SoundSystem>();
+        sound_system->AllocateSoundComponent(entity->id);
+        return true;
+    }
+
+    bool ReleaseSound(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SoundSystem* sound_system = context->GetSystem<game::SoundSystem>();
+        sound_system->ReleaseSoundComponent(entity->id);
+        return true;
+    }
+
+    bool UpdateSound(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string sound_file;
+        std::string play_trigger;
+        uint32_t parameters = 0;
+
+        FindAttribute(SOUND_ATTRIBUTE, properties, sound_file, FallbackMode::SET_DEFAULT);
+        FindAttribute(SOUND_PLAY_PARAMETERS, properties, parameters, FallbackMode::SET_DEFAULT);
+        FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, play_trigger, FallbackMode::SET_DEFAULT);
+
+        game::SoundSystem* sound_system = context->GetSystem<game::SoundSystem>();
+        sound_system->SetSoundComponentData(
+            entity->id, sound_file, game::SoundInstancePlayParameter(parameters), hash::Hash(play_trigger.c_str()));
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -950,4 +981,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(INTERACTION_SWITCH_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteractionSwitch);
     entity_manager->RegisterComponent(DIALOG_COMPONENT, CreateDialog, ReleaseDialog, UpdateDialog);
     entity_manager->RegisterComponent(WEAPON_LOADOUT_COMPONENT, CreateNothing, DestroyNothing, UpdateWeaponLoadout);
+    entity_manager->RegisterComponent(SOUND_COMPONENT, CreateSound, ReleaseSound, UpdateSound);
 }

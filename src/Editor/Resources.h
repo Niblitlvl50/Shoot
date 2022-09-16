@@ -10,6 +10,9 @@ namespace editor
     bool LoadAllSprites(const char* all_sprites_file);
     const std::vector<std::string>& GetAllSprites();
 
+    bool LoadAllSounds(const char* all_sounds_file);
+    const std::vector<std::string>& GetAllSounds();
+
     bool LoadAllWeapons(const char* weapon_config_file);
     const std::vector<std::string>& GetAllWeapons();
 

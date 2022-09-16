@@ -11,6 +11,7 @@
 namespace
 {
     std::vector<std::string> g_all_sprite_files;
+    std::vector<std::string> g_all_sounds_files;
 
     const char* g_all_entities_filename = nullptr;
     std::vector<std::string> g_all_entities;
@@ -73,6 +74,16 @@ bool editor::LoadAllSprites(const char* all_sprites_file)
 const std::vector<std::string>& editor::GetAllSprites()
 {
     return g_all_sprite_files;
+}
+
+bool editor::LoadAllSounds(const char* all_sounds_file)
+{
+    g_all_sounds_files = ReadListFile(all_sounds_file, "all_sounds");
+}
+
+const std::vector<std::string>& editor::GetAllSounds()
+{
+    return g_all_sounds_files;
 }
 
 bool editor::LoadAllWeapons(const char* weapon_config_file)

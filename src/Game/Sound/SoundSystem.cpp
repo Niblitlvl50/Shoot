@@ -1,5 +1,7 @@
 
 #include "SoundSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
+
 #include "System/Audio.h"
 #include "System/Hash.h"
 
@@ -11,16 +13,24 @@
 #include "Rendering/Color.h"
 
 #include <string>
+#include <limits>
 
 namespace tweak_values
 {
     constexpr float fade_time_s = 2.0f;
 }
 
+namespace
+{
+    constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
+}
+
 using namespace game;
 
-SoundSystem::SoundSystem()
-    : m_current_track(MusicTrack::None)
+SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
+    : m_trigger_system(trigger_system)
+    , m_sound_components(n)
+    , m_current_track(MusicTrack::None)
     , m_requested_track(MusicTrack::None)
     , m_current_transition(SoundTransition::Cut)
     , m_transition_timer(0.0f)
@@ -78,6 +88,50 @@ void SoundSystem::PlayBackgroundMusic(MusicTrack track, SoundTransition transiti
 void SoundSystem::StopBackgroundMusic()
 {
     PlayBackgroundMusic(MusicTrack::None, SoundTransition::CrossFade);
+}
+
+SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
+{
+    SoundInstanceComponent component;
+    component.callback_id = NO_CALLBACK_SET;
+
+    return m_sound_components.Set(entity_id, std::move(component));
+}
+
+void SoundSystem::ReleaseSoundComponent(uint32_t entity_id)
+{
+    SoundInstanceComponent* component = m_sound_components.Get(entity_id);
+    if(component->callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->callback_id, entity_id);
+
+    m_sound_components.Release(entity_id);
+}
+
+void SoundSystem::SetSoundComponentData(
+    uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameters, uint32_t play_trigger)
+{
+    const audio::SoundPlayback playback_param =
+        (play_parameters & SoundInstancePlayParameter::SP_LOOPING) ? audio::SoundPlayback::LOOPING : audio::SoundPlayback::ONCE;
+
+    SoundInstanceComponent* component = m_sound_components.Get(entity_id);
+    component->sound = audio::CreateSound(sound_file.c_str(), playback_param);
+    component->play_trigger = play_trigger;
+
+    if(component->callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->callback_id, entity_id);
+
+    if(play_parameters & SoundInstancePlayParameter::SP_TRIGGER_ACTIVATED)
+    {
+        const TriggerCallback callback = [component](uint32_t trigger_id) {
+            component->sound->Play();
+        };
+        component->callback_id = m_trigger_system->RegisterTriggerCallback(component->play_trigger, callback, entity_id);
+    }
+
+    if(play_parameters & SoundInstancePlayParameter::SP_ACTIVE_ON_LOAD)
+    {
+        component->sound->Play();
+    }
 }
 
 uint32_t SoundSystem::Id() const

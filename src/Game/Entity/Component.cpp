@@ -119,6 +119,8 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_primary",             Variant(std::string()) },
     { "weapon_secondary",           Variant(std::string()) },
     { "weapon_tertiary",            Variant(std::string()) },
+    { "sound_file",                 Variant(std::string()) },
+    { "sound_properties",           Variant(0u) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -230,6 +232,9 @@ extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE              = default_attributes
 extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[88].hash;;
 extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[89].hash;;
 
+extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[90].hash;
+extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
+
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
 extern const uint32_t TRANSFORM_COMPONENT           = hash::Hash("transform");
@@ -268,6 +273,7 @@ extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_syste
 extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter");
 extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polygon");
 extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout");
+extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
 
 
 const char* ComponentNameFromHash(uint32_t hash)
@@ -348,6 +354,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "textured_polygon";
     else if(hash == WEAPON_LOADOUT_COMPONENT)
         return "weapon_loadout";
+    else if(hash == SOUND_COMPONENT)
+        return "sound";
 
     return "Unknown";
 }
@@ -370,6 +378,7 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
+    MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE, OFFSET_ATTRIBUTE, SHADOW_COLOR_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),

@@ -13,6 +13,7 @@
 #include "InteractionSystem/InteractionType.h"
 #include "Math/EasingFunctions.h"
 #include "Math/MathFunctions.h"
+#include "Sound/SoundSystem.h"
 #include "TriggerSystem/TriggerTypes.h"
 #include "FontIds.h"
 #include "Rendering/RenderSystem.h"
@@ -413,6 +414,22 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
             attribute.value = weapon_names[out_index];
 
         return changed;
+    }
+    else if(attribute.id == SOUND_ATTRIBUTE)
+    {
+        const std::vector<std::string>& all_entities = editor::GetAllSounds();
+
+        int out_index = 0;
+        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_entities, out_index);
+        if(changed)
+            attribute.value = all_entities[out_index];
+        
+        return changed;
+    }
+    else if(attribute.id == SOUND_PLAY_PARAMETERS)
+    {
+        return DrawBitfieldProperty(
+            attribute_name, std::get<uint32_t>(attribute.value), game::all_sound_play_parameters, game::SoundInstancePlayParamterToString);
     }
     else
     {
