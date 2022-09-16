@@ -1,0 +1,27 @@
+{
+    "all_sounds": [
+        "res/sound/background_music/boss1.ogg",
+        "res/sound/background_music/level3.ogg",
+        "res/sound/background_music/level4.ogg",
+        "res/sound/background_music/russian_track.ogg",
+        "res/sound/background_music/song18.ogg",
+        "res/sound/background_music/winds_of_stories.ogg",
+        "res/sound/blaster-probe-gun.wav",
+        "res/sound/blaster-ricochet.wav",
+        "res/sound/demon_death.wav",
+        "res/sound/explosion_metallic.wav",
+        "res/sound/ingame_phoenix.wav",
+        "res/sound/item_pickup.wav",
+        "res/sound/laser.wav",
+        "res/sound/ooa_sound_short.wav",
+        "res/sound/ooa_sound.wav",
+        "res/sound/plasma_fire.wav",
+        "res/sound/punch.wav",
+        "res/sound/rocket_fire1.wav",
+        "res/sound/rocket_fire2.wav",
+        "res/sound/running-cartoon-footsteps.wav",
+        "res/sound/shotgun_fire.wav",
+        "res/sound/shotgun_reload1.wav",
+        "res/sound/shotgun_reload2.wav"
+    ]
+}
