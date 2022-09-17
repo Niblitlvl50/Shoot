@@ -939,15 +939,21 @@ namespace
     {
         std::string sound_file;
         std::string play_trigger;
+        std::string stop_trigger;
         uint32_t parameters = 0;
 
         FindAttribute(SOUND_ATTRIBUTE, properties, sound_file, FallbackMode::SET_DEFAULT);
         FindAttribute(SOUND_PLAY_PARAMETERS, properties, parameters, FallbackMode::SET_DEFAULT);
         FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, play_trigger, FallbackMode::SET_DEFAULT);
+        FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, stop_trigger, FallbackMode::SET_DEFAULT);
 
         game::SoundSystem* sound_system = context->GetSystem<game::SoundSystem>();
         sound_system->SetSoundComponentData(
-            entity->id, sound_file, game::SoundInstancePlayParameter(parameters), hash::Hash(play_trigger.c_str()));
+            entity->id,
+            sound_file,
+            game::SoundInstancePlayParameter(parameters),
+            hash::Hash(play_trigger.c_str()),
+            hash::Hash(stop_trigger.c_str()));
         return true;
     }
 }

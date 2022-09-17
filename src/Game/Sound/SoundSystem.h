@@ -78,7 +78,10 @@ namespace game
     {
         audio::ISoundPtr sound;
         uint32_t play_trigger;
-        uint32_t callback_id;
+        uint32_t stop_trigger;
+
+        uint32_t play_callback_id;
+        uint32_t stop_callback_id;
     };
 
     class SoundSystem : public mono::IGameSystem
@@ -94,7 +97,7 @@ namespace game
         SoundInstanceComponent* AllocateSoundComponent(uint32_t entity_id);
         void ReleaseSoundComponent(uint32_t entity_id);
         void SetSoundComponentData(
-            uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameter, uint32_t play_trigger);
+            uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameter, uint32_t play_trigger, uint32_t stop_trigger);
 
         uint32_t Id() const override;
         const char* Name() const override;

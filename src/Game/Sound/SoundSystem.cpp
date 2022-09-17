@@ -93,7 +93,8 @@ void SoundSystem::StopBackgroundMusic()
 SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
 {
     SoundInstanceComponent component;
-    component.callback_id = NO_CALLBACK_SET;
+    component.play_callback_id = NO_CALLBACK_SET;
+    component.stop_callback_id = NO_CALLBACK_SET;
 
     return m_sound_components.Set(entity_id, std::move(component));
 }
@@ -101,14 +102,17 @@ SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
 void SoundSystem::ReleaseSoundComponent(uint32_t entity_id)
 {
     SoundInstanceComponent* component = m_sound_components.Get(entity_id);
-    if(component->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->callback_id, entity_id);
+    if(component->play_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->play_callback_id, entity_id);
+
+    if(component->stop_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->stop_trigger, component->stop_callback_id, entity_id);
 
     m_sound_components.Release(entity_id);
 }
 
 void SoundSystem::SetSoundComponentData(
-    uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameters, uint32_t play_trigger)
+    uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameters, uint32_t play_trigger, uint32_t stop_trigger)
 {
     const audio::SoundPlayback playback_param =
         (play_parameters & SoundInstancePlayParameter::SP_LOOPING) ? audio::SoundPlayback::LOOPING : audio::SoundPlayback::ONCE;
@@ -116,17 +120,23 @@ void SoundSystem::SetSoundComponentData(
     SoundInstanceComponent* component = m_sound_components.Get(entity_id);
     component->sound = audio::CreateSound(sound_file.c_str(), playback_param);
     component->play_trigger = play_trigger;
+    component->stop_trigger = stop_trigger;
 
-    if(component->callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->callback_id, entity_id);
+    if(component->play_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->play_callback_id, entity_id);
 
-    if(play_parameters & SoundInstancePlayParameter::SP_TRIGGER_ACTIVATED)
-    {
-        const TriggerCallback callback = [component](uint32_t trigger_id) {
-            component->sound->Play();
-        };
-        component->callback_id = m_trigger_system->RegisterTriggerCallback(component->play_trigger, callback, entity_id);
-    }
+    if(component->stop_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->stop_trigger, component->stop_callback_id, entity_id);
+
+    const TriggerCallback play_callback = [component](uint32_t trigger_id) {
+        component->sound->Play();
+    };
+    component->play_callback_id = m_trigger_system->RegisterTriggerCallback(component->play_trigger, play_callback, entity_id);
+
+    const TriggerCallback stop_callback = [component](uint32_t trigger_id) {
+        component->sound->Stop();
+    };
+    component->stop_callback_id = m_trigger_system->RegisterTriggerCallback(component->stop_trigger, stop_callback, entity_id);
 
     if(play_parameters & SoundInstancePlayParameter::SP_ACTIVE_ON_LOAD)
     {
