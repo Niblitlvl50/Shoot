@@ -45,6 +45,8 @@ namespace tweak_values
     constexpr float blink_cooldown_threshold_s = 2.0f;
     constexpr float shockwave_cooldown_s = 2.0f;
     constexpr float shield_cooldown_s = 2.0f;
+
+    constexpr float footstep_length = 0.25f;
 }
 
 using namespace game;
@@ -66,6 +68,7 @@ PlayerLogic::PlayerLogic(
     , m_aim_target(0.0f)
     , m_aim_velocity(0.0f)
     , m_weapon_index(0)
+    , m_accumulated_step_distance(0.0f)
     , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
     , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
     , m_shield_cooldown(tweak_values::shield_cooldown_s)
@@ -94,6 +97,8 @@ PlayerLogic::PlayerLogic(
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+    m_running_sound = audio::CreateSound("res/sound/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
+    m_running_sound->SetVolume(0.75f);
 
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
@@ -162,9 +167,14 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
 {
     const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector last_position = m_player_info->position;
+    const math::Vector current_position = math::GetPosition(transform);
+
+    m_accumulated_step_distance += math::DistanceBetween(last_position, current_position);
+
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
 
-    m_player_info->position = math::GetPosition(transform);
+    m_player_info->position = current_position;
     m_player_info->velocity = body->GetVelocity();
     m_player_info->direction = math::GetZRotation(transform);
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
@@ -212,6 +222,13 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
         anim_id = m_run_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
         m_footsteps_effect->EmitFootStepsAt(world_position - math::Vector(0.0f, 0.15f));
+    }
+
+    if(m_accumulated_step_distance >= tweak_values::footstep_length)
+    {
+        m_footsteps_effect->EmitFootStepsAt(world_position - math::Vector(0.0f, 0.15f));
+        m_running_sound->Play();
+        m_accumulated_step_distance = 0.0f;
     }
 
     mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);

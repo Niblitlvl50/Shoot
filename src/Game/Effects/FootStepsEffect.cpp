@@ -35,7 +35,7 @@ namespace
         );
         component_view.size = 20.0f;
         component_view.start_size = 20.0f;
-        component_view.end_size = 10.0f;
+        component_view.end_size = 30.0f;
         component_view.start_life = life;
         component_view.life = life;
     }

@@ -123,13 +123,15 @@ namespace game
         int m_death_anim_id;
 
         float m_blink_duration_counter;
-        float m_blink_cooldown;
         math::Vector m_blink_direction;
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
         std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
         std::unique_ptr<class FootStepsEffect> m_footsteps_effect;
         audio::ISoundPtr m_blink_sound;
+        audio::ISoundPtr m_running_sound;
+        float m_accumulated_step_distance;
 
+        float m_blink_cooldown;
         float m_shockwave_cooldown;
         float m_shield_cooldown;
 
