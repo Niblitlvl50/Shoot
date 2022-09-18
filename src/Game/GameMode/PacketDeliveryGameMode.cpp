@@ -38,6 +38,8 @@
 #include "Entity/EntityLogicSystem.h"
 
 #include "WorldFile.h"
+#include "Factories.h"
+#include "IDebugDrawer.h"
 
 namespace
 {
@@ -100,8 +102,10 @@ void PacketDeliveryGameMode::Begin(
     m_gameover_token = m_event_handler->AddListener(on_game_over);
 
     const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
-        const GameModeStates new_state = pause_event.pause ? GameModeStates::PAUSED : GameModeStates::RUN_GAME_MODE;
+        const GameModeStates previous_state = m_states.PreviousState();
+        const GameModeStates new_state = pause_event.pause ? GameModeStates::PAUSED : previous_state;
         m_states.TransitionTo(new_state);
+
         return mono::EventResult::PASS_ON;
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
@@ -187,6 +191,38 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
 void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
+
+/*
+    const char* state_text = nullptr;
+
+    switch(m_states.ActiveState())
+    {
+    case GameModeStates::FADE_IN:
+        state_text = "Fade In";
+        break;
+    case GameModeStates::RUN_GAME_MODE:
+        state_text = "Run Game Mode";
+        break;
+    case GameModeStates::PACKAGE_DESTROYED:
+        state_text = "Package Destroyed";
+        break;
+    case GameModeStates::TIMEOUT:
+        state_text = "Time out";
+        break;
+    case GameModeStates::LEVEL_COMPLETED:
+        state_text = "Level Completed";
+        break;
+    case GameModeStates::PAUSED:
+        state_text = "Paused";
+        break;
+    case GameModeStates::FADE_OUT:
+        state_text = "Fade Out";
+        break;
+    }
+
+    //char state_text[512] = { 0 };
+    g_debug_drawer->DrawScreenText(state_text, math::Vector(1.0f, 5.0f), mono::Color::OFF_WHITE);
+*/
 }
 
 void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)

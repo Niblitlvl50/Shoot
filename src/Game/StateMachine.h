@@ -72,6 +72,11 @@ public:
         return m_active_state;
     }
 
+    StateId PreviousState() const
+    {
+        return m_previous_state;
+    }
+
     void UpdateState(const UpdateContext& argument)
     {
         if(m_active_state != m_wanted_state)
@@ -87,6 +92,7 @@ public:
             if(state.enter_state)
                 state.enter_state();
 
+            m_previous_state = m_active_state;
             m_active_state = m_wanted_state;
         }
 
@@ -97,6 +103,7 @@ public:
 
 private:
 
+    StateId m_previous_state{ -1 };
     StateId m_active_state{ -1 };
     StateId m_wanted_state{ -1 };
     StateTable m_states;

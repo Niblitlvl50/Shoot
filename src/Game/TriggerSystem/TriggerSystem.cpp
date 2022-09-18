@@ -406,7 +406,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
             math::Vector text_position = math::Vector(1.0f, 4.0f);
 
             const char* hash_string = hash::HashLookup(trigger_hash);
-            game::g_debug_drawer->DrawScreenTextFading(hash_string, text_position, mono::Color::GRAY, 2.0f);
+            game::g_debug_drawer->DrawScreenTextFading(hash_string, text_position, mono::Color::GRAY, 1.0f);
 
             const auto it = m_trigger_hash_to_entity_ids.find(trigger_hash);
             if(it != m_trigger_hash_to_entity_ids.end())
@@ -418,7 +418,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
 
                     text_position -= math::Vector(0.0f, 0.5f);
                     const char* entity_name = m_entity_system->GetEntityName(entity_id);
-                    game::g_debug_drawer->DrawScreenTextFading(entity_name, text_position, mono::Color::OFF_WHITE, 2.0f);
+                    game::g_debug_drawer->DrawScreenTextFading(entity_name, text_position, mono::Color::OFF_WHITE, 1.0f);
                 }
             }
         }
