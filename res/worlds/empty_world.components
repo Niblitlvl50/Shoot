@@ -501,36 +501,6 @@
                     ]
                 },
                 {
-                    "hash": 235771284,
-                    "name": "sound",
-                    "properties": [
-                        {
-                            "id": 3146177751,
-                            "name": "sound_file",
-                            "variant_type": 6,
-                            "variant_value": "res/sound/running-cartoon-footseps.wav"
-                        },
-                        {
-                            "id": 2209811736,
-                            "name": "sound_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2200757869,
-                            "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "play_sound"
-                        },
-                        {
-                            "id": 3946117592,
-                            "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -595,30 +565,6 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 1848570119,
-                    "name": "time_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "play_sound"
-                        },
-                        {
-                            "id": 3027259768,
-                            "name": "time_stamp",
-                            "variant_type": 1,
-                            "variant_value": 1500
-                        },
-                        {
-                            "id": 2374006294,
-                            "name": "repeating",
-                            "variant_type": 0,
-                            "variant_value": true
                         }
                     ]
                 }
