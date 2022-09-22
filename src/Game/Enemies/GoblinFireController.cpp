@@ -118,10 +118,7 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     const bool is_player_active = (player_info != nullptr);
-    if(!is_player_active || !is_visible)
-        return;
-
-    if(m_idle_timer < 1000)
+    if(!is_player_active || !is_visible || m_idle_timer < 1000)
         return;
 
     const bool transition_to_attack = mono::Chance(25);
@@ -170,6 +167,10 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
         const bool fire = mono::Chance(75);
         const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
+    }
+    else if(result.is_stuck)
+    {
+        m_states.TransitionTo(States::IDLE);
     }
 }
 

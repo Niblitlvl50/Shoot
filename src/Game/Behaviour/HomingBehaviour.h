@@ -11,6 +11,7 @@ namespace game
     {
         float new_heading;
         float distance_to_target;
+        bool is_stuck;
     };
 
     class HomingBehaviour
@@ -38,6 +39,7 @@ namespace game
         mono::IBody* m_body;
         float m_current_heading;
 
+        math::Vector m_last_position;
         math::Vector m_target_position;
         float m_forward_velocity;
         float m_angular_velocity; // Degrees per second

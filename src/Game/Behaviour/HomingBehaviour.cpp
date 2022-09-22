@@ -29,6 +29,7 @@ void HomingBehaviour::SetBody(mono::IBody* body)
 {
     m_body = body;
     m_current_heading = m_body->GetAngle();
+    m_last_position = m_body->GetPosition();
 }
 
 void HomingBehaviour::SetHeading(float heading)
@@ -68,12 +69,13 @@ void HomingBehaviour::SetHomingDuration(float duration_s)
 
 HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
 {
-    const math::Vector& entity_position = m_body->GetPosition();
-    const math::Vector& delta = math::Normalized(m_target_position - entity_position);
+    m_last_position = m_body->GetPosition();
+    const math::Vector& delta = math::Normalized(m_target_position - m_last_position);
 
     HomingResult result;
-    result.distance_to_target = math::DistanceBetween(m_target_position, entity_position);
+    result.distance_to_target = math::DistanceBetween(m_target_position, m_last_position);
     result.new_heading = m_current_heading;
+    result.is_stuck = false;
 
     m_homing_start_delay_s -= update_context.delta_s;
     if(m_homing_start_delay_s > 0.0f)

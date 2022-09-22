@@ -178,6 +178,10 @@ void ImpController::Reposition(const mono::UpdateContext& update_context)
         const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
     }
+    else if(result.is_stuck)
+    {
+        m_states.TransitionTo(States::IDLE);
+    }
 }
 
 void ImpController::ToPrepareAttack()
