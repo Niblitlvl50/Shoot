@@ -70,8 +70,16 @@ void GoblinFireController::Update(const mono::UpdateContext& update_context)
 void GoblinFireController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_position = m_homing_behaviour.GetTargetPosition();
+
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::distance_to_player_threshold, mono::Color::CYAN);
+
+    debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::BLUE);
+    debug_drawer->DrawPoint(target_position, 5.0f, mono::Color::BLUE);
+
+    debug_drawer->DrawLine({ world_position, m_attack_position }, 1.0f, mono::Color::RED);
+    debug_drawer->DrawPoint(m_attack_position, 5.0f, mono::Color::RED);
 }
 
 const char* GoblinFireController::GetDebugCategory() const
@@ -169,6 +177,11 @@ void GoblinFireController::ToPrepareAttack()
 {
     m_prepare_timer = 0;
     m_sprite->SetShade(mono::Color::RED);
+
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
+    if(player_info)
+        m_attack_position = player_info->position;
 }
 
 void GoblinFireController::PrepareAttack(const mono::UpdateContext& update_context)
