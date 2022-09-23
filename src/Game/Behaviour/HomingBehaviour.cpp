@@ -8,6 +8,11 @@
 
 #include <cassert>
 
+namespace tweak_values
+{
+    constexpr float block_detection_distance = 0.25f;
+}
+
 using namespace game;
 
 HomingBehaviour::HomingBehaviour()
@@ -17,6 +22,8 @@ HomingBehaviour::HomingBehaviour()
     , m_angular_velocity(180.0f)
     , m_homing_start_delay_s(0.0f)
     , m_homing_duration_s(math::INF)
+    , m_sample_index(0)
+    , m_timestamp(0)
 { }
 
 HomingBehaviour::HomingBehaviour(mono::IBody* body)
@@ -29,7 +36,6 @@ void HomingBehaviour::SetBody(mono::IBody* body)
 {
     m_body = body;
     m_current_heading = m_body->GetAngle();
-    m_last_position = m_body->GetPosition();
 }
 
 void HomingBehaviour::SetHeading(float heading)
@@ -40,6 +46,7 @@ void HomingBehaviour::SetHeading(float heading)
 void HomingBehaviour::SetTargetPosition(const math::Vector& position)
 {
     m_target_position = position;
+    m_sample_index = 0;
 }
 
 const math::Vector& HomingBehaviour::GetTargetPosition() const
@@ -69,11 +76,11 @@ void HomingBehaviour::SetHomingDuration(float duration_s)
 
 HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
 {
-    m_last_position = m_body->GetPosition();
-    const math::Vector& delta = math::Normalized(m_target_position - m_last_position);
+    const math::Vector body_position = m_body->GetPosition();
+    const math::Vector& delta = math::Normalized(m_target_position - body_position);
 
     HomingResult result;
-    result.distance_to_target = math::DistanceBetween(m_target_position, m_last_position);
+    result.distance_to_target = math::DistanceBetween(m_target_position, body_position);
     result.new_heading = m_current_heading;
     result.is_stuck = false;
 
@@ -103,5 +110,44 @@ HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
     m_body->SetVelocity(angle1 * m_forward_velocity);
 
     result.new_heading = m_current_heading;
+    result.is_stuck = CheckIfBlocked(m_position_samples, update_context.timestamp, body_position);
+
     return result;
+}
+
+bool HomingBehaviour::CheckIfBlocked(std::array<math::Vector, 10>& position_samples, uint32_t current_timestamp, const math::Vector& current_position)
+{
+    if(current_timestamp < m_timestamp + 500)
+        return false;
+
+    const int sample_index = m_sample_index % 10;
+    m_sample_index++;
+
+    m_position_samples[sample_index] = current_position;
+    m_timestamp = current_timestamp;
+
+    if(m_sample_index < 10)
+        return false;
+
+    bool blocked = true;
+    const float block_detection_distance_sq =
+        tweak_values::block_detection_distance * tweak_values::block_detection_distance;
+
+    math::Vector center;
+    for(const math::Vector& sample : position_samples)
+        center += sample;
+
+    center = center / position_samples.size();
+
+    for(const math::Vector& sample : position_samples)
+    {
+        const float distance_to_center_sq = math::DistanceBetweenSquared(center, sample);
+        if(distance_to_center_sq > block_detection_distance_sq)
+        {
+            blocked = false;
+            break;
+        }
+    }
+
+    return blocked;
 }

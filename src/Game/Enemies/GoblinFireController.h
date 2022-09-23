@@ -38,7 +38,6 @@ namespace game
 
         enum class States
         {
-            NONE,
             IDLE,
             REPOSITION,
             PREPARE_ATTACK,
