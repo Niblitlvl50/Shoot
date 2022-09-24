@@ -25,29 +25,29 @@
             "h": 15,
             "name": "explosion_big_idle_1",
             "w": 15,
-            "x": 583,
-            "y": 479
+            "x": 168,
+            "y": 484
         },
         {
             "h": 50,
             "name": "explosion_big_idle_2",
             "w": 50,
-            "x": 961,
-            "y": 313
+            "x": 420,
+            "y": 345
         },
         {
             "h": 65,
             "name": "explosion_big_idle_3",
             "w": 63,
-            "x": 218,
+            "x": 270,
             "y": 279
         },
         {
             "h": 64,
             "name": "explosion_big_idle_4",
             "w": 63,
-            "x": 368,
-            "y": 279
+            "x": 1542,
+            "y": 298
         },
         {
             "h": 76,
@@ -81,28 +81,28 @@
             "h": 73,
             "name": "explosion_big_idle_9",
             "w": 81,
-            "x": 1165,
-            "y": 233
+            "x": 665,
+            "y": 236
         },
         {
             "h": 67,
             "name": "explosion_big_idle_10",
             "w": 80,
-            "x": 134,
+            "x": 186,
             "y": 279
         },
         {
             "h": 64,
             "name": "explosion_big_idle_11",
             "w": 79,
-            "x": 285,
+            "x": 337,
             "y": 279
         },
         {
             "h": 62,
             "name": "explosion_big_idle_12",
             "w": 79,
-            "x": 1542,
+            "x": 1609,
             "y": 298
         }
     ],

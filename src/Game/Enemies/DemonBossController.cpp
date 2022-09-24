@@ -66,7 +66,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     m_idle_animation = m_entity_sprite->GetAnimationIdFromName("idle");
     m_turn_animation = m_entity_sprite->GetAnimationIdFromName("turn");
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack_turn");
-    m_death_animation = m_entity_sprite->GetAnimationIdFromName("dead");
+    m_death_animation = m_entity_sprite->GetAnimationIdFromName("die");
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
