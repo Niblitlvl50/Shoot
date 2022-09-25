@@ -37,7 +37,7 @@ namespace
     constexpr mono::Color::RGBA g_area_trigger_color = mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.25f);
     constexpr mono::Color::RGBA g_trigger_name_color = mono::Color::OFF_WHITE;
     
-    constexpr mono::Color::RGBA g_spawn_point_color = mono::Color::RGBA(0.0f, 0.0f, 0.8f, 0.25f);
+    constexpr mono::Color::RGBA g_spawn_point_color = mono::Color::RGBA(0.0f, 0.0f, 0.8f, 0.5f);
 }
 
 void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
