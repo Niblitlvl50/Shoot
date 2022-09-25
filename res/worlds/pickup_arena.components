@@ -5839,8 +5839,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.421875,
-                                "y": 6.6106767654418945
+                                "x": -0.25,
+                                "y": 6.625
                             }
                         },
                         {
@@ -5848,30 +5848,6 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2050902347,
-                    "name": "interaction",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "read_sign_1"
-                        },
-                        {
-                            "id": 648402708,
-                            "name": "interaction_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3732203999,
-                            "name": "draw_name",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -12449,7 +12425,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1031692888,
@@ -13008,150 +12984,6 @@
             "entity_properties": 0,
             "name": "brick_wall_1",
             "uuid_hash": 1008854935
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "signpost_simple"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 4.403645992279053,
-                                "y": 6.682291507720947
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2050902347,
-                    "name": "interaction",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "read_sign_1"
-                        },
-                        {
-                            "id": 648402708,
-                            "name": "interaction_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3732203999,
-                            "name": "draw_name",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "signpost_simple.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 4
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "signpost_simple",
-            "uuid_hash": 2734704516
         },
         {
             "components": [
@@ -15855,7 +15687,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1031692888,
@@ -16038,7 +15870,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1031692888,
@@ -25808,7 +25640,7 @@
                             "id": 2483026461,
                             "name": "sort_offset",
                             "variant_type": 3,
-                            "variant_value": 0.4000000059604645
+                            "variant_value": 0.5
                         },
                         {
                             "id": 1031692888,
@@ -30644,7 +30476,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -11.25,
+                                "x": -11.375,
                                 "y": 4.5
                             }
                         },
@@ -37584,8 +37416,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -10.25,
-                                "y": 20.25
+                                "x": -10.625,
+                                "y": 20.625
                             }
                         },
                         {
@@ -44880,8 +44712,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -15.625,
-                                "y": 16.75
+                                "x": -18.125,
+                                "y": 13.375
                             }
                         },
                         {
@@ -45012,8 +44844,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -15.125,
-                                "y": 16.875
+                                "x": -16.625,
+                                "y": 11.5
                             }
                         },
                         {
@@ -45144,8 +44976,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -15.125,
-                                "y": 17.25
+                                "x": -17.875,
+                                "y": 11.625
                             }
                         },
                         {
@@ -49597,7 +49429,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.75,
+                                "x": -4.625,
                                 "y": 20.5
                             }
                         },

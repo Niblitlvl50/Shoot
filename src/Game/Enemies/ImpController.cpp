@@ -96,6 +96,25 @@ void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
         debug_drawer->DrawLine({ world_position, m_target_player->position }, 1.0f, mono::Color::RED);
         debug_drawer->DrawPoint(m_target_player->position, 5.0f, mono::Color::RED);
     }
+
+    const char* state_string = nullptr;
+    switch(m_states.ActiveState())
+    {
+    case States::IDLE:
+        state_string = "Idle";
+        break;
+    case States::REPOSITION:
+        state_string = "Reposition";
+        break;
+    case States::PREPARE_ATTACK:
+        state_string = "Prepare Attack";
+        break;
+    case States::ATTACKING:
+        state_string = "Attacking";
+        break;
+    }
+
+    debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
 }
 
 const char* ImpController::GetDebugCategory() const
