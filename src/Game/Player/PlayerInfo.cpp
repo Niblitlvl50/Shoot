@@ -1,6 +1,8 @@
 
 #include "PlayerInfo.h"
 #include "Math/MathFunctions.h"
+#include "EntitySystem/Entity.h"
+
 #include <cstring>
 #include <algorithm>
 
@@ -11,15 +13,16 @@ game::CoopPowerUp game::g_coop_powerup;
 void game::InitializePlayerInfo()
 {
     std::memset(g_players, 0, sizeof(g_players));
+    std::memset(&g_package_info, 0, sizeof(g_package_info));
+    std::memset(&g_coop_powerup, 0, sizeof(g_coop_powerup));
 
     for(game::PlayerInfo& info : game::g_players)
     {
-        info.entity_id = -1;
-        info.killer_entity_id = -1;
+        info.entity_id = mono::INVALID_ID;
+        info.killer_entity_id = mono::INVALID_ID;
     }
 
-    std::memset(&g_package_info, 0, sizeof(g_package_info));
-    std::memset(&g_coop_powerup, 0, sizeof(g_coop_powerup));
+    g_package_info.entity_id = mono::INVALID_ID;
 }
 
 game::PlayerInfo* game::AllocatePlayerInfo(int player_index)
@@ -52,7 +55,11 @@ void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
 
     game::PlayerInfo* it = std::find_if(std::begin(g_players), std::end(g_players), find_func);
     if(it != std::end(g_players))
+    {
         std::memset(it, 0, sizeof(game::PlayerInfo));
+        it->entity_id = mono::INVALID_ID;
+        it->killer_entity_id = mono::INVALID_ID;
+    }
 }
 
 uint32_t game::FindPlayerIndex(const game::PlayerInfo* player_info)
