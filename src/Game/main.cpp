@@ -104,10 +104,13 @@ int main(int argc, char* argv[])
     constexpr size_t max_entities = 1000;
     const Options options = ParseCommandline(argc, argv);
 
+    game::Config game_config;
+    game::LoadConfig(options.game_config, game_config);
+
     System::InitializeContext system_init_context;
     system_init_context.log_file = options.log_file;
-    system_init_context.application = "Risky Delivery Inc";
-    system_init_context.organization = "Nib-Games";
+    system_init_context.application = game_config.application.c_str();
+    system_init_context.organization = game_config.organization.c_str();
 
 #ifdef __APPLE__
     char application_path_buffer[1024] = {};
@@ -117,8 +120,6 @@ int main(int argc, char* argv[])
 
     System::Initialize(system_init_context);
 
-    game::Config game_config;
-    game::LoadConfig(options.game_config, game_config);
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
     game::LoadAllTextures("res/textures/all_textures.json");
     game::LoadAllWorlds("res/worlds/all_worlds.json");
@@ -145,12 +146,15 @@ int main(int argc, char* argv[])
             //System::WindowOptions::FULLSCREEN;
             //System::WindowOptions::DISABLE_VSYNC;
         System::IWindow* window = System::MakeWindow(
-            "game", options.x, options.y, options.width, height, System::WindowOptions(window_options));
+            game_config.application.c_str(),
+            options.x, options.y,
+            options.width, height,
+            System::WindowOptions(window_options));
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
-        render_params.light_mask_texture = "res/textures/lightmasks/light_mask_3.png";
-        render_params.sprite_shadow_texture = "res/textures/shadows/roundshadow.png";
+        render_params.light_mask_texture = game_config.light_mask_texture.c_str();
+        render_params.sprite_shadow_texture = game_config.sprite_shadow_texture.c_str();
         render_params.window = window;
         mono::InitializeRender(render_params);
 

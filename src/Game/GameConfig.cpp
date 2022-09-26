@@ -20,5 +20,11 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
     config.server_replication_interval  = json.value("server_replication_interval", config.server_replication_interval);
     config.client_time_offset           = json.value("client_time_offset", config.client_time_offset);
 
+    config.application                  = json.value("application", config.application);
+    config.organization                 = json.value("organization", config.organization);
+
+    config.light_mask_texture           = json.value("light_mask_texture", config.light_mask_texture);
+    config.sprite_shadow_texture        = json.value("sprite_shadow_texture", config.sprite_shadow_texture);
+
     return true;
 }
