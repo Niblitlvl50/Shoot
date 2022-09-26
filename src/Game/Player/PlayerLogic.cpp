@@ -432,7 +432,6 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     case PickupType::WEAPON_PISTOL:
     case PickupType::WEAPON_PLASMA:
     case PickupType::WEAPON_SHOTGUN:
-        HandleWeaponPickup(type);
         break;
     };
 }
@@ -506,49 +505,6 @@ void PlayerLogic::PickupDrop()
 bool PlayerLogic::HoldingPickup() const
 {
     return (m_picked_up_id != mono::INVALID_ID);
-}
-
-void PlayerLogic::TriggerInteraction()
-{
-    System::Log("playerlogic|Trigger Interaction");
-}
-
-void PlayerLogic::HandleWeaponPickup(PickupType type)
-{
-/*
-    static const std::unordered_map<PickupType, game::WeaponSetup> g_pickup_to_weapon = {
-        { PickupType::WEAPON_PISTOL,    game::GENERIC },
-        { PickupType::WEAPON_PLASMA,    game::PLASMA_GUN },
-        { PickupType::WEAPON_SHOTGUN,   game::FLAK_CANON },
-    };
-
-    static const std::unordered_map<uint32_t, const char*> g_weapon_to_entity = {
-        { game::PLASMA_GUN.weapon_hash, "res/entities/plasma_gun_pickup.entity" },
-        { game::GENERIC.weapon_hash,    "res/entities/rocket_launcher_pickup.entity" },
-        { game::FLAK_CANON.weapon_hash, "res/entities/flak_cannon_pickup.entity" },
-    };
-
-    const auto it = g_pickup_to_weapon.find(type);
-    if(it == g_pickup_to_weapon.end())
-        return;
-
-    const WeaponSetup weapon_type = it->second;
-    m_weapon = m_weapon_system->CreateWeapon(weapon_type, WeaponFaction::PLAYER, m_entity_id);
-
-    const auto it_second = g_weapon_to_entity.find(m_weapon_type.weapon_hash);
-    if(it_second != g_weapon_to_entity.end())
-    {
-        const math::Matrix& player_transform = m_transform_system->GetTransform(m_entity_id);
-
-        mono::Entity spawned_entity = m_entity_system->CreateEntity(it_second->second);
-        math::Matrix& transform = m_transform_system->GetTransform(spawned_entity.id);
-        math::Position(transform, math::GetPosition(player_transform) + math::Vector(1.0f, 1.0f));
-
-        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
-    }
-
-    m_weapon_type = weapon_type;
-*/
 }
 
 void PlayerLogic::MoveInDirection(const math::Vector& direction)

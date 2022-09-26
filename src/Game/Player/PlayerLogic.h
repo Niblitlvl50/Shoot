@@ -65,10 +65,6 @@ namespace game
         void PickupDrop();
         bool HoldingPickup() const; 
 
-        void TriggerInteraction();
-
-        void HandleWeaponPickup(PickupType type);
-        
         void MoveInDirection(const math::Vector& direction);
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);

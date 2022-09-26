@@ -196,29 +196,6 @@ IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction 
     weapon_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
     weapon_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
 
-/*
-    switch(weapon_type)
-    {
-    case WeaponType::TURRET:
-    {
-        weapon_config.magazine_size = 100;
-        weapon_config.projectiles_per_fire = 1;
-        weapon_config.cooldown_seconds = 2.0f;
-        weapon_config.max_distance = 5.0f;
-        weapon_config.target_accuracy = 1.0f;
-
-        weapon_config.thrown_entity = "res/entities/throwable_thing.entity";
-        weapon_config.spawned_entity = "res/entities/torch_small.entity";
-        weapon_config.collision_callback = nullptr;
-
-        break;
-    }
-
-    default:
-        break;
-    }
-    */
-
     return std::make_unique<game::ThrowableWeapon>(setup, weapon_config, m_entity_manager, m_system_context);
 }
 
