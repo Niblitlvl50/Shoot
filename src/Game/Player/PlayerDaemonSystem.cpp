@@ -51,9 +51,11 @@ PlayerDaemonSystem::PlayerDaemonSystem(
 
     m_player_entities = json["player_entities"];
     m_familiar_entities = json["familiar_entities"];
+    m_package_entities = json["package_entities"];
 
     std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
     std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), mono::UniformRandomBitGenerator());
+    std::shuffle(m_package_entities.begin(), m_package_entities.end(), mono::UniformRandomBitGenerator());
 
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -151,7 +153,8 @@ void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, cons
 
 uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
 {
-    const mono::Entity package_entity = m_entity_system->CreateEntity("res/entities/cardboard_box.entity");
+    const std::string& package_entity_file = m_package_entities.front();
+    const mono::Entity package_entity = m_entity_system->CreateEntity(package_entity_file.c_str());
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(spawn_position));
