@@ -120,6 +120,10 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
             trigger_system->EmitTrigger(hash_value);
         }
 
+        const bool next_level = ImGui::Button("Level Completed");
+        if(next_level)
+            trigger_system->EmitTrigger(hash::Hash("level_completed"));
+
         ImGui::End();
     }
 }
