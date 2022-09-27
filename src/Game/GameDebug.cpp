@@ -133,11 +133,12 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::SetNextWindowSize(ImVec2(900, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 9, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+    const bool table_result = ImGui::BeginTable("player_table", 10, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);
         ImGui::TableSetupColumn("Entity", 0, 60);
+        ImGui::TableSetupColumn("Controller", 0, 60);
         ImGui::TableSetupColumn("State", 0, 100);
         ImGui::TableSetupColumn("Position", 0, 150);
         ImGui::TableSetupColumn("Viewport", 0, 150);
@@ -156,6 +157,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
 
             ImGui::TableNextColumn(); ImGui::Text("%d", index);
             ImGui::TableNextColumn(); ImGui::Text("%u", player_info.entity_id);
+            ImGui::TableNextColumn(); ImGui::Text("%d", player_info.controller_id);
             ImGui::TableNextColumn(); ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
             ImGui::TableNextColumn(); ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
             ImGui::TableNextColumn();

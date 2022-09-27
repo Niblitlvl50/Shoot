@@ -9,6 +9,9 @@
 #include "Rendering/Sprite/SpriteBufferFactory.h"
 #include "Rendering/Texture/ITexture.h"
 
+#include "Rendering/Text/TextBufferFactory.h"
+#include "Rendering/Text/TextFunctions.h"
+
 #include "Math/CriticalDampedSpring.h"
 #include "Util/Algorithm.h"
 
@@ -116,11 +119,15 @@ UITextElement::UITextElement(int font_id, const std::string& text, mono::FontCen
     , m_text(text)
     , m_centering(centering)
     , m_color(color)
-{ }
+{
+    SetText(text);
+}
 
 void UITextElement::SetText(const std::string& new_text)
 {
     m_text = new_text;
+    if(!m_text.empty())
+        m_draw_buffers = mono::BuildTextDrawBuffers(m_font_id, m_text.c_str(), m_centering);
 }
 
 void UITextElement::SetColor(const mono::Color::RGBA& new_color)
@@ -135,7 +142,7 @@ void UITextElement::SetAlpha(float alpha)
 
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
-    if(!m_show)
+    if(!m_show || m_text.empty())
         return;
 
     UIElement::Draw(renderer);
@@ -143,9 +150,13 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
     if(m_color.alpha == 0.0f)
         return;
 
+    const mono::ITexturePtr texture = mono::GetFontTexture(m_font_id);
+
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-    renderer.RenderText(m_font_id, m_text.c_str(), m_color, m_centering);
+
+    renderer.RenderText(
+        m_draw_buffers.vertices.get(), m_draw_buffers.uv.get(), m_draw_buffers.indices.get(), texture.get(), m_color);
 }
 
 UISpriteElement::UISpriteElement()

@@ -13,6 +13,7 @@
 #include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITextureFactory.h"
 #include "Rendering/Texture/TextureBufferFactory.h"
+#include "Rendering/Text/TextBufferFactory.h"
 
 #include <string>
 #include <vector>
@@ -83,6 +84,8 @@ namespace game
         std::string m_text;
         mono::FontCentering m_centering;
         mono::Color::RGBA m_color;
+
+        mono::TextDrawBuffers m_draw_buffers;
     };
 
     class UISpriteElement : public UIElement

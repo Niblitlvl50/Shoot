@@ -153,7 +153,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
 
     if(m_bullet_behaviour & BulletCollisionFlag::EXPLODES)
     {
-        System::Log("EXPLODE THE BULLET PLX");
+        //System::Log("EXPLODE THE BULLET PLX");
     }
 
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;

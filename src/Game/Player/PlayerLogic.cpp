@@ -307,8 +307,11 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
 void PlayerLogic::ToDead()
 {
-    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-    sprite->SetAnimation(m_death_anim_id);
+    if(m_death_anim_id != -1)
+    {
+        mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+        sprite->SetAnimation(m_death_anim_id);
+    }
 
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
