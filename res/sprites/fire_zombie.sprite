@@ -10,7 +10,7 @@
             "name": "attack"
         },
         {
-            "frame_duration": 100,
+            "frame_duration": 200,
             "frames": [
                 2,
                 3,
