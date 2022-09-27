@@ -26,7 +26,7 @@ PlayerGamepadController::PlayerGamepadController(
     , m_pause(false)
 {
     event::ControllerButtonDownFunc on_controller_down = [this](const event::ControllerButtonDownEvent& event) {
-        if(event.button == System::ControllerButton::START)
+        if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
         {
             m_pause = !m_pause;
             m_event_handler->DispatchEvent(event::PauseEvent(m_pause)); 

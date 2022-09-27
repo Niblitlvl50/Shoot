@@ -167,7 +167,7 @@ void PacketDeliveryGameMode::Begin(
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
-    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::UI);
+    zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
 }
 
 int PacketDeliveryGameMode::End(mono::IZone* zone)
