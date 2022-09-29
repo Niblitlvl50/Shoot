@@ -221,7 +221,6 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
     {
         anim_id = m_run_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
-        //m_footsteps_effect->EmitFootStepsAt(world_position - math::Vector(0.0f, 0.15f));
     }
 
     if(m_accumulated_step_distance >= tweak_values::footstep_length)
