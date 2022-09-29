@@ -129,7 +129,7 @@
             "bullet_offset": 0.0,
             "bullet_force_random": false,
             "auto_reload": false,
-            "fire_sound": "res/sound/plasma_fire.wav",
+            "fire_sound": "res/sound/plasma_fire_2.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
         },
