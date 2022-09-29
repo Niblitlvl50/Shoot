@@ -11,6 +11,7 @@
 namespace
 {
     std::vector<std::string> g_all_sprite_files;
+    std::vector<std::string> g_all_music_tracks;
     std::vector<std::string> g_all_sounds_files;
 
     const char* g_all_entities_filename = nullptr;
@@ -76,9 +77,28 @@ const std::vector<std::string>& editor::GetAllSprites()
     return g_all_sprite_files;
 }
 
+bool editor::LoadAllMusicTracks(const char* all_music_tracks_file)
+{
+    const std::vector<byte> file_data = file::FileReadAll(all_music_tracks_file);
+    if(file_data.empty())
+        return false;
+
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    for(const auto& json_music_track : json["music_tracks"])
+        g_all_music_tracks.push_back(json_music_track["name"]);
+
+    return true;
+}
+
+const std::vector<std::string>& editor::GetAllMusicTracks()
+{
+    return g_all_music_tracks;
+}
+
 bool editor::LoadAllSounds(const char* all_sounds_file)
 {
     g_all_sounds_files = ReadListFile(all_sounds_file, "all_sounds");
+    return true;
 }
 
 const std::vector<std::string>& editor::GetAllSounds()

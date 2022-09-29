@@ -322,8 +322,14 @@ namespace
                 editor::DrawStringProperty("Name", context.level_metadata.level_name);
                 editor::DrawStringProperty("Description", context.level_metadata.level_description);
                 ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
-//                ImGui::Combo(
-//                    "Music", &context.level_metadata.background_music, game::g_music_track_strings, std::size(game::g_music_track_strings));
+
+                {
+                    const std::vector<std::string>& all_music_tracks = editor::GetAllMusicTracks();
+                    int out_index;
+                    const bool changed = editor::DrawStringPicker("Music", context.level_metadata.background_music, all_music_tracks, out_index);
+                    if(changed)
+                        context.level_metadata.background_music = all_music_tracks[out_index];
+                }
 
                 ImGui::Spacing();
 

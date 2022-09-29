@@ -48,6 +48,8 @@ SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
             const std::string name = json_music_track["name"];
             const std::string filename = json_music_track["filename"];
             m_music_tracks[hash::Hash(name.c_str())] = audio::CreateSound(filename.c_str(), audio::SoundPlayback::LOOPING);
+
+            hash::HashRegisterString(name.c_str());
         }
     }
 
