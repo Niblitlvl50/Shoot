@@ -53,6 +53,7 @@ namespace game
         const uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        class DamageSystem* m_damage_system;
 
         mono::IBody* m_entity_body;
         mono::ISprite* m_entity_sprite;
@@ -90,5 +91,7 @@ namespace game
 
         using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
         CacoStateMachine m_states;
+
+        bool m_beast_mode;
     };
 }

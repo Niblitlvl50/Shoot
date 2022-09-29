@@ -48,6 +48,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     , m_shockwave_cooldown(0.0f)
     , m_fire_homing_cooldown(0.0f)
     , m_fire_beam_cooldown(0.0f)
+    , m_beast_mode(false)
 {
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_primary_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
@@ -73,8 +74,8 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
 
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, entity_manager);
 
-    game::DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
-    damage_system->PreventReleaseOnDeath(entity_id, true);
+    m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_damage_system->PreventReleaseOnDeath(entity_id, true);
 
     const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
         if(type == DamageType::DAMAGED)
@@ -82,7 +83,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
         else if(type == DamageType::DESTROYED)
             m_states.TransitionTo(States::DEAD);
     };
-    damage_system->SetDamageCallback(entity_id, DamageType::DT_ALL, destroyed_callback);
+    m_damage_system->SetDamageCallback(entity_id, DamageType::DT_ALL, destroyed_callback);
 
     const CacoStateMachine::StateTable state_table = {
         CacoStateMachine::MakeState(
@@ -318,6 +319,13 @@ const char* DemonBossController::StateToString(States state) const
 
 void DemonBossController::OnDamage(uint32_t who_did_damage, int damage)
 {
+    const DamageRecord* damage_record = m_damage_system->GetDamageRecord(m_entity_id);
+    const float health_fraction = float(damage_record->health) / float(damage_record->full_health);
+    if(health_fraction < 0.2f)
+    {
+        m_beast_mode = true;
+    }
+
     const bool is_playing_already = m_damage_sound->IsPlaying();
     if(is_playing_already)
         return;
