@@ -70,7 +70,7 @@ void FootStepsEffect::EmitFootStepsAt(const math::Vector& world_position)
         m_particle_entity,
         world_position,
         1.0f,
-        1.0f,
+        10.0f,
         mono::EmitterType::BURST_REMOVE_ON_FINISH,
         TrailGenerator);
 }
