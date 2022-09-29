@@ -33,7 +33,7 @@ namespace game
         math::Vector background_size;
         std::string background_texture;
 
-        int background_music = 0;
+        std::string background_music;
 
         std::vector<std::string> triggers;
 

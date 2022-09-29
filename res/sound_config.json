@@ -1,0 +1,10 @@
+{
+    "music_tracks": [
+        { "name": "russian_track",      "filename": "res/sound/background_music/russian_track.ogg" },
+        { "name": "song18",             "filename": "res/sound/background_music/song18.ogg" },
+        { "name": "winds_of_stories",   "filename": "res/sound/background_music/winds_of_stories.ogg" },
+        { "name": "level3",             "filename": "res/sound/background_music/level3.ogg" },
+        { "name": "level4",             "filename": "res/sound/background_music/level4.ogg" },
+        { "name": "boss1",              "filename": "res/sound/background_music/boss1.ogg" }
+    ]
+}

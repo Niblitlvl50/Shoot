@@ -291,6 +291,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 5.0,
+                                "min": 2.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -327,24 +345,6 @@
                                     1.0,
                                     0.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 5.0,
-                                "min": 2.0
                             }
                         },
                         {
@@ -2910,7 +2910,7 @@
             "green": 0.781814694404602,
             "red": 0.9607843160629272
         },
-        "background_music": 1,
+        "background_music": "",
         "background_size": {
             "x": 0.0,
             "y": 0.0

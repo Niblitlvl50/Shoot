@@ -2,7 +2,7 @@
     "levels": [
         {
             "name": "title_screen",
-            "filename": "res/worlds/title_screen.components",
+            "filename": "res/worlds/title_screen_new.components",
             "transitions": [ "quit", "setup_game_screen", "quit" ]
         },
         {

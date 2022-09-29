@@ -52123,7 +52123,7 @@
             "green": 0.2647058963775635,
             "red": 0.1076989620923996
         },
-        "background_music": 5,
+        "background_music": "",
         "background_size": {
             "x": 50.0,
             "y": 50.0

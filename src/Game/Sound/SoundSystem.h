@@ -6,40 +6,13 @@
 #include "System/Audio.h"
 
 #include <string>
+#include <unordered_map>
 
 #define ENUM_BIT(n) (1 << (n))
 
 namespace game
 {
     class TriggerSystem;
-
-    enum MusicTrack : int
-    {
-        None = 0,
-        RussianTrack,
-        Song18,
-        WindsOfStories,
-        Level3,
-        Level4,
-        Boss1,
-
-        N_MUSIC_TRACKS
-    };
-
-    constexpr const char* g_music_track_strings[] = {
-        "None",
-        "RussianTrack",
-        "Son18",
-        "WindsOfStories",
-        "Level3",
-        "Level4",
-        "Boss1",
-    };
-
-    constexpr const char* MusicTrackToString(MusicTrack track)
-    {
-        return g_music_track_strings[static_cast<int>(track)];
-    }
 
     enum class SoundTransition
     {
@@ -91,7 +64,8 @@ namespace game
         SoundSystem(uint32_t n, game::TriggerSystem* trigger_system);
         ~SoundSystem();
 
-        void PlayBackgroundMusic(MusicTrack track, SoundTransition transition);
+        void PlayBackgroundMusic(const std::string& name, SoundTransition transition);
+        void PlayBackgroundMusic(uint32_t track, SoundTransition transition);
         void StopBackgroundMusic();
 
         SoundInstanceComponent* AllocateSoundComponent(uint32_t entity_id);
@@ -106,10 +80,10 @@ namespace game
         game::TriggerSystem* m_trigger_system;
         mono::ActiveVector<SoundInstanceComponent> m_sound_components;
 
-        audio::ISoundPtr m_music_tracks[game::N_MUSIC_TRACKS];
+        std::unordered_map<uint32_t, audio::ISoundPtr> m_music_tracks;
 
-        MusicTrack m_current_track;
-        MusicTrack m_requested_track;
+        uint32_t m_current_track;
+        uint32_t m_requested_track;
 
         SoundTransition m_current_transition;
         float m_transition_timer; 

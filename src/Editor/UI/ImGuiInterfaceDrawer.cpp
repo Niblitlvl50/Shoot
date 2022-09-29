@@ -322,8 +322,8 @@ namespace
                 editor::DrawStringProperty("Name", context.level_metadata.level_name);
                 editor::DrawStringProperty("Description", context.level_metadata.level_description);
                 ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
-                ImGui::Combo(
-                    "Music", &context.level_metadata.background_music, game::g_music_track_strings, std::size(game::g_music_track_strings));
+//                ImGui::Combo(
+//                    "Music", &context.level_metadata.background_music, game::g_music_track_strings, std::size(game::g_music_track_strings));
 
                 ImGui::Spacing();
 

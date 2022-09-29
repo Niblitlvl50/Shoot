@@ -145,7 +145,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     renderer->SetAmbientShade(metadata.ambient_shade);
 
     SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
-    sound_system->PlayBackgroundMusic(game::MusicTrack(metadata.background_music), SoundTransition::CrossFade);
+    sound_system->PlayBackgroundMusic(metadata.background_music, SoundTransition::CrossFade);
 
     // Nav mesh
     SetupNavmesh(m_navmesh, metadata, physics_system->GetSpace());

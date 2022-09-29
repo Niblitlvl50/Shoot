@@ -844,7 +844,7 @@
             "green": 0.7304882407188416,
             "red": 0.9313725233078003
         },
-        "background_music": 2,
+        "background_music": "",
         "background_size": {
             "x": 0.0,
             "y": 0.0

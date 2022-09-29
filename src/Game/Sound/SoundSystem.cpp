@@ -12,6 +12,10 @@
 #include "IDebugDrawer.h"
 #include "Rendering/Color.h"
 
+#include "System/File.h"
+
+#include "nlohmann/json.hpp"
+
 #include <string>
 #include <limits>
 
@@ -30,27 +34,38 @@ using namespace game;
 SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
     : m_trigger_system(trigger_system)
     , m_sound_components(n)
-    , m_current_track(MusicTrack::None)
-    , m_requested_track(MusicTrack::None)
+    , m_current_track(0)
+    , m_requested_track(0)
     , m_current_transition(SoundTransition::Cut)
     , m_transition_timer(0.0f)
 {
-    m_music_tracks[game::None] = audio::CreateNullSound();
-    m_music_tracks[game::RussianTrack] = audio::CreateSound("res/sound/background_music/russian_track.ogg", audio::SoundPlayback::LOOPING);
-    m_music_tracks[game::Song18] = audio::CreateSound("res/sound/background_music/song18.ogg", audio::SoundPlayback::LOOPING);
-    m_music_tracks[game::WindsOfStories] = audio::CreateSound("res/sound/background_music/winds_of_stories.ogg", audio::SoundPlayback::LOOPING);
-    m_music_tracks[game::Level3] = audio::CreateSound("res/sound/background_music/level3.ogg", audio::SoundPlayback::LOOPING);
-    m_music_tracks[game::Level4] = audio::CreateSound("res/sound/background_music/level4.ogg", audio::SoundPlayback::LOOPING);
-    m_music_tracks[game::Boss1] = audio::CreateSound("res/sound/background_music/boss1.ogg", audio::SoundPlayback::LOOPING);
+    const std::vector<byte> file_data = file::FileReadAll("res/sound_config.json");
+    if(!file_data.empty())
+    {
+        const nlohmann::json& json = nlohmann::json::parse(file_data);
+        for(const auto& json_music_track : json["music_tracks"])
+        {
+            const std::string name = json_music_track["name"];
+            const std::string filename = json_music_track["filename"];
+            m_music_tracks[hash::Hash(name.c_str())] = audio::CreateSound(filename.c_str(), audio::SoundPlayback::LOOPING);
+        }
+    }
+
+    m_music_tracks[0] = audio::CreateNullSound();
 }
 
 SoundSystem::~SoundSystem()
 {
-    for(audio::ISoundPtr& sound : m_music_tracks)
-        sound = nullptr;
+    m_music_tracks.clear();
 }
 
-void SoundSystem::PlayBackgroundMusic(MusicTrack track, SoundTransition transition)
+void SoundSystem::PlayBackgroundMusic(const std::string& name, SoundTransition transition)
+{
+    const uint32_t name_id = name.empty() ? 0 : hash::Hash(name.c_str());
+    PlayBackgroundMusic(name_id, transition);
+}
+
+void SoundSystem::PlayBackgroundMusic(uint32_t track, SoundTransition transition)
 {
     if(m_current_transition != SoundTransition::None)
     {
@@ -87,7 +102,7 @@ void SoundSystem::PlayBackgroundMusic(MusicTrack track, SoundTransition transiti
 
 void SoundSystem::StopBackgroundMusic()
 {
-    PlayBackgroundMusic(MusicTrack::None, SoundTransition::CrossFade);
+    PlayBackgroundMusic(0, SoundTransition::CrossFade);
 }
 
 SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
@@ -158,7 +173,7 @@ void SoundSystem::Update(const mono::UpdateContext& update_context)
 {
     if(game::g_draw_debug_soundsystem)
     {
-        std::string text = MusicTrackToString(m_current_track) + std::string(" -> ") + MusicTrackToString(m_requested_track);
+        std::string text = hash::HashLookup(m_current_track) + std::string(" -> ") + hash::HashLookup(m_requested_track);
         g_debug_drawer->DrawScreenText(text.c_str(), math::Vector(0.5f, 1.0f), mono::Color::RED);
     }
     

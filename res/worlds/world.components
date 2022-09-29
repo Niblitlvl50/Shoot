@@ -18342,6 +18342,17 @@
                             "name": "disable_trigger",
                             "variant_type": 6,
                             "variant_value": "forest_spawn_disable"
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                }
+                            ]
                         }
                     ]
                 }
@@ -65401,7 +65412,7 @@
             "green": 0.6225427985191345,
             "red": 0.6225490570068359
         },
-        "background_music": 0,
+        "background_music": "",
         "background_size": {
             "x": 80.0,
             "y": 80.0

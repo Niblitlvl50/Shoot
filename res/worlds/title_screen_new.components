@@ -10,7 +10,331 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "message"
+                            "variant_value": "logo"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 6.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2771478017,
+                    "name": "textured_polygon",
+                    "properties": [
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/title_logo.png"
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -25.21875,
+                                    "y": -7.265625
+                                },
+                                {
+                                    "x": -25.21875,
+                                    "y": 7.265625
+                                },
+                                {
+                                    "x": 25.21875,
+                                    "y": 7.265625
+                                },
+                                {
+                                    "x": 25.21875,
+                                    "y": -7.265625
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "logo",
+            "uuid_hash": 941410018
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "particles"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2943553953,
+                    "name": "particle_system",
+                    "properties": [
+                        {
+                            "id": 4183502093,
+                            "name": "pool_size",
+                            "variant_type": 1,
+                            "variant_value": 200
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/heart.png"
+                        },
+                        {
+                            "id": 3513758418,
+                            "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 453870866,
+                            "name": "transform_space",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3820847801,
+                    "name": "area_emitter",
+                    "properties": [
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": -1.0
+                        },
+                        {
+                            "id": 1259388949,
+                            "name": "emit_rate",
+                            "variant_type": 3,
+                            "variant_value": 30.0
+                        },
+                        {
+                            "id": 481665254,
+                            "name": "emitter_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 60.0,
+                                "y": 50.0
+                            }
+                        },
+                        {
+                            "id": 521277070,
+                            "name": "direction_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 2.0,
+                                "min": 1.0
+                            }
+                        },
+                        {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 1.0,
+                                "min": -1.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 4.0,
+                                "min": 2.0
+                            }
+                        },
+                        {
+                            "id": 3254309326,
+                            "name": "gradient_4",
+                            "variant_type": 10,
+                            "variant_value": {
+                                "gradient": [
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.6705882549285889,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.49803921580314636,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    }
+                                ],
+                                "t": [
+                                    0.0,
+                                    0.25,
+                                    0.75,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3951746801,
+                            "name": "start_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 0.0,
+                                    "min": 0.0
+                                },
+                                "value": 128.0
+                            }
+                        },
+                        {
+                            "id": 3546283052,
+                            "name": "end_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 0.0,
+                                    "min": 0.0
+                                },
+                                "value": 128.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "particles",
+            "uuid_hash": 1163465178
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "start_text"
                         },
                         {
                             "id": 3647911389,
@@ -36,7 +360,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 1.0
+                                "y": -6.125
                             }
                         },
                         {
@@ -55,13 +379,13 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Game Over Dude..."
+                            "variant_value": "Press any Button to Start"
                         },
                         {
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 7
                         },
                         {
                             "id": 1031692888,
@@ -69,9 +393,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.38619762659072876,
-                                "green": 0.38619762659072876,
-                                "red": 0.9607843160629272
+                                "blue": 0.009999999776482582,
+                                "green": 0.8500000238418579,
+                                "red": 1.0
                             }
                         },
                         {
@@ -92,7 +416,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.10000000149011612
+                                "y": -0.20000000298023224
                             }
                         },
                         {
@@ -128,7 +452,7 @@
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
-                            "variant_value": 2.0
+                            "variant_value": 1.5
                         },
                         {
                             "id": 2471448074,
@@ -136,7 +460,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.5
+                                "y": -1.0
                             }
                         },
                         {
@@ -149,8 +473,8 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "message",
-            "uuid_hash": 3178902716
+            "name": "start_text",
+            "uuid_hash": 2091009814
         },
         {
             "components": [
@@ -162,7 +486,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "button_text"
+                            "variant_value": "nib_text"
                         },
                         {
                             "id": 3647911389,
@@ -188,7 +512,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -2.0
+                                "y": -16.625
                             }
                         },
                         {
@@ -207,23 +531,23 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Press Any Button to continue"
+                            "variant_value": "A game by nibnib, v0.1"
                         },
                         {
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 5
+                            "variant_value": 6
                         },
                         {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
                             "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.3382353186607361,
-                                "green": 0.3382353186607361,
-                                "red": 0.3382353186607361
+                                "alpha": 0.5098039507865906,
+                                "blue": 0.2281334102153778,
+                                "green": 0.2281334102153778,
+                                "red": 0.23039215803146362
                             }
                         },
                         {
@@ -236,15 +560,15 @@
                             "id": 124392387,
                             "name": "text_shadow",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         },
                         {
                             "id": 348705738,
                             "name": "offset",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.02500000037252903,
-                                "y": 0.02500000037252903
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -262,8 +586,8 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "button_text",
-            "uuid_hash": 2227367649
+            "name": "nib_text",
+            "uuid_hash": 2506331957
         },
         {
             "components": [
@@ -275,7 +599,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "frog"
+                            "variant_value": "music"
                         },
                         {
                             "id": 3647911389,
@@ -287,407 +611,79 @@
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -0.844205379486084,
-                                "y": -0.5494117140769958
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "girl.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": -0.15000000596046448
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 0.4000000059604645
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "frog",
-            "uuid_hash": 3962463684
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "small_fire"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": -0.6215482354164124
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "small_fire.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3801947695,
-                    "name": "light",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 2.0
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.7745097875595093,
-                                "green": 0.9602076411247253,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 226247311,
-                            "name": "flicker",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 800267265,
-                            "name": "frequency",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2538831285,
-                            "name": "percentage",
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "small_fire",
-            "uuid_hash": 2118900318
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "frog"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.8249994516372681,
-                                "y": -0.8750001192092896
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "frog.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
                             "variant_value": 1
-                        },
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
                         {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
                             "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 235771284,
+                    "name": "sound",
+                    "properties": [
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/background_music/winds_of_stories.ogg"
+                        },
+                        {
+                            "id": 2209811736,
+                            "name": "sound_properties",
                             "variant_type": 2,
                             "variant_value": 6
                         },
                         {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": -0.15000000596046448
-                            }
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         },
                         {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 0.30000001192092896
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
-            "name": "frog",
-            "uuid_hash": 3376890855
+            "name": "music",
+            "uuid_hash": 3641040687
         }
     ],
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.7941176295280457,
-            "green": 0.7941176295280457,
-            "red": 0.7941176295280457
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.7303921580314636,
-            "green": 0.7303921580314636,
-            "red": 0.7303921580314636
+            "blue": 0.775934636592865,
+            "green": 0.5988081693649292,
+            "red": 0.8725489974021912
         },
         "background_music": "",
         "background_size": {
@@ -700,8 +696,8 @@
             "y": 0.0
         },
         "camera_size": {
-            "x": 12.800000190734863,
-            "y": 8.0
+            "x": 60.0,
+            "y": 35.0
         },
         "level_description": "",
         "level_name": "",

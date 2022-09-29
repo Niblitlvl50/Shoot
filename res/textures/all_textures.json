@@ -34,6 +34,7 @@
         "res/textures/particles/glyph1.png",
         "res/textures/particles/glyph2.png",
         "res/textures/road_dirt_road.png",
-        "res/textures/road_dirt_road_small.png"
+        "res/textures/road_dirt_road_small.png",
+        "res/textures/title_logo.png"
     ]
 }

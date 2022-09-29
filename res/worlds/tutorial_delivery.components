@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -177,7 +183,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3242704306
         },
@@ -198,6 +203,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -342,7 +353,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "Screen",
             "uuid_hash": 3280488219
         },
@@ -363,6 +373,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -457,7 +473,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3256022634
         },
@@ -478,6 +493,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -572,7 +593,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 2000773223
         },
@@ -593,6 +613,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -687,7 +713,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3546434619
         },
@@ -708,6 +733,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -802,7 +833,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3981683302
         },
@@ -823,6 +853,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -917,7 +953,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 1903320546
         },
@@ -938,6 +973,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1032,7 +1073,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 4170734650
         },
@@ -1053,6 +1093,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1147,7 +1193,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3682702414
         },
@@ -1168,6 +1213,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1262,7 +1313,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3732997260
         },
@@ -1283,6 +1333,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1377,7 +1433,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 357530391
         },
@@ -1398,6 +1453,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1492,7 +1553,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3315139525
         },
@@ -1513,6 +1573,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1607,7 +1673,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 1355616681
         },
@@ -1628,6 +1693,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1722,7 +1793,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 2253270452
         },
@@ -1743,6 +1813,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "boxes"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1837,7 +1913,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "boxes",
             "name": "box_wooden",
             "uuid_hash": 3415461826
         },
@@ -1858,6 +1933,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2026,7 +2107,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "Screen",
             "uuid_hash": 3684644391
         },
@@ -2047,6 +2127,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2207,7 +2293,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3638899355
         },
@@ -2228,6 +2313,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2388,7 +2479,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 903797537
         },
@@ -2409,6 +2499,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2569,7 +2665,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 1937904700
         },
@@ -2590,6 +2685,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2750,7 +2851,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 2753015099
         },
@@ -2771,6 +2871,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2931,7 +3037,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3007744472
         },
@@ -2952,6 +3057,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3112,7 +3223,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 365608203
         },
@@ -3133,6 +3243,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3293,7 +3409,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 1437285516
         },
@@ -3314,6 +3429,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "text"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3401,7 +3522,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "text",
             "name": "delivery_1",
             "uuid_hash": 2205523844
         },
@@ -3422,6 +3542,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3582,7 +3708,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3196745268
         },
@@ -3603,6 +3728,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3763,7 +3894,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3664494850
         },
@@ -3784,6 +3914,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -3944,7 +4080,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 1044586183
         },
@@ -3965,6 +4100,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4125,7 +4266,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3496049934
         },
@@ -4146,6 +4286,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4306,7 +4452,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 2399737263
         },
@@ -4327,6 +4472,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "wall"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4487,7 +4638,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "wall",
             "name": "block_huge",
             "uuid_hash": 3729514377
         },
@@ -4508,6 +4658,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4602,7 +4758,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "frog",
             "uuid_hash": 508115609
         },
@@ -4623,6 +4778,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "logic"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4745,7 +4906,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "logic",
             "name": "region_event",
             "uuid_hash": 2813400699
         },
@@ -4766,6 +4926,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "outline"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4858,7 +5024,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "outline",
             "name": "outline_left",
             "uuid_hash": 4019586966
         },
@@ -4879,6 +5044,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "outline"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -4971,7 +5142,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "outline",
             "name": "outline_right",
             "uuid_hash": 2780259440
         },
@@ -4992,6 +5162,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": "outline"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -5084,7 +5260,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "outline",
             "name": "outline_bottom",
             "uuid_hash": 2864270828
         }
@@ -5102,7 +5277,7 @@
             "green": 0.7920369505882263,
             "red": 0.8725489974021912
         },
-        "background_music": 0,
+        "background_music": "",
         "background_size": {
             "x": 48.0,
             "y": 48.0
@@ -5135,6 +5310,7 @@
             "x": 0.0,
             "y": -2.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
         "triggers": [
             "region_enter_tutorial"

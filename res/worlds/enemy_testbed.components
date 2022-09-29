@@ -10179,7 +10179,7 @@
             "green": 0.7352941036224365,
             "red": 0.7352941036224365
         },
-        "background_music": 0,
+        "background_music": "",
         "background_size": {
             "x": 96.0,
             "y": 96.0
