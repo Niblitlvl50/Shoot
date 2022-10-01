@@ -7,8 +7,8 @@
     "server_replication_interval": 50,
     "client_time_offset": 100,
 
-    "application": "Interdimensional Delivery Inc",
-    "organization": "nib games",
+    "organization": "Nib-Games",
+    "application": "InterdimensionalDeliveryInc",
 
     "light_mask_texture": "res/textures/lightmasks/light_mask_3.png",
     "sprite_shadow_texture": "res/textures/shadows/roundshadow.png"

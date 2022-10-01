@@ -104,13 +104,8 @@ int main(int argc, char* argv[])
     constexpr size_t max_entities = 1000;
     const Options options = ParseCommandline(argc, argv);
 
-    game::Config game_config;
-    game::LoadConfig(options.game_config, game_config);
-
     System::InitializeContext system_init_context;
     system_init_context.log_file = options.log_file;
-    system_init_context.application = game_config.application.c_str();
-    system_init_context.organization = game_config.organization.c_str();
 
 #ifdef __APPLE__
     char application_path_buffer[1024] = {};
@@ -119,6 +114,11 @@ int main(int argc, char* argv[])
 #endif
 
     System::Initialize(system_init_context);
+
+    game::Config game_config;
+    game::LoadConfig(options.game_config, game_config);
+
+    System::InitializeUserPath(game_config.organization.c_str(), game_config.application.c_str());
 
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
     game::LoadAllTextures("res/textures/all_textures.json");
