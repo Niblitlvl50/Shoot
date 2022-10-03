@@ -26135,16 +26135,16 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 1.0,
-                                "red": 0.9411765336990356
+                                "blue": 0.7612584233283997,
+                                "green": 0.6345155239105225,
+                                "red": 0.7941176295280457
                             }
                         },
                         {
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 4153965,
@@ -27100,7 +27100,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 11.75,
-                                "y": 6.875
+                                "y": 7.0
                             }
                         },
                         {
@@ -27874,7 +27874,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 2
+                            "variant_value": 0
                         },
                         {
                             "id": 4153965,
@@ -27994,7 +27994,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 4153965,

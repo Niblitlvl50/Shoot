@@ -241,8 +241,8 @@
                             "name": "angular_velocity_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 1.0,
-                                "min": -1.0
+                                "max": 0.0,
+                                "min": 0.0
                             }
                         },
                         {
@@ -416,7 +416,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.20000000298023224
+                                "y": -0.15000000596046448
                             }
                         },
                         {
@@ -599,9 +599,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.775934636592865,
-            "green": 0.5988081693649292,
-            "red": 0.8725489974021912
+            "blue": 0.8039215803146362,
+            "green": 0.4520321488380432,
+            "red": 0.4413686990737915
         },
         "background_music": "winds_of_stories",
         "background_size": {
