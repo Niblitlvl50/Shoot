@@ -20,7 +20,7 @@ using namespace game;
 namespace
 {
     AimlineRenderData GenerateAimLine(
-        float start_offset, float mid_point_offset, float length, float width, float cutoff_length)
+        float start_offset, float mid_point_offset, float length, float width, float cutoff_length, const mono::Color::RGBA& color)
     {
         const float min_mid_point_offset = std::min(mid_point_offset, cutoff_length);
         const float min_length = std::min(length, cutoff_length);
@@ -35,12 +35,12 @@ namespace
         };
 
         const mono::Color::RGBA aim_lines_colors[] = {
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.6f),
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.6f),
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
-            mono::Color::RGBA(1.0f, 0.0f, 0.0f, 0.0f),
+            mono::Color::MakeWithAlpha(color, 0.0f),
+            mono::Color::MakeWithAlpha(color, 0.0f),
+            mono::Color::MakeWithAlpha(color, 0.6f),
+            mono::Color::MakeWithAlpha(color, 0.6f),
+            mono::Color::MakeWithAlpha(color, 0.0f),
+            mono::Color::MakeWithAlpha(color, 0.0f),
         };
 
         uint16_t aim_lines_indices[] = {
@@ -83,6 +83,12 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
     mono::Color::RGBA cooldown_color;
 
+    constexpr mono::Color::RGBA aim_line_colors[3] = {
+        mono::Color::RED,
+        mono::Color::GREEN,
+        mono::Color::BLUE
+    };
+
     for(const game::PlayerInfo* player_info : GetActivePlayers())
     {
         if(!player_info)
@@ -97,7 +103,8 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             const uint32_t player_index = FindPlayerIndex(player_info);
             const float laser_length = math::DistanceBetween(player_info->position, player_info->aim_target);
 
-            m_aimline_data[player_index] = GenerateAimLine(start_offset, mid_point_offset, length, width, laser_length);
+            m_aimline_data[player_index] =
+                GenerateAimLine(start_offset, mid_point_offset, length, width, laser_length, aim_line_colors[player_index]);
             aimline_transforms.push_back({ aimline_transform, player_index });
             aim_target_points.push_back(player_info->aim_target);
         }
