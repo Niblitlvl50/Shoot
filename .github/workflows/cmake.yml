@@ -76,28 +76,27 @@ jobs:
       working-directory: ${{github.workspace}}
       run: ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
       
-    - name: Artifacts
-      uses: actions/upload-artifact@v2
+    - name: Artifacts Binaries
+      uses: actions/upload-artifact@v3.1.0
       with:
         name: game-${{runner.os}}-${{github.run_number}}
         path: |
-          ./bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
-          ./bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
-          ./res/entities
-          ./res/fonts
-          ./res/sound
-          ./res/sprites
-          ./res/textures
-          ./res/worlds
-          ./res/game_config.json
-          ./res/level_config.json
-          ./res/pickup_config.json
-          ./res/player_config.json
-          ./res/region_config.json
-          ./res/sound_config.json
-          ./res/spawn_config.json
-          ./res/weapon_config.json
-          ./res/sprite_atlas.png
+          bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
+          bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
+
+    - name: Artifacts Resources
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: game-${{runner.os}}-${{github.run_number}}
+        path: |
+          res/entities
+          res/fonts
+          res/sound
+          res/sprites
+          res/textures
+          res/worlds
+          res/*.json
+          res/sprite_atlas.png
 
 #    - name: Itch.io - Publish
 #      uses: KikimoraGames/itch-publish@v0.0.3
