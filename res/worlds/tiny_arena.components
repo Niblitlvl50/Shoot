@@ -53015,7 +53015,7 @@
             "green": 0.0,
             "red": 0.0
         },
-        "background_music": "",
+        "background_music": "level4",
         "background_size": {
             "x": 60.0,
             "y": 50.0
