@@ -13,16 +13,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - os: ubuntu-latest
-#            bin_subdir: ''
-#            app_suffix: ''
-#            exe_suffix: ''
-#            channel: 'linux'
-#          - os: macos-latest
-#            bin_subdir: ''
-#            app_suffix: '.app'
-#            exe_suffix: ''
-#            channel: 'osx'
+          - os: ubuntu-latest
+            bin_subdir: ''
+            app_suffix: ''
+            exe_suffix: ''
+            channel: 'linux'
+          - os: macos-latest
+            bin_subdir: ''
+            app_suffix: '.app'
+            exe_suffix: ''
+            channel: 'osx'
           - os: windows-latest
             bin_subdir:  'Release/'
             app_suffix: '.exe'
@@ -82,28 +82,44 @@ jobs:
         name: game-${{runner.os}}-${{github.run_number}}
         path: |
           bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
-#          bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
+          bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
 
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: game-${{runner.os}}-${{github.run_number}}
+        name: res
         path: |
-          ./res/entities
-          ./res/fonts
-          ./res/sound
-          ./res/sprites
-          ./res/textures
-          ./res/worlds
-          ./res/game_config.json
-          ./res/level_config.json
-          ./res/pickup_config.json
-          ./res/player_config.json
-          ./res/region_config.json
-          ./res/sound_config.json
-          ./res/spawn_config.json
-          ./res/weapon_config.json
-          ./res/sprite_atlas.png
+          res/entities
+          res/fonts
+          res/sound
+          res/sprites
+          res/textures
+          res/worlds
+          res/game_config.json
+          res/level_config.json
+          res/pickup_config.json
+          res/player_config.json
+          res/region_config.json
+          res/sound_config.json
+          res/spawn_config.json
+          res/weapon_config.json
+          res/sprite_atlas.png
+
+    - name: Prepare for Upload to Itch.io, binaries
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: game-${{runner.os}}-${{github.run_number}}
+        path: stage/game-${{runner.os}}-${{github.run_number}}
+
+    - name: Prepare for Upload to Itch.io, resources
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: res
+        path: stage/game-${{runner.os}}-${{github.run_number}}/res
+
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: stage/game-${{runner.os}}-${{github.run_number}}
 
 #    - name: Itch.io - Publish
 #      uses: KikimoraGames/itch-publish@v0.0.3
