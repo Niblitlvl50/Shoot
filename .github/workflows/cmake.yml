@@ -17,14 +17,17 @@ jobs:
             bin_subdir: ''
             app_suffix: ''
             exe_suffix: ''
+            channel: 'linux'
           - os: macos-latest
             bin_subdir: ''
             app_suffix: '.app'
             exe_suffix: ''
+            channel: 'osx'
           - os: windows-latest
             bin_subdir:  'Release/'
             app_suffix: '.exe'
             exe_suffix: '.exe'
+            channel: 'windows'
 
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
@@ -66,28 +69,20 @@ jobs:
       run: cmake --build . --config $BUILD_TYPE
 
     - name: OSX, chmod +x
-      if: runner.os == 'OSX'
+      if: runner.os == 'macOS'
       run: chmod +x ./bin/game_exe.app/Contents/MacOS/game_exe
 
     - name: Test
       working-directory: ${{github.workspace}}
       run: ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
       
-    - name: Artifacts [binaries]
+    - name: Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: game-${{runner.os}}-${{github.run_number}}
         path: |
           ./bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
           ./bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
-          ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
-          ./bin/${{matrix.bin_subdir}}unittest${{matrix.exe_suffix}}
-
-    - name: Artifacts [resources]
-      uses: actions/upload-artifact@v2
-      with:
-        name: res
-        path: |
           ./res/entities
           ./res/fonts
           ./res/sound
@@ -103,3 +98,12 @@ jobs:
           ./res/spawn_config.json
           ./res/weapon_config.json
           ./res/sprite_atlas.png
+
+#    - name: Itch.io - Publish
+#      uses: KikimoraGames/itch-publish@v0.0.3
+#      with:
+#        butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+#        itchUsername: ${{secrets.ITCH_USERNAME}}
+#        itchGameId: ${{ secrets.ITCH_GAME_ID }}
+#        buildChannel: ${{ matrix.channel }}
+#        gameData: ./build/${{ matrix.template }}
