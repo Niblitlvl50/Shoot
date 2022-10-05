@@ -1,10 +1,11 @@
 
 name: Deploy to Itch.io
 
-on:
-  push:
-    tags:
-      - v*
+on: push
+# on:
+#   push:
+#     tags:
+#       - v*
 
 jobs:
   deploy:
@@ -17,8 +18,7 @@ jobs:
           - linux
           - osx
           - windows
-    runs-on: ubuntu-latest
-  
+
     name: Deploy - Itch.io ${{ matrix.channel }}
     steps:
       - name: Prepare binaries
