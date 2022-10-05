@@ -10,7 +10,7 @@ jobs:
   build:
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - os: ubuntu-latest
@@ -104,3 +104,34 @@ jobs:
           res/spawn_config.json
           res/weapon_config.json
           res/sprite_atlas.png
+
+  deploy:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        itch-channel: [linux, osx, windows]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Prepare binaries
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: game-${{matrix.itch-channel}}
+        path: stage/game-${{matrix.itch-channel}}
+
+    - name: Prepare resources
+      uses: actions/download-artifact@v3.0.0
+      with:
+        name: res
+        path: stage/game-${{matrix.itch-channel}}/res
+
+    - name: Itch.io - Publish
+      uses: KikimoraGames/itch-publish@v0.0.3
+      with:
+        butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+        itchUsername: ${{secrets.ITCH_USERNAME}}
+        itchGameId: ${{ secrets.ITCH_GAME_ID }}
+        buildChannel: ${{ matrix.itch-channel }}
+        gameData: stage/game-${{matrix.itch-channel}}
