@@ -106,6 +106,7 @@ jobs:
           res/sprite_atlas.png
 
   deploy:
+    needs: build
     strategy:
       fail-fast: true
       matrix:
