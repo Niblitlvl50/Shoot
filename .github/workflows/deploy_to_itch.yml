@@ -1,0 +1,43 @@
+
+name: Deploy to Itch.io
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  deploy:
+    name: Upload to Itch
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        channel:
+          - linux
+          - osx
+          - windows
+    runs-on: ubuntu-latest
+  
+    name: Deploy - Itch.io ${{ matrix.template }}
+    steps:
+      - name: Prepare binaries
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: game-${{matrix.channel}}
+          path: stage/game-${{matrix.channel}}
+
+      - name: Prepare resources
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: res
+          path: stage/game-${{matrix.channel}}/res
+
+      - name: Itch.io - Publish
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          itchUsername: ${{secrets.ITCH_USERNAME}}
+          itchGameId: ${{ secrets.ITCH_GAME_ID }}
+          buildChannel: ${{ matrix.channel }}
+          gameData: stage/game-${{matrix.channel}}
