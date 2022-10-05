@@ -19,7 +19,7 @@ jobs:
           - windows
     runs-on: ubuntu-latest
   
-    name: Deploy - Itch.io ${{ matrix.template }}
+    name: Deploy - Itch.io ${{ matrix.channel }}
     steps:
       - name: Prepare binaries
         uses: actions/download-artifact@v3.0.0
