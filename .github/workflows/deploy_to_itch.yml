@@ -16,7 +16,6 @@ jobs:
       matrix:
         channel: [linux, osx, windows]
 
-    name: Deploy - Itch.io 
     steps:
       - name: Prepare binaries
         uses: actions/download-artifact@v3.0.0
