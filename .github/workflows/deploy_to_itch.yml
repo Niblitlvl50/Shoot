@@ -14,10 +14,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        channel:
-          - linux
-          - osx
-          - windows
+        channel: [linux, osx, windows]
 
     name: Deploy - Itch.io ${{ matrix.channel }}
     steps:
