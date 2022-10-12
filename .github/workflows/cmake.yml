@@ -84,6 +84,8 @@ jobs:
           bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
 
+  resources:
+    steps:
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
       with:
@@ -106,7 +108,7 @@ jobs:
           res/sprite_atlas.png
 
   deploy:
-    needs: build
+    needs: [build, resources]
     strategy:
       fail-fast: true
       matrix:
