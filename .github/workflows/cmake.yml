@@ -85,8 +85,8 @@ jobs:
           bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
 
   resources:
-    steps:
     runs-on: ubuntu-latest
+    steps:
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
       with:
