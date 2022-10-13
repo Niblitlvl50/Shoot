@@ -78,15 +78,13 @@ jobs:
       
     - name: Artifacts Binaries
       uses: actions/upload-artifact@v3.1.0
+      if: runner.os == 'Linux'
       with:
         name: game-${{matrix.channel}}
         path: |
           bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
 
-  resources:
-    runs-on: ubuntu-latest
-    steps:
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
       with:
@@ -109,7 +107,7 @@ jobs:
           res/sprite_atlas.png
 
   deploy:
-    needs: [build, resources]
+    needs: build
     strategy:
       fail-fast: true
       matrix:
