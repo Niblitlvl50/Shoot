@@ -78,7 +78,6 @@ jobs:
       
     - name: Artifacts Binaries
       uses: actions/upload-artifact@v3.1.0
-      if: runner.os == 'Linux'
       with:
         name: game-${{matrix.channel}}
         path: |
@@ -87,6 +86,7 @@ jobs:
 
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
+      if: runner.os == 'Linux'
       with:
         name: res
         path: |
