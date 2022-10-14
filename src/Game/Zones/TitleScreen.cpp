@@ -62,7 +62,7 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
         else if(event.key == Keycode::Q)
             Quit();
         else if(event.key == Keycode::F)
-            Fullscreen();
+            ToggleFullscreen();
         return mono::EventResult::PASS_ON;
     };
     m_key_token = m_event_handler->AddListener(key_callback);
@@ -97,7 +97,12 @@ void TitleScreen::Quit()
     m_event_handler->DispatchEvent(event::QuitEvent());
 }
 
-void TitleScreen::Fullscreen()
+void TitleScreen::ToggleFullscreen()
 {
-    m_event_handler->DispatchEvent(event::ScreenEvent(event::ScreenMode::FULLSCREEN));
+    static bool state = true;
+    
+    const event::ScreenMode mode = state ? event::ScreenMode::FULLSCREEN_DESKTOP : event::ScreenMode::WINDOWED;
+    m_event_handler->DispatchEvent(event::ScreenEvent(mode));
+
+    state = !state;
 }

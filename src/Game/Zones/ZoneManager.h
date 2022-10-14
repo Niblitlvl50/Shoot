@@ -29,7 +29,7 @@ namespace game
     {
     public:
 
-        ZoneManager(System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context);
+        ZoneManager(mono::ICamera* camera, const ZoneCreationContext& zone_context);
         void Run(const char* initial_zone_name = nullptr);
 
     private:

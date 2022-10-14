@@ -62,9 +62,8 @@ namespace game
     };
 }
 
-ZoneManager::ZoneManager(
-    System::IWindow* window, mono::ICamera* camera, const ZoneCreationContext& zone_context)
-    : m_engine(window, camera, zone_context.system_context, zone_context.event_handler)
+ZoneManager::ZoneManager(mono::ICamera* camera, const ZoneCreationContext& zone_context)
+    : m_engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler)
     , m_zone_context(zone_context)
 {
     m_level_config = LoadLevelConfig("res/level_config.json");
