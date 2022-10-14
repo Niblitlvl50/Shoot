@@ -36,21 +36,21 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 1665,
+            "x": 695,
             "y": 490
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 1735,
+            "x": 711,
             "y": 490
         },
         {
             "h": 12,
             "name": "button_cross_up_1",
             "w": 12,
-            "x": 1751,
+            "x": 647,
             "y": 490
         }
     ],

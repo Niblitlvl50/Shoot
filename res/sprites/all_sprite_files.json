@@ -1,10 +1,6 @@
 {
     "all_sprites": [
         "res/sprites/alien.sprite",
-        "res/sprites/barrel_green.sprite",
-        "res/sprites/barrel_green_small.sprite",
-        "res/sprites/barrel_red.sprite",
-        "res/sprites/barrel_wood.sprite",
         "res/sprites/bat.sprite",
         "res/sprites/beetle.sprite",
         "res/sprites/bio_pickup_blue.sprite",
@@ -24,6 +20,7 @@
         "res/sprites/boulder_3.sprite",
         "res/sprites/boulder_4.sprite",
         "res/sprites/box_wooden.sprite",
+        "res/sprites/box_wooden_small.sprite",
         "res/sprites/brick_enclosing_1.sprite",
         "res/sprites/brick_enclosing_2.sprite",
         "res/sprites/brick_single_1.sprite",

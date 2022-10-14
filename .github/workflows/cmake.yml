@@ -58,16 +58,16 @@ jobs:
       working-directory: ${{github.workspace}}/build
 
       # Note the current convention is to use the -S and -B options here to specify source 
-      # and build directories, but this is only available with CMake 3.13 and higher.  
+      # and build directories, but this is only available with CMake 3.13 and higher.
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
     - name: Build
       working-directory: ${{github.workspace}}/build
       shell: bash
-      # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
 
+    # Need to add executable to the binary, possibly on Linux as well. 
     - name: OSX, chmod +x
       if: runner.os == 'macOS'
       run: chmod +x ./bin/game_exe.app/Contents/MacOS/game_exe
@@ -84,6 +84,7 @@ jobs:
           bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
 
+    # We only need to do this step once, and it just happened to be Linux who does it. 
     - name: Artifacts Resources
       uses: actions/upload-artifact@v3.1.0
       if: runner.os == 'Linux'
@@ -117,13 +118,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Prepare binaries
+    - name: Prepare Binaries
       uses: actions/download-artifact@v3.0.0
       with:
         name: game-${{matrix.itch-channel}}
         path: stage/game-${{matrix.itch-channel}}
 
-    - name: Prepare resources
+    - name: Prepare Resources
       uses: actions/download-artifact@v3.0.0
       with:
         name: res
