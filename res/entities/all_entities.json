@@ -20,6 +20,7 @@
         "res/entities/package_shield.entity",
         "res/entities/pickup_ammo_10.entity",
         "res/entities/pickup_health_10.entity",
+        "res/entities/pickup_second_wind.entity",
         "res/entities/pink_blolb.entity",
         "res/entities/plasma_bullet.entity",
         "res/entities/plasma_crimson_bullet.entity",
