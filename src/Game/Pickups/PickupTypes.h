@@ -9,7 +9,7 @@ namespace game
     {
         AMMO,
         HEALTH,
-        SCORE,
+        SECOND_WIND,
         WEAPON_PISTOL,
         WEAPON_PLASMA,
         WEAPON_SHOTGUN
@@ -18,7 +18,7 @@ namespace game
     constexpr const char* pickup_items[] = {
         "Ammo",
         "Health",
-        "Score",
+        "Second Wind",
         "Pistol",
         "Plasma Gun",
         "Shotgun",

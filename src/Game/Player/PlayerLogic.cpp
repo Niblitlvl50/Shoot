@@ -428,8 +428,13 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         m_damage_system->GainHealth(m_entity_id, amount);
         break;
     }
-    case PickupType::SCORE:
+    case PickupType::SECOND_WIND:
+    {
+        m_blink_cooldown = tweak_values::blink_cooldown_threshold_s;
+        m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
+        m_shield_cooldown = tweak_values::shield_cooldown_s;
         break;
+    }
 
     case PickupType::WEAPON_PISTOL:
     case PickupType::WEAPON_PLASMA:
