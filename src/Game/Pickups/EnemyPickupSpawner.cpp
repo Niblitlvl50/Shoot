@@ -55,22 +55,31 @@ void EnemyPickupSpawner::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_
     if(is_player)
         return;
 
-    const bool spawn_pickup = mono::Chance(20);
+    const bool spawn_pickup = mono::Chance(50);
     if(!spawn_pickup)
         return;
 
     const int n_pickups = mono::RandomInt(2, 4);
+
     for(int index = 0; index < n_pickups; ++index)
     {
         const int picked_index = mono::RandomInt(0, m_pickup_definitions.size() - 1);
         const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
 
-        mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
+        const bool spawn_pickup = mono::Chance(pickup_definition.drop_chance_percentage);
+        if(!spawn_pickup)
+            continue;
 
+        mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
         m_entity_manager->AddComponent(spawned_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(spawned_entity.id, new EnemyPickupLogic(spawned_entity.id, m_entity_manager));
 
-        const math::Matrix& transform = m_transform_system->GetWorld(id);
+        const float zero_to_tau = mono::Random(0.0f, math::TAU());
+        const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
+
+        math::Matrix transform = m_transform_system->GetWorld(id);
+        math::Translate(transform, random_offset);
+
         m_transform_system->SetTransform(spawned_entity.id, transform);
         m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
     }

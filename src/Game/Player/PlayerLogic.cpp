@@ -368,9 +368,13 @@ void PlayerLogic::BlinkState(const mono::UpdateContext& update_context)
     if(m_blink_duration_counter >= tweak_values::blink_duration_s)
     {
         mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+        const math::Vector target_position = body->GetPosition() + (m_blink_direction * tweak_values::blink_distance);
 
-        const math::Vector new_position = body->GetPosition() + (m_blink_direction * tweak_values::blink_distance);
+        mono::PhysicsSpace* space = m_physics_system->GetSpace();
+        const mono::QueryResult result = space->QueryFirst(body->GetPosition(), target_position, CollisionCategory::STATIC);
+        const math::Vector new_position = (result.body != nullptr) ? result.point : target_position;
         body->SetPosition(new_position);
+
         m_state.TransitionTo(PlayerStates::DEFAULT);
     }
 }
@@ -567,6 +571,7 @@ void PlayerLogic::Blink(const math::Vector& direction)
 
 void PlayerLogic::Shockwave()
 {
+    /*
     if(m_shockwave_cooldown < tweak_values::shockwave_cooldown_s)
         return;
 
@@ -575,6 +580,7 @@ void PlayerLogic::Shockwave()
 
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     m_shockwave_effect->EmittAt(world_position);
+    */
 }
 
 void PlayerLogic::Shield()
