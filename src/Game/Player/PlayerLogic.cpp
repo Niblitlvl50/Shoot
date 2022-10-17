@@ -95,11 +95,11 @@ PlayerLogic::PlayerLogic(
     game::PickupCallback handle_pickups = std::bind(&PlayerLogic::HandlePickup, this, _1, _2);
     m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
 
-    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_running_sound = audio::CreateSound("res/sound/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
-    m_running_sound->SetVolume(0.75f);
+    m_running_sound->SetVolume(0.5f);
 
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
     m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);

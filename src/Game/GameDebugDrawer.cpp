@@ -138,6 +138,12 @@ void GameDebugDrawer::DrawWorldText(const char* text, const math::Vector& positi
     m_debug_texts_world.push_back(new_text);
 }
 
+void GameDebugDrawer::DrawPointFading(const math::Vector& position, float size, const mono::Color::RGBA& color, float time_s)
+{
+    const DebugPoint new_point = { position, color, size, time_s };
+    m_debug_points.push_back(new_point);
+}
+
 void GameDebugDrawer::DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, float time_s)
 {
     DrawLineFading({ start_position, end_position }, width, color, time_s);

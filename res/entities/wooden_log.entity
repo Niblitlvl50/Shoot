@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -147,7 +153,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 4
                         },
                         {
                             "id": 597743964,
@@ -177,7 +183,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "wooden_log",
             "uuid_hash": 241235815
         }
@@ -195,6 +200,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": "",
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -208,7 +214,9 @@
             "x": 0.0,
             "y": 0.0
         },
-        "navmesh_density": -3.2388343242928386e-06,
+        "level_description": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
             "y": 0.0
@@ -217,10 +225,17 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         },
-        "triggers": []
+        "spawn_package": true,
+        "time_limit_s": 0,
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }
