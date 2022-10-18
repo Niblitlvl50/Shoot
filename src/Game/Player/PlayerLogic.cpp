@@ -61,6 +61,7 @@ PlayerLogic::PlayerLogic(
     , m_controller_id(controller.id)
     , m_player_info(player_info)
     , m_gamepad_controller(this, event_handler, controller)
+    , m_keyboard_controller(this, event_handler)
     , m_event_handler(event_handler)
     , m_fire(false)
     , m_stop_fire(false)
@@ -272,6 +273,7 @@ void PlayerLogic::ToDefault()
 void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
     m_gamepad_controller.Update(update_context);
+    m_keyboard_controller.Update(update_context);
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction); // * 0.5f;

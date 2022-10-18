@@ -10,6 +10,7 @@
 #include "Entity/IEntityLogic.h"
 #include "PlayerAbilities.h"
 #include "PlayerGamepadController.h"
+#include "PlayerKeybordController.h"
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/WeaponFwd.h"
 #include "Pickups/PickupTypes.h"
@@ -91,6 +92,7 @@ namespace game
         const uint32_t m_controller_id;
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
+        PlayerKeyboardController m_keyboard_controller;
         mono::EventHandler* m_event_handler;
 
         enum class PlayerStates
