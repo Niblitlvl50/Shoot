@@ -5,7 +5,8 @@
             "frames": [
                 0,
                 1,
-                2
+                2,
+                1
             ],
             "loop": true,
             "name": "idle"
@@ -14,41 +15,41 @@
     "frames": [
         {
             "h": 15,
-            "name": "cactus_small_idle_1",
-            "w": 10,
-            "x": 48,
-            "y": 484
+            "name": "evil_putto_idle_1",
+            "w": 12,
+            "x": 508,
+            "y": 483
         },
         {
-            "h": 15,
-            "name": "cactus_small_idle_2",
-            "w": 10,
-            "x": 76,
-            "y": 484
+            "h": 12,
+            "name": "evil_putto_idle_2",
+            "w": 16,
+            "x": 1870,
+            "y": 489
         },
         {
-            "h": 15,
-            "name": "cactus_small_idle_3",
-            "w": 10,
-            "x": 62,
-            "y": 484
+            "h": 9,
+            "name": "evil_putto_idle_3",
+            "w": 12,
+            "x": 538,
+            "y": 503
         }
     ],
     "frames_offsets": [
         {
             "x": 0.0,
-            "y": 0.0
+            "y": 0.03125
         },
         {
             "x": 0.0,
             "y": 0.0
         },
         {
-            "x": 0.0,
-            "y": 0.0
+            "x": -0.03125,
+            "y": -0.015625
         }
     ],
-    "source_folder": "res/images/creatures/cactus_small/",
+    "source_folder": "res/images/creatures/evil_putto/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
