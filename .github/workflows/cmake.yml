@@ -126,6 +126,7 @@ jobs:
 
     - name: Prepare Resources
       uses: actions/download-artifact@v3.0.0
+      if: runner.os != 'macOS'
       with:
         name: res
         path: stage/game-${{matrix.itch-channel}}/res
