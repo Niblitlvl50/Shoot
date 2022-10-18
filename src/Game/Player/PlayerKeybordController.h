@@ -32,6 +32,9 @@ namespace game
         bool m_pause;
         bool m_fire;
         bool m_trigger_reload;
+        bool m_trigger_action;
+        bool m_trigger_previous_weapon;
+        bool m_trigger_next_weapon;
 
         mono::EventToken<event::MouseDownEvent> m_mouse_down_token;
         mono::EventToken<event::MouseUpEvent> m_mouse_up_token;

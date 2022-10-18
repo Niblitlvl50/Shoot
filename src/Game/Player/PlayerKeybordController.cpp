@@ -16,6 +16,9 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_pause(false)
     , m_fire(false)
     , m_trigger_reload(false)
+    , m_trigger_action(false)
+    , m_trigger_previous_weapon(false)
+    , m_trigger_next_weapon(false)
 {
     using namespace std::placeholders;
 
@@ -44,43 +47,55 @@ PlayerKeyboardController::~PlayerKeyboardController()
 void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 {
     // Update Movement
-    {
-        math::Vector move_vector;
+    math::Vector move_vector;
 
-        if(System::IsKeyDown(Keycode::A))
-            move_vector.x -= 1.0f;
-        if(System::IsKeyDown(Keycode::D))
-            move_vector.x += 1.0f;
+    if(System::IsKeyDown(Keycode::A))
+        move_vector.x -= 1.0f;
+    if(System::IsKeyDown(Keycode::D))
+        move_vector.x += 1.0f;
 
-        if(System::IsKeyDown(Keycode::W))
-            move_vector.y += 1.0f;
-        if(System::IsKeyDown(Keycode::S))
-            move_vector.y -= 1.0f;
+    if(System::IsKeyDown(Keycode::W))
+        move_vector.y += 1.0f;
+    if(System::IsKeyDown(Keycode::S))
+        move_vector.y -= 1.0f;
 
-        m_player_logic->MoveInDirection(math::Normalized(move_vector));
-    }
+    m_player_logic->MoveInDirection(math::Normalized(move_vector));
 
     // Update Aiming
-    {
-        const math::Vector position = m_player_logic->m_player_info->position;
-        const math::Vector normalized_delta = math::Normalized(m_aim_position - position);
-        const float aim_direction = math::AngleFromVector(normalized_delta);
+    const math::Vector position = m_player_logic->m_player_info->position;
+    const math::Vector normalized_delta = math::Normalized(m_aim_position - position);
+    const float aim_direction = math::AngleFromVector(normalized_delta);
 
-        m_player_logic->SetAimDirection(aim_direction);
-    }
+    m_player_logic->SetAimDirection(aim_direction);
 
     // Update Fire
-    {
-        if(m_fire || System::IsKeyDown(Keycode::SPACE))
-            m_player_logic->Fire();
-        else
-            m_player_logic->StopFire();
+    if(m_fire || System::IsKeyDown(Keycode::SPACE))
+        m_player_logic->Fire();
+    else
+        m_player_logic->StopFire();
 
-        if(m_trigger_reload)
-        {
-            m_player_logic->Reload(update_context.timestamp);
-            m_trigger_reload = false;
-        }
+    if(m_trigger_reload)
+    {
+        m_player_logic->Reload(update_context.timestamp);
+        m_trigger_reload = false;
+    }
+
+    if(m_trigger_action)
+    {
+        m_player_logic->Blink(move_vector);
+        m_trigger_action = false;
+    }
+
+    if(m_trigger_previous_weapon)
+    {
+        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Previous);
+        m_trigger_previous_weapon = false;
+    }
+
+    if(m_trigger_next_weapon)
+    {
+        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Next);
+        m_trigger_next_weapon = false;
     }
 }
 
@@ -123,6 +138,15 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
     {
     case Keycode::R:
         m_trigger_reload = true;
+        break;
+    case Keycode::F:
+        m_trigger_action = true;
+        break;
+    case Keycode::ONE:
+        m_trigger_previous_weapon = true;
+        break;
+    case Keycode::TWO:
+        m_trigger_next_weapon = true;
         break;
 
     default:
