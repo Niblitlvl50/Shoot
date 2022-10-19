@@ -1,0 +1,33 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 20,
+            "name": "crosshair161",
+            "w": 20,
+            "x": 628,
+            "y": 456
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/ui/cursor/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
