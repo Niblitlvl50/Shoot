@@ -278,6 +278,9 @@ public:
 
     mono::EventResult OnMouseDown(const event::MouseDownEvent& event)
     {
+        if(!m_enabled)
+            return mono::EventResult::PASS_ON;
+
         const math::Vector world_click = {event.world_x, event.world_y};
    
         uint32_t found_index = NO_ID;
@@ -357,6 +360,9 @@ DebugUpdater::DebugUpdater(
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 
     const event::KeyUpEventFunc key_up_func = [this, renderer](const event::KeyUpEvent& event) {
+        if(!event.ctrl)
+            return mono::EventResult::PASS_ON;
+
         if(event.key == Keycode::R)
             m_draw_debug_menu = !m_draw_debug_menu;
         else if(event.key == Keycode::T)
@@ -371,7 +377,7 @@ DebugUpdater::DebugUpdater(
         else if(event.key == Keycode::L && event.ctrl)
             renderer->ToggleLighting();
 
-        return mono::EventResult::PASS_ON;
+        return mono::EventResult::HANDLED;
     };
     m_keyup_token = m_event_handler->AddListener(key_up_func);
 

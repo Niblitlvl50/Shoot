@@ -53,7 +53,7 @@ CameraSystem::CameraSystem(
     , m_restore_components(n)
 {
     const event::KeyDownEventFunc key_down_func = [this](const event::KeyDownEvent& event) {
-        const bool toggle_camera = (event.key == Keycode::D);
+        const bool toggle_camera = (event.ctrl && event.key == Keycode::D);
         if(toggle_camera)
         {
             m_debug_camera = !m_debug_camera;

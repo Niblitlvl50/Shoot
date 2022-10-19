@@ -19,6 +19,7 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_trigger_action(false)
     , m_trigger_previous_weapon(false)
     , m_trigger_next_weapon(false)
+    , m_update_aiming(false)
 {
     using namespace std::placeholders;
 
@@ -62,11 +63,16 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     m_player_logic->MoveInDirection(math::Normalized(move_vector));
 
     // Update Aiming
-    const math::Vector position = m_player_logic->m_player_info->position;
-    const math::Vector normalized_delta = math::Normalized(m_aim_position - position);
-    const float aim_direction = math::AngleFromVector(normalized_delta);
+    if(m_update_aiming)
+    {
+        const math::Vector position = m_player_logic->m_player_info->position;
+        const math::Vector normalized_delta = math::Normalized(m_aim_position - position);
+        const float aim_direction = math::AngleFromVector(normalized_delta);
 
-    m_player_logic->SetAimDirection(aim_direction);
+        m_player_logic->SetAimDirection(aim_direction);
+
+        m_update_aiming = false;
+    }
 
     // Update Fire
     if(m_fire || System::IsKeyDown(Keycode::SPACE))
@@ -101,16 +107,31 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 
 mono::EventResult PlayerKeyboardController::OnMouseDown(const event::MouseDownEvent& event)
 {
-    if(event.key == MouseButton::LEFT)
+    switch(event.key)
+    {
+    case MouseButton::LEFT:
         m_fire = true;
+        break;
+    default:
+        break;
+    }
 
     return mono::EventResult::HANDLED;
 }
 
 mono::EventResult PlayerKeyboardController::OnMouseUp(const event::MouseUpEvent& event)
 {
-    if(event.key == MouseButton::LEFT)
+    switch(event.key)
+    {
+    case MouseButton::LEFT:
         m_fire = false;
+        break;
+    case MouseButton::RIGHT:
+        m_trigger_action = true;
+        break;
+    default:
+        break;
+    }
 
     return mono::EventResult::HANDLED;
 }
@@ -118,6 +139,7 @@ mono::EventResult PlayerKeyboardController::OnMouseUp(const event::MouseUpEvent&
 mono::EventResult PlayerKeyboardController::OnMouseMotion(const event::MouseMotionEvent& event)
 {
     m_aim_position = {event.world_x, event.world_y};
+    m_update_aiming = true;
     return mono::EventResult::HANDLED;
 }
 
@@ -140,7 +162,7 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
         m_trigger_reload = true;
         break;
     case Keycode::F:
-        m_trigger_action = true;
+        //m_trigger_action = true;
         break;
     case Keycode::ONE:
         m_trigger_previous_weapon = true;

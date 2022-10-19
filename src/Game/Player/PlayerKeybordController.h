@@ -35,6 +35,7 @@ namespace game
         bool m_trigger_action;
         bool m_trigger_previous_weapon;
         bool m_trigger_next_weapon;
+        bool m_update_aiming;
 
         mono::EventToken<event::MouseDownEvent> m_mouse_down_token;
         mono::EventToken<event::MouseUpEvent> m_mouse_up_token;
