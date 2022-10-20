@@ -272,8 +272,12 @@ void PlayerLogic::ToDefault()
 
 void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
-    m_gamepad_controller.Update(update_context);
-    m_keyboard_controller.Update(update_context);
+    const uint32_t gamepad_timestamp = m_gamepad_controller.GetLastInputTimestamp();
+    const uint32_t keyboard_timestamp = m_keyboard_controller.GetLastInputTimestamp();
+    if(gamepad_timestamp < keyboard_timestamp)
+        m_gamepad_controller.Update(update_context);
+    else
+       m_keyboard_controller.Update(update_context);
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction); // * 0.5f;

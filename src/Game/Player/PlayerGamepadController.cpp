@@ -22,6 +22,7 @@ PlayerGamepadController::PlayerGamepadController(
     game::PlayerLogic* player_logic, mono::EventHandler* event_handler, const System::ControllerState& controller)
     : m_player_logic(player_logic)
     , m_event_handler(event_handler)
+    , m_last_input_timestamp(0)
     , m_state(controller)
     , m_pause(false)
 {
@@ -29,9 +30,10 @@ PlayerGamepadController::PlayerGamepadController(
         if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
         {
             m_pause = !m_pause;
-            m_event_handler->DispatchEvent(event::PauseEvent(m_pause)); 
+            m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
         }
 
+        m_last_input_timestamp = event.timestamp;
         return mono::EventResult::PASS_ON;
     };
     m_controller_token = m_event_handler->AddListener(on_controller_down);
@@ -113,4 +115,9 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_player_logic->PickupDrop();
 
     m_last_state = m_state;
+}
+
+uint32_t PlayerGamepadController::GetLastInputTimestamp() const
+{
+    return m_last_input_timestamp;
 }

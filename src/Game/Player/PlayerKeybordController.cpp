@@ -13,6 +13,7 @@ using namespace game;
 PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mono::EventHandler* event_handler)
     : m_player_logic(player_logic)
     , m_event_handler(event_handler)
+    , m_last_input_timestamp(0)
     , m_pause(false)
     , m_fire(false)
     , m_trigger_reload(false)
@@ -105,6 +106,11 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     }
 }
 
+uint32_t PlayerKeyboardController::GetLastInputTimestamp() const
+{
+    return m_last_input_timestamp;
+}
+
 mono::EventResult PlayerKeyboardController::OnMouseDown(const event::MouseDownEvent& event)
 {
     switch(event.key)
@@ -116,6 +122,7 @@ mono::EventResult PlayerKeyboardController::OnMouseDown(const event::MouseDownEv
         break;
     }
 
+    m_last_input_timestamp = event.timestamp;
     return mono::EventResult::HANDLED;
 }
 
@@ -133,6 +140,7 @@ mono::EventResult PlayerKeyboardController::OnMouseUp(const event::MouseUpEvent&
         break;
     }
 
+    m_last_input_timestamp = event.timestamp;
     return mono::EventResult::HANDLED;
 }
 
@@ -140,6 +148,8 @@ mono::EventResult PlayerKeyboardController::OnMouseMotion(const event::MouseMoti
 {
     m_aim_position = {event.world_x, event.world_y};
     m_update_aiming = true;
+    m_last_input_timestamp = event.timestamp;
+
     return mono::EventResult::HANDLED;
 }
 
@@ -175,5 +185,6 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
         break;
     }
 
+    m_last_input_timestamp = event.timestamp;
     return mono::EventResult::HANDLED;
 }
