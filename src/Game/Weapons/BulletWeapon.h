@@ -33,6 +33,7 @@ namespace game
         void StopFire(uint32_t timestamp) override;
         void Reload(uint32_t timestamp) override;
         WeaponState UpdateWeaponState(uint32_t timestamp) override;
+        WeaponState GetWeaponState() const override;
         void AddAmmunition(int amount) override;
         int AmmunitionLeft() const override;
         int MagazineSize() const override;

@@ -35,6 +35,10 @@ namespace
         {
             return game::WeaponState::IDLE;
         }
+        game::WeaponState GetWeaponState() const override
+        {
+            return game::WeaponState::IDLE;
+        }
         void AddAmmunition(int amount) override { }
         
         int AmmunitionLeft() const override

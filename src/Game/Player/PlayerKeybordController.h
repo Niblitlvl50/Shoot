@@ -35,6 +35,7 @@ namespace game
         bool m_fire;
         bool m_trigger_reload;
         bool m_trigger_action;
+        bool m_trigger_pickup_drop;
         bool m_trigger_previous_weapon;
         bool m_trigger_next_weapon;
         bool m_update_aiming;

@@ -48,7 +48,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {
     const bool fire = (m_state.right_trigger > 0.25f);
     if(fire)
-        m_player_logic->Fire();
+        m_player_logic->Fire(update_context.timestamp);
     else
         m_player_logic->StopFire();
 

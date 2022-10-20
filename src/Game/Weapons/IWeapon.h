@@ -21,6 +21,7 @@ namespace game
         virtual void StopFire(uint32_t timestamp) = 0;
         virtual void Reload(uint32_t timestamp) = 0;
         virtual WeaponState UpdateWeaponState(uint32_t timestamp) = 0;
+        virtual WeaponState GetWeaponState() const = 0;
         virtual void AddAmmunition(int amount) = 0;
 
         virtual int AmmunitionLeft() const = 0;

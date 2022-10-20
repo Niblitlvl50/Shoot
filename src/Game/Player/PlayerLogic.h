@@ -48,7 +48,7 @@ namespace game
         void UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
 
-        void Fire();
+        void Fire(uint32_t timestamp);
         void StopFire();
         void Reload(uint32_t timestamp);
         void UseItemSlot(ItemSlotIndex slot_index);

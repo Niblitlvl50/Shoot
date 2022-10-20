@@ -18,6 +18,7 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_fire(false)
     , m_trigger_reload(false)
     , m_trigger_action(false)
+    , m_trigger_pickup_drop(false)
     , m_trigger_previous_weapon(false)
     , m_trigger_next_weapon(false)
     , m_update_aiming(false)
@@ -77,9 +78,17 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 
     // Update Fire
     if(m_fire || System::IsKeyDown(Keycode::SPACE))
-        m_player_logic->Fire();
+    {
+        const bool holding_pickup = m_player_logic->HoldingPickup();
+        if(holding_pickup)
+            m_player_logic->ThrowAction();
+        else
+            m_player_logic->Fire(update_context.timestamp);
+    }
     else
+    {
         m_player_logic->StopFire();
+    }
 
     if(m_trigger_reload)
     {
@@ -103,6 +112,12 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     {
         m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Next);
         m_trigger_next_weapon = false;
+    }
+
+    if(m_trigger_pickup_drop)
+    {
+        m_player_logic->PickupDrop();
+        m_trigger_pickup_drop = false;
     }
 }
 
@@ -172,7 +187,7 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
         m_trigger_reload = true;
         break;
     case Keycode::F:
-        //m_trigger_action = true;
+        m_trigger_pickup_drop = true;
         break;
     case Keycode::ONE:
         m_trigger_previous_weapon = true;

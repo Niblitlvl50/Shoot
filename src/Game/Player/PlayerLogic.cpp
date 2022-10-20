@@ -391,10 +391,16 @@ void PlayerLogic::ExitBlink()
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
 }
 
-void PlayerLogic::Fire()
+void PlayerLogic::Fire(uint32_t timestamp)
 {
     if(HoldingPickup())
         return;
+
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+    const WeaponState state = active_weapon->GetWeaponState();
+
+    if(!m_fire && state == WeaponState::OUT_OF_AMMO)
+        active_weapon->Reload(timestamp);
 
     m_fire = true;
 }
