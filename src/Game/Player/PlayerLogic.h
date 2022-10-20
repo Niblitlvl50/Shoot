@@ -9,8 +9,8 @@
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerAbilities.h"
-#include "PlayerGamepadController.h"
-#include "PlayerKeybordController.h"
+#include "Controllers/PlayerGamepadController.h"
+#include "Controllers/PlayerKeybordController.h"
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/WeaponFwd.h"
 #include "Pickups/PickupTypes.h"

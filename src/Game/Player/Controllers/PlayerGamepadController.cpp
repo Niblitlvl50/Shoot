@@ -1,6 +1,7 @@
 
 #include "PlayerGamepadController.h"
-#include "PlayerLogic.h"
+#include "Player/PlayerLogic.h"
+#include "Player/PlayerInfo.h"
 
 #include "Events/TimeScaleEvent.h"
 #include "Events/PauseEvent.h"
@@ -12,6 +13,7 @@
 
 #include "Events/EventFuncFwd.h"
 #include "Events/ControllerEvent.h"
+#include "Events/PlayerEvents.h"
 
 #include <algorithm>
 #include <cmath>
@@ -46,6 +48,16 @@ PlayerGamepadController::~PlayerGamepadController()
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {
+    if(m_player_logic->m_player_info->player_state == game::PlayerState::DEAD)
+    {
+        const bool respawn_pressed =
+            System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_BOTTOM);
+        if(respawn_pressed)
+            m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_logic->m_entity_id));
+
+        return;
+    }
+
     const bool fire = (m_state.right_trigger > 0.25f);
     if(fire)
         m_player_logic->Fire(update_context.timestamp);

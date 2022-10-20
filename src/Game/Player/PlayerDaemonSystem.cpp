@@ -116,8 +116,7 @@ void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 
 void PlayerDaemonSystem::Begin()
 {
-    if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
+    SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));

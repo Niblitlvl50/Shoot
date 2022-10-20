@@ -20,7 +20,7 @@
 namespace tweak_values
 {
     constexpr float idle_threshold_s = 2.0f;
-    constexpr float move_halflife = 0.3f;
+    constexpr float move_halflife = 0.0f; //0.3f;
 }
 
 using namespace game;

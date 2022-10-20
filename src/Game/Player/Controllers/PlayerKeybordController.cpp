@@ -1,12 +1,13 @@
 
 #include "PlayerKeybordController.h"
-#include "PlayerLogic.h"
-#include "PlayerInfo.h"
+#include "Player/PlayerLogic.h"
+#include "Player/PlayerInfo.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
 #include "Events/MouseEvent.h"
 #include "Events/KeyEvent.h"
+#include "Events/PlayerEvents.h"
 
 using namespace game;
 
@@ -22,6 +23,7 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_trigger_previous_weapon(false)
     , m_trigger_next_weapon(false)
     , m_update_aiming(false)
+    , m_trigger_respawn(false)
 {
     using namespace std::placeholders;
 
@@ -49,6 +51,17 @@ PlayerKeyboardController::~PlayerKeyboardController()
 
 void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 {
+    if(m_trigger_respawn)
+    {
+        m_trigger_respawn = false;
+
+        if(m_player_logic->m_player_info->player_state == game::PlayerState::DEAD)
+        {
+            m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_logic->m_entity_id));
+            return;
+        }
+    }
+
     // Update Movement
     math::Vector move_vector;
 
@@ -194,6 +207,9 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
         break;
     case Keycode::TWO:
         m_trigger_next_weapon = true;
+        break;
+    case Keycode::ENTER:
+        m_trigger_respawn = true;
         break;
 
     default:

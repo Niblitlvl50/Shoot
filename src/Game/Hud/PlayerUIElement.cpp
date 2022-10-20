@@ -218,26 +218,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override
         {
             UIElement::Update(update_context);
-
             UpdateAnimation(update_context);
-
-            if(m_player_info.player_state == game::PlayerState::DEAD)
-            {
-                const System::ControllerState& state = System::GetController(System::ControllerId(m_player_info.controller_id));
-                const bool respawn_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_BOTTOM);
-                const bool quit_pressed = System::ButtonTriggeredAndChanged(m_last_state.button_state, state.button_state, System::ControllerButton::FACE_TOP);
-
-                m_last_state = state;
-
-                if(respawn_pressed)
-                {
-                    m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_info.entity_id));
-                }
-                else if(quit_pressed)
-                {
-                    //m_states.TransitionTo(GameModeStates::FADE_OUT);
-                }
-            }
         }
 
         void UpdateAnimation(const mono::UpdateContext& update_context)
@@ -272,8 +253,6 @@ namespace game
         float m_timer;
         math::Vector m_screen_position;
         math::Vector m_offscreen_position;
-
-        System::ControllerState m_last_state;
    };
 
 

@@ -40,6 +40,8 @@ namespace game
         bool m_trigger_next_weapon;
         bool m_update_aiming;
 
+        bool m_trigger_respawn;
+
         mono::EventToken<event::MouseDownEvent> m_mouse_down_token;
         mono::EventToken<event::MouseUpEvent> m_mouse_up_token;
         mono::EventToken<event::MouseMotionEvent> m_mouse_motion_token;
