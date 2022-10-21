@@ -47,6 +47,7 @@ namespace game
         void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
+        void UpdateController(const mono::UpdateContext& update_context);
 
         void Fire(uint32_t timestamp);
         void StopFire();

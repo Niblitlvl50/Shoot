@@ -267,17 +267,25 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, !HoldingPickup());
 }
 
+void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
+{
+    const uint32_t player_index = FindPlayerIndex(m_player_info);
+    const uint32_t gamepad_timestamp = m_gamepad_controller.GetLastInputTimestamp();
+    const uint32_t keyboard_timestamp = m_keyboard_controller.GetLastInputTimestamp();
+
+    // Select most recent input if player zero, else just go with gamepad. 
+    if(gamepad_timestamp > keyboard_timestamp || player_index > 0)
+        m_gamepad_controller.Update(update_context);
+    else
+        m_keyboard_controller.Update(update_context);
+}
+
 void PlayerLogic::ToDefault()
 { }
 
 void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 {
-    const uint32_t gamepad_timestamp = m_gamepad_controller.GetLastInputTimestamp();
-    const uint32_t keyboard_timestamp = m_keyboard_controller.GetLastInputTimestamp();
-    if(gamepad_timestamp > keyboard_timestamp)
-        m_gamepad_controller.Update(update_context);
-    else
-       m_keyboard_controller.Update(update_context);
+    UpdateController(update_context);
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction); // * 0.5f;
@@ -328,12 +336,7 @@ void PlayerLogic::ToDead()
 
 void PlayerLogic::DeadState(const mono::UpdateContext& update_context)
 {
-    const uint32_t gamepad_timestamp = m_gamepad_controller.GetLastInputTimestamp();
-    const uint32_t keyboard_timestamp = m_keyboard_controller.GetLastInputTimestamp();
-    if(gamepad_timestamp > keyboard_timestamp)
-        m_gamepad_controller.Update(update_context);
-    else
-       m_keyboard_controller.Update(update_context);
+    UpdateController(update_context);
 
     if(m_player_info->player_state == PlayerState::ALIVE)
         m_state.TransitionTo(PlayerStates::DEFAULT);
