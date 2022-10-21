@@ -29,19 +29,24 @@ PlayerGamepadController::PlayerGamepadController(
     , m_pause(false)
 {
     event::ControllerButtonDownFunc on_controller_down = [this](const event::ControllerButtonDownEvent& event) {
-        if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
+        if(event.controller_id == m_player_logic->m_player_info->controller_id)
         {
-            m_pause = !m_pause;
-            m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+            if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
+            {
+                m_pause = !m_pause;
+                m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+            }
+
+            m_last_input_timestamp = event.timestamp;
         }
 
-        m_last_input_timestamp = event.timestamp;
         return mono::EventResult::PASS_ON;
     };
     m_controller_token = m_event_handler->AddListener(on_controller_down);
 
     const event::ControllerAxisFunc on_axis_event = [this](const event::ControllerAxisEvent& event) {
-        m_last_input_timestamp = event.timestamp;
+        if(event.controller_id == m_player_logic->m_player_info->controller_id)
+            m_last_input_timestamp = event.timestamp;
         return mono::EventResult::PASS_ON;
     };
     m_axis_token = m_event_handler->AddListener(on_axis_event);
