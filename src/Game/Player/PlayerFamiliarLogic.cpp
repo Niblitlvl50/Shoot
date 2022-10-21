@@ -13,6 +13,8 @@
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
+#include "GameCamera/CameraSystem.h"
+#include "Camera/ICamera.h"
 
 #include "SystemContext.h"
 
@@ -36,6 +38,7 @@ PlayerFamiliarLogic::PlayerFamiliarLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_light_system = system_context->GetSystem<mono::LightSystem>();
+    m_camera_system = system_context->GetSystem<game::CameraSystem>();
 
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_light_system->SetLightEnabled(m_entity_id, false);
@@ -69,12 +72,13 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 
     if(show_sprite)
     {
+        const math::Vector target_world_position = m_camera_system->GetActiveCamera()->ScreenToWorld(m_target_screen_position);
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
 
         math::critical_spring_damper(
             current_position,
             m_move_velocity,
-            m_target_position,
+            target_world_position,
             math::ZeroVec,
             tweak_values::move_halflife,
             update_context.delta_s);
@@ -95,6 +99,6 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 mono::EventResult PlayerFamiliarLogic::OnMouseMotion(const event::MouseMotionEvent& event)
 {
     m_idle_timer = 0.0f;
-    m_target_position = math::Vector(event.world_x, event.world_y);
+    m_target_screen_position = math::Vector(event.screen_x, event.screen_y);
     return mono::EventResult::PASS_ON;
 }

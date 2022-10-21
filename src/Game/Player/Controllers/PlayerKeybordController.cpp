@@ -178,7 +178,7 @@ mono::EventResult PlayerKeyboardController::OnMouseMotion(const event::MouseMoti
     m_update_aiming = true;
     m_last_input_timestamp = event.timestamp;
 
-    return mono::EventResult::HANDLED;
+    return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult PlayerKeyboardController::OnKeyDown(const event::KeyDownEvent& event)
