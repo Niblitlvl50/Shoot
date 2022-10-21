@@ -30,5 +30,6 @@ namespace game
 
         bool m_pause;
         mono::EventToken<event::ControllerButtonDownEvent> m_controller_token;
+        mono::EventToken<event::ControllerAxisEvent> m_axis_token;
     };
 }

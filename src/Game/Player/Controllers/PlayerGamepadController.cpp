@@ -39,11 +39,18 @@ PlayerGamepadController::PlayerGamepadController(
         return mono::EventResult::PASS_ON;
     };
     m_controller_token = m_event_handler->AddListener(on_controller_down);
+
+    const event::ControllerAxisFunc on_axis_event = [this](const event::ControllerAxisEvent& event) {
+        m_last_input_timestamp = event.timestamp;
+        return mono::EventResult::PASS_ON;
+    };
+    m_axis_token = m_event_handler->AddListener(on_axis_event);
 }
 
 PlayerGamepadController::~PlayerGamepadController()
 {
     m_event_handler->RemoveListener(m_controller_token);
+    m_event_handler->RemoveListener(m_axis_token);
 }
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
