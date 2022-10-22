@@ -31,6 +31,16 @@
             "behaviour": ""
         },
         {
+            "name": "flak_bullet_homing",
+            "damage": 20,
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
+            "entity_file": "res/entities/flak_bullet_homing.entity",
+            "sound_file": "",
+            "behaviour": "homing"
+        },
+        {
             "name": "burst_gun_bullet",
             "damage": 50,
             "life_span": 0.75,
@@ -224,6 +234,12 @@
             "name": "Generic",
             "weapon": "generic",
             "bullet": "generic_bullet",
+            "sprite_file": "res/sprites/bolter.sprite"
+        },
+        {
+            "name": "Generic Homing",
+            "weapon": "generic",
+            "bullet": "flak_bullet_homing",
             "sprite_file": "res/sprites/bolter.sprite"
         },
         {
