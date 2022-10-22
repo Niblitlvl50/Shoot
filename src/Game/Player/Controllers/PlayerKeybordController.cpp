@@ -92,10 +92,10 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     // Update Fire
     if(m_fire || System::IsKeyDown(Keycode::SPACE))
     {
-        const bool holding_pickup = m_player_logic->HoldingPickup();
-        if(holding_pickup)
-            m_player_logic->ThrowAction();
-        else
+        //const bool holding_pickup = m_player_logic->HoldingPickup();
+        //if(holding_pickup)
+        //    m_player_logic->ThrowAction();
+        //else
             m_player_logic->Fire(update_context.timestamp);
     }
     else

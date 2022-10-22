@@ -185,7 +185,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->weapon_type = active_weapon->GetWeaponSetup();
     m_player_info->weapon_state = active_weapon->UpdateWeaponState(timestamp);
     m_player_info->magazine_left = active_weapon->AmmunitionLeft();
-    m_player_info->laser_sight = (HoldingPickup() == false);
+    m_player_info->laser_sight = true; //(HoldingPickup() == false);
 
     m_player_info->cooldown_id = 0;
     m_player_info->cooldown_fraction = 1.0f;
@@ -264,7 +264,7 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
         math::CreateMatrixFromZRotation(m_aim_direction + math::PI_2()) *
         math::CreateMatrixWithPosition(math::Vector(0.1f, 0.0f));
 
-    m_sprite_system->SetSpriteEnabled(m_weapon_entity, !HoldingPickup());
+    //m_sprite_system->SetSpriteEnabled(m_weapon_entity, !HoldingPickup());
 }
 
 void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
@@ -403,8 +403,8 @@ void PlayerLogic::ExitBlink()
 
 void PlayerLogic::Fire(uint32_t timestamp)
 {
-    if(HoldingPickup())
-        return;
+    //if(HoldingPickup())
+    //    return;
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     const WeaponState state = active_weapon->GetWeaponState();
