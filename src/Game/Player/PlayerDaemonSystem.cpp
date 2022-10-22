@@ -53,9 +53,10 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     m_familiar_entities = json["familiar_entities"];
     m_package_entities = json["package_entities"];
 
-    std::shuffle(m_player_entities.begin(), m_player_entities.end(), mono::UniformRandomBitGenerator());
-    std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), mono::UniformRandomBitGenerator());
-    std::shuffle(m_package_entities.begin(), m_package_entities.end(), mono::UniformRandomBitGenerator());
+    mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
+    std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);
+    std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), random_bit_generator);
+    std::shuffle(m_package_entities.begin(), m_package_entities.end(), random_bit_generator);
 
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
