@@ -5,6 +5,7 @@
         "res/entities/caco_explosion.entity",
         "res/entities/cacodemon.entity",
         "res/entities/cardboard_box.entity",
+        "res/entities/circle_crosshair.entity",
         "res/entities/explosion.entity",
         "res/entities/explosion_effect.entity",
         "res/entities/explosion_small.entity",
@@ -37,6 +38,7 @@
         "res/entities/rocket_launcher_pickup.entity",
         "res/entities/secondary_player_bat.entity",
         "res/entities/shockwave_effect.entity",
+        "res/entities/small_crosshair.entity",
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
         "res/entities/wooden_log.entity"
