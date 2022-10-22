@@ -36,7 +36,7 @@
             "command": "cmake",
             "args": [
                 "../"
-//                "-DCMAKE_BUILD_TYPE=Debug"
+                "-DCMAKE_BUILD_TYPE=Debug"
             ],
             "options": {
                 "cwd": "${workspaceRoot}/build"
@@ -56,7 +56,7 @@
 //                "-position",
 //                "300",
 //                "50",
-                "-zone", "res/worlds/boss_arena.components"
+//                "-zone", "pickup_arena"
             ],
             "problemMatcher": []
         },

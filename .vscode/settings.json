@@ -101,6 +101,7 @@
         "condition_variable": "cpp",
         "stb_vorbis.c": "cpp",
         "__bits": "cpp",
-        "compare": "cpp"
+        "compare": "cpp",
+        "memory_resource": "c"
     }
 }

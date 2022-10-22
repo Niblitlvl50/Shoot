@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
 //                "-position", "500", "0",
-                "-zone", "res/worlds/tiny_arena.components"
+//                "-zone", "res/worlds/tiny_arena.components"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
