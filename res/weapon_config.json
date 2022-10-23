@@ -227,6 +227,23 @@
             "fire_sound": "res/sound/blaster-probe-gun.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "generic_homing_gun",
+            "magazine_size": 5,
+            "reload_time": 0.5,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 0.5,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 2.0,
+            "bullet_force": 1.2,
+            "bullet_spread_degrees": 0.0,
+            "bullet_offset": 0.0,
+            "bullet_force_random": true,
+            "auto_reload": false,
+            "fire_sound": "res/sound/blaster-probe-gun.wav",
+            "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
+            "reload_sound": "res/sound/shotgun_reload2.wav"
         }
     ],
     "weapon_setups": [
@@ -238,7 +255,7 @@
         },
         {
             "name": "Generic Homing",
-            "weapon": "generic",
+            "weapon": "generic_homing_gun",
             "bullet": "flak_bullet_homing",
             "sprite_file": "res/sprites/bolter.sprite"
         },
