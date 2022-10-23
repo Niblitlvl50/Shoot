@@ -12,11 +12,6 @@
 #include "Tools/MeasureTool.h"
 #include "Tools/PaletteTool.h"
 
-namespace System
-{
-    class IWindow;
-}
-
 namespace editor
 {
     struct UIContext;
@@ -28,7 +23,6 @@ namespace editor
 
         UserInputController(
             mono::ICamera* camera,
-            System::IWindow* window,
             editor::Editor* editor,
             editor::UIContext* context,
             mono::EventHandler& event_handler);
@@ -47,7 +41,6 @@ namespace editor
         mono::EventResult OnKeyDown(const event::KeyDownEvent& event);
         mono::EventResult OnKeyUp(const event::KeyUpEvent& event);
 
-        System::IWindow* m_window;
         mono::EventHandler& m_event_handler;
         editor::Editor* m_editor;
         editor::UIContext* m_context;
@@ -71,7 +64,6 @@ namespace editor
         editor::Grabber* m_grabber;
         bool m_box_selection;
         math::Vector m_click_point;
-        bool m_is_maximized;
     };
 }
 

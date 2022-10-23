@@ -30,12 +30,10 @@ using namespace editor;
 
 UserInputController::UserInputController(
     mono::ICamera* camera,
-    System::IWindow* window,
     editor::Editor* editor,
     editor::UIContext* context,
     mono::EventHandler& event_handler)
-    : m_window(window)
-    , m_event_handler(event_handler)
+    : m_event_handler(event_handler)
     , m_editor(editor)
     , m_context(context)
     , m_camera_tool(camera)
@@ -46,7 +44,6 @@ UserInputController::UserInputController(
     , m_active_tool(nullptr)
     , m_grabber(nullptr)
     , m_box_selection(false)
-    , m_is_maximized(false)
 {
     using namespace std::placeholders;
 
@@ -296,15 +293,6 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
-    else if(event.key == Keycode::ENTER && event.ctrl)
-    {
-        if(m_is_maximized)
-            m_window->RestoreSize();
-        else
-            m_window->Maximize();
-
-        m_is_maximized = !m_is_maximized;
-    }
     else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)
     {
         const float offset = event.shift ? 0.5f : 1.0f;

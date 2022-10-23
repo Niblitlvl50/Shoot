@@ -287,7 +287,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
     m_user_input_controller =
-        std::make_unique<editor::UserInputController>(camera, m_window, this, &m_context, m_event_handler);
+        std::make_unique<editor::UserInputController>(camera, this, &m_context, m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
