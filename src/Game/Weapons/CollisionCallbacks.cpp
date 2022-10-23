@@ -119,9 +119,6 @@ void game::PlasmaCollision(
 {
     StandardCollision(
         entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
-
-    //if(!details.body)
-    //    SpawnEntityWithAnimation("res/entities/hex_tiny.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }
 
 void game::RocketCollision(

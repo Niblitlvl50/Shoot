@@ -7,7 +7,6 @@
     ],
     "familiar_entities": [
         "res/entities/secondary_player_bat.entity",
-        "res/entities/circle_crosshair.entity",
         "res/entities/small_crosshair.entity"
     ],
     "package_entities": [

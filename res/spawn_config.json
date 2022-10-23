@@ -1,7 +1,6 @@
 {
     "spawn_definitions": [
         { "value": 1, "entity": "res/entities/goblin.entity" },
-        { "value": 1, "entity": "res/entities/eye_monster_small.entity" },
-        { "value": 3, "entity": "res/entities/cacodemon.entity" }
+        { "value": 1, "entity": "res/entities/eye_monster_small.entity" }
     ]
 }

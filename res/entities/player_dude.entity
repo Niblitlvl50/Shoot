@@ -263,13 +263,13 @@
                             "id": 3150860,
                             "name": "weapon_primary",
                             "variant_type": 6,
-                            "variant_value": "Generic"
+                            "variant_value": "Plasma Gun"
                         },
                         {
                             "id": 3576654212,
                             "name": "weapon_secondary",
                             "variant_type": 6,
-                            "variant_value": "Laser Blaster"
+                            "variant_value": "Flak Canon"
                         },
                         {
                             "id": 556824164,
