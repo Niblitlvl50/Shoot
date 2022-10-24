@@ -26,7 +26,7 @@ namespace game
     public:
 
         UIElement();
-        virtual ~UIElement() = default;
+        virtual ~UIElement();
 
         void Update(const mono::UpdateContext& context) override;
         void Draw(mono::IRenderer& renderer) const override;

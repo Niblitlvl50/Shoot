@@ -23,6 +23,12 @@ UIElement::UIElement()
     , m_show(true)
 { }
 
+UIElement::~UIElement()
+{
+    for(UIElement* child : m_ui_elements)
+        delete child;
+}
+
 void UIElement::Update(const mono::UpdateContext& context)
 {
     for(UIElement* child : m_ui_elements)
