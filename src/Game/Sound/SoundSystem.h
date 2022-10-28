@@ -22,6 +22,21 @@ namespace game
         FadeOutFadeIn
     };
 
+    inline const char* SoundTransisionToString(SoundTransition transision)
+    {
+        switch(transision)
+        {
+        case SoundTransition::None:
+            return "None";
+        case SoundTransition::Cut:
+            return "Cut";
+        case SoundTransition::CrossFade:
+            return "CrossFade";
+        case SoundTransition::FadeOutFadeIn:
+            return "FadeOutFadeInt";
+        }
+    }
+
     enum SoundInstancePlayParameter
     {
         SP_TRIGGER_ACTIVATED   = ENUM_BIT(0),
@@ -77,6 +92,8 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        void DrawDebug(const mono::UpdateContext& update_context);
+
         game::TriggerSystem* m_trigger_system;
         mono::ActiveVector<SoundInstanceComponent> m_sound_components;
 
@@ -86,6 +103,6 @@ namespace game
         uint32_t m_requested_track;
 
         SoundTransition m_current_transition;
-        float m_transition_timer; 
+        float m_transition_timer;
     };
 }

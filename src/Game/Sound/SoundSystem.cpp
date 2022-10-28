@@ -21,7 +21,7 @@
 
 namespace tweak_values
 {
-    constexpr float fade_time_s = 2.0f;
+    constexpr float fade_time_s = 1.0f;
 }
 
 namespace
@@ -174,57 +174,67 @@ const char* SoundSystem::Name() const
 void SoundSystem::Update(const mono::UpdateContext& update_context)
 {
     if(game::g_draw_debug_soundsystem)
-    {
-        std::string text = hash::HashLookup(m_current_track) + std::string(" -> ") + hash::HashLookup(m_requested_track);
-        g_debug_drawer->DrawScreenText(text.c_str(), math::Vector(0.5f, 1.0f), mono::Color::RED);
-    }
+        DrawDebug(update_context);
     
-    if(m_current_transition == SoundTransition::None)
-        return;
-
-    m_transition_timer = std::clamp(m_transition_timer + update_context.delta_s, 0.0f, tweak_values::fade_time_s);
-
     audio::ISoundPtr& current_track = m_music_tracks[m_current_track];
     audio::ISoundPtr& requested_track = m_music_tracks[m_requested_track];
 
-    switch(m_current_transition)
+    m_transition_timer = std::clamp(m_transition_timer + update_context.delta_s, 0.0f, tweak_values::fade_time_s);
+    
+    if(m_current_transition != SoundTransition::None)
     {
-    case SoundTransition::None:
-        break;
-    case SoundTransition::Cut:
-        break;
-
-    case SoundTransition::CrossFade:
-    {
-        const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 1.0f);
-        current_track->SetVolume(1.0f - new_value);
-        requested_track->SetVolume(new_value);
-
-        break;
-    }
-
-    case SoundTransition::FadeOutFadeIn:
-    {
-        const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 2.0f);
-        if(new_value < 1.0f)
+        switch(m_current_transition)
         {
+        case SoundTransition::None:
+            break;
+        case SoundTransition::Cut:
+            break;
+
+        case SoundTransition::CrossFade:
+        {
+            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 1.0f);
             current_track->SetVolume(1.0f - new_value);
+            requested_track->SetVolume(new_value);
+
+            break;
         }
-        else
+
+        case SoundTransition::FadeOutFadeIn:
         {
-            if(!requested_track->IsPlaying())
-                requested_track->Play();
-            requested_track->SetVolume(new_value - 1.0f);
+            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 2.0f);
+            if(new_value <= 1.0f)
+                current_track->SetVolume(1.0f - new_value);
+            else
+                requested_track->SetVolume(new_value - 1.0f);
+
+            break;
+        }
         }
 
-        break;
-    }
+        if(m_transition_timer >= tweak_values::fade_time_s)
+        {
+            if(m_current_track != m_requested_track)
+                current_track->Stop();
+            m_current_track = m_requested_track;
+            m_current_transition = SoundTransition::None;
+        }
     }
 
-    if(m_transition_timer >= tweak_values::fade_time_s)
+    if(game::g_mute_soundsystem)
     {
-        current_track->Stop();
-        m_current_track = m_requested_track;
-        m_current_transition = SoundTransition::None;
+        current_track->SetVolume(0.0f);
+        requested_track->SetVolume(0.0f);
     }
+}
+
+void SoundSystem::DrawDebug(const mono::UpdateContext& update_context)
+{
+    const std::string muted_text = game::g_mute_soundsystem ? " | Muted" : "";
+    const std::string text =
+        hash::HashLookup(m_current_track) + std::string(" -> ") + hash::HashLookup(m_requested_track) + muted_text;
+    g_debug_drawer->DrawScreenText(text.c_str(), math::Vector(0.5f, 1.0f), mono::Color::CYAN);
+
+    const std::string transision_string =
+        SoundTransisionToString(m_current_transition) + std::string(" | ") + std::to_string(m_transition_timer);
+    g_debug_drawer->DrawScreenText(transision_string.c_str(), math::Vector(0.5f, 0.5f), mono::Color::CYAN);
 }

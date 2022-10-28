@@ -28,6 +28,7 @@ namespace game
     extern bool g_draw_spawn_points;
     extern bool g_draw_camera_debug;
     extern bool g_draw_debug_soundsystem;
+    extern bool g_mute_soundsystem;
 
     class TriggerSystem;
     class DamageSystem;
