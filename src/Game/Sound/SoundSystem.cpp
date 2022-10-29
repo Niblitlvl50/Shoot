@@ -69,6 +69,9 @@ void SoundSystem::PlayBackgroundMusic(const std::string& name, SoundTransition t
 
 void SoundSystem::PlayBackgroundMusic(uint32_t track, SoundTransition transition)
 {
+    if(track == m_current_track)
+        return;
+
     if(m_current_transition != SoundTransition::None)
     {
         // We are already in a transition
