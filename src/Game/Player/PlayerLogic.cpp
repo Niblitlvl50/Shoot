@@ -11,6 +11,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/IShape.h"
+#include "Physics/IConstraint.h"
 #include "Physics/PhysicsSpace.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -524,6 +525,7 @@ void PlayerLogic::PickupDrop()
             mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
             mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
             m_pickup_constraint = m_physics_system->CreateSlideJoint(player_body, pickup_body, math::ZeroVec, math::ZeroVec, 0.05f, 0.25f);
+            m_pickup_constraint->SetMaxForce(100.0f);
 
             const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
             for(mono::IShape* shape : shapes)
