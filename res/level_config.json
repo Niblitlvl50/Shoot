@@ -21,11 +21,6 @@
             "transitions": [ "gameover_screen", "title_screen", "title_screen" ]
         },
         {
-            "name": "world",
-            "filename": "res/worlds/world.components",
-            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
-        },
-        {
             "name": "tiny_arena",
             "filename": "res/worlds/tiny_arena.components",
             "transitions": [ "gameover_screen", "pickup_arena", "title_screen" ]
