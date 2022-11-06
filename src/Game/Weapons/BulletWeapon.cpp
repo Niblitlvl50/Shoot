@@ -56,6 +56,7 @@ Weapon::Weapon(
     m_fire_sound = audio::CreateNullSound();
     m_ooa_sound = audio::CreateNullSound();
     m_reload_sound = audio::CreateNullSound();
+    m_reload_finished_sound = audio::CreateNullSound();
 
     if(!m_weapon_config.fire_sound.empty())
         m_fire_sound = audio::CreateSound(m_weapon_config.fire_sound.c_str(), audio::SoundPlayback::ONCE);
@@ -65,6 +66,9 @@ Weapon::Weapon(
     
     if(!m_weapon_config.reload_sound.empty())
         m_reload_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
+
+    if(!m_weapon_config.reload_finished_sound.empty())
+        m_reload_finished_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -212,7 +216,10 @@ WeaponState Weapon::UpdateWeaponState(uint32_t timestamp)
 
         const bool still_reloading = reload_delta < m_weapon_config.reload_time;
         if(!still_reloading)
+        {
+            m_reload_finished_sound->Play();
             m_state = WeaponState::IDLE;
+        }
 
         break;
     }

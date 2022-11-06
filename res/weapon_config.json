@@ -107,7 +107,8 @@
             "auto_reload": false,
             "fire_sound": "",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "cacodemon_plasma",
@@ -124,7 +125,8 @@
             "auto_reload": false,
             "fire_sound": "",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "plasma_gun",
@@ -141,7 +143,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/plasma_fire_2.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "flak_gun",
@@ -158,7 +161,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/shotgun_fire.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "burst_gun",
@@ -175,7 +179,8 @@
             "auto_reload": true,
             "fire_sound": "res/sound/shotgun_fire.wav",
             "out_of_ammo_sound": "",
-            "reload_sound": ""
+            "reload_sound": "",
+            "reload_finished_sound": ""
         },
         {
             "name": "cacoplasma",
@@ -192,7 +197,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/shotgun_fire.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "rocketlauncher",
@@ -209,7 +215,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/rocket_fire2.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "blaster",
@@ -226,7 +233,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/blaster-probe-gun.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
             "name": "generic_homing_gun",
@@ -243,7 +251,8 @@
             "auto_reload": false,
             "fire_sound": "res/sound/blaster-probe-gun.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
-            "reload_sound": "res/sound/shotgun_reload2.wav"
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         }
     ],
     "weapon_setups": [

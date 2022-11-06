@@ -89,6 +89,7 @@ namespace game
         std::string fire_sound;
         std::string out_of_ammo_sound;
         std::string reload_sound;
+        std::string reload_finished_sound;
     };
 
     struct WeaponBulletCombination

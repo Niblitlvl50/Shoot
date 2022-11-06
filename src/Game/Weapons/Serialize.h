@@ -41,6 +41,7 @@ namespace game
         weapon_config.fire_sound            = json["fire_sound"].get<std::string>();
         weapon_config.out_of_ammo_sound     = json["out_of_ammo_sound"].get<std::string>();
         weapon_config.reload_sound          = json["reload_sound"].get<std::string>();
+        weapon_config.reload_finished_sound = json["reload_finished_sound"].get<std::string>();
     }
 
     inline void from_json(const nlohmann::json& json, WeaponBulletCombination& weapon_setup)

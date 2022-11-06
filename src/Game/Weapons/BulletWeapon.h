@@ -58,6 +58,7 @@ namespace game
         audio::ISoundPtr m_fire_sound;
         audio::ISoundPtr m_ooa_sound;
         audio::ISoundPtr m_reload_sound;
+        audio::ISoundPtr m_reload_finished_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
