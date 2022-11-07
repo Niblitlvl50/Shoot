@@ -53868,6 +53868,7 @@
             "y": 7.5
         },
         "level_description": "Fetch that package!",
+        "level_game_mode": "package_delivery_mode",
         "level_name": "Small Forest",
         "navmesh_density": 0.5,
         "navmesh_end": {
