@@ -53072,6 +53072,7 @@
             "y": 7.5
         },
         "level_description": "Its a woody place...",
+        "level_game_mode": "package_delivery_mode",
         "level_name": "Forest World",
         "navmesh_density": 1.0,
         "navmesh_end": {

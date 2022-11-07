@@ -21,13 +21,8 @@ namespace game
 
     protected:
 
-        std::unique_ptr<IGameMode> CreateGameMode() override;
-
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
         const game::Config m_game_config;
-
-        std::unique_ptr<class RegionDrawer> m_region_ui;
-        std::unique_ptr<class FogOverlay> m_fog;
     };
 }

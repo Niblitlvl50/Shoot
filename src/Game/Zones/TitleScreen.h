@@ -20,10 +20,9 @@ namespace game
 
         void Continue();
         void Quit();
-        void ToggleFullscreen();
 
         mono::EventHandler* m_event_handler;
-        mono::EventToken<event::KeyUpEvent> m_key_token;
+        mono::EventToken<event::KeyDownEvent> m_key_token;
         int m_exit_zone;
     };
 }

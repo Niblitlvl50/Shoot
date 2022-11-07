@@ -36,6 +36,7 @@
 #include "RoadSystem/RoadSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Sound/SoundSystem.h"
+#include "World/RegionSystem.h"
 #include "World/WorldBoundsSystem.h"
 
 #include "Network/ServerManager.h"
@@ -190,6 +191,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
         system_context.CreateSystem<game::DialogSystem>(max_entities);
         system_context.CreateSystem<game::SoundSystem>(max_entities, trigger_system);
+        system_context.CreateSystem<game::RegionSystem>(trigger_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
         system_context.CreateSystem<game::WeaponSystem>(
             transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);

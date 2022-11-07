@@ -645,6 +645,15 @@ bool editor::DrawStringPicker(
         name, &out_index, item_proxy, (void*)&all_strings, all_strings.size(), ImGuiComboFlags_HeightLarge);
 }
 
+bool editor::DrawStringPicker(const char* name, std::string& current_in_out_value, const std::vector<std::string>& all_strings)
+{
+    int out_index;
+    const bool changed = editor::DrawStringPicker(name, current_in_out_value, all_strings, out_index);
+    if(changed)
+        current_in_out_value = all_strings[out_index];
+    return changed;
+}
+
 editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context)
 {
     editor::SpritePickerResult result;

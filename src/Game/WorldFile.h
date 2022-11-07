@@ -19,6 +19,8 @@ namespace game
         std::string level_name;
         std::string level_description;
 
+        std::string level_game_mode;
+
         math::Vector camera_position;
         math::Vector camera_size;
         math::Vector player_spawn_point;

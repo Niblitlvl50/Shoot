@@ -34,7 +34,8 @@ namespace editor
     bool DrawBitfieldProperty(const char* name, uint32_t& value, const std::vector<uint32_t>& flags, FlagToStringFunc flag_to_string);
 
     bool DrawStringPicker(const char* name, const std::string& current_value, const std::vector<std::string>& all_strings, int& out_index);
-    
+    bool DrawStringPicker(const char* name, std::string& current_in_out_value, const std::vector<std::string>& all_strings);
+
     struct SpritePickerResult
     {
         bool changed;

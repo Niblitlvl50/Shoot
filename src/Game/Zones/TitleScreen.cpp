@@ -55,14 +55,14 @@ TitleScreen::TitleScreen(const ZoneCreationContext& context)
     , m_event_handler(context.event_handler)
     , m_exit_zone(game::ZoneResult::ZR_ABORTED)
 {
-    const event::KeyUpEventFunc key_callback = [this](const event::KeyUpEvent& event)
+    const event::KeyDownEventFunc key_callback = [this](const event::KeyDownEvent& event)
     {
         if(event.key == Keycode::ENTER)
+        {
             Continue();
-        else if(event.key == Keycode::Q)
-            Quit();
-        else if(event.key == Keycode::F)
-            ToggleFullscreen();
+            return mono::EventResult::HANDLED;
+        }
+    
         return mono::EventResult::PASS_ON;
     };
     m_key_token = m_event_handler->AddListener(key_callback);
@@ -95,14 +95,4 @@ void TitleScreen::Quit()
 {
     m_exit_zone = game::ZoneResult::ZR_ABORTED;
     m_event_handler->DispatchEvent(event::QuitEvent());
-}
-
-void TitleScreen::ToggleFullscreen()
-{
-    static bool state = true;
-    
-    const event::ScreenMode mode = state ? event::ScreenMode::FULLSCREEN_DESKTOP : event::ScreenMode::WINDOWED;
-    m_event_handler->DispatchEvent(event::ScreenEvent(mode));
-
-    state = !state;
 }

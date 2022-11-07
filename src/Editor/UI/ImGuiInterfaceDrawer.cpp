@@ -15,6 +15,8 @@
 #include "EntitySystem/ObjectAttribute.h"
 #include "Sound/SoundSystem.h"
 
+#include "GameMode/GameModeFactory.h"
+
 #include <algorithm>
 #include <map>
 
@@ -321,20 +323,18 @@ namespace
                 ImGui::TextDisabled("Level");
                 editor::DrawStringProperty("Name", context.level_metadata.level_name);
                 editor::DrawStringProperty("Description", context.level_metadata.level_description);
+                editor::DrawStringPicker("Music", context.level_metadata.background_music, editor::GetAllMusicTracks());
+
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Game Mode");
+                editor::DrawStringPicker("Mode", context.level_metadata.level_game_mode, game::GameModeFactory::GetAllGameModes());
                 ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
-
-                {
-                    const std::vector<std::string>& all_music_tracks = editor::GetAllMusicTracks();
-                    int out_index;
-                    const bool changed = editor::DrawStringPicker("Music", context.level_metadata.background_music, all_music_tracks, out_index);
-                    if(changed)
-                        context.level_metadata.background_music = all_music_tracks[out_index];
-                }
-
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Player");
                 ImGui::InputFloat2("Spawn", &context.level_metadata.player_spawn_point.x);
+                ImGui::Spacing();
 
                 ImGui::TextDisabled("Package");
                 ImGui::Checkbox("Spawn Package", &context.level_metadata.spawn_package);

@@ -59,6 +59,8 @@
 #include "SpawnSystem/SpawnSystemDrawer.h"
 #include "World/WorldBoundsSystem.h"
 #include "World/WorldBoundsDrawer.h"
+#include "World/RegionDrawer.h"
+#include "World/RegionSystem.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -66,24 +68,11 @@
 #include "CollisionConfiguration.h"
 
 #include "GameMode/IGameMode.h"
+#include "GameMode/GameModeFactory.h"
 #include "Sound/SoundSystem.h"
 
 namespace
 {
-    class DefaultGameMode : public game::IGameMode
-    {
-    public:
-
-        void Begin(
-            mono::IZone* zone,
-            mono::IRenderer* renderer,
-            mono::SystemContext* system_context,
-            mono::EventHandler* event_handler,
-            const game::LevelMetadata& level_metadata) override { }
-        int End(mono::IZone* zone) override { return game::ZoneResult::ZR_COMPLETED; }
-        void Update(const mono::UpdateContext& update_context) override {}
-    };
-
     void SetupNavmesh(game::NavmeshContext& navmesh_context, const game::LevelMetadata& metadata, mono::PhysicsSpace* space)
     {
         navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density);
@@ -135,6 +124,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
     WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
+    RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -173,6 +163,9 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
 
+    m_region_ui = new RegionDrawer(region_system);
+    AddUpdatableDrawable(m_region_ui, LayerId::UI);
+
     // Debug
     AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
     AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
@@ -197,6 +190,10 @@ int GameZone::OnUnload()
 
     game::g_navmesh = nullptr;
 
+    RemoveUpdatableDrawable(m_region_ui);
+    delete m_region_ui;
+    m_region_ui = nullptr;
+
     ZoneBase::OnUnload();
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
@@ -207,5 +204,6 @@ int GameZone::OnUnload()
 
 std::unique_ptr<IGameMode> GameZone::CreateGameMode()
 {
-    return std::make_unique<DefaultGameMode>();
+    const uint32_t game_mode_hash = hash::Hash(m_leveldata.metadata.level_game_mode.c_str());
+    return game::GameModeFactory::CreateGameMode(game_mode_hash);
 }

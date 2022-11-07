@@ -34,6 +34,7 @@ namespace
             const nlohmann::json& json_metadata = json["metadata"];
             level_data.metadata.level_name = json_metadata.value("level_name", "");
             level_data.metadata.level_description = json_metadata.value("level_description", "");
+            level_data.metadata.level_game_mode = json_metadata.value("level_game_mode", "");
             level_data.metadata.camera_position = json_metadata.value("camera_position", math::ZeroVec);
             level_data.metadata.camera_size = json_metadata.value("camera_size", math::ZeroVec);
             level_data.metadata.player_spawn_point = json_metadata.value("player_spawn_point", math::ZeroVec);
