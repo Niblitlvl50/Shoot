@@ -43,6 +43,16 @@ std::string PrettifyString(const std::string& text)
     std::replace(out_string.begin(), out_string.end(), '_', ' ');
     out_string[0] = std::toupper(out_string[0]);
 
+    const size_t string_size = out_string.size();
+
+    for(size_t index = 0; index < string_size; ++index)
+    {
+        const size_t next_index = index + 1;
+
+        if(out_string[index] == ' ' && next_index < string_size)
+            out_string[next_index] = std::toupper(out_string[next_index]);
+    }
+
     return out_string;
 }
 
