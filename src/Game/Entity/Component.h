@@ -122,6 +122,8 @@ extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE;
 extern const uint32_t SOUND_ATTRIBUTE;
 extern const uint32_t SOUND_PLAY_PARAMETERS;
 
+extern const uint32_t UI_LAYER_ATTRIBUTE;
+
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -211,6 +213,8 @@ extern const uint32_t AREA_EMITTER_COMPONENT;
 extern const uint32_t TEXTURED_POLYGON_COMPONENT;
 extern const uint32_t WEAPON_LOADOUT_COMPONENT;
 extern const uint32_t SOUND_COMPONENT;
+
+extern const uint32_t UI_TEXT_COMPONENT;
 
 
 struct Component

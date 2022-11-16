@@ -15,6 +15,7 @@
 #include "RoadSystem/RoadSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Particle/ParticleSystem.h"
+#include "UI/UISystem.h"
 
 #include "Entity/Component.h"
 #include "Entity/ComponentFunctions.h"
@@ -73,6 +74,7 @@ int main()
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
+        system_context.CreateSystem<game::UISystem>();
 
         game::RegisterSharedComponents(entity_system);
         game::LoadFonts();

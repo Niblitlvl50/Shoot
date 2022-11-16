@@ -11,6 +11,7 @@
 #include "System/Hash.h"
 #include "System/Debug.h"
 #include "System/File.h"
+#include "System/System.h"
 
 #include <string>
 #include <unordered_map>
@@ -84,6 +85,12 @@ void ZoneManager::Run(const char* initial_zone_name)
         };
 
         const auto level_it = std::find_if(m_level_config.levels.begin(), m_level_config.levels.end(), find_zone);
+        if(level_it == m_level_config.levels.end())
+        {
+            System::Log("ZoneManager|Unable to find world with name '%s'", zone_name.c_str());
+            break;
+        }
+
         MONO_ASSERT(level_it != m_level_config.levels.end());
 
         m_zone_context.zone_filename = level_it->filename.c_str();

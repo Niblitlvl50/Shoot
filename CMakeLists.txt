@@ -84,6 +84,7 @@ file(
     "res/sound_config.json"
     "res/spawn_config.json"
     "res/weapon_config.json"
+    "res/ui_config.json"
     "res/sprite_atlas.png")
 
 # Individually set the file's path properties

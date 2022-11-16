@@ -121,6 +121,7 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_tertiary",            Variant(std::string()) },
     { "sound_file",                 Variant(std::string()) },
     { "sound_properties",           Variant(0u) },
+    { "ui_layer",                   Variant(std::string()) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -234,6 +235,7 @@ extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes
 
 extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[90].hash;
 extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
+extern const uint32_t UI_LAYER_ATTRIBUTE                    = default_attributes[92].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -274,7 +276,7 @@ extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter")
 extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polygon");
 extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout");
 extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
-
+extern const uint32_t UI_TEXT_COMPONENT             = hash::Hash("ui_text");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -356,6 +358,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "weapon_loadout";
     else if(hash == SOUND_COMPONENT)
         return "sound";
+    else if(hash == UI_TEXT_COMPONENT)
+        return "ui_text";
 
     return "Unknown";
 }
@@ -386,6 +390,7 @@ const Component default_components[] = {
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
     MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
+    MakeComponent(UI_TEXT_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_LAYER_ATTRIBUTE, TEXT_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FONT_ID_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),

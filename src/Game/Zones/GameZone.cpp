@@ -61,6 +61,8 @@
 #include "World/WorldBoundsDrawer.h"
 #include "World/RegionDrawer.h"
 #include "World/RegionSystem.h"
+#include "UI/UISystem.h"
+#include "UI/UISystemDrawer.h"
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
@@ -125,6 +127,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
     WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
     RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
+    UISystem* ui_system = m_system_context->GetSystem<UISystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -162,6 +165,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
+    AddDrawable(new UISystemDrawer(ui_system), LayerId::UI);
 
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
