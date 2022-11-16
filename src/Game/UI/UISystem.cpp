@@ -81,7 +81,13 @@ void UISystem::ReleaseUIText(uint32_t entity_id)
 }
 
 void UISystem::UpdateUIText(
-    uint32_t entity_id, const std::string& layer_name, int font_id, const std::string& text, const math::Vector& offset, const mono::Color::RGBA& color)
+    uint32_t entity_id,
+    const std::string& layer_name,
+    int font_id,
+    const std::string& text,
+    const math::Vector& offset,
+    const mono::Color::RGBA& color,
+    mono::FontCentering centering)
 {
     const auto it = m_text_item_to_layer.find(entity_id);
     if(it != m_text_item_to_layer.end())
@@ -98,6 +104,7 @@ void UISystem::UpdateUIText(
     text_item.text = text;
     text_item.position = offset;
     text_item.color = color;
+    text_item.centering = centering;
 
     UILayer* layer = FindLayer(layer_name);
     if(layer)

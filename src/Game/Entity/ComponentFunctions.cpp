@@ -370,15 +370,17 @@ namespace
         int font_id = 0;
         math::Vector offset;
         mono::Color::RGBA color;
+        mono::FontCentering center_flags;
 
         FindAttribute(UI_LAYER_ATTRIBUTE, properties, layer, FallbackMode::SET_DEFAULT);
         FindAttribute(TEXT_ATTRIBUTE, properties, text, FallbackMode::SET_DEFAULT);
         FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
         FindAttribute(FONT_ID_ATTRIBUTE, properties, font_id, FallbackMode::SET_DEFAULT);
         FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
+        FindAttribute(CENTER_FLAGS_ATTRIBUTE, properties, (uint32_t&)center_flags, FallbackMode::SET_DEFAULT);
 
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->UpdateUIText(entity->id, layer, font_id, text, offset, color);
+        ui_system->UpdateUIText(entity->id, layer, font_id, text, offset, color, center_flags);
 
         return true;
     }

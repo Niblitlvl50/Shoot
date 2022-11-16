@@ -4,6 +4,7 @@
 #include "IGameSystem.h"
 #include "Math/Vector.h"
 #include "Rendering/Color.h"
+#include "Rendering/Text/TextFlags.h"
 
 #include <string>
 #include <vector>
@@ -17,6 +18,7 @@ namespace game
         std::string text;
         math::Vector position;
         mono::Color::RGBA color;
+        mono::FontCentering centering;
     };
 
     struct UILayer
@@ -51,7 +53,8 @@ namespace game
             int font_id,
             const std::string& text,
             const math::Vector& offset,
-            const mono::Color::RGBA& color);
+            const mono::Color::RGBA& color,
+            mono::FontCentering centering);
 
         const std::vector<UILayer>& GetLayers() const;
         UILayer* FindLayer(const std::string& layer_name);
