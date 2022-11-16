@@ -29,6 +29,8 @@ namespace game
         std::vector<uint32_t> text_items;
     };
 
+    std::vector<UILayer> LoadUIConfig(const char* ui_config);
+
     class UISystem : public mono::IGameSystem
     {
     public:

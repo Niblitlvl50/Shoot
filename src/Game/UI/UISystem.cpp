@@ -10,9 +10,11 @@
 
 using namespace game;
 
-UISystem::UISystem()
+std::vector<game::UILayer> game::LoadUIConfig(const char* ui_config)
 {
-    const std::vector<byte> file_data = file::FileReadAll("res/ui_config.json");
+    std::vector<game::UILayer> layers;
+
+    const std::vector<byte> file_data = file::FileReadAll(ui_config);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     for(const auto& layer_json : json["layers"])
@@ -23,8 +25,15 @@ UISystem::UISystem()
         layer.height = layer_json["height"];
         layer.enabled = layer_json["enabled"];
 
-        m_layers.push_back(layer);
+        layers.push_back(layer);
     }
+
+    return layers;
+}
+
+UISystem::UISystem()
+{
+    m_layers = LoadUIConfig("res/ui_config.json");
 }
 
 uint32_t UISystem::Id() const
@@ -74,6 +83,14 @@ void UISystem::ReleaseUIText(uint32_t entity_id)
 void UISystem::UpdateUIText(
     uint32_t entity_id, const std::string& layer_name, int font_id, const std::string& text, const math::Vector& offset, const mono::Color::RGBA& color)
 {
+    const auto it = m_text_item_to_layer.find(entity_id);
+    if(it != m_text_item_to_layer.end())
+    {
+        UILayer* layer = FindLayer(it->second);
+        if(layer)
+            mono::remove(layer->text_items, entity_id);
+    }
+
     m_text_item_to_layer[entity_id] = layer_name;
 
     UITextItem& text_item = m_text_items[entity_id];
@@ -84,10 +101,7 @@ void UISystem::UpdateUIText(
 
     UILayer* layer = FindLayer(layer_name);
     if(layer)
-    {
-        mono::remove(layer->text_items, entity_id);
         layer->text_items.push_back(entity_id);
-    }
 }
 
 const std::vector<UILayer>& UISystem::GetLayers() const

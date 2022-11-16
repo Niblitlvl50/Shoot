@@ -322,14 +322,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == TEXTURE_ATTRIBUTE)
     {
-        const std::vector<std::string>& all_textures = editor::GetAllTextures();
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_textures, out_index);
-        if(changed)
-            attribute.value = all_textures[out_index];
-        
-        return changed;
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllTextures());
     }
     else if(
         attribute.id == TRIGGER_NAME_ATTRIBUTE ||
@@ -353,14 +346,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == ENTITY_FILE_ATTRIBUTE)
     {
-        const std::vector<std::string>& all_entities = editor::GetAllEntities();
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_entities, out_index);
-        if(changed)
-            attribute.value = all_entities[out_index];
-        
-        return changed;
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllEntities());
     }
     else if(attribute.id == BLEND_MODE_ATTRIBUTE)
     {
@@ -416,30 +402,20 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         attribute.id == WEAPON_SECONDARY_ATTRIBUTE ||
         attribute.id == WEAPON_TERTIARY_ATTRIBUTE )
     {
-        std::vector<std::string> weapon_names = editor::GetAllWeapons();
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), weapon_names, out_index);
-        if(changed)
-            attribute.value = weapon_names[out_index];
-
-        return changed;
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllWeapons());
     }
     else if(attribute.id == SOUND_ATTRIBUTE)
     {
-        const std::vector<std::string>& all_entities = editor::GetAllSounds();
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), all_entities, out_index);
-        if(changed)
-            attribute.value = all_entities[out_index];
-        
-        return changed;
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllSounds());
     }
     else if(attribute.id == SOUND_PLAY_PARAMETERS)
     {
         return DrawBitfieldProperty(
             attribute_name, std::get<uint32_t>(attribute.value), game::all_sound_play_parameters, game::SoundInstancePlayParamterToString);
+    }
+    else if(attribute.id == UI_LAYER_ATTRIBUTE)
+    {
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllUILayers());
     }
     else
     {

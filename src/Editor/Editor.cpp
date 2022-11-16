@@ -254,6 +254,7 @@ Editor::Editor(
     editor::LoadAllMusicTracks("res/sound_config.json");
     editor::LoadAllSounds("res/sound/all_sounds.json");
     editor::LoadAllWeapons("res/weapon_config.json");
+    editor::LoadAllUILayers("res/ui_config.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
     editor::LoadAllWorlds("res/worlds/all_worlds.json");
