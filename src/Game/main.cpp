@@ -7,6 +7,7 @@
 
 #include "SystemContext.h"
 #include "EntitySystem/EntitySystem.h"
+#include "Input/InputSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "Paths/PathSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -169,6 +170,7 @@ int main(int argc, char* argv[])
         mono::SystemContext system_context;
         mono::Camera camera;
 
+        mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
@@ -198,7 +200,7 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
         system_context.CreateSystem<game::WeaponSystem>(
             transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
-        system_context.CreateSystem<game::UISystem>();
+        system_context.CreateSystem<game::UISystem>(input_system);
 
         game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

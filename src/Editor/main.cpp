@@ -10,6 +10,7 @@
 
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/EntitySystem.h"
+#include "Input/InputSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Paths/PathSystem.h"
 #include "RoadSystem/RoadSystem.h"
@@ -56,6 +57,7 @@ int main()
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
+        mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
 
@@ -74,7 +76,7 @@ int main()
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-        system_context.CreateSystem<game::UISystem>();
+        system_context.CreateSystem<game::UISystem>(input_system);
 
         game::RegisterSharedComponents(entity_system);
         game::LoadFonts();

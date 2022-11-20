@@ -55,14 +55,15 @@ using namespace game;
 PlayerLogic::PlayerLogic(
     uint32_t entity_id,
     PlayerInfo* player_info,
+    mono::InputSystem* input_system,
     mono::EventHandler* event_handler,
     const System::ControllerState& controller,
     mono::SystemContext* system_context)
     : m_entity_id(entity_id)
     , m_controller_id(controller.id)
     , m_player_info(player_info)
-    , m_gamepad_controller(this, event_handler, controller)
-    , m_keyboard_controller(this, event_handler)
+    , m_gamepad_controller(this, input_system, event_handler, controller)
+    , m_keyboard_controller(this, input_system, event_handler)
     , m_event_handler(event_handler)
     , m_fire(false)
     , m_stop_fire(false)

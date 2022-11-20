@@ -277,6 +277,7 @@ extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polyg
 extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout");
 extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
 extern const uint32_t UI_TEXT_COMPONENT             = hash::Hash("ui_text");
+extern const uint32_t UI_RECT_COMPONENT             = hash::Hash("ui_rect");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -360,6 +361,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "sound";
     else if(hash == UI_TEXT_COMPONENT)
         return "ui_text";
+    else if(hash == UI_RECT_COMPONENT)
+        return "ui_rect";
 
     return "Unknown";
 }
@@ -391,6 +394,7 @@ const Component default_components[] = {
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
     MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
     MakeComponent(UI_TEXT_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_LAYER_ATTRIBUTE, TEXT_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FONT_ID_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE } ),
+    MakeComponent(UI_RECT_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_LAYER_ATTRIBUTE, OFFSET_ATTRIBUTE, SIZE_ATTRIBUTE, COLOR_ATTRIBUTE, WIDTH_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),

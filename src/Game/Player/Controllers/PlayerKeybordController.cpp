@@ -3,16 +3,16 @@
 #include "Player/PlayerLogic.h"
 #include "Player/PlayerInfo.h"
 
+#include "Input/InputSystem.h"
 #include "EventHandler/EventHandler.h"
-#include "Events/EventFuncFwd.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyEvent.h"
 #include "Events/PlayerEvents.h"
 
 using namespace game;
 
-PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mono::EventHandler* event_handler)
+PlayerKeyboardController::PlayerKeyboardController(
+    PlayerLogic* player_logic, mono::InputSystem* input_system, mono::EventHandler* event_handler)
     : m_player_logic(player_logic)
+    , m_input_system(input_system)
     , m_event_handler(event_handler)
     , m_last_input_timestamp(0)
     , m_pause(false)
@@ -25,28 +25,14 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_update_aiming(false)
     , m_trigger_respawn(false)
 {
-    using namespace std::placeholders;
-
-    const event::MouseDownEventFunc mouse_down_func = std::bind(&PlayerKeyboardController::OnMouseDown, this, _1);
-    const event::MouseUpEventFunc mouse_up_func = std::bind(&PlayerKeyboardController::OnMouseUp, this, _1);
-    const event::MouseMotionEventFunc mouse_motion_func = std::bind(&PlayerKeyboardController::OnMouseMotion, this, _1);
-    const event::KeyDownEventFunc key_down_func = std::bind(&PlayerKeyboardController::OnKeyDown, this, _1);
-    const event::KeyUpEventFunc key_up_func = std::bind(&PlayerKeyboardController::OnKeyUp, this, _1);
-
-    m_mouse_down_token = m_event_handler->AddListener(mouse_down_func);
-    m_mouse_up_token = m_event_handler->AddListener(mouse_up_func);
-    m_mouse_motion_token = m_event_handler->AddListener(mouse_motion_func);
-    m_key_down_token = m_event_handler->AddListener(key_down_func);
-    m_key_up_token = m_event_handler->AddListener(key_up_func);
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled);
+    m_input_context->keyboard_input = this;
+    m_input_context->mouse_input = this;
 }
 
 PlayerKeyboardController::~PlayerKeyboardController()
 {
-    m_event_handler->RemoveListener(m_mouse_down_token);
-    m_event_handler->RemoveListener(m_mouse_up_token);
-    m_event_handler->RemoveListener(m_mouse_motion_token);
-    m_event_handler->RemoveListener(m_key_down_token);
-    m_event_handler->RemoveListener(m_key_up_token);
+    m_input_system->ReleaseContext(m_input_context);
 }
 
 void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
@@ -139,60 +125,12 @@ uint32_t PlayerKeyboardController::GetLastInputTimestamp() const
     return m_last_input_timestamp;
 }
 
-mono::EventResult PlayerKeyboardController::OnMouseDown(const event::MouseDownEvent& event)
+mono::InputResult PlayerKeyboardController::KeyDown(const event::KeyDownEvent& event)
 {
-    switch(event.key)
-    {
-    case MouseButton::LEFT:
-        m_fire = true;
-        break;
-    default:
-        break;
-    }
-
-    m_last_input_timestamp = event.timestamp;
-    return mono::EventResult::HANDLED;
+    return mono::InputResult::Pass;
 }
 
-mono::EventResult PlayerKeyboardController::OnMouseUp(const event::MouseUpEvent& event)
-{
-    switch(event.key)
-    {
-    case MouseButton::LEFT:
-        m_fire = false;
-        break;
-    case MouseButton::RIGHT:
-        m_trigger_action = true;
-        break;
-    default:
-        break;
-    }
-
-    m_last_input_timestamp = event.timestamp;
-    return mono::EventResult::HANDLED;
-}
-
-mono::EventResult PlayerKeyboardController::OnMouseMotion(const event::MouseMotionEvent& event)
-{
-    m_aim_position = {event.world_x, event.world_y};
-    m_update_aiming = true;
-    m_last_input_timestamp = event.timestamp;
-
-    return mono::EventResult::PASS_ON;
-}
-
-mono::EventResult PlayerKeyboardController::OnKeyDown(const event::KeyDownEvent& event)
-{
-    switch(event.key)
-    {
-    default:
-        break;
-    }
-
-    return mono::EventResult::HANDLED;
-}
-
-mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& event)
+mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event)
 {
     switch(event.key)
     {
@@ -217,5 +155,34 @@ mono::EventResult PlayerKeyboardController::OnKeyUp(const event::KeyUpEvent& eve
     }
 
     m_last_input_timestamp = event.timestamp;
-    return mono::EventResult::HANDLED;
+    return mono::InputResult::Handled;
+}
+
+mono::InputResult PlayerKeyboardController::Move(const event::MouseMotionEvent& event)
+{
+    m_aim_position = {event.world_x, event.world_y};
+    m_update_aiming = true;
+    m_last_input_timestamp = event.timestamp;
+
+    return mono::InputResult::Pass;
+}
+
+mono::InputResult PlayerKeyboardController::ButtonDown(const event::MouseDownEvent& event)
+{
+    if(event.key == MouseButton::LEFT)
+        m_fire = true;
+
+    m_last_input_timestamp = event.timestamp;
+    return mono::InputResult::Handled;
+}
+
+mono::InputResult PlayerKeyboardController::ButtonUp(const event::MouseUpEvent& event)
+{
+    if(event.key == MouseButton::LEFT)
+        m_fire = false;
+    else if(event.key == MouseButton::RIGHT)
+        m_trigger_action = true;
+
+    m_last_input_timestamp = event.timestamp;
+    return mono::InputResult::Handled;
 }

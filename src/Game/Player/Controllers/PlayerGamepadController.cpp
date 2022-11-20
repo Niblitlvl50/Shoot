@@ -3,7 +3,6 @@
 #include "Player/PlayerLogic.h"
 #include "Player/PlayerInfo.h"
 
-#include "Events/TimeScaleEvent.h"
 #include "Events/PauseEvent.h"
 #include "EventHandler/EventHandler.h"
 #include "System/System.h"
@@ -11,7 +10,6 @@
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
 
-#include "Events/EventFuncFwd.h"
 #include "Events/ControllerEvent.h"
 #include "Events/PlayerEvents.h"
 
@@ -21,41 +19,24 @@
 using namespace game;
 
 PlayerGamepadController::PlayerGamepadController(
-    game::PlayerLogic* player_logic, mono::EventHandler* event_handler, const System::ControllerState& controller)
+    game::PlayerLogic* player_logic,
+    mono::InputSystem* input_system,
+    mono::EventHandler* event_handler,
+    const System::ControllerState& controller)
     : m_player_logic(player_logic)
+    , m_input_system(input_system)
     , m_event_handler(event_handler)
     , m_last_input_timestamp(0)
     , m_state(controller)
     , m_pause(false)
 {
-    event::ControllerButtonDownFunc on_controller_down = [this](const event::ControllerButtonDownEvent& event) {
-        if(event.controller_id == m_player_logic->m_player_info->controller_id)
-        {
-            if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
-            {
-                m_pause = !m_pause;
-                m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
-            }
-
-            m_last_input_timestamp = event.timestamp;
-        }
-
-        return mono::EventResult::PASS_ON;
-    };
-    m_controller_token = m_event_handler->AddListener(on_controller_down);
-
-    const event::ControllerAxisFunc on_axis_event = [this](const event::ControllerAxisEvent& event) {
-        if(event.controller_id == m_player_logic->m_player_info->controller_id)
-            m_last_input_timestamp = event.timestamp;
-        return mono::EventResult::PASS_ON;
-    };
-    m_axis_token = m_event_handler->AddListener(on_axis_event);
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled);
+    m_input_context->controller_input = this;
 }
 
 PlayerGamepadController::~PlayerGamepadController()
 {
-    m_event_handler->RemoveListener(m_controller_token);
-    m_event_handler->RemoveListener(m_axis_token);
+    m_input_system->ReleaseContext(m_input_context);
 }
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
@@ -82,13 +63,6 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         m_player_logic->Shockwave();
         //m_player_logic->TriggerInteraction();
     }
-
-    const bool timescale_slow = System::IsButtonTriggered(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_RIGHT);
-    const bool timescale_normal = System::HasButtonChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_RIGHT);
-    if(timescale_slow)
-        m_event_handler->DispatchEvent(event::TimeScaleEvent(0.1f));
-    else if(timescale_normal)
-        m_event_handler->DispatchEvent(event::TimeScaleEvent(1.0f));
 
     const bool reload =
         System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_LEFT);
@@ -144,4 +118,27 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 uint32_t PlayerGamepadController::GetLastInputTimestamp() const
 {
     return m_last_input_timestamp;
+}
+
+mono::InputResult PlayerGamepadController::ButtonDown(const event::ControllerButtonDownEvent& event)
+{
+    if(event.controller_id == m_player_logic->m_player_info->controller_id)
+    {
+        if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
+        {
+            m_pause = !m_pause;
+            m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+        }
+
+        m_last_input_timestamp = event.timestamp;
+    }
+
+    return mono::InputResult::Pass;
+}
+
+mono::InputResult PlayerGamepadController::Axis(const event::ControllerAxisEvent& event)
+{
+    if(event.controller_id == m_player_logic->m_player_info->controller_id)
+        m_last_input_timestamp = event.timestamp;
+    return mono::InputResult::Pass;
 }

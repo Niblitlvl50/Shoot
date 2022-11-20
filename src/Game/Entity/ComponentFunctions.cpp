@@ -384,8 +384,43 @@ namespace
 
         return true;
     }
-}
 
+    bool CreateUIRect(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->AllocateUIRect(entity->id);
+        return true;
+    }
+    
+    bool ReleaseUIRect(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->ReleaseUIRect(entity->id);
+        return true;
+    }
+    
+    bool UpdateUIRect(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string layer;
+        math::Vector offset;
+        math::Vector size;
+        mono::Color::RGBA color;
+        mono::Color::RGBA border_color;
+        float border_width;
+
+        FindAttribute(UI_LAYER_ATTRIBUTE, properties, layer, FallbackMode::SET_DEFAULT);
+        FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
+        FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
+        FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
+        //FindAttribute(COLOR_ATTRIBUTE, properties, border_color, FallbackMode::SET_DEFAULT);
+        FindAttribute(WIDTH_ATTRIBUTE, properties, border_width, FallbackMode::SET_DEFAULT);
+
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->UpdateUIRect(entity->id, layer, offset, size, color, border_color, border_width);
+
+        return true;
+    }
+}
 
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
@@ -399,4 +434,5 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
     entity_manager->RegisterComponent(TEXTURED_POLYGON_COMPONENT, CreateTexturedPolygon, ReleaseTexturedPolygon, UpdateTexturedPolygon);
     entity_manager->RegisterComponent(UI_TEXT_COMPONENT, CreateUIText, DestroyUIText, UpdateUIText);
+    entity_manager->RegisterComponent(UI_RECT_COMPONENT, CreateUIRect, ReleaseUIRect, UpdateUIRect);
 }

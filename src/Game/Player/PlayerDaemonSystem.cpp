@@ -14,6 +14,7 @@
 #include "DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Input/InputSystem.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
@@ -274,7 +275,9 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
     entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, event_handler, controller, system_context);
+    mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
+
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, input_system, event_handler, controller, system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
     player_info->entity_id = player_entity.id;
