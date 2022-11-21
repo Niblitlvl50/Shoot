@@ -21,10 +21,10 @@ namespace game
     public:
 
         RegionSystem(class TriggerSystem* trigger_system);
-        ~RegionSystem();
 
         uint32_t Id() const override;
         const char* Name() const override;
+        void Destroy() override;
         void Update(const mono::UpdateContext& update_context) override;
 
         const RegionDescription& GetActivatedRegion() const;

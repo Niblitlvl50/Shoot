@@ -63,16 +63,6 @@ RegionSystem::RegionSystem(TriggerSystem* trigger_system)
     }
 }
 
-RegionSystem::~RegionSystem()
-{
-    for(uint32_t index = 0; index < m_region_descriptions.size(); ++index)
-    {
-        const uint32_t trigger_hash = m_region_descriptions[index].trigger_hash;
-        const uint32_t callback_id = m_registred_triggers[index];
-        m_trigger_system->RemoveTriggerCallback(trigger_hash, callback_id, -1);
-    }
-}
-
 uint32_t RegionSystem::Id() const
 {
     return hash::Hash(Name());
@@ -81,6 +71,16 @@ uint32_t RegionSystem::Id() const
 const char* RegionSystem::Name() const
 {
     return "regionsystem";
+}
+
+void RegionSystem::Destroy()
+{
+    for(uint32_t index = 0; index < m_region_descriptions.size(); ++index)
+    {
+        const uint32_t trigger_hash = m_region_descriptions[index].trigger_hash;
+        const uint32_t callback_id = m_registred_triggers[index];
+        m_trigger_system->RemoveTriggerCallback(trigger_hash, callback_id, -1);
+    }
 }
 
 void RegionSystem::Update(const mono::UpdateContext& update_context)
