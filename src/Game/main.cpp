@@ -128,7 +128,6 @@ int main(int argc, char* argv[])
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();
 
-    audio::Initialize();
     game::InitializePlayerInfo();
 
     mono::PhysicsSystemInitParams physics_system_params;
@@ -152,6 +151,9 @@ int main(int argc, char* argv[])
             options.x, options.y,
             options.width, height,
             System::WindowOptions(window_options));
+    
+        // Needs to be done after the window is created.
+        audio::Initialize();
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
