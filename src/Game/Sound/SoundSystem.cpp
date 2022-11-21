@@ -113,6 +113,8 @@ void SoundSystem::StopBackgroundMusic()
 SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
 {
     SoundInstanceComponent component;
+    component.play_trigger = 0;
+    component.stop_trigger = 0;
     component.play_callback_id = NO_CALLBACK_SET;
     component.stop_callback_id = NO_CALLBACK_SET;
 

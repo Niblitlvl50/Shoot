@@ -82,7 +82,7 @@ void DamageSystem::ReleaseRecord(uint32_t id)
 
 bool DamageSystem::IsAllocated(uint32_t id) const
 {
-    if(id < 0 || id >= m_active.size())
+    if(id >= m_active.size())
         return false;
 
     return m_active[id];

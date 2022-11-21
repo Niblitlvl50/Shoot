@@ -66,7 +66,7 @@ FootStepsEffect::~FootStepsEffect()
 
 void FootStepsEffect::EmitFootStepsAt(const math::Vector& world_position)
 {
-    mono::ParticleEmitterComponent* emitter = m_particle_system->AttachEmitter(
+    m_particle_system->AttachEmitter(
         m_particle_entity,
         world_position,
         1.0f,

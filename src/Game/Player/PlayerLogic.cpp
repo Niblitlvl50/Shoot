@@ -437,7 +437,7 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 
     }
 
-    ItemSlot& item_slot = m_item_slots[slot_index];
+    //ItemSlot& item_slot = m_item_slots[slot_index];
 }
 
 void PlayerLogic::HandlePickup(PickupType type, int amount)

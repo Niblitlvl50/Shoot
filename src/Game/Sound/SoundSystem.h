@@ -35,6 +35,8 @@ namespace game
         case SoundTransition::FadeOutFadeIn:
             return "FadeOutFadeInt";
         }
+
+        return "Unknown";
     }
 
     enum SoundInstancePlayParameter

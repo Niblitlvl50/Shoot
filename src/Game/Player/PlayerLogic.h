@@ -145,9 +145,9 @@ namespace game
         class EntityLogicSystem* m_logic_system;
         class WeaponSystem* m_weapon_system;
 
-        struct ItemSlot
-        {};
-        ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
+        //struct ItemSlot
+        //{};
+        //ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
 
         float m_active_cooldowns[PlayerAbility::N_ABILITIES];
 

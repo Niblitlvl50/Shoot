@@ -40,7 +40,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
 
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
     m_damage_system->PreventReleaseOnDeath(entity_id, true);
-    uint32_t callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
+    m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, destroyed_callback);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_explosion_effect = std::make_unique<ExplosionEffect>(particle_system, m_entity_system);
