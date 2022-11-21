@@ -6,6 +6,7 @@
 #include "Physics/PhysicsFwd.h"
 
 #include <array>
+#include <cstdint>
 
 namespace game
 {
