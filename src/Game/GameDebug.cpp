@@ -47,7 +47,7 @@ bool game::g_mute_soundsystem = false;
 
 constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
-void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps)
+void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float delta)
 {
     ImGui::BeginMainMenuBar();
     if(ImGui::BeginMenu("Options"))
@@ -94,8 +94,8 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps)
         ImGui::EndMenu();
     }
 
-    ImGui::SameLine(ImGui::GetWindowWidth() -70);
-    ImGui::TextDisabled("fps: %u", fps);
+    ImGui::SameLine(ImGui::GetWindowWidth() -150);
+    ImGui::TextDisabled("fps: %u, dt: %.3f", fps, delta);
 
     ImGui::EndMainMenuBar();
 }
@@ -399,7 +399,7 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
     m_counter++;
 
     if(m_draw_debug_menu)
-        DrawDebugMenu(m_logic_system, m_counter.Fps());
+        DrawDebugMenu(m_logic_system, m_counter.Fps(), m_counter.Delta());
 
     if(m_draw_trigger_input)
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
