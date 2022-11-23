@@ -945,8 +945,8 @@ editor::PaletteResult editor::DrawPaletteView(const std::vector<mono::Color::RGB
         const int v_key = System::KeycodeToNative(Keycode::V);
 
         const ImGuiIO& io = ImGui::GetIO();
-        const bool is_shortcut_key = io.ConfigMacOSXBehaviors ? (io.KeyMods == ImGuiKeyModFlags_Super) : (io.KeyMods == ImGuiKeyModFlags_Ctrl);
-        const bool is_paste = (is_shortcut_key && ImGui::IsKeyPressed(v_key, false));
+        const bool is_shortcut_key = io.ConfigMacOSXBehaviors ? (io.KeyMods == ImGuiModFlags_Super) : (io.KeyMods == ImGuiModFlags_Ctrl);
+        const bool is_paste = (is_shortcut_key && ImGui::IsKeyPressed(ImGuiKey(v_key), false));
 
         if(is_paste)
         {
