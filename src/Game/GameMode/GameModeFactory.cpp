@@ -2,6 +2,7 @@
 #include "GameModeFactory.h"
 #include "Zones/ZoneFlow.h"
 #include "PacketDeliveryGameMode.h"
+#include "StartMenuGameMode.h"
 
 #include "System/Hash.h"
 
@@ -24,7 +25,9 @@ namespace
 
 game::IGameModePtr game::GameModeFactory::CreateGameMode(uint32_t game_mode)
 {
-    if(game_mode == hash::Hash("package_delivery_mode"))
+    if(game_mode == hash::Hash("start_menu_mode"))
+        return std::make_unique<StartMenuGameMode>();
+    else if(game_mode == hash::Hash("package_delivery_mode"))
         return std::make_unique<PacketDeliveryGameMode>();
 
     return std::make_unique<NullGameMode>();
@@ -34,6 +37,7 @@ std::vector<std::string> game::GameModeFactory::GetAllGameModes()
 {
     return {
         "none",
+        "start_menu_mode",
         "package_delivery_mode",
         "capture_the_flag"
     };

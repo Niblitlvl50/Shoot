@@ -1,12 +1,8 @@
 
 #include "ZoneManager.h"
 #include "ZoneFlow.h"
-#include "TitleScreen.h"
-#include "SetupGameScreen.h"
 #include "RemoteZone.h"
 #include "SystemTestZone.h"
-#include "EndScreen.h"
-#include "GameOverScreen.h"
 
 #include "System/Hash.h"
 #include "System/Debug.h"
@@ -55,10 +51,6 @@ namespace game
     static const std::string REMOTE_NETWORK_NAME    = "remote_network_zone";
 
     static const std::unordered_map<std::string, LoadFunction> g_zone_load_func = {
-        { "title_screen",           LoadZone<game::TitleScreen>     },
-        { "setup_game_screen",      LoadZone<game::SetupGameScreen> },
-        { "gameover_screen",        LoadZone<game::GameOverScreen>  },
-        { "end_screen",             LoadZone<game::EndScreen>       },
         { "remote_network_zone",    LoadZone<game::RemoteZone>      },
     };
 }

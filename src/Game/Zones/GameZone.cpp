@@ -165,7 +165,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
-    AddDrawable(new UISystemDrawer(ui_system), LayerId::UI);
+    AddDrawable(new UISystemDrawer(ui_system, transform_system), LayerId::UI);
 
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);

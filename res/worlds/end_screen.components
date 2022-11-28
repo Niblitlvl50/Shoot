@@ -2925,7 +2925,7 @@
             "y": 8.0
         },
         "level_description": "",
-        "level_game_mode": "",
+        "level_game_mode": "start_menu_mode",
         "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
