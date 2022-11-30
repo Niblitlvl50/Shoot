@@ -1,6 +1,7 @@
 
 #include "ComponentFunctions.h"
 #include "System/System.h"
+#include "System/Hash.h"
 
 #include "SystemContext.h"
 #include "Particle/ParticleSystem.h"
@@ -349,74 +350,29 @@ namespace
         return true;
     }
 
-    bool CreateUIText(mono::Entity* entity, mono::SystemContext* context)
+    bool CreateUIItem(mono::Entity* entity, mono::SystemContext* context)
     {
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->AllocateUIText(entity->id);
+        ui_system->AllocateUIItem(entity->id);
         return true;
     }
     
-    bool DestroyUIText(mono::Entity* entity, mono::SystemContext* context)
+    bool DestroyUIItem(mono::Entity* entity, mono::SystemContext* context)
     {
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->ReleaseUIText(entity->id);
+        ui_system->ReleaseUIItem(entity->id);
         return true;
     }
     
-    bool UpdateUIText(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateUIItem(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        std::string layer;
-        std::string text;
-        int font_id = 0;
-        math::Vector offset;
-        mono::Color::RGBA color;
-        mono::FontCentering center_flags;
-
-        FindAttribute(UI_LAYER_ATTRIBUTE, properties, layer, FallbackMode::SET_DEFAULT);
-        FindAttribute(TEXT_ATTRIBUTE, properties, text, FallbackMode::SET_DEFAULT);
-        FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
-        FindAttribute(FONT_ID_ATTRIBUTE, properties, font_id, FallbackMode::SET_DEFAULT);
-        FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
-        FindAttribute(CENTER_FLAGS_ATTRIBUTE, properties, (uint32_t&)center_flags, FallbackMode::SET_DEFAULT);
+        std::string on_click_trigger_name;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, on_click_trigger_name, FallbackMode::SET_DEFAULT);
 
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->UpdateUIText(entity->id, layer, font_id, text, offset, color, center_flags);
+        ui_system->UpdateUIItem(entity->id, hash::Hash(on_click_trigger_name.c_str()));
 
-        return true;
-    }
-
-    bool CreateUIRect(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->AllocateUIRect(entity->id);
-        return true;
-    }
-    
-    bool ReleaseUIRect(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->ReleaseUIRect(entity->id);
-        return true;
-    }
-    
-    bool UpdateUIRect(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
-    {
-        std::string layer;
-        math::Vector offset;
-        math::Vector size;
-        mono::Color::RGBA color;
-        mono::Color::RGBA border_color;
-        float border_width;
-
-        FindAttribute(UI_LAYER_ATTRIBUTE, properties, layer, FallbackMode::SET_DEFAULT);
-        FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
-        FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
-        FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
-        //FindAttribute(COLOR_ATTRIBUTE, properties, border_color, FallbackMode::SET_DEFAULT);
-        FindAttribute(WIDTH_ATTRIBUTE, properties, border_width, FallbackMode::SET_DEFAULT);
-
-        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->UpdateUIRect(entity->id, layer, offset, size, color, border_color, border_width);
+        hash::HashRegisterString(on_click_trigger_name.c_str());
 
         return true;
     }
@@ -433,6 +389,5 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(PARTICLE_SYSTEM_COMPONENT, CreateParticleSystem, ReleaseParticleSystem, UpdateParticleSystem);
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
     entity_manager->RegisterComponent(TEXTURED_POLYGON_COMPONENT, CreateTexturedPolygon, ReleaseTexturedPolygon, UpdateTexturedPolygon);
-    entity_manager->RegisterComponent(UI_TEXT_COMPONENT, CreateUIText, DestroyUIText, UpdateUIText);
-    entity_manager->RegisterComponent(UI_RECT_COMPONENT, CreateUIRect, ReleaseUIRect, UpdateUIRect);
+    entity_manager->RegisterComponent(UI_ITEM_COMPONENT, CreateUIItem, DestroyUIItem, UpdateUIItem);
 }

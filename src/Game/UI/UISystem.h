@@ -6,6 +6,7 @@
 #include "Math/Vector.h"
 #include "Rendering/Color.h"
 #include "Rendering/Text/TextFlags.h"
+#include "Input/InputSystem.h"
 
 #include <string>
 #include <vector>
@@ -13,26 +14,9 @@
 
 namespace game
 {
-    struct UITextItem
+    struct UIItem
     {
-        int font_id;
-        std::string text;
-        math::Vector position;
-        mono::Color::RGBA color;
-        mono::FontCentering centering;
-
-        // Internal data
-        math::Vector text_size;
-        math::Vector text_offset;
-    };
-
-    struct UIRectangle
-    {
-        math::Vector position;
-        math::Vector size;
-        mono::Color::RGBA color;
-        mono::Color::RGBA border_color;
-        float border_width;
+        uint32_t on_click_hash;
     };
 
     struct UILayer
@@ -43,62 +27,51 @@ namespace game
         bool enabled;
         bool consume_input;
 
-        std::vector<uint32_t> text_items;
-        std::vector<uint32_t> rect_items;
+        std::vector<uint32_t> items;
     };
 
     std::vector<UILayer> LoadUIConfig(const char* ui_config);
 
-    class UISystem : public mono::IGameSystem
+    class UISystem : public mono::IGameSystem, public mono::IMouseInput
     {
     public:
 
-        UISystem(mono::InputSystem* input_system);
+        UISystem(mono::InputSystem* input_system, mono::TransformSystem* transform_system, class TriggerSystem* trigger_system);
         ~UISystem();
 
         uint32_t Id() const override;
         const char* Name() const override;
+        void Destroy() override;
         void Update(const mono::UpdateContext& update_context) override;
 
         void LayerEnable(const std::string& layer_name, bool enable);
-        void LayerConsumeInput(const std::string& layer_name, bool consume);
 
-        void AllocateUIText(uint32_t entity_id);
-        void ReleaseUIText(uint32_t entity_id);
-        void UpdateUIText(
-            uint32_t entity_id,
-            const std::string& layer_name,
-            int font_id,
-            const std::string& text,
-            const math::Vector& offset,
-            const mono::Color::RGBA& color,
-            mono::FontCentering centering);
-
-        void AllocateUIRect(uint32_t entity_id);
-        void ReleaseUIRect(uint32_t entity_id);
-        void UpdateUIRect(
-            uint32_t entity_id,
-            const std::string& layer_name,
-            const math::Vector& position,
-            const math::Vector& size,
-            const mono::Color::RGBA& color,
-            const mono::Color::RGBA& border_color,
-            float border_width);
+        void AllocateUIItem(uint32_t entity_id);
+        void ReleaseUIItem(uint32_t entity_id);
+        void UpdateUIItem(uint32_t entity_id, uint32_t on_click_hash);
 
         const std::vector<UILayer>& GetLayers() const;
+        const std::vector<uint32_t>& GetActiveItems() const;
         UILayer* FindLayer(const std::string& layer_name);
 
-        const UITextItem* FindTextItem(uint32_t entity_id) const;
-        const UIRectangle* FindRectItem(uint32_t entity_id) const;
+    private:
+
+        mono::InputResult Move(const event::MouseMotionEvent& event) override;
+        mono::InputResult ButtonDown(const event::MouseDownEvent& event) override;
 
         mono::InputSystem* m_input_system;
+        mono::TransformSystem* m_transform_system;
+        TriggerSystem* m_trigger_system;
+
+        mono::InputContext* m_input_context;
+
+        math::Vector m_mouse_world_position;
+        math::Vector m_mouse_click_position;
+        bool m_clicked_this_frame;
 
         std::vector<UILayer> m_layers;
 
-        std::unordered_map<uint32_t, UITextItem> m_text_items;
-        std::unordered_map<uint32_t, std::string> m_text_item_to_layer;
-
-        std::unordered_map<uint32_t, UIRectangle> m_rect_items;
-        std::unordered_map<uint32_t, std::string> m_rect_item_to_layer;
+        std::unordered_map<uint32_t, UIItem> m_items;
+        std::vector<uint32_t> m_active_items;
     };
 }

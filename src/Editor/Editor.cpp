@@ -343,7 +343,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::POST_GAMEOBJECTS);
-    AddDrawable(new game::UISystemDrawer(ui_system), RenderLayer::UI);
+    AddDrawable(new game::UISystemDrawer(ui_system, transform_system), RenderLayer::UI);
 }
 
 int Editor::OnUnload()
