@@ -428,7 +428,7 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
 
         mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(event.entity_id);
-        math::Position(transform, m_player_spawn);
+        math::Position(transform, spawn_point);
         transform_system->SetTransformState(event.entity_id, mono::TransformState::CLIENT);
 
         game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
@@ -439,7 +439,7 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
         m_camera_system->FollowEntity(event.entity_id);
 
         if(m_player_spawned_callback)
-            m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, m_player_spawn);
+            m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, spawn_point);
     }
 
     return mono::EventResult::HANDLED;
