@@ -3,6 +3,7 @@
 
 #include "MonoFwd.h"
 #include "IGameSystem.h"
+#include "DamageSystemTypes.h"
 
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
@@ -11,7 +12,6 @@
 
 #include "Events/GameEventFuncFwd.h"
 #include "Player/PlayerInfo.h"
-#include "DamageSystem.h"
 
 #include <vector>
 #include <unordered_map>

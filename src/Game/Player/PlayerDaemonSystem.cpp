@@ -4,6 +4,7 @@
 #include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "PlayerFamiliarLogic.h"
+#include "DamageSystem.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/Entity.h"
@@ -21,6 +22,7 @@
 #include "Events/ControllerEvent.h"
 #include "Events/PlayerEvents.h"
 #include "Events/GameEvents.h"
+#include "Events/RemoteEventFuncFwd.h"
 
 #include "Network/NetworkMessage.h"
 #include "Network/INetworkPipe.h"
@@ -80,10 +82,10 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     m_despawn_player_token = m_event_handler->AddListener(despawn_player_func);
     m_respawn_player_token = m_event_handler->AddListener(respawn_player_func);
 
-    const std::function<mono::EventResult (const RemoteInputMessage&)>& remote_input_func = std::bind(&PlayerDaemonSystem::RemotePlayerInput, this, _1);
-    m_remote_input_token = m_event_handler->AddListener(remote_input_func);
+    const RemoteInputMessageFunc& remote_input_func = std::bind(&PlayerDaemonSystem::RemotePlayerInput, this, _1);
+    const ViewportMessageFunc& remote_viewport_func = std::bind(&PlayerDaemonSystem::RemotePlayerViewport, this, _1);
 
-    const std::function<mono::EventResult (const ViewportMessage&)>& remote_viewport_func = std::bind(&PlayerDaemonSystem::RemotePlayerViewport, this, _1);
+    m_remote_input_token = m_event_handler->AddListener(remote_input_func);
     m_remote_viewport_token = m_event_handler->AddListener(remote_viewport_func);
 }
 
