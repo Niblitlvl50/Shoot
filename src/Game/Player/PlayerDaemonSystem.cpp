@@ -415,6 +415,17 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
     game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(event.entity_id);
     if(player_info)
     {
+        math::Vector spawn_point = m_player_spawn;
+
+        for(const game::PlayerInfo* player_info : game::GetAlivePlayers())
+        {
+            if(player_info)
+            {
+                spawn_point = player_info->position + math::Vector(2.0f, 1.0f);
+                break;
+            }
+        }
+
         mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(event.entity_id);
         math::Position(transform, m_player_spawn);
