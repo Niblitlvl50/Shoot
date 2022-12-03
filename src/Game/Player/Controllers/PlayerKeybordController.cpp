@@ -6,6 +6,7 @@
 #include "Input/InputSystem.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/PlayerEvents.h"
+#include "Events/PauseEvent.h"
 
 using namespace game;
 
@@ -146,6 +147,12 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
     case Keycode::TWO:
         m_trigger_next_weapon = true;
         break;
+    case Keycode::P:
+    {
+        m_pause = !m_pause;
+        m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+        break;
+    }
     case Keycode::ENTER:
         m_trigger_respawn = true;
         break;
