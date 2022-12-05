@@ -26,6 +26,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Paths/PathTypes.h"
 #include "Physics/IBody.h"
+#include "World/WorldBoundsTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "imgui/imgui_internal.h"
@@ -380,6 +381,17 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::particle_draw_layer_strings));
+    }
+    else if(attribute.id == POLYGON_DRAW_LAYER_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = game::PolygonDrawLayerToString(game::PolygonDrawLayer(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::g_polygon_draw_layer_strings));
     }
     else if(attribute.id == EMITTER_TYPE_ATTRIBUTE)
     {

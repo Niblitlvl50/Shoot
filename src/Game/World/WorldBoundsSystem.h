@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "WorldBoundsTypes.h"
 #include "Rendering/Color.h"
 #include "IGameSystem.h"
 #include "Math/Vector.h"
@@ -19,6 +20,7 @@ namespace game
         uint32_t timestamp;
         mono::ITexturePtr texture;
         mono::Color::RGBA color_tint;
+        PolygonDrawLayer draw_layer;
         std::vector<math::Vector> outline;
         mono::TriangulatedPoints triangulated_points;
     };
@@ -31,7 +33,12 @@ namespace game
 
         void AllocateTexturedPolygon(uint32_t id);
         void ReleaseTexturedPolygon(uint32_t id);
-        void AddPolygon(uint32_t id, const std::vector<math::Vector>& vertices, const std::string& texture_file, const mono::Color::RGBA& color);
+        void AddPolygon(
+            uint32_t id,
+            const std::vector<math::Vector>& vertices,
+            const std::string& texture_file,
+            const mono::Color::RGBA& color,
+            PolygonDrawLayer draw_layer);
 
         uint32_t Id() const override;
         const char* Name() const override;

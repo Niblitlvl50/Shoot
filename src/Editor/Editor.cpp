@@ -342,7 +342,8 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), RenderLayer::UI);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), RenderLayer::GAMEOBJECTS);
-    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system), RenderLayer::POST_GAMEOBJECTS);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::PRE_GAMEOBJECTS), RenderLayer::PRE_GAMEOBJECTS);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::POST_GAMEOBJECTS), RenderLayer::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), RenderLayer::UI);
 }
 

@@ -159,7 +159,7 @@
                             "id": 1013213428,
                             "name": "texture",
                             "variant_type": 6,
-                            "variant_value": "res/textures/particles/heart.png"
+                            "variant_value": "res/textures/particles/flare.png"
                         },
                         {
                             "id": 3513758418,
@@ -223,8 +223,8 @@
                             "name": "direction_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
+                                "max": 180.0,
+                                "min": -180.0
                             }
                         },
                         {
@@ -232,8 +232,8 @@
                             "name": "magnitude_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 2.0,
-                                "min": 1.0
+                                "max": 1.0,
+                                "min": 0.20000000298023224
                             }
                         },
                         {
@@ -250,7 +250,7 @@
                             "name": "life_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 4.0,
+                                "max": 5.0,
                                 "min": 2.0
                             }
                         },
@@ -268,27 +268,27 @@
                                     },
                                     {
                                         "alpha": 0.6705882549285889,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.16871456801891327,
+                                        "green": 0.16871456801891327,
+                                        "red": 0.9130434989929199
                                     },
                                     {
                                         "alpha": 0.49803921580314636,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.21195653080940247,
+                                        "green": 0.21195653080940247,
+                                        "red": 0.8478261232376099
                                     },
                                     {
                                         "alpha": 0.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.24385634064674377,
+                                        "green": 0.24385634064674377,
+                                        "red": 0.9347826242446899
                                     }
                                 ],
                                 "t": [
                                     0.0,
-                                    0.25,
-                                    0.75,
+                                    0.3499999940395355,
+                                    0.6499999761581421,
                                     1.0
                                 ]
                             }

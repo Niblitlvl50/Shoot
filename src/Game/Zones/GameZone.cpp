@@ -107,7 +107,7 @@ GameZone::~GameZone()
 
 void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    SetLastLightingLayer(LayerId::FOG);
+    SetLastLightingLayer(LayerId::GAMEOBJECTS_DEBUG);
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     entity_system->PushEntityStackRecord(m_world_file);
@@ -164,7 +164,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
-    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system), LayerId::FOG);
+    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
+    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new UISystemDrawer(ui_system, transform_system), LayerId::UI);
 
     m_region_ui = new RegionDrawer(region_system);

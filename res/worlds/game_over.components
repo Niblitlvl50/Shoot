@@ -55,7 +55,7 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Game Over Dude..."
+                            "variant_value": "Game Over"
                         },
                         {
                             "id": 3902434344,
@@ -105,6 +105,56 @@
                                 "green": 0.0,
                                 "red": 0.0
                             }
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.25
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -221,9 +271,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.3382353186607361,
-                                "green": 0.3382353186607361,
-                                "red": 0.3382353186607361
+                                "blue": 0.8088235259056091,
+                                "green": 0.8088235259056091,
+                                "red": 0.8088235259056091
                             }
                         },
                         {
@@ -243,7 +293,7 @@
                             "name": "offset",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.02500000037252903,
+                                "x": 0.0,
                                 "y": 0.02500000037252903
                             }
                         },
@@ -257,6 +307,56 @@
                                 "green": 0.0,
                                 "red": 0.0
                             }
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
                         }
                     ]
                 }
@@ -508,7 +608,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 2.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 348705738,
@@ -679,15 +779,15 @@
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.7941176295280457,
-            "green": 0.7941176295280457,
-            "red": 0.7941176295280457
+            "blue": 0.0,
+            "green": 0.0,
+            "red": 0.0
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 0.7303921580314636,
-            "green": 0.7303921580314636,
-            "red": 0.7303921580314636
+            "blue": 0.13725489377975464,
+            "green": 0.13725489377975464,
+            "red": 0.13725489377975464
         },
         "background_music": "song18",
         "background_size": {

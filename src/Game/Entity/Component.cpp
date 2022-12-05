@@ -122,6 +122,7 @@ const DefaultAttribute default_attributes[] = {
     { "sound_file",                 Variant(std::string()) },
     { "sound_properties",           Variant(0u) },
     { "ui_layer",                   Variant(std::string()) },
+    { "polygon_draw_layer",         Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -236,6 +237,7 @@ extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes
 extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[90].hash;
 extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
 extern const uint32_t UI_LAYER_ATTRIBUTE                    = default_attributes[92].hash;
+extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE          = default_attributes[93].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -411,7 +413,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
     MakeComponent(CAMERA_TRACK_ENTITY_COMPONENT,NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
-    MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_ATTRIBUTE }),
+    MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };

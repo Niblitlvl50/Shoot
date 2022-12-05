@@ -10,7 +10,6 @@ namespace game
         GAMEOBJECTS,
         POST_GAMEOBJECTS,
         GAMEOBJECTS_UI,
-        FOG,
 
         GAMEOBJECTS_DEBUG,
         UI,

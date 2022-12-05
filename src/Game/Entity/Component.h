@@ -123,6 +123,7 @@ extern const uint32_t SOUND_ATTRIBUTE;
 extern const uint32_t SOUND_PLAY_PARAMETERS;
 
 extern const uint32_t UI_LAYER_ATTRIBUTE;
+extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE;
 
 
 const char* AttributeNameFromHash(uint32_t hash);

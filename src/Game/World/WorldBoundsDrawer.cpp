@@ -14,14 +14,19 @@
 
 using namespace game;
 
-WorldBoundsDrawer::WorldBoundsDrawer(const mono::TransformSystem* transform_system, const WorldBoundsSystem* world_system)
+WorldBoundsDrawer::WorldBoundsDrawer(
+    const mono::TransformSystem* transform_system, const WorldBoundsSystem* world_system, PolygonDrawLayer draw_layer)
     : m_transform_system(transform_system)
     , m_world_system(world_system)
+    , m_draw_layer(draw_layer)
 { }
 
 void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
 {
     const auto draw_world_bounds = [this, &renderer](const WorldBoundsComponent& component) {
+
+        if(component.draw_layer != m_draw_layer)
+            return;
 
         const bool no_triangles = component.triangulated_points.triangles.empty();
         if(no_triangles)

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "WorldBoundsTypes.h"
 #include "Rendering/IDrawable.h"
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 
@@ -17,7 +18,7 @@ namespace game
     {
     public:
 
-        WorldBoundsDrawer(const mono::TransformSystem* transform_system, const WorldBoundsSystem* world_system);
+        WorldBoundsDrawer(const mono::TransformSystem* transform_system, const WorldBoundsSystem* world_system, PolygonDrawLayer draw_layer);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -26,6 +27,7 @@ namespace game
 
         const mono::TransformSystem* m_transform_system;
         const WorldBoundsSystem* m_world_system;
+        const PolygonDrawLayer m_draw_layer;
 
         struct InternalRenderData
         {

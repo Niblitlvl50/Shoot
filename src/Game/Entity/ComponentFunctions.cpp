@@ -338,14 +338,16 @@ namespace
     {
         std::string texture_file;
         mono::Color::RGBA color;
+        int draw_layer;
         std::vector<math::Vector> vertices;
 
         FindAttribute(TEXTURE_ATTRIBUTE, properties, texture_file, FallbackMode::SET_DEFAULT);
         FindAttribute(COLOR_ATTRIBUTE, properties, color, FallbackMode::SET_DEFAULT);
+        FindAttribute(POLYGON_DRAW_LAYER_ATTRIBUTE, properties, draw_layer, FallbackMode::SET_DEFAULT);
         FindAttribute(POLYGON_ATTRIBUTE, properties, vertices, FallbackMode::SET_DEFAULT);
 
         game::WorldBoundsSystem* world_system = context->GetSystem<game::WorldBoundsSystem>();
-        world_system->AddPolygon(entity->id, vertices, texture_file, color);
+        world_system->AddPolygon(entity->id, vertices, texture_file, color, game::PolygonDrawLayer(draw_layer));
 
         return true;
     }
