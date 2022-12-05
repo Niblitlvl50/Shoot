@@ -2,6 +2,7 @@
 #include "PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "Events/PackageEvents.h"
+#include "Events/GameEventFuncFwd.h"
 #include "IDebugDrawer.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem.h"
@@ -70,8 +71,14 @@ PackageLogic::PackageLogic(
     m_sprite_system->SetSpriteEnabled(m_spawned_shield_id, false);
     m_light_system->SetLightEnabled(m_spawned_shield_id, false);
 
-    const std::function<mono::EventResult (const PackagePickupEvent&)> pickup_func =
-        std::bind(&PackageLogic::OnPackageEvent, this, std::placeholders::_1);
+    const auto not_player_filter = [this](uint32_t id, int damage, uint32_t id_who_did_damage) {
+        if(m_states.ActiveState() == States::SHIELDED)
+            return FilterResult::FILTER_OUT;
+        return game::IsPlayer(id_who_did_damage) ? FilterResult::FILTER_OUT : FilterResult::APPLY_DAMAGE;
+    };
+    m_damage_system->SetDamageFilter(m_entity_id, not_player_filter);
+
+    const PackagePickupFunc pickup_func = std::bind(&PackageLogic::OnPackageEvent, this, std::placeholders::_1);
     m_pickup_event_token = m_event_handler->AddListener(pickup_func);
 
     const PackageStateMachine::StateTable state_table = {

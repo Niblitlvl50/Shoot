@@ -45,6 +45,9 @@ namespace game
         void ReactivateDamageRecord(uint32_t id);
         DamageRecord* GetDamageRecord(uint32_t id);
 
+        void SetDamageFilter(uint32_t id, DamageFilter damage_filter);
+        void ClearDamageFilter(uint32_t id);
+
         uint32_t SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback);
         void RemoveDamageCallback(uint32_t id, uint32_t callback_id);
 
@@ -93,6 +96,7 @@ namespace game
         
         std::vector<DamageRecord> m_damage_records;
         std::vector<DamageCallbacks> m_damage_callbacks;
+        std::vector<DamageFilter> m_damage_filters;
         std::vector<bool> m_active;
 
         DamageCallbacks m_global_damage_callbacks;

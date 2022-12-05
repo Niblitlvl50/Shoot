@@ -14,6 +14,12 @@ namespace game
         DAMAGED     = ENUM_BIT(1),
         DT_ALL      = DESTROYED | DAMAGED,
     };
-
     using DamageCallback = std::function<void (uint32_t id, int damage, uint32_t who_did_damage, DamageType type)>;
+
+    enum class FilterResult
+    {
+        APPLY_DAMAGE,
+        FILTER_OUT
+    };
+    using DamageFilter = std::function<FilterResult (uint32_t id, int damage, uint32_t who_did_damage)>;
 }

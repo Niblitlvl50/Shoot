@@ -26,6 +26,7 @@ DamageSystem::DamageSystem(
     , m_timestamp(0)
     , m_damage_records(num_records)
     , m_damage_callbacks(num_records)
+    , m_damage_filters(num_records)
     , m_active(num_records, false)
 { }
 
@@ -43,6 +44,16 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     new_record.is_invincible = false;
 
     return &new_record;
+}
+
+void DamageSystem::SetDamageFilter(uint32_t id, DamageFilter damage_filter)
+{
+    m_damage_filters[id] = damage_filter;
+}
+
+void DamageSystem::ClearDamageFilter(uint32_t id)
+{
+    m_damage_filters[id] = nullptr;
 }
 
 uint32_t DamageSystem::SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback)
@@ -77,6 +88,7 @@ void DamageSystem::ReleaseRecord(uint32_t id)
     for(auto& callback : m_damage_callbacks[id])
         callback.callback = nullptr;
 
+    ClearDamageFilter(id);
     m_active[id] = false;
 }
 
@@ -114,6 +126,14 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
     DamageRecord& damage_record = m_damage_records[id];
     if(damage_record.health <= 0 || damage_record.is_invincible)
         return result;
+
+    const DamageFilter& damage_filter = m_damage_filters[id];
+    if(damage_filter != nullptr)
+    {
+        const FilterResult filter_result = damage_filter(id, damage, id_who_did_damage);
+        if(filter_result == FilterResult::FILTER_OUT)
+            return result;
+    }
 
     damage_record.health -= damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
