@@ -8110,6 +8110,7 @@
             "y": 7.5
         },
         "level_description": "",
+        "level_game_mode": "",
         "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
