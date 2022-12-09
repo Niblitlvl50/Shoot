@@ -92,7 +92,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.10000000149011612
+                                "y": 0.05000000074505806
                             }
                         },
                         {
@@ -2071,8 +2071,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5736327171325684,
-                                "y": -1.3616552352905273
+                                "x": 1.6979799270629883,
+                                "y": -1.2158693075180054
                             }
                         },
                         {
@@ -2551,8 +2551,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.5032775402069092,
-                                "y": -1.713424563407898
+                                "x": -0.5247166156768799,
+                                "y": -1.722000241279602
                             }
                         },
                         {
@@ -2671,8 +2671,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.0823519229888916,
-                                "y": -1.7147072553634644
+                                "x": 1.2967431545257568,
+                                "y": -1.628950834274292
                             }
                         },
                         {
@@ -2791,8 +2791,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.2735621929168701,
-                                "y": -1.601253628730774
+                                "x": 0.2049570083618164,
+                                "y": -1.6698588132858276
                             }
                         },
                         {
@@ -3415,8 +3415,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.1833329200744629,
-                                "y": -1.9500000476837158
+                                "x": 0.21666622161865234,
+                                "y": -1.8416666984558105
                             }
                         },
                         {
@@ -3535,8 +3535,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.6833343505859375,
-                                "y": -1.933333158493042
+                                "x": -0.650001049041748,
+                                "y": -1.7333331108093262
                             }
                         },
                         {
@@ -3739,6 +3739,126 @@
             "entity_properties": 0,
             "name": "boulder_1",
             "uuid_hash": 2128600646
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "grass_3"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "grass"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.8603222370147705,
+                                "y": -1.612736701965332
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "leaf_pile_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.9161917567253113,
+                                "green": 0.28114184737205505,
+                                "red": 0.9558823704719543
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "grass_3",
+            "uuid_hash": 35319330
         }
     ],
     "metadata": {
