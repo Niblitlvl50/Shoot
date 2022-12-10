@@ -17,6 +17,8 @@
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 
+#include "AIUtils.h"
+
 
 namespace tweak_values
 {
@@ -24,8 +26,9 @@ namespace tweak_values
     constexpr float distance_to_player_threshold = 3.0f;
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
-    constexpr uint32_t attack_start_delay = 500;
-    constexpr uint32_t attack_sequence_delay = 50;
+
+    constexpr float attack_start_delay_s = 0.5f;
+    constexpr float attack_sequence_delay_s = 0.05f;
     constexpr uint32_t n_attacks = 3;
 }
 
@@ -39,8 +42,8 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
-    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    mono::IBody* body = physics_system->GetBody(entity_id);
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* body = m_physics_system->GetBody(entity_id);
 
     m_homing_behaviour.SetBody(body);
     m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
@@ -108,26 +111,24 @@ const char* GoblinFireController::GetDebugCategory() const
 
 void GoblinFireController::ToIdle()
 {
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
     m_sprite->SetShade(mono::Color::WHITE);
     m_sprite->SetAnimation(m_idle_anim_id);
 }
 
 void GoblinFireController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_ms;
+    m_idle_timer_s += update_context.delta_s;
 
-    const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& world_position = math::GetPosition(world_transform);
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
-    bool is_visible = false;
+    bool is_withing_activation_range = false;
     const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
     if(player_info)
     {
         m_attack_position = player_info->position;
         const float distance = math::DistanceBetween(world_position, player_info->position);
-        is_visible = (distance < tweak_values::activate_distance_to_player_threshold);
-        //is_visible = math::PointInsideQuad(world_position, player_info->viewport);
+        is_withing_activation_range = (distance < tweak_values::activate_distance_to_player_threshold);
     }
 
     const bool is_left_of = (m_attack_position.x < world_position.x);
@@ -137,16 +138,15 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     const bool is_player_active = (player_info != nullptr);
-    if(!is_player_active || !is_visible || m_idle_timer < 1000)
+    if(!is_player_active || !is_withing_activation_range || m_idle_timer_s < 1.0f)
         return;
 
-    const bool transition_to_attack = mono::Chance(25);
-    if(transition_to_attack)
-        m_states.TransitionTo(States::PREPARE_ATTACK);
-    else
-        m_states.TransitionTo(States::REPOSITION);
+    const bool transition_to_attack =
+        mono::Chance(25) && game::SeesPlayer(m_physics_system, world_position, player_info);
+    const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
+    m_states.TransitionTo(new_state);
 
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
 }
 
 void GoblinFireController::ToReposition()
@@ -183,8 +183,12 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
-        const bool fire = mono::Chance(75);
-        const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+        const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
+        const bool transition_to_attack =
+            (player_info != nullptr) && mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, player_info);
+
+        const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
     }
     else if(result.is_stuck)
@@ -195,7 +199,7 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
 
 void GoblinFireController::ToPrepareAttack()
 {
-    m_prepare_timer = 0;
+    m_prepare_timer_s = 0.0f;
     m_sprite->SetShade(mono::Color::RED);
 
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
@@ -206,14 +210,14 @@ void GoblinFireController::ToPrepareAttack()
 
 void GoblinFireController::PrepareAttack(const mono::UpdateContext& update_context)
 {
-    m_prepare_timer += update_context.delta_ms;
-    if(m_prepare_timer > tweak_values::attack_start_delay)
+    m_prepare_timer_s += update_context.delta_s;
+    if(m_prepare_timer_s > tweak_values::attack_start_delay_s)
         m_states.TransitionTo(States::ATTACKING);
 }
 
 void GoblinFireController::ToAttacking()
 {
-    m_attack_timer = 0;
+    m_attack_timer_s = 0.0f;
     m_n_attacks = 0;
 }
 
@@ -222,8 +226,8 @@ void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
     if(m_n_attacks >= tweak_values::n_attacks || m_weapon->UpdateWeaponState(update_context.timestamp) == game::WeaponState::RELOADING)
         m_states.TransitionTo(States::IDLE);
 
-    m_attack_timer += update_context.delta_ms;
-    if(m_attack_timer > tweak_values::attack_sequence_delay)
+    m_attack_timer_s += update_context.delta_s;
+    if(m_attack_timer_s > tweak_values::attack_sequence_delay_s)
     {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
@@ -233,6 +237,6 @@ void GoblinFireController::Attacking(const mono::UpdateContext& update_context)
         else if(fire_state == game::WeaponState::OUT_OF_AMMO)
             m_weapon->Reload(update_context.timestamp);
     
-        m_attack_timer = 0;
+        m_attack_timer_s = 0.0f;
     }
 }

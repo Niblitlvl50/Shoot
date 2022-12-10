@@ -8,5 +8,6 @@ namespace game
 {
     struct PlayerInfo;
 
-    bool SeesPlayer(mono::PhysicsSystem* physics_system, const math::Vector& position, const game::PlayerInfo* player_info);
+    bool SeesPlayer(
+        const mono::PhysicsSystem* physics_system, const math::Vector& position, const game::PlayerInfo* player_info);
 }

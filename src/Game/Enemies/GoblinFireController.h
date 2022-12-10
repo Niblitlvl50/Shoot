@@ -46,6 +46,7 @@ namespace game
 
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
+        mono::PhysicsSystem* m_physics_system;
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
         int m_idle_anim_id;
@@ -54,10 +55,10 @@ namespace game
         using GoblinStateMachine = StateMachine<States, const mono::UpdateContext&>;
         GoblinStateMachine m_states;
 
-        uint32_t m_idle_timer;
-        uint32_t m_prepare_timer;
+        float m_idle_timer_s;
+        float m_prepare_timer_s;
+        float m_attack_timer_s;
         uint32_t m_n_attacks;
-        uint32_t m_attack_timer;
 
         HomingBehaviour m_homing_behaviour;
 
