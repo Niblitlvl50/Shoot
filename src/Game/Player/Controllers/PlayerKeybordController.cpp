@@ -38,15 +38,15 @@ PlayerKeyboardController::~PlayerKeyboardController()
 
 void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 {
-    if(m_trigger_respawn)
+    if(m_player_logic->m_player_info->player_state == game::PlayerState::DEAD)
     {
-        m_trigger_respawn = false;
-
-        if(m_player_logic->m_player_info->player_state == game::PlayerState::DEAD)
+        if(m_trigger_respawn)
         {
+            m_trigger_respawn = false;
             m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_logic->m_entity_id));
-            return;
         }
+
+        return;
     }
 
     // Update Movement
