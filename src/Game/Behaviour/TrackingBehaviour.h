@@ -37,6 +37,7 @@ namespace game
 
         void SetTrackingSpeed(float meter_per_second);
         bool UpdatePath(const math::Vector& tracking_position);
+        const math::Vector& GetTrackingPosition() const;
 
         TrackingResult Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position);
 

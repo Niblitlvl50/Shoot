@@ -29,7 +29,7 @@
 
 namespace tweak_values
 {
-    constexpr uint32_t idle_time = 2000;
+    constexpr float idle_time_s = 1.5f;
     constexpr float attack_distance = 2.0f;
     constexpr float max_attack_distance = 3.5f;
     constexpr float track_to_player_distance = 5.0f;
@@ -95,6 +95,9 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::track_to_player_distance, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
+
+    const math::Vector& tracking_position = m_tracking_behaviour->GetTrackingPosition();
+    debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
 }
 
 const char* FlyingMonsterController::GetDebugCategory() const
@@ -104,21 +107,21 @@ const char* FlyingMonsterController::GetDebugCategory() const
 
 void FlyingMonsterController::ToIdle()
 {
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
 }
 
 void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_ms;
+    m_idle_timer_s += update_context.delta_s;
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
     if(!player_info)
         return;
 
-    if(m_idle_timer > tweak_values::idle_time)
+    if(m_idle_timer_s > tweak_values::idle_time_s)
     {
-        m_idle_timer = 0;
+        m_idle_timer_s = 0.0f;
 
         const float distance_to_player = math::DistanceBetween(position, player_info->position);
         if(distance_to_player > tweak_values::track_to_player_distance)
@@ -128,9 +131,9 @@ void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
         if(!sees_player)
             return;
 
-        if(distance_to_player < tweak_values::attack_distance)
+        if(distance_to_player < tweak_values::max_attack_distance)
             m_states.TransitionTo(States::ATTACK_ANTICIPATION);
-        else if(distance_to_player > tweak_values::attack_distance && distance_to_player < tweak_values::track_to_player_distance)
+        else if(distance_to_player < tweak_values::track_to_player_distance)
             m_states.TransitionTo(States::TRACKING);
     }
 }

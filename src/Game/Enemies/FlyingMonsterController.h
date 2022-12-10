@@ -55,7 +55,7 @@ namespace game
         IWeaponPtr m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
-        uint32_t m_idle_timer;
+        float m_idle_timer_s;
         using FlyingMonsterStateMachine = StateMachine<States, const mono::UpdateContext&>;
         FlyingMonsterStateMachine m_states;
 

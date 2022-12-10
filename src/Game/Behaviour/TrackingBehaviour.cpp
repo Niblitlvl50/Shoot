@@ -101,3 +101,8 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
 
     return true;
 }
+
+const math::Vector& TrackingBehaviour::GetTrackingPosition() const
+{
+    return m_tracking_position;
+}
