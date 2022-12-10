@@ -1,5 +1,6 @@
 
 #include "ImpController.h"
+#include "AIUtils.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -26,8 +27,9 @@ namespace tweak_values
     constexpr float perpendicular_movement_distance_threshold = 2.0f;
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
+
     //constexpr uint32_t attack_start_delay = 500;
-    constexpr uint32_t attack_sequence_delay = 50;
+    constexpr float attack_sequence_delay_s = 0.05f;
     constexpr uint32_t n_attacks = 3;
 }
 
@@ -38,13 +40,13 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
-    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    mono::IBody* body = physics_system->GetBody(entity_id);
+    mono::IBody* body = m_physics_system->GetBody(entity_id);
 
     m_homing_behaviour.SetBody(body);
     m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
@@ -124,17 +126,16 @@ const char* ImpController::GetDebugCategory() const
 
 void ImpController::ToIdle()
 {
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
     m_sprite->SetShade(mono::Color::WHITE);
     m_sprite->SetAnimation(m_idle_anim_id);
 }
 
 void ImpController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_ms;
+    m_idle_timer_s += update_context.delta_s;
 
-    const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
-    const math::Vector& world_position = math::GetPosition(world_transform);
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
     m_target_player = GetClosestActivePlayer(
         world_position, tweak_values::activate_distance_to_player_threshold);
@@ -147,16 +148,16 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    if(m_idle_timer < 1000)
+    if(m_idle_timer_s < 1.0f)
         return;
 
-    const bool transition_to_attack = mono::Chance(25);
-    if(transition_to_attack)
-        m_states.TransitionTo(States::PREPARE_ATTACK);
-    else
-        m_states.TransitionTo(States::REPOSITION);
+    const bool transition_to_attack =
+        mono::Chance(25) && game::SeesPlayer(m_physics_system, world_position, m_target_player);
 
-    m_idle_timer = 0;
+    const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
+    m_states.TransitionTo(new_state);
+
+    m_idle_timer_s = 0.0f;
 }
 
 void ImpController::ToReposition()
@@ -193,8 +194,11 @@ void ImpController::Reposition(const mono::UpdateContext& update_context)
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
-        const bool fire = mono::Chance(75);
-        const States new_state = fire ? States::PREPARE_ATTACK : States::IDLE;
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+        const bool transition_to_attack =
+            mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, m_target_player);
+
+        const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
     }
     else if(result.is_stuck)
@@ -220,7 +224,7 @@ void ImpController::PrepareAttack(const mono::UpdateContext& update_context)
 
 void ImpController::ToAttacking()
 {
-    m_attack_timer = 0;
+    m_attack_timer_s = 0.0f;
     m_n_attacks = 0;
 }
 
@@ -232,8 +236,8 @@ void ImpController::Attacking(const mono::UpdateContext& update_context)
     if(m_weapon->UpdateWeaponState(update_context.timestamp) == game::WeaponState::RELOADING)
         m_states.TransitionTo(States::IDLE);
 
-    m_attack_timer += update_context.delta_ms;
-    if(m_attack_timer > tweak_values::attack_sequence_delay)
+    m_attack_timer_s += update_context.delta_s;
+    if(m_attack_timer_s > tweak_values::attack_sequence_delay_s)
     {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
@@ -243,7 +247,7 @@ void ImpController::Attacking(const mono::UpdateContext& update_context)
         else if(fire_state == game::WeaponState::OUT_OF_AMMO)
             m_weapon->Reload(update_context.timestamp);
     
-        m_attack_timer = 0;
+        m_attack_timer_s = 0.0f;
     }
 }
 
