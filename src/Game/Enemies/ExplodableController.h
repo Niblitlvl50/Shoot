@@ -19,6 +19,9 @@ namespace game
 
         ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
 
+        void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
+
         void Update(const mono::UpdateContext& update_context) override;
 
         void OnIdle();
@@ -49,5 +52,6 @@ namespace game
         ExplodableStateMachine m_states;
 
         float m_wait_timer_s;
+        mutable bool m_draw_explosion_once;
     };
 }

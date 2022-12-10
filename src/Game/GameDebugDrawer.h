@@ -32,6 +32,7 @@ namespace game
         void DrawPointFading(const math::Vector& position, float size, const mono::Color::RGBA& color, float time_s) override;
         void DrawLineFading(const math::Vector& start_position, const math::Vector& end_position, float width, const mono::Color::RGBA& color, float time_s) override;
         void DrawLineFading(const std::vector<math::Vector>& polyline, float width, const mono::Color::RGBA& color, float time_s) override;
+        void DrawCircleFading(const math::Vector& position, float radius, const mono::Color::RGBA& color, float time_s) override;
         void DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, float time_s) override;
         
         struct DebugPoint

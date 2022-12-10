@@ -29,6 +29,7 @@ namespace tweak_values
     constexpr uint32_t time_before_hunt_ms = 300;
     constexpr uint32_t visibility_check_interval = 1000;
     constexpr uint32_t collision_damage = 25;
+    constexpr float shockwave_radius = 2.0f;
     constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 180.0f;
@@ -100,7 +101,7 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
     if(category == CollisionCategory::PLAYER)
     {
         const math::Vector& entity_position = math::GetPosition(*m_transform);
-        game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_magnitude);
+        game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
         m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);

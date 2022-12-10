@@ -7,28 +7,37 @@
 
 #include "CollisionConfiguration.h"
 
-void game::ShockwaveAt(mono::PhysicsSystem* physics_system, const math::Vector& world_position, float magnitude)
+void game::ShockwaveAt(
+    mono::PhysicsSystem* physics_system,
+    const math::Vector& world_position,
+    float shockwave_radius,
+    float magnitude)
 {
-    ShockwaveAndDamageAt(physics_system, nullptr, world_position, magnitude, 0, 0, CollisionCategory::CC_ALL);
+    ShockwaveAndDamageAt(physics_system, nullptr, world_position, shockwave_radius, magnitude, 0, 0, CollisionCategory::CC_ALL);
 }
 
 void game::ShockwaveAtForTypes(
-    mono::PhysicsSystem* physics_system, const math::Vector& world_position, float magnitude, uint32_t object_types)
+    mono::PhysicsSystem* physics_system,
+    const math::Vector& world_position,
+    float shockwave_radius,
+    float magnitude,
+    uint32_t object_types)
 {
-    ShockwaveAndDamageAt(physics_system, nullptr, world_position, magnitude, 0, 0, object_types);
+    ShockwaveAndDamageAt(physics_system, nullptr, world_position, shockwave_radius, magnitude, 0, 0, object_types);
 }
 
 void game::ShockwaveAndDamageAt(
     mono::PhysicsSystem* physics_system,
     game::DamageSystem* damage_system,
     const math::Vector& world_position,
+    float shockwave_radius,
     float magnitude,
     int damage,
     uint32_t who_did_damage,
     uint32_t object_types)
 {
     const std::vector<mono::QueryResult> found_bodies =
-        physics_system->GetSpace()->QueryRadius(world_position, 3.0f, object_types);
+        physics_system->GetSpace()->QueryRadius(world_position, shockwave_radius, object_types);
 
     for(const mono::QueryResult& query_result : found_bodies)
     {
