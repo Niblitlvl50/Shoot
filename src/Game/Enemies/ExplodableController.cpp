@@ -20,7 +20,7 @@ namespace tweak_values
 {
     constexpr float magnitude = 2.5f;
     constexpr float shockwave_radius = 1.5f;
-    constexpr int damage = 50;
+    constexpr int damage = 25;
     constexpr float wait_duration = 0.5f;
 }
 
