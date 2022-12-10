@@ -80,6 +80,22 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
+
+    const char* state = "Unknown";
+    switch(m_states.ActiveState())
+    {
+    case States::SLEEPING:
+        state = "Sleeping";
+        break;
+    case States::AWAKE:
+        state = "Awake";
+        break;
+    case States::HUNT:
+        state = "Hunting";
+        break;
+    }
+
+    debug_drawer->DrawWorldText(state, world_position, mono::Color::OFF_WHITE);
 }
 
 const char* EyeMonsterController::GetDebugCategory() const
@@ -145,7 +161,7 @@ void EyeMonsterController::ToAwake()
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
     if(player_info)
     {
-        const math::Vector delta = (entity_position - player_info->position);
+        const math::Vector delta = (player_info->position - entity_position);
         const float angle = math::AngleFromVector(delta);
         m_homing_behaviour.SetHeading(angle);
     }
