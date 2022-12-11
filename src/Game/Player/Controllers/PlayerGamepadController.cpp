@@ -3,15 +3,9 @@
 #include "Player/PlayerLogic.h"
 #include "Player/PlayerInfo.h"
 
-#include "Events/PauseEvent.h"
-#include "EventHandler/EventHandler.h"
 #include "System/System.h"
-
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
-
-#include "Events/ControllerEvent.h"
-#include "Events/PlayerEvents.h"
 
 #include <algorithm>
 #include <cmath>
@@ -21,14 +15,11 @@ using namespace game;
 PlayerGamepadController::PlayerGamepadController(
     game::PlayerLogic* player_logic,
     mono::InputSystem* input_system,
-    mono::EventHandler* event_handler,
     const System::ControllerState& controller)
     : m_player_logic(player_logic)
     , m_input_system(input_system)
-    , m_event_handler(event_handler)
     , m_last_input_timestamp(0)
     , m_state(controller)
-    , m_pause(false)
 {
     m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled);
     m_input_context->controller_input = this;
@@ -46,7 +37,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
         const bool respawn_pressed =
             System::ButtonTriggeredAndChanged(m_last_state.button_state, m_state.button_state, System::ControllerButton::FACE_BOTTOM);
         if(respawn_pressed)
-            m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_logic->m_entity_id));
+            m_player_logic->RespawnPlayer();
 
         return;
     }
@@ -125,10 +116,7 @@ mono::InputResult PlayerGamepadController::ButtonDown(const event::ControllerBut
     if(event.controller_id == m_player_logic->m_player_info->controller_id)
     {
         if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
-        {
-            m_pause = !m_pause;
-            m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
-        }
+            m_player_logic->TogglePauseGame();
 
         m_last_input_timestamp = event.timestamp;
     }

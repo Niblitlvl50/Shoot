@@ -79,6 +79,9 @@ namespace game
         void Shockwave();
         void Shield();
 
+        void RespawnPlayer();
+        void TogglePauseGame();
+
         void ToDefault();
         void DefaultState(const mono::UpdateContext& update_context);
 
@@ -96,6 +99,7 @@ namespace game
         PlayerGamepadController m_gamepad_controller;
         PlayerKeyboardController m_keyboard_controller;
         mono::EventHandler* m_event_handler;
+        bool m_pause;
 
         enum class PlayerStates
         {

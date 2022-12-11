@@ -4,19 +4,13 @@
 #include "Player/PlayerInfo.h"
 
 #include "Input/InputSystem.h"
-#include "EventHandler/EventHandler.h"
-#include "Events/PlayerEvents.h"
-#include "Events/PauseEvent.h"
 
 using namespace game;
 
-PlayerKeyboardController::PlayerKeyboardController(
-    PlayerLogic* player_logic, mono::InputSystem* input_system, mono::EventHandler* event_handler)
+PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mono::InputSystem* input_system)
     : m_player_logic(player_logic)
     , m_input_system(input_system)
-    , m_event_handler(event_handler)
     , m_last_input_timestamp(0)
-    , m_pause(false)
     , m_fire(false)
     , m_trigger_reload(false)
     , m_trigger_action(false)
@@ -42,8 +36,8 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     {
         if(m_trigger_respawn)
         {
+            m_player_logic->RespawnPlayer();
             m_trigger_respawn = false;
-            m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_player_logic->m_entity_id));
         }
 
         return;
@@ -149,8 +143,7 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
         break;
     case Keycode::P:
     {
-        m_pause = !m_pause;
-        m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+        m_player_logic->TogglePauseGame();
         break;
     }
     case Keycode::ENTER:

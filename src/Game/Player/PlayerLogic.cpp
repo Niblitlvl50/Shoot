@@ -26,6 +26,8 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
+#include "Events/PauseEvent.h"
+#include "Events/PlayerEvents.h"
 #include "Math/MathFunctions.h"
 #include "Math/CriticalDampedSpring.h"
 #include "Util/Random.h"
@@ -62,9 +64,10 @@ PlayerLogic::PlayerLogic(
     : m_entity_id(entity_id)
     , m_controller_id(controller.id)
     , m_player_info(player_info)
-    , m_gamepad_controller(this, input_system, event_handler, controller)
-    , m_keyboard_controller(this, input_system, event_handler)
+    , m_gamepad_controller(this, input_system, controller)
+    , m_keyboard_controller(this, input_system)
     , m_event_handler(event_handler)
+    , m_pause(false)
     , m_fire(false)
     , m_stop_fire(false)
     , m_aim_direction(0.0f)
@@ -614,5 +617,16 @@ void PlayerLogic::Shield()
         return;
 
     m_shield_cooldown = 0;
-
 }
+
+void PlayerLogic::RespawnPlayer()
+{
+    m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_entity_id));
+}
+
+void PlayerLogic::TogglePauseGame()
+{
+    m_pause = !m_pause;
+    m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+}
+
