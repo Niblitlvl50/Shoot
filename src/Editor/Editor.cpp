@@ -22,6 +22,7 @@
 
 #include "Events/EventFuncFwd.h"
 #include "Events/SurfaceChangedEvent.h"
+#include "Events/QuitEvent.h"
 #include "EventHandler/EventHandler.h"
 
 #include "SystemContext.h"
@@ -430,6 +431,11 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     //ResetCameraZoom();
     //ResetCameraPosition();
+}
+
+void Editor::Quit()
+{
+    m_event_handler.DispatchEvent(event::QuitEvent());
 }
 
 void Editor::Save()

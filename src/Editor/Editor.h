@@ -56,6 +56,7 @@ namespace editor
         void CreateNewWorld(const std::string& new_world);
         void LoadWorld(const std::string& world_filename);
 
+        void Quit();
         void Save();
         void ImportEntity();
         void ExportEntity();

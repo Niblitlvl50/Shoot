@@ -276,13 +276,10 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawSnappers(!m_editor->DrawSnappers());
     else if(event.key == Keycode::O)
         m_editor->EnableDrawOutline(!m_editor->DrawOutline());
+    else if(event.key == Keycode::L && event.ctrl)
+        m_editor->EnableLights(!m_editor->DrawLights());
     else if(event.key == Keycode::L)
-    {
-        if(event.ctrl)
-            m_editor->EnableLights(!m_editor->DrawLights());
-        else
-            m_editor->EnableDrawLevelMetadata(!m_editor->DrawLevelMetadata());
-    }
+        m_editor->EnableDrawLevelMetadata(!m_editor->DrawLevelMetadata());
     else if(event.key == Keycode::G && event.alt)
         m_editor->EnableDrawGrid(!m_editor->DrawGrid());
     else if(event.key == Keycode::G)
@@ -293,6 +290,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
     else if(event.key == Keycode::BACKSPACE)
         m_editor->OnDeleteObject();
+    else if(event.key == Keycode::ESCAPE)
+        m_editor->Quit();
     else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)
     {
         const float offset = event.shift ? 0.5f : 1.0f;
