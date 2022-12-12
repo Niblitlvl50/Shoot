@@ -120,14 +120,15 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::LightSystem* light_system = m_system_context->GetSystem<mono::LightSystem>();
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
-    DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-    TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
-    InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
-    SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
-    DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
-    WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
-    RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
-    UISystem* ui_system = m_system_context->GetSystem<UISystem>();
+
+    game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+    game::TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
+    game::InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
+    game::SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
+    game::DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
+    game::WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
+    game::RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
+    game::UISystem* ui_system = m_system_context->GetSystem<UISystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -159,14 +160,14 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
-    AddDrawable(new HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
-    AddDrawable(new SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
-    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
-    AddDrawable(new WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
-    AddDrawable(new UISystemDrawer(ui_system, transform_system), LayerId::UI);
+    AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
+    AddDrawable(new game::HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new game::PlayerAuxiliaryDrawer(transform_system), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
+    AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI);
 
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
