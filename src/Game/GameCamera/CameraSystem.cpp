@@ -149,7 +149,7 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
             break;
         }
         case CameraAnimationType::CENTER_ON_POINT:
-            m_camera->SetTargetPosition(math::Vector(camera_anim->point_x, camera_anim->point_y));
+            m_camera->SetTargetPosition(math::Vector(camera_anim->point[0], camera_anim->point[1]));
             break;
         case CameraAnimationType::CENTER_ON_ENTITY:
             FollowEntity(camera_anim->entity_id);
@@ -263,8 +263,8 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     CameraAnimationComponent* component = m_animation_components.Get(entity_id);
     component->trigger_hash = trigger_hash;
     component->type = CameraAnimationType::CENTER_ON_POINT;
-    component->point_x = world_point.x;
-    component->point_y = world_point.y;
+    component->point[0] = world_point.x;
+    component->point[1] = world_point.y;
 
     if(component->callback_id != NO_CALLBACK)
         m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);

@@ -32,8 +32,7 @@ namespace game
         {
             float zoom_level;
             uint32_t entity_id;
-            float point_x;
-            float point_y;
+            float point[2];
         };
     };
 
