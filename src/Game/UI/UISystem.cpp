@@ -61,6 +61,11 @@ const char* UISystem::Name() const
     return "uisystem";
 }
 
+void UISystem::Begin()
+{
+    m_active_item_index = INVALID_UI_INDEX;
+}
+
 void UISystem::Destroy()
 {
     m_input_system->ReleaseContext(m_input_context);
