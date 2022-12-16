@@ -7393,6 +7393,167 @@
             "entity_properties": 0,
             "name": "light",
             "uuid_hash": 2466864800
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "continue_item"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "ui"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -3.625
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Back"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.039215683937072754,
+                                "green": 0.8587082624435425,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 3195760579,
+                    "name": "ui_item",
+                    "properties": [
+                        {
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "level_completed"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "continue_item",
+            "uuid_hash": 571165647
         }
     ],
     "metadata": {
@@ -7444,7 +7605,9 @@
         },
         "spawn_package": true,
         "time_limit_s": 0,
-        "triggers": [],
+        "triggers": [
+            "level_completed"
+        ],
         "use_custom_package_spawn_position": false
     }
 }
