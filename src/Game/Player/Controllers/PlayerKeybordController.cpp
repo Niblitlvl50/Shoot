@@ -141,7 +141,7 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
     case Keycode::TWO:
         m_trigger_next_weapon = true;
         break;
-    case Keycode::P:
+    case Keycode::ESCAPE:
     {
         m_player_logic->TogglePauseGame();
         break;
