@@ -20,7 +20,7 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_update_aiming(false)
     , m_trigger_respawn(false)
 {
-    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled);
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerKeyboardController");
     m_input_context->keyboard_input = this;
     m_input_context->mouse_input = this;
 }

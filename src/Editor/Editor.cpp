@@ -320,6 +320,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[SPRITE_COMPONENT] = editor::DrawSpriteDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
+    draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;
 
     m_static_background = std::make_unique<mono::StaticBackground>();
     m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);

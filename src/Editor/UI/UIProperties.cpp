@@ -26,6 +26,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Paths/PathTypes.h"
 #include "Physics/IBody.h"
+#include "UI/UISystem.h"
 #include "World/WorldBoundsTypes.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
@@ -315,7 +316,12 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::path_type_strings));
     }
-    else if(attribute.id == ENTITY_REFERENCE_ATTRIBUTE)
+    else if(
+        attribute.id == ENTITY_REFERENCE_ATTRIBUTE ||
+        attribute.id == UI_LEFT_ITEM_ID_ATTRIBUTE ||
+        attribute.id == UI_RIGHT_ITEM_ID_ATTRIBUTE ||
+        attribute.id == UI_ABOVE_ITEM_ID_ATTRIBUTE ||
+        attribute.id == UI_BELOW_ITEM_ID_ATTRIBUTE )
     {
         uint32_t& entity_id = std::get<uint32_t>(attribute.value);
         const char* entity_name = ui_context.entity_name_callback(entity_id);
@@ -428,6 +434,11 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     else if(attribute.id == UI_LAYER_ATTRIBUTE)
     {
         return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllUILayers());
+    }
+    else if(attribute.id == UI_ITEM_STATE_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_ui_item_state_strings, std::size(game::g_ui_item_state_strings));
     }
     else
     {
@@ -884,9 +895,15 @@ bool editor::DrawEntityReferenceProperty(
     char label[32] = {};
     std::sprintf(label, "%s (%u)", entity_name, entity_reference);
 
-    const bool enable_pick = ImGui::Button(label, ImVec2(item_width - tiny_button_width - item_spacing, 0));
+    ImGui::PushID(&entity_reference);
+    const bool enable_pick = ImGui::Button(label, ImVec2(item_width - (tiny_button_width * 2) - (item_spacing * 2), 0));
     if(enable_pick)
         pick_callback(&entity_reference);
+
+    ImGui::SameLine(0.0f, item_spacing);
+    const bool clear_picked_entity = ImGui::Button("x", ImVec2(tiny_button_width, 0));
+    if(clear_picked_entity)
+        entity_reference = 0;
 
     ImGui::SameLine(0.0f, item_spacing);
     const bool select_picked_entity = ImGui::Button(">", ImVec2(tiny_button_width, 0));
@@ -895,6 +912,8 @@ bool editor::DrawEntityReferenceProperty(
 
     ImGui::SameLine(0.0f, item_spacing);
     ImGui::Text("%s", name);
+
+    ImGui::PopID();
 
     return enable_pick;
 }

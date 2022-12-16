@@ -8,7 +8,7 @@
         {
             "name": "setup_game_screen",
             "filename": "res/worlds/setup_game_screen.components",
-            "transitions": [ "gameover_screen", "tiny_arena", "title_screen" ]
+            "transitions": [ "title_screen", "tiny_arena", "title_screen" ]
         },
         {
             "name": "gameover_screen",

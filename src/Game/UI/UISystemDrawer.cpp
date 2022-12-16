@@ -5,7 +5,9 @@
 #include "Math/Matrix.h"
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
+#include "Rendering/Color.h"
 #include "TransformSystem/TransformSystem.h"
+#include "EntitySystem/Entity.h"
 
 using namespace game;
 
@@ -16,23 +18,22 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
 
 void UISystemDrawer::Draw(mono::IRenderer& renderer) const
 {
-    const std::vector<UILayer>& layers = m_ui_system->GetLayers();
-    for(const UILayer& layer : layers)
-    {
-        if(!layer.enabled)
-            continue;
+    if(!m_ui_system->IsEnabled())
+        return;
 
-        const math::Matrix projection = math::Ortho(0, layer.width, 0, layer.height, -10, 10);
-        const auto projection_scope = mono::MakeProjectionScope(projection, &renderer);
-        const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+    const uint32_t active_item = m_ui_system->GetActiveEntityItem();
+    if(active_item != mono::INVALID_ID)
+    {
+        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(active_item);
+        //const auto transform_scope = mono::MakeTransformScope()
+        renderer.DrawQuad(math::ResizeQuad(world_bb, 0.05f), mono::Color::CYAN, 1.0f);
     }
 
-    const std::vector<uint32_t>& active_items = m_ui_system->GetActiveItems();
-    for(uint32_t item_id : active_items)
+    const bool draw_cursor = m_ui_system->DrawCursor();
+    if(draw_cursor)
     {
-        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(item_id);
-        //const auto transform_scope = mono::MakeTransformScope()
-        renderer.DrawQuad(world_bb, mono::Color::MAGENTA, 1.0f);
+        const math::Vector& cursor_target_position = m_ui_system->GetCursorTargetPosition();
+        renderer.DrawPoints({cursor_target_position}, mono::Color::RED, 15.0f);
     }
 }
 

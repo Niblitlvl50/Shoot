@@ -123,9 +123,9 @@ const std::vector<std::string>& editor::GetAllWeapons()
 
 void editor::LoadAllUILayers(const char* ui_config_file)
 {
-    const std::vector<game::UILayer> layers = game::LoadUIConfig(ui_config_file);
-    for(const game::UILayer& layer : layers)
-        g_all_ui_layers.push_back(layer.name);
+//    const std::vector<game::UILayer> layers = game::LoadUIConfig(ui_config_file);
+//    for(const game::UILayer& layer : layers)
+//        g_all_ui_layers.push_back(layer.name);
 }
 
 const std::vector<std::string>& editor::GetAllUILayers()

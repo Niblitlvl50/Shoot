@@ -368,13 +368,64 @@ namespace
     
     bool UpdateUIItem(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
+        int ui_group;
+        int ui_item_state;
         std::string on_click_trigger_name;
+
+        FindAttribute(UI_GROUP_ATTRIBUTE, properties, ui_group, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_ITEM_STATE_ATTRIBUTE, properties, ui_item_state, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, on_click_trigger_name, FallbackMode::SET_DEFAULT);
 
+        game::UINavigationSetup navigation_setup = {
+            mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
+        };
+
+        FindAttribute(UI_LEFT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.left_entity_uuid, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_RIGHT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.right_entity_uuid, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_ABOVE_ITEM_ID_ATTRIBUTE, properties, navigation_setup.above_entity_uuid, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_BELOW_ITEM_ID_ATTRIBUTE, properties, navigation_setup.below_entity_uuid, FallbackMode::SET_DEFAULT);
+
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->UpdateUIItem(entity->id, hash::Hash(on_click_trigger_name.c_str()));
+        ui_system->UpdateUIItem(
+            entity->id,
+            hash::Hash(on_click_trigger_name.c_str()),
+            ui_group,
+            game::UIItemState(ui_item_state),
+            navigation_setup);
 
         hash::HashRegisterString(on_click_trigger_name.c_str());
+
+        return true;
+    }
+
+    bool CreateUISetGroupState(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->AllocateUISetGroupState(entity->id);
+        return true;
+    }
+    
+    bool DestroyUISetGroupState(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->ReleaseUISetGroupState(entity->id);
+        return true;
+    }
+    
+    bool UpdateUISetGroupState(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int ui_group;
+        int ui_item_state;
+        std::string trigger_name;
+
+        FindAttribute(UI_GROUP_ATTRIBUTE, properties, ui_group, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_ITEM_STATE_ATTRIBUTE, properties, ui_item_state, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+
+        game::UISystem* ui_system = context->GetSystem<game::UISystem>();
+        ui_system->UpdateUISetGroupState(entity->id, ui_group, game::UIItemState(ui_item_state), hash::Hash(trigger_name.c_str()));
+
+        hash::HashRegisterString(trigger_name.c_str());
 
         return true;
     }
@@ -392,4 +443,5 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
     entity_manager->RegisterComponent(TEXTURED_POLYGON_COMPONENT, CreateTexturedPolygon, ReleaseTexturedPolygon, UpdateTexturedPolygon);
     entity_manager->RegisterComponent(UI_ITEM_COMPONENT, CreateUIItem, DestroyUIItem, UpdateUIItem);
+    entity_manager->RegisterComponent(UI_SET_GROUP_STATE_COMPONENT, CreateUISetGroupState, DestroyUISetGroupState, UpdateUISetGroupState);
 }

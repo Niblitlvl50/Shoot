@@ -44,6 +44,7 @@
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
+    const uint32_t level_gameover_hash = hash::Hash("level_gameover");
 }
 
 namespace tweak_values
@@ -110,10 +111,14 @@ void PacketDeliveryGameMode::Begin(
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
 
-    const TriggerCallback level_completed_callback = [this](uint32_t trigger_id) {
-        m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
+    const TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
+        if(trigger_id == level_completed_hash)
+            m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
+        else if(trigger_id == level_gameover_hash)
+            m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
     };
-    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_completed_callback, mono::INVALID_ID);
+    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_event_callback, mono::INVALID_ID);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -184,6 +189,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
 
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }

@@ -252,3 +252,10 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& c
 
     renderer.DrawPolyline(vertices, mono::Color::MAGENTA, 1.0f);
 }
+
+void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    math::Vector point;
+    FindAttribute(POSITION_ATTRIBUTE, component_properties, point, FallbackMode::SET_DEFAULT);
+    renderer.DrawPoints({ math::ZeroVec }, mono::Color::CYAN, 10.0f);
+}

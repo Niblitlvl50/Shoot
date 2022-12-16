@@ -35,7 +35,7 @@ const DefaultAttribute default_attributes[] = {
     { "size",                       Variant(math::Vector(1.0f, 1.0f)) },
     { "time_stamp",                 Variant(1000) },
     { "spawn_tag",                  Variant(std::string()) },
-    { "UNUSED_ATTRIBUTE",           Variant(std::string()) },
+    { "enable",                     Variant(true) },
     { "trigger_radius",             Variant(1.0f) },
     { "color",                      Variant(mono::Color::WHITE) },
     { "shadow_offset",              Variant(math::ZeroVec) },
@@ -121,8 +121,14 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_tertiary",            Variant(std::string()) },
     { "sound_file",                 Variant(std::string()) },
     { "sound_properties",           Variant(0u) },
-    { "ui_layer",                   Variant(std::string()) },
+    { "UNUSED_ATTRIBUTE",           Variant(std::string()) },
     { "polygon_draw_layer",         Variant(0) },
+    { "ui_group",                   Variant(0) },
+    { "ui_item_state",              Variant(0) },
+    { "ui_left_item_id",            Variant(0u) },
+    { "ui_right_item_id",           Variant(0u) },
+    { "ui_above_item_id",           Variant(0u) },
+    { "ui_below_item_id",           Variant(0u) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -131,7 +137,7 @@ extern const uint32_t RADIUS_ATTRIBUTE              = default_attributes[2].hash
 extern const uint32_t SIZE_ATTRIBUTE                = default_attributes[3].hash;
 extern const uint32_t TIME_STAMP_ATTRIBUTE          = default_attributes[4].hash;
 extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[5].hash;
-extern const uint32_t UNUSED_ATTRIBUTE              = default_attributes[6].hash;
+extern const uint32_t ENABLE_ATTRIBUTE              = default_attributes[6].hash;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[7].hash;
 extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[8].hash;
 extern const uint32_t SHADOW_OFFSET_ATTRIBUTE       = default_attributes[9].hash;
@@ -238,6 +244,13 @@ extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes
 extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
 extern const uint32_t UI_LAYER_ATTRIBUTE                    = default_attributes[92].hash;
 extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE          = default_attributes[93].hash;
+extern const uint32_t UI_GROUP_ATTRIBUTE                    = default_attributes[94].hash;
+extern const uint32_t UI_ITEM_STATE_ATTRIBUTE               = default_attributes[95].hash;
+extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE             = default_attributes[96].hash;
+extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE            = default_attributes[97].hash;
+extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes[98].hash;
+extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[99].hash;
+
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -279,6 +292,7 @@ extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polyg
 extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout");
 extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
 extern const uint32_t UI_ITEM_COMPONENT             = hash::Hash("ui_item");
+extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_state");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -362,6 +376,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "sound";
     else if(hash == UI_ITEM_COMPONENT)
         return "ui_item";
+    else if(hash == UI_SET_GROUP_STATE_COMPONENT)
+        return "ui_set_group_state";
 
     return "Unknown";
 }
@@ -392,7 +408,8 @@ const Component default_components[] = {
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
     MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
-    MakeComponent(UI_ITEM_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_LAYER_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE } ),
+    MakeComponent(UI_ITEM_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, UI_LEFT_ITEM_ID_ATTRIBUTE, UI_RIGHT_ITEM_ID_ATTRIBUTE, UI_ABOVE_ITEM_ID_ATTRIBUTE, UI_BELOW_ITEM_ID_ATTRIBUTE} ),
+    MakeComponent(UI_SET_GROUP_STATE_COMPONENT, NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
@@ -409,7 +426,7 @@ const Component default_components[] = {
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
     MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
-    MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, POSITION_ATTRIBUTE }),
+    MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),
     MakeComponent(CAMERA_TRACK_ENTITY_COMPONENT,NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),

@@ -738,11 +738,8 @@ namespace
             return false;
         }
 
-        math::Vector point;
-        FindAttribute(POSITION_ATTRIBUTE, properties, point, FallbackMode::SET_DEFAULT);
-
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.c_str()), point);
+        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.c_str()));
         return true;
     }
 

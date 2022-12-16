@@ -92,6 +92,7 @@ namespace game
         int m_next_zone;
 
         uint32_t m_level_completed_trigger;
+        uint32_t m_level_gameover_trigger;
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 

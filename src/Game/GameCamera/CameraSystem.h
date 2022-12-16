@@ -27,12 +27,11 @@ namespace game
         uint32_t trigger_hash;
         uint32_t callback_id;
         CameraAnimationType type;
+        uint32_t entity_id;
 
         union
         {
             float zoom_level;
-            uint32_t entity_id;
-            float point[2];
         };
     };
 
@@ -66,7 +65,7 @@ namespace game
         CameraAnimationComponent* AllocateCameraAnimation(uint32_t entity_id);
         void ReleaseCameraAnimation(uint32_t entity_id);
         void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, float new_zoom_level);
-        void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, const math::Vector& world_point);
+        void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash);
         void AddCameraAnimationComponent(uint32_t entity_id, uint32_t trigger_hash, uint32_t follow_entity_id);
 
         CameraRestoreComponent* AllocateRestoreComponent(uint32_t entity_id);

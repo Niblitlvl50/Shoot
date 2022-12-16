@@ -21,7 +21,7 @@ PlayerGamepadController::PlayerGamepadController(
     , m_last_input_timestamp(0)
     , m_state(controller)
 {
-    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled);
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerGamepadController");
     m_input_context->controller_input = this;
 }
 

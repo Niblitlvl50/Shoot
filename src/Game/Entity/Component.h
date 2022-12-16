@@ -13,7 +13,7 @@ extern const uint32_t SIZE_ATTRIBUTE;
 extern const uint32_t OFFSET_ATTRIBUTE;
 extern const uint32_t TIME_STAMP_ATTRIBUTE;
 extern const uint32_t SPAWN_TAG_ATTRIBUTE;
-extern const uint32_t UNUSED_ATTRIBUTE;
+extern const uint32_t ENABLE_ATTRIBUTE;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE;
 extern const uint32_t COLOR_ATTRIBUTE;
 extern const uint32_t SHADOW_OFFSET_ATTRIBUTE;
@@ -123,6 +123,13 @@ extern const uint32_t SOUND_ATTRIBUTE;
 extern const uint32_t SOUND_PLAY_PARAMETERS;
 
 extern const uint32_t UI_LAYER_ATTRIBUTE;
+extern const uint32_t UI_GROUP_ATTRIBUTE;
+extern const uint32_t UI_ITEM_STATE_ATTRIBUTE;
+extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE;
+extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE;
+extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE;
+extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE;
+
 extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE;
 
 
@@ -215,6 +222,7 @@ extern const uint32_t TEXTURED_POLYGON_COMPONENT;
 extern const uint32_t WEAPON_LOADOUT_COMPONENT;
 extern const uint32_t SOUND_COMPONENT;
 extern const uint32_t UI_ITEM_COMPONENT;
+extern const uint32_t UI_SET_GROUP_STATE_COMPONENT;
 
 
 struct Component
