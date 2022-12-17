@@ -11,7 +11,6 @@
 
 #include "ObjectProxies/IObjectProxy.h"
 #include "Grabber.h"
-#include "SnapPoint.h"
 
 #include <memory>
 #include <stack>
@@ -84,10 +83,7 @@ namespace editor
         void SelectGrabber(const math::Vector& position);
         Grabber* FindGrabber(const math::Vector& position);
 
-        void UpdateSnappers();
         void UpdateGrabbers();
-
-        SnapPair FindSnapPosition(const math::Vector& position) const;
 
         float GetPickingDistance() const;
 
@@ -174,6 +170,5 @@ namespace editor
 
         std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
-        std::vector<SnapPoint> m_snap_points;
     };
 }

@@ -69,5 +69,4 @@ void TranslateTool::MoveObjects(const math::Vector& delta)
     }
 
     m_editor->UpdateGrabbers();
-    m_editor->UpdateSnappers();
 }

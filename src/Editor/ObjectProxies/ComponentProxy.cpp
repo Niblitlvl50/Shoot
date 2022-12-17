@@ -1,7 +1,6 @@
 
 #include "ComponentProxy.h"
 #include "EditorEntityAttributes.h"
-#include "SnapPoint.h"
 #include "Grabber.h"
 
 #include "EntitySystem/ObjectAttribute.h"
@@ -179,11 +178,6 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
     }
 
     return grabbers;
-}
-
-std::vector<SnapPoint> ComponentProxy::GetSnappers() const
-{
-    return { };
 }
 
 const std::vector<Component>& ComponentProxy::GetComponents() const

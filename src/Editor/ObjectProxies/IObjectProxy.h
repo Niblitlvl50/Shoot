@@ -28,7 +28,6 @@ namespace editor
         virtual bool Intersects(const math::Vector& position) const = 0;
         virtual bool Intersects(const math::Quad& world_bb) const = 0;
         virtual std::vector<struct Grabber> GetGrabbers() = 0;
-        virtual std::vector<struct SnapPoint> GetSnappers() const = 0;
 
         virtual const std::vector<Component>& GetComponents() const = 0;
         virtual std::vector<Component>& GetComponents() = 0;

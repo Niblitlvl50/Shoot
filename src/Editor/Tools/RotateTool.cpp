@@ -64,7 +64,6 @@ void RotateTool::HandleMousePosition(const math::Vector& world_pos)
     proxy->SetRotation(angle + m_rotation_diff);
 
     m_editor->UpdateGrabbers();
-    m_editor->UpdateSnappers();
 }
 
 void RotateTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
