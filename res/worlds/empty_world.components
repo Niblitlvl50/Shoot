@@ -2230,7 +2230,7 @@
                     "properties": [
                         {
                             "id": 3960387401,
-                            "name": "ui_layer",
+                            "name": "Unknown",
                             "variant_type": 6,
                             "variant_value": "backend"
                         },
@@ -2332,7 +2332,7 @@
                     "properties": [
                         {
                             "id": 3960387401,
-                            "name": "ui_layer",
+                            "name": "Unknown",
                             "variant_type": 6,
                             "variant_value": "backend"
                         },
@@ -2494,16 +2494,52 @@
                     "name": "ui_item",
                     "properties": [
                         {
-                            "id": 3960387401,
-                            "name": "ui_layer",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "level_completed"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3960387401,
+                            "name": "Unknown",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -2632,16 +2668,52 @@
                     "name": "ui_item",
                     "properties": [
                         {
-                            "id": 3960387401,
-                            "name": "ui_layer",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "play_sound"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3960387401,
+                            "name": "Unknown",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -2763,16 +2835,52 @@
                     "name": "ui_item",
                     "properties": [
                         {
-                            "id": 3960387401,
-                            "name": "ui_layer",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "level_gameover"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3960387401,
+                            "name": "Unknown",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -2894,16 +3002,52 @@
                     "name": "ui_item",
                     "properties": [
                         {
-                            "id": 3960387401,
-                            "name": "ui_layer",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": "level_aborted"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3960387401,
+                            "name": "Unknown",
+                            "variant_type": 6,
+                            "variant_value": ""
                         }
                     ]
                 }
@@ -2911,6 +3055,110 @@
             "entity_properties": 0,
             "name": "test_test",
             "uuid_hash": 3005361830
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "background"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.125,
+                                "y": -0.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2771478017,
+                    "name": "textured_polygon",
+                    "properties": [
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/background/prototype1.png"
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 3148264498,
+                            "name": "polygon_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -16.0,
+                                    "y": -16.0
+                                },
+                                {
+                                    "x": -16.0,
+                                    "y": 16.0
+                                },
+                                {
+                                    "x": 16.0,
+                                    "y": 16.0
+                                },
+                                {
+                                    "x": 16.0,
+                                    "y": -16.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "background",
+            "uuid_hash": 767648323
         }
     ],
     "metadata": {

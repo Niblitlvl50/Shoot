@@ -7,7 +7,6 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
-#include "Rendering/Objects/StaticBackground.h"
 #include "Rendering/Lights/LightSystem.h"
 #include "Rendering/Lights/LightSystemDrawer.h"
 
@@ -147,13 +146,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
-    if(!metadata.background_texture.empty())
-    {
-        mono::StaticBackground* background = new mono::StaticBackground(
-            metadata.background_size, metadata.background_texture.c_str(), mono::TextureModeFlags::REPEAT);
-        AddDrawable(background, LayerId::BACKGROUND);
-    }
-    
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);

@@ -119,7 +119,6 @@ namespace editor
         const mono::Color::RGBA& AmbientShade() const;
         void SetAmbientShade(const mono::Color::RGBA& color);
 
-        void SetBackgroundTexture(const math::Vector& size, const std::string& background_texture);
         void ResetCameraZoom();
         void ResetCameraPosition();
 
@@ -161,7 +160,6 @@ namespace editor
         std::unique_ptr<class UserInputController> m_user_input_controller;
         std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
         class SelectionVisualizer* m_selection_visualizer; 
-        std::unique_ptr<mono::StaticBackground> m_static_background;
 
         Selection m_selected_ids;
         uint32_t m_preselected_id;

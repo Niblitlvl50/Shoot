@@ -21,7 +21,6 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
-#include "Rendering/Objects/StaticBackground.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
@@ -115,39 +114,8 @@ int RemoteZone::OnUnload()
 
 mono::EventResult RemoteZone::HandleLevelMetadata(const LevelMetadataMessage& metadata_message)
 {
-    /*
-    const auto component_filter = [](uint32_t component_hash) {
-        return
-            component_hash == TRANSFORM_COMPONENT ||
-            component_hash == SPRITE_COMPONENT ||
-            //component_hash == TEXT_COMPONENT ||
-            component_hash == HEALTH_COMPONENT;
-    };
-
-    const char* world_filename = game::HashToFilename(metadata_message.world_file_hash);
-    if(world_filename)
-    {
-        const game::LevelData level_data =
-            game::ReadWorldComponentObjectsFiltered(world_filename, m_entity_manager, component_filter);
-
-        m_camera->SetPosition(level_data.metadata.camera_position);
-        m_camera->SetViewportSize(level_data.metadata.camera_size);
-
-        if(!level_data.metadata.background_texture.empty())
-            AddDrawable(new StaticBackground(level_data.metadata.background_texture.c_str()), LayerId::BACKGROUND);
-    }
-    else
-    {
-        System::Log("RemoteZone|Unable to load world file for hash %u", metadata_message.world_file_hash);
-    }
-    */
-
     m_camera->SetPosition(metadata_message.camera_position);
     m_camera->SetViewportSize(metadata_message.camera_size);
-
-    const char* background_texture_filename = game::HashToFilename(metadata_message.background_texture_hash);
-    if(background_texture_filename)
-        AddDrawable(new mono::StaticBackground(background_texture_filename, mono::TextureModeFlags::REPEAT), LayerId::BACKGROUND);
 
     return mono::EventResult::HANDLED;
 }

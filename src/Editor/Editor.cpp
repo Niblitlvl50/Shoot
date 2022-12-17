@@ -13,7 +13,6 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Text/TextBatchDrawer.h"
-#include "Rendering/Objects/StaticBackground.h"
 
 #include "RoadSystem/RoadSystem.h"
 #include "RoadSystem/RoadBatchDrawer.h"
@@ -242,7 +241,6 @@ Editor::Editor(
     m_context.draw_lights_callback = std::bind(&Editor::EnableLights, this, _1);
     m_context.background_color_callback = std::bind(&Editor::SetBackgroundColor, this, _1);
     m_context.ambient_shade_callback = std::bind(&Editor::SetAmbientShade, this, _1);
-    m_context.background_callback = std::bind(&Editor::SetBackgroundTexture, this, _1, _2);
 
     m_context.entity_name_callback = [&entity_manager](uint32_t entity_uuid_hash){
         const uint32_t entity_id = entity_manager.GetEntityIdFromUuid(entity_uuid_hash);
@@ -320,13 +318,11 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;
 
-    m_static_background = std::make_unique<mono::StaticBackground>();
     m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
 
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
-    AddDrawable(m_static_background.get(), game::LayerId::BACKGROUND);
     AddDrawable(new GridVisualizer(m_context.draw_grid), game::LayerId::BACKGROUND);
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), game::LayerId::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), game::LayerId::GAMEOBJECTS_DEBUG);
@@ -349,7 +345,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 int Editor::OnUnload()
 {
     RemoveDrawable(m_component_detail_visualizer.get());
-    RemoveDrawable(m_static_background.get());
 
     m_editor_config.camera_position = m_camera->GetPosition();
     m_editor_config.camera_viewport = m_camera->GetViewportSize();
@@ -424,10 +419,6 @@ void Editor::LoadWorld(const std::string& world_filename)
 
     SetBackgroundColor(world.leveldata.metadata.background_color);
     SetAmbientShade(world.leveldata.metadata.ambient_shade);
-    SetBackgroundTexture(world.leveldata.metadata.background_size, world.leveldata.metadata.background_texture);
-
-    //ResetCameraZoom();
-    //ResetCameraPosition();
 }
 
 void Editor::Quit()
@@ -936,14 +927,6 @@ void Editor::SetAmbientShade(const mono::Color::RGBA& color)
 {
     m_context.level_metadata.ambient_shade = color;
     m_renderer->SetAmbientShade(color);
-}
-
-void Editor::SetBackgroundTexture(const math::Vector& size, const std::string& background_texture)
-{
-    if(background_texture.empty())
-        m_static_background->Clear();
-    else
-        m_static_background->Load(size, background_texture.c_str(), mono::TextureModeFlags::REPEAT);
 }
 
 void Editor::ResetCameraZoom()
