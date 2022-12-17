@@ -1,17 +1,12 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IObjectProxy.h"
 #include <vector>
 #include <string>
 
 struct Component;
-
-namespace mono
-{
-    class IEntityManager;
-    class TransformSystem;
-}
 
 namespace editor
 {
@@ -58,8 +53,6 @@ namespace editor
         math::Quad GetBoundingBox() const override;
 
         std::unique_ptr<IObjectProxy> Clone() const override;
-        void Visit(class IObjectVisitor& visitor) override;
-
 
     private:
 

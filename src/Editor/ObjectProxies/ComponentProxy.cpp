@@ -6,7 +6,6 @@
 #include "EntitySystem/ObjectAttribute.h"
 #include "Entity/Component.h"
 #include "UI/UIProperties.h"
-#include "IObjectVisitor.h"
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
 
@@ -301,9 +300,4 @@ std::unique_ptr<editor::IObjectProxy> ComponentProxy::Clone() const
     }
 
     return proxy;
-}
-
-void ComponentProxy::Visit(IObjectVisitor& visitor)
-{
-    visitor.Accept(this);
 }

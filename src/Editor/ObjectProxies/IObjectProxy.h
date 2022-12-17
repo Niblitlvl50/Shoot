@@ -44,7 +44,6 @@ namespace editor
         virtual math::Quad GetBoundingBox() const = 0;
 
         virtual std::unique_ptr<IObjectProxy> Clone() const = 0;
-        virtual void Visit(class IObjectVisitor& visitor) = 0;
     };
 }
 
