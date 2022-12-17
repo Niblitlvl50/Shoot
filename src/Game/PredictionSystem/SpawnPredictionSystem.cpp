@@ -2,7 +2,7 @@
 #include "SpawnPredictionSystem.h"
 #include "PositionPredictionSystem.h"
 #include "Network/ClientManager.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Rendering/Sprite/SpriteSystem.h"

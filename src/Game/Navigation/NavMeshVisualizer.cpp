@@ -14,7 +14,7 @@
 #include "Paths/PathFactory.h"
 
 #include "NavMesh.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 using namespace game;
 

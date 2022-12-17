@@ -5,10 +5,13 @@
 #include "Rendering/Text/TextFunctions.h"
 #include "FontIds.h"
 
+#include "Input/InputSystem.h"
+
 using namespace game;
 
-PauseScreen::PauseScreen()
+PauseScreen::PauseScreen(mono::InputSystem* input_system)
     : game::UIOverlay(200, 200.0f / mono::GetWindowAspect())
+    , m_input_system(input_system)
 {
     const float background_width = 160.0f;
     const float background_height = 90.0f;

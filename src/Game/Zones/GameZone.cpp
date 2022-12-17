@@ -40,11 +40,11 @@
 #include "EntitySystem/IEntityManager.h"
 
 #include "RenderLayers.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "WorldFile.h"
 #include "Camera/ICamera.h"
-#include "GameDebug.h"
-#include "GameDebugDrawer.h"
+#include "Debug/GameDebug.h"
+#include "Debug/GameDebugDrawer.h"
 #include "Factories.h"
 
 #include "InteractionSystem/InteractionSystem.h"

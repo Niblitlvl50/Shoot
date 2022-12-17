@@ -26,7 +26,7 @@
 #include "Weapons/WeaponSystem.h"
 #include "Zones/ZoneManager.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "GameCamera/CameraSystem.h"

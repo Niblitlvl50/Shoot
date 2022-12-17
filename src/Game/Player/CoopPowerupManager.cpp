@@ -1,6 +1,6 @@
 
 #include "CoopPowerupManager.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "PlayerInfo.h"
 
 #include "Math/MathFunctions.h"

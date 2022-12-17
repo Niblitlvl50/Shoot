@@ -19,7 +19,7 @@
 #include "Rendering/Lights/LightSystem.h"
 #include "Particle/ParticleSystem.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"

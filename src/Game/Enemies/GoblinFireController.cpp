@@ -10,7 +10,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/EasingFunctions.h"
 #include "Util/Random.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 
 #include "Player/PlayerInfo.h"
 #include "SystemContext.h"

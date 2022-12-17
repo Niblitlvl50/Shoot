@@ -4,7 +4,7 @@
 #include "Network/ConnectionStats.h"
 
 #include "Math/Quad.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 #include "imgui/imgui.h"
 

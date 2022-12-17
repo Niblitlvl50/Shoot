@@ -4,7 +4,7 @@
 #include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "PlayerFamiliarLogic.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/Entity.h"
@@ -12,7 +12,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Input/InputSystem.h"

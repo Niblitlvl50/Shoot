@@ -5,7 +5,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Factories.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Sound/SoundSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Pickups/PickupSystem.h"

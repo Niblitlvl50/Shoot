@@ -1,7 +1,7 @@
 
 #include "ExplodableController.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Effects/ExplosionEffect.h"
 #include "Shockwave.h"
 #include "CollisionConfiguration.h"
@@ -14,7 +14,7 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 
 namespace tweak_values
 {

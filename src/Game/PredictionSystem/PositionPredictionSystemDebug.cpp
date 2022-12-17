@@ -5,7 +5,7 @@
 #include "Math/Quad.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 using namespace game;
 

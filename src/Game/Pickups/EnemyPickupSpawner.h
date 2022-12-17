@@ -2,7 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include <vector>
 #include <string>

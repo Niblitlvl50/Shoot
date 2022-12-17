@@ -1,7 +1,7 @@
 
 #include "Shockwave.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
 

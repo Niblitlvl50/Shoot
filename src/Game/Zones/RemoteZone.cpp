@@ -4,7 +4,7 @@
 #include "Factories.h"
 #include "Resources.h"
 #include "RenderLayers.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
@@ -26,7 +26,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "PredictionSystem/PositionPredictionSystem.h"
 #include "PredictionSystem/PositionPredictionSystemDebug.h"

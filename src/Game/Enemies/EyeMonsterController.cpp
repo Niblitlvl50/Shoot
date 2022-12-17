@@ -4,9 +4,9 @@
 #include "AIUtils.h"
 #include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Shockwave.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"

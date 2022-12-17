@@ -4,9 +4,9 @@
 #include "TriggerSystem/TriggerSystem.h"
 
 // Debug
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 #include "Factories.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 
 #include "Camera/ICamera.h"

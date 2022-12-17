@@ -1,7 +1,7 @@
 
 #include "HealthbarDrawer.h"
 #include "FontIds.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"

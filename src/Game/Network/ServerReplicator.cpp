@@ -22,7 +22,7 @@
 #include "ScopedTimer.h"
 #include "Player/PlayerInfo.h"
 #include "WorldFile.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "Math/MathFunctions.h"
 #include "Camera/ICamera.h"

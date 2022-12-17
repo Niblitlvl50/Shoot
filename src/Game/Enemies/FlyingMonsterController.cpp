@@ -3,7 +3,7 @@
 
 #include "Player/PlayerInfo.h"
 #include "Behaviour/TrackingBehaviour.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 #include "Weapons/CollisionCallbacks.h"

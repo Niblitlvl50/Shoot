@@ -2,9 +2,9 @@
 #include "UISystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 #include "Factories.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 
 #include "EntitySystem/Entity.h"
@@ -183,6 +183,11 @@ void UISystem::Update(const mono::UpdateContext& update_context)
     m_button_up = false;
     m_button_down = false;
     m_button_push_this_frame = false;
+}
+
+bool UISystem::UpdateInPause() const
+{
+    return true;
 }
 
 void UISystem::Enable()

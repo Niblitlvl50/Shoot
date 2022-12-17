@@ -12,7 +12,7 @@
 #include "Rendering/Color.h"
 #include "System/Debug.h"
 
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Factories.h"
 
 #include <string>

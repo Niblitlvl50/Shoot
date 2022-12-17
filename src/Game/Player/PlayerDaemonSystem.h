@@ -3,7 +3,7 @@
 
 #include "MonoFwd.h"
 #include "IGameSystem.h"
-#include "DamageSystemTypes.h"
+#include "DamageSystem/DamageSystemTypes.h"
 
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"

@@ -6,7 +6,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
 #include "System/Network.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 using namespace game;
 

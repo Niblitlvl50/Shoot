@@ -1,9 +1,9 @@
 
 #include "TriggerSystem.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Factories.h"
-#include "IDebugDrawer.h"
-#include "GameDebug.h"
+#include "Debug/IDebugDrawer.h"
+#include "Debug/GameDebug.h"
 
 #include "Util/Algorithm.h"
 #include "System/Hash.h"

@@ -12,7 +12,7 @@
 
 #include "System/System.h"
 
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Factories.h"
 #include "Player/PlayerInfo.h"
 #include "Rendering/Color.h"

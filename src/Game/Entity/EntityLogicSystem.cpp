@@ -3,7 +3,7 @@
 #include "IEntityLogic.h"
 #include "System/Hash.h"
 #include "Factories.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 
 #include <algorithm>
 #include <cassert>

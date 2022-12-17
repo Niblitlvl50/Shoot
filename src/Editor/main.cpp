@@ -22,7 +22,7 @@
 #include "Entity/ComponentFunctions.h"
 #include "Entity/LoadEntity.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "World/WorldBoundsSystem.h"
 #include "Weapons/WeaponTypes.h"

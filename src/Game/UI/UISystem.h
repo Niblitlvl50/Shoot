@@ -75,6 +75,7 @@ namespace game
         void Begin() override;
         void Destroy() override;
         void Update(const mono::UpdateContext& update_context) override;
+        bool UpdateInPause() const override;
 
         void Enable();
         void Disable();

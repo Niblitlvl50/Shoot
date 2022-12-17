@@ -5,7 +5,7 @@
 #include "Weapons/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "SystemContext.h"
 #include "Physics/PhysicsSystem.h"

@@ -3,9 +3,9 @@
 #include "Player/PlayerInfo.h"
 #include "Events/PackageEvents.h"
 #include "Events/GameEventFuncFwd.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "CollisionConfiguration.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"

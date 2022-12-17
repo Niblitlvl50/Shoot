@@ -1,6 +1,6 @@
 
 #include "CaptureTheFlagLogic.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Math/MathFunctions.h"

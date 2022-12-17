@@ -2,9 +2,9 @@
 #include "DemonBossController.h"
 
 #include "Player/PlayerInfo.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Factories.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 #include "Shockwave.h"

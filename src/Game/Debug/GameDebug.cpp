@@ -2,7 +2,7 @@
 #include "GameDebug.h"
 #include "Player/PlayerInfo.h"
 #include "TriggerSystem/TriggerSystem.h"
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Entity/EntityLogicSystem.h"
 
 #include "SystemContext.h"

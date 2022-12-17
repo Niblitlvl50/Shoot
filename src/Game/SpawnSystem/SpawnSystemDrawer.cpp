@@ -1,7 +1,7 @@
 
 #include "SpawnSystemDrawer.h"
 #include "SpawnSystem.h"
-#include "GameDebug.h"
+#include "Debug/GameDebug.h"
 #include "FontIds.h"
 
 #include "Rendering/RenderSystem.h"

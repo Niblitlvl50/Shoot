@@ -1,7 +1,7 @@
 
 #include "CollisionCallbacks.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "Camera/ICamera.h"
 #include "Effects/DamageEffect.h"

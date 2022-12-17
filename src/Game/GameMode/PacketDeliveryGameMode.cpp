@@ -36,10 +36,11 @@
 
 #include "Entity/Component.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Input/InputSystem.h"
 
 #include "WorldFile.h"
 #include "Factories.h"
-#include "IDebugDrawer.h"
+#include "Debug/IDebugDrawer.h"
 
 namespace
 {
@@ -90,6 +91,7 @@ void PacketDeliveryGameMode::Begin(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+    mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
@@ -150,7 +152,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>();
+    m_pause_screen = std::make_unique<PauseScreen>(input_system);
     m_pause_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(
@@ -328,7 +330,7 @@ void PacketDeliveryGameMode::ToPackageDestroyed()
     m_next_zone = game::ZoneResult::ZR_GAME_OVER;
 
     m_big_text_screen->SetText("Delivery failed!");
-    m_big_text_screen->SetSubText("You lost your package...");
+    m_big_text_screen->SetSubText("You lost the package...");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 
@@ -351,8 +353,8 @@ void PacketDeliveryGameMode::ToLevelCompleted()
 {
     m_next_zone = game::ZoneResult::ZR_COMPLETED;
 
-    m_big_text_screen->SetText("Completed!");
-    m_big_text_screen->SetSubText("Your manager approves.");
+    m_big_text_screen->SetText("Delivery Completed!");
+    m_big_text_screen->SetSubText("");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 

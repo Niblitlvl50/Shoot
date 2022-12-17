@@ -16,7 +16,7 @@
 #include "Network/ServerManager.h"
 #include "Network/ServerReplicator.h"
 
-#include "DamageSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 #include "RenderLayers.h"
 
