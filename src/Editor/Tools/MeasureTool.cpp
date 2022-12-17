@@ -76,7 +76,7 @@ MeasureTool::~MeasureTool()
 
 void MeasureTool::Begin()
 {
-    m_editor->AddDrawable(m_visualizer.get(), RenderLayer::UI);
+    m_editor->AddDrawable(m_visualizer.get(), game::LayerId::UI);
 }
 
 void MeasureTool::End()
