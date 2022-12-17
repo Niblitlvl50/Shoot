@@ -7,7 +7,7 @@
 #include "IGameSystem.h"
 #include "Math/Vector.h"
 #include "Rendering/Texture/ITextureFactory.h"
-#include "Rendering/Objects/Triangulate.h"
+#include "Math/Triangulate.h"
 
 #include <vector>
 #include <string>

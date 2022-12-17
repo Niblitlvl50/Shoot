@@ -6,7 +6,7 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Rendering/RenderSystem.h"
-#include "Rendering/Objects/Triangulate.h"
+#include "Math/Triangulate.h"
 
 #include "ScopedTimer.h"
 
