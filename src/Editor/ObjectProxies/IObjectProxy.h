@@ -20,6 +20,7 @@ namespace editor
 
         virtual uint32_t Uuid() const = 0;
         virtual uint32_t Id() const = 0;
+        virtual uint32_t GetEntityProperties() const = 0;
 
         virtual std::string Name() const = 0;
         virtual std::string GetFolder() const = 0;

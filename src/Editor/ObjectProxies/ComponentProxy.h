@@ -48,7 +48,7 @@ namespace editor
 
         void ComponentChanged(Component& component, uint32_t attribute_hash) override;
 
-        uint32_t GetEntityProperties() const;
+        uint32_t GetEntityProperties() const override;
         void SetEntityProperties(uint32_t properties);
 
         math::Vector GetPosition() const override;

@@ -5,6 +5,7 @@
 #include "ObjectProxies/IObjectProxy.h"
 #include "WorldFile.h"
 #include <vector>
+#include <string>
 
 namespace editor
 {
@@ -20,5 +21,10 @@ namespace editor
         mono::TransformSystem* transform_system,
         class Editor* editor);
 
-    void SaveWorld(const char* file_name, const std::vector<IObjectProxyPtr>& proxies, const game::LevelMetadata& level_data);
+    void SaveWorld(const char* file_name, const std::vector<const IObjectProxy*>& proxies, const game::LevelMetadata& level_data);
+
+    void WriteComponentEntities(
+        const std::string& file_path,
+        const game::LevelMetadata& level_metadata,
+        const std::vector<const IObjectProxy*>& proxies);
 }

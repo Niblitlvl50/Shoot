@@ -55,7 +55,6 @@
 #include "Visualizers/ComponentDrawFuncs.h"
 #include "Visualizers/ComponentDetailVisualizer.h"
 
-#include "Serializer/JsonSerializer.h"
 #include "Serializer/WorldSerializer.h"
 
 #include "Util/Algorithm.h"
@@ -389,9 +388,8 @@ void Editor::CreateNewWorld(const std::string& new_world)
 
     System::Log("%s", world_filename.c_str());
 
-    std::vector<IObjectProxyPtr> proxies;
     game::LevelMetadata level_metadata;
-    SaveWorld(world_filename.c_str(), proxies, level_metadata);
+    SaveWorld(world_filename.c_str(), { }, level_metadata);
     AddNewWorld(world_filename.c_str());
 }
 
@@ -445,8 +443,12 @@ void Editor::Save()
         return;
     }
 
+    std::vector<const IObjectProxy*> proxies;
+    for(const IObjectProxyPtr& proxy_ptr : m_proxies)
+        proxies.push_back(proxy_ptr.get());
+
     std::sort(m_context.level_metadata.triggers.begin(), m_context.level_metadata.triggers.end());
-    SaveWorld(m_world_filename.c_str(), m_proxies, m_context.level_metadata);
+    SaveWorld(m_world_filename.c_str(), proxies, m_context.level_metadata);
     m_context.notifications.emplace_back(save_texture, "Saved...", 2.0f);
 }
 
@@ -461,11 +463,8 @@ void Editor::ExportEntity()
         std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
         std::replace(filename.begin(), filename.end(), ' ', '_');
 
-        editor::JsonSerializer serializer;
-        proxy->Visit(serializer);
-
         game::LevelMetadata metadata;
-        serializer.WriteComponentEntities(filename, metadata);
+        editor::WriteComponentEntities(filename, metadata, { proxy });
 
         editor::AddNewEntity(filename.c_str());
         m_context.notifications.emplace_back(export_texture, "Exported entity...", 2.0f);
@@ -1048,11 +1047,8 @@ void Editor::ReExportEntities()
             std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
             std::replace(filename.begin(), filename.end(), ' ', '_');
 
-            editor::JsonSerializer serializer;
-            proxy->Visit(serializer);
-
             game::LevelMetadata metadata;
-            serializer.WriteComponentEntities(filename, metadata);
+            editor::WriteComponentEntities(filename, metadata, { proxy.get() });
         }
     }
 }
