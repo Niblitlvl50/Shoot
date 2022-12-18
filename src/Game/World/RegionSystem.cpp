@@ -62,7 +62,7 @@ RegionSystem::RegionSystem(TriggerSystem* trigger_system)
         m_registred_triggers.push_back(trigger_id);
     }
 
-    m_activated_region = { 0, "", "" };
+    Reset();
 }
 
 uint32_t RegionSystem::Id() const
@@ -73,6 +73,11 @@ uint32_t RegionSystem::Id() const
 const char* RegionSystem::Name() const
 {
     return "regionsystem";
+}
+
+void RegionSystem::Reset()
+{
+    m_activated_region = { 0, "", "" };
 }
 
 void RegionSystem::Destroy()

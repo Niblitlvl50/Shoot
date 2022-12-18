@@ -24,6 +24,7 @@ namespace game
 
         uint32_t Id() const override;
         const char* Name() const override;
+        void Reset() override;
         void Destroy() override;
         void Update(const mono::UpdateContext& update_context) override;
 
