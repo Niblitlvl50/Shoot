@@ -523,8 +523,8 @@ void PlayerLogic::PickupDrop()
     const InteractionCallback interaction_callback = [this](uint32_t interaction_id, InteractionType interaction_type) {
         if(interaction_type == InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
         {
-            m_interaction_system->SetInteractionEnabled(interaction_id, false);
             m_picked_up_id = interaction_id;
+            m_interaction_system->SetInteractionEnabled(interaction_id, false);
 
             mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
             mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
@@ -536,6 +536,13 @@ void PlayerLogic::PickupDrop()
                 shape->ClearCollisionBit(CollisionCategory::PLAYER);
 
             m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, PackageAction::PICKED_UP));
+
+
+            // Must handle destroyed package while holding it and then player death.
+
+            //const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+            //};
+            //const uint32_t m_package_release_callback = m_entity_system->AddReleaseCallback(m_picked_up_id, release_callback);
         }
     };
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
