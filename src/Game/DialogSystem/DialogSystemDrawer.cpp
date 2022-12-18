@@ -58,6 +58,7 @@ void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
         false,
         m_draw_buffers.indices->Size());
 
+/*
     {
         const math::Matrix name_transform = bg_transform * math::CreateMatrixWithPosition(math::Vector(-200.0f, 42.0f));
         const auto name_transform_scope = mono::MakeTransformScope(name_transform, &renderer);
@@ -71,6 +72,7 @@ void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
         for(const std::string& message : messages)
             renderer.RenderText(FontId::BLACK_HAN_SANS_MEDIUM, message.c_str(), mono::Color::OFF_WHITE, mono::FontCentering::DEFAULT_CENTER);
     }
+*/
 
     //const math::Vector message_size = mono::MeasureString(FontId::RUSSOONE_TINY, message.message.c_str());
 }

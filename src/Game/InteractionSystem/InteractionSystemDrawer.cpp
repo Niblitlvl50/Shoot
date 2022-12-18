@@ -155,7 +155,11 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
             renderer.DrawQuad(background_quad, mono::Color::BLACK, 1.0f);
 
-            renderer.RenderText(tweak_values::verb_font, draw_data.name, tweak_values::verb_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+            renderer.RenderText(
+                tweak_values::verb_font,
+                draw_data.name,
+                tweak_values::verb_color,
+                mono::FontCentering::HORIZONTAL_VERTICAL);
         }
 
         // Verb
@@ -203,12 +207,14 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             math::Translate(text_transform, math::Vector(0.35f, 0.0f));
             const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
 
-            renderer.RenderText(
+            renderer.DrawGeometry(
                 text_buffers.vertices.get(),
                 text_buffers.uv.get(),
                 text_buffers.indices.get(),
                 font_texture.get(),
-                tweak_values::verb_color);
+                tweak_values::verb_color,
+                false,
+                text_buffers.indices->Size());
         }
     }
 }

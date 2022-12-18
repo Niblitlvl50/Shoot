@@ -161,8 +161,16 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
     const math::Matrix& transform = renderer.GetTransform() * Transform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-    renderer.RenderText(
-        m_draw_buffers.vertices.get(), m_draw_buffers.uv.get(), m_draw_buffers.indices.get(), texture.get(), m_color);
+    renderer.DrawGeometry(
+        m_draw_buffers.vertices.get(),
+        m_draw_buffers.uv.get(),
+        m_draw_buffers.indices.get(),
+        texture.get(),
+        m_color,
+        false,
+        m_draw_buffers.indices->Size());
+//    renderer.RenderText(
+//        m_draw_buffers.vertices.get(), m_draw_buffers.uv.get(), m_draw_buffers.indices.get(), texture.get(), §z1em_color);
 }
 
 UISpriteElement::UISpriteElement()
