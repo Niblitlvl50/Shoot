@@ -61,6 +61,8 @@ RegionSystem::RegionSystem(TriggerSystem* trigger_system)
         const uint32_t trigger_id = m_trigger_system->RegisterTriggerCallback(description.trigger_hash, handle_region_trigger, -1);
         m_registred_triggers.push_back(trigger_id);
     }
+
+    m_activated_region = { 0, "", "" };
 }
 
 uint32_t RegionSystem::Id() const
@@ -90,8 +92,7 @@ void RegionSystem::Update(const mono::UpdateContext& update_context)
 
 const RegionDescription& RegionSystem::GetActivatedRegion() const
 {
-    static const RegionDescription s_region = { 0, "", "" };
-    return s_region;
+    return m_activated_region;
 }
 
 void RegionSystem::HandleRegionTrigger(uint32_t trigger_hash)
@@ -102,9 +103,5 @@ void RegionSystem::HandleRegionTrigger(uint32_t trigger_hash)
     const auto it = std::lower_bound(m_region_descriptions.begin(), m_region_descriptions.end(), trigger_hash, find_by_hash);
 
     if(it != m_region_descriptions.end())
-    {
-        //m_region_text->SetText(it->text);
-        //m_region_subtext->SetText(it->sub_text);
-        //m_text_timer = 0.0f;
-    }
+        m_activated_region = *it;
 }

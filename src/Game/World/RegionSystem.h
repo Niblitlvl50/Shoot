@@ -32,9 +32,9 @@ namespace game
     private:
         void HandleRegionTrigger(uint32_t trigger_hash);
 
-        std::vector<game::RegionDescription> m_region_descriptions;
         game::TriggerSystem* m_trigger_system;
-
+        std::vector<game::RegionDescription> m_region_descriptions;
         std::vector<uint32_t> m_registred_triggers;
+        game::RegionDescription m_activated_region;
     };
 }

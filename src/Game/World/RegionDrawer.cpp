@@ -32,7 +32,11 @@ void RegionDrawer::Update(const mono::UpdateContext& context)
     const RegionDescription& activated_region = m_region_system->GetActivatedRegion();
     if(activated_region.trigger_hash != m_current_region_hash)
     {
+        m_region_text->SetText(activated_region.text);
+        m_region_subtext->SetText(activated_region.sub_text);
+        m_text_timer = 0.0f;
 
+        m_current_region_hash = activated_region.trigger_hash;
     }
 
     m_text_timer += context.delta_s;
