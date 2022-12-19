@@ -106,7 +106,7 @@ GameZone::~GameZone()
 
 void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
-    SetLastLightingLayer(LayerId::GAMEOBJECTS_DEBUG);
+    SetLastLightingLayer(LayerId::POST_GAMEOBJECTS);
 
     mono::EntitySystem* entity_system = m_system_context->GetSystem<mono::EntitySystem>();
     entity_system->PushEntityStackRecord(m_world_file);

@@ -25,6 +25,6 @@ namespace game
 
         mono::ICamera* m_camera;
         ClientManager* m_remote_connection;
-        uint32_t m_replicate_timer;
+        float m_replicate_timer_s;
     };
 }

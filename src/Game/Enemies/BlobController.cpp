@@ -13,7 +13,7 @@
 
 namespace tweak_values
 {
-    constexpr int idle_threshold = 500;
+    constexpr float idle_threshold_s = 0.5f;
     constexpr int percentage_to_move = 50;
     constexpr float move_radius = 0.25f;
     constexpr math::EaseFunction ease_function = math::EaseInOutCubic;
@@ -32,7 +32,7 @@ BlobController::BlobController(uint32_t entity_id, mono::SystemContext* system_c
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_jump_anim_id = m_sprite->GetAnimationIdFromName("jump");
 
-    m_jump_anim_length = m_sprite->GetAnimationLength(m_jump_anim_id);
+    m_jump_anim_length = m_sprite->GetAnimationLengthSeconds(m_jump_anim_id);
 
     const BlobStateMachine::StateTable state_table = {
         BlobStateMachine::MakeState(States::IDLE, &BlobController::ToIdle, &BlobController::Idle, this),
@@ -49,21 +49,21 @@ void BlobController::Update(const mono::UpdateContext& update_context)
 
 void BlobController::ToIdle()
 {
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
     m_sprite->SetAnimation(m_idle_anim_id);
 }
 
 void BlobController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_ms;
+    m_idle_timer_s += update_context.delta_s;
 
-    if(m_idle_timer > tweak_values::idle_threshold)
+    if(m_idle_timer_s > tweak_values::idle_threshold_s)
     {
         const bool move = mono::Chance(tweak_values::percentage_to_move);
         if(move)
             m_states.TransitionTo(States::MOVING);
 
-        m_idle_timer = 0;
+        m_idle_timer_s = 0.0f;
     }
 }
 
@@ -77,7 +77,7 @@ void BlobController::ToMoving()
     const float y = mono::Random(-move_radius, move_radius);
 
     m_move_delta = math::Vector(x, y);
-    m_move_counter = 0.0f;
+    m_move_counter_s = 0.0f;
 
     if(m_move_delta.x < 0.0f)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
@@ -92,15 +92,15 @@ void BlobController::Moving(const mono::UpdateContext& update_context)
     const float duration = m_jump_anim_length;
 
     math::Vector new_position;
-    new_position.x = tweak_values::ease_function(m_move_counter, duration, m_current_position.x, m_move_delta.x);
-    new_position.y = tweak_values::ease_function(m_move_counter, duration, m_current_position.y, m_move_delta.y);
+    new_position.x = tweak_values::ease_function(m_move_counter_s, duration, m_current_position.x, m_move_delta.x);
+    new_position.y = tweak_values::ease_function(m_move_counter_s, duration, m_current_position.y, m_move_delta.y);
 
     math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(transform, new_position);
     m_transform_system->SetTransformState(m_entity_id, mono::TransformState::CLIENT);
 
-    m_move_counter += update_context.delta_ms;
+    m_move_counter_s += update_context.delta_s;
 
-    if(m_move_counter > duration)
+    if(m_move_counter_s > duration)
         m_states.TransitionTo(States::IDLE);
 }

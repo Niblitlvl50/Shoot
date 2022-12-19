@@ -42,13 +42,13 @@ void TurretSpawnerController::Update(const mono::UpdateContext& update_context)
 
 void TurretSpawnerController::ToIdle()
 {
-    m_idle_timer = 0;
+    m_idle_timer_s = 0.0f;
     m_sprite->SetShade(mono::Color::WHITE);
 }
 
 void TurretSpawnerController::Idle(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_ms;
+    m_idle_timer_s += update_context.delta_s;
 
     const math::Matrix& world_transform = m_transform_system->GetWorld(m_entity_id);
     const math::Vector& world_position = math::GetPosition(world_transform);
@@ -63,26 +63,26 @@ void TurretSpawnerController::Idle(const mono::UpdateContext& update_context)
     }
 
     const bool is_player_active = (player_info != nullptr);
-    if(is_player_active && is_visible && m_idle_timer > 1000)
+    if(is_player_active && is_visible && m_idle_timer_s > 1.0f)
     {
         const bool transision = mono::Chance(20);
         if(transision)
             m_states.TransitionTo(States::PREPARE_ATTACK);
         
-        m_idle_timer = 0;
+        m_idle_timer_s = 0.0f;
     }
 }
 
 void TurretSpawnerController::ToPrepareAttack()
 {
-    m_prepare_timer = 0;
+    m_prepare_timer_s = 0.0f;
     m_sprite->SetShade(mono::Color::RED);
 }
 
 void TurretSpawnerController::PrepareAttack(const mono::UpdateContext& update_context)
 {
-    m_prepare_timer += update_context.delta_ms;
-    if(m_prepare_timer > 500)
+    m_prepare_timer_s += update_context.delta_s;
+    if(m_prepare_timer_s > 0.5f)
         m_states.TransitionTo(States::ATTACKING);
 }
 

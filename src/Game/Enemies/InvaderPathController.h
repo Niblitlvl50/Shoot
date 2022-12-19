@@ -23,7 +23,7 @@ namespace game
     private:
 
         int m_fire_count;
-        int m_fire_cooldown;
+        float m_fire_cooldown_s;
         mono::IPathPtr m_path;
 
         std::unique_ptr<class PathBehaviour> m_path_behaviour;

@@ -72,7 +72,7 @@ namespace game
         void ReleaseRestoreComponent(uint32_t entity_id);
         void AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash);
 
-        void AddCameraShake(uint32_t time_ms);
+        void AddCameraShake(float time_s);
         const mono::ICamera* GetActiveCamera() const;
 
 private:
@@ -102,7 +102,7 @@ private:
         };
         std::stack<CameraStackData> m_camera_stack;
 
-        int m_camera_shake_timer_ms;
+        float m_camera_shake_timer_s;
 
         mono::ActiveVector<CameraAnimationComponent> m_animation_components;
         mono::ActiveVector<CameraRestoreComponent> m_restore_components;

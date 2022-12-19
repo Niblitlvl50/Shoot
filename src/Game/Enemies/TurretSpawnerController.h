@@ -46,8 +46,8 @@ namespace game
         using TurretStateMachine = StateMachine<States, const mono::UpdateContext&>;
         TurretStateMachine m_states;
 
-        uint32_t m_idle_timer;
-        uint32_t m_prepare_timer;
+        float m_idle_timer_s;
+        float m_prepare_timer_s;
 
         math::Vector m_attack_position;
     };

@@ -143,7 +143,7 @@ void game::RocketCollision(
     const mono::ICamera* camera = camera_system->GetActiveCamera();
     const bool collision_visible = math::PointInsideQuad(details.point, camera->GetViewport());
     if(collision_visible)
-        camera_system->AddCameraShake(100);
+        camera_system->AddCameraShake(0.1f);
 }
 
 void game::CacoPlasmaCollision(

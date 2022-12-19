@@ -28,14 +28,14 @@ using namespace game;
 
 InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_fire_count(0)
-    , m_fire_cooldown(0)
+    , m_fire_cooldown_s(0.0f)
     //, m_path(std::move(path))
 {
 }
 
 InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_fire_count(0)
-    , m_fire_cooldown(0)
+    , m_fire_cooldown_s(0.0f)
 {
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_transform = &transform_system->GetTransform(entity_id);
@@ -70,9 +70,9 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
     is_going_left ?
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL) : m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    if(m_fire_cooldown > 0)
+    if(m_fire_cooldown_s > 0.0f)
     {
-        m_fire_cooldown -= update_context.delta_ms;
+        m_fire_cooldown_s -= update_context.delta_s;
         return;
     }
 
@@ -94,7 +94,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
 
     if(m_fire_count == 5)
     {
-        m_fire_cooldown = 2000;
+        m_fire_cooldown_s = 2.0f;
         m_fire_count = 0;
     }
 }

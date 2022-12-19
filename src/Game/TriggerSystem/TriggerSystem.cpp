@@ -78,7 +78,7 @@ TriggerSystem::TriggerSystem(
     , m_time_triggers(n_triggers)
     , m_counter_triggers(n_triggers)
     , m_relay_triggers(n_triggers)
-    , m_area_trigger_timer(0)
+    , m_area_trigger_timer_s(0.0f)
 { }
 
 ShapeTriggerComponent* TriggerSystem::AllocateShapeTrigger(uint32_t entity_id)
@@ -376,11 +376,11 @@ const char* TriggerSystem::Name() const
 
 void TriggerSystem::Update(const mono::UpdateContext& update_context)
 {
-    m_area_trigger_timer += update_context.delta_ms;
-    if(m_area_trigger_timer >= 1000)
+    m_area_trigger_timer_s += update_context.delta_s;
+    if(m_area_trigger_timer_s >= 1.0f)
     {
         UpdateAreaEntityTriggers(update_context);
-        m_area_trigger_timer = 0;
+        m_area_trigger_timer_s = 0.0f;
     }
 
     UpdateTimeTriggers(update_context);

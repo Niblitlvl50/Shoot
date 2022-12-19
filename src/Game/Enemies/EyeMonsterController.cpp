@@ -26,8 +26,8 @@
 namespace tweak_values
 {
     constexpr float trigger_distance = 4.0f;
-    constexpr uint32_t time_before_hunt_ms = 300;
-    constexpr uint32_t visibility_check_interval = 1000;
+    constexpr float time_before_hunt_s = 0.3f;
+    constexpr float visibility_check_interval_s = 1.0f;
     constexpr uint32_t collision_damage = 25;
 
     constexpr float shockwave_radius = 1.0f;
@@ -42,7 +42,7 @@ using namespace game;
 EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
     : m_entity_id(entity_id)
     , m_event_handler(event_handler)
-    , m_awake_state_timer(0)
+    , m_awake_state_timer_s(0.0f)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
@@ -129,7 +129,7 @@ void EyeMonsterController::OnSeparateFrom(mono::IBody* body)
 
 void EyeMonsterController::ToSleep()
 {
-    m_visibility_check_timer = 0;
+    m_visibility_check_timer_s = 0.0f;
 }
 
 void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
@@ -142,22 +142,22 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
     const float distance = math::DistanceBetween(player_info->position, entity_position);
     if(distance < tweak_values::trigger_distance)
     {
-        m_visibility_check_timer += update_context.delta_ms;
+        m_visibility_check_timer_s += update_context.delta_s;
 
-        if(m_visibility_check_timer > tweak_values::visibility_check_interval)
+        if(m_visibility_check_timer_s > tweak_values::visibility_check_interval_s)
         {
             const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
             if(sees_player)
                 m_states.TransitionTo(States::AWAKE);
 
-            m_visibility_check_timer = 0;
+            m_visibility_check_timer_s = 0.0f;
         }
     }
 }
 
 void EyeMonsterController::ToAwake()
 {
-    m_awake_state_timer = 0;
+    m_awake_state_timer_s = 0.0f;
 
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
@@ -171,8 +171,8 @@ void EyeMonsterController::ToAwake()
 
 void EyeMonsterController::AwakeState(const mono::UpdateContext& update_context)
 {
-    m_awake_state_timer += update_context.delta_ms;
-    if(m_awake_state_timer > tweak_values::time_before_hunt_ms)
+    m_awake_state_timer_s += update_context.delta_s;
+    if(m_awake_state_timer_s > tweak_values::time_before_hunt_s)
         m_states.TransitionTo(States::HUNT);
 }
 

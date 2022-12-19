@@ -48,7 +48,7 @@ CameraSystem::CameraSystem(
     , m_trigger_system(trigger_system)
     , m_controller(camera, *event_handler)
     , m_debug_camera(false)
-    , m_camera_shake_timer_ms(0)
+    , m_camera_shake_timer_s(0.0f)
     , m_animation_components(n)
     , m_restore_components(n)
 {
@@ -164,13 +164,13 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
     mono::remove_if(m_camera_anims_to_process, process_camera_anims);
 
-    if(m_camera_shake_timer_ms > 0)
+    if(m_camera_shake_timer_s > 0.0f)
     {
-        m_camera_shake_timer_ms -= update_context.delta_ms;
-        m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, 0);
+        m_camera_shake_timer_s -= update_context.delta_s;
+        m_camera_shake_timer_s = std::max(m_camera_shake_timer_s, 0.0f);
 
         constexpr float magnitude = tweak_values::screen_shake_magnitude;
-        const math::Vector camera_shake = (m_camera_shake_timer_ms == 0) ? 
+        const math::Vector camera_shake = (m_camera_shake_timer_s == 0.0f) ? 
             math::ZeroVec : math::Vector(mono::Random(-magnitude, magnitude), mono::Random(-magnitude, magnitude));
 
         m_camera->SetPositionOffset(camera_shake);
@@ -325,9 +325,9 @@ void CameraSystem::AddRestoreComponent(uint32_t entity_id, uint32_t trigger_hash
     component->callback_id = m_trigger_system->RegisterTriggerCallback(component->trigger_hash, callback, entity_id);
 }
 
-void CameraSystem::AddCameraShake(uint32_t time_ms)
+void CameraSystem::AddCameraShake(float time_s)
 {
-    m_camera_shake_timer_ms = std::max(m_camera_shake_timer_ms, (int)time_ms);
+    m_camera_shake_timer_s = std::max(m_camera_shake_timer_s, time_s);
 }
 
 const mono::ICamera* CameraSystem::GetActiveCamera() const

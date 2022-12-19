@@ -217,7 +217,7 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, int controller_id)
         }
         else if(type == DamageType::DAMAGED)
         {
-            m_camera_system->AddCameraShake(250);
+            m_camera_system->AddCameraShake(0.25f);
         }
     };
 

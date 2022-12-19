@@ -18,7 +18,7 @@ ServerManager::ServerManager(mono::EventHandler* event_handler, const game::Conf
     : m_event_handler(event_handler)
     , m_game_config(game_config)
     , m_dispatcher(event_handler)
-    , m_beacon_timer(0)
+    , m_beacon_timer_s(0.0f)
 {
     using namespace std::placeholders;
     const std::function<mono::EventResult (const PingMessage&)> ping_func = std::bind(&ServerManager::HandlePingMessage, this, _1);
@@ -231,14 +231,14 @@ void ServerManager::Update(const mono::UpdateContext& update_context)
     PurgeZombieClients();
     m_dispatcher.Update(update_context);
 
-    m_beacon_timer += update_context.delta_ms;
+    m_beacon_timer_s += update_context.delta_s;
 
-    if(m_beacon_timer >= 500 && m_remote_connection)
+    if(m_beacon_timer_s >= 0.5f && m_remote_connection)
     {
         NetworkMessage message;
         message.payload = SerializeMessage(ServerBeaconMessage());
         SendMessageTo(message, m_broadcast_address);
 
-        m_beacon_timer = 0;
+        m_beacon_timer_s = 0.0f;
     }
 }

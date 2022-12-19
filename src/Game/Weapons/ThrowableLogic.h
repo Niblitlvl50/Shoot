@@ -41,8 +41,8 @@ namespace game
 
         math::Vector m_start_position;
         math::Vector m_move_delta;
-        uint32_t m_move_timer;
-        uint32_t m_spawn_timer;
+        float m_move_timer_s;
+        float m_spawn_timer_s;
 
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
 

@@ -12,7 +12,7 @@ using namespace game;
 ClientReplicator::ClientReplicator(mono::ICamera* camera, ClientManager* remote_connection)
     : m_camera(camera)
     , m_remote_connection(remote_connection)
-    , m_replicate_timer(0)
+    , m_replicate_timer_s(0.0f)
 { }
 
 void ClientReplicator::Update(const mono::UpdateContext& update_context)
@@ -30,8 +30,8 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
         m_remote_connection->SendMessage(message);
     }
 
-    m_replicate_timer += update_context.delta_ms;
-    if(m_replicate_timer > 16)
+    m_replicate_timer_s += update_context.delta_s;
+    if(m_replicate_timer_s > 0.016f)
     {
         RemoteCameraMessage camera_message;
         camera_message.position = m_camera->GetPosition();
@@ -49,6 +49,6 @@ void ClientReplicator::Update(const mono::UpdateContext& update_context)
         message2.payload = SerializeMessage(viewport_message);
         m_remote_connection->SendMessage(message2);
 
-        m_replicate_timer = 0;
+        m_replicate_timer_s = 0.0f;
     }
 }

@@ -207,7 +207,7 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             transform_anim->is_initialized = true;
         }
 
-        transform_anim->duration_counter += (float(update_context.delta_ms) / 1000.0f);
+        transform_anim->duration_counter += update_context.delta_s;
         transform_anim->duration_counter = std::clamp(transform_anim->duration_counter, 0.0f, transform_anim->duration);
 
         if(transform_anim->transform_type == TransformAnimType::TRANSLATION)

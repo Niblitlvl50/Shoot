@@ -66,7 +66,7 @@ namespace game
         std::unique_ptr<class RemoteConnection> m_remote_connection;
         network::Address m_broadcast_address;
         network::Address m_server_address;
-        uint32_t m_beacon_timer;
+        float m_beacon_timer_s;
         uint32_t m_server_time;
 
         mutable ConnectionStats m_connection_stats;

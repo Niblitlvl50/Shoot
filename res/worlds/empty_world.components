@@ -2391,681 +2391,6 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "test_test"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -1.1062493324279785,
-                                "y": -1.6484384536743164
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3185987134,
-                    "name": "text",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "Start"
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 5
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.23615914583206177,
-                                "green": 0.23615914583206177,
-                                "red": 0.9264705777168274
-                            }
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 124392387,
-                            "name": "text_shadow",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1849128429,
-                            "name": "shadow_color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        }
-                    ]
-                },
-                {
-                    "hash": 3195760579,
-                    "name": "ui_item",
-                    "properties": [
-                        {
-                            "id": 2058717247,
-                            "name": "ui_group",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 701322281,
-                            "name": "ui_item_state",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
-                        },
-                        {
-                            "id": 4259034899,
-                            "name": "ui_left_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2453059052,
-                            "name": "ui_right_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2535228779,
-                            "name": "ui_above_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 334813343,
-                            "name": "ui_below_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "test_test",
-            "uuid_hash": 2810180025
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "xbox_one_a"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 1.625,
-                                "y": -3.125
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "heart_small.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 3195760579,
-                    "name": "ui_item",
-                    "properties": [
-                        {
-                            "id": 2058717247,
-                            "name": "ui_group",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 701322281,
-                            "name": "ui_item_state",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "play_sound"
-                        },
-                        {
-                            "id": 4259034899,
-                            "name": "ui_left_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2453059052,
-                            "name": "ui_right_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2535228779,
-                            "name": "ui_above_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 334813343,
-                            "name": "ui_below_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "xbox_one_a",
-            "uuid_hash": 3874050611
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "test_test"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -1.125,
-                                "y": -2.625
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3185987134,
-                    "name": "text",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "Quit"
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 5
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.23615914583206177,
-                                "green": 0.23615914583206177,
-                                "red": 0.9264705777168274
-                            }
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 124392387,
-                            "name": "text_shadow",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1849128429,
-                            "name": "shadow_color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        }
-                    ]
-                },
-                {
-                    "hash": 3195760579,
-                    "name": "ui_item",
-                    "properties": [
-                        {
-                            "id": 2058717247,
-                            "name": "ui_group",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 701322281,
-                            "name": "ui_item_state",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_gameover"
-                        },
-                        {
-                            "id": 4259034899,
-                            "name": "ui_left_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2453059052,
-                            "name": "ui_right_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2535228779,
-                            "name": "ui_above_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 334813343,
-                            "name": "ui_below_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "test_test",
-            "uuid_hash": 4060409103
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "test_test"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -1.125,
-                                "y": -2.125
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3185987134,
-                    "name": "text",
-                    "properties": [
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "Back"
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 5
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.23615914583206177,
-                                "green": 0.23615914583206177,
-                                "red": 0.9264705777168274
-                            }
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 124392387,
-                            "name": "text_shadow",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1849128429,
-                            "name": "shadow_color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 0.0
-                            }
-                        }
-                    ]
-                },
-                {
-                    "hash": 3195760579,
-                    "name": "ui_item",
-                    "properties": [
-                        {
-                            "id": 2058717247,
-                            "name": "ui_group",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 701322281,
-                            "name": "ui_item_state",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_aborted"
-                        },
-                        {
-                            "id": 4259034899,
-                            "name": "ui_left_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2453059052,
-                            "name": "ui_right_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2535228779,
-                            "name": "ui_above_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 334813343,
-                            "name": "ui_below_item_id",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "test_test",
-            "uuid_hash": 3005361830
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
                             "variant_value": "background"
                         },
                         {
@@ -3159,6 +2484,222 @@
             "entity_properties": 0,
             "name": "background",
             "uuid_hash": 767648323
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "switch_block"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.5,
+                                "y": -1.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3434465608,
+                    "name": "interaction_switch",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "switch_on"
+                        },
+                        {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 6,
+                            "variant_value": "switch_off"
+                        },
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 235771284,
+                    "name": "sound",
+                    "properties": [
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/laser.wav"
+                        },
+                        {
+                            "id": 2209811736,
+                            "name": "sound_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": "switch_on"
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "switch_block.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "switch_on"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "switch_off"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "switch_block",
+            "uuid_hash": 231700718
         }
     ],
     "metadata": {
@@ -3189,7 +2730,7 @@
             "y": 7.5
         },
         "level_description": "",
-        "level_game_mode": "start_menu_mode",
+        "level_game_mode": "package_delivery_mode",
         "level_name": "Empty",
         "navmesh_density": 1.0,
         "navmesh_end": {
@@ -3206,15 +2747,17 @@
         },
         "player_spawn_point": {
             "x": 0.0,
-            "y": 0.0
+            "y": -2.0
         },
-        "spawn_package": true,
+        "spawn_package": false,
         "time_limit_s": 0,
         "triggers": [
             "level_aborted",
             "level_completed",
             "level_gameover",
-            "play_sound"
+            "play_sound",
+            "switch_off",
+            "switch_on"
         ],
         "use_custom_package_spawn_position": false
     }

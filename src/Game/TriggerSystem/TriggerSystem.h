@@ -184,7 +184,7 @@ namespace game
         mono::ActiveVector<CounterTriggerComponent> m_counter_triggers;
         mono::ActiveVector<RelayTriggerComponent> m_relay_triggers;
 
-        uint32_t m_area_trigger_timer;
+        float m_area_trigger_timer_s;
 
         struct DelayRelayTrigger
         {

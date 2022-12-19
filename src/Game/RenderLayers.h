@@ -9,8 +9,9 @@ namespace game
         PRE_GAMEOBJECTS,
         GAMEOBJECTS,
         POST_GAMEOBJECTS,
-        GAMEOBJECTS_UI,
 
+        // Layers not affected by lighting.
+        GAMEOBJECTS_UI,
         GAMEOBJECTS_DEBUG,
         UI,
         UI_DEBUG

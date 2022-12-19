@@ -270,7 +270,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     m_renderer = renderer;
 
-    SetLastLightingLayer(game::LayerId::GAMEOBJECTS_DEBUG);
+    SetLastLightingLayer(game::LayerId::POST_GAMEOBJECTS);
 
     EnableDrawObjectNames(m_editor_config.draw_object_names);
     EnableDrawSnappers(m_editor_config.draw_snappers);

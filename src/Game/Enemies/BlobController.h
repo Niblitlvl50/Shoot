@@ -32,11 +32,11 @@ namespace game
         int m_jump_anim_id;
         uint32_t m_jump_anim_length;
 
-        uint32_t m_idle_timer;
+        float m_idle_timer_s;
 
         math::Vector m_current_position;
         math::Vector m_move_delta;
-        float m_move_counter;
+        float m_move_counter_s;
 
         enum class States
         {

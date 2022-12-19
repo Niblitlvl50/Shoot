@@ -4,6 +4,8 @@
         { "trigger_name": "region_swamp", "text": "Swamp Area", "sub_text": "Its a swamp" },
         { "trigger_name": "region_shitty_plains", "text": "Shitty Plains", "sub_text": "...everything is shit here." },
         { "trigger_name": "region_frog_forest", "text": "Frog Forest", "sub_text": "This seems like a weird place." },
-        { "trigger_name": "region_enter_tutorial", "text": "Tutorial 1", "sub_text": "Get that package son!" }
+        { "trigger_name": "region_enter_tutorial", "text": "Tutorial 1", "sub_text": "Get that package son!" },
+        { "trigger_name": "region_pickup_arena_1", "text": "Stony Path", "sub_text": "Watch the trees" },
+        { "trigger_name": "region_pickup_arena_2", "text": "Boss Lair", "sub_text": "There are three of them!" }
     ]
 }
