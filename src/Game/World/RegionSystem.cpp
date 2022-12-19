@@ -1,7 +1,5 @@
 
 #include "RegionSystem.h"
-#include "TriggerSystem/TriggerSystem.h"
-
 #include "Physics/PhysicsSystem.h"
 #include "Physics/IShape.h"
 #include "CollisionConfiguration.h"
