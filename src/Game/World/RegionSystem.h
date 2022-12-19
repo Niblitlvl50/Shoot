@@ -4,7 +4,6 @@
 #include "IGameSystem.h"
 #include "Physics/PhysicsFwd.h"
 
-#include <vector>
 #include <cstdint>
 #include <string>
 #include <unordered_map>
