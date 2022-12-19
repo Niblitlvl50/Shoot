@@ -2,19 +2,15 @@
 #pragma once
 
 #include "Hud/UIElements.h"
-
 #include <cstdint>
-#include <string>
 
 namespace game
 {
-    class RegionSystem;
-
     class RegionDrawer : public game::UIOverlay
     {
     public:
 
-        RegionDrawer(const RegionSystem* region_system);
+        RegionDrawer(const class RegionSystem* region_system);
         void Update(const mono::UpdateContext& context) override;
 
     private:
@@ -23,8 +19,8 @@ namespace game
 
         UITextElement* m_region_text;
         UITextElement* m_region_subtext;
-        float m_text_timer;
+        float m_text_timer_s;
 
-        uint32_t m_current_region_hash;
+        uint32_t m_current_region_entity_id;
     };
 }

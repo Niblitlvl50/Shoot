@@ -114,7 +114,7 @@ void RegionSystem::ActivateRegion(uint32_t entity_id)
     {
         m_activated_region.text = it->second.text;
         m_activated_region.sub_text = it->second.sub_text;
-        m_activated_region.trigger_hash = entity_id;
+        m_activated_region.entity_id = entity_id;
     }
 }
 

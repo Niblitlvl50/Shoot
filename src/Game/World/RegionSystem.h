@@ -14,7 +14,7 @@ namespace game
 {
     struct RegionDescription
     {
-        uint32_t trigger_hash;
+        uint32_t entity_id;
         std::string text;
         std::string sub_text;
     };
@@ -23,8 +23,6 @@ namespace game
     {
         std::string text;
         std::string sub_text;
-
-        //uint32_t collision_mask;
 
         // Internal data
         std::unique_ptr<mono::ICollisionHandler> collision_handler;
@@ -51,7 +49,6 @@ namespace game
     private:
 
         mono::PhysicsSystem* m_physics_system;
-
         std::unordered_map<uint32_t, RegionComponent> m_regions;
         game::RegionDescription m_activated_region;
     };
