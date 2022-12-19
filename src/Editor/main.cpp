@@ -24,6 +24,7 @@
 
 #include "DamageSystem/DamageSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
+#include "World/RegionSystem.h"
 #include "World/WorldBoundsSystem.h"
 #include "Weapons/WeaponTypes.h"
 
@@ -75,6 +76,7 @@ int main()
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
         game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+        system_context.CreateSystem<game::RegionSystem>(physics_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
         system_context.CreateSystem<game::UISystem>(input_system, transform_system, entity_system, trigger_system);
 

@@ -11,6 +11,7 @@
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
+#include "World/RegionSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "World/WorldBoundsSystem.h"
 #include "UI/UISystem.h"
@@ -429,7 +430,35 @@ namespace
 
         return true;
     }
-}
+
+
+    bool CreateRegion(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RegionSystem* region_system = context->GetSystem<game::RegionSystem>();
+        region_system->AllocateRegion(entity->id);
+        return true;
+    }
+    
+    bool DestroyRegion(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RegionSystem* region_system = context->GetSystem<game::RegionSystem>();
+        region_system->ReleaseRegion(entity->id);
+        return true;
+    }
+    
+    bool UpdateRegion(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string text;
+        std::string sub_text;
+
+        FindAttribute(TEXT_ATTRIBUTE, properties, text, FallbackMode::SET_DEFAULT);
+        FindAttribute(SUB_TEXT_ATTRIBUTE, properties, sub_text, FallbackMode::SET_DEFAULT);
+
+        game::RegionSystem* region_system = context->GetSystem<game::RegionSystem>();
+        region_system->UpdateRegion(entity->id, text, sub_text);
+
+        return true;
+    }}
 
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
@@ -444,4 +473,5 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TEXTURED_POLYGON_COMPONENT, CreateTexturedPolygon, ReleaseTexturedPolygon, UpdateTexturedPolygon);
     entity_manager->RegisterComponent(UI_ITEM_COMPONENT, CreateUIItem, DestroyUIItem, UpdateUIItem);
     entity_manager->RegisterComponent(UI_SET_GROUP_STATE_COMPONENT, CreateUISetGroupState, DestroyUISetGroupState, UpdateUISetGroupState);
+    entity_manager->RegisterComponent(REGION_COMPONENT, CreateRegion, DestroyRegion, UpdateRegion);
 }

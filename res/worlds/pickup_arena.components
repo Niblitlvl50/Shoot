@@ -54219,32 +54219,20 @@
                     ]
                 },
                 {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
+                    "hash": 52100733,
+                    "name": "region",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
+                            "id": 3185987134,
+                            "name": "text",
                             "variant_type": 6,
-                            "variant_value": "region_pickup_arena_1"
+                            "variant_value": "Stony Path"
                         },
                         {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
+                            "id": 3435213149,
+                            "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": "Watch the trees"
                         }
                     ]
                 }
@@ -54367,32 +54355,20 @@
                     ]
                 },
                 {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
+                    "hash": 52100733,
+                    "name": "region",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
+                            "id": 3185987134,
+                            "name": "text",
                             "variant_type": 6,
-                            "variant_value": "region_pickup_arena_2"
+                            "variant_value": "Boss Lair"
                         },
                         {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
+                            "id": 3435213149,
+                            "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": "There are three of them!"
                         }
                     ]
                 }

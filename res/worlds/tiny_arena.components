@@ -22526,32 +22526,20 @@
                     ]
                 },
                 {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
+                    "hash": 52100733,
+                    "name": "region",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
+                            "id": 3185987134,
+                            "name": "text",
                             "variant_type": 6,
-                            "variant_value": "region_shitty_plains"
+                            "variant_value": "Shitty Plains"
                         },
                         {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
+                            "id": 3435213149,
+                            "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": "...everything is shit here"
                         }
                     ]
                 }
@@ -22559,154 +22547,6 @@
             "entity_properties": 0,
             "name": "enter_region_1",
             "uuid_hash": 885414209
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "enter_region_2"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "region_logic"
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -16.345653533935547,
-                                "y": -9.736778259277344
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
-                    "hash": 2267225250,
-                    "name": "physics",
-                    "properties": [
-                        {
-                            "id": 3836179294,
-                            "name": "body_type",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 103600384,
-                    "name": "box_shape",
-                    "properties": [
-                        {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 6
-                        },
-                        {
-                            "id": 597743964,
-                            "name": "size",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 15.0,
-                                "y": 10.0
-                            }
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "region_first"
-                        },
-                        {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "enter_region_2",
-            "uuid_hash": 1304100799
         },
         {
             "components": [
@@ -28954,32 +28794,20 @@
                     ]
                 },
                 {
-                    "hash": 3676170277,
-                    "name": "shape_trigger",
+                    "hash": 52100733,
+                    "name": "region",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
+                            "id": 3185987134,
+                            "name": "text",
                             "variant_type": 6,
-                            "variant_value": "region_frog_forest"
+                            "variant_value": "Frog Forest"
                         },
                         {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
+                            "id": 3435213149,
+                            "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 3210410026,
-                            "name": "emit_once",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": "This seems like a weird place."
                         }
                     ]
                 }

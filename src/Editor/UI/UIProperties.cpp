@@ -431,10 +431,6 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
         return DrawBitfieldProperty(
             attribute_name, std::get<uint32_t>(attribute.value), game::all_sound_play_parameters, game::SoundInstancePlayParamterToString);
     }
-    else if(attribute.id == UI_LAYER_ATTRIBUTE)
-    {
-        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllUILayers());
-    }
     else if(attribute.id == UI_ITEM_STATE_ATTRIBUTE)
     {
         return ImGui::Combo(

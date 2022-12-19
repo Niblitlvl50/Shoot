@@ -122,7 +122,8 @@ extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE;
 extern const uint32_t SOUND_ATTRIBUTE;
 extern const uint32_t SOUND_PLAY_PARAMETERS;
 
-extern const uint32_t UI_LAYER_ATTRIBUTE;
+extern const uint32_t SUB_TEXT_ATTRIBUTE;
+
 extern const uint32_t UI_GROUP_ATTRIBUTE;
 extern const uint32_t UI_ITEM_STATE_ATTRIBUTE;
 extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE;
@@ -223,6 +224,7 @@ extern const uint32_t WEAPON_LOADOUT_COMPONENT;
 extern const uint32_t SOUND_COMPONENT;
 extern const uint32_t UI_ITEM_COMPONENT;
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT;
+extern const uint32_t REGION_COMPONENT;
 
 
 struct Component

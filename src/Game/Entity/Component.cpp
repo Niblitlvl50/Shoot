@@ -121,7 +121,7 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_tertiary",            Variant(std::string()) },
     { "sound_file",                 Variant(std::string()) },
     { "sound_properties",           Variant(0u) },
-    { "UNUSED_ATTRIBUTE",           Variant(std::string()) },
+    { "sub_text",                   Variant(std::string()) },
     { "polygon_draw_layer",         Variant(0) },
     { "ui_group",                   Variant(0) },
     { "ui_item_state",              Variant(0) },
@@ -237,12 +237,12 @@ extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes
 extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[85].hash;
 extern const uint32_t SPAWN_POINTS_ATTRIBUTE                = default_attributes[86].hash;
 extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE              = default_attributes[87].hash;
-extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[88].hash;;
-extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[89].hash;;
+extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[88].hash;
+extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[89].hash;
 
 extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[90].hash;
 extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
-extern const uint32_t UI_LAYER_ATTRIBUTE                    = default_attributes[92].hash;
+extern const uint32_t SUB_TEXT_ATTRIBUTE                    = default_attributes[92].hash;
 extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE          = default_attributes[93].hash;
 extern const uint32_t UI_GROUP_ATTRIBUTE                    = default_attributes[94].hash;
 extern const uint32_t UI_ITEM_STATE_ATTRIBUTE               = default_attributes[95].hash;
@@ -250,6 +250,7 @@ extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE             = default_attributes
 extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE            = default_attributes[97].hash;
 extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes[98].hash;
 extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[99].hash;
+
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -293,6 +294,7 @@ extern const uint32_t WEAPON_LOADOUT_COMPONENT      = hash::Hash("weapon_loadout
 extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
 extern const uint32_t UI_ITEM_COMPONENT             = hash::Hash("ui_item");
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_state");
+extern const uint32_t REGION_COMPONENT              = hash::Hash("region");
 
 const char* ComponentNameFromHash(uint32_t hash)
 {
@@ -378,6 +380,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "ui_item";
     else if(hash == UI_SET_GROUP_STATE_COMPONENT)
         return "ui_set_group_state";
+    else if(hash == REGION_COMPONENT)
+        return "region";
 
     return "Unknown";
 }
@@ -431,6 +435,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_TRACK_ENTITY_COMPONENT,NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
+    MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE }),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };

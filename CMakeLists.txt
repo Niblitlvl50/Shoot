@@ -80,7 +80,6 @@ file(
     "res/level_config.json"
     "res/pickup_config.json"
     "res/player_config.json"
-    "res/region_config.json"
     "res/sound_config.json"
     "res/spawn_config.json"
     "res/weapon_config.json"

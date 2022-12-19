@@ -2,66 +2,43 @@
 #include "RegionSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 
-#include "System/Hash.h"
-#include "System/File.h"
-#include "System/System.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/IShape.h"
+#include "CollisionConfiguration.h"
 
-#include "nlohmann/json.hpp"
+#include "System/Hash.h"
 
 using namespace game;
 
 namespace
 {
-    std::vector<game::RegionDescription> ParseRegionConfig(const char* region_config)
+    class RegionCollisionHandler : public mono::ICollisionHandler
     {
-        std::vector<RegionDescription> regions;
+    public:
 
-        file::FilePtr config_file = file::OpenAsciiFile(region_config);
-        if(config_file)
+        RegionCollisionHandler(uint32_t entity_id, game::RegionSystem* region_system)
+            : m_entity_id(entity_id)
+            , m_region_system(region_system)
+        { }
+
+        mono::CollisionResolve OnCollideWith(
+            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override
         {
-            const std::vector<byte> file_data = file::FileRead(config_file);
-            const nlohmann::json& json = nlohmann::json::parse(file_data);
-
-            for(const auto& regions_json : json["regions"])
-            {
-                const std::string trigger_name = regions_json["trigger_name"];
-
-                RegionDescription region_description;
-                region_description.trigger_hash = hash::Hash(trigger_name.c_str());
-                region_description.text = regions_json["text"];
-                region_description.sub_text = regions_json["sub_text"];
-                regions.push_back(region_description);
-            }
+            m_region_system->ActivateRegion(m_entity_id);
+            return mono::CollisionResolve::NORMAL;
         }
 
-        const auto sort_by_hash = [](const RegionDescription& left, const RegionDescription& right) {
-            return left.trigger_hash < right.trigger_hash;
-        };
+        void OnSeparateFrom(mono::IBody* body) override
+        { }
 
-        std::sort(regions.begin(), regions.end(), sort_by_hash);
-
-        for(const auto& region : regions)
-            System::Log("[%u] %s|%s", region.trigger_hash, region.text.c_str(), region.sub_text.c_str());
-
-        return regions;
-    }
+        const uint32_t m_entity_id;
+        game::RegionSystem* m_region_system;
+    };
 }
 
-RegionSystem::RegionSystem(TriggerSystem* trigger_system)
-    : m_trigger_system(trigger_system)
+RegionSystem::RegionSystem(mono::PhysicsSystem* physics_system)
+    : m_physics_system(physics_system)
 {
-    m_region_descriptions = ParseRegionConfig("res/region_config.json");
-
-    const game::TriggerCallback handle_region_trigger = [this](uint32_t trigger_hash) {
-        HandleRegionTrigger(trigger_hash);
-    };
-
-    for(const game::RegionDescription& description : m_region_descriptions)
-    {
-        const uint32_t trigger_id = m_trigger_system->RegisterTriggerCallback(description.trigger_hash, handle_region_trigger, -1);
-        m_registred_triggers.push_back(trigger_id);
-    }
-
     Reset();
 }
 
@@ -80,33 +57,68 @@ void RegionSystem::Reset()
     m_activated_region = { 0, "", "" };
 }
 
-void RegionSystem::Destroy()
-{
-    for(uint32_t index = 0; index < m_region_descriptions.size(); ++index)
-    {
-        const uint32_t trigger_hash = m_region_descriptions[index].trigger_hash;
-        const uint32_t callback_id = m_registred_triggers[index];
-        m_trigger_system->RemoveTriggerCallback(trigger_hash, callback_id, -1);
-    }
-}
-
 void RegionSystem::Update(const mono::UpdateContext& update_context)
 {
 
 }
 
+void RegionSystem::AllocateRegion(uint32_t entity_id)
+{
+    m_regions[entity_id];
+}
+
+void RegionSystem::ReleaseRegion(uint32_t entity_id)
+{
+    RegionComponent& component = m_regions[entity_id];
+
+    if(component.collision_handler)
+    {
+        mono::IBody* body = m_physics_system->GetBody(entity_id);
+        if(body)
+            body->RemoveCollisionHandler(component.collision_handler.get());
+
+        component.collision_handler = nullptr;
+    }
+
+    m_regions.erase(entity_id);
+}
+
+void RegionSystem::UpdateRegion(uint32_t entity_id, const std::string& text, const std::string& sub_text)
+{
+    RegionComponent& component = m_regions[entity_id];
+    component.text = text;
+    component.sub_text = sub_text;
+
+    mono::IBody* body = m_physics_system->GetBody(entity_id);
+    if(body)
+    {
+        if(component.collision_handler)
+            body->RemoveCollisionHandler(component.collision_handler.get());
+
+        component.collision_handler = std::make_unique<RegionCollisionHandler>(entity_id, this);
+        body->AddCollisionHandler(component.collision_handler.get());
+
+        std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
+        for(mono::IShape* shape : shapes)
+        {
+            if(shape->IsSensor())
+                shape->SetCollisionMask(CollisionCategory::PLAYER);
+        }
+    }
+}
+
+void RegionSystem::ActivateRegion(uint32_t entity_id)
+{
+    const auto it = m_regions.find(entity_id);
+    if(it != m_regions.end())
+    {
+        m_activated_region.text = it->second.text;
+        m_activated_region.sub_text = it->second.sub_text;
+        m_activated_region.trigger_hash = entity_id;
+    }
+}
+
 const RegionDescription& RegionSystem::GetActivatedRegion() const
 {
     return m_activated_region;
-}
-
-void RegionSystem::HandleRegionTrigger(uint32_t trigger_hash)
-{
-    const auto find_by_hash = [](const RegionDescription& left, uint32_t trigger_hash) {
-        return left.trigger_hash < trigger_hash;
-    };
-    const auto it = std::lower_bound(m_region_descriptions.begin(), m_region_descriptions.end(), trigger_hash, find_by_hash);
-
-    if(it != m_region_descriptions.end())
-        m_activated_region = *it;
 }
