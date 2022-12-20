@@ -52,7 +52,8 @@ const char* RegionSystem::Name() const
 
 void RegionSystem::Reset()
 {
-    m_activated_region = { 0, "", "" };
+    m_active_region = { 0, "", "" };
+    m_activated_regions.clear();
 }
 
 void RegionSystem::Update(const mono::UpdateContext& update_context)
@@ -108,15 +109,17 @@ void RegionSystem::UpdateRegion(uint32_t entity_id, const std::string& text, con
 void RegionSystem::ActivateRegion(uint32_t entity_id)
 {
     const auto it = m_regions.find(entity_id);
-    if(it != m_regions.end())
+    if(it != m_regions.end() && (m_activated_regions.count(entity_id) == 0))
     {
-        m_activated_region.text = it->second.text;
-        m_activated_region.sub_text = it->second.sub_text;
-        m_activated_region.entity_id = entity_id;
+        m_active_region.text = it->second.text;
+        m_active_region.sub_text = it->second.sub_text;
+        m_active_region.entity_id = entity_id;
+
+        m_activated_regions.insert(entity_id);
     }
 }
 
 const RegionDescription& RegionSystem::GetActivatedRegion() const
 {
-    return m_activated_region;
+    return m_active_region;
 }

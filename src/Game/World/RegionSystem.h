@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <memory>
 
 namespace game
@@ -49,6 +50,7 @@ namespace game
 
         mono::PhysicsSystem* m_physics_system;
         std::unordered_map<uint32_t, RegionComponent> m_regions;
-        game::RegionDescription m_activated_region;
+        std::unordered_set<uint32_t> m_activated_regions;
+        game::RegionDescription m_active_region;
     };
 }

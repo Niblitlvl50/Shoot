@@ -169,8 +169,6 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
         m_color,
         false,
         m_draw_buffers.indices->Size());
-//    renderer.RenderText(
-//        m_draw_buffers.vertices.get(), m_draw_buffers.uv.get(), m_draw_buffers.indices.get(), texture.get(), §z1em_color);
 }
 
 UISpriteElement::UISpriteElement()
