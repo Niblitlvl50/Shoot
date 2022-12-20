@@ -22533,13 +22533,13 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Shitty Plains"
+                            "variant_value": "Pumpkin Patch"
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": "...everything is shit here"
+                            "variant_value": "Watch out, they explode!"
                         }
                     ]
                 }
