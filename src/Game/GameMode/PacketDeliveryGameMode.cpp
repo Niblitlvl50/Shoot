@@ -147,7 +147,7 @@ void PacketDeliveryGameMode::Begin(
         level_metadata.level_description.c_str(),
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
         mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
-        mono::Color::SUNFLOWER,
+        mono::Color::GOLDEN_YELLOW,
         mono::Color::GRAY,
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();

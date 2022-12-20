@@ -17,7 +17,7 @@ RegionDrawer::RegionDrawer(const RegionSystem* region_system)
     m_region_text = new UITextElement(FontId::RUSSOONE_MEGA, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
     m_region_text->SetPosition(1.0f, m_height - 3.0f);
 
-    m_region_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::DARK_GRAY);
+    m_region_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::DIM_GRAY);
     m_region_subtext->SetPosition(1.5f, m_height - 4.5f);
 
     AddChild(m_region_text);
