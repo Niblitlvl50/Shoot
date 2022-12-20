@@ -101,13 +101,14 @@ namespace
     }
 }
 
-HealthbarDrawer::HealthbarDrawer(game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system)
+HealthbarDrawer::HealthbarDrawer(
+    game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
 {
-    m_package_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
-    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+    m_boss_icon_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
+    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_icon_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -188,14 +189,14 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
 
         renderer.DrawSprite(
-            m_package_sprite.get(),
+            m_boss_icon_sprite.get(),
             m_sprite_buffers.vertices.get(),
             m_sprite_buffers.offsets.get(),
             m_sprite_buffers.uv.get(),
             m_sprite_buffers.uv_flipped.get(),
             m_sprite_buffers.heights.get(),
             m_indices.get(),
-            m_package_sprite->GetTexture(),
+            m_boss_icon_sprite->GetTexture(),
             0);
     }
 }

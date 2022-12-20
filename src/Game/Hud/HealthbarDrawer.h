@@ -26,8 +26,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_system;
 
-
-        mono::ISpritePtr m_package_sprite;
+        mono::ISpritePtr m_boss_icon_sprite;
         mono::SpriteDrawBuffers m_sprite_buffers;
         std::unique_ptr<mono::IElementBuffer> m_indices;
     };

@@ -354,7 +354,7 @@ void PacketDeliveryGameMode::ToLevelCompleted()
     m_next_zone = game::ZoneResult::ZR_COMPLETED;
 
     m_big_text_screen->SetText("Delivery Completed!");
-    m_big_text_screen->SetSubText("");
+    m_big_text_screen->SetSubText("Good Job");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 
