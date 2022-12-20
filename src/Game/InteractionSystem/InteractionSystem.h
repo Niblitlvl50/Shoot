@@ -5,6 +5,8 @@
 #include "IGameSystem.h"
 #include "InteractionType.h"
 #include "Util/ActiveVector.h"
+#include "System/Audio.h"
+
 #include <vector>
 #include <functional>
 
@@ -16,6 +18,7 @@ namespace game
         uint32_t off_interaction_hash;
         InteractionType type;
         bool draw_name;
+        audio::ISoundPtr sound;
     };
 
     struct InteractionAndTrigger
@@ -42,8 +45,19 @@ namespace game
 
         InteractionComponent* AllocateComponent(uint32_t entity_id);
         void ReleaseComponent(uint32_t entity_id);
-        void AddComponent(uint32_t entity_id, uint32_t interaction_hash, InteractionType interaction_type, bool draw_name);
-        void AddComponent(uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, InteractionType interaction_type, bool draw_name);
+        void AddComponent(
+            uint32_t entity_id,
+            uint32_t interaction_hash,
+            InteractionType interaction_type,
+            bool draw_name,
+            const std::string& interaction_sound);
+        void AddComponent(
+            uint32_t entity_id,
+            uint32_t on_interaction_hash,
+            uint32_t off_interaction_hash,
+            InteractionType interaction_type,
+            bool draw_name,
+            const std::string& interaction_sound);
 
         uint32_t Id() const override;
         const char* Name() const override;

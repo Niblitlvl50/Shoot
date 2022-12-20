@@ -31,19 +31,33 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
     m_components.Release(entity_id);
 }
 
-void InteractionSystem::AddComponent(uint32_t entity_id, uint32_t interaction_hash, InteractionType interaction_type, bool draw_name)
+void InteractionSystem::AddComponent(
+    uint32_t entity_id,
+    uint32_t interaction_hash,
+    InteractionType interaction_type,
+    bool draw_name,
+    const std::string& interaction_sound)
 {
-    AddComponent(entity_id, interaction_hash, hash::NO_HASH, interaction_type, draw_name);
+    AddComponent(entity_id, interaction_hash, hash::NO_HASH, interaction_type, draw_name, interaction_sound);
 }
 
 void InteractionSystem::AddComponent(
-    uint32_t entity_id, uint32_t on_interaction_hash, uint32_t off_interaction_hash, InteractionType interaction_type, bool draw_name)
+    uint32_t entity_id,
+    uint32_t on_interaction_hash,
+    uint32_t off_interaction_hash,
+    InteractionType interaction_type,
+    bool draw_name,
+    const std::string& interaction_sound)
 {
     InteractionComponent* component = m_components.Get(entity_id);
     component->on_interaction_hash = on_interaction_hash;
     component->off_interaction_hash = off_interaction_hash;
     component->type = interaction_type;
     component->draw_name = draw_name;
+    component->sound = audio::CreateNullSound();
+    
+    if(!interaction_sound.empty())
+        component->sound = audio::CreateSound(interaction_sound.c_str(), audio::SoundPlayback::ONCE);
 
     // Internal data
     InteractionComponentDetails& details = m_component_details[entity_id];
@@ -111,6 +125,8 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
 
                 if(it->callback != nullptr)
                     it->callback(interaction_id, interaction.type);
+
+                interaction.sound->Play();
             }
         }
     };

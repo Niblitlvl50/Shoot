@@ -823,13 +823,20 @@ namespace
         }
 
         game::InteractionType interaction_type;
-        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
-
         bool draw_name = false;
+        std::string interaction_sound;
+
+        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
         FindAttribute(DRAW_NAME_ATTRIBUTE, properties, draw_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(SOUND_ATTRIBUTE, properties, interaction_sound, FallbackMode::SET_DEFAULT);
 
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
-        interaction_system->AddComponent(entity->id, hash::Hash(trigger_name.c_str()), interaction_type, draw_name);
+        interaction_system->AddComponent(
+            entity->id,
+            hash::Hash(trigger_name.c_str()),
+            interaction_type,
+            draw_name,
+            interaction_sound);
         hash::HashRegisterString(trigger_name.c_str());
 
         return true;
@@ -849,14 +856,21 @@ namespace
         }
 
         game::InteractionType interaction_type;
-        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
-
         bool draw_name = false;
+        std::string interaction_sound;
+
+        FindAttribute(INTERACTION_TYPE_ATTRIBUTE, properties, (int&)interaction_type, FallbackMode::SET_DEFAULT);
         FindAttribute(DRAW_NAME_ATTRIBUTE, properties, draw_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(SOUND_ATTRIBUTE, properties, interaction_sound, FallbackMode::SET_DEFAULT);
 
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
-            entity->id, hash::Hash(on_trigger_name.c_str()), hash::Hash(off_trigger_name.c_str()), interaction_type, draw_name);
+            entity->id,
+            hash::Hash(on_trigger_name.c_str()),
+            hash::Hash(off_trigger_name.c_str()),
+            interaction_type,
+            draw_name,
+            interaction_sound);
 
         hash::HashRegisterString(on_trigger_name.c_str());
         hash::HashRegisterString(off_trigger_name.c_str());

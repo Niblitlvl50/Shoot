@@ -134,6 +134,10 @@ void ImpController::ToIdle()
 void ImpController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer_s += update_context.delta_s;
+    if(m_idle_timer_s < 1.0f)
+        return;
+
+    m_idle_timer_s = 0.0f;
 
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
@@ -148,16 +152,13 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    if(m_idle_timer_s < 1.0f)
-        return;
-
-    const bool transition_to_attack =
-        mono::Chance(25) && game::SeesPlayer(m_physics_system, world_position, m_target_player);
-
-    const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
-    m_states.TransitionTo(new_state);
-
-    m_idle_timer_s = 0.0f;
+    const bool sees_player = game::SeesPlayer(m_physics_system, world_position, m_target_player);
+    if(sees_player)
+    {
+        const bool transition_to_attack = mono::Chance(25);
+        const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
+        m_states.TransitionTo(new_state);
+    }
 }
 
 void ImpController::ToReposition()

@@ -73,8 +73,8 @@
         {
             "name": "rocket",
             "damage": 50,
-            "life_span": 2.0,
-            "fuzzy_life_span": 0.3,
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
             "bullet_want_direction": true,
             "entity_file": "res/entities/rocket_bullet.entity",
             "sound_file": "",

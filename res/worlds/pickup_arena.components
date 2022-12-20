@@ -1558,6 +1558,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/rocket_fire1.wav"
+                        },
+                        {
                             "id": 3732203999,
                             "name": "draw_name",
                             "variant_type": 0,
@@ -33491,6 +33497,12 @@
                             "name": "interaction_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/rocket_fire1.wav"
                         },
                         {
                             "id": 3732203999,
