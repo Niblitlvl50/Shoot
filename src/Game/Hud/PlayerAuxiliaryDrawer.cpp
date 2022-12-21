@@ -66,13 +66,31 @@ namespace
 
 PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
-{ }
+{
+    for(const char* sprite_file : g_ability_to_sprite)
+    {
+        AbilityRenderData render_data;
+        render_data.sprite = mono::GetSpriteFactory()->CreateSprite(sprite_file);
+        render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
+        m_ability_render_datas.push_back(std::move(render_data));
+    }
+
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+}
 
 void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
     std::vector<math::Vector> cooldown_lines;
-    std::vector<math::Vector> cooldown_points;
-    std::vector<mono::Color::RGBA> cooldown_colors;
+
+    struct AbilityPoint
+    {
+        math::Vector point;
+        uint32_t render_data_index;
+    };
+    std::vector<AbilityPoint> ability_points;
 
     struct AimlineData
     {
@@ -127,9 +145,11 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
             cooldown_lines.push_back(left);
             cooldown_lines.push_back(right);
-            cooldown_points.push_back(math::Vector(std::clamp(m_cooldown_position, left.x, right.x), reload_dot.y));
 
-            cooldown_colors.push_back(g_ability_to_color[player_info->cooldown_id]);
+            AbilityPoint ability_point;
+            ability_point.point = math::Vector(std::clamp(m_cooldown_position, left.x, right.x), reload_dot.y);
+            ability_point.render_data_index = player_info->cooldown_id;
+            ability_points.push_back(ability_point);
         }
     }
 
@@ -148,7 +168,25 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
     renderer.DrawPoints(aim_target_points, aim_target_colors, 12.0f);
     renderer.DrawLines(cooldown_lines, mono::Color::OFF_WHITE, 4.0f);
-    renderer.DrawPoints(cooldown_points, cooldown_colors, 8.0f);
+
+    for(const AbilityPoint& ability_point : ability_points)
+    {
+        const math::Matrix& transform = math::CreateMatrixWithPosition(ability_point.point);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];
+
+        renderer.DrawSprite(
+            render_data.sprite.get(),
+            render_data.sprite_buffers.vertices.get(),
+            render_data.sprite_buffers.offsets.get(),
+            render_data.sprite_buffers.uv.get(),
+            render_data.sprite_buffers.uv_flipped.get(),
+            render_data.sprite_buffers.heights.get(),
+            m_indices.get(),
+            render_data.sprite->GetTexture(),
+            0);
+    }
 }
 
 math::Quad PlayerAuxiliaryDrawer::BoundingBox() const

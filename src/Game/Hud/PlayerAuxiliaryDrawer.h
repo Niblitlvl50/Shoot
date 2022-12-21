@@ -20,6 +20,12 @@ namespace game
         std::unique_ptr<mono::IElementBuffer> indices;
     };
 
+    struct AbilityRenderData
+    {
+        mono::ISpritePtr sprite;
+        mono::SpriteDrawBuffers sprite_buffers;
+    };
+
     class PlayerAuxiliaryDrawer : public mono::IDrawable
     {
     public:
@@ -30,6 +36,10 @@ namespace game
         math::Quad BoundingBox() const override;
 
         const mono::TransformSystem* m_transform_system;
+
+        std::vector<AbilityRenderData> m_ability_render_datas;
+        std::unique_ptr<mono::IElementBuffer> m_indices;
+
         mutable AimlineRenderData m_aimline_data[n_players];
         mutable float m_cooldown_position;
         mutable float m_cooldown_velocity;

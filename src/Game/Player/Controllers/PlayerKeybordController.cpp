@@ -2,6 +2,7 @@
 #include "PlayerKeybordController.h"
 #include "Player/PlayerLogic.h"
 #include "Player/PlayerInfo.h"
+#include "Math/MathFunctions.h"
 
 #include "Input/InputSystem.h"
 

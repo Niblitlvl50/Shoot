@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "Rendering/Color.h"
-
 namespace game
 {
     enum PlayerAbility
@@ -16,11 +14,11 @@ namespace game
         N_ABILITIES
     };
 
-    constexpr mono::Color::RGBA g_ability_to_color[] = {
-        mono::Color::BLACK,
-        mono::Color::RED,
-        mono::Color::GREEN,
-        mono::Color::MAGENTA,
-        mono::Color::CYAN
+    constexpr const char* g_ability_to_sprite[] = {
+        "res/sprites/ammo_icon.sprite",
+        "res/sprites/energy_icon.sprite",
+        "res/sprites/energy_icon.sprite",
+        "res/sprites/energy_icon.sprite",
+        "res/sprites/ammo_icon.sprite",
     };
 }
