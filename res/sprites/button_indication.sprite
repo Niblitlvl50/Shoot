@@ -45,21 +45,21 @@
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 1562,
+            "x": 1545,
             "y": 489
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 1545,
+            "x": 1562,
             "y": 489
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 1528,
+            "x": 1579,
             "y": 489
         }
     ],
