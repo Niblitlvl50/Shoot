@@ -417,11 +417,11 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
     {
         math::Vector spawn_point = m_player_spawn;
 
-        for(const game::PlayerInfo* player_info : game::GetAlivePlayers())
+        for(const game::PlayerInfo* alive_player_info : game::GetAlivePlayers())
         {
-            if(player_info)
+            if(alive_player_info)
             {
-                spawn_point = player_info->position + math::Vector(2.0f, 1.0f);
+                spawn_point = alive_player_info->position + math::Vector(2.0f, 1.0f);
                 break;
             }
         }

@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <functional>
+#include <string>
 
 namespace game
 {
