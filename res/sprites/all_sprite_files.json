@@ -2,6 +2,7 @@
     "all_sprites": [
         "res/sprites/alien.sprite",
         "res/sprites/ammo_icon.sprite",
+        "res/sprites/ammo_icon_tiny.sprite",
         "res/sprites/bat.sprite",
         "res/sprites/beetle.sprite",
         "res/sprites/bio_pickup_blue.sprite",
@@ -63,6 +64,7 @@
         "res/sprites/emote_star.sprite",
         "res/sprites/emote_swirl.sprite",
         "res/sprites/energy_icon.sprite",
+        "res/sprites/energy_icon_tiny.sprite",
         "res/sprites/evil_putto.sprite",
         "res/sprites/explosion_big.sprite",
         "res/sprites/explosion_medium.sprite",

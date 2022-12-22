@@ -167,11 +167,11 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
     }
 
     renderer.DrawPoints(aim_target_points, aim_target_colors, 12.0f);
-    renderer.DrawLines(cooldown_lines, mono::Color::OFF_WHITE, 4.0f);
+    renderer.DrawLines(cooldown_lines, mono::Color::RGBA(0.8f, 0.8f, 0.8f), 4.0f);
 
     for(const AbilityPoint& ability_point : ability_points)
     {
-        const math::Matrix& transform = math::CreateMatrixWithPosition(ability_point.point);
+        const math::Matrix& transform = math::CreateMatrixWithPositionScale(ability_point.point, 0.25f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];

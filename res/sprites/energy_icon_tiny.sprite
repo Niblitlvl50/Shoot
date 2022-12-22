@@ -6,15 +6,15 @@
                 0
             ],
             "loop": true,
-            "name": "idle"
+            "name": "default"
         }
     ],
     "frames": [
         {
-            "h": 8,
-            "name": "cardboard_box_tiny_idle_1",
-            "w": 8,
-            "x": 1554,
+            "h": 5,
+            "name": "energy_icon_tiny",
+            "w": 4,
+            "x": 1771,
             "y": 506
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
