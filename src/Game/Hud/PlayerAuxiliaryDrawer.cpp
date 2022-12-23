@@ -79,6 +79,8 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transf
         0, 1, 2, 0, 2, 3
     };
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+
+    std::memset(m_ability_data, 0, sizeof(m_ability_data));
 }
 
 void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
@@ -112,15 +114,15 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         if(!player_info)
             continue;
 
+        const uint32_t player_index = FindPlayerIndex(player_info);
+        
         if(player_info->laser_sight)
         {
             const float aim_direction_rad = math::AngleFromVector(player_info->aim_direction);
             const math::Matrix& aimline_transform =
                 math::CreateMatrixWithPositionRotation(player_info->position, aim_direction_rad + math::PI_2());
 
-            const uint32_t player_index = FindPlayerIndex(player_info);
             const float laser_length = math::DistanceBetween(player_info->position, player_info->aim_target);
-
             const mono::Color::RGBA& laser_color = aim_line_colors[player_index];
 
             m_aimline_data[player_index] =
@@ -130,9 +132,19 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             aim_target_colors.push_back(laser_color);
         }
 
+        const uint32_t current_timestamp = renderer.GetTimestamp();
         const bool ability_on_cooldown = (player_info->cooldown_fraction < 1.0f);
-        if(ability_on_cooldown)
+
+        AbilityInstanceData& instance_data = m_ability_data[player_index];
+        const bool has_changed = (instance_data.last_cooldown_fraction != player_info->cooldown_fraction);
+        const bool less_than_5s = (current_timestamp - instance_data.timestamp < 2000);
+
+        if((ability_on_cooldown && has_changed) || (ability_on_cooldown && less_than_5s))
         {
+            instance_data.last_cooldown_fraction = player_info->cooldown_fraction;
+            if(has_changed)
+                instance_data.timestamp = current_timestamp;
+
             const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(player_info->entity_id);
             const math::Vector bottom_center = math::BottomCenter(world_bb);
 
@@ -141,13 +153,13 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             const math::Vector reload_dot = ((right - left) * player_info->cooldown_fraction) + left;
 
             math::simple_spring_damper_implicit(
-                m_cooldown_position, m_cooldown_velocity, reload_dot.x, 0.001f, renderer.GetDeltaTime());
+                instance_data.cooldown_position, instance_data.cooldown_velocity, reload_dot.x, 0.01f, renderer.GetDeltaTime());
 
             cooldown_lines.push_back(left);
             cooldown_lines.push_back(right);
 
             AbilityPoint ability_point;
-            ability_point.point = math::Vector(std::clamp(m_cooldown_position, left.x, right.x), reload_dot.y);
+            ability_point.point = math::Vector(std::clamp(instance_data.cooldown_position, left.x, right.x), reload_dot.y);
             ability_point.render_data_index = player_info->cooldown_id;
             ability_points.push_back(ability_point);
         }
@@ -171,7 +183,7 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
     for(const AbilityPoint& ability_point : ability_points)
     {
-        const math::Matrix& transform = math::CreateMatrixWithPositionScale(ability_point.point, 0.25f);
+        const math::Matrix& transform = math::CreateMatrixWithPositionScale(ability_point.point, 0.35f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];

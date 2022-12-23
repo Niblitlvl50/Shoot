@@ -20,6 +20,15 @@ namespace game
         std::unique_ptr<mono::IElementBuffer> indices;
     };
 
+    struct AbilityInstanceData
+    {
+        float cooldown_position;
+        float cooldown_velocity;
+
+        float last_cooldown_fraction;
+        uint32_t timestamp;
+    };
+
     struct AbilityRenderData
     {
         mono::ISpritePtr sprite;
@@ -41,8 +50,7 @@ namespace game
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         mutable AimlineRenderData m_aimline_data[n_players];
-        mutable float m_cooldown_position;
-        mutable float m_cooldown_velocity;
+        mutable AbilityInstanceData m_ability_data[n_players];
     };
 
     class PackageAuxiliaryDrawer : public mono::IDrawable
