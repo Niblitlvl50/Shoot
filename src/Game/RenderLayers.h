@@ -14,6 +14,7 @@ namespace game
         GAMEOBJECTS_UI,
         GAMEOBJECTS_DEBUG,
         UI,
+        UI_OVERLAY,
         UI_DEBUG
     };
 }

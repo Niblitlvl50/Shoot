@@ -186,6 +186,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
 extern const uint32_t NULL_COMPONENT;
 extern const uint32_t NAME_FOLDER_COMPONENT;
 extern const uint32_t TRANSFORM_COMPONENT;
+extern const uint32_t LAYER_COMPONENT;
 extern const uint32_t SPRITE_COMPONENT;
 extern const uint32_t TEXT_COMPONENT;
 extern const uint32_t PHYSICS_COMPONENT;

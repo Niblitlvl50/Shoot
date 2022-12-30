@@ -63,6 +63,7 @@ int main()
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        system_context.CreateSystem<mono::RenderSystem>(max_entities);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);

@@ -18,6 +18,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Math/Vector.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
@@ -74,6 +75,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_camera = camera;
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::RenderSystem* render_system = m_system_context->GetSystem<mono::RenderSystem>();
     m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
 
@@ -94,7 +96,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddUpdatable(new ClientReplicator(camera, client_manager));
 
-    AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system), LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system, render_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(m_damage_system, transform_system, m_entity_manager), LayerId::UI);
@@ -152,7 +154,7 @@ mono::EventResult RemoteZone::HandleSpriteMessage(const SpriteMessage& sprite_me
     sprite->SetShadowSize(sprite_message.shadow_size);
     sprite->SetProperties(sprite_message.properties);
 
-    m_sprite_system->SetSpriteLayer(sprite_message.entity_id, sprite_message.layer);
+    //m_sprite_system->SetSpriteLayer(sprite_message.entity_id, sprite_message.layer);
 
     return mono::EventResult::HANDLED;
 }

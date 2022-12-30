@@ -174,6 +174,7 @@ int main(int argc, char* argv[])
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        system_context.CreateSystem<mono::RenderSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);

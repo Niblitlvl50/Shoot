@@ -7,6 +7,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleFwd.h"
 #include "Paths/PathSystem.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Text/TextSystem.h"
 #include "Rendering/Lights/LightSystem.h"
@@ -62,6 +63,32 @@ namespace
         { ROTATION_ATTRIBUTE, Variant(math::GetZRotation(transform)) }
         };
     }
+
+    bool CreateLayer(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
+        render_system->AllocateLayer(entity->id);
+        return true;
+    }
+
+    bool ReleaseLayer(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
+        render_system->ReleaseLayer(entity->id);
+        return true;
+    }
+
+    bool UpdateLayer(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int new_layer;
+        FindAttribute(LAYER_ATTRIBUTE, properties, new_layer, FallbackMode::SET_DEFAULT);
+
+        mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
+        render_system->UpdateLayer(entity->id, new_layer);
+
+        return true;
+    }
+
 
     bool CreateSprite(mono::Entity* entity, mono::SystemContext* context)
     {
@@ -463,6 +490,7 @@ namespace
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
+    entity_manager->RegisterComponent(LAYER_COMPONENT, CreateLayer, ReleaseLayer, UpdateLayer);
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
     entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);

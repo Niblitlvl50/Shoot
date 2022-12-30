@@ -233,7 +233,7 @@ int ServerReplicator::ReplicateSprites(
         sprite_message.animation_id = sprite->GetActiveAnimation();
         
         sprite_message.properties = sprite->GetProperties();
-        sprite_message.layer = m_sprite_system->GetSpriteLayer(id);
+        sprite_message.layer = 0; //m_sprite_system->GetSpriteLayer(id);
         sprite_message.shadow_size = sprite->GetShadowSize();
 
         const math::Vector shadow_offset = sprite->GetShadowOffset();

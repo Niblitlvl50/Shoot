@@ -256,6 +256,7 @@ extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
 extern const uint32_t TRANSFORM_COMPONENT           = hash::Hash("transform");
+extern const uint32_t LAYER_COMPONENT               = hash::Hash("layer");
 extern const uint32_t SPRITE_COMPONENT              = hash::Hash("sprite");
 extern const uint32_t TEXT_COMPONENT                = hash::Hash("text");
 extern const uint32_t PHYSICS_COMPONENT             = hash::Hash("physics");
@@ -304,6 +305,8 @@ const char* ComponentNameFromHash(uint32_t hash)
         return "name_folder";
     else if(hash == TRANSFORM_COMPONENT)
         return "transform";
+    else if(hash == LAYER_COMPONENT)
+        return "layer";
     else if(hash == SPRITE_COMPONENT)
         return "sprite";
     else if(hash == TEXT_COMPONENT)
@@ -405,6 +408,7 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE, OFFSET_ATTRIBUTE, SHADOW_COLOR_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, TEXTURE_ATTRIBUTE }),

@@ -32,8 +32,9 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
-        void Show();
-        void Hide();
+        virtual void Show();
+        virtual void Hide();
+
         void SetPosition(const math::Vector& position);
         void SetPosition(float x, float y);
         void SetScale(const math::Vector& scale);

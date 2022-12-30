@@ -11,9 +11,11 @@
 #include "Events/PlayerEvents.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Pickups/EnemyPickupSpawner.h"
+#include "GameCamera/CameraSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "RenderLayers.h"
 #include "Rendering/IRenderer.h"
+#include "UI/UISystem.h"
 #include "Weapons/WeaponSystem.h"
 
 #include "Physics/PhysicsSystem.h"
@@ -96,6 +98,8 @@ void PacketDeliveryGameMode::Begin(
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    UISystem* ui_system = system_context->GetSystem<game::UISystem>();
+    CameraSystem* camera_system = system_context->GetSystem<game::CameraSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -152,7 +156,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>(input_system);
+    m_pause_screen = std::make_unique<PauseScreen>(input_system, m_entity_manager, ui_system, camera_system);
     m_pause_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(

@@ -290,6 +290,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         std::make_unique<editor::UserInputController>(camera, this, &m_context, m_event_handler);
 
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    mono::RenderSystem* render_system = m_system_context.GetSystem<mono::RenderSystem>();
     mono::TextSystem* text_system = m_system_context.GetSystem<mono::TextSystem>();
     mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
     mono::LightSystem* light_system = m_system_context.GetSystem<mono::LightSystem>();
@@ -330,7 +331,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), game::LayerId::UI);
     AddDrawable(m_component_detail_visualizer.get(), game::LayerId::GAMEOBJECTS_UI);
     AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), game::LayerId::UI);
-    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system), game::LayerId::GAMEOBJECTS);
+    AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), game::LayerId::PRE_GAMEOBJECTS);
@@ -654,10 +655,10 @@ IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
     if(found_proxies.empty())
         return nullptr;
 
-    mono::EntitySystem* entity_system = m_system_context.GetSystem<mono::EntitySystem>();
-    const mono::SpriteSystem* sprite_system = m_system_context.GetSystem<mono::SpriteSystem>();
+    const mono::EntitySystem* entity_system = m_system_context.GetSystem<mono::EntitySystem>();
+    const mono::RenderSystem* render_system = m_system_context.GetSystem<mono::RenderSystem>();
 
-    const auto sort_on_y = [entity_system, sprite_system](const IObjectProxy* first, const IObjectProxy* second) {
+    const auto sort_on_y = [entity_system, render_system](const IObjectProxy* first, const IObjectProxy* second) {
 
         const mono::Entity* first_entity = entity_system->GetEntity(first->Id());
         const mono::Entity* second_entity = entity_system->GetEntity(second->Id());
@@ -668,8 +669,8 @@ IObjectProxy* Editor::FindProxyObject(const math::Vector& position)
             const bool second_has_sprite = entity_system->HasComponent(second_entity, SPRITE_COMPONENT);
             if(first_has_sprite && second_has_sprite)
             {
-                const int first_sprite_layer = sprite_system->GetSpriteLayer(first_entity->id);
-                const int second_sprite_layer = sprite_system->GetSpriteLayer(second_entity->id);
+                const int first_sprite_layer = render_system->GetRenderLayerOrDefault(first_entity->id);
+                const int second_sprite_layer = render_system->GetRenderLayerOrDefault(second_entity->id);
                 if(first_sprite_layer != second_sprite_layer)
                     return first_sprite_layer < second_sprite_layer;
             }

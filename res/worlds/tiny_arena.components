@@ -2102,8 +2102,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.6764721870422363,
-                                "y": -1.7599451541900635
+                                "x": -2.75,
+                                "y": -1.875
                             }
                         },
                         {
@@ -2295,6 +2295,24 @@
                         {
                             "id": 564937055,
                             "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         }
@@ -37492,6 +37510,24 @@
                         {
                             "id": 564937055,
                             "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
                         }
