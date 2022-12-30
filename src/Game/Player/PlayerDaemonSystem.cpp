@@ -103,11 +103,6 @@ PlayerDaemonSystem::~PlayerDaemonSystem()
     m_event_handler->RemoveListener(m_remote_viewport_token);
 }
 
-uint32_t PlayerDaemonSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* PlayerDaemonSystem::Name() const
 {
     return "playerdaemonsystem";

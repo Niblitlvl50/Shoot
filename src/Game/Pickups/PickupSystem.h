@@ -38,7 +38,6 @@ namespace game
         void UnregisterPickupTarget(uint32_t target_id);
 
         // IGameSystem
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

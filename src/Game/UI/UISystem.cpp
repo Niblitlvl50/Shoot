@@ -51,11 +51,6 @@ UISystem::~UISystem()
 {
 }
 
-uint32_t UISystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* UISystem::Name() const
 {
     return "uisystem";

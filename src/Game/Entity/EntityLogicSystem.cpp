@@ -81,11 +81,6 @@ std::vector<EntityDebugCategory> EntityLogicSystem::GetDebugCategories() const
     return categories;
 }
 
-uint32_t EntityLogicSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* EntityLogicSystem::Name() const
 {
     return "entitylogicsystem";

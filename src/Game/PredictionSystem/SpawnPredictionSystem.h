@@ -23,7 +23,6 @@ namespace game
             game::PositionPredictionSystem* position_prediciton_system);
         void HandleSpawnMessage(const SpawnMessage& spawn_message);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

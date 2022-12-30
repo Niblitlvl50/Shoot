@@ -65,11 +65,6 @@ void InteractionSystem::AddComponent(
     details.enabled = true;
 }
 
-uint32_t InteractionSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* InteractionSystem::Name() const
 {
     return "interactionsystem";

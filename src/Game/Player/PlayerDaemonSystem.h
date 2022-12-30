@@ -41,7 +41,6 @@ namespace game
             mono::EventHandler* event_handler);
         ~PlayerDaemonSystem();
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

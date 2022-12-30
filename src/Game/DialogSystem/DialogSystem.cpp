@@ -25,11 +25,6 @@ void DialogSystem::AddComponent(uint32_t entity_id, const std::string& message, 
     component->duration = duration;
 }
 
-uint32_t DialogSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* DialogSystem::Name() const
 {
     return "dialogsystem";

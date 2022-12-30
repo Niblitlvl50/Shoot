@@ -29,7 +29,6 @@ namespace game
             mono::IEntityManager* entity_manager,
             mono::SystemContext* system_context);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Begin() override;
         void Reset() override;

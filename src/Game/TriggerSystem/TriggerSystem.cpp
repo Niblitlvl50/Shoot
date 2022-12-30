@@ -364,11 +364,6 @@ void TriggerSystem::EmitTrigger(uint32_t trigger_hash)
     m_triggers_to_emit.push_back(trigger_hash);
 }
 
-uint32_t TriggerSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* TriggerSystem::Name() const
 {
     return "TriggerSystem";

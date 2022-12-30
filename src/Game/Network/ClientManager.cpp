@@ -131,11 +131,6 @@ ConnectionInfo ClientManager::GetConnectionInfo() const
     return info;
 }
 
-uint32_t ClientManager::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* ClientManager::Name() const
 {
     return "clientmanager";

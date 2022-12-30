@@ -40,11 +40,6 @@ RegionSystem::RegionSystem(mono::PhysicsSystem* physics_system)
     Reset();
 }
 
-uint32_t RegionSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* RegionSystem::Name() const
 {
     return "regionsystem";

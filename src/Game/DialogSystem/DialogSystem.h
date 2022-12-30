@@ -23,7 +23,6 @@ namespace game
         void ReleaseComponent(uint32_t entity_id);
         void AddComponent(uint32_t entity_id, const std::string& message, float duration);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

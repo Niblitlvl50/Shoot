@@ -95,11 +95,6 @@ void PickupSystem::UnregisterPickupTarget(uint32_t target_id)
     m_pickup_targets.erase(target_id);
 }
 
-uint32_t PickupSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* PickupSystem::Name() const
 {
     return "pickupsystem";

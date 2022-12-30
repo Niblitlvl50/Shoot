@@ -69,7 +69,6 @@ namespace game
             class TriggerSystem* trigger_system);
         ~UISystem();
 
-        uint32_t Id() const override;
         const char* Name() const override;
         
         void Begin() override;

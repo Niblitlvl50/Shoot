@@ -56,7 +56,6 @@ namespace game
         mono::EventResult HandleHeartBeatMessage(const HeartBeatMessage& message);
         mono::EventResult HandleViewportMessage(const ViewportMessage& message);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

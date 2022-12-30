@@ -214,11 +214,6 @@ void ServerManager::PurgeZombieClients()
     }
 }
 
-uint32_t ServerManager::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* ServerManager::Name() const
 {
     return "servermanager";

@@ -166,11 +166,6 @@ void SoundSystem::SetSoundComponentData(
     }
 }
 
-uint32_t SoundSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* SoundSystem::Name() const
 {
     return "SoundSystem";

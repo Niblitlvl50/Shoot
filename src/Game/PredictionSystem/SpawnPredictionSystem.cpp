@@ -31,11 +31,6 @@ void SpawnPredictionSystem::HandleSpawnMessage(const SpawnMessage& spawn_message
         m_spawn_messages.push_back(spawn_message);
 }
 
-uint32_t SpawnPredictionSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* SpawnPredictionSystem::Name() const
 {
     return "spawnpredictionsystem";

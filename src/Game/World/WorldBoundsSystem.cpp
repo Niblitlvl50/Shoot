@@ -68,11 +68,6 @@ void WorldBoundsSystem::AddPolygon(
     bounding_box = local_polygon_bounds;
 }
 
-uint32_t WorldBoundsSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* WorldBoundsSystem::Name() const
 {
     return "world_bounds_system";

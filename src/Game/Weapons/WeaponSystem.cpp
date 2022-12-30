@@ -87,11 +87,6 @@ WeaponSystem::WeaponSystem(
     };
 }
 
-uint32_t WeaponSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* WeaponSystem::Name() const
 {
     return "weaponsystem";

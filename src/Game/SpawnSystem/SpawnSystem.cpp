@@ -163,11 +163,6 @@ const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
     return m_spawn_events;
 }
 
-uint32_t SpawnSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* SpawnSystem::Name() const
 {
     return "spawnsystem";

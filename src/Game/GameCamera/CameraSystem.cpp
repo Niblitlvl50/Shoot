@@ -71,11 +71,6 @@ CameraSystem::~CameraSystem()
     m_event_handler->RemoveListener(m_key_down_token);
 }
 
-uint32_t CameraSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* CameraSystem::Name() const
 {
     return "camerasystem";

@@ -184,11 +184,6 @@ void DamageSystem::SetInvincible(uint32_t id, bool invincible)
         m_damage_records[id].is_invincible = invincible;
 }
 
-uint32_t DamageSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* DamageSystem::Name() const
 {
     return "damagesystem";

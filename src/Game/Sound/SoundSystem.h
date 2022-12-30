@@ -90,7 +90,6 @@ namespace game
         void SetSoundComponentData(
             uint32_t entity_id, const std::string& sound_file, SoundInstancePlayParameter play_parameter, uint32_t play_trigger, uint32_t stop_trigger);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

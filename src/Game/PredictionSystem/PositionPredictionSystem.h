@@ -23,7 +23,6 @@ namespace game
             const ClientManager* client_manager,
             mono::TransformSystem* transform_system);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

@@ -30,11 +30,6 @@ PositionPredictionSystem::PositionPredictionSystem(
         ClearPredictionsForEntity(index);
 }
 
-uint32_t PositionPredictionSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* PositionPredictionSystem::Name() const
 {
     return "PositionPredictionSystem";

@@ -60,7 +60,6 @@ namespace game
             bool draw_name,
             const std::string& interaction_sound);
 
-        uint32_t Id() const override;
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 

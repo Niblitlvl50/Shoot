@@ -165,11 +165,6 @@ void AnimationSystem::AddTransformAnimatonToUpdate(TransformAnimationComponent* 
         m_transform_anims_to_process.push_back(transform_animation);
 }
 
-uint32_t AnimationSystem::Id() const
-{
-    return hash::Hash(Name());
-}
-
 const char* AnimationSystem::Name() const
 {
     return "AnimationSystem";
