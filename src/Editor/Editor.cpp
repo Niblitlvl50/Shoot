@@ -437,7 +437,36 @@ void Editor::Save()
 
     std::vector<const IObjectProxy*> proxies;
     for(const IObjectProxyPtr& proxy_ptr : m_proxies)
+    {
+        std::vector<Component>& components = proxy_ptr->GetComponents();
+        Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, components);
+        if(sprite_component)
+        {
+            int sprite_layer;
+            const bool found_layer =
+                FindAttribute(LAYER_ATTRIBUTE, sprite_component->properties, sprite_layer, FallbackMode::REQUIRE_ATTRIBUTE);
+            if(found_layer && sprite_layer != 0)
+            {
+                Component* layer_component = FindComponentFromHash(LAYER_COMPONENT, components);
+                if(!layer_component)
+                    layer_component = component::AddComponent(LAYER_COMPONENT, components).front();
+                SetAttribute(LAYER_ATTRIBUTE, layer_component->properties, sprite_layer);
+            }
+
+            float sort_offset;
+            const bool found_sort_offset = 
+                FindAttribute(SORT_OFFSET_ATTRIBUTE, sprite_component->properties, sort_offset, FallbackMode::REQUIRE_ATTRIBUTE);
+            if(found_sort_offset && sort_offset != 0.0f)
+            {
+                Component* layer_component = FindComponentFromHash(LAYER_COMPONENT, components);
+                if(!layer_component)
+                    layer_component = component::AddComponent(LAYER_COMPONENT, components).front();
+                SetAttribute(SORT_OFFSET_ATTRIBUTE, layer_component->properties, sort_offset);
+            }
+        }
+
         proxies.push_back(proxy_ptr.get());
+    }
 
     std::sort(m_context.level_metadata.triggers.begin(), m_context.level_metadata.triggers.end());
     SaveWorld(m_world_filename.c_str(), proxies, m_context.level_metadata);
