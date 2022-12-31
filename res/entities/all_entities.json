@@ -19,7 +19,6 @@
         "res/entities/plasma_bullet.entity",
         "res/entities/plasma_crimson_bullet.entity",
         "res/entities/player_alien.entity",
-        "res/entities/player_bullet.entity",
         "res/entities/player_dude.entity",
         "res/entities/player_fire_zombie.entity",
         "res/entities/player_girl.entity",

@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -60,6 +66,18 @@
                         {
                             "id": 3513758418,
                             "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 453870866,
+                            "name": "transform_space",
                             "variant_type": 1,
                             "variant_value": 0
                         },
@@ -121,6 +139,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 1.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -160,24 +196,6 @@
                             }
                         },
                         {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 1.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
                             "id": 3951746801,
                             "name": "start_size_spread",
                             "variant_type": 9,
@@ -205,7 +223,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "shockwave_effect",
             "uuid_hash": 348868091
         }
@@ -223,6 +240,7 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": "",
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -236,6 +254,9 @@
             "x": 0.0,
             "y": 0.0
         },
+        "level_description": "",
+        "level_game_mode": "",
+        "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
@@ -245,11 +266,17 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
-        "triggers": []
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }

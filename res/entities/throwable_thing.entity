@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -111,7 +117,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "throwable_thing",
             "uuid_hash": 2592786582
         }
@@ -129,6 +134,11 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": "",
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,
@@ -138,9 +148,29 @@
             "x": 0.0,
             "y": 0.0
         },
+        "level_description": "",
+        "level_game_mode": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "spawn_package": true,
+        "time_limit_s": 0,
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }

@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -120,6 +126,15 @@
                             "variant_value": 1.0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 1031692888,
                             "name": "color",
                             "variant_type": 5,
@@ -167,6 +182,12 @@
                             "variant_value": 0.5
                         },
                         {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
                             "id": 1995093780,
                             "name": "prevent_rotation",
                             "variant_type": 0,
@@ -209,7 +230,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "flak_bullet",
             "uuid_hash": 432043909
         }
@@ -227,6 +247,11 @@
             "green": 1.0,
             "red": 1.0
         },
+        "background_music": "",
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "background_texture": "",
         "camera_position": {
             "x": 0.0,
@@ -236,9 +261,29 @@
             "x": 0.0,
             "y": 0.0
         },
+        "level_description": "",
+        "level_game_mode": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
-        }
+        },
+        "spawn_package": true,
+        "time_limit_s": 0,
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }

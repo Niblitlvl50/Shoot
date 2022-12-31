@@ -257,6 +257,24 @@
                             }
                         },
                         {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.800000011920929,
+                                "min": 0.4000000059604645
+                            }
+                        },
+                        {
                             "id": 3254309326,
                             "name": "gradient_4",
                             "variant_type": 10,
@@ -293,24 +311,6 @@
                                     1.0,
                                     1.0
                                 ]
-                            }
-                        },
-                        {
-                            "id": 837379623,
-                            "name": "angular_velocity_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.0,
-                                "min": 0.0
-                            }
-                        },
-                        {
-                            "id": 1206809145,
-                            "name": "life_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 0.800000011920929,
-                                "min": 0.4000000059604645
                             }
                         },
                         {
@@ -373,6 +373,7 @@
             "y": 0.0
         },
         "level_description": "",
+        "level_game_mode": "",
         "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {

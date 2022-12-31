@@ -17,6 +17,12 @@
                             "name": "folder",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -177,7 +183,6 @@
                 }
             ],
             "entity_properties": 0,
-            "folder": "",
             "name": "rocket_bullet",
             "uuid_hash": 1176511183
         }
@@ -210,6 +215,7 @@
             "y": 0.0
         },
         "level_description": "",
+        "level_game_mode": "",
         "level_name": "",
         "navmesh_density": 1.0,
         "navmesh_end": {
@@ -220,11 +226,17 @@
             "x": 0.0,
             "y": 0.0
         },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
         "player_spawn_point": {
             "x": 0.0,
             "y": 0.0
         },
+        "spawn_package": true,
         "time_limit_s": 0,
-        "triggers": []
+        "triggers": [],
+        "use_custom_package_spawn_position": false
     }
 }
