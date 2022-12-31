@@ -17,13 +17,11 @@ using namespace game;
 PauseScreen::PauseScreen(
     mono::InputSystem* input_system,
     mono::IEntityManager* entity_manager,
-    game::UISystem* ui_system,
-    game::CameraSystem* camera_system)
+    game::UISystem* ui_system)
     //: game::UIOverlay(200, 200.0f / mono::GetWindowAspect())
     : m_input_system(input_system)
     , m_entity_manager(entity_manager)
     , m_ui_system(ui_system)
-    , m_camera_system(camera_system)
 {
     const float background_width = 10.0f;
     const float background_height = 5.5f;
@@ -58,12 +56,15 @@ PauseScreen::PauseScreen(
     AddChild(texture_element);
 }
 
+void PauseScreen::ShowAt(const math::Vector& position)
+{
+    m_position = position;
+    Show();
+}
+
 void PauseScreen::Show()
 {
     UIElement::Show();
-
-    const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-    m_position = camera->GetPosition();
     m_ui_system->Enable();
 }
 

@@ -74,6 +74,7 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
         class PlayerDaemonSystem* m_player_system;
         class EntityLogicSystem* m_logic_system;
+        class CameraSystem* m_camera_system;
 
         std::unique_ptr<class CoopPowerupManager> m_coop_power_manager;
         std::unique_ptr<class EnemyPickupSpawner> m_pickup_spawner;

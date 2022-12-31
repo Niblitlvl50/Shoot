@@ -23,6 +23,7 @@
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "Camera/ICamera.h"
 #include "Entity/EntityLogicSystem.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Events/QuitEvent.h"
@@ -93,13 +94,13 @@ void PacketDeliveryGameMode::Begin(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+    m_camera_system = system_context->GetSystem<game::CameraSystem>();
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     UISystem* ui_system = system_context->GetSystem<game::UISystem>();
-    CameraSystem* camera_system = system_context->GetSystem<game::CameraSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -156,7 +157,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>(input_system, m_entity_manager, ui_system, camera_system);
+    m_pause_screen = std::make_unique<PauseScreen>(input_system, m_entity_manager, ui_system);
     m_pause_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(
@@ -377,7 +378,8 @@ void PacketDeliveryGameMode::LevelCompleted(const mono::UpdateContext& update_co
 
 void PacketDeliveryGameMode::ToPaused()
 {
-    m_pause_screen->Show();
+    const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+    m_pause_screen->ShowAt(camera->GetPosition());
 }
 void PacketDeliveryGameMode::Paused(const mono::UpdateContext& update_context)
 { }
