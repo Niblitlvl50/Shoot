@@ -314,7 +314,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[COUNTER_TRIGGER_COMPONENT] = editor::DrawCounterTriggerComponentDetails;
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
-    draw_funcs[SPRITE_COMPONENT] = editor::DrawSpriteDetails;
+    draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;

@@ -212,7 +212,7 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawPoints({ arc_points.back() }, mono::Color::CYAN, 10.0f);
 }
 
-void editor::DrawSpriteDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+void editor::DrawLayerDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float sort_offset = 0.0f;
     FindAttribute(SORT_OFFSET_ATTRIBUTE, component_properties, sort_offset, FallbackMode::SET_DEFAULT);

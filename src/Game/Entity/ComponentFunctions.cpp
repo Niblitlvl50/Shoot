@@ -81,10 +81,12 @@ namespace
     bool UpdateLayer(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int new_layer;
+        float new_sort_offset;
         FindAttribute(LAYER_ATTRIBUTE, properties, new_layer, FallbackMode::SET_DEFAULT);
+        FindAttribute(SORT_OFFSET_ATTRIBUTE, properties, new_sort_offset, FallbackMode::SET_DEFAULT);
 
         mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
-        render_system->UpdateLayer(entity->id, new_layer);
+        render_system->UpdateLayer(entity->id, new_layer, new_sort_offset);
 
         return true;
     }
