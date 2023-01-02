@@ -18,7 +18,7 @@ DialogSystemDrawer::DialogSystemDrawer(DialogSystem* message_system, const mono:
     : m_message_system(message_system)
     , m_transform_system(transform_system)
 {
-    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/text_background_light.png");
+    m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/text_background_light.png");
     m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
 }
 
@@ -36,7 +36,7 @@ void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
 
     return;
 
-    const float window_aspect = mono::GetWindowAspect();
+    const float window_aspect = mono::RenderSystem::GetWindowAspect();
     const float projection_width = 800.0f;
     const float projection_height = projection_width / window_aspect;
     const float projection_width_half = projection_width / 2.0f;

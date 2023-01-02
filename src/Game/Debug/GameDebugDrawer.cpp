@@ -58,7 +58,7 @@ void GameDebugDrawer::Draw(mono::IRenderer& renderer) const
     }
 
 
-    const float aspect_ratio = mono::GetWindowAspect();
+    const float aspect_ratio = mono::RenderSystem::GetWindowAspect();
     const float projection_width = 32.0f;
     const float projection_height = projection_width / aspect_ratio;
 

@@ -84,7 +84,7 @@ void WorldBoundsDrawer::BuildBuffers(const WorldBoundsComponent& component) cons
     math::Vector repeate = math::Vector(1.0f, 1.0f);
     
     {
-        const float pixels_per_meter = mono::PixelsPerMeter();
+        const float pixels_per_meter = mono::RenderSystem::PixelsPerMeter();
         const float background_width = math::Width(local_bb);
         const float background_height = math::Height(local_bb);
         repeate = math::Vector(

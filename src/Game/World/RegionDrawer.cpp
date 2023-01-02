@@ -10,7 +10,7 @@
 using namespace game;
 
 RegionDrawer::RegionDrawer(const RegionSystem* region_system)
-    : UIOverlay(50.0f, 50.0f / mono::GetWindowAspect())
+    : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_region_system(region_system)
     , m_current_region_entity_id(mono::INVALID_ID)
 {

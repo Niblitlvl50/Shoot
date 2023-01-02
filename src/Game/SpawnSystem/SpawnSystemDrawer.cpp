@@ -23,7 +23,7 @@ SpawnSystemDrawer::SpawnSystemDrawer(SpawnSystem* spawn_system, mono::TransformS
     , m_transform_system(transform_system)
     , m_smoke_effect(particle_system, entity_manager)
 {
-    m_texture = mono::GetTextureFactory()->CreateTexture("res/textures/particles/beam_white_vertical6.png");
+    m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/particles/beam_white_vertical6.png");
 }
 
 void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const

@@ -48,9 +48,9 @@ bool editor::TexturedPolygonFooter(const UIContext& ui_context, uint32_t compone
         FindAttribute(TEXTURE_ATTRIBUTE, component.properties, texture_name, FallbackMode::SET_DEFAULT);
         if(!texture_name.empty())
         {
-            mono::ITexturePtr loaded_texture = mono::GetTextureFactory()->CreateTexture(texture_name.c_str());
-            const float half_width = (loaded_texture->Width() / 2.0f) / mono::PixelsPerMeter();
-            const float half_height = (loaded_texture->Height() / 2.0f) / mono::PixelsPerMeter();
+            mono::ITexturePtr loaded_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture(texture_name.c_str());
+            const float half_width = (loaded_texture->Width() / 2.0f) / mono::RenderSystem::PixelsPerMeter();
+            const float half_height = (loaded_texture->Height() / 2.0f) / mono::RenderSystem::PixelsPerMeter();
 
             const std::vector<math::Vector> vertices = {
                 { -half_width, -half_height },

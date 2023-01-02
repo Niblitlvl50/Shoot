@@ -204,7 +204,7 @@ void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
 
     for(const std::string& sprite_file : sprite_files)
     {
-        m_sprites.push_back(mono::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
+        m_sprites.push_back(mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
         m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
     }
 }
@@ -257,7 +257,7 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
 
 UITextureElement::UITextureElement(const char* texture)
 {
-    m_texture = mono::GetTextureFactory()->CreateTexture(texture);
+    m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture(texture);
     m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
 }
 

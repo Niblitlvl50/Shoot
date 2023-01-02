@@ -53,17 +53,16 @@ int main()
         render_params.sprite_shadow_texture = "res/textures/shadows/roundshadow.png";
         render_params.imgui_ini = "res/editor_imgui.ini";
         render_params.window = window;
-        mono::InitializeRender(render_params);
 
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
         mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
+        system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        system_context.CreateSystem<mono::RenderSystem>(max_entities);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
@@ -100,7 +99,6 @@ int main()
         delete window;
     }
 
-    mono::ShutdownRender();
     System::Shutdown();
 
     return 0;

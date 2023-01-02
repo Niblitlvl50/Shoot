@@ -307,7 +307,7 @@ PlayerUIElement::PlayerUIElement(
     game::WeaponSystem* weapon_system,
     mono::SpriteSystem* sprite_system,
     mono::EventHandler* event_handler)
-    : UIOverlay(12.0f, 12.0f / mono::GetWindowAspect())
+    : UIOverlay(12.0f, 12.0f / mono::RenderSystem::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
 

@@ -54,7 +54,7 @@ void WorldBoundsSystem::AddPolygon(
     WorldBoundsComponent& component = *it;
     component.id = id;
     component.timestamp = System::GetMilliseconds();
-    component.texture = mono::GetTextureFactory()->CreateTexture(texture_file.c_str());
+    component.texture = mono::RenderSystem::GetTextureFactory()->CreateTexture(texture_file.c_str());
     component.color_tint = color;
     component.draw_layer = draw_layer;
     component.outline = vertices;

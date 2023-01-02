@@ -188,7 +188,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
 
         char sprite_filename[1024] = { 0 };
         std::sprintf(sprite_filename, "res/sprites/%s", sprite_file.c_str());
-        const mono::SpriteData* sprite_data = mono::GetSpriteFactory()->GetSpriteDataForFile(sprite_filename);
+        const mono::SpriteData* sprite_data = mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(sprite_filename);
         if(!sprite_data)
             return false;
 

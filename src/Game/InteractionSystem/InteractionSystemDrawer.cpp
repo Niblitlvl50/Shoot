@@ -60,7 +60,7 @@ InteractionSystemDrawer::InteractionSystemDrawer(
         m_verb_text_widths.push_back(mono::MeasureString(tweak_values::verb_font, verb).x);
 
         VerbSpriteBuffer verb_sprite_buffer;
-        verb_sprite_buffer.sprite = mono::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
+        verb_sprite_buffer.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
         verb_sprite_buffer.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer.sprite->GetSpriteData());
 
         m_verb_sprites_buffers.push_back(std::move(verb_sprite_buffer));

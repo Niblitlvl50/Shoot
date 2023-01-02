@@ -6,7 +6,7 @@
 using namespace game;
 
 LevelTimerUIElement::LevelTimerUIElement()
-    : UIOverlay(50.0f, 50.0f / mono::GetWindowAspect())
+    : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_seconds(0)
 {
     m_time_element = new UITextElement(

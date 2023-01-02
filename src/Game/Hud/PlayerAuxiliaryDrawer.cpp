@@ -70,7 +70,7 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transf
     for(const char* sprite_file : g_ability_to_sprite)
     {
         AbilityRenderData render_data;
-        render_data.sprite = mono::GetSpriteFactory()->CreateSprite(sprite_file);
+        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file);
         render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
         m_ability_render_datas.push_back(std::move(render_data));
     }
@@ -210,7 +210,7 @@ math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
 PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
 {
-    m_package_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
+    m_package_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
     m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {

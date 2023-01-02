@@ -107,7 +107,7 @@ HealthbarDrawer::HealthbarDrawer(
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
 {
-    m_boss_icon_sprite = mono::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
+    m_boss_icon_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
     m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_icon_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {

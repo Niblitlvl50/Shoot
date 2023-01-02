@@ -15,7 +15,7 @@ BigTextScreen::BigTextScreen(
     const mono::Color::RGBA& text_color,
     const mono::Color::RGBA& subtext_color,
     uint32_t component_flags)
-    : UIOverlay(50.0f, 50.0f / mono::GetWindowAspect())
+    : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
 {
     const bool hide_background = ((component_flags & Components::BACKGROUND) == 0);
     const bool hide_text = ((component_flags & Components::TEXT) == 0);

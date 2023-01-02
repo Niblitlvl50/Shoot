@@ -162,19 +162,16 @@ int main(int argc, char* argv[])
         render_params.light_mask_texture = game_config.light_mask_texture.c_str();
         render_params.sprite_shadow_texture = game_config.sprite_shadow_texture.c_str();
         render_params.window = window;
-        mono::InitializeRender(render_params);
-
-        game::LoadFonts();
 
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
         mono::Camera camera;
 
         mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
+        system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
         mono::EntitySystem* entity_system =
             system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        system_context.CreateSystem<mono::RenderSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
@@ -211,6 +208,8 @@ int main(int argc, char* argv[])
         game::RegisterGameComponents(entity_system);
         game::RegisterSharedComponents(entity_system);
 
+        game::LoadFonts();
+
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
         game::g_logic_factory = &logic_factory;
 
@@ -228,9 +227,7 @@ int main(int argc, char* argv[])
         delete window;
     }
 
-    mono::ShutdownRender();
     audio::Shutdown();
-
     network::Shutdown();
     System::Shutdown();
 
