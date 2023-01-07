@@ -347,4 +347,10 @@ void UISystem::DrawDebug(const mono::UpdateContext& update_context)
 {
     const std::string active_index = "Active Index: " + std::to_string(m_active_item_index);
     g_debug_drawer->DrawScreenText(active_index.c_str(), math::Vector(1.0f, 1.0f), mono::Color::BLACK);
+
+    for(const UIItem& item : m_items)
+    {
+        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(item.entity_id);
+        g_debug_drawer->DrawPoint(math::Center(world_bb), 10.0f, mono::Color::CYAN);
+    }
 }
