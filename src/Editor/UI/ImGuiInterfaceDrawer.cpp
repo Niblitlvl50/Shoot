@@ -44,6 +44,9 @@ namespace
             if(ImGui::MenuItem("Export Entity", "Ctrl + Shift + E"))
                 context.editor_menu_callback(EditorMenuOptions::EXPORT_ENTITY);
 
+            if(ImGui::MenuItem("Export Entity Collection"))
+                context.editor_menu_callback(EditorMenuOptions::EXPORT_ENTITY_COLLECTION);
+
             if(ImGui::MenuItem("Duplicate Entity", "Ctrl + D"))
                 context.editor_menu_callback(EditorMenuOptions::DUPLICATE);
 

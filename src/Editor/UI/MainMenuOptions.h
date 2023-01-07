@@ -9,6 +9,7 @@ namespace editor
         SAVE,
         IMPORT_ENTITY,
         EXPORT_ENTITY,
+        EXPORT_ENTITY_COLLECTION,
         DUPLICATE,
         REEXPORTENTITIES,
     };

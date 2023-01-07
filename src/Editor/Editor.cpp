@@ -473,7 +473,7 @@ void Editor::Save()
     m_context.notifications.emplace_back(save_texture, "Saved...", 2.0f);
 }
 
-void Editor::ExportEntity()
+void Editor::ExportAsIndividualEntities()
 {
     for(uint32_t id : m_selected_ids)
     {
@@ -490,6 +490,30 @@ void Editor::ExportEntity()
         editor::AddNewEntity(filename.c_str());
         m_context.notifications.emplace_back(export_texture, "Exported entity...", 2.0f);
     }
+}
+
+void Editor::ExportAsEntityCollection()
+{
+    std::vector<const IObjectProxy*> proxies;
+
+    for(uint32_t id : m_selected_ids)
+    {
+        const IObjectProxy* proxy = FindProxyObject(id);
+        if(proxy)
+            proxies.push_back(proxy);
+    }
+
+    if(proxies.empty())
+        return;
+
+    std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + "_collection.entity";
+    std::replace(filename.begin(), filename.end(), ' ', '_');
+    
+    game::LevelMetadata metadata;
+    editor::WriteComponentEntities(filename, metadata, proxies);
+    editor::AddNewEntity(filename.c_str());
+    
+    m_context.notifications.emplace_back(export_texture, "Exported entity...", 2.0f);
 }
 
 void Editor::ImportEntity()
@@ -874,7 +898,9 @@ void Editor::EditorMenuCallback(EditorMenuOptions option)
     else if(option == EditorMenuOptions::IMPORT_ENTITY)
         ImportEntity();
     else if(option == EditorMenuOptions::EXPORT_ENTITY)
-        ExportEntity();
+        ExportAsIndividualEntities();
+    else if(option == EditorMenuOptions::EXPORT_ENTITY_COLLECTION)
+        ExportAsEntityCollection();
     else if(option == EditorMenuOptions::DUPLICATE)
         DuplicateSelected();
     else if(option == EditorMenuOptions::REEXPORTENTITIES)

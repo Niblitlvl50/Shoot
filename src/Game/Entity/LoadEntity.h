@@ -5,5 +5,5 @@
 
 namespace game
 {
-    mono::EntityData LoadEntityFile(const char* entity_file);
+    std::vector<mono::EntityData> LoadEntityFile(const char* entity_file);
 }

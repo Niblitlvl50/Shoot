@@ -58,7 +58,8 @@ namespace editor
         void Quit();
         void Save();
         void ImportEntity();
-        void ExportEntity();
+        void ExportAsIndividualEntities();
+        void ExportAsEntityCollection();
 
         void SetSelection(const Selection& selected_ids) override;
         const Selection& GetSelection() const override;
