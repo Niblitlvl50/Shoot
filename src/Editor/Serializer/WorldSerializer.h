@@ -21,7 +21,8 @@ namespace editor
         mono::TransformSystem* transform_system,
         class Editor* editor);
 
-    void SaveWorld(const char* file_name, const std::vector<const IObjectProxy*>& proxies, const game::LevelMetadata& level_data);
+    void SaveWorld(
+        const char* file_name, const std::vector<const IObjectProxy*>& proxies, const game::LevelMetadata& level_data);
 
     void WriteComponentEntities(
         const std::string& file_path,

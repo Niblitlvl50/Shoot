@@ -60,9 +60,9 @@ void WorldBoundsSystem::AddPolygon(
     component.outline = vertices;
     component.triangulated_points = mono::Triangulate(component.outline);
 
-    math::Quad local_polygon_bounds = { math::INF, math::INF, -math::INF, -math::INF };
+    math::Quad local_polygon_bounds = math::InverseInfQuad;
     for(const math::Vector& vertex : component.outline)
-        local_polygon_bounds |= vertex;
+        math::ExpandBy(local_polygon_bounds, vertex);
 
     math::Quad& bounding_box = m_transform_system->GetBoundingBox(id);
     bounding_box = local_polygon_bounds;

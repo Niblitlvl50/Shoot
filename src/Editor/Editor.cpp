@@ -481,6 +481,8 @@ void Editor::ExportAsIndividualEntities()
         if(!proxy)
             continue;
 
+        proxy->SetPosition(math::ZeroVec);
+
         std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
         std::replace(filename.begin(), filename.end(), ' ', '_');
 
@@ -494,17 +496,32 @@ void Editor::ExportAsIndividualEntities()
 
 void Editor::ExportAsEntityCollection()
 {
-    std::vector<const IObjectProxy*> proxies;
+    math::Quad bb = math::InverseInfQuad;
+    std::vector<IObjectProxy*> mutable_proxies;
 
     for(uint32_t id : m_selected_ids)
     {
-        const IObjectProxy* proxy = FindProxyObject(id);
-        if(proxy)
-            proxies.push_back(proxy);
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(!proxy)
+            continue;
+
+        mutable_proxies.push_back(proxy);
+        math::ExpandBy(bb, proxy->GetBoundingBox());
     }
 
-    if(proxies.empty())
+    if(mutable_proxies.empty())
         return;
+
+    std::vector<const IObjectProxy*> proxies;
+    const math::Vector position = math::Center(bb);
+
+    for(IObjectProxy* proxy : mutable_proxies)
+    {
+        const math::Vector new_position = proxy->GetPosition() - position;
+        proxy->SetPosition(new_position);
+
+        proxies.push_back(proxy);
+    }
 
     std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + "_collection.entity";
     std::replace(filename.begin(), filename.end(), ' ', '_');
@@ -513,7 +530,7 @@ void Editor::ExportAsEntityCollection()
     editor::WriteComponentEntities(filename, metadata, proxies);
     editor::AddNewEntity(filename.c_str());
     
-    m_context.notifications.emplace_back(export_texture, "Exported entity...", 2.0f);
+    m_context.notifications.emplace_back(export_texture, "Exported entity collection...", 2.0f);
 }
 
 void Editor::ImportEntity()
@@ -646,12 +663,12 @@ void Editor::TeleportToProxyObject(const std::vector<const IObjectProxy*>& proxi
     if(proxies.empty())
         return;
 
-    math::Quad bb = { math::INF, math::INF, -math::INF, -math::INF };
+    math::Quad bb = math::InverseInfQuad;
 
     for(const IObjectProxy* proxy : proxies)
     {
         const math::Quad& proxy_bounding_box = proxy->GetBoundingBox();
-        bb |= proxy_bounding_box;
+        math::ExpandBy(bb, proxy_bounding_box);
     }
 
     const math::Vector position = math::Center(bb);
