@@ -894,15 +894,18 @@ void Editor::SelectItemCallback(int index)
     if(loaded_world.loaded_proxies.empty())
         return;
 
+    std::vector<const IObjectProxy*> loaded_proxies;
+
     Selection new_selection;
-    for(auto& object : loaded_world.loaded_proxies)
+    for(IObjectProxyPtr& object : loaded_world.loaded_proxies)
     {
         new_selection.push_back(object->Id());
+        loaded_proxies.push_back(object.get());
         m_proxies.push_back(std::move(object));
     }
 
     SetSelection(new_selection);
-    TeleportToProxyObject(m_proxies.back().get());
+    TeleportToProxyObject(loaded_proxies);
     m_context.notifications.emplace_back(import_texture, "Imported Entity...", 2.0f);
 }
 
