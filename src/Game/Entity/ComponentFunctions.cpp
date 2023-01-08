@@ -59,8 +59,8 @@ namespace
         const math::Matrix& transform = transform_system->GetTransform(entity->id);
 
         return {
-        { POSITION_ATTRIBUTE, Variant(math::GetPosition(transform)) },
-        { ROTATION_ATTRIBUTE, Variant(math::GetZRotation(transform)) }
+            { POSITION_ATTRIBUTE, Variant(math::GetPosition(transform)) },
+            { ROTATION_ATTRIBUTE, Variant(math::GetZRotation(transform)) }
         };
     }
 
