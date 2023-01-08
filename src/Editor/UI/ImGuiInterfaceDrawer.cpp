@@ -280,7 +280,7 @@ namespace
                 if(proxy == first_proxy)
                     continue;
 
-                Component* target_component = FindComponentFromHash(result.component_hash, proxy->GetComponents());
+                Component* target_component = component::FindComponentFromHash(result.component_hash, proxy->GetComponents());
                 if(!target_component)
                     continue;
 

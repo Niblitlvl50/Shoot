@@ -2,6 +2,7 @@
 #pragma once
 
 #include "UIElements.h"
+#include "UI/UIItemProxy.h"
 
 namespace game
 {
@@ -9,14 +10,21 @@ namespace game
     {
     public:
 
-        PauseScreen(mono::InputSystem* input_system, mono::IEntityManager* entity_manager, class UISystem* ui_system);
+        PauseScreen(
+            mono::TransformSystem* transform_system,
+            mono::InputSystem* input_system,
+            mono::IEntityManager* entity_manager,
+            class UISystem* ui_system);
 
         void ShowAt(const math::Vector& position);
         void Show() override;
         void Hide() override;
 
+        mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;
         mono::IEntityManager* m_entity_manager;
         game::UISystem* m_ui_system;
+
+        UIItemProxy m_proxy;
     };
 }

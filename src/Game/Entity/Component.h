@@ -237,14 +237,13 @@ struct Component
     std::vector<Attribute> properties;
 };
 
-const char* ComponentNameFromHash(uint32_t hash);
-Component DefaultComponentFromHash(uint32_t hash);
-Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components);
-const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components);
-void StripUnknownProperties(Component& component);
-
 namespace component
 {
+    const char* ComponentNameFromHash(uint32_t hash);
+    Component DefaultComponentFromHash(uint32_t hash);
+    Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components);
+    const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components);
+    void StripUnknownProperties(Component& component);
     std::vector<const Component*> GetAllDefaultComponents();
     std::vector<Component*> AddComponent(uint32_t hash, std::vector<Component>& components);
     int ComponentPriorityForHash(uint32_t hash);

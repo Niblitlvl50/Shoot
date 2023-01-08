@@ -308,7 +308,7 @@ public:
             System::Log("Found id %u '%s'", found_index, found_entity->name);
 
             for(uint32_t component_hash : found_entity->components)
-                System::Log("\t%s", ComponentNameFromHash(component_hash));
+                System::Log("\t%s", component::ComponentNameFromHash(component_hash));
 
             m_player_id = found_index;
             m_previous_position = world_click;

@@ -15,13 +15,16 @@
 using namespace game;
 
 PauseScreen::PauseScreen(
+    mono::TransformSystem* transform_system,
     mono::InputSystem* input_system,
     mono::IEntityManager* entity_manager,
     game::UISystem* ui_system)
     //: game::UIOverlay(200, 200.0f / mono::GetWindowAspect())
-    : m_input_system(input_system)
+    : m_transform_system(transform_system)
+    , m_input_system(input_system)
     , m_entity_manager(entity_manager)
     , m_ui_system(ui_system)
+    , m_proxy(ui_system, transform_system, entity_manager)
 {
     const float background_width = 10.0f;
     const float background_height = 5.5f;
@@ -48,12 +51,12 @@ PauseScreen::PauseScreen(
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
     texture_element->SetScale(0.0075f);
 
-    m_entity_manager->CreateEntity("ui_temp", { });
-
     AddChild(background_element);
     AddChild(pause_text);
     AddChild(exit_text);
     AddChild(texture_element);
+
+    m_proxy.UpdateUIItem(exit_text->Transform(), math::Quad(-1, -1, 1, 1));
 }
 
 void PauseScreen::ShowAt(const math::Vector& position)

@@ -22,6 +22,7 @@
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
+#include "Hud/UIElementFactory.h"
 #include "Resources.h"
 #include "Weapons/WeaponSystem.h"
 #include "Zones/ZoneManager.h"
@@ -170,7 +171,7 @@ int main(int argc, char* argv[])
         mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
         system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
         mono::EntitySystem* entity_system =
-            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, ComponentNameFromHash);
+            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, component::ComponentNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 
@@ -198,7 +199,8 @@ int main(int argc, char* argv[])
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
         system_context.CreateSystem<game::WeaponSystem>(
             transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
-        system_context.CreateSystem<game::UISystem>(input_system, transform_system, entity_system, trigger_system);
+        game::UISystem* ui_system = system_context.CreateSystem<game::UISystem>(
+            input_system, transform_system, entity_system, trigger_system);
 
         game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
         system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
@@ -212,6 +214,9 @@ int main(int argc, char* argv[])
 
         game::EntityLogicFactory logic_factory(&system_context, event_handler);
         game::g_logic_factory = &logic_factory;
+
+        game::UIElementFactory ui_element_factory(transform_system, entity_system, ui_system);
+        game::g_ui_element_factory = &ui_element_factory;
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

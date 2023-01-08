@@ -150,7 +150,7 @@ namespace
     void SetupComponents(editor::UIContext& context)
     {
         for(const Component* component : component::GetAllDefaultComponents())
-            context.component_items.push_back({component->hash, component->allow_multiple, ComponentNameFromHash(component->hash), component->category});
+            context.component_items.push_back({component->hash, component->allow_multiple, component::ComponentNameFromHash(component->hash), component->category});
 
         context.component_decorators[AREA_EMITTER_COMPONENT] = { nullptr, editor::AreaEmitterFooter };
         context.component_decorators[TEXTURED_POLYGON_COMPONENT] = { nullptr, editor::TexturedPolygonFooter };
@@ -439,7 +439,7 @@ void Editor::Save()
     for(const IObjectProxyPtr& proxy_ptr : m_proxies)
     {
         std::vector<Component>& components = proxy_ptr->GetComponents();
-        Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, components);
+        Component* sprite_component = component::FindComponentFromHash(SPRITE_COMPONENT, components);
         if(sprite_component)
         {
             int sprite_layer;
@@ -447,7 +447,7 @@ void Editor::Save()
                 FindAttribute(LAYER_ATTRIBUTE, sprite_component->properties, sprite_layer, FallbackMode::REQUIRE_ATTRIBUTE);
             if(found_layer && sprite_layer != 0)
             {
-                Component* layer_component = FindComponentFromHash(LAYER_COMPONENT, components);
+                Component* layer_component = component::FindComponentFromHash(LAYER_COMPONENT, components);
                 if(!layer_component)
                     layer_component = component::AddComponent(LAYER_COMPONENT, components).front();
                 SetAttribute(LAYER_ATTRIBUTE, layer_component->properties, sprite_layer);
@@ -458,7 +458,7 @@ void Editor::Save()
                 FindAttribute(SORT_OFFSET_ATTRIBUTE, sprite_component->properties, sort_offset, FallbackMode::REQUIRE_ATTRIBUTE);
             if(found_sort_offset && sort_offset != 0.0f)
             {
-                Component* layer_component = FindComponentFromHash(LAYER_COMPONENT, components);
+                Component* layer_component = component::FindComponentFromHash(LAYER_COMPONENT, components);
                 if(!layer_component)
                     layer_component = component::AddComponent(LAYER_COMPONENT, components).front();
                 SetAttribute(SORT_OFFSET_ATTRIBUTE, layer_component->properties, sort_offset);
@@ -545,8 +545,8 @@ void Editor::NewEntity()
     mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { NAME_FOLDER_COMPONENT, TRANSFORM_COMPONENT });
 
     const std::vector<Component> components = {
-        DefaultComponentFromHash(NAME_FOLDER_COMPONENT),
-        DefaultComponentFromHash(TRANSFORM_COMPONENT)
+        component::DefaultComponentFromHash(NAME_FOLDER_COMPONENT),
+        component::DefaultComponentFromHash(TRANSFORM_COMPONENT)
     };
 
     auto proxy = std::make_unique<ComponentProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);

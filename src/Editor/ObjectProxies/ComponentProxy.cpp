@@ -35,6 +35,9 @@ ComponentProxy::ComponentProxy(
     , m_editor(editor)
 {
     component::SortComponentsByPriority(m_components);
+
+    for(Component& component : m_components)
+        component::StripUnknownProperties(component);
 }
 
 ComponentProxy::~ComponentProxy()
@@ -54,7 +57,7 @@ uint32_t ComponentProxy::Id() const
 
 std::string ComponentProxy::Name() const
 {
-    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    const Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     if(!name_folder_component)
         return "Unknown";
 
@@ -65,21 +68,21 @@ std::string ComponentProxy::Name() const
 
 void ComponentProxy::SetName(const std::string& name)
 {
-    Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     MONO_ASSERT(name_folder_component != nullptr);
     SetAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name);
 }
 
 void ComponentProxy::SetFolder(const std::string& folder)
 {
-    Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     MONO_ASSERT(name_folder_component != nullptr);
     SetAttribute(FOLDER_ATTRIBUTE, name_folder_component->properties, folder);
 }
 
 std::string ComponentProxy::GetFolder() const
 {
-    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    const Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     if(!name_folder_component)
         return "Unknown";
 
@@ -90,7 +93,7 @@ std::string ComponentProxy::GetFolder() const
 
 bool ComponentProxy::IsLocked() const
 {
-    const Component* name_folder_component = FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
+    const Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     if(!name_folder_component)
         return false;
 
@@ -259,7 +262,7 @@ void ComponentProxy::SetPosition(const math::Vector& position)
     math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(transform, new_position);
 
-    Component* transform_component = FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
+    Component* transform_component = component::FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
     if(transform_component)
         SetAttribute(POSITION_ATTRIBUTE, transform_component->properties, new_position);
 }
@@ -277,7 +280,7 @@ void ComponentProxy::SetRotation(float rotation)
     transform = math::CreateMatrixFromZRotation(rotation);
     math::Position(transform, position);
 
-    Component* transform_component = FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
+    Component* transform_component = component::FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
     if(transform_component)
         SetAttribute(ROTATION_ATTRIBUTE, transform_component->properties, rotation);
 }

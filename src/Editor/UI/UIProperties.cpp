@@ -177,7 +177,7 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     }
     else if(attribute.id == ANIMATION_ATTRIBUTE)
     {
-        const Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, all_components);
+        const Component* sprite_component = component::FindComponentFromHash(SPRITE_COMPONENT, all_components);
         if(!sprite_component)
             return false;
 
@@ -464,7 +464,7 @@ void editor::AddDynamicProperties(Component& component)
             }
             else
             {
-                StripUnknownProperties(component);
+                component::StripUnknownProperties(component);
             }
         }
     }
@@ -492,7 +492,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
         AddDynamicProperties(component);
 
-        const std::string name = PrettifyString(ComponentNameFromHash(component.hash));
+        const std::string name = PrettifyString(component::ComponentNameFromHash(component.hash));
         ImGui::TextDisabled("%s", name.c_str());
 
         if(component.hash != NAME_FOLDER_COMPONENT && component.hash != TRANSFORM_COMPONENT)
@@ -574,7 +574,7 @@ void editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component
             ImGuiSelectableFlags flags = 0;
             if(!component_item.allow_multiple)
             {
-                const bool has_component = FindComponentFromHash(component_item.hash, components) != nullptr;
+                const bool has_component = component::FindComponentFromHash(component_item.hash, components) != nullptr;
                 if(has_component)
                     flags |= ImGuiSelectableFlags_Disabled;
             }

@@ -69,7 +69,7 @@ void PaletteTool::Draw(mono::IRenderer& renderer) const
             IObjectProxy* proxy = m_editor->FindProxyObject(id);
             std::vector<Component>& components = proxy->GetComponents();
 
-            Component* sprite_component = FindComponentFromHash(SPRITE_COMPONENT, components);
+            Component* sprite_component = component::FindComponentFromHash(SPRITE_COMPONENT, components);
             if(sprite_component)
             {
                 const mono::Color::RGBA new_color = (result.apply) ? m_colors[mono::RandomInt(0, m_colors.size() -1)] : mono::Color::WHITE;

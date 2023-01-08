@@ -102,7 +102,7 @@ namespace
                 for(const nlohmann::json& property : json_component["properties"])
                     loaded_properties.push_back(property);
 
-                Component component = DefaultComponentFromHash(component_hash);
+                Component component = component::DefaultComponentFromHash(component_hash);
                 MergeAttributes(component.properties, loaded_properties);
                 components.push_back(std::move(component));
             }
@@ -118,10 +118,10 @@ namespace
             }
 
             // Patch the exported entities to have name and folder component, remove later.
-            Component* name_folder = FindComponentFromHash(NAME_FOLDER_COMPONENT, components);
+            Component* name_folder = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, components);
             if(!name_folder)
             {
-                Component name_folder_component = DefaultComponentFromHash(NAME_FOLDER_COMPONENT);
+                Component name_folder_component = component::DefaultComponentFromHash(NAME_FOLDER_COMPONENT);
                 SetAttribute(NAME_ATTRIBUTE, name_folder_component.properties, entity_name);
                 components.push_back(name_folder_component);
             }
@@ -130,7 +130,7 @@ namespace
             {
                 std::string component_text;
                 for(uint32_t component_hash : ignored_components)
-                    component_text += ComponentNameFromHash(component_hash) + std::string("|");
+                    component_text += component::ComponentNameFromHash(component_hash) + std::string("|");
                 component_text.pop_back();
 
                 System::Log(

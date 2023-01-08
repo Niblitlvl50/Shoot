@@ -157,7 +157,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>(input_system, m_entity_manager, ui_system);
+    m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, ui_system);
     m_pause_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(

@@ -297,7 +297,7 @@ extern const uint32_t UI_ITEM_COMPONENT             = hash::Hash("ui_item");
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_state");
 extern const uint32_t REGION_COMPONENT              = hash::Hash("region");
 
-const char* ComponentNameFromHash(uint32_t hash)
+const char* component::ComponentNameFromHash(uint32_t hash)
 {
     if(hash == NULL_COMPONENT)
         return "null";
@@ -401,7 +401,7 @@ Component MakeComponent(
 
 const Component default_components[] = {
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
-    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE }),
+    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE , DRAW_NAME_ATTRIBUTE }),
@@ -523,7 +523,7 @@ void UnionAttributes(std::vector<Attribute>& result_attributes, const std::vecto
     }
 }
 
-Component DefaultComponentFromHash(uint32_t hash)
+Component component::DefaultComponentFromHash(uint32_t hash)
 {
     const auto find_template = [hash](const Component& component_template) {
         return component_template.hash == hash;
@@ -533,13 +533,13 @@ Component DefaultComponentFromHash(uint32_t hash)
     if(it != std::end(default_components))
         return *it;
 
-    const char* component_name = ComponentNameFromHash(hash);
+    const char* component_name = component::ComponentNameFromHash(hash);
     System::Log("Component|Unable to find default component for hash: %u (%s)", hash, component_name);
 
     return Component();
 }
 
-Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& components)
+Component* component::FindComponentFromHash(uint32_t hash, std::vector<Component>& components)
 {
     const auto find_by_hash = [hash](const Component& component)
     {
@@ -553,12 +553,12 @@ Component* FindComponentFromHash(uint32_t hash, std::vector<Component>& componen
     return nullptr;
 }
 
-const Component* FindComponentFromHash(uint32_t hash, const std::vector<Component>& components)
+const Component* component::FindComponentFromHash(uint32_t hash, const std::vector<Component>& components)
 {
     return FindComponentFromHash(hash, (std::vector<Component>&)components);
 }
 
-void StripUnknownProperties(Component& component)
+void component::StripUnknownProperties(Component& component)
 {
     const Component& template_component = DefaultComponentFromHash(component.hash);
     const std::vector<Attribute>& template_attributes = template_component.properties;
@@ -580,11 +580,11 @@ namespace
 {
     void add_component_recursivly(uint32_t component_hash, std::vector<Component>& components)
     {
-        Component new_component = DefaultComponentFromHash(component_hash);
+        Component new_component = component::DefaultComponentFromHash(component_hash);
 
         if(new_component.depends_on != NULL_COMPONENT)
         {
-            const Component* found_dependency = FindComponentFromHash(new_component.depends_on, components);
+            const Component* found_dependency = component::FindComponentFromHash(new_component.depends_on, components);
             if(!found_dependency)
                 add_component_recursivly(new_component.depends_on, components);
         }
