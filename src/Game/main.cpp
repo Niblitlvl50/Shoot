@@ -170,8 +170,8 @@ int main(int argc, char* argv[])
 
         mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
         system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
-        mono::EntitySystem* entity_system =
-            system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, game::LoadEntityFile, component::ComponentNameFromHash);
+        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
+            max_entities, &system_context, game::LoadEntityFile, component::ComponentNameFromHash, AttributeNameFromHash);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 

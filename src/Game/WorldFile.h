@@ -57,9 +57,4 @@ namespace game
 
     LevelData ReadWorldComponentObjects(
         const char* filename, mono::IEntityManager* entity_manager, EntityCreationCallback creation_callback);
-
-    using ComponentFilterCallback = std::function<bool (uint32_t component_hash)>;
-
-    LevelData ReadWorldComponentObjectsFiltered(
-        const char* filename, mono::IEntityManager* entity_manager, ComponentFilterCallback component_filter);
 }

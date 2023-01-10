@@ -4,8 +4,8 @@
 #include "Rendering/Serialize.h"
 
 #include "EntitySystem/IEntityManager.h"
+#include "EntitySystem/Serialize.h"
 #include "Entity/Component.h"
-#include "Entity/Serialize.h"
 
 #include "System/File.h"
 #include "System/System.h"
@@ -19,14 +19,13 @@ namespace
     game::LevelData ReadWorldComponents(
         const char* filename,
         mono::IEntityManager* entity_manager,
-        game::ComponentFilterCallback component_filter,
         game::EntityCreationCallback creation_callback)
     {
-        game::LevelData level_data;
-
         System::Log("WorldFile|Loading world '%s'.", filename);
         const std::vector<byte> file_data = file::FileReadAll(filename);
         const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+        game::LevelData level_data;
 
         const bool has_metadata = json.contains("metadata");
         if(has_metadata)
@@ -56,91 +55,46 @@ namespace
             level_data.metadata.time_limit_s = json_metadata.value("time_limit_s", 0);
         }
 
-        const nlohmann::json& json_entities = json["entities"];
-        for(uint32_t index = 0; index < json_entities.size(); ++index)
+        const std::vector<mono::EntityData>& loaded_entity_data = json["entities"];
+        
+        std::vector<mono::Entity> loaded_entities;
+        loaded_entities.reserve(loaded_entity_data.size());
+
+        for(const mono::EntityData& entity_data : loaded_entity_data)
         {
-            const auto& json_entity = json_entities[index];
+            mono::Entity entity = entity_manager->CreateEntity(entity_data.entity_name.c_str(), entity_data.entity_uuid, { });
+            entity_manager->SetEntityProperties(entity.id, entity_data.entity_properties);
 
-            const bool has_uuid_hash = json_entity.contains("uuid_hash");
-            const std::string& entity_name = json_entity["name"];
-            const uint32_t entity_properties = json_entity["entity_properties"];
+            loaded_entities.push_back(entity);
+        }
 
-            mono::Entity new_entity;
-
-            if(has_uuid_hash)
-            {
-                const uint32_t uuid_hash = json_entity["uuid_hash"];
-                new_entity = entity_manager->CreateEntity(entity_name.c_str(), uuid_hash, { });
-            }
-            else
-            {
-                new_entity = entity_manager->CreateEntity(entity_name.c_str(), { });
-            }
-
-            entity_manager->SetEntityProperties(new_entity.id, entity_properties);
+        for(uint32_t index = 0; index < loaded_entities.size(); ++index)
+        {
+            mono::Entity& entity = loaded_entities[index];
+            const mono::EntityData& entity_data = loaded_entity_data[index];
 
             std::vector<Component> components;
-            std::vector<uint32_t> ignored_components;
+            components.reserve(entity_data.entity_components.size());
 
-            const nlohmann::json& json_components = json_entity["components"];
-            for(const auto& json_component : json_components)
+            for(const mono::ComponentData& component_data : entity_data.entity_components)
             {
-                const uint32_t component_hash = json_component["hash"];
-                const std::string component_name = json_component["name"];
+                Component component = component::DefaultComponentFromHash(component_data.hash);
+                MergeAttributes(component.properties, component_data.properties);
 
-                if(component_filter)
-                {
-                    const bool accept_component = component_filter(component_hash);
-                    if(!accept_component)
-                    {
-                        ignored_components.push_back(component_hash);
-                        continue;
-                    }
-                }
-
-                std::vector<Attribute> loaded_properties;
-                for(const nlohmann::json& property : json_component["properties"])
-                    loaded_properties.push_back(property);
-
-                Component component = component::DefaultComponentFromHash(component_hash);
-                MergeAttributes(component.properties, loaded_properties);
-                components.push_back(std::move(component));
-            }
-
-            for(const Component& component : components)
-            {
-                const bool add_component_result = entity_manager->AddComponent(new_entity.id, component.hash);
-                const bool set_component_result = entity_manager->SetComponentData(new_entity.id, component.hash, component.properties);
+                const bool add_component_result = entity_manager->AddComponent(entity.id, component.hash);
+                const bool set_component_result = entity_manager->SetComponentData(entity.id, component.hash, component.properties);
                 if(!add_component_result || !set_component_result)
                 {
                     //System::Log("WorldFile|Failed to setup component with name '%s' for entity named '%s'", ComponentNameFromHash(component.hash), entity_name.c_str());
                 }
+
+                components.push_back(std::move(component));
             }
 
-            // Patch the exported entities to have name and folder component, remove later.
-            Component* name_folder = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, components);
-            if(!name_folder)
-            {
-                Component name_folder_component = component::DefaultComponentFromHash(NAME_FOLDER_COMPONENT);
-                SetAttribute(NAME_ATTRIBUTE, name_folder_component.properties, entity_name);
-                components.push_back(name_folder_component);
-            }
-
-            if(!ignored_components.empty())
-            {
-                std::string component_text;
-                for(uint32_t component_hash : ignored_components)
-                    component_text += component::ComponentNameFromHash(component_hash) + std::string("|");
-                component_text.pop_back();
-
-                System::Log(
-                    "Ignored the following components for entity named '%s', %s", entity_name.c_str(), component_text.c_str());
-            }
-
-            level_data.loaded_entities.push_back(new_entity.id);
+            level_data.loaded_entities.push_back(entity.id);
 
             if(creation_callback)
-                creation_callback(new_entity, components);
+                creation_callback(entity, components);
         }
 
         return level_data;
@@ -150,11 +104,5 @@ namespace
 game::LevelData game::ReadWorldComponentObjects(
         const char* filename, mono::IEntityManager* entity_manager, game::EntityCreationCallback creation_callback)
 {
-    return ReadWorldComponents(filename, entity_manager, nullptr, creation_callback);
-}
-
-game::LevelData game::ReadWorldComponentObjectsFiltered(
-        const char* filename, mono::IEntityManager* entity_manager, game::ComponentFilterCallback component_filter)
-{
-    return ReadWorldComponents(filename, entity_manager, component_filter, nullptr);
+    return ReadWorldComponents(filename, entity_manager, creation_callback);
 }

@@ -3,8 +3,9 @@
 #include "ObjectProxies/ComponentProxy.h"
 
 #include "EntitySystem/Entity.h"
-#include "Entity/Serialize.h"
+#include "EntitySystem/Serialize.h"
 #include "WorldFile.h"
+#include "Entity/Component.h"
 
 #include "System/File.h"
 

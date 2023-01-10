@@ -1,8 +1,7 @@
 
 #include "LoadEntity.h"
-
-#include "Component.h"
-#include "Serialize.h"
+#include "EntitySystem/EntityTypes.h"
+#include "EntitySystem/Serialize.h"
 
 #include "System/File.h"
 #include "nlohmann/json.hpp"
@@ -23,22 +22,7 @@ std::vector<mono::EntityData> game::LoadEntityFile(const char* entity_file)
 
     for(const nlohmann::json& entity : entities)
     {
-        mono::EntityData entity_data;
-        entity_data.entity_uuid = entity.value("uuid_hash", 0);
-        entity_data.entity_name = entity.value("name", "Unnamed");
-        entity_data.entity_properties = entity.value("entity_properties", 0);
-
-        for(const nlohmann::json& component : entity["components"])
-        {
-            mono::ComponentData component_data;
-            component_data.name = component["name"];
-
-            for(const nlohmann::json& property : component["properties"])
-                component_data.properties.push_back(property);
-
-            entity_data.entity_components.push_back(std::move(component_data));
-        }
-
+        const mono::EntityData& entity_data = entity;
         loaded_entities.push_back(entity_data);
     }
 

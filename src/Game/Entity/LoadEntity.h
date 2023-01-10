@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "EntitySystem/IEntityManager.h"
+#include "EntitySystem/EntityTypes.h"
 
 namespace game
 {

@@ -53,17 +53,6 @@ namespace
         return true;
     }
 
-    std::vector<Attribute> GetTransform(const mono::Entity* entity, mono::SystemContext* context)
-    {
-        mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
-        const math::Matrix& transform = transform_system->GetTransform(entity->id);
-
-        return {
-            { POSITION_ATTRIBUTE, Variant(math::GetPosition(transform)) },
-            { ROTATION_ATTRIBUTE, Variant(math::GetZRotation(transform)) }
-        };
-    }
-
     bool CreateLayer(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
@@ -491,7 +480,7 @@ namespace
 
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
-    entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform, GetTransform);
+    entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform);
     entity_manager->RegisterComponent(LAYER_COMPONENT, CreateLayer, ReleaseLayer, UpdateLayer);
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
