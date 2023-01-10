@@ -40,6 +40,7 @@ namespace editor
 
         const std::vector<Component>& GetComponents() const override;
         std::vector<Component>& GetComponents() override;
+        Component* GetComponentFromHash(uint32_t component_hash) override;
 
         void ComponentChanged(Component& component, uint32_t attribute_hash) override;
 

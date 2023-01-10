@@ -27,11 +27,9 @@ using namespace game;
 UISystem::UISystem(
     mono::InputSystem* input_system,
     mono::TransformSystem* transform_system,
-    mono::IEntityManager* entity_system,
     TriggerSystem* trigger_system)
     : m_input_system(input_system)
     , m_transform_system(transform_system)
-    , m_entity_system(entity_system)
     , m_trigger_system(trigger_system)
     , m_clicked_this_frame(false)
     , m_button_left(false)
@@ -131,7 +129,8 @@ void UISystem::Update(const mono::UpdateContext& update_context)
 
                 if(new_item_entity_uuid != 0)
                 {
-                    const uint32_t entity_id = m_entity_system->GetEntityIdFromUuid(new_item_entity_uuid);
+                    //const uint32_t entity_id = m_entity_system->GetEntityIdFromUuid(new_item_entity_uuid);
+                    const uint32_t entity_id = new_item_entity_uuid;
 
                     for(uint32_t index = 0; index < m_items.size(); ++index)
                     {

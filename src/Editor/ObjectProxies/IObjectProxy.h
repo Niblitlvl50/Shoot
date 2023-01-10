@@ -33,6 +33,8 @@ namespace editor
         virtual const std::vector<Component>& GetComponents() const = 0;
         virtual std::vector<Component>& GetComponents() = 0;
 
+        virtual Component* GetComponentFromHash(uint32_t component_hash) = 0;
+
         virtual void ComponentChanged(Component& component, uint32_t attribute_hash) = 0;
 
         virtual math::Vector GetPosition() const = 0;

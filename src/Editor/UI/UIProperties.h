@@ -16,7 +16,7 @@ struct Component;
 namespace editor
 {
     bool DrawStringProperty(const char* name, std::string& value, int imgui_flags = 0);
-    bool DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
+    bool DrawProperty(uint32_t component_hash, Attribute& attribute, const std::vector<Component>& all_components, struct UIContext& ui_context);
     void AddDynamicProperties(Component& component);
 
     struct DrawComponentsResult
@@ -47,12 +47,13 @@ namespace editor
     bool DrawValueSpreadProperty(const char* name, math::ValueSpread& value_spread);
     bool DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient);
 
-    using EnablePickCallback = std::function<void (uint32_t* target)>;
+    using EnablePickCallback = std::function<void (uint32_t component_hash, uint32_t* target)>;
     using SelectReferenceCallback = std::function<void (uint32_t reference)>;
     bool DrawEntityReferenceProperty(
         const char* name,
         const char* entity_name,
         uint32_t& entity_reference,
+        uint32_t component_hash,
         const EnablePickCallback& pick_callback,
         const SelectReferenceCallback& select_callback);
 

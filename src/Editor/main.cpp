@@ -77,21 +77,23 @@ int main()
         game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
         system_context.CreateSystem<game::RegionSystem>(physics_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-        system_context.CreateSystem<game::UISystem>(input_system, transform_system, entity_system, trigger_system);
+        system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system);
 
         game::RegisterSharedComponents(entity_system);
         game::LoadFonts();
 
-        mono::Camera camera;
-        auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config, max_entities);
-        mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
+        {
+            mono::Camera camera;
+            auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config, max_entities);
+            mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
 
-        const System::Position& position = window->Position();
-        const System::Size& size = window->Size();
-        config.window_position = math::Vector(position.x, position.y);
-        config.window_size = math::Vector(size.width, size.height);
+            const System::Position& position = window->Position();
+            const System::Size& size = window->Size();
+            config.window_position = math::Vector(position.x, position.y);
+            config.window_size = math::Vector(size.width, size.height);
 
-        editor::SaveConfig("res/editor_config.json", config);
+            editor::SaveConfig("res/editor_config.json", config);
+        }
 
         system_context.DestroySystems();
     

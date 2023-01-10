@@ -65,7 +65,6 @@ namespace game
         UISystem(
             mono::InputSystem* input_system,
             mono::TransformSystem* transform_system,
-            mono::IEntityManager* entity_system,
             class TriggerSystem* trigger_system);
         ~UISystem();
 
@@ -109,7 +108,6 @@ namespace game
 
         mono::InputSystem* m_input_system;
         mono::TransformSystem* m_transform_system;
-        mono::IEntityManager* m_entity_system;
         TriggerSystem* m_trigger_system;
 
         mono::InputContext* m_input_context;

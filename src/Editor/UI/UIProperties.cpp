@@ -131,7 +131,7 @@ bool DrawGenericProperty(const char* text, Variant& value)
     return std::visit(visitor, value);
 }
 
-bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
+bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
 {
     const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
     const char* attribute_name = text.c_str();
@@ -325,7 +325,8 @@ bool editor::DrawProperty(Attribute& attribute, const std::vector<Component>& al
     {
         uint32_t& entity_id = std::get<uint32_t>(attribute.value);
         const char* entity_name = ui_context.entity_name_callback(entity_id);
-        return DrawEntityReferenceProperty(attribute_name, entity_name, entity_id, ui_context.pick_callback, ui_context.select_reference_callback);
+        return DrawEntityReferenceProperty(
+            attribute_name, entity_name, entity_id, component_hash, ui_context.pick_callback, ui_context.select_reference_callback);
     }
     else if(attribute.id == TEXTURE_ATTRIBUTE)
     {
@@ -516,7 +517,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
         for(Attribute& property : component.properties)
         {
-            const bool property_changed = DrawProperty(property, components, ui_context);
+            const bool property_changed = DrawProperty(component.hash, property, components, ui_context);
             if(property_changed)
             {
                 component_changed = true;
@@ -879,6 +880,7 @@ bool editor::DrawEntityReferenceProperty(
     const char* name,
     const char* entity_name,
     uint32_t& entity_reference,
+    uint32_t component_hash,
     const EnablePickCallback& pick_callback,
     const SelectReferenceCallback& select_callback)
 {
@@ -894,7 +896,7 @@ bool editor::DrawEntityReferenceProperty(
     ImGui::PushID(&entity_reference);
     const bool enable_pick = ImGui::Button(label, ImVec2(item_width - (tiny_button_width * 2) - (item_spacing * 2), 0));
     if(enable_pick)
-        pick_callback(&entity_reference);
+        pick_callback(component_hash, &entity_reference);
 
     ImGui::SameLine(0.0f, item_spacing);
     const bool clear_picked_entity = ImGui::Button("x", ImVec2(tiny_button_width, 0));
@@ -911,7 +913,7 @@ bool editor::DrawEntityReferenceProperty(
 
     ImGui::PopID();
 
-    return enable_pick;
+    return enable_pick || clear_picked_entity;
 }
 
 editor::PaletteResult editor::DrawPaletteView(const std::vector<mono::Color::RGBA>& colors, int selected_index)

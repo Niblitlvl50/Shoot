@@ -43,10 +43,22 @@ namespace
         FindAttribute(POSITION_ATTRIBUTE, properties, position, FallbackMode::SET_DEFAULT);
         FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
 
+        uint32_t entity_ref = 0;
+        FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, entity_ref, FallbackMode::SET_DEFAULT);
+
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(entity->id);
         transform = math::CreateMatrixFromZRotation(rotation);
         math::Position(transform, position);
+
+        transform_system->UnchildTransform(entity->id);
+
+        if(entity_ref != 0)
+        {
+            mono::IEntityManager* entity_manager = context->GetSystem<mono::IEntityManager>();
+            const uint32_t parent_entity_id = entity_manager->GetEntityIdFromUuid(entity_ref);
+            transform_system->ChildTransform(entity->id, parent_entity_id);
+        }
 
         transform_system->SetTransformState(entity->id, mono::TransformState::CLIENT);
 
@@ -403,6 +415,12 @@ namespace
         FindAttribute(UI_RIGHT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.right_entity_uuid, FallbackMode::SET_DEFAULT);
         FindAttribute(UI_ABOVE_ITEM_ID_ATTRIBUTE, properties, navigation_setup.above_entity_uuid, FallbackMode::SET_DEFAULT);
         FindAttribute(UI_BELOW_ITEM_ID_ATTRIBUTE, properties, navigation_setup.below_entity_uuid, FallbackMode::SET_DEFAULT);
+
+        const mono::IEntityManager* entity_manager = context->GetSystem<mono::IEntityManager>();
+        navigation_setup.left_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.left_entity_uuid);
+        navigation_setup.right_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.right_entity_uuid);
+        navigation_setup.above_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.above_entity_uuid);
+        navigation_setup.below_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.below_entity_uuid);
 
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
         ui_system->UpdateUIItem(

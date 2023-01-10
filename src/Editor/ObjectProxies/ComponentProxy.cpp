@@ -16,8 +16,6 @@
 #include "Editor.h"
 #include "System/Debug.h"
 
-#include "imgui/imgui.h"
-
 #include <algorithm>
 
 using namespace editor;
@@ -192,6 +190,11 @@ std::vector<Component>& ComponentProxy::GetComponents()
     return m_components;
 }
 
+Component* ComponentProxy::GetComponentFromHash(uint32_t component_hash)
+{
+    return component::FindComponentFromHash(component_hash, m_components);
+}
+
 void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_hash)
 {
     m_entity_manager->SetComponentData(m_entity_id, component.hash, component.properties);
@@ -264,7 +267,10 @@ void ComponentProxy::SetPosition(const math::Vector& position)
 
     Component* transform_component = component::FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
     if(transform_component)
+    {
         SetAttribute(POSITION_ATTRIBUTE, transform_component->properties, new_position);
+        ComponentChanged(*transform_component, POSITION_ATTRIBUTE);
+    }
 }
 
 float ComponentProxy::GetRotation() const
@@ -282,7 +288,10 @@ void ComponentProxy::SetRotation(float rotation)
 
     Component* transform_component = component::FindComponentFromHash(TRANSFORM_COMPONENT, m_components);
     if(transform_component)
+    {
         SetAttribute(ROTATION_ATTRIBUTE, transform_component->properties, rotation);
+        ComponentChanged(*transform_component, ROTATION_ATTRIBUTE);
+    }
 }
 
 math::Quad ComponentProxy::GetBoundingBox() const

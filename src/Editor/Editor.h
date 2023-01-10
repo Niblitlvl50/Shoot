@@ -136,7 +136,7 @@ namespace editor
         void DuplicateSelected();
         void ReExportEntities();
 
-        void SetPickingTarget(uint32_t* target_data);
+        void SetPickingTarget(uint32_t component_hash, uint32_t* target_data);
 
         void EnterMode(EditorMode new_mode);
         void PopMode();
@@ -165,6 +165,8 @@ namespace editor
         Selection m_selected_ids;
         uint32_t m_preselected_id;
         std::stack<EditorMode> m_mode_stack;
+
+        uint32_t m_pick_component_hash;
         uint32_t* m_pick_target;
 
         std::vector<IObjectProxyPtr> m_proxies;

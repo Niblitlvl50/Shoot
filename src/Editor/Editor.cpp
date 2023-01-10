@@ -205,8 +205,8 @@ Editor::Editor(
 
     m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);
     m_context.modal_selection_callback = std::bind(&Editor::SelectItemCallback, this, _1);
-    m_context.pick_callback = [this](uint32_t* target_data){
-        SetPickingTarget(target_data);
+    m_context.pick_callback = [this](uint32_t component_hash, uint32_t* target_data){
+        SetPickingTarget(component_hash, target_data);
         EnterMode(EditorMode::REFERENCE_PICKING);
     };
 
@@ -573,6 +573,11 @@ void Editor::SetSelection(const Selection& selected_ids)
             *m_pick_target = entity_uuid;
             m_pick_target = nullptr;
             m_mode_stack.pop();
+
+            const uint32_t selected_id = m_selected_ids.front();
+            IObjectProxy* proxy = FindProxyObject(selected_id);
+            Component* changed_component = proxy->GetComponentFromHash(m_pick_component_hash);
+            proxy->ComponentChanged(*changed_component, ENTITY_REFERENCE_ATTRIBUTE);
         }
 
         return;
@@ -1112,8 +1117,9 @@ void Editor::ReExportEntities()
     }
 }
 
-void Editor::SetPickingTarget(uint32_t* target_data)
+void Editor::SetPickingTarget(uint32_t component_hash, uint32_t* target_data)
 {
+    m_pick_component_hash = component_hash;
     m_pick_target = target_data;
 }
 
