@@ -496,31 +496,15 @@ void Editor::ExportAsIndividualEntities()
 
 void Editor::ExportAsEntityCollection()
 {
-    math::Quad bb = math::InverseInfQuad;
-    std::vector<IObjectProxy*> mutable_proxies;
-
-    for(uint32_t id : m_selected_ids)
-    {
-        IObjectProxy* proxy = FindProxyObject(id);
-        if(!proxy)
-            continue;
-
-        mutable_proxies.push_back(proxy);
-        math::ExpandBy(bb, proxy->GetBoundingBox());
-    }
-
-    if(mutable_proxies.empty())
+    if(m_selected_ids.empty())
         return;
 
     std::vector<const IObjectProxy*> proxies;
-    const math::Vector position = math::Center(bb);
-
-    for(IObjectProxy* proxy : mutable_proxies)
+    for(uint32_t id : m_selected_ids)
     {
-        const math::Vector new_position = proxy->GetPosition() - position;
-        proxy->SetPosition(new_position);
-
-        proxies.push_back(proxy);
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(proxy)
+            proxies.push_back(proxy);
     }
 
     std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + "_collection.entity";
