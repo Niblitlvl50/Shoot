@@ -40,16 +40,17 @@ namespace
     {
         math::Vector position;
         float rotation = 0.0f;
+        float scale = 1.0f;
         FindAttribute(POSITION_ATTRIBUTE, properties, position, FallbackMode::SET_DEFAULT);
         FindAttribute(ROTATION_ATTRIBUTE, properties, rotation, FallbackMode::SET_DEFAULT);
+        FindAttribute(SCALE_ATTRIBUTE, properties, scale, FallbackMode::SET_DEFAULT);
 
         uint32_t entity_ref = 0;
         FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, entity_ref, FallbackMode::SET_DEFAULT);
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
         math::Matrix& transform = transform_system->GetTransform(entity->id);
-        transform = math::CreateMatrixFromZRotation(rotation);
-        math::Position(transform, position);
+        transform = math::CreateMatrixWithPositionRotationScale(position, rotation, math::Vector(scale, scale));
 
         transform_system->UnchildTransform(entity->id);
 

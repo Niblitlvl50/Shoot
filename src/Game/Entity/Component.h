@@ -8,6 +8,7 @@
 
 extern const uint32_t POSITION_ATTRIBUTE;
 extern const uint32_t ROTATION_ATTRIBUTE;
+extern const uint32_t SCALE_ATTRIBUTE;
 extern const uint32_t RADIUS_ATTRIBUTE;
 extern const uint32_t SIZE_ATTRIBUTE;
 extern const uint32_t OFFSET_ATTRIBUTE;

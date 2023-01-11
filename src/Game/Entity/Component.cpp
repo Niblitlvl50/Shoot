@@ -31,6 +31,7 @@ static const std::vector<math::Vector> spawn_points_default = {
 const DefaultAttribute default_attributes[] = {
     { "position",                   Variant(math::ZeroVec) },
     { "rotation",                   Variant(0.0f) },
+    { "scale",                      Variant(1.0f) },
     { "radius",                     Variant(1.0f) },
     { "size",                       Variant(math::Vector(1.0f, 1.0f)) },
     { "time_stamp",                 Variant(1000) },
@@ -133,123 +134,124 @@ const DefaultAttribute default_attributes[] = {
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
 extern const uint32_t ROTATION_ATTRIBUTE            = default_attributes[1].hash;
-extern const uint32_t RADIUS_ATTRIBUTE              = default_attributes[2].hash;
-extern const uint32_t SIZE_ATTRIBUTE                = default_attributes[3].hash;
-extern const uint32_t TIME_STAMP_ATTRIBUTE          = default_attributes[4].hash;
-extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[5].hash;
-extern const uint32_t ENABLE_ATTRIBUTE              = default_attributes[6].hash;
-extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[7].hash;
-extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[8].hash;
-extern const uint32_t SHADOW_OFFSET_ATTRIBUTE       = default_attributes[9].hash;
-extern const uint32_t SHADOW_SIZE_ATTRIBUTE         = default_attributes[10].hash;
+extern const uint32_t SCALE_ATTRIBUTE               = default_attributes[2].hash;
+extern const uint32_t RADIUS_ATTRIBUTE              = default_attributes[3].hash;
+extern const uint32_t SIZE_ATTRIBUTE                = default_attributes[4].hash;
+extern const uint32_t TIME_STAMP_ATTRIBUTE          = default_attributes[5].hash;
+extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[6].hash;
+extern const uint32_t ENABLE_ATTRIBUTE              = default_attributes[7].hash;
+extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[8].hash;
+extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[9].hash;
+extern const uint32_t SHADOW_OFFSET_ATTRIBUTE       = default_attributes[10].hash;
+extern const uint32_t SHADOW_SIZE_ATTRIBUTE         = default_attributes[11].hash;
 
-extern const uint32_t PICKUP_TYPE_ATTRIBUTE         = default_attributes[11].hash;
-extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[12].hash;
+extern const uint32_t PICKUP_TYPE_ATTRIBUTE         = default_attributes[12].hash;
+extern const uint32_t AMOUNT_ATTRIBUTE              = default_attributes[13].hash;
 
-extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[13].hash;
-extern const uint32_t MASS_ATTRIBUTE                = default_attributes[14].hash;
-extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[15].hash;
-extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[16].hash;
+extern const uint32_t BODY_TYPE_ATTRIBUTE           = default_attributes[14].hash;
+extern const uint32_t MASS_ATTRIBUTE                = default_attributes[15].hash;
+extern const uint32_t INERTIA_ATTRIBUTE             = default_attributes[16].hash;
+extern const uint32_t PREVENT_ROTATION_ATTRIBUTE    = default_attributes[17].hash;
 
-extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[17].hash;
-extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[18].hash;
+extern const uint32_t FACTION_ATTRIBUTE             = default_attributes[18].hash;
+extern const uint32_t FACTION_PICKER_ATTRIBUTE      = default_attributes[19].hash;
 
-extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[19].hash;
-extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[20].hash;
-extern const uint32_t START_ATTRIBUTE               = default_attributes[21].hash;
-extern const uint32_t END_ATTRIBUTE                 = default_attributes[22].hash;
-extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[23].hash;
+extern const uint32_t ZOOM_LEVEL_ATTRIBUTE          = default_attributes[20].hash;
+extern const uint32_t WIDTH_ATTRIBUTE               = default_attributes[21].hash;
+extern const uint32_t START_ATTRIBUTE               = default_attributes[22].hash;
+extern const uint32_t END_ATTRIBUTE                 = default_attributes[23].hash;
+extern const uint32_t SENSOR_ATTRIBUTE              = default_attributes[24].hash;
 
-extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[24].hash;
-extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[25].hash;
-extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[26].hash;
+extern const uint32_t HEALTH_ATTRIBUTE              = default_attributes[25].hash;
+extern const uint32_t SCORE_ATTRIBUTE               = default_attributes[26].hash;
+extern const uint32_t BOSS_HEALTH_ATTRIBUTE         = default_attributes[27].hash;
 
-extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[27].hash;
-extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[28].hash;
-extern const uint32_t DRAW_NAME_ATTRIBUTE           = default_attributes[29].hash;
-extern const uint32_t SORT_OFFSET_ATTRIBUTE         = default_attributes[30].hash;
-extern const uint32_t LAYER_ATTRIBUTE               = default_attributes[31].hash;
-extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[32].hash;
+extern const uint32_t SPRITE_ATTRIBUTE              = default_attributes[28].hash;
+extern const uint32_t ANIMATION_ATTRIBUTE           = default_attributes[29].hash;
+extern const uint32_t DRAW_NAME_ATTRIBUTE           = default_attributes[30].hash;
+extern const uint32_t SORT_OFFSET_ATTRIBUTE         = default_attributes[31].hash;
+extern const uint32_t LAYER_ATTRIBUTE               = default_attributes[32].hash;
+extern const uint32_t SPRITE_PROPERTIES_ATTRIBUTE   = default_attributes[33].hash;
 
-extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[33].hash;
-extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[34].hash;
-extern const uint32_t SPAWN_LIMIT_ATTRIBUTE         = default_attributes[35].hash;
+extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE    = default_attributes[34].hash;
+extern const uint32_t SPAWN_SCORE_ATTRIBUTE         = default_attributes[35].hash;
+extern const uint32_t SPAWN_LIMIT_ATTRIBUTE         = default_attributes[36].hash;
 
-extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[36].hash;
-extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[37].hash;
-extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE      = default_attributes[38].hash;
-extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE     = default_attributes[39].hash;
+extern const uint32_t TRIGGER_NAME_ATTRIBUTE        = default_attributes[37].hash;
+extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE   = default_attributes[38].hash;
+extern const uint32_t ENABLE_TRIGGER_ATTRIBUTE      = default_attributes[39].hash;
+extern const uint32_t DISABLE_TRIGGER_ATTRIBUTE     = default_attributes[40].hash;
 
-extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[40].hash;
-extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[41].hash;
-extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[42].hash;
-extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[43].hash;
+extern const uint32_t DURATION_ATTRIBUTE            = default_attributes[41].hash;
+extern const uint32_t EASING_FUNC_ATTRIBUTE         = default_attributes[42].hash;
+extern const uint32_t LOGIC_OP_ATTRIBUTE            = default_attributes[43].hash;
+extern const uint32_t N_ENTITIES_ATTRIBUTE          = default_attributes[44].hash;
 
-extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[44].hash;
-extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[45].hash;
-extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[46].hash;
-extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[47].hash;
-extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[48].hash;
-extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[49].hash;
-extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[50].hash;
+extern const uint32_t FONT_ID_ATTRIBUTE             = default_attributes[45].hash;
+extern const uint32_t TEXT_ATTRIBUTE                = default_attributes[46].hash;
+extern const uint32_t TEXT_SHADOW_ATTRIBUTE         = default_attributes[47].hash;
+extern const uint32_t ANIMATION_MODE_ATTRIBUTE      = default_attributes[48].hash;
+extern const uint32_t REPEATING_ATTRIBUTE           = default_attributes[49].hash;
+extern const uint32_t POLYGON_ATTRIBUTE             = default_attributes[50].hash;
+extern const uint32_t RANDOM_START_FRAME_ATTRIBUTE  = default_attributes[51].hash;
 
-extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[51].hash;
-extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[52].hash;
-extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[53].hash;
-extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[54].hash;
-extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[55].hash;
+extern const uint32_t TRIGGER_NAME_COMPLETED_ATTRIBUTE  = default_attributes[52].hash;
+extern const uint32_t COUNT_ATTRIBUTE                   = default_attributes[53].hash;
+extern const uint32_t RESET_ON_COMPLETED_ATTRIBUTE      = default_attributes[54].hash;
+extern const uint32_t CENTER_FLAGS_ATTRIBUTE            = default_attributes[55].hash;
+extern const uint32_t INTERACTION_TYPE_ATTRIBUTE        = default_attributes[56].hash;
 
-extern const uint32_t PATH_TYPE_ATTRIBUTE           = default_attributes[56].hash;
-extern const uint32_t PATH_POINTS_ATTRIBUTE         = default_attributes[57].hash;
-extern const uint32_t PATH_CLOSED_ATTRIBUTE         = default_attributes[58].hash;
+extern const uint32_t PATH_TYPE_ATTRIBUTE           = default_attributes[57].hash;
+extern const uint32_t PATH_POINTS_ATTRIBUTE         = default_attributes[58].hash;
+extern const uint32_t PATH_CLOSED_ATTRIBUTE         = default_attributes[59].hash;
 
-extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[59].hash;
-extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[60].hash;
+extern const uint32_t ENTITY_REFERENCE_ATTRIBUTE    = default_attributes[60].hash;
+extern const uint32_t TEXTURE_ATTRIBUTE             = default_attributes[61].hash;
 
-extern const uint32_t NAME_ATTRIBUTE                = default_attributes[61].hash;
-extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[62].hash;
+extern const uint32_t NAME_ATTRIBUTE                = default_attributes[62].hash;
+extern const uint32_t FOLDER_ATTRIBUTE              = default_attributes[63].hash;
 
-extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[63].hash;
-extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[64].hash;
-extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[65].hash;
+extern const uint32_t FLICKER_ATTRIBUTE             = default_attributes[64].hash;
+extern const uint32_t FREQUENCY_ATTRIBUTE           = default_attributes[65].hash;
+extern const uint32_t PERCENTAGE_ATTRIBUTE          = default_attributes[66].hash;
 
-extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[66].hash;
-extern const uint32_t SHADOW_COLOR_ATTRIBUTE            = default_attributes[67].hash;
-extern const uint32_t EMIT_ONCE_ATTRIBUTE               = default_attributes[68].hash;
+extern const uint32_t DESTROYED_TRIGGER_TYPE_ATTRIBUTE  = default_attributes[67].hash;
+extern const uint32_t SHADOW_COLOR_ATTRIBUTE            = default_attributes[68].hash;
+extern const uint32_t EMIT_ONCE_ATTRIBUTE               = default_attributes[69].hash;
 
-extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[69].hash;
-extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[70].hash;
+extern const uint32_t OFFSET_ATTRIBUTE                  = default_attributes[70].hash;
+extern const uint32_t ENTITY_FILE_ATTRIBUTE             = default_attributes[71].hash;
 
-extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[71].hash;
-extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[72].hash;
-extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[73].hash;
-extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[74].hash;
-extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE       = default_attributes[75].hash;
-extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE         = default_attributes[76].hash;
-extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[77].hash;
-extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[78].hash;
-extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[79].hash;
-extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[80].hash;
-extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[81].hash;
-extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[82].hash;
-extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE             = default_attributes[83].hash;
-extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes[84].hash;
-extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[85].hash;
-extern const uint32_t SPAWN_POINTS_ATTRIBUTE                = default_attributes[86].hash;
-extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE              = default_attributes[87].hash;
-extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[88].hash;
-extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[89].hash;
+extern const uint32_t POOL_SIZE_ATTRIBUTE               = default_attributes[72].hash;
+extern const uint32_t BLEND_MODE_ATTRIBUTE              = default_attributes[73].hash;
+extern const uint32_t EMIT_RATE_ATTRIBUTE               = default_attributes[74].hash;
+extern const uint32_t EMITTER_TYPE_ATTRIBUTE            = default_attributes[75].hash;
+extern const uint32_t START_SIZE_SPREAD_ATTRIBUTE       = default_attributes[76].hash;
+extern const uint32_t END_SIZE_SPREAD_ATTRIBUTE         = default_attributes[77].hash;
+extern const uint32_t LIFE_INTERVAL_ATTRIBUTE           = default_attributes[78].hash;
+extern const uint32_t DIRECTION_INTERVAL_ATTRIBUTE      = default_attributes[79].hash;
+extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE      = default_attributes[80].hash;
+extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE    = default_attributes[81].hash;
+extern const uint32_t GRADIENT4_ATTRIBUTE                   = default_attributes[82].hash;
+extern const uint32_t DAMPING_ATTRIBUTE                     = default_attributes[83].hash;
+extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE             = default_attributes[84].hash;
+extern const uint32_t PARTICLE_DRAW_LAYER                   = default_attributes[85].hash;
+extern const uint32_t EDITOR_PROPERTIES_ATTRIBUTE           = default_attributes[86].hash;
+extern const uint32_t SPAWN_POINTS_ATTRIBUTE                = default_attributes[87].hash;
+extern const uint32_t WEAPON_PRIMARY_ATTRIBUTE              = default_attributes[88].hash;
+extern const uint32_t WEAPON_SECONDARY_ATTRIBUTE            = default_attributes[89].hash;
+extern const uint32_t WEAPON_TERTIARY_ATTRIBUTE             = default_attributes[90].hash;
 
-extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[90].hash;
-extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[91].hash;
-extern const uint32_t SUB_TEXT_ATTRIBUTE                    = default_attributes[92].hash;
-extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE          = default_attributes[93].hash;
-extern const uint32_t UI_GROUP_ATTRIBUTE                    = default_attributes[94].hash;
-extern const uint32_t UI_ITEM_STATE_ATTRIBUTE               = default_attributes[95].hash;
-extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE             = default_attributes[96].hash;
-extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE            = default_attributes[97].hash;
-extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes[98].hash;
-extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[99].hash;
+extern const uint32_t SOUND_ATTRIBUTE                       = default_attributes[91].hash;
+extern const uint32_t SOUND_PLAY_PARAMETERS                 = default_attributes[92].hash;
+extern const uint32_t SUB_TEXT_ATTRIBUTE                    = default_attributes[93].hash;
+extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE          = default_attributes[94].hash;
+extern const uint32_t UI_GROUP_ATTRIBUTE                    = default_attributes[95].hash;
+extern const uint32_t UI_ITEM_STATE_ATTRIBUTE               = default_attributes[96].hash;
+extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE             = default_attributes[97].hash;
+extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE            = default_attributes[98].hash;
+extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes[99].hash;
+extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[100].hash;
 
 
 
@@ -401,7 +403,7 @@ Component MakeComponent(
 
 const Component default_components[] = {
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
-    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
+    MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, SCALE_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE , DRAW_NAME_ATTRIBUTE }),
