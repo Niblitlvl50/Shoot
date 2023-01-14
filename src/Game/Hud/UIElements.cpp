@@ -146,6 +146,14 @@ void UITextElement::SetAlpha(float alpha)
     m_color.alpha = alpha;
 }
 
+math::Quad UITextElement::GetBounds() const
+{
+    const math::Vector text_size = mono::MeasureString(m_font_id, m_text.c_str());
+    const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_size, m_centering);
+
+    return math::Quad(text_offset, text_offset + text_size);
+}
+
 void UITextElement::Draw(mono::IRenderer& renderer) const
 {
     if(!m_show || m_text.empty())

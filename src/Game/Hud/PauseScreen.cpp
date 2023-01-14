@@ -11,6 +11,7 @@
 #include "Camera/ICamera.h"
 
 #include "EntitySystem/IEntityManager.h"
+#include "TransformSystem/TransformSystem.h"
 
 using namespace game;
 
@@ -44,24 +45,30 @@ PauseScreen::PauseScreen(
     const char* start_to_exit = "start to exit";
     const math::Vector text_size = mono::MeasureString(font_id, start_to_exit);
 
-    UITextElement* exit_text =
+    m_exit_text =
         new UITextElement(font_id, start_to_exit, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    exit_text->SetPosition(background_x + background_width - text_size.x - 0.2f, background_y + 0.15f);
+    m_exit_text->SetPosition(background_x + background_width - text_size.x - 0.2f, background_y + 0.15f);
 
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
     texture_element->SetScale(0.0075f);
 
     AddChild(background_element);
     AddChild(pause_text);
-    AddChild(exit_text);
+    AddChild(m_exit_text);
     AddChild(texture_element);
-
-    m_proxy.UpdateUIItem(exit_text->Transform(), math::Quad(-1, -1, 1, 1));
 }
 
 void PauseScreen::ShowAt(const math::Vector& position)
 {
     m_position = position;
+
+    const math::Matrix& exit_text_transform = Transform() * m_exit_text->Transform();
+    m_proxy.UpdateUIItem(exit_text_transform, m_exit_text->GetBounds());
+
+    // m_entities = m_entity_manager->CreateEntityCollection("res/entities/pause_screen_collection.entity");
+    // math::Matrix& transform = m_transform_system->GetTransform(m_entities.front().id);
+    // math::Position(transform, position);
+
     Show();
 }
 
@@ -75,4 +82,7 @@ void PauseScreen::Hide()
 {
     UIElement::Hide();
     m_ui_system->Disable();
+
+    // m_entity_manager->ReleaseEntities(m_entities);
+    // m_entities.clear();
 }

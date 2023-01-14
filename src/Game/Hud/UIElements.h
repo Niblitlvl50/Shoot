@@ -77,6 +77,8 @@ namespace game
         void SetColor(const mono::Color::RGBA& new_color);
         void SetAlpha(float alpha);
 
+        math::Quad GetBounds() const;
+
     private:
 
         void Draw(mono::IRenderer& renderer) const override;

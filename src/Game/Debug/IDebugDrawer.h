@@ -26,4 +26,6 @@ namespace game
         virtual void DrawCircleFading(const math::Vector& position, float radius, const mono::Color::RGBA& color, float time_s) = 0;
         virtual void DrawScreenTextFading(const char* text, const math::Vector& position, const mono::Color::RGBA& color, float time_s) = 0;
     };
+
+    extern IDebugDrawer* g_debug_drawer;
 }

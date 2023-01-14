@@ -2,6 +2,7 @@
 #include "TrackingBehaviour.h"
 
 #include "Navigation/NavMesh.h"
+#include "Navigation/NavigationSystem.h"
 
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
@@ -19,9 +20,10 @@
 
 using namespace game;
 
-TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system)
+TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system, game::NavigationSystem* navigation_system)
     : m_entity_body(body)
     , m_physics_system(physics_system)
+    , m_navigation_system(navigation_system)
     , m_tracking_position(math::INF, math::INF)
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
@@ -80,22 +82,23 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
 
 bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
 {
-    if(!g_navmesh)
+    const game::NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
+    if(!navmesh_context)
         return false;
 
     const math::Vector position = m_entity_body->GetPosition();
 
-    const int start = game::FindClosestIndex(*g_navmesh, position);
-    const int end = game::FindClosestIndex(*g_navmesh, tracking_position);
+    const int start = game::FindClosestIndex(*navmesh_context, position);
+    const int end = game::FindClosestIndex(*navmesh_context, tracking_position);
 
     if(start == end || start == -1 || end == -1)
         return false;
 
-    const std::vector<int>& nav_path = game::AStar(*g_navmesh, start, end);
+    const std::vector<int>& nav_path = game::AStar(*navmesh_context, start, end);
     if(nav_path.empty())
         return false;
 
-    const std::vector<math::Vector>& points = PathToPoints(*g_navmesh, nav_path);
+    const std::vector<math::Vector>& points = PathToPoints(*navmesh_context, nav_path);
     m_path = mono::CreatePath(points);
     m_current_position = m_path->GetLengthFromPosition(position);
 

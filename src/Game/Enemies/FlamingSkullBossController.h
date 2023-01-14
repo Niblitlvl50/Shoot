@@ -17,7 +17,7 @@ namespace game
     {
     public:
 
-        FlamingSkullBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        FlamingSkullBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         virtual ~FlamingSkullBossController();
 
         void Update(const mono::UpdateContext& update_context) override;
@@ -47,7 +47,6 @@ namespace game
         void HuntState(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
-        mono::EventHandler& m_event_handler;
         float m_awake_state_timer_s;
         float m_visibility_check_timer_s;
 

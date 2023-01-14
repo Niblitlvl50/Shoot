@@ -332,7 +332,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(m_component_detail_visualizer.get(), game::LayerId::GAMEOBJECTS_UI);
     AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), game::LayerId::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), game::LayerId::GAMEOBJECTS);
-    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), game::LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), game::LayerId::POST_GAMEOBJECTS);
@@ -340,6 +339,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::PRE_GAMEOBJECTS), game::LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::POST_GAMEOBJECTS), game::LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), game::LayerId::UI);
 }
 

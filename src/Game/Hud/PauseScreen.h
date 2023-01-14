@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "UIElements.h"
 #include "UI/UIItemProxy.h"
 
@@ -25,6 +26,9 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         game::UISystem* m_ui_system;
 
+        UITextElement* m_exit_text;
         UIItemProxy m_proxy;
+
+        std::vector<mono::Entity> m_entities;
     };
 }

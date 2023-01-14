@@ -34,7 +34,7 @@ namespace tweak_values
 
 using namespace game;
 
-GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
 {
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();

@@ -12,7 +12,6 @@
 #include "SpawnSystem/SpawnSystem.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
-#include "Entity/EntityLogicFactory.h"
 #include "Entity/AnimationSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -212,8 +211,8 @@ namespace
         if(!found_property)
             return false;
 
-        game::IEntityLogic* entity_logic = game::g_logic_factory->CreateLogic(game::EntityLogicType(logic_type_value), properties, entity->id);
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
+        game::IEntityLogic* entity_logic = logic_system->CreateLogic(game::EntityLogicType(logic_type_value), properties, entity->id);
         logic_system->AddLogic(entity->id, entity_logic);
 
         return true;

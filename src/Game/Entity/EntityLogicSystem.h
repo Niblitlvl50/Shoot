@@ -1,13 +1,17 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IGameSystem.h"
 #include "Util/ActiveVector.h"
+#include "EntityLogicTypes.h"
 
 #include <cstddef>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+struct Attribute;
 
 namespace game
 {
@@ -30,7 +34,7 @@ namespace game
     {
     public:
 
-        EntityLogicSystem(size_t n_entities);
+        EntityLogicSystem(uint32_t n_entities, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         ~EntityLogicSystem();
 
         void AddLogic(uint32_t entity_id, IEntityLogic* entity_logic);
@@ -39,10 +43,15 @@ namespace game
         void SetDebugCategory(const char* debug_category, bool activate);
         std::vector<EntityDebugCategory> GetDebugCategories() const;
 
+        IEntityLogic* CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
+
     private:
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
+
+        mono::SystemContext* m_system_context;
+        mono::EventHandler* m_event_handler;
 
         mono::ActiveVector<EntityLogicComponent> m_logics;
         std::unordered_map<uint32_t, EntityDebugCategory> m_hash_to_category;

@@ -17,7 +17,7 @@ namespace game
     {
     public:
 
-        ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
 
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;

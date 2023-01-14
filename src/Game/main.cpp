@@ -1,55 +1,31 @@
 
 #include "Camera/Camera.h"
 #include "EventHandler/EventHandler.h"
+#include "SystemContext.h"
+
 #include "System/Audio.h"
 #include "System/System.h"
 #include "System/Network.h"
 
-#include "SystemContext.h"
-#include "EntitySystem/EntitySystem.h"
-#include "Input/InputSystem.h"
-#include "Particle/ParticleSystem.h"
-#include "Paths/PathSystem.h"
-#include "Physics/PhysicsSystem.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Rendering/RenderSystem.h"
-#include "Rendering/Sprite/SpriteSystem.h"
-#include "Rendering/Text/TextSystem.h"
-#include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "UI/UISystem.h"
+
 #include "Player/PlayerInfo.h"
-#include "Player/PlayerDaemonSystem.h"
 #include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
+#include "GameSystems.h"
 #include "Hud/UIElementFactory.h"
 #include "Resources.h"
-#include "Weapons/WeaponSystem.h"
 #include "Zones/ZoneManager.h"
 
-#include "DamageSystem/DamageSystem.h"
-#include "Entity/AnimationSystem.h"
-#include "Entity/EntityLogicSystem.h"
-#include "GameCamera/CameraSystem.h"
-#include "InteractionSystem/InteractionSystem.h"
-#include "Pickups/PickupSystem.h"
-#include "TriggerSystem/TriggerSystem.h"
-#include "SpawnSystem/SpawnSystem.h"
-#include "RoadSystem/RoadSystem.h"
-#include "DialogSystem/DialogSystem.h"
-#include "Sound/SoundSystem.h"
-#include "World/RegionSystem.h"
-#include "World/WorldBoundsSystem.h"
-#include "UI/UISystem.h"
-
-#include "Network/ServerManager.h"
-#include "Network/ClientManager.h"
 #include "Network/NetworkMessage.h"
 
 #include "Entity/ComponentFunctions.h"
 #include "Entity/GameComponentFuncs.h"
-#include "Entity/EntityLogicFactory.h"
-#include "Entity/Component.h"
 
 #include <cassert>
 #include <cstring>
@@ -104,7 +80,7 @@ namespace
 
 int main(int argc, char* argv[])
 {
-    constexpr size_t max_entities = 1000;
+    constexpr uint32_t max_entities = 1000;
     const Options options = ParseCommandline(argc, argv);
 
     System::InitializeContext system_init_context;
@@ -129,14 +105,7 @@ int main(int argc, char* argv[])
 
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();
-
     game::InitializePlayerInfo();
-
-    mono::PhysicsSystemInitParams physics_system_params;
-    physics_system_params.n_bodies = max_entities;
-    physics_system_params.n_circle_shapes = max_entities;
-    physics_system_params.n_segment_shapes = max_entities;
-    physics_system_params.n_polygon_shapes = max_entities;
 
     {
         const System::Size window_size = System::GetCurrentWindowSize();
@@ -157,63 +126,27 @@ int main(int argc, char* argv[])
         // Needs to be done after the window is created.
         audio::Initialize();
 
+        mono::EventHandler event_handler;
+        mono::SystemContext system_context;
+        mono::Camera camera;
+
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;
         render_params.light_mask_texture = game_config.light_mask_texture.c_str();
         render_params.sprite_shadow_texture = game_config.sprite_shadow_texture.c_str();
         render_params.window = window;
 
-        mono::EventHandler event_handler;
-        mono::SystemContext system_context;
-        mono::Camera camera;
+        game::CreateGameSystems(max_entities, system_context, event_handler, camera, render_params, game_config);
 
-        mono::InputSystem* input_system = system_context.CreateSystem<mono::InputSystem>(&event_handler);
-        system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
-        mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
-            max_entities, &system_context, component::ComponentNameFromHash, AttributeNameFromHash);
-        mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
+        mono::TransformSystem* transform_system = system_context.GetSystem<mono::TransformSystem>();
+        mono::IEntityManager* entity_manager = system_context.GetSystem<mono::IEntityManager>();
+        game::UISystem* ui_system = system_context.GetSystem<game::UISystem>();
 
-        mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-        mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
-        system_context.CreateSystem<mono::RoadSystem>(max_entities);
-        system_context.CreateSystem<mono::LightSystem>(max_entities);
-
-        game::DamageSystem* damage_system =
-            system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
-        game::TriggerSystem* trigger_system =
-            system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities);
-        system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
-        system_context.CreateSystem<game::PickupSystem>(max_entities, physics_system, entity_system);
-        system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
-        game::CameraSystem* camera_system =
-            system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
-        system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
-        system_context.CreateSystem<game::DialogSystem>(max_entities);
-        system_context.CreateSystem<game::SoundSystem>(max_entities, trigger_system);
-        system_context.CreateSystem<game::RegionSystem>(physics_system);
-        system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-        system_context.CreateSystem<game::WeaponSystem>(
-            transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
-        game::UISystem* ui_system = system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system);
-
-        game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
-        system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
-
-        system_context.CreateSystem<game::PlayerDaemonSystem>(server_manager, entity_system, &system_context, &event_handler);
-
-        game::RegisterGameComponents(entity_system);
-        game::RegisterSharedComponents(entity_system);
-
+        game::RegisterGameComponents(entity_manager);
+        game::RegisterSharedComponents(entity_manager);
         game::LoadFonts();
 
-        game::EntityLogicFactory logic_factory(&system_context, event_handler);
-        game::g_logic_factory = &logic_factory;
-
-        game::UIElementFactory ui_element_factory(transform_system, entity_system, ui_system);
+        game::UIElementFactory ui_element_factory(transform_system, entity_manager, ui_system);
         game::g_ui_element_factory = &ui_element_factory;
 
         game::ZoneCreationContext zone_context;

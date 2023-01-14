@@ -2,16 +2,62 @@
 #include "EntityLogicSystem.h"
 #include "IEntityLogic.h"
 #include "System/Hash.h"
-#include "Factories.h"
 #include "Debug/GameDebug.h"
+#include "Debug/IDebugDrawer.h"
+
+#include "EntitySystem/ObjectAttribute.h"
+
+
+#include "Enemies/BatController.h"
+#include "Enemies/GoblinFireController.h"
+#include "Enemies/EyeMonsterController.h"
+#include "Enemies/DemonBossController.h"
+#include "Enemies/FlyingMonsterController.h"
+#include "Enemies/InvaderPathController.h"
+#include "Enemies/BlobController.h"
+#include "Enemies/TurretSpawnerController.h"
+#include "Enemies/ExplodableController.h"
+#include "Enemies/FlamingSkullBossController.h"
+#include "Enemies/ImpController.h"
+
 
 #include <algorithm>
 #include <cassert>
 
+
+namespace
+{
+    using CreateLogicFunc =
+        game::IEntityLogic*(*)(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
+
+    template <typename T>
+    game::IEntityLogic* MakeController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+    {
+        return new T(entity_id, system_context, event_handler);
+    }
+
+    constexpr CreateLogicFunc create_functions[] = {
+        MakeController<game::BatController>,
+        MakeController<game::GoblinFireController>,
+        MakeController<game::EyeMonsterController>,
+        MakeController<game::DemonBossController>,
+        MakeController<game::FlyingMonsterController>,
+        MakeController<game::InvaderPathController>,
+        MakeController<game::BlobController>,
+        MakeController<game::TurretSpawnerController>,
+        MakeController<game::ExplodableController>,
+        MakeController<game::FlamingSkullBossController>,
+        MakeController<game::ImpController>,
+    };
+}
+
 using namespace game;
 
-EntityLogicSystem::EntityLogicSystem(size_t n_entities)
-    : m_logics(n_entities)
+EntityLogicSystem::EntityLogicSystem(
+    uint32_t n_entities, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+    : m_system_context(system_context)
+    , m_event_handler(event_handler)
+    , m_logics(n_entities)
 { }
 
 EntityLogicSystem::~EntityLogicSystem()
@@ -79,6 +125,11 @@ std::vector<EntityDebugCategory> EntityLogicSystem::GetDebugCategories() const
     }
 
     return categories;
+}
+
+IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
+{
+    return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 }
 
 const char* EntityLogicSystem::Name() const

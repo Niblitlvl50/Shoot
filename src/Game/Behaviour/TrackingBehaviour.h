@@ -32,7 +32,7 @@ namespace game
     {
     public:
 
-        TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system);
+        TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system, class NavigationSystem* navigation_system);
         ~TrackingBehaviour();
 
         void SetTrackingSpeed(float meter_per_second);
@@ -45,6 +45,7 @@ namespace game
 
         mono::IBody* m_entity_body;
         mono::PhysicsSystem* m_physics_system;
+        game::NavigationSystem* m_navigation_system;
 
         math::Vector m_tracking_position;
         float m_current_position;

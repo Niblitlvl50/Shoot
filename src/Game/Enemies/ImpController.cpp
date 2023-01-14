@@ -35,7 +35,7 @@ namespace tweak_values
 
 using namespace game;
 
-ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();

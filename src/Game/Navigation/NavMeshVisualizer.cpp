@@ -1,5 +1,6 @@
 
 #include "NavMeshVisualizer.h"
+#include "NavigationSystem.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
@@ -18,18 +19,22 @@
 
 using namespace game;
 
-NavmeshVisualizer::NavmeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler)
-    : m_navmesh_context(context),
+NavmeshVisualizer::NavmeshVisualizer(const NavigationSystem* navigation_system, mono::EventHandler& event_handler)
+    : m_navigation_system(navigation_system),
       m_event_handler(event_handler)
 {
-    for(auto& node : m_navmesh_context.nodes)
+    const NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
+    if(navmesh_context)
     {
-        for(int neighbour : node.neighbours_index)
+        for(auto& node : navmesh_context->nodes)
         {
-            if(neighbour != -1)
+            for(int neighbour : node.neighbours_index)
             {
-                m_edges.push_back(m_navmesh_context.points[node.data_index]);
-                m_edges.push_back(m_navmesh_context.points[neighbour]);
+                if(neighbour != -1)
+                {
+                    m_edges.push_back(navmesh_context->points[node.data_index]);
+                    m_edges.push_back(navmesh_context->points[neighbour]);
+                }
             }
         }
     }
@@ -54,13 +59,17 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     if(!game::g_draw_navmesh)
         return;
 
-    if(m_navmesh_context.nodes.empty() || m_navmesh_context.points.empty())
+    const NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
+    if(!navmesh_context)
+        return;
+
+    if(navmesh_context->nodes.empty() || navmesh_context->points.empty())
         return;
 
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
 
-    renderer.DrawPoints(m_navmesh_context.points, mono::Color::MAGENTA, 2.0f);
+    renderer.DrawPoints(navmesh_context->points, mono::Color::MAGENTA, 2.0f);
 
     if(m_path)
     {
@@ -72,14 +81,14 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     }
 
     std::vector<math::Vector> start_node_points;
-    const game::NavmeshNode& start_node = m_navmesh_context.nodes[m_start];
+    const game::NavmeshNode& start_node = navmesh_context->nodes[m_start];
 
-    start_node_points.push_back(m_navmesh_context.points[start_node.data_index]);
+    start_node_points.push_back(navmesh_context->points[start_node.data_index]);
 
     for(int point_index : start_node.neighbours_index)
     {
         if(point_index != -1)
-            start_node_points.push_back(m_navmesh_context.points[point_index]);
+            start_node_points.push_back(navmesh_context->points[point_index]);
     }
 
     constexpr mono::Color::RGBA selected_color(1.0f, 1.0f, 0.0f);
@@ -93,17 +102,18 @@ math::Quad NavmeshVisualizer::BoundingBox() const
 
 mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
 {
-    if(game::g_draw_navmesh)
+    const NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
+    if(game::g_draw_navmesh && navmesh_context)
     {
         const math::Vector position(event.world_x, event.world_y);
 
         if(event.key == MouseButton::LEFT)
-            m_start = game::FindClosestIndex(m_navmesh_context, position);
+            m_start = game::FindClosestIndex(*navmesh_context, position);
         else
-            m_end = game::FindClosestIndex(m_navmesh_context, position);
+            m_end = game::FindClosestIndex(*navmesh_context, position);
 
-        const std::vector<int>& nav_path = game::AStar(m_navmesh_context, m_start, m_end);
-        const std::vector<math::Vector>& nav_points = game::PathToPoints(m_navmesh_context, nav_path);
+        const std::vector<int>& nav_path = game::AStar(*navmesh_context, m_start, m_end);
+        const std::vector<math::Vector>& nav_points = game::PathToPoints(*navmesh_context, nav_path);
         m_path = mono::CreatePath(nav_points);
     }
 

@@ -3,7 +3,6 @@
 
 #include "Zone/ZoneBase.h"
 #include "ZoneCreationContext.h"
-#include "Navigation/NavmeshData.h"
 #include "WorldFile.h"
 
 #include <memory>
@@ -31,7 +30,6 @@ namespace game
 
         LevelData m_leveldata;
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
-        NavmeshContext m_navmesh;
 
         class RegionDrawer* m_region_ui;
         std::unique_ptr<IGameMode> m_game_mode;

@@ -8,6 +8,7 @@
 #include "Weapons/WeaponSystem.h"
 #include "Weapons/CollisionCallbacks.h"
 #include "AIUtils.h"
+#include "Navigation/NavigationSystem.h"
 
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -38,7 +39,7 @@ namespace tweak_values
 
 using namespace game;
 
-FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
@@ -46,11 +47,13 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
 
+    game::NavigationSystem* navigation_system = system_context->GetSystem<game::NavigationSystem>();
+
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
     mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
-    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system);
+    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system, navigation_system);
 
     const FlyingMonsterStateMachine::StateTable& state_table = {
         FlyingMonsterStateMachine::MakeState(States::IDLE, &FlyingMonsterController::ToIdle, &FlyingMonsterController::Idle, this),

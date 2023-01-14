@@ -21,7 +21,7 @@ namespace tweak_values
     constexpr math::EaseFunction ease_function = math::EaseBackOut;
 }
 
-BatController::BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+BatController::BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
 {
     m_entity_id = entity_id;
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();

@@ -13,7 +13,6 @@
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsDebugDrawer.h"
-#include "Physics/PhysicsSpace.h"
 
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
@@ -27,15 +26,14 @@
 #include "TransformSystem/TransformSystemDrawer.h"
 #include "System/Hash.h"
 
-#include "Player/PlayerInfo.h"
 #include "Hud/HealthbarDrawer.h"
 #include "Hud/PlayerAuxiliaryDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"
 
-#include "Navigation/NavmeshFactory.h"
 #include "Navigation/NavMeshVisualizer.h"
+#include "Navigation/NavigationSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 
@@ -45,7 +43,6 @@
 #include "Camera/ICamera.h"
 #include "Debug/GameDebug.h"
 #include "Debug/GameDebugDrawer.h"
-#include "Factories.h"
 
 #include "InteractionSystem/InteractionSystem.h"
 #include "InteractionSystem/InteractionSystemDrawer.h"
@@ -66,33 +63,9 @@
 
 #include "ImGuiImpl/ImGuiInputHandler.h"
 
-#include "Util/Algorithm.h"
-#include "CollisionConfiguration.h"
-
 #include "GameMode/IGameMode.h"
 #include "GameMode/GameModeFactory.h"
 #include "Sound/SoundSystem.h"
-
-namespace
-{
-    void SetupNavmesh(game::NavmeshContext& navmesh_context, const game::LevelMetadata& metadata, mono::PhysicsSpace* space)
-    {
-        navmesh_context.points = game::GenerateMeshPoints(metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density);
-
-        const auto remove_on_collision = [space](const math::Vector& point) {
-            const mono::QueryResult query_result = space->QueryNearest(point, 0.0f, game::CollisionCategory::STATIC);
-            return query_result.body != nullptr;
-        };
-        mono::remove_if(navmesh_context.points, remove_on_collision);
-
-        const auto filter_connection_func = [space](const math::Vector& first, const math::Vector& second){
-            const mono::QueryResult query_result = space->QueryFirst(first, second, game::CollisionCategory::STATIC);
-            return query_result.body != nullptr;
-        };
-
-        navmesh_context.nodes = game::GenerateMeshNodes(navmesh_context.points, metadata.navmesh_density * 1.5f, filter_connection_func);
-    }
-}
 
 using namespace game;
 
@@ -131,6 +104,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
     game::UISystem* ui_system = m_system_context->GetSystem<UISystem>();
 
+
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
 
@@ -143,14 +117,14 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     sound_system->PlayBackgroundMusic(metadata.background_music, SoundTransition::CrossFade);
 
     // Nav mesh
-    SetupNavmesh(m_navmesh, metadata, physics_system->GetSpace());
-    game::g_navmesh = &m_navmesh;
+    game::NavigationSystem* navigation_system = m_system_context->GetSystem<game::NavigationSystem>();
+    navigation_system->SetupNavmesh(
+        metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density, physics_system->GetSpace());
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
@@ -161,6 +135,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
 
     m_region_ui = new RegionDrawer(region_system);
@@ -169,7 +144,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     // Debug
     AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
     AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
-    AddDrawable(new NavmeshVisualizer(m_navmesh, *m_event_handler), LayerId::UI);
+    AddDrawable(new NavmeshVisualizer(navigation_system, *m_event_handler), LayerId::UI);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(
         g_draw_physics, g_interact_physics, g_body_introspection, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
@@ -187,8 +162,6 @@ int GameZone::OnUnload()
     RemoveUpdatable(m_game_mode.get());
     const int game_mode_result = m_game_mode->End(this);
     m_game_mode = nullptr;
-
-    game::g_navmesh = nullptr;
 
     RemoveUpdatableDrawable(m_region_ui);
     delete m_region_ui;

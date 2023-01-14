@@ -10,6 +10,8 @@
 
 using namespace game;
 
+game::IDebugDrawer* game::g_debug_drawer = nullptr;
+
 namespace
 {
     template <typename T>

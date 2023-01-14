@@ -11,13 +11,11 @@
 
 namespace game
 {
-    struct NavmeshContext;
-
     class NavmeshVisualizer : public mono::IDrawable
     {
     public:
 
-        NavmeshVisualizer(const NavmeshContext& context, mono::EventHandler& event_handler);
+        NavmeshVisualizer(const class NavigationSystem* navigation_system, mono::EventHandler& event_handler);
         ~NavmeshVisualizer();
 
     private:
@@ -28,7 +26,7 @@ namespace game
         mono::EventResult OnMouseUp(const event::MouseUpEvent& event);
         mono::EventResult OnMouseMove(const event::MouseMotionEvent& event);
 
-        const NavmeshContext& m_navmesh_context;
+        const NavigationSystem* m_navigation_system;
         mono::EventHandler& m_event_handler;
 
         std::vector<math::Vector> m_edges;

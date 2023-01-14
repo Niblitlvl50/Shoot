@@ -19,7 +19,7 @@ namespace game
     {
     public:
 
-        DemonBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        DemonBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         ~DemonBossController();
 
         void Update(const mono::UpdateContext& update_context) override;

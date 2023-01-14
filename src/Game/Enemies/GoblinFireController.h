@@ -17,7 +17,7 @@ namespace game
     {
     public:
 
-        GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;

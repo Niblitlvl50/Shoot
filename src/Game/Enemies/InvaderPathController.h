@@ -14,8 +14,8 @@ namespace game
     {
     public:
 
-        InvaderPathController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
-        InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        InvaderPathController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
+        InvaderPathController(uint32_t entity_id, uint32_t path_entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         ~InvaderPathController();
 
         void Update(const mono::UpdateContext& update_context) override;

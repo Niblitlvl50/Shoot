@@ -12,7 +12,7 @@ namespace game
     {
     public:
 
-        BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        BatController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         void Update(const mono::UpdateContext& update_context) override;
 
     private:

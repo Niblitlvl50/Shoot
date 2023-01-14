@@ -17,7 +17,7 @@ namespace game
     {
     public:
 
-        ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler);
+        ImpController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
         ~ImpController();
 
         void Update(const mono::UpdateContext& update_context) override;

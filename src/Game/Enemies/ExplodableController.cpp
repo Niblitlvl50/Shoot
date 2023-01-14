@@ -26,7 +26,7 @@ namespace tweak_values
 
 using namespace game;
 
-ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler& event_handler)
+ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
     , m_draw_explosion_once(false)
 {
