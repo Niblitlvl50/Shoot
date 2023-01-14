@@ -25,7 +25,8 @@ PauseScreen::PauseScreen(
     , m_input_system(input_system)
     , m_entity_manager(entity_manager)
     , m_ui_system(ui_system)
-    , m_proxy(ui_system, transform_system, entity_manager)
+    , m_quit_proxy(ui_system, transform_system, entity_manager)
+    , m_close_proxy(ui_system, transform_system, entity_manager)
 {
     const float background_width = 10.0f;
     const float background_height = 5.5f;
@@ -39,22 +40,27 @@ PauseScreen::PauseScreen(
     background_element->SetPosition(background_x, background_y);
 
     UITextElement* pause_text =
-        new UITextElement(font_id, "Pause", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    pause_text->SetPosition(background_x + 0.2f, background_y + background_height - 0.4f);
+        new UITextElement(font_id, "Pause", mono::FontCentering::HORIZONTAL, mono::Color::GRAY);
+    pause_text->SetPosition(0.0f, background_y + background_height - 0.4f);
 
-    const char* start_to_exit = "start to exit";
-    const math::Vector text_size = mono::MeasureString(font_id, start_to_exit);
+    m_quit_text =
+        new UITextElement(font_id, "Quit", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_quit_text->SetPosition(background_x + 0.2f, background_y + 0.15f);
 
-    m_exit_text =
-        new UITextElement(font_id, start_to_exit, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    m_exit_text->SetPosition(background_x + background_width - text_size.x - 0.2f, background_y + 0.15f);
+    const char* close_text = "Close";
+    const math::Vector close_text_size = mono::MeasureString(font_id, close_text);
+
+    m_close_text =
+        new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_close_text->SetPosition(background_x + background_width - close_text_size.x - 0.2f, background_y + 0.15f);
 
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
     texture_element->SetScale(0.0075f);
 
     AddChild(background_element);
     AddChild(pause_text);
-    AddChild(m_exit_text);
+    AddChild(m_quit_text);
+    AddChild(m_close_text);
     AddChild(texture_element);
 }
 
@@ -62,8 +68,11 @@ void PauseScreen::ShowAt(const math::Vector& position)
 {
     m_position = position;
 
-    const math::Matrix& exit_text_transform = Transform() * m_exit_text->Transform();
-    m_proxy.UpdateUIItem(exit_text_transform, m_exit_text->GetBounds());
+    const math::Matrix& quit_text_transform = Transform() * m_quit_text->Transform();
+    m_quit_proxy.UpdateUIItem(quit_text_transform, m_quit_text->GetBounds());
+
+    const math::Matrix& close_text_transform = Transform() * m_close_text->Transform();
+    m_close_proxy.UpdateUIItem(close_text_transform, m_close_text->GetBounds());
 
     // m_entities = m_entity_manager->CreateEntityCollection("res/entities/pause_screen_collection.entity");
     // math::Matrix& transform = m_transform_system->GetTransform(m_entities.front().id);

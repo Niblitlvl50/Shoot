@@ -26,8 +26,10 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         game::UISystem* m_ui_system;
 
-        UITextElement* m_exit_text;
-        UIItemProxy m_proxy;
+        UITextElement* m_quit_text;
+        UITextElement* m_close_text;
+        UIItemProxy m_quit_proxy;
+        UIItemProxy m_close_proxy;
 
         std::vector<mono::Entity> m_entities;
     };
