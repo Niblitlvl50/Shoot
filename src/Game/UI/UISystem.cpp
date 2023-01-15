@@ -112,19 +112,19 @@ void UISystem::Update(const mono::UpdateContext& update_context)
                 const UIItem& last_active_item = m_items[last_active_item_index];
                 const UINavigationSetup& navigation_setup = last_active_item.navigation_setup;
 
-                uint32_t new_item_entity_uuid = mono::INVALID_ID;
+                uint32_t new_item_entity_id = mono::INVALID_ID;
                 if(m_button_left)
-                    new_item_entity_uuid = navigation_setup.left_entity_uuid;
+                    new_item_entity_id = navigation_setup.left_entity_id;
                 else if(m_button_right)
-                    new_item_entity_uuid = navigation_setup.right_entity_uuid;
+                    new_item_entity_id = navigation_setup.right_entity_id;
                 else if(m_button_up)
-                    new_item_entity_uuid = navigation_setup.above_entity_uuid;
+                    new_item_entity_id = navigation_setup.above_entity_id;
                 else if(m_button_down)
-                    new_item_entity_uuid = navigation_setup.below_entity_uuid;
+                    new_item_entity_id = navigation_setup.below_entity_id;
 
-                if(new_item_entity_uuid != 0)
+                if(new_item_entity_id != mono::INVALID_ID)
                 {
-                    const uint32_t entity_id = new_item_entity_uuid;
+                    const uint32_t entity_id = new_item_entity_id;
 
                     for(uint32_t index = 0; index < m_items.size(); ++index)
                     {

@@ -412,16 +412,16 @@ namespace
             mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
         };
 
-        FindAttribute(UI_LEFT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.left_entity_uuid, FallbackMode::SET_DEFAULT);
-        FindAttribute(UI_RIGHT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.right_entity_uuid, FallbackMode::SET_DEFAULT);
-        FindAttribute(UI_ABOVE_ITEM_ID_ATTRIBUTE, properties, navigation_setup.above_entity_uuid, FallbackMode::SET_DEFAULT);
-        FindAttribute(UI_BELOW_ITEM_ID_ATTRIBUTE, properties, navigation_setup.below_entity_uuid, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_LEFT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.left_entity_id, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_RIGHT_ITEM_ID_ATTRIBUTE, properties, navigation_setup.right_entity_id, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_ABOVE_ITEM_ID_ATTRIBUTE, properties, navigation_setup.above_entity_id, FallbackMode::SET_DEFAULT);
+        FindAttribute(UI_BELOW_ITEM_ID_ATTRIBUTE, properties, navigation_setup.below_entity_id, FallbackMode::SET_DEFAULT);
 
         const mono::IEntityManager* entity_manager = context->GetSystem<mono::IEntityManager>();
-        navigation_setup.left_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.left_entity_uuid);
-        navigation_setup.right_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.right_entity_uuid);
-        navigation_setup.above_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.above_entity_uuid);
-        navigation_setup.below_entity_uuid = entity_manager->GetEntityIdFromUuid(navigation_setup.below_entity_uuid);
+        navigation_setup.left_entity_id = entity_manager->GetEntityIdFromUuid(navigation_setup.left_entity_id);
+        navigation_setup.right_entity_id = entity_manager->GetEntityIdFromUuid(navigation_setup.right_entity_id);
+        navigation_setup.above_entity_id = entity_manager->GetEntityIdFromUuid(navigation_setup.above_entity_id);
+        navigation_setup.below_entity_id = entity_manager->GetEntityIdFromUuid(navigation_setup.below_entity_id);
 
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
         ui_system->UpdateUIItem(

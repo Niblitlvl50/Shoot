@@ -34,10 +34,10 @@ namespace game
 
     struct UINavigationSetup
     {
-        uint32_t left_entity_uuid;
-        uint32_t right_entity_uuid;
-        uint32_t above_entity_uuid;
-        uint32_t below_entity_uuid;
+        uint32_t left_entity_id;
+        uint32_t right_entity_id;
+        uint32_t above_entity_id;
+        uint32_t below_entity_id;
     };
 
     struct UIItem
