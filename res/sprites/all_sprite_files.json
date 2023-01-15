@@ -229,6 +229,7 @@
         "res/sprites/tree_alien.sprite",
         "res/sprites/tree_dead.sprite",
         "res/sprites/tree_tiny.sprite",
+        "res/sprites/ui_item_selection.sprite",
         "res/sprites/vine_1.sprite",
         "res/sprites/wall_corner_e.sprite",
         "res/sprites/wall_corner_n.sprite",

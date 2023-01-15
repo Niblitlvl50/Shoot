@@ -6,16 +6,16 @@
                 0
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
         }
     ],
     "frames": [
         {
-            "h": 136,
-            "name": "wall_half_corner_s",
-            "w": 128,
-            "x": 1159,
-            "y": 2
+            "h": 6,
+            "name": "ui_item_selection_idle_1",
+            "w": 5,
+            "x": 1735,
+            "y": 506
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/prototype/",
+    "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
