@@ -3,14 +3,11 @@
 #include "TriggerSystem/TriggerSystem.h"
 
 #include "Debug/GameDebug.h"
-#include "Factories.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 
 #include "EntitySystem/Entity.h"
-#include "EntitySystem/IEntityManager.h"
 #include "Input/InputSystem.h"
-#include "System/Hash.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Algorithm.h"
 
@@ -88,8 +85,6 @@ void UISystem::Update(const mono::UpdateContext& update_context)
             if(inside_quad)
             {
                 m_active_item_index = index;
-                if(m_clicked_this_frame)
-                    m_trigger_system->EmitTrigger(ui_item.on_click_hash);
                 break;
             }
         }
@@ -129,7 +124,6 @@ void UISystem::Update(const mono::UpdateContext& update_context)
 
                 if(new_item_entity_uuid != 0)
                 {
-                    //const uint32_t entity_id = m_entity_system->GetEntityIdFromUuid(new_item_entity_uuid);
                     const uint32_t entity_id = new_item_entity_uuid;
 
                     for(uint32_t index = 0; index < m_items.size(); ++index)
@@ -155,12 +149,6 @@ void UISystem::Update(const mono::UpdateContext& update_context)
             m_active_item_index = last_active_item_index;
         }
 
-        if(m_button_push_this_frame && m_active_item_index != INVALID_UI_INDEX)
-        {
-            const UIItem& active_item = m_items[m_active_item_index];
-            m_trigger_system->EmitTrigger(active_item.on_click_hash);
-        }
-
         break;
     }
     default:
@@ -169,6 +157,22 @@ void UISystem::Update(const mono::UpdateContext& update_context)
 
     if(game::g_draw_debug_uisystem)
         DrawDebug(update_context);
+
+    if((m_clicked_this_frame || m_button_push_this_frame) && m_active_item_index != INVALID_UI_INDEX)
+    {
+        const UIItem& active_item = m_items[m_active_item_index];
+        m_trigger_system->EmitTrigger(active_item.on_click_hash);
+
+        const auto it = m_uiitem_callbacks.find(active_item.entity_id);
+        if(it != m_uiitem_callbacks.end())
+        {
+            for(const UIItemCallback& callback : it->second)
+            {
+                if(callback)
+                    callback(active_item.entity_id);
+            }
+        }
+    }
 
     m_clicked_this_frame = false;
 
@@ -233,6 +237,8 @@ void UISystem::ReleaseUIItem(uint32_t entity_id)
         return item.entity_id == entity_id;
     };
     mono::remove_if(m_items, remove_by_entity_id);
+
+    m_uiitem_callbacks.erase(entity_id);
 }
 
 void UISystem::UpdateUIItem(
@@ -297,6 +303,32 @@ void UISystem::UpdateUISetGroupState(uint32_t entity_id, int group_id, UIItemSta
         };
         it->trigger_callback_id = m_trigger_system->RegisterTriggerCallback(it->trigger_hash, on_trigger, entity_id);
     }
+}
+
+uint32_t UISystem::SetUIItemCallback(uint32_t entity_id, const UIItemCallback& item_callback)
+{
+    UIItemCallbacks& callbacks = m_uiitem_callbacks[entity_id];
+
+    uint32_t free_index = mono::INVALID_ID;
+
+    for(uint32_t index = 0; index < callbacks.size(); ++index)
+    {
+        if(callbacks[index] == nullptr)
+        {
+            free_index = index;
+            callbacks[index] = item_callback;
+            break;
+        }
+    }
+
+    return free_index;
+}
+
+void UISystem::ReleaseUIItemCallback(uint32_t entity_id, uint32_t callback_handle)
+{
+    auto it = m_uiitem_callbacks.find(entity_id);
+    if(it != m_uiitem_callbacks.end())
+        it->second[callback_handle] = nullptr;
 }
 
 uint32_t UISystem::GetActiveEntityItem() const

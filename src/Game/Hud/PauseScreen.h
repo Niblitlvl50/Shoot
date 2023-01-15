@@ -15,6 +15,7 @@ namespace game
             mono::TransformSystem* transform_system,
             mono::InputSystem* input_system,
             mono::IEntityManager* entity_manager,
+            mono::EventHandler* event_handler,
             class UISystem* ui_system);
 
         void ShowAt(const math::Vector& position);
@@ -23,14 +24,11 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;
-        mono::IEntityManager* m_entity_manager;
         game::UISystem* m_ui_system;
 
         UITextElement* m_quit_text;
         UITextElement* m_close_text;
         UIItemProxy m_quit_proxy;
         UIItemProxy m_close_proxy;
-
-        std::vector<mono::Entity> m_entities;
     };
 }

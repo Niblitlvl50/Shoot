@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <array>
 
 namespace game
 {
@@ -58,6 +59,8 @@ namespace game
         uint32_t trigger_callback_id;
     };
 
+    using UIItemCallback = std::function<void (uint32_t entity_id)>;
+
     class UISystem : public mono::IGameSystem, public mono::IMouseInput, public mono::IControllerInput
     {
     public:
@@ -93,6 +96,9 @@ namespace game
         void ReleaseUISetGroupState(uint32_t entity_id);
         void UpdateUISetGroupState(uint32_t entity_id, int group_id, UIItemState state, uint32_t trigger_hash);
 
+        uint32_t SetUIItemCallback(uint32_t entity_id, const UIItemCallback& item_callback);
+        void ReleaseUIItemCallback(uint32_t entity_id, uint32_t callback_handle);
+
         uint32_t GetActiveEntityItem() const;
 
         bool DrawCursor() const;
@@ -126,6 +132,9 @@ namespace game
 
         std::vector<UIItem> m_items;
         std::vector<UISetGroupState> m_set_group_states;
+
+        using UIItemCallbacks = std::array<UIItemCallback, 8>;
+        std::unordered_map<uint32_t, UIItemCallbacks> m_uiitem_callbacks;
 
         int m_active_item_index;
     };

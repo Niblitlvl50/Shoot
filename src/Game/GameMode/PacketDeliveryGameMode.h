@@ -41,6 +41,7 @@ namespace game
         void ToPackageDestroyed();
         void ToTimeout();
         void ToLevelCompleted();
+        void ToLevelAborted();
         void LevelCompleted(const mono::UpdateContext& update_context);
 
         void ToPaused();
@@ -57,6 +58,7 @@ namespace game
             PACKAGE_DESTROYED,
             TIMEOUT,
             LEVEL_COMPLETED,
+            LEVEL_ABORTED,
             PAUSED,
             FADE_OUT
         };
@@ -94,6 +96,7 @@ namespace game
 
         uint32_t m_level_completed_trigger;
         uint32_t m_level_gameover_trigger;
+        uint32_t m_level_aborted_trigger;
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 

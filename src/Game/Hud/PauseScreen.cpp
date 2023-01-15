@@ -13,17 +13,20 @@
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "EventHandler/EventHandler.h"
+#include "Events/QuitEvent.h"
+#include "Events/PauseEvent.h"
+
 using namespace game;
 
 PauseScreen::PauseScreen(
     mono::TransformSystem* transform_system,
     mono::InputSystem* input_system,
     mono::IEntityManager* entity_manager,
+    mono::EventHandler* event_handler,
     game::UISystem* ui_system)
-    //: game::UIOverlay(200, 200.0f / mono::GetWindowAspect())
     : m_transform_system(transform_system)
     , m_input_system(input_system)
-    , m_entity_manager(entity_manager)
     , m_ui_system(ui_system)
     , m_quit_proxy(ui_system, transform_system, entity_manager)
     , m_close_proxy(ui_system, transform_system, entity_manager)
@@ -57,6 +60,12 @@ PauseScreen::PauseScreen(
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
     texture_element->SetScale(0.0075f);
 
+    const UIItemCallback close_callback = [event_handler](uint32_t entity_id) {
+        event_handler->DispatchEvent(event::PauseEvent(false));
+    };
+    m_quit_proxy.SetItemCallback(close_callback);
+    m_close_proxy.SetItemCallback(close_callback);
+
     AddChild(background_element);
     AddChild(pause_text);
     AddChild(m_quit_text);
@@ -68,15 +77,19 @@ void PauseScreen::ShowAt(const math::Vector& position)
 {
     m_position = position;
 
-    const math::Matrix& quit_text_transform = Transform() * m_quit_text->Transform();
-    m_quit_proxy.UpdateUIItem(quit_text_transform, m_quit_text->GetBounds());
+    const math::Matrix& root_transform = Transform();
 
-    const math::Matrix& close_text_transform = Transform() * m_close_text->Transform();
-    m_close_proxy.UpdateUIItem(close_text_transform, m_close_text->GetBounds());
+    const UINavigationSetup quit_nav_setup = {
+        mono::INVALID_ID, m_close_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID
+    };
+    m_quit_proxy.UpdateUIItem(
+        root_transform * m_quit_text->Transform(), m_quit_text->GetBounds(), "level_aborted", quit_nav_setup);
 
-    // m_entities = m_entity_manager->CreateEntityCollection("res/entities/pause_screen_collection.entity");
-    // math::Matrix& transform = m_transform_system->GetTransform(m_entities.front().id);
-    // math::Position(transform, position);
+    const UINavigationSetup close_nav_setup = {
+        m_quit_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
+    };
+    m_close_proxy.UpdateUIItem(
+        root_transform * m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
 
     Show();
 }
@@ -91,7 +104,4 @@ void PauseScreen::Hide()
 {
     UIElement::Hide();
     m_ui_system->Disable();
-
-    // m_entity_manager->ReleaseEntities(m_entities);
-    // m_entities.clear();
 }

@@ -49,6 +49,7 @@ namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
     const uint32_t level_gameover_hash = hash::Hash("level_gameover");
+    const uint32_t level_aborted_hash = hash::Hash("level_aborted");
 }
 
 namespace tweak_values
@@ -70,6 +71,7 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
         GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::TIMEOUT, &PacketDeliveryGameMode::ToTimeout, &PacketDeliveryGameMode::LevelCompleted, this),
+        GameModeStateMachine::MakeState(GameModeStates::LEVEL_ABORTED, &PacketDeliveryGameMode::ToLevelAborted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_COMPLETED, &PacketDeliveryGameMode::ToLevelCompleted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::PAUSED, &PacketDeliveryGameMode::ToPaused, &PacketDeliveryGameMode::Paused, &PacketDeliveryGameMode::ExitPaused, this),
         GameModeStateMachine::MakeState(GameModeStates::FADE_OUT, &PacketDeliveryGameMode::ToFadeOut, &PacketDeliveryGameMode::FadeOut, this),
@@ -123,9 +125,12 @@ void PacketDeliveryGameMode::Begin(
             m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
         else if(trigger_id == level_gameover_hash)
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        else if(trigger_id == level_aborted_hash)
+            m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);
     m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_event_callback, mono::INVALID_ID);
+    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(level_aborted_hash, level_event_callback, mono::INVALID_ID);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -157,7 +162,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, ui_system);
+    m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(
@@ -197,6 +202,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }
@@ -360,6 +366,20 @@ void PacketDeliveryGameMode::ToLevelCompleted()
 
     m_big_text_screen->SetText("Delivery Completed!");
     m_big_text_screen->SetSubText("Good Job");
+    m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->Show();
+
+    m_fade_timer = 0.0f;
+}
+
+void PacketDeliveryGameMode::ToLevelAborted()
+{
+    m_next_zone = game::ZoneResult::ZR_ABORTED;
+
+    m_pause_screen->Hide();
+
+    m_big_text_screen->SetText("Delivery Aborted!");
+    m_big_text_screen->SetSubText("See you!");
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Show();
 

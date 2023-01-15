@@ -117,11 +117,11 @@ int main(int argc, char* argv[])
             //System::WindowOptions::FULLSCREEN;
             //System::WindowOptions::FULLSCREEN_DESKTOP;
             //System::WindowOptions::DISABLE_VSYNC;
-        System::IWindow* window = System::MakeWindow(
+        std::unique_ptr<System::IWindow> window(System::MakeWindow(
             game_config.application.c_str(),
             options.x, options.y,
             options.width, height,
-            System::WindowOptions(window_options));
+            System::WindowOptions(window_options)));
     
         // Needs to be done after the window is created.
         audio::Initialize();
@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
         render_params.pixels_per_meter = 32.0f;
         render_params.light_mask_texture = game_config.light_mask_texture.c_str();
         render_params.sprite_shadow_texture = game_config.sprite_shadow_texture.c_str();
-        render_params.window = window;
+        render_params.window = window.get();
 
         game::CreateGameSystems(max_entities, system_context, event_handler, camera, render_params, game_config);
 
@@ -154,13 +154,11 @@ int main(int argc, char* argv[])
         zone_context.event_handler = &event_handler;
         zone_context.game_config = &game_config;
         zone_context.system_context = &system_context;
-        zone_context.window = window;
+        zone_context.window = window.get();
 
         game::ZoneManager(&camera, zone_context).Run(options.start_zone);
 
         system_context.DestroySystems();
-
-        delete window;
     }
 
     audio::Shutdown();
