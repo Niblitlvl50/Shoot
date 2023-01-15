@@ -3,6 +3,8 @@
 
 #include "MonoFwd.h"
 #include "Rendering/IDrawable.h"
+#include "Rendering/Sprite/SpriteBufferFactory.h"
+#include "Rendering/Sprite/ISpriteFactory.h"
 
 namespace game
 {
@@ -19,5 +21,9 @@ namespace game
 
         const UISystem* m_ui_system;
         const mono::TransformSystem* m_transform_system;
+
+        mutable mono::ISpritePtr m_sprite;
+        mono::SpriteDrawBuffers m_sprite_buffer;
+        std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 }
