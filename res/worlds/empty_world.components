@@ -44,6 +44,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -80,18 +92,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -257,6 +257,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -293,18 +305,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -497,6 +497,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -515,18 +527,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -617,6 +617,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -635,18 +647,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -737,6 +737,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -755,18 +767,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -857,6 +857,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -875,18 +887,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -977,6 +977,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -995,18 +1007,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1097,6 +1097,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1115,18 +1127,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1217,6 +1217,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1235,18 +1247,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1337,6 +1337,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1373,18 +1385,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1475,6 +1475,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1493,18 +1505,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1595,6 +1595,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1631,18 +1643,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1733,6 +1733,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1769,18 +1781,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 101
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -1871,6 +1871,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -1907,18 +1919,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 101
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -2009,6 +2009,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": -0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2027,12 +2039,6 @@
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
-                        },
-                        {
-                            "id": 3526332565,
-                            "name": "score",
-                            "variant_type": 1,
-                            "variant_value": 90
                         }
                     ]
                 },
@@ -2051,18 +2057,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,
@@ -2293,58 +2287,25 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
                 {
                     "hash": 0,
                     "name": "Unknown",
-                    "properties": [
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": "backend"
-                        },
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "Hello, a long selection"
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.5,
-                                "y": 0.5
-                            }
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 2
-                        }
-                    ]
+                    "properties": null
                 }
             ],
             "entity_properties": 0,
@@ -2395,58 +2356,25 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
                 {
                     "hash": 0,
                     "name": "Unknown",
-                    "properties": [
-                        {
-                            "id": 3960387401,
-                            "name": "Unknown",
-                            "variant_type": 6,
-                            "variant_value": "backend"
-                        },
-                        {
-                            "id": 3185987134,
-                            "name": "text",
-                            "variant_type": 6,
-                            "variant_value": "MMMM"
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.5,
-                                "y": 0.44999998807907104
-                            }
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.2450980544090271,
-                                "green": 0.2450980544090271,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3902434344,
-                            "name": "font_id",
-                            "variant_type": 1,
-                            "variant_value": 7
-                        },
-                        {
-                            "id": 2611375224,
-                            "name": "center_flags",
-                            "variant_type": 2,
-                            "variant_value": 2
-                        }
-                    ]
+                    "properties": null
                 }
             ],
             "entity_properties": 0,
@@ -2497,6 +2425,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2601,6 +2541,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -2655,18 +2607,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         },
                         {
                             "id": 1031692888,

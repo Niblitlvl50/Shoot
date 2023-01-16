@@ -36,7 +36,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 6.0
+                                "y": 1.0
                             }
                         },
                         {
@@ -44,6 +44,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -75,7 +87,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -1.0
+                                "y": -0.10000000149011612
                             }
                         },
                         {
@@ -187,6 +199,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -259,8 +283,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 60.0,
-                                "y": 50.0
+                                "x": 15.0,
+                                "y": 10.0
                             }
                         },
                         {
@@ -405,7 +429,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -6.125
+                                "y": -2.0
                             }
                         },
                         {
@@ -413,6 +437,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -430,7 +466,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 8
+                            "variant_value": 5
                         },
                         {
                             "id": 1031692888,
@@ -461,7 +497,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.05000000074505806
                             }
                         },
                         {
@@ -566,7 +602,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -16.625
+                                "y": -3.5
                             }
                         },
                         {
@@ -574,6 +610,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -591,7 +639,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 6
+                            "variant_value": 5
                         },
                         {
                             "id": 1031692888,
@@ -678,8 +726,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.375,
-                                "y": -7.75
+                                "x": 0.0,
+                                "y": -2.5
                             }
                         },
                         {
@@ -687,6 +735,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
                         }
                     ]
                 },
@@ -704,7 +764,7 @@
                             "id": 3902434344,
                             "name": "font_id",
                             "variant_type": 1,
-                            "variant_value": 8
+                            "variant_value": 5
                         },
                         {
                             "id": 1031692888,
@@ -735,7 +795,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.15000000596046448
+                                "y": -0.05000000074505806
                             }
                         },
                         {
@@ -829,8 +889,8 @@
             "y": 0.0
         },
         "camera_size": {
-            "x": 60.0,
-            "y": 35.0
+            "x": 12.0,
+            "y": 7.5
         },
         "level_description": "",
         "level_game_mode": "start_menu_mode",
