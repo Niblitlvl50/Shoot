@@ -57,7 +57,9 @@ InteractionSystemDrawer::InteractionSystemDrawer(
         const char* verb = interaction_type_verb[index];
 
         m_verb_text_buffers.push_back(mono::BuildTextDrawBuffers(tweak_values::verb_font, verb, mono::FontCentering::VERTICAL));
-        m_verb_text_widths.push_back(mono::MeasureString(tweak_values::verb_font, verb).x);
+
+        const mono::TextMeasurement text_measurement = mono::MeasureString(tweak_values::verb_font, verb);
+        m_verb_text_widths.push_back(text_measurement.size.x);
 
         VerbSpriteBuffer verb_sprite_buffer;
         verb_sprite_buffer.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
@@ -69,7 +71,9 @@ InteractionSystemDrawer::InteractionSystemDrawer(
     for(const char* verb : interaction_type_verb)
     {
         m_verb_text_buffers.push_back(mono::BuildTextDrawBuffers(tweak_values::verb_font, verb, mono::FontCentering::VERTICAL));
-        m_verb_text_widths.push_back(mono::MeasureString(tweak_values::verb_font, verb).x);
+
+        const mono::TextMeasurement text_measurement = mono::MeasureString(tweak_values::verb_font, verb);
+        m_verb_text_widths.push_back(text_measurement.size.x);
     }
 
     constexpr uint16_t indices[] = {
@@ -147,8 +151,8 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const float padding = 0.1f;
 
-            const math::Vector text_size = mono::MeasureString(tweak_values::verb_font, draw_data.name);
-            const math::Vector half_text_size = (text_size / 2.0f) + math::Vector(padding, padding);
+            const mono::TextMeasurement text_measurement = mono::MeasureString(tweak_values::verb_font, draw_data.name);
+            const math::Vector half_text_size = (text_measurement.size / 2.0f) + math::Vector(padding, padding);
 
             const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);

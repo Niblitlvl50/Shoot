@@ -5,7 +5,7 @@
 #include "Physics/IBody.h"
 
 #include "Entity/IEntityLogic.h"
-#include "WeaponConfiguration.h"
+#include "Weapons/WeaponConfiguration.h"
 #include "Behaviour/HomingBehaviour.h"
 
 #include <vector>

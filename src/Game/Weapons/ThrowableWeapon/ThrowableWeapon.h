@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "IWeapon.h"
-#include "WeaponConfiguration.h"
+#include "Weapons/IWeapon.h"
+#include "Weapons/WeaponConfiguration.h"
 
 #include "MonoPtrFwd.h"
 

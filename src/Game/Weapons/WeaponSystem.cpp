@@ -2,8 +2,8 @@
 #include "WeaponSystem.h"
 #include "System/Hash.h"
 
-#include "Weapons/BulletWeapon.h"
-#include "Weapons/ThrowableWeapon.h"
+#include "Weapons/BulletWeapon/BulletWeapon.h"
+#include "Weapons/ThrowableWeapon/ThrowableWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
 #include "DamageSystem/DamageSystem.h"
 

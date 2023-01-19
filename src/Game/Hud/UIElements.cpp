@@ -148,10 +148,10 @@ void UITextElement::SetAlpha(float alpha)
 
 math::Quad UITextElement::GetBounds() const
 {
-    const math::Vector text_size = mono::MeasureString(m_font_id, m_text.c_str());
-    const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_size, m_centering);
+    const mono::TextMeasurement text_measurement = mono::MeasureString(m_font_id, m_text.c_str());
+    const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_measurement.size, m_centering);
 
-    return math::Quad(text_offset, text_offset + text_size);
+    return math::Quad(text_offset, text_offset + text_measurement.size);
 }
 
 void UITextElement::Draw(mono::IRenderer& renderer) const

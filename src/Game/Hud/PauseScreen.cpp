@@ -51,11 +51,11 @@ PauseScreen::PauseScreen(
     m_quit_text->SetPosition(background_x + 0.2f, background_y + 0.15f);
 
     const char* close_text = "Close";
-    const math::Vector close_text_size = mono::MeasureString(font_id, close_text);
+    const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
 
     m_close_text =
         new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    m_close_text->SetPosition(background_x + background_width - close_text_size.x - 0.2f, background_y + 0.15f);
+    m_close_text->SetPosition(background_x + background_width - close_text_measurement.size.x - 0.2f, background_y + 0.15f);
 
     UITextureElement* texture_element = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
     texture_element->SetScale(0.0075f);
