@@ -13,7 +13,6 @@
 #include "System/System.h"
 
 #include "Debug/IDebugDrawer.h"
-#include "Factories.h"
 #include "Player/PlayerInfo.h"
 #include "Rendering/Color.h"
 

@@ -6,7 +6,6 @@
 #include "Util/Algorithm.h"
 #include "FontIds.h"
 #include "Rendering/RenderSystem.h"
-#include "Factories.h"
 
 using namespace game;
 

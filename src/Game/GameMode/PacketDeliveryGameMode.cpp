@@ -42,7 +42,6 @@
 #include "Input/InputSystem.h"
 
 #include "WorldFile.h"
-#include "Factories.h"
 #include "Debug/IDebugDrawer.h"
 
 namespace

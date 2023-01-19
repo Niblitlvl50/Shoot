@@ -9,16 +9,11 @@
 
 #include "EntitySystem/IEntityManager.h"
 #include "Rendering/RenderSystem.h"
-#include "TransformSystem/TransformSystem.h"
-
-#include "UI/UISystem.h"
 
 #include "Player/PlayerInfo.h"
-#include "Factories.h"
 #include "FontIds.h"
 #include "GameConfig.h"
 #include "GameSystems.h"
-#include "Hud/UIElementFactory.h"
 #include "Resources.h"
 #include "Zones/ZoneManager.h"
 
@@ -138,16 +133,11 @@ int main(int argc, char* argv[])
 
         game::CreateGameSystems(max_entities, system_context, event_handler, camera, render_params, game_config);
 
-        mono::TransformSystem* transform_system = system_context.GetSystem<mono::TransformSystem>();
         mono::IEntityManager* entity_manager = system_context.GetSystem<mono::IEntityManager>();
-        game::UISystem* ui_system = system_context.GetSystem<game::UISystem>();
 
         game::RegisterGameComponents(entity_manager);
         game::RegisterSharedComponents(entity_manager);
         game::LoadFonts();
-
-        game::UIElementFactory ui_element_factory(transform_system, entity_manager, ui_system);
-        game::g_ui_element_factory = &ui_element_factory;
 
         game::ZoneCreationContext zone_context;
         zone_context.num_entities = max_entities;

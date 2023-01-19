@@ -3,7 +3,6 @@
 
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Factories.h"
 
 #include "DamageSystem/DamageSystem.h"
 #include "Sound/SoundSystem.h"

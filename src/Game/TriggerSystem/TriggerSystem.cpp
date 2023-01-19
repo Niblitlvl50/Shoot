@@ -1,7 +1,6 @@
 
 #include "TriggerSystem.h"
 #include "DamageSystem/DamageSystem.h"
-#include "Factories.h"
 #include "Debug/IDebugDrawer.h"
 #include "Debug/GameDebug.h"
 

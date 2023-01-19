@@ -14,7 +14,6 @@
 #include "System/Debug.h"
 
 #include "Debug/IDebugDrawer.h"
-#include "Factories.h"
 
 #include <string>
 

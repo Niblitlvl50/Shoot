@@ -3,7 +3,6 @@
 
 #include "Player/PlayerInfo.h"
 #include "DamageSystem/DamageSystem.h"
-#include "Factories.h"
 #include "Debug/IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
