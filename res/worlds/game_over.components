@@ -4192,25 +4192,25 @@
                             "id": 4259034899,
                             "name": "ui_left_item_id",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4294967295
                         },
                         {
                             "id": 2453059052,
                             "name": "ui_right_item_id",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4294967295
                         },
                         {
                             "id": 2535228779,
                             "name": "ui_above_item_id",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4294967295
                         },
                         {
                             "id": 334813343,
                             "name": "ui_below_item_id",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 4294967295
                         }
                     ]
                 }

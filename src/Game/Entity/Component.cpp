@@ -4,6 +4,8 @@
 #include "System/System.h"
 #include "System/Debug.h"
 
+#include "EntitySystem/Entity.h"
+
 
 struct DefaultAttribute
 {
@@ -126,10 +128,10 @@ const DefaultAttribute default_attributes[] = {
     { "polygon_draw_layer",         Variant(0) },
     { "ui_group",                   Variant(0) },
     { "ui_item_state",              Variant(0) },
-    { "ui_left_item_id",            Variant(0u) },
-    { "ui_right_item_id",           Variant(0u) },
-    { "ui_above_item_id",           Variant(0u) },
-    { "ui_below_item_id",           Variant(0u) },
+    { "ui_left_item_id",            Variant(mono::INVALID_ID) },
+    { "ui_right_item_id",           Variant(mono::INVALID_ID) },
+    { "ui_above_item_id",           Variant(mono::INVALID_ID) },
+    { "ui_below_item_id",           Variant(mono::INVALID_ID) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
