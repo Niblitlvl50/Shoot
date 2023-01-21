@@ -259,6 +259,13 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     const std::string player_entity_file = m_player_entities[player_index];
     mono::Entity player_entity = entity_system->CreateEntity(player_entity_file.c_str());
 
+    System::Log(
+        "PlayerDaemonSystem|Spawned player with index '%u' and id '%u' at %.2f %.2f.",
+        player_index,
+        player_entity.id,
+        spawn_position.x,
+        spawn_position.y);
+
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
     transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
