@@ -24,8 +24,11 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
     : m_ui_system(ui_system)
     , m_transform_system(transform_system)
 {
-    m_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/ui_item_selection.sprite");
-    m_sprite_buffer = mono::BuildSpriteDrawBuffers(m_sprite->GetSpriteData());
+    m_item_selection_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/ui_item_selection.sprite");
+    m_item_selection_sprite_buffer = mono::BuildSpriteDrawBuffers(m_item_selection_sprite->GetSpriteData());
+
+    m_cursor_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/arrow_pointer.sprite");
+    m_cursor_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cursor_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -44,19 +47,19 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Quad world_bb = math::ResizeQuad(m_transform_system->GetWorldBoundingBox(active_item), 0.1f);
 
         {
-            m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+            m_item_selection_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::LeftCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_sprite.get(), &m_sprite_buffer, m_indices.get());
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get());
         }
 
         {
-            m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+            m_item_selection_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::RightCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_sprite.get(), &m_sprite_buffer, m_indices.get());
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get());
         }
     }
 
@@ -64,7 +67,9 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
     if(draw_cursor)
     {
         const math::Vector& cursor_target_position = m_ui_system->GetCursorTargetPosition();
-        renderer.DrawPoints({cursor_target_position}, mono::Color::RED, 15.0f);
+        const math::Matrix transform = math::CreateMatrixWithPositionScale(cursor_target_position, 0.5f);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+        renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, m_indices.get());
     }
 }
 

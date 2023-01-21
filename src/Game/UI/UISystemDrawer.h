@@ -22,8 +22,12 @@ namespace game
         const UISystem* m_ui_system;
         const mono::TransformSystem* m_transform_system;
 
-        mutable mono::ISpritePtr m_sprite;
-        mono::SpriteDrawBuffers m_sprite_buffer;
+        mutable mono::ISpritePtr m_item_selection_sprite;
+        mono::SpriteDrawBuffers m_item_selection_sprite_buffer;
+
+        mutable mono::ISpritePtr m_cursor_sprite;
+        mono::SpriteDrawBuffers m_cursor_sprite_buffer;
+
         std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 }

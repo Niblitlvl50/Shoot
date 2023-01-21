@@ -11,20 +11,20 @@
     ],
     "frames": [
         {
-            "h": 6,
-            "name": "pebble_tiny_3",
-            "w": 11,
-            "x": 1743,
-            "y": 506
+            "h": 22,
+            "name": "arrow_pointer",
+            "w": 16,
+            "x": 1313,
+            "y": 442
         }
     ],
     "frames_offsets": [
         {
-            "x": 0.0,
-            "y": 0.0
+            "x": 0.203125,
+            "y": -0.296875
         }
     ],
-    "source_folder": "res/images/rocks/",
+    "source_folder": "res/images/ui/cursor/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

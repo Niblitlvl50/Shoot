@@ -36,22 +36,22 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 814,
+            "x": 905,
             "y": 490
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 830,
+            "x": 873,
             "y": 490
         },
         {
             "h": 12,
             "name": "button_cross_up_1",
             "w": 12,
-            "x": 628,
-            "y": 501
+            "x": 889,
+            "y": 490
         }
     ],
     "frames_offsets": [
