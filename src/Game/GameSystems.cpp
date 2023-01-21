@@ -84,7 +84,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
     system_context.CreateSystem<game::WeaponSystem>(
         transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
-    system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system);
+    system_context.CreateSystem<game::UISystem>(input_system, transform_system, camera_system, trigger_system);
     system_context.CreateSystem<game::NavigationSystem>();
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);

@@ -69,6 +69,7 @@ namespace game
         UISystem(
             mono::InputSystem* input_system,
             mono::TransformSystem* transform_system,
+            class CameraSystem* camera_system,
             class TriggerSystem* trigger_system);
         ~UISystem();
 
@@ -103,7 +104,7 @@ namespace game
         uint32_t GetActiveEntityItem() const;
 
         bool DrawCursor() const;
-        const math::Vector& GetCursorTargetPosition() const;
+        math::Vector GetCursorTargetPosition() const;
 
     private:
 
@@ -115,12 +116,14 @@ namespace game
 
         mono::InputSystem* m_input_system;
         mono::TransformSystem* m_transform_system;
+        CameraSystem* m_camera_system;
         TriggerSystem* m_trigger_system;
 
         mono::InputContext* m_input_context;
 
         // Mouse Input Data
         math::Vector m_mouse_world_position;
+        math::Vector m_mouse_screen_position;
         math::Vector m_mouse_click_position;
         bool m_clicked_this_frame;
 

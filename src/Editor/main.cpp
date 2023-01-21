@@ -17,6 +17,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "Particle/ParticleSystem.h"
 #include "UI/UISystem.h"
+#include "GameCamera/CameraSystem.h"
 
 #include "Entity/Component.h"
 #include "Entity/ComponentFunctions.h"
@@ -53,6 +54,7 @@ int main()
         render_params.imgui_ini = "res/editor_imgui.ini";
         render_params.window = window;
 
+        mono::Camera camera;
         mono::EventHandler event_handler;
         mono::SystemContext system_context;
 
@@ -75,15 +77,16 @@ int main()
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
         game::DamageSystem* damage_system = system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
         game::TriggerSystem* trigger_system = system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+        game::CameraSystem* camera_system =
+            system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::RegionSystem>(physics_system);
         system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-        system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system);
+        system_context.CreateSystem<game::UISystem>(input_system, transform_system, camera_system, trigger_system);
 
         game::RegisterSharedComponents(entity_system);
         game::LoadFonts();
 
         {
-            mono::Camera camera;
             auto editor = std::make_unique<editor::Editor>(window, *entity_system, event_handler, system_context, config, max_entities);
             mono::Engine(window, &camera, &system_context, &event_handler).Run(editor.get());
 

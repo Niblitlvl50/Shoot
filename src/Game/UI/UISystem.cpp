@@ -1,5 +1,7 @@
 
 #include "UISystem.h"
+#include "Camera/ICamera.h"
+#include "GameCamera/CameraSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 
 #include "Debug/GameDebug.h"
@@ -24,9 +26,11 @@ using namespace game;
 UISystem::UISystem(
     mono::InputSystem* input_system,
     mono::TransformSystem* transform_system,
+    CameraSystem* camera_system,
     TriggerSystem* trigger_system)
     : m_input_system(input_system)
     , m_transform_system(transform_system)
+    , m_camera_system(camera_system)
     , m_trigger_system(trigger_system)
     , m_clicked_this_frame(false)
     , m_button_left(false)
@@ -344,14 +348,15 @@ bool UISystem::DrawCursor() const
     return (m_input_context->most_recent_input == mono::InputContextType::Mouse);
 }
 
-const math::Vector& UISystem::GetCursorTargetPosition() const
+math::Vector UISystem::GetCursorTargetPosition() const
 {
-    return m_mouse_world_position;
+    return m_camera_system->GetActiveCamera()->ScreenToWorld(m_mouse_screen_position);
 }
 
 mono::InputResult UISystem::Move(const event::MouseMotionEvent& event) 
 {
     m_mouse_world_position = math::Vector(event.world_x, event.world_y);
+    m_mouse_screen_position = math::Vector(event.screen_x, event.screen_y);
     return mono::InputResult::Handled;
 }
 
