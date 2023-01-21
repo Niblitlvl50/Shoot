@@ -8,6 +8,7 @@
 
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
+#include "Physics/IShape.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "System/System.h"
@@ -30,6 +31,7 @@ BulletLogic::BulletLogic(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     const math::Vector& target,
+    const math::Vector& velocity,
     float direction,
     const BulletConfiguration& config,
     const CollisionConfiguration& collision_config,
@@ -52,11 +54,21 @@ BulletLogic::BulletLogic(
     m_jumps_left = 3;
 
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
+    bullet_body->AddCollisionHandler(this);
+    bullet_body->SetNoDamping();
+    bullet_body->SetVelocity(velocity);
+
+    std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
+    for(mono::IShape* shape : shapes)
+        shape->SetCollisionFilter(collision_config.collision_category, collision_config.collision_mask);
+    
     m_homing_behaviour.SetBody(bullet_body);
     m_homing_behaviour.SetHeading(direction);
     m_homing_behaviour.SetAngularVelocity(120.0f);
     m_homing_behaviour.SetHomingStartDelay(tweak_values::homing_delay_s);
     m_homing_behaviour.SetHomingDuration(tweak_values::homing_duration_s);
+
+    m_circulating_behaviour.SetBody(bullet_body);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
@@ -89,6 +101,10 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
             const HomingResult& homing_result = m_homing_behaviour.Run(update_context);
             (void)homing_result;
         }
+    }
+    else if(m_bullet_behaviour & BulletCollisionFlag::CIRCULATING)
+    {
+        m_circulating_behaviour.Run(update_context);
     }
 }
 

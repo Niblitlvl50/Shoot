@@ -1,30 +1,21 @@
 
 #include "BulletWeapon.h"
+
 #include "BulletLogic.h"
-
-#include "Math/Vector.h"
-#include "Math/MathFunctions.h"
-
-#include "System/Audio.h"
-#include "Util/Random.h"
-
-#include "RenderLayers.h"
+#include "Entity/Component.h"
 #include "Effects/MuzzleFlash.h"
 #include "Effects/BulletTrailEffect.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
-
+#include "Math/Vector.h"
+#include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
-#include "Physics/IBody.h"
-#include "Physics/IShape.h"
 #include "Particle/ParticleSystem.h"
+#include "System/Audio.h"
 #include "TransformSystem/TransformSystem.h"
-
-#include "Entity/Component.h"
-
-#include "System/System.h"
+#include "Util/Random.h"
 
 #include <cmath>
 #include <algorithm>
@@ -144,8 +135,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
         const float bullet_direction = math::AngleFromVector(modified_fire_direction);
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
-        BulletLogic* bullet_logic =
-            new BulletLogic(bullet_entity.id, m_owner_id, target, bullet_direction, m_bullet_config, m_collision_config, m_physics_system);
+        IEntityLogic* bullet_logic = new BulletLogic(
+                bullet_entity.id, m_owner_id, target, velocity, bullet_direction, m_bullet_config, m_collision_config, m_physics_system);
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
@@ -160,20 +151,6 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
         m_transform_system->SetTransform(bullet_entity.id, transform);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
-
-        mono::IBody* body = m_physics_system->GetBody(bullet_entity.id);
-
-        //const float velocity_length = math::Length(velocity);
-        //const float body_mass = body->GetMass();
-        //System::Log("[%u]%s m: %.2f velocity: %.2f", bullet_entity.id, m_weapon_config.name.c_str(), body_mass, velocity_length);
-
-        body->AddCollisionHandler(bullet_logic);
-        body->SetNoDamping();
-        body->SetVelocity(velocity);
-
-        std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(bullet_entity.id);
-        for(mono::IShape* shape : shapes)
-            shape->SetCollisionFilter(m_collision_config.collision_category, m_collision_config.collision_mask);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 

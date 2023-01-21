@@ -42,6 +42,7 @@ namespace game
         PASS_THROUGH    = ENUM_BIT(2),
         HOMING          = ENUM_BIT(3),
         EXPLODES        = ENUM_BIT(4),
+        CIRCULATING     = ENUM_BIT(5),
     };
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
@@ -56,6 +57,8 @@ namespace game
             return BulletCollisionFlag::HOMING;
         else if(std::strcmp(string, "explodes") == 0)
             return BulletCollisionFlag::EXPLODES;
+        else if(std::strcmp(string, "circulating") == 0)
+            return BulletCollisionFlag::CIRCULATING;
 
         return 0;
     }

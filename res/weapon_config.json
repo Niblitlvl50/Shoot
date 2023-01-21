@@ -71,6 +71,16 @@
             "behaviour": "homing"
         },
         {
+            "name": "caco_bullet_circulating",
+            "damage": 20,
+            "life_span": 5.0,
+            "fuzzy_life_span": 0.3,
+            "bullet_want_direction": false,
+            "entity_file": "res/entities/caco_bullet.entity",
+            "sound_file": "",
+            "behaviour": "circulating"
+        },
+        {
             "name": "rocket",
             "damage": 50,
             "life_span": 10.0,
@@ -296,6 +306,12 @@
             "name": "Cacodemon Plasma",
             "weapon": "cacodemon_plasma",
             "bullet": "caco_bullet_homing",
+            "sprite_file": "res/sprites/pow9.sprite"
+        },
+        {
+            "name": "Cacodemon Plasma Circulating",
+            "weapon": "cacodemon_plasma",
+            "bullet": "caco_bullet_circulating",
             "sprite_file": "res/sprites/pow9.sprite"
         },
         {

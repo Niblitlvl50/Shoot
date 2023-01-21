@@ -7,6 +7,7 @@
 #include "Entity/IEntityLogic.h"
 #include "Weapons/WeaponConfiguration.h"
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/CirculatingBehaviour.h"
 
 #include <vector>
 
@@ -20,6 +21,7 @@ namespace game
             uint32_t entity_id,
             uint32_t owner_entity_id,
             const math::Vector& target,
+            const math::Vector& velocity,
             float direction,
             const BulletConfiguration& config,
             const CollisionConfiguration& collision_config,
@@ -50,5 +52,6 @@ namespace game
         int m_jumps_left;
 
         HomingBehaviour m_homing_behaviour;
+        CirculatingBehaviour m_circulating_behaviour;
     };
 }
