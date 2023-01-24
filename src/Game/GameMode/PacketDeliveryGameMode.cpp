@@ -251,13 +251,13 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
 
     m_sprite_system->SetSpriteEnabled(player_entity_id, false);
 
-    const mono::SpriteAnimationCallback set_idle_anim = [this, player_entity_id](uint32_t sprite_id) {
+    const mono::SpriteAnimationCallback on_begin_finished = [this, player_entity_id](uint32_t sprite_id) {
         m_sprite_system->SetSpriteEnabled(player_entity_id, true);
         mono::IBody* player_body = m_physics_system->GetBody(player_entity_id);
         player_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
     };
 
-    const mono::SpriteAnimationCallback set_end_anim = [=](uint32_t sprite_id) {
+    const mono::SpriteAnimationCallback on_idle_finished = [this](uint32_t sprite_id) {
         SpawnPackage(m_package_spawn_position);
     };
 
@@ -266,30 +266,11 @@ void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math
     };
 
     const std::vector<mono::SpriteAnimNode> anim_sequence = {
-        { "begin", set_idle_anim },
-        { "idle", set_end_anim },
+        { "begin", on_begin_finished },
+        { "idle", on_idle_finished },
         { "end", destroy_when_finish }
     };
     m_sprite_system->RunSpriteAnimSequence(portal_entity_id, anim_sequence);
-
-/*
-    mono::Sprite* portal_sprite = m_sprite_system->GetSprite(portal_entity_id);
-    const mono::SpriteAnimationCallback set_idle_anim = [=]() {
-        const mono::SpriteAnimationCallback set_end_anim = [=]() {
-            const mono::SpriteAnimationCallback destroy_when_finish = [=]() {
-                m_entity_manager->ReleaseEntity(portal_entity_id);
-            };
-            portal_sprite->SetAnimation("end", destroy_when_finish);
-            SpawnPackage(m_package_spawn_position);
-        };
-        portal_sprite->SetAnimation("idle", set_end_anim);
-        m_sprite_system->SetSpriteEnabled(player_entity_id, true);
-        mono::IBody* player_body = m_physics_system->GetBody(player_entity_id);
-        player_body->ApplyLocalImpulse(math::Vector(80.0f, 0.0f), math::ZeroVec);
-    };
-
-    portal_sprite->SetAnimation("begin", set_idle_anim);
-*/
 }
 
 void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
