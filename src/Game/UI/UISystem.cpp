@@ -194,12 +194,12 @@ bool UISystem::UpdateInPause() const
 
 void UISystem::Enable()
 {
-    m_input_context->enabled = true;
+    m_input_system->EnableContext(m_input_context);
 }
 
 void UISystem::Disable()
 {
-    m_input_context->enabled = false;
+    m_input_system->DisableContext(m_input_context);
 }
 
 bool UISystem::IsEnabled() const
