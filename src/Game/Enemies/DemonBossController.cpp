@@ -173,7 +173,7 @@ void DemonBossController::Active(const mono::UpdateContext& update_context)
 
 void DemonBossController::OnTurn()
 {
-    const auto transition_to_attack = [this]() {
+    const auto transition_to_attack = [this](uint32_t sprite_id) {
         m_states.TransitionTo(States::ACTION_FIRE_HOMING);
     };
     m_entity_sprite->SetAnimation(m_turn_animation, transition_to_attack);
@@ -192,7 +192,7 @@ void DemonBossController::OnAction()
 {
     m_ready_to_attack = false;
 
-    const auto set_ready_to_attack = [this] {
+    const auto set_ready_to_attack = [this](uint32_t sprite_id) {
         m_ready_to_attack = true;
     };
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
@@ -235,7 +235,7 @@ void DemonBossController::OnFireHoming()
 {
     m_ready_to_attack = false;
 
-    const auto set_ready_to_attack = [this] {
+    const auto set_ready_to_attack = [this](uint32_t sprite_id) {
         m_ready_to_attack = true;
     };
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);

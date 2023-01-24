@@ -210,7 +210,7 @@ void ImpController::Reposition(const mono::UpdateContext& update_context)
 
 void ImpController::ToPrepareAttack()
 {
-    const auto transition_to_attacking = [this]() {
+    const auto transition_to_attacking = [this](uint32_t sprite_id) {
         m_states.TransitionTo(States::ATTACKING);
     };
     m_sprite->SetAnimation(m_attack_anim_id, transition_to_attacking);

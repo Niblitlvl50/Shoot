@@ -57,8 +57,8 @@ uint32_t game::SpawnEntityWithAnimation(
 
     mono::Sprite* spawned_entity_sprite = sprite_system->GetSprite(spawned_entity.id);
 
-    const auto remove_entity_callback = [spawned_entity, entity_manager]() {
-        entity_manager->ReleaseEntity(spawned_entity.id);
+    const auto remove_entity_callback = [entity_manager](uint32_t sprite_id) {
+        entity_manager->ReleaseEntity(sprite_id);
     };
     spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
 
