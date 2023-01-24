@@ -376,7 +376,9 @@ mono::InputResult UISystem::ButtonDown(const event::ControllerButtonDownEvent& e
     m_button_down = (event.button == System::ControllerButton::DOWN);
     m_button_push_this_frame = event.button == System::ControllerButton::FACE_BOTTOM;
 
-    return mono::InputResult::Handled;
+    const bool event_handled =
+        (m_button_left || m_button_right || m_button_up || m_button_down || m_button_push_this_frame);
+    return event_handled ? mono::InputResult::Handled : mono::InputResult::Pass;
 };
 
 void UISystem::DrawDebug(const mono::UpdateContext& update_context)
