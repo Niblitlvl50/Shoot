@@ -230,6 +230,9 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
     case GameModeStates::LEVEL_COMPLETED:
         state_text = "Level Completed";
         break;
+    case GameModeStates::LEVEL_ABORTED:
+        state_text = "Level Aborted";
+        break;
     case GameModeStates::PAUSED:
         state_text = "Paused";
         break;
