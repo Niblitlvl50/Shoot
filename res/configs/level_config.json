@@ -6,6 +6,11 @@
             "transitions": [ "quit", "setup_game_screen", "quit" ]
         },
         {
+            "name": "options_screen",
+            "filename": "res/worlds/options_screen.components",
+            "transitions": [ "title_screen", "title_screen", "title_screen" ]
+        },
+        {
             "name": "setup_game_screen",
             "filename": "res/worlds/setup_game_screen.components",
             "transitions": [ "title_screen", "tiny_arena", "title_screen" ]

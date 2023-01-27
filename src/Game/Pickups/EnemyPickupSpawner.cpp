@@ -28,7 +28,7 @@ EnemyPickupSpawner::EnemyPickupSpawner(
     };
     m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
 
-    file::FilePtr config_file = file::OpenAsciiFile("res/pickup_config.json");
+    file::FilePtr config_file = file::OpenAsciiFile("res/configs/pickup_config.json");
     if(config_file)
     {
         const std::vector<byte>& file_data = file::FileRead(config_file);

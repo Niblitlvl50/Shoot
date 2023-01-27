@@ -59,7 +59,7 @@ ZoneManager::ZoneManager(mono::ICamera* camera, const ZoneCreationContext& zone_
     : m_engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler)
     , m_zone_context(zone_context)
 {
-    m_level_config = LoadLevelConfig("res/level_config.json");
+    m_level_config = LoadLevelConfig("res/configs/level_config.json");
 }
 
 void ZoneManager::Run(const char* initial_zone_name)

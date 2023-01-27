@@ -73,7 +73,7 @@ WeaponSystem::WeaponSystem(
     : m_entity_manager(entity_manager)
     , m_system_context(system_context)
 {
-    m_weapon_configuration = LoadWeaponConfig("res/weapon_config.json");
+    m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");
 
     using namespace std::placeholders;
     m_standard_collision =

@@ -34,7 +34,7 @@ namespace
         int width = 1200;
         int height = 750;
         const char* start_zone = nullptr;
-        const char* game_config = "res/game_config.json";
+        const char* game_config = "res/configs/game_config.json";
         const char* log_file = "game_log.log";
     };
 

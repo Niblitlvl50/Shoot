@@ -49,7 +49,7 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_event_handler(event_handler)
     , m_spawn_players(false)
 {
-    const std::vector<byte> file_data = file::FileReadAll("res/player_config.json");
+    const std::vector<byte> file_data = file::FileReadAll("res/configs/player_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     m_player_entities = json["player_entities"];

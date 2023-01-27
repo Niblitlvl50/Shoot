@@ -38,7 +38,7 @@ SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
     , m_current_transition(SoundTransition::Cut)
     , m_transition_timer(0.0f)
 {
-    const std::vector<byte> file_data = file::FileReadAll("res/sound_config.json");
+    const std::vector<byte> file_data = file::FileReadAll("res/configs/sound_config.json");
     if(!file_data.empty())
     {
         const nlohmann::json& json = nlohmann::json::parse(file_data);

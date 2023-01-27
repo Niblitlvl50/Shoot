@@ -43,12 +43,12 @@
         {
             "name": "burst_gun_bullet",
             "damage": 50,
-            "life_span": 0.75,
+            "life_span": 10.75,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
             "entity_file": "res/entities/plasma_crimson_bullet.entity",
             "sound_file": "",
-            "behaviour": ""
+            "behaviour": "sinewave"
         },
         {
             "name": "caco_bullet",
@@ -182,7 +182,7 @@
             "rounds_per_second": 15.0,
             "fire_rate_multiplier": 1.0,
             "max_fire_rate": 1.0,
-            "bullet_force": 10.0,
+            "bullet_force": 1.0,
             "bullet_spread_degrees": 2.0,
             "bullet_offset": 0.0,
             "bullet_force_random": true,

@@ -70,20 +70,13 @@ set_source_files_properties(
 file(
     GLOB_RECURSE
     game_exe_resource_files
+    "res/configs/*"
     "res/entities/*"
     "res/fonts/*"
     "res/sound/*"
     "res/sprites/*"
     "res/textures/*"
     "res/worlds/*"
-    "res/game_config.json"
-    "res/level_config.json"
-    "res/pickup_config.json"
-    "res/player_config.json"
-    "res/sound_config.json"
-    "res/spawn_config.json"
-    "res/weapon_config.json"
-    "res/ui_config.json"
     "res/sprite_atlas.png")
 
 # Individually set the file's path properties

@@ -29,7 +29,7 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     , m_spawn_points(n)
     , m_entity_spawn_points(n)
 {
-    const std::vector<byte> file_data = file::FileReadAll("res/spawn_config.json");
+    const std::vector<byte> file_data = file::FileReadAll("res/configs/spawn_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     for(const auto& spawn_props : json["spawn_definitions"])
