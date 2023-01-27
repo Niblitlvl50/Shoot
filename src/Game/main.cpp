@@ -35,6 +35,7 @@ namespace
         int height = 750;
         const char* start_zone = nullptr;
         const char* game_config = "res/game_config.json";
+        const char* user_config = "res/user_config.json";
         const char* log_file = "game_log.log";
     };
 
@@ -92,6 +93,9 @@ int main(int argc, char* argv[])
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
 
+    game::UserConfig user_config;
+    game::LoadUserConfig(options.user_config, user_config);
+
     System::InitializeUserPath(game_config.organization.c_str(), game_config.application.c_str());
 
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
@@ -107,11 +111,14 @@ int main(int argc, char* argv[])
         const float window_ratio = float(window_size.width) / float(window_size.height);
         const int height = float(options.width) / window_ratio;
 
-        const int window_options = 
-            0;
+        int window_options = 0;
             //System::WindowOptions::FULLSCREEN;
             //System::WindowOptions::FULLSCREEN_DESKTOP;
             //System::WindowOptions::DISABLE_VSYNC;
+
+        if(user_config.fullscreen)
+            window_options |= System::WindowOptions::FULLSCREEN_DESKTOP;
+
         std::unique_ptr<System::IWindow> window(System::MakeWindow(
             game_config.application.c_str(),
             options.x, options.y,
@@ -149,6 +156,9 @@ int main(int argc, char* argv[])
         game::ZoneManager(&camera, zone_context).Run(options.start_zone);
 
         system_context.DestroySystems();
+
+        user_config.fullscreen = window->IsFullscreen();
+        game::SaveUserConfig(options.user_config, user_config);
     }
 
     audio::Shutdown();

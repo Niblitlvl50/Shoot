@@ -23,4 +23,12 @@ namespace game
     };
 
     bool LoadConfig(const char* config_file, Config& config);
+
+    struct UserConfig
+    {
+        bool fullscreen = false;
+    };
+
+    void LoadUserConfig(const char* user_config_file, UserConfig& config);
+    void SaveUserConfig(const char* user_config_file, const UserConfig& config);
 }

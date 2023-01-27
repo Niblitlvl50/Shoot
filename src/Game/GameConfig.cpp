@@ -28,3 +28,26 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
 
     return true;
 }
+
+void game::LoadUserConfig(const char* user_config_file, game::UserConfig& config)
+{
+    file::FilePtr file = file::OpenAsciiFile(user_config_file);
+    if(!file)
+        return;
+
+    const std::vector<byte> file_data = file::FileRead(file);
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    config.fullscreen = json.value("fullscreen", false);
+}
+
+void game::SaveUserConfig(const char* user_config_file, const game::UserConfig& config)
+{
+    nlohmann::json json;
+    json["fullscreen"] = config.fullscreen;
+
+    const std::string& serialized_config = json.dump(4);
+
+    file::FilePtr file = file::CreateAsciiFile(user_config_file);
+    std::fwrite(serialized_config.data(), serialized_config.length(), sizeof(char), file.get());
+}
