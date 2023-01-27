@@ -892,7 +892,10 @@ bool editor::DrawEntityReferenceProperty(
     const float tiny_button_width = 19.0f;
 
     char label[32] = {};
-    std::sprintf(label, "%s (%u)", entity_name, entity_reference);
+    if(entity_reference == mono::INVALID_ID)
+        std::sprintf(label, "None");
+    else
+        std::sprintf(label, "%s (%u)", entity_name, entity_reference);
 
     ImGui::PushID(&entity_reference);
     const bool enable_pick = ImGui::Button(label, ImVec2(item_width - (tiny_button_width * 2) - (item_spacing * 2), 0));

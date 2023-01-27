@@ -69,6 +69,7 @@ void ComponentProxy::SetName(const std::string& name)
     Component* name_folder_component = component::FindComponentFromHash(NAME_FOLDER_COMPONENT, m_components);
     MONO_ASSERT(name_folder_component != nullptr);
     SetAttribute(NAME_ATTRIBUTE, name_folder_component->properties, name);
+    m_entity_manager->SetEntityName(m_entity_id, name.c_str());
 }
 
 void ComponentProxy::SetFolder(const std::string& folder)
@@ -214,6 +215,10 @@ void ComponentProxy::ComponentChanged(Component& component, uint32_t attribute_h
             sprite_name.erase(dot_pos);
             SetName(sprite_name);
         }
+    }
+    else if(component.hash == NAME_FOLDER_COMPONENT && attribute_hash == NAME_ATTRIBUTE)
+    {
+        m_entity_manager->SetEntityName(m_entity_id, Name().c_str());
     }
 
     const uint32_t attributes_with_grabbers[] = {
