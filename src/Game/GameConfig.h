@@ -30,6 +30,6 @@ namespace game
         bool vsync = true;
     };
 
-    void LoadUserConfig(const char* user_config_file, UserConfig& config);
-    void SaveUserConfig(const char* user_config_file, const UserConfig& config);
+    void LoadUserConfig(const char* user_config_path, UserConfig& config);
+    void SaveUserConfig(const char* user_config_path, const UserConfig& config);
 }

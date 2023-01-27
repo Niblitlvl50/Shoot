@@ -35,7 +35,6 @@ namespace
         int height = 750;
         const char* start_zone = nullptr;
         const char* game_config = "res/game_config.json";
-        const char* user_config = "res/user_config.json";
         const char* log_file = "game_log.log";
     };
 
@@ -93,10 +92,10 @@ int main(int argc, char* argv[])
     game::Config game_config;
     game::LoadConfig(options.game_config, game_config);
 
-    game::UserConfig user_config;
-    game::LoadUserConfig(options.user_config, user_config);
-
     System::InitializeUserPath(game_config.organization.c_str(), game_config.application.c_str());
+
+    game::UserConfig user_config;
+    game::LoadUserConfig(System::GetUserPath(), user_config);
 
     game::LoadAllSprites("res/sprites/all_sprite_files.json");
     game::LoadAllTextures("res/textures/all_textures.json");
@@ -156,7 +155,7 @@ int main(int argc, char* argv[])
         system_context.DestroySystems();
 
         user_config.fullscreen = window->IsFullscreen();
-        game::SaveUserConfig(options.user_config, user_config);
+        game::SaveUserConfig(System::GetUserPath(), user_config);
     }
 
     audio::Shutdown();

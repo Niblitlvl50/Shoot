@@ -82,7 +82,6 @@ file(
     "res/player_config.json"
     "res/sound_config.json"
     "res/spawn_config.json"
-    "res/user_config.json"
     "res/weapon_config.json"
     "res/ui_config.json"
     "res/sprite_atlas.png")

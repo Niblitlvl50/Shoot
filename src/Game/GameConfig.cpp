@@ -1,6 +1,8 @@
 
 #include "GameConfig.h"
 #include "System/File.h"
+
+#include <string>
 #include "nlohmann/json.hpp"
 
 bool game::LoadConfig(const char* config_file, game::Config& config)
@@ -29,9 +31,14 @@ bool game::LoadConfig(const char* config_file, game::Config& config)
     return true;
 }
 
-void game::LoadUserConfig(const char* user_config_file, game::UserConfig& config)
+void game::LoadUserConfig(const char* user_config_path, game::UserConfig& config)
 {
-    file::FilePtr file = file::OpenAsciiFile(user_config_file);
+    const std::string user_config_file = user_config_path + std::string("user_config.json");
+    const bool file_exists = file::Exists(user_config_file.c_str());
+    if(!file_exists)
+        return;
+
+    file::FilePtr file = file::OpenAsciiFile(user_config_file.c_str());
     if(!file)
         return;
 
@@ -42,7 +49,7 @@ void game::LoadUserConfig(const char* user_config_file, game::UserConfig& config
     config.vsync = json.value("vsync", true);
 }
 
-void game::SaveUserConfig(const char* user_config_file, const game::UserConfig& config)
+void game::SaveUserConfig(const char* user_config_path, const game::UserConfig& config)
 {
     nlohmann::json json;
     json["fullscreen"] = config.fullscreen;
@@ -50,6 +57,7 @@ void game::SaveUserConfig(const char* user_config_file, const game::UserConfig& 
 
     const std::string& serialized_config = json.dump(4);
 
-    file::FilePtr file = file::CreateAsciiFile(user_config_file);
+    const std::string user_config_file = user_config_path + std::string("user_config.json");
+    file::FilePtr file = file::CreateAsciiFile(user_config_file.c_str());
     std::fwrite(serialized_config.data(), serialized_config.length(), sizeof(char), file.get());
 }
