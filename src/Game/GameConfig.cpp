@@ -39,12 +39,14 @@ void game::LoadUserConfig(const char* user_config_file, game::UserConfig& config
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
     config.fullscreen = json.value("fullscreen", false);
+    config.vsync = json.value("vsync", true);
 }
 
 void game::SaveUserConfig(const char* user_config_file, const game::UserConfig& config)
 {
     nlohmann::json json;
     json["fullscreen"] = config.fullscreen;
+    json["vsync"] = config.vsync;
 
     const std::string& serialized_config = json.dump(4);
 

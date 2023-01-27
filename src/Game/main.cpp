@@ -111,13 +111,11 @@ int main(int argc, char* argv[])
         const float window_ratio = float(window_size.width) / float(window_size.height);
         const int height = float(options.width) / window_ratio;
 
-        int window_options = 0;
-            //System::WindowOptions::FULLSCREEN;
-            //System::WindowOptions::FULLSCREEN_DESKTOP;
-            //System::WindowOptions::DISABLE_VSYNC;
-
+        int window_options = System::WindowOptions::NONE;
         if(user_config.fullscreen)
             window_options |= System::WindowOptions::FULLSCREEN_DESKTOP;
+        if(user_config.vsync)
+            window_options |= System::WindowOptions::VSYNC;
 
         std::unique_ptr<System::IWindow> window(System::MakeWindow(
             game_config.application.c_str(),

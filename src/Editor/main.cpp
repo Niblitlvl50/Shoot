@@ -45,7 +45,7 @@ int main()
         editor::LoadConfig("res/editor_config.json", config);
 
         System::IWindow* window = System::MakeWindow(
-            "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::NONE);
+            "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::VSYNC);
 
         mono::RenderInitParams render_params;
         render_params.pixels_per_meter = 32.0f;

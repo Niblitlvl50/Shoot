@@ -27,6 +27,7 @@ namespace game
     struct UserConfig
     {
         bool fullscreen = false;
+        bool vsync = true;
     };
 
     void LoadUserConfig(const char* user_config_file, UserConfig& config);
