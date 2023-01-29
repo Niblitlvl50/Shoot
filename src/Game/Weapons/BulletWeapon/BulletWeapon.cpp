@@ -78,7 +78,7 @@ Weapon::~Weapon()
 
 WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
 {
-    const math::Vector target = math::VectorFromAngle(direction) * 10.0f;
+    const math::Vector target = math::VectorFromAngle(direction) * 2.0f;
     return Fire(position, position + target, timestamp);
 }
 
@@ -129,28 +129,37 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
             mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees);
         const math::Vector modified_fire_direction = math::RotateAroundZero(fire_direction, math::ToRadians(fire_direction_deviation));
 
-        const float force_multiplier = m_weapon_config.bullet_force_random ? mono::Random(0.8f, 1.2f) : 1.0f;
+        const float velocity_multiplier = m_weapon_config.bullet_velocity_random ? mono::Random(0.8f, 1.2f) : 1.0f;
         const math::Vector& velocity =
-            math::Normalized(modified_fire_direction) * m_weapon_config.bullet_force * force_multiplier;
+            math::Normalized(modified_fire_direction) * m_weapon_config.bullet_velocity * velocity_multiplier;
 
         const float bullet_direction = math::AngleFromVector(modified_fire_direction);
         mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
-        IEntityLogic* bullet_logic = new BulletLogic(
-                bullet_entity.id, m_owner_id, target, velocity, bullet_direction, m_bullet_config, m_collision_config, m_physics_system);
-
-        m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
-        m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         const math::Vector perp_offset =
             perpendicular_fire_direction * mono::Random(-m_weapon_config.bullet_offset, m_weapon_config.bullet_offset);
         const math::Vector fire_position = position + perp_offset;
 
-        const math::Matrix& transform = (m_bullet_config.bullet_want_direction) ?
-            math::CreateMatrixWithPositionRotation(fire_position, math::AngleFromVector(modified_fire_direction)) :
-            math::CreateMatrixWithPosition(fire_position);
+        const float bullet_rotation =
+            m_bullet_config.bullet_want_direction ? math::AngleFromVector(modified_fire_direction) : 0.0f;
+        const math::Matrix& transform = math::CreateMatrixWithPositionRotation(fire_position, bullet_rotation);
 
         m_transform_system->SetTransform(bullet_entity.id, transform);
         m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
+
+        IEntityLogic* bullet_logic = new BulletLogic(
+                bullet_entity.id,
+                m_owner_id,
+                target,
+                velocity,
+                bullet_direction,
+                m_bullet_config,
+                m_collision_config,
+                m_transform_system,
+                m_physics_system);
+
+        m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
+        m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 

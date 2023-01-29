@@ -32,10 +32,10 @@ namespace game
         weapon_config.rounds_per_second     = json["rounds_per_second"].get<float>();
         weapon_config.fire_rate_multiplier  = json["fire_rate_multiplier"].get<float>();
         weapon_config.max_fire_rate         = json["max_fire_rate"].get<float>();
-        weapon_config.bullet_force          = json["bullet_force"].get<float>();
+        weapon_config.bullet_velocity       = json["bullet_force"].get<float>();
         weapon_config.bullet_spread_degrees = json["bullet_spread_degrees"].get<float>();
         weapon_config.bullet_offset         = json["bullet_offset"].get<float>();
-        weapon_config.bullet_force_random   = json["bullet_force_random"].get<bool>();
+        weapon_config.bullet_velocity_random= json["bullet_force_random"].get<bool>();
         weapon_config.auto_reload           = json["auto_reload"].get<bool>();
         weapon_config.reload_time           = json["reload_time"].get<float>();
         weapon_config.fire_sound            = json["fire_sound"].get<std::string>();

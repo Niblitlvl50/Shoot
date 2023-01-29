@@ -33,22 +33,25 @@ BulletLogic::BulletLogic(
     const math::Vector& target,
     const math::Vector& velocity,
     float direction,
-    const BulletConfiguration& config,
+    const BulletConfiguration& bullet_config,
     const CollisionConfiguration& collision_config,
+    mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
+    , m_transform_system(transform_system)
     , m_physics_system(physics_system)
-    , m_damage(config.damage)
-    , m_bullet_behaviour(config.bullet_behaviour)
+    , m_damage(bullet_config.damage)
+    , m_bullet_behaviour(bullet_config.bullet_behaviour)
+    , m_circulating_behaviour(transform_system)
 {
-    m_life_span = config.life_span + (mono::Random() * config.fuzzy_life_span);
+    m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
 
-    m_sound = config.sound_file.empty() ?
+    m_sound = bullet_config.sound_file.empty() ?
         audio::CreateNullSound() :
-        audio::CreateSound(config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
+        audio::CreateSound(bullet_config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
     m_sound->Play();
 
     m_jumps_left = 3;
@@ -61,20 +64,25 @@ BulletLogic::BulletLogic(
     std::vector<mono::IShape*> shapes = m_physics_system->GetShapesAttachedToBody(entity_id);
     for(mono::IShape* shape : shapes)
         shape->SetCollisionFilter(collision_config.collision_category, collision_config.collision_mask);
-    
+
     m_homing_behaviour.SetBody(bullet_body);
     m_homing_behaviour.SetHeading(direction);
+    m_homing_behaviour.SetForwardVelocity(math::Length(velocity));
     m_homing_behaviour.SetAngularVelocity(120.0f);
     m_homing_behaviour.SetHomingStartDelay(tweak_values::homing_delay_s);
     m_homing_behaviour.SetHomingDuration(tweak_values::homing_duration_s);
 
-    m_circulating_behaviour.SetBody(bullet_body);
+    const math::Vector bullet_position = transform_system->GetWorldPosition(entity_id);
+    const float radius = math::Length(bullet_position - target);
+    m_circulating_behaviour.Initialize(owner_entity_id, radius, bullet_body);
+
+    m_sinewave_behaviour.SetBody(bullet_body);
+    m_sinewave_behaviour.SetHeading(direction);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
 {
     m_life_span -= update_context.delta_s;
-
     if(m_life_span < 0.0f)
     {
         CollisionDetails details;
@@ -83,6 +91,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         details.normal = math::ZeroVec;
 
         m_collision_callback(m_entity_id, m_owner_entity_id, 0, BulletImpactFlag::DESTROY_THIS, details);
+        return;
     }
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
@@ -90,21 +99,17 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         const game::PlayerInfo* player_info = game::GetClosestActivePlayer(m_target);
         if(player_info)
         {
-            // This only needs to be done once.
-            mono::IBody* bullet_body = m_physics_system->GetBody(m_entity_id);
-            const float velocity_magnitude = math::Length(bullet_body->GetVelocity());
-            m_homing_behaviour.SetForwardVelocity(velocity_magnitude);
-            //m_homing_behaviour.SetHeading();
-            //
-
             m_homing_behaviour.SetTargetPosition(player_info->position);
-            const HomingResult& homing_result = m_homing_behaviour.Run(update_context);
-            (void)homing_result;
+            m_homing_behaviour.Run(update_context);
         }
     }
     else if(m_bullet_behaviour & BulletCollisionFlag::CIRCULATING)
     {
         m_circulating_behaviour.Run(update_context);
+    }
+    else if(m_bullet_behaviour & BulletCollisionFlag::SINEWAVE)
+    {
+        m_sinewave_behaviour.Run(update_context);
     }
 }
 

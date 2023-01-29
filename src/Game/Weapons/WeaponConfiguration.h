@@ -43,6 +43,7 @@ namespace game
         HOMING          = ENUM_BIT(3),
         EXPLODES        = ENUM_BIT(4),
         CIRCULATING     = ENUM_BIT(5),
+        SINEWAVE        = ENUM_BIT(6),
     };
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
@@ -59,6 +60,8 @@ namespace game
             return BulletCollisionFlag::EXPLODES;
         else if(std::strcmp(string, "circulating") == 0)
             return BulletCollisionFlag::CIRCULATING;
+        else if(std::strcmp(string, "sinewave") == 0)
+            return BulletCollisionFlag::SINEWAVE;
 
         return 0;
     }
@@ -83,10 +86,10 @@ namespace game
         float rounds_per_second;
         float fire_rate_multiplier;
         float max_fire_rate;
-        float bullet_force;
+        float bullet_velocity;
         float bullet_spread_degrees;
         float bullet_offset;
-        bool bullet_force_random;
+        bool bullet_velocity_random;
         bool auto_reload;
         float reload_time;
         std::string fire_sound;
