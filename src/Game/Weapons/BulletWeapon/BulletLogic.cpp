@@ -74,7 +74,7 @@ BulletLogic::BulletLogic(
 
     const math::Vector bullet_position = transform_system->GetWorldPosition(entity_id);
     const float radius = math::Length(bullet_position - target);
-    m_circulating_behaviour.Initialize(owner_entity_id, radius, bullet_body);
+    m_circulating_behaviour.Initialize(owner_entity_id, radius, direction, bullet_body);
 
     m_sinewave_behaviour.SetBody(bullet_body);
     m_sinewave_behaviour.SetHeading(direction);

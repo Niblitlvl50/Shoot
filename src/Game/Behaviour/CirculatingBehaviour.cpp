@@ -19,10 +19,11 @@ CirculatingBehaviour::CirculatingBehaviour(mono::TransformSystem* transform_syst
     , m_current_angle_rad(0.0f)
 { }
 
-void CirculatingBehaviour::Initialize(uint32_t position_entity_id, float radius, mono::IBody* body)
+void CirculatingBehaviour::Initialize(uint32_t position_entity_id, float radius, float heading, mono::IBody* body)
 {
     m_position_entity_id = position_entity_id;
     m_radius = radius;
+    m_current_angle_rad = heading;
     m_body = body;
     m_forward_velocity = math::Length(body->GetVelocity());
 

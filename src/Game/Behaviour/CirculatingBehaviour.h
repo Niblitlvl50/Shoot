@@ -12,7 +12,7 @@ namespace game
     public:
 
         CirculatingBehaviour(mono::TransformSystem* transform_system);
-        void Initialize(uint32_t position_entity_id, float radius, mono::IBody* body);
+        void Initialize(uint32_t position_entity_id, float radius, float heading, mono::IBody* body);
         void Run(const mono::UpdateContext& update_context);
 
     private:
