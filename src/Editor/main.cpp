@@ -42,7 +42,7 @@ int main()
 
     {
         editor::Config config;
-        editor::LoadConfig("res/configs/editor_config.json", config);
+        editor::LoadConfig("res/editor_config.json", config);
 
         System::IWindow* window = System::MakeWindow(
             "editor", config.window_position.x, config.window_position.y, config.window_size.x, config.window_size.y, System::WindowOptions::VSYNC);
@@ -95,7 +95,7 @@ int main()
             config.window_position = math::Vector(position.x, position.y);
             config.window_size = math::Vector(size.width, size.height);
 
-            editor::SaveConfig("res/configs/editor_config.json", config);
+            editor::SaveConfig("res/editor_config.json", config);
         }
 
         system_context.DestroySystems();
