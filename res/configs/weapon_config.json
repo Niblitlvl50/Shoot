@@ -71,12 +71,12 @@
             "behaviour": "homing"
         },
         {
-            "name": "caco_bullet_circulating",
+            "name": "generic_circulating",
             "damage": 20,
-            "life_span": 5.0,
-            "fuzzy_life_span": 0.3,
+            "life_span": 15.0,
+            "fuzzy_life_span": 2.5,
             "bullet_want_direction": false,
-            "entity_file": "res/entities/caco_bullet.entity",
+            "entity_file": "res/entities/green_blob.entity",
             "sound_file": "",
             "behaviour": "circulating"
         },
@@ -129,6 +129,24 @@
             "fire_rate_multiplier": 1.0,
             "max_fire_rate": 1.0,
             "bullet_force": 2.0,
+            "bullet_spread_degrees": 30.0,
+            "bullet_offset": 0.0,
+            "bullet_force_random": true,
+            "auto_reload": false,
+            "fire_sound": "",
+            "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "boss_circulating_weapon",
+            "reload_time": 1.0,
+            "magazine_size": 20,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 3.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_force": 3.0,
             "bullet_spread_degrees": 30.0,
             "bullet_offset": 0.0,
             "bullet_force_random": true,
@@ -310,8 +328,8 @@
         },
         {
             "name": "Cacodemon Plasma Circulating",
-            "weapon": "cacodemon_plasma",
-            "bullet": "caco_bullet_circulating",
+            "weapon": "boss_circulating_weapon",
+            "bullet": "generic_circulating",
             "sprite_file": "res/sprites/pow9.sprite"
         },
         {

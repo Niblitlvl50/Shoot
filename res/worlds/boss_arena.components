@@ -1031,7 +1031,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 3
                         },
                         {
                             "id": 1031692888,
@@ -1392,13 +1392,13 @@
                             "id": 3576654212,
                             "name": "weapon_secondary",
                             "variant_type": 6,
-                            "variant_value": "Plasma Canon"
+                            "variant_value": "Cacodemon Plasma Circulating"
                         },
                         {
                             "id": 556824164,
                             "name": "weapon_tertiary",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "Cacodemon Plasma Circulating"
                         }
                     ]
                 },
