@@ -6,13 +6,9 @@
 #include "Debug/IDebugDrawer.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
-#include "Shockwave.h"
 #include "CollisionConfiguration.h"
-#include "Effects/ShockwaveEffect.h"
 
-#include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
-#include "Particle/ParticleSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -33,7 +29,7 @@ namespace tweak_values
     constexpr float retreat_distance = 3.0f;
     constexpr float advance_distance = 4.5f;
     constexpr float attack_distance = 4.0f;
-    constexpr float shockwave_distance = 1.5f;
+    constexpr float circle_attack_distance = 1.5f;
 
     constexpr float shockwave_cooldown_s = 3.0f;
     constexpr float homing_attack_cooldown_s = 3.0f;
@@ -68,11 +64,6 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     m_attack_animation = m_entity_sprite->GetAnimationIdFromName("attack_turn");
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("die");
 
-    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
-
-    m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, entity_manager);
-
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
     m_damage_system->PreventReleaseOnDeath(entity_id, true);
 
@@ -92,7 +83,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
         CacoStateMachine::MakeState(
             States::TURN_TO_PLAYER, &DemonBossController::OnTurn, &DemonBossController::TurnToPlayer, this),
         CacoStateMachine::MakeState(
-            States::ACTION_SHOCKWAVE, &DemonBossController::OnAction, &DemonBossController::ActionShockwave, this),
+            States::ACTION_FIRE_CIRCLE, &DemonBossController::OnCircleAttack, &DemonBossController::CircleAttack, this),
         CacoStateMachine::MakeState(
             States::ACTION_FIRE_HOMING, &DemonBossController::OnFireHoming, &DemonBossController::ActionFireHoming, this),
         CacoStateMachine::MakeState(
@@ -124,7 +115,7 @@ void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::retreat_distance, mono::Color::MAGENTA);
     debug_drawer->DrawCircle(world_position, tweak_values::advance_distance, mono::Color::MAGENTA);
     debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
-    debug_drawer->DrawCircle(world_position, tweak_values::shockwave_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::circle_attack_distance, mono::Color::RED);
 
     const char* state_string = StateToString(m_states.ActiveState());
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::MAGENTA);
@@ -160,9 +151,9 @@ void DemonBossController::Idle(const mono::UpdateContext& update_context)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
 
     if(distance_to_player < tweak_values::attack_distance && m_fire_homing_cooldown == 0.0f)
-        m_states.TransitionTo(States::TURN_TO_PLAYER);
-    else if(distance_to_player < tweak_values::shockwave_distance && m_shockwave_cooldown == 0.0f)
-        m_states.TransitionTo(States::ACTION_SHOCKWAVE);
+        TurnAndTransitionTo(States::ACTION_FIRE_HOMING);
+    else if(distance_to_player < tweak_values::circle_attack_distance && m_shockwave_cooldown == 0.0f)
+        TurnAndTransitionTo(States::ACTION_FIRE_CIRCLE);
 }
 
 void DemonBossController::OnActive()
@@ -174,7 +165,7 @@ void DemonBossController::Active(const mono::UpdateContext& update_context)
 void DemonBossController::OnTurn()
 {
     const auto transition_to_attack = [this](uint32_t sprite_id) {
-        m_states.TransitionTo(States::ACTION_FIRE_HOMING);
+        m_states.TransitionTo(m_state_after_turn);
     };
     m_entity_sprite->SetAnimation(m_turn_animation, transition_to_attack);
 
@@ -188,7 +179,7 @@ void DemonBossController::OnTurn()
 void DemonBossController::TurnToPlayer(const mono::UpdateContext& update_context)
 { }
 
-void DemonBossController::OnAction()
+void DemonBossController::OnCircleAttack()
 {
     m_ready_to_attack = false;
 
@@ -204,7 +195,7 @@ void DemonBossController::OnAction()
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
-void DemonBossController::ActionShockwave(const mono::UpdateContext& update_context)
+void DemonBossController::CircleAttack(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
@@ -212,23 +203,14 @@ void DemonBossController::ActionShockwave(const mono::UpdateContext& update_cont
     const math::Vector& fire_position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector& target_position = m_target_player->position;
 
-    const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, target_position, update_context.timestamp);
+    const math::Vector delta_normalized = math::Normalized(target_position - fire_position);
+    const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, fire_position + (delta_normalized * 3.0f), update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_secondary_weapon->Reload(update_context.timestamp);
         m_fire_beam_cooldown = tweak_values::beam_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
-
-/*
-    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    game::ShockwaveAtForTypes(m_physics_system, position, 100.0f, PLAYER | PLAYER_BULLET);
-
-    m_shockwave_effect->EmittAt(position);
-
-    m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
-    m_states.TransitionTo(States::IDLE);
-    */
 }
 
 void DemonBossController::OnFireHoming()
@@ -263,6 +245,10 @@ void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_con
         m_fire_homing_cooldown = tweak_values::homing_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
+}
+
+void DemonBossController::OnAction()
+{
 }
 
 void DemonBossController::ActionFireBeam(const mono::UpdateContext& update_context)
@@ -303,8 +289,8 @@ const char* DemonBossController::StateToString(States state) const
         return "Active";
     case States::TURN_TO_PLAYER:
         return "Turn_To_Player";
-    case States::ACTION_SHOCKWAVE:
-        return "Action_Shockwave";
+    case States::ACTION_FIRE_CIRCLE:
+        return "Action_Fire_Circle";
     case States::ACTION_FIRE_HOMING:
         return "Action_Fire_Homing";
     case States::ACTION_FIRE_BEAM:
@@ -314,6 +300,12 @@ const char* DemonBossController::StateToString(States state) const
     }
 
     return "Unknown";
+}
+
+void DemonBossController::TurnAndTransitionTo(States state_after_turn)
+{
+    m_states.TransitionTo(States::TURN_TO_PLAYER);
+    m_state_after_turn = state_after_turn;
 }
 
 void DemonBossController::OnDamage(uint32_t who_did_damage, int damage)

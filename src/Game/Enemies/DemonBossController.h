@@ -11,8 +11,6 @@
 #include "Entity/IEntityLogic.h"
 #include "Weapons/WeaponFwd.h"
 
-#include <memory>
-
 namespace game
 {
     class DemonBossController : public IEntityLogic
@@ -35,12 +33,13 @@ namespace game
         void OnTurn();
         void TurnToPlayer(const mono::UpdateContext& update_context);
 
-        void OnAction();
-        void ActionShockwave(const mono::UpdateContext& update_context);
+        void OnCircleAttack();
+        void CircleAttack(const mono::UpdateContext& update_context);
 
         void OnFireHoming();
         void ActionFireHoming(const mono::UpdateContext& update_context);
 
+        void OnAction();
         void ActionFireBeam(const mono::UpdateContext& update_context);
 
         void OnDead();
@@ -62,8 +61,6 @@ namespace game
         uint32_t m_attack_animation;
         uint32_t m_death_animation;
 
-        std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
-
         const struct PlayerInfo* m_target_player;
         bool m_ready_to_attack;
         float m_shockwave_cooldown;
@@ -81,17 +78,19 @@ namespace game
             IDLE,
             ACTIVE,
             TURN_TO_PLAYER,
-            ACTION_SHOCKWAVE,
+            ACTION_FIRE_CIRCLE,
             ACTION_FIRE_HOMING,
             ACTION_FIRE_BEAM,
             DEAD,
         };
 
         const char* StateToString(States state) const;
+        void TurnAndTransitionTo(States state_after_turn);
 
         using CacoStateMachine = StateMachine<States, const mono::UpdateContext&>;
         CacoStateMachine m_states;
 
+        States m_state_after_turn;
         bool m_beast_mode;
     };
 }
