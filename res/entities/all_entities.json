@@ -1,5 +1,6 @@
 {
     "all_entities": [
+        "res/entities/boss_circle_bullet.entity",
         "res/entities/caco_bullet.entity",
         "res/entities/caco_explosion.entity",
         "res/entities/cardboard_box.entity",
