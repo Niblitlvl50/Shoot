@@ -22,7 +22,6 @@ void SineWaveBehaviour::Initialize(mono::IBody* body, const math::Vector& positi
     m_body = body;
     m_position = position;
     m_velocity = m_body->GetVelocity();
-    m_body->SetVelocity(math::ZeroVec);
 
     static bool s_flip_flop = false;
     m_sine_speed_deg_s *= s_flip_flop ? 1.0f : -1.0f;
@@ -41,4 +40,5 @@ void SineWaveBehaviour::Run(const mono::UpdateContext& update_context)
 
     const math::Vector m_sine_position = m_position + (perpendicular_to_vel * sine_value * m_magnitude);
     m_body->SetPosition(m_sine_position);
+    m_body->SetVelocity(math::ZeroVec);
 }
