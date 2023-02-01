@@ -76,8 +76,7 @@ BulletLogic::BulletLogic(
     const float radius = math::Length(bullet_position - target);
     m_circulating_behaviour.Initialize(owner_entity_id, radius, direction, bullet_body);
 
-    m_sinewave_behaviour.SetBody(bullet_body);
-    m_sinewave_behaviour.SetHeading(direction);
+    m_sinewave_behaviour.Initialize(bullet_body, bullet_position);
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)

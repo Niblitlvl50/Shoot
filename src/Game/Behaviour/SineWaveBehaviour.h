@@ -12,15 +12,14 @@ namespace game
     public:
 
         SineWaveBehaviour();
-        SineWaveBehaviour(mono::IBody* body);
-
-        void SetBody(mono::IBody* body);
-        void SetHeading(float heading);
+        void Initialize(mono::IBody* body, const math::Vector& position);
         void Run(const mono::UpdateContext& update_context);
 
     private:
 
         mono::IBody* m_body;
+        math::Vector m_position;
+        math::Vector m_velocity;
 
         float m_radians;
         float m_sine_speed_deg_s;
