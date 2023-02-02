@@ -22,7 +22,7 @@ BigTextScreen::BigTextScreen(
     const bool hide_subtext = ((component_flags & Components::SUBTEXT) == 0);
 
     const float half_width = m_width / 2.0f;
-    const float half_height = m_height / 2.0f;
+    const float half_height = m_height * 0.65f;
     const float square_height = m_height * 0.3f;
 
     m_background = new UISquareElement(m_width, square_height, color, border_color, 1.0f);
