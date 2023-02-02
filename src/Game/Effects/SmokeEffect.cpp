@@ -66,7 +66,7 @@ SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
         100,
         "res/textures/particles/smoke_white_4.png",
         mono::BlendMode::SOURCE_ALPHA,
-        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
+        mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
         0.0f,
         GibsUpdater);

@@ -53,7 +53,7 @@ MuzzleFlash::MuzzleFlash(mono::ParticleSystem* particle_system, mono::IEntityMan
         500,
         "res/textures/particles/flare.png",
         mono::BlendMode::ONE,
-        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
+        mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
         0.0f,
         mono::DefaultUpdater);
