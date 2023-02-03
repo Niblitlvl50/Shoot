@@ -156,7 +156,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
-            renderer.DrawQuad(background_quad, mono::Color::BLACK, 1.0f);
+            //renderer.DrawQuad(background_quad, mono::Color::BLACK, 1.0f);
 
             renderer.RenderText(
                 tweak_values::verb_font,
@@ -191,17 +191,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             mono::ITexture* texture = button_sprite->GetTexture();
             const int offset = sprite_and_buffer.sprite->GetCurrentFrameIndex() * button_buffers.vertices_per_sprite;
-
-            renderer.DrawSprite(
-                button_sprite,
-                button_buffers.vertices.get(),
-                button_buffers.offsets.get(),
-                button_buffers.uv.get(),
-                button_buffers.uv_flipped.get(),
-                button_buffers.heights.get(),
-                m_indices.get(),
-                texture,
-                offset);
+            renderer.DrawSprite(button_sprite, &button_buffers, m_indices.get(), offset);
 
             const mono::TextDrawBuffers& text_buffers = m_verb_text_buffers[draw_data.sprite_index];
             const mono::ITexturePtr font_texture = mono::GetFontTexture(tweak_values::verb_font);

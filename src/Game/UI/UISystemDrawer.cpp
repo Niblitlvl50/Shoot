@@ -51,7 +51,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::LeftCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get());
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get(), 0);
         }
 
         {
@@ -59,7 +59,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::RightCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get());
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get(), 0);
         }
     }
 
@@ -69,7 +69,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Vector& cursor_target_position = m_ui_system->GetCursorTargetPosition();
         const math::Matrix transform = math::CreateMatrixWithPositionScale(cursor_target_position, 0.5f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-        renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, m_indices.get());
+        renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, m_indices.get(), 0);
     }
 }
 

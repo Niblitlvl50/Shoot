@@ -187,17 +187,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     {
         const math::Matrix& world_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(icon_position);
         auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
-
-        renderer.DrawSprite(
-            m_boss_icon_sprite.get(),
-            m_sprite_buffers.vertices.get(),
-            m_sprite_buffers.offsets.get(),
-            m_sprite_buffers.uv.get(),
-            m_sprite_buffers.uv_flipped.get(),
-            m_sprite_buffers.heights.get(),
-            m_indices.get(),
-            m_boss_icon_sprite->GetTexture(),
-            0);
+        renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
     }
 }
 

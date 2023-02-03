@@ -187,17 +187,7 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];
-
-        renderer.DrawSprite(
-            render_data.sprite.get(),
-            render_data.sprite_buffers.vertices.get(),
-            render_data.sprite_buffers.offsets.get(),
-            render_data.sprite_buffers.uv.get(),
-            render_data.sprite_buffers.uv_flipped.get(),
-            render_data.sprite_buffers.heights.get(),
-            m_indices.get(),
-            render_data.sprite->GetTexture(),
-            0);
+        renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
     }
 }
 
@@ -260,16 +250,7 @@ void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.275f, 0.275f), 32, mono::Color::BLACK);
         renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 32, mono::Color::GRAY);
-        renderer.DrawSprite(
-            m_package_sprite.get(),
-            m_sprite_buffers.vertices.get(),
-            m_sprite_buffers.offsets.get(),
-            m_sprite_buffers.uv.get(),
-            m_sprite_buffers.uv_flipped.get(),
-            m_sprite_buffers.heights.get(),
-            m_indices.get(),
-            m_package_sprite->GetTexture(),
-            0);
+        renderer.DrawSprite(m_package_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
     }
 
     if(g_package_info.cooldown_fraction > 0.0f)

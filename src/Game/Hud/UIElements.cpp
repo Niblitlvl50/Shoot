@@ -251,15 +251,7 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
     const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
     const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
     renderer.DrawSprite(
-        sprite,
-        buffers.vertices.get(),
-        buffers.offsets.get(),
-        buffers.uv.get(),
-        buffers.uv_flipped.get(),
-        buffers.heights.get(),
-        m_indices.get(),
-        sprite->GetTexture(),
-        sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
+        sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }
 
 
