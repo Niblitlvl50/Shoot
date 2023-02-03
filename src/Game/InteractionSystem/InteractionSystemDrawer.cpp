@@ -122,11 +122,12 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         }
 
         const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.interaction_id);
-        const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(0.0f, 0.2f);
+        const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(0.0f, 0.5f);
 
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
 
-        const char* entity_name = interaction_trigger.draw_name ? m_entity_system->GetEntityName(interaction_trigger.interaction_id) : nullptr;
+        const char* entity_name =
+            interaction_trigger.draw_name ? m_entity_system->GetEntityName(interaction_trigger.interaction_id) : nullptr;
         active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type, entity_name });
     }
 
@@ -167,15 +168,17 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
         // Verb
         {
-            const float verb_width = m_verb_text_widths[draw_data.sprite_index];
-            const float width_padding = 0.1f;
-
+            /*
             const math::Matrix projection = math::Ortho(0.0f, 12.0f, 0.0f, 8.0f, 0.0f, 1.0f);
             const math::Matrix transform = math::CreateMatrixWithPosition(math::Vector(10.0f, 1.5f));
 
             const auto projection_scope = mono::MakeProjectionScope(projection, &renderer);
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
             const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
+            */
+
+            const float verb_width = m_verb_text_widths[draw_data.sprite_index];
+            const float width_padding = 0.1f;
 
             const VerbSpriteBuffer& sprite_and_buffer = m_verb_sprites_buffers[draw_data.sprite_index];
             const mono::ISprite* button_sprite = sprite_and_buffer.sprite.get();
@@ -187,9 +190,16 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const math::Quad background_quad(
                 -(half_sprite_width + width_padding), -0.25f,
                 (current_frame.size.x + verb_width + width_padding), 0.25f);
+
+            const float quad_width = math::Width(background_quad);
+
+            math::Matrix transform = draw_data.transform;
+            math::Translate(transform, math::Vector(-(quad_width * 0.25f), 0.0f));
+            math::ScaleXY(transform, math::Vector(0.75f, 0.75f));
+
+            const auto scope = mono::MakeTransformScope(transform, &renderer);
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
 
-            mono::ITexture* texture = button_sprite->GetTexture();
             const int offset = sprite_and_buffer.sprite->GetCurrentFrameIndex() * button_buffers.vertices_per_sprite;
             renderer.DrawSprite(button_sprite, &button_buffers, m_indices.get(), offset);
 
@@ -197,7 +207,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const mono::ITexturePtr font_texture = mono::GetFontTexture(tweak_values::verb_font);
 
             math::Matrix text_transform = transform;
-            math::Translate(text_transform, math::Vector(0.35f, 0.0f));
+            math::Translate(text_transform, math::Vector(0.25f, 0.0f));
             const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
 
             renderer.DrawGeometry(
