@@ -91,7 +91,7 @@ const DefaultAttribute default_attributes[] = {
     { "path_type",                  Variant(0) },
     { "path_points",                Variant(polygon_default) },
     { "path_closed",                Variant(false) },
-    { "entity_reference",           Variant(0u) },
+    { "entity_reference",           Variant(mono::INVALID_ID) },
     { "texture",                    Variant(std::string()) },
     { "name",                       Variant(std::string()) },
     { "folder",                     Variant(std::string()) },
@@ -132,6 +132,7 @@ const DefaultAttribute default_attributes[] = {
     { "ui_right_item_id",           Variant(mono::INVALID_ID) },
     { "ui_above_item_id",           Variant(mono::INVALID_ID) },
     { "ui_below_item_id",           Variant(mono::INVALID_ID) },
+    { "uniform_direction",          Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -254,6 +255,7 @@ extern const uint32_t UI_LEFT_ITEM_ID_ATTRIBUTE             = default_attributes
 extern const uint32_t UI_RIGHT_ITEM_ID_ATTRIBUTE            = default_attributes[98].hash;
 extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes[99].hash;
 extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[100].hash;
+extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE           = default_attributes[101].hash;
 
 
 
@@ -419,7 +421,7 @@ const Component default_components[] = {
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "rendering",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
-    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
+    MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "rendering",    { DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, UNIFORM_DIRECTION_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),
     MakeComponent(UI_ITEM_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, UI_LEFT_ITEM_ID_ATTRIBUTE, UI_RIGHT_ITEM_ID_ATTRIBUTE, UI_ABOVE_ITEM_ID_ATTRIBUTE, UI_BELOW_ITEM_ID_ATTRIBUTE} ),
     MakeComponent(UI_SET_GROUP_STATE_COMPONENT, NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),

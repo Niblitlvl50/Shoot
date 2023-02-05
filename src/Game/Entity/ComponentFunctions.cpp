@@ -325,6 +325,7 @@ namespace
         FindAttribute(SIZE_ATTRIBUTE, properties, generator_properties.emit_area, FallbackMode::SET_DEFAULT);
         FindAttribute(GRADIENT4_ATTRIBUTE, properties, generator_properties.color_gradient, FallbackMode::SET_DEFAULT);
         FindAttribute(DIRECTION_INTERVAL_ATTRIBUTE, properties, generator_properties.direction_degrees_interval, FallbackMode::SET_DEFAULT);
+        FindAttribute(UNIFORM_DIRECTION_ATTRIBUTE, properties, generator_properties.uniform_direction, FallbackMode::SET_DEFAULT);
         FindAttribute(MAGNITUDE_INTERVAL_ATTRIBUTE, properties, generator_properties.magnitude_interval, FallbackMode::SET_DEFAULT);
         FindAttribute(ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, properties, generator_properties.angular_velocity_interval, FallbackMode::SET_DEFAULT);
         FindAttribute(LIFE_INTERVAL_ATTRIBUTE, properties, generator_properties.life_interval, FallbackMode::SET_DEFAULT);

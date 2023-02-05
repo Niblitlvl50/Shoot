@@ -133,6 +133,7 @@ extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE;
 extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE;
 
 extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE;
+extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE;
 
 
 const char* AttributeNameFromHash(uint32_t hash);
