@@ -15,7 +15,7 @@ using namespace game;
 
 namespace
 {
-    void SmokeGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
+    void SmokeGenerator(const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view)
     {
         static bool go_left = false;
         go_left = !go_left;
@@ -29,7 +29,7 @@ namespace
         const float end_size = mono::Random(80.0f, 100.0f);
         const float life = mono::Random(0.4f, 0.8f);
 
-        component_view.position = position + math::Vector(x_variation, y_variation);
+        component_view.position = context.position + math::Vector(x_variation, y_variation);
         component_view.rotation = 0.0f;
         component_view.velocity = velocity * velocity_variation;
         //component_view.angular_velocity = mono::Random(-1.1f, 1.1f);

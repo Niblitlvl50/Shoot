@@ -16,14 +16,15 @@ using namespace game;
 
 namespace
 {
-    void TrailGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
+    void TrailGenerator(
+        const mono::ParticleGeneratorContext& context, const math::Vector& world_position, mono::ParticlePoolComponentView& component_view)
     {
         constexpr float life = 0.3f;
 
         const float radians = mono::Random(0.0f, math::PI() * 2.0f);
         const math::Vector offset = math::VectorFromAngle(radians) * 0.1f;
 
-        component_view.position = position + offset;
+        component_view.position = world_position + offset;
         component_view.velocity = math::ZeroVec;
         component_view.rotation = 0.0f;
         component_view.angular_velocity = 0.0f;
@@ -73,9 +74,9 @@ BulletTrailEffect::~BulletTrailEffect()
 
 void BulletTrailEffect::AttachEmitterToBullet(uint32_t entity_id)
 {
-    const auto generator_proxy = [this, entity_id](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
-        const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
-        TrailGenerator(math::GetPosition(world_transform), component_view);
+    const auto generator_proxy = [this, entity_id](const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view) {
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(entity_id);
+        TrailGenerator(context, world_position, component_view);
     };
 
     mono::ParticleEmitterComponent* emitter = m_particle_system->AttachEmitter(

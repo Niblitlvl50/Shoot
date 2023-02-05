@@ -15,7 +15,7 @@ using namespace game;
 
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view, float direction)
+    void GibsGenerator(const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view, float direction)
     {
         constexpr float ten_degrees = math::ToRadians(20.0f);
 
@@ -26,7 +26,7 @@ namespace
         const float velocity_variation = mono::Random(5.0f, 10.0f);
         const float size = mono::Random(12.0f, 16.0f);
 
-        component_view.position = position;
+        component_view.position = context.position;
         component_view.velocity = velocity * velocity_variation;
 
         component_view.rotation = 0.0f;
@@ -74,8 +74,8 @@ ImpactEffect::~ImpactEffect()
 
 void ImpactEffect::EmittAt(const math::Vector& position, float direction)
 {
-    const auto generator_proxy = [direction](const math::Vector& position, mono::ParticlePoolComponentView& component_view) {
-        GibsGenerator(position, component_view, direction);
+    const auto generator_proxy = [direction](const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view) {
+        GibsGenerator(context, component_view, direction);
     };
 
     m_particle_system->AttachEmitter(

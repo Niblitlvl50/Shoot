@@ -15,13 +15,13 @@ using namespace game;
 
 namespace
 {
-    void GibsGenerator(const math::Vector& position, mono::ParticlePoolComponentView& component_view)
+    void GibsGenerator(const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view)
     {
         const float x = mono::Random(-4.0f, 4.0f);
         const float y = mono::Random(-4.0f, 4.0f);
         const float life = mono::Random(0.0f, 0.15f);
 
-        component_view.position = position;
+        component_view.position = context.position;
         component_view.velocity = math::Vector(x, y);
 
         component_view.rotation = 0.0f;
