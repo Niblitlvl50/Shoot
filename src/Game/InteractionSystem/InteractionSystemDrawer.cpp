@@ -122,7 +122,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         }
 
         const math::Quad& entity_world_bb = m_transform_system->GetWorldBoundingBox(interaction_trigger.interaction_id);
-        const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(0.0f, 0.5f);
+        const math::Vector& entity_position = math::TopCenter(entity_world_bb) + math::Vector(0.0f, 0.25f);
 
         const math::Matrix transform = math::CreateMatrixWithPosition(entity_position);
 
@@ -165,18 +165,8 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
                 tweak_values::verb_color,
                 mono::FontCentering::HORIZONTAL_VERTICAL);
         }
-
-        // Verb
+        else
         {
-            /*
-            const math::Matrix projection = math::Ortho(0.0f, 12.0f, 0.0f, 8.0f, 0.0f, 1.0f);
-            const math::Matrix transform = math::CreateMatrixWithPosition(math::Vector(10.0f, 1.5f));
-
-            const auto projection_scope = mono::MakeProjectionScope(projection, &renderer);
-            const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            const auto view_scope = mono::MakeViewTransformScope(math::Matrix(), &renderer);
-            */
-
             const float verb_width = m_verb_text_widths[draw_data.sprite_index];
             const float width_padding = 0.1f;
 
