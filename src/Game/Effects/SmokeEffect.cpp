@@ -2,12 +2,8 @@
 #include "SmokeEffect.h"
 
 #include "Particle/ParticleSystem.h"
-#include "Rendering/RenderSystem.h"
-#include "Rendering/Texture/ITextureFactory.h"
 #include "Util/Random.h"
 
-#include "Math/MathFunctions.h"
-#include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/Component.h"
 
@@ -24,7 +20,7 @@ namespace
 
         const float x_variation = mono::Random(-0.2f, 0.2f);
         const float y_variation = mono::Random(-0.2f, 0.2f);
-        const float velocity_variation = mono::Random(1.0f, 3.0f);
+        const float velocity_variation = mono::Random(0.3f, 1.0f);
         const float size = mono::Random(64.0f, 80.0f);
         const float end_size = mono::Random(80.0f, 100.0f);
         const float life = mono::Random(0.4f, 0.8f);
@@ -45,16 +41,6 @@ namespace
         component_view.start_life = life;
         component_view.life = life;
     }
-
-    void GibsUpdater(mono::ParticlePoolComponentView& component_view, float delta_s)
-    {
-        const float t = 1.0f - float(component_view.life) / float(component_view.start_life);
-
-        component_view.velocity *= 0.90f;
-        component_view.position += component_view.velocity * delta_s;
-        component_view.size = (1.0f - t) * component_view.start_size + t * component_view.end_size;
-        component_view.color = mono::Color::ColorFromGradient(component_view.gradient, t);
-    }
 }
 
 SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system)
@@ -63,13 +49,13 @@ SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
 {
     mono::Entity particle_entity = m_entity_system->CreateEntity("SmokeEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
     particle_system->SetPoolData(particle_entity.id,
-        100,
+        20,
         "res/textures/particles/smoke_white_4.png",
         mono::BlendMode::SOURCE_ALPHA,
         mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
-        0.0f,
-        GibsUpdater);
+        0.01f,
+        mono::DefaultUpdater);
 
     m_particle_entity = particle_entity.id;
 }

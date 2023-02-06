@@ -2,10 +2,8 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "Math/Vector.h"
+#include "Math/MathFwd.h"
 #include <cstdint>
-
-#include "Rendering/BlendMode.h"
 
 namespace game
 {
