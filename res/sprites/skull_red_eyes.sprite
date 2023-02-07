@@ -3,18 +3,26 @@
         {
             "frame_duration": 100,
             "frames": [
-                0
+                0,
+                1
             ],
             "loop": true,
-            "name": "idle"
+            "name": "laugh"
         }
     ],
     "frames": [
         {
+            "h": 13,
+            "name": "skull_red_eyes_laugh_1",
+            "w": 11,
+            "x": 1845,
+            "y": 489
+        },
+        {
             "h": 14,
-            "name": "cardboard_box_idle_1",
-            "w": 15,
-            "x": 1094,
+            "name": "skull_red_eyes_laugh_2",
+            "w": 11,
+            "x": 1145,
             "y": 489
         }
     ],
@@ -22,9 +30,13 @@
         {
             "x": 0.0,
             "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
