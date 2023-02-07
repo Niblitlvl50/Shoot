@@ -4,17 +4,28 @@
             "frame_duration": 400,
             "frames": [
                 0,
-                1,
-                1,
-                1
+                2,
+                2,
+                2
             ],
             "loop": true,
             "name": "down"
         },
         {
+            "frame_duration": 400,
+            "frames": [
+                1,
+                2,
+                2,
+                2
+            ],
+            "loop": true,
+            "name": "left"
+        },
+        {
             "frame_duration": 100,
             "frames": [
-                1
+                2
             ],
             "loop": true,
             "name": "neutral"
@@ -22,10 +33,21 @@
         {
             "frame_duration": 400,
             "frames": [
+                3,
                 2,
-                1,
-                1,
-                1
+                2,
+                2
+            ],
+            "loop": true,
+            "name": "right"
+        },
+        {
+            "frame_duration": 400,
+            "frames": [
+                4,
+                2,
+                2,
+                2
             ],
             "loop": true,
             "name": "up"
@@ -69,6 +91,14 @@
         }
     ],
     "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
         {
             "x": 0.0,
             "y": 0.0
