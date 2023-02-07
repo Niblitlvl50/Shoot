@@ -194,7 +194,7 @@ namespace game
             UISquareElement* background = new UISquareElement(
                 g_player_death_element_width, g_player_element_height, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f), mono::Color::BLACK, 1.0f);
 
-            UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes1.sprite");
+            UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes.sprite");
             skull_sprite->SetPosition(0.4f, 0.5f);
 
             UITextElement* death_text = new UITextElement(
