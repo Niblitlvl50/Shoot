@@ -451,12 +451,13 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     case PickupType::AMMO:
     {
         IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
-        active_weapon->AddAmmunition(amount);
+        active_weapon->AddAmmunition(active_weapon->MagazineSize());
         break;
     }
     case PickupType::HEALTH:
     {
-        m_damage_system->GainHealth(m_entity_id, amount);
+        DamageRecord* damage_record = m_damage_system->GetDamageRecord(m_entity_id);
+        damage_record->health = damage_record->full_health;
         break;
     }
     case PickupType::SECOND_WIND:

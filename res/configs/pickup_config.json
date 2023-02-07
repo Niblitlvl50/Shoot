@@ -1,7 +1,7 @@
 {
     "pickups": [
-        { "entity_file": "res/entities/pickup_health_10.entity", "drop_chance": 5.0 },
-        { "entity_file": "res/entities/pickup_ammo_10.entity", "drop_chance": 5.0 },
-        { "entity_file": "res/entities/pickup_second_wind.entity", "drop_chance": 5.0 }
+        { "entity_file": "res/entities/pickup_health_10.entity", "drop_chance": 25.0 },
+        { "entity_file": "res/entities/pickup_ammo_10.entity", "drop_chance": 25.0 },
+        { "entity_file": "res/entities/pickup_second_wind.entity", "drop_chance": 25.0 }
     ]
 }

@@ -14,10 +14,6 @@ namespace game
     public:
 
         PlayerUIElement(
-            const PlayerInfo* player_infos,
-            int num_players,
-            game::WeaponSystem* weapon_system,
-            mono::SpriteSystem* sprite_system,
-            mono::EventHandler* event_handler);
+            const PlayerInfo* player_infos, int num_players, game::WeaponSystem* weapon_system, mono::SpriteSystem* sprite_system);
     };
 }

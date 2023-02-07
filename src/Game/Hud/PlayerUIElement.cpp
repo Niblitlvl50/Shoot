@@ -183,11 +183,9 @@ namespace game
     
         PlayerDeathElement(
             const PlayerInfo& player_info,
-            mono::EventHandler* event_handler,
             const math::Vector& onscreen_position,
             const math::Vector& offscreen_position)
             : m_player_info(player_info)
-            , m_event_handler(event_handler)
             , m_timer(0)
         {
             m_position = m_offscreen_position = offscreen_position;
@@ -205,14 +203,25 @@ namespace game
             death_text->SetScale(0.7f);
 
             UITextElement* death_text_2 = new UITextElement(
-                FontId::RUSSOONE_TINY, "Continue?", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
-            death_text_2->SetPosition(1.75f, 0.35f);
-            death_text_2->SetScale(0.7f);
+                FontId::RUSSOONE_TINY, "Enter to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            death_text_2->SetPosition(1.75f, 0.25f);
+            death_text_2->SetScale(0.5f);
+
+            UISpriteElement* button_sprite = new UISpriteElement("res/sprites/button_indication.sprite");
+            button_sprite->SetPosition(1.0f, 0.25f);
+            button_sprite->SetScale(0.75f);
+
+            UITextElement* button_sprite_text = new UITextElement(
+                FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            button_sprite_text->SetPosition(1.9f, 0.25f);
+            button_sprite_text->SetScale(0.5f);
 
             AddChild(background);
             AddChild(skull_sprite);
             AddChild(death_text);
-            AddChild(death_text_2);
+            //AddChild(death_text_2);
+            AddChild(button_sprite);
+            AddChild(button_sprite_text);
         }
 
         void Update(const mono::UpdateContext& update_context) override
@@ -248,7 +257,6 @@ namespace game
         }
 
         const PlayerInfo& m_player_info;
-        mono::EventHandler* m_event_handler;
 
         float m_timer;
         math::Vector m_screen_position;
@@ -305,8 +313,7 @@ PlayerUIElement::PlayerUIElement(
     const PlayerInfo* player_infos,
     int num_players,
     game::WeaponSystem* weapon_system,
-    mono::SpriteSystem* sprite_system,
-    mono::EventHandler* event_handler)
+    mono::SpriteSystem* sprite_system)
     : UIOverlay(12.0f, 12.0f / mono::RenderSystem::GetWindowAspect())
 {
     const float position_x = m_width - g_player_element_half_width;
@@ -345,7 +352,7 @@ PlayerUIElement::PlayerUIElement(
 
         const math::Vector on_screen_death_position = on_screen_position + death_element_offset[index];
         const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];
-        AddChild(new PlayerDeathElement(player_info, event_handler, on_screen_death_position, off_screen_death_position));
+        AddChild(new PlayerDeathElement(player_info, on_screen_death_position, off_screen_death_position));
     }
 
     AddChild(new PlayerCoopPowerupElement(player_infos, num_players, m_width - 2.5f, m_height - 0.3f));
