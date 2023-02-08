@@ -215,6 +215,10 @@ namespace game
             m_continue_sprite->SetPosition(1.0f, 0.25f);
             m_continue_sprite->SetScale(0.75f);
 
+            m_input_type_to_index[mono::InputContextType::Controller] = { 0, 0.75f };
+            m_input_type_to_index[mono::InputContextType::Keyboard] = { 1, 0.3f };
+            m_input_type_to_index[mono::InputContextType::Mouse] = { 1, 0.3f };
+
             UITextElement* button_sprite_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
             button_sprite_text->SetPosition(1.9f, 0.25f);
@@ -246,8 +250,12 @@ namespace game
                 break;
             }
 
-            const int sprite_index = (m_player_info.last_used_input == mono::InputContextType::Controller) ? 0 : 1;
-            m_continue_sprite->SetActiveSprite(sprite_index);
+            const auto it = m_input_type_to_index.find(m_player_info.last_used_input);
+            if(it != m_input_type_to_index.end())
+            {
+                m_continue_sprite->SetActiveSprite(it->second.index);
+                m_continue_sprite->SetScale(it->second.scale);
+            }
 
             constexpr float transision_duration_s = 0.5f;
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
@@ -269,6 +277,13 @@ namespace game
         math::Vector m_offscreen_position;
 
         UISpriteElement* m_continue_sprite;
+
+        struct SpriteIndexAndScale
+        {
+            int index;
+            float scale;
+        };
+        std::unordered_map<mono::InputContextType, SpriteIndexAndScale> m_input_type_to_index;
    };
 
 
