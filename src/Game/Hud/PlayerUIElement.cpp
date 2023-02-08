@@ -202,14 +202,18 @@ namespace game
             death_text->SetPosition(1.75f, 0.60f);
             death_text->SetScale(0.7f);
 
-            UITextElement* death_text_2 = new UITextElement(
-                FontId::RUSSOONE_TINY, "Enter to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
-            death_text_2->SetPosition(1.75f, 0.25f);
-            death_text_2->SetScale(0.5f);
+            UISpriteElement* enter_sprite = new UISpriteElement();
+            enter_sprite->SetPosition(1.0f, 0.25f);
+            enter_sprite->SetScale(0.3f);
 
-            UISpriteElement* button_sprite = new UISpriteElement("res/sprites/button_indication.sprite");
-            button_sprite->SetPosition(1.0f, 0.25f);
-            button_sprite->SetScale(0.75f);
+            const std::vector<std::string> continue_sprites = {
+                "res/sprites/key_enter.sprite",
+                "res/sprites/button_indication.sprite"
+            };
+
+            UISpriteElement* continue_sprite = new UISpriteElement(continue_sprites);
+            continue_sprite->SetPosition(1.0f, 0.25f);
+            continue_sprite->SetScale(0.75f);
 
             UITextElement* button_sprite_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
@@ -219,8 +223,7 @@ namespace game
             AddChild(background);
             AddChild(skull_sprite);
             AddChild(death_text);
-            //AddChild(death_text_2);
-            AddChild(button_sprite);
+            AddChild(continue_sprite);
             AddChild(button_sprite_text);
         }
 

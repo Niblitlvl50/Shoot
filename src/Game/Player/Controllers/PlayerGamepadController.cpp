@@ -12,23 +12,10 @@
 
 using namespace game;
 
-PlayerGamepadController::PlayerGamepadController(
-    game::PlayerLogic* player_logic,
-    mono::InputSystem* input_system,
-    const System::ControllerState& controller)
+PlayerGamepadController::PlayerGamepadController(game::PlayerLogic* player_logic, const System::ControllerState& controller)
     : m_player_logic(player_logic)
-    , m_input_system(input_system)
-    , m_last_input_timestamp(0)
     , m_state(controller)
-{
-    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerGamepadController");
-    m_input_context->controller_input = this;
-}
-
-PlayerGamepadController::~PlayerGamepadController()
-{
-    m_input_system->ReleaseContext(m_input_context);
-}
+{ }
 
 void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
 {
@@ -112,19 +99,12 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     m_last_state = m_state;
 }
 
-uint32_t PlayerGamepadController::GetLastInputTimestamp() const
-{
-    return m_last_input_timestamp;
-}
-
 mono::InputResult PlayerGamepadController::ButtonDown(const event::ControllerButtonDownEvent& event)
 {
     if(event.controller_id == m_player_logic->m_player_info->controller_id)
     {
         if(event.button == System::ControllerButton::START || event.button == System::ControllerButton::TOUCHPAD)
             m_player_logic->TogglePauseGame();
-
-        m_last_input_timestamp = event.timestamp;
     }
 
     return mono::InputResult::Pass;
@@ -132,7 +112,5 @@ mono::InputResult PlayerGamepadController::ButtonDown(const event::ControllerBut
 
 mono::InputResult PlayerGamepadController::Axis(const event::ControllerAxisEvent& event)
 {
-    if(event.controller_id == m_player_logic->m_player_info->controller_id)
-        m_last_input_timestamp = event.timestamp;
     return mono::InputResult::Pass;
 }

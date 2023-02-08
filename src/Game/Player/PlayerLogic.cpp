@@ -8,6 +8,7 @@
 #include "Events/PackageEvents.h"
 
 #include "SystemContext.h"
+#include "Input/InputSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/IShape.h"
@@ -64,8 +65,8 @@ PlayerLogic::PlayerLogic(
     : m_entity_id(entity_id)
     , m_controller_id(controller.id)
     , m_player_info(player_info)
-    , m_gamepad_controller(this, input_system, controller)
-    , m_keyboard_controller(this, input_system)
+    , m_gamepad_controller(this, controller)
+    , m_keyboard_controller(this)
     , m_event_handler(event_handler)
     , m_pause(false)
     , m_fire(false)
@@ -82,6 +83,7 @@ PlayerLogic::PlayerLogic(
     , m_pickup_constraint(nullptr)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_light_system = system_context->GetSystem<mono::LightSystem>();
@@ -91,6 +93,11 @@ PlayerLogic::PlayerLogic(
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
     m_weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
+
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
+    m_input_context->keyboard_input = &m_keyboard_controller;
+    m_input_context->mouse_input = &m_keyboard_controller;
+    m_input_context->controller_input = &m_gamepad_controller;
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
@@ -134,6 +141,8 @@ PlayerLogic::PlayerLogic(
 
 PlayerLogic::~PlayerLogic()
 {
+    m_input_system->ReleaseContext(m_input_context);
+
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
     m_entity_system->ReleaseEntity(m_weapon_entity);
 }
@@ -213,6 +222,8 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
         m_player_info->cooldown_id = index;
         m_player_info->cooldown_fraction = m_active_cooldowns[index];
     }
+
+    m_player_info->last_used_input = m_input_context->most_recent_input;
 }
 
 void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
@@ -275,14 +286,27 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
 {
     const uint32_t player_index = FindPlayerIndex(m_player_info);
-    const uint32_t gamepad_timestamp = m_gamepad_controller.GetLastInputTimestamp();
-    const uint32_t keyboard_timestamp = m_keyboard_controller.GetLastInputTimestamp();
 
-    // Select most recent input if player zero, else just go with gamepad. 
-    if(gamepad_timestamp > keyboard_timestamp || player_index > 0)
-        m_gamepad_controller.Update(update_context);
-    else
+    switch(m_input_context->most_recent_input)
+    {
+    case mono::InputContextType::Keyboard:
+    case mono::InputContextType::Mouse:
+    {
         m_keyboard_controller.Update(update_context);
+        break;
+    }
+    
+    case mono::InputContextType::Controller:
+    {
+        // Select most recent input if player zero, else just go with gamepad. 
+        if(player_index > 0)
+            m_gamepad_controller.Update(update_context);
+    
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 void PlayerLogic::ToDefault()

@@ -2861,6 +2861,12 @@
                             }
                         },
                         {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 1291939675,
                             "name": "magnitude_interval",
                             "variant_type": 8,
@@ -3127,13 +3133,13 @@
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
-                            "variant_value": 2.0
+                            "variant_value": 1.0
                         },
                         {
                             "id": 1259388949,
                             "name": "emit_rate",
                             "variant_type": 3,
-                            "variant_value": 10.0
+                            "variant_value": 20.0
                         },
                         {
                             "id": 481665254,
@@ -3160,11 +3166,17 @@
                             }
                         },
                         {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1291939675,
                             "name": "magnitude_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 5.0,
+                                "max": 3.0,
                                 "min": 3.0
                             }
                         },
@@ -3183,7 +3195,7 @@
                             "variant_type": 8,
                             "variant_value": {
                                 "max": 0.5,
-                                "min": 0.10000000149011612
+                                "min": 0.5
                             }
                         },
                         {

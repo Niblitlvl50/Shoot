@@ -12,11 +12,8 @@ namespace game
     {
     public:
         
-        PlayerKeyboardController(
-            class PlayerLogic* player_logic, mono::InputSystem* input_system);
-        ~PlayerKeyboardController();
+        PlayerKeyboardController(class PlayerLogic* player_logic);
         void Update(const mono::UpdateContext& update_context);
-        uint32_t GetLastInputTimestamp() const;
 
     private:
 
@@ -31,8 +28,6 @@ namespace game
         mono::InputSystem* m_input_system;
 
         mono::InputContext* m_input_context;
-
-        uint32_t m_last_input_timestamp;
 
         bool m_fire;
         bool m_trigger_reload;

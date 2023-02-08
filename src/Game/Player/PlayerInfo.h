@@ -5,6 +5,7 @@
 #include "Math/Quad.h"
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/WeaponState.h"
+#include "Input/InputSystemTypes.h"
 
 #include <cstdint>
 #include <array>
@@ -59,6 +60,8 @@ namespace game
         bool laser_sight;
         bool auto_aim;
         bool auto_reload;
+
+        mono::InputContextType last_used_input;
     };
 
     constexpr int n_players = 3;

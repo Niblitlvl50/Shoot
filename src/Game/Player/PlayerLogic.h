@@ -140,6 +140,7 @@ namespace game
         float m_shield_cooldown;
 
         mono::TransformSystem* m_transform_system;
+        mono::InputSystem* m_input_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
         mono::LightSystem* m_light_system;
@@ -149,6 +150,8 @@ namespace game
         class InteractionSystem* m_interaction_system;
         class EntityLogicSystem* m_logic_system;
         class WeaponSystem* m_weapon_system;
+
+        mono::InputContext* m_input_context;
 
         //struct ItemSlot
         //{};

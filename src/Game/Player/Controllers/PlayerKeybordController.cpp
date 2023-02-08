@@ -8,10 +8,8 @@
 
 using namespace game;
 
-PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mono::InputSystem* input_system)
+PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic)
     : m_player_logic(player_logic)
-    , m_input_system(input_system)
-    , m_last_input_timestamp(0)
     , m_fire(false)
     , m_trigger_reload(false)
     , m_trigger_action(false)
@@ -21,14 +19,6 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic, mo
     , m_update_aiming(false)
     , m_trigger_respawn(false)
 {
-    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerKeyboardController");
-    m_input_context->keyboard_input = this;
-    m_input_context->mouse_input = this;
-}
-
-PlayerKeyboardController::~PlayerKeyboardController()
-{
-    m_input_system->ReleaseContext(m_input_context);
 }
 
 void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
@@ -116,11 +106,6 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     }
 }
 
-uint32_t PlayerKeyboardController::GetLastInputTimestamp() const
-{
-    return m_last_input_timestamp;
-}
-
 mono::InputResult PlayerKeyboardController::KeyDown(const event::KeyDownEvent& event)
 {
     return mono::InputResult::Pass;
@@ -155,7 +140,6 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
         break;
     }
 
-    m_last_input_timestamp = event.timestamp;
     return mono::InputResult::Handled;
 }
 
@@ -163,7 +147,6 @@ mono::InputResult PlayerKeyboardController::Move(const event::MouseMotionEvent& 
 {
     m_aim_position = {event.world_x, event.world_y};
     m_update_aiming = true;
-    m_last_input_timestamp = event.timestamp;
 
     return mono::InputResult::Pass;
 }
@@ -173,7 +156,6 @@ mono::InputResult PlayerKeyboardController::ButtonDown(const event::MouseDownEve
     if(event.key == MouseButton::LEFT)
         m_fire = true;
 
-    m_last_input_timestamp = event.timestamp;
     return mono::InputResult::Handled;
 }
 
@@ -184,6 +166,5 @@ mono::InputResult PlayerKeyboardController::ButtonUp(const event::MouseUpEvent& 
     else if(event.key == MouseButton::RIGHT)
         m_trigger_action = true;
 
-    m_last_input_timestamp = event.timestamp;
     return mono::InputResult::Handled;
 }

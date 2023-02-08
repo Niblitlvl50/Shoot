@@ -20,6 +20,7 @@ void game::InitializePlayerInfo()
     {
         info.entity_id = mono::INVALID_ID;
         info.killer_entity_id = mono::INVALID_ID;
+        info.last_used_input = mono::InputContextType::None;
     }
 
     g_package_info.entity_id = mono::INVALID_ID;
@@ -59,6 +60,7 @@ void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
         std::memset(it, 0, sizeof(game::PlayerInfo));
         it->entity_id = mono::INVALID_ID;
         it->killer_entity_id = mono::INVALID_ID;
+        it->last_used_input = mono::InputContextType::None;
     }
 }
 
