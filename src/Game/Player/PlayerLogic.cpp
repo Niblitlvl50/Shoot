@@ -299,8 +299,7 @@ void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
     case mono::InputContextType::Controller:
     {
         // Select most recent input if player zero, else just go with gamepad. 
-        if(player_index > 0)
-            m_gamepad_controller.Update(update_context);
+        m_gamepad_controller.Update(update_context);
     
         break;
     }

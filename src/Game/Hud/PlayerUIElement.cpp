@@ -207,7 +207,7 @@ namespace game
             enter_sprite->SetScale(0.3f);
 
             const std::vector<std::string> continue_sprites = {
-                "res/sprites/button_indication.sprite"
+                "res/sprites/button_indication.sprite",
                 "res/sprites/key_enter.sprite",
             };
 
