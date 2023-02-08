@@ -207,13 +207,13 @@ namespace game
             enter_sprite->SetScale(0.3f);
 
             const std::vector<std::string> continue_sprites = {
-                "res/sprites/key_enter.sprite",
                 "res/sprites/button_indication.sprite"
+                "res/sprites/key_enter.sprite",
             };
 
-            UISpriteElement* continue_sprite = new UISpriteElement(continue_sprites);
-            continue_sprite->SetPosition(1.0f, 0.25f);
-            continue_sprite->SetScale(0.75f);
+            m_continue_sprite = new UISpriteElement(continue_sprites);
+            m_continue_sprite->SetPosition(1.0f, 0.25f);
+            m_continue_sprite->SetScale(0.75f);
 
             UITextElement* button_sprite_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
@@ -223,7 +223,7 @@ namespace game
             AddChild(background);
             AddChild(skull_sprite);
             AddChild(death_text);
-            AddChild(continue_sprite);
+            AddChild(m_continue_sprite);
             AddChild(button_sprite_text);
         }
 
@@ -246,6 +246,9 @@ namespace game
                 break;
             }
 
+            const int sprite_index = (m_player_info.last_used_input == mono::InputContextType::Controller) ? 0 : 1;
+            m_continue_sprite->SetActiveSprite(sprite_index);
+
             constexpr float transision_duration_s = 0.5f;
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
             AnimatePlayerElement(m_timer, transision_duration_s);
@@ -264,6 +267,8 @@ namespace game
         float m_timer;
         math::Vector m_screen_position;
         math::Vector m_offscreen_position;
+
+        UISpriteElement* m_continue_sprite;
    };
 
 
