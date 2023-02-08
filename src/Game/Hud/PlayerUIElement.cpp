@@ -220,7 +220,7 @@ namespace game
             m_input_type_to_index[mono::InputContextType::Mouse] = { 1, 0.3f };
 
             UITextElement* button_sprite_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+                FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GRAY);
             button_sprite_text->SetPosition(1.9f, 0.25f);
             button_sprite_text->SetScale(0.5f);
 
