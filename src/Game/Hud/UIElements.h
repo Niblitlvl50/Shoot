@@ -120,7 +120,9 @@ namespace game
     {
     public:
 
+        UITextureElement();
         UITextureElement(const char* texture);
+        void SetTexture(const char* texture);
         void Draw(mono::IRenderer& renderer) const override;
 
     private:

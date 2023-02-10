@@ -255,7 +255,15 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
 }
 
 
+UITextureElement::UITextureElement()
+{ }
+
 UITextureElement::UITextureElement(const char* texture)
+{
+    SetTexture(texture);
+}
+
+void UITextureElement::SetTexture(const char* texture)
 {
     m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture(texture);
     m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
@@ -263,7 +271,7 @@ UITextureElement::UITextureElement(const char* texture)
 
 void UITextureElement::Draw(mono::IRenderer& renderer) const
 {
-    if(!m_show)
+    if(!m_show || !m_texture)
         return;
 
     UIElement::Draw(renderer);

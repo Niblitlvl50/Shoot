@@ -57,12 +57,8 @@ PauseScreen::PauseScreen(
         new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
     m_close_text->SetPosition(background_x + background_width - close_text_measurement.size.x - 0.2f, background_y + 0.15f);
 
-    m_gamepad_button_layout = new UITextureElement("res/textures/gamepad/gamepad_button_layout.png");
-    m_gamepad_button_layout->SetScale(0.0075f);
-
-    m_keyboard_key_layout = new UITextureElement("res/textures/gamepad/keyboard_layout.png");
-    m_keyboard_key_layout->SetScale(0.0075f);
-    m_keyboard_key_layout->Hide();
+    m_input_layout = new UITextureElement();
+    m_input_layout->SetScale(0.0075f);
 
     const UIItemCallback close_callback = [event_handler](uint32_t entity_id) {
         event_handler->DispatchEvent(event::PauseEvent(false));
@@ -74,8 +70,7 @@ PauseScreen::PauseScreen(
     AddChild(pause_text);
     AddChild(m_quit_text);
     AddChild(m_close_text);
-    AddChild(m_gamepad_button_layout);
-    AddChild(m_keyboard_key_layout);
+    AddChild(m_input_layout);
 }
 
 void PauseScreen::ShowAt(const math::Vector& position)
@@ -96,6 +91,12 @@ void PauseScreen::ShowAt(const math::Vector& position)
     m_close_proxy.UpdateUIItem(
         root_transform * m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
 
+    const mono::InputContextType most_recent_input = m_input_system->GetMostRecentGlobalInput();
+    const char* input_layout_texture =
+        (most_recent_input == mono::InputContextType::Controller) ? 
+            "res/textures/gamepad/gamepad_button_layout.png" : "res/textures/gamepad/keyboard_layout.png";
+    m_input_layout->SetTexture(input_layout_texture);
+
     Show();
 }
 
@@ -109,21 +110,4 @@ void PauseScreen::Hide()
 {
     UIElement::Hide();
     m_ui_system->Disable();
-}
-
-void PauseScreen::Update(const mono::UpdateContext& context)
-{
-    UIElement::Update(context);
-
-    const mono::InputContextType most_recent_input = m_ui_system->GetMostRecentInput();
-    if(most_recent_input == mono::InputContextType::Controller)
-    {
-        m_gamepad_button_layout->Show();
-        m_keyboard_key_layout->Hide();
-    }
-    else
-    {
-        m_gamepad_button_layout->Hide();
-        m_keyboard_key_layout->Show();
-    }
 }
