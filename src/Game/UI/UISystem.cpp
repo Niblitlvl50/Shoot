@@ -343,6 +343,11 @@ uint32_t UISystem::GetActiveEntityItem() const
     return m_items[m_active_item_index].entity_id;
 }
 
+mono::InputContextType UISystem::GetMostRecentInput() const
+{
+    return m_input_context->most_recent_input;
+}
+
 bool UISystem::DrawCursor() const
 {
     return (m_input_context->most_recent_input == mono::InputContextType::Mouse);

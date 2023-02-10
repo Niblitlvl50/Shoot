@@ -102,6 +102,7 @@ namespace game
         void ReleaseUIItemCallback(uint32_t entity_id, uint32_t callback_handle);
 
         uint32_t GetActiveEntityItem() const;
+        mono::InputContextType GetMostRecentInput() const;
 
         bool DrawCursor() const;
         math::Vector GetCursorTargetPosition() const;

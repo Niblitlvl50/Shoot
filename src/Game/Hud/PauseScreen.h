@@ -21,6 +21,7 @@ namespace game
         void ShowAt(const math::Vector& position);
         void Show() override;
         void Hide() override;
+        void Update(const mono::UpdateContext& context) override;
 
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;
@@ -30,5 +31,8 @@ namespace game
         UITextElement* m_close_text;
         UIItemProxy m_quit_proxy;
         UIItemProxy m_close_proxy;
+
+        UITextureElement* m_gamepad_button_layout;
+        UITextureElement* m_keyboard_key_layout;
     };
 }
