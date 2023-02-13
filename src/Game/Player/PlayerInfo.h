@@ -57,6 +57,8 @@ namespace game
         float cooldown_fraction;
         float health_fraction;
 
+        int chips;
+
         bool laser_sight;
         bool auto_aim;
         bool auto_reload;

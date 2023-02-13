@@ -485,10 +485,11 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         break;
     }
 
-    case PickupType::WEAPON_PISTOL:
-    case PickupType::WEAPON_PLASMA:
-    case PickupType::WEAPON_SHOTGUN:
+    case PickupType::COINS:
+    {
+        m_player_info->chips += amount;
         break;
+    }
     };
 }
 

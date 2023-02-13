@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "pickup_health_10"
+                            "variant_value": "coin_pickup_100"
                         },
                         {
                             "id": 3647911389,
@@ -67,13 +67,13 @@
                             "id": 3090788814,
                             "name": "pickup_type",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 3
                         },
                         {
                             "id": 4152741449,
                             "name": "amount",
                             "variant_type": 1,
-                            "variant_value": 20
+                            "variant_value": 100
                         }
                     ]
                 },
@@ -85,7 +85,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "flak_bullet.sprite"
+                            "variant_value": "coin.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -99,8 +99,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
+                                "blue": 1.0,
+                                "green": 1.0,
                                 "red": 1.0
                             }
                         },
@@ -123,13 +123,13 @@
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 0.20000000298023224
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -159,7 +159,7 @@
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 0.0,
-                                "green": 0.0,
+                                "green": 0.7941176891326904,
                                 "red": 1.0
                             }
                         },
@@ -173,13 +173,13 @@
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 2.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.5
                         }
                     ]
                 },
@@ -227,7 +227,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.10000000149011612
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 2471448074,
@@ -287,8 +287,8 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "pickup_health_10",
-            "uuid_hash": 723811709
+            "name": "coin_pickup_100",
+            "uuid_hash": 682158516
         }
     ],
     "metadata": {

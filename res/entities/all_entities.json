@@ -4,6 +4,7 @@
         "res/entities/caco_bullet.entity",
         "res/entities/caco_explosion.entity",
         "res/entities/cardboard_box.entity",
+        "res/entities/coin_pickup_100.entity",
         "res/entities/explosion_small.entity",
         "res/entities/eye_monster_small.entity",
         "res/entities/flak_bullet.entity",

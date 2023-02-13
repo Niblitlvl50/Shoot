@@ -10,18 +10,14 @@ namespace game
         AMMO,
         HEALTH,
         SECOND_WIND,
-        WEAPON_PISTOL,
-        WEAPON_PLASMA,
-        WEAPON_SHOTGUN
+        COINS,
     };
 
     constexpr const char* pickup_items[] = {
         "Ammo",
         "Health",
         "Second Wind",
-        "Pistol",
-        "Plasma Gun",
-        "Shotgun",
+        "Coins",
     };
 
     inline const char* PickupTypeToString(PickupType pickup_type)
