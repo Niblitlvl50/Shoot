@@ -16,22 +16,22 @@
             "h": 11,
             "name": "torch_tiny_default_1",
             "w": 4,
-            "x": 208,
-            "y": 503
+            "x": 644,
+            "y": 502
         },
         {
             "h": 11,
             "name": "torch_tiny_default_2",
             "w": 4,
-            "x": 1004,
-            "y": 490
+            "x": 2040,
+            "y": 504
         },
         {
             "h": 12,
             "name": "torch_tiny_default_3",
             "w": 4,
-            "x": 1720,
-            "y": 489
+            "x": 1015,
+            "y": 491
         }
     ],
     "frames_offsets": [

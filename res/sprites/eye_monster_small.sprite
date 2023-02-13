@@ -32,85 +32,85 @@
             "h": 11,
             "name": "eye_monster_small_attack_1",
             "w": 12,
-            "x": 518,
-            "y": 503
+            "x": 221,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_2",
             "w": 12,
-            "x": 502,
-            "y": 503
+            "x": 1972,
+            "y": 505
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_3",
             "w": 12,
-            "x": 486,
-            "y": 503
+            "x": 1589,
+            "y": 505
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_4",
             "w": 12,
-            "x": 470,
-            "y": 503
+            "x": 237,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_1",
             "w": 12,
-            "x": 454,
-            "y": 503
+            "x": 1493,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_2",
             "w": 12,
-            "x": 438,
-            "y": 503
+            "x": 1477,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_3",
             "w": 12,
-            "x": 422,
-            "y": 503
+            "x": 333,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_4",
             "w": 12,
-            "x": 582,
-            "y": 503
+            "x": 317,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_5",
             "w": 12,
-            "x": 566,
-            "y": 503
+            "x": 301,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_6",
             "w": 12,
-            "x": 550,
-            "y": 503
+            "x": 285,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_7",
             "w": 12,
-            "x": 534,
-            "y": 503
+            "x": 269,
+            "y": 506
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_8",
             "w": 12,
-            "x": 406,
-            "y": 503
+            "x": 253,
+            "y": 506
         }
     ],
     "frames_offsets": [

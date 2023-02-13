@@ -16,22 +16,22 @@
             "h": 15,
             "name": "cactus_small_idle_1",
             "w": 10,
-            "x": 2,
-            "y": 485
+            "x": 1117,
+            "y": 490
         },
         {
             "h": 15,
             "name": "cactus_small_idle_2",
             "w": 10,
-            "x": 1013,
-            "y": 486
+            "x": 1075,
+            "y": 490
         },
         {
             "h": 15,
             "name": "cactus_small_idle_3",
             "w": 10,
-            "x": 1027,
-            "y": 486
+            "x": 1089,
+            "y": 490
         }
     ],
     "frames_offsets": [

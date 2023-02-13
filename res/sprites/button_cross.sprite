@@ -58,36 +58,36 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 161,
-            "y": 503
+            "x": 419,
+            "y": 505
         },
         {
             "h": 12,
             "name": "button_cross_left_1",
             "w": 12,
-            "x": 632,
-            "y": 501
+            "x": 435,
+            "y": 505
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 177,
-            "y": 503
+            "x": 451,
+            "y": 505
         },
         {
             "h": 12,
             "name": "button_cross_right_1",
             "w": 12,
-            "x": 145,
-            "y": 503
+            "x": 189,
+            "y": 505
         },
         {
             "h": 12,
             "name": "button_cross_up_1",
             "w": 12,
-            "x": 129,
-            "y": 503
+            "x": 467,
+            "y": 505
         }
     ],
     "frames_offsets": [

@@ -88,120 +88,120 @@
             "h": 22,
             "name": "fire_zombie_attack_1",
             "w": 16,
-            "x": 1536,
-            "y": 442
+            "x": 967,
+            "y": 443
         },
         {
             "h": 21,
             "name": "fire_zombie_attack_2",
             "w": 16,
-            "x": 1068,
-            "y": 443
+            "x": 257,
+            "y": 461
         },
         {
             "h": 13,
             "name": "fire_zombie_die_1",
             "w": 17,
-            "x": 1736,
-            "y": 489
+            "x": 1689,
+            "y": 490
         },
         {
             "h": 13,
             "name": "fire_zombie_die_2",
             "w": 19,
-            "x": 1697,
-            "y": 489
+            "x": 1643,
+            "y": 490
         },
         {
             "h": 12,
             "name": "fire_zombie_die_3",
             "w": 12,
-            "x": 97,
-            "y": 503
+            "x": 403,
+            "y": 505
         },
         {
             "h": 22,
             "name": "fire_zombie_idle_1",
             "w": 14,
-            "x": 702,
-            "y": 442
+            "x": 1238,
+            "y": 443
         },
         {
             "h": 21,
             "name": "fire_zombie_idle_2",
             "w": 15,
-            "x": 1278,
-            "y": 443
+            "x": 317,
+            "y": 461
         },
         {
             "h": 21,
             "name": "fire_zombie_idle_down_1",
             "w": 13,
-            "x": 1297,
-            "y": 443
+            "x": 353,
+            "y": 461
         },
         {
             "h": 20,
             "name": "fire_zombie_idle_down_2",
             "w": 15,
-            "x": 1575,
-            "y": 460
+            "x": 518,
+            "y": 461
         },
         {
             "h": 20,
             "name": "fire_zombie_idle_up_1",
             "w": 15,
-            "x": 634,
-            "y": 456
+            "x": 537,
+            "y": 461
         },
         {
             "h": 21,
             "name": "fire_zombie_idle_up_2",
             "w": 13,
-            "x": 1314,
-            "y": 443
+            "x": 336,
+            "y": 461
         },
         {
             "h": 21,
             "name": "fire_zombie_walk_1",
             "w": 17,
-            "x": 950,
-            "y": 443
+            "x": 634,
+            "y": 456
         },
         {
             "h": 22,
             "name": "fire_zombie_walk_2",
             "w": 13,
-            "x": 1723,
-            "y": 442
+            "x": 1256,
+            "y": 443
         },
         {
             "h": 23,
             "name": "fire_zombie_walk_down_1",
             "w": 13,
-            "x": 779,
-            "y": 440
+            "x": 375,
+            "y": 434
         },
         {
             "h": 22,
             "name": "fire_zombie_walk_down_2",
             "w": 14,
-            "x": 1622,
-            "y": 442
+            "x": 1063,
+            "y": 443
         },
         {
             "h": 23,
             "name": "fire_zombie_walk_up_1",
             "w": 13,
-            "x": 779,
+            "x": 1770,
             "y": 413
         },
         {
             "h": 22,
             "name": "fire_zombie_walk_up_2",
             "w": 14,
-            "x": 1705,
-            "y": 442
+            "x": 1045,
+            "y": 443
         }
     ],
     "frames_offsets": [

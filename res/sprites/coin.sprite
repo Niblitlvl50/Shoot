@@ -1,0 +1,93 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "loop": true,
+            "name": "spin"
+        }
+    ],
+    "frames": [
+        {
+            "h": 8,
+            "name": "coin_spin_1",
+            "w": 8,
+            "x": 1388,
+            "y": 508
+        },
+        {
+            "h": 8,
+            "name": "coin_spin_2",
+            "w": 8,
+            "x": 1400,
+            "y": 508
+        },
+        {
+            "h": 8,
+            "name": "coin_spin_3",
+            "w": 8,
+            "x": 1424,
+            "y": 508
+        },
+        {
+            "h": 8,
+            "name": "coin_spin_4",
+            "w": 6,
+            "x": 1616,
+            "y": 508
+        },
+        {
+            "h": 8,
+            "name": "coin_spin_5",
+            "w": 4,
+            "x": 829,
+            "y": 509
+        },
+        {
+            "h": 8,
+            "name": "coin_spin_6",
+            "w": 6,
+            "x": 1626,
+            "y": 508
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/misc/coin/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
