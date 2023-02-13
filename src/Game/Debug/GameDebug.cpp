@@ -43,6 +43,7 @@ bool game::g_draw_debug_players = false;
 bool game::g_draw_spawn_points = false;
 bool game::g_draw_camera_debug = false;
 bool game::g_draw_debug_uisystem = false;
+bool game::g_debug_camera = false;
 
 bool game::g_draw_debug_soundsystem = false;
 bool game::g_mute_soundsystem = false;
@@ -75,6 +76,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
         ImGui::Checkbox("UI Debug",             &game::g_draw_debug_uisystem);
+        ImGui::Checkbox("Debug Camera",         &game::g_debug_camera);
         ImGui::Separator();
         ImGui::Checkbox("Sound System",         &game::g_draw_debug_soundsystem);
         ImGui::Checkbox("Mute Sounds",          &game::g_mute_soundsystem);

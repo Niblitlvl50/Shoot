@@ -4,7 +4,6 @@
 #include "MonoFwd.h"
 
 #include "Camera/CameraController.h"
-#include "EventHandler/EventToken.h"
 #include "Events/EventFwd.h"
 #include "Math/MathFwd.h"
 #include "IGameSystem.h"
@@ -51,7 +50,6 @@ namespace game
             mono::TransformSystem* transform_system,
             mono::EventHandler* event_handler,
             class TriggerSystem* trigger_system);
-        ~CameraSystem();
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -81,11 +79,9 @@ private:
 
         mono::ICamera* m_camera;
         mono::TransformSystem* m_transform_system;
-        mono::EventHandler* m_event_handler;
         class TriggerSystem* m_trigger_system;
 
         mono::MouseCameraController m_controller;
-        bool m_debug_camera;
 
         math::Vector m_current_camera_size;
         math::Vector m_current_camera_speed;
@@ -106,7 +102,5 @@ private:
         mono::ActiveVector<CameraAnimationComponent> m_animation_components;
         mono::ActiveVector<CameraRestoreComponent> m_restore_components;
         std::vector<CameraAnimationComponent*> m_camera_anims_to_process;
-
-        mono::EventToken<event::KeyDownEvent> m_key_down_token;
     };
 }

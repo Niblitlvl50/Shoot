@@ -43,32 +43,12 @@ CameraSystem::CameraSystem(
     uint32_t n, mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler* event_handler, TriggerSystem* trigger_system)
     : m_camera(camera)
     , m_transform_system(transform_system)
-    , m_event_handler(event_handler)
     , m_trigger_system(trigger_system)
-    , m_controller(camera, *event_handler)
-    , m_debug_camera(false)
+    , m_controller(camera, event_handler)
     , m_camera_shake_timer_s(0.0f)
     , m_animation_components(n)
     , m_restore_components(n)
-{
-    const event::KeyDownEventFunc key_down_func = [this](const event::KeyDownEvent& event) {
-        const bool toggle_camera = (event.ctrl && event.key == Keycode::D);
-        if(toggle_camera)
-        {
-            m_debug_camera = !m_debug_camera;
-            m_debug_camera ? m_controller.Enable() : m_controller.Disable();
-        }
-
-        return mono::EventResult::PASS_ON;
-    };
-
-    m_key_down_token = m_event_handler->AddListener(key_down_func);
-}
-
-CameraSystem::~CameraSystem()
-{
-    m_event_handler->RemoveListener(m_key_down_token);
-}
+{ }
 
 const char* CameraSystem::Name() const
 {
@@ -169,6 +149,9 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
 
         m_camera->SetPositionOffset(camera_shake);
     }
+
+    // Enable/Disable the debug camera controller, not great to do it here in Update.
+    game::g_debug_camera ? m_controller.Enable() : m_controller.Disable();
 }
 
 void CameraSystem::Reset()
