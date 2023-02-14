@@ -1,0 +1,93 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "loop": true,
+            "name": "spin"
+        }
+    ],
+    "frames": [
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_1",
+            "w": 8,
+            "x": 1137,
+            "y": 509
+        },
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_2",
+            "w": 6,
+            "x": 1159,
+            "y": 509
+        },
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_3",
+            "w": 4,
+            "x": 891,
+            "y": 509
+        },
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_4",
+            "w": 2,
+            "x": 383,
+            "y": 505
+        },
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_5",
+            "w": 4,
+            "x": 1178,
+            "y": 509
+        },
+        {
+            "h": 6,
+            "name": "tiny_heart_spin_6",
+            "w": 6,
+            "x": 1149,
+            "y": 509
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/misc/heart/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

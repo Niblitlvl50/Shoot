@@ -85,7 +85,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "flak_bullet.sprite"
+                            "variant_value": "eggplant_1.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -100,8 +100,8 @@
                             "variant_value": {
                                 "alpha": 1.0,
                                 "blue": 1.0,
-                                "green": 0.08823537826538086,
-                                "red": 0.0
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -160,7 +160,7 @@
                                 "alpha": 1.0,
                                 "blue": 1.0,
                                 "green": 1.0,
-                                "red": 0.35784316062927246
+                                "red": 1.0
                             }
                         },
                         {
@@ -274,7 +274,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.10000000149011612
+                                "y": 0.05000000074505806
                             }
                         },
                         {

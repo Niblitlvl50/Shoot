@@ -6,7 +6,7 @@ using namespace game;
 
 namespace tweak_values
 {
-    constexpr float decoy_time_s = 5.0f; 
+    constexpr float decoy_time_s = 10.0f;
 }
 
 EnemyPickupLogic::EnemyPickupLogic(uint32_t entity_id, mono::IEntityManager* entity_manager)
