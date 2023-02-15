@@ -45,6 +45,7 @@ PickupSystem::PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, mono
     m_collision_handlers.resize(n);
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
+    m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
 }
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)
@@ -123,6 +124,9 @@ void PickupSystem::PlayPickupSound(PickupType type)
 {
     switch(type)
     {
+    case PickupType::COINS:
+        m_coins_sound->Play();
+        break;
     default:
         m_pickup_sound->Play();
         break;

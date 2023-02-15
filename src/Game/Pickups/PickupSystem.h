@@ -62,5 +62,6 @@ namespace game
         std::vector<PickupToTarget> m_pickups_to_process;
 
         audio::ISoundPtr m_pickup_sound;
+        audio::ISoundPtr m_coins_sound;
     };
 }
