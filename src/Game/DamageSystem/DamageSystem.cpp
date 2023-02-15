@@ -184,6 +184,16 @@ void DamageSystem::SetInvincible(uint32_t id, bool invincible)
         m_damage_records[id].is_invincible = invincible;
 }
 
+bool DamageSystem::IsBoss(uint32_t id) const
+{
+    const bool has_damage_record = IsAllocated(id);
+    if(!has_damage_record)
+        return false;
+
+    return m_damage_records[id].is_boss;
+}
+
+
 const char* DamageSystem::Name() const
 {
     return "damagesystem";

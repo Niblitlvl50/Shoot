@@ -29,6 +29,7 @@
         "res/sound/running-cartoon-footstep_4.wav",
         "res/sound/shotgun_fire.wav",
         "res/sound/shotgun_reload1.wav",
-        "res/sound/shotgun_reload2.wav"
+        "res/sound/shotgun_reload2.wav",
+        "res/sound/weapon_switch.wav"
     ]
 }

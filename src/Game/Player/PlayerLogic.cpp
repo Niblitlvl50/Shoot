@@ -108,6 +108,7 @@ PlayerLogic::PlayerLogic(
     game::PickupCallback handle_pickups = std::bind(&PlayerLogic::HandlePickup, this, _1, _2);
     m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
 
+    m_switch_weapon_sound = audio::CreateSound("res/sound/weapon_switch.wav", audio::SoundPlayback::ONCE);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_running_sound = audio::CreateSound("res/sound/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
     m_running_sound->SetVolume(0.5f);
@@ -124,6 +125,7 @@ PlayerLogic::PlayerLogic(
     // Make sure we have a weapon
     m_weapons[0] = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
     m_weapons[1] = m_weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::PLAYER);
+    m_weapons[2] = m_weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::PLAYER);
     SelectWeapon(WeaponSelection::Previous);
 
     m_aim_target = m_aim_direction = -math::PI_2();
@@ -495,8 +497,13 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
 
 void PlayerLogic::SelectWeapon(WeaponSelection selection)
 {
+    const int last_weapon_index = m_weapon_index;
+
     const int modifier = (selection == WeaponSelection::Next) ? 1 : -1;
     m_weapon_index = std::clamp(m_weapon_index + modifier, 0, N_WEAPONS -1);
+
+    if(last_weapon_index != m_weapon_index)
+        m_switch_weapon_sound->Play();
 }
 
 void PlayerLogic::Throw(float throw_force)

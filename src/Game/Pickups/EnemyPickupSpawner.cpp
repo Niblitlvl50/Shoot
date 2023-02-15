@@ -56,7 +56,9 @@ void EnemyPickupSpawner::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_
         return;
 
     const bool initial_spawn_pickup = mono::Chance(50);
-    if(!initial_spawn_pickup)
+    const bool is_boss = m_damage_system->IsBoss(id);
+
+    if(!initial_spawn_pickup && !is_boss)
         return;
 
     const int n_pickups = mono::RandomInt(2, 4);

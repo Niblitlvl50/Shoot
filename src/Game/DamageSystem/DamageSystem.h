@@ -63,6 +63,8 @@ namespace game
         bool IsInvincible(uint32_t id) const;
         void SetInvincible(uint32_t id, bool invincible);
 
+        bool IsBoss(uint32_t id) const;
+
         template <typename T>
         inline void ForEeach(T&& func)
         {
