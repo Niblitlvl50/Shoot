@@ -18,7 +18,6 @@
 namespace game
 {
     class DamageSystem;
-    class EntityLogicSystem;
 
     struct Pickup
     {
@@ -35,11 +34,13 @@ namespace game
         PickupSystem(
             uint32_t n,
             game::DamageSystem* damage_system,
-            game::EntityLogicSystem* logic_system,
             mono::TransformSystem* transform_system,
+            mono::ParticleSystem* particle_system,
             mono::PhysicsSystem* physics_system,
             mono::IEntityManager* entity_manager);
-        void Destroy() override;
+
+        void Begin() override;
+        void Reset() override;
 
         Pickup* AllocatePickup(uint32_t id);
         void ReleasePickup(uint32_t id);
@@ -59,8 +60,8 @@ namespace game
         void PlayPickupSound(PickupType type);
 
         game::DamageSystem* m_damage_system;
-        game::EntityLogicSystem* m_logic_system;
         mono::TransformSystem* m_transform_system;
+        mono::ParticleSystem* m_particle_system;
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;
 
@@ -74,10 +75,7 @@ namespace game
             uint32_t pickup_id;
             uint32_t target_id;
         };
-
         std::vector<PickupToTarget> m_pickups_to_process;
-
-        uint32_t m_damage_callback_id;
 
         struct PickupDefinition
         {
@@ -86,7 +84,17 @@ namespace game
         };
         std::vector<PickupDefinition> m_pickup_definitions;
 
+        struct SpawnedPickup
+        {
+            uint32_t pickup_id;
+            float lifetime;
+        };
+        std::vector<SpawnedPickup> m_spawned_pickups;
+
         audio::ISoundPtr m_pickup_sound;
         audio::ISoundPtr m_coins_sound;
+
+        uint32_t m_damage_callback_id;
+        class PickupEffect* m_pickup_effect;
     };
 }

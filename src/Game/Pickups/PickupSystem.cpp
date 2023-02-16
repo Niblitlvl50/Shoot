@@ -1,6 +1,5 @@
 
 #include "PickupSystem.h"
-#include "EnemyPickupLogic.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Entity/EntityLogicSystem.h"
 
@@ -12,7 +11,9 @@
 #include "System/File.h"
 #include "System/Hash.h"
 #include "Util/Random.h"
+#include "Util/Algorithm.h"
 
+#include "Effects/PickupEffect.h"
 #include "Entity/Component.h"
 
 #include "nlohmann/json.hpp"
@@ -50,24 +51,19 @@ namespace
 PickupSystem::PickupSystem(
     uint32_t n,
     game::DamageSystem* damage_system,
-    game::EntityLogicSystem* logic_system,
     mono::TransformSystem* transform_system,
+    mono::ParticleSystem* particle_system,
     mono::PhysicsSystem* physics_system,
     mono::IEntityManager* entity_manager)
     : m_damage_system(damage_system)
-    , m_logic_system(logic_system)
     , m_transform_system(transform_system)
+    , m_particle_system(particle_system)
     , m_physics_system(physics_system)
     , m_entity_manager(entity_manager)
 {
     m_pickups.resize(n);
     m_active.resize(n, false);
     m_collision_handlers.resize(n);
-
-    const game::DamageCallback handle_destroyed_entity = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        HandleSpawnEnemyPickup(id, damage, who_did_damage, type);
-    };
-    m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
 
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/pickup_config.json");
     if(config_file)
@@ -88,8 +84,21 @@ PickupSystem::PickupSystem(
     m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
 }
 
-void PickupSystem::Destroy()
+void PickupSystem::Begin()
 {
+    m_pickup_effect = new game::PickupEffect(m_particle_system, m_entity_manager);
+
+    const game::DamageCallback handle_destroyed_entity = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+        HandleSpawnEnemyPickup(id, damage, who_did_damage, type);
+    };
+    m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
+}
+
+void PickupSystem::Reset()
+{
+    delete m_pickup_effect;
+    m_pickup_effect = nullptr;
+
     m_damage_system->RemoveGlobalDamageCallback(m_damage_callback_id);
 }
 
@@ -129,6 +138,11 @@ void PickupSystem::SetPickupData(uint32_t id, const Pickup& pickup_data)
 void PickupSystem::HandlePickup(uint32_t pickup_id, uint32_t target_id)
 {
     m_pickups_to_process.push_back( { pickup_id, target_id } );
+
+    const auto remove_by_id = [pickup_id](const SpawnedPickup& pickup) {
+        return pickup.pickup_id == pickup_id;
+    };
+    mono::remove_if(m_spawned_pickups, remove_by_id);
 }
 
 void PickupSystem::RegisterPickupTarget(uint32_t target_id, PickupCallback callback)
@@ -155,16 +169,31 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
         {
             const Pickup& pickup_data = m_pickups[pickup.pickup_id];
             it->second(pickup_data.type, pickup_data.amount);
-
             PlayPickupSound(pickup_data.type);
         }
 
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(pickup.pickup_id);
+        m_pickup_effect->EmitAt(world_position);
         m_entity_manager->ReleaseEntity(pickup.pickup_id);
     }
-
     m_pickups_to_process.clear();
-}
 
+    const auto decrement_life_and_remove = [this, &update_context](SpawnedPickup& pickup) {
+
+        pickup.lifetime -= update_context.delta_s;
+        
+        const bool remove_pickup = (pickup.lifetime < 0.0f);
+        if(remove_pickup)
+        {
+            const math::Vector& world_position = m_transform_system->GetWorldPosition(pickup.pickup_id);
+            m_pickup_effect->EmitAt(world_position);
+            m_entity_manager->ReleaseEntity(pickup.pickup_id);
+        }
+
+        return remove_pickup;
+    };
+    mono::remove_if(m_spawned_pickups, decrement_life_and_remove);
+}
 
 void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type)
 {
@@ -189,18 +218,18 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_
         if(!spawn_pickup)
             continue;
 
-        mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
-        m_entity_manager->AddComponent(spawned_entity.id, BEHAVIOUR_COMPONENT);
-        m_logic_system->AddLogic(spawned_entity.id, new EnemyPickupLogic(spawned_entity.id, m_entity_manager));
-
         const float zero_to_tau = mono::Random(0.0f, math::TAU());
         const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
+
+        mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
 
         math::Matrix transform = m_transform_system->GetWorld(id);
         math::Translate(transform, random_offset);
 
         m_transform_system->SetTransform(spawned_entity.id, transform);
         m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+
+        m_spawned_pickups.push_back({ spawned_entity.id, 5.0f + mono::Random() });
     }
 }
 

@@ -52,7 +52,8 @@ void game::CreateGameSystems(
     mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
         max_entities, &system_context, component::ComponentNameFromHash, AttributeNameFromHash);
     mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
-    system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
+    mono::ParticleSystem* particle_system =
+        system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 
     mono::PhysicsSystemInitParams physics_system_params;
     physics_system_params.n_bodies = max_entities;
@@ -71,10 +72,10 @@ void game::CreateGameSystems(
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
     game::TriggerSystem* trigger_system =
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
-    game::EntityLogicSystem* logic_system =
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
+    system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
     system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
-    system_context.CreateSystem<game::PickupSystem>(max_entities, damage_system, logic_system, transform_system, physics_system, entity_system);
+    system_context.CreateSystem<game::PickupSystem>(
+        max_entities, damage_system, transform_system, particle_system, physics_system, entity_system);
     system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
     game::CameraSystem* camera_system =
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
