@@ -1,10 +1,11 @@
 
 #pragma once
 
-#include "IGameSystem.h"
 #include "MonoFwd.h"
+#include "IGameSystem.h"
 
 #include "PickupTypes.h"
+#include "DamageSystem/DamageSystemTypes.h"
 #include "Physics/PhysicsFwd.h"
 #include "System/Audio.h"
 
@@ -12,9 +13,13 @@
 #include <memory>
 #include <functional>
 #include <unordered_map>
+#include <string>
 
 namespace game
 {
+    class DamageSystem;
+    class EntityLogicSystem;
+
     struct Pickup
     {
         PickupType type;
@@ -27,7 +32,14 @@ namespace game
     {
     public:
         
-        PickupSystem(uint32_t n, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_manager);
+        PickupSystem(
+            uint32_t n,
+            game::DamageSystem* damage_system,
+            game::EntityLogicSystem* logic_system,
+            mono::TransformSystem* transform_system,
+            mono::PhysicsSystem* physics_system,
+            mono::IEntityManager* entity_manager);
+        void Destroy() override;
 
         Pickup* AllocatePickup(uint32_t id);
         void ReleasePickup(uint32_t id);
@@ -43,8 +55,12 @@ namespace game
 
     private:
 
+        void HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type);
         void PlayPickupSound(PickupType type);
 
+        game::DamageSystem* m_damage_system;
+        game::EntityLogicSystem* m_logic_system;
+        mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;
 
@@ -60,6 +76,15 @@ namespace game
         };
 
         std::vector<PickupToTarget> m_pickups_to_process;
+
+        uint32_t m_damage_callback_id;
+
+        struct PickupDefinition
+        {
+            std::string entity_file;
+            float drop_chance_percentage;
+        };
+        std::vector<PickupDefinition> m_pickup_definitions;
 
         audio::ISoundPtr m_pickup_sound;
         audio::ISoundPtr m_coins_sound;

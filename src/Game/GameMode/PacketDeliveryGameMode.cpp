@@ -9,8 +9,8 @@
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
+#include "DamageSystem/DamageSystem.h"
 #include "Player/PlayerDaemonSystem.h"
-#include "Pickups/EnemyPickupSpawner.h"
 #include "GameCamera/CameraSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "RenderLayers.h"
@@ -24,7 +24,6 @@
 #include "TransformSystem/TransformSystem.h"
 
 #include "Camera/ICamera.h"
-#include "Entity/EntityLogicSystem.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Events/QuitEvent.h"
 #include "Events/PauseEvent.h"
@@ -94,12 +93,10 @@ void PacketDeliveryGameMode::Begin(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    m_logic_system = system_context->GetSystem<EntityLogicSystem>();
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
-    EntityLogicSystem* logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     UISystem* ui_system = system_context->GetSystem<game::UISystem>();
 
@@ -145,10 +142,6 @@ void PacketDeliveryGameMode::Begin(
         level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
     m_coop_power_manager = std::make_unique<CoopPowerupManager>(damage_system);
-
-    // Pickups
-    m_pickup_spawner =
-        std::make_unique<EnemyPickupSpawner>(damage_system, logic_system, m_transform_system, m_entity_manager);
 
     // UI
     m_big_text_screen = std::make_unique<BigTextScreen>(

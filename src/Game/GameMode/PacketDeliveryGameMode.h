@@ -75,11 +75,9 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         mono::PhysicsSystem* m_physics_system;
         class PlayerDaemonSystem* m_player_system;
-        class EntityLogicSystem* m_logic_system;
         class CameraSystem* m_camera_system;
 
         std::unique_ptr<class CoopPowerupManager> m_coop_power_manager;
-        std::unique_ptr<class EnemyPickupSpawner> m_pickup_spawner;
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
