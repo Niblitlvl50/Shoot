@@ -1,0 +1,93 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 8,
+            "name": "splatter_small_idle_1",
+            "w": 9,
+            "x": 875,
+            "y": 523
+        },
+        {
+            "h": 18,
+            "name": "splatter_small_idle_2",
+            "w": 17,
+            "x": 1891,
+            "y": 468
+        },
+        {
+            "h": 22,
+            "name": "splatter_small_idle_3",
+            "w": 24,
+            "x": 1326,
+            "y": 443
+        },
+        {
+            "h": 24,
+            "name": "splatter_small_idle_4",
+            "w": 27,
+            "x": 316,
+            "y": 434
+        },
+        {
+            "h": 15,
+            "name": "splatter_small_idle_5",
+            "w": 28,
+            "x": 1198,
+            "y": 491
+        },
+        {
+            "h": 14,
+            "name": "splatter_small_idle_6",
+            "w": 28,
+            "x": 1584,
+            "y": 491
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/explosions/splatter_small/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

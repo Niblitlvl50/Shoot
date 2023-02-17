@@ -19,43 +19,43 @@
             "h": 6,
             "name": "tiny_heart_spin_1",
             "w": 8,
-            "x": 1137,
-            "y": 509
+            "x": 1961,
+            "y": 523
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_2",
             "w": 6,
-            "x": 1159,
-            "y": 509
+            "x": 230,
+            "y": 524
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_3",
             "w": 4,
-            "x": 891,
-            "y": 509
+            "x": 285,
+            "y": 524
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_4",
             "w": 2,
-            "x": 383,
-            "y": 505
+            "x": 1014,
+            "y": 510
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_5",
             "w": 4,
-            "x": 1178,
-            "y": 509
+            "x": 277,
+            "y": 524
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_6",
             "w": 6,
-            "x": 1149,
-            "y": 509
+            "x": 240,
+            "y": 524
         }
     ],
     "frames_offsets": [

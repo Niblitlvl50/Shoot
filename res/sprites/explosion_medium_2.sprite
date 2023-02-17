@@ -21,7 +21,7 @@
             "h": 24,
             "name": "explosion_medium_2_idle_1",
             "w": 24,
-            "x": 39,
+            "x": 449,
             "y": 434
         },
         {
@@ -63,15 +63,15 @@
             "h": 29,
             "name": "explosion_medium_2_idle_7",
             "w": 62,
-            "x": 173,
-            "y": 400
+            "x": 474,
+            "y": 401
         },
         {
             "h": 29,
             "name": "explosion_medium_2_idle_8",
             "w": 59,
-            "x": 470,
-            "y": 401
+            "x": 1931,
+            "y": 408
         }
     ],
     "frames_offsets": [

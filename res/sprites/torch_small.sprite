@@ -19,43 +19,43 @@
             "h": 15,
             "name": "torch_small_default_1",
             "w": 4,
-            "x": 42,
-            "y": 485
+            "x": 1389,
+            "y": 491
         },
         {
             "h": 15,
             "name": "torch_small_default_2",
             "w": 4,
-            "x": 1171,
-            "y": 490
+            "x": 1500,
+            "y": 489
         },
         {
             "h": 15,
             "name": "torch_small_default_3",
             "w": 4,
-            "x": 1155,
-            "y": 490
+            "x": 555,
+            "y": 486
         },
         {
             "h": 15,
             "name": "torch_small_default_4",
             "w": 4,
-            "x": 1163,
+            "x": 1154,
             "y": 490
         },
         {
             "h": 15,
             "name": "torch_small_default_5",
             "w": 4,
-            "x": 1179,
-            "y": 490
+            "x": 1576,
+            "y": 491
         },
         {
             "h": 15,
             "name": "torch_small_default_6",
             "w": 4,
-            "x": 546,
-            "y": 485
+            "x": 1568,
+            "y": 491
         }
     ],
     "frames_offsets": [

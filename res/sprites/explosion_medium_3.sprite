@@ -1,0 +1,153 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 16,
+            "name": "explosion_medium_3_idle_1",
+            "w": 16,
+            "x": 1862,
+            "y": 490
+        },
+        {
+            "h": 16,
+            "name": "explosion_medium_3_idle_2",
+            "w": 16,
+            "x": 1902,
+            "y": 490
+        },
+        {
+            "h": 16,
+            "name": "explosion_medium_3_idle_3",
+            "w": 16,
+            "x": 1942,
+            "y": 490
+        },
+        {
+            "h": 23,
+            "name": "explosion_medium_3_idle_4",
+            "w": 29,
+            "x": 1496,
+            "y": 438
+        },
+        {
+            "h": 26,
+            "name": "explosion_medium_3_idle_5",
+            "w": 31,
+            "x": 1722,
+            "y": 413
+        },
+        {
+            "h": 21,
+            "name": "explosion_medium_3_idle_6",
+            "w": 29,
+            "x": 623,
+            "y": 461
+        },
+        {
+            "h": 20,
+            "name": "explosion_medium_3_idle_7",
+            "w": 27,
+            "x": 294,
+            "y": 462
+        },
+        {
+            "h": 20,
+            "name": "explosion_medium_3_idle_8",
+            "w": 27,
+            "x": 325,
+            "y": 462
+        },
+        {
+            "h": 21,
+            "name": "explosion_medium_3_idle_9",
+            "w": 29,
+            "x": 590,
+            "y": 461
+        },
+        {
+            "h": 28,
+            "name": "explosion_medium_3_idle_10",
+            "w": 32,
+            "x": 1494,
+            "y": 406
+        },
+        {
+            "h": 31,
+            "name": "explosion_medium_3_idle_11",
+            "w": 31,
+            "x": 693,
+            "y": 375
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/explosions/explosion_medium_3/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
