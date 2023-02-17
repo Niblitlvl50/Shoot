@@ -22,7 +22,7 @@ namespace
         const float direction_variation = mono::Random(-ten_degrees, ten_degrees);
         const math::Vector& velocity = math::VectorFromAngle(direction + direction_variation);
 
-        const float life = mono::Random(0.1f, 0.15f);
+        const float life = mono::Random(0.1f, 0.125f);
         const float velocity_variation = mono::Random(5.0f, 10.0f);
         const float size = mono::Random(12.0f, 16.0f);
 
@@ -34,10 +34,10 @@ namespace
 
         using namespace mono::Color;
 
-        component_view.color = BLACK;
-        component_view.gradient = mono::Color::MakeGradient<4>(
+        component_view.color = ORANGE;
+        component_view.gradient = MakeGradient<4>(
             { 0.0f, 1.0f, 1.0f, 1.0f },
-            { BLACK, RGBA(0.0f, 0.0f, 0.0f, 0.0f), RGBA(), RGBA() }
+            { ORANGE, RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA(), RGBA() }
         );
 
         component_view.size = size;
