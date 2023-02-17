@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "coin_pickup_100"
+                            "variant_value": "pickup_coin_100"
                         },
                         {
                             "id": 3647911389,
@@ -467,7 +467,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "coin_pickup_100",
+            "name": "pickup_coin_100",
             "uuid_hash": 682158516
         }
     ],
