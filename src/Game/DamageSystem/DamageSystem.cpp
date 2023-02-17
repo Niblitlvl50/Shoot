@@ -239,7 +239,11 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             if(damage_record.release_entity_on_death)
                 m_entity_manager->ReleaseEntity(entity_id);
 
-            game::SpawnEntityWithAnimation("res/entities/explosion_small.entity", 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
+            //constexpr const char* explosion_entity = "res/entities/explosion_small.entity";
+            constexpr const char* explosion_entity = "res/entities/explosion_splatter_small.entity";
+            //constexpr const char* explosion_entity = "res/entities/explosion_medium_3.entity";
+            game::SpawnEntityWithAnimation(
+                explosion_entity, 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
             m_active[entity_id] = false;
         }
     }

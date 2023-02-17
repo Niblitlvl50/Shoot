@@ -19,17 +19,19 @@ namespace
     {
         const float x = mono::Random(-4.0f, 4.0f);
         const float y = mono::Random(-4.0f, 4.0f);
-        const float life = mono::Random(0.0f, 0.15f);
+        const float life = mono::Random(0.05f, 0.15f);
 
         component_view.position = context.position;
         component_view.velocity = math::Vector(x, y);
 
         component_view.rotation = 0.0f;
 
-        component_view.color = mono::Color::OFF_WHITE;
-        component_view.gradient = mono::Color::MakeGradient<4>(
+        using namespace mono::Color;
+
+        component_view.color = OFF_WHITE;
+        component_view.gradient = MakeGradient<4>(
             { 0.0f, 1.0f, 1.0f, 1.0f },
-            { component_view.color, mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, 0.5f), mono::Color::RGBA(), mono::Color::RGBA() }
+            { component_view.color, MakeWithAlpha(OFF_WHITE, 0.5f), RGBA(), RGBA() }
         );
 
         constexpr float size = 24.0f;
@@ -50,7 +52,7 @@ DamageEffect::DamageEffect(mono::ParticleSystem* particle_system, mono::IEntityM
     mono::Entity particle_entity = m_entity_system->CreateEntity("DamageEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
     m_particle_system->SetPoolData(
         particle_entity.id,
-        500,
+        100,
         "res/textures/particles/white_square.png",
         mono::BlendMode::SOURCE_ALPHA,
         mono::ParticleDrawLayer::POST_GAMEOBJECTS,

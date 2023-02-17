@@ -15,7 +15,7 @@
                 9,
                 10
             ],
-            "loop": true,
+            "loop": false,
             "name": "idle"
         }
     ],
