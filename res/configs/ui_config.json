@@ -1,6 +1,0 @@
-{
-    "layers": [
-        { "name": "backend",    "width": 60,    "height": 30,   "enabled": true     },
-        { "name": "frontend",   "width": 30,    "height": 15,   "enabled": true    }
-    ]
-}

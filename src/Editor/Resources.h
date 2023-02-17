@@ -19,9 +19,6 @@ namespace editor
     bool LoadAllWeapons(const char* weapon_config_file);
     const std::vector<std::string>& GetAllWeapons();
 
-    void LoadAllUILayers(const char* ui_config_file);
-    const std::vector<std::string>& GetAllUILayers();
-
     bool LoadAllEntities(const char* all_entities_file);
     bool AddNewEntity(const char* new_entity_name);
     const std::vector<std::string>& GetAllEntities();

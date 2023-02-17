@@ -14,7 +14,6 @@ namespace
     std::vector<std::string> g_all_sprite_files;
     std::vector<std::string> g_all_music_tracks;
     std::vector<std::string> g_all_sounds_files;
-    std::vector<std::string> g_all_ui_layers;
 
     const char* g_all_entities_filename = nullptr;
     std::vector<std::string> g_all_entities;
@@ -119,18 +118,6 @@ bool editor::LoadAllWeapons(const char* weapon_config_file)
 const std::vector<std::string>& editor::GetAllWeapons()
 {
     return g_all_weapons;
-}
-
-void editor::LoadAllUILayers(const char* ui_config_file)
-{
-//    const std::vector<game::UILayer> layers = game::LoadUIConfig(ui_config_file);
-//    for(const game::UILayer& layer : layers)
-//        g_all_ui_layers.push_back(layer.name);
-}
-
-const std::vector<std::string>& editor::GetAllUILayers()
-{
-    return g_all_ui_layers;
 }
 
 bool editor::LoadAllEntities(const char* all_entities_file)
