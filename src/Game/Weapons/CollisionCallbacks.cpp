@@ -138,7 +138,7 @@ void game::RocketCollision(
         entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
 
     if(details.body)
-        SpawnEntityWithAnimation("res/entities/rocket_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+        SpawnEntityWithAnimation("res/entities/explosion_rocket.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 
     const mono::ICamera* camera = camera_system->GetActiveCamera();
     const bool collision_visible = math::PointInsideQuad(details.point, camera->GetViewport());
@@ -162,5 +162,5 @@ void game::CacoPlasmaCollision(
         entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
 
     if(details.body)
-        SpawnEntityWithAnimation("res/entities/caco_explosion.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+        SpawnEntityWithAnimation("res/entities/explosion_caco.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }

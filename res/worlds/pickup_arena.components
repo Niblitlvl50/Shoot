@@ -12853,7 +12853,7 @@
                             "id": 615778801,
                             "name": "entity_file",
                             "variant_type": 6,
-                            "variant_value": "res/entities/package_explosion.entity"
+                            "variant_value": "res/entities/explosion_package.entity"
                         },
                         {
                             "id": 230313139,
