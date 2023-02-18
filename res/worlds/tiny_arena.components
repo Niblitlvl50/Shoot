@@ -58828,7 +58828,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         },
                         {
                             "id": 1031692888,
@@ -59125,13 +59125,13 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Glade"
+                            "variant_value": "Secret Glade"
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": "What, where?"
+                            "variant_value": "What, what, where am I..."
                         }
                     ]
                 }

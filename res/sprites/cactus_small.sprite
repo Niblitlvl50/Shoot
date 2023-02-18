@@ -5,10 +5,40 @@
             "frames": [
                 0,
                 1,
-                2
+                2,
+                1
             ],
             "loop": true,
             "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                1,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                2,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+            ],
+            "loop": true,
+            "name": "look_around"
         }
     ],
     "frames": [
