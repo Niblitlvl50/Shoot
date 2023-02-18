@@ -104,9 +104,7 @@ void TeleportSystem::FadeIn(const mono::UpdateContext& update_context)
 
 void TeleportSystem::HandleTeleport(uint32_t entity_id)
 {
-    const math::Vector& world_position = m_transform_system->GetWorldPosition(entity_id);
-    m_saved_teleport_position = world_position;
-
+    m_saved_teleport_position = m_transform_system->GetWorldPosition(entity_id);
     m_states.TransitionTo(States::FADE_OUT);
 }
 
