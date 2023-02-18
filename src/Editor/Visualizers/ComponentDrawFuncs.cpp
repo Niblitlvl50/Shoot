@@ -259,3 +259,11 @@ void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<Attrib
     FindAttribute(POSITION_ATTRIBUTE, component_properties, point, FallbackMode::SET_DEFAULT);
     renderer.DrawPoints({ math::ZeroVec }, mono::Color::CYAN, 10.0f);
 }
+
+void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    const float radius = 0.25f;
+    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 16, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.5f));
+    renderer.DrawCircle(math::ZeroVec, radius, 16, 1.0f, mono::Color::GOLDEN_YELLOW);
+    renderer.DrawPoints({ math::ZeroVec }, mono::Color::GOLDEN_YELLOW, 16.0f);
+}

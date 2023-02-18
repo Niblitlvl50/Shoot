@@ -317,6 +317,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;
+    draw_funcs[TELEPORT_PLAYER_COMPONENT] = editor::DrawTeleportPlayerPoint;
 
     m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);
