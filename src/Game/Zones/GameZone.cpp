@@ -58,6 +58,7 @@
 #include "World/WorldBoundsDrawer.h"
 #include "World/RegionDrawer.h"
 #include "World/RegionSystem.h"
+#include "World/TeleportSystem.h"
 #include "UI/UISystem.h"
 #include "UI/UISystemDrawer.h"
 
@@ -103,6 +104,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::WorldBoundsSystem* world_bounds_system = m_system_context->GetSystem<WorldBoundsSystem>();
     game::RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
     game::UISystem* ui_system = m_system_context->GetSystem<UISystem>();
+    game::TeleportSystem* teleport_system = m_system_context->GetSystem<game::TeleportSystem>();
 
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
@@ -137,6 +139,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
+    AddDrawable(new game::TeleportSystemDrawer(teleport_system), LayerId::UI_OVERLAY);
 
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);

@@ -228,6 +228,7 @@ extern const uint32_t SOUND_COMPONENT;
 extern const uint32_t UI_ITEM_COMPONENT;
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT;
 extern const uint32_t REGION_COMPONENT;
+extern const uint32_t TELEPORT_PLAYER_COMPONENT;
 
 
 struct Component

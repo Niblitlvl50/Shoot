@@ -16,6 +16,7 @@
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Weapons/WeaponSystem.h"
+#include "World/TeleportSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -965,6 +966,32 @@ namespace
             hash::Hash(stop_trigger.c_str()));
         return true;
     }
+
+
+    bool CreateTeleportPlayer(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TeleportSystem* teleport_system = context->GetSystem<game::TeleportSystem>();
+        teleport_system->AllocateTeleportPlayer(entity->id);
+        return true;
+    }
+
+    bool ReleaseTeleportPlayer(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TeleportSystem* teleport_system = context->GetSystem<game::TeleportSystem>();
+        teleport_system->ReleaseTeleportPlayer(entity->id);
+        return true;
+    }
+
+    bool UpdateTeleportPlayer(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+
+        game::TeleportSystem* teleport_system = context->GetSystem<game::TeleportSystem>();
+        teleport_system->UpdateTeleportPlayer(entity->id, hash::Hash(trigger_name.c_str()));
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -997,4 +1024,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(DIALOG_COMPONENT, CreateDialog, ReleaseDialog, UpdateDialog);
     entity_manager->RegisterComponent(WEAPON_LOADOUT_COMPONENT, CreateNothing, DestroyNothing, UpdateWeaponLoadout);
     entity_manager->RegisterComponent(SOUND_COMPONENT, CreateSound, ReleaseSound, UpdateSound);
+    entity_manager->RegisterComponent(TELEPORT_PLAYER_COMPONENT, CreateTeleportPlayer, ReleaseTeleportPlayer, UpdateTeleportPlayer);
 }

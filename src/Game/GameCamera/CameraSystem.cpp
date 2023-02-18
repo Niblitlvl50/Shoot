@@ -311,3 +311,8 @@ const mono::ICamera* CameraSystem::GetActiveCamera() const
 {
     return m_camera;
 }
+
+mono::ICamera* CameraSystem::GetActiveCamera()
+{
+    return m_camera;
+}

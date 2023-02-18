@@ -302,6 +302,7 @@ extern const uint32_t SOUND_COMPONENT               = hash::Hash("sound");
 extern const uint32_t UI_ITEM_COMPONENT             = hash::Hash("ui_item");
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_state");
 extern const uint32_t REGION_COMPONENT              = hash::Hash("region");
+extern const uint32_t TELEPORT_PLAYER_COMPONENT     = hash::Hash("teleport_player");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -391,6 +392,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "ui_set_group_state";
     else if(hash == REGION_COMPONENT)
         return "region";
+    else if(hash == TELEPORT_PLAYER_COMPONENT)
+        return "teleport_player";
 
     return "Unknown";
 }
@@ -446,6 +449,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
     MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE }),
+    MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
