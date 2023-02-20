@@ -162,5 +162,6 @@ namespace game
 
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;
+        float m_pickup_mass;
     };
 }
