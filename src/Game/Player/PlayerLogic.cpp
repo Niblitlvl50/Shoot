@@ -524,7 +524,10 @@ void PlayerLogic::Throw(float throw_force)
 
         const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
         for(mono::IShape* shape : shapes)
-            shape->SetCollisionBit(CollisionCategory::PLAYER);
+        {
+            shape->SetCollisionBit(
+                CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET | CollisionCategory::PROPS);
+        }
     }
 
     m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
@@ -556,14 +559,17 @@ void PlayerLogic::PickupDrop()
 
             mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
             mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
-            m_pickup_mass = pickup_body->GetMass();
-            pickup_body->SetMass(0.1f);
             m_pickup_constraint = m_physics_system->CreateSlideJoint(player_body, pickup_body, math::ZeroVec, math::ZeroVec, 0.05f, 0.35f);
-            //m_pickup_constraint->SetMaxForce(100000.0f);
 
             const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
             for(mono::IShape* shape : shapes)
-                shape->ClearCollisionBit(CollisionCategory::PLAYER);
+            {
+                shape->ClearCollisionBit(
+                    CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET | CollisionCategory::PROPS);
+            }
+
+            m_pickup_mass = pickup_body->GetMass();
+            pickup_body->SetMass(0.1f);
 
             m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, PackageAction::PICKED_UP));
 

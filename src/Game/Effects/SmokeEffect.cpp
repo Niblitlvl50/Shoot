@@ -50,7 +50,7 @@ SmokeEffect::SmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityMan
     mono::Entity particle_entity = m_entity_system->CreateEntity("SmokeEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
     particle_system->SetPoolData(particle_entity.id,
         20,
-        "res/textures/particles/smoke_white_4.png",
+        "res/textures/particles/smoke_white_6.png",
         mono::BlendMode::SOURCE_ALPHA,
         mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
