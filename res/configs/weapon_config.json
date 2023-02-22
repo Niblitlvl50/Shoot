@@ -42,7 +42,7 @@
         },
         {
             "name": "burst_gun_bullet",
-            "damage": 70,
+            "damage": 80,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
