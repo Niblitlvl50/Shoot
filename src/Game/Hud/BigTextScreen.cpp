@@ -77,11 +77,8 @@ void BigTextScreen::SetSubTextColor(const mono::Color::RGBA& color)
 
 void BigTextScreen::SetAlpha(float alpha)
 {
-    mono::Color::RGBA color = m_background->GetColor();
-    color.alpha = alpha;
-
-    mono::Color::RGBA border_color = m_background->GetBorderColor();
-    border_color.alpha = alpha;
+    const mono::Color::RGBA color = mono::Color::MakeWithAlpha(m_background->GetColor(), alpha);
+    const mono::Color::RGBA border_color = mono::Color::MakeWithAlpha(m_background->GetBorderColor(), alpha);
 
     m_background->SetColor(color);
     m_background->SetBorderColor(border_color);
