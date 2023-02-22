@@ -132,6 +132,18 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
         if(next_level)
             trigger_system->EmitTrigger(hash::Hash("level_completed"));
 
+        const bool aborted_level = ImGui::Button("Level Aborted");
+        if(aborted_level)
+            trigger_system->EmitTrigger(hash::Hash("level_aborted"));
+
+        const bool game_over = ImGui::Button("Game Over");
+        if(game_over)
+            trigger_system->EmitTrigger(hash::Hash("level_gameover"));
+
+        const bool show_shop_screen = ImGui::Button("Shop Screen");
+        if(show_shop_screen)
+            trigger_system->EmitTrigger(hash::Hash("show_shop_screen"));
+
         ImGui::End();
     }
 }
