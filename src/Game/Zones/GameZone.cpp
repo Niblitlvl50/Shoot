@@ -26,8 +26,8 @@
 #include "TransformSystem/TransformSystemDrawer.h"
 #include "System/Hash.h"
 
-#include "Hud/HealthbarDrawer.h"
-#include "Hud/PlayerAuxiliaryDrawer.h"
+#include "DamageSystem/HealthbarDrawer.h"
+#include "Player/PlayerAuxiliaryDrawer.h"
 #include "Hud/Debug/PhysicsStatsElement.h"
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/ParticleStatusDrawer.h"

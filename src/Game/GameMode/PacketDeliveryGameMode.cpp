@@ -4,7 +4,7 @@
 #include "Hud/PauseScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/LevelTimerUIElement.h"
-#include "Hud/PlayerAuxiliaryDrawer.h"
+#include "Player/PlayerAuxiliaryDrawer.h"
 #include "Zones/ZoneFlow.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"

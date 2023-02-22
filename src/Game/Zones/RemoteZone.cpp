@@ -7,7 +7,7 @@
 
 #include "Hud/Debug/ConsoleDrawer.h"
 #include "Hud/Debug/NetworkStatusDrawer.h"
-#include "Hud/HealthbarDrawer.h"
+#include "DamageSystem/HealthbarDrawer.h"
 
 #include "Network/NetworkMessage.h"
 #include "Network/ClientReplicator.h"
