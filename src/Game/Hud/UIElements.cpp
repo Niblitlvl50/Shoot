@@ -18,7 +18,8 @@
 using namespace game;
 
 UIElement::UIElement()
-    : m_scale(1.0f, 1.0f)
+    : m_parent(nullptr)
+    , m_scale(1.0f, 1.0f)
     , m_rotation(0.0f)
     , m_show(true)
 { }
@@ -40,7 +41,7 @@ void UIElement::Draw(mono::IRenderer& renderer) const
     if(!m_show)
         return;
 
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     for(const UIElement* ui : m_ui_elements)
@@ -87,7 +88,7 @@ void UIElement::SetRotation(float radians)
     m_rotation = radians;
 }
 
-math::Matrix UIElement::Transform() const
+math::Matrix UIElement::LocalTransform() const
 {
     return 
         math::CreateMatrixWithPosition(m_position) *
@@ -95,14 +96,21 @@ math::Matrix UIElement::Transform() const
         math::CreateMatrixWithScale(m_scale);
 }
 
+math::Matrix UIElement::Transform() const
+{
+    return LocalTransform() * ((m_parent != nullptr) ? m_parent->Transform() : math::Matrix());
+}
+
 void UIElement::AddChild(UIElement* element)
 {
     m_ui_elements.push_back(element);
+    element->m_parent = this;
 }
 
 void UIElement::RemoveChild(UIElement* element)
 {
     mono::remove(m_ui_elements, element);
+    element->m_parent = nullptr;
 }
 
 
@@ -166,7 +174,7 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
 
     const mono::ITexturePtr texture = mono::GetFontTexture(m_font_id);
 
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     renderer.DrawGeometry(
@@ -245,7 +253,7 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
     if(m_sprites.empty() || m_sprite_buffers.empty())
         return;
 
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
@@ -276,7 +284,7 @@ void UITextureElement::Draw(mono::IRenderer& renderer) const
 
     UIElement::Draw(renderer);
 
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
     renderer.DrawGeometry(
         m_draw_buffers.vertices.get(),
@@ -323,14 +331,16 @@ void UISquareElement::Draw(mono::IRenderer& renderer) const
     if(!m_show)
         return;
 
+    {
+        const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
+        if(m_border_width > 0.0f)
+            renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
+    }
+
     UIElement::Draw(renderer);
-
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
-    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-
-    renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
-    if(m_border_width > 0.0f)
-        renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
 }
 
 void UISquareElement::SetColor(const mono::Color::RGBA& color)
@@ -408,7 +418,7 @@ void UIBarElement::Draw(mono::IRenderer& renderer) const
 
     UIElement::Draw(renderer);
 
-    const math::Matrix& transform = renderer.GetTransform() * Transform();
+    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     renderer.DrawTrianges(m_vertices.get(), m_background_colors.get(), m_indices.get(), 0, 6);

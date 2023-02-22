@@ -40,6 +40,7 @@ namespace game
         void SetScale(const math::Vector& scale);
         void SetScale(float uniform_scale);
         void SetRotation(float radians);
+        math::Matrix LocalTransform() const;
         math::Matrix Transform() const;
 
         void AddChild(UIElement* element);
@@ -47,6 +48,7 @@ namespace game
 
     protected:
 
+        UIElement* m_parent;
         math::Vector m_position;
         math::Vector m_scale;
         float m_rotation;

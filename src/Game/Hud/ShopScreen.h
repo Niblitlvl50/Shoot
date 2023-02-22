@@ -7,13 +7,12 @@
 
 namespace game
 {
-    class PauseScreen : public game::UIElement
+    class ShopScreen : public game::UIElement
     {
     public:
 
-        PauseScreen(
+        ShopScreen(
             mono::TransformSystem* transform_system,
-            mono::InputSystem* input_system,
             mono::IEntityManager* entity_manager,
             mono::EventHandler* event_handler,
             class UISystem* ui_system);
@@ -22,14 +21,8 @@ namespace game
         void Show() override;
         void Hide() override;
 
-        mono::InputSystem* m_input_system;
         game::UISystem* m_ui_system;
-
-        UITextElement* m_quit_text;
         UITextElement* m_close_text;
-        UIItemProxy m_quit_proxy;
         UIItemProxy m_close_proxy;
-
-        UITextureElement* m_input_layout;
     };
 }

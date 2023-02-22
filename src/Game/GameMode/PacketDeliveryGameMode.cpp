@@ -2,6 +2,7 @@
 #include "PacketDeliveryGameMode.h"
 #include "Hud/BigTextScreen.h"
 #include "Hud/PauseScreen.h"
+#include "Hud/ShopScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Hud/LevelTimerUIElement.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
@@ -48,6 +49,8 @@ namespace
     const uint32_t level_completed_hash = hash::Hash("level_completed");
     const uint32_t level_gameover_hash = hash::Hash("level_gameover");
     const uint32_t level_aborted_hash = hash::Hash("level_aborted");
+
+    const uint32_t show_shop_screen_hash = hash::Hash("show_shop_screen");
 }
 
 namespace tweak_values
@@ -123,10 +126,16 @@ void PacketDeliveryGameMode::Begin(
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         else if(trigger_id == level_aborted_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
+        else if(trigger_id == show_shop_screen_hash)
+        {
+            const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+            m_shop_screen->ShowAt(camera->GetTargetPosition());
+        }
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);
     m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_event_callback, mono::INVALID_ID);
     m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(level_aborted_hash, level_event_callback, mono::INVALID_ID);
+    m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -157,6 +166,9 @@ void PacketDeliveryGameMode::Begin(
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
+    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system);
+    m_shop_screen->Hide();
+
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
 
     m_level_timer = level_metadata.time_limit_s;
@@ -170,6 +182,7 @@ void PacketDeliveryGameMode::Begin(
     zone->AddUpdatable(m_coop_power_manager.get());
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
 
@@ -184,6 +197,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveDrawable(m_package_aux_drawer.get());
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
+    zone->RemoveUpdatableDrawable(m_shop_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
 
@@ -194,6 +208,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }
@@ -396,7 +411,7 @@ void PacketDeliveryGameMode::LevelCompleted(const mono::UpdateContext& update_co
 void PacketDeliveryGameMode::ToPaused()
 {
     const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-    m_pause_screen->ShowAt(camera->GetPosition());
+    m_pause_screen->ShowAt(camera->GetTargetPosition());
 }
 void PacketDeliveryGameMode::Paused(const mono::UpdateContext& update_context)
 { }

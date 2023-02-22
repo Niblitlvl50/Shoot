@@ -1,16 +1,13 @@
 
 #include "PauseScreen.h"
 
-#include "Rendering/RenderSystem.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "FontIds.h"
 
 #include "Input/InputSystem.h"
 #include "UI/UISystem.h"
-#include "GameCamera/CameraSystem.h"
-#include "Camera/ICamera.h"
 
-#include "EntitySystem/IEntityManager.h"
+#include "EntitySystem/Entity.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "EventHandler/EventHandler.h"
@@ -25,8 +22,7 @@ PauseScreen::PauseScreen(
     mono::IEntityManager* entity_manager,
     mono::EventHandler* event_handler,
     game::UISystem* ui_system)
-    : m_transform_system(transform_system)
-    , m_input_system(input_system)
+    : m_input_system(input_system)
     , m_ui_system(ui_system)
     , m_quit_proxy(ui_system, transform_system, entity_manager)
     , m_close_proxy(ui_system, transform_system, entity_manager)
@@ -77,19 +73,15 @@ void PauseScreen::ShowAt(const math::Vector& position)
 {
     m_position = position;
 
-    const math::Matrix& root_transform = Transform();
-
     const UINavigationSetup quit_nav_setup = {
         mono::INVALID_ID, m_close_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID
     };
-    m_quit_proxy.UpdateUIItem(
-        root_transform * m_quit_text->Transform(), m_quit_text->GetBounds(), "level_aborted", quit_nav_setup);
+    m_quit_proxy.UpdateUIItem(m_quit_text->Transform(), m_quit_text->GetBounds(), "level_aborted", quit_nav_setup);
 
     const UINavigationSetup close_nav_setup = {
         m_quit_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
     };
-    m_close_proxy.UpdateUIItem(
-        root_transform * m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
+    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
 
     const mono::InputContextType most_recent_input = m_input_system->GetMostRecentGlobalInput();
     const char* input_layout_texture =

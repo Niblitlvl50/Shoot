@@ -81,6 +81,7 @@ namespace game
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
+        std::unique_ptr<class ShopScreen> m_shop_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
         std::unique_ptr<class LevelTimerUIElement> m_timer_screen;
 
@@ -95,6 +96,7 @@ namespace game
         uint32_t m_level_completed_trigger;
         uint32_t m_level_gameover_trigger;
         uint32_t m_level_aborted_trigger;
+        uint32_t m_show_shop_screen_trigger;
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
