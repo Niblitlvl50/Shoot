@@ -86,12 +86,14 @@
         "res/sprites/explosion_medium_3.sprite",
         "res/sprites/explosion_small.sprite",
         "res/sprites/eye_monster.sprite",
+        "res/sprites/eye_monster_medium.sprite",
         "res/sprites/eye_monster_small.sprite",
         "res/sprites/fern.sprite",
         "res/sprites/fir_large.sprite",
         "res/sprites/fir_small.sprite",
         "res/sprites/fire_bullet.sprite",
         "res/sprites/fire_skull.sprite",
+        "res/sprites/fire_totem.sprite",
         "res/sprites/fire_zombie.sprite",
         "res/sprites/flak_bullet.sprite",
         "res/sprites/flak_cannon.sprite",
@@ -246,6 +248,7 @@
         "res/sprites/torch_tiny.sprite",
         "res/sprites/touch.sprite",
         "res/sprites/tree_alien.sprite",
+        "res/sprites/tree_alien_plant.sprite",
         "res/sprites/tree_dead.sprite",
         "res/sprites/tree_tiny.sprite",
         "res/sprites/ui_item_selection.sprite",
@@ -265,6 +268,7 @@
         "res/sprites/well.sprite",
         "res/sprites/wizard_crazy.sprite",
         "res/sprites/wooden_log.sprite",
+        "res/sprites/worm_red.sprite",
         "res/sprites/xbox_one_a.sprite"
     ]
 }

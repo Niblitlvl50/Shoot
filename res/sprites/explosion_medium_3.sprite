@@ -24,71 +24,71 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 1862,
-            "y": 490
+            "x": 127,
+            "y": 512
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 1902,
-            "y": 490
+            "x": 147,
+            "y": 512
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 1942,
-            "y": 490
+            "x": 167,
+            "y": 512
         },
         {
             "h": 23,
             "name": "explosion_medium_3_idle_4",
             "w": 29,
-            "x": 1496,
-            "y": 438
+            "x": 1440,
+            "y": 443
         },
         {
             "h": 26,
             "name": "explosion_medium_3_idle_5",
             "w": 31,
-            "x": 1722,
-            "y": 413
+            "x": 525,
+            "y": 433
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 623,
-            "y": 461
+            "x": 1948,
+            "y": 469
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 294,
-            "y": 462
+            "x": 1590,
+            "y": 470
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 325,
-            "y": 462
+            "x": 1621,
+            "y": 470
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 590,
-            "y": 461
+            "x": 632,
+            "y": 470
         },
         {
             "h": 28,
             "name": "explosion_medium_3_idle_10",
             "w": 32,
-            "x": 1494,
-            "y": 406
+            "x": 1161,
+            "y": 409
         },
         {
             "h": 31,

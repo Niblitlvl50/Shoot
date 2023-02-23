@@ -1,0 +1,299 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "appear"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "loop": true,
+            "name": "dissapear"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                16,
+                17,
+                18,
+                19,
+                20,
+                21
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 2,
+            "name": "worm_red_appear_1",
+            "w": 21,
+            "x": 1172,
+            "y": 546
+        },
+        {
+            "h": 10,
+            "name": "worm_red_appear_2",
+            "w": 21,
+            "x": 881,
+            "y": 533
+        },
+        {
+            "h": 15,
+            "name": "worm_red_appear_3",
+            "w": 25,
+            "x": 477,
+            "y": 512
+        },
+        {
+            "h": 19,
+            "name": "worm_red_appear_4",
+            "w": 22,
+            "x": 880,
+            "y": 471
+        },
+        {
+            "h": 24,
+            "name": "worm_red_appear_5",
+            "w": 22,
+            "x": 1787,
+            "y": 442
+        },
+        {
+            "h": 25,
+            "name": "worm_red_appear_6",
+            "w": 22,
+            "x": 1161,
+            "y": 441
+        },
+        {
+            "h": 26,
+            "name": "worm_red_appear_7",
+            "w": 22,
+            "x": 28,
+            "y": 434
+        },
+        {
+            "h": 26,
+            "name": "worm_red_appear_8",
+            "w": 22,
+            "x": 618,
+            "y": 433
+        },
+        {
+            "h": 26,
+            "name": "worm_red_dissapear_1",
+            "w": 22,
+            "x": 54,
+            "y": 434
+        },
+        {
+            "h": 26,
+            "name": "worm_red_dissapear_2",
+            "w": 22,
+            "x": 106,
+            "y": 434
+        },
+        {
+            "h": 25,
+            "name": "worm_red_dissapear_3",
+            "w": 22,
+            "x": 1672,
+            "y": 441
+        },
+        {
+            "h": 24,
+            "name": "worm_red_dissapear_4",
+            "w": 22,
+            "x": 1125,
+            "y": 442
+        },
+        {
+            "h": 19,
+            "name": "worm_red_dissapear_5",
+            "w": 22,
+            "x": 906,
+            "y": 471
+        },
+        {
+            "h": 15,
+            "name": "worm_red_dissapear_6",
+            "w": 22,
+            "x": 1459,
+            "y": 514
+        },
+        {
+            "h": 10,
+            "name": "worm_red_dissapear_7",
+            "w": 21,
+            "x": 856,
+            "y": 533
+        },
+        {
+            "h": 2,
+            "name": "worm_red_dissapear_8",
+            "w": 21,
+            "x": 1218,
+            "y": 546
+        },
+        {
+            "h": 26,
+            "name": "worm_red_idle_1",
+            "w": 22,
+            "x": 80,
+            "y": 434
+        },
+        {
+            "h": 26,
+            "name": "worm_red_idle_2",
+            "w": 22,
+            "x": 2,
+            "y": 434
+        },
+        {
+            "h": 28,
+            "name": "worm_red_idle_3",
+            "w": 22,
+            "x": 1902,
+            "y": 409
+        },
+        {
+            "h": 25,
+            "name": "worm_red_idle_4",
+            "w": 27,
+            "x": 1476,
+            "y": 438
+        },
+        {
+            "h": 26,
+            "name": "worm_red_idle_5",
+            "w": 26,
+            "x": 235,
+            "y": 430
+        },
+        {
+            "h": 25,
+            "name": "worm_red_idle_6",
+            "w": 22,
+            "x": 1852,
+            "y": 441
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/worm/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

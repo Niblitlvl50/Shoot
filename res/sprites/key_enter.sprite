@@ -25,14 +25,14 @@
             "h": 30,
             "name": "key_enter_neutral_1",
             "w": 30,
-            "x": 2,
+            "x": 52,
             "y": 400
         },
         {
             "h": 29,
             "name": "key_enter_pushed_1",
             "w": 30,
-            "x": 97,
+            "x": 525,
             "y": 400
         }
     ],

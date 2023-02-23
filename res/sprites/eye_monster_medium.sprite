@@ -1,0 +1,323 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "blink"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "loop": true,
+            "name": "run"
+        }
+    ],
+    "frames": [
+        {
+            "h": 17,
+            "name": "eye_monster_medium_blink_1",
+            "w": 17,
+            "x": 1751,
+            "y": 494
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_2",
+            "w": 17,
+            "x": 44,
+            "y": 512
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_3",
+            "w": 17,
+            "x": 2019,
+            "y": 511
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_4",
+            "w": 17,
+            "x": 86,
+            "y": 512
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_5",
+            "w": 17,
+            "x": 394,
+            "y": 508
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_6",
+            "w": 17,
+            "x": 1372,
+            "y": 495
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_7",
+            "w": 17,
+            "x": 226,
+            "y": 509
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_blink_8",
+            "w": 17,
+            "x": 65,
+            "y": 512
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_1",
+            "w": 17,
+            "x": 1730,
+            "y": 494
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_2",
+            "w": 17,
+            "x": 1709,
+            "y": 494
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_idle_3",
+            "w": 17,
+            "x": 23,
+            "y": 512
+        },
+        {
+            "h": 16,
+            "name": "eye_monster_medium_idle_4",
+            "w": 17,
+            "x": 2,
+            "y": 512
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_5",
+            "w": 17,
+            "x": 1688,
+            "y": 494
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_6",
+            "w": 17,
+            "x": 1667,
+            "y": 494
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_7",
+            "w": 16,
+            "x": 1772,
+            "y": 494
+        },
+        {
+            "h": 17,
+            "name": "eye_monster_medium_idle_8",
+            "w": 16,
+            "x": 1792,
+            "y": 494
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_1",
+            "w": 20,
+            "x": 1369,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_2",
+            "w": 20,
+            "x": 1409,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_3",
+            "w": 20,
+            "x": 1569,
+            "y": 515
+        },
+        {
+            "h": 15,
+            "name": "eye_monster_medium_run_4",
+            "w": 20,
+            "x": 533,
+            "y": 512
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_5",
+            "w": 20,
+            "x": 1433,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_6",
+            "w": 20,
+            "x": 1545,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_7",
+            "w": 20,
+            "x": 1521,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "eye_monster_medium_run_8",
+            "w": 19,
+            "x": 1593,
+            "y": 515
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/eye_monster_medium/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

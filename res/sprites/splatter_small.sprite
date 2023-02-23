@@ -19,43 +19,43 @@
             "h": 8,
             "name": "splatter_small_idle_1",
             "w": 9,
-            "x": 875,
-            "y": 523
+            "x": 1051,
+            "y": 534
         },
         {
             "h": 18,
             "name": "splatter_small_idle_2",
             "w": 17,
-            "x": 1891,
-            "y": 468
+            "x": 578,
+            "y": 489
         },
         {
             "h": 22,
             "name": "splatter_small_idle_3",
             "w": 24,
-            "x": 1326,
-            "y": 443
+            "x": 47,
+            "y": 464
         },
         {
             "h": 24,
             "name": "splatter_small_idle_4",
             "w": 27,
-            "x": 316,
-            "y": 434
+            "x": 796,
+            "y": 442
         },
         {
             "h": 15,
             "name": "splatter_small_idle_5",
             "w": 28,
-            "x": 1198,
-            "y": 491
+            "x": 415,
+            "y": 512
         },
         {
             "h": 14,
             "name": "splatter_small_idle_6",
             "w": 28,
-            "x": 1584,
-            "y": 491
+            "x": 1321,
+            "y": 515
         }
     ],
     "frames_offsets": [

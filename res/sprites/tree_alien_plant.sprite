@@ -1,0 +1,124 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "loop": true,
+            "name": "attack"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 25,
+            "name": "tree_alien_plant_attack_1",
+            "w": 15,
+            "x": 1507,
+            "y": 438
+        },
+        {
+            "h": 23,
+            "name": "tree_alien_plant_attack_2",
+            "w": 15,
+            "x": 538,
+            "y": 463
+        },
+        {
+            "h": 19,
+            "name": "tree_alien_plant_attack_3",
+            "w": 16,
+            "x": 1001,
+            "y": 471
+        },
+        {
+            "h": 23,
+            "name": "tree_alien_plant_attack_4",
+            "w": 15,
+            "x": 519,
+            "y": 463
+        },
+        {
+            "h": 24,
+            "name": "tree_alien_plant_idle_1",
+            "w": 15,
+            "x": 1268,
+            "y": 443
+        },
+        {
+            "h": 24,
+            "name": "tree_alien_plant_idle_2",
+            "w": 15,
+            "x": 1249,
+            "y": 443
+        },
+        {
+            "h": 24,
+            "name": "tree_alien_plant_idle_3",
+            "w": 15,
+            "x": 1287,
+            "y": 443
+        },
+        {
+            "h": 24,
+            "name": "tree_alien_plant_idle_4",
+            "w": 15,
+            "x": 1833,
+            "y": 442
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/vegetation/tree_alien_2/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
