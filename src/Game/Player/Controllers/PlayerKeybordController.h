@@ -29,6 +29,10 @@ namespace game
 
         mono::InputContext* m_input_context;
 
+        bool m_left;
+        bool m_right;
+        bool m_up;
+        bool m_down;
         bool m_fire;
         bool m_trigger_reload;
         bool m_trigger_action;

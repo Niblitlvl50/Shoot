@@ -39,7 +39,7 @@ UISystem::UISystem(
     , m_button_down(false)
     , m_button_push_this_frame(false)
 {
-    m_input_context = m_input_system->CreateContext(0, mono::InputContextBehaviour::ConsumeIfHandled, "UISystem");
+    m_input_context = m_input_system->CreateContext(0, mono::InputContextBehaviour::ConsumeAll, "UISystem");
 
     m_input_context->enabled = false;
     m_input_context->mouse_input = this;

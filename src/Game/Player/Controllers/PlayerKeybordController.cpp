@@ -10,6 +10,10 @@ using namespace game;
 
 PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic)
     : m_player_logic(player_logic)
+    , m_left(false)
+    , m_right(false)
+    , m_up(false)
+    , m_down(false)
     , m_fire(false)
     , m_trigger_reload(false)
     , m_trigger_action(false)
@@ -37,6 +41,17 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     // Update Movement
     math::Vector move_vector;
 
+    if(m_left)
+        move_vector.x -= 1.0f;
+    if(m_right)
+        move_vector.x += 1.0f;
+
+    if(m_up)
+        move_vector.y += 1.0f;
+    if(m_down)
+        move_vector.y -= 1.0f;
+
+    /*
     if(System::IsKeyDown(Keycode::A))
         move_vector.x -= 1.0f;
     if(System::IsKeyDown(Keycode::D))
@@ -46,6 +61,7 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
         move_vector.y += 1.0f;
     if(System::IsKeyDown(Keycode::S))
         move_vector.y -= 1.0f;
+    */
 
     m_player_logic->MoveInDirection(math::Normalized(move_vector));
 
@@ -108,13 +124,45 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
 
 mono::InputResult PlayerKeyboardController::KeyDown(const event::KeyDownEvent& event)
 {
-    return mono::InputResult::Pass;
+    switch(event.key)
+    {
+    case Keycode::A:
+        m_left = true;
+        break;
+    case Keycode::D:
+        m_right = true;
+        break;
+    case Keycode::W:
+        m_up = true;
+        break;
+    case Keycode::S:
+        m_down = true;
+        break;
+
+    default:
+        break;
+    }
+
+    return mono::InputResult::Handled;
 }
 
 mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event)
 {
     switch(event.key)
     {
+    case Keycode::A:
+        m_left = false;
+        break;
+    case Keycode::D:
+        m_right = false;
+        break;
+    case Keycode::W:
+        m_up = false;
+        break;
+    case Keycode::S:
+        m_down = false;
+        break;
+
     case Keycode::R:
         m_trigger_reload = true;
         break;
