@@ -104,7 +104,7 @@ namespace game
         void SetSprite(const std::string& sprite_file);
         void SetSprites(const std::vector<std::string>& sprite_files);
 
-        void SetActiveSprite(uint32_t index);
+        void SetActiveSprite(uint32_t index, uint32_t animation_id);
         mono::ISprite* GetSprite(uint32_t index);
 
         void Update(const mono::UpdateContext& context) override;

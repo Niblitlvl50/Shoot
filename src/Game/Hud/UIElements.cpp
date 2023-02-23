@@ -225,9 +225,10 @@ void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
     }
 }
 
-void UISpriteElement::SetActiveSprite(uint32_t index)
+void UISpriteElement::SetActiveSprite(uint32_t index, uint32_t animation_id)
 {
     m_active_sprite = index;
+    m_sprites[m_active_sprite]->SetAnimation(animation_id);
 }
 
 mono::ISprite* UISpriteElement::GetSprite(uint32_t index)

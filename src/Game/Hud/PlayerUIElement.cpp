@@ -138,7 +138,7 @@ namespace game
             m_chips_text->SetText(chips_text);
 
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
-            m_weapon_sprites->SetActiveSprite(weapon_index);
+            m_weapon_sprites->SetActiveSprite(weapon_index, 0);
 
             if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
                 m_states.TransitionTo(States::DISAPPEAR);
@@ -264,7 +264,7 @@ namespace game
             const auto it = m_input_type_to_index.find(m_player_info.last_used_input);
             if(it != m_input_type_to_index.end())
             {
-                m_continue_sprite->SetActiveSprite(it->second.index);
+                m_continue_sprite->SetActiveSprite(it->second.index, 0);
                 m_continue_sprite->SetScale(it->second.scale);
             }
 

@@ -28,18 +28,24 @@ ShopScreen::ShopScreen(
     const FontId font_id = FontId::RUSSOONE_TINY;
 
     UISpriteElement* shopkeeper_sprite = new UISpriteElement("res/sprites/cactus_small.sprite");
-    shopkeeper_sprite->SetPosition(background_half_width, background_height - 1.0f);
+    shopkeeper_sprite->SetPosition(0.75f, background_height - 0.75f);
+    shopkeeper_sprite->SetScale(2.0f);
+    shopkeeper_sprite->SetActiveSprite(0, 1);
+
+    UITextElement* title_text = new UITextElement(font_id, "SHOP", mono::FontCentering::HORIZONTAL, mono::Color::GRAY);
+    title_text->SetPosition(background_half_width, background_height - 0.75f);
 
     const char* close_text = "Close";
     const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
     m_close_text =
         new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    m_close_text->SetPosition(background_width - close_text_measurement.size.x - 0.2f, 0.15f);
+    m_close_text->SetPosition(background_width - close_text_measurement.size.x - 0.25f, 0.25f);
 
     UISquareElement* background_element =
         new UISquareElement(background_width, background_height, mono::Color::BLACK, mono::Color::GRAY, 1.0f);
-    background_element->SetPosition(-background_half_width, -background_half_height);
+    background_element->SetPosition(-background_half_width - 2.5f, -background_half_height + 0.25);
     background_element->AddChild(shopkeeper_sprite);
+    background_element->AddChild(title_text);
     background_element->AddChild(m_close_text);
 
     AddChild(background_element);
