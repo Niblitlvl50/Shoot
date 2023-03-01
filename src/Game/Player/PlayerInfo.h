@@ -7,6 +7,8 @@
 #include "Weapons/WeaponState.h"
 #include "Input/InputSystemTypes.h"
 
+#include "System/System.h"
+
 #include <cstdint>
 #include <array>
 
@@ -37,7 +39,7 @@ namespace game
     struct PlayerInfo
     {
         PlayerState player_state;
-        int controller_id;
+        System::ControllerId controller_id;
         uint32_t entity_id;
         uint32_t killer_entity_id;
 

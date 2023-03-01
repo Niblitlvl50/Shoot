@@ -115,10 +115,10 @@ void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 
 void PlayerDaemonSystem::Begin()
 {
-    SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Primary));
+    SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId::Primary);
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
-        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::GetControllerId(System::ControllerId::Secondary));
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId::Secondary);
 
     if(m_spawn_players)
         m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
@@ -187,7 +187,7 @@ std::vector<uint32_t> PlayerDaemonSystem::GetPlayerIds() const
     return ids;
 }
 
-void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, int controller_id)
+void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId controller_id)
 {
     if(!m_spawn_players)
         return;
@@ -219,7 +219,7 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, int controller_id)
     const uint32_t spawned_id = SpawnPlayer(
         allocated_player_info,
         m_player_spawn,
-        System::GetController(System::ControllerId(controller_id)),
+        System::GetController(controller_id),
         m_entity_system,
         m_system_context,
         m_event_handler,
@@ -310,17 +310,20 @@ uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
 
 mono::EventResult PlayerDaemonSystem::OnControllerAdded(const event::ControllerAddedEvent& event)
 {
-    SpawnLocalPlayer(game::ANY_PLAYER_INFO, event.controller_id);
+    const auto it = m_controller_id_to_player_info.find(System::ControllerId(event.controller_id));
+    if(it == m_controller_id_to_player_info.end())
+        SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId(event.controller_id));
+
     return mono::EventResult::PASS_ON;
 }
 
 mono::EventResult PlayerDaemonSystem::OnControllerRemoved(const event::ControllerRemovedEvent& event)
 {
-    const auto it = m_controller_id_to_player_info.find(event.controller_id);
+    const auto it = m_controller_id_to_player_info.find(System::ControllerId(event.controller_id));
     if(it != m_controller_id_to_player_info.end())
     {
         DespawnPlayer(it->second);
-        m_controller_id_to_player_info.erase(event.controller_id);
+        m_controller_id_to_player_info.erase(System::ControllerId(event.controller_id));
     }
 
     return mono::EventResult::PASS_ON;
@@ -402,7 +405,7 @@ mono::EventResult PlayerDaemonSystem::RemotePlayerViewport(const ViewportMessage
 
 mono::EventResult PlayerDaemonSystem::OnSpawnPlayer(const SpawnPlayerEvent& event)
 {
-    SpawnLocalPlayer(event.player_index, event.player_index);
+    SpawnLocalPlayer(event.player_index, System::ControllerId(event.player_index));
     return mono::EventResult::HANDLED;
 }
 

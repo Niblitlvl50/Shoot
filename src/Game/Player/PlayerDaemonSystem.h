@@ -50,7 +50,7 @@ namespace game
         void SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback);
         uint32_t SpawnPackageAt(const math::Vector& spawn_position);
 
-        void SpawnLocalPlayer(int player_index, int controller_id);
+        void SpawnLocalPlayer(int player_index, System::ControllerId controller_id);
         void DespawnPlayer(PlayerInfo* player_info);
         std::vector<uint32_t> GetPlayerIds() const;
 
@@ -106,7 +106,7 @@ namespace game
         mono::EventToken<DespawnPlayerEvent> m_despawn_player_token;
         mono::EventToken<RespawnPlayerEvent> m_respawn_player_token;
 
-        std::unordered_map<int, PlayerInfo*> m_controller_id_to_player_info;
+        std::unordered_map<System::ControllerId, PlayerInfo*> m_controller_id_to_player_info;
 
         struct RemotePlayerData
         {

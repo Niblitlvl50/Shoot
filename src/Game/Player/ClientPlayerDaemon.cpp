@@ -31,7 +31,7 @@ ClientPlayerDaemon::ClientPlayerDaemon(CameraSystem* camera_system, mono::EventH
     m_client_spawned_token = m_event_handler->AddListener(client_spawned);
 
     if(System::IsControllerActive(System::ControllerId::Primary))
-        SpawnLocalRemotePlayer(System::GetControllerId(System::ControllerId::Primary));
+        SpawnLocalRemotePlayer(System::ControllerId::Primary);
 }
 
 ClientPlayerDaemon::~ClientPlayerDaemon()
