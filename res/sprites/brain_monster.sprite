@@ -1,0 +1,117 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 9,
+            "name": "brain_monster_idle_1",
+            "w": 13,
+            "x": 1276,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_2",
+            "w": 13,
+            "x": 1293,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_3",
+            "w": 13,
+            "x": 578,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_4",
+            "w": 13,
+            "x": 561,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_5",
+            "w": 13,
+            "x": 544,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_6",
+            "w": 13,
+            "x": 1310,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_7",
+            "w": 13,
+            "x": 510,
+            "y": 548
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_8",
+            "w": 13,
+            "x": 527,
+            "y": 548
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/brain_monster/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

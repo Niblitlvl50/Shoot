@@ -35,7 +35,7 @@
             "h": 23,
             "name": "tree_alien_plant_attack_2",
             "w": 15,
-            "x": 538,
+            "x": 500,
             "y": 463
         },
         {
@@ -49,36 +49,36 @@
             "h": 23,
             "name": "tree_alien_plant_attack_4",
             "w": 15,
-            "x": 519,
+            "x": 538,
             "y": 463
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_1",
             "w": 15,
-            "x": 1268,
+            "x": 1287,
             "y": 443
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_2",
             "w": 15,
-            "x": 1249,
-            "y": 443
+            "x": 1833,
+            "y": 442
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_3",
             "w": 15,
-            "x": 1287,
+            "x": 1268,
             "y": 443
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_4",
             "w": 15,
-            "x": 1833,
-            "y": 442
+            "x": 1249,
+            "y": 443
         }
     ],
     "frames_offsets": [

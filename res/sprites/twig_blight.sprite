@@ -1,0 +1,172 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ],
+            "loop": true,
+            "name": "move"
+        }
+    ],
+    "frames": [
+        {
+            "h": 15,
+            "name": "twig_blight_idle_1",
+            "w": 16,
+            "x": 1196,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "twig_blight_idle_2",
+            "w": 16,
+            "x": 1958,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "twig_blight_idle_3",
+            "w": 16,
+            "x": 1918,
+            "y": 515
+        },
+        {
+            "h": 15,
+            "name": "twig_blight_idle_4",
+            "w": 16,
+            "x": 1236,
+            "y": 515
+        },
+        {
+            "h": 15,
+            "name": "twig_blight_move_1",
+            "w": 16,
+            "x": 1216,
+            "y": 515
+        },
+        {
+            "h": 16,
+            "name": "twig_blight_move_2",
+            "w": 16,
+            "x": 127,
+            "y": 512
+        },
+        {
+            "h": 15,
+            "name": "twig_blight_move_3",
+            "w": 17,
+            "x": 1502,
+            "y": 514
+        },
+        {
+            "h": 16,
+            "name": "twig_blight_move_4",
+            "w": 16,
+            "x": 267,
+            "y": 512
+        },
+        {
+            "h": 14,
+            "name": "twig_blight_move_5",
+            "w": 16,
+            "x": 1878,
+            "y": 515
+        },
+        {
+            "h": 14,
+            "name": "twig_blight_move_6",
+            "w": 11,
+            "x": 805,
+            "y": 516
+        },
+        {
+            "h": 13,
+            "name": "twig_blight_move_7",
+            "w": 11,
+            "x": 356,
+            "y": 532
+        },
+        {
+            "h": 14,
+            "name": "twig_blight_move_8",
+            "w": 11,
+            "x": 790,
+            "y": 516
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/twig_blight/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
