@@ -335,6 +335,17 @@ void UISystem::ReleaseUIItemCallback(uint32_t entity_id, uint32_t callback_handl
         it->second[callback_handle] = nullptr;
 }
 
+void UISystem::SetUIItemState(uint32_t entity_id, UIItemState new_state)
+{
+    const auto find_by_entity_id = [entity_id](const UIItem& item) {
+        return item.entity_id == entity_id;
+    };
+
+    auto it = std::find_if(m_items.begin(), m_items.end(), find_by_entity_id);
+    if(it != m_items.end())
+        it->state = new_state;
+}
+
 uint32_t UISystem::GetActiveEntityItem() const
 {
     if(m_active_item_index == INVALID_UI_INDEX)

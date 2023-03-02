@@ -101,6 +101,8 @@ namespace game
         uint32_t SetUIItemCallback(uint32_t entity_id, const UIItemCallback& item_callback);
         void ReleaseUIItemCallback(uint32_t entity_id, uint32_t callback_handle);
 
+        void SetUIItemState(uint32_t entity_id, UIItemState new_state);
+
         uint32_t GetActiveEntityItem() const;
 
         bool DrawCursor() const;

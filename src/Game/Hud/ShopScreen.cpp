@@ -48,6 +48,8 @@ ShopScreen::ShopScreen(
     background_element->AddChild(title_text);
     background_element->AddChild(m_close_text);
 
+    m_close_proxy.SetItemState(UIItemState::Disabled);
+
     AddChild(background_element);
 }
 
@@ -70,12 +72,16 @@ void ShopScreen::ShowAt(const math::Vector& position)
 
 void ShopScreen::Show()
 {
+    m_close_proxy.SetItemState(UIItemState::Enabled);
+
     UIElement::Show();
     m_ui_system->Enable();
 }
 
 void ShopScreen::Hide()
 {
+    m_close_proxy.SetItemState(UIItemState::Disabled);
+
     UIElement::Hide();
     m_ui_system->Disable();
 }

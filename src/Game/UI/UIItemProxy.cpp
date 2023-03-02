@@ -35,6 +35,11 @@ void UIItemProxy::UpdateUIItem(
     m_ui_system->UpdateUIItem(m_entity_id, hash::Hash(trigger_name), 0, game::UIItemState::Enabled, navigation_setup);
 }
 
+void UIItemProxy::SetItemState(UIItemState new_state)
+{
+    m_ui_system->SetUIItemState(m_entity_id, new_state);
+}
+
 void UIItemProxy::SetItemCallback(const UIItemCallback& item_callback)
 {
     m_callback_handle = m_ui_system->SetUIItemCallback(m_entity_id, item_callback);

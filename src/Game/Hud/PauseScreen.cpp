@@ -62,6 +62,9 @@ PauseScreen::PauseScreen(
     m_quit_proxy.SetItemCallback(close_callback);
     m_close_proxy.SetItemCallback(close_callback);
 
+    m_quit_proxy.SetItemState(UIItemState::Disabled);
+    m_close_proxy.SetItemState(UIItemState::Disabled);
+
     AddChild(background_element);
     AddChild(pause_text);
     AddChild(m_quit_text);
@@ -94,12 +97,18 @@ void PauseScreen::ShowAt(const math::Vector& position)
 
 void PauseScreen::Show()
 {
+    m_quit_proxy.SetItemState(UIItemState::Enabled);
+    m_close_proxy.SetItemState(UIItemState::Enabled);
+
     UIElement::Show();
     m_ui_system->Enable();
 }
 
 void PauseScreen::Hide()
 {
+    m_quit_proxy.SetItemState(UIItemState::Disabled);
+    m_close_proxy.SetItemState(UIItemState::Disabled);
+
     UIElement::Hide();
     m_ui_system->Disable();
 }

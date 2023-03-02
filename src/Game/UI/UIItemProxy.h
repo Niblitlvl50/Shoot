@@ -19,6 +19,7 @@ namespace game
 
         void UpdateUIItem(
             const math::Matrix& transform, const math::Quad& bb, const char* trigger_name, const UINavigationSetup& navigation_setup);
+        void SetItemState(UIItemState new_state);
         void SetItemCallback(const UIItemCallback& item_callback);
         void ReleaseItemCallback();
 
