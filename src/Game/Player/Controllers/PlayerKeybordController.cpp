@@ -73,6 +73,7 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
         const float aim_direction = math::AngleFromVector(normalized_delta);
 
         m_player_logic->SetAimDirection(aim_direction);
+        m_player_logic->SetAimScreenPosition(m_aim_screen_position);
 
         m_update_aiming = false;
     }
@@ -194,6 +195,7 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
 mono::InputResult PlayerKeyboardController::Move(const event::MouseMotionEvent& event)
 {
     m_aim_position = {event.world_x, event.world_y};
+    m_aim_screen_position = math::Vector(event.screen_x, event.screen_y);
     m_update_aiming = true;
 
     return mono::InputResult::Pass;

@@ -42,5 +42,6 @@ namespace game
         bool m_update_aiming;
         bool m_trigger_respawn;
         math::Vector m_aim_position;
+        math::Vector m_aim_screen_position;
     };
 }

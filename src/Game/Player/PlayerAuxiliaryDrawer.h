@@ -13,6 +13,8 @@
 
 namespace game
 {
+    class CameraSystem;
+
     struct AimlineRenderData
     {
         std::unique_ptr<mono::IRenderBuffer> vertices;
@@ -39,14 +41,16 @@ namespace game
     {
     public:
 
-        PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system);
+        PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        const game::CameraSystem* m_camera_system;
         const mono::TransformSystem* m_transform_system;
 
         std::vector<AbilityRenderData> m_ability_render_datas;
+        AbilityRenderData m_crosshair_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         mutable AimlineRenderData m_aimline_data[n_players];

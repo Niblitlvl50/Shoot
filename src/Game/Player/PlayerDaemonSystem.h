@@ -59,7 +59,6 @@ namespace game
         uint32_t SpawnPlayer(
             game::PlayerInfo* player_info,
             const math::Vector& spawn_position,
-            const System::ControllerState& controller,
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,

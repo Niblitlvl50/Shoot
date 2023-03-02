@@ -39,7 +39,6 @@ namespace game
             PlayerInfo* player_info,
             mono::InputSystem* input_system,
             mono::EventHandler* event_handler,
-            const System::ControllerState& controller,
             mono::SystemContext* system_context);
 
         ~PlayerLogic();
@@ -75,6 +74,7 @@ namespace game
         void ResetForces();
 
         void SetAimDirection(float aim_direction);
+        void SetAimScreenPosition(const math::Vector& aim_screen_position);
         void Blink(const math::Vector& direction);
         void Shockwave();
         void Shield();
@@ -94,7 +94,6 @@ namespace game
         void ExitBlink();
 
         const uint32_t m_entity_id;
-        const uint32_t m_controller_id;
         PlayerInfo* m_player_info;
         PlayerGamepadController m_gamepad_controller;
         PlayerKeyboardController m_keyboard_controller;
@@ -118,6 +117,7 @@ namespace game
         float m_aim_direction;
         float m_aim_target;
         float m_aim_velocity;
+        math::Vector m_aim_screen_position;
 
         int m_weapon_index;
         IWeaponPtr m_weapons[N_WEAPONS];

@@ -1,6 +1,7 @@
 
 #include "GameZone.h"
 #include "Zones/ZoneFlow.h"
+#include "GameCamera/CameraSystem.h"
 
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
@@ -96,6 +97,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
 
+    game::CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     game::InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
@@ -132,7 +134,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
     AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
     AddDrawable(new game::HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new game::PlayerAuxiliaryDrawer(transform_system), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, transform_system), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);

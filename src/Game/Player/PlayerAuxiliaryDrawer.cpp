@@ -1,11 +1,14 @@
 
 #include "PlayerAuxiliaryDrawer.h"
+
+#include "GameCamera/CameraSystem.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
 #include "Math/CriticalDampedSpring.h"
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
 
+#include "Camera/ICamera.h"
 #include "EntitySystem/Entity.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
@@ -64,8 +67,10 @@ namespace
     constexpr float width = 0.025f;
 }
 
-PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transform_system)
-    : m_transform_system(transform_system)
+PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(
+    const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system)
+    : m_camera_system(camera_system)
+    , m_transform_system(transform_system)
 {
     for(const char* sprite_file : g_ability_to_sprite)
     {
@@ -74,6 +79,11 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const mono::TransformSystem* transf
         render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
         m_ability_render_datas.push_back(std::move(render_data));
     }
+
+    m_crosshair_render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_player_crosshair_sprite);
+    m_crosshair_render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(m_crosshair_render_data.sprite->GetSpriteData());
+
+    m_crosshair_render_data.sprite->SetShade(mono::Color::RGBA(1.0f, 0.65f, 0.65f));
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -162,6 +172,21 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             ability_point.point = math::Vector(std::clamp(instance_data.cooldown_position, left.x, right.x), reload_dot.y);
             ability_point.render_data_index = player_info->cooldown_id;
             ability_points.push_back(ability_point);
+        }
+
+        const bool keyboard_or_mouse = 
+            player_info->last_used_input == mono::InputContextType::Keyboard ||
+            player_info->last_used_input == mono::InputContextType::Mouse;
+
+        if(keyboard_or_mouse)
+        {
+            const math::Vector crosshair_world_position =
+                m_camera_system->GetActiveCamera()->ScreenToWorld(player_info->aim_crosshair_screen_position);
+
+            const math::Matrix& transform = math::CreateMatrixWithPosition(crosshair_world_position);
+            const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+            renderer.DrawSprite(
+                m_crosshair_render_data.sprite.get(), &m_crosshair_render_data.sprite_buffers, m_indices.get(), 0);
         }
     }
 

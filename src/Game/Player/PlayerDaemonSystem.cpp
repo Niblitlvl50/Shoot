@@ -120,8 +120,8 @@ void PlayerDaemonSystem::Begin()
     if(System::IsControllerActive(System::ControllerId::Secondary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId::Secondary);
 
-    if(m_spawn_players)
-        m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
+    //if(m_spawn_players)
+    //    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 void PlayerDaemonSystem::Reset()
@@ -219,7 +219,6 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
     const uint32_t spawned_id = SpawnPlayer(
         allocated_player_info,
         m_player_spawn,
-        System::GetController(controller_id),
         m_entity_system,
         m_system_context,
         m_event_handler,
@@ -233,23 +232,11 @@ void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
     m_camera_system->Unfollow(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
     ReleasePlayerInfo(player_info);
-
-/*
-    const auto is_null = [](const game::PlayerInfo* player_info) {
-        return player_info == nullptr;
-    };
-
-    const game::PlayerArray active_players = GetActivePlayers();
-    const bool all_players_dead = std::all_of(active_players.begin(), active_players.end(), is_null);
-    if(all_players_dead)
-        m_event_handler->DispatchEvent(game::GameOverEvent());
-*/
 }
 
 uint32_t PlayerDaemonSystem::SpawnPlayer(
     game::PlayerInfo* player_info,
     const math::Vector& spawn_position,
-    const System::ControllerState& controller,
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
@@ -281,7 +268,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, input_system, event_handler, controller, system_context);
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, input_system, event_handler, system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
     player_info->entity_id = player_entity.id;
@@ -356,7 +343,6 @@ mono::EventResult PlayerDaemonSystem::RemotePlayerConnected(const PlayerConnecte
     const uint32_t spawned_id = SpawnPlayer(
         remote_player_data.player_info,
         m_player_spawn,
-        remote_player_data.controller_state,
         m_entity_system,
         m_system_context,
         m_event_handler,

@@ -60,12 +60,10 @@ PlayerLogic::PlayerLogic(
     PlayerInfo* player_info,
     mono::InputSystem* input_system,
     mono::EventHandler* event_handler,
-    const System::ControllerState& controller,
     mono::SystemContext* system_context)
     : m_entity_id(entity_id)
-    , m_controller_id(controller.id)
     , m_player_info(player_info)
-    , m_gamepad_controller(this, controller)
+    , m_gamepad_controller(this)
     , m_keyboard_controller(this)
     , m_event_handler(event_handler)
     , m_pause(false)
@@ -98,6 +96,7 @@ PlayerLogic::PlayerLogic(
     m_input_context->keyboard_input = &m_keyboard_controller;
     m_input_context->mouse_input = &m_keyboard_controller;
     m_input_context->controller_input = &m_gamepad_controller;
+    m_input_context->controller_id = player_info->controller_id;
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
@@ -195,6 +194,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->velocity = body->GetVelocity();
     m_player_info->direction = math::GetZRotation(transform);
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
+    m_player_info->aim_crosshair_screen_position = m_aim_screen_position;
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
 
@@ -285,25 +285,13 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 
 void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
 {
-    switch(m_input_context->most_recent_input)
-    {
-    case mono::InputContextType::Keyboard:
-    case mono::InputContextType::Mouse:
-    {
-        m_keyboard_controller.Update(update_context);
-        break;
-    }
-    
-    case mono::InputContextType::Controller:
-    {
-        // Select most recent input if player zero, else just go with gamepad. 
-        m_gamepad_controller.Update(update_context);
-        break;
-    }
+    const uint32_t player_index = FindPlayerIndex(m_player_info);
 
-    default:
-        break;
-    }
+    // Select most recent input if player zero, else just go with gamepad. 
+    if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
+        m_gamepad_controller.Update(update_context);
+    else
+        m_keyboard_controller.Update(update_context);
 }
 
 void PlayerLogic::ToDefault()
@@ -628,6 +616,11 @@ void PlayerLogic::ResetForces()
 void PlayerLogic::SetAimDirection(float aim_direction)
 {
     m_aim_target = aim_direction;
+}
+
+void PlayerLogic::SetAimScreenPosition(const math::Vector& aim_screen_position)
+{
+    m_aim_screen_position = aim_screen_position;
 }
 
 void PlayerLogic::Blink(const math::Vector& direction)

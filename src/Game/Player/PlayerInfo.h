@@ -50,6 +50,7 @@ namespace game
         
         math::Vector aim_direction;
         math::Vector aim_target;
+        math::Vector aim_crosshair_screen_position;
 
         WeaponSetup weapon_type;
         WeaponState weapon_state;

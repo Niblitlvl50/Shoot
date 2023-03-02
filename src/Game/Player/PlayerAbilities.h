@@ -21,4 +21,6 @@ namespace game
         "res/sprites/energy_icon.sprite",
         "res/sprites/ammo_icon.sprite",
     };
+
+    constexpr const char* g_player_crosshair_sprite = "res/sprites/crosshair006.sprite";
 }
