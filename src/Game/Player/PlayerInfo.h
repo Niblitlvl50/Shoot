@@ -41,6 +41,7 @@ namespace game
         PlayerState player_state;
         System::ControllerId controller_id;
         uint32_t entity_id;
+        uint32_t familiar_entity_id;
         uint32_t killer_entity_id;
 
         math::Quad viewport;

@@ -1,10 +1,6 @@
 
 #include "PlayerFamiliarLogic.h"
 
-#include "EventHandler/EventHandler.h"
-#include "Events/EventFuncFwd.h"
-#include "Events/MouseEvent.h"
-
 #include "Math/CriticalDampedSpring.h"
 
 #include "Particle/ParticleSystem.h"
@@ -22,15 +18,14 @@
 namespace tweak_values
 {
     constexpr float idle_threshold_s = 2.0f;
-    constexpr float move_halflife = 0.0f; //0.3f;
+    constexpr float move_halflife = 0.3f;
 }
 
 using namespace game;
 
-PlayerFamiliarLogic::PlayerFamiliarLogic(
-    uint32_t entity_id, mono::EventHandler* event_handler, mono::SystemContext* system_context)
+PlayerFamiliarLogic::PlayerFamiliarLogic(uint32_t entity_id, uint32_t owner_entity_id, mono::SystemContext* system_context)
     : m_entity_id(entity_id)
-    , m_event_handler(event_handler)
+    , m_owner_entity_id(owner_entity_id)
     , m_last_show_state(false)
     , m_idle_timer(tweak_values::idle_threshold_s)
 {
@@ -42,22 +37,17 @@ PlayerFamiliarLogic::PlayerFamiliarLogic(
 
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_light_system->SetLightEnabled(m_entity_id, false);
-
-    using namespace std::placeholders;
-    const event::MouseMotionEventFunc mouse_motion_func = std::bind(&PlayerFamiliarLogic::OnMouseMotion, this, _1);
-    m_mouse_motion_token = m_event_handler->AddListener(mouse_motion_func);
 }
 
 PlayerFamiliarLogic::~PlayerFamiliarLogic()
 {
-    m_event_handler->RemoveListener(m_mouse_motion_token);
 }
 
 void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 {
     m_idle_timer += update_context.delta_s;
 
-    const bool show_sprite = (m_idle_timer < tweak_values::idle_threshold_s);
+    const bool show_sprite = true; //(m_idle_timer < tweak_values::idle_threshold_s);
     m_sprite_system->SetSpriteEnabled(m_entity_id, show_sprite);
     m_light_system->SetLightEnabled(m_entity_id, show_sprite);
 
@@ -72,13 +62,13 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 
     if(show_sprite)
     {
-        const math::Vector target_world_position = m_camera_system->GetActiveCamera()->ScreenToWorld(m_target_screen_position);
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
+        const math::Vector target_position = m_transform_system->GetWorldPosition(m_owner_entity_id) + math::Vector(0.2f, -0.2f);
 
         math::critical_spring_damper(
             current_position,
             m_move_velocity,
-            target_world_position,
+            target_position,
             math::ZeroVec,
             tweak_values::move_halflife,
             update_context.delta_s);
@@ -94,11 +84,4 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
         const math::Matrix new_transform = math::CreateMatrixWithPosition(current_position);
         m_transform_system->SetTransform(m_entity_id, new_transform);
     }
-}
-
-mono::EventResult PlayerFamiliarLogic::OnMouseMotion(const event::MouseMotionEvent& event)
-{
-    m_idle_timer = 0.0f;
-    m_target_screen_position = math::Vector(event.screen_x, event.screen_y);
-    return mono::EventResult::PASS_ON;
 }

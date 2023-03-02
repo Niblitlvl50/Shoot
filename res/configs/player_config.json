@@ -6,7 +6,7 @@
         "res/entities/player_fire_zombie.entity"
     ],
     "familiar_entities": [
-        "res/entities/small_crosshair.entity"
+        "res/entities/secondary_player_bat.entity"
     ],
     "package_entities": [
         "res/entities/cardboard_box.entity"

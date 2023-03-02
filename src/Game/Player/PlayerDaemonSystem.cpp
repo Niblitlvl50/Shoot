@@ -119,9 +119,6 @@ void PlayerDaemonSystem::Begin()
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
         SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId::Secondary);
-
-    //if(m_spawn_players)
-    //    m_spawned_player_familiar = SpawnPlayerFamiliar(m_entity_system, m_system_context, m_event_handler);
 }
 
 void PlayerDaemonSystem::Reset()
@@ -134,9 +131,6 @@ void PlayerDaemonSystem::Reset()
     
         m_camera_system->Unfollow(player_info.entity_id);
     }
-
-    if(m_spawn_players)
-        m_entity_system->ReleaseEntity(m_spawned_player_familiar);
 
     m_player_spawned_callback = nullptr;
     m_spawn_players = false;
@@ -225,12 +219,16 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
         destroyed_func);
     
     m_camera_system->FollowEntity(spawned_id);
+
+    allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, m_entity_system, m_system_context);
 }
 
 void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
 {
     m_camera_system->Unfollow(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
+    m_entity_system->ReleaseEntity(player_info->familiar_entity_id);
+
     ReleasePlayerInfo(player_info);
 }
 
@@ -281,7 +279,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 }
 
 uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
-    mono::IEntityManager* entity_system, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+    uint32_t owner_entity_id, mono::IEntityManager* entity_system, mono::SystemContext* system_context)
 {
     const std::string familiar_entity_file = m_familiar_entities.front();
     mono::Entity player_familiar_entity = entity_system->CreateEntity(familiar_entity_file.c_str());
@@ -289,7 +287,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
     entity_system->AddComponent(player_familiar_entity.id, BEHAVIOUR_COMPONENT);
 
-    IEntityLogic* player_logic = new PlayerFamiliarLogic(player_familiar_entity.id, event_handler, system_context);
+    IEntityLogic* player_logic = new PlayerFamiliarLogic(player_familiar_entity.id, owner_entity_id, system_context);
     logic_system->AddLogic(player_familiar_entity.id, player_logic);
 
     return player_familiar_entity.id;
