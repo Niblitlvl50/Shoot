@@ -172,7 +172,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     m_current_fire_rate *= m_weapon_config.fire_rate_multiplier;
     m_current_fire_rate = std::min(m_current_fire_rate, m_weapon_config.max_fire_rate);
 
-    m_ammunition--;
+    if(!m_weapon_config.infinite_ammo)
+        m_ammunition--;
 
     m_state = WeaponState::FIRE;
     return m_state;

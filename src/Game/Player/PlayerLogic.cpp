@@ -127,6 +127,8 @@ PlayerLogic::PlayerLogic(
     m_weapons[2] = m_weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::PLAYER);
     SelectWeapon(WeaponSelection::Previous);
 
+    m_familiar_weapon = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
+
     m_aim_target = m_aim_direction = -math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {
@@ -314,10 +316,15 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
         if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->auto_reload)
             Reload(update_context.timestamp);
+
+
+        const math::Vector familiar_position = m_transform_system->GetWorldPosition(m_player_info->familiar_entity_id);
+        m_familiar_weapon->Fire(familiar_position, target_fire_position, update_context.timestamp);
     }
     else if(m_stop_fire)
     {
         active_weapon->StopFire(update_context.timestamp);
+        m_familiar_weapon->StopFire(update_context.timestamp);
         m_stop_fire = false;
     }
 

@@ -121,6 +121,7 @@ namespace game
 
         int m_weapon_index;
         IWeaponPtr m_weapons[N_WEAPONS];
+        IWeaponPtr m_familiar_weapon;
 
         int m_idle_anim_id;
         int m_run_anim_id;

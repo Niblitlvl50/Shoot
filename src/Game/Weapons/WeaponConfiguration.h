@@ -82,6 +82,7 @@ namespace game
     {
         std::string name;
         int magazine_size;
+        bool infinite_ammo;
         int projectiles_per_fire;
         float rounds_per_second;
         float fire_rate_multiplier;

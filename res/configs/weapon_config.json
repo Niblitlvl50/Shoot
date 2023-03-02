@@ -106,6 +106,7 @@
             "name": "generic",
             "reload_time": 1.0,
             "magazine_size": 10,
+            "infinite_ammo": false,
             "projectiles_per_fire": 1,
             "rounds_per_second": 1.0,
             "fire_rate_multiplier": 1.0,
@@ -124,6 +125,7 @@
             "name": "cacodemon_plasma",
             "reload_time": 1.0,
             "magazine_size": 10,
+            "infinite_ammo": false,
             "projectiles_per_fire": 1,
             "rounds_per_second": 3.0,
             "fire_rate_multiplier": 1.0,
@@ -142,6 +144,7 @@
             "name": "boss_circulating_weapon",
             "reload_time": 1.0,
             "magazine_size": 10,
+            "infinite_ammo": false,
             "projectiles_per_fire": 1,
             "rounds_per_second": 2.0,
             "fire_rate_multiplier": 1.0,
@@ -159,6 +162,7 @@
         {
             "name": "plasma_gun",
             "magazine_size": 100,
+            "infinite_ammo": false,
             "reload_time": 1.0,
             "projectiles_per_fire": 1,
             "rounds_per_second": 8.0,
@@ -177,6 +181,7 @@
         {
             "name": "flak_gun",
             "magazine_size": 10,
+            "infinite_ammo": false,
             "reload_time": 1.0,
             "projectiles_per_fire": 6,
             "rounds_per_second": 2.0,
@@ -195,6 +200,7 @@
         {
             "name": "burst_gun",
             "magazine_size": 3,
+            "infinite_ammo": false,
             "reload_time": 0.75,
             "projectiles_per_fire": 1,
             "rounds_per_second": 15.0,
@@ -213,6 +219,7 @@
         {
             "name": "cacoplasma",
             "magazine_size": 30,
+            "infinite_ammo": false,
             "reload_time": 1.0,
             "projectiles_per_fire": 6,
             "rounds_per_second": 2.5,
@@ -231,6 +238,7 @@
         {
             "name": "rocketlauncher",
             "magazine_size": 5,
+            "infinite_ammo": false,
             "reload_time": 1.0,
             "projectiles_per_fire": 1,
             "rounds_per_second": 1.5,
@@ -249,6 +257,7 @@
         {
             "name": "blaster",
             "magazine_size": 50,
+            "infinite_ammo": false,
             "reload_time": 0.5,
             "projectiles_per_fire": 1,
             "rounds_per_second": 6.0,
@@ -267,6 +276,7 @@
         {
             "name": "generic_homing_gun",
             "magazine_size": 5,
+            "infinite_ammo": false,
             "reload_time": 0.5,
             "projectiles_per_fire": 1,
             "rounds_per_second": 0.5,

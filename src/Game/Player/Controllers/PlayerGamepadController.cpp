@@ -116,4 +116,5 @@ mono::InputResult PlayerGamepadController::UpdatedControllerState(const System::
 {
     m_last_state = m_current_state;
     m_current_state = updated_state;
+    return mono::InputResult::Pass;
 }

@@ -28,6 +28,7 @@ namespace game
     {
         weapon_config.name                  = json["name"].get<std::string>();
         weapon_config.magazine_size         = json["magazine_size"].get<int>();
+        weapon_config.infinite_ammo         = json["infinite_ammo"].get<bool>();
         weapon_config.projectiles_per_fire  = json["projectiles_per_fire"].get<int>();
         weapon_config.rounds_per_second     = json["rounds_per_second"].get<float>();
         weapon_config.fire_rate_multiplier  = json["fire_rate_multiplier"].get<float>();

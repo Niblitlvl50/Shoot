@@ -63,7 +63,7 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
     if(show_sprite)
     {
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
-        const math::Vector target_position = m_transform_system->GetWorldPosition(m_owner_entity_id) + math::Vector(0.2f, -0.2f);
+        const math::Vector target_position = m_transform_system->GetWorldPosition(m_owner_entity_id) + math::Vector(0.5f, -0.5f);
 
         math::critical_spring_damper(
             current_position,
