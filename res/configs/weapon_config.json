@@ -106,7 +106,7 @@
             "name": "generic",
             "reload_time": 1.0,
             "magazine_size": 10,
-            "infinite_ammo": false,
+            "infinite_ammo": true,
             "projectiles_per_fire": 1,
             "rounds_per_second": 1.0,
             "fire_rate_multiplier": 1.0,
@@ -298,6 +298,12 @@
             "name": "Generic",
             "weapon": "generic",
             "bullet": "generic_bullet",
+            "sprite_file": "res/sprites/bolter.sprite"
+        },
+        {
+            "name": "Familiar Generic",
+            "weapon": "generic",
+            "bullet": "flak_bullet",
             "sprite_file": "res/sprites/bolter.sprite"
         },
         {

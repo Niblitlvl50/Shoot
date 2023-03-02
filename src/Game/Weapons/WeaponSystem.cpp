@@ -1,6 +1,7 @@
 
 #include "WeaponSystem.h"
 #include "System/Hash.h"
+#include "System/System.h"
 
 #include "Weapons/BulletWeapon/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon/ThrowableWeapon.h"
@@ -11,7 +12,6 @@
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
-#include "System/Hash.h"
 
 #include <functional>
 
@@ -143,9 +143,18 @@ IWeaponPtr WeaponSystem::CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
     const auto weapon_config_it = m_weapon_configuration.weapon_configs.find(setup.weapon_hash);
-    const auto bullet_config_it = m_weapon_configuration.bullet_configs.find(setup.bullet_hash);
-    if(weapon_config_it == m_weapon_configuration.weapon_configs.end() || bullet_config_it == m_weapon_configuration.bullet_configs.end())
+    if(weapon_config_it == m_weapon_configuration.weapon_configs.end())
+    {
+        System::Log("weaponsystem|Unable to find weapon configuration.");
         return std::make_unique<NullWeapon>();
+    }
+
+    const auto bullet_config_it = m_weapon_configuration.bullet_configs.find(setup.bullet_hash);
+    if(bullet_config_it == m_weapon_configuration.bullet_configs.end())
+    {
+        System::Log("weaponsystem|Unable to find bullet configuration.");
+        return std::make_unique<NullWeapon>();
+    }
 
     const WeaponConfiguration& weapon_config = m_weapon_configuration.weapon_configs[setup.weapon_hash];
     const BulletConfiguration& bullet_config = m_weapon_configuration.bullet_configs[setup.bullet_hash];
@@ -175,16 +184,17 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
 IWeaponPtr WeaponSystem::CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id)
 {
     const auto it = m_weapon_configuration.weapon_combinations.find(hash::Hash(weapon_name));
-    if(it != m_weapon_configuration.weapon_combinations.end())
+    if(it == m_weapon_configuration.weapon_combinations.end())
     {
-        WeaponSetup weapon_setup;
-        weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());
-        weapon_setup.bullet_hash = hash::Hash(it->second.bullet.c_str());
-
-        return CreateWeapon(weapon_setup, faction, owner_id);
+        System::Log("weaponsystem|Unable to find weapon combination.");
+        return std::make_unique<NullWeapon>();
     }
 
-    return std::make_unique<NullWeapon>();
+    WeaponSetup weapon_setup;
+    weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());
+    weapon_setup.bullet_hash = hash::Hash(it->second.bullet.c_str());
+
+    return CreateWeapon(weapon_setup, faction, owner_id);
 }
 
 IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
