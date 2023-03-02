@@ -127,8 +127,6 @@ PlayerLogic::PlayerLogic(
     m_weapons[2] = m_weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::PLAYER);
     SelectWeapon(WeaponSelection::Previous);
 
-    m_familiar_weapon = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
-
     m_aim_target = m_aim_direction = -math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {
@@ -153,6 +151,10 @@ PlayerLogic::~PlayerLogic()
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     m_state.UpdateState(update_context);
+
+    // This needs to be setup later since in the contructor the familiar is not created yet. :/ 
+    if(!m_familiar_weapon)
+        m_familiar_weapon = m_weapon_system->CreatePrimaryWeapon(m_player_info->familiar_entity_id, WeaponFaction::PLAYER);
 
     m_blink_cooldown += update_context.delta_s;
     m_shockwave_cooldown += update_context.delta_s;

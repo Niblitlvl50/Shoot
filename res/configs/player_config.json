@@ -6,7 +6,9 @@
         "res/entities/player_fire_zombie.entity"
     ],
     "familiar_entities": [
-        "res/entities/secondary_player_bat.entity"
+        "res/entities/familiar_bat.entity",
+        "res/entities/familiar_jellyfish.entity",
+        "res/entities/familiar_brain_monster.entity"
     ],
     "package_entities": [
         "res/entities/cardboard_box.entity"
