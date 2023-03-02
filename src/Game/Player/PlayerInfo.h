@@ -156,4 +156,5 @@ namespace game
     PlayerArray GetAlivePlayers();
 
     bool IsPlayer(uint32_t entity_id);
+    bool IsPlayerOrFamiliar(uint32_t entity_id);
 }

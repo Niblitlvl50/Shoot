@@ -74,7 +74,7 @@ PackageLogic::PackageLogic(
     const auto not_player_filter = [this](uint32_t id, int damage, uint32_t id_who_did_damage) {
         if(m_states.ActiveState() == States::SHIELDED)
             return FilterResult::FILTER_OUT;
-        return game::IsPlayer(id_who_did_damage) ? FilterResult::FILTER_OUT : FilterResult::APPLY_DAMAGE;
+        return game::IsPlayerOrFamiliar(id_who_did_damage) ? FilterResult::FILTER_OUT : FilterResult::APPLY_DAMAGE;
     };
     m_damage_system->SetDamageFilter(m_entity_id, not_player_filter);
 

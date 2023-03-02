@@ -158,3 +158,13 @@ bool game::IsPlayer(uint32_t entity_id)
 {
     return FindPlayerInfoFromEntityId(entity_id) != nullptr;
 }
+
+bool game::IsPlayerOrFamiliar(uint32_t entity_id)
+{
+    const auto find_func = [entity_id](const PlayerInfo& player_info){
+        return player_info.entity_id == entity_id || player_info.familiar_entity_id == entity_id;
+    };
+    
+    game::PlayerInfo* player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
+    return (player_info != std::end(g_players));
+}
