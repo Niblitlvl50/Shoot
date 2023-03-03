@@ -77,7 +77,7 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
             tweak_values::move_halflife,
             update_context.delta_s);
 
-        const bool face_left = (m_move_velocity.x < 0.0f);
+        const bool face_left = (current_position.x > player_info->aim_target.x);
         mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
 
         if(face_left)

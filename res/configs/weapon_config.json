@@ -179,6 +179,25 @@
             "reload_finished_sound": "res/sound/shotgun_reload2.wav"
         },
         {
+            "name": "plasma_gun_familiar",
+            "magazine_size": 100,
+            "infinite_ammo": true,
+            "reload_time": 1.0,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 5.0,
+            "fire_rate_multiplier": 1.1,
+            "max_fire_rate": 2.0,
+            "bullet_velocity": 10.0,
+            "bullet_spread_degrees": 2.0,
+            "bullet_offset": 0.0,
+            "bullet_velocity_random": false,
+            "auto_reload": false,
+            "fire_sound": "",
+            "out_of_ammo_sound": "",
+            "reload_sound": "",
+            "reload_finished_sound": ""
+        },
+        {
             "name": "flak_gun",
             "magazine_size": 10,
             "infinite_ammo": false,
@@ -302,7 +321,7 @@
         },
         {
             "name": "Familiar Generic",
-            "weapon": "generic",
+            "weapon": "plasma_gun_familiar",
             "bullet": "flak_bullet",
             "sprite_file": "res/sprites/bolter.sprite"
         },
