@@ -306,22 +306,24 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     UpdateController(update_context);
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction); // * 0.5f;
+    const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction);
     const math::Vector fire_position = position + (aim_vector * 0.5f);
     const math::Vector target_fire_position = position + (aim_vector * 100.0f);
 
-    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+    mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
+    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, PLAYER_BULLET_MASK);
+    m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : target_fire_position;
 
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     if(m_fire)
     {
-        m_player_info->weapon_state = active_weapon->Fire(fire_position, m_aim_direction, update_context.timestamp);
+        m_player_info->weapon_state = active_weapon->Fire(fire_position, m_player_info->aim_target, update_context.timestamp);
 
         if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->auto_reload)
             Reload(update_context.timestamp);
 
-
         const math::Vector familiar_position = m_transform_system->GetWorldPosition(m_player_info->familiar_entity_id);
-        m_familiar_weapon->Fire(familiar_position, target_fire_position, update_context.timestamp);
+        m_familiar_weapon->Fire(familiar_position, m_player_info->aim_target, update_context.timestamp);
     }
     else if(m_stop_fire)
     {
@@ -332,10 +334,6 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
 
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, position, m_player_info->velocity);
-
-    mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
-    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, PLAYER_BULLET_MASK);
-    m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : math::InfVec;
 
     if(m_player_info->player_state == PlayerState::DEAD)
         m_state.TransitionTo(PlayerStates::DEAD);
