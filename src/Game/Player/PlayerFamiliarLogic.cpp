@@ -1,16 +1,17 @@
 
 #include "PlayerFamiliarLogic.h"
 
-#include "Math/CriticalDampedSpring.h"
+#include "GameCamera/CameraSystem.h"
+#include "Player/PlayerInfo.h"
 
+#include "Camera/ICamera.h"
+#include "Math/CriticalDampedSpring.h"
 #include "Particle/ParticleSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
-#include "GameCamera/CameraSystem.h"
-#include "Camera/ICamera.h"
 
 #include "SystemContext.h"
 
@@ -62,8 +63,11 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 
     if(show_sprite)
     {
+        const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_owner_entity_id);
+
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
-        const math::Vector target_position = m_transform_system->GetWorldPosition(m_owner_entity_id) + math::Vector(0.5f, -0.5f);
+        const math::Vector target_position =
+            player_info->position - (math::RotateAroundZero(player_info->aim_direction, math::ToRadians(65.0f)) * 0.75f);
 
         math::critical_spring_damper(
             current_position,
