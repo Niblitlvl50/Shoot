@@ -138,6 +138,13 @@ namespace
         return success;
     }
 
+    bool EnableSprite(mono::Entity* entity, bool enable, mono::SystemContext* context)
+    {
+        mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
+        sprite_system->SetSpriteEnabled(entity->id, enable);
+        return true;
+    }
+
     bool CreateText(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::TextSystem* text_system = context->GetSystem<mono::TextSystem>();
@@ -255,6 +262,13 @@ namespace
         mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
         light_system->SetData(entity->id, component);
 
+        return true;
+    }
+
+    bool EnableLight(mono::Entity* entity, bool enable, mono::SystemContext* context)
+    {
+        mono::LightSystem* light_system = context->GetSystem<mono::LightSystem>();
+        light_system->SetLightEnabled(entity->id, enable);
         return true;
     }
 
@@ -502,11 +516,11 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform);
     entity_manager->RegisterComponent(LAYER_COMPONENT, CreateLayer, ReleaseLayer, UpdateLayer);
-    entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite);
+    entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite, EnableSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
     entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);
     entity_manager->RegisterComponent(ROAD_COMPONENT, CreateRoad, ReleaseRoad, UpdateRoad);
-    entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight);
+    entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight, EnableLight);
     entity_manager->RegisterComponent(PARTICLE_SYSTEM_COMPONENT, CreateParticleSystem, ReleaseParticleSystem, UpdateParticleSystem);
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);
     entity_manager->RegisterComponent(TEXTURED_POLYGON_COMPONENT, CreateTexturedPolygon, ReleaseTexturedPolygon, UpdateTexturedPolygon);

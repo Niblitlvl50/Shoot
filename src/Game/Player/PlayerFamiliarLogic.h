@@ -3,7 +3,6 @@
 
 #include "MonoFwd.h"
 #include "Entity/IEntityLogic.h"
-
 #include "Math/Vector.h"
 
 namespace game
@@ -15,10 +14,7 @@ namespace game
     public:
 
         PlayerFamiliarLogic(
-            uint32_t entity_id,
-            uint32_t owner_entity_id,
-            mono::SystemContext* system_context);
-        ~PlayerFamiliarLogic();
+            uint32_t entity_id, uint32_t owner_entity_id, mono::SystemContext* system_context);
         void Update(const mono::UpdateContext& update_context) override;
 
     private:
@@ -26,11 +22,10 @@ namespace game
         const uint32_t m_entity_id;
         const uint32_t m_owner_entity_id;
 
+        mono::IEntityManager* m_entity_system;
         mono::SpriteSystem* m_sprite_system;
         mono::TransformSystem* m_transform_system;
         mono::ParticleSystem* m_particle_system;
-        mono::LightSystem* m_light_system;
-        game::CameraSystem* m_camera_system;
 
         bool m_last_show_state;
         float m_idle_timer;

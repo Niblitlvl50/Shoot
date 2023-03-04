@@ -1,10 +1,9 @@
 
 #include "PlayerFamiliarLogic.h"
 
-#include "GameCamera/CameraSystem.h"
 #include "Player/PlayerInfo.h"
 
-#include "Camera/ICamera.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Math/CriticalDampedSpring.h"
 #include "Particle/ParticleSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -30,18 +29,12 @@ PlayerFamiliarLogic::PlayerFamiliarLogic(uint32_t entity_id, uint32_t owner_enti
     , m_last_show_state(false)
     , m_idle_timer(tweak_values::idle_threshold_s)
 {
+    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_light_system = system_context->GetSystem<mono::LightSystem>();
-    m_camera_system = system_context->GetSystem<game::CameraSystem>();
 
-    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
-    m_light_system->SetLightEnabled(m_entity_id, false);
-}
-
-PlayerFamiliarLogic::~PlayerFamiliarLogic()
-{
+    m_entity_system->SetEntityEnabled(m_entity_id, false);
 }
 
 void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
@@ -49,8 +42,7 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
     m_idle_timer += update_context.delta_s;
 
     const bool show_sprite = true; //(m_idle_timer < tweak_values::idle_threshold_s);
-    m_sprite_system->SetSpriteEnabled(m_entity_id, show_sprite);
-    m_light_system->SetLightEnabled(m_entity_id, show_sprite);
+    m_entity_system->SetEntityEnabled(m_entity_id, show_sprite);
 
     if(show_sprite != m_last_show_state)
     {
