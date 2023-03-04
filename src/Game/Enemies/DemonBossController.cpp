@@ -28,26 +28,29 @@ namespace tweak_values
     constexpr float activate_distance = 5.0f;
     constexpr float retreat_distance = 3.0f;
     constexpr float advance_distance = 4.5f;
-    constexpr float attack_distance = 4.0f;
-    constexpr float circle_attack_distance = 1.5f;
 
-    constexpr float shockwave_cooldown_s = 3.0f;
+    constexpr float circle_attack_distance = 2.5f;
+    constexpr float homing_attack_distance = 4.0f;
+    constexpr float long_attack_distance = 6.0f;
+
+    constexpr float circle_attack_cooldown_s = 3.0f;
     constexpr float homing_attack_cooldown_s = 3.0f;
-    constexpr float beam_attack_cooldown_s = 3.0f;
+    constexpr float long_attack_cooldown_s = 5.0f;
 }
 
 using namespace game;
 
 DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
-    , m_shockwave_cooldown(0.0f)
+    , m_circle_attack_cooldown(0.0f)
     , m_fire_homing_cooldown(0.0f)
-    , m_fire_beam_cooldown(0.0f)
+    , m_long_attack_cooldown(0.0f)
     , m_beast_mode(false)
 {
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_primary_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
     m_secondary_weapon = weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::ENEMY);
+    m_tertiary_weapon = weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::ENEMY);
 
     m_damage_sound = audio::CreateSound("res/sound/blaster-ricochet.wav", audio::SoundPlayback::ONCE);
     m_death_sound = audio::CreateSound("res/sound/demon_death.wav", audio::SoundPlayback::ONCE);
@@ -87,7 +90,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
         CacoStateMachine::MakeState(
             States::ACTION_FIRE_HOMING, &DemonBossController::OnFireHoming, &DemonBossController::ActionFireHoming, this),
         CacoStateMachine::MakeState(
-            States::ACTION_FIRE_BEAM, &DemonBossController::OnAction, &DemonBossController::ActionFireBeam, this),
+            States::ACTION_FIRE_LONG, &DemonBossController::OnLongAttack, &DemonBossController::ActionLongAttack, this),
         CacoStateMachine::MakeState(
             States::DEAD, &DemonBossController::OnDead, &DemonBossController::Dead, this),
     };
@@ -102,10 +105,11 @@ void DemonBossController::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
     m_primary_weapon->UpdateWeaponState(update_context.timestamp);
     m_secondary_weapon->UpdateWeaponState(update_context.timestamp);
+    m_tertiary_weapon->UpdateWeaponState(update_context.timestamp);
 
-    m_shockwave_cooldown = std::clamp(m_shockwave_cooldown - update_context.delta_s, 0.0f, 10.0f);
+    m_circle_attack_cooldown = std::clamp(m_circle_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_fire_homing_cooldown = std::clamp(m_fire_homing_cooldown - update_context.delta_s, 0.0f, 10.0f);
-    m_fire_beam_cooldown = std::clamp(m_fire_beam_cooldown - update_context.delta_s, 0.0f, 10.0f);
+    m_long_attack_cooldown = std::clamp(m_long_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
 }
 
 void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
@@ -114,8 +118,9 @@ void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance, mono::Color::GREEN);
     debug_drawer->DrawCircle(world_position, tweak_values::retreat_distance, mono::Color::MAGENTA);
     debug_drawer->DrawCircle(world_position, tweak_values::advance_distance, mono::Color::MAGENTA);
-    debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::circle_attack_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::homing_attack_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::long_attack_distance, mono::Color::RED);
 
     const char* state_string = StateToString(m_states.ActiveState());
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::MAGENTA);
@@ -150,10 +155,12 @@ void DemonBossController::Idle(const mono::UpdateContext& update_context)
     else if(distance_to_player > tweak_values::advance_distance)
         m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
 
-    if(distance_to_player < tweak_values::attack_distance && m_fire_homing_cooldown == 0.0f)
-        TurnAndTransitionTo(States::ACTION_FIRE_HOMING);
-    else if(distance_to_player < tweak_values::circle_attack_distance && m_shockwave_cooldown == 0.0f)
+    if(distance_to_player < tweak_values::circle_attack_distance && m_circle_attack_cooldown == 0.0f)
         TurnAndTransitionTo(States::ACTION_FIRE_CIRCLE);
+    else if(distance_to_player < tweak_values::homing_attack_distance && m_fire_homing_cooldown == 0.0f)
+        TurnAndTransitionTo(States::ACTION_FIRE_HOMING);
+    else if(distance_to_player < tweak_values::long_attack_distance && m_long_attack_cooldown == 0.0f)
+        TurnAndTransitionTo(States::ACTION_FIRE_LONG);
 }
 
 void DemonBossController::OnActive()
@@ -208,7 +215,7 @@ void DemonBossController::CircleAttack(const mono::UpdateContext& update_context
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_secondary_weapon->Reload(update_context.timestamp);
-        m_fire_beam_cooldown = tweak_values::beam_attack_cooldown_s;
+        m_circle_attack_cooldown = tweak_values::circle_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
 }
@@ -247,11 +254,17 @@ void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_con
     }
 }
 
-void DemonBossController::OnAction()
+void DemonBossController::OnLongAttack()
 {
+    m_ready_to_attack = false;
+
+    const auto set_ready_to_attack = [this](uint32_t sprite_id) {
+        m_ready_to_attack = true;
+    };
+    m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
 }
 
-void DemonBossController::ActionFireBeam(const mono::UpdateContext& update_context)
+void DemonBossController::ActionLongAttack(const mono::UpdateContext& update_context)
 {
     if(!m_ready_to_attack)
         return;
@@ -259,11 +272,11 @@ void DemonBossController::ActionFireBeam(const mono::UpdateContext& update_conte
     const math::Vector& fire_position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector& target_position = m_target_player->position;
 
-    const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, target_position, update_context.timestamp);
+    const WeaponState fire_result = m_tertiary_weapon->Fire(fire_position, target_position, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
-        m_secondary_weapon->Reload(update_context.timestamp);
-        m_fire_beam_cooldown = tweak_values::beam_attack_cooldown_s;
+        m_tertiary_weapon->Reload(update_context.timestamp);
+        m_long_attack_cooldown = tweak_values::long_attack_cooldown_s;
         m_states.TransitionTo(States::IDLE);
     }
 }
@@ -293,8 +306,8 @@ const char* DemonBossController::StateToString(States state) const
         return "Action_Fire_Circle";
     case States::ACTION_FIRE_HOMING:
         return "Action_Fire_Homing";
-    case States::ACTION_FIRE_BEAM:
-        return "Action_Fire_Beam";
+    case States::ACTION_FIRE_LONG:
+        return "Action_Fire_Long";
     case States::DEAD:
         return "Dead";
     }

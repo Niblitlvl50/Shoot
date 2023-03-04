@@ -39,8 +39,8 @@ namespace game
         void OnFireHoming();
         void ActionFireHoming(const mono::UpdateContext& update_context);
 
-        void OnAction();
-        void ActionFireBeam(const mono::UpdateContext& update_context);
+        void OnLongAttack();
+        void ActionLongAttack(const mono::UpdateContext& update_context);
 
         void OnDead();
         void Dead(const mono::UpdateContext& update_context);
@@ -63,12 +63,13 @@ namespace game
 
         const struct PlayerInfo* m_target_player;
         bool m_ready_to_attack;
-        float m_shockwave_cooldown;
+        float m_circle_attack_cooldown;
         float m_fire_homing_cooldown;
-        float m_fire_beam_cooldown;
+        float m_long_attack_cooldown;
 
         IWeaponPtr m_primary_weapon;
         IWeaponPtr m_secondary_weapon;
+        IWeaponPtr m_tertiary_weapon;
 
         audio::ISoundPtr m_damage_sound;
         audio::ISoundPtr m_death_sound;
@@ -80,7 +81,7 @@ namespace game
             TURN_TO_PLAYER,
             ACTION_FIRE_CIRCLE,
             ACTION_FIRE_HOMING,
-            ACTION_FIRE_BEAM,
+            ACTION_FIRE_LONG,
             DEAD,
         };
 

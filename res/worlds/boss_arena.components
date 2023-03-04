@@ -1206,6 +1206,12 @@
                             }
                         },
                         {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 1291939675,
                             "name": "magnitude_interval",
                             "variant_type": 8,
@@ -1398,7 +1404,7 @@
                             "id": 556824164,
                             "name": "weapon_tertiary",
                             "variant_type": 6,
-                            "variant_value": "Cacodemon Plasma Circulating"
+                            "variant_value": "Cacodemon Long Attack"
                         }
                     ]
                 },
@@ -7643,6 +7649,12 @@
                                 "max": 180.0,
                                 "min": -180.0
                             }
+                        },
+                        {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 1291939675,
