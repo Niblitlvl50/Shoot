@@ -38,18 +38,19 @@ include_directories("Mono1/src" "Mono1/third_party")
 
 
 # Game lib
-file(GLOB_RECURSE game_source_files "src/Game/*.cpp")
+file(GLOB_RECURSE game_source_files "src/Game/*.cpp" "src/Game/*.h")
 list(FILTER game_source_files EXCLUDE REGEX "main.cpp")
 add_library(game_lib STATIC ${game_source_files})
 target_include_directories(game_lib PRIVATE "src/Game")
-
+source_group(TREE ${CMAKE_SOURCE_DIR}/src/ FILES ${game_source_files})
 
 # Editor exe
-file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp")
+file(GLOB_RECURSE editor_source_files "src/Editor/*.cpp" "src/Editor/*.h")
 add_executable(editor ${editor_source_files})
 add_dependencies(editor game_lib mono imgui)
 target_include_directories(editor PRIVATE "src/Editor" "src/Game")
 target_link_libraries(editor game_lib mono)
+source_group(TREE ${CMAKE_SOURCE_DIR}/src/ FILES ${editor_source_files})
 
 # Game test exe
 file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
