@@ -40,7 +40,7 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
     std::vector<game::NavmeshNode> nodes;
     nodes.reserve(points.size());
 
-    for(size_t index = 0; index < points.size(); ++index)
+    for(uint32_t index = 0; index < points.size(); ++index)
     {
         const math::Vector& point = points[index];
 
@@ -48,9 +48,9 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
         node.data_index = index;
         std::fill(std::begin(node.neighbours_index), std::end(node.neighbours_index), -1);
 
-        size_t neighbour_count = 0;
+        uint32_t neighbour_count = 0;
 
-        for(size_t inner_index = 0; inner_index < points.size() && neighbour_count < std::size(node.neighbours_index); ++inner_index)
+        for(uint32_t inner_index = 0; inner_index < points.size() && neighbour_count < std::size(node.neighbours_index); ++inner_index)
         {
             const math::Vector& inner_point = points[inner_index];
             const float distance = math::DistanceBetween(point, inner_point);
@@ -195,7 +195,7 @@ int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vect
     int closest_index = -1;
     float closest_distance = math::INF;
 
-    for(int index = 0, end = context.points.size(); index < end; ++index)
+    for(uint32_t index = 0, end = context.points.size(); index < end; ++index)
     {
         const math::Vector& node_point = context.points[index];
         const float distance = math::DistanceBetween(point, node_point);

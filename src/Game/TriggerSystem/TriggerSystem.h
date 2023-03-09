@@ -83,7 +83,7 @@ namespace game
     public:
 
         TriggerSystem(
-            size_t n_triggers,
+            uint32_t n_triggers,
             class DamageSystem* damage_system,
             mono::PhysicsSystem* physics_system,
             mono::IEntityManager* entity_system);

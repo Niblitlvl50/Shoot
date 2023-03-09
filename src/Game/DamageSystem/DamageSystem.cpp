@@ -59,7 +59,7 @@ void DamageSystem::ClearDamageFilter(uint32_t id)
 uint32_t DamageSystem::SetDamageCallback(uint32_t id, uint32_t callback_types, DamageCallback damage_callback)
 {
     DamageCallbacks& damage_callbacks = m_damage_callbacks[id];
-    const size_t free_index = FindFreeCallbackIndex(damage_callbacks);
+    const uint32_t free_index = FindFreeCallbackIndex(damage_callbacks);
     MONO_ASSERT(free_index != std::numeric_limits<size_t>::max());
     damage_callbacks[free_index] = { callback_types, damage_callback };
     return free_index;
@@ -72,7 +72,7 @@ void DamageSystem::RemoveDamageCallback(uint32_t id, uint32_t callback_id)
 
 uint32_t DamageSystem::SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback)
 {
-    const size_t free_index = FindFreeCallbackIndex(m_global_damage_callbacks);
+    const uint32_t free_index = FindFreeCallbackIndex(m_global_damage_callbacks);
     MONO_ASSERT(free_index != std::numeric_limits<size_t>::max());
     m_global_damage_callbacks[free_index] = { callback_types, damage_callback };
     return free_index;
@@ -252,13 +252,13 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
 void DamageSystem::Destroy()
 { }
 
-size_t DamageSystem::FindFreeCallbackIndex(const DamageCallbacks& callbacks) const
+uint32_t DamageSystem::FindFreeCallbackIndex(const DamageCallbacks& callbacks) const
 {
-    for(size_t index = 0; index < std::size(callbacks); ++index)
+    for(uint32_t index = 0; index < std::size(callbacks); ++index)
     {
         if(callbacks[index].callback == nullptr)
             return index;
     }
 
-    return std::numeric_limits<size_t>::max();
+    return std::numeric_limits<uint32_t>::max();
 }

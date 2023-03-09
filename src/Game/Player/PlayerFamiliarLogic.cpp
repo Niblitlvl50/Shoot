@@ -9,7 +9,6 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteProperties.h"
-#include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "SystemContext.h"

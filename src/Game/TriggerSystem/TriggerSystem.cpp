@@ -67,7 +67,7 @@ namespace
 }
 
 TriggerSystem::TriggerSystem(
-    size_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
+    uint32_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
     , m_physics_system(physics_system)
     , m_entity_system(entity_system)
@@ -424,7 +424,7 @@ void TriggerSystem::UpdateAreaEntityTriggers(const mono::UpdateContext& update_c
     const auto update_area_entity_trigger = [this](uint32_t index, AreaEntityTriggerComponent& area_trigger) {
         const std::vector<mono::QueryResult> found_bodies
             = m_physics_system->GetSpace()->QueryBox(area_trigger.world_bb, area_trigger.faction);
-        const int n_found_bodies = found_bodies.size();
+        const int n_found_bodies = (int)found_bodies.size();
 
         bool emit_trigger = false;
 

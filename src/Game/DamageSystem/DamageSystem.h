@@ -68,7 +68,7 @@ namespace game
         template <typename T>
         inline void ForEeach(T&& func)
         {
-            for(size_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
+            for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
             {
                 if(m_active[entity_id])
                     func(entity_id, m_damage_records[entity_id]);
@@ -88,7 +88,7 @@ namespace game
         };
         using DamageCallbacks = std::array<DamageCallbackData, 8>;
 
-        size_t FindFreeCallbackIndex(const DamageCallbacks& callbacks) const;
+        uint32_t FindFreeCallbackIndex(const DamageCallbacks& callbacks) const;
 
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
