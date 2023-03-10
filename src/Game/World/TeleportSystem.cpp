@@ -2,6 +2,7 @@
 #include "TeleportSystem.h"
 
 #include "GameCamera/CameraSystem.h"
+#include "Rendering/RenderSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
@@ -13,26 +14,18 @@
 #include "Player/PlayerInfo.h"
 
 
-namespace tweak_values
-{
-    constexpr float fade_duration_s = 1.0f;
-}
-
 using namespace game;
 
 TeleportSystem::TeleportSystem(
-    CameraSystem* camera_system, TriggerSystem* trigger_system, mono::TransformSystem* transform_system)
+    CameraSystem* camera_system,
+    TriggerSystem* trigger_system,
+    mono::RenderSystem* render_system,
+    mono::TransformSystem* transform_system)
     : m_camera_system(camera_system)
     , m_trigger_system(trigger_system)
+    , m_render_system(render_system)
     , m_transform_system(transform_system)
-{
-    const TeleportStateMachine::StateTable state_table = {
-        TeleportStateMachine::MakeState(States::IDLE, &TeleportSystem::ToIdle, &TeleportSystem::Idle, this),
-        TeleportStateMachine::MakeState(States::FADE_OUT, &TeleportSystem::ToFadeOut, &TeleportSystem::FadeOut, this),
-        TeleportStateMachine::MakeState(States::FADE_IN, &TeleportSystem::ToFadeIn, &TeleportSystem::FadeIn, this),
-    };
-    m_states.SetStateTableAndState(state_table, States::IDLE);
-}
+{ }
 
 const char* TeleportSystem::Name() const
 {
@@ -41,7 +34,6 @@ const char* TeleportSystem::Name() const
 
 void TeleportSystem::Update(const mono::UpdateContext& update_context)
 {
-    m_states.UpdateState(update_context);
 }
 
 void TeleportSystem::AllocateTeleportPlayer(uint32_t entity_id)
@@ -70,42 +62,15 @@ void TeleportSystem::UpdateTeleportPlayer(uint32_t entity_id, uint32_t trigger_h
     teleport_info.trigger_handle = m_trigger_system->RegisterTriggerCallback(trigger_hash, trigger_callback, mono::INVALID_ID);
 }
 
-void TeleportSystem::ToIdle()
-{}
-void TeleportSystem::Idle(const mono::UpdateContext& update_context)
-{}
-
-void TeleportSystem::ToFadeOut()
-{
-    m_fade_timer = 0.0f;
-}
-void TeleportSystem::FadeOut(const mono::UpdateContext& update_context)
-{
-    m_alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
-    m_fade_timer += update_context.delta_s;
-
-    if(m_fade_timer > tweak_values::fade_duration_s)
-        m_states.TransitionTo(States::FADE_IN);
-}
-
-void TeleportSystem::ToFadeIn()
-{
-    TeleportPlayers(m_saved_teleport_position);
-    m_fade_timer = 0.0f;
-}
-void TeleportSystem::FadeIn(const mono::UpdateContext& update_context)
-{
-    m_alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-    m_fade_timer += update_context.delta_s;
-    
-    if(m_fade_timer > tweak_values::fade_duration_s)
-        m_states.TransitionTo(States::IDLE);
-}
-
 void TeleportSystem::HandleTeleport(uint32_t entity_id)
 {
-    m_saved_teleport_position = m_transform_system->GetWorldPosition(entity_id);
-    m_states.TransitionTo(States::FADE_OUT);
+    const math::Vector teleport_position = m_transform_system->GetWorldPosition(entity_id);
+
+    const mono::ScreenFadeCallback fade_callback = [this, teleport_position](mono::ScreenFadeState state) {
+        if(state == mono::ScreenFadeState::FADE_OUT)
+            TeleportPlayers(teleport_position);
+    };
+    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT_PAUSE_IN, 1.0f, 0.5f, fade_callback);
 }
 
 void TeleportSystem::TeleportPlayers(const math::Vector& world_position)
@@ -124,29 +89,4 @@ void TeleportSystem::TeleportPlayers(const math::Vector& world_position)
     mono::ICamera* camera = m_camera_system->GetActiveCamera();
     camera->SetPosition(world_position);
     camera->SetTargetPosition(world_position);
-}
-
-bool TeleportSystem::ShouldApplyFadeAlpha() const
-{
-    return (m_states.ActiveState() != States::IDLE);
-}
-
-float TeleportSystem::GetFadeAlpha() const
-{
-    return m_alpha;
-}
-
-
-TeleportSystemDrawer::TeleportSystemDrawer(const TeleportSystem* teleport_system)
-    : m_teleport_system(teleport_system)
-{ }
-void TeleportSystemDrawer::Draw(mono::IRenderer& renderer) const
-{
-    const bool should_apply_fade = m_teleport_system->ShouldApplyFadeAlpha();
-    if(should_apply_fade)
-        renderer.SetScreenFadeAlpha(m_teleport_system->GetFadeAlpha());
-}
-math::Quad TeleportSystemDrawer::BoundingBox() const
-{
-    return math::InfQuad;
 }

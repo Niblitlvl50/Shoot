@@ -66,10 +66,10 @@ namespace game
         using GameModeStateMachine = StateMachine<GameModeStates, const mono::UpdateContext&>;
         GameModeStateMachine m_states;
 
-        mono::IRenderer* m_renderer;
         mono::EventHandler* m_event_handler;
         class TriggerSystem* m_trigger_system;
 
+        mono::RenderSystem* m_render_system;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;

@@ -20,6 +20,7 @@
 #include "Weapons/WeaponSystem.h"
 
 #include "Physics/PhysicsSystem.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
@@ -89,8 +90,8 @@ void PacketDeliveryGameMode::Begin(
     mono::EventHandler* event_handler,
     const LevelMetadata& level_metadata)
 {
-    m_renderer = renderer;
     m_event_handler = event_handler;
+    m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_trigger_system = system_context->GetSystem<game::TriggerSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
@@ -309,7 +310,8 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
 void PacketDeliveryGameMode::ToFadeIn()
 {
-    m_fade_timer = 0.0f;
+    m_fade_timer = 0.0f; 
+    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, 1.0f, 0.0f);
     m_big_text_screen->Show();
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
@@ -317,7 +319,6 @@ void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
     if(m_fade_timer < tweak_values::fade_duration_s)
     {
         const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-        m_renderer->SetScreenFadeAlpha(alpha);
         m_big_text_screen->SetAlpha(alpha);
     }
     else if(m_fade_timer < tweak_values::fade_duration_s + 3.0f)
@@ -423,11 +424,11 @@ void PacketDeliveryGameMode::ExitPaused()
 void PacketDeliveryGameMode::ToFadeOut()
 {
     m_fade_timer = 0.0f;
+    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f);
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 {
     const float alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
-    m_renderer->SetScreenFadeAlpha(alpha);
     m_big_text_screen->SetAlpha(alpha);
 
     if(m_fade_timer > tweak_values::fade_duration_s)

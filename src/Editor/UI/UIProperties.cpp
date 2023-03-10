@@ -188,7 +188,7 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
             return false;
 
         char sprite_filename[1024] = { 0 };
-        std::sprintf(sprite_filename, "res/sprites/%s", sprite_file.c_str());
+        std::snprintf(sprite_filename, std::size(sprite_filename), "res/sprites/%s", sprite_file.c_str());
         const mono::SpriteData* sprite_data = mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(sprite_filename);
         if(!sprite_data)
             return false;
@@ -893,9 +893,9 @@ bool editor::DrawEntityReferenceProperty(
 
     char label[32] = {};
     if(entity_reference == mono::INVALID_ID)
-        std::sprintf(label, "None");
+        std::snprintf(label, std::size(label), "None");
     else
-        std::sprintf(label, "%s (%u)", entity_name, entity_reference);
+        std::snprintf(label, std::size(label), "%s (%u)", entity_name, entity_reference);
 
     ImGui::PushID(&entity_reference);
     const bool enable_pick = ImGui::Button(label, ImVec2(item_width - (tiny_button_width * 2) - (item_spacing * 2), 0));
