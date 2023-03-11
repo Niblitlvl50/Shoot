@@ -58,21 +58,21 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 1919,
+            "x": 1903,
             "y": 533
         },
         {
             "h": 12,
             "name": "button_cross_left_1",
             "w": 12,
-            "x": 1935,
+            "x": 1919,
             "y": 533
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 1951,
+            "x": 1935,
             "y": 533
         },
         {

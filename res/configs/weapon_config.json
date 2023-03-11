@@ -61,6 +61,16 @@
             "behaviour": ""
         },
         {
+            "name": "boss_caco_bullet",
+            "damage": 20,
+            "life_span": 2.0,
+            "fuzzy_life_span": 0.3,
+            "bullet_want_direction": false,
+            "entity_file": "res/entities/bullet_boss_long.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
             "name": "caco_bullet_homing",
             "damage": 20,
             "life_span": 10.0,
@@ -389,7 +399,7 @@
         {
             "name": "Cacodemon Long Attack",
             "weapon": "boss_cacoplasma",
-            "bullet": "caco_bullet",
+            "bullet": "boss_caco_bullet",
             "sprite_file": "res/sprites/pow9.sprite"
         },
         {

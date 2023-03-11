@@ -1,6 +1,7 @@
 {
     "all_entities": [
         "res/entities/bullet_boss_circle.entity",
+        "res/entities/bullet_boss_long.entity",
         "res/entities/bullet_caco.entity",
         "res/entities/bullet_flak.entity",
         "res/entities/bullet_flak_homing.entity",

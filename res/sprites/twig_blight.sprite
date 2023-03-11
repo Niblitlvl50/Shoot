@@ -32,42 +32,42 @@
             "h": 15,
             "name": "twig_blight_idle_1",
             "w": 16,
-            "x": 1196,
+            "x": 1236,
             "y": 515
         },
         {
             "h": 14,
             "name": "twig_blight_idle_2",
             "w": 16,
-            "x": 1958,
+            "x": 1878,
             "y": 515
         },
         {
             "h": 14,
             "name": "twig_blight_idle_3",
             "w": 16,
-            "x": 1918,
+            "x": 1938,
             "y": 515
         },
         {
             "h": 15,
             "name": "twig_blight_idle_4",
             "w": 16,
-            "x": 1236,
+            "x": 1216,
             "y": 515
         },
         {
             "h": 15,
             "name": "twig_blight_move_1",
             "w": 16,
-            "x": 1216,
+            "x": 1196,
             "y": 515
         },
         {
             "h": 16,
             "name": "twig_blight_move_2",
             "w": 16,
-            "x": 127,
+            "x": 147,
             "y": 512
         },
         {
@@ -81,21 +81,21 @@
             "h": 16,
             "name": "twig_blight_move_4",
             "w": 16,
-            "x": 267,
+            "x": 167,
             "y": 512
         },
         {
             "h": 14,
             "name": "twig_blight_move_5",
             "w": 16,
-            "x": 1878,
+            "x": 1898,
             "y": 515
         },
         {
             "h": 14,
             "name": "twig_blight_move_6",
             "w": 11,
-            "x": 805,
+            "x": 775,
             "y": 516
         },
         {
@@ -109,7 +109,7 @@
             "h": 14,
             "name": "twig_blight_move_8",
             "w": 11,
-            "x": 790,
+            "x": 835,
             "y": 516
         }
     ],
