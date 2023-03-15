@@ -17,28 +17,28 @@
             "h": 13,
             "name": "dragonfly_idle_1",
             "w": 17,
-            "x": 1121,
+            "x": 1160,
             "y": 516
         },
         {
             "h": 11,
             "name": "dragonfly_idle_2",
             "w": 17,
-            "x": 759,
+            "x": 842,
             "y": 534
         },
         {
             "h": 7,
             "name": "dragonfly_idle_3",
             "w": 17,
-            "x": 1016,
+            "x": 1257,
             "y": 549
         },
         {
             "h": 7,
             "name": "dragonfly_idle_4",
             "w": 17,
-            "x": 964,
+            "x": 1236,
             "y": 549
         }
     ],

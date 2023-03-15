@@ -49,28 +49,28 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 648,
+            "x": 739,
             "y": 550
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 1785,
+            "x": 1909,
             "y": 549
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 57,
+            "x": 248,
             "y": 549
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 1751,
+            "x": 1621,
             "y": 494
         },
         {
@@ -112,36 +112,36 @@
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 1176,
+            "x": 1400,
             "y": 494
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 26,
+            "x": 164,
             "y": 549
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 1816,
+            "x": 1878,
             "y": 549
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 607,
+            "x": 698,
             "y": 550
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 1897,
-            "y": 549
+            "x": 651,
+            "y": 550
         },
         {
             "h": 43,
@@ -154,7 +154,7 @@
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 246,
+            "x": 2022,
             "y": 350
         },
         {
@@ -196,7 +196,7 @@
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 2022,
+            "x": 246,
             "y": 350
         }
     ],

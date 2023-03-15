@@ -49,28 +49,28 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 1847,
-            "y": 549
+            "x": 626,
+            "y": 550
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 1301,
+            "x": 1440,
             "y": 534
         },
         {
             "h": 15,
             "name": "worm_red_appear_3",
             "w": 25,
-            "x": 1021,
+            "x": 1025,
             "y": 515
         },
         {
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 906,
+            "x": 734,
             "y": 471
         },
         {
@@ -84,91 +84,91 @@
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 1672,
+            "x": 1852,
             "y": 441
         },
         {
             "h": 26,
             "name": "worm_red_appear_7",
             "w": 22,
-            "x": 2,
+            "x": 106,
             "y": 434
         },
         {
             "h": 26,
             "name": "worm_red_appear_8",
             "w": 22,
-            "x": 28,
+            "x": 80,
             "y": 434
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_1",
             "w": 22,
-            "x": 618,
-            "y": 433
+            "x": 54,
+            "y": 434
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_2",
             "w": 22,
-            "x": 54,
+            "x": 28,
             "y": 434
         },
         {
             "h": 25,
             "name": "worm_red_dissapear_3",
             "w": 22,
-            "x": 1161,
+            "x": 1878,
             "y": 441
         },
         {
             "h": 24,
             "name": "worm_red_dissapear_4",
             "w": 22,
-            "x": 1125,
+            "x": 1813,
             "y": 442
         },
         {
             "h": 19,
             "name": "worm_red_dissapear_5",
             "w": 22,
-            "x": 880,
+            "x": 760,
             "y": 471
         },
         {
             "h": 15,
             "name": "worm_red_dissapear_6",
             "w": 22,
-            "x": 1146,
-            "y": 515
+            "x": 571,
+            "y": 512
         },
         {
             "h": 10,
             "name": "worm_red_dissapear_7",
             "w": 21,
-            "x": 1326,
+            "x": 1415,
             "y": 534
         },
         {
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 1872,
+            "x": 1940,
             "y": 549
         },
         {
             "h": 26,
             "name": "worm_red_idle_1",
             "w": 22,
-            "x": 80,
-            "y": 434
+            "x": 614,
+            "y": 433
         },
         {
             "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 106,
+            "x": 2,
             "y": 434
         },
         {
@@ -182,21 +182,21 @@
             "h": 25,
             "name": "worm_red_idle_4",
             "w": 27,
-            "x": 1476,
-            "y": 438
+            "x": 1403,
+            "y": 440
         },
         {
             "h": 26,
             "name": "worm_red_idle_5",
             "w": 26,
-            "x": 235,
-            "y": 430
+            "x": 584,
+            "y": 433
         },
         {
             "h": 25,
             "name": "worm_red_idle_6",
             "w": 22,
-            "x": 1852,
+            "x": 1658,
             "y": 441
         }
     ],

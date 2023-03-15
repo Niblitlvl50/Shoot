@@ -66,112 +66,112 @@
             "h": 8,
             "name": "fire_totem_appear_1",
             "w": 15,
-            "x": 148,
+            "x": 319,
             "y": 549
         },
         {
             "h": 12,
             "name": "fire_totem_appear_2",
             "w": 22,
-            "x": 1479,
+            "x": 1671,
             "y": 533
         },
         {
             "h": 17,
             "name": "fire_totem_appear_3",
             "w": 28,
-            "x": 1021,
+            "x": 995,
             "y": 494
         },
         {
             "h": 19,
             "name": "fire_totem_appear_4",
             "w": 34,
-            "x": 1833,
+            "x": 1813,
             "y": 470
         },
         {
             "h": 17,
             "name": "fire_totem_appear_5",
             "w": 15,
-            "x": 1905,
+            "x": 1916,
             "y": 494
         },
         {
             "h": 19,
             "name": "fire_totem_appear_6",
             "w": 15,
-            "x": 1040,
+            "x": 978,
             "y": 471
         },
         {
             "h": 18,
             "name": "fire_totem_damaged_1",
             "w": 17,
-            "x": 599,
+            "x": 1991,
             "y": 489
         },
         {
             "h": 17,
             "name": "fire_totem_damaged_2",
             "w": 18,
-            "x": 1602,
+            "x": 1577,
             "y": 494
         },
         {
             "h": 26,
             "name": "fire_totem_damaged_3",
             "w": 15,
-            "x": 325,
+            "x": 216,
             "y": 434
         },
         {
             "h": 26,
             "name": "fire_totem_damaged_4",
             "w": 15,
-            "x": 216,
+            "x": 347,
             "y": 434
         },
         {
             "h": 30,
             "name": "fire_totem_damaged_5",
             "w": 15,
-            "x": 286,
+            "x": 506,
             "y": 400
         },
         {
             "h": 31,
             "name": "fire_totem_damaged_6",
             "w": 15,
-            "x": 418,
-            "y": 399
+            "x": 1968,
+            "y": 371
         },
         {
             "h": 10,
             "name": "fire_totem_dead_1",
             "w": 7,
-            "x": 522,
-            "y": 548
+            "x": 237,
+            "y": 546
         },
         {
             "h": 18,
             "name": "fire_totem_die_1",
             "w": 17,
-            "x": 578,
+            "x": 2012,
             "y": 489
         },
         {
             "h": 17,
             "name": "fire_totem_die_2",
             "w": 18,
-            "x": 1624,
+            "x": 1599,
             "y": 494
         },
         {
             "h": 26,
             "name": "fire_totem_die_3",
             "w": 15,
-            "x": 306,
+            "x": 328,
             "y": 434
         },
         {
@@ -192,49 +192,49 @@
             "h": 19,
             "name": "fire_totem_die_6",
             "w": 7,
-            "x": 1217,
+            "x": 1980,
             "y": 469
         },
         {
             "h": 19,
             "name": "fire_totem_idle_1",
             "w": 15,
-            "x": 1021,
-            "y": 471
+            "x": 1885,
+            "y": 470
         },
         {
             "h": 20,
             "name": "fire_totem_idle_2",
             "w": 15,
-            "x": 1765,
+            "x": 1726,
             "y": 470
         },
         {
             "h": 23,
             "name": "fire_totem_idle_3",
             "w": 15,
-            "x": 538,
+            "x": 537,
             "y": 463
         },
         {
             "h": 26,
             "name": "fire_totem_idle_4",
             "w": 15,
-            "x": 344,
+            "x": 366,
             "y": 434
         },
         {
             "h": 30,
             "name": "fire_totem_idle_5",
             "w": 15,
-            "x": 506,
+            "x": 286,
             "y": 400
         },
         {
             "h": 31,
             "name": "fire_totem_idle_6",
             "w": 15,
-            "x": 378,
+            "x": 418,
             "y": 399
         }
     ],

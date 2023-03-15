@@ -28,56 +28,56 @@
             "h": 25,
             "name": "tree_alien_plant_attack_1",
             "w": 15,
-            "x": 1507,
+            "x": 1508,
             "y": 438
         },
         {
             "h": 23,
             "name": "tree_alien_plant_attack_2",
             "w": 15,
-            "x": 500,
+            "x": 518,
             "y": 463
         },
         {
             "h": 19,
             "name": "tree_alien_plant_attack_3",
             "w": 16,
-            "x": 1001,
+            "x": 958,
             "y": 471
         },
         {
             "h": 23,
             "name": "tree_alien_plant_attack_4",
             "w": 15,
-            "x": 519,
+            "x": 556,
             "y": 463
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_1",
             "w": 15,
-            "x": 1287,
+            "x": 1276,
             "y": 443
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_2",
             "w": 15,
-            "x": 1833,
-            "y": 442
+            "x": 1295,
+            "y": 443
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_3",
             "w": 15,
-            "x": 1249,
+            "x": 1257,
             "y": 443
         },
         {
             "h": 24,
             "name": "tree_alien_plant_idle_4",
             "w": 15,
-            "x": 1268,
+            "x": 1314,
             "y": 443
         }
     ],

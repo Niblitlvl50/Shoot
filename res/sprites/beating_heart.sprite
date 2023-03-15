@@ -16,22 +16,22 @@
             "h": 24,
             "name": "beating_heart_idle_1",
             "w": 16,
-            "x": 1813,
-            "y": 442
+            "x": 1972,
+            "y": 441
         },
         {
             "h": 24,
             "name": "beating_heart_idle_2",
             "w": 16,
-            "x": 1229,
+            "x": 1217,
             "y": 443
         },
         {
             "h": 24,
             "name": "beating_heart_idle_3",
             "w": 16,
-            "x": 1652,
-            "y": 442
+            "x": 1237,
+            "y": 443
         }
     ],
     "frames_offsets": [
