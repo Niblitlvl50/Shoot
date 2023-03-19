@@ -37,10 +37,10 @@ TEST(Network, BatchSerialize)
     ping_message2.local_time = 666;
 
     game::TextMessage text_message1;
-    std::sprintf(text_message1.text, "hello world!");
+    std::snprintf(text_message1.text, std::size(text_message1.text), "hello world!");
 
     game::TextMessage text_message2;
-    std::sprintf(text_message2.text, "Goodbye cruel world!");
+    std::snprintf(text_message2.text, std::size(text_message2.text), "Goodbye cruel world!");
  
     std::vector<byte> message_buffer;
     game::PrepareMessageBuffer(message_buffer);
@@ -86,10 +86,10 @@ TEST(Network, SerializeText)
     game::PrepareMessageBuffer(message_buffer);
 
     game::TextMessage text_message1;
-    std::sprintf(text_message1.text, "hello world!");
+    std::snprintf(text_message1.text, std::size(text_message1.text), "hello world!");
 
     game::TextMessage text_message2;
-    std::sprintf(text_message2.text, "Goodbye cansas!");
+    std::snprintf(text_message2.text, std::size(text_message2.text), "Goodbye cansas!");
 
     EXPECT_TRUE(game::SerializeMessageToBuffer(text_message1, message_buffer));
     EXPECT_TRUE(game::SerializeMessageToBuffer(text_message2, message_buffer));

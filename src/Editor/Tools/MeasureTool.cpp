@@ -47,7 +47,7 @@ public:
         const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
 
         char text_buffer[512] = { 0 };
-        std::sprintf(text_buffer, "%.2f", radius);
+        std::snprintf(text_buffer, std::size(text_buffer), "%.2f", radius);
         renderer.RenderText(
             game::FontId::PIXELETTE_SMALL,
             text_buffer,

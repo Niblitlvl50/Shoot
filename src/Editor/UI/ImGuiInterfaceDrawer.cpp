@@ -445,7 +445,7 @@ namespace
             }
 
             char window_id[16];
-            std::sprintf(window_id, "overlay: %zu", index);
+            std::snprintf(window_id, std::size(window_id), "overlay: %zu", index);
 
             ImGui::SetNextWindowPos(ImVec2(window_position - 10, index * 60 + 30));
             ImGui::SetNextWindowSize(window_size);

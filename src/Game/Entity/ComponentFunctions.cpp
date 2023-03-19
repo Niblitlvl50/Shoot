@@ -130,7 +130,7 @@ namespace
         FindAttribute(RANDOM_START_FRAME_ATTRIBUTE, properties, sprite_args.random_start_frame, FallbackMode::SET_DEFAULT);
 
         char sprite_path[1024] = { 0 };
-        std::sprintf(sprite_path, "res/sprites/%s", sprite_file.c_str());
+        std::snprintf(sprite_path, std::size(sprite_path), "res/sprites/%s", sprite_file.c_str());
         sprite_args.sprite_file = sprite_path;
 
         mono::SpriteSystem* sprite_system = context->GetSystem<mono::SpriteSystem>();
