@@ -85,6 +85,7 @@ void BulletTrailEffect::AttachEmitterToBullet(uint32_t entity_id)
         -1.0f,
         50.0f,
         mono::EmitterType::CONTINOUS,
+        mono::EmitterMode::AUTO_ACTIVATED,
         generator_proxy);
 
     m_bullet_id_to_emitter[entity_id] = emitter;

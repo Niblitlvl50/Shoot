@@ -79,6 +79,12 @@ void ImpactEffect::EmittAt(const math::Vector& position, float direction)
     };
 
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 0.5f, 30.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, generator_proxy);
+        m_particle_entity,
+        position,
+        0.5f,
+        30.0f,
+        mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
+        generator_proxy);
 }
 

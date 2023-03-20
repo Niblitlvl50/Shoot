@@ -351,7 +351,12 @@ namespace
         if(attached_emitters.empty())
         {
             particle_system->AttachAreaEmitter(
-                entity->id, duration, emit_rate, mono::EmitterType(emitter_type), generator_properties);
+                entity->id,
+                duration,
+                emit_rate,
+                mono::EmitterType(emitter_type),
+                mono::EmitterMode::AUTO_ACTIVATED,
+                generator_properties);
         }
         else
         {

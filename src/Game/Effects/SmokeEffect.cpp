@@ -68,5 +68,11 @@ SmokeEffect::~SmokeEffect()
 void SmokeEffect::EmitSmokeAt(const math::Vector& position)
 {
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 0.5f, 20.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, SmokeGenerator);
+        m_particle_entity,
+        position,
+        0.5f,
+        20.0f,
+        mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
+        SmokeGenerator);
 }

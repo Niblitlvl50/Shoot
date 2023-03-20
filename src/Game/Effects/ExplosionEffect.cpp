@@ -66,5 +66,11 @@ ExplosionEffect::~ExplosionEffect()
 void ExplosionEffect::ExplodeAt(const math::Vector& position)
 {
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 1.0f, 40.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, GibsGenerator);
+        m_particle_entity,
+        position,
+        1.0f,
+        40.0f,
+        mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
+        GibsGenerator);
 }

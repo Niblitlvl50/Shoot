@@ -74,6 +74,12 @@ void PickupEffect::EmitAt(const math::Vector& position)
     };
 
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 1.0f, 20.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, particle_generator);
+        m_particle_entity,
+        position,
+        1.0f,
+        20.0f,
+        mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
+        particle_generator);
 }
 

@@ -72,5 +72,6 @@ void FootStepsEffect::EmitFootStepsAt(const math::Vector& world_position)
         1.0f,
         10.0f,
         mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
         TrailGenerator);
 }

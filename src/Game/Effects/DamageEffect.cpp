@@ -71,5 +71,11 @@ DamageEffect::~DamageEffect()
 void DamageEffect::EmitGibsAt(const math::Vector& position, float direction)
 {
     m_particle_system->AttachEmitter(
-        m_particle_entity, position, 0.25f, 30.0f, mono::EmitterType::BURST_REMOVE_ON_FINISH, GibsGenerator);
+        m_particle_entity,
+        position,
+        0.25f,
+        30.0f,
+        mono::EmitterType::BURST_REMOVE_ON_FINISH,
+        mono::EmitterMode::AUTO_ACTIVATED,
+        GibsGenerator);
 }
