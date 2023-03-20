@@ -169,7 +169,6 @@ namespace game
         void UpdateDelayedRelayTriggers(const mono::UpdateContext& update_context);
 
         class DamageSystem* m_damage_system;
-        class ConditionSystem* m_condition_system;
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_system;
 

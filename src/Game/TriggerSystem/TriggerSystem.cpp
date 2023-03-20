@@ -158,33 +158,27 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
     DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Get(entity_id);
     allocated_trigger->trigger_hash = trigger_hash;
 
-    switch(type)
-    {
-    case DestroyedTriggerType::ON_DEATH:
-    {
-        if(allocated_trigger->callback_id != NO_CALLBACK_SET)
-            m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
+    if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
+        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
+    else
+        m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
 
+    allocated_trigger->trigger_type = type;
+
+    if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
+    {
         const DamageCallback callback = [this, trigger_hash](uint32_t id, int damage, uint32_t id_who_did_damage, DamageType type) {
             EmitTrigger(trigger_hash);
         };
         allocated_trigger->callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);
-
-        break;
     }
-    case DestroyedTriggerType::ON_DESTORYED:
+    else
     {
-        if(allocated_trigger->callback_id != NO_CALLBACK_SET)
-            m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
-
         const mono::ReleaseCallback callback = [this, trigger_hash](uint32_t id) {
             EmitTrigger(trigger_hash);
         };
         allocated_trigger->callback_id = m_entity_system->AddReleaseCallback(entity_id, callback);
-
-        break;
     }
-    };
 }
 
 AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_id)
