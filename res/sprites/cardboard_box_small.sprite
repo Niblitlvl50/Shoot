@@ -18,6 +18,17 @@
             ],
             "loop": false,
             "name": "open"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                3,
+                2,
+                1,
+                0
+            ],
+            "loop": false,
+            "name": "close"
         }
     ],
     "frames": [
