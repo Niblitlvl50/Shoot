@@ -24,7 +24,8 @@ namespace game
     enum class TransformAnimType
     {
         TRANSLATION,
-        ROTATION
+        ROTATION,
+        SCALE
     };
 
     struct TransformAnimationComponent
@@ -72,6 +73,15 @@ namespace game
             uint32_t trigger_hash,
             uint32_t animation_index);
 
+        TransformAnimationComponent* AddTransformComponent(
+            uint32_t container_id,
+            uint32_t trigger_hash,
+            float duration,
+            math::EaseFunction func,
+            AnimationMode mode,
+            TransformAnimType type,
+            const math::Vector& transform_delta);
+
         TransformAnimationComponent* AddTranslationComponent(
             uint32_t container_id,
             uint32_t trigger_hash,
@@ -87,6 +97,14 @@ namespace game
             math::EaseFunction func,
             AnimationMode mode,
             float rotation_delta);
+
+        TransformAnimationComponent* AddScaleComponent(
+            uint32_t container_id,
+            uint32_t trigger_hash,
+            float duration,
+            math::EaseFunction func,
+            AnimationMode mode,
+            float scale_delta);
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;

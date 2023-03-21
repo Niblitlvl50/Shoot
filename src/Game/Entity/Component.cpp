@@ -286,6 +286,7 @@ extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
 extern const uint32_t ANIMATION_COMPONENT           = hash::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT         = hash::Hash("set_translation");
 extern const uint32_t ROTATION_COMPONENT            = hash::Hash("set_rotation");
+extern const uint32_t SCALE_COMPONENT               = hash::Hash("set_scale");
 extern const uint32_t CAMERA_ZOOM_COMPONENT         = hash::Hash("camera_zoom");
 extern const uint32_t CAMERA_POINT_COMPONENT        = hash::Hash("camera_point");
 extern const uint32_t CAMERA_TRACK_ENTITY_COMPONENT = hash::Hash("camera_track_entity");
@@ -358,6 +359,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "set_translation";
     else if(hash == ROTATION_COMPONENT)
         return "set_rotation";
+    else if(hash == SCALE_COMPONENT)
+        return "set_scale";
     else if(hash == CAMERA_ZOOM_COMPONENT)
         return "camera_zoom";
     else if(hash == CAMERA_POINT_COMPONENT)
@@ -449,8 +452,9 @@ const Component default_components[] = {
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
 
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),
-    MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
     MakeComponent(TRANSLATION_COMPONENT,        NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, POSITION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
+    MakeComponent(ROTATION_COMPONENT,           NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, ROTATION_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
+    MakeComponent(SCALE_COMPONENT,              NULL_COMPONENT,             true,   "animation",    { ANIMATION_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, SCALE_ATTRIBUTE, EASING_FUNC_ATTRIBUTE }),
 
     MakeComponent(CAMERA_POINT_COMPONENT,       NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(CAMERA_ZOOM_COMPONENT,        NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE, ZOOM_LEVEL_ATTRIBUTE }),

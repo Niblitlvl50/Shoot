@@ -93,8 +93,14 @@ bool AnimationSystem::IsAnimationContainerAllocated(uint32_t entity_id)
     return allocated_component;
 }
 
-TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, const math::Vector& translation_delta)
+TransformAnimationComponent* AnimationSystem::AddTransformComponent(
+    uint32_t container_id,
+    uint32_t trigger_hash,
+    float duration,
+    math::EaseFunction func,
+    AnimationMode mode,
+    TransformAnimType type,
+    const math::Vector& translation_delta)
 {
     TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
     allocated_component->target_id = container_id;
@@ -104,7 +110,7 @@ TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
     allocated_component->duration_counter = 0.0f;
     allocated_component->ease_function = func;
     allocated_component->animation_flags = mode;
-    allocated_component->transform_type = TransformAnimType::TRANSLATION;
+    allocated_component->transform_type = type;
     allocated_component->is_initialized = false;
 
     allocated_component->delta_x = translation_delta.x;
@@ -126,36 +132,22 @@ TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
     return allocated_component;
 }
 
+TransformAnimationComponent* AnimationSystem::AddTranslationComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, const math::Vector& translation_delta)
+{
+    return AddTransformComponent(container_id, trigger_hash, duration, func, mode, TransformAnimType::TRANSLATION, translation_delta);
+}
+
 TransformAnimationComponent* AnimationSystem::AddRotationComponent(
     uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, float rotation_delta)
 {
-    TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
-    allocated_component->target_id = container_id;
-    allocated_component->trigger_hash = trigger_hash;
-    allocated_component->callback_id = NO_CALLBACK_SET;
-    allocated_component->duration = duration;
-    allocated_component->duration_counter = 0.0f;
-    allocated_component->ease_function = func;
-    allocated_component->animation_flags = mode;
-    allocated_component->transform_type = TransformAnimType::ROTATION;
-    allocated_component->is_initialized = false;
+    return AddTransformComponent(container_id, trigger_hash, duration, func, mode, TransformAnimType::ROTATION, math::Vector(rotation_delta, 0.0f));
+}
 
-    allocated_component->delta_x = rotation_delta;
-
-    if(mode & AnimationMode::TRIGGER_ACTIVATED)
-    {
-        const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
-            AddTransformAnimatonToUpdate(allocated_component);
-        };
-        allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
-    }
-    else
-    {
-        AddTransformAnimatonToUpdate(allocated_component);
-    }
-
-    m_animation_containers[container_id].transform_components.push_back(allocated_component);
-    return allocated_component;
+TransformAnimationComponent* AnimationSystem::AddScaleComponent(
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, float scale_delta)
+{
+    return AddTransformComponent(container_id, trigger_hash, duration, func, mode, TransformAnimType::SCALE, math::Vector(scale_delta, 0.0f));
 }
 
 void AnimationSystem::AddTransformAnimatonToUpdate(TransformAnimationComponent* transform_animation)
@@ -194,9 +186,13 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
                 transform_anim->start_x = position.x;
                 transform_anim->start_y = position.y;
             }
-            else
+            else if(transform_anim->transform_type == TransformAnimType::ROTATION)
             {
                 transform_anim->start_x = math::GetZRotation(transform);
+            }
+            else
+            {
+                transform_anim->start_x = 1.0f;
             }
 
             transform_anim->is_initialized = true;
@@ -213,12 +209,17 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             );
             math::Position(transform, new_position);
         }
-        else
+        else if(transform_anim->transform_type == TransformAnimType::ROTATION)
         {
             const float new_rotation =
                 transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
-            transform = math::CreateMatrixFromZRotation(new_rotation);
-            math::Position(transform, position);
+            transform = math::CreateMatrixWithPositionRotation(position, new_rotation);
+        }
+        else
+        {
+            const float new_scale =
+                transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
+            transform = math::CreateMatrixWithPositionScale(position, new_scale);
         }
 
         m_transform_system->SetTransformState(transform_anim->target_id, mono::TransformState::CLIENT);

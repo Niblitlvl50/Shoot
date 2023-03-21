@@ -210,6 +210,7 @@ extern const uint32_t PICKUP_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
 extern const uint32_t ROTATION_COMPONENT;
+extern const uint32_t SCALE_COMPONENT;
 extern const uint32_t CAMERA_ZOOM_COMPONENT;
 extern const uint32_t CAMERA_POINT_COMPONENT;
 extern const uint32_t CAMERA_TRACK_ENTITY_COMPONENT;

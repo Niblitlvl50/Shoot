@@ -588,7 +588,7 @@ namespace
         return true;
     }
 
-    bool UpdateAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSpriteAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         std::string trigger_name;
         const bool found_trigger_name =
@@ -609,21 +609,7 @@ namespace
         return true;
     }
 
-    bool CreateTranslation(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AllocateAnimationContainer(entity->id);
-        return true;
-    }
-
-    bool ReleaseTranslation(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->ReleaseAnimationContainer(entity->id);
-        return true;
-    }
-
-    bool UpdateTranslation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTranslationAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         std::string trigger_name;
         const bool found_trigger_name =
@@ -651,21 +637,7 @@ namespace
         return true;
     }
 
-    bool CreateRotation(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AllocateAnimationContainer(entity->id);
-        return true;
-    }
-
-    bool ReleaseRotation(mono::Entity* entity, mono::SystemContext* context)
-    {
-        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->ReleaseAnimationContainer(entity->id);
-        return true;
-    }
-
-    bool UpdateRotation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRotationAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         std::string trigger_name;
         const bool found_trigger_name =
@@ -689,6 +661,34 @@ namespace
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddRotationComponent(
             entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), rotation);
+
+        return true;
+    }
+
+    bool UpdateScaleAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name)
+        {
+            System::Log("GameComponentFunctions|Missing trigger name parameter, unable to update component");
+            return false;
+        }
+
+        float scale;
+        float duration;
+        int ease_func_index;
+        int animation_mode;
+        FindAttribute(SCALE_ATTRIBUTE, properties, scale, FallbackMode::SET_DEFAULT);
+        FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
+        FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
+        FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
+
+        game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
+        animation_system->AddScaleComponent(
+            entity->id, hash::Hash(trigger_name.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), scale);
 
         return true;
     }
@@ -1012,9 +1012,10 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
     entity_manager->RegisterComponent(RELAY_TRIGGER_COMPONENT, CreateRelayTrigger, ReleaseRelayTrigger, UpdateRelayTrigger);
     entity_manager->RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
-    entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateAnimation);
-    entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateTranslation, ReleaseTranslation, UpdateTranslation);
-    entity_manager->RegisterComponent(ROTATION_COMPONENT, CreateRotation, ReleaseRotation, UpdateRotation);
+    entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateSpriteAnimation);
+    entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateTranslationAnimation);
+    entity_manager->RegisterComponent(ROTATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateRotationAnimation);
+    entity_manager->RegisterComponent(SCALE_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateScaleAnimation);
     entity_manager->RegisterComponent(CAMERA_ZOOM_COMPONENT, CreateCameraAnimation, ReleaseCameraAnimation, UpdateCameraZoom);
     entity_manager->RegisterComponent(CAMERA_POINT_COMPONENT, CreateCameraAnimation, ReleaseCameraAnimation, UpdateCameraPoint);
     entity_manager->RegisterComponent(CAMERA_TRACK_ENTITY_COMPONENT, CreateCameraAnimation, ReleaseCameraAnimation, UpdateCameraTrackEntity);
