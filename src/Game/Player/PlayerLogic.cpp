@@ -548,6 +548,10 @@ void PlayerLogic::PickupDrop()
     const InteractionCallback interaction_callback = [this](uint32_t interaction_id, InteractionType interaction_type) {
         if(interaction_type == InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
         {
+            const bool has_body = m_physics_system->IsAllocated(interaction_id);
+            if(!has_body)
+                return;
+
             m_picked_up_id = interaction_id;
             m_interaction_system->SetInteractionEnabled(interaction_id, false);
 
