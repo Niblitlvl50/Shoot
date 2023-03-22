@@ -48,6 +48,9 @@ namespace game
 
         float delta_x;
         float delta_y;
+
+        float current_x;
+        float current_y;
     };
 
     struct AnimationContainer

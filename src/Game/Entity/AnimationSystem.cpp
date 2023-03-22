@@ -208,18 +208,22 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
                 transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_y, transform_anim->delta_y)
             );
             math::Position(transform, new_position);
+            transform_anim->current_x = new_position.x;
+            transform_anim->current_y = new_position.y;
         }
         else if(transform_anim->transform_type == TransformAnimType::ROTATION)
         {
             const float new_rotation =
                 transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
             transform = math::CreateMatrixWithPositionRotation(position, new_rotation);
+            transform_anim->current_x = new_rotation;
         }
         else
         {
             const float new_scale =
                 transform_anim->ease_function(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
             transform = math::CreateMatrixWithPositionScale(position, new_scale);
+            transform_anim->current_x = new_scale;
         }
 
         m_transform_system->SetTransformState(transform_anim->target_id, mono::TransformState::CLIENT);
@@ -233,10 +237,12 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
 
         if(is_done && (ping_pong || reversable))
         {
-            transform_anim->is_initialized = false;
             transform_anim->duration_counter = 0.0f;
+
             transform_anim->delta_x = -transform_anim->delta_x;
             transform_anim->delta_y = -transform_anim->delta_y;
+            transform_anim->start_x = transform_anim->current_x;
+            transform_anim->start_y = transform_anim->current_y;
 
             is_done = ping_pong ? false : true;
         }
