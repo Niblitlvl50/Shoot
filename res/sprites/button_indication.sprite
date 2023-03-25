@@ -49,36 +49,36 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 122,
-            "y": 532
+            "x": 448,
+            "y": 366
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 139,
-            "y": 532
+            "x": 431,
+            "y": 366
         },
         {
             "h": 13,
             "name": "button_indication_neutral_1",
             "w": 13,
-            "x": 156,
-            "y": 532
+            "x": 414,
+            "y": 366
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 173,
-            "y": 532
+            "x": 397,
+            "y": 366
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 20,
-            "y": 532
+            "x": 339,
+            "y": 366
         }
     ],
     "frames_offsets": [

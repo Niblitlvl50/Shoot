@@ -32,85 +32,85 @@
             "h": 15,
             "name": "twig_blight_idle_1",
             "w": 16,
-            "x": 1296,
-            "y": 515
+            "x": 1663,
+            "y": 524
         },
         {
             "h": 14,
             "name": "twig_blight_idle_2",
             "w": 16,
-            "x": 1890,
-            "y": 515
+            "x": 603,
+            "y": 537
         },
         {
             "h": 14,
             "name": "twig_blight_idle_3",
             "w": 16,
-            "x": 1910,
-            "y": 515
+            "x": 46,
+            "y": 539
         },
         {
             "h": 15,
             "name": "twig_blight_idle_4",
             "w": 16,
-            "x": 1276,
-            "y": 515
+            "x": 1643,
+            "y": 524
         },
         {
             "h": 15,
             "name": "twig_blight_move_1",
             "w": 16,
-            "x": 1256,
-            "y": 515
+            "x": 1623,
+            "y": 524
         },
         {
             "h": 16,
             "name": "twig_blight_move_2",
             "w": 16,
-            "x": 149,
-            "y": 512
+            "x": 1045,
+            "y": 524
         },
         {
             "h": 15,
             "name": "twig_blight_move_3",
             "w": 17,
-            "x": 1215,
-            "y": 515
+            "x": 1562,
+            "y": 524
         },
         {
             "h": 16,
             "name": "twig_blight_move_4",
             "w": 16,
-            "x": 169,
-            "y": 512
+            "x": 1065,
+            "y": 524
         },
         {
             "h": 14,
             "name": "twig_blight_move_5",
             "w": 16,
-            "x": 1930,
-            "y": 515
+            "x": 107,
+            "y": 539
         },
         {
             "h": 14,
             "name": "twig_blight_move_6",
             "w": 11,
-            "x": 789,
-            "y": 516
+            "x": 316,
+            "y": 539
         },
         {
             "h": 13,
             "name": "twig_blight_move_7",
             "w": 11,
-            "x": 392,
-            "y": 532
+            "x": 989,
+            "y": 543
         },
         {
             "h": 14,
             "name": "twig_blight_move_8",
             "w": 11,
-            "x": 834,
-            "y": 516
+            "x": 66,
+            "y": 539
         }
     ],
     "frames_offsets": [

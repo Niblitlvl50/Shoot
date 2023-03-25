@@ -270,6 +270,18 @@
                     "name": "area_emitter",
                     "properties": [
                         {
+                            "id": 2498693981,
+                            "name": "emitter_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
@@ -304,6 +316,12 @@
                                 "max": 360.0,
                                 "min": 0.0
                             }
+                        },
+                        {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 1291939675,

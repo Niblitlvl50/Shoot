@@ -14,8 +14,8 @@
             "h": 8,
             "name": "flak_bullet",
             "w": 8,
-            "x": 1017,
-            "y": 549
+            "x": 16,
+            "y": 393
         }
     ],
     "frames_offsets": [

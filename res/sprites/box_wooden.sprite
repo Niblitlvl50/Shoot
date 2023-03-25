@@ -14,8 +14,8 @@
             "h": 30,
             "name": "box_wooden",
             "w": 28,
-            "x": 86,
-            "y": 400
+            "x": 400,
+            "y": 229
         }
     ],
     "frames_offsets": [
