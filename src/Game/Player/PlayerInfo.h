@@ -36,6 +36,11 @@ namespace game
         return "Unknown";
     }
 
+    struct PersistentPlayerData
+    {
+        int chips;
+    };
+
     struct PlayerInfo
     {
         PlayerState player_state;
@@ -61,18 +66,17 @@ namespace game
         float cooldown_fraction;
         float health_fraction;
 
-        int chips;
-
         bool laser_sight;
         bool auto_aim;
         bool auto_reload;
 
         mono::InputContextType last_used_input;
+
+        PersistentPlayerData persistent_data;
     };
 
     constexpr int n_players = 3;
     extern PlayerInfo g_players[n_players];
-
 
     enum class PackageState
     {

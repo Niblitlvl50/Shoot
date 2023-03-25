@@ -483,7 +483,7 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
 
     case PickupType::COINS:
     {
-        m_player_info->chips += amount;
+        m_player_info->persistent_data.chips += amount;
         break;
     }
     };

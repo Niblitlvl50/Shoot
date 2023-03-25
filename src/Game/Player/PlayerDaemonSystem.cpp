@@ -3,6 +3,7 @@
 #include "Player/PlayerLogic.h"
 #include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
+#include "Player/SaveSystem.h"
 #include "PlayerFamiliarLogic.h"
 #include "DamageSystem/DamageSystem.h"
 
@@ -29,11 +30,10 @@
 #include "Network/NetworkSerialize.h"
 
 #include "System/Hash.h"
+#include "System/File.h"
 #include "Entity/Component.h"
 
-#include "System/File.h"
 #include "nlohmann/json.hpp"
-
 #include <functional>
 
 using namespace game;
@@ -60,6 +60,9 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     //std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);
     std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), random_bit_generator);
     //std::shuffle(m_package_entities.begin(), m_package_entities.end(), random_bit_generator);
+
+    std::memset(&m_save_slot_0, 0, sizeof(m_save_slot_0));
+    game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
 
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
@@ -132,6 +135,8 @@ void PlayerDaemonSystem::Reset()
         m_camera_system->Unfollow(player_info.entity_id);
     }
 
+    game::SavePlayerData(System::GetUserPath(), 0, m_save_slot_0);
+
     m_player_spawned_callback = nullptr;
     m_spawn_players = false;
 }
@@ -196,6 +201,10 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
     allocated_player_info->controller_id = controller_id;
     m_controller_id_to_player_info[controller_id] = allocated_player_info;
 
+    // Apply saved data
+    const uint32_t actual_player_index = game::FindPlayerIndex(allocated_player_info);
+    allocated_player_info->persistent_data = m_save_slot_0.player_data[actual_player_index];
+
     const auto destroyed_func = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
 
         if(type == DamageType::DESTROYED)
@@ -228,6 +237,9 @@ void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
     m_camera_system->Unfollow(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->familiar_entity_id);
+
+    const uint32_t player_index = game::FindPlayerIndex(player_info);
+    m_save_slot_0.player_data[player_index] = player_info->persistent_data;
 
     ReleasePlayerInfo(player_info);
 }

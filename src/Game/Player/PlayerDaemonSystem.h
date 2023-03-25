@@ -12,6 +12,7 @@
 
 #include "Events/GameEventFuncFwd.h"
 #include "Player/PlayerInfo.h"
+#include "Player/SaveSystem.h"
 
 #include <vector>
 #include <unordered_map>
@@ -113,5 +114,6 @@ namespace game
         };
         std::unordered_map<network::Address, RemotePlayerData> m_remote_players;
 
+        game::SaveSlotData m_save_slot_0;
     };
 }

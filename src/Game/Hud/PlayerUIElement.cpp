@@ -134,7 +134,7 @@ namespace game
             m_ammo_text->SetText(ammo_text);
 
             char chips_text[32] = { '\0' };
-            std::snprintf(chips_text, std::size(chips_text), "%d", m_player_info.chips);
+            std::snprintf(chips_text, std::size(chips_text), "%d", m_player_info.persistent_data.chips);
             m_chips_text->SetText(chips_text);
 
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
