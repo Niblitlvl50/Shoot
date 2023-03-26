@@ -227,6 +227,7 @@ namespace
     {
         mono::RoadComponent component;
         FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
+        FindAttribute(COLOR_ATTRIBUTE, properties, component.color, FallbackMode::SET_DEFAULT);
         FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture_name, FallbackMode::SET_DEFAULT);
 
         mono::RoadSystem* road_system = context->GetSystem<mono::RoadSystem>();

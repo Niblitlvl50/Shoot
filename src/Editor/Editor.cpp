@@ -325,7 +325,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
     AddDrawable(new GridVisualizer(m_context.draw_grid), game::LayerId::BACKGROUND);
-    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), game::LayerId::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), game::LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(m_selection_visualizer, game::LayerId::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), game::LayerId::UI);
@@ -339,6 +338,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::PRE_GAMEOBJECTS), game::LayerId::BACKGROUND);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::POST_GAMEOBJECTS), game::LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), game::LayerId::BACKGROUND);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), game::LayerId::UI);
 }

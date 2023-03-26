@@ -11074,6 +11074,276 @@
             "entity_properties": 0,
             "name": "stone_monument_3",
             "uuid_hash": 1477290480
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "log_3"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "eastern_pillars"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 13.625,
+                                "y": 0.375
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "log_3.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "log_3",
+            "uuid_hash": 1698718739
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "road"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -15.75,
+                                "y": 0.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2223459638,
+                    "name": "path",
+                    "properties": [
+                        {
+                            "id": 4282467795,
+                            "name": "path_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3308676800,
+                            "name": "path_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -20.62165069580078,
+                                    "y": -6.2663116455078125
+                                },
+                                {
+                                    "x": -13.346939086914063,
+                                    "y": -6.959881782531738
+                                },
+                                {
+                                    "x": -3.0388240814208984,
+                                    "y": -4.104254722595215
+                                },
+                                {
+                                    "x": 3.873154640197754,
+                                    "y": 0.34665966033935547
+                                },
+                                {
+                                    "x": 10.608661651611328,
+                                    "y": 4.611837387084961
+                                },
+                                {
+                                    "x": 15.762639999389648,
+                                    "y": 7.971745491027832
+                                },
+                                {
+                                    "x": 20.821266174316406,
+                                    "y": 19.273902893066406
+                                },
+                                {
+                                    "x": 20.22881317138672,
+                                    "y": 27.750518798828125
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1693580783,
+                            "name": "path_closed",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1025494171,
+                    "name": "road",
+                    "properties": [
+                        {
+                            "id": 2508680735,
+                            "name": "width",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 0.5882353186607361,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/roads/road_dirt_road_small_01.png"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "road",
+            "uuid_hash": 3628303330
         }
     ],
     "metadata": {
@@ -11105,7 +11375,7 @@
         },
         "level_description": "Protect that package!",
         "level_game_mode": "package_delivery_mode",
-        "level_name": "horde_mode",
+        "level_name": "Horde Mode",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 35.0,

@@ -125,7 +125,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
-    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
@@ -137,6 +136,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);
