@@ -46,7 +46,6 @@ namespace game
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
-        bool m_level_has_timelimit;
         float m_level_timer;
     };
 }

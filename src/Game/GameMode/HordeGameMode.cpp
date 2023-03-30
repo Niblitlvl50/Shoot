@@ -52,12 +52,8 @@ void HordeGameMode::Begin(
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
 
     m_level_timer = level_metadata.time_limit_s;
-    m_level_has_timelimit = (m_level_timer > 0);
-
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
     m_timer_screen->SetSeconds(m_level_timer);
-    if(!m_level_has_timelimit)
-        m_timer_screen->Hide();
 
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
@@ -81,7 +77,8 @@ int HordeGameMode::End(mono::IZone* zone)
 
 void HordeGameMode::Update(const mono::UpdateContext& update_context)
 {
-
+    m_level_timer += update_context.delta_s;
+    m_timer_screen->SetSeconds(m_level_timer);
 }
 
 void HordeGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
@@ -130,5 +127,5 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
     };
     m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, release_callback);
 
-    System::Log("PacketDeliveryGameMode|Spawning package[id:%u] at position %.2f %.2f", m_package_entity_id, position.x, position.y);
+    System::Log("HordeGameMode|Spawning package[id:%u] at position %.2f %.2f", m_package_entity_id, position.x, position.y);
 }
