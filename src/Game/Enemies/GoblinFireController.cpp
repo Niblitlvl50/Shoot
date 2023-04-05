@@ -27,6 +27,7 @@ namespace tweak_values
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
 
+    constexpr float idle_timer_s = 1.0f;
     constexpr float attack_start_delay_s = 0.5f;
     constexpr float attack_sequence_delay_s = 0.05f;
     constexpr uint32_t n_attacks = 3;
@@ -138,7 +139,7 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
     const bool is_player_active = (player_info != nullptr);
-    if(!is_player_active || !is_withing_activation_range || m_idle_timer_s < 1.0f)
+    if(!is_player_active || !is_withing_activation_range || m_idle_timer_s < tweak_values::idle_timer_s)
         return;
 
     const bool transition_to_attack =

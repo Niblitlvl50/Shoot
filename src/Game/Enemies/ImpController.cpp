@@ -28,6 +28,7 @@ namespace tweak_values
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
 
+    constexpr float idle_delay_s = 1.0f;
     //constexpr uint32_t attack_start_delay = 500;
     constexpr float attack_sequence_delay_s = 0.05f;
     constexpr uint32_t n_attacks = 3;
@@ -134,7 +135,7 @@ void ImpController::ToIdle()
 void ImpController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer_s += update_context.delta_s;
-    if(m_idle_timer_s < 1.0f)
+    if(m_idle_timer_s < tweak_values::idle_delay_s)
         return;
 
     m_idle_timer_s = 0.0f;

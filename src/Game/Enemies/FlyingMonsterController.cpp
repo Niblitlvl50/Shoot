@@ -116,29 +116,28 @@ void FlyingMonsterController::ToIdle()
 void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
 {
     m_idle_timer_s += update_context.delta_s;
+    if(m_idle_timer_s < tweak_values::idle_time_s)
+        return;
 
+    m_idle_timer_s = 0.0f;
+    
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(position);
     if(!player_info)
         return;
 
-    if(m_idle_timer_s > tweak_values::idle_time_s)
-    {
-        m_idle_timer_s = 0.0f;
+    const float distance_to_player = math::DistanceBetween(position, player_info->position);
+    if(distance_to_player > tweak_values::track_to_player_distance)
+        return;
 
-        const float distance_to_player = math::DistanceBetween(position, player_info->position);
-        if(distance_to_player > tweak_values::track_to_player_distance)
-            return;
+    const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
+    if(!sees_player)
+        return;
 
-        const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
-        if(!sees_player)
-            return;
-
-        if(distance_to_player < tweak_values::max_attack_distance)
-            m_states.TransitionTo(States::ATTACK_ANTICIPATION);
-        else if(distance_to_player < tweak_values::track_to_player_distance)
-            m_states.TransitionTo(States::TRACKING);
-    }
+    if(distance_to_player < tweak_values::max_attack_distance)
+        m_states.TransitionTo(States::ATTACK_ANTICIPATION);
+    else if(distance_to_player < tweak_values::track_to_player_distance)
+        m_states.TransitionTo(States::TRACKING);
 }
 
 void FlyingMonsterController::ToTracking()

@@ -103,6 +103,7 @@ void PackageLogic::Update(const mono::UpdateContext& update_context)
     m_shield_timer_s = std::clamp(m_shield_timer_s - update_context.delta_s, 0.0f, 10.0f);
     m_shield_cooldown_s = std::clamp(m_shield_cooldown_s - update_context.delta_s, 0.0f, 10.0f);
 
+    m_package_info->position = m_transform_system->GetWorldPosition(m_entity_id);
     m_package_info->cooldown_fraction = (m_shield_cooldown_s / tweak_values::shield_cooldown_duration_s);
 }
 

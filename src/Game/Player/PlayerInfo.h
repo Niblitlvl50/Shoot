@@ -103,6 +103,7 @@ namespace game
     struct PackageInfo
     {
         uint32_t entity_id;
+        math::Vector position;
         PackageState state;
         float cooldown_fraction;
     };

@@ -335,6 +335,6 @@ void DemonBossController::OnDamage(uint32_t who_did_damage, int damage)
         return;
 
     const bool play_sound = mono::Chance(50);
-    if(play_sound || true)
+    if(play_sound)
         m_damage_sound->Play();
 }

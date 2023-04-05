@@ -124,6 +124,12 @@ void FlamingSkullBossController::ToSleep()
 
 void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_context)
 {
+    m_visibility_check_timer_s += update_context.delta_s;
+    if(m_visibility_check_timer_s < tweak_values::visibility_check_interval_s)
+        return;
+
+    m_visibility_check_timer_s = 0.0f;
+    
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
     if(!player_info)
@@ -132,16 +138,9 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
     const float distance = math::DistanceBetween(player_info->position, entity_position);
     if(distance < tweak_values::trigger_distance)
     {
-        m_visibility_check_timer_s += update_context.delta_s;
-
-        if(m_visibility_check_timer_s > tweak_values::visibility_check_interval_s)
-        {
-            const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
-            if(sees_player)
-                m_states.TransitionTo(States::AWAKE);
-
-            m_visibility_check_timer_s = 0.0f;
-        }
+        const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
+        if(sees_player)
+            m_states.TransitionTo(States::AWAKE);
     }
 }
 
@@ -162,8 +161,10 @@ void FlamingSkullBossController::ToAwake()
 void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_context)
 {
     m_awake_state_timer_s += update_context.delta_s;
-    if(m_awake_state_timer_s > tweak_values::time_before_hunt_s)
-        m_states.TransitionTo(States::HUNT);
+    if(m_awake_state_timer_s < tweak_values::time_before_hunt_s)
+        return;
+
+    m_states.TransitionTo(States::HUNT);
 }
 
 void FlamingSkullBossController::ToHunt()
