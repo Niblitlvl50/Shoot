@@ -5,8 +5,6 @@
 
 #include "nlohmann/json.hpp"
 #include <string>
-#include <format>
-
 
 void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotData& data)
 {
