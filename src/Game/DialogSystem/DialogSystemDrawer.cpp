@@ -18,12 +18,14 @@ DialogSystemDrawer::DialogSystemDrawer(DialogSystem* message_system, const mono:
     : m_message_system(message_system)
     , m_transform_system(transform_system)
 {
-    m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/text_background_light.png");
-    m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
+    //m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/text_background_light.png");
+    //m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
 }
 
 void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
 {
+    return;
+
     std::vector<std::string> messages;
 
     const auto collect_messages = [&](uint32_t entity_id, DialogComponent& message) {
@@ -33,8 +35,6 @@ void DialogSystemDrawer::Draw(mono::IRenderer& renderer) const
 
     if(messages.empty())
         return;
-
-    return;
 
     const float window_aspect = mono::RenderSystem::GetWindowAspect();
     const float projection_width = 800.0f;

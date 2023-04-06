@@ -21,7 +21,10 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
     json["slots"] = save_data_array;
     const std::string& serialized_config = json.dump(4);
 
-    const std::string save_file = user_path + std::string("saves/") + std::to_string(slot_index) + ".json";
+    const std::string save_folder = user_path + std::string("saves/");
+    file::EnsurePath(save_folder.c_str());
+
+    const std::string save_file = save_folder + std::to_string(slot_index) + ".json";
     file::FilePtr file = file::CreateAsciiFile(save_file.c_str());
     std::fwrite(serialized_config.data(), serialized_config.length(), sizeof(char), file.get());
 }
