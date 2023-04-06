@@ -12,7 +12,6 @@ game::AIInfo game::g_ai_info;
 void game::InitializeAIInfo()
 {
     std::memset(&g_ai_info, 0, sizeof(g_ai_info));
-
     g_ai_info.behaviour = PrimaryAIBehaviour::TargetPlayer;
 }
 

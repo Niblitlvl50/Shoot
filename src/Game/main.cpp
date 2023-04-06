@@ -11,6 +11,7 @@
 #include "Rendering/RenderSystem.h"
 
 #include "Player/PlayerInfo.h"
+#include "Enemies/AIUtils.h"
 #include "FontIds.h"
 #include "GameConfig.h"
 #include "GameSystems.h"
@@ -104,6 +105,7 @@ int main(int argc, char* argv[])
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();
     game::InitializePlayerInfo();
+    game::InitializeAIInfo();
 
     {
         const System::Size window_size = System::GetCurrentWindowSize();
