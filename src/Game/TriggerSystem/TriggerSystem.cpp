@@ -158,10 +158,13 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
     DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Get(entity_id);
     allocated_trigger->trigger_hash = trigger_hash;
 
-    if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
-        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
-    else
-        m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
+    if(allocated_trigger->callback_id != NO_CALLBACK_SET)
+    {
+        if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
+            m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
+        else
+            m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
+    }
 
     allocated_trigger->trigger_type = type;
 
