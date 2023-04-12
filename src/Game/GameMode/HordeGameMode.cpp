@@ -8,6 +8,7 @@
 #include "Hud/BigTextScreen.h"
 #include "Hud/LevelTimerUIElement.h"
 #include "Hud/PauseScreen.h"
+#include "Hud/ShopScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
@@ -122,12 +123,16 @@ void HordeGameMode::Begin(
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Hide();
 
+    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system);
+    m_shop_screen->Hide();
+
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
 
     // Package
@@ -143,6 +148,7 @@ int HordeGameMode::End(mono::IZone* zone)
     zone->RemoveDrawable(m_package_aux_drawer.get());
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
+    zone->RemoveUpdatableDrawable(m_shop_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
 
@@ -224,8 +230,8 @@ void HordeGameMode::SetupEvents()
             m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
         else if(trigger_id == show_shop_screen_hash)
         {
-            //const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-            //m_shop_screen->ShowAt(camera->GetTargetPosition());
+            const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+            m_shop_screen->ShowAt(camera->GetTargetPosition());
         }
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);

@@ -86,6 +86,7 @@ namespace game
 
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
+        std::unique_ptr<class ShopScreen> m_shop_screen;
 
         bool m_spawn_package;
         bool m_package_spawned;
