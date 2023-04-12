@@ -104,7 +104,7 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
     bool is_sensor;
     FindAttribute(SENSOR_ATTRIBUTE, component_properties, is_sensor, FallbackMode::SET_DEFAULT);
 
-    const mono::Color::RGBA color = mono::Color::BLACK; //is_sensor ? g_sensor_color : g_collision_color;
+    const mono::Color::RGBA color = mono::Color::CYAN; //is_sensor ? g_sensor_color : g_collision_color;
     renderer.DrawClosedPolyline(polygon, color, 1.0f);
     if(is_sensor)
         renderer.RenderText(game::FontId::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);

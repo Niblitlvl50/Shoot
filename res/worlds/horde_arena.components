@@ -345,7 +345,7 @@
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.06981316953897476
                         },
                         {
                             "id": 2190941297,
@@ -16463,6 +16463,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.6119422912597656,
+                                    "y": -0.10478687286376953
+                                },
+                                {
+                                    "x": -0.47334861755371094,
+                                    "y": 0.5440812110900879
+                                },
+                                {
+                                    "x": 0.14402008056640625,
+                                    "y": 0.4999837875366211
+                                },
+                                {
+                                    "x": 0.6290969848632813,
+                                    "y": -0.06698894500732422
+                                },
+                                {
+                                    "x": 0.5,
+                                    "y": -0.25
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -16579,6 +16654,81 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.5337009429931641,
+                                    "y": -0.3378758430480957
+                                },
+                                {
+                                    "x": -0.73529052734375,
+                                    "y": 0.3676900863647461
+                                },
+                                {
+                                    "x": 0.5813446044921875,
+                                    "y": 0.39288854598999023
+                                },
+                                {
+                                    "x": 0.7010383605957031,
+                                    "y": -0.07958841323852539
+                                },
+                                {
+                                    "x": 0.4616508483886719,
+                                    "y": -0.5268669128417969
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -16703,6 +16853,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.6497402191162109,
+                                    "y": -0.22315120697021484
+                                },
+                                {
+                                    "x": -0.6875381469726563,
+                                    "y": 0.5328121185302734
+                                },
+                                {
+                                    "x": 0.6479969024658203,
+                                    "y": 0.38791942596435547
+                                },
+                                {
+                                    "x": 0.8054885864257813,
+                                    "y": -0.0656585693359375
+                                },
+                                {
+                                    "x": 0.3771095275878906,
+                                    "y": -0.468839168548584
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -16819,6 +17044,81 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.8997554779052734,
+                                    "y": -0.33489418029785156
+                                },
+                                {
+                                    "x": -0.8556575775146484,
+                                    "y": 0.2572770118713379
+                                },
+                                {
+                                    "x": 0.7570638656616211,
+                                    "y": 0.32027387619018555
+                                },
+                                {
+                                    "x": 0.7318649291992188,
+                                    "y": -0.3159952163696289
+                                },
+                                {
+                                    "x": 0.46097755432128906,
+                                    "y": -0.7947721481323242
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -16943,6 +17243,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.7379512786865234,
+                                    "y": -0.3229522705078125
+                                },
+                                {
+                                    "x": -0.6371574401855469,
+                                    "y": 0.3259162902832031
+                                },
+                                {
+                                    "x": 0.6920795440673828,
+                                    "y": 0.22512102127075195
+                                },
+                                {
+                                    "x": 0.7109775543212891,
+                                    "y": -0.3670501708984375
+                                },
+                                {
+                                    "x": 0.049510955810546875,
+                                    "y": -0.5749397277832031
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -17059,6 +17434,81 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -1.168813705444336,
+                                    "y": -0.24724960327148438
+                                },
+                                {
+                                    "x": -0.5330276489257813,
+                                    "y": 0.3949546813964844
+                                },
+                                {
+                                    "x": 0.7321157455444336,
+                                    "y": 0.2344036102294922
+                                },
+                                {
+                                    "x": 0.5394535064697266,
+                                    "y": -0.5298213958740234
+                                },
+                                {
+                                    "x": -0.6100921630859375,
+                                    "y": -0.5426654815673828
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -17183,6 +17633,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.6947221755981445,
+                                    "y": -0.010552406311035156
+                                },
+                                {
+                                    "x": -0.41215038299560547,
+                                    "y": 0.6573381423950195
+                                },
+                                {
+                                    "x": 0.724553108215332,
+                                    "y": 0.207794189453125
+                                },
+                                {
+                                    "x": 0.6025333404541016,
+                                    "y": -0.3445014953613281
+                                },
+                                {
+                                    "x": -0.4442615509033203,
+                                    "y": -0.4600963592529297
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -17299,6 +17824,81 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.4809856414794922,
+                                    "y": 0.040843963623046875
+                                },
+                                {
+                                    "x": -0.20734405517578125,
+                                    "y": 0.5541257858276367
+                                },
+                                {
+                                    "x": 0.5697240829467773,
+                                    "y": 0.1495361328125
+                                },
+                                {
+                                    "x": 0.2871532440185547,
+                                    "y": -0.2550535202026367
+                                },
+                                {
+                                    "x": -0.3360859751701355,
+                                    "y": -0.3274984359741211
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -20949,6 +21549,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.5019130706787109,
+                                    "y": 0.3411293029785156
+                                },
+                                {
+                                    "x": 0.28653907775878906,
+                                    "y": 0.45179080963134766
+                                },
+                                {
+                                    "x": 0.8578262329101563,
+                                    "y": 0.3221111297607422
+                                },
+                                {
+                                    "x": 0.3110771179199219,
+                                    "y": -0.6049842834472656
+                                },
+                                {
+                                    "x": -1.3244132995605469,
+                                    "y": -0.4623537063598633
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -21069,6 +21744,81 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.8879299163818359,
+                                    "y": -0.20750999450683594
+                                },
+                                {
+                                    "x": -0.7042198181152344,
+                                    "y": 0.5451011657714844
+                                },
+                                {
+                                    "x": 0.7061843872070313,
+                                    "y": 0.24879741668701172
+                                },
+                                {
+                                    "x": 0.7832241058349609,
+                                    "y": -0.24306678771972656
+                                },
+                                {
+                                    "x": 0.012834548950195313,
+                                    "y": -0.46233177185058594
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -21185,6 +21935,77 @@
                         {
                             "id": 1015133031,
                             "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.5386924743652344,
+                                    "y": -0.06046295166015625
+                                },
+                                {
+                                    "x": -0.3490581512451172,
+                                    "y": 0.3128795623779297
+                                },
+                                {
+                                    "x": 0.48651885986328125,
+                                    "y": 0.034354209899902344
+                                },
+                                {
+                                    "x": 0.37447357177734375,
+                                    "y": -0.4445209503173828
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
                         }
