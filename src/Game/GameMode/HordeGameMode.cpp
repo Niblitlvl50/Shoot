@@ -1,6 +1,7 @@
 
 #include "HordeGameMode.h"
 
+#include "Enemies/AIUtils.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
 #include "GameCamera/CameraSystem.h"
@@ -32,6 +33,7 @@
 #include "Zone/IZone.h"
 
 #include "System/Hash.h"
+#include "Debug/IDebugDrawer.h"
 
 namespace
 {
@@ -51,10 +53,12 @@ namespace tweak_values
 using namespace game;
 
 HordeGameMode::HordeGameMode()
+    : m_wave_index(0)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &HordeGameMode::ToFadeIn, &HordeGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &HordeGameMode::ToRunGameMode, &HordeGameMode::RunGameMode, this),
+        GameModeStateMachine::MakeState(GameModeStates::SPAWN_WAVE, &HordeGameMode::ToSpawnWave, &HordeGameMode::SpawnWave, this),
         GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &HordeGameMode::ToPackageDestroyed, &HordeGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_ABORTED, &HordeGameMode::ToLevelAborted, &HordeGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_COMPLETED, &HordeGameMode::ToLevelCompleted, &HordeGameMode::LevelCompleted, this),
@@ -116,6 +120,7 @@ void HordeGameMode::Begin(
         mono::Color::GOLDEN_YELLOW,
         mono::Color::GRAY,
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
+    m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Hide();
 
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
@@ -129,6 +134,9 @@ void HordeGameMode::Begin(
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
     zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
+
+    // Let the enemies target the package and move towards it.
+    game::g_ai_info.behaviour = game::PrimaryAIBehaviour::TargetPackage;
 }
 
 int HordeGameMode::End(mono::IZone* zone)
@@ -157,6 +165,40 @@ void HordeGameMode::Update(const mono::UpdateContext& update_context)
     m_timer_screen->SetSeconds(m_level_timer);
 
     m_states.UpdateState(update_context);
+
+
+/*
+    const char* state_text = nullptr;
+
+    switch(m_states.ActiveState())
+    {
+    case GameModeStates::FADE_IN:
+        state_text = "Fade In";
+        break;
+    case GameModeStates::RUN_GAME_MODE:
+        state_text = "Run Game Mode";
+        break;
+    case GameModeStates::PACKAGE_DESTROYED:
+        state_text = "Package Destroyed";
+        break;
+    case GameModeStates::SPAWN_WAVE:
+        state_text = "Spawn Wave";
+        break;
+    case GameModeStates::LEVEL_COMPLETED:
+        state_text = "Level Completed";
+        break;
+    case GameModeStates::LEVEL_ABORTED:
+        state_text = "Level Aborted";
+        break;
+    case GameModeStates::PAUSED:
+        state_text = "Paused";
+        break;
+    case GameModeStates::FADE_OUT:
+        state_text = "Fade Out";
+        break;
+    }
+    g_debug_drawer->DrawScreenText(state_text, math::Vector(1.0f, 5.0f), mono::Color::OFF_WHITE);
+    */
 }
 
 void HordeGameMode::SetupEvents()
@@ -236,9 +278,9 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
     m_package_entity_id = m_player_system->SpawnPackageAt(position);
 
-    const mono::ReleaseCallback release_callback = [](uint32_t entity_id) {
-        //m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        //m_big_text_screen->SetSubText("Your package was destroyed.");
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+        m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
+        m_big_text_screen->SetSubText("Your package was destroyed.");
     };
     m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, release_callback);
 
@@ -247,36 +289,65 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
 void HordeGameMode::ToFadeIn()
 {
-    m_fade_timer = 0.0f; 
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,    tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::SHOWN,      3.0f },
+        { BigTextScreen::FadeState::FADE_OUT,   tweak_values::fade_duration_s },
+    };
+
+    const auto callback = [this]() {
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+        m_big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+
     m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, 1.0f, 0.0f);
-    m_big_text_screen->Show();
 }
 
 void HordeGameMode::FadeIn(const mono::UpdateContext& update_context)
-{
-    if(m_fade_timer < tweak_values::fade_duration_s)
-    {
-        const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-        m_big_text_screen->SetAlpha(alpha);
-    }
-    else if(m_fade_timer < tweak_values::fade_duration_s + 3.0f)
-    {
-        const float alpha = math::EaseInCubic(m_fade_timer - tweak_values::fade_duration_s, 3.0f, 1.0f, -1.0f);
-        m_big_text_screen->SetAlpha(alpha);
-    }
-    else
-    {
-        m_big_text_screen->Hide();
-        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
-    }
-
-    m_fade_timer += update_context.delta_s;
-}
+{ }
 
 void HordeGameMode::ToRunGameMode()
 {}
 
 void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
+{
+    static float timer = 0.0f;
+    timer += update_context.delta_s;
+
+    const bool every_five_sec = timer > 5.0f;
+    if(every_five_sec)
+    {
+        m_states.TransitionTo(GameModeStates::SPAWN_WAVE);
+        timer = 0.0f;
+    }
+}
+
+void HordeGameMode::ToSpawnWave()
+{
+    m_wave_index++;
+
+    const std::string wave_text = "Wave " + std::to_string(m_wave_index);
+    m_big_text_screen->SetText(wave_text.c_str());
+    m_big_text_screen->SetSubText("");
+    m_big_text_screen->SetAlpha(0.0f);
+
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,    1.0f },
+        { BigTextScreen::FadeState::SHOWN,      2.0f },
+        { BigTextScreen::FadeState::FADE_OUT,   1.0f },
+    };
+
+    const auto callback = [this]() {
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+        m_big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+
+    // Spawn next wave here...
+}
+
+void HordeGameMode::SpawnWave(const mono::UpdateContext& update_context)
 {}
 
 void HordeGameMode::ToPackageDestroyed()
@@ -297,20 +368,20 @@ void HordeGameMode::ToLevelAborted()
     m_big_text_screen->SetText("Horde Aborted!");
     m_big_text_screen->SetSubText("See you!");
     m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->Show();
 
-    m_fade_timer = 0.0f;
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,    1.0f },
+        { BigTextScreen::FadeState::SHOWN,      tweak_values::level_result_duration_s },
+    };
+
+    const auto callback = [this]() {
+        m_states.TransitionTo(GameModeStates::FADE_OUT);
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
 }
 
 void HordeGameMode::LevelCompleted(const mono::UpdateContext& update_context)
-{
-    const float alpha = math::EaseInCubic(m_fade_timer, 1.0f, 0.0f, 1.0f);
-    m_big_text_screen->SetAlpha(alpha);
-
-    m_fade_timer += update_context.delta_s;
-    if(m_fade_timer >= tweak_values::level_result_duration_s)
-        m_states.TransitionTo(GameModeStates::FADE_OUT);
-}
+{ }
 
 void HordeGameMode::ToPaused()
 {
@@ -326,15 +397,16 @@ void HordeGameMode::ExitPaused()
 
 void HordeGameMode::ToFadeOut()
 {
-    m_fade_timer = 0.0f;
     m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f);
+
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
+    };
+    const auto callback = [this]() {
+        m_event_handler->DispatchEvent(event::QuitEvent());
+        m_big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
 }
 void HordeGameMode::FadeOut(const mono::UpdateContext& update_context)
-{
-    const float alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
-    m_big_text_screen->SetAlpha(alpha);
-
-    if(m_fade_timer > tweak_values::fade_duration_s)
-        m_event_handler->DispatchEvent(event::QuitEvent());
-    m_fade_timer += update_context.delta_s;
-}
+{ }

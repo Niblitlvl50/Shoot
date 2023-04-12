@@ -38,10 +38,29 @@ namespace game
         void SetSubTextColor(const mono::Color::RGBA& color);
         void SetAlpha(float alpha);
 
+        enum class FadeState
+        {
+            FADE_IN,
+            SHOWN,
+            FADE_OUT
+        };
+        struct FadePattern
+        {
+            FadeState fade_state;
+            float duration;
+        };
+        using Callback = std::function<void ()>;
+        void ShowWithFadePattern(const std::vector<FadePattern>& fade_pattern, const Callback& callback);
+
     private:
 
         class UISquareElement* m_background;
         class UITextElement* m_main_text_element;
         class UITextElement* m_sub_text_element;
+
+        float m_fade_timer;
+        uint32_t m_fade_index;
+        std::vector<FadePattern> m_fade_pattern;
+        Callback m_fade_pattern_callback;
     };
 }

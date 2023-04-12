@@ -39,6 +39,9 @@ namespace game
         void ToRunGameMode();
         void RunGameMode(const mono::UpdateContext& update_context);
 
+        void ToSpawnWave();
+        void SpawnWave(const mono::UpdateContext& update_context);
+
         void ToPackageDestroyed();
         void ToTimeout();
         void ToLevelCompleted();
@@ -56,6 +59,7 @@ namespace game
         {
             FADE_IN,
             RUN_GAME_MODE,
+            SPAWN_WAVE,
             PACKAGE_DESTROYED,
             LEVEL_COMPLETED,
             LEVEL_ABORTED,
@@ -98,7 +102,7 @@ namespace game
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
-        float m_fade_timer;
         float m_level_timer;
+        int m_wave_index;
     };
 }
