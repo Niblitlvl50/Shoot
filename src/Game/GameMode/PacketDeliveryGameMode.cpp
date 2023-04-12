@@ -310,30 +310,22 @@ void PacketDeliveryGameMode::SpawnPackage(const math::Vector& position)
 
 void PacketDeliveryGameMode::ToFadeIn()
 {
-    m_fade_timer = 0.0f; 
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,    tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::SHOWN,      tweak_values::level_result_duration_s },
+        { BigTextScreen::FadeState::FADE_OUT,   tweak_values::fade_duration_s },
+    };
+
+    const auto callback = [this]() {
+        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
+        m_big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+
     m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, 1.0f, 0.0f);
-    m_big_text_screen->Show();
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
-{
-    if(m_fade_timer < tweak_values::fade_duration_s)
-    {
-        const float alpha = math::EaseInCubic(m_fade_timer, tweak_values::fade_duration_s, 0.0f, 1.0f);
-        m_big_text_screen->SetAlpha(alpha);
-    }
-    else if(m_fade_timer < tweak_values::fade_duration_s + 3.0f)
-    {
-        const float alpha = math::EaseInCubic(m_fade_timer - tweak_values::fade_duration_s, 3.0f, 1.0f, -1.0f);
-        m_big_text_screen->SetAlpha(alpha);
-    }
-    else
-    {
-        m_big_text_screen->Hide();
-        m_states.TransitionTo(GameModeStates::RUN_GAME_MODE);
-    }
-
-    m_fade_timer += update_context.delta_s;
-}
+{ }
 
 void PacketDeliveryGameMode::ToRunGameMode()
 { }
@@ -351,63 +343,46 @@ void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_conte
 
 void PacketDeliveryGameMode::ToPackageDestroyed()
 {
-    m_next_zone = game::ZoneResult::ZR_GAME_OVER;
-
-    m_big_text_screen->SetText("Delivery failed!");
-    m_big_text_screen->SetSubText("You lost the package...");
-    m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->Show();
-
-    m_fade_timer = 0.0f;
+    TriggerLevelCompletedFade("Delivery failed!", "You lost the package...", game::ZoneResult::ZR_GAME_OVER);
 }
 
 void PacketDeliveryGameMode::ToTimeout()
 {
-    m_next_zone = game::ZoneResult::ZR_GAME_OVER;
-
-    m_big_text_screen->SetText("Delivery failed!");
-    m_big_text_screen->SetSubText("Man, you were too slow!");
-    m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->Show();
-
-    m_fade_timer = 0.0f;
+    TriggerLevelCompletedFade("Delivery failed!", "Man, you were too slow!", game::ZoneResult::ZR_GAME_OVER);
 }
 
 void PacketDeliveryGameMode::ToLevelCompleted()
 {
-    m_next_zone = game::ZoneResult::ZR_COMPLETED;
-
-    m_big_text_screen->SetText("Delivery Completed!");
-    m_big_text_screen->SetSubText("Good Job");
-    m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->Show();
-
-    m_fade_timer = 0.0f;
+    TriggerLevelCompletedFade("Delivery Completed!", "Good Job", game::ZoneResult::ZR_COMPLETED);
 }
 
 void PacketDeliveryGameMode::ToLevelAborted()
 {
-    m_next_zone = game::ZoneResult::ZR_ABORTED;
+    TriggerLevelCompletedFade("Deliver Aborted", "See you!", game::ZoneResult::ZR_ABORTED);
+}
+
+void PacketDeliveryGameMode::TriggerLevelCompletedFade(const char* text, const char* sub_text, int exit_zone)
+{
+    m_next_zone = exit_zone;
 
     m_pause_screen->Hide();
 
-    m_big_text_screen->SetText("Delivery Aborted!");
-    m_big_text_screen->SetSubText("See you!");
+    m_big_text_screen->SetText(text);
+    m_big_text_screen->SetSubText(sub_text);
     m_big_text_screen->SetAlpha(0.0f);
-    m_big_text_screen->Show();
 
-    m_fade_timer = 0.0f;
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,    tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::SHOWN,      tweak_values::level_result_duration_s },
+    };
+    const auto callback = [this]() {
+        m_states.TransitionTo(GameModeStates::FADE_OUT);
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
 }
 
 void PacketDeliveryGameMode::LevelCompleted(const mono::UpdateContext& update_context)
-{
-    const float alpha = math::EaseInCubic(m_fade_timer, 1.0f, 0.0f, 1.0f);
-    m_big_text_screen->SetAlpha(alpha);
-
-    m_fade_timer += update_context.delta_s;
-    if(m_fade_timer >= tweak_values::level_result_duration_s)
-        m_states.TransitionTo(GameModeStates::FADE_OUT);
-}
+{ }
 
 void PacketDeliveryGameMode::ToPaused()
 {
@@ -423,15 +398,16 @@ void PacketDeliveryGameMode::ExitPaused()
 
 void PacketDeliveryGameMode::ToFadeOut()
 {
-    m_fade_timer = 0.0f;
+    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
+        { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
+    };
+    const auto callback = [this]() {
+        m_event_handler->DispatchEvent(event::QuitEvent());
+        m_big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+
     m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f);
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
-{
-    const float alpha = math::EaseOutCubic(m_fade_timer, tweak_values::fade_duration_s, 1.0f, -1.0f);
-    m_big_text_screen->SetAlpha(alpha);
-
-    if(m_fade_timer > tweak_values::fade_duration_s)
-        m_event_handler->DispatchEvent(event::QuitEvent());
-    m_fade_timer += update_context.delta_s;
-}
+{ }

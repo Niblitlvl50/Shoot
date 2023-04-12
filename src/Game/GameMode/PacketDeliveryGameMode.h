@@ -42,6 +42,7 @@ namespace game
         void ToTimeout();
         void ToLevelCompleted();
         void ToLevelAborted();
+        void TriggerLevelCompletedFade(const char* text, const char* sub_text, int exit_zone);
         void LevelCompleted(const mono::UpdateContext& update_context);
 
         void ToPaused();
@@ -99,8 +100,6 @@ namespace game
         uint32_t m_show_shop_screen_trigger;
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
-
-        float m_fade_timer;
 
         bool m_level_has_timelimit;
         float m_level_timer;
