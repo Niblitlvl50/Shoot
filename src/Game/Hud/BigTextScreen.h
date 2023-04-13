@@ -6,6 +6,8 @@
 #include "Rendering/RenderFwd.h"
 #include "UIElements.h"
 
+#include <functional>
+
 #define ENUM_BIT(n) (1 << (n))
 
 namespace game
