@@ -16,6 +16,7 @@ namespace game
         PROPS = 16,
         PICKUPS = 32,
         STATIC = 64,
+        PACKAGE = 128,
         CC_ALL = (~(uint32_t)0)
     };
 
@@ -24,18 +25,21 @@ namespace game
         CollisionCategory::PLAYER_BULLET |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
+        CollisionCategory::PACKAGE |
         CollisionCategory::PROPS;
 
     constexpr uint32_t PLAYER_MASK =
         CollisionCategory::PLAYER |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
+        CollisionCategory::PACKAGE |
         CollisionCategory::PROPS |
         CollisionCategory::PICKUPS |
         CollisionCategory::STATIC;
 
     constexpr uint32_t PLAYER_BULLET_MASK =
         CollisionCategory::ENEMY |
+        CollisionCategory::PACKAGE |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
@@ -48,6 +52,14 @@ namespace game
 
     constexpr uint32_t ENEMY_BULLET_MASK =
         CollisionCategory::PLAYER |
+        CollisionCategory::PACKAGE |
+        CollisionCategory::PROPS |
+        CollisionCategory::STATIC;
+
+    constexpr uint32_t PACKAGE_MASK = 
+        CollisionCategory::PLAYER |
+        CollisionCategory::PLAYER_BULLET |
+        CollisionCategory::ENEMY |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
@@ -56,12 +68,12 @@ namespace game
         CollisionCategory::PLAYER_BULLET |
         CollisionCategory::ENEMY |
         CollisionCategory::ENEMY_BULLET |
+        CollisionCategory::PACKAGE |
         CollisionCategory::PROPS |
         CollisionCategory::STATIC;
 
     constexpr uint32_t PICKUPS_MASK =
         CollisionCategory::PLAYER;
-
 
     struct FactionPair
     {
@@ -78,6 +90,7 @@ namespace game
         { CollisionCategory::PROPS,         PROPS_MASK },
         { CollisionCategory::PICKUPS,       PICKUPS_MASK },
         { CollisionCategory::STATIC,        STATIC_MASK },
+        { CollisionCategory::PACKAGE,       PACKAGE_MASK },
     };
 
     static const std::vector<uint32_t> all_collision_categories = {
@@ -88,6 +101,7 @@ namespace game
         CollisionCategory::PROPS,
         CollisionCategory::PICKUPS,
         CollisionCategory::STATIC,
+        CollisionCategory::PACKAGE,
         //CollisionCategory::ALL,
     };
 
@@ -111,6 +125,8 @@ namespace game
             return "Pickups";
         case CollisionCategory::STATIC:
             return "Static";
+        case CollisionCategory::PACKAGE:
+            return "Package";
         case CollisionCategory::CC_ALL:
             return "All";
         };

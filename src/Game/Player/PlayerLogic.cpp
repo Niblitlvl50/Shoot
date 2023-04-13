@@ -310,8 +310,12 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     const math::Vector fire_position = position + (aim_vector * 0.5f);
     const math::Vector target_fire_position = position + (aim_vector * 100.0f);
 
+    uint32_t collision_mask = PLAYER_BULLET_MASK;
+    if(HoldingPickup())
+        collision_mask &= ~CollisionCategory::PACKAGE;
+
     mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
-    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, PLAYER_BULLET_MASK);
+    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, collision_mask);
     m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : target_fire_position;
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
@@ -518,10 +522,7 @@ void PlayerLogic::Throw(float throw_force)
 
         const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
         for(mono::IShape* shape : shapes)
-        {
-            shape->SetCollisionBit(
-                CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET | CollisionCategory::PROPS);
-        }
+            shape->SetCollisionBit(CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET);
     }
 
     m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
@@ -561,10 +562,7 @@ void PlayerLogic::PickupDrop()
 
             const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
             for(mono::IShape* shape : shapes)
-            {
-                shape->ClearCollisionBit(
-                    CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET | CollisionCategory::PROPS);
-            }
+                shape->ClearCollisionBit(CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET);
 
             m_pickup_mass = pickup_body->GetMass();
             pickup_body->SetMass(0.1f);
