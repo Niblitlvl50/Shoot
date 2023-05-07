@@ -49,12 +49,15 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 3.0f;
     constexpr float fade_duration_s = 1.0f;
+
+    constexpr float spawn_wave_interval_s = 60.0f;
 }
 
 using namespace game;
 
 HordeGameMode::HordeGameMode()
-    : m_wave_index(0)
+    : m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 10.0f)
+    , m_wave_index(0)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &HordeGameMode::ToFadeIn, &HordeGameMode::FadeIn, this),
@@ -295,7 +298,7 @@ void HordeGameMode::SpawnNextWave()
 
     const std::string wave_text = "Wave " + std::to_string(m_wave_index);
     m_big_text_screen->SetText(wave_text.c_str());
-    m_big_text_screen->SetSubText("");
+    m_big_text_screen->SetSubText("Watch Out!");
     m_big_text_screen->SetAlpha(0.0f);
 
     const std::vector<BigTextScreen::FadePattern> fade_pattern = {
@@ -333,21 +336,20 @@ void HordeGameMode::FadeIn(const mono::UpdateContext& update_context)
 { }
 
 void HordeGameMode::ToRunGameMode()
-{}
+{ }
 
 void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
 {
     m_level_timer += update_context.delta_s;
     m_timer_screen->SetSeconds(m_level_timer);
 
-    static float spawn_timer = 0.0f;
-    spawn_timer += update_context.delta_s;
+    m_spawn_wave_timer += update_context.delta_s;
 
-    const bool time_to_spawn_wave = spawn_timer > 10.0f;
+    const bool time_to_spawn_wave = m_spawn_wave_timer > tweak_values::spawn_wave_interval_s;
     if(time_to_spawn_wave)
     {
         SpawnNextWave();
-        spawn_timer = 0.0f;
+        m_spawn_wave_timer = 0.0f;
     }
 }
 

@@ -224,63 +224,20 @@ math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
 
 PackageAuxiliaryDrawer::PackageAuxiliaryDrawer(const mono::TransformSystem* transform_system)
     : m_transform_system(transform_system)
-{
-    m_package_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
-    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
-
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
-}
+{ }
 
 void PackageAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
     if(g_package_info.entity_id == mono::INVALID_ID)
         return;
 
-    const math::Vector package_world_position = m_transform_system->GetWorldPosition(g_package_info.entity_id);
-    const bool is_in_view = renderer.Cull(math::Quad(package_world_position, 0.1f));
-    if(!is_in_view)
-    {
-        const math::Quad viewport = math::ResizeQuad(renderer.GetViewport(), -0.25f);
-
-        const math::Vector top_left = math::TopLeft(viewport);
-        const math::Vector top_right = math::TopRight(viewport);
-        const math::Vector bottom_left = math::BottomLeft(viewport);
-        const math::Vector bottom_right = math::BottomRight(viewport);
-
-        const math::PointOnLineResult results[] = {
-            math::ClosestPointOnLine(top_left, top_right, package_world_position),
-            math::ClosestPointOnLine(top_right, bottom_right, package_world_position),
-            math::ClosestPointOnLine(bottom_right, bottom_left, package_world_position),
-            math::ClosestPointOnLine(bottom_left, top_left, package_world_position),
-        };
-
-        float closest_distance = math::INF;
-        math::Vector closest_point;
-
-        for(const math::PointOnLineResult& result : results)
-        {
-            const float distance = math::DistanceBetween(package_world_position, result.point);
-            if(distance < closest_distance)
-            {
-                closest_distance = distance;
-                closest_point = result.point;
-            }
-        }
-
-        const math::Matrix& transform = math::CreateMatrixWithPosition(closest_point);
-        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-
-        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.275f, 0.275f), 32, mono::Color::BLACK);
-        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 32, mono::Color::GRAY);
-        renderer.DrawSprite(m_package_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
-    }
-
     if(g_package_info.cooldown_fraction > 0.0f)
     {
         const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(g_package_info.entity_id);
+        const bool is_outside_view = (renderer.Cull(world_bb) == mono::CullResult::OUTSIDE_VIEW);
+        if(is_outside_view)
+            return;
+
         const math::Vector bottom_center = math::BottomCenter(world_bb);
 
         const math::Vector left = bottom_center - math::Vector(0.3f, 0.15f);
@@ -296,3 +253,4 @@ math::Quad PackageAuxiliaryDrawer::BoundingBox() const
 {
     return math::InfQuad;
 }
+

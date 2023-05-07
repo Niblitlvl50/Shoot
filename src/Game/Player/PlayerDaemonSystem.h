@@ -82,6 +82,7 @@ namespace game
         mono::EventResult OnRespawnPlayer(const RespawnPlayerEvent& event);
 
         class CameraSystem* m_camera_system;
+        class WorldEntityTrackingSystem* m_entity_tracking_system;
         INetworkPipe* m_remote_connection;
         mono::IEntityManager* m_entity_system;
         mono::SystemContext* m_system_context;

@@ -10,6 +10,7 @@
 #include "Player/PlayerInfo.h"
 
 #include <memory>
+#include <vector>
 
 namespace game
 {
@@ -66,8 +67,5 @@ namespace game
         math::Quad BoundingBox() const override;
 
         const mono::TransformSystem* m_transform_system;
-        mono::ISpritePtr m_package_sprite;
-        mono::SpriteDrawBuffers m_sprite_buffers;
-        std::unique_ptr<mono::IElementBuffer> m_indices;
-    };
+    };  
 }

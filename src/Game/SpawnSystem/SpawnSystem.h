@@ -85,6 +85,7 @@ namespace game
         void ReleaseEntitySpawnPoint(uint32_t entity_id);
         void SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger);
 
+        int GetActiveSpawns(const SpawnPointComponent* spawn_point);
         const std::vector<SpawnEvent>& GetSpawnEvents() const;
 
         const char* Name() const override;

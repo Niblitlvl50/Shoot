@@ -37,7 +37,7 @@ void WorldBoundsDrawer::Draw(mono::IRenderer& renderer) const
             return;
 
         const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(component.id);
-        if(!renderer.Cull(world_bb))
+        if(renderer.Cull(world_bb) == mono::CullResult::OUTSIDE_VIEW)
             return;
 
         BuildBuffers(component);

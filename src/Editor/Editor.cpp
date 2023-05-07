@@ -486,6 +486,11 @@ void Editor::ExportAsIndividualEntities()
         std::string filename = "res/entities/" + std::string(proxy->Name()) + ".entity";
         std::replace(filename.begin(), filename.end(), ' ', '_');
 
+        const auto to_lower = [](unsigned char c) {
+            return std::tolower(c);
+        };
+        std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
+
         game::LevelMetadata metadata;
         editor::WriteComponentEntities(filename, metadata, { proxy });
 
@@ -509,7 +514,12 @@ void Editor::ExportAsEntityCollection()
 
     std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + "_collection.entity";
     std::replace(filename.begin(), filename.end(), ' ', '_');
-    
+
+    const auto to_lower = [](unsigned char c) {
+        return std::tolower(c);
+    };
+    std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
+
     game::LevelMetadata metadata;
     editor::WriteComponentEntities(filename, metadata, proxies);
     editor::AddNewEntity(filename.c_str());

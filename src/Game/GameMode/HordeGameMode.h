@@ -101,6 +101,7 @@ namespace game
         uint32_t m_package_entity_id;
 
         float m_level_timer;
+        float m_spawn_wave_timer;
         int m_wave_index;
     };
 }

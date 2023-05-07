@@ -32,11 +32,11 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     const std::vector<byte> file_data = file::FileReadAll("res/configs/spawn_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    for(const auto& spawn_props : json["spawn_definitions"])
+    for(const auto& spawn_definition : json["spawn_definitions"])
     {
         SpawnDefinition spawn_def;
-        spawn_def.value = spawn_props["value"];
-        spawn_def.entity_file = spawn_props["entity"];
+        spawn_def.value = spawn_definition["value"];
+        spawn_def.entity_file = spawn_definition["entity"];
         m_spawn_definitions.push_back(spawn_def);
     }
 
@@ -158,6 +158,11 @@ void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string&
     }
 }
 
+int SpawnSystem::GetActiveSpawns(const SpawnPointComponent* spawn_point)
+{
+    return spawn_point->active_spawns.size();
+}
+
 const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
 {
     return m_spawn_events;
@@ -187,6 +192,8 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(spawn_point.counter_ms < spawn_point.interval_ms)
             return;
 
+        spawn_point.counter_ms = 0;
+
         const float random_length = mono::Random(0.0f, spawn_point.radius);
         const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
 
@@ -203,10 +210,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         spawn_event.transform = world_transform;
         spawn_event.timestamp_to_spawn = update_context.timestamp + spawn_delay_time_ms;
         m_spawn_events.push_back(spawn_event);
-
-        spawn_point.counter_ms = 0;
     };
-
     m_spawn_points.ForEach(collect_spawn_points);
 
     for(const EntitySpawnPointComponent* spawn_point : m_active_entity_spawn_points)
@@ -242,7 +246,6 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(spawn_definition.entity_file.empty())
         {
             // From spawn_score, lookup some entities to spawn. 
-            //spawn_point.spawn_score;
 
             struct FindByValue
             {
@@ -250,13 +253,16 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
                 bool operator() (int i, const SpawnDefinition& spawn_def) const { return i < spawn_def.value; }
             };
 
-            const auto pair_it = mono::equal_range(m_spawn_definitions.begin(), m_spawn_definitions.end(), 1, FindByValue());
+            const auto pair_it = mono::equal_range(
+                m_spawn_definitions.begin(), m_spawn_definitions.end(), spawn_event.spawn_score, FindByValue());
 
             const uint32_t offset_from_start = std::distance(m_spawn_definitions.begin(), pair_it.first);
             const uint32_t range = std::distance(pair_it.first, pair_it.second);
-            const uint32_t spawn_def_index = mono::RandomInt(0, range - 1) + offset_from_start;
+            const uint32_t spawn_def_index = mono::RandomInt(0, std::max(0, int(range) - 1)) + offset_from_start;
 
-            spawn_definition = m_spawn_definitions[spawn_def_index];
+            const uint32_t clamped_spawn_def_index = std::clamp(spawn_def_index, 0u, uint32_t(m_spawn_definitions.size() -1));
+
+            spawn_definition = m_spawn_definitions[clamped_spawn_def_index];
         }
 
         mono::Entity spawned_entity = m_entity_manager->CreateEntity(spawn_definition.entity_file.c_str());

@@ -33,6 +33,7 @@
 #include "World/RegionSystem.h"
 #include "World/TeleportSystem.h"
 #include "World/WorldBoundsSystem.h"
+#include "World/WorldEntityTrackingSystem.h"
 
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
@@ -90,6 +91,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::UISystem>(input_system, transform_system, camera_system, trigger_system);
     system_context.CreateSystem<game::NavigationSystem>();
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);
+    system_context.CreateSystem<game::WorldEntityTrackingSystem>();
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

@@ -17,6 +17,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Input/InputSystem.h"
+#include "World/WorldEntityTrackingSystem.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/EventFuncFwd.h"
@@ -65,6 +66,7 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
 
     m_camera_system = m_system_context->GetSystem<CameraSystem>();
+    m_entity_tracking_system = m_system_context->GetSystem<WorldEntityTrackingSystem>();
 
     using namespace std::placeholders;
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemonSystem::OnControllerAdded, this, _1);
@@ -162,10 +164,13 @@ uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
     logic_system->AddLogic(package_entity.id, new PackageLogic(package_entity.id, &g_package_info, m_event_handler, m_system_context));
 
+    m_entity_tracking_system->TrackEntity(package_entity.id);
+
     game::g_package_info.entity_id = package_entity.id;
     game::g_package_info.state = PackageState::SPAWNED;
 
-    const mono::ReleaseCallback release_callback = [](uint32_t entity_id) {
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+        m_entity_tracking_system->ForgetEntity(entity_id);
         game::g_package_info.entity_id = mono::INVALID_ID;
         game::g_package_info.state = PackageState::NOT_SPAWNED;
     };
