@@ -34,6 +34,7 @@ namespace tweak_values
     constexpr float attack_distance = 2.0f;
     constexpr float max_attack_distance = 3.5f;
     constexpr float track_to_player_distance = 5.0f;
+    constexpr float loose_interest_distance = 7.0f;
     constexpr int bullets_to_emit = 3;
 }
 
@@ -75,7 +76,7 @@ void FlyingMonsterController::Update(const mono::UpdateContext& update_context)
 
 void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
-    const char* state_string = "Unknown";
+    const char* state_string = nullptr;
 
     switch(m_states.ActiveState())
     {
@@ -98,6 +99,7 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::track_to_player_distance, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::loose_interest_distance, mono::Color::GREEN);
 
     const math::Vector& tracking_position = m_tracking_behaviour->GetTrackingPosition();
     debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
@@ -153,6 +155,13 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
         return;
     }
 
+    const float distance_to_player = math::DistanceBetween(position, player_info->position);
+    if(distance_to_player > tweak_values::loose_interest_distance)
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
 
     const math::Vector delta = position - player_info->position;
@@ -162,7 +171,6 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
     else
         sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const float distance_to_player = math::DistanceBetween(position, player_info->position);
     if(distance_to_player < tweak_values::attack_distance)
     {
         const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
