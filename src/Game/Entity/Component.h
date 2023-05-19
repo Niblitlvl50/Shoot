@@ -136,6 +136,8 @@ extern const uint32_t POLYGON_DRAW_LAYER_ATTRIBUTE;
 extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE;
 extern const uint32_t EMITTER_MODE_ATTRIBUTE;
 
+extern const uint32_t ENTITY_TYPE_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -230,6 +232,7 @@ extern const uint32_t UI_ITEM_COMPONENT;
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT;
 extern const uint32_t REGION_COMPONENT;
 extern const uint32_t TELEPORT_PLAYER_COMPONENT;
+extern const uint32_t ENTITY_TRACKING_COMPONENT;
 
 
 struct Component

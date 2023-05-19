@@ -23,8 +23,16 @@ namespace game
 
         const WorldEntityTrackingSystem* m_entity_tracking_system;
         const mono::TransformSystem* m_transform_system;
+
         mono::ISpritePtr m_package_sprite;
-        mono::SpriteDrawBuffers m_sprite_buffers;
+        mono::SpriteDrawBuffers m_package_sprite_buffers;
+
+        mono::ISpritePtr m_boss_sprite;
+        mono::SpriteDrawBuffers m_boss_sprite_buffers;
+
+        mono::ISpritePtr m_loot_sprite;
+        mono::SpriteDrawBuffers m_loot_sprite_buffers;
+
         std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 }

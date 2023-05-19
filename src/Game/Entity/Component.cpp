@@ -134,6 +134,7 @@ const DefaultAttribute default_attributes[] = {
     { "ui_below_item_id",           Variant(mono::INVALID_ID) },
     { "uniform_direction",          Variant(false) },
     { "emitter_mode",               Variant(0) },
+    { "entity_type",                Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -258,7 +259,7 @@ extern const uint32_t UI_ABOVE_ITEM_ID_ATTRIBUTE            = default_attributes
 extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes[100].hash;
 extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE           = default_attributes[101].hash;
 extern const uint32_t EMITTER_MODE_ATTRIBUTE                = default_attributes[102].hash;
-
+extern const uint32_t ENTITY_TYPE_ATTRIBUTE                 = default_attributes[103].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -306,6 +307,7 @@ extern const uint32_t UI_ITEM_COMPONENT             = hash::Hash("ui_item");
 extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_state");
 extern const uint32_t REGION_COMPONENT              = hash::Hash("region");
 extern const uint32_t TELEPORT_PLAYER_COMPONENT     = hash::Hash("teleport_player");
+extern const uint32_t ENTITY_TRACKING_COMPONENT     = hash::Hash("entity_tracker");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -399,6 +401,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "region";
     else if(hash == TELEPORT_PLAYER_COMPONENT)
         return "teleport_player";
+    else if(hash == ENTITY_TRACKING_COMPONENT)
+        return "entity_tracker";
 
     return "Unknown";
 }
@@ -422,6 +426,7 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE } ),
 
     MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),

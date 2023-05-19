@@ -29,6 +29,7 @@
 #include "Physics/IBody.h"
 #include "UI/UISystem.h"
 #include "World/WorldBoundsTypes.h"
+#include "World/WorldEntityTrackingSystem.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "imgui/imgui_internal.h"
@@ -448,6 +449,11 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), game::g_ui_item_state_strings, std::size(game::g_ui_item_state_strings));
+    }
+    else if(attribute.id == ENTITY_TYPE_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_entity_type_strings, std::size(game::g_entity_type_strings));
     }
     else
     {

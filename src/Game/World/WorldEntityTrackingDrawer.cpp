@@ -19,7 +19,13 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     , m_transform_system(transform_system)
 {
     m_package_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
-    m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+    m_package_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+
+    m_boss_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
+    m_boss_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData());
+
+    m_loot_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/bunny.sprite");
+    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -36,10 +42,14 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
     const math::Vector bottom_left = math::BottomLeft(viewport);
     const math::Vector bottom_right = math::BottomRight(viewport);
 
-    const std::vector<uint32_t>& entities_to_track = m_entity_tracking_system->GetTrackedEntities();
-    for(uint32_t entity_id : entities_to_track)
+    const std::vector<EntityTrackingComponent>& entities_to_track = m_entity_tracking_system->GetTrackedEntities();
+    for(const EntityTrackingComponent& tracking_entity : entities_to_track)
     {
-        const math::Vector entity_world_position = m_transform_system->GetWorldPosition(entity_id);
+        const bool is_active_type = m_entity_tracking_system->IsActiveType(tracking_entity.type);
+        if(!is_active_type)
+            continue;
+
+        const math::Vector entity_world_position = m_transform_system->GetWorldPosition(tracking_entity.entity_id);
         const bool is_in_view = (renderer.Cull(math::Quad(entity_world_position, 0.1f)) == mono::CullResult::IN_VIEW);
         if(is_in_view)
             continue;
@@ -69,7 +79,13 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
 
         renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.275f, 0.275f), 32, mono::Color::BLACK);
         renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 32, mono::Color::GRAY);
-        renderer.DrawSprite(m_package_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
+
+        if(tracking_entity.type == game::EntityType::Package)
+            renderer.DrawSprite(m_package_sprite.get(), &m_package_sprite_buffers, m_indices.get(), 0);
+        else if(tracking_entity.type == game::EntityType::Boss)
+            renderer.DrawSprite(m_boss_sprite.get(), &m_boss_sprite_buffers, m_indices.get(), 0);
+        else if(tracking_entity.type == game::EntityType::Loot)
+            renderer.DrawSprite(m_loot_sprite.get(), &m_loot_sprite_buffers, m_indices.get(), 0);
     }
 }
 

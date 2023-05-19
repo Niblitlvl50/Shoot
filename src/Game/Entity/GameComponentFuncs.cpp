@@ -17,6 +17,7 @@
 #include "DialogSystem/DialogSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "World/TeleportSystem.h"
+#include "World/WorldEntityTrackingSystem.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -992,6 +993,31 @@ namespace
 
         return true;
     }
+
+    bool CreateEntityTracker(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::WorldEntityTrackingSystem* tracking_system = context->GetSystem<game::WorldEntityTrackingSystem>();
+        tracking_system->AllocateEntityTracker(entity->id);
+        return true;
+    }
+
+    bool ReleaseEntityTracker(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::WorldEntityTrackingSystem* tracking_system = context->GetSystem<game::WorldEntityTrackingSystem>();
+        tracking_system->ReleaseEntityTracker(entity->id);
+        return true;
+    }
+
+    bool UpdateEntityTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int entity_type;
+        FindAttribute(ENTITY_TYPE_ATTRIBUTE, properties, entity_type, FallbackMode::SET_DEFAULT);
+
+        game::WorldEntityTrackingSystem* tracking_system = context->GetSystem<game::WorldEntityTrackingSystem>();
+        tracking_system->UpdateEntityTracker(entity->id, game::EntityType(entity_type));
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1026,4 +1052,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(WEAPON_LOADOUT_COMPONENT, CreateNothing, DestroyNothing, UpdateWeaponLoadout);
     entity_manager->RegisterComponent(SOUND_COMPONENT, CreateSound, ReleaseSound, UpdateSound);
     entity_manager->RegisterComponent(TELEPORT_PLAYER_COMPONENT, CreateTeleportPlayer, ReleaseTeleportPlayer, UpdateTeleportPlayer);
+    entity_manager->RegisterComponent(ENTITY_TRACKING_COMPONENT, CreateEntityTracker, ReleaseEntityTracker, UpdateEntityTracker);
 }
