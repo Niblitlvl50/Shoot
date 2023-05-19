@@ -65,7 +65,7 @@ jobs:
     - name: Build
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: cmake --build . --config $BUILD_TYPE
+      run: cmake --build . --config $BUILD_TYPE -j8
 
     # Need to add executable to the binary, possibly on Linux as well. 
     - name: OSX, chmod +x

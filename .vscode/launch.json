@@ -2,13 +2,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(lldb) Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "/Users/niklasdamberg/Library/Application Support/itch/apps/interdimensional-delivery-inc/game_exe.app/Contents/MacOS/game_exe",
+            "MIMode": "lldb"
+        },
+        {
             "name": "game",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
 //                "-position", "500", "0",
-//                "-zone", "res/worlds/tiny_arena.components"
+                "-zone", "horde_arena"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

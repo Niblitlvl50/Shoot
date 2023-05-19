@@ -102,6 +102,8 @@
         "stb_vorbis.c": "cpp",
         "__bits": "cpp",
         "compare": "cpp",
-        "memory_resource": "c"
+        "memory_resource": "c",
+        "span": "cpp",
+        "format": "cpp"
     }
 }
