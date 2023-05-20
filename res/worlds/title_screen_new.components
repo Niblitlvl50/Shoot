@@ -292,7 +292,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -2.0
+                                "y": -1.5
                             }
                         },
                         {
@@ -420,7 +420,7 @@
                             "id": 334813343,
                             "name": "ui_below_item_id",
                             "variant_type": 2,
-                            "variant_value": 1169417129
+                            "variant_value": 1895559211
                         }
                     ]
                 }
@@ -564,7 +564,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "start_text"
+                            "variant_value": "quit_text"
                         },
                         {
                             "id": 3647911389,
@@ -712,7 +712,7 @@
                             "id": 2535228779,
                             "name": "ui_above_item_id",
                             "variant_type": 2,
-                            "variant_value": 2091009814
+                            "variant_value": 1895559211
                         },
                         {
                             "id": 334813343,
@@ -724,7 +724,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "start_text",
+            "name": "quit_text",
             "uuid_hash": 1169417129
         },
         {
@@ -881,6 +881,179 @@
             "entity_properties": 0,
             "name": "logo",
             "uuid_hash": 1613066927
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "horde_mode_text"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -2.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3185987134,
+                    "name": "text",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Horde Mode"
+                        },
+                        {
+                            "id": 3902434344,
+                            "name": "font_id",
+                            "variant_type": 1,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.009999999776482582,
+                                "green": 0.8500000238418579,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 2611375224,
+                            "name": "center_flags",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 124392387,
+                            "name": "text_shadow",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.05000000074505806
+                            }
+                        },
+                        {
+                            "id": 1849128429,
+                            "name": "shadow_color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.0,
+                                "green": 0.0,
+                                "red": 0.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 3195760579,
+                    "name": "ui_item",
+                    "properties": [
+                        {
+                            "id": 2058717247,
+                            "name": "ui_group",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 701322281,
+                            "name": "ui_item_state",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "level_completed_alt"
+                        },
+                        {
+                            "id": 4259034899,
+                            "name": "ui_left_item_id",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        },
+                        {
+                            "id": 2453059052,
+                            "name": "ui_right_item_id",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        },
+                        {
+                            "id": 2535228779,
+                            "name": "ui_above_item_id",
+                            "variant_type": 2,
+                            "variant_value": 2091009814
+                        },
+                        {
+                            "id": 334813343,
+                            "name": "ui_below_item_id",
+                            "variant_type": 2,
+                            "variant_value": 1169417129
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "horde_mode_text",
+            "uuid_hash": 1895559211
         }
     ],
     "metadata": {
@@ -934,7 +1107,8 @@
         "time_limit_s": 0,
         "triggers": [
             "level_aborted",
-            "level_completed"
+            "level_completed",
+            "level_completed_alt"
         ],
         "use_custom_package_spawn_position": false
     }

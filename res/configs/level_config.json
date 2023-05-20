@@ -3,58 +3,113 @@
         {
             "name": "title_screen",
             "filename": "res/worlds/title_screen_new.components",
-            "transitions": [ "quit", "setup_game_screen", "quit" ]
+            "transitions": {
+                "gameover": "quit",
+                "completed": "setup_game_screen",
+                "completed_alt": "horde_arena",
+                "aborted": "quit"
+            }
         },
         {
             "name": "options_screen",
             "filename": "res/worlds/options_screen.components",
-            "transitions": [ "title_screen", "title_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "title_screen",
+                "completed": "title_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "setup_game_screen",
             "filename": "res/worlds/setup_game_screen.components",
-            "transitions": [ "title_screen", "tiny_arena", "title_screen" ]
+            "transitions": {
+                "gameover": "title_screen",
+                "completed": "tiny_arena",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "gameover_screen",
             "filename": "res/worlds/game_over.components",
-            "transitions": [ "title_screen", "title_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "title_screen",
+                "completed": "title_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "end_screen",
             "filename": "res/worlds/end_screen.components",
-            "transitions": [ "title_screen", "title_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "title_screen",
+                "completed": "title_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "tiny_arena",
             "filename": "res/worlds/tiny_arena.components",
-            "transitions": [ "gameover_screen", "pickup_arena", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "pickup_arena",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "pickup_arena",
             "filename": "res/worlds/pickup_arena.components",
-            "transitions": [ "gameover_screen", "boss_arena", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "boss_arena",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "boss_arena",
             "filename": "res/worlds/boss_arena.components",
-            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "horde_arena",
             "filename": "res/worlds/horde_arena.components",
-            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
 
         {
             "name": "tiny_alien_arena",
             "filename": "res/worlds/tiny_alien_world.components",
-            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         },
         {
             "name": "empty_arena",
             "filename": "res/worlds/empty_world.components",
-            "transitions": [ "gameover_screen", "end_screen", "title_screen" ]
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
         }
     ],
     "start_level": "title_screen"

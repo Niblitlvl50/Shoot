@@ -4,6 +4,7 @@
 #include "RemoteZone.h"
 #include "SystemTestZone.h"
 
+#include "Engine.h"
 #include "System/Hash.h"
 #include "System/Debug.h"
 #include "System/File.h"
@@ -22,11 +23,29 @@ namespace game
     using IZonePtr = std::unique_ptr<mono::IZone>;
     using LoadFunction = game::IZonePtr(*)(const game::ZoneCreationContext& zone_context);
 
+    struct Level
+    {
+        std::string name;
+        std::string filename;
+        std::string transitions[game::ZoneResult::ZR_COUNT];
+    };
+
+    struct LevelConfig
+    {
+        std::string start_level;
+        std::vector<Level> levels;
+    };
+
     inline void from_json(const nlohmann::json& json, game::Level& level)
     {
         level.name = json["name"];
         level.filename = json["filename"];
-        level.transitions = json["transitions"];
+
+        const nlohmann::json& transitions_json = json["transitions"];
+        level.transitions[game::ZoneResult::ZR_GAME_OVER] = transitions_json["gameover"];
+        level.transitions[game::ZoneResult::ZR_COMPLETED] = transitions_json["completed"];
+        level.transitions[game::ZoneResult::ZR_COMPLETED_ALT] = transitions_json["completed_alt"];
+        level.transitions[game::ZoneResult::ZR_ABORTED] = transitions_json["aborted"];
     }
 
     LevelConfig LoadLevelConfig(const char* level_config_file)
@@ -51,21 +70,17 @@ namespace game
     static const std::string REMOTE_NETWORK_NAME    = "remote_network_zone";
 
     static const std::unordered_map<std::string, LoadFunction> g_zone_load_func = {
-        { "remote_network_zone",    LoadZone<game::RemoteZone>      },
+        { "remote_network_zone",    LoadZone<game::RemoteZone>  },
     };
 }
 
-ZoneManager::ZoneManager(mono::ICamera* camera, const ZoneCreationContext& zone_context)
-    : m_engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler)
-    , m_zone_context(zone_context)
+void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, const char* initial_zone_name)
 {
-    m_level_config = LoadLevelConfig("res/configs/level_config.json");
-}
+    mono::Engine engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler);
+    LevelConfig level_config = LoadLevelConfig("res/configs/level_config.json");
 
-void ZoneManager::Run(const char* initial_zone_name)
-{
     std::string zone_name =
-        (initial_zone_name != nullptr) ? initial_zone_name : m_level_config.start_level;
+        (initial_zone_name != nullptr) ? initial_zone_name : level_config.start_level;
 
     while(true)
     {
@@ -76,23 +91,23 @@ void ZoneManager::Run(const char* initial_zone_name)
             return zone_name == level.name;
         };
 
-        const auto level_it = std::find_if(m_level_config.levels.begin(), m_level_config.levels.end(), find_zone);
-        if(level_it == m_level_config.levels.end())
+        const auto level_it = std::find_if(level_config.levels.begin(), level_config.levels.end(), find_zone);
+        if(level_it == level_config.levels.end())
         {
             System::Log("ZoneManager|Unable to find world with name '%s'", zone_name.c_str());
             break;
         }
 
-        MONO_ASSERT(level_it != m_level_config.levels.end());
+        MONO_ASSERT(level_it != level_config.levels.end());
 
-        m_zone_context.zone_filename = level_it->filename.c_str();
+        zone_context.zone_filename = level_it->filename.c_str();
 
         const auto load_func_it = g_zone_load_func.find(zone_name);
         const LoadFunction load_func =
             (load_func_it != g_zone_load_func.end()) ? load_func_it->second : LoadZone<SystemTestZone>;
 
-        game::IZonePtr zone = load_func(m_zone_context);
-        const int zone_run_result = m_engine.Run(zone.get());
+        game::IZonePtr zone = load_func(zone_context);
+        const int zone_run_result = engine.Run(zone.get());
         MONO_ASSERT(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
 
         zone_name = level_it->transitions[zone_run_result];

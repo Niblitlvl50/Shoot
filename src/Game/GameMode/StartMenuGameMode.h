@@ -21,6 +21,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void Completed();
+        void CompletedAlt();
         void GameOver();
         void Aborted();
 
@@ -34,6 +35,7 @@ namespace game
         mono::InputContext* m_input_context;
 
         uint32_t m_level_completed_trigger;
+        uint32_t m_level_completed_alt_trigger;
         uint32_t m_level_gameover_trigger;
         uint32_t m_level_aborted_trigger;
         int m_game_mode_result;

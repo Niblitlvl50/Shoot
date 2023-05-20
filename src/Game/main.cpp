@@ -152,7 +152,7 @@ int main(int argc, char* argv[])
         zone_context.system_context = &system_context;
         zone_context.window = window.get();
 
-        game::ZoneManager(&camera, zone_context).Run(options.start_zone);
+        game::ZoneManager::Run(&camera, zone_context, options.start_zone);
 
         system_context.DestroySystems();
 
