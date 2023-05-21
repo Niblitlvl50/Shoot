@@ -5726,6 +5726,18 @@
                     ]
                 },
                 {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -11215,6 +11227,18 @@
                     ]
                 },
                 {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -12823,7 +12847,7 @@
                             "id": 3614677686,
                             "name": "faction_picker",
                             "variant_type": 2,
-                            "variant_value": 16
+                            "variant_value": 128
                         },
                         {
                             "id": 2561222109,
@@ -17110,6 +17134,18 @@
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 2
                         }
                     ]
                 },
