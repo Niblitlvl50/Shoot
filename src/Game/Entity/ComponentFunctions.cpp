@@ -2,6 +2,7 @@
 #include "ComponentFunctions.h"
 #include "System/System.h"
 #include "System/Hash.h"
+#include "Util/StringFunctions.h"
 
 #include "SystemContext.h"
 #include "Particle/ParticleSystem.h"
@@ -62,6 +63,35 @@ namespace
         }
 
         transform_system->SetTransformState(entity->id, mono::TransformState::CLIENT);
+
+        return true;
+    }
+
+    bool CreateTag(mono::Entity* entity, mono::SystemContext* context)
+    {
+        // No need to do anything, transform system is just a passive system.
+        return true;
+    }
+
+    bool ReleaseTag(mono::Entity* entity, mono::SystemContext* context)
+    {
+        //mono::IEntityManager* entity_system = context->GetSystem<mono::IEntityManager>();
+        return true;
+    }
+    
+    bool UpdateTag(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string tags;
+        FindAttribute(TAG_ATTRIBUTE, properties, tags, FallbackMode::SET_DEFAULT);
+
+        std::vector<uint32_t> tag_list;
+        
+        const std::vector<std::string>& tokens = mono::SplitString(tags, ' ');
+        for(const std::string& token : tokens)
+            tag_list.push_back(hash::Hash(token.c_str()));
+
+        mono::IEntityManager* entity_system = context->GetSystem<mono::IEntityManager>();
+        entity_system->SetEntityTags(entity->id, tag_list);
 
         return true;
     }
@@ -521,6 +551,7 @@ namespace
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform);
+    entity_manager->RegisterComponent(TAG_COMPONENT, CreateTag, ReleaseTag, UpdateTag);
     entity_manager->RegisterComponent(LAYER_COMPONENT, CreateLayer, ReleaseLayer, UpdateLayer);
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite, EnableSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);

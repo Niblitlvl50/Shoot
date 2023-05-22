@@ -23509,6 +23509,234 @@
             "entity_properties": 0,
             "name": "leaves_small_1",
             "uuid_hash": 1933352655
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "loot"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 11.75,
+                                "y": 2.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2516003219,
+                    "name": "tag",
+                    "properties": [
+                        {
+                            "id": 2516003219,
+                            "name": "tag",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "loot_point",
+            "uuid_hash": 826338478
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "loot"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 11.75,
+                                "y": 15.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2516003219,
+                    "name": "tag",
+                    "properties": [
+                        {
+                            "id": 2516003219,
+                            "name": "tag",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "loot_point",
+            "uuid_hash": 1143783947
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "loot"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 12.75,
+                                "y": 9.625
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2516003219,
+                    "name": "tag",
+                    "properties": [
+                        {
+                            "id": 2516003219,
+                            "name": "tag",
+                            "variant_type": 6,
+                            "variant_value": "loot_point"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "loot_point",
+            "uuid_hash": 4090713954
         }
     ],
     "metadata": {

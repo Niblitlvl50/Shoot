@@ -37,7 +37,7 @@ const DefaultAttribute default_attributes[] = {
     { "radius",                     Variant(1.0f) },
     { "size",                       Variant(math::Vector(1.0f, 1.0f)) },
     { "time_stamp",                 Variant(1000) },
-    { "spawn_tag",                  Variant(std::string()) },
+    { "tag",                        Variant(std::string()) },
     { "enable",                     Variant(true) },
     { "trigger_radius",             Variant(1.0f) },
     { "color",                      Variant(mono::Color::WHITE) },
@@ -143,7 +143,7 @@ extern const uint32_t SCALE_ATTRIBUTE               = default_attributes[2].hash
 extern const uint32_t RADIUS_ATTRIBUTE              = default_attributes[3].hash;
 extern const uint32_t SIZE_ATTRIBUTE                = default_attributes[4].hash;
 extern const uint32_t TIME_STAMP_ATTRIBUTE          = default_attributes[5].hash;
-extern const uint32_t SPAWN_TAG_ATTRIBUTE           = default_attributes[6].hash;
+extern const uint32_t TAG_ATTRIBUTE                 = default_attributes[6].hash;
 extern const uint32_t ENABLE_ATTRIBUTE              = default_attributes[7].hash;
 extern const uint32_t TRIGGER_RADIUS_ATTRIBUTE      = default_attributes[8].hash;
 extern const uint32_t COLOR_ATTRIBUTE               = default_attributes[9].hash;
@@ -266,6 +266,7 @@ extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
 extern const uint32_t TRANSFORM_COMPONENT           = hash::Hash("transform");
 extern const uint32_t LAYER_COMPONENT               = hash::Hash("layer");
+extern const uint32_t TAG_COMPONENT                 = hash::Hash("tag");
 extern const uint32_t SPRITE_COMPONENT              = hash::Hash("sprite");
 extern const uint32_t TEXT_COMPONENT                = hash::Hash("text");
 extern const uint32_t PHYSICS_COMPONENT             = hash::Hash("physics");
@@ -319,6 +320,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "transform";
     else if(hash == LAYER_COMPONENT)
         return "layer";
+    else if(hash == TAG_COMPONENT)
+        return "tag";
     else if(hash == SPRITE_COMPONENT)
         return "sprite";
     else if(hash == TEXT_COMPONENT)
@@ -420,6 +423,7 @@ Component MakeComponent(
 const Component default_components[] = {
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, SCALE_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
+    MakeComponent(TAG_COMPONENT,                NULL_COMPONENT,             false,  "general",      { TAG_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { TRIGGER_NAME_ATTRIBUTE, INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE , DRAW_NAME_ATTRIBUTE }),
