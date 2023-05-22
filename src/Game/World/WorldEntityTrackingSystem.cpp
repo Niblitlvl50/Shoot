@@ -5,13 +5,17 @@
 using namespace game;
 
 WorldEntityTrackingSystem::WorldEntityTrackingSystem()
-    : m_type_filter(0)
-{
-}
+    : m_type_filter((uint32_t)EntityType::All)
+{ }
 
 const char* WorldEntityTrackingSystem::Name() const
 {
     return "WorldEntityTrackingSystem";
+}
+
+void WorldEntityTrackingSystem::Begin()
+{
+    ClearEntityTypeFilter();
 }
 
 void WorldEntityTrackingSystem::Update(const mono::UpdateContext& update_context)
@@ -57,22 +61,24 @@ void WorldEntityTrackingSystem::ForgetEntity(uint32_t entity_id)
     mono::remove_if(m_entities_to_track, remove_on_entity_id);
 }
 
-void WorldEntityTrackingSystem::SetEntityTypeFilter(uint32_t filter_type)
+void WorldEntityTrackingSystem::SetEntityTypeFilter(EntityType filter_type)
 {
-    // this should just add, not overwrite.
-    m_type_filter = filter_type;
+    m_type_filter |= (uint32_t)filter_type;
+}
+
+void WorldEntityTrackingSystem::ClearProperty(EntityType type)
+{
+    m_type_filter &= ~(uint32_t)type;
 }
 
 void WorldEntityTrackingSystem::ClearEntityTypeFilter()
 {
-    // this should be all, not none
-    m_type_filter = 0;
+    m_type_filter = (uint32_t)EntityType::All;
 }
 
 bool WorldEntityTrackingSystem::IsActiveType(EntityType type) const
 {
-    return true;
-    //return (m_type_filter & ((uint32_t)type));
+    return (m_type_filter & (uint32_t)type);
 }
 
 const std::vector<EntityTrackingComponent>& WorldEntityTrackingSystem::GetTrackedEntities() const

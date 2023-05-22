@@ -16,6 +16,7 @@ namespace game
         Package = ENUM_BIT(0),
         Boss    = ENUM_BIT(1),
         Loot    = ENUM_BIT(2),
+        All     = (~(uint32_t)0),
     };
 
     constexpr const char* g_entity_type_strings[] = {
@@ -38,6 +39,7 @@ namespace game
         WorldEntityTrackingSystem();
 
         const char* Name() const override;
+        void Begin() override;
         void Update(const mono::UpdateContext& update_context) override;
 
         void AllocateEntityTracker(uint32_t entity_id);
@@ -47,7 +49,8 @@ namespace game
         void TrackEntity(uint32_t entity_id, EntityType type);
         void ForgetEntity(uint32_t entity_id);
 
-        void SetEntityTypeFilter(uint32_t filter_type);
+        void SetEntityTypeFilter(EntityType type);
+        void ClearProperty(EntityType type);
         void ClearEntityTypeFilter();
         bool IsActiveType(EntityType type) const;
 
