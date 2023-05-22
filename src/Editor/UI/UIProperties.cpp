@@ -141,12 +141,12 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     if(attribute.id == PICKUP_TYPE_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), game::pickup_items, std::size(game::pickup_items));
+            attribute_name, &std::get<int>(attribute.value), game::g_pickup_items, std::size(game::g_pickup_items));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), game::entity_logic_strings, std::size(game::entity_logic_strings));
+            attribute_name, &std::get<int>(attribute.value), game::g_entity_logic_strings, std::size(game::g_entity_logic_strings));
     }
     else if(attribute.id == BODY_TYPE_ATTRIBUTE)
     {

@@ -13,7 +13,7 @@ namespace game
         COINS,
     };
 
-    constexpr const char* pickup_items[] = {
+    constexpr const char* g_pickup_items[] = {
         "Ammo",
         "Health",
         "Second Wind",
@@ -22,6 +22,6 @@ namespace game
 
     inline const char* PickupTypeToString(PickupType pickup_type)
     {
-        return pickup_items[static_cast<int>(pickup_type)];
+        return g_pickup_items[static_cast<int>(pickup_type)];
     }
 }

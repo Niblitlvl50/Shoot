@@ -20,7 +20,7 @@ namespace game
         IMP,
     };
 
-    constexpr const char* entity_logic_strings[] = {
+    constexpr const char* g_entity_logic_strings[] = {
         "Bat",
         "Goblin Fire",
         "Eye Monster",
@@ -36,6 +36,6 @@ namespace game
 
     inline const char* EntityLogicToString(EntityLogicType logic_type)
     {
-        return entity_logic_strings[static_cast<uint32_t>(logic_type)];
+        return g_entity_logic_strings[static_cast<uint32_t>(logic_type)];
     }
 }
