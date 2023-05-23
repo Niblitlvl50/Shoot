@@ -11,6 +11,7 @@ namespace game
         HEALTH,
         SECOND_WIND,
         COINS,
+        LOOT_BOX,
     };
 
     constexpr const char* g_pickup_items[] = {
@@ -18,6 +19,7 @@ namespace game
         "Health",
         "Second Wind",
         "Coins",
+        "Loot Box",
     };
 
     inline const char* PickupTypeToString(PickupType pickup_type)

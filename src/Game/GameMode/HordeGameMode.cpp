@@ -16,6 +16,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "WorldFile.h"
+#include "World/WorldEntityTrackingSystem.h"
 #include "Zones/ZoneFlow.h"
 
 
@@ -31,6 +32,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
 #include "Zone/IZone.h"
 
 #include "System/Hash.h"
@@ -58,6 +60,7 @@ using namespace game;
 HordeGameMode::HordeGameMode()
     : m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 10.0f)
     , m_wave_index(0)
+    , m_loot_box_index(0)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &HordeGameMode::ToFadeIn, &HordeGameMode::FadeIn, this),
@@ -88,6 +91,12 @@ void HordeGameMode::Begin(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
+
+    const uint32_t loot_tag = hash::Hash("loot_point");
+    m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
+
+    mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
+    std::shuffle(m_loot_box_entities.begin(), m_loot_box_entities.end(), random_bit_generator);
 
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
@@ -315,6 +324,19 @@ void HordeGameMode::SpawnNextWave()
     // Spawn next wave here...
 }
 
+void HordeGameMode::SpawnLootBoxes()
+{
+    const uint32_t index_to_use = m_loot_box_index % m_loot_box_entities.size();
+    const uint32_t entity_id = m_loot_box_entities[index_to_use];
+    const math::Vector world_position = m_transform_system->GetWorldPosition(entity_id);
+    const mono::Entity spawned_entity = m_entity_manager->CreateEntity("res/entities/loot_box.entity");
+
+    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
+    m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+
+    m_loot_box_index++;
+}
+
 void HordeGameMode::ToFadeIn()
 {
     const std::vector<BigTextScreen::FadePattern> fade_pattern = {
@@ -349,6 +371,7 @@ void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
     if(time_to_spawn_wave)
     {
         SpawnNextWave();
+        SpawnLootBoxes();
         m_spawn_wave_timer = 0.0f;
     }
 }

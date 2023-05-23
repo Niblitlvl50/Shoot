@@ -10,6 +10,7 @@
 #include "StateMachine.h"
 
 #include <memory>
+#include <vector>
 
 namespace game
 {
@@ -33,6 +34,7 @@ namespace game
         void OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position);
         void SpawnPackage(const math::Vector& position);
         void SpawnNextWave();
+        void SpawnLootBoxes();
 
         void ToFadeIn();
         void FadeIn(const mono::UpdateContext& update_context);
@@ -103,5 +105,8 @@ namespace game
         float m_level_timer;
         float m_spawn_wave_timer;
         int m_wave_index;
+
+        uint32_t m_loot_box_index;
+        std::vector<uint32_t> m_loot_box_entities;
     };
 }

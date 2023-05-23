@@ -484,12 +484,13 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         m_shield_cooldown = tweak_values::shield_cooldown_s;
         break;
     }
-
     case PickupType::COINS:
     {
         m_player_info->persistent_data.chips += amount;
         break;
     }
+    case PickupType::LOOT_BOX:
+        break;
     };
 }
 
