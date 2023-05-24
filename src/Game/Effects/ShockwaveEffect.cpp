@@ -14,7 +14,7 @@ ShockwaveEffect::ShockwaveEffect(
     , m_entity_system(entity_system)
     , m_emitter(nullptr)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("res/entities/effect_shockwave.entity");
+    mono::Entity particle_entity = m_entity_system->SpawnEntity("res/entities/effect_shockwave.entity");
 
     std::vector<mono::ParticleEmitterComponent*> emitters = particle_system->GetAttachedEmitters(particle_entity.id);
     if(!emitters.empty())

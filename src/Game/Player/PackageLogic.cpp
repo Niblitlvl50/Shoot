@@ -64,7 +64,7 @@ PackageLogic::PackageLogic(
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     body->AddCollisionHandler(this);
 
-    mono::Entity spawned_entity = m_entity_manager->CreateEntity("res/entities/package_shield.entity");
+    mono::Entity spawned_entity = m_entity_manager->SpawnEntity("res/entities/package_shield.entity");
     m_spawned_shield_id = spawned_entity.id;
 
     m_transform_system->ChildTransform(m_spawned_shield_id, m_entity_id);

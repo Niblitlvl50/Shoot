@@ -70,7 +70,7 @@ WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vect
             accuracy_diff = math::VectorFromAngle(radians) * mono::Random(0.0f, m_config.target_accuracy);
         }
 
-        mono::Entity thrown_entity = m_entity_manager->CreateEntity(m_config.thrown_entity);
+        mono::Entity thrown_entity = m_entity_manager->SpawnEntity(m_config.thrown_entity);
 
         ThrowableLogic* throwable_logic = new ThrowableLogic(
             thrown_entity.id,

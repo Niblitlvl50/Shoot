@@ -59,7 +59,7 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
 
-    const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
+    const mono::Entity spawned_weapon = m_entity_system->SpawnEntity("res/entities/player_weapon.entity");
     m_transform_system->ChildTransform(spawned_weapon.id, m_entity_id);
     m_weapon_entity = spawned_weapon.id;
 

@@ -221,7 +221,7 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_
         const float zero_to_tau = mono::Random(0.0f, math::TAU());
         const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
 
-        mono::Entity spawned_entity = m_entity_manager->CreateEntity(pickup_definition.entity_file.c_str());
+        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
 
         math::Matrix transform = m_transform_system->GetWorld(id);
         math::Translate(transform, random_offset);

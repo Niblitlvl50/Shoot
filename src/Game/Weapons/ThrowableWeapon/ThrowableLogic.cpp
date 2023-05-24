@@ -82,7 +82,7 @@ void ThrowableLogic::ToSpawning()
     const math::Vector position = m_start_position + m_move_delta;
     m_smoke_effect->EmitSmokeAt(position);
 
-    mono::Entity spawned_entity = m_entity_manager->CreateEntity(m_spawned_entity);
+    mono::Entity spawned_entity = m_entity_manager->SpawnEntity(m_spawned_entity);
     math::Matrix& spawned_transform = m_transform_system->GetTransform(spawned_entity.id);
     math::Position(spawned_transform, position);
 

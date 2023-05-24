@@ -265,7 +265,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
             spawn_definition = m_spawn_definitions[clamped_spawn_def_index];
         }
 
-        mono::Entity spawned_entity = m_entity_manager->CreateEntity(spawn_definition.entity_file.c_str());
+        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(spawn_definition.entity_file.c_str());
 
         // This spawn might be from a entity spawn point.
         const bool has_spawn_point_component = m_spawn_points.IsActive(spawn_event.spawner_id);

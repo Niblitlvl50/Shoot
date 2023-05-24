@@ -254,7 +254,7 @@ void HordeGameMode::SetupEvents()
 
 void HordeGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
-    const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
+    const uint32_t portal_entity_id = m_entity_manager->SpawnEntity("res/entities/portal_green.entity").id;
     m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
     m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
 
@@ -329,7 +329,7 @@ void HordeGameMode::SpawnLootBoxes()
     const uint32_t index_to_use = m_loot_box_index % m_loot_box_entities.size();
     const uint32_t entity_id = m_loot_box_entities[index_to_use];
     const math::Vector world_position = m_transform_system->GetWorldPosition(entity_id);
-    const mono::Entity spawned_entity = m_entity_manager->CreateEntity("res/entities/loot_box.entity");
+    const mono::Entity spawned_entity = m_entity_manager->SpawnEntity("res/entities/loot_box.entity");
 
     m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
     m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);

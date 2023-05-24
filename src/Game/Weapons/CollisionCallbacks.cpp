@@ -51,7 +51,7 @@ uint32_t game::SpawnEntityWithAnimation(
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system)
 {
-    const mono::Entity spawned_entity = entity_manager->CreateEntity(entity_file);
+    const mono::Entity spawned_entity = entity_manager->SpawnEntity(entity_file);
     math::Matrix& entity_transform = transform_system->GetTransform(spawned_entity.id);
     entity_transform = transform_system->GetWorld(position_at_transform_id);
 

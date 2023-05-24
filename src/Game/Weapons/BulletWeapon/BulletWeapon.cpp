@@ -134,7 +134,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
             math::Normalized(modified_fire_direction) * m_weapon_config.bullet_velocity * velocity_multiplier;
 
         const float bullet_direction = math::AngleFromVector(modified_fire_direction);
-        mono::Entity bullet_entity = m_entity_manager->CreateEntity(m_bullet_config.entity_file.c_str());
+        mono::Entity bullet_entity = m_entity_manager->SpawnEntity(m_bullet_config.entity_file.c_str());
 
         const math::Vector perp_offset =
             perpendicular_fire_direction * mono::Random(-m_weapon_config.bullet_offset, m_weapon_config.bullet_offset);

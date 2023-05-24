@@ -151,7 +151,7 @@ void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, cons
 uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
 {
     const std::string& package_entity_file = m_package_entities.front();
-    const mono::Entity package_entity = m_entity_system->CreateEntity(package_entity_file.c_str());
+    const mono::Entity package_entity = m_entity_system->SpawnEntity(package_entity_file.c_str());
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(spawn_position));
@@ -254,7 +254,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 {
     const uint32_t player_index = game::FindPlayerIndex(player_info);
     const std::string player_entity_file = m_player_entities[player_index];
-    mono::Entity player_entity = entity_system->CreateEntity(player_entity_file.c_str());
+    mono::Entity player_entity = entity_system->SpawnEntity(player_entity_file.c_str());
 
     System::Log(
         "PlayerDaemonSystem|Spawned player with index '%u' and id '%u' at %.2f %.2f.",
@@ -294,7 +294,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
     uint32_t owner_entity_id, mono::IEntityManager* entity_system, mono::SystemContext* system_context)
 {
     const std::string familiar_entity_file = m_familiar_entities.front();
-    mono::Entity player_familiar_entity = entity_system->CreateEntity(familiar_entity_file.c_str());
+    mono::Entity player_familiar_entity = entity_system->SpawnEntity(familiar_entity_file.c_str());
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
     entity_system->AddComponent(player_familiar_entity.id, BEHAVIOUR_COMPONENT);

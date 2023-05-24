@@ -117,7 +117,7 @@ PlayerLogic::PlayerLogic(
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
     m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);
 
-    const mono::Entity spawned_weapon = m_entity_system->CreateEntity("res/entities/player_weapon.entity");
+    const mono::Entity spawned_weapon = m_entity_system->SpawnEntity("res/entities/player_weapon.entity");
     m_weapon_entity = spawned_weapon.id;
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
@@ -382,7 +382,7 @@ void PlayerLogic::ToBlink()
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
 
-    const mono::Entity decoy_entity = m_entity_system->CreateEntity("res/entities/wooden_log.entity");
+    const mono::Entity decoy_entity = m_entity_system->SpawnEntity("res/entities/wooden_log.entity");
     m_entity_system->AddComponent(decoy_entity.id, BEHAVIOUR_COMPONENT);
     DecoyLogic* decoy_logic = new DecoyLogic(decoy_entity.id, m_entity_system);
     m_logic_system->AddLogic(decoy_entity.id, decoy_logic);

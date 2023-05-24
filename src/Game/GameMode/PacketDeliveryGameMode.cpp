@@ -256,7 +256,7 @@ void PacketDeliveryGameMode::Update(const mono::UpdateContext& update_context)
 
 void PacketDeliveryGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
-    const uint32_t portal_entity_id = m_entity_manager->CreateEntity("res/entities/portal_green.entity").id;
+    const uint32_t portal_entity_id = m_entity_manager->SpawnEntity("res/entities/portal_green.entity").id;
     m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
     m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
 
