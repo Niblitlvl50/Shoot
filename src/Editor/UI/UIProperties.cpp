@@ -62,9 +62,9 @@ std::string PrettifyString(const std::string& text)
 
 bool editor::DrawStringProperty(const char* name, std::string& value, int imgui_flags)
 {
-    char text_buffer[VariantStringMaxLength] = { 0 };
-    std::snprintf(text_buffer, VariantStringMaxLength, "%s", value.c_str());
-    if(ImGui::InputText(name, text_buffer, VariantStringMaxLength, imgui_flags))
+    char text_buffer[1024] = { 0 };
+    std::snprintf(text_buffer, std::size(text_buffer), "%s", value.c_str());
+    if(ImGui::InputText(name, text_buffer, std::size(text_buffer), imgui_flags))
     {
         value = text_buffer;
         return true;
@@ -126,6 +126,10 @@ bool DrawGenericProperty(const char* text, Variant& value)
         bool operator()(mono::Color::Gradient<4>& gradient)
         {
             return editor::DrawGradientProperty(m_property_text, gradient);
+        }
+        bool operator()(mono::Event& event)
+        {
+            return editor::DrawEventProperty(m_property_text, event);
         }
     };
 
@@ -892,6 +896,54 @@ bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gr
     ImGui::Spacing();
 
     return changed_0 || gradient_color_changed;
+}
+
+bool editor::DrawEventProperty(const char* name, mono::Event& event)
+{
+    const ImGuiStyle& style = ImGui::GetStyle();
+    const float item_width = ImGui::CalcItemWidth();
+    const float item_spacing = style.ItemInnerSpacing.x - 1.0f;
+    const float button_item_width = (item_width / 3.0f) - item_spacing + (item_spacing * 0.5f);
+
+    ImGui::Spacing();
+
+    ImGui::BeginGroup();
+    ImGui::TextDisabled("%s", "Event");
+
+    const bool event_string_changed = editor::DrawStringProperty(name, event.text);
+
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+
+    const auto draw_button = [&](const char* name, bool selected, bool same_line) {
+        if(selected)
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(1.0f, 0.6f, 0.6f));
+
+        const bool global_picked = ImGui::Button(name, ImVec2(button_item_width, 0.0f));
+        if(selected)
+            ImGui::PopStyleColor();
+
+        if(same_line)
+            ImGui::SameLine(0.0f, item_spacing);
+
+        return global_picked;
+    };
+
+    const bool global_picked = draw_button("Global",    event.type == mono::EventType::Global,  true);
+    if(global_picked)
+        event.type = mono::EventType::Global;
+
+    const bool local_picked = draw_button("Local",      event.type == mono::EventType::Local,   true);
+    if(local_picked)
+        event.type = mono::EventType::Local;
+
+    const bool entity_picked = draw_button("Entity",    event.type == mono::EventType::Entity,  false);
+    if(entity_picked)
+        event.type = mono::EventType::Entity;
+
+    ImGui::PopStyleVar();
+    ImGui::EndGroup();
+
+    return event_string_changed || global_picked || local_picked || entity_picked;
 }
 
 bool editor::DrawEntityReferenceProperty(

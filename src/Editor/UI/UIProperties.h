@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Rendering/Color.h"
@@ -46,6 +47,7 @@ namespace editor
     bool DrawPolygonProperty(const char* name, std::vector<math::Vector>& polygon);
     bool DrawValueSpreadProperty(const char* name, math::ValueSpread& value_spread);
     bool DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gradient);
+    bool DrawEventProperty(const char* name, mono::Event& event);
 
     using EnablePickCallback = std::function<void (uint32_t component_hash, uint32_t* target)>;
     using SelectReferenceCallback = std::function<void (uint32_t reference)>;
