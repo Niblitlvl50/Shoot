@@ -73,14 +73,16 @@ bool editor::DrawStringProperty(const char* name, std::string& value, int imgui_
     return false;
 }
 
-bool DrawGenericProperty(const char* text, Variant& value)
+bool DrawGenericProperty(const char* text, Variant& value, const editor::UIContext& ui_context)
 {
     struct DrawVariantsVisitor
     {
         const char* m_property_text;
+        const editor::UIContext& m_ui_context;
 
-        DrawVariantsVisitor(const char* property_text)
+        DrawVariantsVisitor(const char* property_text, const editor::UIContext& ui_context)
             : m_property_text(property_text)
+            , m_ui_context(ui_context)
         { }
         bool operator()(bool& value)
         {
@@ -129,11 +131,11 @@ bool DrawGenericProperty(const char* text, Variant& value)
         }
         bool operator()(mono::Event& event)
         {
-            return editor::DrawEventProperty(m_property_text, event);
+            return editor::DrawEventProperty(m_property_text, event, m_ui_context);
         }
     };
 
-    DrawVariantsVisitor visitor(text);
+    DrawVariantsVisitor visitor(text, ui_context);
     return std::visit(visitor, value);
 }
 
@@ -461,7 +463,7 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     }
     else
     {
-        return DrawGenericProperty(attribute_name, attribute.value);
+        return DrawGenericProperty(attribute_name, attribute.value, ui_context);
     }
 }
 
@@ -898,7 +900,7 @@ bool editor::DrawGradientProperty(const char* name, mono::Color::Gradient<4>& gr
     return changed_0 || gradient_color_changed;
 }
 
-bool editor::DrawEventProperty(const char* name, mono::Event& event)
+bool editor::DrawEventProperty(const char* name, mono::Event& event, const UIContext& ui_context)
 {
     const ImGuiStyle& style = ImGui::GetStyle();
     const float item_width = ImGui::CalcItemWidth();
@@ -910,13 +912,23 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event)
     ImGui::BeginGroup();
     ImGui::TextDisabled("%s", "Event");
 
-    const bool event_string_changed = editor::DrawStringProperty(name, event.text);
+
+    std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
+    local_triggers.push_back("[none]");
+
+    int out_index = 0;
+    const bool event_string_changed = DrawStringPicker(name, event.text, local_triggers, out_index);
+    if(event_string_changed)
+    {
+        const std::string picked_value = local_triggers[out_index];
+        event.text = (picked_value == "[none]") ? "" : picked_value;
+    }
 
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
 
     const auto draw_button = [&](const char* name, bool selected, bool same_line) {
         if(selected)
-            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(1.0f, 0.6f, 0.6f));
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.4f, 0.7f, 0.5f));
 
         const bool global_picked = ImGui::Button(name, ImVec2(button_item_width, 0.0f));
         if(selected)
