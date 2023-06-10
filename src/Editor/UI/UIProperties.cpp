@@ -502,7 +502,9 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
         if(component.hash != NAME_FOLDER_COMPONENT && component.hash != TRANSFORM_COMPONENT)
         {
-            ImGui::SameLine(245);
+            const ImVec2 size_avalible = ImGui::GetContentRegionAvail();
+            ImGui::SameLine(size_avalible.x - 42.5f);
+
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
             ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(70, 70, 70));
             if(ImGui::Button("Delete"))
@@ -552,8 +554,10 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
 
 void editor::DrawAddComponent(UIContext& ui_context, const std::vector<Component>& components)
 {
+    const ImVec2 size_avalible = ImGui::GetContentRegionAvail();
+
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
-    if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(285, 0)) || ui_context.open_add_component)
+    if(ImGui::Button("Add Component (Ctrl + A)", ImVec2(size_avalible.x, 0)) || ui_context.open_add_component)
         ImGui::OpenPopup("select_component");
 
     ImGui::PopStyleVar();
