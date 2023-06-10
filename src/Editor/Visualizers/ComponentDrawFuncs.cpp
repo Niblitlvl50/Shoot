@@ -131,9 +131,9 @@ void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::v
 
 void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
-    std::string name;
+    mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -141,8 +141,8 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
     math::Vector width_height;
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
 
-    std::string name;
-    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    mono::Event event;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, event, FallbackMode::SET_DEFAULT);
 
     uint32_t faction;
     FindAttribute(FACTION_PICKER_ATTRIBUTE, component_properties, faction, FallbackMode::SET_DEFAULT);
@@ -161,35 +161,35 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
     renderer.DrawQuad(area, mono::Color::BLACK, 1.0f);
 
     char text_buffer[1024] = {};
-    std::snprintf(text_buffer, std::size(text_buffer), "%s %s %u -> %s", faction_string, op_string, n_entities, name.c_str());
+    std::snprintf(text_buffer, std::size(text_buffer), "%s %s %u -> %s", faction_string, op_string, n_entities, event.text.c_str());
     renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
-    std::string name;
+    mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
-    std::string name;
+    mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
-    std::string name;
-    std::string completed_name;
+    mono::Event name;
+    mono::Event completed_name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     FindAttribute(TRIGGER_NAME_COMPLETED_ATTRIBUTE, component_properties, completed_name, FallbackMode::SET_DEFAULT);
 
     int count;
     FindAttribute(COUNT_ATTRIBUTE, component_properties, count, FallbackMode::SET_DEFAULT);
 
-    const std::string output = std::to_string(count) + " x " + name + " -> " + completed_name;
+    const std::string output = std::to_string(count) + " x " + name.text + " -> " + completed_name.text;
     renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 

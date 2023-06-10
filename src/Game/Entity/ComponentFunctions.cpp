@@ -453,7 +453,7 @@ namespace
     {
         int ui_group;
         int ui_item_state;
-        std::string on_click_trigger_name;
+        mono::Event on_click_trigger_name;
 
         FindAttribute(UI_GROUP_ATTRIBUTE, properties, ui_group, FallbackMode::SET_DEFAULT);
         FindAttribute(UI_ITEM_STATE_ATTRIBUTE, properties, ui_item_state, FallbackMode::SET_DEFAULT);
@@ -477,12 +477,12 @@ namespace
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
         ui_system->UpdateUIItem(
             entity->id,
-            hash::Hash(on_click_trigger_name.c_str()),
+            hash::Hash(on_click_trigger_name.text.c_str()),
             ui_group,
             game::UIItemState(ui_item_state),
             navigation_setup);
 
-        hash::HashRegisterString(on_click_trigger_name.c_str());
+        hash::HashRegisterString(on_click_trigger_name.text.c_str());
 
         return true;
     }
@@ -505,16 +505,16 @@ namespace
     {
         int ui_group;
         int ui_item_state;
-        std::string trigger_name;
+        mono::Event trigger_name;
 
         FindAttribute(UI_GROUP_ATTRIBUTE, properties, ui_group, FallbackMode::SET_DEFAULT);
         FindAttribute(UI_ITEM_STATE_ATTRIBUTE, properties, ui_item_state, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
 
         game::UISystem* ui_system = context->GetSystem<game::UISystem>();
-        ui_system->UpdateUISetGroupState(entity->id, ui_group, game::UIItemState(ui_item_state), hash::Hash(trigger_name.c_str()));
+        ui_system->UpdateUISetGroupState(entity->id, ui_group, game::UIItemState(ui_item_state), hash::Hash(trigger_name.text.c_str()));
 
-        hash::HashRegisterString(trigger_name.c_str());
+        hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
     }

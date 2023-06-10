@@ -340,26 +340,6 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllTextures());
     }
-    else if(
-        attribute.id == TRIGGER_NAME_ATTRIBUTE ||
-        attribute.id == TRIGGER_NAME_EXIT_ATTRIBUTE ||
-        attribute.id == ENABLE_TRIGGER_ATTRIBUTE ||
-        attribute.id == DISABLE_TRIGGER_ATTRIBUTE ||
-        attribute.id == TRIGGER_NAME_COMPLETED_ATTRIBUTE )
-    {
-        std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
-        local_triggers.push_back("[none]");
-
-        int out_index = 0;
-        const bool changed = DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), local_triggers, out_index);
-        if(changed)
-        {
-            const std::string picked_value = local_triggers[out_index];
-            attribute.value = (picked_value == "[none]") ? "" : picked_value;
-        }
-        
-        return changed;
-    }
     else if(attribute.id == ENTITY_FILE_ATTRIBUTE)
     {
         return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllEntities());
@@ -908,10 +888,8 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
     const float button_item_width = (item_width / 3.0f) - item_spacing + (item_spacing * 0.5f);
 
     ImGui::Spacing();
-
+    ImGui::PushID(name);
     ImGui::BeginGroup();
-    ImGui::TextDisabled("%s", "Event");
-
 
     std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
     local_triggers.push_back("[none]");
@@ -954,6 +932,9 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
 
     ImGui::PopStyleVar();
     ImGui::EndGroup();
+    ImGui::PopID();
+
+    ImGui::Spacing();
 
     return event_string_changed || global_picked || local_picked || entity_picked;
 }

@@ -104,6 +104,9 @@
         "compare": "cpp",
         "memory_resource": "c",
         "span": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "charconv": "cpp",
+        "concepts": "cpp",
+        "ranges": "cpp"
     }
 }

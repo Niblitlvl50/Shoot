@@ -30,6 +30,10 @@ static const std::vector<math::Vector> spawn_points_default = {
     { 0.0f, 0.0f }
 };
 
+static const mono::Event event_type_default = {
+    mono::EventType::Global, std::string()
+};
+
 const DefaultAttribute default_attributes[] = {
     { "position",                   Variant(math::ZeroVec) },
     { "rotation",                   Variant(0.0f) },
@@ -59,7 +63,7 @@ const DefaultAttribute default_attributes[] = {
     { "health",                     Variant(100) },
     { "score",                      Variant(90) },
     { "boss_health",                Variant(false) },
-    { "sprite_file",                Variant(std::string()) },
+    { "sprite_file",                Variant(std::string()), "File..." },
     { "animation",                  Variant(0) },
     { "draw_name",                  Variant(false) },
     { "sort_offset",                Variant(0.0f) },
@@ -68,10 +72,10 @@ const DefaultAttribute default_attributes[] = {
     { "behaviour",                  Variant(0) },
     { "spawn_score",                Variant(10) },
     { "spawn_limit",                Variant(0), "Limits active spawns, zero means no limit." },
-    { "trigger_name",               Variant(std::string()) },
-    { "trigger_name_exit",          Variant(std::string()) },
-    { "enable_trigger",             Variant(std::string()) },
-    { "disable_trigger",            Variant(std::string()) },
+    { "trigger_name",               Variant(event_type_default), "Trigger Event" },
+    { "trigger_name_exit",          Variant(event_type_default), "Exit Event" },
+    { "enable_trigger",             Variant(event_type_default), "Enable Event" },
+    { "disable_trigger",            Variant(event_type_default), "Disable Event" },
     { "duration",                   Variant(1.0f) },
     { "easing_func",                Variant(0) },
     { "logic_op",                   Variant(0) },
@@ -83,7 +87,7 @@ const DefaultAttribute default_attributes[] = {
     { "repeating",                  Variant(false) },
     { "polygon",                    Variant(polygon_default) },
     { "random_start_frame",         Variant(false) },
-    { "trigger_name_completed",     Variant(std::string()) },
+    { "trigger_name_completed",     Variant(event_type_default), "Completed Event" },
     { "count",                      Variant(2) },
     { "reset_on_compeleted",        Variant(false) },
     { "center_flags",               Variant(0u) },
@@ -92,7 +96,7 @@ const DefaultAttribute default_attributes[] = {
     { "path_points",                Variant(polygon_default) },
     { "path_closed",                Variant(false) },
     { "entity_reference",           Variant(mono::INVALID_ID) },
-    { "texture",                    Variant(std::string()) },
+    { "texture",                    Variant(std::string()), "File..." },
     { "name",                       Variant(std::string()) },
     { "folder",                     Variant(std::string()) },
     { "flicker",                    Variant(false) },
@@ -102,7 +106,7 @@ const DefaultAttribute default_attributes[] = {
     { "shadow_color",               Variant(mono::Color::BLACK) },
     { "emit_once",                  Variant(false) },
     { "offset",                     Variant(math::ZeroVec) },
-    { "entity_file",                Variant(std::string()) },
+    { "entity_file",                Variant(std::string()), "File..." },
     { "pool_size",                  Variant(10) },
     { "blend_mode",                 Variant(0) },
     { "emit_rate",                  Variant(1.0f) },
@@ -122,7 +126,7 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_primary",             Variant(std::string()) },
     { "weapon_secondary",           Variant(std::string()) },
     { "weapon_tertiary",            Variant(std::string()) },
-    { "sound_file",                 Variant(std::string()) },
+    { "sound_file",                 Variant(std::string()), "File..." },
     { "sound_properties",           Variant(0u) },
     { "sub_text",                   Variant(std::string()) },
     { "polygon_draw_layer",         Variant(0) },
@@ -450,11 +454,11 @@ const Component default_components[] = {
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
 
-    MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE }),
-    MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, COUNT_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
-    MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, DESTROYED_TRIGGER_TYPE_ATTRIBUTE }),
-    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
-    MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, REPEATING_ATTRIBUTE }),
+    MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { COUNT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),
+    MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { DESTROYED_TRIGGER_TYPE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { FACTION_PICKER_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
+    MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
 
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
