@@ -161,7 +161,7 @@ inline bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes,
 
     const auto it = std::find_if(attributes.begin(), attributes.end(), find_func);
     const bool found_attribute = (it != attributes.end());
-    if(found_attribute)
+    if(found_attribute && std::holds_alternative<T>(it->value))
     {
         value = std::get<T>(it->value);
     }

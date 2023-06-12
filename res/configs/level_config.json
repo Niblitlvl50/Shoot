@@ -102,7 +102,7 @@
             }
         },
         {
-            "name": "empty_arena",
+            "name": "empty_world",
             "filename": "res/worlds/empty_world.components",
             "transitions": {
                 "gameover": "gameover_screen",

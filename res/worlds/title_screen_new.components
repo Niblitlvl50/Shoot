@@ -395,8 +395,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4259034899,
@@ -693,8 +696,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_aborted"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_aborted",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4259034899,
@@ -1021,8 +1027,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_completed_alt"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_completed_alt",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4259034899,

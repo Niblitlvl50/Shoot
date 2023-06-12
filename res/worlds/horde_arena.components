@@ -23752,7 +23752,7 @@
             "green": 1.0,
             "red": 1.0
         },
-        "background_music": "",
+        "background_music": "winds_of_stories",
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -23788,7 +23788,9 @@
         },
         "spawn_package": true,
         "time_limit_s": 0,
-        "triggers": [],
+        "triggers": [
+            "open_loot_box"
+        ],
         "use_custom_package_spawn_position": true
     }
 }

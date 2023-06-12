@@ -7815,8 +7815,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4259034899,
