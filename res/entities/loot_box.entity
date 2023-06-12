@@ -64,12 +64,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -80,6 +74,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/pickups/money-pickup.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -220,6 +223,27 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
