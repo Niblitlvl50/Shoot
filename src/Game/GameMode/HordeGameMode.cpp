@@ -52,13 +52,13 @@ namespace tweak_values
     constexpr float level_result_duration_s = 3.0f;
     constexpr float fade_duration_s = 1.0f;
 
-    constexpr float spawn_wave_interval_s = 60.0f;
+    constexpr float spawn_wave_interval_s = 30.0f;
 }
 
 using namespace game;
 
 HordeGameMode::HordeGameMode()
-    : m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 10.0f)
+    : m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 5.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
 {
