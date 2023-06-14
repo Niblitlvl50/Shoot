@@ -501,25 +501,31 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.20000000298023224
+                            "variant_value": 0.25
                         },
                         {
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 2500
+                            "variant_value": 1000
                         },
                         {
                             "id": 2200757869,
                             "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3485902406,
@@ -527,16 +533,16 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 1.114497184753418,
-                                    "y": -0.49895524978637695
+                                    "x": 0.16693353652954102,
+                                    "y": 0.31765222549438477
                                 },
                                 {
-                                    "x": -1.3137590885162354,
-                                    "y": -0.1544816493988037
+                                    "x": -0.9332108497619629,
+                                    "y": -0.3240985870361328
                                 },
                                 {
-                                    "x": 0.5159039497375488,
-                                    "y": 0.21258044242858887
+                                    "x": 0.9818558692932129,
+                                    "y": -0.7621192932128906
                                 }
                             ]
                         }
@@ -2782,14 +2788,20 @@
                         {
                             "id": 2200757869,
                             "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3485902406,
@@ -3589,14 +3601,20 @@
                         {
                             "id": 2200757869,
                             "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3485902406,
@@ -14409,14 +14427,20 @@
                         {
                             "id": 2200757869,
                             "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3485902406,
@@ -26701,12 +26725,6 @@
                     "name": "area_entity_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
-                        },
-                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -26732,6 +26750,15 @@
                             "name": "num_entities",
                             "variant_type": 1,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -26742,20 +26769,26 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 2000
+                            "variant_value": 1000
                         }
                     ]
                 },
@@ -26778,8 +26811,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         }
                     ]
                 }
@@ -57954,8 +57990,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "teleport_to_sublevel"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "teleport_to_sublevel",
+                                "type": 0
+                            }
                         }
                     ]
                 }
@@ -59278,12 +59317,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "show_shop_screen"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -59294,6 +59327,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/laser.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "show_shop_screen",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -59693,12 +59735,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "teleport_to_sublevel"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -59709,6 +59745,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/laser.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "teleport_to_sublevel",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -59969,8 +60014,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "teleport_to_mainlevel"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "teleport_to_mainlevel",
+                                "type": 0
+                            }
                         }
                     ]
                 }
@@ -65698,12 +65746,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "teleport_to_mainlevel"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -65714,6 +65756,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/blaster-ricochet.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "teleport_to_mainlevel",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -67639,18 +67690,6 @@
                     "name": "interaction_switch",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_box"
-                        },
-                        {
-                            "id": 1984386624,
-                            "name": "trigger_name_exit",
-                            "variant_type": 6,
-                            "variant_value": "close_box"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -67661,6 +67700,24 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "close_box",
+                                "type": 1
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -67975,8 +68032,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_box"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_box",
+                                "type": 1
+                            }
                         },
                         {
                             "id": 3779456605,
@@ -67993,8 +68053,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "close_box"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "close_box",
+                                "type": 1
+                            }
                         },
                         {
                             "id": 3779456605,
