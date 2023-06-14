@@ -1606,12 +1606,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -1622,6 +1616,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/rocket_fire1.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "push_button",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -1810,8 +1813,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "push_button",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3779456605,
@@ -5864,16 +5870,16 @@
                     "name": "destroyed_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
-                        },
-                        {
                             "id": 3833720897,
                             "name": "destroyed_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
                         }
                     ]
                 },
@@ -11365,16 +11371,16 @@
                     "name": "destroyed_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
-                        },
-                        {
                             "id": 3833720897,
                             "name": "destroyed_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
                         }
                     ]
                 },
@@ -11631,8 +11637,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "push_button",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 799079693,
@@ -12829,12 +12838,6 @@
                     "name": "area_entity_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
-                        },
-                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -12860,6 +12863,15 @@
                             "name": "num_entities",
                             "variant_type": 1,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -12870,14 +12882,20 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "level_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "level_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3027259768,
@@ -12906,8 +12924,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "package_delivered"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "package_delivered",
+                                "type": 0
+                            }
                         }
                     ]
                 }
@@ -13329,8 +13350,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_inner_doors"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 799079693,
@@ -13572,8 +13596,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_inner_doors"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 799079693,
@@ -17276,16 +17303,16 @@
                     "name": "destroyed_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
-                        },
-                        {
                             "id": 3833720897,
                             "name": "destroyed_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 6,
+                            "variant_value": "boss_defeated"
                         }
                     ]
                 },
@@ -17394,22 +17421,28 @@
                     "name": "counter_trigger",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "boss_completed"
-                        },
-                        {
                             "id": 967958004,
                             "name": "count",
                             "variant_type": 1,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_defeated",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 2291324515,
@@ -17426,14 +17459,20 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "open_inner_doors"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3027259768,
@@ -17474,14 +17513,20 @@
                         {
                             "id": 2200757869,
                             "name": "enable_trigger",
-                            "variant_type": 6,
-                            "variant_value": "boss_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3946117592,
                             "name": "disable_trigger",
-                            "variant_type": 6,
-                            "variant_value": ""
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3485902406,
@@ -17489,40 +17534,20 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 0.5737829208374023,
-                                    "y": -8.954797744750977
+                                    "x": -3.377178192138672,
+                                    "y": -11.05708122253418
                                 },
                                 {
-                                    "x": 1.8508968353271484,
-                                    "y": -6.814284324645996
+                                    "x": -14.451231956481934,
+                                    "y": 1.194387435913086
                                 },
                                 {
-                                    "x": -3.1676177978515625,
-                                    "y": -11.329148292541504
+                                    "x": -7.259462356567383,
+                                    "y": -13.443730354309082
                                 },
                                 {
-                                    "x": -4.426743507385254,
-                                    "y": -13.84739875793457
-                                },
-                                {
-                                    "x": -5.9376935958862305,
-                                    "y": -12.894061088562012
-                                },
-                                {
-                                    "x": 4.009397506713867,
-                                    "y": -8.792909622192383
-                                },
-                                {
-                                    "x": -10.59904670715332,
-                                    "y": -12.163552284240723
-                                },
-                                {
-                                    "x": -12.729623794555664,
-                                    "y": 1.9917621612548828
-                                },
-                                {
-                                    "x": -13.515763282775879,
-                                    "y": -3.7732601165771484
+                                    "x": -10.314373016357422,
+                                    "y": -12.23449420928955
                                 }
                             ]
                         }
@@ -34999,12 +35024,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_inner_doors"
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -35015,6 +35034,15 @@
                             "name": "sound_file",
                             "variant_type": 6,
                             "variant_value": "res/sound/rocket_fire1.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3732203999,
@@ -35203,8 +35231,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "open_inner_doors"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3779456605,
@@ -44127,14 +44158,20 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_completed"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_completed",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 4129703001,
                             "name": "trigger_name_completed",
-                            "variant_type": 6,
-                            "variant_value": "push_button"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "push_button",
+                                "type": 0
+                            }
                         },
                         {
                             "id": 3027259768,

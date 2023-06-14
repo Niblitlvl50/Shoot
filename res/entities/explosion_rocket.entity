@@ -10,13 +10,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "rocket_explosion"
+                            "variant_value": "explosion_rocket"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "particles"
+                            "variant_value": ""
                         },
                         {
                             "id": 3923852156,
@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 13.375,
-                                "y": 2.375
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -44,6 +44,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
                         }
                     ]
                 },
@@ -94,6 +106,21 @@
                     "name": "area_emitter",
                     "properties": [
                         {
+                            "id": 2498693981,
+                            "name": "emitter_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
@@ -128,6 +155,12 @@
                                 "max": 360.0,
                                 "min": 0.0
                             }
+                        },
+                        {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 1291939675,
@@ -223,7 +256,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "rocket_explosion",
+            "name": "explosion_rocket",
             "uuid_hash": 2545274491
         }
     ],
