@@ -55,7 +55,7 @@ namespace
 
         transform_system->UnchildTransform(entity->id);
 
-        if(entity_ref != 0)
+        if(entity_ref != mono::INVALID_ID)
         {
             mono::IEntityManager* entity_manager = context->GetSystem<mono::IEntityManager>();
             const uint32_t parent_entity_id = entity_manager->GetEntityIdFromUuid(entity_ref);

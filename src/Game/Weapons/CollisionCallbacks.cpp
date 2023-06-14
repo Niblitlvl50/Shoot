@@ -55,12 +55,15 @@ uint32_t game::SpawnEntityWithAnimation(
     math::Matrix& entity_transform = transform_system->GetTransform(spawned_entity.id);
     entity_transform = transform_system->GetWorld(position_at_transform_id);
 
-    mono::Sprite* spawned_entity_sprite = sprite_system->GetSprite(spawned_entity.id);
+    if(sprite_system->IsAllocated(spawned_entity.id))
+    {
+        mono::Sprite* spawned_entity_sprite = sprite_system->GetSprite(spawned_entity.id);
 
-    const auto remove_entity_callback = [entity_manager](uint32_t sprite_id) {
-        entity_manager->ReleaseEntity(sprite_id);
-    };
-    spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
+        const auto remove_entity_callback = [entity_manager](uint32_t sprite_id) {
+            entity_manager->ReleaseEntity(sprite_id);
+        };
+        spawned_entity_sprite->SetAnimation(animation_id, remove_entity_callback);
+    }
 
     return spawned_entity.id;
 }
