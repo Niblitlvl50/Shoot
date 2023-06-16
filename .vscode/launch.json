@@ -15,7 +15,7 @@
             "program": "${workspaceRoot}/bin/game_exe.app/Contents/MacOS/game_exe",
             "args": [
 //                "-position", "500", "0",
-                "-zone", "horde_arena"
+//                "-zone", "empty_world"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",

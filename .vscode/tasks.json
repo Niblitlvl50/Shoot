@@ -58,7 +58,7 @@
 //                "-position",
 //                "300",
 //                "50",
-                "-zone", "horde_arena"
+//                "-zone", "boss_arena"
             ],
             "problemMatcher": []
         },
