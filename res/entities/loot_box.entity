@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "Loot Box"
+                            "variant_value": "loot_box"
                         },
                         {
                             "id": 3647911389,
@@ -249,7 +249,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "Loot Box",
+            "name": "loot_box",
             "uuid_hash": 1528403385
         }
     ],

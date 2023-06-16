@@ -82,12 +82,6 @@
                     "name": "interaction",
                     "properties": [
                         {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
                             "id": 648402708,
                             "name": "interaction_type",
                             "variant_type": 1,
@@ -96,6 +90,12 @@
                         {
                             "id": 3146177751,
                             "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
                             "variant_type": 6,
                             "variant_value": ""
                         },

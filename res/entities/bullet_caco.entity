@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "caco_bullet"
+                            "variant_value": "bullet_caco"
                         },
                         {
                             "id": 3647911389,
@@ -230,7 +230,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "caco_bullet",
+            "name": "bullet_caco",
             "uuid_hash": 2075986136
         }
     ],

@@ -44,6 +44,18 @@
                             "name": "rotation",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
                         }
                     ]
                 },
@@ -62,18 +74,6 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 0
-                        },
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": -0.20000000298023224
                         },
                         {
                             "id": 1031692888,
@@ -212,6 +212,21 @@
                     "name": "area_emitter",
                     "properties": [
                         {
+                            "id": 2498693981,
+                            "name": "emitter_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,
@@ -246,6 +261,12 @@
                                 "max": 90.0,
                                 "min": 90.0
                             }
+                        },
+                        {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 1291939675,

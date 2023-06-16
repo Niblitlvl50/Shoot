@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "plasma_crimson_bullet"
+                            "variant_value": "bullet_plasma_crimson"
                         },
                         {
                             "id": 3647911389,
@@ -230,7 +230,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "plasma_crimson_bullet",
+            "name": "bullet_plasma_crimson",
             "uuid_hash": 1155469388
         }
     ],

@@ -230,6 +230,21 @@
                     "name": "area_emitter",
                     "properties": [
                         {
+                            "id": 2498693981,
+                            "name": "emitter_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 799079693,
                             "name": "duration",
                             "variant_type": 3,

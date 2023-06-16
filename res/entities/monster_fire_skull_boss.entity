@@ -260,7 +260,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "fire_skull",
+            "name": "monster_fire_skull_boss",
             "uuid_hash": 1788130134
         }
     ],

@@ -234,7 +234,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "flying_monster",
+            "name": "monster_flying_eye_boss",
             "uuid_hash": 1618559000
         }
     ],
