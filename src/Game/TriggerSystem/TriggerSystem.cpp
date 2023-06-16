@@ -192,7 +192,10 @@ AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_i
 
 void TriggerSystem::ReleaseAreaTrigger(uint32_t entity_id)
 {
-    m_area_triggers.Release(entity_id);
+    // Area triggers will release themself if emitted. 
+    const bool is_still_active = m_area_triggers.IsActive(entity_id);
+    if(is_still_active)
+        m_area_triggers.Release(entity_id);
 }
 
 void TriggerSystem::AddAreaEntityTrigger(
