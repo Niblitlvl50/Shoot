@@ -5878,8 +5878,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_defeated",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -11379,8 +11382,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_defeated",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -17311,8 +17317,11 @@
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
-                            "variant_type": 6,
-                            "variant_value": "boss_defeated"
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "boss_defeated",
+                                "type": 0
+                            }
                         }
                     ]
                 },
