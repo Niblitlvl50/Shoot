@@ -25,7 +25,7 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     m_boss_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData());
 
     m_loot_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/bunny.sprite");
-    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData());
+    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_loot_sprite->GetSpriteData());
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
