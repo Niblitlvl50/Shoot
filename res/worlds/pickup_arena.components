@@ -13870,7 +13870,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.2538084983825684,
+                                "x": -2.375,
                                 "y": 15.5
                             }
                         },
@@ -14278,7 +14278,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.7461915016174316,
+                                "x": 1.875,
                                 "y": 15.5
                             }
                         },
