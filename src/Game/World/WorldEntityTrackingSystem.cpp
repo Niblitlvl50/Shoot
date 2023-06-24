@@ -5,7 +5,6 @@
 using namespace game;
 
 WorldEntityTrackingSystem::WorldEntityTrackingSystem()
-    : m_type_filter((uint32_t)EntityType::All)
 { }
 
 const char* WorldEntityTrackingSystem::Name() const
@@ -63,22 +62,19 @@ void WorldEntityTrackingSystem::ForgetEntity(uint32_t entity_id)
 
 void WorldEntityTrackingSystem::SetEntityTypeFilter(EntityType filter_type)
 {
-    m_type_filter |= (uint32_t)filter_type;
 }
 
 void WorldEntityTrackingSystem::ClearProperty(EntityType type)
 {
-    m_type_filter &= ~(uint32_t)type;
 }
 
 void WorldEntityTrackingSystem::ClearEntityTypeFilter()
 {
-    m_type_filter = (uint32_t)EntityType::All;
 }
 
 bool WorldEntityTrackingSystem::IsActiveType(EntityType type) const
 {
-    return (m_type_filter & (uint32_t)type);
+    return true;
 }
 
 const std::vector<EntityTrackingComponent>& WorldEntityTrackingSystem::GetTrackedEntities() const

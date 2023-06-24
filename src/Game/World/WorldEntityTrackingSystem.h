@@ -12,11 +12,10 @@ namespace game
 {
     enum class EntityType : uint32_t
     {
-        None    = 0,
-        Package = ENUM_BIT(0),
-        Boss    = ENUM_BIT(1),
-        Loot    = ENUM_BIT(2),
-        All     = (~(uint32_t)0),
+        None,
+        Package,
+        Boss,
+        Loot,
     };
 
     constexpr const char* g_entity_type_strings[] = {
@@ -58,7 +57,6 @@ namespace game
 
     private:
 
-        uint32_t m_type_filter;
         std::vector<EntityTrackingComponent> m_entities_to_track;
     };
 }
