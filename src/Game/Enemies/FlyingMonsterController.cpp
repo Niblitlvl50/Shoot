@@ -31,7 +31,7 @@
 namespace tweak_values
 {
     constexpr float idle_time_s = 1.5f;
-    constexpr float attack_distance = 2.0f;
+    constexpr float attack_distance = 3.0f;
     constexpr float max_attack_distance = 3.5f;
     constexpr float track_to_player_distance = 5.0f;
     constexpr float loose_interest_distance = 7.0f;
@@ -103,16 +103,18 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
     const math::Vector& tracking_position = m_tracking_behaviour->GetTrackingPosition();
     debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
+    debug_drawer->DrawPoint(tracking_position, 10.0f, mono::Color::RED);
 }
 
 const char* FlyingMonsterController::GetDebugCategory() const
 {
-    return "Flying Monster";
+    return "FlyingMonsterController";
 }
 
 void FlyingMonsterController::ToIdle()
 {
     m_idle_timer_s = 0.0f;
+    m_tracking_behaviour->UpdateEntityPosition();
 }
 
 void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)

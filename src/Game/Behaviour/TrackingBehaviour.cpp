@@ -104,6 +104,11 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
     return true;
 }
 
+void TrackingBehaviour::UpdateEntityPosition()
+{
+    m_control_body->SetPosition(m_entity_body->GetPosition());
+}
+
 const math::Vector& TrackingBehaviour::GetTrackingPosition() const
 {
     return m_tracking_position;
