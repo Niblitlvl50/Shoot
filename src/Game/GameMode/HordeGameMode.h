@@ -78,6 +78,7 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         class PlayerDaemonSystem* m_player_system;
         class CameraSystem* m_camera_system;
+        class EntityLogicSystem* m_entity_logic_system;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<event::PauseEvent> m_pause_token;

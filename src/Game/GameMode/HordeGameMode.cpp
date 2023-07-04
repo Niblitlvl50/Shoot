@@ -28,6 +28,8 @@
 #include "Camera/ICamera.h"
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
+#include "Entity/EntityLogicSystem.h"
+#include "Pickups/LootBoxLogic.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
@@ -91,6 +93,7 @@ void HordeGameMode::Begin(
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
+    m_entity_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
 
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
@@ -333,6 +336,8 @@ void HordeGameMode::SpawnLootBoxes()
 
     m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
     m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+
+    m_entity_logic_system->AddLogic(spawned_entity.id, new game::LootBoxLogic(spawned_entity.id, m_entity_manager));
 
     m_loot_box_index++;
 }
