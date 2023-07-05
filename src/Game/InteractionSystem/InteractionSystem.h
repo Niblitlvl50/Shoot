@@ -66,6 +66,7 @@ namespace game
         void TryTriggerInteraction(uint32_t entity_id, const InteractionCallback& callback);
         bool CanPlayerTriggerInteraction(uint32_t player_entity_id);
         void SetInteractionEnabled(uint32_t entity_id, bool enabled);
+        void SetInteractionCallback(uint32_t entity_id, const InteractionCallback& callback);
 
         const FrameInteractionData& GetFrameInteractionData() const;
 
@@ -81,6 +82,7 @@ namespace game
         {
             bool triggered;
             bool enabled;
+            InteractionCallback callback;
         };
 
         mono::TransformSystem* m_transform_system;

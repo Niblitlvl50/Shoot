@@ -17,7 +17,7 @@ InteractionSystem::InteractionSystem(
     , m_trigger_system(trigger_system)
     , m_components(n)
 {
-    m_component_details.resize(n, { false, true });
+    m_component_details.resize(n, { false, true, nullptr });
 }
 
 InteractionComponent* InteractionSystem::AllocateComponent(uint32_t entity_id)
@@ -28,6 +28,7 @@ InteractionComponent* InteractionSystem::AllocateComponent(uint32_t entity_id)
 
 void InteractionSystem::ReleaseComponent(uint32_t entity_id)
 {
+    m_component_details[entity_id] = { false, true, nullptr };
     m_components.Release(entity_id);
 }
 
@@ -115,6 +116,8 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
                     const uint32_t hash =
                         (details.triggered && has_off_hash) ? interaction.off_interaction_hash : interaction.on_interaction_hash;
                     m_trigger_system->EmitTrigger(hash);
+                    if(details.callback)
+                        details.callback(interaction_id, interaction.type);
                     details.triggered = !details.triggered;
                 }
 
@@ -163,6 +166,11 @@ bool InteractionSystem::CanPlayerTriggerInteraction(uint32_t player_entity_id)
 void InteractionSystem::SetInteractionEnabled(uint32_t entity_id, bool enabled)
 {
     m_component_details[entity_id].enabled = enabled;
+}
+
+void InteractionSystem::SetInteractionCallback(uint32_t entity_id, const InteractionCallback& callback)
+{
+    m_component_details[entity_id].callback = callback;
 }
 
 const FrameInteractionData& InteractionSystem::GetFrameInteractionData() const
