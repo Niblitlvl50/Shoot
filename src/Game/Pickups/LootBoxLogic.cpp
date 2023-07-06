@@ -1,6 +1,7 @@
 
 #include "LootBoxLogic.h"
 #include "EntitySystem/IEntityManager.h"
+#include "InteractionSystem/InteractionSystem.h"
 
 namespace tweak_values
 {
@@ -9,12 +10,16 @@ namespace tweak_values
 
 using namespace game;
 
-LootBoxLogic::LootBoxLogic(uint32_t entity_id, mono::IEntityManager* entity_manager)
+LootBoxLogic::LootBoxLogic(uint32_t entity_id, game::InteractionSystem* interaction_system, mono::IEntityManager* entity_manager)
     : m_entity_id(entity_id)
+    , m_interaction_system(interaction_system)
     , m_entity_manager(entity_manager)
     , m_alive_timer_s(0.0f)
 {
-
+    const InteractionCallback callback = [entity_manager](uint32_t entity_id, InteractionType type) {
+        //entity_manager->ReleaseEntity(entity_id);
+    };
+    m_interaction_system->SetInteractionCallback(entity_id, callback);
 }
 
 void LootBoxLogic::Update(const mono::UpdateContext& update_context)
