@@ -55,6 +55,15 @@ namespace game
             uint32_t callback_id;
         };
 
+        struct DespawnEntityComponent
+        {
+            uint32_t despawn_trigger_hash;
+
+            // Internal data
+            uint32_t entity_id;
+            uint32_t callback_id;
+        };
+
         struct SpawnDefinition
         {
             int value;
@@ -84,6 +93,10 @@ namespace game
         EntitySpawnPointComponent* AllocateEntitySpawnPoint(uint32_t entity_id);
         void ReleaseEntitySpawnPoint(uint32_t entity_id);
         void SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger);
+
+        void AllocateDespawnTrigger(uint32_t entity_id);
+        void ReleaseDespawnTrigger(uint32_t entity_id);
+        void SetDespawnTriggerData(uint32_t entity_id, uint32_t despawn_trigger_hash);
 
         int GetActiveSpawns(const SpawnPointComponent* spawn_point);
         const std::vector<SpawnEvent>& GetSpawnEvents() const;
@@ -115,6 +128,7 @@ namespace game
 
         mono::ActiveVector<SpawnPointComponent> m_spawn_points;
         mono::ActiveVector<EntitySpawnPointComponent> m_entity_spawn_points;
+        mono::ActiveVector<DespawnEntityComponent> m_despawn_entity_triggers;
         std::vector<EntitySpawnPointComponent*> m_active_entity_spawn_points;
 
         std::vector<SpawnEvent> m_spawn_events;

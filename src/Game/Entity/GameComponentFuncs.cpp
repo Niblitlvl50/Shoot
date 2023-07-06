@@ -300,6 +300,33 @@ namespace
         return true;
     }
 
+    bool CreateDespawnEntity(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->AllocateDespawnTrigger(entity->id);
+        return true;
+    }
+    
+    bool ReleaseDespawnEntity(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->ReleaseDespawnTrigger(entity->id);
+        return true;
+    }
+
+    bool UpdateDespawnEntity(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event despawn_trigger_name;
+        const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, despawn_trigger_name, FallbackMode::SET_DEFAULT);
+        if(!found_enable)
+            return false;
+    
+        const uint32_t despawn_trigger = hash::Hash(despawn_trigger_name.text.c_str());
+        game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
+        spawn_system->SetDespawnTriggerData(entity->id, despawn_trigger);
+        return true;
+    }
+
     bool CreateShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
@@ -1031,6 +1058,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager->RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
     entity_manager->RegisterComponent(ENTITY_SPAWN_POINT_COMPONENT, CreateEntitySpawnPoint, ReleaseEntitySpawnPoint, UpdateEntitySpawnPoint);
+    entity_manager->RegisterComponent(DESPAWN_ENTITY_COMPONENT, CreateDespawnEntity, ReleaseDespawnEntity, UpdateDespawnEntity);
     entity_manager->RegisterComponent(SHAPE_TRIGGER_COMPONENT, CreateShapeTrigger, ReleaseShapeTrigger, UpdateShapeTrigger);
     entity_manager->RegisterComponent(DESTROYED_TRIGGER_COMPONENT, CreateDestroyedTrigger, ReleaseDestroyedTrigger, UpdateDestroyedTrigger);
     entity_manager->RegisterComponent(AREA_TRIGGER_COMPONENT, CreateAreaTrigger, ReleaseAreaTrigger, UpdateAreaTrigger);

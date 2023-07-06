@@ -76,6 +76,7 @@ namespace game
         uint32_t callback_id;
     };
 
+    // Argument is the hash value of the trigger that was emitted.
     using TriggerCallback = std::function<void (uint32_t trigger_id)>;
 
     class TriggerSystem : public mono::IGameSystem

@@ -227,6 +227,51 @@
                     ]
                 },
                 {
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        }
+                    ]
+                },
+                {
+                    "hash": 1070666913,
+                    "name": "despawn_entity",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
                     "hash": 1052622306,
                     "name": "set_animation",
                     "properties": [

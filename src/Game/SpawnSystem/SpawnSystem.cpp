@@ -28,6 +28,7 @@ SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntit
     , m_transform_system(transform_system)
     , m_spawn_points(n)
     , m_entity_spawn_points(n)
+    , m_despawn_entity_triggers(n)
 {
     const std::vector<byte> file_data = file::FileReadAll("res/configs/spawn_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
@@ -127,7 +128,10 @@ void SpawnSystem::ReleaseEntitySpawnPoint(uint32_t entity_id)
 {
     EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
     if(component->callback_id != NO_CALLBACK_SET)
+    {
         m_trigger_system->RemoveTriggerCallback(component->spawn_trigger, component->callback_id, entity_id);
+        component->callback_id = NO_CALLBACK_SET;
+    }
 
     const auto remove_if_spawn_id = [entity_id](const SpawnEvent& spawn_event) {
         return (spawn_event.spawner_id == entity_id);
@@ -155,6 +159,46 @@ void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string&
                 m_active_entity_spawn_points.push_back(component);
         };
         component->callback_id = m_trigger_system->RegisterTriggerCallback(component->spawn_trigger, enable_callback, entity_id);
+    }
+}
+
+void SpawnSystem::AllocateDespawnTrigger(uint32_t entity_id)
+{
+    DespawnEntityComponent* component = m_despawn_entity_triggers.Set(entity_id, DespawnEntityComponent());
+    component->entity_id = entity_id;
+    component->callback_id = NO_CALLBACK_SET;
+}
+
+void SpawnSystem::ReleaseDespawnTrigger(uint32_t entity_id)
+{
+    DespawnEntityComponent* component = m_despawn_entity_triggers.Get(entity_id);
+    if(component->callback_id != NO_CALLBACK_SET)
+    {
+        m_trigger_system->RemoveTriggerCallback(component->despawn_trigger_hash, component->callback_id, entity_id);
+        component->callback_id = NO_CALLBACK_SET;
+    }
+
+    m_despawn_entity_triggers.Release(entity_id);
+}
+
+void SpawnSystem::SetDespawnTriggerData(uint32_t entity_id, uint32_t despawn_trigger_hash)
+{
+    DespawnEntityComponent* component = m_despawn_entity_triggers.Get(entity_id);
+    component->despawn_trigger_hash = despawn_trigger_hash;
+    component->entity_id = entity_id;
+
+    if(component->callback_id != NO_CALLBACK_SET)
+    {
+        m_trigger_system->RemoveTriggerCallback(component->despawn_trigger_hash, component->callback_id, entity_id);
+        component->callback_id = NO_CALLBACK_SET;
+    }
+
+    if(component->despawn_trigger_hash != 0)
+    {
+        const game::TriggerCallback despawn_callback = [component, this](uint32_t trigger_hash) {
+            m_entity_manager->ReleaseEntity(component->entity_id);
+        };
+        component->callback_id = m_trigger_system->RegisterTriggerCallback(component->despawn_trigger_hash, despawn_callback, entity_id);
     }
 }
 
