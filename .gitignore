@@ -13,6 +13,7 @@ right_game.log
 game_log.log
 bin/
 build/
+build_win64/
 xcode_build/
 build_xcode/
 CMakeFiles/
