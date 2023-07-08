@@ -54,6 +54,9 @@
                 "isDefault": true
             },
             "command": "./bin/game_exe.app/Contents/MacOS/game_exe",
+            "windows": {
+                "command": "./bin/game_exe.exe"
+              },            
             "args": [
 //                "-position",
 //                "300",
