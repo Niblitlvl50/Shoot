@@ -402,10 +402,10 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
             const char* hash_string = hash::HashLookup(trigger_hash);
             game::g_debug_drawer->DrawScreenTextFading(hash_string, text_position, mono::Color::GRAY, 1.0f);
 
-            const auto it = m_trigger_hash_to_entity_ids.find(trigger_hash);
-            if(it != m_trigger_hash_to_entity_ids.end())
+            const auto entity_ids_it = m_trigger_hash_to_entity_ids.find(trigger_hash);
+            if(entity_ids_it != m_trigger_hash_to_entity_ids.end())
             {
-                for(uint32_t entity_id : it->second)
+                for(uint32_t entity_id : entity_ids_it->second)
                 {
                     if(entity_id == mono::INVALID_ID)
                         continue;
