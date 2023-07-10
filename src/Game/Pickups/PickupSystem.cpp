@@ -178,7 +178,7 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
     }
     m_pickups_to_process.clear();
 
-    const auto decrement_life_and_remove = [this, &update_context](SpawnedPickup& pickup) {
+    const auto decrement_lifetime_and_remove = [this, &update_context](SpawnedPickup& pickup) {
 
         pickup.lifetime -= update_context.delta_s;
         
@@ -192,7 +192,7 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
 
         return remove_pickup;
     };
-    mono::remove_if(m_spawned_pickups, decrement_life_and_remove);
+    mono::remove_if(m_spawned_pickups, decrement_lifetime_and_remove);
 }
 
 void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type)
