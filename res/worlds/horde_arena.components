@@ -23790,6 +23790,7 @@
         "time_limit_s": 0,
         "triggers": [
             "despawn_me",
+            "loot_box_destroyed",
             "open_loot_box"
         ],
         "use_custom_package_spawn_position": true

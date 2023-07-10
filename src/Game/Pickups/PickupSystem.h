@@ -9,6 +9,8 @@
 #include "Physics/PhysicsFwd.h"
 #include "System/Audio.h"
 
+#include "Util/ActiveVector.h"
+
 #include <vector>
 #include <memory>
 #include <functional>
@@ -23,6 +25,14 @@ namespace game
     {
         PickupType type;
         int amount;
+    };
+
+    struct LootBox
+    {
+        float value;
+
+        // Internal
+        uint32_t release_handle;
     };
 
     using PickupCallback = std::function<void (PickupType type, int amount)>;
@@ -46,6 +56,10 @@ namespace game
         void ReleasePickup(uint32_t id);
         void SetPickupData(uint32_t id, const Pickup& pickup_data);
 
+        LootBox* AllocateLootBox(uint32_t id);
+        void ReleaseLootBox(uint32_t id);
+        void SetLootBoxData(uint32_t id, float temp);
+
         void HandlePickup(uint32_t pickup_id, uint32_t target_id);
         void RegisterPickupTarget(uint32_t target_id, PickupCallback callback);
         void UnregisterPickupTarget(uint32_t target_id);
@@ -56,6 +70,7 @@ namespace game
 
     private:
 
+        void HandleReleaseLootBox(uint32_t id);
         void HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type);
         void PlayPickupSound(PickupType type);
 
@@ -65,8 +80,8 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;
 
-        std::vector<Pickup> m_pickups;
-        std::vector<bool> m_active;
+        mono::ActiveVector<Pickup> m_pickups;
+        mono::ActiveVector<LootBox> m_lootboxes;
         std::vector<std::unique_ptr<mono::ICollisionHandler>> m_collision_handlers;
         std::unordered_map<uint32_t, PickupCallback> m_pickup_targets;
 

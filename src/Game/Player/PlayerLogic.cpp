@@ -489,8 +489,6 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         m_player_info->persistent_data.chips += amount;
         break;
     }
-    case PickupType::LOOT_BOX:
-        break;
     };
 }
 

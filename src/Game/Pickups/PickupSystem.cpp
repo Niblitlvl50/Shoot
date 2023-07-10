@@ -6,6 +6,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "EntitySystem/IEntityManager.h"
+#include "EntitySystem/Entity.h"
 #include "Player/PlayerInfo.h"
 
 #include "System/File.h"
@@ -60,9 +61,11 @@ PickupSystem::PickupSystem(
     , m_particle_system(particle_system)
     , m_physics_system(physics_system)
     , m_entity_manager(entity_manager)
+    , m_pickups(n)
+    , m_lootboxes(n)
 {
-    m_pickups.resize(n);
-    m_active.resize(n, false);
+//    m_pickups.resize(n);
+//    m_active.resize(n, false);
     m_collision_handlers.resize(n);
 
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/pickup_config.json");
@@ -104,8 +107,7 @@ void PickupSystem::Reset()
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)
 {
-    m_active[entity_id] = true;
-    game::Pickup* allocated_pickup = &m_pickups[entity_id];
+    game::Pickup* allocated_pickup = m_pickups.Set(entity_id, game::Pickup());
 
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     if(body)
@@ -126,13 +128,42 @@ void PickupSystem::ReleasePickup(uint32_t entity_id)
     if(body)
         body->RemoveCollisionHandler(handler.get());
 
-    m_active[entity_id] = false;
+    m_pickups.Release(entity_id);
     m_collision_handlers[entity_id] = nullptr;
 }
 
 void PickupSystem::SetPickupData(uint32_t id, const Pickup& pickup_data)
 {
-    m_pickups[id] = pickup_data;
+    Pickup* pickup = m_pickups.Get(id);
+    (*pickup) = pickup_data;
+}
+
+LootBox* PickupSystem::AllocateLootBox(uint32_t id)
+{
+    LootBox* loot_box = m_lootboxes.Set(id, game::LootBox());
+
+    const mono::ReleaseCallback& on_release = [this](uint32_t entity_id) {
+        HandleReleaseLootBox(entity_id);
+    };
+    loot_box->release_handle = m_entity_manager->AddReleaseCallback(id, on_release);
+
+    return loot_box;
+}
+
+void PickupSystem::ReleaseLootBox(uint32_t id)
+{
+    LootBox* loot_box = m_lootboxes.Get(id);
+
+    m_entity_manager->RemoveReleaseCallback(id, loot_box->release_handle);
+    loot_box->release_handle = mono::INVALID_ID;
+
+    m_lootboxes.Release(id);
+}
+
+void PickupSystem::SetLootBoxData(uint32_t id, float temp)
+{
+    LootBox* loot_box = m_lootboxes.Get(id);
+    loot_box->value = temp;
 }
 
 void PickupSystem::HandlePickup(uint32_t pickup_id, uint32_t target_id)
@@ -167,9 +198,9 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
         const auto it = m_pickup_targets.find(pickup.target_id);
         if(it != m_pickup_targets.end())
         {
-            const Pickup& pickup_data = m_pickups[pickup.pickup_id];
-            it->second(pickup_data.type, pickup_data.amount);
-            PlayPickupSound(pickup_data.type);
+            const Pickup* pickup_data = m_pickups.Get(pickup.pickup_id);
+            it->second(pickup_data->type, pickup_data->amount);
+            PlayPickupSound(pickup_data->type);
         }
 
         const math::Vector& world_position = m_transform_system->GetWorldPosition(pickup.pickup_id);
@@ -193,6 +224,11 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
         return remove_pickup;
     };
     mono::remove_if(m_spawned_pickups, decrement_lifetime_and_remove);
+}
+
+void PickupSystem::HandleReleaseLootBox(uint32_t id)
+{
+
 }
 
 void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type)
