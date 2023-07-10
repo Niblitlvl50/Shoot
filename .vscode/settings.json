@@ -1,6 +1,10 @@
 {
     "python.linting.pylintEnabled": false,
-    "C_Cpp.intelliSenseEngine": "Default",
+    "C_Cpp.intelliSenseEngine": "default",
+
+    "cmake.debugConfig": {
+        "cwd": "${workspaceFolder}"
+    },
 
     "files.exclude": {
         "**/.git": true,
