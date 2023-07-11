@@ -115,7 +115,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
     m_last_fire_timestamp = timestamp;
 
-    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_bullet_trail->RemoveEmitterFromBullet(entity_id);
         m_bullet_id_to_callback.erase(entity_id);
     };
@@ -163,7 +163,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 
-        const uint32_t callback_id = m_entity_manager->AddReleaseCallback(bullet_entity.id, release_callback);
+        const uint32_t callback_id = m_entity_manager->AddReleaseCallback(bullet_entity.id, mono::ReleasePhase::POST_RELEASE, release_callback);
         m_bullet_id_to_callback[bullet_entity.id] = callback_id;
     }
 

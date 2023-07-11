@@ -165,11 +165,11 @@ uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
     game::g_package_info.entity_id = package_entity.id;
     game::g_package_info.state = PackageState::SPAWNED;
 
-    const mono::ReleaseCallback release_callback = [](uint32_t entity_id) {
+    const mono::ReleaseCallback release_callback = [](uint32_t entity_id, mono::ReleasePhase phase) {
         game::g_package_info.entity_id = mono::INVALID_ID;
         game::g_package_info.state = PackageState::NOT_SPAWNED;
     };
-    m_entity_system->AddReleaseCallback(package_entity.id, release_callback);
+    m_entity_system->AddReleaseCallback(package_entity.id, mono::ReleasePhase::POST_RELEASE, release_callback);
 
     return package_entity.id;
 }

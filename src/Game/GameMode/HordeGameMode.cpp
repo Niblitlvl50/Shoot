@@ -297,11 +297,11 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
     m_package_entity_id = m_player_system->SpawnPackageAt(position);
 
-    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+    const mono::ReleaseCallback release_callback = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
         m_big_text_screen->SetSubText("Your package was destroyed.");
     };
-    m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, release_callback);
+    m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, mono::ReleasePhase::POST_RELEASE, release_callback);
 
     System::Log("HordeGameMode|Spawning package[id:%u] at position %.2f %.2f", m_package_entity_id, position.x, position.y);
 }

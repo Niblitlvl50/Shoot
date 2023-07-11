@@ -321,14 +321,14 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
                 SpawnIdAndCallback spawn_callback_id;
                 spawn_callback_id.spawned_entity_id = spawned_entity.id;
 
-                const mono::ReleaseCallback release_callback = [spawn_component](uint32_t entity_id) {
+                const mono::ReleaseCallback release_callback = [spawn_component](uint32_t entity_id, mono::ReleasePhase phase) {
 
                     const auto find_spawn_id = [entity_id](const SpawnIdAndCallback& spawn_callback_id) {
                         return spawn_callback_id.spawned_entity_id == entity_id;
                     };
                     mono::remove_if(spawn_component->active_spawns, find_spawn_id);
                 };
-                spawn_callback_id.callback_id = m_entity_manager->AddReleaseCallback(spawned_entity.id, release_callback);
+                spawn_callback_id.callback_id = m_entity_manager->AddReleaseCallback(spawned_entity.id, mono::ReleasePhase::POST_RELEASE, release_callback);
 
                 spawn_component->active_spawns.push_back(spawn_callback_id);
             }

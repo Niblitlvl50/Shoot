@@ -210,10 +210,10 @@ void FlyingMonsterController::ToAttackAnticipation()
     const uint32_t spawned_entity = game::SpawnEntityWithAnimation(
         "res/entities/explosion_small.entity", 0, m_entity_id, m_entity_manager, m_transform_system, m_sprite_system);
 
-    const auto transision_to_attack = [this](uint32_t entity_id) {
+    const auto transision_to_attack = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_states.TransitionTo(States::ATTACKING);
     };
-    m_entity_manager->AddReleaseCallback(spawned_entity, transision_to_attack);
+    m_entity_manager->AddReleaseCallback(spawned_entity, mono::ReleasePhase::POST_RELEASE, transision_to_attack);
 }
 
 void FlyingMonsterController::AttackAnticipation(const mono::UpdateContext& update_context)

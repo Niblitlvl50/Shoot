@@ -142,10 +142,10 @@ LootBox* PickupSystem::AllocateLootBox(uint32_t id)
 {
     LootBox* loot_box = m_lootboxes.Set(id, game::LootBox());
 
-    const mono::ReleaseCallback& on_release = [this](uint32_t entity_id) {
+    const mono::ReleaseCallback& on_release = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         HandleReleaseLootBox(entity_id);
     };
-    loot_box->release_handle = m_entity_manager->AddReleaseCallback(id, on_release);
+    loot_box->release_handle = m_entity_manager->AddReleaseCallback(id, mono::ReleasePhase::PRE_RELEASE, on_release);
 
     return loot_box;
 }
