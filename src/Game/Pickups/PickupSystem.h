@@ -71,7 +71,7 @@ namespace game
     private:
 
         void HandleReleaseLootBox(uint32_t id);
-        void HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type);
+        void HandleSpawnEnemyPickup(uint32_t id);
         void PlayPickupSound(PickupType type);
 
         game::DamageSystem* m_damage_system;
@@ -111,5 +111,6 @@ namespace game
 
         uint32_t m_damage_callback_id;
         class PickupEffect* m_pickup_effect;
+        class PickupLootEffect* m_pickup_loot_effect;
     };
 }

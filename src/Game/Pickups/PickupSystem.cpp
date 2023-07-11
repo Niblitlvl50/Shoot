@@ -64,8 +64,6 @@ PickupSystem::PickupSystem(
     , m_pickups(n)
     , m_lootboxes(n)
 {
-//    m_pickups.resize(n);
-//    m_active.resize(n, false);
     m_collision_handlers.resize(n);
 
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/pickup_config.json");
@@ -90,9 +88,10 @@ PickupSystem::PickupSystem(
 void PickupSystem::Begin()
 {
     m_pickup_effect = new game::PickupEffect(m_particle_system, m_entity_manager);
+    m_pickup_loot_effect = new game::PickupLootEffect(m_particle_system, m_entity_manager);
 
     const game::DamageCallback handle_destroyed_entity = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        HandleSpawnEnemyPickup(id, damage, who_did_damage, type);
+        HandleSpawnEnemyPickup(id);
     };
     m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
 }
@@ -101,6 +100,9 @@ void PickupSystem::Reset()
 {
     delete m_pickup_effect;
     m_pickup_effect = nullptr;
+
+    delete m_pickup_loot_effect;
+    m_pickup_loot_effect = nullptr;
 
     m_damage_system->RemoveGlobalDamageCallback(m_damage_callback_id);
 }
@@ -228,10 +230,36 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
 
 void PickupSystem::HandleReleaseLootBox(uint32_t id)
 {
-    System::Log("Spawn Loot!");
+    const int n_pickups = mono::RandomInt(5, 10);
+    const math::Matrix& transform = m_transform_system->GetWorld(id);
+
+    for(int index = 0; index < n_pickups; ++index)
+    {
+        const int picked_index = mono::RandomInt(0, m_pickup_definitions.size() - 1);
+        const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
+
+        const bool spawn_pickup = mono::Chance(pickup_definition.drop_chance_percentage);
+        if(!spawn_pickup)
+            continue;
+
+        const float zero_to_tau = mono::Random(0.0f, math::TAU());
+        const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
+
+        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
+
+        math::Matrix pickup_transform = transform;
+        math::Translate(pickup_transform, random_offset);
+
+        m_transform_system->SetTransform(spawned_entity.id, pickup_transform);
+        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+
+        m_spawned_pickups.push_back({ spawned_entity.id, 5.0f + mono::Random() });
+    }
+
+    m_pickup_loot_effect->EmitAt(math::GetPosition(transform));
 }
 
-void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type)
+void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
 {
     const bool is_player = game::IsPlayer(id);
     if(is_player)

@@ -51,7 +51,7 @@ FootStepsEffect::FootStepsEffect(mono::ParticleSystem* particle_system, mono::IE
         50,
         "res/textures/particles/white_square.png",
         mono::BlendMode::ONE,
-        mono::ParticleDrawLayer::POST_GAMEOBJECTS,
+        mono::ParticleDrawLayer::PRE_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
         0.0f,
         mono::DefaultUpdater);
