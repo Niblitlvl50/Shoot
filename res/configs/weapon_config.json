@@ -11,6 +11,16 @@
             "behaviour": ""
         },
         {
+            "name": "generic_sinewave_bullet",
+            "damage": 20,
+            "life_span": 10.0,
+            "fuzzy_life_span": 0.0,
+            "bullet_want_direction": false,
+            "entity_file": "res/entities/bullet_green_blob.entity",
+            "sound_file": "",
+            "behaviour": "sinewave"
+        },
+        {
             "name": "plasma_bullet",
             "damage": 20,
             "life_span": 0.2,
@@ -346,6 +356,12 @@
             "name": "Generic",
             "weapon": "generic",
             "bullet": "generic_bullet",
+            "sprite_file": "res/sprites/bolter.sprite"
+        },
+        {
+            "name": "Generic Wavey",
+            "weapon": "generic",
+            "bullet": "generic_sinewave_bullet",
             "sprite_file": "res/sprites/bolter.sprite"
         },
         {
