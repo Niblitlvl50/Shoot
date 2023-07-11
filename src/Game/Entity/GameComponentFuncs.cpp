@@ -602,6 +602,27 @@ namespace
         return true;
     }
 
+    bool CreateLootBox(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->AllocateLootBox(entity->id);
+        return true;
+    }
+    
+    bool ReleaseLootBox(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->ReleaseLootBox(entity->id);
+        return true;
+    }
+    
+    bool UpdateLootBox(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->SetLootBoxData(entity->id, 1.0f);
+        return true;
+    }
+
     bool CreateAnimation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
@@ -1066,6 +1087,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
     entity_manager->RegisterComponent(RELAY_TRIGGER_COMPONENT, CreateRelayTrigger, ReleaseRelayTrigger, UpdateRelayTrigger);
     entity_manager->RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
+    entity_manager->RegisterComponent(LOOTBOX_COMPONENT, CreateLootBox, ReleaseLootBox, UpdateLootBox);
     entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateSpriteAnimation);
     entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateTranslationAnimation);
     entity_manager->RegisterComponent(ROTATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateRotationAnimation);

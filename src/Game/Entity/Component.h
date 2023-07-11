@@ -211,6 +211,7 @@ extern const uint32_t TIME_TRIGGER_COMPONENT;
 extern const uint32_t COUNTER_TRIGGER_COMPONENT;
 extern const uint32_t RELAY_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
+extern const uint32_t LOOTBOX_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;
 extern const uint32_t ROTATION_COMPONENT;

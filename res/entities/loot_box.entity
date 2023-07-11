@@ -105,6 +105,11 @@
                     ]
                 },
                 {
+                    "hash": 4194434097,
+                    "name": "loot_box",
+                    "properties": []
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -422,27 +427,6 @@
                     ]
                 },
                 {
-                    "hash": 2465580911,
-                    "name": "destroyed_trigger",
-                    "properties": [
-                        {
-                            "id": 3833720897,
-                            "name": "destroyed_type",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "loot_box_destroyed",
-                                "type": 1
-                            }
-                        }
-                    ]
-                },
-                {
                     "hash": 4160075433,
                     "name": "relay_trigger",
                     "properties": [
@@ -469,33 +453,6 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 1000
-                        }
-                    ]
-                },
-                {
-                    "hash": 2511960119,
-                    "name": "entity_spawn_point",
-                    "properties": [
-                        {
-                            "id": 615778801,
-                            "name": "entity_file",
-                            "variant_type": 6,
-                            "variant_value": "res/entities/explosion_package.entity"
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "despawn_me",
-                                "type": 1
-                            }
                         }
                     ]
                 },

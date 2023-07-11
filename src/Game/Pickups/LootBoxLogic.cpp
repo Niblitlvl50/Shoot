@@ -26,6 +26,6 @@ void LootBoxLogic::Update(const mono::UpdateContext& update_context)
 {
     m_alive_timer_s += update_context.delta_s;
 
-    if(m_alive_timer_s > tweak_values::alive_time_s)
-        m_entity_manager->ReleaseEntity(m_entity_id);
+//    if(m_alive_timer_s > tweak_values::alive_time_s)
+//        m_entity_manager->ReleaseEntity(m_entity_id);
 }

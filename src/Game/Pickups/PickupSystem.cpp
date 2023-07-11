@@ -228,7 +228,7 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
 
 void PickupSystem::HandleReleaseLootBox(uint32_t id)
 {
-
+    System::Log("Spawn Loot!");
 }
 
 void PickupSystem::HandleSpawnEnemyPickup(uint32_t id, int damage, uint32_t who_did_damage, DamageType type)

@@ -290,6 +290,7 @@ extern const uint32_t TIME_TRIGGER_COMPONENT        = hash::Hash("time_trigger")
 extern const uint32_t COUNTER_TRIGGER_COMPONENT     = hash::Hash("counter_trigger");
 extern const uint32_t RELAY_TRIGGER_COMPONENT       = hash::Hash("relay_trigger");
 extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
+extern const uint32_t LOOTBOX_COMPONENT             = hash::Hash("loot_box");
 extern const uint32_t ANIMATION_COMPONENT           = hash::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT         = hash::Hash("set_translation");
 extern const uint32_t ROTATION_COMPONENT            = hash::Hash("set_rotation");
@@ -365,6 +366,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "relay_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
+    else if(hash == LOOTBOX_COMPONENT)
+        return "loot_box";
     else if(hash == ANIMATION_COMPONENT)
         return "set_animation";
     else if(hash == TRANSLATION_COMPONENT)
@@ -432,12 +435,14 @@ const Component default_components[] = {
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, SCALE_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(TAG_COMPONENT,                NULL_COMPONENT,             false,  "general",      { TAG_ATTRIBUTE }),
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
-    MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "general",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE } ),
+
+    MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "pickups",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
+    MakeComponent(LOOTBOX_COMPONENT,            NULL_COMPONENT,             false,  "pickups",      { }),
 
     MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
