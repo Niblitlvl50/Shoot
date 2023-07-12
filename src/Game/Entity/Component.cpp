@@ -30,8 +30,12 @@ static const std::vector<math::Vector> spawn_points_default = {
     { 0.0f, 0.0f }
 };
 
-static const mono::Event event_type_default = {
-    mono::EventType::Global, std::string()
+static const mono::Event event_type_input_default = {
+    mono::EventType::Global, mono::EventDirection::Input, std::string()
+};
+
+static const mono::Event event_type_output_default = {
+    mono::EventType::Global, mono::EventDirection::Output, std::string()
 };
 
 const DefaultAttribute default_attributes[] = {
@@ -72,10 +76,10 @@ const DefaultAttribute default_attributes[] = {
     { "behaviour",                  Variant(0) },
     { "spawn_score",                Variant(10) },
     { "spawn_limit",                Variant(0), "Limits active spawns, zero means no limit." },
-    { "trigger_name",               Variant(event_type_default), "Trigger Event" },
-    { "trigger_name_exit",          Variant(event_type_default), "Exit Event" },
-    { "enable_trigger",             Variant(event_type_default), "Enable Event" },
-    { "disable_trigger",            Variant(event_type_default), "Disable Event" },
+    { "trigger_name",               Variant(event_type_input_default), "Trigger Event" },
+    { "trigger_name_exit",          Variant(event_type_input_default), "Exit Event" },
+    { "enable_trigger",             Variant(event_type_input_default), "Enable Event" },
+    { "disable_trigger",            Variant(event_type_input_default), "Disable Event" },
     { "duration",                   Variant(1.0f) },
     { "easing_func",                Variant(0) },
     { "logic_op",                   Variant(0) },
@@ -87,7 +91,7 @@ const DefaultAttribute default_attributes[] = {
     { "repeating",                  Variant(false) },
     { "polygon",                    Variant(polygon_default) },
     { "random_start_frame",         Variant(false) },
-    { "trigger_name_completed",     Variant(event_type_default), "Completed Event" },
+    { "trigger_name_completed",     Variant(event_type_output_default), "Completed Event" },
     { "count",                      Variant(2) },
     { "reset_on_compeleted",        Variant(false) },
     { "center_flags",               Variant(0u) },
@@ -467,7 +471,7 @@ const Component default_components[] = {
     MakeComponent(DESTROYED_TRIGGER_COMPONENT,  NULL_COMPONENT,             false,  "triggers",     { DESTROYED_TRIGGER_TYPE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { FACTION_PICKER_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, REPEATING_ATTRIBUTE }),
-    MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, TIME_STAMP_ATTRIBUTE }),
+    MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE }),
 
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),

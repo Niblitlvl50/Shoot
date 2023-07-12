@@ -117,6 +117,22 @@ namespace
             math::Vector(1.0f, 1.0f),
             "ui"
         };
+
+        context.ui_icons[editor::event_in_texture] = {
+            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_in_texture),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f),
+            "ui"
+        };
+
+        context.ui_icons[editor::event_out_texture] = {
+            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_out_texture),
+            math::Vector(0.0f, 1.0f),
+            math::Vector(1.0f, 0.0f),
+            math::Vector(1.0f, 1.0f),
+            "ui"
+        };
     }
 
     void SetupSpriteIcons(const std::vector<std::string>& sprite_files, editor::UIContext& context)

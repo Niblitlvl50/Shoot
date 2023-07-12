@@ -25,6 +25,9 @@ namespace editor
     constexpr const char* information_texture = "res/textures/icons/information.png";
     constexpr const char* save_texture = "res/textures/icons/save.png";
     constexpr const char* wrench_texture = "res/textures/icons/wrench.png";
+    constexpr const char* event_in_texture = "res/textures/icons/event_in.png";
+    constexpr const char* event_out_texture = "res/textures/icons/event_out.png";
+
 
     struct UIEntityItem
     {

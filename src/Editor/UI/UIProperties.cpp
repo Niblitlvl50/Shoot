@@ -895,6 +895,22 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
     ImGui::PushID(name);
     ImGui::BeginGroup();
 
+    const char* icon_id =
+        (event.direction == mono::EventDirection::Input) ? editor::event_in_texture : editor::event_out_texture;
+
+    const auto icon_it = ui_context.ui_icons.find(icon_id);
+    if(icon_it != ui_context.ui_icons.end())
+    {
+        void* texture_id = reinterpret_cast<void*>(icon_it->second.texture->Id());
+        const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
+        ImGui::Image(texture_id, ImVec2(20.0f, 20.0f), icon.uv1, icon.uv2);
+    }
+
+    ImGui::SameLine();
+
+    const float item_spacing_real = style.ItemSpacing.x;
+    ImGui::SetNextItemWidth(item_width - 20.0f - item_spacing_real);
+
     std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
     local_triggers.push_back("[none]");
 
@@ -922,15 +938,15 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
         return global_picked;
     };
 
-    const bool global_picked = draw_button("Global",    event.type == mono::EventType::Global,  true);
+    const bool global_picked = draw_button("Global", event.type == mono::EventType::Global, true);
     if(global_picked)
         event.type = mono::EventType::Global;
 
-    const bool local_picked = draw_button("Local",      event.type == mono::EventType::Local,   true);
+    const bool local_picked = draw_button("Local", event.type == mono::EventType::Local, true);
     if(local_picked)
         event.type = mono::EventType::Local;
 
-    const bool entity_picked = draw_button("Entity",    event.type == mono::EventType::Entity,  false);
+    const bool entity_picked = draw_button("Entity", event.type == mono::EventType::Entity, false);
     if(entity_picked)
         event.type = mono::EventType::Entity;
 
