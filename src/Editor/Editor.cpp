@@ -492,6 +492,18 @@ void Editor::ExportAsIndividualEntities()
         std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
 
         game::LevelMetadata metadata;
+
+        for(const Component& component : proxy->GetComponents())
+        {
+            for(const Attribute& attribute : component.properties)
+            {
+                const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
+                if(event && !event->text.empty())
+                    metadata.triggers.push_back(event->text);
+            }
+        }
+
+        mono::make_unique(metadata.triggers);
         editor::WriteComponentEntities(filename, metadata, { proxy });
 
         editor::AddNewEntity(filename.c_str());
@@ -521,6 +533,9 @@ void Editor::ExportAsEntityCollection()
     std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
 
     game::LevelMetadata metadata;
+
+    // Store triggers in metadata here.
+
     editor::WriteComponentEntities(filename, metadata, proxies);
     editor::AddNewEntity(filename.c_str());
     
@@ -902,6 +917,11 @@ void Editor::SelectItemCallback(int index)
         loaded_proxies.push_back(object.get());
         m_proxies.push_back(std::move(object));
     }
+
+    for(const std::string& trigger : loaded_world.leveldata.metadata.triggers)
+        m_context.level_metadata.triggers.push_back(trigger);
+
+    mono::make_unique(m_context.level_metadata.triggers);
 
     SetSelection(new_selection);
     TeleportToProxyObject(loaded_proxies);
