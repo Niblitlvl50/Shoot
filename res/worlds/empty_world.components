@@ -1631,7 +1631,6 @@
         "spawn_package": false,
         "time_limit_s": 0,
         "triggers": [
-            "",
             "despawn_me",
             "level_aborted",
             "level_completed",
