@@ -888,8 +888,8 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
 {
     const ImGuiStyle& style = ImGui::GetStyle();
     const float item_width = ImGui::CalcItemWidth();
-    const float item_spacing = style.ItemInnerSpacing.x - 1.0f;
-    const float button_item_width = (item_width / 3.0f) - item_spacing + (item_spacing * 0.5f);
+    const float item_spacing = style.ItemInnerSpacing.x;
+    const float button_item_width = (item_width / 3.0f) - (item_spacing * 0.66f);
 
     ImGui::Spacing();
     ImGui::PushID(name);
