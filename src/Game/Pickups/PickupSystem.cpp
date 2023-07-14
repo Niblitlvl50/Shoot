@@ -91,6 +91,7 @@ PickupSystem::PickupSystem(
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
     m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
+    m_lootbox_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
 }
 
 void PickupSystem::Begin()
@@ -265,6 +266,7 @@ void PickupSystem::HandleReleaseLootBox(uint32_t id)
     }
 
     m_pickup_loot_effect->EmitAt(math::GetPosition(transform));
+    m_lootbox_sound->Play();
 }
 
 void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)

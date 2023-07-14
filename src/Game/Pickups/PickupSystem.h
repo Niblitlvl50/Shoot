@@ -109,6 +109,7 @@ namespace game
 
         audio::ISoundPtr m_pickup_sound;
         audio::ISoundPtr m_coins_sound;
+        audio::ISoundPtr m_lootbox_sound;
 
         uint32_t m_damage_callback_id;
         class PickupEffect* m_pickup_effect;
