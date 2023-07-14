@@ -79,6 +79,14 @@ PickupSystem::PickupSystem(
             pickup_def.drop_chance_percentage = pickup_config["drop_chance"];
             m_pickup_definitions.push_back(pickup_def);
         }
+
+        for(const auto& lootbox_pickup_config : json["lootbox_pickup"])
+        {
+            PickupDefinition pickup_def;
+            pickup_def.entity_file = lootbox_pickup_config["entity_file"];
+            pickup_def.drop_chance_percentage = lootbox_pickup_config["drop_chance"];
+            m_lootbox_pickup_definitions.push_back(pickup_def);
+        }
     }
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
@@ -235,15 +243,15 @@ void PickupSystem::HandleReleaseLootBox(uint32_t id)
 
     for(int index = 0; index < n_pickups; ++index)
     {
-        const int picked_index = mono::RandomInt(0, m_pickup_definitions.size() - 1);
-        const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
+        const int picked_index = mono::RandomInt(0, m_lootbox_pickup_definitions.size() - 1);
+        const PickupDefinition& pickup_definition = m_lootbox_pickup_definitions[picked_index];
 
         const bool spawn_pickup = mono::Chance(pickup_definition.drop_chance_percentage);
         if(!spawn_pickup)
             continue;
 
         const float zero_to_tau = mono::Random(0.0f, math::TAU());
-        const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
+        const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * mono::Random(0.25f, 1.0f);
 
         mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
 

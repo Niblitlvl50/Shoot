@@ -98,6 +98,7 @@ namespace game
             float drop_chance_percentage;
         };
         std::vector<PickupDefinition> m_pickup_definitions;
+        std::vector<PickupDefinition> m_lootbox_pickup_definitions;
 
         struct SpawnedPickup
         {
