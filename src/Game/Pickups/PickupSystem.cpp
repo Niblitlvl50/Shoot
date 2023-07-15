@@ -113,6 +113,12 @@ void PickupSystem::Reset()
     delete m_pickup_loot_effect;
     m_pickup_loot_effect = nullptr;
 
+    const auto release_callback = [this](uint32_t index, game::LootBox& loot_box) {
+        m_entity_manager->RemoveReleaseCallback(index, loot_box.release_handle);
+        loot_box.release_handle = mono::INVALID_ID;
+    };
+    m_lootboxes.ForEach(release_callback);
+
     m_damage_system->RemoveGlobalDamageCallback(m_damage_callback_id);
 }
 
@@ -165,8 +171,11 @@ void PickupSystem::ReleaseLootBox(uint32_t id)
 {
     LootBox* loot_box = m_lootboxes.Get(id);
 
-    m_entity_manager->RemoveReleaseCallback(id, loot_box->release_handle);
-    loot_box->release_handle = mono::INVALID_ID;
+    if(loot_box->release_handle != mono::INVALID_ID)
+    {
+        m_entity_manager->RemoveReleaseCallback(id, loot_box->release_handle);
+        loot_box->release_handle = mono::INVALID_ID;
+    }
 
     m_lootboxes.Release(id);
 }
