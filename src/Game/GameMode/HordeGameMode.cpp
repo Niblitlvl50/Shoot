@@ -64,6 +64,7 @@ HordeGameMode::HordeGameMode()
     : m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 5.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
+    , m_package_spawned(false)
 {
     const GameModeStateMachine::StateTable state_table = {
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &HordeGameMode::ToFadeIn, &HordeGameMode::FadeIn, this),
