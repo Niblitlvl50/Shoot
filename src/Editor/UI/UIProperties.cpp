@@ -661,10 +661,17 @@ bool editor::DrawStringPicker(
 
 bool editor::DrawStringPicker(const char* name, std::string& current_in_out_value, const std::vector<std::string>& all_strings)
 {
+    std::vector<std::string> local_all_strings = all_strings;
+    local_all_strings.push_back("[none]");
+
     int out_index;
-    const bool changed = editor::DrawStringPicker(name, current_in_out_value, all_strings, out_index);
+    const bool changed = editor::DrawStringPicker(name, current_in_out_value, local_all_strings, out_index);
     if(changed)
-        current_in_out_value = all_strings[out_index];
+    {
+        const std::string picked_value = local_all_strings[out_index];
+        current_in_out_value = (picked_value == "[none]") ? "" : picked_value;
+    }
+
     return changed;
 }
 
@@ -911,16 +918,7 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
     const float item_spacing_real = style.ItemSpacing.x;
     ImGui::SetNextItemWidth(item_width - 20.0f - item_spacing_real);
 
-    std::vector<std::string> local_triggers = ui_context.level_metadata.triggers;
-    local_triggers.push_back("[none]");
-
-    int out_index = 0;
-    const bool event_string_changed = DrawStringPicker(name, event.text, local_triggers, out_index);
-    if(event_string_changed)
-    {
-        const std::string picked_value = local_triggers[out_index];
-        event.text = (picked_value == "[none]") ? "" : picked_value;
-    }
+    const bool event_string_changed = DrawStringPicker(name, event.text, ui_context.level_metadata.triggers);
 
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
 

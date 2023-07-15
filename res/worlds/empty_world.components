@@ -1108,6 +1108,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "switch_on",
                                 "type": 1
                             }
@@ -1117,6 +1118,7 @@
                             "name": "trigger_name_exit",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "switch_off",
                                 "type": 1
                             }
@@ -1194,6 +1196,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "switch_on",
                                 "type": 1
                             }
@@ -1215,6 +1218,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "switch_off",
                                 "type": 1
                             }
@@ -1579,6 +1583,509 @@
             "entity_properties": 0,
             "name": "bunny",
             "uuid_hash": 1713891401
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "loot_box"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/open_cardboard_box.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                },
+                {
+                    "hash": 4194434097,
+                    "name": "loot_box",
+                    "properties": []
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "cardboard_box_small.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2943553953,
+                    "name": "particle_system",
+                    "properties": [
+                        {
+                            "id": 4183502093,
+                            "name": "pool_size",
+                            "variant_type": 1,
+                            "variant_value": 50
+                        },
+                        {
+                            "id": 1013213428,
+                            "name": "texture",
+                            "variant_type": 6,
+                            "variant_value": "res/textures/particles/heart.png"
+                        },
+                        {
+                            "id": 3513758418,
+                            "name": "blend_mode",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 3927152552,
+                            "name": "particle_draw_layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 453870866,
+                            "name": "transform_space",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.009999999776482582
+                        }
+                    ]
+                },
+                {
+                    "hash": 3820847801,
+                    "name": "area_emitter",
+                    "properties": [
+                        {
+                            "id": 2498693981,
+                            "name": "emitter_mode",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 1259388949,
+                            "name": "emit_rate",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 481665254,
+                            "name": "emitter_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.5,
+                                "y": 0.5
+                            }
+                        },
+                        {
+                            "id": 521277070,
+                            "name": "direction_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 10.0,
+                                "min": -10.0
+                            }
+                        },
+                        {
+                            "id": 1751890565,
+                            "name": "uniform_direction",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.5,
+                                "min": 0.25
+                            }
+                        },
+                        {
+                            "id": 837379623,
+                            "name": "angular_velocity_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 0.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1206809145,
+                            "name": "life_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 2.0,
+                                "min": 1.0
+                            }
+                        },
+                        {
+                            "id": 3254309326,
+                            "name": "gradient_4",
+                            "variant_type": 10,
+                            "variant_value": {
+                                "gradient": [
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.49803921580314636,
+                                        "blue": 1.0,
+                                        "green": 1.0,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 1.0,
+                                        "blue": 0.016304373741149902,
+                                        "green": 0.016304373741149902,
+                                        "red": 1.0
+                                    },
+                                    {
+                                        "alpha": 0.0,
+                                        "blue": 0.0,
+                                        "green": 0.0,
+                                        "red": 1.0
+                                    }
+                                ],
+                                "t": [
+                                    0.0,
+                                    0.25,
+                                    0.5,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3951746801,
+                            "name": "start_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 0.0,
+                                    "min": 0.0
+                                },
+                                "value": 96.0
+                            }
+                        },
+                        {
+                            "id": 3546283052,
+                            "name": "end_size_spread",
+                            "variant_type": 9,
+                            "variant_value": {
+                                "spread": {
+                                    "max": 0.0,
+                                    "min": 0.0
+                                },
+                                "value": 96.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.25,
+                                "y": 0.20000000298023224
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.02500000037252903
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1070666913,
+                    "name": "despawn_entity",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "loot_box",
+            "uuid_hash": 1528403385
         }
     ],
     "metadata": {

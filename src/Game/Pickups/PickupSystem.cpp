@@ -254,11 +254,10 @@ void PickupSystem::HandleReleaseLootBox(uint32_t id)
         const float zero_to_tau = mono::Random(0.0f, math::TAU());
         const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * mono::Random(0.25f, 1.0f);
 
-        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
-
         math::Matrix pickup_transform = transform;
         math::Translate(pickup_transform, random_offset);
 
+        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
         m_transform_system->SetTransform(spawned_entity.id, pickup_transform);
         m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
 
@@ -295,11 +294,10 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
         const float zero_to_tau = mono::Random(0.0f, math::TAU());
         const math::Vector random_offset = math::VectorFromAngle(zero_to_tau) * 0.5f;
 
-        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
-
         math::Matrix transform = m_transform_system->GetWorld(id);
         math::Translate(transform, random_offset);
 
+        mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
         m_transform_system->SetTransform(spawned_entity.id, transform);
         m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
 
