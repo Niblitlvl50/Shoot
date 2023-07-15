@@ -10,6 +10,7 @@
         "res/sound/pickups/money-pickup.wav",
         "res/sound/pickups/nintendo-coin-pickup.wav",
         "res/sound/pickups/pickup_gold.wav",
+        "res/sound/pickups/smoke_bomb.wav",
         "res/sound/blaster-probe-gun.wav",
         "res/sound/blaster-ricochet.wav",
         "res/sound/demon_death.wav",

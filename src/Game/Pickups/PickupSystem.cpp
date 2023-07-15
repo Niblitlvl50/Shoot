@@ -91,7 +91,7 @@ PickupSystem::PickupSystem(
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
     m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
-    m_lootbox_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
+    m_lootbox_sound = audio::CreateSound("res/sound/pickups/smoke_bomb.wav", audio::SoundPlayback::ONCE);
 }
 
 void PickupSystem::Begin()
