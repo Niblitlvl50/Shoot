@@ -131,8 +131,8 @@ void PickupLootEffect::EmitAt(const math::Vector& position)
             {
                 mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f),
                 mono::Color::RGBA(0.9f, 0.1f, 0.1f, 1.0f),
-                mono::Color::RGBA(0.8f, 0.0f, 0.8f, 1.0f),
-                mono::Color::RGBA(0.6f, 0.0f, 1.0f, 0.0f)
+                mono::Color::RGBA(0.8f, 1.0f, 1.0f, 1.0f),
+                mono::Color::RGBA(1.0f, 1.0f, 1.0f, 0.0f)
             }
         );
         view.color = view.gradient.color[0];
