@@ -92,6 +92,19 @@
             "windows": {
                 "MIMode": "gdb"
             }
-        }        
+        },
+        {
+            "name": "(Windows) Launch Animator",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/debug/animator.exe",
+            "args": [
+                "res/sprites/alien.sprite"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "console": "externalTerminal"
+        }
     ]
 }
