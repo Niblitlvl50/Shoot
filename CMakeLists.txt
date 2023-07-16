@@ -52,6 +52,15 @@ target_include_directories(editor PRIVATE "src/Editor" "src/Game")
 target_link_libraries(editor game_lib mono)
 source_group(TREE ${CMAKE_SOURCE_DIR}/src/ FILES ${editor_source_files})
 
+# Animator exe
+
+file(GLOB_RECURSE animator_source_files "src/animator/*.cpp" "src/animator/*.h")
+add_executable(animator ${animator_source_files})
+add_dependencies(animator mono imgui)
+target_include_directories(animator PRIVATE "src/animator")
+target_link_libraries(animator mono)
+source_group(TREE ${CMAKE_SOURCE_DIR}/src/ FILES ${animator_source_files})
+
 # Game test exe
 file(GLOB_RECURSE game_test_source_files "src/tests/*.cpp")
 add_executable(game_test_exe ${game_test_source_files})
