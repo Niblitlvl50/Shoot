@@ -101,6 +101,9 @@ PlayerLogic::PlayerLogic(
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = sprite->GetAnimationIdFromName("run");
+    m_run_up_anim_id = sprite->GetAnimationIdFromName("run_up");
+    if(m_run_up_anim_id == -1)
+        m_run_up_anim_id = m_run_anim_id;
     m_death_anim_id = sprite->GetAnimationIdFromName("death");
 
     using namespace std::placeholders;
@@ -242,7 +245,7 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
 
     if(velocity_magnitude > 0.2f)
     {
-        anim_id = m_run_anim_id;
+        anim_id = (std::abs(player_velocity.x) > player_velocity.y) ? m_run_anim_id : m_run_up_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
     }
 

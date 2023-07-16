@@ -125,6 +125,7 @@ namespace game
 
         int m_idle_anim_id;
         int m_run_anim_id;
+        int m_run_up_anim_id;
         int m_death_anim_id;
 
         float m_blink_duration_counter;
