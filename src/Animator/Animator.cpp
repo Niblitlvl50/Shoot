@@ -67,6 +67,34 @@ namespace
         return texture;
     }
 
+    void SetupSpriteIcons(const std::vector<std::string>& sprite_files, animator::UIContext& context)
+    {
+        for(const std::string& sprite_file : sprite_files)
+        {
+            const std::string full_sprite_path = "res/sprites/" + sprite_file;
+            const mono::SpriteData* sprite_data =
+                mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(full_sprite_path.c_str());
+
+            std::string category = sprite_data->source_folder;
+
+            const size_t pos = category.find("res/images/");
+            if(pos != std::string::npos)
+            {
+                const size_t offset = std::size("res/images/");
+                const size_t slash_pos = category.find_first_of('/', offset);
+                category = category.substr(offset - 1, slash_pos - offset + 1);
+            }
+
+            context.ui_icons[sprite_file] = {
+                mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
+                sprite_data->frames.front().uv_upper_left,
+                sprite_data->frames.front().uv_lower_right,
+                sprite_data->frames.front().size,
+                category
+            };
+        }
+    }
+
     class ActiveFrameUpdater : public mono::IUpdatable
     {
     public:
@@ -146,6 +174,7 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_camera->SetViewportSize(math::Vector(10.0f, 7.0f));
 
     m_tools_texture = SetupIcons(m_context);
+    SetupSpriteIcons(animator::GetAllSprites(), m_context);
 
     m_sprite_data = const_cast<mono::SpriteData*>(mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(m_sprite_file));
     m_context.sprite_data = m_sprite_data;

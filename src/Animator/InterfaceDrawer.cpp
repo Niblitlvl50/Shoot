@@ -48,6 +48,11 @@ namespace
             ImGui::SameLine();
             if(ImGui::SliderFloat("Speed", &context.update_speed, 0.1f, 2.0f, "%.1f x"))
                 context.set_speed(context.update_speed);
+
+            ImGui::SameLine();
+
+            animator::DrawSpritePicker("Select Sprite", "", context);
+
         }
         
         ImGui::End();
