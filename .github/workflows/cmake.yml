@@ -83,6 +83,7 @@ jobs:
         path: |
           bin/${{matrix.bin_subdir}}game_exe${{matrix.app_suffix}}
           bin/${{matrix.bin_subdir}}editor${{matrix.exe_suffix}}
+          bin/${{matrix.bin_subdir}}animator${{matrix.exe_suffix}}
 
     # We only need to do this step once, and it just happened to be Linux who does it. 
     - name: Artifacts Resources
