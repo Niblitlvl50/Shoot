@@ -108,6 +108,8 @@ Animator::Animator(
     m_context.update_speed = 1.0f;
     m_context.offset_mode = false;
 
+    animator::LoadAllSprites("res/sprites/all_sprite_files.json");
+
     // Setup UI callbacks
     m_context.on_save                   = std::bind(&Animator::SaveSprite, this);
 

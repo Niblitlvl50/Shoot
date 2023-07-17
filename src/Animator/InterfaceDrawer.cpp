@@ -3,6 +3,9 @@
 #include "UIContext.h"
 #include "ImGuiImpl/ImGuiImpl.h"
 
+#include "WriteSpriteFile.h"
+#include "Rendering/Texture/ITexture.h"
+
 using namespace animator;
 
 namespace
@@ -66,7 +69,7 @@ namespace
         const ImageCoords& plus_icon = QuadToImageCoords(math::TopLeft(context.plus_icon), math::BottomRight(context.plus_icon));
         const ImageCoords& save_icon = QuadToImageCoords(math::TopLeft(context.save_icon), math::BottomRight(context.save_icon));
 
-        const ImVec4 bg_color(1.0f, 1.0f, 1.0f, 1.0f);
+        //const ImVec4 bg_color(1.0f, 1.0f, 1.0f, 1.0f);
         const ImVec2 small_button_size(22, 22);
         const ImVec2 number_button_size(25, 0);
         const ImVec2 button_size(50, 21);
@@ -254,4 +257,115 @@ void InterfaceDrawer::Draw(mono::IRenderer& renderer) const
 math::Quad InterfaceDrawer::BoundingBox() const
 {
     return math::InfQuad;
+}
+
+
+animator::SpritePickerResult animator::DrawSpritePicker(const char* name, const std::string& current_value, const UIContext& ui_context)
+{
+    animator::SpritePickerResult result;
+    result.changed = false;
+
+    const float item_width = ImGui::CalcItemWidth();
+    const bool pushed_button = ImGui::Button(current_value.c_str(), ImVec2(item_width, 0));
+    ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
+    ImGui::Text("%s", name);
+    if(pushed_button)
+        ImGui::OpenPopup("sprite_picker_popup");
+
+    if(!ImGui::IsPopupOpen("sprite_picker_popup"))
+        return result;
+
+    // Prepare sprite image data
+    const std::vector<std::string>& all_sprites = animator::GetAllSprites();
+
+    struct SpriteUIIcon
+    {
+        std::string sprite_name;
+        animator::UIIcon icon;
+    };
+
+    std::vector<SpriteUIIcon> sprite_icons;
+    sprite_icons.reserve(all_sprites.size());
+
+    for(const std::string& sprite_name : all_sprites)
+    {
+        const auto it = ui_context.ui_icons.find(sprite_name);
+        if(it != ui_context.ui_icons.end())
+            sprite_icons.push_back({sprite_name, it->second});
+    }
+
+    const auto sort_by_category = [](const SpriteUIIcon& first, const SpriteUIIcon& second)
+    {
+        if(first.icon.category == second.icon.category)
+            return first.sprite_name < second.sprite_name;
+
+        return first.icon.category < second.icon.category;
+    };
+    std::sort(sprite_icons.begin(), sprite_icons.end(), sort_by_category);
+
+    std::string current_category;
+
+    ImGui::SetNextWindowSize(ImVec2(800, -1));
+    if(ImGui::BeginPopup("sprite_picker_popup"))
+    {
+        const bool begin_table = ImGui::BeginTable("sprite_picker_columns", 10);
+
+        for(size_t index = 0; index < sprite_icons.size(); ++index)
+        {
+            ImGui::PushID(index);
+
+            const SpriteUIIcon& sprite_icon = sprite_icons[index];
+
+            if(current_category != sprite_icon.icon.category)
+            {
+                current_category = sprite_icon.icon.category;
+                ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(40, 40, 40, 127));
+                ImGui::TableSetColumnIndex(0);
+                ImGui::TextDisabled("%s", current_category.c_str());
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+            }
+
+            const ImTextureID texture_id = reinterpret_cast<ImTextureID>(sprite_icon.icon.texture->Id());
+            const math::Vector& size = sprite_icon.icon.size;
+
+            constexpr float button_max_size = 64.0f;
+            const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
+
+            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
+            const bool sprite_selected = ImGui::ImageButton(
+                texture_id, ImVec2(size.x * scale, size.y * scale), image_icon.uv1, image_icon.uv2, 2);
+            if(sprite_selected)
+            {
+                result.changed = true;
+                result.new_value = sprite_icon.sprite_name;
+                ImGui::CloseCurrentPopup();
+            }
+
+            if(sprite_icon.sprite_name == current_value)
+            {
+                ImGui::GetWindowDrawList()->AddRect(
+                    ImGui::GetItemRectMin(),
+                    ImGui::GetItemRectMax(),
+                    ImGui::GetColorU32(ImGuiCol_DragDropTarget),
+                    3.0f,
+                    ImDrawCornerFlags_All,
+                    2.0f);
+            }
+
+            if(ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s\nwidth %.2f m, height %.2f m", sprite_icon.sprite_name.c_str(), size.x, size.y);
+
+            ImGui::TableNextColumn();
+            ImGui::PopID();
+        }
+
+        if(begin_table)
+            ImGui::EndTable();
+
+        ImGui::EndPopup();
+    }
+
+    return result;
 }

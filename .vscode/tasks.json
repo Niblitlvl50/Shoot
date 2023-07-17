@@ -94,6 +94,16 @@
             },            
             "args": [],
             "problemMatcher": []
+        },
+        {
+            "label": "animator",
+            "type": "process",
+            "command": "./bin/animator",
+            "windows": {
+                "command": "./bin/animator.exe"
+            },            
+            "args": ["res/sprites/alien.sprite"],
+            "problemMatcher": []
         }
     ]
 }

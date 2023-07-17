@@ -4,6 +4,11 @@
 
 #include "nlohmann/json.hpp"
 
+namespace
+{
+    std::vector<std::string> g_all_sprite_files;
+}
+
 void animator::WriteSpriteFile(const char* sprite_file, const mono::SpriteData* sprite_data)
 {
     file::FilePtr input_file = file::OpenAsciiFile(sprite_file);
@@ -40,4 +45,29 @@ void animator::WriteSpriteFile(const char* sprite_file, const mono::SpriteData* 
     const std::string& serialized_sprite = json.dump(4);
     file::FilePtr output_file = file::CreateAsciiFile(sprite_file);
     std::fwrite(serialized_sprite.data(), serialized_sprite.length(), sizeof(char), output_file.get());
+}
+
+bool animator::LoadAllSprites(const char* all_sprites_file)
+{
+    file::FilePtr file = file::OpenAsciiFile(all_sprites_file);
+    if(!file)
+        return false;
+
+    const std::vector<byte> file_data = file::FileRead(file);
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    for(const auto& list_entry : json["all_sprites"])
+    {
+        const std::string sprite_string = list_entry;
+        const size_t slash_pos = sprite_string.find_last_of('/') + 1;
+        const std::string sprite_name = sprite_string.substr(slash_pos);
+
+        g_all_sprite_files.push_back(sprite_name);
+    }
+
+    return true;
+}
+
+const std::vector<std::string>& animator::GetAllSprites()
+{
+    return g_all_sprite_files;
 }

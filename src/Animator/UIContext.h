@@ -2,12 +2,25 @@
 #pragma once
 
 #include "Rendering/Sprite/SpriteData.h"
+#include "Rendering/Texture/ITextureFactory.h"
 #include "Math/Quad.h"
+
+#include <string>
 #include <vector>
+#include <unordered_map>
 #include <functional>
 
 namespace animator
 {
+    struct UIIcon
+    {
+        mono::ITexturePtr texture;
+        math::Vector uv_upper_left;
+        math::Vector uv_lower_right;
+        math::Vector size;
+        std::string category;
+    };
+
     struct UIContext
     {
         int tools_texture_id;
@@ -15,6 +28,8 @@ namespace animator
         math::Quad add_icon;
         math::Quad plus_icon;
         math::Quad delete_icon;
+
+        std::unordered_map<std::string, UIIcon> ui_icons;
 
         bool offset_mode;
         bool animation_playing;
