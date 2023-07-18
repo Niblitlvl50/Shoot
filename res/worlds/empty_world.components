@@ -1499,8 +1499,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.875,
-                                "y": -1.375
+                                "x": -1.625,
+                                "y": -2.0
                             }
                         },
                         {
@@ -1524,6 +1524,40 @@
                     ]
                 },
                 {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -1537,7 +1571,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 2
+                            "variant_value": 0
                         },
                         {
                             "id": 1031692888,
@@ -1562,7 +1596,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.30000001192092896
+                                "y": -0.3499999940395355
                             }
                         },
                         {
@@ -1587,7 +1621,7 @@
                             "id": 4183502093,
                             "name": "pool_size",
                             "variant_type": 1,
-                            "variant_value": 20
+                            "variant_value": 50
                         },
                         {
                             "id": 1013213428,
@@ -1651,7 +1685,7 @@
                             "id": 1259388949,
                             "name": "emit_rate",
                             "variant_type": 3,
-                            "variant_value": 5.0
+                            "variant_value": 10.0
                         },
                         {
                             "id": 481665254,
@@ -1688,8 +1722,8 @@
                             "name": "magnitude_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 1.0,
-                                "min": 0.0
+                                "max": 0.5,
+                                "min": 0.10000000149011612
                             }
                         },
                         {
@@ -1717,25 +1751,25 @@
                             "variant_value": {
                                 "gradient": [
                                     {
-                                        "alpha": 1.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "alpha": 0.0,
+                                        "blue": 0.5993620157241821,
+                                        "green": 0.9113868474960327,
+                                        "red": 0.967391312122345
                                     },
                                     {
                                         "alpha": 1.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.5934250950813293,
+                                        "green": 0.9370328187942505,
+                                        "red": 0.9836956262588501
                                     },
                                     {
                                         "alpha": 1.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.4969872236251831,
+                                        "green": 0.9624817371368408,
+                                        "red": 0.9728260636329651
                                     },
                                     {
-                                        "alpha": 1.0,
+                                        "alpha": 0.0,
                                         "blue": 1.0,
                                         "green": 1.0,
                                         "red": 1.0
@@ -1743,9 +1777,9 @@
                                 ],
                                 "t": [
                                     0.0,
-                                    0.0,
-                                    0.0,
-                                    0.0
+                                    0.5,
+                                    0.75,
+                                    1.0
                                 ]
                             }
                         },
@@ -1772,6 +1806,94 @@
                                 },
                                 "value": 32.0
                             }
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 50.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.4000000059604645,
+                                "y": 0.30000001192092896
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }
