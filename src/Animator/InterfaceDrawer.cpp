@@ -6,6 +6,8 @@
 #include "WriteSpriteFile.h"
 #include "Rendering/Texture/ITexture.h"
 
+#include <algorithm>
+
 using namespace animator;
 
 namespace
