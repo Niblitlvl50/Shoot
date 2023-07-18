@@ -17,29 +17,29 @@
             "h": 8,
             "name": "fire_bullet_small_idle_1",
             "w": 8,
-            "x": 833,
-            "y": 384
+            "x": 588,
+            "y": 399
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_2",
             "w": 8,
-            "x": 17,
-            "y": 393
+            "x": 576,
+            "y": 399
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_3",
             "w": 8,
-            "x": 881,
-            "y": 384
+            "x": 564,
+            "y": 399
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_4",
             "w": 8,
-            "x": 29,
-            "y": 393
+            "x": 528,
+            "y": 399
         }
     ],
     "frames_offsets": [

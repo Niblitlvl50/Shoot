@@ -24,64 +24,64 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 1016,
-            "y": 346
+            "x": 1796,
+            "y": 347
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 976,
-            "y": 346
+            "x": 1518,
+            "y": 347
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 996,
-            "y": 346
+            "x": 1816,
+            "y": 347
         },
         {
             "h": 23,
             "name": "explosion_medium_3_idle_4",
             "w": 29,
-            "x": 171,
+            "x": 399,
             "y": 295
         },
         {
             "h": 26,
             "name": "explosion_medium_3_idle_5",
             "w": 31,
-            "x": 1703,
-            "y": 263
+            "x": 220,
+            "y": 264
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 1091,
+            "x": 1931,
             "y": 321
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 1467,
-            "y": 321
+            "x": 399,
+            "y": 322
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 1498,
-            "y": 321
+            "x": 318,
+            "y": 322
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 28,
-            "y": 311
+            "x": 1964,
+            "y": 321
         },
         {
             "h": 28,
@@ -94,8 +94,8 @@
             "h": 31,
             "name": "explosion_medium_3_idle_11",
             "w": 31,
-            "x": 1321,
-            "y": 226
+            "x": 924,
+            "y": 228
         }
     ],
     "frames_offsets": [

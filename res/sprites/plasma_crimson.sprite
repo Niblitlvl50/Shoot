@@ -18,36 +18,36 @@
             "h": 13,
             "name": "plasma_crimson_idle_1",
             "w": 13,
-            "x": 499,
-            "y": 366
+            "x": 1933,
+            "y": 367
         },
         {
             "h": 11,
             "name": "plasma_crimson_idle_2",
             "w": 11,
-            "x": 291,
-            "y": 383
+            "x": 947,
+            "y": 385
         },
         {
             "h": 9,
             "name": "plasma_crimson_idle_3",
             "w": 9,
-            "x": 1650,
-            "y": 383
+            "x": 663,
+            "y": 386
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_4",
             "w": 7,
-            "x": 1934,
-            "y": 395
+            "x": 1190,
+            "y": 399
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_5",
             "w": 7,
-            "x": 1945,
-            "y": 395
+            "x": 1179,
+            "y": 399
         }
     ],
     "frames_offsets": [
