@@ -51,8 +51,15 @@ namespace
 
             ImGui::SameLine();
 
-            animator::DrawSpritePicker("Select Sprite", "", context);
+            const uint32_t slash_pos = context.sprite_file.find_last_of('/');
+            const std::string sprite_file_name = context.sprite_file.substr(slash_pos + 1);
 
+            const SpritePickerResult& result = animator::DrawSpritePicker("", sprite_file_name, context);
+            if(result.changed)
+            {
+                const std::string sprite_file = "res/sprites/" + result.new_value;
+                context.open_sprite(sprite_file);
+            }
         }
         
         ImGui::End();

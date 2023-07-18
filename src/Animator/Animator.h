@@ -33,6 +33,8 @@ namespace animator
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
 
+        void OpenSpriteFile(const std::string& sprite_file);
+
         mono::EventResult OnKeyDownUp(const event::KeyDownEvent& event);
         mono::EventResult OnMouseWheel(const event::MouseWheelEvent& event);
         mono::EventResult OnMultiGesture(const event::MultiGestureEvent& event);
@@ -66,7 +68,6 @@ namespace animator
         mono::EntitySystem* m_entity_system;
         mono::EventHandler* m_event_handler;
         const float m_pixels_per_meter;
-        const char* m_sprite_file;
 
         mono::EventToken<event::KeyDownEvent> m_key_down_token;
         mono::EventToken<event::MouseWheelEvent> m_mouse_wheel_token;
@@ -79,8 +80,10 @@ namespace animator
         mono::ICamera* m_camera;
         mono::ITexturePtr m_tools_texture;
 
+        mono::Entity* m_entity;
         mono::SpriteData* m_sprite_data;
         mono::ISprite* m_sprite;
         mono::SpriteBatchDrawer* m_sprite_batch_drawer;
+        class SpriteOffsetDrawer* m_Sprite_offset_drawer;
     };
 }
