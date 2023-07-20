@@ -1499,8 +1499,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.625,
-                                "y": -2.0
+                                "x": -2.0,
+                                "y": -1.875
                             }
                         },
                         {
@@ -1556,6 +1556,11 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 4194434097,
+                    "name": "loot_box",
+                    "properties": null
                 },
                 {
                     "hash": 2179094556,
@@ -1810,68 +1815,50 @@
                     ]
                 },
                 {
-                    "hash": 2267225250,
-                    "name": "physics",
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
                     "properties": [
                         {
-                            "id": 3836179294,
-                            "name": "body_type",
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_loot_box",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1000
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 50.0
-                        },
-                        {
-                            "id": 3447918833,
-                            "name": "inertia",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1995093780,
-                            "name": "prevent_rotation",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "despawn_me",
+                                "type": 1
+                            }
                         }
                     ]
                 },
                 {
-                    "hash": 103600384,
-                    "name": "box_shape",
+                    "hash": 1070666913,
+                    "name": "despawn_entity",
                     "properties": [
                         {
-                            "id": 776086107,
-                            "name": "faction",
-                            "variant_type": 1,
-                            "variant_value": 2
-                        },
-                        {
-                            "id": 597743964,
-                            "name": "size",
-                            "variant_type": 4,
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
                             "variant_value": {
-                                "x": 0.4000000059604645,
-                                "y": 0.30000001192092896
+                                "direction": 0,
+                                "text": "despawn_me",
+                                "type": 1
                             }
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": -0.15000000596046448
-                            }
-                        },
-                        {
-                            "id": 2209756795,
-                            "name": "sensor",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -1894,6 +1881,18 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -1937,8 +1936,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
+                                "x": 0.625,
+                                "y": -1.625
                             }
                         },
                         {
