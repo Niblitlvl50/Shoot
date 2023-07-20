@@ -1,7 +1,6 @@
 
 #include "PickupSystem.h"
 #include "DamageSystem/DamageSystem.h"
-#include "Entity/EntityLogicSystem.h"
 
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -86,6 +85,14 @@ PickupSystem::PickupSystem(
             pickup_def.entity_file = lootbox_pickup_config["entity_file"];
             pickup_def.drop_chance_percentage = lootbox_pickup_config["drop_chance"];
             m_lootbox_pickup_definitions.push_back(pickup_def);
+        }
+
+        for(const auto& horde_pickup_config : json["horde_pickups"])
+        {
+            PickupDefinition pickup_def;
+            pickup_def.entity_file = horde_pickup_config["entity_file"];
+            pickup_def.drop_chance_percentage = horde_pickup_config["drop_chance"];
+            m_lootbox_definition.push_back(pickup_def);
         }
     }
 
@@ -204,6 +211,18 @@ void PickupSystem::RegisterPickupTarget(uint32_t target_id, PickupCallback callb
 void PickupSystem::UnregisterPickupTarget(uint32_t target_id)
 {
     m_pickup_targets.erase(target_id);
+}
+
+uint32_t PickupSystem::SpawnLootBox(const math::Vector& world_position) const
+{
+    const int picked_index = mono::RandomInt(0, m_lootbox_definition.size() - 1);
+    const PickupDefinition& pickup_definition = m_lootbox_definition[picked_index];
+    const mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
+
+    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
+    m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+
+    return spawned_entity.id;
 }
 
 const char* PickupSystem::Name() const

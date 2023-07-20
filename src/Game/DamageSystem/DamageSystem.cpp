@@ -13,6 +13,39 @@
 
 #include <limits>
 
+
+//
+// Tickle, White
+// Hit, White
+// Crush, White
+// Destroy, Brown
+// Slaughter, Brown
+// Obliterate, Brown
+// Decimate, Brown
+// Demolish, Brown
+// Eradicate
+// Annihilate, Purple
+// Pulverize, Red
+// Cremate, Black
+// Liquidate, Red
+//
+
+
+//
+// Pow
+// Blaw
+// Hit
+// Pof
+// Smack
+// Blast
+// Thud
+// Whack
+// Slap
+// Splat
+// Smash
+// Crash
+// 
+
 using namespace game;
 
 DamageSystem::DamageSystem(

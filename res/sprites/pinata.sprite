@@ -19,7 +19,7 @@
                 6,
                 7
             ],
-            "loop": true,
+            "loop": false,
             "name": "explode"
         },
         {
@@ -31,7 +31,7 @@
                 11
             ],
             "loop": true,
-            "name": "walk"
+            "name": "run"
         }
     ],
     "frames": [

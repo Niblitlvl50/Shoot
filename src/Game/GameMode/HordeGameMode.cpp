@@ -11,6 +11,7 @@
 #include "Hud/ShopScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "InteractionSystem/InteractionSystem.h"
+#include "Pickups/PickupSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
 #include "RenderLayers.h"
@@ -97,6 +98,7 @@ void HordeGameMode::Begin(
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
     m_entity_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_interaction_system = system_context->GetSystem<game::InteractionSystem>();
+    m_pickup_system = system_context->GetSystem<game::PickupSystem>();
 
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
@@ -335,13 +337,10 @@ void HordeGameMode::SpawnLootBoxes()
     const uint32_t index_to_use = m_loot_box_index % m_loot_box_entities.size();
     const uint32_t entity_id = m_loot_box_entities[index_to_use];
     const math::Vector world_position = m_transform_system->GetWorldPosition(entity_id);
-    const mono::Entity spawned_entity = m_entity_manager->SpawnEntity("res/entities/loot_box.entity");
 
-    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
-    m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
-
-    m_entity_logic_system->AddLogic(
-        spawned_entity.id, new game::LootBoxLogic(spawned_entity.id, m_interaction_system, m_entity_manager));
+    const uint32_t spawned_entity_id = m_pickup_system->SpawnLootBox(world_position);
+//    m_entity_logic_system->AddLogic(
+//        spawned_entity_id, new game::LootBoxLogic(spawned_entity_id, m_interaction_system, m_entity_manager));
 
     m_loot_box_index++;
 }

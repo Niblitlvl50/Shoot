@@ -10,6 +10,7 @@
 #include "System/Audio.h"
 
 #include "Util/ActiveVector.h"
+#include "Math/MathFwd.h"
 
 #include <vector>
 #include <memory>
@@ -64,6 +65,8 @@ namespace game
         void RegisterPickupTarget(uint32_t target_id, PickupCallback callback);
         void UnregisterPickupTarget(uint32_t target_id);
 
+        uint32_t SpawnLootBox(const math::Vector& world_position) const;
+
         // IGameSystem
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -99,6 +102,7 @@ namespace game
         };
         std::vector<PickupDefinition> m_pickup_definitions;
         std::vector<PickupDefinition> m_lootbox_pickup_definitions;
+        std::vector<PickupDefinition> m_lootbox_definition;
 
         struct SpawnedPickup
         {

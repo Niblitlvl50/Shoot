@@ -79,6 +79,7 @@ namespace game
         class PlayerDaemonSystem* m_player_system;
         class CameraSystem* m_camera_system;
         class InteractionSystem* m_interaction_system;
+        class PickupSystem* m_pickup_system;
         class EntityLogicSystem* m_entity_logic_system;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;

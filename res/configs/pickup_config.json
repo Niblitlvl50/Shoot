@@ -12,6 +12,7 @@
         { "entity_file": "res/entities/pickup_coin_100.entity", "drop_chance": 75.0 }
     ],
     "horde_pickups": [
-        { "entity_file": "res/entities/loot_box.entity", "drop_chance": 25.0 }
+        { "entity_file": "res/entities/loot_box.entity", "drop_chance": 25.0 },
+        { "entity_file": "res/entities/pinata.entity", "drop_chance": 25.0 }
     ]
 }

@@ -32,6 +32,7 @@
         "res/entities/pickup_coin_100.entity",
         "res/entities/pickup_health_10.entity",
         "res/entities/pickup_second_wind.entity",
+        "res/entities/pinata.entity",
         "res/entities/player_alien.entity",
         "res/entities/player_dude.entity",
         "res/entities/player_fire_zombie.entity",
