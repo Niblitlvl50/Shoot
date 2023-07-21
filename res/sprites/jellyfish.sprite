@@ -30,70 +30,70 @@
             "h": 15,
             "name": "jellyfish_idle_1",
             "w": 9,
-            "x": 710,
+            "x": 725,
             "y": 367
         },
         {
             "h": 15,
             "name": "jellyfish_idle_2",
             "w": 9,
-            "x": 697,
+            "x": 699,
             "y": 367
         },
         {
             "h": 15,
             "name": "jellyfish_idle_3",
             "w": 9,
-            "x": 684,
+            "x": 751,
             "y": 367
         },
         {
             "h": 16,
             "name": "jellyfish_idle_4",
             "w": 9,
-            "x": 1397,
+            "x": 1446,
             "y": 366
         },
         {
             "h": 15,
             "name": "jellyfish_idle_5",
             "w": 9,
-            "x": 671,
+            "x": 738,
             "y": 367
         },
         {
             "h": 12,
             "name": "jellyfish_move_1",
             "w": 10,
-            "x": 110,
+            "x": 386,
             "y": 385
         },
         {
             "h": 15,
             "name": "jellyfish_move_2",
             "w": 9,
-            "x": 658,
+            "x": 764,
             "y": 367
         },
         {
             "h": 16,
             "name": "jellyfish_move_3",
             "w": 11,
-            "x": 2,
-            "y": 363
+            "x": 1431,
+            "y": 366
         },
         {
             "h": 15,
             "name": "jellyfish_move_4",
             "w": 11,
-            "x": 559,
+            "x": 628,
             "y": 367
         },
         {
             "h": 12,
             "name": "jellyfish_move_5",
             "w": 10,
-            "x": 96,
+            "x": 341,
             "y": 385
         }
     ],

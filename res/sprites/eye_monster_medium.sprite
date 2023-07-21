@@ -51,7 +51,7 @@
             "h": 17,
             "name": "eye_monster_medium_blink_1",
             "w": 17,
-            "x": 779,
+            "x": 842,
             "y": 346
         },
         {
@@ -65,28 +65,28 @@
             "h": 16,
             "name": "eye_monster_medium_blink_3",
             "w": 17,
-            "x": 367,
+            "x": 1133,
             "y": 347
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_4",
             "w": 17,
-            "x": 946,
+            "x": 1112,
             "y": 347
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_5",
             "w": 17,
-            "x": 1112,
+            "x": 988,
             "y": 347
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_6",
             "w": 17,
-            "x": 1154,
+            "x": 967,
             "y": 347
         },
         {
@@ -100,119 +100,119 @@
             "h": 16,
             "name": "eye_monster_medium_blink_8",
             "w": 17,
-            "x": 967,
+            "x": 367,
             "y": 347
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_1",
             "w": 17,
-            "x": 758,
+            "x": 779,
             "y": 346
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_2",
             "w": 17,
-            "x": 842,
+            "x": 800,
             "y": 346
         },
         {
             "h": 16,
             "name": "eye_monster_medium_idle_3",
             "w": 17,
-            "x": 1133,
+            "x": 946,
             "y": 347
         },
         {
             "h": 16,
             "name": "eye_monster_medium_idle_4",
             "w": 17,
-            "x": 988,
+            "x": 1154,
             "y": 347
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_5",
             "w": 17,
-            "x": 821,
+            "x": 737,
             "y": 346
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_6",
             "w": 17,
-            "x": 800,
+            "x": 821,
             "y": 346
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_7",
             "w": 16,
-            "x": 1046,
+            "x": 1026,
             "y": 346
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_8",
             "w": 16,
-            "x": 1026,
+            "x": 1046,
             "y": 346
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_1",
             "w": 20,
-            "x": 827,
+            "x": 929,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_2",
             "w": 20,
-            "x": 803,
+            "x": 905,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_3",
             "w": 20,
-            "x": 755,
+            "x": 881,
             "y": 367
         },
         {
             "h": 15,
             "name": "eye_monster_medium_run_4",
             "w": 20,
-            "x": 168,
+            "x": 227,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_5",
             "w": 20,
-            "x": 851,
+            "x": 809,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_6",
             "w": 20,
-            "x": 875,
+            "x": 833,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_7",
             "w": 20,
-            "x": 779,
+            "x": 857,
             "y": 367
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_8",
             "w": 19,
-            "x": 899,
+            "x": 953,
             "y": 367
         }
     ],

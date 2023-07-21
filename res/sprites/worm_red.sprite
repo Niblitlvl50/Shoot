@@ -49,127 +49,127 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 409,
+            "x": 802,
             "y": 400
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 999,
+            "x": 1159,
             "y": 385
         },
         {
             "h": 15,
             "name": "worm_red_appear_3",
             "w": 25,
-            "x": 1468,
-            "y": 366
+            "x": 172,
+            "y": 367
         },
         {
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 1208,
+            "x": 1182,
             "y": 322
         },
         {
             "h": 24,
             "name": "worm_red_appear_5",
             "w": 22,
-            "x": 1433,
+            "x": 1407,
             "y": 294
         },
         {
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 68,
-            "y": 282
+            "x": 1619,
+            "y": 293
         },
         {
             "h": 26,
             "name": "worm_red_appear_7",
             "w": 22,
-            "x": 484,
-            "y": 268
+            "x": 547,
+            "y": 267
         },
         {
             "h": 26,
             "name": "worm_red_appear_8",
-            "w": 22,
-            "x": 510,
-            "y": 268
-        },
-        {
-            "h": 26,
-            "name": "worm_red_dissapear_1",
-            "w": 22,
-            "x": 432,
-            "y": 268
-        },
-        {
-            "h": 26,
-            "name": "worm_red_dissapear_2",
-            "w": 22,
-            "x": 573,
-            "y": 267
-        },
-        {
-            "h": 25,
-            "name": "worm_red_dissapear_3",
-            "w": 22,
-            "x": 1645,
-            "y": 293
-        },
-        {
-            "h": 24,
-            "name": "worm_red_dissapear_4",
-            "w": 22,
-            "x": 1407,
-            "y": 294
-        },
-        {
-            "h": 19,
-            "name": "worm_red_dissapear_5",
-            "w": 22,
-            "x": 1182,
-            "y": 322
-        },
-        {
-            "h": 15,
-            "name": "worm_red_dissapear_6",
-            "w": 22,
-            "x": 142,
-            "y": 367
-        },
-        {
-            "h": 10,
-            "name": "worm_red_dissapear_7",
-            "w": 21,
-            "x": 1024,
-            "y": 385
-        },
-        {
-            "h": 2,
-            "name": "worm_red_dissapear_8",
-            "w": 21,
-            "x": 339,
-            "y": 400
-        },
-        {
-            "h": 26,
-            "name": "worm_red_idle_1",
             "w": 22,
             "x": 458,
             "y": 268
         },
         {
             "h": 26,
+            "name": "worm_red_dissapear_1",
+            "w": 22,
+            "x": 510,
+            "y": 268
+        },
+        {
+            "h": 26,
+            "name": "worm_red_dissapear_2",
+            "w": 22,
+            "x": 484,
+            "y": 268
+        },
+        {
+            "h": 25,
+            "name": "worm_red_dissapear_3",
+            "w": 22,
+            "x": 68,
+            "y": 282
+        },
+        {
+            "h": 24,
+            "name": "worm_red_dissapear_4",
+            "w": 22,
+            "x": 1433,
+            "y": 294
+        },
+        {
+            "h": 19,
+            "name": "worm_red_dissapear_5",
+            "w": 22,
+            "x": 1208,
+            "y": 322
+        },
+        {
+            "h": 15,
+            "name": "worm_red_dissapear_6",
+            "w": 22,
+            "x": 201,
+            "y": 367
+        },
+        {
+            "h": 10,
+            "name": "worm_red_dissapear_7",
+            "w": 21,
+            "x": 1184,
+            "y": 385
+        },
+        {
+            "h": 2,
+            "name": "worm_red_dissapear_8",
+            "w": 21,
+            "x": 777,
+            "y": 400
+        },
+        {
+            "h": 26,
+            "name": "worm_red_idle_1",
+            "w": 22,
+            "x": 573,
+            "y": 267
+        },
+        {
+            "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 547,
-            "y": 267
+            "x": 432,
+            "y": 268
         },
         {
             "h": 28,
@@ -182,8 +182,8 @@
             "h": 25,
             "name": "worm_red_idle_4",
             "w": 27,
-            "x": 1320,
-            "y": 293
+            "x": 2,
+            "y": 286
         },
         {
             "h": 26,
@@ -196,7 +196,7 @@
             "h": 25,
             "name": "worm_red_idle_6",
             "w": 22,
-            "x": 1619,
+            "x": 1645,
             "y": 293
         }
     ],

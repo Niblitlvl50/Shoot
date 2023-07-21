@@ -58,35 +58,35 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 1930,
+            "x": 1964,
             "y": 384
         },
         {
             "h": 12,
             "name": "button_cross_left_1",
             "w": 12,
-            "x": 1946,
+            "x": 1980,
             "y": 384
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 1962,
-            "y": 384
+            "x": 310,
+            "y": 385
         },
         {
             "h": 12,
             "name": "button_cross_right_1",
             "w": 12,
-            "x": 1978,
-            "y": 384
+            "x": 119,
+            "y": 385
         },
         {
             "h": 12,
             "name": "button_cross_up_1",
             "w": 12,
-            "x": 1994,
+            "x": 1932,
             "y": 384
         }
     ],

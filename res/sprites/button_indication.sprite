@@ -49,35 +49,35 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 2001,
+            "x": 1941,
             "y": 367
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 1846,
+            "x": 2009,
             "y": 367
         },
         {
             "h": 13,
             "name": "button_indication_neutral_1",
             "w": 13,
-            "x": 1950,
+            "x": 1992,
             "y": 367
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 1967,
-            "y": 367
+            "x": 110,
+            "y": 368
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 1984,
+            "x": 1907,
             "y": 367
         }
     ],
