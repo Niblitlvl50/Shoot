@@ -49,28 +49,28 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 802,
+            "x": 434,
             "y": 400
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 1159,
+            "x": 999,
             "y": 385
         },
         {
             "h": 15,
             "name": "worm_red_appear_3",
             "w": 25,
-            "x": 172,
-            "y": 367
+            "x": 1468,
+            "y": 366
         },
         {
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 1182,
+            "x": 1208,
             "y": 322
         },
         {
@@ -133,28 +133,28 @@
             "h": 19,
             "name": "worm_red_dissapear_5",
             "w": 22,
-            "x": 1208,
+            "x": 1182,
             "y": 322
         },
         {
             "h": 15,
             "name": "worm_red_dissapear_6",
             "w": 22,
-            "x": 201,
+            "x": 142,
             "y": 367
         },
         {
             "h": 10,
             "name": "worm_red_dissapear_7",
             "w": 21,
-            "x": 1184,
+            "x": 1024,
             "y": 385
         },
         {
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 777,
+            "x": 409,
             "y": 400
         },
         {
