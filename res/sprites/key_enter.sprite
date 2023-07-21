@@ -25,15 +25,15 @@
             "h": 30,
             "name": "key_enter_neutral_1",
             "w": 30,
-            "x": 307,
-            "y": 229
+            "x": 1240,
+            "y": 231
         },
         {
             "h": 29,
             "name": "key_enter_pushed_1",
             "w": 30,
-            "x": 181,
-            "y": 230
+            "x": 2,
+            "y": 255
         }
     ],
     "frames_offsets": [
