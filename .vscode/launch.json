@@ -99,7 +99,27 @@
             "request": "launch",
             "program": "${workspaceRoot}/bin/debug/animator.exe",
             "args": [
-                "res/sprites/alien.sprite"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "(Windows) Launch SpriteBaker",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/debug/spritebaker.exe",
+            "args": [
+                "-width", "2048",
+                "-height", "1024",
+                "-padding", "2",
+                "-bg_color", "255 0 255 0",
+                "-trim_images",
+                "-sprite_format",
+                "-sprite_folder", "res/sprites/",
+                "-output", "res/sprite_atlas.png",
+                "-input", "C:\\Users\\Niklas\\AppData\\Local\\Temp\\tmpz08n754w.filelist"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
