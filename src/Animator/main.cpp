@@ -21,20 +21,6 @@
 
 int main(int argc, const char* argv[])
 {
-    if(argc < 2)
-    {
-        std::printf("You need to supply an argument\n");
-        return 0;
-    }
-
-    // This is assumed to be the file argument
-    const char* sprite_file = argv[1];
-    if(!file::Exists(sprite_file))
-    {
-        std::printf("Unable to find the file '%s'.\n", sprite_file);
-        return 0;
-    }
-
     constexpr size_t max_entities = 500;
 
     System::InitializeContext init_context;
@@ -63,7 +49,7 @@ int main(int argc, const char* argv[])
         mono::Engine engine(window, &camera, &system_context, &event_handler);
 
         animator::Animator animator(
-            transform_system, sprite_system, render_system, entity_system, &event_handler, render_params.pixels_per_meter, sprite_file);
+            transform_system, sprite_system, render_system, entity_system, &event_handler, render_params.pixels_per_meter);
         engine.Run(&animator);
 
         delete window;

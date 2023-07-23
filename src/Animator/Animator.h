@@ -26,8 +26,7 @@ namespace animator
             mono::RenderSystem* render_system,
             mono::EntitySystem* entity_system,
             mono::EventHandler* event_handler,
-            float pixels_per_meter,
-            const char* sprite_file);
+            float pixels_per_meter);
         ~Animator();
 
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;

@@ -122,22 +122,18 @@ Animator::Animator(
     mono::RenderSystem* render_system,
     mono::EntitySystem* entity_system,
     mono::EventHandler* event_handler,
-    float pixels_per_meter,
-    const char* sprite_file)
+    float pixels_per_meter)
     : m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
     , m_render_system(render_system)
     , m_entity_system(entity_system)
     , m_event_handler(event_handler)
     , m_pixels_per_meter(pixels_per_meter)
+    , m_sprite_data(nullptr)
 {
-    using namespace std::placeholders;
-
-    m_context.update_speed = 1.0f;
-    m_context.offset_mode = false;
-    m_context.sprite_file = sprite_file;
-
     animator::LoadAllSprites("res/sprites/all_sprite_files.json");
+
+    using namespace std::placeholders;
 
     // Setup UI callbacks
     m_context.on_save                   = std::bind(&Animator::SaveSprite, this);
@@ -199,8 +195,6 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(m_sprite_batch_drawer, 0);
     AddDrawable(m_Sprite_offset_drawer, 0);
     AddDrawable(new InterfaceDrawer(m_context), 1);
-
-    OpenSpriteFile(m_context.sprite_file);
 }
 
 int Animator::OnUnload()

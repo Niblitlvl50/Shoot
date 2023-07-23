@@ -23,7 +23,7 @@ namespace animator
 
     struct UIContext
     {
-        int tools_texture_id;
+        int tools_texture_id = 0;
         math::Quad save_icon;
         math::Quad add_icon;
         math::Quad plus_icon;
@@ -31,16 +31,16 @@ namespace animator
 
         std::unordered_map<std::string, UIIcon> ui_icons;
 
-        bool offset_mode;
-        bool animation_playing;
-        float update_speed;
+        bool offset_mode = false;
+        bool animation_playing = false;
+        float update_speed = 1.0f;
 
-        int animation_id;
-        int selected_frame;
+        int animation_id = 0;
+        int selected_frame = 0;
         math::Vector frame_offset_pixels;
 
         std::string sprite_file;
-        mono::SpriteData* sprite_data;
+        mono::SpriteData* sprite_data = nullptr;
 
         std::function<void ()> add_animation;
         std::function<void ()> delete_animation;

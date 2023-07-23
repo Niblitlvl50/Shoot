@@ -56,7 +56,7 @@ namespace
             const uint32_t slash_pos = context.sprite_file.find_last_of('/');
             const std::string sprite_file_name = context.sprite_file.substr(slash_pos + 1);
 
-            const SpritePickerResult& result = animator::DrawSpritePicker("", sprite_file_name, context);
+            const SpritePickerResult& result = animator::DrawSpritePicker("Sprite", sprite_file_name, context);
             if(result.changed)
             {
                 const std::string sprite_file = "res/sprites/" + result.new_value;
@@ -262,8 +262,11 @@ void InterfaceDrawer::Draw(mono::IRenderer& renderer) const
     (void)renderer;
 
     DrawOverlayToolbar(m_context);
-    DrawAnimationWindow(m_context);
-    DrawOffsetWindow(m_context);
+    if(m_context.sprite_data)
+    {
+        DrawAnimationWindow(m_context);
+        DrawOffsetWindow(m_context);
+    }
 
     //ImGui::ShowDemoWindow();
 }
