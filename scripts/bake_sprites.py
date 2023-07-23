@@ -1,6 +1,7 @@
 
 import os
 import subprocess
+import tempfile
 
 
 def get_files(folder, extension):
@@ -8,14 +9,16 @@ def get_files(folder, extension):
     for root, dir, files in os.walk(folder):
         for filename in files:
             if filename.endswith(extension):
-                file_paths.append(os.path.join(root, filename))
+                file_paths.append(os.path.normpath(os.path.join(root, filename)))
 
     file_paths.sort()
     return file_paths
 
-
+#
+# Hardcoded binary path is not great.
+#
 arguments = [
-    'bin/spritebaker',
+    'bin/Debug/spritebaker',
     '-width', '2048',
     '-height', '1024',
     '-padding', '2',
@@ -28,9 +31,10 @@ arguments = [
 
 arguments.append('-input')
 
-for file in get_files('res/images', 'png'):
-    arguments.append(file)
+with tempfile.TemporaryFile(mode='wt', suffix='.filelist', delete=True) as temp_input_file:
+    for file in get_files('res/images', 'png'):
+        temp_input_file.write(file + '\n')
 
-# arguments = arguments[0:20]
-# print(" ".join(arguments))
-subprocess.call(arguments)
+    arguments.append(temp_input_file.name)
+    # print(" ".join(arguments))
+    subprocess.call(arguments)
