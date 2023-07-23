@@ -39,6 +39,7 @@ namespace game
     struct PersistentPlayerData
     {
         int chips;
+        int rubble;
     };
 
     struct PlayerInfo
@@ -71,7 +72,6 @@ namespace game
         bool auto_reload;
 
         mono::InputContextType last_used_input;
-
         PersistentPlayerData persistent_data;
     };
 

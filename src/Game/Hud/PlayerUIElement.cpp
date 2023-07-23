@@ -83,6 +83,11 @@ namespace game
             m_chips_text->SetPosition(0.55f, 0.4f);
             m_chips_text->SetScale(0.5f);
 
+            m_rubble_text = new UITextElement(
+                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GOLDEN_YELLOW);
+            m_rubble_text->SetPosition(0.55f, 0.2f);
+            m_rubble_text->SetScale(0.5f);
+
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
             m_healthbar->SetPosition(-0.15f, 0.25f);
@@ -92,6 +97,7 @@ namespace game
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
             AddChild(m_chips_text);
+            AddChild(m_rubble_text);
             AddChild(m_healthbar);
 
             const PlayerUIStateMachine::StateTable states = {
@@ -137,6 +143,10 @@ namespace game
             std::snprintf(chips_text, std::size(chips_text), "%d", m_player_info.persistent_data.chips);
             m_chips_text->SetText(chips_text);
 
+            char rubble_text[32] = { '\0' };
+            std::snprintf(rubble_text, std::size(rubble_text), "%d", m_player_info.persistent_data.rubble);
+            m_rubble_text->SetText(rubble_text);
+
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
             m_weapon_sprites->SetActiveSprite(weapon_index, 0);
 
@@ -172,6 +182,7 @@ namespace game
         std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
         class UITextElement* m_ammo_text;
         class UITextElement* m_chips_text;
+        class UITextElement* m_rubble_text;
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;

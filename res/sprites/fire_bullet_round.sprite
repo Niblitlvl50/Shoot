@@ -17,29 +17,29 @@
             "h": 10,
             "name": "fire_bullet_round_idle_1",
             "w": 8,
-            "x": 695,
-            "y": 383
+            "x": 66,
+            "y": 398
         },
         {
             "h": 8,
             "name": "fire_bullet_round_idle_2",
             "w": 10,
-            "x": 768,
-            "y": 384
+            "x": 923,
+            "y": 407
         },
         {
             "h": 10,
             "name": "fire_bullet_round_idle_3",
             "w": 8,
-            "x": 707,
-            "y": 383
+            "x": 54,
+            "y": 398
         },
         {
             "h": 8,
             "name": "fire_bullet_round_idle_4",
             "w": 10,
-            "x": 754,
-            "y": 384
+            "x": 909,
+            "y": 407
         }
     ],
     "frames_offsets": [

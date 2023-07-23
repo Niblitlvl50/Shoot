@@ -14,6 +14,7 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
     {
         nlohmann::json player_data;
         player_data["chips"] = data.player_data[index].chips;
+        player_data["rubble"] = data.player_data[index].rubble;
         save_data_array.push_back(player_data);
     }
 
@@ -48,5 +49,6 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
     for(uint32_t index = 0; index < save_data_array.size(); ++index)
     {
         data.player_data[index].chips = save_data_array[index].value("chips", 0);
+        data.player_data[index].rubble = save_data_array[index].value("rubble", 0);
     }
 }

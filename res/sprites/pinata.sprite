@@ -1,0 +1,179 @@
+{
+    "animations": [
+        {
+            "frame_duration": 160,
+            "frames": [
+                0,
+                1,
+                2
+            ],
+            "loop": true,
+            "name": "Idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": false,
+            "name": "explode"
+        },
+        {
+            "frame_duration": 150,
+            "frames": [
+                8,
+                9,
+                10,
+                11
+            ],
+            "loop": true,
+            "name": "run"
+        }
+    ],
+    "frames": [
+        {
+            "h": 23,
+            "name": "pinata_Idle_1",
+            "w": 20,
+            "x": 413,
+            "y": 298
+        },
+        {
+            "h": 22,
+            "name": "pinata_Idle_2",
+            "w": 20,
+            "x": 1326,
+            "y": 325
+        },
+        {
+            "h": 22,
+            "name": "pinata_Idle_3",
+            "w": 20,
+            "x": 1350,
+            "y": 325
+        },
+        {
+            "h": 23,
+            "name": "pinata_explode_1",
+            "w": 22,
+            "x": 1318,
+            "y": 298
+        },
+        {
+            "h": 27,
+            "name": "pinata_explode_2",
+            "w": 28,
+            "x": 1042,
+            "y": 270
+        },
+        {
+            "h": 28,
+            "name": "pinata_explode_3",
+            "w": 31,
+            "x": 307,
+            "y": 265
+        },
+        {
+            "h": 27,
+            "name": "pinata_explode_4",
+            "w": 35,
+            "x": 951,
+            "y": 269
+        },
+        {
+            "h": 22,
+            "name": "pinata_explode_5",
+            "w": 32,
+            "x": 95,
+            "y": 325
+        },
+        {
+            "h": 23,
+            "name": "pinata_walk_1",
+            "w": 21,
+            "x": 145,
+            "y": 298
+        },
+        {
+            "h": 22,
+            "name": "pinata_walk_2",
+            "w": 20,
+            "x": 1302,
+            "y": 325
+        },
+        {
+            "h": 22,
+            "name": "pinata_walk_3",
+            "w": 22,
+            "x": 400,
+            "y": 325
+        },
+        {
+            "h": 22,
+            "name": "pinata_walk_4",
+            "w": 20,
+            "x": 1278,
+            "y": 325
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": -0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.015625,
+            "y": 0.0
+        },
+        {
+            "x": -0.03125,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/pinata/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

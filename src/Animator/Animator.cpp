@@ -16,6 +16,7 @@
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
 #include "System/Keycodes.h"
+#include "System/File.h"
 
 #include "InterfaceDrawer.h"
 
@@ -67,6 +68,34 @@ namespace
         return texture;
     }
 
+    void SetupSpriteIcons(const std::vector<std::string>& sprite_files, animator::UIContext& context)
+    {
+        for(const std::string& sprite_file : sprite_files)
+        {
+            const std::string full_sprite_path = "res/sprites/" + sprite_file;
+            const mono::SpriteData* sprite_data =
+                mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(full_sprite_path.c_str());
+
+            std::string category = sprite_data->source_folder;
+
+            const size_t pos = category.find("res/images/");
+            if(pos != std::string::npos)
+            {
+                const size_t offset = std::size("res/images/");
+                const size_t slash_pos = category.find_first_of('/', offset);
+                category = category.substr(offset - 1, slash_pos - offset + 1);
+            }
+
+            context.ui_icons[sprite_file] = {
+                mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
+                sprite_data->frames.front().uv_upper_left,
+                sprite_data->frames.front().uv_lower_right,
+                sprite_data->frames.front().size,
+                category
+            };
+        }
+    }
+
     class ActiveFrameUpdater : public mono::IUpdatable
     {
     public:
@@ -101,12 +130,14 @@ Animator::Animator(
     , m_entity_system(entity_system)
     , m_event_handler(event_handler)
     , m_pixels_per_meter(pixels_per_meter)
-    , m_sprite_file(sprite_file)
 {
     using namespace std::placeholders;
 
     m_context.update_speed = 1.0f;
     m_context.offset_mode = false;
+    m_context.sprite_file = sprite_file;
+
+    animator::LoadAllSprites("res/sprites/all_sprite_files.json");
 
     // Setup UI callbacks
     m_context.on_save                   = std::bind(&Animator::SaveSprite, this);
@@ -127,6 +158,8 @@ Animator::Animator(
     m_context.set_speed                 = std::bind(&Animator::SetSpeed, this, _1);
     m_context.toggle_playing            = std::bind(&Animator::TogglePlaying, this);
     m_context.toggle_offset_mode        = std::bind(&Animator::ToggleOffsetMode, this);
+
+    m_context.open_sprite               = std::bind(&Animator::OpenSpriteFile, this, _1);
 }
 
 Animator::~Animator()
@@ -144,22 +177,13 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_camera->SetViewportSize(math::Vector(10.0f, 7.0f));
 
     m_tools_texture = SetupIcons(m_context);
+    SetupSpriteIcons(animator::GetAllSprites(), m_context);
 
-    m_sprite_data = const_cast<mono::SpriteData*>(mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(m_sprite_file));
-    m_context.sprite_data = m_sprite_data;
-    m_context.animation_playing = false;
-
-    mono::Entity* entity = m_entity_system->AllocateEntity("animator");
-
-    mono::SpriteComponents sprite_component;
-    sprite_component.sprite_file = m_sprite_file;
-    m_sprite = m_sprite_system->AllocateSprite(entity->id, sprite_component);
-    m_sprite->SetAnimationPlayback(mono::PlaybackMode::PAUSED);
+    m_entity = m_entity_system->AllocateEntity("animator");
+    m_sprite = m_sprite_system->AllocateSprite(m_entity->id);
 
     m_sprite_batch_drawer = new mono::SpriteBatchDrawer(m_transform_system, m_sprite_system, m_render_system);
-
-    SetAnimation(m_sprite->GetActiveAnimation());
-
+    m_Sprite_offset_drawer = new SpriteOffsetDrawer(m_transform_system, m_sprite_data, m_entity->id, m_context.offset_mode);
     m_input_handler = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
     using namespace std::placeholders;
@@ -173,8 +197,10 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddUpdatable(new ActiveFrameUpdater(m_sprite, m_context));
     AddDrawable(m_sprite_batch_drawer, 0);
-    AddDrawable(new SpriteOffsetDrawer(m_transform_system, m_sprite_data, entity->id, m_context.offset_mode), 0);
+    AddDrawable(m_Sprite_offset_drawer, 0);
     AddDrawable(new InterfaceDrawer(m_context), 1);
+
+    OpenSpriteFile(m_context.sprite_file);
 }
 
 int Animator::OnUnload()
@@ -182,6 +208,29 @@ int Animator::OnUnload()
     m_camera = nullptr;
     SaveSprite();
     return 0;
+}
+
+void Animator::OpenSpriteFile(const std::string& sprite_file)
+{
+    const bool file_exists = file::Exists(sprite_file.c_str());
+    if(!file_exists)
+    {
+        System::Log("'%s' does not exist.", sprite_file.c_str());
+        return;
+    }
+
+    m_sprite_data = const_cast<mono::SpriteData*>(
+        mono::RenderSystem::GetSpriteFactory()->GetSpriteDataForFile(sprite_file.c_str()));
+    m_context.sprite_file = sprite_file;
+    m_context.sprite_data = m_sprite_data;
+    m_context.animation_playing = false;
+
+    mono::SpriteComponents sprite_component;
+    sprite_component.sprite_file = sprite_file.c_str();
+    m_sprite_system->SetSpriteData(m_entity->id, sprite_component);
+
+    m_sprite->SetAnimationPlayback(mono::PlaybackMode::PAUSED);
+    SetAnimation(m_sprite->GetActiveAnimation());
 }
 
 void Animator::SetAnimation(int animation_id)
@@ -418,7 +467,7 @@ void Animator::SetFrameOffset(const math::Vector& frame_offset_pixels)
 
 void Animator::SaveSprite()
 {
-    WriteSpriteFile(m_sprite_file, m_sprite_data);
+    WriteSpriteFile(m_context.sprite_file.c_str(), m_sprite_data);
 }
 
 void Animator::SetSpeed(float new_speed)

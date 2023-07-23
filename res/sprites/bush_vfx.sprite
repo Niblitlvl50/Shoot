@@ -1,0 +1,93 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "loop": true,
+            "name": "idle"
+        }
+    ],
+    "frames": [
+        {
+            "h": 12,
+            "name": "bush_vfx_idle_1",
+            "w": 15,
+            "x": 990,
+            "y": 391
+        },
+        {
+            "h": 10,
+            "name": "bush_vfx_idle_2",
+            "w": 14,
+            "x": 1592,
+            "y": 392
+        },
+        {
+            "h": 10,
+            "name": "bush_vfx_idle_3",
+            "w": 12,
+            "x": 1645,
+            "y": 392
+        },
+        {
+            "h": 8,
+            "name": "bush_vfx_idle_4",
+            "w": 14,
+            "x": 285,
+            "y": 407
+        },
+        {
+            "h": 7,
+            "name": "bush_vfx_idle_5",
+            "w": 12,
+            "x": 1344,
+            "y": 407
+        },
+        {
+            "h": 6,
+            "name": "bush_vfx_idle_6",
+            "w": 12,
+            "x": 1893,
+            "y": 407
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/explosions/bush_vfx/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

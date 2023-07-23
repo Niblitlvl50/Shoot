@@ -36,15 +36,15 @@
             "h": 13,
             "name": "switch_small_default_1",
             "w": 8,
-            "x": 1022,
-            "y": 366
+            "x": 827,
+            "y": 391
         },
         {
             "h": 13,
             "name": "switch_small_default_2",
             "w": 8,
-            "x": 998,
-            "y": 366
+            "x": 839,
+            "y": 391
         }
     ],
     "frames_offsets": [
