@@ -38,6 +38,7 @@ int main()
 
     System::InitializeContext init_context;
     init_context.working_directory = ".";
+    init_context.log_file = "editor_log.log";
     System::Initialize(init_context);
 
     {

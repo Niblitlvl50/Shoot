@@ -39,6 +39,7 @@ int main(int argc, const char* argv[])
 
     System::InitializeContext init_context;
     init_context.working_directory = ".";
+    init_context.log_file = "animator_log.log";
     System::Initialize(init_context);
 
     {
