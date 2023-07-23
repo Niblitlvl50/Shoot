@@ -8,9 +8,7 @@
 CMakeCache.txt
 cmake_install.cmake
 Makefile
-left_game.log
-right_game.log
-game_log.log
+*.log
 bin/
 build/
 build_win64/
