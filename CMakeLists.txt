@@ -36,6 +36,9 @@ add_compile_definitions(NDEBUG)
 add_subdirectory("Mono1/")
 include_directories("Mono1/src" "Mono1/third_party")
 
+# SpriteBaker
+add_subdirectory("src/SpriteBaker/")
+
 
 # Game lib
 file(GLOB_RECURSE game_source_files "src/Game/*.cpp" "src/Game/*.h")
@@ -53,7 +56,6 @@ target_link_libraries(editor game_lib mono)
 source_group(TREE ${CMAKE_SOURCE_DIR}/src/ FILES ${editor_source_files})
 
 # Animator exe
-
 file(GLOB_RECURSE animator_source_files "src/Animator/*.cpp" "src/Animator/*.h")
 add_executable(animator ${animator_source_files})
 add_dependencies(animator mono imgui)

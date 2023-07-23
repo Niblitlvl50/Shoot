@@ -15,7 +15,7 @@ def get_files(folder, extension):
 
 
 arguments = [
-    'spritebaker',
+    'bin/spritebaker',
     '-width', '2048',
     '-height', '1024',
     '-padding', '2',
@@ -31,5 +31,6 @@ arguments.append('-input')
 for file in get_files('res/images', 'png'):
     arguments.append(file)
 
-# print " ".join(arguments)
+# arguments = arguments[0:20]
+# print(" ".join(arguments))
 subprocess.call(arguments)
