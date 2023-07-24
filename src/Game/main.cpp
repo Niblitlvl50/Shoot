@@ -30,8 +30,8 @@ namespace
 {
     struct Options
     {
-        int x = 100;
-        int y = 100;
+        int x = 0;
+        int y = 0;
         int width = 1200;
         int height = 750;
         const char* start_zone = nullptr;
@@ -108,6 +108,9 @@ int main(int argc, char* argv[])
     game::InitializeAIInfo();
 
     {
+        const int window_position_x = (options.x != 0) ? options.x : user_config.window_position_x;
+        const int window_position_y = (options.y != 0) ? options.y : user_config.window_position_y;
+
         const System::Size window_size = System::GetCurrentWindowSize();
         const float window_ratio = float(window_size.width) / float(window_size.height);
         const int height = float(options.width) / window_ratio;
@@ -118,11 +121,8 @@ int main(int argc, char* argv[])
         if(user_config.vsync)
             window_options |= System::WindowOptions::VSYNC;
 
-        std::unique_ptr<System::IWindow> window(System::MakeWindow(
-            game_config.application.c_str(),
-            options.x, options.y,
-            options.width, height,
-            System::WindowOptions(window_options)));
+        std::unique_ptr<System::IWindow> window(
+            System::MakeWindow(game_config.application.c_str(), window_position_x, window_position_y, options.width, height, System::WindowOptions(window_options)));
     
         // Needs to be done after the window is created.
         audio::Initialize();
@@ -157,6 +157,9 @@ int main(int argc, char* argv[])
         system_context.DestroySystems();
 
         user_config.fullscreen = window->IsFullscreen();
+        const System::Position window_position = window->Position();
+        user_config.window_position_x = window_position.x;
+        user_config.window_position_y = window_position.y;
         game::SaveUserConfig(System::GetUserPath(), user_config);
     }
 

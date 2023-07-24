@@ -47,6 +47,8 @@ void game::LoadUserConfig(const char* user_config_path, game::UserConfig& config
 
     config.fullscreen = json.value("fullscreen", false);
     config.vsync = json.value("vsync", true);
+    config.window_position_x = json.value("window_position_x", 0);
+    config.window_position_y = json.value("window_position_y", 0);
 }
 
 void game::SaveUserConfig(const char* user_config_path, const game::UserConfig& config)
@@ -54,6 +56,8 @@ void game::SaveUserConfig(const char* user_config_path, const game::UserConfig& 
     nlohmann::json json;
     json["fullscreen"] = config.fullscreen;
     json["vsync"] = config.vsync;
+    json["window_position_x"] = config.window_position_x;
+    json["window_position_y"] = config.window_position_y;
 
     const std::string& serialized_config = json.dump(4);
 

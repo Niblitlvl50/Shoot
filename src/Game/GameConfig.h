@@ -28,6 +28,8 @@ namespace game
     {
         bool fullscreen = false;
         bool vsync = true;
+        int window_position_x = 0;
+        int window_position_y = 0;
     };
 
     void LoadUserConfig(const char* user_config_path, UserConfig& config);
