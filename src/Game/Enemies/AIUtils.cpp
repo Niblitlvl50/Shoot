@@ -35,8 +35,13 @@ game::FindTargetResult game::FindAITargetFromPosition(const math::Vector& world_
     }
     case PrimaryAIBehaviour::TargetPackage:
     {
-        result.entity_id = g_package_info.entity_id;
-        result.world_position = g_package_info.position;
+        const bool package_spawned = (g_package_info.state != PackageState::NOT_SPAWNED);
+        if(package_spawned)
+        {
+            result.entity_id = g_package_info.entity_id;
+            result.world_position = g_package_info.position;
+        }
+
         break;
     }
     }
