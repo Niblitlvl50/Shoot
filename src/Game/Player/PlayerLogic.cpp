@@ -644,7 +644,9 @@ void PlayerLogic::Blink(const math::Vector& direction)
     if(m_blink_cooldown < tweak_values::blink_cooldown_threshold_s)
         return;
 
-    m_blink_direction = direction;
+    const float length_sq = math::LengthSquared(direction);
+    m_blink_direction = (length_sq > FLT_EPSILON) ? direction : math::VectorFromAngle(m_aim_direction);
+
     m_state.TransitionTo(PlayerStates::BLINK);
 }
 
