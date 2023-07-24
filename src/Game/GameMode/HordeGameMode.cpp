@@ -55,8 +55,7 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 3.0f;
     constexpr float fade_duration_s = 1.0f;
-
-    constexpr float spawn_wave_interval_s = 30.0f;
+    constexpr float spawn_wave_interval_s = 15.0f;
 }
 
 using namespace game;

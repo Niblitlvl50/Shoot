@@ -31,6 +31,8 @@ BlobController::BlobController(uint32_t entity_id, mono::SystemContext* system_c
 
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_jump_anim_id = m_sprite->GetAnimationIdFromName("jump");
+    if(m_jump_anim_id == -1)
+        m_jump_anim_id = m_sprite->GetAnimationIdFromName("run");
 
     m_jump_anim_length = m_sprite->GetAnimationLengthSeconds(m_jump_anim_id);
 

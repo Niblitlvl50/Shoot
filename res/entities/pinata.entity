@@ -94,6 +94,18 @@
                     ]
                 },
                 {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                },
+                {
                     "hash": 4194434097,
                     "name": "loot_box",
                     "properties": null
