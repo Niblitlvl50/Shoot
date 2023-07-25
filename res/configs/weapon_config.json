@@ -51,6 +51,16 @@
             "behaviour": "homing"
         },
         {
+            "name": "familiar_bullet",
+            "damage": 10,
+            "life_span": 0.3,
+            "fuzzy_life_span": 0.1,
+            "bullet_want_direction": true,
+            "entity_file": "res/entities/bullet_familiar.entity",
+            "sound_file": "",
+            "behaviour": ""
+        },
+        {
             "name": "burst_gun_bullet",
             "damage": 80,
             "life_span": 10.0,
@@ -181,7 +191,7 @@
         },
         {
             "name": "plasma_gun",
-            "magazine_size": 100,
+            "magazine_size": 25,
             "infinite_ammo": false,
             "reload_time": 1.0,
             "projectiles_per_fire": 1,
@@ -367,7 +377,7 @@
         {
             "name": "Familiar Generic",
             "weapon": "plasma_gun_familiar",
-            "bullet": "flak_bullet",
+            "bullet": "familiar_bullet",
             "sprite_file": "res/sprites/bolter.sprite"
         },
         {

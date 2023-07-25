@@ -40,8 +40,8 @@ namespace
         const mono::Color::RGBA aim_lines_colors[] = {
             mono::Color::MakeWithAlpha(color, 0.0f),
             mono::Color::MakeWithAlpha(color, 0.0f),
-            mono::Color::MakeWithAlpha(color, 0.6f),
-            mono::Color::MakeWithAlpha(color, 0.6f),
+            mono::Color::MakeWithAlpha(color, 0.3f),
+            mono::Color::MakeWithAlpha(color, 0.3f),
             mono::Color::MakeWithAlpha(color, 0.0f),
             mono::Color::MakeWithAlpha(color, 0.0f),
         };
