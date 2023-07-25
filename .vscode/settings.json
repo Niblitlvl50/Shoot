@@ -111,6 +111,9 @@
         "format": "cpp",
         "charconv": "cpp",
         "concepts": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "regex": "cpp"
     }
 }
