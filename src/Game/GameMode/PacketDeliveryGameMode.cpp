@@ -13,6 +13,7 @@
 #include "DamageSystem/DamageSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "GameCamera/CameraSystem.h"
+#include "ShopSystem/ShopSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "RenderLayers.h"
 #include "Rendering/IRenderer.h"
@@ -103,6 +104,7 @@ void PacketDeliveryGameMode::Begin(
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     UISystem* ui_system = system_context->GetSystem<game::UISystem>();
+    ShopSystem* shop_system = system_context->GetSystem<game::ShopSystem>();
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -167,7 +169,7 @@ void PacketDeliveryGameMode::Begin(
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
-    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system);
+    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system, shop_system);
     m_shop_screen->Hide();
 
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);

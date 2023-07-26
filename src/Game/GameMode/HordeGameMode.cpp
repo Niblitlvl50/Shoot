@@ -15,6 +15,7 @@
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
 #include "RenderLayers.h"
+#include "ShopSystem/ShopSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Weapons/WeaponSystem.h"
@@ -110,6 +111,7 @@ void HordeGameMode::Begin(
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     game::UISystem* ui_system = system_context->GetSystem<game::UISystem>();
+    game::ShopSystem* shop_system = system_context->GetSystem<game::ShopSystem>();
 
     SetupEvents();
 
@@ -144,7 +146,7 @@ void HordeGameMode::Begin(
     m_big_text_screen->SetAlpha(0.0f);
     m_big_text_screen->Hide();
 
-    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system);
+    m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system, shop_system);
     m_shop_screen->Hide();
 
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);

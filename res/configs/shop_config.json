@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "name": "Shovel",
+            "cost": 10
+        },
+        {
+            "name": "Bucket",
+            "cost": 20
+        }
+    ]
+}
