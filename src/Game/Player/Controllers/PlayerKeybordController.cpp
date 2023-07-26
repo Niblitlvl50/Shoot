@@ -91,6 +91,11 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
         m_player_logic->StopFire();
     }
 
+    if(System::IsKeyDown(Keycode::L_SHIFT))
+        m_player_logic->Sprint();
+    else
+        m_player_logic->StopSprint();
+
     if(m_trigger_reload)
     {
         m_player_logic->Reload(update_context.timestamp);
