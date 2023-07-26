@@ -92,7 +92,7 @@ namespace
         const ImVec4& hovered_color = style.Colors[ImGuiCol_ButtonHovered];
         const ImVec4& window_bg_color = style.Colors[ImGuiCol_WindowBg];
 
-        void* texture_id = reinterpret_cast<void*>(context.tools_texture_id);
+        ImTextureID texture_id = context.tools_image->TextureHandle();
 
         ImGui::SetNextWindowPos(ImVec2(window_x, 0.0f));
         ImGui::SetNextWindowSize(ImVec2(window_width, animation_window_height));
@@ -344,7 +344,7 @@ animator::SpritePickerResult animator::DrawSpritePicker(const char* name, const 
                 ImGui::TableSetColumnIndex(0);
             }
 
-            const ImTextureID texture_id = reinterpret_cast<ImTextureID>(sprite_icon.icon.texture->Id());
+            const ImTextureID texture_id = sprite_icon.icon.imgui_image->TextureHandle();
             const math::Vector& size = sprite_icon.icon.size;
 
             constexpr float button_max_size = 64.0f;

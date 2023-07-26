@@ -75,9 +75,7 @@ namespace animator
         std::unique_ptr<ImGuiInputHandler> m_input_handler;
 
         UIContext m_context;
-
         mono::ICamera* m_camera;
-        mono::ITexturePtr m_tools_texture;
 
         mono::Entity* m_entity;
         mono::SpriteData* m_sprite_data;

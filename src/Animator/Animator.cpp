@@ -45,12 +45,13 @@ using namespace animator;
 
 namespace
 {
-    mono::ITexturePtr SetupIcons(UIContext& context)
+    void SetupIcons(UIContext& context)
     {
         const mono::ITextureFactory* texture_factory = mono::RenderSystem::GetTextureFactory();
 
         mono::ITexturePtr texture =
             texture_factory->CreateTextureFromData(animator_sprite_atlas_data, animator_sprite_atlas_data_length, "res/animator_sprite_atlas.png");
+        mono::IImGuiImagePtr image = mono::CreateImGuiImage(texture);
 
         const mono::ISpriteFactory* sprite_factory = mono::RenderSystem::GetSpriteFactory();
 
@@ -59,13 +60,11 @@ namespace
         const mono::ISpritePtr plus = sprite_factory->CreateSpriteFromRaw(plus_data);
         const mono::ISpritePtr save = sprite_factory->CreateSpriteFromRaw(save_data);
 
-        context.tools_texture_id = texture->Id();
+        context.tools_image = image;
         context.save_icon = math::Quad(save->GetCurrentFrame().uv_upper_left, save->GetCurrentFrame().uv_lower_right);
         context.add_icon = math::Quad(add->GetCurrentFrame().uv_lower_right, add->GetCurrentFrame().uv_upper_left);
         context.plus_icon = math::Quad(plus->GetCurrentFrame().uv_lower_right, plus->GetCurrentFrame().uv_upper_left);
         context.delete_icon = math::Quad(del->GetCurrentFrame().uv_lower_right, del->GetCurrentFrame().uv_upper_left);
-
-        return texture;
     }
 
     void SetupSpriteIcons(const std::vector<std::string>& sprite_files, animator::UIContext& context)
@@ -87,7 +86,7 @@ namespace
             }
 
             context.ui_icons[sprite_file] = {
-                mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
+                mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str())),
                 sprite_data->frames.front().uv_upper_left,
                 sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
@@ -172,7 +171,7 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_camera = camera;
     m_camera->SetViewportSize(math::Vector(10.0f, 7.0f));
 
-    m_tools_texture = SetupIcons(m_context);
+    SetupIcons(m_context);
     SetupSpriteIcons(animator::GetAllSprites(), m_context);
 
     m_entity = m_entity_system->AllocateEntity("animator");

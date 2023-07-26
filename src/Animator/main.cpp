@@ -29,7 +29,7 @@ int main(int argc, const char* argv[])
     System::Initialize(init_context);
 
     {
-        System::IWindow* window = System::MakeWindow("Animator", 0, 0, 1200, 800, System::WindowOptions::VSYNC);
+        System::IWindow* window = System::MakeWindow("Animator", 100, 100, 1200, 800, System::WindowOptions::VSYNC);
 
         mono::RenderInitParams render_params;
         render_params.window = window;

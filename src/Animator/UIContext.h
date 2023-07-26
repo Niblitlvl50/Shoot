@@ -3,6 +3,7 @@
 
 #include "Rendering/Sprite/SpriteData.h"
 #include "Rendering/Texture/ITextureFactory.h"
+#include "ImGuiImpl/ImGuiImageImpl.h"
 #include "Math/Quad.h"
 
 #include <string>
@@ -14,7 +15,7 @@ namespace animator
 {
     struct UIIcon
     {
-        mono::ITexturePtr texture;
+        mono::IImGuiImagePtr imgui_image;
         math::Vector uv_upper_left;
         math::Vector uv_lower_right;
         math::Vector size;
@@ -23,7 +24,7 @@ namespace animator
 
     struct UIContext
     {
-        int tools_texture_id = 0;
+        mono::IImGuiImagePtr tools_image;
         math::Quad save_icon;
         math::Quad add_icon;
         math::Quad plus_icon;
