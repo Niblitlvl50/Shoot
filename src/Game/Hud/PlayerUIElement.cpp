@@ -90,7 +90,12 @@ namespace game
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
-            m_healthbar->SetPosition(-0.15f, 0.25f);
+            m_healthbar->SetPosition(-0.15f, 0.3f);
+
+            m_staminabar = new UIBarElement(
+                1.0f, 0.05f, mono::Color::GRAY,
+                1.0f, 0.05f, mono::Color::BLUE);
+            m_staminabar->SetPosition(-0.15f, 0.2f);
 
             AddChild(background_hud);
             AddChild(m_mugshot_hud);
@@ -99,6 +104,7 @@ namespace game
             AddChild(m_chips_text);
             AddChild(m_rubble_text);
             AddChild(m_healthbar);
+            AddChild(m_staminabar);
 
             const PlayerUIStateMachine::StateTable states = {
                 PlayerUIStateMachine::MakeState(States::APPEAR, &PlayerElement::ToAppear, &PlayerElement::Appearing, this),
@@ -116,6 +122,7 @@ namespace game
             AnimatePlayerElement(m_timer);
 
             m_healthbar->SetFraction(m_player_info.health_fraction);
+            m_staminabar->SetFraction(m_player_info.stamina_fraction);
         }
 
         void ToAppear()
@@ -186,6 +193,7 @@ namespace game
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;
+        class UIBarElement* m_staminabar;
 
         enum class States
         {

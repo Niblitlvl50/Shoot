@@ -43,8 +43,12 @@ namespace game
 
         ~PlayerLogic();
 
+        void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
+        const char* GetDebugCategory() const override;
         void Update(const mono::UpdateContext& update_context) override;
+
         void UpdatePlayerInfo(uint32_t timestamp);
+        void UpdateMovement(const mono::UpdateContext& update_context);
         void UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
         void UpdateController(const mono::UpdateContext& update_context);
@@ -61,11 +65,16 @@ namespace game
             Previous
         };
         void SelectWeapon(WeaponSelection selection);
+        void CycleWeapon();
 
         void Throw(float throw_force);
         void ThrowAction();
         void PickupDrop();
         bool HoldingPickup() const; 
+
+        void Sprint();
+        void StopSprint();
+        bool HasStamina() const;
 
         void MoveInDirection(const math::Vector& direction);
         void ApplyImpulse(const math::Vector& force);
@@ -119,6 +128,10 @@ namespace game
         float m_aim_velocity;
         math::Vector m_aim_screen_position;
 
+        bool m_sprint;
+        float m_stamina;
+        float m_stamina_recover_timer_s;
+
         int m_weapon_index;
         IWeaponPtr m_weapons[N_WEAPONS];
         IWeaponPtr m_familiar_weapon;
@@ -136,6 +149,8 @@ namespace game
         audio::ISoundPtr m_switch_weapon_sound;
         audio::ISoundPtr m_blink_sound;
         audio::ISoundPtr m_running_sound;
+
+        math::Vector m_movement_direction;
         float m_accumulated_step_distance;
 
         float m_blink_cooldown;

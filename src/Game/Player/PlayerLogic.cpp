@@ -8,6 +8,8 @@
 #include "Events/PackageEvents.h"
 
 #include "SystemContext.h"
+
+#include "Debug/IDebugDrawer.h"
 #include "Input/InputSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -51,6 +53,8 @@ namespace tweak_values
     constexpr float shield_cooldown_s = 2.0f;
 
     constexpr float footstep_length = 0.4f;
+    constexpr float stamina_consumption_per_s = 0.75f;
+    constexpr float stamina_recover_thresold_s = 0.5f;
 }
 
 using namespace game;
@@ -72,6 +76,9 @@ PlayerLogic::PlayerLogic(
     , m_aim_direction(0.0f)
     , m_aim_target(0.0f)
     , m_aim_velocity(0.0f)
+    , m_sprint(false)
+    , m_stamina(1.0f)
+    , m_stamina_recover_timer_s(0.0f)
     , m_weapon_index(0)
     , m_accumulated_step_distance(0.0f)
     , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
@@ -151,6 +158,20 @@ PlayerLogic::~PlayerLogic()
     m_entity_system->ReleaseEntity(m_weapon_entity);
 }
 
+void PlayerLogic::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+
+    char buffer[512] = {};
+    std::snprintf(buffer, std::size(buffer), "%.2f, %s", m_stamina, m_sprint ? "sprint" : "walk");
+    debug_drawer->DrawWorldText(buffer, world_position, mono::Color::OFF_WHITE);
+}
+
+const char* PlayerLogic::GetDebugCategory() const
+{
+    return "player";
+}
+
 void PlayerLogic::Update(const mono::UpdateContext& update_context)
 {
     m_state.UpdateState(update_context);
@@ -171,6 +192,23 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
     m_active_cooldowns[PlayerAbility::SHIELD] = m_shield_cooldown / tweak_values::shield_cooldown_s;
     m_active_cooldowns[PlayerAbility::WEAPON_AMMUNITION] =
         float(active_weapon->AmmunitionLeft()) / float(active_weapon->MagazineSize());
+
+    float stamina_multiplier;
+    if(m_sprint)
+    {
+        stamina_multiplier = 1.0f;
+    }
+    else if(m_stamina_recover_timer_s < tweak_values::stamina_recover_thresold_s)
+    {
+        m_stamina_recover_timer_s += update_context.delta_s;
+        stamina_multiplier = 0.0f;
+    }
+    else
+    {
+        stamina_multiplier = -1.0f;
+    }
+
+    m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
 
     UpdatePlayerInfo(update_context.timestamp);
 
@@ -220,6 +258,8 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
         m_player_info->health_fraction = float(player_damage_record->health) / float(player_damage_record->full_health);
     }
 
+    m_player_info->stamina_fraction = m_stamina;
+
     const auto find_active_cooldown = [](float cooldown){
         return cooldown < 1.0f;
     };
@@ -233,6 +273,20 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     }
 
     m_player_info->last_used_input = m_input_context->most_recent_input;
+}
+
+void PlayerLogic::UpdateMovement(const mono::UpdateContext& update_context)
+{
+    const float length_squared = math::LengthSquared(m_movement_direction);
+    if(length_squared <= FLT_EPSILON)
+    {
+        ResetForces();
+    }
+    else
+    {
+        const float sprint_multiplier = m_sprint && HasStamina() ? 1.5f : 1.0f;
+        ApplyForce(m_movement_direction * tweak_values::force_multiplier * sprint_multiplier);
+    }
 }
 
 void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
@@ -322,7 +376,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : target_fire_position;
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
-    if(m_fire)
+    if(m_fire && !m_sprint)
     {
         m_player_info->weapon_state = active_weapon->Fire(fire_position, m_player_info->aim_target, update_context.timestamp);
 
@@ -339,6 +393,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
         m_stop_fire = false;
     }
 
+    UpdateMovement(update_context);
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, position, m_player_info->velocity);
 
@@ -511,6 +566,15 @@ void PlayerLogic::SelectWeapon(WeaponSelection selection)
         m_switch_weapon_sound->Play();
 }
 
+void PlayerLogic::CycleWeapon()
+{
+    m_weapon_index++;
+    if(m_weapon_index == N_WEAPONS)
+        m_weapon_index = 0;
+
+    m_switch_weapon_sound->Play();
+}
+
 void PlayerLogic::Throw(float throw_force)
 {
     if(!HoldingPickup())
@@ -592,13 +656,25 @@ bool PlayerLogic::HoldingPickup() const
     return (m_picked_up_id != mono::INVALID_ID);
 }
 
+void PlayerLogic::Sprint()
+{
+    m_sprint = true;
+    m_stamina_recover_timer_s = 0.0f;
+}
+
+void PlayerLogic::StopSprint()
+{
+    m_sprint = false;
+}
+
+bool PlayerLogic::HasStamina() const
+{
+    return m_stamina > 0.0f;
+}
+
 void PlayerLogic::MoveInDirection(const math::Vector& direction)
 {
-    const float length_squared = math::LengthSquared(direction);
-    if(length_squared <= FLT_EPSILON)
-        ResetForces();
-    else
-        ApplyForce(direction * tweak_values::force_multiplier);
+    m_movement_direction = direction;
 }
 
 void PlayerLogic::ApplyImpulse(const math::Vector& force)

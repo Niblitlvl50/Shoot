@@ -34,29 +34,24 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_player_logic->StopFire();
 
-    const bool do_shockwave = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
-    if(do_shockwave)
-    {
-        m_player_logic->Shockwave();
-        //m_player_logic->TriggerInteraction();
-    }
+    const bool face_bottom_down = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
+    if(face_bottom_down)
+        m_player_logic->Sprint();
+    else
+        m_player_logic->StopSprint();
 
     const bool reload =
         System::ButtonTriggeredAndChanged(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_LEFT);
     if(reload)
         m_player_logic->Reload(update_context.timestamp);
 
-    const bool blink = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_TOP);
-    if(blink)
-        m_player_logic->Blink(math::Vector(m_current_state.left_x, m_current_state.left_y));
-
-    const bool left_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::LEFT_SHOULDER);
-    if(left_shoulder)
-        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Previous);
+    const bool face_top = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_TOP);
+    if(face_top)
+        m_player_logic->CycleWeapon();
 
     const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)
-        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Next);
+        m_player_logic->Blink(math::Vector(m_current_state.left_x, m_current_state.left_y));
 
     m_player_logic->MoveInDirection(math::Vector(m_current_state.left_x, m_current_state.left_y));
 
