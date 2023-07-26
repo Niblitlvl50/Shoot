@@ -577,7 +577,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 3
+                            "variant_value": 4
                         },
                         {
                             "id": 1031692888,
@@ -4187,6 +4187,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "level_completed",
                                 "type": 0
                             }

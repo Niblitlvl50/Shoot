@@ -4327,6 +4327,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_2",
                                 "type": 0
                             }
@@ -4503,6 +4504,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "level_aborted",
                                 "type": 0
                             }
@@ -6318,6 +6320,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_3",
                                 "type": 0
                             }
@@ -6494,6 +6497,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_1",
                                 "type": 0
                             }
@@ -7635,6 +7639,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "level_completed",
                                 "type": 0
                             }
@@ -7811,6 +7816,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_2",
                                 "type": 0
                             }
@@ -8042,6 +8048,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_3",
                                 "type": 0
                             }
@@ -8057,6 +8064,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_3",
                                 "type": 0
                             }
@@ -10788,6 +10796,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_2",
                                 "type": 0
                             }
@@ -10803,6 +10812,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_2",
                                 "type": 0
                             }
@@ -10894,6 +10904,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_1",
                                 "type": 0
                             }
@@ -10909,6 +10920,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "goto_scene_1",
                                 "type": 0
                             }

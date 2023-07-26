@@ -7817,6 +7817,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "level_completed",
                                 "type": 0
                             }
