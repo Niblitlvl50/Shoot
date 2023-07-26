@@ -767,6 +767,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
                     3.0f,
                     ImDrawCornerFlags_All,
                     2.0f);
+                ImGui::SetScrollFromPosY(ImGui::GetItemRectMax().y);
             }
 
             if(ImGui::IsItemHovered())
