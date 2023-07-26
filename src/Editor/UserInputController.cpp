@@ -288,7 +288,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->MoveSelectionToHere();
     else if(event.key == Keycode::A)
         m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
-    else if(event.key == Keycode::BACKSPACE)
+    else if(event.key == Keycode::BACKSPACE || event.key == Keycode::DELETE)
         m_editor->OnDeleteObject();
     else if(event.key == Keycode::ESCAPE)
         m_editor->Quit();
