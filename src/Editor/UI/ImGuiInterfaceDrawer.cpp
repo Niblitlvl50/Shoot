@@ -455,7 +455,7 @@ namespace
 
             if(icon_it != context.ui_icons.end())
             {
-                void* texture_id = reinterpret_cast<void*>(icon_it->second.texture->Id());
+                void* texture_id = icon_it->second.imgui_image->TextureHandle();
                 const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
                 ImGui::Image(texture_id, ImVec2(24.0f, 24.0f), icon.uv1, icon.uv2, tint);
                 ImGui::SameLine();

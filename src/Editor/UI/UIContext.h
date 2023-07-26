@@ -6,6 +6,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/Texture/ITextureFactory.h"
 #include "UINotification.h"
+#include "ImGuiImpl/ImGuiImageImpl.h"
 
 #include "WorldFile.h"
 
@@ -52,7 +53,7 @@ namespace editor
 
     struct UIIcon
     {
-        mono::ITexturePtr texture;
+        mono::IImGuiImagePtr imgui_image;
         math::Vector uv_upper_left;
         math::Vector uv_lower_right;
         math::Vector size;

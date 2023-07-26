@@ -742,7 +742,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
                 ImGui::TableSetColumnIndex(0);
             }
 
-            const ImTextureID texture_id = reinterpret_cast<ImTextureID>(sprite_icon.icon.texture->Id());
+            const ImTextureID texture_id = sprite_icon.icon.imgui_image->TextureHandle();
             const math::Vector& size = sprite_icon.icon.size;
 
             constexpr float button_max_size = 64.0f;
@@ -908,7 +908,7 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
     const auto icon_it = ui_context.ui_icons.find(icon_id);
     if(icon_it != ui_context.ui_icons.end())
     {
-        void* texture_id = reinterpret_cast<void*>(icon_it->second.texture->Id());
+        ImTextureID texture_id = icon_it->second.imgui_image->TextureHandle();
         const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
         ImGui::Image(texture_id, ImVec2(20.0f, 20.0f), icon.uv1, icon.uv2);
     }

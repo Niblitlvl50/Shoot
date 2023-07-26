@@ -71,7 +71,7 @@ namespace
     void SetupIcons(editor::UIContext& context)
     {
         context.ui_icons[editor::placeholder_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::placeholder_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::placeholder_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -79,7 +79,7 @@ namespace
         };
 
         context.ui_icons[editor::export_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::export_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::export_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -87,7 +87,7 @@ namespace
         };
 
         context.ui_icons[editor::import_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::import_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::import_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -95,7 +95,7 @@ namespace
         };
 
         context.ui_icons[editor::information_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::information_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::information_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -103,7 +103,7 @@ namespace
         };
 
         context.ui_icons[editor::save_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::save_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::save_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -111,7 +111,7 @@ namespace
         };
 
         context.ui_icons[editor::wrench_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::wrench_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::wrench_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -119,7 +119,7 @@ namespace
         };
 
         context.ui_icons[editor::event_in_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_in_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_in_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -127,7 +127,7 @@ namespace
         };
 
         context.ui_icons[editor::event_out_texture] = {
-            mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_out_texture),
+            mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(editor::event_out_texture)),
             math::Vector(0.0f, 1.0f),
             math::Vector(1.0f, 0.0f),
             math::Vector(1.0f, 1.0f),
@@ -154,7 +154,7 @@ namespace
             }
 
             context.ui_icons[sprite_file] = {
-                mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str()),
+                mono::CreateImGuiImage(mono::RenderSystem::GetTextureFactory()->CreateTexture(sprite_data->texture_file.c_str())),
                 sprite_data->frames.front().uv_upper_left,
                 sprite_data->frames.front().uv_lower_right,
                 sprite_data->frames.front().size,
