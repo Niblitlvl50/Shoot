@@ -13333,8 +13333,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -21.5,
-                                "y": 6.75
+                                "x": -15.244140625,
+                                "y": 8.898096084594727
                             }
                         },
                         {
@@ -13371,7 +13371,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 10
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -13383,7 +13383,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         },
                         {
                             "id": 2200757869,
@@ -13403,12 +13403,8 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 2.379007339477539,
-                                    "y": -4.236627578735352
-                                },
-                                {
-                                    "x": 2.4829959869384766,
-                                    "y": 3.6145572662353516
+                                    "x": -0.0017414093017578125,
+                                    "y": 0.028566837310791016
                                 }
                             ]
                         }
@@ -13492,7 +13488,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 10
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -13504,7 +13500,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         },
                         {
                             "id": 2200757869,
@@ -13607,13 +13603,13 @@
                             "id": 463104021,
                             "name": "spawn_score",
                             "variant_type": 1,
-                            "variant_value": 5
+                            "variant_value": 3
                         },
                         {
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 10
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -13625,7 +13621,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         },
                         {
                             "id": 2200757869,
@@ -13645,12 +13641,8 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": -16.41291618347168,
-                                    "y": 4.643658638000488
-                                },
-                                {
-                                    "x": 3.0232276916503906,
-                                    "y": 2.9292984008789063
+                                    "x": 0.02346038818359375,
+                                    "y": 0.022085189819335938
                                 }
                             ]
                         }
@@ -24191,7 +24183,7 @@
                             "id": 2084942004,
                             "name": "spawn_limit",
                             "variant_type": 1,
-                            "variant_value": 10
+                            "variant_value": 5
                         },
                         {
                             "id": 230313139,
@@ -24203,7 +24195,7 @@
                             "id": 3027259768,
                             "name": "time_stamp",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 2000
                         },
                         {
                             "id": 2200757869,
@@ -24223,12 +24215,8 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 12.751701354980469,
-                                    "y": 0.17372512817382813
-                                },
-                                {
-                                    "x": -2.5347137451171875,
-                                    "y": -1.0741462707519531
+                                    "x": 0.011005401611328125,
+                                    "y": -0.004795074462890625
                                 }
                             ]
                         }
@@ -24274,8 +24262,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5895287990570068,
-                                "y": 1.2522976398468018
+                                "x": 2.5056350231170654,
+                                "y": -0.8834893703460693
                             }
                         },
                         {
@@ -28756,6 +28744,332 @@
             "entity_properties": 0,
             "name": "smoke",
             "uuid_hash": 1526150431
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "spawn_point_south_west"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "spawn_points"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -19.418312072753906,
+                                "y": -10.519977569580078
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1645822993,
+                    "name": "spawn_point",
+                    "properties": [
+                        {
+                            "id": 463104021,
+                            "name": "spawn_score",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2084942004,
+                            "name": "spawn_limit",
+                            "variant_type": 1,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2000
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3485902406,
+                            "name": "spawn_points",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": 0.06942367553710938,
+                                    "y": -0.026462554931640625
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "spawn_point_south_west",
+            "uuid_hash": 3019202725
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "brick_structure"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "top_left"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -14.81572151184082,
+                                "y": 2.1365623474121094
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "brick_structure.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.7768764495849609,
+                                    "y": -0.5758905410766602
+                                },
+                                {
+                                    "x": -1.4021682739257813,
+                                    "y": -0.19810962677001953
+                                },
+                                {
+                                    "x": 0.8840541839599609,
+                                    "y": 0.4727754592895508
+                                },
+                                {
+                                    "x": 1.3855900764465332,
+                                    "y": 0.06894159317016602
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "brick_structure",
+            "uuid_hash": 3581954424
         }
     ],
     "metadata": {

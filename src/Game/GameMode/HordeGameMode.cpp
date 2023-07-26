@@ -15,6 +15,7 @@
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
 #include "RenderLayers.h"
+#include "SpawnSystem/SpawnSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "WorldFile.h"
@@ -98,6 +99,7 @@ void HordeGameMode::Begin(
     m_entity_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_interaction_system = system_context->GetSystem<game::InteractionSystem>();
     m_pickup_system = system_context->GetSystem<game::PickupSystem>();
+    m_spawn_system = system_context->GetSystem<game::SpawnSystem>();
 
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
@@ -328,6 +330,10 @@ void HordeGameMode::SpawnNextWave()
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
 
+    const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
+        spawn_point.spawn_score += 2;
+    };
+    m_spawn_system->ForEachSpawnPoint(increment_spawn_score);
     // Spawn next wave here...
 }
 

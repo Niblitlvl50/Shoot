@@ -81,6 +81,7 @@ namespace game
         class InteractionSystem* m_interaction_system;
         class PickupSystem* m_pickup_system;
         class EntityLogicSystem* m_entity_logic_system;
+        class SpawnSystem* m_spawn_system;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<event::PauseEvent> m_pause_token;

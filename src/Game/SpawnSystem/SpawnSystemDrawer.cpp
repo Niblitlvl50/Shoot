@@ -81,9 +81,17 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
             m_path_draw_buffers.erase(event.spawner_id);
     }
 
-    if(!game::g_draw_spawn_points)
-        return;
+    if(game::g_draw_spawn_points)
+        DebugDrawSpawnPoints(renderer);
+}
 
+math::Quad SpawnSystemDrawer::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+void SpawnSystemDrawer::DebugDrawSpawnPoints(mono::IRenderer& renderer) const
+{
     const auto draw_spawn_points = [&renderer, this](uint32_t entity_id, const SpawnSystem::SpawnPointComponent& spawn_point) {
         const char* active_string = spawn_point.active ? "Active" : "Inactive";
 
@@ -91,12 +99,13 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
         std::snprintf(
             text_buffer,
             std::size(text_buffer),
-            "%s|%d/%d|%d/%d",
+            "%s|%d/%d|%d/%d|%d",
             active_string,
             spawn_point.counter_ms,
             spawn_point.interval_ms,
             (int)spawn_point.active_spawns.size(),
-            spawn_point.spawn_limit);
+            spawn_point.spawn_limit,
+            spawn_point.spawn_score);
 
         const math::Matrix& world_transform = m_transform_system->GetWorld(entity_id);
         const auto scope = mono::MakeTransformScope(world_transform, &renderer);
@@ -112,9 +121,4 @@ void SpawnSystemDrawer::Draw(mono::IRenderer& renderer) const
         renderer.RenderText(PIXELETTE_TINY, spawn_point.entity_file.c_str(), mono::Color::CYAN, mono::FontCentering::HORIZONTAL);
     };
     m_spawn_system->ForEachEntitySpawnPoint(draw_entity_spawn_points);
-}
-
-math::Quad SpawnSystemDrawer::BoundingBox() const
-{
-    return math::InfQuad;
 }

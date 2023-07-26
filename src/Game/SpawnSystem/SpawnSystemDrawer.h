@@ -22,6 +22,8 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        void DebugDrawSpawnPoints(mono::IRenderer& renderer) const;
+
         SpawnSystem* m_spawn_system;
         mono::TransformSystem* m_transform_system;
         mutable SmokeEffect m_smoke_effect;
