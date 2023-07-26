@@ -135,7 +135,6 @@ PlayerLogic::PlayerLogic(
     m_weapons[0] = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
     m_weapons[1] = m_weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::PLAYER);
     m_weapons[2] = m_weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::PLAYER);
-    SelectWeapon(WeaponSelection::Previous);
 
     m_aim_target = m_aim_direction = -math::PI_2();
 
@@ -553,17 +552,6 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         break;
     }
     };
-}
-
-void PlayerLogic::SelectWeapon(WeaponSelection selection)
-{
-    const int last_weapon_index = m_weapon_index;
-
-    const int modifier = (selection == WeaponSelection::Next) ? 1 : -1;
-    m_weapon_index = std::clamp(m_weapon_index + modifier, 0, N_WEAPONS -1);
-
-    if(last_weapon_index != m_weapon_index)
-        m_switch_weapon_sound->Play();
 }
 
 void PlayerLogic::CycleWeapon()

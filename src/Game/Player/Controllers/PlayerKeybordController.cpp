@@ -18,8 +18,7 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic)
     , m_trigger_reload(false)
     , m_trigger_action(false)
     , m_trigger_pickup_drop(false)
-    , m_trigger_previous_weapon(false)
-    , m_trigger_next_weapon(false)
+    , m_cycle_weapon(false)
     , m_update_aiming(false)
     , m_trigger_respawn(false)
 {
@@ -104,16 +103,10 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
         m_trigger_action = false;
     }
 
-    if(m_trigger_previous_weapon)
+    if(m_cycle_weapon)
     {
-        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Previous);
-        m_trigger_previous_weapon = false;
-    }
-
-    if(m_trigger_next_weapon)
-    {
-        m_player_logic->SelectWeapon(PlayerLogic::WeaponSelection::Next);
-        m_trigger_next_weapon = false;
+        m_player_logic->CycleWeapon();
+        m_cycle_weapon = false;
     }
 
     if(m_trigger_pickup_drop)
@@ -170,11 +163,8 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
     case Keycode::F:
         m_trigger_pickup_drop = true;
         break;
-    case Keycode::ONE:
-        m_trigger_previous_weapon = true;
-        break;
-    case Keycode::TWO:
-        m_trigger_next_weapon = true;
+    case Keycode::TAB:
+        m_cycle_weapon = true;
         break;
     case Keycode::ESCAPE:
     {

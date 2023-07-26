@@ -59,12 +59,6 @@ namespace game
         void UseItemSlot(ItemSlotIndex slot_index);
         void HandlePickup(PickupType type, int amount);
 
-        enum class WeaponSelection
-        {
-            Next,
-            Previous
-        };
-        void SelectWeapon(WeaponSelection selection);
         void CycleWeapon();
 
         void Throw(float throw_force);
