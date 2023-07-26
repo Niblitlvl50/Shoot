@@ -1,4 +1,5 @@
 {
+    "master_volume": 0.5,
     "music_tracks": [
         { "name": "russian_track",      "filename": "res/sound/background_music/russian_track.ogg" },
         { "name": "song18",             "filename": "res/sound/background_music/song18.ogg" },

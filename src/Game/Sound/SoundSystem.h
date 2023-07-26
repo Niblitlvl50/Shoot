@@ -98,6 +98,7 @@ namespace game
         game::TriggerSystem* m_trigger_system;
         mono::ActiveVector<SoundInstanceComponent> m_sound_components;
 
+        float m_master_volume;
         std::unordered_map<uint32_t, audio::ISoundPtr> m_music_tracks;
 
         uint32_t m_current_track;

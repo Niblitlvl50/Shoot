@@ -33,6 +33,7 @@ using namespace game;
 SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
     : m_trigger_system(trigger_system)
     , m_sound_components(n)
+    , m_master_volume(1.0f)
     , m_current_track(0)
     , m_requested_track(0)
     , m_current_transition(SoundTransition::Cut)
@@ -42,6 +43,8 @@ SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
     if(!file_data.empty())
     {
         const nlohmann::json& json = nlohmann::json::parse(file_data);
+        m_master_volume = json["master_volume"];
+        
         for(const auto& json_music_track : json["music_tracks"])
         {
             const std::string name = json_music_track["name"];
@@ -89,7 +92,7 @@ void SoundSystem::PlayBackgroundMusic(uint32_t track, SoundTransition transition
         break;
 
     case SoundTransition::Cut:
-        requested_track->SetVolume(1.0f);
+        requested_track->SetVolume(m_master_volume);
         requested_track->Play();
         break;
 
@@ -191,8 +194,8 @@ void SoundSystem::Update(const mono::UpdateContext& update_context)
 
         case SoundTransition::CrossFade:
         {
-            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 1.0f);
-            current_track->SetVolume(1.0f - new_value);
+            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, m_master_volume);
+            current_track->SetVolume(m_master_volume - new_value);
             requested_track->SetVolume(new_value);
 
             break;
@@ -200,11 +203,11 @@ void SoundSystem::Update(const mono::UpdateContext& update_context)
 
         case SoundTransition::FadeOutFadeIn:
         {
-            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, 2.0f);
-            if(new_value <= 1.0f)
-                current_track->SetVolume(1.0f - new_value);
+            const float new_value = math::LinearTween(m_transition_timer, tweak_values::fade_time_s, 0.0f, m_master_volume * 2.0f);
+            if(new_value <= m_master_volume)
+                current_track->SetVolume(m_master_volume - new_value);
             else
-                requested_track->SetVolume(new_value - 1.0f);
+                requested_track->SetVolume(new_value - m_master_volume);
 
             break;
         }
