@@ -31,6 +31,7 @@
 namespace tweak_values
 {
     constexpr float idle_time_s = 1.5f;
+    constexpr float attack_start_delay_s = 0.5f;
     constexpr float attack_distance = 3.0f;
     constexpr float max_attack_distance = 3.5f;
     constexpr float track_to_player_distance = 5.0f;
@@ -115,6 +116,9 @@ void FlyingMonsterController::ToIdle()
 {
     m_idle_timer_s = 0.0f;
     m_tracking_behaviour->UpdateEntityPosition();
+
+    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    sprite->SetShade(mono::Color::WHITE);
 }
 
 void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
@@ -207,17 +211,18 @@ void FlyingMonsterController::ToAttackAnticipation()
 
     m_attack_target = player_info;
 
-    const uint32_t spawned_entity = game::SpawnEntityWithAnimation(
-        "res/entities/explosion_small.entity", 0, m_entity_id, m_entity_manager, m_transform_system, m_sprite_system);
+    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    sprite->SetShade(mono::Color::RED);
 
-    const auto transision_to_attack = [this](uint32_t entity_id, mono::ReleasePhase phase) {
-        m_states.TransitionTo(States::ATTACKING);
-    };
-    m_entity_manager->AddReleaseCallback(spawned_entity, mono::ReleasePhase::POST_RELEASE, transision_to_attack);
+    m_attack_anticipation_timer_s = 0.0f;
 }
 
 void FlyingMonsterController::AttackAnticipation(const mono::UpdateContext& update_context)
-{ }
+{
+    m_attack_anticipation_timer_s += update_context.delta_s;
+    if(m_attack_anticipation_timer_s > tweak_values::attack_start_delay_s)
+        m_states.TransitionTo(States::ATTACKING);
+}
 
 void FlyingMonsterController::ToAttacking()
 {

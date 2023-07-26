@@ -56,6 +56,8 @@ namespace game
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
 
         float m_idle_timer_s;
+        float m_attack_anticipation_timer_s;
+        
         using FlyingMonsterStateMachine = StateMachine<States, const mono::UpdateContext&>;
         FlyingMonsterStateMachine m_states;
 
