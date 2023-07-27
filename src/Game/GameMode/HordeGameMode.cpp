@@ -58,7 +58,7 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 1.5f;
     constexpr float fade_duration_s = 0.7f;
-    constexpr float spawn_wave_interval_s = 15.0f;
+    constexpr float spawn_wave_interval_s = 30.0f;
 }
 
 using namespace game;
@@ -316,34 +316,12 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 void HordeGameMode::SpawnNextWave()
 {
     m_wave_index++;
-
-    /*
-    const std::string wave_text = "Wave " + std::to_string(m_wave_index);
-    m_big_text_screen->SetText(wave_text.c_str());
-    m_big_text_screen->SetSubText("Watch Out!");
-    m_big_text_screen->SetAlpha(0.0f);
-    */
-
     m_horde_wave_ui->ShowNextWave(m_wave_index, "Watch Out!");
-
-/*
-    const std::vector<BigTextScreen::FadePattern> fade_pattern = {
-        { BigTextScreen::FadeState::FADE_IN,    1.0f },
-        { BigTextScreen::FadeState::SHOWN,      2.0f },
-        { BigTextScreen::FadeState::FADE_OUT,   1.0f },
-    };
-
-    const auto callback = [this]() {
-        m_big_text_screen->Hide();
-    };
-    m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
-*/
 
     const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
         spawn_point.spawn_score += 2;
     };
     m_spawn_system->ForEachSpawnPoint(increment_spawn_score);
-    // Spawn next wave here...
 }
 
 void HordeGameMode::SpawnLootBoxes()
