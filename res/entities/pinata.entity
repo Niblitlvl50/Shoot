@@ -73,7 +73,7 @@
                             "id": 3146177751,
                             "name": "sound_file",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "res/sound/open_cardboard_box.wav"
                         },
                         {
                             "id": 2603146703,
