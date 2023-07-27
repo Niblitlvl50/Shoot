@@ -89,6 +89,7 @@ namespace game
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
         std::unique_ptr<class LevelTimerUIElement> m_timer_screen;
+        std::unique_ptr<class HordeWaveDrawer> m_horde_wave_ui;
 
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
@@ -106,7 +107,6 @@ namespace game
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
-        float m_level_timer;
         float m_spawn_wave_timer;
         int m_wave_index;
 

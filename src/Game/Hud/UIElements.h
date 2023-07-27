@@ -37,6 +37,7 @@ namespace game
 
         void SetPosition(const math::Vector& position);
         void SetPosition(float x, float y);
+        const math::Vector& GetPosition() const;
         void SetScale(const math::Vector& scale);
         void SetScale(float uniform_scale);
         void SetRotation(float radians);

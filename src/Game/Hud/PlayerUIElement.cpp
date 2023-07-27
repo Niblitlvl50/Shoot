@@ -92,11 +92,6 @@ namespace game
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
             m_healthbar->SetPosition(-0.15f, 0.3f);
 
-            m_staminabar = new UIBarElement(
-                1.0f, 0.05f, mono::Color::GRAY,
-                1.0f, 0.05f, mono::Color::BLUE);
-            m_staminabar->SetPosition(-0.15f, 0.2f);
-
             AddChild(background_hud);
             AddChild(m_mugshot_hud);
             AddChild(m_weapon_sprites);
@@ -104,7 +99,6 @@ namespace game
             AddChild(m_chips_text);
             AddChild(m_rubble_text);
             AddChild(m_healthbar);
-            AddChild(m_staminabar);
 
             const PlayerUIStateMachine::StateTable states = {
                 PlayerUIStateMachine::MakeState(States::APPEAR, &PlayerElement::ToAppear, &PlayerElement::Appearing, this),
@@ -120,9 +114,6 @@ namespace game
             m_states.UpdateState(update_context.delta_s);
             m_timer = std::clamp(m_timer, 0.0f, transision_duration_s);
             AnimatePlayerElement(m_timer);
-
-            m_healthbar->SetFraction(m_player_info.health_fraction);
-            m_staminabar->SetFraction(m_player_info.stamina_fraction);
         }
 
         void ToAppear()
@@ -156,6 +147,8 @@ namespace game
 
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
             m_weapon_sprites->SetActiveSprite(weapon_index, 0);
+
+            m_healthbar->SetFraction(m_player_info.health_fraction);
 
             if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
                 m_states.TransitionTo(States::DISAPPEAR);
@@ -193,7 +186,6 @@ namespace game
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;
-        class UIBarElement* m_staminabar;
 
         enum class States
         {

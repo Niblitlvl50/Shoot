@@ -7,6 +7,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "Hud/BigTextScreen.h"
 #include "Hud/LevelTimerUIElement.h"
+#include "Hud/HordeWaveDrawer.h"
 #include "Hud/PauseScreen.h"
 #include "Hud/ShopScreen.h"
 #include "Hud/PlayerUIElement.h"
@@ -64,7 +65,7 @@ using namespace game;
 
 HordeGameMode::HordeGameMode()
     : m_package_spawned(false)
-    , m_spawn_wave_timer(tweak_values::spawn_wave_interval_s - 5.0f)
+    , m_spawn_wave_timer(10.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
 {
@@ -129,10 +130,8 @@ void HordeGameMode::Begin(
         level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
-
-    m_level_timer = level_metadata.time_limit_s;
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
-    m_timer_screen->SetSeconds(m_level_timer);
+    m_horde_wave_ui = std::make_unique<HordeWaveDrawer>();
 
     // UI
     m_big_text_screen = std::make_unique<BigTextScreen>(
@@ -157,6 +156,7 @@ void HordeGameMode::Begin(
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_horde_wave_ui.get(), LayerId::UI);
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
@@ -174,6 +174,7 @@ int HordeGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_shop_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
+    zone->RemoveUpdatableDrawable(m_horde_wave_ui.get());
 
     if(m_package_entity_id != mono::INVALID_ID)
         m_entity_manager->RemoveReleaseCallback(m_package_entity_id, m_package_release_callback);
@@ -316,11 +317,16 @@ void HordeGameMode::SpawnNextWave()
 {
     m_wave_index++;
 
+    /*
     const std::string wave_text = "Wave " + std::to_string(m_wave_index);
     m_big_text_screen->SetText(wave_text.c_str());
     m_big_text_screen->SetSubText("Watch Out!");
     m_big_text_screen->SetAlpha(0.0f);
+    */
 
+    m_horde_wave_ui->ShowNextWave(m_wave_index, "Watch Out!");
+
+/*
     const std::vector<BigTextScreen::FadePattern> fade_pattern = {
         { BigTextScreen::FadeState::FADE_IN,    1.0f },
         { BigTextScreen::FadeState::SHOWN,      2.0f },
@@ -331,6 +337,7 @@ void HordeGameMode::SpawnNextWave()
         m_big_text_screen->Hide();
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+*/
 
     const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
         spawn_point.spawn_score += 2;
@@ -377,17 +384,15 @@ void HordeGameMode::ToRunGameMode()
 
 void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
 {
-    m_level_timer += update_context.delta_s;
-    m_timer_screen->SetSeconds(m_level_timer);
+    m_timer_screen->SetSeconds(std::ceilf(m_spawn_wave_timer));
+    m_spawn_wave_timer -= update_context.delta_s;
 
-    m_spawn_wave_timer += update_context.delta_s;
-
-    const bool time_to_spawn_wave = m_spawn_wave_timer > tweak_values::spawn_wave_interval_s;
+    const bool time_to_spawn_wave = m_spawn_wave_timer <= 0.0f;
     if(time_to_spawn_wave)
     {
         SpawnNextWave();
         SpawnLootBoxes();
-        m_spawn_wave_timer = 0.0f;
+        m_spawn_wave_timer = tweak_values::spawn_wave_interval_s;
     }
 }
 

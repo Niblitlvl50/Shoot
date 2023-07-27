@@ -73,6 +73,11 @@ void UIElement::SetPosition(float x, float y)
     m_position.y = y;
 }
 
+const math::Vector& UIElement::GetPosition() const
+{
+    return m_position;
+}
+
 void UIElement::SetScale(const math::Vector& scale)
 {
     m_scale = scale;
