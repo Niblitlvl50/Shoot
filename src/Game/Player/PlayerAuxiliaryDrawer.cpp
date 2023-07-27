@@ -22,6 +22,13 @@ using namespace game;
 
 namespace
 {
+    struct AimlineRenderData
+    {
+        std::unique_ptr<mono::IRenderBuffer> vertices;
+        std::unique_ptr<mono::IRenderBuffer> colors;
+        std::unique_ptr<mono::IElementBuffer> indices;
+    };
+
     AimlineRenderData GenerateAimLine(
         float start_offset, float mid_point_offset, float length, float width, float cutoff_length, const mono::Color::RGBA& color)
     {
@@ -46,7 +53,7 @@ namespace
             mono::Color::MakeWithAlpha(color, 0.0f),
         };
 
-        uint16_t aim_lines_indices[] = {
+        const uint16_t aim_lines_indices[] = {
             0, 1, 2,
             1, 3, 2,
             2, 3, 4,
@@ -61,14 +68,62 @@ namespace
         return render_data;
     }
 
-    constexpr float start_offset = 0.25f;
-    constexpr float mid_point_offset = 1.0f;
-    constexpr float length = 7.0f;
-    constexpr float width = 0.025f;
+    AimlineRenderData GenerateStaminaBar(float player_stamina_fraction, const math::Vector& stamina_bar_center, float length, float width, const mono::Color::RGBA& color)
+    {
+        const float stamina_value = length * player_stamina_fraction;
+        const float half_length = length / 2.0f;
+        const float half_width = width / 2.0f;
+
+        const math::Vector left_center = stamina_bar_center - math::Vector(half_length, 0.0f);
+
+        const math::Vector vertices[] = {
+            left_center + math::Vector(0.0f, -half_width),
+            left_center + math::Vector(0.0f, half_width),
+            left_center + math::Vector(stamina_value, half_width),
+            left_center + math::Vector(stamina_value, -half_width),
+
+            left_center + math::Vector(stamina_value, -half_width),
+            left_center + math::Vector(stamina_value, half_width),
+            left_center + math::Vector(length, -half_width),
+            left_center + math::Vector(length, half_width),
+        };
+
+        const mono::Color::RGBA colors[] = {
+            mono::Color::MakeWithAlpha(color, 1.0f),
+            mono::Color::MakeWithAlpha(color, 1.0f),
+            mono::Color::MakeWithAlpha(color, 1.0f),
+            mono::Color::MakeWithAlpha(color, 1.0f),
+            mono::Color::GRAY,
+            mono::Color::GRAY,
+            mono::Color::GRAY,
+            mono::Color::GRAY,
+        };
+
+        const uint16_t indices[] = {
+            0, 1, 2,
+            0, 2, 3,
+            5, 4, 6,
+            5, 6, 7,
+        };
+
+        AimlineRenderData render_data;
+        render_data.vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, std::size(vertices), vertices);
+        render_data.colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, std::size(colors), colors);
+        render_data.indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+
+        return render_data;
+    }
+
+    constexpr float laser_start_offset = 0.25f;
+    constexpr float laser_mid_point_offset = 1.0f;
+    constexpr float laser_cutoff_length = 7.0f;
+    constexpr float laser_width = 0.025f;
+
+    constexpr float stamina_bar_length = 0.6f;
+    constexpr float stamina_bar_width = 0.05f;
 }
 
-PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(
-    const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system)
+PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system)
     : m_camera_system(camera_system)
     , m_transform_system(transform_system)
 {
@@ -95,19 +150,31 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(
 
 void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
 {
-    std::vector<math::Vector> cooldown_lines;
+    std::vector<const game::PlayerInfo*> active_players;
 
-    struct AbilityPoint
+    for(const game::PlayerInfo* player_info : GetActivePlayers())
     {
-        math::Vector point;
-        uint32_t render_data_index;
-    };
-    std::vector<AbilityPoint> ability_points;
+        if(player_info)
+            active_players.push_back(player_info);
+    }
 
+    DrawLasers(active_players, renderer);
+    DrawStaminaBar(active_players, renderer);
+    DrawAbilities(active_players, renderer);
+    DrawCrosshair(active_players, renderer);
+}
+
+math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
+{
     struct AimlineData
     {
         math::Matrix transform;
-        uint32_t render_data_index;
+        AimlineRenderData render_data;
     };
     std::vector<AimlineData> aimline_transforms;
     std::vector<math::Vector> aim_target_points;
@@ -119,30 +186,78 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
         mono::Color::BLUE
     };
 
-    for(const game::PlayerInfo* player_info : GetActivePlayers())
+    for(const game::PlayerInfo* player_info : players)
     {
-        if(!player_info)
+        if(!player_info->laser_sight)
             continue;
 
         const uint32_t player_index = FindPlayerIndex(player_info);
-        
-        if(player_info->laser_sight)
-        {
-            const float aim_direction_rad = math::AngleFromVector(player_info->aim_direction);
-            const math::Matrix& aimline_transform =
-                math::CreateMatrixWithPositionRotation(player_info->position, aim_direction_rad + math::PI_2());
 
-            const float laser_length = math::DistanceBetween(player_info->position, player_info->aim_target);
-            const mono::Color::RGBA& laser_color = aim_line_colors[player_index];
+        const float aim_direction_rad = math::AngleFromVector(player_info->aim_direction);
+        const float laser_length = math::DistanceBetween(player_info->position, player_info->aim_target);
+        const mono::Color::RGBA& laser_color = aim_line_colors[player_index];
 
-            m_aimline_data[player_index] =
-                GenerateAimLine(start_offset, mid_point_offset, length, width, laser_length, laser_color);
-            aimline_transforms.push_back({ aimline_transform, player_index });
-            aim_target_points.push_back(player_info->aim_target);
-            aim_target_colors.push_back(laser_color);
-        }
+        aimline_transforms.push_back({
+            math::CreateMatrixWithPositionRotation(player_info->position, aim_direction_rad + math::PI_2()),
+            GenerateAimLine(laser_start_offset, laser_mid_point_offset, laser_length, laser_width, laser_cutoff_length, laser_color)
+        });
 
-        const uint32_t current_timestamp = renderer.GetTimestamp();
+        aim_target_points.push_back(player_info->aim_target);
+        aim_target_colors.push_back(laser_color);
+    }
+
+    for(const AimlineData& aimline_data : aimline_transforms)
+    {
+        const auto transform_scope = mono::MakeTransformScope(aimline_data.transform, &renderer);
+        renderer.DrawTrianges(
+            aimline_data.render_data.vertices.get(),
+            aimline_data.render_data.colors.get(),
+            aimline_data.render_data.indices.get(),
+            0,
+            aimline_data.render_data.indices->Size());
+    }
+
+    renderer.DrawPoints(aim_target_points, aim_target_colors, 12.0f);
+}
+
+void PlayerAuxiliaryDrawer::DrawStaminaBar(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
+{
+    std::vector<AimlineRenderData> stamina_render_data;
+
+    for(const game::PlayerInfo* player_info : players)
+    {
+        if(player_info->stamina_fraction >= 1.0f)
+            continue;
+
+        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(player_info->entity_id);
+        const math::Vector bottom_center = math::BottomCenter(world_bb);
+        stamina_render_data.push_back(GenerateStaminaBar(player_info->stamina_fraction, bottom_center + math::Vector(0.0f, -0.05f), stamina_bar_length, stamina_bar_width, mono::Color::BLUE_GRAY));
+    }
+
+    for(const AimlineRenderData& render_data : stamina_render_data)
+    {
+        renderer.DrawTrianges(
+            render_data.vertices.get(), render_data.colors.get(), render_data.indices.get(), 0, render_data.indices->Size());
+    }
+}
+
+void PlayerAuxiliaryDrawer::DrawAbilities(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
+{
+    std::vector<math::Vector> cooldown_lines;
+
+    struct AbilityPoint
+    {
+        math::Vector point;
+        uint32_t render_data_index;
+    };
+    std::vector<AbilityPoint> ability_points;
+
+    const uint32_t current_timestamp = renderer.GetTimestamp();
+
+    for(const game::PlayerInfo* player_info : players)
+    {
+        const uint32_t player_index = FindPlayerIndex(player_info);
+
         const bool ability_on_cooldown = (player_info->cooldown_fraction < 1.0f);
 
         AbilityInstanceData& instance_data = m_ability_data[player_index];
@@ -173,37 +288,8 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
             ability_point.render_data_index = player_info->cooldown_id;
             ability_points.push_back(ability_point);
         }
-
-        const bool keyboard_or_mouse = 
-            player_info->last_used_input == mono::InputContextType::Keyboard ||
-            player_info->last_used_input == mono::InputContextType::Mouse;
-
-        if(keyboard_or_mouse)
-        {
-            const math::Vector crosshair_world_position =
-                m_camera_system->GetActiveCamera()->ScreenToWorld(player_info->aim_crosshair_screen_position);
-
-            const math::Matrix& transform = math::CreateMatrixWithPosition(crosshair_world_position);
-            const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(
-                m_crosshair_render_data.sprite.get(), &m_crosshair_render_data.sprite_buffers, m_indices.get(), 0);
-        }
     }
 
-    for(const AimlineData& aimline_data : aimline_transforms)
-    {
-        const AimlineRenderData& render_data = m_aimline_data[aimline_data.render_data_index];
-
-        const auto transform_scope = mono::MakeTransformScope(aimline_data.transform, &renderer);
-        renderer.DrawTrianges(
-            render_data.vertices.get(),
-            render_data.colors.get(),
-            render_data.indices.get(),
-            0,
-            render_data.indices->Size());
-    }
-
-    renderer.DrawPoints(aim_target_points, aim_target_colors, 12.0f);
     renderer.DrawLines(cooldown_lines, mono::Color::RGBA(0.8f, 0.8f, 0.8f), 4.0f);
 
     for(const AbilityPoint& ability_point : ability_points)
@@ -216,9 +302,23 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
     }
 }
 
-math::Quad PlayerAuxiliaryDrawer::BoundingBox() const
+void PlayerAuxiliaryDrawer::DrawCrosshair(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
 {
-    return math::InfQuad;
+    for(const game::PlayerInfo* player_info : players)
+    {
+        const bool keyboard_or_mouse = 
+            player_info->last_used_input == mono::InputContextType::Keyboard || player_info->last_used_input == mono::InputContextType::Mouse;
+        if(!keyboard_or_mouse)
+            continue;
+
+        const math::Vector crosshair_world_position =
+            m_camera_system->GetActiveCamera()->ScreenToWorld(player_info->aim_crosshair_screen_position);
+
+        const math::Matrix& transform = math::CreateMatrixWithPosition(crosshair_world_position);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+        renderer.DrawSprite(
+            m_crosshair_render_data.sprite.get(), &m_crosshair_render_data.sprite_buffers, m_indices.get(), 0);
+    }
 }
 
 

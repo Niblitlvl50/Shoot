@@ -115,6 +115,23 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "regex": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "coroutine": "cpp",
+        "fstream": "cpp",
+        "list": "cpp",
+        "stop_token": "cpp",
+        "xfacet": "cpp",
+        "xhash": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xstddef": "cpp",
+        "xtree": "cpp"
     }
 }

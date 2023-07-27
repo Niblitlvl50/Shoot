@@ -16,13 +16,6 @@ namespace game
 {
     class CameraSystem;
 
-    struct AimlineRenderData
-    {
-        std::unique_ptr<mono::IRenderBuffer> vertices;
-        std::unique_ptr<mono::IRenderBuffer> colors;
-        std::unique_ptr<mono::IElementBuffer> indices;
-    };
-
     struct AbilityInstanceData
     {
         float cooldown_position;
@@ -47,6 +40,11 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        void DrawLasers(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
+        void DrawStaminaBar(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
+        void DrawAbilities(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
+        void DrawCrosshair(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
+
         const game::CameraSystem* m_camera_system;
         const mono::TransformSystem* m_transform_system;
 
@@ -54,7 +52,6 @@ namespace game
         AbilityRenderData m_crosshair_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
-        mutable AimlineRenderData m_aimline_data[n_players];
         mutable AbilityInstanceData m_ability_data[n_players];
     };
 
