@@ -45,6 +45,8 @@
 #include "System/Hash.h"
 #include "Debug/IDebugDrawer.h"
 
+#include <cmath>
+
 namespace
 {
     const uint32_t level_completed_hash = hash::Hash("level_completed");
@@ -362,7 +364,7 @@ void HordeGameMode::ToRunGameMode()
 
 void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
 {
-    m_timer_screen->SetSeconds(std::ceilf(m_spawn_wave_timer));
+    m_timer_screen->SetSeconds(std::ceil(m_spawn_wave_timer));
     m_spawn_wave_timer -= update_context.delta_s;
 
     const bool time_to_spawn_wave = m_spawn_wave_timer <= 0.0f;
