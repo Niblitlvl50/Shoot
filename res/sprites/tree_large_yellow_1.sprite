@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 15,
-            "name": "log_4",
-            "w": 26,
-            "x": 865,
-            "y": 382
+            "h": 182,
+            "name": "tree_large_yellow_1",
+            "w": 101,
+            "x": 2,
+            "y": 2
         }
     ],
     "frames_offsets": [

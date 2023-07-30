@@ -30,71 +30,71 @@
             "h": 15,
             "name": "jellyfish_idle_1",
             "w": 9,
-            "x": 292,
-            "y": 373
+            "x": 1264,
+            "y": 382
         },
         {
             "h": 15,
             "name": "jellyfish_idle_2",
             "w": 9,
-            "x": 331,
-            "y": 373
+            "x": 1277,
+            "y": 382
         },
         {
             "h": 15,
             "name": "jellyfish_idle_3",
             "w": 9,
-            "x": 279,
-            "y": 373
+            "x": 1303,
+            "y": 382
         },
         {
             "h": 16,
             "name": "jellyfish_idle_4",
             "w": 9,
-            "x": 181,
-            "y": 372
+            "x": 807,
+            "y": 382
         },
         {
             "h": 15,
             "name": "jellyfish_idle_5",
             "w": 9,
-            "x": 318,
-            "y": 373
+            "x": 1329,
+            "y": 382
         },
         {
             "h": 12,
             "name": "jellyfish_move_1",
             "w": 10,
-            "x": 2013,
-            "y": 391
+            "x": 509,
+            "y": 402
         },
         {
             "h": 15,
             "name": "jellyfish_move_2",
             "w": 9,
-            "x": 344,
-            "y": 373
+            "x": 1316,
+            "y": 382
         },
         {
             "h": 16,
             "name": "jellyfish_move_3",
             "w": 11,
-            "x": 1721,
-            "y": 372
+            "x": 750,
+            "y": 382
         },
         {
             "h": 15,
             "name": "jellyfish_move_4",
             "w": 11,
-            "x": 144,
-            "y": 373
+            "x": 1149,
+            "y": 382
         },
         {
             "h": 12,
             "name": "jellyfish_move_5",
             "w": 10,
-            "x": 90,
-            "y": 392
+            "x": 495,
+            "y": 402
         }
     ],
     "frames_offsets": [

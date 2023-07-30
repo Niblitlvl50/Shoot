@@ -15,15 +15,15 @@
             "h": 13,
             "name": "skull_red_eyes_laugh_1",
             "w": 11,
-            "x": 652,
-            "y": 391
+            "x": 1011,
+            "y": 401
         },
         {
             "h": 14,
             "name": "skull_red_eyes_laugh_2",
             "w": 11,
-            "x": 866,
-            "y": 373
+            "x": 1975,
+            "y": 382
         }
     ],
     "frames_offsets": [
