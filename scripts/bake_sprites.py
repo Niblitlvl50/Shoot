@@ -31,7 +31,7 @@ arguments = [
 
 arguments.append('-input')
 
-with tempfile.TemporaryFile(mode='wt', suffix='.filelist', delete=True) as temp_input_file:
+with tempfile.TemporaryFile(mode='wt', suffix='.filelist', delete=False) as temp_input_file:
     for file in get_files('res/images', 'png'):
         temp_input_file.write(file + '\n')
 
