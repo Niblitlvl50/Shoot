@@ -35,6 +35,8 @@ with tempfile.TemporaryFile(mode='wt', suffix='.filelist', delete=True) as temp_
     for file in get_files('res/images', 'png'):
         temp_input_file.write(file + '\n')
 
+    temp_input_file.flush()
+
     arguments.append(temp_input_file.name)
     # print(" ".join(arguments))
     subprocess.call(arguments)
