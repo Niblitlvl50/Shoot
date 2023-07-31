@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 19,
+            "h": 17,
             "name": "grass_tiny_6",
             "w": 17,
-            "x": 83,
-            "y": 351
+            "x": 177,
+            "y": 361
         }
     ],
     "frames_offsets": [

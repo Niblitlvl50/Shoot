@@ -49,155 +49,155 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 60,
-            "y": 427
+            "x": 1123,
+            "y": 418
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 133,
-            "y": 412
+            "x": 2021,
+            "y": 410
         },
         {
             "h": 15,
             "name": "worm_red_appear_3",
             "w": 25,
-            "x": 895,
+            "x": 650,
             "y": 382
         },
         {
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 1679,
+            "x": 1404,
             "y": 336
         },
         {
             "h": 24,
             "name": "worm_red_appear_5",
             "w": 22,
-            "x": 1400,
+            "x": 1374,
             "y": 308
         },
         {
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 1214,
+            "x": 1213,
             "y": 306
         },
         {
             "h": 26,
             "name": "worm_red_appear_7",
             "w": 22,
-            "x": 1021,
+            "x": 995,
             "y": 304
         },
         {
             "h": 26,
             "name": "worm_red_appear_8",
             "w": 22,
-            "x": 1047,
+            "x": 486,
             "y": 304
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_1",
             "w": 22,
-            "x": 1073,
+            "x": 512,
             "y": 304
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_2",
             "w": 22,
-            "x": 1598,
+            "x": 333,
             "y": 304
         },
         {
             "h": 25,
             "name": "worm_red_dissapear_3",
             "w": 22,
-            "x": 1188,
+            "x": 1187,
             "y": 306
         },
         {
             "h": 24,
             "name": "worm_red_dissapear_4",
             "w": 22,
-            "x": 1374,
+            "x": 1400,
             "y": 308
         },
         {
             "h": 19,
             "name": "worm_red_dissapear_5",
             "w": 22,
-            "x": 2018,
-            "y": 348
+            "x": 1430,
+            "y": 336
         },
         {
             "h": 15,
             "name": "worm_red_dissapear_6",
             "w": 22,
-            "x": 951,
+            "x": 679,
             "y": 382
         },
         {
             "h": 10,
             "name": "worm_red_dissapear_7",
             "w": 21,
-            "x": 2003,
-            "y": 410
+            "x": 92,
+            "y": 412
         },
         {
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 85,
-            "y": 427
+            "x": 1123,
+            "y": 424
         },
         {
             "h": 26,
             "name": "worm_red_idle_1",
             "w": 22,
-            "x": 995,
+            "x": 969,
             "y": 304
         },
         {
             "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 969,
-            "y": 304
+            "x": 1629,
+            "y": 303
         },
         {
             "h": 28,
             "name": "worm_red_idle_3",
             "w": 22,
-            "x": 829,
-            "y": 277
+            "x": 1568,
+            "y": 273
         },
         {
             "h": 25,
             "name": "worm_red_idle_4",
             "w": 27,
-            "x": 1532,
+            "x": 1500,
             "y": 305
         },
         {
             "h": 26,
             "name": "worm_red_idle_5",
             "w": 26,
-            "x": 518,
+            "x": 303,
             "y": 304
         },
         {
             "h": 25,
             "name": "worm_red_idle_6",
             "w": 22,
-            "x": 313,
-            "y": 305
+            "x": 1846,
+            "y": 304
         }
     ],
     "frames_offsets": [

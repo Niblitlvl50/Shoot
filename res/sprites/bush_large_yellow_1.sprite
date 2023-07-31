@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 32,
+            "h": 30,
             "name": "bush_large_yellow_1",
             "w": 50,
-            "x": 252,
-            "y": 235
+            "x": 62,
+            "y": 260
         }
     ],
     "frames_offsets": [

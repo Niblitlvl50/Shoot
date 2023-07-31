@@ -14,8 +14,8 @@
             "h": 21,
             "name": "signpost",
             "w": 22,
-            "x": 388,
-            "y": 336
+            "x": 1903,
+            "y": 335
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/props/signs/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

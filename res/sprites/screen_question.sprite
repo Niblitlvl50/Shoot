@@ -14,7 +14,7 @@
             "h": 23,
             "name": "screen_question",
             "w": 26,
-            "x": 150,
+            "x": 133,
             "y": 323
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/props/screens/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

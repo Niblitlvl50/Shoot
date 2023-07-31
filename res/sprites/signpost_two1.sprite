@@ -14,7 +14,7 @@
             "h": 16,
             "name": "signpost_two1",
             "w": 15,
-            "x": 643,
+            "x": 389,
             "y": 382
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/props/signs/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

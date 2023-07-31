@@ -14,8 +14,8 @@
             "h": 8,
             "name": "cardboard_box_tiny_idle_1",
             "w": 8,
-            "x": 431,
-            "y": 418
+            "x": 1957,
+            "y": 417
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/props/",
+    "source_folder": "res/images/props/cardboard_box/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
