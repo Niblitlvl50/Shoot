@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "pickup_rubble"
+                            "variant_value": "pickup_exp"
                         },
                         {
                             "id": 3647911389,
@@ -85,7 +85,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "potatoe_1.sprite"
+                            "variant_value": "carrot_1.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -423,15 +423,15 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 0.15000000596046448
+                            "variant_value": 0.30000001192092896
                         },
                         {
                             "id": 2471448074,
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.02500000037252903,
-                                "y": -0.02500000037252903
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -483,7 +483,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "pickup_rubble",
+            "name": "pickup_exp",
             "uuid_hash": 723811709
         }
     ],

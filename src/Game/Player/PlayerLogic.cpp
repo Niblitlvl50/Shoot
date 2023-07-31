@@ -546,9 +546,9 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         m_player_info->persistent_data.chips += amount;
         break;
     }
-    case PickupType::RUBBLE:
+    case PickupType::EXPERIENCE:
     {
-        m_player_info->persistent_data.rubble += amount;
+        m_player_info->experience_fraction += 0.05f;
         break;
     }
     };

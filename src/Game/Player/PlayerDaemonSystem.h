@@ -39,7 +39,9 @@ namespace game
             INetworkPipe* remote_connection,
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context,
-            mono::EventHandler* event_handler);
+            mono::EventHandler* event_handler,
+            class CameraSystem* camera_system,
+            class DamageSystem* damage_system);
         ~PlayerDaemonSystem();
 
         const char* Name() const override;
@@ -81,11 +83,12 @@ namespace game
         mono::EventResult OnDespawnPlayer(const DespawnPlayerEvent& event);
         mono::EventResult OnRespawnPlayer(const RespawnPlayerEvent& event);
 
-        class CameraSystem* m_camera_system;
         INetworkPipe* m_remote_connection;
         mono::IEntityManager* m_entity_system;
         mono::SystemContext* m_system_context;
         mono::EventHandler* m_event_handler;
+        class CameraSystem* m_camera_system;
+        class DamageSystem* m_damage_system;
 
         bool m_spawn_players;
         math::Vector m_player_spawn;

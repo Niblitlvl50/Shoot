@@ -67,6 +67,7 @@ namespace game
         float cooldown_fraction;
         float health_fraction;
         float stamina_fraction;
+        float experience_fraction;
 
         bool laser_sight;
         bool auto_aim;

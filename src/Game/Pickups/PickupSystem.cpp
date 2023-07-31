@@ -98,7 +98,7 @@ PickupSystem::PickupSystem(
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
     m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
-    m_rubble_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
+    m_experience_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
     m_lootbox_sound = audio::CreateSound("res/sound/pickups/smoke_bomb.wav", audio::SoundPlayback::ONCE);
 }
 
@@ -341,8 +341,8 @@ void PickupSystem::PlayPickupSound(PickupType type)
     case PickupType::COINS:
         m_coins_sound->Play();
         break;
-    case PickupType::RUBBLE:
-        m_rubble_sound->Play();
+    case PickupType::EXPERIENCE:
+        m_experience_sound->Play();
         break;
     default:
         m_pickup_sound->Play();

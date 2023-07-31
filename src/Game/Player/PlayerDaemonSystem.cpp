@@ -42,11 +42,15 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     INetworkPipe* remote_connection,
     mono::IEntityManager* entity_system,
     mono::SystemContext* system_context,
-    mono::EventHandler* event_handler)
+    mono::EventHandler* event_handler,
+    game::CameraSystem* camera_system,
+    game::DamageSystem* damage_system)
     : m_remote_connection(remote_connection)
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
+    , m_camera_system(camera_system)
+    , m_damage_system(damage_system)
     , m_spawn_players(false)
 {
     const std::vector<byte> file_data = file::FileReadAll("res/configs/player_config.json");
@@ -63,8 +67,6 @@ PlayerDaemonSystem::PlayerDaemonSystem(
 
     std::memset(&m_save_slot_0, 0, sizeof(m_save_slot_0));
     game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
-
-    m_camera_system = m_system_context->GetSystem<CameraSystem>();
 
     using namespace std::placeholders;
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemonSystem::OnControllerAdded, this, _1);
@@ -268,9 +270,8 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
 
     // No need to store the callback id, when destroyed this callback will be cleared up.
-    game::DamageSystem* damage_system = system_context->GetSystem<DamageSystem>();
-    damage_system->PreventReleaseOnDeath(player_entity.id, true);
-    const uint32_t callback_id = damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
+    m_damage_system->PreventReleaseOnDeath(player_entity.id, true);
+    const uint32_t callback_id = m_damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
     (void)callback_id;
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
@@ -432,8 +433,7 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
         math::Position(transform, spawn_point);
         transform_system->SetTransformState(event.entity_id, mono::TransformState::CLIENT);
 
-        game::DamageSystem* damage_system = m_system_context->GetSystem<game::DamageSystem>();
-        damage_system->ReactivateDamageRecord(event.entity_id);
+        m_damage_system->ReactivateDamageRecord(event.entity_id);
 
         player_info->player_state = game::PlayerState::ALIVE;
 
