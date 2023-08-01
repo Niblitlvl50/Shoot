@@ -320,7 +320,7 @@ void HordeGameMode::SpawnNextWave()
     m_horde_wave_ui->ShowNextWave(m_wave_index, "Watch Out!");
 
     const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
-        spawn_point.spawn_score += 2;
+        spawn_point.spawn_score += 1;
     };
     m_spawn_system->ForEachSpawnPoint(increment_spawn_score);
 }

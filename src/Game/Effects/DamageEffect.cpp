@@ -19,7 +19,7 @@ namespace
     {
         const float x = mono::Random(-4.0f, 4.0f);
         const float y = mono::Random(-4.0f, 4.0f);
-        const float life = mono::Random(0.05f, 0.15f);
+        const float life = mono::Random(0.05f, 0.10f);
 
         component_view.position = context.position;
         component_view.velocity = math::Vector(x, y);
@@ -30,8 +30,8 @@ namespace
 
         component_view.color = OFF_WHITE;
         component_view.gradient = MakeGradient<4>(
-            { 0.0f, 1.0f, 1.0f, 1.0f },
-            { component_view.color, MakeWithAlpha(OFF_WHITE, 0.5f), RGBA(), RGBA() }
+            { 0.0f, 0.8f, 1.0f, 1.0f },
+            { component_view.color, MakeWithAlpha(OFF_WHITE, 0.5f), MakeWithAlpha(OFF_WHITE, 0.0f), RGBA() }
         );
 
         constexpr float size = 24.0f;
@@ -57,7 +57,7 @@ DamageEffect::DamageEffect(mono::ParticleSystem* particle_system, mono::IEntityM
         mono::BlendMode::SOURCE_ALPHA,
         mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::LOCAL,
-        0.0f,
+        0.001f,
         mono::DefaultUpdater);
 
     m_particle_entity = particle_entity.id;
