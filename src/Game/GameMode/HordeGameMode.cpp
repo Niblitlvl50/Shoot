@@ -270,9 +270,7 @@ void HordeGameMode::SetupEvents()
 void HordeGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
 {
     const uint32_t portal_entity_id = m_entity_manager->SpawnEntity("res/entities/portal_green.entity").id;
-    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position));
-    m_transform_system->SetTransformState(portal_entity_id, mono::TransformState::CLIENT);
-
+    m_transform_system->SetTransform(portal_entity_id, math::CreateMatrixWithPosition(position), mono::TransformState::CLIENT);
     m_sprite_system->SetSpriteEnabled(player_entity_id, false);
 
     const mono::SpriteAnimationCallback on_begin_finished = [this, player_entity_id](uint32_t sprite_id) {

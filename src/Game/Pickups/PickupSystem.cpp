@@ -1,6 +1,7 @@
 
 #include "PickupSystem.h"
 #include "DamageSystem/DamageSystem.h"
+#include "SpawnSystem/SpawnSystem.h"
 
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
@@ -51,11 +52,13 @@ namespace
 PickupSystem::PickupSystem(
     uint32_t n,
     game::DamageSystem* damage_system,
+    game::SpawnSystem* spawn_system,
     mono::TransformSystem* transform_system,
     mono::ParticleSystem* particle_system,
     mono::PhysicsSystem* physics_system,
     mono::IEntityManager* entity_manager)
     : m_damage_system(damage_system)
+    , m_spawn_system(spawn_system)
     , m_transform_system(transform_system)
     , m_particle_system(particle_system)
     , m_physics_system(physics_system)
@@ -111,6 +114,11 @@ void PickupSystem::Begin()
         HandleSpawnEnemyPickup(id);
     };
     m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
+
+    const game::SpawnSystem::SpawnCallback annotate_spawned_entity = [this](uint32_t entity_id, int spawn_score) {
+        HandleEnemySpawn(entity_id, spawn_score);
+    };
+    m_spawn_callback_id = m_spawn_system->AddGlobalSpawnCallback(annotate_spawned_entity);
 }
 
 void PickupSystem::Reset()
@@ -128,6 +136,7 @@ void PickupSystem::Reset()
     m_lootboxes.ForEach(release_callback);
 
     m_damage_system->RemoveGlobalDamageCallback(m_damage_callback_id);
+    m_spawn_system->RemoveGlobalSpawnCallback(m_spawn_callback_id);
 }
 
 game::Pickup* PickupSystem::AllocatePickup(uint32_t entity_id)
@@ -219,9 +228,7 @@ uint32_t PickupSystem::SpawnLootBox(const math::Vector& world_position) const
     const int picked_index = mono::RandomInt(0, m_lootbox_definition.size() - 1);
     const PickupDefinition& pickup_definition = m_lootbox_definition[picked_index];
     const mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
-
-    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position));
-    m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position), mono::TransformState::CLIENT);
 
     return spawned_entity.id;
 }
@@ -327,11 +334,26 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
         math::Translate(transform, random_offset);
 
         mono::Entity spawned_entity = m_entity_manager->SpawnEntity(pickup_definition.entity_file.c_str());
-        m_transform_system->SetTransform(spawned_entity.id, transform);
-        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+        m_transform_system->SetTransform(spawned_entity.id, transform, mono::TransformState::CLIENT);
 
         m_spawned_pickups.push_back({ spawned_entity.id, 5.0f + mono::Random() });
     }
+}
+
+void PickupSystem::HandleEnemySpawn(uint32_t entity_id, int spawn_score)
+{
+    const math::Quad& bb = m_transform_system->GetBoundingBox(entity_id);
+    const math::Vector& top_right = math::TopRight(bb) / 2.0f;
+    const math::Matrix transform = math::CreateMatrixWithPosition(top_right);
+
+    mono::Entity spawned_entity = m_entity_manager->SpawnEntity("res/entities/pickup_annotation.entity");
+    m_transform_system->SetTransform(spawned_entity.id, transform, mono::TransformState::CLIENT);
+    m_transform_system->ChildTransform(spawned_entity.id, entity_id);
+
+    const mono::ReleaseCallback on_parent_destroyed = [this, spawned_entity](uint32_t entity_id, mono::ReleasePhase phase) {
+        m_entity_manager->ReleaseEntity(spawned_entity.id);
+    };
+    m_entity_manager->AddReleaseCallback(entity_id, mono::ReleasePhase::PRE_RELEASE, on_parent_destroyed);
 }
 
 void PickupSystem::PlayPickupSound(PickupType type)

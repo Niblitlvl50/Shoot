@@ -156,8 +156,7 @@ uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
     const mono::Entity package_entity = m_entity_system->SpawnEntity(package_entity_file.c_str());
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
-    transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(spawn_position));
-    transform_system->SetTransformState(package_entity.id, mono::TransformState::CLIENT);
+    transform_system->SetTransform(package_entity.id, math::CreateMatrixWithPosition(spawn_position), mono::TransformState::CLIENT);
 
     m_entity_system->AddComponent(package_entity.id, BEHAVIOUR_COMPONENT);
 

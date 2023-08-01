@@ -76,9 +76,10 @@ void game::CreateGameSystems(
     game::TriggerSystem* trigger_system =
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
     system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
-    system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
+    game::SpawnSystem* spawn_system =
+        system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
     system_context.CreateSystem<game::PickupSystem>(
-        max_entities, damage_system, transform_system, particle_system, physics_system, entity_system);
+        max_entities, damage_system, spawn_system, transform_system, particle_system, physics_system, entity_system);
     system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
     game::CameraSystem* camera_system =
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);

@@ -21,11 +21,17 @@
 namespace game
 {
     class DamageSystem;
+    class SpawnSystem;
 
     struct Pickup
     {
         PickupType type;
         int amount;
+    };
+
+    struct PickupAnnotation
+    {
+        PickupType type;
     };
 
     struct LootBox
@@ -45,6 +51,7 @@ namespace game
         PickupSystem(
             uint32_t n,
             game::DamageSystem* damage_system,
+            game::SpawnSystem* spawn_system,
             mono::TransformSystem* transform_system,
             mono::ParticleSystem* particle_system,
             mono::PhysicsSystem* physics_system,
@@ -75,9 +82,11 @@ namespace game
 
         void HandleReleaseLootBox(uint32_t id);
         void HandleSpawnEnemyPickup(uint32_t id);
+        void HandleEnemySpawn(uint32_t entity_id, int spawn_score);
         void PlayPickupSound(PickupType type);
 
         game::DamageSystem* m_damage_system;
+        game::SpawnSystem* m_spawn_system;
         mono::TransformSystem* m_transform_system;
         mono::ParticleSystem* m_particle_system;
         mono::PhysicsSystem* m_physics_system;
@@ -117,6 +126,7 @@ namespace game
         audio::ISoundPtr m_lootbox_sound;
 
         uint32_t m_damage_callback_id;
+        uint32_t m_spawn_callback_id;
         class PickupEffect* m_pickup_effect;
         class PickupLootEffect* m_pickup_loot_effect;
     };

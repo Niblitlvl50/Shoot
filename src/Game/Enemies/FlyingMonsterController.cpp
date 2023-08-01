@@ -212,7 +212,7 @@ void FlyingMonsterController::ToAttackAnticipation()
     m_attack_target = player_info;
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-    sprite->SetShade(mono::Color::RED);
+    sprite->SetShade(mono::Color::RGBA(1.0f, 0.25f, 0.25f));
 
     m_attack_anticipation_timer_s = 0.0f;
 }

@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <string>
+#include <functional>
 
 namespace game
 {
@@ -81,6 +82,8 @@ namespace game
             std::string entity_file;
         };
 
+        using SpawnCallback = std::function<void (uint32_t entity_id, int spawn_score)>;
+
         static const uint32_t spawn_delay_time_ms = 500;
 
         SpawnSystem(uint32_t n, class TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
@@ -100,6 +103,9 @@ namespace game
 
         int GetActiveSpawns(const SpawnPointComponent* spawn_point);
         const std::vector<SpawnEvent>& GetSpawnEvents() const;
+
+        uint32_t AddGlobalSpawnCallback(const SpawnCallback& callback);
+        void RemoveGlobalSpawnCallback(uint32_t callback_id);
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -132,5 +138,11 @@ namespace game
         std::vector<EntitySpawnPointComponent*> m_active_entity_spawn_points;
 
         std::vector<SpawnEvent> m_spawn_events;
+
+        struct SpawnCallbackData
+        {
+            SpawnCallback callback;
+        };
+        SpawnCallbackData m_spawn_callbacks[8];
     };
 }

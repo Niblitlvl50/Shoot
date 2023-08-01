@@ -212,6 +212,29 @@ const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
     return m_spawn_events;
 }
 
+uint32_t SpawnSystem::AddGlobalSpawnCallback(const SpawnSystem::SpawnCallback& callback)
+{
+    uint32_t free_index = std::numeric_limits<uint32_t>::max();
+
+    for(uint32_t index = 0; index < std::size(m_spawn_callbacks); ++index)
+    {
+        if(m_spawn_callbacks[index].callback == nullptr)
+        {
+            free_index = index;
+            break;
+        }
+    }
+
+    MONO_ASSERT(free_index != std::numeric_limits<uint32_t>::max());
+    m_spawn_callbacks[free_index] = { callback };
+    return free_index;
+}
+
+void SpawnSystem::RemoveGlobalSpawnCallback(uint32_t callback_id)
+{
+    m_spawn_callbacks[callback_id].callback = nullptr;
+}
+
 const char* SpawnSystem::Name() const
 {
     return "spawnsystem";
@@ -334,8 +357,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
             }
         }
 
-        m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform);
-        m_transform_system->SetTransformState(spawned_entity.id, mono::TransformState::CLIENT);
+        m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform, mono::TransformState::CLIENT);
 
         spawn_event.spawned_entity_id = spawned_entity.id;
     }
@@ -345,8 +367,18 @@ void SpawnSystem::Sync()
 {
     m_active_entity_spawn_points.clear();
 
-    const auto remove_if_spawned = [](const SpawnEvent& spawn_event) {
-        return (spawn_event.spawned_entity_id != 0);
+    const auto remove_if_spawned = [this](const SpawnEvent& spawn_event) {
+
+        const bool time_to_remove = (spawn_event.spawned_entity_id != 0);
+        if(time_to_remove)
+        {
+            for(const SpawnCallbackData& spawn_callback : m_spawn_callbacks)
+            {
+                if(spawn_callback.callback != nullptr)
+                    spawn_callback.callback(spawn_event.spawned_entity_id, spawn_event.spawn_score);
+            }
+        }
+        return time_to_remove;
     };
     mono::remove_if(m_spawn_events, remove_if_spawned);
 }
