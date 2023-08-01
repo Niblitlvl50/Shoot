@@ -67,6 +67,7 @@ using namespace game;
 
 HordeGameMode::HordeGameMode()
     : m_package_spawned(false)
+    , m_package_entity_id(mono::INVALID_ID)
     , m_spawn_wave_timer(10.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
@@ -328,6 +329,9 @@ void HordeGameMode::SpawnNextWave()
 
 void HordeGameMode::SpawnLootBoxes()
 {
+    if(m_loot_box_entities.empty())
+        return;
+
     const uint32_t index_to_use = m_loot_box_index % m_loot_box_entities.size();
     const uint32_t entity_id = m_loot_box_entities[index_to_use];
     const math::Vector world_position = m_transform_system->GetWorldPosition(entity_id);
