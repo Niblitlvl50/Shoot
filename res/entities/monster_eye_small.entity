@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
-                                "y": 3.0
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {

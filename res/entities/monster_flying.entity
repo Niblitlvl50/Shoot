@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.032268524169922,
-                                "y": -2.4915666580200195
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -73,7 +73,7 @@
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         }
                     ]
                 },
