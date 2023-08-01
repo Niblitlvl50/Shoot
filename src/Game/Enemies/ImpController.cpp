@@ -59,10 +59,6 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
 
-    const mono::Entity spawned_weapon = m_entity_system->SpawnEntity("res/entities/player_weapon.entity");
-    m_transform_system->ChildTransform(spawned_weapon.id, m_entity_id);
-    m_weapon_entity = spawned_weapon.id;
-
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &ImpController::ToIdle, &ImpController::Idle, this),
         GoblinStateMachine::MakeState(States::REPOSITION, &ImpController::ToReposition, &ImpController::Reposition, this),
@@ -73,15 +69,11 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 }
 
 ImpController::~ImpController()
-{
-    m_entity_system->ReleaseEntity(m_weapon_entity);
-}
+{ }
 
 void ImpController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
-
-    UpdateWeaponAnimation(update_context);
 }
 
 void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
@@ -251,25 +243,4 @@ void ImpController::Attacking(const mono::UpdateContext& update_context)
     
         m_attack_timer_s = 0.0f;
     }
-}
-
-void ImpController::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
-{
-    if(!m_target_player)
-        return;
-
-    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const float m_aim_direction = math::AngleBetweenPointsSimple(world_position, m_attack_position);
-
-    mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
-    if(m_aim_direction < 0.0f)
-        weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
-    else
-        weapon_sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
-
-    math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
-    weapon_transform =
-        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
-        math::CreateMatrixFromZRotation(m_aim_direction) *
-        math::CreateMatrixWithPosition(math::Vector(0.1f, 0.0f));
 }

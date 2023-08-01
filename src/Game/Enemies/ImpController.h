@@ -26,8 +26,6 @@ namespace game
 
     private:
 
-        void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
-
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
 
@@ -49,7 +47,6 @@ namespace game
         };
 
         uint32_t m_entity_id;
-        uint32_t m_weapon_entity;
 
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
