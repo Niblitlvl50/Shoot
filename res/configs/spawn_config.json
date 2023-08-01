@@ -1,8 +1,10 @@
 {
     "spawn_definitions": [
-        { "value": 1, "entity": "res/entities/monster_goblin.entity" },
         { "value": 1, "entity": "res/entities/monster_eye_small.entity" },
-        { "value": 5, "entity": "res/entities/monster_flying_eye_boss.entity" },
-        { "value": 10, "entity": "res/entities/monster_fire_skull_boss.entity" }
+        { "value": 2, "entity": "res/entities/monster_goblin.entity" },
+        { "value": 5, "entity": "res/entities/monster_imp.entity" },
+        { "value": 10, "entity": "res/entities/monster_evil_putto.entity" },
+        { "value": 10, "entity": "res/entities/monster_flying.entity" },
+        { "value": 15, "entity": "res/entities/monster_fire_skull_boss.entity" }
     ]
 }
