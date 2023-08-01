@@ -1620,6 +1620,7 @@
         "spawn_package": false,
         "time_limit_s": 0,
         "triggers": [
+            "boss_defeated",
             "despawn_me",
             "level_aborted",
             "level_completed",

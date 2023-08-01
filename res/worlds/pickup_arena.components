@@ -1622,6 +1622,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "push_button",
                                 "type": 0
                             }
@@ -1815,6 +1816,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "push_button",
                                 "type": 0
                             }
@@ -5880,6 +5882,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_defeated",
                                 "type": 0
                             }
@@ -11384,6 +11387,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_defeated",
                                 "type": 0
                             }
@@ -11645,6 +11649,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "push_button",
                                 "type": 0
                             }
@@ -12875,6 +12880,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "package_delivered",
                                 "type": 0
                             }
@@ -12890,16 +12896,8 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "package_delivered",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "level_completed",
                                 "type": 0
                             }
                         },
@@ -12908,6 +12906,16 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 2000
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "level_completed",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -12932,6 +12940,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "package_delivered",
                                 "type": 0
                             }
@@ -13358,6 +13367,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "open_inner_doors",
                                 "type": 0
                             }
@@ -13604,6 +13614,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "open_inner_doors",
                                 "type": 0
                             }
@@ -17319,6 +17330,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_defeated",
                                 "type": 0
                             }
@@ -17440,6 +17452,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_defeated",
                                 "type": 0
                             }
@@ -17449,6 +17462,7 @@
                             "name": "trigger_name_completed",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_completed",
                                 "type": 0
                             }
@@ -17470,16 +17484,8 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_completed",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "open_inner_doors",
                                 "type": 0
                             }
                         },
@@ -17488,6 +17494,16 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 500
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "open_inner_doors",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -17524,6 +17540,7 @@
                             "name": "enable_trigger",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_completed",
                                 "type": 0
                             }
@@ -17533,6 +17550,7 @@
                             "name": "disable_trigger",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "",
                                 "type": 0
                             }
@@ -35049,6 +35067,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "open_inner_doors",
                                 "type": 0
                             }
@@ -35242,6 +35261,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "open_inner_doors",
                                 "type": 0
                             }
@@ -44169,16 +44189,8 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_completed",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "push_button",
                                 "type": 0
                             }
                         },
@@ -44187,6 +44199,16 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 500
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "push_button",
+                                "type": 0
+                            }
                         }
                     ]
                 }
