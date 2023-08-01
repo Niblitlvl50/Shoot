@@ -342,6 +342,16 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
 
 void PickupSystem::HandleEnemySpawn(uint32_t entity_id, int spawn_score)
 {
+    const bool is_player = game::IsPlayer(entity_id);
+    if(is_player)
+        return;
+
+    const bool initial_spawn_pickup = mono::Chance(25);
+    const bool is_boss = m_damage_system->IsBoss(entity_id);
+
+    if(!initial_spawn_pickup && !is_boss)
+        return;
+
     const math::Quad& bb = m_transform_system->GetBoundingBox(entity_id);
     const math::Vector& top_right = math::TopRight(bb) / 2.0f;
     const math::Matrix transform = math::CreateMatrixWithPosition(top_right);
