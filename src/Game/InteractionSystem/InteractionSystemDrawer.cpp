@@ -118,6 +118,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             hsl_shade.lightness *= 1.2f;
 
             sprite->SetShade(mono::Color::ToRGBA(hsl_shade, shade.alpha));
+            sprite->SetOutlineSprite(true);
             m_backup_data[interaction_trigger.interaction_id] = { shade };
         }
 
@@ -138,6 +139,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             continue;
 
         mono::Sprite* sprite = m_sprite_system->GetSprite(interaction_trigger.interaction_id);
+        sprite->SetOutlineSprite(false);
         sprite->SetShade(it->second.shade);
 
         m_backup_data.erase(interaction_trigger.interaction_id);

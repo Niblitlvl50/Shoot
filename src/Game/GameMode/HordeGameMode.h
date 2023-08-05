@@ -84,6 +84,7 @@ namespace game
         class SpawnSystem* m_spawn_system;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
+        mono::EventToken<struct PlayerLevelUpEvent> m_levelup_token;
         mono::EventToken<event::PauseEvent> m_pause_token;
 
         std::unique_ptr<class PackageAuxiliaryDrawer> m_package_aux_drawer;
@@ -94,6 +95,7 @@ namespace game
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class PauseScreen> m_pause_screen;
         std::unique_ptr<class ShopScreen> m_shop_screen;
+        std::unique_ptr<class LevelUpScreen> m_levelup_screen;
 
         bool m_spawn_package;
         bool m_package_spawned;

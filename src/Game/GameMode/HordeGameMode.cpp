@@ -4,12 +4,14 @@
 #include "Enemies/AIUtils.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
+#include "Events/PlayerEvents.h"
 #include "GameCamera/CameraSystem.h"
 #include "Hud/BigTextScreen.h"
 #include "Hud/LevelTimerUIElement.h"
 #include "Hud/HordeWaveDrawer.h"
 #include "Hud/PauseScreen.h"
 #include "Hud/ShopScreen.h"
+#include "Hud/LevelUpScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "Pickups/PickupSystem.h"
@@ -154,10 +156,14 @@ void HordeGameMode::Begin(
     m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
+    m_levelup_screen = std::make_unique<LevelUpScreen>(m_transform_system, m_entity_manager, event_handler, ui_system);
+    m_levelup_screen->Hide();
+
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
+    zone->AddUpdatableDrawable(m_levelup_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_horde_wave_ui.get(), LayerId::UI);
 
@@ -175,6 +181,7 @@ int HordeGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_shop_screen.get());
+    zone->RemoveUpdatableDrawable(m_levelup_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
     zone->RemoveUpdatableDrawable(m_timer_screen.get());
     zone->RemoveUpdatableDrawable(m_horde_wave_ui.get());
@@ -183,6 +190,9 @@ int HordeGameMode::End(mono::IZone* zone)
         m_entity_manager->RemoveReleaseCallback(m_package_entity_id, m_package_release_callback);
 
     m_event_handler->RemoveListener(m_gameover_token);
+    m_event_handler->RemoveListener(m_levelup_token);
+    m_event_handler->RemoveListener(m_pause_token);
+
     m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
@@ -238,6 +248,13 @@ void HordeGameMode::SetupEvents()
         return mono::EventResult::PASS_ON;
     };
     m_gameover_token = m_event_handler->AddListener(on_game_over);
+
+    const PlayerLevelUpFunc on_level_up = [this](const game::PlayerLevelUpEvent& level_up_event) {
+        const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+        m_levelup_screen->ShowAt(camera->GetTargetPosition());
+        return mono::EventResult::PASS_ON;
+    };
+    m_levelup_token = m_event_handler->AddListener(on_level_up);
 
     const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
         const GameModeStates previous_state = m_states.PreviousState();

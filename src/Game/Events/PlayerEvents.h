@@ -45,4 +45,12 @@ namespace game
         { }
         const network::Address address;
     };
+
+    struct PlayerLevelUpEvent
+    {
+        PlayerLevelUpEvent(uint32_t entity_id)
+            : entity_id(entity_id)
+        { }
+        const uint32_t entity_id;
+    };
 }

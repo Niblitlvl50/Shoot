@@ -194,6 +194,7 @@ bool UISystem::UpdateInPause() const
 
 void UISystem::Enable()
 {
+    m_input_system->ResetAllInput();
     m_input_system->EnableContext(m_input_context);
 }
 

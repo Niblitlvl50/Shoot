@@ -8,6 +8,7 @@ namespace game
 {
     struct PlayerConnectedEvent;
     struct PlayerDisconnectedEvent;
+    struct PlayerLevelUpEvent;
     struct SpawnPlayerEvent;
     struct DespawnPlayerEvent;
     struct RespawnPlayerEvent;
@@ -16,6 +17,7 @@ namespace game
 
     using PlayerConnectedFunc = std::function<mono::EventResult (const game::PlayerConnectedEvent&)>; 
     using PlayerDisconnectedFunc = std::function<mono::EventResult (const game::PlayerDisconnectedEvent&)>;
+    using PlayerLevelUpFunc = std::function<mono::EventResult (const game::PlayerLevelUpEvent&)>;
     using SpawnPlayerFunc = std::function<mono::EventResult (const game::SpawnPlayerEvent&)>;
     using DespawnPlayerFunc = std::function<mono::EventResult (const game::DespawnPlayerEvent&)>;
     using RespawnPlayerFunc = std::function<mono::EventResult (const game::RespawnPlayerEvent&)>;

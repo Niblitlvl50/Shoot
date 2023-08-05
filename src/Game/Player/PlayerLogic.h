@@ -71,6 +71,8 @@ namespace game
         bool HasStamina() const;
 
         void MoveInDirection(const math::Vector& direction);
+        void ResetMovement();
+
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
         void SetVelocity(const math::Vector& velocity);

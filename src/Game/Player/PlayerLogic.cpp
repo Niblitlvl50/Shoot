@@ -279,7 +279,7 @@ void PlayerLogic::UpdateMovement(const mono::UpdateContext& update_context)
     const float length_squared = math::LengthSquared(m_movement_direction);
     if(length_squared <= FLT_EPSILON)
     {
-        ResetForces();
+
     }
     else
     {
@@ -345,6 +345,8 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 
 void PlayerLogic::UpdateController(const mono::UpdateContext& update_context)
 {
+    ResetMovement();
+
     const uint32_t player_index = FindPlayerIndex(m_player_info);
 
     // Select most recent input if player zero, else just go with gamepad. 
@@ -548,7 +550,14 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     }
     case PickupType::EXPERIENCE:
     {
-        m_player_info->experience_fraction += 0.05f;
+        m_player_info->experience_fraction += 1.5f;
+
+        if(m_player_info->experience_fraction >= 1.0f)
+        {
+            m_player_info->experience_fraction = 0.0f;
+            m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
+        }
+
         break;
     }
     };
@@ -665,6 +674,12 @@ void PlayerLogic::MoveInDirection(const math::Vector& direction)
     m_movement_direction = direction;
 }
 
+void PlayerLogic::ResetMovement()
+{
+    m_movement_direction = math::ZeroVec;
+    ResetForces();
+}
+
 void PlayerLogic::ApplyImpulse(const math::Vector& force)
 {
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
@@ -686,8 +701,8 @@ void PlayerLogic::SetVelocity(const math::Vector& velocity)
 
 void PlayerLogic::ResetForces()
 {
-    //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    //body->ResetForces();
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    body->ResetForces();
     //body->SetVelocity(math::ZeroVec);
 
     //SetAnimation(PlayerAnimation::IDLE);
