@@ -32,8 +32,8 @@ namespace
     AimlineRenderData GenerateAimLine(
         float start_offset, float mid_point_offset, float length, float width, float cutoff_length, const mono::Color::RGBA& color)
     {
-        const float min_mid_point_offset = std::min(mid_point_offset, cutoff_length);
         const float min_length = std::min(length, cutoff_length);
+        const float min_mid_point_offset = std::min(mid_point_offset, min_length);
 
         const math::Vector aim_lines_vertices[] = {
             math::Vector(start_offset, 0.0f),
