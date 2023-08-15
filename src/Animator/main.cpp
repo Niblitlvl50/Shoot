@@ -28,9 +28,9 @@ int main(int argc, const char* argv[])
     init_context.log_file = "animator_log.log";
     System::Initialize(init_context);
 
-    {
-        System::IWindow* window = System::MakeWindow("Animator", 100, 100, 1200, 800, System::WindowOptions::VSYNC);
+    System::IWindow* window = System::MakeWindow("Animator", 100, 100, 1200, 800, System::WindowOptions::VSYNC);
 
+    {
         mono::RenderInitParams render_params;
         render_params.window = window;
 
@@ -51,10 +51,9 @@ int main(int argc, const char* argv[])
         animator::Animator animator(
             transform_system, sprite_system, render_system, entity_system, &event_handler, render_params.pixels_per_meter);
         engine.Run(&animator);
-
-        delete window;
     }
 
+    delete window;
     System::Shutdown();
     
     return 0;

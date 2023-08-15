@@ -54,7 +54,7 @@ namespace
             ImGui::SameLine();
 
             const uint32_t slash_pos = context.sprite_file.find_last_of('/');
-            const std::string sprite_file_name = context.sprite_file.substr(slash_pos + 1);
+            const std::string sprite_file_name = (slash_pos != std::string::npos) ? context.sprite_file.substr(slash_pos + 1) : "[None]";
 
             const SpritePickerResult& result = animator::DrawSpritePicker("Sprite", sprite_file_name, context);
             if(result.changed)
@@ -150,7 +150,7 @@ namespace
 
         char buffer[100] = { 0 };
         snprintf(buffer, 100, "%s", active_animation.name.c_str());
-        if(ImGui::InputText("", buffer, 100))
+        if(ImGui::InputText("##active_animation_button", buffer, 100))
             context.set_name(buffer);
 
         ImGui::SameLine();
