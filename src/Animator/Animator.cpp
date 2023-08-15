@@ -358,8 +358,9 @@ void Animator::OnAddAnimation()
 {
     mono::SpriteAnimation new_animation;
     new_animation.name = "new";
-    new_animation.frames.push_back(0);
     new_animation.looping = false;
+    new_animation.frame_duration = 100;
+    new_animation.frames.push_back(0);
 
     const int animation_id = m_sprite_data->animations.size();
     m_sprite_data->animations.push_back(new_animation);
