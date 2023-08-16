@@ -105,7 +105,6 @@ int main(int argc, char* argv[])
     network::Initialize(game_config.port_range_start, game_config.port_range_end);
     game::PrintNetworkMessageSize();
     game::InitializePlayerInfo();
-    game::InitializeAIInfo();
 
     {
         const int window_position_x = (options.x != 0) ? options.x : user_config.window_position_x;

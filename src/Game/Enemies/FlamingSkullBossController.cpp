@@ -138,7 +138,7 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
     const float distance = math::DistanceBetween(player_info->position, entity_position);
     if(distance < tweak_values::trigger_distance)
     {
-        const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
+        const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info->position);
         if(sees_player)
             m_states.TransitionTo(States::AWAKE);
     }

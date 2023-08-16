@@ -49,28 +49,28 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 123,
-            "y": 426
+            "x": 849,
+            "y": 428
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 2013,
-            "y": 425
+            "x": 37,
+            "y": 427
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 1333,
+            "x": 1428,
             "y": 417
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 379,
+            "x": 177,
             "y": 361
         },
         {
@@ -119,29 +119,29 @@
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 1364,
+            "x": 1397,
             "y": 417
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 92,
+            "x": 124,
             "y": 426
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 861,
-            "y": 427
+            "x": 808,
+            "y": 428
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 42,
-            "y": 427
+            "x": 761,
+            "y": 428
         },
         {
             "h": 43,
@@ -154,8 +154,8 @@
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 1480,
-            "y": 231
+            "x": 742,
+            "y": 233
         },
         {
             "h": 43,
@@ -196,8 +196,8 @@
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 742,
-            "y": 233
+            "x": 1480,
+            "y": 231
         }
     ],
     "frames_offsets": [

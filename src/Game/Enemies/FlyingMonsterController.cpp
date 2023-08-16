@@ -138,7 +138,7 @@ void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
     if(distance_to_player > tweak_values::track_to_player_distance)
         return;
 
-    const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
+    const bool sees_player = SeesPlayer(m_physics_system, position, player_info->position);
     if(!sees_player)
         return;
 
@@ -179,7 +179,7 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
 
     if(distance_to_player < tweak_values::attack_distance)
     {
-        const bool sees_player = SeesPlayer(m_physics_system, position, player_info);
+        const bool sees_player = SeesPlayer(m_physics_system, position, player_info->position);
         if(sees_player)
         {
             m_states.TransitionTo(States::ATTACK_ANTICIPATION);

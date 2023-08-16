@@ -145,7 +145,7 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool sees_player = game::SeesPlayer(m_physics_system, world_position, m_target_player);
+    const bool sees_player = game::SeesPlayer(m_physics_system, world_position, m_target_player->position);
     if(sees_player)
     {
         const bool transition_to_attack = mono::Chance(25);
@@ -190,7 +190,7 @@ void ImpController::Reposition(const mono::UpdateContext& update_context)
     {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
         const bool transition_to_attack =
-            mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, m_target_player);
+            mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, m_target_player->position);
 
         const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);

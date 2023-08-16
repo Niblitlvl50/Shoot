@@ -7,6 +7,7 @@
 #include "DamageSystem/DamageSystem.h"
 #include "Shockwave.h"
 #include "Debug/IDebugDrawer.h"
+#include "Entity/TargetSystem.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -44,6 +45,7 @@ using namespace game;
 EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_entity_id(entity_id)
     , m_awake_state_timer_s(0.0f)
+    , m_target_entity(mono::INVALID_ID)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
 
@@ -60,6 +62,7 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
 
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
 
     using namespace std::placeholders;
 
@@ -132,6 +135,7 @@ void EyeMonsterController::OnSeparateFrom(mono::IBody* body)
 void EyeMonsterController::ToSleep()
 {
     m_visibility_check_timer_s = 0.0f;
+    m_sprite->SetAnimation("close_eye");
 }
 
 void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
@@ -143,16 +147,12 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
     m_visibility_check_timer_s = 0.0f;
     
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
-    if(player_info)
+    const game::FindTargetResult& target_result = m_target_system->FindAITargetFromPosition(entity_position, tweak_values::engage_distance);
+    if(target_result.entity_id != mono::INVALID_ID)
     {
-        const float distance = math::DistanceBetween(player_info->position, entity_position);
-        if(distance < tweak_values::engage_distance)
-        {
-            const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info);
-            if(sees_player)
-                m_states.TransitionTo(States::AWAKE);
-        }
+        const bool sees_player = game::SeesPlayer(m_physics_system, entity_position, target_result.world_position);
+        if(sees_player)
+            m_states.TransitionTo(States::AWAKE);
     }
 }
 
@@ -161,39 +161,47 @@ void EyeMonsterController::ToAwake()
     m_awake_state_timer_s = 0.0f;
 
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
-    if(player_info)
+    const game::FindTargetResult& target_result = m_target_system->FindAITargetFromPosition(entity_position, math::INF);
+    if(target_result.entity_id != mono::INVALID_ID)
     {
-        const math::Vector delta = (player_info->position - entity_position);
+        const math::Vector delta = (target_result.world_position - entity_position);
         const float angle = math::AngleFromVector(delta);
         m_homing_behaviour.SetHeading(angle);
+
+        const mono::SpriteAnimationCallback transition_to_hunt = [this](uint32_t sprite_id) {
+            m_states.TransitionTo(States::HUNT);
+        };
+        m_sprite->SetAnimation("open_eye", transition_to_hunt);
+    }
+    else
+    {
+        m_states.TransitionTo(States::SLEEPING);
     }
 }
 
 void EyeMonsterController::AwakeState(const mono::UpdateContext& update_context)
-{
-    m_awake_state_timer_s += update_context.delta_s;
-    if(m_awake_state_timer_s < tweak_values::time_before_hunt_s)
-        return;
-
-    m_states.TransitionTo(States::HUNT);
-}
+{ }
 
 void EyeMonsterController::ToHunt()
 {
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_target_player_info = game::GetClosestActivePlayer(entity_position);
+    const game::FindTargetResult& target_result = m_target_system->FindAITargetFromPosition(entity_position, math::INF);
+    m_target_entity = target_result.entity_id;
+
+    m_sprite->SetAnimation("idle");
 }
 
 void EyeMonsterController::HuntState(const mono::UpdateContext& update_context)
 {
-    if(!m_target_player_info || m_target_player_info->player_state != PlayerState::ALIVE)
+    if(m_target_entity == mono::INVALID_ID)
     {
         m_states.TransitionTo(States::SLEEPING);
         return;
     }
 
-    m_homing_behaviour.SetTargetPosition(m_target_player_info->position);
+    const math::Vector& target_entity_position = m_transform_system->GetWorldPosition(m_target_entity);
+
+    m_homing_behaviour.SetTargetPosition(target_entity_position);
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
 

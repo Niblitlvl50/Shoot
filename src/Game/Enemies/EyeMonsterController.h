@@ -45,6 +45,12 @@ namespace game
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);
 
+        mono::TransformSystem* m_transform_system;
+        mono::IEntityManager* m_entity_manager;
+        mono::PhysicsSystem* m_physics_system;
+        class DamageSystem* m_damage_system;
+        class TargetSystem* m_target_system;
+
         const uint32_t m_entity_id;
         float m_awake_state_timer_s;
         float m_visibility_check_timer_s;
@@ -54,12 +60,6 @@ namespace game
         HomingBehaviour m_homing_behaviour;
 
         mono::ISprite* m_sprite;
-
-        const struct PlayerInfo* m_target_player_info;
-
-        mono::TransformSystem* m_transform_system;
-        mono::IEntityManager* m_entity_manager;
-        mono::PhysicsSystem* m_physics_system;
-        class DamageSystem* m_damage_system;
+        uint32_t m_target_entity;
     };
 }

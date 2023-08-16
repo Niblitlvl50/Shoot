@@ -143,6 +143,7 @@ const DefaultAttribute default_attributes[] = {
     { "uniform_direction",          Variant(false) },
     { "emitter_mode",               Variant(0) },
     { "entity_type",                Variant(0) },
+    { "priority",                   Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -268,6 +269,7 @@ extern const uint32_t UI_BELOW_ITEM_ID_ATTRIBUTE            = default_attributes
 extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE           = default_attributes[101].hash;
 extern const uint32_t EMITTER_MODE_ATTRIBUTE                = default_attributes[102].hash;
 extern const uint32_t ENTITY_TYPE_ATTRIBUTE                 = default_attributes[103].hash;
+extern const uint32_t PRIORITY_ATTRIBUTE                    = default_attributes[104].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -319,6 +321,7 @@ extern const uint32_t UI_SET_GROUP_STATE_COMPONENT  = hash::Hash("ui_set_group_s
 extern const uint32_t REGION_COMPONENT              = hash::Hash("region");
 extern const uint32_t TELEPORT_PLAYER_COMPONENT     = hash::Hash("teleport_player");
 extern const uint32_t ENTITY_TRACKING_COMPONENT     = hash::Hash("entity_tracker");
+extern const uint32_t TARGET_COMPONENT              = hash::Hash("target");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -420,6 +423,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "teleport_player";
     else if(hash == ENTITY_TRACKING_COMPONENT)
         return "entity_tracker";
+    else if(hash == TARGET_COMPONENT)
+        return "target";
 
     return "Unknown";
 }
@@ -492,6 +497,7 @@ const Component default_components[] = {
 
     MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
+    MakeComponent(TARGET_COMPONENT,             NULL_COMPONENT,             false,  "logic",        { PRIORITY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
 

@@ -19,6 +19,7 @@
 #include "DialogSystem/DialogSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Entity/TargetSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "Navigation/NavigationSystem.h"
@@ -95,6 +96,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::NavigationSystem>();
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);
     system_context.CreateSystem<game::WorldEntityTrackingSystem>();
+    system_context.CreateSystem<game::TargetSystem>(transform_system);
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

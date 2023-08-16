@@ -143,7 +143,7 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
         return;
 
     const bool transition_to_attack =
-        mono::Chance(25) && game::SeesPlayer(m_physics_system, world_position, player_info);
+        mono::Chance(25) && game::SeesPlayer(m_physics_system, world_position, player_info->position);
     const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
     m_states.TransitionTo(new_state);
 
@@ -187,7 +187,7 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
         const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
         const bool transition_to_attack =
-            (player_info != nullptr) && mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, player_info);
+            (player_info != nullptr) && mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, player_info->position);
 
         const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);

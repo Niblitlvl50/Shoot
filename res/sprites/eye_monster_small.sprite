@@ -14,17 +14,57 @@
         {
             "frame_duration": 100,
             "frames": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                7,
+                7,
+                7,
+                6,
+                5,
+                4
+            ],
+            "loop": false,
+            "name": "open_eye"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": false,
+            "name": "close_eye"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
                 4,
                 5,
                 6,
                 7,
-                8,
-                9,
-                10,
-                11
+                7,
+                6,
+                5,
+                4
             ],
-            "loop": true,
-            "name": "idle"
+            "loop": false,
+            "name": "blink"
         }
     ],
     "frames": [
@@ -32,26 +72,54 @@
             "h": 11,
             "name": "eye_monster_small_attack_1",
             "w": 12,
-            "x": 1251,
+            "x": 1370,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_2",
             "w": 12,
-            "x": 569,
+            "x": 1299,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_3",
             "w": 12,
-            "x": 553,
+            "x": 1283,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_4",
+            "w": 12,
+            "x": 1267,
+            "y": 402
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_blink_1",
+            "w": 12,
+            "x": 1251,
+            "y": 402
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_blink_2",
+            "w": 12,
+            "x": 569,
+            "y": 402
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_blink_3",
+            "w": 12,
+            "x": 553,
+            "y": 402
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_blink_4",
             "w": 12,
             "x": 537,
             "y": 402
@@ -74,42 +142,42 @@
             "h": 11,
             "name": "eye_monster_small_idle_3",
             "w": 12,
-            "x": 489,
+            "x": 457,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_4",
             "w": 12,
-            "x": 473,
+            "x": 1418,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_5",
             "w": 12,
-            "x": 457,
+            "x": 489,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_6",
             "w": 12,
-            "x": 1299,
+            "x": 1386,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_7",
             "w": 12,
-            "x": 1267,
+            "x": 473,
             "y": 402
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_8",
             "w": 12,
-            "x": 1283,
+            "x": 1434,
             "y": 402
         }
     ],
@@ -153,6 +221,22 @@
         {
             "x": 0.0,
             "y": 0.015625
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
         },
         {
             "x": 0.0,

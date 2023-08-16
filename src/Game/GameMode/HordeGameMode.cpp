@@ -172,7 +172,7 @@ void HordeGameMode::Begin(
     zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
 
     // Let the enemies target the package and move towards it.
-    game::g_ai_info.behaviour = game::PrimaryAIBehaviour::TargetPackage;
+    //game::g_ai_info.behaviour = game::PrimaryAIBehaviour::TargetPackage;
 }
 
 int HordeGameMode::End(mono::IZone* zone)

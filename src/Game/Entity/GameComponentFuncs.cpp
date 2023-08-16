@@ -12,6 +12,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/AnimationSystem.h"
+#include "Entity/TargetSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
@@ -1066,6 +1067,30 @@ namespace
 
         return true;
     }
+
+    bool CreateEntityTarget(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TargetSystem* target_system = context->GetSystem<game::TargetSystem>();
+        target_system->AllocateTarget(entity->id);
+        return true;
+    }
+
+    bool ReleaseEntityTarget(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TargetSystem* target_system = context->GetSystem<game::TargetSystem>();
+        target_system->ReleaseTarget(entity->id);
+        return true;
+    }
+
+    bool UpdateEntityTarget(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int priority;
+        FindAttribute(PRIORITY_ATTRIBUTE, properties, priority, FallbackMode::SET_DEFAULT);
+
+        game::TargetSystem* target_system = context->GetSystem<game::TargetSystem>();
+        target_system->SetTargetData(entity->id, priority);
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1103,4 +1128,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(SOUND_COMPONENT, CreateSound, ReleaseSound, UpdateSound);
     entity_manager->RegisterComponent(TELEPORT_PLAYER_COMPONENT, CreateTeleportPlayer, ReleaseTeleportPlayer, UpdateTeleportPlayer);
     entity_manager->RegisterComponent(ENTITY_TRACKING_COMPONENT, CreateEntityTracker, ReleaseEntityTracker, UpdateEntityTracker);
+    entity_manager->RegisterComponent(TARGET_COMPONENT, CreateEntityTarget, ReleaseEntityTarget, UpdateEntityTarget);
 }
