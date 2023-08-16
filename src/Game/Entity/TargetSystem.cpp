@@ -1,9 +1,11 @@
 
 #include "TargetSystem.h"
+#include "DamageSystem/DamageSystem.h"
 #include "EntitySystem/Entity.h"
 #include "Player/PlayerInfo.h"
-
 #include "Util/Algorithm.h"
+
+#include "TransformSystem/TransformSystem.h"
 
 using namespace game;
 
@@ -13,31 +15,45 @@ namespace
     {
     public:
 
-        TargetImpl()
+        TargetImpl(uint32_t target_entity_id, DamageSystem* damage_system)
+            : m_target_id(target_entity_id)
+            , m_callback_handle(mono::INVALID_ID)
+            , m_damage_system(damage_system)
         {
-
+            if(IsValid())
+            {
+                const DamageCallback& on_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+                    m_target_id = mono::INVALID_ID;
+                };
+                m_callback_handle = m_damage_system->SetDamageCallback(m_target_id, DamageType::DESTROYED, on_destroyed);
+            }
         }
 
         ~TargetImpl()
         {
-
+            if(m_callback_handle != mono::INVALID_ID)
+                m_damage_system->RemoveDamageCallback(m_target_id, m_callback_handle);
         }
 
         uint32_t TargetId() const override
         {
-            return 0;
+            return m_target_id;
         }
 
         bool IsValid() const override
         {
-            return false;
+            return m_target_id != mono::INVALID_ID;
         }
 
+        uint32_t m_target_id;
+        uint32_t m_callback_handle;
+        DamageSystem* m_damage_system;
     };
 }
 
-TargetSystem::TargetSystem(const mono::TransformSystem* transform_system)
+TargetSystem::TargetSystem(const mono::TransformSystem* transform_system, DamageSystem* damage_system)
     : m_transform_system(transform_system)
+    , m_damage_system(damage_system)
     , m_ai_target_behaviour(AITargetBehaviour::Player)
     , m_targets_dirty(false)
 { }
@@ -131,5 +147,18 @@ FindTargetResult TargetSystem::FindAITargetFromPosition(const math::Vector& worl
 
 std::unique_ptr<game::ITarget> TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
 {
-    return std::make_unique<TargetImpl>();
+    uint32_t found_target_entity_id = mono::INVALID_ID;
+
+    for(const TargetComponent& target : m_targets)
+    {
+        const math::Vector& target_world_position = m_transform_system->GetWorldPosition(target.entity_id);
+        const float target_distance = math::DistanceBetween(target_world_position, world_position);
+        if(target_distance < max_distance)
+        {
+            found_target_entity_id = target.entity_id;
+            break;
+        }
+    }
+
+    return std::make_unique<TargetImpl>(found_target_entity_id, m_damage_system);
 }

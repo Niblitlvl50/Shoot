@@ -43,7 +43,7 @@ namespace game
     {
     public:
 
-        TargetSystem(const mono::TransformSystem* transform_system);
+        TargetSystem(const mono::TransformSystem* transform_system, class DamageSystem* damage_system);
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -56,6 +56,7 @@ namespace game
         std::unique_ptr<ITarget> AquireTarget(const math::Vector& world_position, float max_distance);
 
         const mono::TransformSystem* m_transform_system;
+        class DamageSystem* m_damage_system;
         AITargetBehaviour m_ai_target_behaviour;
 
         bool m_targets_dirty;

@@ -10,6 +10,8 @@
 
 #include "Behaviour/HomingBehaviour.h"
 
+#include <memory>
+
 namespace game
 {
     class EyeMonsterController : public IEntityLogic, public mono::ICollisionHandler
@@ -44,6 +46,7 @@ namespace game
 
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);
+        void ExitHunt();
 
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
@@ -52,14 +55,12 @@ namespace game
         class TargetSystem* m_target_system;
 
         const uint32_t m_entity_id;
-        float m_awake_state_timer_s;
         float m_visibility_check_timer_s;
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
         HomingBehaviour m_homing_behaviour;
-
         mono::ISprite* m_sprite;
-        uint32_t m_target_entity;
+        std::unique_ptr<class ITarget> m_aquired_target;
     };
 }
