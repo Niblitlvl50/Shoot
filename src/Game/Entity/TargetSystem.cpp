@@ -164,7 +164,7 @@ FindTargetResult TargetSystem::FindAITargetFromPosition(const math::Vector& worl
     return result;
 }
 
-std::unique_ptr<game::ITarget> TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
+ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
 {
     uint32_t found_target_entity_id = mono::INVALID_ID;
 
@@ -182,7 +182,7 @@ std::unique_ptr<game::ITarget> TargetSystem::AquireTarget(const math::Vector& wo
         }
     }
 
-    return std::make_unique<TargetImpl>(found_target_entity_id, m_damage_system, m_transform_system);
+    return std::make_shared<TargetImpl>(found_target_entity_id, m_damage_system, m_transform_system);
 }
 
 #include "CollisionConfiguration.h"

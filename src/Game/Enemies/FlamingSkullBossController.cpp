@@ -1,16 +1,14 @@
 
 #include "FlamingSkullBossController.h"
 
-#include "AIUtils.h"
-#include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
+#include "Entity/TargetSystem.h"
 #include "Shockwave.h"
 #include "Debug/IDebugDrawer.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
-#include "Physics/PhysicsSpace.h"
 
 #include "Rendering/Color.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -18,8 +16,6 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "SystemContext.h"
-
-#include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 
 
@@ -58,8 +54,8 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
 
     m_stagger_behaviour.SetChanceAndDuration(0.1f, 1.0f);
 
-    m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
 
     using namespace std::placeholders;
 
@@ -84,6 +80,9 @@ void FlamingSkullBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
+
+    if(m_aquired_target && m_aquired_target->IsValid())
+        debug_drawer->DrawCircle(m_aquired_target->Position(), 1.0f, mono::Color::RED);
 }
 
 const char* FlamingSkullBossController::GetDebugCategory() const
@@ -131,31 +130,30 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
     m_visibility_check_timer_s = 0.0f;
     
     const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
-    if(!player_info)
+
+    m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::trigger_distance);
+    if(!m_aquired_target->IsValid())
         return;
 
-    const float distance = math::DistanceBetween(player_info->position, entity_position);
-    if(distance < tweak_values::trigger_distance)
-    {
-        const bool sees_player = SeesPlayer(m_physics_system, entity_position, player_info->position);
-        if(sees_player)
-            m_states.TransitionTo(States::AWAKE);
-    }
+    const bool sees_player = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+    if(sees_player)
+        m_states.TransitionTo(States::AWAKE);
 }
 
 void FlamingSkullBossController::ToAwake()
 {
     m_awake_state_timer_s = 0.0f;
 
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(entity_position);
-    if(player_info)
+    if(!m_aquired_target->IsValid())
     {
-        const math::Vector delta = (entity_position - player_info->position);
-        const float angle = math::AngleFromVector(delta);
-        m_homing_behaviour.SetHeading(angle);
+        m_states.TransitionTo(States::SLEEPING);
+        return;
     }
+
+    const math::Vector& entity_position = math::GetPosition(*m_transform);
+    const math::Vector delta = (entity_position - m_aquired_target->Position());
+    const float angle = math::AngleFromVector(delta);
+    m_homing_behaviour.SetHeading(angle);
 }
 
 void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_context)
@@ -169,13 +167,13 @@ void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_co
 
 void FlamingSkullBossController::ToHunt()
 {
-    const math::Vector& entity_position = math::GetPosition(*m_transform);
-    m_target_player_info = game::GetClosestActivePlayer(entity_position);
+    if(!m_aquired_target->IsValid())
+        m_states.TransitionTo(States::SLEEPING);
 }
 
 void FlamingSkullBossController::HuntState(const mono::UpdateContext& update_context)
 {
-    if(!m_target_player_info || m_target_player_info->player_state != PlayerState::ALIVE)
+    if(!m_aquired_target->IsValid())
     {
         m_states.TransitionTo(States::SLEEPING);
         return;
@@ -185,7 +183,7 @@ void FlamingSkullBossController::HuntState(const mono::UpdateContext& update_con
     if(in_stagger)
         return;
 
-    m_homing_behaviour.SetTargetPosition(m_target_player_info->position);
+    m_homing_behaviour.SetTargetPosition(m_aquired_target->Position());
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
 

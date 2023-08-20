@@ -1,7 +1,7 @@
 
 #include "InvaderPathController.h"
 
-#include "Player/PlayerInfo.h"
+#include "Entity/TargetSystem.h"
 #include "Behaviour/PathBehaviour.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
@@ -29,7 +29,6 @@ using namespace game;
 InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
     : m_fire_count(0)
     , m_fire_cooldown_s(0.0f)
-    //, m_path(std::move(path))
 {
 }
 
@@ -56,6 +55,8 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
+
+    m_target_system = system_context->GetSystem<TargetSystem>();
 }
 
 InvaderPathController::~InvaderPathController()
@@ -76,22 +77,18 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-    const math::Vector& enemy_position = math::GetPosition(*m_transform);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(enemy_position);
-    if(!player_info)
+    const math::Vector& world_position = math::GetPosition(*m_transform);
+    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::attack_distance);
+    if(!m_aquired_target->IsValid())
         return;
 
-    const bool is_visible = math::PointInsideQuad(enemy_position, player_info->viewport);
-    if(!is_visible)
-        return;
+//    const bool is_visible = math::PointInsideQuad(world_position, player_info->viewport);
+//    if(!is_visible)
+//        return;
 
-    const float distance = math::Length(player_info->position - enemy_position);
-    if(distance < tweak_values::attack_distance)
-    {
-        const float angle = math::AngleBetweenPoints(player_info->position, enemy_position);
-        m_fire_count += (m_weapon->Fire(enemy_position, angle, update_context.timestamp) == WeaponState::FIRE);
-    }
-
+    const bool did_fire = (m_weapon->Fire(world_position, m_aquired_target->Position(), update_context.timestamp) == WeaponState::FIRE);
+    m_fire_count += did_fire ? 1 : 0;
+    
     if(m_fire_count == 5)
     {
         m_fire_cooldown_s = 2.0f;

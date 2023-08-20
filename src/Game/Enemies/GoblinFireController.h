@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "StateMachine.h"
 #include "Weapons/WeaponFwd.h"
 #include "Math/Vector.h"
@@ -62,6 +63,6 @@ namespace game
         uint32_t m_n_attacks;
 
         HomingBehaviour m_homing_behaviour;
-        std::unique_ptr<class ITarget> m_aquired_target;
+        ITargetPtr m_aquired_target;
     };
 }

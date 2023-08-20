@@ -5,11 +5,14 @@
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
 #include "Behaviour/HomingBehaviour.h"
 #include "Behaviour/StaggerBehaviour.h"
+
+#include <memory>
 
 namespace game
 {
@@ -58,11 +61,11 @@ namespace game
         math::Matrix* m_transform;
         mono::ISprite* m_sprite;
 
-        const struct PlayerInfo* m_target_player_info;
+        ITargetPtr m_aquired_target;
 
         mono::TransformSystem* m_transform_system;
-        mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;
+        class TargetSystem* m_target_system;
     };
 }

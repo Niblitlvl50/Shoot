@@ -5,6 +5,7 @@
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
@@ -66,6 +67,6 @@ namespace game
         MyStateMachine m_states;
         HomingBehaviour m_homing_behaviour;
         mono::ISprite* m_sprite;
-        std::unique_ptr<class ITarget> m_aquired_target;
+        ITargetPtr m_aquired_target;
     };
 }

@@ -1,9 +1,9 @@
 
 #include "DemonBossController.h"
 
-#include "Player/PlayerInfo.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Debug/IDebugDrawer.h"
+#include "Entity/TargetSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 #include "CollisionConfiguration.h"
@@ -78,6 +78,8 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     };
     m_damage_system->SetDamageCallback(entity_id, DamageType::DT_ALL, destroyed_callback);
 
+    m_target_system = system_context->GetSystem<TargetSystem>();
+
     const CacoStateMachine::StateTable state_table = {
         CacoStateMachine::MakeState(
             States::IDLE, &DemonBossController::OnIdle, &DemonBossController::Idle, this),
@@ -124,6 +126,9 @@ void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
     const char* state_string = StateToString(m_states.ActiveState());
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::MAGENTA);
+
+    if(m_aquired_target && m_aquired_target->IsValid())
+        debug_drawer->DrawCircle(m_aquired_target->Position(), 1.0f, mono::Color::RED);
 }
 
 const char* DemonBossController::GetDebugCategory() const
@@ -139,16 +144,15 @@ void DemonBossController::OnIdle()
 
 void DemonBossController::Idle(const mono::UpdateContext& update_context)
 {
-    const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_target_player = game::GetClosestActivePlayer(position);
-    if(!m_target_player)
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+
+    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::activate_distance);
+    if(!m_aquired_target->IsValid())
         return;
 
-    const float distance_to_player = math::DistanceBetween(position, m_target_player->position);
-    if(distance_to_player > tweak_values::activate_distance)
-        return;
-
-    const math::Vector position_diff_normalized = math::Normalized(position - m_target_player->position);
+    const math::Vector& target_world_position = m_aquired_target->Position();
+    const float distance_to_player = math::DistanceBetween(world_position, target_world_position);
+    const math::Vector position_diff_normalized = math::Normalized(world_position - target_world_position);
 
     if(distance_to_player < tweak_values::retreat_distance)
         m_entity_body->ApplyLocalImpulse(position_diff_normalized * 10.0f, math::ZeroVec);
@@ -171,13 +175,19 @@ void DemonBossController::Active(const mono::UpdateContext& update_context)
 
 void DemonBossController::OnTurn()
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     const auto transition_to_attack = [this](uint32_t sprite_id) {
         m_states.TransitionTo(m_state_after_turn);
     };
     m_entity_sprite->SetAnimation(m_turn_animation, transition_to_attack);
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector delta = position - m_target_player->position;
+    const math::Vector delta = position - m_aquired_target->Position();
 
     if(delta.x > 0.0f)
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
@@ -188,6 +198,12 @@ void DemonBossController::TurnToPlayer(const mono::UpdateContext& update_context
 
 void DemonBossController::OnCircleAttack()
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     m_ready_to_attack = false;
 
     const auto set_ready_to_attack = [this](uint32_t sprite_id) {
@@ -196,7 +212,7 @@ void DemonBossController::OnCircleAttack()
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector delta = position - m_target_player->position;
+    const math::Vector delta = position - m_aquired_target->Position();
 
     if(delta.x > 0.0f)
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
@@ -204,11 +220,17 @@ void DemonBossController::OnCircleAttack()
 
 void DemonBossController::CircleAttack(const mono::UpdateContext& update_context)
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     if(!m_ready_to_attack)
         return;
 
     const math::Vector& fire_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector& target_position = m_target_player->position;
+    const math::Vector& target_position = m_aquired_target->Position();
 
     const math::Vector delta_normalized = math::Normalized(target_position - fire_position);
     const WeaponState fire_result = m_secondary_weapon->Fire(fire_position, fire_position + (delta_normalized * 3.0f), update_context.timestamp);
@@ -222,6 +244,12 @@ void DemonBossController::CircleAttack(const mono::UpdateContext& update_context
 
 void DemonBossController::OnFireHoming()
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     m_ready_to_attack = false;
 
     const auto set_ready_to_attack = [this](uint32_t sprite_id) {
@@ -230,7 +258,7 @@ void DemonBossController::OnFireHoming()
     m_entity_sprite->SetAnimation(m_attack_animation, set_ready_to_attack);
 
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector delta = position - m_target_player->position;
+    const math::Vector delta = position - m_aquired_target->Position();
 
     if(delta.x > 0.0f)
         m_entity_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
@@ -238,6 +266,12 @@ void DemonBossController::OnFireHoming()
 
 void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_context)
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     if(!m_ready_to_attack)
         return;
 
@@ -245,7 +279,7 @@ void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_con
     const math::Vector position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector fire_position = position + math::Vector(x_diff, 0.0f);
 
-    const WeaponState fire_result = m_primary_weapon->Fire(fire_position, m_target_player->position, update_context.timestamp);
+    const WeaponState fire_result = m_primary_weapon->Fire(fire_position, m_aquired_target->Position(), update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)
     {
         m_primary_weapon->Reload(update_context.timestamp);
@@ -266,11 +300,17 @@ void DemonBossController::OnLongAttack()
 
 void DemonBossController::ActionLongAttack(const mono::UpdateContext& update_context)
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     if(!m_ready_to_attack)
         return;
 
     const math::Vector& fire_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector& target_position = m_target_player->position;
+    const math::Vector& target_position = m_aquired_target->Position();
 
     const WeaponState fire_result = m_tertiary_weapon->Fire(fire_position, target_position, update_context.timestamp);
     if(fire_result == WeaponState::OUT_OF_AMMO)

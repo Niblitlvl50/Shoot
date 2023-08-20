@@ -5,6 +5,7 @@
 #include "Math/MathFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "StateMachine.h"
 #include "Weapons/WeaponFwd.h"
 
@@ -50,7 +51,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
-        mono::IEntityManager* m_entity_manager;
+        class TargetSystem* m_target_system;
 
         IWeaponPtr m_weapon;
         std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
@@ -61,7 +62,7 @@ namespace game
         using FlyingMonsterStateMachine = StateMachine<States, const mono::UpdateContext&>;
         FlyingMonsterStateMachine m_states;
 
-        const struct PlayerInfo* m_attack_target;
         int m_bullets_fired;
+        ITargetPtr m_aquired_target;
     };
 }

@@ -9,6 +9,7 @@
 #include "System/Audio.h"
 
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "Weapons/WeaponFwd.h"
 
 namespace game
@@ -53,6 +54,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;
+        class TargetSystem* m_target_system;
 
         mono::IBody* m_entity_body;
         mono::ISprite* m_entity_sprite;
@@ -61,7 +63,8 @@ namespace game
         uint32_t m_attack_animation;
         uint32_t m_death_animation;
 
-        const struct PlayerInfo* m_target_player;
+        ITargetPtr m_aquired_target;
+
         bool m_ready_to_attack;
         float m_circle_attack_cooldown;
         float m_fire_homing_cooldown;

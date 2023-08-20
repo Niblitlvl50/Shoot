@@ -1,6 +1,5 @@
 
 #include "ImpController.h"
-#include "AIUtils.h"
 
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/ISprite.h"
@@ -8,17 +7,13 @@
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
-#include "Math/MathFunctions.h"
-#include "Math/EasingFunctions.h"
-#include "Util/Random.h"
-#include "Debug/IDebugDrawer.h"
-
-#include "Player/PlayerInfo.h"
 #include "SystemContext.h"
+#include "Util/Random.h"
+
+#include "Debug/IDebugDrawer.h"
+#include "Entity/TargetSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
-
-#include "EntitySystem/IEntityManager.h"
 
 
 namespace tweak_values
@@ -42,7 +37,6 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
@@ -58,6 +52,8 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
+
+    m_target_system = system_context->GetSystem<TargetSystem>();
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &ImpController::ToIdle, &ImpController::Idle, this),
@@ -82,14 +78,15 @@ void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::perpendicular_movement_distance_threshold, mono::Color::GREEN);
 
-    const math::Vector& target_position = m_homing_behaviour.GetTargetPosition();
-    debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::BLUE);
-    debug_drawer->DrawPoint(target_position, 10.0f, mono::Color::BLUE);
+    const math::Vector& homing_target_position = m_homing_behaviour.GetTargetPosition();
+    debug_drawer->DrawLine({ world_position, homing_target_position }, 1.0f, mono::Color::BLUE);
+    debug_drawer->DrawPoint(homing_target_position, 10.0f, mono::Color::BLUE);
 
-    if(m_target_player)
+    if(m_aquired_target && m_aquired_target->IsValid())
     {
-        debug_drawer->DrawLine({ world_position, m_target_player->position }, 1.0f, mono::Color::RED);
-        debug_drawer->DrawPoint(m_target_player->position, 5.0f, mono::Color::RED);
+        const math::Vector& target_position = m_aquired_target->Position();
+        debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::RED);
+        debug_drawer->DrawCircle(target_position, 1.0f, mono::Color::RED);
     }
 
     const char* state_string = nullptr;
@@ -133,20 +130,18 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     m_idle_timer_s = 0.0f;
 
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-
-    m_target_player = GetClosestActivePlayer(
-        world_position, tweak_values::activate_distance_to_player_threshold);
-    if(!m_target_player)
+    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::activate_distance_to_player_threshold);
+    if(!m_aquired_target->IsValid())
         return;
 
-    const bool is_left_of = (m_target_player->position.x < world_position.x);
+    const bool is_left_of = (m_aquired_target->Position().x < world_position.x);
     if(is_left_of)
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool sees_player = game::SeesPlayer(m_physics_system, world_position, m_target_player->position);
-    if(sees_player)
+    const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+    if(sees_target)
     {
         const bool transition_to_attack = mono::Chance(25);
         const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
@@ -156,12 +151,14 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
 
 void ImpController::ToReposition()
 {
-    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const game::PlayerInfo* player_info = GetClosestActivePlayer(world_position);
-    if(!player_info)
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
         return;
+    }
 
-    const math::Vector delta = player_info->position - world_position;
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector delta = m_aquired_target->Position() - world_position;
     const math::Vector normalized_delta = math::Normalized(delta);
 
     math::Vector homing_target = world_position;
@@ -188,9 +185,8 @@ void ImpController::Reposition(const mono::UpdateContext& update_context)
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
-        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
         const bool transition_to_attack =
-            mono::Chance(75) && game::SeesPlayer(m_physics_system, world_position, m_target_player->position);
+            mono::Chance(75) && m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
 
         const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::IDLE;
         m_states.TransitionTo(new_state);
@@ -208,7 +204,6 @@ void ImpController::ToPrepareAttack()
     };
     m_sprite->SetAnimation(m_attack_anim_id, transition_to_attacking);
 
-    m_attack_position = m_target_player->position;
 
     // Show something here to indicate attack direction
 }
@@ -224,6 +219,12 @@ void ImpController::ToAttacking()
 
 void ImpController::Attacking(const mono::UpdateContext& update_context)
 {
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
     if(m_n_attacks >= tweak_values::n_attacks)
         m_states.TransitionTo(States::IDLE);
     
@@ -235,7 +236,7 @@ void ImpController::Attacking(const mono::UpdateContext& update_context)
     {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
-        game::WeaponState fire_state = m_weapon->Fire(world_position, m_attack_position, update_context.timestamp);
+        game::WeaponState fire_state = m_weapon->Fire(world_position, m_aquired_target->Position(), update_context.timestamp);
         if(fire_state == game::WeaponState::FIRE)
             m_n_attacks++;
         else if(fire_state == game::WeaponState::OUT_OF_AMMO)

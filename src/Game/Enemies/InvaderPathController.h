@@ -4,6 +4,7 @@
 #include "MonoPtrFwd.h"
 #include "Math/MathFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "Rendering/RenderFwd.h"
 #include "Physics/PhysicsFwd.h"
 #include "Weapons/WeaponFwd.h"
@@ -32,5 +33,8 @@ namespace game
         math::Matrix* m_transform;
         mono::ISprite* m_sprite;
         mono::IBody* m_body;
+
+        class TargetSystem* m_target_system;
+        ITargetPtr m_aquired_target;
     };
 }

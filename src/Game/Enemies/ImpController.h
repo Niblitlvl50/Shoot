@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "Rendering/RenderFwd.h"
 #include "Entity/IEntityLogic.h"
+#include "Entity/TargetTypes.h"
 #include "StateMachine.h"
 #include "Weapons/WeaponFwd.h"
 #include "Math/Vector.h"
@@ -51,7 +52,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
         mono::PhysicsSystem* m_physics_system;
-        mono::IEntityManager* m_entity_system;
+        class TargetSystem* m_target_system;
 
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
@@ -67,7 +68,6 @@ namespace game
         uint32_t m_n_attacks;
 
         HomingBehaviour m_homing_behaviour;
-        const struct PlayerInfo* m_target_player;
-        math::Vector m_attack_position;
+        ITargetPtr m_aquired_target;
     };
 }

@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "IGameSystem.h"
 #include "Math/Vector.h"
+#include "TargetTypes.h"
 
 #include <vector>
 #include <memory>
@@ -57,7 +58,7 @@ namespace game
 
         FindTargetResult FindAITargetFromPosition(const math::Vector& world_position, float max_distance);
 
-        std::unique_ptr<ITarget> AquireTarget(const math::Vector& world_position, float max_distance);
+        ITargetPtr AquireTarget(const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
 
         const mono::TransformSystem* m_transform_system;
