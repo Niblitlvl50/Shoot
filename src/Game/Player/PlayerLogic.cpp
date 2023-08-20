@@ -26,6 +26,7 @@
 #include "InteractionSystem/InteractionSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
+#include "Entity/TargetSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -98,6 +99,7 @@ PlayerLogic::PlayerLogic(
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
     m_weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
 
     m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
     m_input_context->keyboard_input = &m_keyboard_controller;
@@ -413,6 +415,7 @@ void PlayerLogic::ToDead()
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
     m_light_system->SetLightEnabled(m_entity_id, false);
+    m_target_system->SetTargetEnabled(m_entity_id, false);
 
     if(HoldingPickup())
         Throw(0.0f);
@@ -430,8 +433,8 @@ void PlayerLogic::ExitDead()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, true);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
-
     m_light_system->SetLightEnabled(m_entity_id, true);
+    m_target_system->SetTargetEnabled(m_entity_id, true);
 }
 
 void PlayerLogic::ToBlink()

@@ -31,6 +31,8 @@ namespace tweak_values
 
     constexpr float time_before_hunt_s = 0.3f;
     constexpr float visibility_check_interval_s = 1.0f;
+    constexpr float retarget_delay_s = 0.5f;
+
     constexpr uint32_t collision_damage = 25;
 
     constexpr float shockwave_radius = 1.0f;
@@ -67,6 +69,7 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
     const MyStateMachine::StateTable& state_table = {
         MyStateMachine::MakeState(States::SLEEPING, &EyeMonsterController::ToSleep, &EyeMonsterController::SleepState, this),
         MyStateMachine::MakeState(States::AWAKE,    &EyeMonsterController::ToAwake, &EyeMonsterController::AwakeState, this),
+        MyStateMachine::MakeState(States::RETARGET, &EyeMonsterController::ToRetarget, &EyeMonsterController::RetargetState, this),
         MyStateMachine::MakeState(States::HUNT,     &EyeMonsterController::ToHunt,  &EyeMonsterController::HuntState, &EyeMonsterController::ExitHunt, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
@@ -95,12 +98,21 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     case States::AWAKE:
         state = "Awake";
         break;
+    case States::RETARGET:
+        state = "Retarget";
+        break;
     case States::HUNT:
         state = "Hunting";
         break;
     }
 
     debug_drawer->DrawWorldText(state, world_position, mono::Color::OFF_WHITE);
+
+    if(m_aquired_target && m_aquired_target->IsValid())
+    {
+        const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+        debug_drawer->DrawCircle(target_position, 1.0f, mono::Color::RED);
+    }
 }
 
 const char* EyeMonsterController::GetDebugCategory() const
@@ -179,6 +191,26 @@ void EyeMonsterController::ToAwake()
 void EyeMonsterController::AwakeState(const mono::UpdateContext& update_context)
 { }
 
+void EyeMonsterController::ToRetarget()
+{
+    m_retarget_timer_s = 0.0f;
+}
+
+void EyeMonsterController::RetargetState(const mono::UpdateContext& update_context)
+{
+    m_retarget_timer_s += update_context.delta_s;
+
+    if(m_retarget_timer_s < tweak_values::retarget_delay_s)
+        return;
+
+    // Try to aquire a new target
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::engage_distance);
+
+    const States new_state = m_aquired_target->IsValid() ? States::HUNT : States::SLEEPING;
+    m_states.TransitionTo(new_state);
+}
+
 void EyeMonsterController::ToHunt()
 {
     m_sprite->SetAnimation("idle");
@@ -188,7 +220,7 @@ void EyeMonsterController::HuntState(const mono::UpdateContext& update_context)
 {
     if(!m_aquired_target->IsValid())
     {
-        m_states.TransitionTo(States::SLEEPING);
+        m_states.TransitionTo(States::RETARGET);
         return;
     }
 

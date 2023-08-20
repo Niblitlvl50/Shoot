@@ -164,6 +164,7 @@ namespace game
         class InteractionSystem* m_interaction_system;
         class EntityLogicSystem* m_logic_system;
         class WeaponSystem* m_weapon_system;
+        class TargetSystem* m_target_system;
 
         mono::InputContext* m_input_context;
 

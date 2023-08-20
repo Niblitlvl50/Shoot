@@ -35,6 +35,7 @@ namespace game
         {
             SLEEPING,
             AWAKE,
+            RETARGET,
             HUNT
         };
 
@@ -43,6 +44,9 @@ namespace game
 
         void ToAwake();
         void AwakeState(const mono::UpdateContext& update_context);
+
+        void ToRetarget();
+        void RetargetState(const mono::UpdateContext& update_context);
 
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);
@@ -56,6 +60,7 @@ namespace game
 
         const uint32_t m_entity_id;
         float m_visibility_check_timer_s;
+        float m_retarget_timer_s;
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;

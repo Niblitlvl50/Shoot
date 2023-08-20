@@ -47,6 +47,7 @@ namespace game
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        class TargetSystem* m_target_system;
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
         int m_idle_anim_id;
@@ -61,7 +62,6 @@ namespace game
         uint32_t m_n_attacks;
 
         HomingBehaviour m_homing_behaviour;
-
-        math::Vector m_attack_position;
+        std::unique_ptr<class ITarget> m_aquired_target;
     };
 }

@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -2.1252105236053467,
-                                "y": -3.544301748275757
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -270,6 +270,18 @@
                             "name": "weapon_tertiary",
                             "variant_type": 6,
                             "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 845187144,
+                    "name": "target",
+                    "properties": [
+                        {
+                            "id": 2498028297,
+                            "name": "priority",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }

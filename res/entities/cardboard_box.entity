@@ -240,6 +240,18 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 845187144,
+                    "name": "target",
+                    "properties": [
+                        {
+                            "id": 2498028297,
+                            "name": "priority",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
