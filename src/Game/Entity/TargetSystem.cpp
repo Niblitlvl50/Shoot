@@ -4,7 +4,10 @@
 #include "EntitySystem/Entity.h"
 #include "Player/PlayerInfo.h"
 #include "Util/Algorithm.h"
+#include "CollisionConfiguration.h"
 
+#include "Physics/PhysicsSystem.h"
+#include "Physics/PhysicsSpace.h"
 #include "TransformSystem/TransformSystem.h"
 
 using namespace game;
@@ -184,13 +187,6 @@ ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float 
 
     return std::make_shared<TargetImpl>(found_target_entity_id, m_damage_system, m_transform_system);
 }
-
-#include "CollisionConfiguration.h"
-// #include "Player/PlayerInfo.h"
-
-// #include "EntitySystem/Entity.h"
-#include "Physics/PhysicsSystem.h"
-#include "Physics/PhysicsSpace.h"
 
 bool TargetSystem::SeesTarget(uint32_t entity_id, const ITarget* target)
 {
