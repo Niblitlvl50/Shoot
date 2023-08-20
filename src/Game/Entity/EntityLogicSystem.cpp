@@ -15,7 +15,6 @@
 #include "Enemies/FlyingMonsterController.h"
 #include "Enemies/InvaderPathController.h"
 #include "Enemies/BlobController.h"
-#include "Enemies/TurretSpawnerController.h"
 #include "Enemies/ExplodableController.h"
 #include "Enemies/FlamingSkullBossController.h"
 #include "Enemies/ImpController.h"
@@ -27,6 +26,17 @@
 
 namespace
 {
+    class NullLogic : public game::IEntityLogic
+    {
+    public:
+
+        NullLogic(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
+        { }
+
+        void Update(const mono::UpdateContext& update_context) override
+        { }
+    };
+
     using CreateLogicFunc =
         game::IEntityLogic*(*)(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
 
@@ -44,7 +54,7 @@ namespace
         MakeController<game::FlyingMonsterController>,
         MakeController<game::InvaderPathController>,
         MakeController<game::BlobController>,
-        MakeController<game::TurretSpawnerController>,
+        MakeController<NullLogic>,
         MakeController<game::ExplodableController>,
         MakeController<game::FlamingSkullBossController>,
         MakeController<game::ImpController>,

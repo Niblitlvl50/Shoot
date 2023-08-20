@@ -11,7 +11,6 @@
 #include "Rendering/RenderSystem.h"
 
 #include "Player/PlayerInfo.h"
-#include "Enemies/AIUtils.h"
 #include "FontIds.h"
 #include "GameConfig.h"
 #include "GameSystems.h"

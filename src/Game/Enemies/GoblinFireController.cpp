@@ -18,8 +18,6 @@
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 
-#include "AIUtils.h"
-
 
 namespace tweak_values
 {

@@ -1,7 +1,6 @@
 
 #include "EyeMonsterController.h"
 
-#include "AIUtils.h"
 #include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
@@ -160,9 +159,8 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
     m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::engage_distance);
     if(m_aquired_target->IsValid())
     {
-        const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
-        const bool sees_player = game::SeesPlayer(m_physics_system, entity_position, target_position);
-        if(sees_player)
+        const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+        if(sees_target)
             m_states.TransitionTo(States::AWAKE);
     }
 }
