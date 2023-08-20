@@ -2,7 +2,6 @@
 #include "TargetSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "EntitySystem/Entity.h"
-#include "Player/PlayerInfo.h"
 #include "Util/Algorithm.h"
 #include "CollisionConfiguration.h"
 

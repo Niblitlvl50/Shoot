@@ -1,6 +1,5 @@
 
 #include "BatController.h"
-#include "Player/PlayerInfo.h"
 
 #include "Math/EasingFunctions.h"
 #include "TransformSystem/TransformSystem.h"

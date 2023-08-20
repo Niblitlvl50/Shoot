@@ -1,7 +1,6 @@
 
 #include "EyeMonsterController.h"
 
-#include "Player/PlayerInfo.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Shockwave.h"

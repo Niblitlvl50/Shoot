@@ -3,6 +3,7 @@
 
 #include "BulletLogic.h"
 #include "Entity/Component.h"
+#include "Entity/TargetSystem.h"
 #include "Effects/MuzzleFlash.h"
 #include "Effects/BulletTrailEffect.h"
 
@@ -65,6 +66,7 @@ Weapon::Weapon(
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+    m_target_system = system_context->GetSystem<TargetSystem>();
 
     m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system, m_entity_manager);
     m_bullet_trail = std::make_unique<BulletTrailEffect>(m_transform_system, m_particle_system, m_entity_manager);
@@ -156,7 +158,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
                 m_bullet_config,
                 m_collision_config,
                 m_transform_system,
-                m_physics_system);
+                m_physics_system,
+                m_target_system);
 
         m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
         m_logic_system->AddLogic(bullet_entity.id, bullet_logic);

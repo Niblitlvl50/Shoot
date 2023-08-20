@@ -14,7 +14,7 @@
 #include "System/System.h"
 
 #include "Debug/IDebugDrawer.h"
-#include "Player/PlayerInfo.h"
+#include "Entity/TargetSystem.h"
 #include "Rendering/Color.h"
 
 #include <cmath>
@@ -36,13 +36,15 @@ BulletLogic::BulletLogic(
     const BulletConfiguration& bullet_config,
     const CollisionConfiguration& collision_config,
     mono::TransformSystem* transform_system,
-    mono::PhysicsSystem* physics_system)
+    mono::PhysicsSystem* physics_system,
+    TargetSystem* target_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
     , m_transform_system(transform_system)
     , m_physics_system(physics_system)
+    , m_target_system(target_system)
     , m_damage(bullet_config.damage)
     , m_bullet_behaviour(bullet_config.bullet_behaviour)
     , m_circulating_behaviour(transform_system)
@@ -95,10 +97,10 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
     {
-        const game::PlayerInfo* player_info = game::GetClosestActivePlayer(m_target);
-        if(player_info)
+        ITargetPtr aquired_target = m_target_system->AquireTarget(m_target, math::INF);
+        if(aquired_target->IsValid())
         {
-            m_homing_behaviour.SetTargetPosition(player_info->position);
+            m_homing_behaviour.SetTargetPosition(aquired_target->Position());
             m_homing_behaviour.Run(update_context);
         }
     }

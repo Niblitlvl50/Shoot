@@ -87,33 +87,6 @@ game::PlayerInfo* game::FindPlayerInfoFromEntityId(uint32_t entity_id)
     return nullptr;
 }
 
-const game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_position)
-{
-    return GetClosestActivePlayer(world_position, math::INF);
-}
-
-const game::PlayerInfo* game::GetClosestActivePlayer(const math::Vector& world_position, float max_distance)
-{
-    const PlayerInfo* closest_player = nullptr;
-    float closest_distance = math::INF;
-
-    for(size_t index = 0; index < n_players; ++index)
-    {
-        const PlayerInfo& player_info = g_players[index];
-        if(player_info.player_state != PlayerState::ALIVE)
-            continue;
-
-        const float distance_to_player = std::fabs(math::Length(player_info.position - world_position));
-        if(distance_to_player < max_distance && distance_to_player < closest_distance)
-        {
-            closest_distance = distance_to_player;
-            closest_player = &player_info;
-        }
-    }
-
-    return closest_player;
-}
-
 game::PlayerArray game::GetActivePlayers()
 {
     PlayerArray active_players;
