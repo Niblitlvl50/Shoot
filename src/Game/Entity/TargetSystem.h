@@ -11,13 +11,6 @@
 
 namespace game
 {
-    struct FindTargetResult
-    {
-        uint32_t entity_id;
-        math::Vector world_position;
-        bool sees_target;
-    };
-
     enum class AITargetBehaviour : uint32_t
     {
         Player,
@@ -56,11 +49,10 @@ namespace game
 
         void SetTargetEnabled(uint32_t entity_id, bool enabled);
 
-        FindTargetResult FindAITargetFromPosition(const math::Vector& world_position, float max_distance);
-
         ITargetPtr AquireTarget(const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
 
+    private:
         const mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;

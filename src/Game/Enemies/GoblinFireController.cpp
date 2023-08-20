@@ -189,7 +189,6 @@ void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
     const game::HomingResult result = m_homing_behaviour.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
-        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
         const bool transition_to_attack =
             m_aquired_target->IsValid() &&
             mono::Chance(75) &&

@@ -128,45 +128,6 @@ void TargetSystem::SetTargetEnabled(uint32_t entity_id, bool enabled)
         component->enabled = enabled;
 }
 
-FindTargetResult TargetSystem::FindAITargetFromPosition(const math::Vector& world_position, float max_distance)
-{
-    FindTargetResult result;
-    result.entity_id = mono::INVALID_ID;
-    result.sees_target = false;
-
-    switch(m_ai_target_behaviour)
-    {
-    case AITargetBehaviour::Player:
-    {
-        const game::PlayerInfo* player_info = game::GetClosestActivePlayer(world_position);
-        if(player_info)
-        {
-            const float target_distance = math::DistanceBetween(player_info->position, world_position);
-            if(target_distance < max_distance)
-            {
-                result.entity_id = player_info->entity_id;
-                result.world_position = player_info->position;
-            }
-        }
-
-        break;
-    }
-    case AITargetBehaviour::Package:
-    {
-        const bool package_spawned = (g_package_info.state != PackageState::NOT_SPAWNED);
-        if(package_spawned)
-        {
-            result.entity_id = g_package_info.entity_id;
-            result.world_position = g_package_info.position;
-        }
-
-        break;
-    }
-    }
-
-    return result;
-}
-
 ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
 {
     uint32_t found_target_entity_id = mono::INVALID_ID;
