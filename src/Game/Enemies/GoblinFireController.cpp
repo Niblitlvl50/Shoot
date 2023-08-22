@@ -101,13 +101,6 @@ void GoblinFireController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     }
 
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-    {
-        const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
-        debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::RED);
-        debug_drawer->DrawCircle(target_position, 1.0f, mono::Color::RED);
-    }
 }
 
 const char* GoblinFireController::GetDebugCategory() const

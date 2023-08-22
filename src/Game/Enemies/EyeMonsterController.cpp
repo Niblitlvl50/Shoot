@@ -105,12 +105,6 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     }
 
     debug_drawer->DrawWorldText(state, world_position, mono::Color::OFF_WHITE);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-    {
-        const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
-        debug_drawer->DrawCircle(target_position, 1.0f, mono::Color::RED);
-    }
 }
 
 const char* EyeMonsterController::GetDebugCategory() const
@@ -122,7 +116,8 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
-        m_states.TransitionTo(States::AWAKE);
+        m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
+        //m_states.TransitionTo(States::AWAKE);
 
     if(category == CollisionCategory::PLAYER)
     {

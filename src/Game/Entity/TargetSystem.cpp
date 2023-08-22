@@ -11,32 +11,16 @@
 
 using namespace game;
 
-namespace
+namespace game
 {
     class TargetImpl : public game::ITarget
     {
     public:
 
-        TargetImpl(uint32_t target_entity_id, DamageSystem* damage_system, const mono::TransformSystem* transform_system)
+        TargetImpl(uint32_t target_entity_id, const mono::TransformSystem* transform_system)
             : m_target_id(target_entity_id)
-            , m_callback_handle(mono::INVALID_ID)
-            , m_damage_system(damage_system)
             , m_transform_system(transform_system)
-        {
-            if(IsValid())
-            {
-                const DamageCallback& on_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-                    m_target_id = mono::INVALID_ID;
-                };
-                m_callback_handle = m_damage_system->SetDamageCallback(m_target_id, DamageType::DESTROYED, on_destroyed);
-            }
-        }
-
-        ~TargetImpl()
-        {
-            if(m_target_id != mono::INVALID_ID && m_callback_handle != mono::INVALID_ID)
-                m_damage_system->RemoveDamageCallback(m_target_id, m_callback_handle);
-        }
+        { }
 
         uint32_t TargetId() const override
         {
@@ -45,7 +29,7 @@ namespace
 
         bool IsValid() const override
         {
-            return m_target_id != mono::INVALID_ID;
+            return (m_target_id != mono::INVALID_ID);
         }
 
         const math::Vector Position() const override
@@ -53,9 +37,12 @@ namespace
             return m_transform_system->GetWorldPosition(m_target_id);
         }
 
+        void InvalidateTarget()
+        {
+            m_target_id = mono::INVALID_ID;
+        }
+
         uint32_t m_target_id;
-        uint32_t m_callback_handle;
-        DamageSystem* m_damage_system;
         const mono::TransformSystem* m_transform_system;
     };
 }
@@ -64,8 +51,8 @@ TargetSystem::TargetSystem(const mono::TransformSystem* transform_system, mono::
     : m_transform_system(transform_system)
     , m_physics_system(physics_system)
     , m_damage_system(damage_system)
-    , m_ai_target_behaviour(AITargetBehaviour::Player)
     , m_targets_dirty(false)
+    , m_ai_target_behaviour(AITargetBehaviour::Player)
 { }
 
 const char* TargetSystem::Name() const
@@ -92,15 +79,32 @@ void TargetSystem::AllocateTarget(uint32_t entity_id)
     target_component.entity_id = entity_id;
     target_component.enabled = true;
     target_component.priority = 0;
+
+    const DamageCallback& on_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+        const auto it = m_active_targets.find(id);
+        if(it != m_active_targets.end())
+        {
+            it->second->InvalidateTarget();
+            m_active_targets.erase(id);
+        }
+    };
+    target_component.callback_handle = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, on_destroyed);
+
     m_targets.push_back(target_component);
 }
 
 void TargetSystem::ReleaseTarget(uint32_t entity_id)
 {
-    const auto remove_on_id = [entity_id](const TargetComponent& target) {
-        return target.entity_id == entity_id;
+    const auto remove_on_id = [this, entity_id](const TargetComponent& target) {
+        const bool is_target = target.entity_id == entity_id;
+        if(is_target)
+            m_damage_system->RemoveDamageCallback(entity_id, target.callback_handle);
+
+        return is_target;
     };
     mono::remove_if(m_targets, remove_on_id);
+
+    m_active_targets.erase(entity_id);
 }
 
 void TargetSystem::SetTargetData(uint32_t entity_id, int priority)
@@ -145,7 +149,11 @@ ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float 
         }
     }
 
-    return std::make_shared<TargetImpl>(found_target_entity_id, m_damage_system, m_transform_system);
+    const auto it = m_active_targets.find(found_target_entity_id);
+    if(it != m_active_targets.end())
+        return it->second;
+
+    return MakeAndCacheTarget(found_target_entity_id);
 }
 
 bool TargetSystem::SeesTarget(uint32_t entity_id, const ITarget* target)
@@ -157,4 +165,25 @@ bool TargetSystem::SeesTarget(uint32_t entity_id, const ITarget* target)
     const mono::PhysicsSpace* space = m_physics_system->GetSpace();
     const mono::QueryResult result = space->QueryFirst(origin_world_position, target_world_position, query_category);
     return (result.body != nullptr && result.collision_category & CollisionCategory::PLAYER);
+}
+
+std::vector<ITargetPtr> TargetSystem::GetActiveTargets() const
+{
+    std::vector<ITargetPtr> targets;
+    for(const auto& pair : m_active_targets)
+    {
+        if(!pair.second.unique())
+            targets.push_back(pair.second);
+    }
+    return targets;    
+}
+
+ITargetPtr TargetSystem::MakeAndCacheTarget(uint32_t target_entity_id)
+{
+    std::shared_ptr<TargetImpl> new_target = std::make_shared<TargetImpl>(target_entity_id, m_transform_system);
+ 
+    if(target_entity_id != mono::INVALID_ID)
+        m_active_targets[target_entity_id] = new_target;
+
+    return new_target;
 }

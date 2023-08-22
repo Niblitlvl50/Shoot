@@ -52,6 +52,8 @@
 #include "DialogSystem/DialogSystem.h"
 #include "DialogSystem/DialogSystemDrawer.h"
 
+#include "Entity/TargetSystem.h"
+#include "Entity/TargetSystemDrawer.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
@@ -109,6 +111,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::WorldEntityTrackingSystem* entity_tracking_system = m_system_context->GetSystem<WorldEntityTrackingSystem>();
     game::RegionSystem* region_system = m_system_context->GetSystem<RegionSystem>();
     game::UISystem* ui_system = m_system_context->GetSystem<UISystem>();
+    game::TargetSystem* target_system = m_system_context->GetSystem<TargetSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -156,6 +159,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::PhysicsDebugDrawer(
         g_draw_physics, g_interact_physics, g_body_introspection, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
+    AddDrawable(new TargetSystemDrawer(g_draw_targets, target_system), LayerId::UI);
     AddDrawable(new DebugUpdater(m_system_context, m_event_handler, renderer), LayerId::UI);
     AddDrawable(new GameDebugDrawer(), LayerId::UI_DEBUG);
 

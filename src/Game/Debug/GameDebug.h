@@ -16,6 +16,7 @@ namespace game
     extern bool g_draw_navmesh;
     extern bool g_draw_transformsystem;
     extern bool g_draw_triggers;
+    extern bool g_draw_targets;
     extern bool g_draw_physics;
     extern bool g_interact_physics;
     extern bool g_body_introspection;

@@ -7,6 +7,7 @@
 #include "TargetTypes.h"
 
 #include <vector>
+#include <unordered_map>
 #include <memory>
 
 namespace game
@@ -22,6 +23,9 @@ namespace game
         uint32_t entity_id;
         bool enabled;
         int priority;
+
+        // Internal data
+        uint32_t callback_handle;
     };
 
     class ITarget
@@ -52,13 +56,20 @@ namespace game
         ITargetPtr AquireTarget(const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
 
+        std::vector<ITargetPtr> GetActiveTargets() const;
+
     private:
+
+        ITargetPtr MakeAndCacheTarget(uint32_t entity_id);
+
         const mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;
-        AITargetBehaviour m_ai_target_behaviour;
 
         bool m_targets_dirty;
         std::vector<TargetComponent> m_targets;
+        std::unordered_map<uint32_t, std::shared_ptr<class TargetImpl>> m_active_targets;
+
+        AITargetBehaviour m_ai_target_behaviour;
     };
 }

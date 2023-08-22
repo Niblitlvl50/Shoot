@@ -34,6 +34,7 @@ bool game::g_draw_physics = false;
 bool game::g_interact_physics = false;
 bool game::g_body_introspection = false;
 bool game::g_draw_triggers = false;
+bool game::g_draw_targets = false;
 uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW_SHAPES;
 bool game::g_draw_physics_stats = false;
 bool game::g_draw_particle_stats = false;
@@ -58,6 +59,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Checkbox("Transform System",     &game::g_draw_transformsystem);
         ImGui::Checkbox("Navmesh",              &game::g_draw_navmesh);
         ImGui::Checkbox("Triggers",             &game::g_draw_triggers);
+        ImGui::Checkbox("Targets",              &game::g_draw_targets);
         ImGui::Checkbox("Physics",              &game::g_draw_physics);
         ImGui::SameLine();
         mono::DrawBitFieldType(
