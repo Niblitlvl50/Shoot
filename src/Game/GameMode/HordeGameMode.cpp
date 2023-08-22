@@ -1,7 +1,6 @@
 
 #include "HordeGameMode.h"
 
-#include "Enemies/AIUtils.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
