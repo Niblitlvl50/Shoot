@@ -94,7 +94,8 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
     if(m_states.ActiveState() == States::SLEEPING)
-        m_states.TransitionTo(States::AWAKE);
+        m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
+        //m_states.TransitionTo(States::AWAKE);
 
     if(category == CollisionCategory::PLAYER)
     {
