@@ -215,7 +215,7 @@ void EyeMonsterController::ToTracking()
 {
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
-    m_tracking_movement.SetTrackingSpeed(0.5f); //tweak_values::velocity_m_per_s);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
     m_tracking_movement.UpdateEntityPosition();
 }
 
