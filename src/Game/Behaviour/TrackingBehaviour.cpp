@@ -1,7 +1,6 @@
 
 #include "TrackingBehaviour.h"
 
-#include "Navigation/NavMesh.h"
 #include "Navigation/NavigationSystem.h"
 
 #include "Paths/IPath.h"
@@ -19,25 +18,43 @@
 
 using namespace game;
 
-TrackingBehaviour::TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system, game::NavigationSystem* navigation_system)
-    : m_entity_body(body)
-    , m_physics_system(physics_system)
-    , m_navigation_system(navigation_system)
-    , m_tracking_position(math::INF, math::INF)
+TrackingBehaviour::TrackingBehaviour()
+    : m_tracking_position(math::INF, math::INF)
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
+{ }
+
+TrackingBehaviour::~TrackingBehaviour()
+{
+    Release();
+}
+
+void TrackingBehaviour::Init(mono::IBody* body, mono::PhysicsSystem* physics_system, NavigationSystem* navigation_system)
 {
     MONO_ASSERT(body->GetType() == mono::BodyType::DYNAMIC);
+
+    m_entity_body = body;
+    m_physics_system = physics_system;
+    m_navigation_system = navigation_system;
 
     m_control_body = m_physics_system->CreateKinematicBody();
     m_control_body->SetPosition(body->GetPosition());
     m_spring = m_physics_system->CreateSpring(m_control_body, body, 0.0f, 200.0f, 10.0f);
 }
 
-TrackingBehaviour::~TrackingBehaviour()
+void TrackingBehaviour::Release()
 {
-    m_physics_system->ReleaseConstraint(m_spring);
-    m_physics_system->ReleaseKinematicBody(m_control_body);
+    if(m_spring)
+    {
+        m_physics_system->ReleaseConstraint(m_spring);
+        m_spring = nullptr;
+    }
+
+    if(m_control_body)
+    {
+        m_physics_system->ReleaseKinematicBody(m_control_body);
+        m_control_body = nullptr;
+    }
 }
 
 void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
@@ -47,58 +64,45 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
 
 TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position)
 {
+    TrackingResult result;
+    result.state = TrackingState::NO_PATH;
+    result.distance_to_target = math::INF;
+
     const float distance_to_last = math::DistanceBetween(m_tracking_position, tracking_position);
     if(distance_to_last > 1.0f)
     {
         const bool path_updated = UpdatePath(tracking_position);
         if(!path_updated)
-            return TrackingResult::NO_PATH;
+            return result;
 
         m_tracking_position = tracking_position;
     }
 
     m_current_position += m_meter_per_second * update_context.delta_s;
+    result.distance_to_target = m_path->Length() - m_current_position;
 
-/*
+    if(result.distance_to_target <= 0.0f)
     {
-        g_debug_drawer->DrawLine(m_path->GetPathPoints(), 1.0f, mono::Color::RED);
-        g_debug_drawer->DrawPoint(m_path->GetPositionByLength(m_current_position), 4.0f, mono::Color::GREEN);
-
-        char buffer[1024] = {};
-        std::sprintf(buffer, "%.2f / %.2f", m_current_position, m_path->Length());
-        g_debug_drawer->DrawScreenText(buffer, math::Vector(1, 1), mono::Color::OFF_WHITE);
+        result.state = TrackingState::AT_TARGET;
     }
-*/
+    else
+    {
+        const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
+        m_control_body->SetPosition(path_position);
+        result.state = TrackingState::TRACKING;
+    }
 
-    if(m_current_position > m_path->Length())
-        return TrackingResult::AT_TARGET;
-
-    const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-    m_control_body->SetPosition(path_position);
-
-    return TrackingResult::TRACKING;
+    return result;
 }
 
 bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
 {
-    const game::NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
-    if(!navmesh_context)
-        return false;
-
     const math::Vector position = m_entity_body->GetPosition();
-
-    const int start = game::FindClosestIndex(*navmesh_context, position);
-    const int end = game::FindClosestIndex(*navmesh_context, tracking_position);
-
-    if(start == end || start == -1 || end == -1)
+    const std::vector<math::Vector>& found_path = m_navigation_system->FindPath(position, tracking_position);
+    if(found_path.empty())
         return false;
 
-    const std::vector<int>& nav_path = game::AStar(*navmesh_context, start, end);
-    if(nav_path.empty())
-        return false;
-
-    const std::vector<math::Vector>& points = PathToPoints(*navmesh_context, nav_path);
-    m_path = mono::CreatePath(points);
+    m_path = mono::CreatePath(found_path);
     m_current_position = m_path->GetLengthFromPosition(position);
 
     return true;

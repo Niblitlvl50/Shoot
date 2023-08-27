@@ -10,6 +10,7 @@
 #include "StateMachine.h"
 
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/TrackingBehaviour.h"
 
 #include <memory>
 
@@ -37,6 +38,7 @@ namespace game
             SLEEPING,
             AWAKE,
             RETARGET,
+            TRACKING,
             HUNT
         };
 
@@ -49,6 +51,10 @@ namespace game
         void ToRetarget();
         void RetargetState(const mono::UpdateContext& update_context);
 
+        void ToTracking();
+        void TrackingState(const mono::UpdateContext& update_context);
+        void ExitTracking();
+
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);
         void ExitHunt();
@@ -56,6 +62,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::PhysicsSystem* m_physics_system;
+        class NavigationSystem* m_navigation_system;
         class DamageSystem* m_damage_system;
         class TargetSystem* m_target_system;
 
@@ -65,7 +72,8 @@ namespace game
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
-        HomingBehaviour m_homing_behaviour;
+        HomingBehaviour m_homing_movement;
+        TrackingBehaviour m_tracking_movement;
         mono::ISprite* m_sprite;
         ITargetPtr m_aquired_target;
     };

@@ -52,7 +52,7 @@ TargetSystem::TargetSystem(const mono::TransformSystem* transform_system, mono::
     , m_physics_system(physics_system)
     , m_damage_system(damage_system)
     , m_targets_dirty(false)
-    , m_ai_target_behaviour(AITargetBehaviour::Player)
+    , m_global_target_mode(EnemyTargetMode::Normal)
 { }
 
 const char* TargetSystem::Name() const
@@ -131,6 +131,11 @@ void TargetSystem::SetTargetEnabled(uint32_t entity_id, bool enabled)
         component->enabled = enabled;
 }
 
+void TargetSystem::SetGlobalTargetMode(EnemyTargetMode target_mode)
+{
+    m_global_target_mode = target_mode;
+}
+
 ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
 {
     uint32_t found_target_entity_id = mono::INVALID_ID;
@@ -140,9 +145,17 @@ ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float 
         if(!target.enabled)
             continue;
 
-        const math::Vector& target_world_position = m_transform_system->GetWorldPosition(target.entity_id);
-        const float target_distance = math::DistanceBetween(target_world_position, world_position);
-        if(target_distance < max_distance)
+        if(m_global_target_mode == EnemyTargetMode::Normal)
+        {
+            const math::Vector& target_world_position = m_transform_system->GetWorldPosition(target.entity_id);
+            const float target_distance = math::DistanceBetween(target_world_position, world_position);
+            if(target_distance < max_distance)
+            {
+                found_target_entity_id = target.entity_id;
+                break;
+            }
+        }
+        else
         {
             found_target_entity_id = target.entity_id;
             break;
@@ -172,7 +185,7 @@ std::vector<ITargetPtr> TargetSystem::GetActiveTargets() const
     std::vector<ITargetPtr> targets;
     for(const auto& pair : m_active_targets)
     {
-        if(!pair.second.unique())
+        if(pair.second.use_count() > 1)
             targets.push_back(pair.second);
     }
     return targets;    

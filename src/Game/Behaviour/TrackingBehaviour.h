@@ -8,32 +8,41 @@
 
 namespace game
 {
-    enum class TrackingResult
+    enum class TrackingState
     {
         AT_TARGET,
         TRACKING,
         NO_PATH
     };
 
-    inline const char* TrackingResultToString(TrackingResult result)
+    inline const char* TrackingResultToString(TrackingState result)
     {
         switch(result)
         {
-        case TrackingResult::AT_TARGET:
+        case TrackingState::AT_TARGET:
             return "At Target";
-        case TrackingResult::TRACKING:
+        case TrackingState::TRACKING:
             return "Tracking";
-        case TrackingResult::NO_PATH:
+        case TrackingState::NO_PATH:
             return "No Path";
         };
     }
+
+    struct TrackingResult
+    {
+        TrackingState state;
+        float distance_to_target;
+    };
 
     class TrackingBehaviour
     {
     public:
 
-        TrackingBehaviour(mono::IBody* body, mono::PhysicsSystem* physics_system, class NavigationSystem* navigation_system);
+        TrackingBehaviour();
         ~TrackingBehaviour();
+
+        void Init(mono::IBody* body, mono::PhysicsSystem* physics_system, class NavigationSystem* navigation_system);
+        void Release();
 
         void SetTrackingSpeed(float meter_per_second);
         bool UpdatePath(const math::Vector& tracking_position);

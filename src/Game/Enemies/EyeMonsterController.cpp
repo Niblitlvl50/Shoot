@@ -6,6 +6,7 @@
 #include "Shockwave.h"
 #include "Debug/IDebugDrawer.h"
 #include "Entity/TargetSystem.h"
+#include "Navigation/NavigationSystem.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -37,7 +38,7 @@ namespace tweak_values
     constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 180.0f;
-    constexpr float velocity = 1.0f;
+    constexpr float velocity_m_per_s = 1.0f;
 }
 
 using namespace game;
@@ -46,17 +47,18 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_navigation_system = system_context->GetSystem<game::NavigationSystem>();
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
 
-    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     body->AddCollisionHandler(this);
 
-    m_homing_behaviour.SetBody(body);
-    m_homing_behaviour.SetForwardVelocity(tweak_values::velocity);
-    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
+    m_homing_movement.SetBody(body);
+    m_homing_movement.SetForwardVelocity(tweak_values::velocity_m_per_s);
+    m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
@@ -65,10 +67,11 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
     using namespace std::placeholders;
 
     const MyStateMachine::StateTable& state_table = {
-        MyStateMachine::MakeState(States::SLEEPING, &EyeMonsterController::ToSleep, &EyeMonsterController::SleepState, this),
-        MyStateMachine::MakeState(States::AWAKE,    &EyeMonsterController::ToAwake, &EyeMonsterController::AwakeState, this),
-        MyStateMachine::MakeState(States::RETARGET, &EyeMonsterController::ToRetarget, &EyeMonsterController::RetargetState, this),
-        MyStateMachine::MakeState(States::HUNT,     &EyeMonsterController::ToHunt,  &EyeMonsterController::HuntState, &EyeMonsterController::ExitHunt, this),
+        MyStateMachine::MakeState(States::SLEEPING, &EyeMonsterController::ToSleep,     &EyeMonsterController::SleepState, this),
+        MyStateMachine::MakeState(States::AWAKE,    &EyeMonsterController::ToAwake,     &EyeMonsterController::AwakeState, this),
+        MyStateMachine::MakeState(States::RETARGET, &EyeMonsterController::ToRetarget,  &EyeMonsterController::RetargetState, this),
+        MyStateMachine::MakeState(States::TRACKING, &EyeMonsterController::ToTracking,  &EyeMonsterController::TrackingState, &EyeMonsterController::ExitTracking, this),
+        MyStateMachine::MakeState(States::HUNT,     &EyeMonsterController::ToHunt,      &EyeMonsterController::HuntState, &EyeMonsterController::ExitHunt, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
 }
@@ -98,6 +101,9 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
         break;
     case States::RETARGET:
         state = "Retarget";
+        break;
+    case States::TRACKING:
+        state = "Tracking";
         break;
     case States::HUNT:
         state = "Hunting";
@@ -156,6 +162,8 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
         const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
         if(sees_target)
             m_states.TransitionTo(States::AWAKE);
+        else
+            m_states.TransitionTo(States::TRACKING);
     }
 }
 
@@ -172,7 +180,7 @@ void EyeMonsterController::ToAwake()
 
     const math::Vector delta = (target_position - entity_position);
     const float angle = math::AngleFromVector(delta);
-    m_homing_behaviour.SetHeading(angle);
+    m_homing_movement.SetHeading(angle);
 
     const mono::SpriteAnimationCallback transition_to_hunt = [this](uint32_t sprite_id) {
         m_states.TransitionTo(States::HUNT);
@@ -203,9 +211,55 @@ void EyeMonsterController::RetargetState(const mono::UpdateContext& update_conte
     m_states.TransitionTo(new_state);
 }
 
+void EyeMonsterController::ToTracking()
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(0.5f); //tweak_values::velocity_m_per_s);
+    m_tracking_movement.UpdateEntityPosition();
+}
+
+void EyeMonsterController::TrackingState(const mono::UpdateContext& update_context)
+{
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::SLEEPING);
+        return;
+    }
+
+    const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
+    switch(result.state)
+    {
+    case TrackingState::NO_PATH:
+        m_states.TransitionTo(States::SLEEPING);
+        break;
+ 
+    case TrackingState::TRACKING:
+        if(result.distance_to_target < (tweak_values::engage_distance - 1.0f))
+            m_states.TransitionTo(States::HUNT);
+        break;
+
+    case TrackingState::AT_TARGET:
+        m_states.TransitionTo(States::HUNT);
+        break;
+    }
+}
+
+void EyeMonsterController::ExitTracking()
+{
+    m_tracking_movement.Release();
+}
+
 void EyeMonsterController::ToHunt()
 {
     m_sprite->SetAnimation("idle");
+
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+
+    const math::Vector delta = (target_position - entity_position);
+    const float angle = math::AngleFromVector(delta);
+    m_homing_movement.SetHeading(angle);
 }
 
 void EyeMonsterController::HuntState(const mono::UpdateContext& update_context)
@@ -218,8 +272,8 @@ void EyeMonsterController::HuntState(const mono::UpdateContext& update_context)
 
     const math::Vector& target_entity_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
 
-    m_homing_behaviour.SetTargetPosition(target_entity_position);
-    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    m_homing_movement.SetTargetPosition(target_entity_position);
+    const game::HomingResult result = m_homing_movement.Run(update_context);
     const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
 
     if(new_direction.x < 0.0f)

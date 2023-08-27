@@ -4,6 +4,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Navigation/NavmeshData.h"
 
 #include "SystemContext.h"
 #include "Events/KeyEvent.h"
@@ -29,6 +30,7 @@
 
 bool game::g_draw_client_viewport = false;
 bool game::g_draw_navmesh = false;
+uint32_t game::g_draw_navmesh_subcomponents = game::NavigationDebugComponents::DRAW_RECENT_PATHS;
 bool game::g_draw_transformsystem = false;
 bool game::g_draw_physics = false;
 bool game::g_interact_physics = false;
@@ -58,6 +60,8 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
     {
         ImGui::Checkbox("Transform System",     &game::g_draw_transformsystem);
         ImGui::Checkbox("Navmesh",              &game::g_draw_navmesh);
+        mono::DrawBitFieldType(
+            game::g_draw_navmesh_subcomponents, game::all_navigation_debug_component, std::size(game::all_navigation_debug_component), game::NavigationDebugComponentToString);
         ImGui::Checkbox("Triggers",             &game::g_draw_triggers);
         ImGui::Checkbox("Targets",              &game::g_draw_targets);
         ImGui::Checkbox("Physics",              &game::g_draw_physics);

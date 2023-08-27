@@ -46,7 +46,7 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
     mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
-    m_tracking_behaviour = std::make_unique<TrackingBehaviour>(entity_body, m_physics_system, navigation_system);
+    m_tracking_movement.Init(entity_body, m_physics_system, navigation_system);
 
     m_target_system = system_context->GetSystem<TargetSystem>();
 
@@ -95,7 +95,7 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::loose_interest_distance, mono::Color::GREEN);
 
-    const math::Vector& tracking_position = m_tracking_behaviour->GetTrackingPosition();
+    const math::Vector& tracking_position = m_tracking_movement.GetTrackingPosition();
     debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
     debug_drawer->DrawPoint(tracking_position, 10.0f, mono::Color::RED);
 
@@ -111,7 +111,7 @@ const char* FlyingMonsterController::GetDebugCategory() const
 void FlyingMonsterController::ToIdle()
 {
     m_idle_timer_s = 0.0f;
-    m_tracking_behaviour->UpdateEntityPosition();
+    m_tracking_movement.UpdateEntityPosition();
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
     sprite->SetShade(mono::Color::WHITE);
@@ -183,8 +183,8 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
         }
     }
 
-    const TrackingResult result = m_tracking_behaviour->Run(update_context, target_world_position);
-    if(result == TrackingResult::NO_PATH || result == TrackingResult::AT_TARGET)
+    const TrackingResult result = m_tracking_movement.Run(update_context, target_world_position);
+    if(result.state == TrackingState::NO_PATH || result.state == TrackingState::AT_TARGET)
         m_states.TransitionTo(States::IDLE);
 }
 

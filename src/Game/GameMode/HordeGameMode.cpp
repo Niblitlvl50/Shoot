@@ -35,6 +35,7 @@
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/EntityLogicSystem.h"
+#include "Entity/TargetSystem.h"
 #include "Pickups/LootBoxLogic.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -117,6 +118,9 @@ void HordeGameMode::Begin(
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     game::UISystem* ui_system = system_context->GetSystem<game::UISystem>();
     game::ShopSystem* shop_system = system_context->GetSystem<game::ShopSystem>();
+
+    game::TargetSystem* target_system = system_context->GetSystem<game::TargetSystem>();
+    target_system->SetGlobalTargetMode(EnemyTargetMode::Horde);
 
     SetupEvents();
 

@@ -8,6 +8,7 @@
 #include "Entity/TargetTypes.h"
 #include "StateMachine.h"
 #include "Weapons/WeaponFwd.h"
+#include "Behaviour/TrackingBehaviour.h"
 
 #include <memory>
 
@@ -54,7 +55,7 @@ namespace game
         class TargetSystem* m_target_system;
 
         IWeaponPtr m_weapon;
-        std::unique_ptr<class TrackingBehaviour> m_tracking_behaviour;
+        TrackingBehaviour m_tracking_movement;
 
         float m_idle_timer_s;
         float m_attack_anticipation_timer_s;

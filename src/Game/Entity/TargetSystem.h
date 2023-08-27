@@ -12,10 +12,10 @@
 
 namespace game
 {
-    enum class AITargetBehaviour : uint32_t
+    enum class EnemyTargetMode : uint32_t
     {
-        Player,
-        Package
+        Normal,
+        Horde
     };
 
     struct TargetComponent
@@ -52,6 +52,7 @@ namespace game
         void SetTargetData(uint32_t entity_id, int priority);
 
         void SetTargetEnabled(uint32_t entity_id, bool enabled);
+        void SetGlobalTargetMode(EnemyTargetMode target_mode);
 
         ITargetPtr AquireTarget(const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
@@ -70,6 +71,6 @@ namespace game
         std::vector<TargetComponent> m_targets;
         std::unordered_map<uint32_t, std::shared_ptr<class TargetImpl>> m_active_targets;
 
-        AITargetBehaviour m_ai_target_behaviour;
+        EnemyTargetMode m_global_target_mode;
     };
 }

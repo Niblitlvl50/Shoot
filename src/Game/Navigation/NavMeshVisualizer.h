@@ -23,6 +23,10 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        void DrawNavmesh(mono::IRenderer& renderer) const;
+        void DrawPaths(mono::IRenderer& renderer) const;
+        void DrawInteractivePath(mono::IRenderer& renderer) const;
+
         mono::EventResult OnMouseUp(const event::MouseUpEvent& event);
         mono::EventResult OnMouseMove(const event::MouseMotionEvent& event);
 

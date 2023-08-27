@@ -59,6 +59,22 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     if(!game::g_draw_navmesh)
         return;
 
+    if(game::g_draw_navmesh_subcomponents & game::NavigationDebugComponents::DRAW_NAVMESH)
+        DrawNavmesh(renderer);
+    
+    if(game::g_draw_navmesh_subcomponents & game::NavigationDebugComponents::DRAW_RECENT_PATHS)
+        DrawPaths(renderer);
+
+    DrawInteractivePath(renderer);
+}
+
+math::Quad NavmeshVisualizer::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+void NavmeshVisualizer::DrawNavmesh(mono::IRenderer& renderer) const
+{
     const NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
     if(!navmesh_context)
         return;
@@ -68,8 +84,34 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
 
     constexpr mono::Color::RGBA edge_color(0.0f, 1.0f, 0.0f, 0.2f);
     renderer.DrawLines(m_edges, edge_color, 1.0f);
-
     renderer.DrawPoints(navmesh_context->points, mono::Color::MAGENTA, 2.0f);
+}
+
+void NavmeshVisualizer::DrawPaths(mono::IRenderer& renderer) const
+{
+    const uint32_t timestamp = renderer.GetTimestamp();
+
+    const std::vector<RecentPath>& recent_paths = m_navigation_system->GetRecentPaths();
+    for(const RecentPath& path : recent_paths)
+    {
+        const uint32_t delta_time = timestamp - path.timestamp;
+        const float alpha = math::Scale01(delta_time, 5000u, 0u);
+        if(alpha < 0.0f)
+            continue;
+
+        renderer.DrawPolyline(path.points, mono::Color::MakeWithAlpha(mono::Color::MAGENTA, alpha), 2.0f);
+        renderer.DrawPoints(path.points, mono::Color::MakeWithAlpha(mono::Color::CYAN, alpha), 4.0f);
+    }
+}
+
+void NavmeshVisualizer::DrawInteractivePath(mono::IRenderer& renderer) const
+{
+    const NavmeshContext* navmesh_context = m_navigation_system->GetNavmeshContext();
+    if(!navmesh_context)
+        return;
+
+    if(navmesh_context->nodes.empty() || navmesh_context->points.empty())
+        return;
 
     if(m_path)
     {
@@ -93,11 +135,6 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
 
     constexpr mono::Color::RGBA selected_color(1.0f, 1.0f, 0.0f);
     renderer.DrawPoints(start_node_points, selected_color, 4.0f);
-}
-
-math::Quad NavmeshVisualizer::BoundingBox() const
-{
-    return math::InfQuad;
 }
 
 mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)

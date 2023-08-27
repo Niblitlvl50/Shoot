@@ -24,7 +24,7 @@ void TargetSystemDrawer::Draw(mono::IRenderer& renderer) const
             continue;
     
         const math::Vector& target_position = target->Position();
-        renderer.DrawCircle(target_position, 1.0f, 16, 1.0f, mono::Color::RED);
+        renderer.DrawCircle(target_position, 0.5f, 16, 1.0f, mono::Color::RED);
     }
 }
 
