@@ -37,6 +37,7 @@ namespace game
         virtual uint32_t TargetId() const = 0;
         virtual bool IsValid() const = 0;
         virtual const math::Vector Position() const = 0;
+        virtual bool IsWithinRange(const math::Vector& position, float distance) const = 0;
     };
 
     class TargetSystem : public mono::IGameSystem

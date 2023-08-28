@@ -4,6 +4,7 @@
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Entity/TargetSystem.h"
+#include "Navigation/NavigationSystem.h"
 #include "Shockwave.h"
 #include "Debug/IDebugDrawer.h"
 
@@ -48,13 +49,14 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     body->AddCollisionHandler(this);
 
-    m_homing_behaviour.SetBody(body);
-    m_homing_behaviour.SetForwardVelocity(tweak_values::velocity);
-    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
+    m_homing_movement.SetBody(body);
+    m_homing_movement.SetForwardVelocity(tweak_values::velocity);
+    m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
     m_stagger_behaviour.SetChanceAndDuration(0.1f, 1.0f);
 
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_navigation_system = system_context->GetSystem<game::NavigationSystem>();
     m_target_system = system_context->GetSystem<game::TargetSystem>();
 
     using namespace std::placeholders;
@@ -62,6 +64,7 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     const MyStateMachine::StateTable& state_table = {
         MyStateMachine::MakeState(States::SLEEPING, &FlamingSkullBossController::ToSleep, &FlamingSkullBossController::SleepState, this),
         MyStateMachine::MakeState(States::AWAKE,    &FlamingSkullBossController::ToAwake, &FlamingSkullBossController::AwakeState, this),
+        MyStateMachine::MakeState(States::TRACKING, &FlamingSkullBossController::ToTracking, &FlamingSkullBossController::TrackingState, &FlamingSkullBossController::ExitTracking, this),
         MyStateMachine::MakeState(States::HUNT,     &FlamingSkullBossController::ToHunt,  &FlamingSkullBossController::HuntState, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
@@ -80,9 +83,6 @@ void FlamingSkullBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::trigger_distance, mono::Color::MAGENTA);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-        debug_drawer->DrawCircle(m_aquired_target->Position(), 1.0f, mono::Color::RED);
 }
 
 const char* FlamingSkullBossController::GetDebugCategory() const
@@ -95,7 +95,6 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
 {
     if(m_states.ActiveState() == States::SLEEPING)
         m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
-        //m_states.TransitionTo(States::AWAKE);
 
     if(category == CollisionCategory::PLAYER)
     {
@@ -104,7 +103,6 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
         m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
-        //m_damage_system->ApplyDamage(m_entity_id, 1000, m_entity_id);
     }
     else if(category == CollisionCategory::PLAYER_BULLET)
     {
@@ -136,9 +134,17 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
     if(!m_aquired_target->IsValid())
         return;
 
-    const bool sees_player = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
-    if(sees_player)
-        m_states.TransitionTo(States::AWAKE);
+    const bool within_engage_range = m_aquired_target->IsWithinRange(entity_position, tweak_values::trigger_distance);
+    if(within_engage_range)
+    {
+        const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+        if(sees_target)
+            m_states.TransitionTo(States::AWAKE);
+    }
+    else
+    {
+        m_states.TransitionTo(States::TRACKING);
+    }
 }
 
 void FlamingSkullBossController::ToAwake()
@@ -154,7 +160,7 @@ void FlamingSkullBossController::ToAwake()
     const math::Vector& entity_position = math::GetPosition(*m_transform);
     const math::Vector delta = (entity_position - m_aquired_target->Position());
     const float angle = math::AngleFromVector(delta);
-    m_homing_behaviour.SetHeading(angle);
+    m_homing_movement.SetHeading(angle);
 }
 
 void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_context)
@@ -164,6 +170,45 @@ void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_co
         return;
 
     m_states.TransitionTo(States::HUNT);
+}
+
+void FlamingSkullBossController::ToTracking()
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity);
+    m_tracking_movement.UpdateEntityPosition();
+}
+
+void FlamingSkullBossController::TrackingState(const mono::UpdateContext& update_context)
+{
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::SLEEPING);
+        return;
+    }
+
+    const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
+    switch(result.state)
+    {
+    case TrackingState::NO_PATH:
+        m_states.TransitionTo(States::SLEEPING);
+        break;
+ 
+    case TrackingState::TRACKING:
+        if(result.distance_to_target < (tweak_values::trigger_distance - 1.0f))
+            m_states.TransitionTo(States::HUNT);
+        break;
+
+    case TrackingState::AT_TARGET:
+        m_states.TransitionTo(States::HUNT);
+        break;
+    }
+}
+
+void FlamingSkullBossController::ExitTracking()
+{
+    m_tracking_movement.Release();
 }
 
 void FlamingSkullBossController::ToHunt()
@@ -184,8 +229,8 @@ void FlamingSkullBossController::HuntState(const mono::UpdateContext& update_con
     if(in_stagger)
         return;
 
-    m_homing_behaviour.SetTargetPosition(m_aquired_target->Position());
-    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    m_homing_movement.SetTargetPosition(m_aquired_target->Position());
+    const game::HomingResult result = m_homing_movement.Run(update_context);
     const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
 
     if(new_direction.x < 0.0f)

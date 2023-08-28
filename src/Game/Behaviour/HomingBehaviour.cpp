@@ -26,12 +26,6 @@ HomingBehaviour::HomingBehaviour()
     , m_timestamp(0)
 { }
 
-HomingBehaviour::HomingBehaviour(mono::IBody* body)
-    : HomingBehaviour()
-{
-    SetBody(body);
-}
-
 void HomingBehaviour::SetBody(mono::IBody* body)
 {
     m_body = body;

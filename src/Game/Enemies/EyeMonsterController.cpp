@@ -157,13 +157,19 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
 
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::engage_distance);
-    if(m_aquired_target->IsValid())
+    if(!m_aquired_target->IsValid())
+        return;
+
+    const bool within_engage_range = m_aquired_target->IsWithinRange(entity_position, tweak_values::engage_distance);
+    if(within_engage_range)
     {
         const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
         if(sees_target)
             m_states.TransitionTo(States::AWAKE);
-        else
-            m_states.TransitionTo(States::TRACKING);
+    }
+    else
+    {
+        m_states.TransitionTo(States::TRACKING);
     }
 }
 

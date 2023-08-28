@@ -126,9 +126,6 @@ void DemonBossController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
     const char* state_string = StateToString(m_states.ActiveState());
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::MAGENTA);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-        debug_drawer->DrawCircle(m_aquired_target->Position(), 1.0f, mono::Color::RED);
 }
 
 const char* DemonBossController::GetDebugCategory() const

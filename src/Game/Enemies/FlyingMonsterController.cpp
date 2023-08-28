@@ -98,9 +98,6 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     const math::Vector& tracking_position = m_tracking_movement.GetTrackingPosition();
     debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
     debug_drawer->DrawPoint(tracking_position, 10.0f, mono::Color::RED);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-        debug_drawer->DrawCircle(m_aquired_target->Position(), 1.0f, mono::Color::RED);
 }
 
 const char* FlyingMonsterController::GetDebugCategory() const

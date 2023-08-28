@@ -9,6 +9,7 @@
 #include "Weapons/WeaponFwd.h"
 #include "Math/Vector.h"
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/TrackingBehaviour.h"
 
 #include <memory>
 
@@ -28,6 +29,10 @@ namespace game
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
 
+        void ToTracking();
+        void Tracking(const mono::UpdateContext& update_context);
+        void ExitTracking();
+
         void ToReposition();
         void Reposition(const mono::UpdateContext& update_context);
 
@@ -41,6 +46,7 @@ namespace game
         {
             IDLE,
             REPOSITION,
+            TRACKING,
             PREPARE_ATTACK,
             ATTACKING
         };
@@ -48,6 +54,7 @@ namespace game
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        class NavigationSystem* m_navigation_system;
         class TargetSystem* m_target_system;
         IWeaponPtr m_weapon;
         mono::ISprite* m_sprite;
@@ -62,7 +69,8 @@ namespace game
         float m_attack_timer_s;
         uint32_t m_n_attacks;
 
-        HomingBehaviour m_homing_behaviour;
+        HomingBehaviour m_homing_movement;
+        TrackingBehaviour m_tracking_movement;
         ITargetPtr m_aquired_target;
     };
 }

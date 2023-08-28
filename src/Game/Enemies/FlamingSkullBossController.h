@@ -10,6 +10,7 @@
 #include "StateMachine.h"
 
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/TrackingBehaviour.h"
 #include "Behaviour/StaggerBehaviour.h"
 
 #include <memory>
@@ -37,6 +38,7 @@ namespace game
         {
             SLEEPING,
             AWAKE,
+            TRACKING,
             HUNT
         };
 
@@ -45,6 +47,10 @@ namespace game
 
         void ToAwake();
         void AwakeState(const mono::UpdateContext& update_context);
+
+        void ToTracking();
+        void TrackingState(const mono::UpdateContext& update_context);
+        void ExitTracking();
 
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);
@@ -55,7 +61,8 @@ namespace game
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
-        HomingBehaviour m_homing_behaviour;
+        HomingBehaviour m_homing_movement;
+        TrackingBehaviour m_tracking_movement;
         StaggerBehaviour m_stagger_behaviour;
 
         math::Matrix* m_transform;
@@ -66,6 +73,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         class DamageSystem* m_damage_system;
+        class NavigationSystem* m_navigation_system;
         class TargetSystem* m_target_system;
     };
 }

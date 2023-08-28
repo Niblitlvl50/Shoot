@@ -13,6 +13,7 @@
 #include "Debug/IDebugDrawer.h"
 
 #include "Entity/TargetSystem.h"
+#include "Navigation/NavigationSystem.h"
 #include "Player/PlayerInfo.h"
 #include "SystemContext.h"
 #include "Weapons/IWeapon.h"
@@ -42,9 +43,9 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* body = m_physics_system->GetBody(entity_id);
 
-    m_homing_behaviour.SetBody(body);
-    m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
-    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
+    m_homing_movement.SetBody(body);
+    m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
+    m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -52,6 +53,7 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = m_sprite->GetAnimationIdFromName("walk");
 
+    m_navigation_system = system_context->GetSystem<NavigationSystem>();
     m_target_system = system_context->GetSystem<TargetSystem>();
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
@@ -59,6 +61,7 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &GoblinFireController::ToIdle, &GoblinFireController::Idle, this),
+        GoblinStateMachine::MakeState(States::TRACKING, &GoblinFireController::ToTracking, &GoblinFireController::Tracking, &GoblinFireController::ExitTracking, this),
         GoblinStateMachine::MakeState(States::REPOSITION, &GoblinFireController::ToReposition, &GoblinFireController::Reposition, this),
         GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &GoblinFireController::ToPrepareAttack, &GoblinFireController::PrepareAttack, this),
         GoblinStateMachine::MakeState(States::ATTACKING, &GoblinFireController::ToAttacking, &GoblinFireController::Attacking, this),
@@ -75,7 +78,7 @@ void GoblinFireController::Update(const mono::UpdateContext& update_context)
 void GoblinFireController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector& homing_target_position = m_homing_behaviour.GetTargetPosition();
+    const math::Vector& homing_target_position = m_homing_movement.GetTargetPosition();
 
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::distance_to_player_threshold, mono::Color::CYAN);
@@ -88,6 +91,9 @@ void GoblinFireController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     {
     case States::IDLE:
         state_string = "Idle";
+        break;
+    case States::TRACKING:
+        state_string = "Tracking";
         break;
     case States::REPOSITION:
         state_string = "Reposition";
@@ -126,9 +132,12 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
     m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::activate_distance_to_player_threshold);
 
     if(!m_aquired_target->IsValid())
+    {
+        m_idle_timer_s = 0.0f;
         return;
+    }
 
-    const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+    const math::Vector& target_position = m_aquired_target->Position();
 
     const bool is_left_of = (target_position.x < world_position.x);
     if(is_left_of)
@@ -136,12 +145,59 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool transition_to_attack =
-        mono::Chance(25) && m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
-    const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
-    m_states.TransitionTo(new_state);
+    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::activate_distance_to_player_threshold);
+    if(is_within_range)
+    {
+        const bool transition_to_attack =
+            mono::Chance(25) && m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+        const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
+        m_states.TransitionTo(new_state);
+    }
+    else
+    {
+        m_states.TransitionTo(States::TRACKING);
+    }
 
     m_idle_timer_s = 0.0f;
+}
+
+void GoblinFireController::ToTracking()
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
+    m_tracking_movement.UpdateEntityPosition();
+}
+
+void GoblinFireController::Tracking(const mono::UpdateContext& update_context)
+{
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
+    const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
+    switch(result.state)
+    {
+    case TrackingState::NO_PATH:
+        m_states.TransitionTo(States::IDLE);
+        break;
+ 
+    case TrackingState::TRACKING:
+        if(result.distance_to_target < (tweak_values::activate_distance_to_player_threshold - 1.0f))
+            m_states.TransitionTo(States::REPOSITION);
+        break;
+
+    case TrackingState::AT_TARGET:
+        m_states.TransitionTo(States::REPOSITION);
+        break;
+    }
+}
+
+void GoblinFireController::ExitTracking()
+{
+    m_tracking_movement.Release();
 }
 
 void GoblinFireController::ToReposition()
@@ -174,12 +230,12 @@ void GoblinFireController::ToReposition()
     }
 
     m_sprite->SetAnimation(m_run_anim_id);
-    m_homing_behaviour.SetTargetPosition(homing_target);
+    m_homing_movement.SetTargetPosition(homing_target);
 }
 
 void GoblinFireController::Reposition(const mono::UpdateContext& update_context)
 {
-    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    const game::HomingResult result = m_homing_movement.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
         const bool transition_to_attack =

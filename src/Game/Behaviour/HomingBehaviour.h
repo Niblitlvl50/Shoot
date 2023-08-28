@@ -22,8 +22,6 @@ namespace game
     public:
 
         HomingBehaviour();
-        HomingBehaviour(mono::IBody* body);
-
         void SetBody(mono::IBody* body);
         
         void SetHeading(float heading);

@@ -37,6 +37,11 @@ namespace game
             return m_transform_system->GetWorldPosition(m_target_id);
         }
 
+        bool IsWithinRange(const math::Vector& position, float distance) const override
+        {
+            return math::DistanceBetweenSquared(Position(), position) <= (distance * distance);
+        }
+
         void InvalidateTarget()
         {
             m_target_id = mono::INVALID_ID;

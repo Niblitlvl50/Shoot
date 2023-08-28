@@ -12,6 +12,7 @@
 
 #include "Debug/IDebugDrawer.h"
 #include "Entity/TargetSystem.h"
+#include "Navigation/NavigationSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 
@@ -43,9 +44,9 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 
     mono::IBody* body = m_physics_system->GetBody(entity_id);
 
-    m_homing_behaviour.SetBody(body);
-    m_homing_behaviour.SetForwardVelocity(tweak_values::move_speed);
-    m_homing_behaviour.SetAngularVelocity(tweak_values::degrees_per_second);
+    m_homing_movement.SetBody(body);
+    m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
+    m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
     m_sprite = m_sprite_system->GetSprite(entity_id);
 
@@ -53,6 +54,7 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
 
+    m_navigation_system = system_context->GetSystem<NavigationSystem>();
     m_target_system = system_context->GetSystem<TargetSystem>();
 
     const GoblinStateMachine::StateTable state_table = {
@@ -78,22 +80,18 @@ void ImpController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::activate_distance_to_player_threshold, mono::Color::CYAN);
     debug_drawer->DrawCircle(world_position, tweak_values::perpendicular_movement_distance_threshold, mono::Color::GREEN);
 
-    const math::Vector& homing_target_position = m_homing_behaviour.GetTargetPosition();
+    const math::Vector& homing_target_position = m_homing_movement.GetTargetPosition();
     debug_drawer->DrawLine({ world_position, homing_target_position }, 1.0f, mono::Color::BLUE);
     debug_drawer->DrawPoint(homing_target_position, 10.0f, mono::Color::BLUE);
-
-    if(m_aquired_target && m_aquired_target->IsValid())
-    {
-        const math::Vector& target_position = m_aquired_target->Position();
-        debug_drawer->DrawLine({ world_position, target_position }, 1.0f, mono::Color::RED);
-        debug_drawer->DrawCircle(target_position, 1.0f, mono::Color::RED);
-    }
 
     const char* state_string = nullptr;
     switch(m_states.ActiveState())
     {
     case States::IDLE:
         state_string = "Idle";
+        break;
+    case States::TRACKING:
+        state_string = "Tracking";
         break;
     case States::REPOSITION:
         state_string = "Reposition";
@@ -140,13 +138,57 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
-    if(sees_target)
+    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::activate_distance_to_player_threshold);
+    if(is_within_range)
     {
-        const bool transition_to_attack = mono::Chance(25);
+        const bool transition_to_attack =
+            mono::Chance(25) && m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
         const States new_state = transition_to_attack ? States::PREPARE_ATTACK : States::REPOSITION;
         m_states.TransitionTo(new_state);
     }
+    else
+    {
+        m_states.TransitionTo(States::TRACKING);
+    }
+}
+
+void ImpController::ToTracking()
+{
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
+    m_tracking_movement.UpdateEntityPosition();
+}
+
+void ImpController::Tracking(const mono::UpdateContext& update_context)
+{
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
+    const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
+    switch(result.state)
+    {
+    case TrackingState::NO_PATH:
+        m_states.TransitionTo(States::IDLE);
+        break;
+ 
+    case TrackingState::TRACKING:
+        if(result.distance_to_target < (tweak_values::activate_distance_to_player_threshold - 1.0f))
+            m_states.TransitionTo(States::REPOSITION);
+        break;
+
+    case TrackingState::AT_TARGET:
+        m_states.TransitionTo(States::REPOSITION);
+        break;
+    }
+}
+
+void ImpController::ExitTracking()
+{
+    m_tracking_movement.Release();
 }
 
 void ImpController::ToReposition()
@@ -177,12 +219,12 @@ void ImpController::ToReposition()
     }
 
     m_sprite->SetAnimation(m_run_anim_id);
-    m_homing_behaviour.SetTargetPosition(homing_target);
+    m_homing_movement.SetTargetPosition(homing_target);
 }
 
 void ImpController::Reposition(const mono::UpdateContext& update_context)
 {
-    const game::HomingResult result = m_homing_behaviour.Run(update_context);
+    const game::HomingResult result = m_homing_movement.Run(update_context);
     if(result.distance_to_target < 0.1f)
     {
         const bool transition_to_attack =
