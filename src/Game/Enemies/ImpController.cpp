@@ -59,6 +59,7 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &ImpController::ToIdle, &ImpController::Idle, this),
+        GoblinStateMachine::MakeState(States::TRACKING, &ImpController::ToTracking, &ImpController::Tracking, &ImpController::ExitTracking, this),
         GoblinStateMachine::MakeState(States::REPOSITION, &ImpController::ToReposition, &ImpController::Reposition, this),
         GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &ImpController::ToPrepareAttack, &ImpController::PrepareAttack, this),
         GoblinStateMachine::MakeState(States::ATTACKING, &ImpController::ToAttacking, &ImpController::Attacking, this),

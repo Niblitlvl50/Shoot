@@ -22,6 +22,7 @@ TrackingBehaviour::TrackingBehaviour()
     : m_tracking_position(math::INF, math::INF)
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
+    , m_time_since_last_update(10.0f)
 { }
 
 TrackingBehaviour::~TrackingBehaviour()
@@ -68,9 +69,12 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
     result.state = TrackingState::NO_PATH;
     result.distance_to_target = math::INF;
 
+    m_time_since_last_update += update_context.delta_s;
+
     const float distance_to_last = math::DistanceBetween(m_tracking_position, tracking_position);
-    if(distance_to_last > 1.0f)
+    if(distance_to_last > 2.0f && m_time_since_last_update > 5.0f)
     {
+        m_time_since_last_update = 0.0f;
         const bool path_updated = UpdatePath(tracking_position);
         if(!path_updated)
             return result;

@@ -61,6 +61,8 @@ namespace game
         float m_current_position;
         float m_meter_per_second;
 
+        float m_time_since_last_update;
+
         mono::IBody* m_control_body;
         mono::IConstraint* m_spring;
         mono::IPathPtr m_path;
