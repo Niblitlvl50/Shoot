@@ -19,6 +19,7 @@ NavigationSystem::NavigationSystem()
 {
     m_current_path_index = 0;
     m_recent_paths.resize(NumRecentPaths);
+    m_findpath_this_frame = 0;
 }
 
 const char* NavigationSystem::Name() const
@@ -35,6 +36,11 @@ void NavigationSystem::Reset()
 void NavigationSystem::Update(const mono::UpdateContext& update_context)
 {
     m_timestamp = update_context.timestamp;
+}
+
+void NavigationSystem::Sync()
+{
+    m_findpath_this_frame = 0;
 }
 
 void NavigationSystem::SetupNavmesh(const math::Vector& start, const math::Vector& end, float density, mono::PhysicsSpace* physics_space)
@@ -62,6 +68,8 @@ const NavmeshContext* NavigationSystem::GetNavmeshContext() const
 
 const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& start_position, const math::Vector& end_position)
 {
+    m_findpath_this_frame++;
+
     static const std::vector<math::Vector> empty_path;
 
     const int start_index = game::FindClosestIndex(m_navmesh, start_position);
@@ -89,4 +97,9 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
 const std::vector<RecentPath>& NavigationSystem::GetRecentPaths() const
 {
     return m_recent_paths;
+}
+
+int NavigationSystem::GetNumFindPath() const
+{
+    return m_findpath_this_frame;
 }

@@ -11,11 +11,13 @@ namespace game
         NDC_NONE = 0,
         DRAW_NAVMESH = 1,
         DRAW_RECENT_PATHS = 2,
+        DRAW_INTERACTIVE_PATH = 4,
     };
 
     constexpr uint32_t all_navigation_debug_component[] = {
         NavigationDebugComponents::DRAW_NAVMESH,
         NavigationDebugComponents::DRAW_RECENT_PATHS,
+        NavigationDebugComponents::DRAW_INTERACTIVE_PATH,
     };
 
     inline const char* NavigationDebugComponentToString(uint32_t debug_component)
@@ -28,6 +30,8 @@ namespace game
             return "Navmesh";
         case DRAW_RECENT_PATHS:
             return "Recent Paths";
+        case DRAW_INTERACTIVE_PATH:
+            return "Interactive Path";
         }
 
         return "Unknown";

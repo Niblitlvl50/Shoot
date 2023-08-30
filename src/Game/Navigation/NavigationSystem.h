@@ -21,11 +21,13 @@ namespace game
         const char* Name() const override;
         void Reset() override;
         void Update(const mono::UpdateContext& update_context) override;
+        void Sync() override;
 
         void SetupNavmesh(const math::Vector& start, const math::Vector& end, float density, mono::PhysicsSpace* physics_space);
         const NavmeshContext* GetNavmeshContext() const;
         const std::vector<math::Vector>& FindPath(const math::Vector& start, const math::Vector& end);
         const std::vector<RecentPath>& GetRecentPaths() const;
+        int GetNumFindPath() const;
 
     private:
 
@@ -34,5 +36,7 @@ namespace game
 
         int m_current_path_index;
         std::vector<RecentPath> m_recent_paths;
+
+        int m_findpath_this_frame;
     };
 }

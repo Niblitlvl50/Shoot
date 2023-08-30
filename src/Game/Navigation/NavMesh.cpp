@@ -6,6 +6,7 @@
 #include "Util/Algorithm.h"
 
 #include <set>
+#include <unordered_set>
 #include <unordered_map>
 #include <cmath>
 
@@ -76,7 +77,7 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
 
 float Heuristics(const game::NavmeshContext& context, int from, int to)
 {
-    return math::DistanceBetween(context.points[from], context.points[to]);
+    return math::DistanceBetweenSquared(context.points[from], context.points[to]);
 }
 
 std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int end)
@@ -86,8 +87,8 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
 
     std::unordered_map<int, int> came_from;
 
-    std::set<int> closed_set;
-    std::set<int> open_set;
+    std::unordered_set<int> closed_set;
+    std::unordered_set<int> open_set;
 
     std::unordered_map<int, float> g_score;
     std::unordered_map<int, float> f_score;
@@ -101,7 +102,7 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
     g_score[start] = 0;
     f_score[start] = Heuristics(context, start, end);
     
-    const auto find_lowest_f = [&f_score](const std::set<int>& open_set) {
+    const auto find_lowest_f = [&f_score](const std::unordered_set<int>& open_set) {
         
         float lowest_f = math::INF;
         int lowest_index = 0;
@@ -198,7 +199,7 @@ int game::FindClosestIndex(const game::NavmeshContext& context, const math::Vect
     for(uint32_t index = 0, end = context.points.size(); index < end; ++index)
     {
         const math::Vector& node_point = context.points[index];
-        const float distance = math::DistanceBetween(point, node_point);
+        const float distance = math::DistanceBetweenSquared(point, node_point);
         if(distance < closest_distance)
         {
             closest_distance = distance;

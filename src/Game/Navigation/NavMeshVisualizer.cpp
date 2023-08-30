@@ -17,6 +17,8 @@
 #include "NavMesh.h"
 #include "Debug/GameDebug.h"
 
+#include "System/System.h"
+
 using namespace game;
 
 NavmeshVisualizer::NavmeshVisualizer(const NavigationSystem* navigation_system, mono::EventHandler& event_handler)
@@ -65,7 +67,11 @@ void NavmeshVisualizer::Draw(mono::IRenderer& renderer) const
     if(game::g_draw_navmesh_subcomponents & game::NavigationDebugComponents::DRAW_RECENT_PATHS)
         DrawPaths(renderer);
 
-    DrawInteractivePath(renderer);
+    const int n_pathfinds = m_navigation_system->GetNumFindPath();
+    if(n_pathfinds > 0)
+        System::Log("[%u] PathFinds: %d", renderer.GetTimestamp(), n_pathfinds);
+
+    //DrawInteractivePath(renderer);
 }
 
 math::Quad NavmeshVisualizer::BoundingBox() const
