@@ -60,17 +60,21 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
     {
         ImGui::Checkbox("Transform System",     &game::g_draw_transformsystem);
         ImGui::Checkbox("Navmesh",              &game::g_draw_navmesh);
+        ImGui::PushID("NavmeshBitField");
         mono::DrawBitFieldType(
             game::g_draw_navmesh_subcomponents, game::all_navigation_debug_component, std::size(game::all_navigation_debug_component), game::NavigationDebugComponentToString);
+        ImGui::PopID();
         ImGui::Checkbox("Triggers",             &game::g_draw_triggers);
         ImGui::Checkbox("Targets",              &game::g_draw_targets);
         ImGui::Checkbox("Physics",              &game::g_draw_physics);
         ImGui::SameLine();
+        ImGui::PushID("PhysicsBitField");
         mono::DrawBitFieldType(
             game::g_draw_physics_subcomponents,
             mono::all_physics_debug_component,
             std::size(mono::all_physics_debug_component),
             mono::PhsicsDebugComponentToString);
+        ImGui::PopID();
         ImGui::Checkbox("Physics Interact",     &game::g_interact_physics);
         ImGui::Checkbox("Body Introspection",   &game::g_body_introspection);
         ImGui::Checkbox("Physics Stats",        &game::g_draw_physics_stats);

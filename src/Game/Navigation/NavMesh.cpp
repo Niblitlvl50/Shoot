@@ -38,6 +38,8 @@ std::vector<math::Vector> game::GenerateMeshPoints(const math::Vector start, con
 std::vector<game::NavmeshNode> game::GenerateMeshNodes(
     const std::vector<math::Vector>& points,  float connection_distance, NavmeshConnectionFilter filter_function)
 {
+    const float connection_distance_squared = connection_distance * connection_distance;
+
     std::vector<game::NavmeshNode> nodes;
     nodes.reserve(points.size());
 
@@ -54,11 +56,11 @@ std::vector<game::NavmeshNode> game::GenerateMeshNodes(
         for(uint32_t inner_index = 0; inner_index < points.size() && neighbour_count < std::size(node.neighbours_index); ++inner_index)
         {
             const math::Vector& inner_point = points[inner_index];
-            const float distance = math::DistanceBetween(point, inner_point);
-            if(distance == 0.0f)
+            const float distance_squared = math::DistanceBetweenSquared(point, inner_point);
+            if(distance_squared == 0.0f)
                 continue;
 
-            if(distance > connection_distance)
+            if(distance_squared > connection_distance_squared)
                 continue;
 
             const bool discard_connection = filter_function(point, inner_point);
@@ -92,11 +94,14 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
 
     std::unordered_map<int, float> g_score;
     std::unordered_map<int, float> f_score;
-    
-    for(const game::NavmeshNode& node : context.nodes)
+
+    g_score.reserve(context.nodes.size());
+    f_score.reserve(context.nodes.size());
+
+    for(int index = 0, index_end = context.nodes.size(); index < index_end; ++index)
     {
-        g_score[node.data_index] = math::INF;
-        f_score[node.data_index] = math::INF;
+        g_score[index] = math::INF;
+        f_score[index] = math::INF;
     }
 
     g_score[start] = 0;
