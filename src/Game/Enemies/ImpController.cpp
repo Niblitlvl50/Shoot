@@ -159,6 +159,8 @@ void ImpController::ToTracking()
     m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
     m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
     m_tracking_movement.UpdateEntityPosition();
+
+    m_sprite->SetAnimation(m_run_anim_id);
 }
 
 void ImpController::Tracking(const mono::UpdateContext& update_context)

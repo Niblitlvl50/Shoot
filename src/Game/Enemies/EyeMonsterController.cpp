@@ -123,7 +123,6 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
 {
     if(m_states.ActiveState() == States::SLEEPING)
         m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
-        //m_states.TransitionTo(States::AWAKE);
 
     if(category == CollisionCategory::PLAYER)
     {
@@ -223,6 +222,8 @@ void EyeMonsterController::ToTracking()
     m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
     m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
     m_tracking_movement.UpdateEntityPosition();
+
+    m_sprite->SetAnimation("idle");
 }
 
 void EyeMonsterController::TrackingState(const mono::UpdateContext& update_context)
@@ -233,7 +234,8 @@ void EyeMonsterController::TrackingState(const mono::UpdateContext& update_conte
         return;
     }
 
-    const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
+    const math::Vector& target_position = m_aquired_target->Position();
+    const TrackingResult result = m_tracking_movement.Run(update_context, target_position);
     switch(result.state)
     {
     case TrackingState::NO_PATH:
@@ -249,6 +251,14 @@ void EyeMonsterController::TrackingState(const mono::UpdateContext& update_conte
         m_states.TransitionTo(States::HUNT);
         break;
     }
+
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector delta = target_position - entity_position;
+
+    if(delta.x < 0.0f)
+        m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 }
 
 void EyeMonsterController::ExitTracking()
@@ -261,7 +271,7 @@ void EyeMonsterController::ToHunt()
     m_sprite->SetAnimation("idle");
 
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+    const math::Vector& target_position = m_aquired_target->Position();
 
     const math::Vector delta = (target_position - entity_position);
     const float angle = math::AngleFromVector(delta);
