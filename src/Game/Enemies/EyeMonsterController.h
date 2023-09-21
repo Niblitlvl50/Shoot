@@ -53,7 +53,6 @@ namespace game
 
         void ToTracking();
         void TrackingState(const mono::UpdateContext& update_context);
-        void ExitTracking();
 
         void ToHunt();
         void HuntState(const mono::UpdateContext& update_context);

@@ -37,16 +37,21 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
-    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_navigation_system = system_context->GetSystem<NavigationSystem>();
+    m_target_system = system_context->GetSystem<TargetSystem>();
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
-    mono::IBody* body = m_physics_system->GetBody(entity_id);
+    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* body = physics_system->GetBody(entity_id);
 
     m_homing_movement.SetBody(body);
     m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
     m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
+
+    m_tracking_movement.Init(body, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
 
     m_sprite = m_sprite_system->GetSprite(entity_id);
 
@@ -54,12 +59,10 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     m_run_anim_id = m_sprite->GetAnimationIdFromName("run");
     m_attack_anim_id = m_sprite->GetAnimationIdFromName("attack");
 
-    m_navigation_system = system_context->GetSystem<NavigationSystem>();
-    m_target_system = system_context->GetSystem<TargetSystem>();
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &ImpController::ToIdle, &ImpController::Idle, this),
-        GoblinStateMachine::MakeState(States::TRACKING, &ImpController::ToTracking, &ImpController::Tracking, &ImpController::ExitTracking, this),
+        GoblinStateMachine::MakeState(States::TRACKING, &ImpController::ToTracking, &ImpController::Tracking, this),
         GoblinStateMachine::MakeState(States::REPOSITION, &ImpController::ToReposition, &ImpController::Reposition, this),
         GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &ImpController::ToPrepareAttack, &ImpController::PrepareAttack, this),
         GoblinStateMachine::MakeState(States::ATTACKING, &ImpController::ToAttacking, &ImpController::Attacking, this),
@@ -155,11 +158,6 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
 
 void ImpController::ToTracking()
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
-    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
-    m_tracking_movement.UpdateEntityPosition();
-
     m_sprite->SetAnimation(m_run_anim_id);
 }
 
@@ -187,11 +185,6 @@ void ImpController::Tracking(const mono::UpdateContext& update_context)
         m_states.TransitionTo(States::REPOSITION);
         break;
     }
-}
-
-void ImpController::ExitTracking()
-{
-    m_tracking_movement.Release();
 }
 
 void ImpController::ToReposition()

@@ -60,6 +60,9 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
     m_homing_movement.SetForwardVelocity(tweak_values::velocity_m_per_s);
     m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
+    m_tracking_movement.Init(body, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
+
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
     m_target_system = system_context->GetSystem<game::TargetSystem>();
@@ -70,7 +73,7 @@ EyeMonsterController::EyeMonsterController(uint32_t entity_id, mono::SystemConte
         MyStateMachine::MakeState(States::SLEEPING, &EyeMonsterController::ToSleep,     &EyeMonsterController::SleepState, this),
         MyStateMachine::MakeState(States::AWAKE,    &EyeMonsterController::ToAwake,     &EyeMonsterController::AwakeState, this),
         MyStateMachine::MakeState(States::RETARGET, &EyeMonsterController::ToRetarget,  &EyeMonsterController::RetargetState, this),
-        MyStateMachine::MakeState(States::TRACKING, &EyeMonsterController::ToTracking,  &EyeMonsterController::TrackingState, &EyeMonsterController::ExitTracking, this),
+        MyStateMachine::MakeState(States::TRACKING, &EyeMonsterController::ToTracking,  &EyeMonsterController::TrackingState, this),
         MyStateMachine::MakeState(States::HUNT,     &EyeMonsterController::ToHunt,      &EyeMonsterController::HuntState, &EyeMonsterController::ExitHunt, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
@@ -218,11 +221,6 @@ void EyeMonsterController::RetargetState(const mono::UpdateContext& update_conte
 
 void EyeMonsterController::ToTracking()
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
-    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
-    m_tracking_movement.UpdateEntityPosition();
-
     m_sprite->SetAnimation("idle");
 }
 
@@ -259,11 +257,6 @@ void EyeMonsterController::TrackingState(const mono::UpdateContext& update_conte
         m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-}
-
-void EyeMonsterController::ExitTracking()
-{
-    m_tracking_movement.Release();
 }
 
 void EyeMonsterController::ToHunt()

@@ -50,7 +50,6 @@ namespace game
         const uint32_t m_entity_id;
 
         mono::TransformSystem* m_transform_system;
-        mono::PhysicsSystem* m_physics_system;
         mono::SpriteSystem* m_sprite_system;
         class TargetSystem* m_target_system;
 

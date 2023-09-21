@@ -37,7 +37,6 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
 
     game::NavigationSystem* navigation_system = system_context->GetSystem<game::NavigationSystem>();
@@ -45,8 +44,9 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
-    mono::IBody* entity_body = m_physics_system->GetBody(entity_id);
-    m_tracking_movement.Init(entity_body, m_physics_system, navigation_system);
+    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* entity_body = physics_system->GetBody(entity_id);
+    m_tracking_movement.Init(entity_body, navigation_system);
 
     m_target_system = system_context->GetSystem<TargetSystem>();
 
@@ -108,7 +108,6 @@ const char* FlyingMonsterController::GetDebugCategory() const
 void FlyingMonsterController::ToIdle()
 {
     m_idle_timer_s = 0.0f;
-    m_tracking_movement.UpdateEntityPosition();
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
     sprite->SetShade(mono::Color::WHITE);

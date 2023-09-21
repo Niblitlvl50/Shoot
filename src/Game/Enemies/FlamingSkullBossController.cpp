@@ -40,6 +40,10 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     , m_awake_state_timer_s(0.0f)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_navigation_system = system_context->GetSystem<game::NavigationSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
+
     m_transform = &m_transform_system->GetTransform(entity_id);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
@@ -53,18 +57,17 @@ FlamingSkullBossController::FlamingSkullBossController(uint32_t entity_id, mono:
     m_homing_movement.SetForwardVelocity(tweak_values::velocity);
     m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
 
-    m_stagger_behaviour.SetChanceAndDuration(0.1f, 1.0f);
+    m_tracking_movement.Init(body, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity);
 
-    m_damage_system = system_context->GetSystem<game::DamageSystem>();
-    m_navigation_system = system_context->GetSystem<game::NavigationSystem>();
-    m_target_system = system_context->GetSystem<game::TargetSystem>();
+    m_stagger_behaviour.SetChanceAndDuration(0.1f, 1.0f);
 
     using namespace std::placeholders;
 
     const MyStateMachine::StateTable& state_table = {
         MyStateMachine::MakeState(States::SLEEPING, &FlamingSkullBossController::ToSleep, &FlamingSkullBossController::SleepState, this),
         MyStateMachine::MakeState(States::AWAKE,    &FlamingSkullBossController::ToAwake, &FlamingSkullBossController::AwakeState, this),
-        MyStateMachine::MakeState(States::TRACKING, &FlamingSkullBossController::ToTracking, &FlamingSkullBossController::TrackingState, &FlamingSkullBossController::ExitTracking, this),
+        MyStateMachine::MakeState(States::TRACKING, &FlamingSkullBossController::ToTracking, &FlamingSkullBossController::TrackingState, this),
         MyStateMachine::MakeState(States::HUNT,     &FlamingSkullBossController::ToHunt,  &FlamingSkullBossController::HuntState, this),
     };
     m_states.SetStateTableAndState(state_table, States::SLEEPING);
@@ -174,10 +177,6 @@ void FlamingSkullBossController::AwakeState(const mono::UpdateContext& update_co
 
 void FlamingSkullBossController::ToTracking()
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
-    m_tracking_movement.SetTrackingSpeed(tweak_values::velocity);
-    m_tracking_movement.UpdateEntityPosition();
 }
 
 void FlamingSkullBossController::TrackingState(const mono::UpdateContext& update_context)
@@ -204,11 +203,6 @@ void FlamingSkullBossController::TrackingState(const mono::UpdateContext& update
         m_states.TransitionTo(States::HUNT);
         break;
     }
-}
-
-void FlamingSkullBossController::ExitTracking()
-{
-    m_tracking_movement.Release();
 }
 
 void FlamingSkullBossController::ToHunt()

@@ -39,13 +39,18 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_navigation_system = system_context->GetSystem<NavigationSystem>();
+    m_target_system = system_context->GetSystem<TargetSystem>();
 
-    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
-    mono::IBody* body = m_physics_system->GetBody(entity_id);
+    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    mono::IBody* body = physics_system->GetBody(entity_id);
 
     m_homing_movement.SetBody(body);
     m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
     m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
+
+    m_tracking_movement.Init(body, m_navigation_system);
+    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -53,15 +58,12 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = m_sprite->GetAnimationIdFromName("walk");
 
-    m_navigation_system = system_context->GetSystem<NavigationSystem>();
-    m_target_system = system_context->GetSystem<TargetSystem>();
-
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     m_weapon = weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::ENEMY);
 
     const GoblinStateMachine::StateTable state_table = {
         GoblinStateMachine::MakeState(States::IDLE, &GoblinFireController::ToIdle, &GoblinFireController::Idle, this),
-        GoblinStateMachine::MakeState(States::TRACKING, &GoblinFireController::ToTracking, &GoblinFireController::Tracking, &GoblinFireController::ExitTracking, this),
+        GoblinStateMachine::MakeState(States::TRACKING, &GoblinFireController::ToTracking, &GoblinFireController::Tracking, this),
         GoblinStateMachine::MakeState(States::REPOSITION, &GoblinFireController::ToReposition, &GoblinFireController::Reposition, this),
         GoblinStateMachine::MakeState(States::PREPARE_ATTACK, &GoblinFireController::ToPrepareAttack, &GoblinFireController::PrepareAttack, this),
         GoblinStateMachine::MakeState(States::ATTACKING, &GoblinFireController::ToAttacking, &GoblinFireController::Attacking, this),
@@ -163,11 +165,6 @@ void GoblinFireController::Idle(const mono::UpdateContext& update_context)
 
 void GoblinFireController::ToTracking()
 {
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    m_tracking_movement.Init(body, m_physics_system, m_navigation_system);
-    m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
-    m_tracking_movement.UpdateEntityPosition();
-
     m_sprite->SetAnimation(m_run_anim_id);
 }
 
@@ -195,11 +192,6 @@ void GoblinFireController::Tracking(const mono::UpdateContext& update_context)
         m_states.TransitionTo(States::REPOSITION);
         break;
     }
-}
-
-void GoblinFireController::ExitTracking()
-{
-    m_tracking_movement.Release();
 }
 
 void GoblinFireController::ToReposition()

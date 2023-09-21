@@ -33,7 +33,6 @@ namespace game
 
         void ToTracking();
         void Tracking(const mono::UpdateContext& update_context);
-        void ExitTracking();
 
         void ToReposition();
         void Reposition(const mono::UpdateContext& update_context);
@@ -57,7 +56,6 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
-        mono::PhysicsSystem* m_physics_system;
         class NavigationSystem* m_navigation_system;
         class TargetSystem* m_target_system;
 

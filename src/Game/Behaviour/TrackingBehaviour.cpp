@@ -3,6 +3,7 @@
 
 #include "Navigation/NavigationSystem.h"
 
+#include "Math/CriticalDampedSpring.h"
 #include "Paths/IPath.h"
 #include "Paths/PathFactory.h"
 
@@ -25,37 +26,14 @@ TrackingBehaviour::TrackingBehaviour()
     , m_time_since_last_update(10.0f)
 { }
 
-TrackingBehaviour::~TrackingBehaviour()
-{
-    Release();
-}
+TrackingBehaviour::~TrackingBehaviour() = default;
 
-void TrackingBehaviour::Init(mono::IBody* body, mono::PhysicsSystem* physics_system, NavigationSystem* navigation_system)
+void TrackingBehaviour::Init(mono::IBody* body, NavigationSystem* navigation_system)
 {
     MONO_ASSERT(body->GetType() == mono::BodyType::DYNAMIC);
 
     m_entity_body = body;
-    m_physics_system = physics_system;
     m_navigation_system = navigation_system;
-
-    m_control_body = m_physics_system->CreateKinematicBody();
-    m_control_body->SetPosition(body->GetPosition());
-    m_spring = m_physics_system->CreateSpring(m_control_body, body, 0.0f, 200.0f, 10.0f);
-}
-
-void TrackingBehaviour::Release()
-{
-    if(m_spring)
-    {
-        m_physics_system->ReleaseConstraint(m_spring);
-        m_spring = nullptr;
-    }
-
-    if(m_control_body)
-    {
-        m_physics_system->ReleaseKinematicBody(m_control_body);
-        m_control_body = nullptr;
-    }
 }
 
 void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
@@ -91,8 +69,21 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
     }
     else
     {
+        math::Vector current_position = m_entity_body->GetPosition();
         const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-        m_control_body->SetPosition(path_position);
+
+        constexpr float move_halflife = 0.3f;
+
+        math::critical_spring_damper(
+            current_position,
+            m_move_velocity,
+            path_position,
+            math::ZeroVec,
+            move_halflife,
+            update_context.delta_s);
+
+        m_entity_body->SetVelocity(m_move_velocity);
+        
         result.state = TrackingState::TRACKING;
     }
 
@@ -110,11 +101,6 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
     m_current_position = m_path->GetLengthFromPosition(position);
 
     return true;
-}
-
-void TrackingBehaviour::UpdateEntityPosition()
-{
-    m_control_body->SetPosition(m_entity_body->GetPosition());
 }
 
 const math::Vector& TrackingBehaviour::GetTrackingPosition() const
