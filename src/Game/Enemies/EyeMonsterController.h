@@ -68,6 +68,7 @@ namespace game
         const uint32_t m_entity_id;
         float m_visibility_check_timer_s;
         float m_retarget_timer_s;
+        bool m_force_update_path;
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;

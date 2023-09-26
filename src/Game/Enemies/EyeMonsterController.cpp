@@ -93,27 +93,30 @@ void EyeMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::engage_distance, mono::Color::MAGENTA);
     debug_drawer->DrawCircle(world_position, tweak_values::disengage_distance, mono::Color::CYAN);
 
-    const char* state = "Unknown";
-    switch(m_states.ActiveState())
-    {
-    case States::SLEEPING:
-        state = "Sleeping";
-        break;
-    case States::AWAKE:
-        state = "Awake";
-        break;
-    case States::RETARGET:
-        state = "Retarget";
-        break;
-    case States::TRACKING:
-        state = "Tracking";
-        break;
-    case States::HUNT:
-        state = "Hunting";
-        break;
-    }
+    const auto state_to_string = [](States state) {
+        switch(state)
+        {
+        case States::SLEEPING:
+            return "Sleeping";
+        case States::AWAKE:
+            return "Awake";
+        case States::RETARGET:
+            return "Retarget";
+        case States::TRACKING:
+            return "Tracking";
+        case States::HUNT:
+            return "Hunting";
+        }
 
-    debug_drawer->DrawWorldText(state, world_position, mono::Color::OFF_WHITE);
+        return "Unknown";
+    };
+
+    const char* active_state = state_to_string(m_states.ActiveState());
+    const char* previous_state = state_to_string(m_states.PreviousState());
+
+    char buffer[1024] = { };
+    std::snprintf(buffer, std::size(buffer), "%s (%s)", active_state, previous_state);
+    debug_drawer->DrawWorldText(buffer, world_position, mono::Color::OFF_WHITE);
 }
 
 const char* EyeMonsterController::GetDebugCategory() const
@@ -222,17 +225,25 @@ void EyeMonsterController::RetargetState(const mono::UpdateContext& update_conte
 void EyeMonsterController::ToTracking()
 {
     m_sprite->SetAnimation("idle");
+    m_force_update_path = true;
 }
 
 void EyeMonsterController::TrackingState(const mono::UpdateContext& update_context)
 {
-    if(!m_aquired_target->IsValid())
+    if(!m_aquired_target->IsValid()) 
     {
         m_states.TransitionTo(States::SLEEPING);
         return;
     }
 
     const math::Vector& target_position = m_aquired_target->Position();
+
+    if(m_force_update_path)
+    {
+        m_tracking_movement.UpdatePath(target_position);
+        m_force_update_path = false;
+    }
+
     const TrackingResult result = m_tracking_movement.Run(update_context, target_position);
     switch(result.state)
     {
