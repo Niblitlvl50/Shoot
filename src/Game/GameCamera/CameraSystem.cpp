@@ -33,7 +33,7 @@ namespace
 namespace tweak_values
 {
     constexpr float dead_zone = 1.0f;
-    constexpr float halflife = 0.2f;
+    //constexpr float halflife = 0.2f;
     constexpr float screen_shake_magnitude = 0.05f;
 }
 
@@ -86,25 +86,19 @@ void CameraSystem::Update(const mono::UpdateContext& update_context)
         }
 
         const math::Vector camera_position = m_camera->GetTargetPosition();
+        const math::Vector& delta = camera_position - centroid;
+        const float delta_length = math::Length(delta);
 
-        const float distance = math::DistanceBetween(centroid, camera_position);
-        if(distance > tweak_values::dead_zone)
-        {
-            math::Vector local_camera_position = camera_position;
-            math::critical_spring_damper(
-                local_camera_position,
-                m_current_camera_speed,
-                centroid,
-                math::ZeroVec,
-                tweak_values::halflife,
-                update_context.delta_s);
+        const math::Vector target_point = (delta_length < tweak_values::dead_zone) ?
+            camera_position : (centroid + math::Normalized(delta) * tweak_values::dead_zone);
 
-            m_camera->SetTargetPosition(local_camera_position);
-        }
+        m_camera->SetTargetPosition(target_point);
 
         if(game::g_draw_camera_debug)
         {
+            g_debug_drawer->DrawLine({ m_camera->GetPosition(), target_point }, 1.0f, mono::Color::BLUE);
             g_debug_drawer->DrawPoint(centroid, 4.0f, mono::Color::MAGENTA);
+            g_debug_drawer->DrawPoint(target_point, 4.0f, mono::Color::BLUE);
             g_debug_drawer->DrawCircle(camera_position, tweak_values::dead_zone, mono::Color::MAGENTA);
         }
     }
