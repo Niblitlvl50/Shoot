@@ -6,8 +6,6 @@
 
 #include "EventHandler/EventHandler.h"
 
-#include "ScopedTimer.h"
-
 using namespace game;
 
 namespace

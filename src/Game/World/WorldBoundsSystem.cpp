@@ -8,8 +8,6 @@
 #include "Rendering/RenderSystem.h"
 #include "Math/Triangulate.h"
 
-#include "ScopedTimer.h"
-
 using namespace game;
 
 WorldBoundsSystem::WorldBoundsSystem(mono::TransformSystem* transform_system)
