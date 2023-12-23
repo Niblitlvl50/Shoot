@@ -19,7 +19,6 @@
 
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
-#include "ScopedTimer.h"
 #include "Player/PlayerInfo.h"
 #include "WorldFile.h"
 #include "DamageSystem/DamageSystem.h"

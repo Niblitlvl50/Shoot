@@ -133,5 +133,6 @@
         "xmemory": "cpp",
         "xstddef": "cpp",
         "xtree": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

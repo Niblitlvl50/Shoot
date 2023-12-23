@@ -5,7 +5,7 @@
 
 namespace tweak_values
 {
-    constexpr float alive_time_s = 10.0f;
+    //constexpr float alive_time_s = 10.0f;
 }
 
 using namespace game;
@@ -16,7 +16,7 @@ LootBoxLogic::LootBoxLogic(uint32_t entity_id, game::InteractionSystem* interact
     , m_entity_manager(entity_manager)
     , m_alive_timer_s(0.0f)
 {
-    const InteractionCallback callback = [entity_manager](uint32_t entity_id, InteractionType type) {
+    const InteractionCallback callback = [](uint32_t entity_id, InteractionType type) {
         //entity_manager->ReleaseEntity(entity_id);
     };
     m_interaction_system->SetInteractionCallback(entity_id, callback);
