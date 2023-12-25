@@ -43,6 +43,7 @@ bool game::g_draw_particle_stats = false;
 bool game::g_draw_network_stats = false;
 bool game::g_draw_position_prediction = false;
 bool game::g_draw_debug_players = false;
+bool game::g_draw_debug_frametimes = false;
 bool game::g_draw_spawn_points = false;
 bool game::g_draw_camera_debug = false;
 bool game::g_draw_debug_uisystem = false;
@@ -83,6 +84,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Checkbox("Client Viewport",      &game::g_draw_client_viewport);
         ImGui::Checkbox("Prediction System",    &game::g_draw_position_prediction);
         ImGui::Checkbox("Players",              &game::g_draw_debug_players);
+        ImGui::Checkbox("Frame Times",          &game::g_draw_debug_frametimes);
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
         ImGui::Checkbox("UI Debug",             &game::g_draw_debug_uisystem);
@@ -156,6 +158,35 @@ void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_sys
 
         ImGui::End();
     }
+}
+
+void DrawFrameTimes(bool& show_window, const mono::CircularVector<float, 1000>& frame_times)
+{
+    constexpr int flags = 0;
+//        ImGuiWindowFlags_AlwaysAutoResize;
+
+    ImGui::SetNextWindowSize(ImVec2(1000, 500));
+    ImGui::Begin("DebugFrameTimes", &show_window, flags);
+
+    ImGui::PlotLines(
+        "Frame Times",
+        frame_times.Data(),
+        frame_times.Length(),
+        frame_times.Offset(),
+        nullptr,
+        0.01f, 0.064f,
+        ImVec2(-1, 200));
+
+    ImGui::PlotHistogram(
+        "Frame Times Histo",
+        frame_times.Data(),
+        frame_times.Length(),
+        frame_times.Offset(),
+        nullptr,
+        0.01f, 0.064f,
+        ImVec2(-1, 200));
+
+    ImGui::End();
 }
 
 void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono::EventHandler* event_handler)
@@ -421,15 +452,22 @@ DebugUpdater::~DebugUpdater()
     m_event_handler->RemoveListener(m_keyup_token);
 }
 
-void DebugUpdater::Draw(mono::IRenderer& renderer) const
+void DebugUpdater::Update(const mono::UpdateContext& update_context)
 {
     m_counter++;
+    m_frame_times.Push(update_context.delta_s_raw);
+}
 
+void DebugUpdater::Draw(mono::IRenderer& renderer) const
+{
     if(m_draw_debug_menu)
         DrawDebugMenu(m_logic_system, m_counter.Fps(), m_counter.Delta());
 
     if(m_draw_trigger_input)
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
+
+    if(game::g_draw_debug_frametimes)
+        DrawFrameTimes(game::g_draw_debug_frametimes, m_frame_times);
 
     if(game::g_draw_debug_players)
         DrawDebugPlayers(game::g_draw_debug_players, m_damage_system, m_event_handler);

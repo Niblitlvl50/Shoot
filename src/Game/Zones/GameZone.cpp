@@ -160,8 +160,10 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         g_draw_physics, g_interact_physics, g_body_introspection, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
     AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new TargetSystemDrawer(g_draw_targets, target_system), LayerId::UI);
-    AddDrawable(new DebugUpdater(m_system_context, m_event_handler, renderer), LayerId::UI);
     AddDrawable(new GameDebugDrawer(), LayerId::UI_DEBUG);
+
+    m_debug_updater = new DebugUpdater(m_system_context, m_event_handler, renderer);
+    AddUpdatableDrawable(m_debug_updater, LayerId::UI);
 
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, metadata);
@@ -177,6 +179,10 @@ int GameZone::OnUnload()
     RemoveUpdatableDrawable(m_region_ui);
     delete m_region_ui;
     m_region_ui = nullptr;
+
+    RemoveUpdatableDrawable(m_debug_updater);
+    delete m_debug_updater;
+    m_debug_updater = nullptr;
 
     ZoneBase::OnUnload();
 

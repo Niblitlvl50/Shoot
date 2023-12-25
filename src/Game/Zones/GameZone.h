@@ -32,6 +32,7 @@ namespace game
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
 
         class RegionDrawer* m_region_ui;
+        class DebugUpdater* m_debug_updater;
         std::unique_ptr<IGameMode> m_game_mode;
     };
 }
