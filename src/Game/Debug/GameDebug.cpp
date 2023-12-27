@@ -165,26 +165,28 @@ void DrawFrameTimes(bool& show_window, const mono::CircularVector<float, 1000>& 
     constexpr int flags = 0;
 //        ImGuiWindowFlags_AlwaysAutoResize;
 
-    ImGui::SetNextWindowSize(ImVec2(1000, 500));
+    ImGui::SetNextWindowSize(ImVec2(1000, 250));
     ImGui::Begin("DebugFrameTimes", &show_window, flags);
 
     ImGui::PlotLines(
         "Frame Times",
         frame_times.Data(),
-        frame_times.Length(),
+        frame_times.MaxSize(),
         frame_times.Offset(),
         nullptr,
         0.01f, 0.064f,
         ImVec2(-1, 200));
 
+/*
     ImGui::PlotHistogram(
         "Frame Times Histo",
         frame_times.Data(),
-        frame_times.Length(),
+        frame_times.MaxSize(),
         frame_times.Offset(),
         nullptr,
         0.01f, 0.064f,
         ImVec2(-1, 200));
+*/
 
     ImGui::End();
 }
