@@ -10,6 +10,7 @@ namespace game
     struct RecentPath
     {
         uint32_t timestamp;
+        float time_ms;
         std::vector<math::Vector> points;
     };
 

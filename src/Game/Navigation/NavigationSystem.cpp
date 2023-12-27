@@ -6,6 +6,7 @@
 
 #include "Physics/PhysicsSpace.h"
 #include "Util/Algorithm.h"
+#include "Util/ScopedTimer.h"
 
 
 namespace
@@ -78,13 +79,22 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
     if(start_index == end_index || start_index == -1 || end_index == -1)
         return empty_path;
 
-    const std::vector<int>& nav_path = game::AStar(m_navmesh, start_index, end_index);
-    if(nav_path.empty())
-        return empty_path;
-
+    std::vector<int> nav_path;
     RecentPath& recent_path = m_recent_paths[m_current_path_index % NumRecentPaths];
-    recent_path.timestamp = m_timestamp;
-    recent_path.points = game::PathToPoints(m_navmesh, nav_path);
+
+    {
+        const auto timer_callback = [&recent_path](float delta_ms) {
+            recent_path.time_ms = delta_ms;
+        };
+        const mono::ScopedTimerCallback scoped_timer(timer_callback);
+
+        nav_path = game::AStar(m_navmesh, start_index, end_index);
+        if(nav_path.empty())
+            return empty_path;
+
+        recent_path.timestamp = m_timestamp;
+        recent_path.points = game::PathToPoints(m_navmesh, nav_path);
+    }
 
     // Replace the first navmesh node position with current position, this creates a much better start and when updating a path.
     recent_path.points.front() = start_position;

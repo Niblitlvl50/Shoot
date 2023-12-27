@@ -18,6 +18,7 @@
 #include "Debug/GameDebug.h"
 
 #include "System/System.h"
+#include "imgui/imgui.h"
 
 using namespace game;
 
@@ -95,6 +96,13 @@ void NavmeshVisualizer::DrawNavmesh(mono::IRenderer& renderer) const
 
 void NavmeshVisualizer::DrawPaths(mono::IRenderer& renderer) const
 {
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::Begin("Navmesh Stats", nullptr, flags);
+    ImGui::Text("hello");
+
     const uint32_t timestamp = renderer.GetTimestamp();
 
     const std::vector<RecentPath>& recent_paths = m_navigation_system->GetRecentPaths();
@@ -107,7 +115,11 @@ void NavmeshVisualizer::DrawPaths(mono::IRenderer& renderer) const
 
         renderer.DrawPolyline(path.points, mono::Color::MakeWithAlpha(mono::Color::MAGENTA, alpha), 2.0f);
         renderer.DrawPoints(path.points, mono::Color::MakeWithAlpha(mono::Color::CYAN, alpha), 4.0f);
+
+        ImGui::TextDisabled("%f ms", path.time_ms);
     }
+
+    ImGui::End();
 }
 
 void NavmeshVisualizer::DrawInteractivePath(mono::IRenderer& renderer) const
