@@ -101,7 +101,6 @@ void NavmeshVisualizer::DrawPaths(mono::IRenderer& renderer) const
         ImGuiWindowFlags_NoResize;
 
     ImGui::Begin("Navmesh Stats", nullptr, flags);
-    ImGui::Text("hello");
 
     const uint32_t timestamp = renderer.GetTimestamp();
 
@@ -116,7 +115,7 @@ void NavmeshVisualizer::DrawPaths(mono::IRenderer& renderer) const
         renderer.DrawPolyline(path.points, mono::Color::MakeWithAlpha(mono::Color::MAGENTA, alpha), 2.0f);
         renderer.DrawPoints(path.points, mono::Color::MakeWithAlpha(mono::Color::CYAN, alpha), 4.0f);
 
-        ImGui::TextDisabled("%f ms", path.time_ms);
+        ImGui::TextDisabled("[%u] nodes evaluated: %d, %f ms", path.timestamp, path.nodes_evaluated, path.time_ms);
     }
 
     ImGui::End();
@@ -167,8 +166,8 @@ mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
         else
             m_end = game::FindClosestIndex(*navmesh_context, position);
 
-        const std::vector<int>& nav_path = game::AStar(*navmesh_context, m_start, m_end);
-        const std::vector<math::Vector>& nav_points = game::PathToPoints(*navmesh_context, nav_path);
+        const game::NavigationResult& nav_path = game::AStar(*navmesh_context, m_start, m_end);
+        const std::vector<math::Vector>& nav_points = game::PathToPoints(*navmesh_context, nav_path.path_indices);
         m_path = mono::CreatePath(nav_points);
     }
 

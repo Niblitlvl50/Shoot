@@ -36,7 +36,7 @@ std::vector<math::Vector> game::GenerateMeshPoints(const math::Vector start, con
 }
 
 std::vector<game::NavmeshNode> game::GenerateMeshNodes(
-    const std::vector<math::Vector>& points,  float connection_distance, NavmeshConnectionFilter filter_function)
+    const std::vector<math::Vector>& points,  float connection_distance, const NavmeshConnectionFilter& filter_function)
 {
     const float connection_distance_squared = connection_distance * connection_distance;
 
@@ -82,10 +82,23 @@ float Heuristics(const game::NavmeshContext& context, int from, int to)
     return math::DistanceBetweenSquared(context.points[from], context.points[to]);
 }
 
-std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int end)
+game::NavigationResult game::AStar(const game::NavmeshContext& context, int start_index, int end_index)
 {
-    if(start == end || context.nodes.empty() || context.points.empty())
-        return { };
+    NavigationResult result;
+    result.nodes_evaluated = 0;
+    result.result = AStarResult::FAILED;
+
+    if(context.nodes.empty() || context.points.empty())
+        return result;
+
+    if(start_index == -1 || end_index == -1)
+        return result;
+
+    if(start_index == end_index)
+    {
+        result.result = AStarResult::SUCCESS;
+        return result;
+    }
 
     std::unordered_map<int, int> came_from;
 
@@ -104,8 +117,8 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
         f_score[index] = math::INF;
     }
 
-    g_score[start] = 0;
-    f_score[start] = Heuristics(context, start, end);
+    g_score[start_index] = 0;
+    f_score[start_index] = Heuristics(context, start_index, end_index);
     
     const auto find_lowest_f = [&f_score](const std::unordered_set<int>& open_set) {
         
@@ -125,7 +138,7 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
         return lowest_index;
     };
 
-    open_set.insert(start);
+    open_set.insert(start_index);
 
     while(!open_set.empty())
     {
@@ -134,7 +147,8 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
         open_set.erase(current_index);
         closed_set.insert(current_index);
 
-        if(current_index == end)
+        // We are at the goal!
+        if(current_index == end_index)
             break;
 
         const NavmeshNode& node = context.nodes[current_index];
@@ -160,16 +174,22 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
 
             came_from[neighbour_index] = current_index;
             g_score[neighbour_index] = tentative_g_score;
-            f_score[neighbour_index] = tentative_g_score + Heuristics(context, neighbour_index, end);
+            f_score[neighbour_index] = tentative_g_score + Heuristics(context, neighbour_index, end_index);
         }
     }
-    
-    std::vector<int> path_indices;
-    int current = end;
 
-    while(current != start)
+    if(came_from.empty())
     {
-        path_indices.push_back(current);
+        result.result = AStarResult::NO_PATH;
+        return result;
+    }
+    
+    int current = end_index;
+
+    // Unravel the path
+    while(current != start_index)
+    {
+        result.path_indices.push_back(current);
         const auto it = came_from.find(current);
         if(it == came_from.end())
             break;
@@ -177,12 +197,23 @@ std::vector<int> game::AStar(const game::NavmeshContext& context, int start, int
         current = it->second;
     }
 
-    if(current == start)
-        path_indices.push_back(start);
+    if(current == start_index)
+        result.path_indices.push_back(start_index);
     
-    std::reverse(path_indices.begin(), path_indices.end());
+    std::reverse(result.path_indices.begin(), result.path_indices.end());
 
-    return path_indices;
+    result.result = AStarResult::SUCCESS;
+    result.nodes_evaluated = closed_set.size();
+
+    return result;
+}
+
+game::NavigationResult game::AStar(const game::NavmeshContext& context, const math::Vector& start, const math::Vector& end)
+{
+    const int start_index = game::FindClosestIndex(context, start);
+    const int end_index = game::FindClosestIndex(context, end);
+
+    return AStar(context, start_index, end_index);
 }
 
 std::vector<math::Vector> game::PathToPoints(const game::NavmeshContext& context, const std::vector<int>& path)

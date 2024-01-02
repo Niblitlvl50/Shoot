@@ -73,27 +73,21 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
 
     static const std::vector<math::Vector> empty_path;
 
-    const int start_index = game::FindClosestIndex(m_navmesh, start_position);
-    const int end_index = game::FindClosestIndex(m_navmesh, end_position);
-
-    if(start_index == end_index || start_index == -1 || end_index == -1)
-        return empty_path;
-
-    std::vector<int> nav_path;
     RecentPath& recent_path = m_recent_paths[m_current_path_index % NumRecentPaths];
 
     {
         const auto timer_callback = [&recent_path](float delta_ms) {
             recent_path.time_ms = delta_ms;
         };
-        const mono::ScopedTimerCallback scoped_timer(timer_callback);
+        SCOPED_TIMER_AUTO_CB(timer_callback);
 
-        nav_path = game::AStar(m_navmesh, start_index, end_index);
-        if(nav_path.empty())
+        const game::NavigationResult& nav_path = game::AStar(m_navmesh, start_position, end_position);
+        if(nav_path.result == AStarResult::FAILED)
             return empty_path;
 
         recent_path.timestamp = m_timestamp;
-        recent_path.points = game::PathToPoints(m_navmesh, nav_path);
+        recent_path.nodes_evaluated = nav_path.nodes_evaluated;
+        recent_path.points = game::PathToPoints(m_navmesh, nav_path.path_indices);
     }
 
     // Replace the first navmesh node position with current position, this creates a much better start and when updating a path.

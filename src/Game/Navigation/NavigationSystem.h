@@ -11,6 +11,7 @@ namespace game
     {
         uint32_t timestamp;
         float time_ms;
+        int nodes_evaluated;
         std::vector<math::Vector> points;
     };
 
