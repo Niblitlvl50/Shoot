@@ -2,11 +2,8 @@
 #include "NavMesh.h"
 #include "NavmeshFactory.h"
 #include "Math/MathFunctions.h"
-#include "WorldFile.h"
 #include "Util/Algorithm.h"
 
-#include <set>
-#include <unordered_set>
 #include <unordered_map>
 #include <cmath>
 
@@ -102,8 +99,8 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
 
     std::unordered_map<int, int> came_from;
 
-    std::unordered_set<int> closed_set;
-    std::unordered_set<int> open_set;
+    std::vector<int> closed_set;
+    std::vector<int> open_set;
 
     std::vector<float> g_score(context.nodes.size(), math::INF);
     std::vector<float> f_score(context.nodes.size(), math::INF);
@@ -111,8 +108,8 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
     g_score[start_index] = 0;
     f_score[start_index] = Heuristics(context, start_index, end_index);
     
-    const auto find_lowest_f = [&f_score](const std::unordered_set<int>& open_set) {
-        
+    const auto find_lowest_f = [&f_score](const std::vector<int>& open_set) {
+
         float lowest_f = math::INF;
         int lowest_index = 0;
         
@@ -129,18 +126,23 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
         return lowest_index;
     };
 
-    open_set.insert(start_index);
+    bool found_goal = false;
+
+    open_set.push_back(start_index);
 
     while(!open_set.empty())
     {
         const int current_index = find_lowest_f(open_set);
 
-        open_set.erase(current_index);
-        closed_set.insert(current_index);
+        mono::remove(open_set, current_index);
+        closed_set.push_back(current_index);
 
         // We are at the goal!
         if(current_index == end_index)
+        {
+            found_goal = true; 
             break;
+        }
 
         const NavmeshNode& node = context.nodes[current_index];
 
@@ -149,15 +151,15 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
             if(neighbour_index == -1)
                 continue;
 
-            // Node is already evaluated
-            if(closed_set.count(neighbour_index) == 1)
+            const bool already_evaluated = mono::contains(closed_set, neighbour_index);
+            if (already_evaluated)
                 continue;
 
-            if(open_set.count(neighbour_index) == 0)
-                open_set.insert(neighbour_index);
+            const bool in_open_set = mono::contains(open_set, neighbour_index);
+            if (!in_open_set)
+                open_set.push_back(neighbour_index);
 
-            const float tentative_g_score =
-                g_score[current_index] + Heuristics(context, current_index, neighbour_index);
+            const float tentative_g_score = g_score[current_index] + Heuristics(context, current_index, neighbour_index);
 
             // Not better path
             if(tentative_g_score >= g_score[neighbour_index])
@@ -169,7 +171,7 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
         }
     }
 
-    if(came_from.empty())
+    if(!found_goal)
     {
         result.result = AStarResult::NO_PATH;
         return result;
