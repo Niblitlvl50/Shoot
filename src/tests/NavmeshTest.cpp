@@ -33,9 +33,9 @@ protected:
 TEST_F(Navmesh, AStar)
 {
     std::vector<int> nodes_evaluated;
-    nodes_evaluated.reserve(100);
+    nodes_evaluated.reserve(1000);
 
-    for(int index = 0; index < 100; ++index)
+    for(int index = 0; index < 1000; ++index)
     {
         const math::Vector start_position = {
             mono::Random(m_min_navmesh.x, m_max_navmesh.x),

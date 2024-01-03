@@ -105,17 +105,8 @@ game::NavigationResult game::AStar(const game::NavmeshContext& context, int star
     std::unordered_set<int> closed_set;
     std::unordered_set<int> open_set;
 
-    std::unordered_map<int, float> g_score;
-    std::unordered_map<int, float> f_score;
-
-    g_score.reserve(context.nodes.size());
-    f_score.reserve(context.nodes.size());
-
-    for(int index = 0, index_end = context.nodes.size(); index < index_end; ++index)
-    {
-        g_score[index] = math::INF;
-        f_score[index] = math::INF;
-    }
+    std::vector<float> g_score(context.nodes.size(), math::INF);
+    std::vector<float> f_score(context.nodes.size(), math::INF);
 
     g_score[start_index] = 0;
     f_score[start_index] = Heuristics(context, start_index, end_index);
