@@ -18,7 +18,6 @@ namespace game
             mono::IEntityManager* entity_manager,
             mono::SystemContext* system_context);
 
-        WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override;
         WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override;
         void StopFire(uint32_t timestamp) override;
         void Reload(uint32_t timestamp) override;

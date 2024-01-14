@@ -21,10 +21,6 @@ namespace
     {
     public:
 
-        game::WeaponState Fire(const math::Vector& position, float direction, uint32_t timestamp) override
-        {
-            return game::WeaponState::IDLE;
-        }
         game::WeaponState Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp) override
         {
             return game::WeaponState::IDLE;

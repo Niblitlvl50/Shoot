@@ -36,12 +36,6 @@ ThrowableWeapon::ThrowableWeapon(
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 }
 
-WeaponState ThrowableWeapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
-{
-    MONO_ASSERT(false); // Use the other fire for now...
-    return m_state;
-}
-
 WeaponState ThrowableWeapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
 {
     const float reload_delta = float(timestamp - m_last_reload_timestamp) / 1000.0f;

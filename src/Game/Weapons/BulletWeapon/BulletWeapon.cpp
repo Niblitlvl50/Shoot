@@ -78,12 +78,6 @@ Weapon::~Weapon()
         m_entity_manager->RemoveReleaseCallback(pair.first, pair.second);
 }
 
-WeaponState Weapon::Fire(const math::Vector& position, float direction, uint32_t timestamp)
-{
-    const math::Vector target = math::VectorFromAngle(direction) * 2.0f;
-    return Fire(position, position + target, timestamp);
-}
-
 WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& target, uint32_t timestamp)
 {
     if(m_state == WeaponState::RELOADING)
