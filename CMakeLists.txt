@@ -108,6 +108,8 @@ add_dependencies(game_exe game_lib mono)
 target_include_directories(game_exe PRIVATE "src/Game")
 target_link_libraries(game_exe game_lib mono)
 
+set_property(TARGET game_exe PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
+
 # set_target_properties(game_exe PROPERTIES
 #     XCODE_GENERATE_SCHEME TRUE
 #     XCODE_SCHEME_WORKING_DIRECTORY "."
