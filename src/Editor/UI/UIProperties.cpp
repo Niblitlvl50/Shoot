@@ -765,7 +765,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
                     ImGui::GetItemRectMax(),
                     ImGui::GetColorU32(ImGuiCol_DragDropTarget),
                     3.0f,
-                    ImDrawCornerFlags_All,
+                    ImDrawFlags_RoundCornersAll,
                     2.0f);
                 ImGui::SetScrollFromPosY(ImGui::GetItemRectMax().y);
             }
@@ -1045,7 +1045,7 @@ editor::PaletteResult editor::DrawPaletteView(const std::vector<mono::Color::RGB
                 ImGui::GetItemRectMax(),
                 ImGui::GetColorU32(ImGuiCol_DragDropTarget),
                 3.0f,
-                ImDrawCornerFlags_All,
+                ImDrawFlags_RoundCornersAll,
                 2.0f);
         }
     }
