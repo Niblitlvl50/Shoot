@@ -5,6 +5,7 @@
 .vscode/**/*.bin
 .vscode/**/*.ipch
 .vscode/ipch/*
+.vs/*
 CMakeCache.txt
 cmake_install.cmake
 Makefile
