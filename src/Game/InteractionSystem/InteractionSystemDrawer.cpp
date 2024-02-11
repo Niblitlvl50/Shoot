@@ -28,6 +28,7 @@ namespace
         "res/sprites/button_cross.sprite",
         "res/sprites/button_cross.sprite",
         "res/sprites/button_cross.sprite",
+        "res/sprites/button_cross.sprite",
     };
 
     static_assert(std::size(g_interaction_type_sprite) == std::size(game::interaction_type_verb));

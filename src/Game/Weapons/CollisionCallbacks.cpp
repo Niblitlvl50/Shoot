@@ -14,6 +14,7 @@
 #include "Particle/ParticleSystem.h"
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/PhysicsSpace.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "SystemContext.h"
@@ -166,4 +167,39 @@ void game::CacoPlasmaCollision(
 
     if(details.body)
         SpawnEntityWithAnimation("res/entities/explosion_caco.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
+}
+
+
+#include "Debug/IDebugDrawer.h"
+
+void game::WebberCollision(
+    uint32_t entity_id,
+    uint32_t owner_entity_id,
+    int damage,
+    game::BulletImpactFlag flags,
+    const game::CollisionDetails& details,
+    mono::IEntityManager* entity_manager,
+    game::DamageSystem* damage_system,
+    mono::PhysicsSystem* physics_system,
+    mono::SpriteSystem* sprite_system,
+    mono::TransformSystem* transform_system)
+{
+    StandardCollision(
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+
+    const std::vector<mono::QueryResult> found_bodies =
+        physics_system->GetSpace()->QueryRadius(details.point, 2.5f, game::CollisionCategory::ENEMY);
+
+    for(const mono::QueryResult& query_result : found_bodies)
+    {
+        //const uint32_t other_entity_id = physics_system->GetIdFromBody(query_result.body);
+        const math::Vector body_position = query_result.body->GetPosition();
+
+        g_debug_drawer->DrawPointFading(body_position, 5.0f, mono::Color::RED, 5.0f);
+        g_debug_drawer->DrawLineFading({ details.point, body_position }, 1.0f, mono::Color::CYAN, 5.0f);
+
+    }
+
+    //if(details.body)
+    //    SpawnEntityWithAnimation("res/entities/explosion_caco.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }

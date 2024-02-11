@@ -80,6 +80,7 @@ WeaponSystem::WeaponSystem(
         { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet"),        std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet_homing"), std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
     };
 }
 
@@ -155,9 +156,9 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     const WeaponConfiguration& weapon_config = m_weapon_configuration.weapon_configs[setup.weapon_hash];
     const BulletConfiguration& bullet_config = m_weapon_configuration.bullet_configs[setup.bullet_hash];
 
-    CollisionConfiguration collision_config;
-
     const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
+
+    CollisionConfiguration collision_config;
     collision_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
     collision_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
     collision_config.collision_callback = nullptr;

@@ -647,6 +647,17 @@ void PlayerLogic::PickupDrop()
             //};
             //const uint32_t m_package_release_callback = m_entity_system->AddReleaseCallback(m_picked_up_id, release_callback);
         }
+        else if(interaction_type == InteractionType::WEAPON)
+        {
+            {
+                // Spawn dropped weapon...
+                
+                const IWeaponPtr& current_weapon = m_weapons[m_weapon_index];
+                const game::WeaponSetup weapon_setup = current_weapon->GetWeaponSetup();
+            }
+
+            m_weapons[m_weapon_index] = m_weapon_system->CreatePrimaryWeapon(interaction_id, WeaponFaction::PLAYER);
+        }
     };
     m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
 }

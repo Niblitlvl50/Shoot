@@ -9,6 +9,7 @@ namespace game
         NPC,
         SIGN,
         PICKUP,
+        WEAPON,
     };
 
     constexpr const char* interaction_type_strings[] = {
@@ -16,6 +17,7 @@ namespace game
         "NPC",
         "Sign",
         "Pickup",
+        "Weapon",
     };
 
     constexpr const char* interaction_type_verb[] = {
@@ -23,6 +25,7 @@ namespace game
         "Talk",
         "Read",
         "Pickup",
+        "Take",
     };
 
     inline const char* InteractionTypeToString(InteractionType interaction_type)
