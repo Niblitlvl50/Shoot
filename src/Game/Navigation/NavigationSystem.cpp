@@ -5,9 +5,9 @@
 #include "CollisionConfiguration.h"
 
 #include "Physics/PhysicsSpace.h"
+#include "System/Debug.h"
 #include "Util/Algorithm.h"
 #include "Util/ScopedTimer.h"
-
 
 namespace
 {
@@ -85,13 +85,18 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
         if(nav_path.result == AStarResult::FAILED)
             return empty_path;
 
+        MONO_ASSERT(!nav_path.path_indices.empty());
+
         recent_path.timestamp = m_timestamp;
         recent_path.nodes_evaluated = nav_path.nodes_evaluated;
         recent_path.points = game::PathToPoints(m_navmesh, nav_path.path_indices);
     }
 
-    // Replace the first navmesh node position with current position, this creates a much better start and when updating a path.
-    recent_path.points.front() = start_position;
+    if (!recent_path.points.empty())
+    {
+        // Replace the first navmesh node position with current position, this creates a much better start and when updating a path.
+        recent_path.points.front() = start_position;
+    }
 
     m_current_path_index++;
 
