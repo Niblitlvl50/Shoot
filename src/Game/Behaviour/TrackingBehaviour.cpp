@@ -51,7 +51,9 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
     m_time_since_last_update += update_context.delta_s;
 
     const float distance_to_last = math::DistanceBetween(m_tracking_position, tracking_position);
-    if(distance_to_last > 2.0f && m_time_since_last_update > 5.0f)
+    const bool time_to_update_path = distance_to_last > 2.0f && m_time_since_last_update > 5.0f;
+
+    if(!m_path || time_to_update_path)
     {
         m_time_since_last_update = 0.0f;
         const bool path_updated = UpdatePath(tracking_position);
