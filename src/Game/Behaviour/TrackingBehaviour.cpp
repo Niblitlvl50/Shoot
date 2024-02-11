@@ -34,6 +34,7 @@ void TrackingBehaviour::Init(mono::IBody* body, NavigationSystem* navigation_sys
 
     m_entity_body = body;
     m_navigation_system = navigation_system;
+    m_tracking_position = body->GetPosition();
 }
 
 void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
