@@ -57,8 +57,8 @@ namespace
 
 namespace tweak_values
 {
-    constexpr float level_result_duration_s = 3.0f;
-    constexpr float fade_duration_s = 1.0f;
+    constexpr float level_result_duration_s = 1.5f;
+    constexpr float fade_duration_s = 0.7f;
 }
 
 using namespace game;
