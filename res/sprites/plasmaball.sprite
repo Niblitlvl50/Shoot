@@ -24,21 +24,21 @@
             "h": 14,
             "name": "plasmaball_idle_2",
             "w": 15,
-            "x": 1609,
+            "x": 1590,
             "y": 382
         },
         {
             "h": 14,
             "name": "plasmaball_idle_3",
             "w": 15,
-            "x": 1590,
+            "x": 1609,
             "y": 382
         },
         {
             "h": 15,
             "name": "plasmaball_idle_4",
             "w": 15,
-            "x": 826,
+            "x": 769,
             "y": 382
         }
     ],

@@ -163,21 +163,21 @@
             "h": 14,
             "name": "eye_monster_medium_run_1",
             "w": 20,
-            "x": 1205,
+            "x": 1319,
             "y": 382
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_2",
             "w": 20,
-            "x": 1319,
+            "x": 1205,
             "y": 382
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_3",
             "w": 20,
-            "x": 1343,
+            "x": 1181,
             "y": 382
         },
         {
@@ -205,7 +205,7 @@
             "h": 14,
             "name": "eye_monster_medium_run_7",
             "w": 20,
-            "x": 1181,
+            "x": 1343,
             "y": 382
         },
         {

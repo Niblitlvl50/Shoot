@@ -23,6 +23,7 @@
         "res/entities/familiar_bat.entity",
         "res/entities/familiar_brain_monster.entity",
         "res/entities/familiar_jellyfish.entity",
+        "res/entities/hookshot_grappler.entity",
         "res/entities/loot_box.entity",
         "res/entities/monster_evil_putto.entity",
         "res/entities/monster_eye_small.entity",
@@ -49,6 +50,7 @@
         "res/entities/small_crosshair.entity",
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
+        "res/entities/weapon_pickup.entity",
         "res/entities/wooden_log.entity"
     ]
 }

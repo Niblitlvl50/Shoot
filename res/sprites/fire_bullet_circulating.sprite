@@ -24,14 +24,14 @@
             "h": 7,
             "name": "fire_bullet_circulating_idle_2",
             "w": 8,
-            "x": 727,
+            "x": 703,
             "y": 418
         },
         {
             "h": 8,
             "name": "fire_bullet_circulating_idle_3",
             "w": 7,
-            "x": 185,
+            "x": 174,
             "y": 418
         },
         {

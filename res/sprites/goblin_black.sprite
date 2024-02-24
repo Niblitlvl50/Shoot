@@ -116,7 +116,7 @@
             "h": 22,
             "name": "goblin_black_attack_7",
             "w": 20,
-            "x": 1043,
+            "x": 995,
             "y": 334
         },
         {
@@ -172,28 +172,28 @@
             "h": 21,
             "name": "goblin_black_gesture_5",
             "w": 16,
-            "x": 562,
+            "x": 435,
             "y": 336
         },
         {
             "h": 22,
             "name": "goblin_black_gesture_6",
             "w": 15,
-            "x": 1748,
+            "x": 1767,
             "y": 334
         },
         {
             "h": 21,
             "name": "goblin_black_gesture_7",
             "w": 16,
-            "x": 435,
+            "x": 542,
             "y": 336
         },
         {
             "h": 22,
             "name": "goblin_black_gesture_8",
             "w": 15,
-            "x": 1767,
+            "x": 1748,
             "y": 334
         },
         {

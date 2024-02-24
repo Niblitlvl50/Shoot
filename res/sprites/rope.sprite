@@ -6,16 +6,16 @@
                 0
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
         }
     ],
     "frames": [
         {
-            "h": 26,
-            "name": "cactus_7",
-            "w": 32,
-            "x": 150,
-            "y": 293
+            "h": 16,
+            "name": "rope_idle_1",
+            "w": 2,
+            "x": 612,
+            "y": 361
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/vegetation/cacti/",
+    "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

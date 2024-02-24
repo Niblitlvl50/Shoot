@@ -59,7 +59,7 @@
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 1870,
+            "x": 1673,
             "y": 335
         },
         {
@@ -80,14 +80,14 @@
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 1673,
+            "x": 1870,
             "y": 335
         },
         {
             "h": 28,
             "name": "explosion_medium_3_idle_10",
             "w": 32,
-            "x": 522,
+            "x": 202,
             "y": 272
         },
         {
