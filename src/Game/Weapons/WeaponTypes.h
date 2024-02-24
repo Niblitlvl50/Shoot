@@ -19,6 +19,8 @@ namespace game
     struct WeaponSetup
     {
         WeaponSetup()
+            : weapon_hash(0)
+            , bullet_hash(0)
         { }
 
         WeaponSetup(uint32_t weapon_hash, uint32_t bullet_hash)
@@ -37,6 +39,7 @@ namespace game
 
     struct WeaponConfig
     {
+        std::string weapon_pickup_entity;
         std::unordered_map<uint32_t, struct BulletConfiguration> bullet_configs;
         std::unordered_map<uint32_t, struct WeaponConfiguration> weapon_configs;
         std::unordered_map<uint32_t, struct WeaponBulletCombination> weapon_combinations;
@@ -44,4 +47,5 @@ namespace game
     };
 
     WeaponConfig LoadWeaponConfig(const char* weapon_config);
+    WeaponSetup FindWeaponSetupFromString(const WeaponConfig& weapon_config, const char* weapon_combination_name);
 }

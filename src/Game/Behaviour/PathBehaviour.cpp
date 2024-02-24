@@ -19,7 +19,7 @@ PathBehaviour::PathBehaviour(
 {
     MONO_ASSERT(entity_body->GetType() == mono::BodyType::DYNAMIC);
     m_control_body = m_physics_system->CreateKinematicBody();
-    m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, 0.0f, 200.0f, 10.0f);
+    m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, math::ZeroVec, math::ZeroVec, 0.0f, 200.0f, 10.0f);
 }
 
 PathBehaviour::~PathBehaviour()

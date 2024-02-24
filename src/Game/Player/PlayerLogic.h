@@ -60,6 +60,8 @@ namespace game
         void HandlePickup(PickupType type, int amount);
 
         void CycleWeapon();
+        void TriggerHookshot();
+        void ReleaseHookshot();
 
         void Throw(float throw_force);
         void ThrowAction();
@@ -177,5 +179,7 @@ namespace game
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;
         float m_pickup_mass;
+
+        std::unique_ptr<class HookshotLogic> m_hookshot;
     };
 }

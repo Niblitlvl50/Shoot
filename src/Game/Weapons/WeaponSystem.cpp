@@ -9,6 +9,7 @@
 #include "DamageSystem/DamageSystem.h"
 
 #include "SystemContext.h"
+#include "EntitySystem/IEntityManager.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
@@ -66,7 +67,8 @@ WeaponSystem::WeaponSystem(
     game::CameraSystem* camera_system,
     mono::IEntityManager* entity_manager,
     mono::SystemContext* system_context)
-    : m_entity_manager(entity_manager)
+    : m_transform_system(transform_system)
+    , m_entity_manager(entity_manager)
     , m_system_context(system_context)
 {
     m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");
@@ -107,6 +109,16 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
 void WeaponSystem::SetWeaponLoadout(
     uint32_t entity_id, const std::string& primary, const std::string& secondary, const std::string& tertiary)
 {
+    SetWeaponLoadout(
+        entity_id,
+        game::FindWeaponSetupFromString(m_weapon_configuration, primary.c_str()),
+        game::FindWeaponSetupFromString(m_weapon_configuration, secondary.c_str()),
+        game::FindWeaponSetupFromString(m_weapon_configuration, tertiary.c_str()));
+}
+
+void WeaponSystem::SetWeaponLoadout(
+    uint32_t entity_id, const WeaponSetup& primary, const WeaponSetup& secondary, const WeaponSetup& tertiary)
+{
     m_weapon_loadout[entity_id] = { primary, secondary, tertiary };
 }
 
@@ -116,7 +128,7 @@ IWeaponPtr WeaponSystem::CreatePrimaryWeapon(uint32_t entity_id, WeaponFaction f
     if(it == m_weapon_loadout.end())
         return std::make_unique<NullWeapon>();
 
-    return CreateWeapon(it->second.primary_name.c_str(), faction, entity_id);
+    return CreateWeapon(it->second.primary, faction, entity_id);
 }
 
 IWeaponPtr WeaponSystem::CreateSecondaryWeapon(uint32_t entity_id, WeaponFaction faction)
@@ -125,7 +137,7 @@ IWeaponPtr WeaponSystem::CreateSecondaryWeapon(uint32_t entity_id, WeaponFaction
     if(it == m_weapon_loadout.end())
         return std::make_unique<NullWeapon>();
 
-    return CreateWeapon(it->second.secondary_name.c_str(), faction, entity_id);
+    return CreateWeapon(it->second.secondary, faction, entity_id);
 }
 
 IWeaponPtr WeaponSystem::CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction faction)
@@ -134,7 +146,7 @@ IWeaponPtr WeaponSystem::CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction 
     if(it == m_weapon_loadout.end())
         return std::make_unique<NullWeapon>();
 
-    return CreateWeapon(it->second.tertiary_name.c_str(), faction, entity_id);
+    return CreateWeapon(it->second.tertiary, faction, entity_id);
 }
 
 IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
@@ -178,22 +190,6 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     }
 }
 
-IWeaponPtr WeaponSystem::CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id)
-{
-    const auto it = m_weapon_configuration.weapon_combinations.find(hash::Hash(weapon_name));
-    if(it == m_weapon_configuration.weapon_combinations.end())
-    {
-        System::Log("weaponsystem|Unable to find weapon combination.");
-        return std::make_unique<NullWeapon>();
-    }
-
-    WeaponSetup weapon_setup;
-    weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());
-    weapon_setup.bullet_hash = hash::Hash(it->second.bullet.c_str());
-
-    return CreateWeapon(weapon_setup, faction, owner_id);
-}
-
 IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
 {
     ThrowableWeaponConfig weapon_config;
@@ -212,4 +208,14 @@ std::vector<WeaponBulletCombination> WeaponSystem::GetAllWeaponCombinations() co
         weapon_combinations.push_back(pair.second);
 
     return weapon_combinations;
+}
+
+uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position)
+{
+    const mono::Entity spawned_entity = m_entity_manager->SpawnEntity(m_weapon_configuration.weapon_pickup_entity.c_str());
+    m_transform_system->SetTransform(spawned_entity.id, math::CreateMatrixWithPosition(world_position), mono::TransformState::CLIENT);
+
+    SetWeaponLoadout(spawned_entity.id, setup, game::WeaponSetup(), game::WeaponSetup());
+
+    return spawned_entity.id;
 }

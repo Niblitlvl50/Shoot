@@ -18,6 +18,8 @@ game::WeaponConfig game::LoadWeaponConfig(const char* weapon_config_file)
     const std::vector<byte> file_data = file::FileRead(file);
     const nlohmann::json& json = nlohmann::json::parse(file_data);
 
+    weapon_config.weapon_pickup_entity = json.value("weapon_pickup_entity", "");
+
     for(const BulletConfiguration bullet : json["bullets"])
         weapon_config.bullet_configs[hash::Hash(bullet.name.c_str())] =  bullet;
 
@@ -31,4 +33,18 @@ game::WeaponConfig game::LoadWeaponConfig(const char* weapon_config_file)
     }
 
     return weapon_config;
+}
+
+game::WeaponSetup game::FindWeaponSetupFromString(const WeaponConfig& weapon_config, const char* weapon_combination_name)
+{
+    WeaponSetup weapon_setup = { 0, 0 };
+
+    const auto it = weapon_config.weapon_combinations.find(hash::Hash(weapon_combination_name));
+    if(it != weapon_config.weapon_combinations.end())
+    {
+        weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());
+        weapon_setup.bullet_hash = hash::Hash(it->second.bullet.c_str());
+    }
+    
+    return weapon_setup;
 }

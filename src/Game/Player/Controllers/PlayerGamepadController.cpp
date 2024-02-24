@@ -49,6 +49,12 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(face_top)
         m_player_logic->CycleWeapon();
 
+    const bool face_right = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
+    if(face_right)
+        m_player_logic->TriggerHookshot();
+    else
+        m_player_logic->ReleaseHookshot();
+
     const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)
         m_player_logic->Blink(math::Vector(m_current_state.left_x, m_current_state.left_y));

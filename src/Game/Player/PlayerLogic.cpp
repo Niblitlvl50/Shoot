@@ -42,6 +42,8 @@
 #include "Pickups/PickupSystem.h"
 #include "Shockwave.h"
 
+#include "HookshotLogic.h"
+
 #include <cmath>
 
 namespace tweak_values
@@ -146,6 +148,8 @@ PlayerLogic::PlayerLogic(
         PlayerStateMachine::MakeState(PlayerStates::BLINK, &PlayerLogic::ToBlink, &PlayerLogic::BlinkState, &PlayerLogic::ExitBlink, this),
     };
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
+
+    m_hookshot = std::make_unique<HookshotLogic>(m_entity_id, m_entity_system, m_physics_system, m_sprite_system, m_transform_system);
 
     // Make sure the player info is updated when constructed.
     UpdatePlayerInfo(0);
@@ -400,6 +404,8 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     UpdateWeaponAnimation(update_context);
     UpdateAnimation(m_aim_direction, position, m_player_info->velocity);
 
+    m_hookshot->Update(update_context);
+
     if(m_player_info->player_state == PlayerState::DEAD)
         m_state.TransitionTo(PlayerStates::DEAD);
 }
@@ -575,6 +581,17 @@ void PlayerLogic::CycleWeapon()
     m_switch_weapon_sound->Play();
 }
 
+void PlayerLogic::TriggerHookshot()
+{
+    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_hookshot->TriggerHookshot(position, m_aim_direction);
+}
+
+void PlayerLogic::ReleaseHookshot()
+{
+    
+}
+
 void PlayerLogic::Throw(float throw_force)
 {
     if(!HoldingPickup())
@@ -650,10 +667,11 @@ void PlayerLogic::PickupDrop()
         else if(interaction_type == InteractionType::WEAPON)
         {
             {
-                // Spawn dropped weapon...
-                
+                // Drop current weapon as a pickup
                 const IWeaponPtr& current_weapon = m_weapons[m_weapon_index];
                 const game::WeaponSetup weapon_setup = current_weapon->GetWeaponSetup();
+                const math::Matrix& interaction_transform = m_transform_system->GetTransform(interaction_id);
+                m_weapon_system->SpawnWeaponPickupAt(weapon_setup, math::GetPosition(interaction_transform));
             }
 
             m_weapons[m_weapon_index] = m_weapon_system->CreatePrimaryWeapon(interaction_id, WeaponFaction::PLAYER);

@@ -38,19 +38,24 @@ namespace game
         void SetWeaponLoadout(
             uint32_t entity_id, const std::string& primary, const std::string& secondary, const std::string& tertiary);
 
+        void SetWeaponLoadout(
+            uint32_t entity_id, const WeaponSetup& primary, const WeaponSetup& secondary, const WeaponSetup& tertiary);
+
         IWeaponPtr CreatePrimaryWeapon(uint32_t entity_id, WeaponFaction faction);
         IWeaponPtr CreateSecondaryWeapon(uint32_t entity_id, WeaponFaction faction);
         IWeaponPtr CreateTertiaryWeapon(uint32_t entity_id, WeaponFaction faction);
 
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
-        IWeaponPtr CreateWeapon(const char* weapon_name, WeaponFaction faction, uint32_t owner_id);
 
         std::vector<WeaponBulletCombination> GetAllWeaponCombinations() const;
+
+        uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 
     private:
 
         IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
 
+        mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;
 
@@ -60,11 +65,10 @@ namespace game
 
         struct WeaponLoadoutComponent
         {
-            std::string primary_name;
-            std::string secondary_name;
-            std::string tertiary_name;
+            WeaponSetup primary;
+            WeaponSetup secondary;
+            WeaponSetup tertiary;
         };
-
         std::unordered_map<uint32_t, WeaponLoadoutComponent> m_weapon_loadout;
 
         class DamageEffect* m_damage_effect = nullptr;
