@@ -49,7 +49,7 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(face_top)
         m_player_logic->CycleWeapon();
 
-    const bool face_right = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
+    const bool face_right = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
     if(face_right)
         m_player_logic->TriggerHookshot();
     else

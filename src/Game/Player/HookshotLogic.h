@@ -5,12 +5,11 @@
 #include "IUpdatable.h"
 #include "Math/Vector.h"
 #include "Physics/PhysicsFwd.h"
-#include "Physics/IBody.h"
 #include "StateMachine.h"
 
 namespace game
 {
-    class HookshotLogic : public mono::ICollisionHandler
+    class HookshotLogic
     {
     public:
         HookshotLogic(
@@ -22,14 +21,12 @@ namespace game
         virtual ~HookshotLogic();
 
         void TriggerHookshot(const math::Vector& start, float direction);
-        void ReleaseHookshot();
+        void DetachHookshot();
         void Update(const mono::UpdateContext& update_context);
 
     private:
 
-        mono::CollisionResolve OnCollideWith(
-            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override;
-        void OnSeparateFrom(mono::IBody* body) override;
+        void ReleaseHookshot();
 
         void OnIdle();
         void Idle(const mono::UpdateContext& update_context);

@@ -68,13 +68,18 @@ void HookshotLogic::TriggerHookshot(const math::Vector& start, float direction)
     }
 }
 
+void HookshotLogic::DetachHookshot()
+{
+    if(m_states.ActiveState() != States::ATTACHED)
+        return;
+        
+    m_states.TransitionTo(States::DETACHED);
+}
+
 void HookshotLogic::ReleaseHookshot()
 {
     if(!m_hookshot_spring)
         return;
-
-    mono::IBody* owner_body = m_physics_system->GetBody(m_owner_entity_id);
-    owner_body->RemoveCollisionHandler(this);
 
     m_physics_system->ReleaseConstraint(m_hookshot_spring);
     m_hookshot_spring = nullptr;
@@ -105,7 +110,6 @@ void HookshotLogic::Animating(const mono::UpdateContext& update_context)
 void HookshotLogic::OnAttached()
 {
     mono::IBody* owner_body = m_physics_system->GetBody(m_owner_entity_id);
-    owner_body->AddCollisionHandler(this);
 
     m_hookshot_spring =
         m_physics_system->CreateSpring(owner_body, m_attached_to_body, math::ZeroVec, m_attached_to_local_point, 0.0f, 400.0, 0.0f);
@@ -144,13 +148,3 @@ void HookshotLogic::Missed(const mono::UpdateContext& update_context)
     // Missed animation or effect or something.
     m_states.TransitionTo(States::IDLE);
 }
-
-mono::CollisionResolve HookshotLogic::OnCollideWith(
-    mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
-{
-    ReleaseHookshot();
-    return mono::CollisionResolve::NORMAL;
-}
-
-void HookshotLogic::OnSeparateFrom(mono::IBody* body)
-{ }

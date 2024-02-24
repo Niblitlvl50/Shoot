@@ -589,7 +589,7 @@ void PlayerLogic::TriggerHookshot()
 
 void PlayerLogic::ReleaseHookshot()
 {
-    
+    m_hookshot->DetachHookshot();
 }
 
 void PlayerLogic::Throw(float throw_force)
