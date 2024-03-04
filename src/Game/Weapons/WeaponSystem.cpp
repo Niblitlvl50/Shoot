@@ -63,26 +63,29 @@ WeaponSystem::WeaponSystem(
     mono::TransformSystem* transform_system,
     mono::SpriteSystem* sprite_system,
     mono::PhysicsSystem* physics_system,
+    mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     game::CameraSystem* camera_system,
-    mono::IEntityManager* entity_manager,
+    game::EntityLogicSystem* logic_system,
+    game::TargetSystem* target_system,
     mono::SystemContext* system_context)
     : m_transform_system(transform_system)
     , m_entity_manager(entity_manager)
     , m_system_context(system_context)
+    , m_weapon_entity_factory(entity_manager, transform_system, physics_system, logic_system, target_system)
 {
     m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");
 
     using namespace std::placeholders;
     m_standard_collision =
-        std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system);
+        std::bind(StandardCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system);
 
     m_bullet_callbacks = {
-        { hash::Hash("plasma_bullet"),      std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("plasma_bullet"),      std::bind(PlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system) },
         { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, camera_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet"),        std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
         { hash::Hash("caco_bullet_homing"), std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
-        { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, transform_system) },
+        { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, m_entity_manager, damage_system, physics_system, sprite_system, &m_weapon_entity_factory) },
     };
 }
 

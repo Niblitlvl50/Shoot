@@ -1,5 +1,6 @@
 
 #include "CollisionCallbacks.h"
+#include "WeaponEntityFactory.h"
 
 #include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
@@ -78,8 +79,7 @@ void game::StandardCollision(
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
-    mono::SpriteSystem* sprite_system,
-    mono::TransformSystem* transform_system)
+    mono::SpriteSystem* sprite_system)
 {
     bool did_damage = false;
 
@@ -118,11 +118,10 @@ void game::PlasmaCollision(
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
-    mono::SpriteSystem* sprite_system,
-    mono::TransformSystem* transform_system)
+    mono::SpriteSystem* sprite_system)
 {
     StandardCollision(
-        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system);
 }
 
 void game::RocketCollision(
@@ -139,7 +138,7 @@ void game::RocketCollision(
     mono::TransformSystem* transform_system)
 {
     StandardCollision(
-        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system);
 
     if(details.body)
         SpawnEntityWithAnimation("res/entities/explosion_rocket.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
@@ -163,14 +162,11 @@ void game::CacoPlasmaCollision(
     mono::TransformSystem* transform_system)
 {
     StandardCollision(
-        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system);
 
     if(details.body)
         SpawnEntityWithAnimation("res/entities/explosion_caco.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }
-
-
-#include "Debug/IDebugDrawer.h"
 
 void game::WebberCollision(
     uint32_t entity_id,
@@ -182,22 +178,16 @@ void game::WebberCollision(
     game::DamageSystem* damage_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
-    mono::TransformSystem* transform_system)
+    const game::WeaponEntityFactory* entity_factory)
 {
     StandardCollision(
-        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, damage, flags, details, entity_manager, damage_system, physics_system, sprite_system);
 
     const std::vector<mono::QueryResult> found_bodies =
         physics_system->GetSpace()->QueryRadius(details.point, 2.5f, game::CollisionCategory::ENEMY);
-
-    for(const mono::QueryResult& query_result : found_bodies)
+    if(!found_bodies.empty())
     {
-        //const uint32_t other_entity_id = physics_system->GetIdFromBody(query_result.body);
-        const math::Vector body_position = query_result.body->GetPosition();
-
-        g_debug_drawer->DrawPointFading(body_position, 5.0f, mono::Color::RED, 5.0f);
-        g_debug_drawer->DrawLineFading({ details.point, body_position }, 1.0f, mono::Color::CYAN, 5.0f);
-
+        entity_factory->CreateWebberEntity(found_bodies, math::CreateMatrixWithPosition(details.point));
     }
 
     //if(details.body)

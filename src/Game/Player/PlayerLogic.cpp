@@ -671,7 +671,7 @@ void PlayerLogic::PickupDrop()
                 const IWeaponPtr& current_weapon = m_weapons[m_weapon_index];
                 const game::WeaponSetup weapon_setup = current_weapon->GetWeaponSetup();
                 const math::Matrix& interaction_transform = m_transform_system->GetTransform(interaction_id);
-                m_weapon_system->SpawnWeaponPickupAt(weapon_setup, math::GetPosition(interaction_transform));
+                m_weapon_system->SpawnWeaponPickupAt(weapon_setup, math::GetPosition(interaction_transform) + math::Vector(2.0f, 0.0));
             }
 
             m_weapons[m_weapon_index] = m_weapon_system->CreatePrimaryWeapon(interaction_id, WeaponFaction::PLAYER);

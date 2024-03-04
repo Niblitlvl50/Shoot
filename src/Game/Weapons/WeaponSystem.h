@@ -6,6 +6,7 @@
 
 #include "WeaponTypes.h"
 #include "WeaponConfiguration.h"
+#include "WeaponEntityFactory.h"
 
 #include <unordered_map>
 #include <memory>
@@ -24,9 +25,11 @@ namespace game
             mono::TransformSystem* transform_system,
             mono::SpriteSystem* sprite_system,
             mono::PhysicsSystem* physics_system,
+            mono::IEntityManager* entity_manager,
             class DamageSystem* damage_system,
             class CameraSystem* camera_system,
-            mono::IEntityManager* entity_manager,
+            class EntityLogicSystem* logic_system,
+            class TargetSystem* target_system,
             mono::SystemContext* system_context);
 
         const char* Name() const override;
@@ -58,6 +61,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;
+        game::WeaponEntityFactory m_weapon_entity_factory;
 
         WeaponConfig m_weapon_configuration;
         BulletImpactCallback m_standard_collision;

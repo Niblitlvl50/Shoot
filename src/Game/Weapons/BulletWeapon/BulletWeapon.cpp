@@ -1,5 +1,6 @@
 
 #include "BulletWeapon.h"
+#include "Weapons/WeaponEntityFactory.h"
 
 #include "BulletLogic.h"
 #include "Entity/Component.h"
@@ -111,6 +112,9 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
     m_last_fire_timestamp = timestamp;
 
+    const WeaponEntityFactory entity_factory(
+        m_entity_manager, m_transform_system, m_physics_system, m_logic_system, m_target_system);
+
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_bullet_trail->RemoveEmitterFromBullet(entity_id);
         m_bullet_id_to_callback.erase(entity_id);
@@ -130,7 +134,6 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
             math::Normalized(modified_fire_direction) * m_weapon_config.bullet_velocity * velocity_multiplier;
 
         const float bullet_direction = math::AngleFromVector(modified_fire_direction);
-        mono::Entity bullet_entity = m_entity_manager->SpawnEntity(m_bullet_config.entity_file.c_str());
 
         const math::Vector perp_offset =
             perpendicular_fire_direction * mono::Random(-m_weapon_config.bullet_offset, m_weapon_config.bullet_offset);
@@ -140,23 +143,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
             m_bullet_config.bullet_want_direction ? math::AngleFromVector(modified_fire_direction) : 0.0f;
         const math::Matrix& transform = math::CreateMatrixWithPositionRotation(fire_position, bullet_rotation);
 
-        m_transform_system->SetTransform(bullet_entity.id, transform);
-        m_transform_system->SetTransformState(bullet_entity.id, mono::TransformState::CLIENT);
-
-        IEntityLogic* bullet_logic = new BulletLogic(
-                bullet_entity.id,
-                m_owner_id,
-                target,
-                velocity,
-                bullet_direction,
-                m_bullet_config,
-                m_collision_config,
-                m_transform_system,
-                m_physics_system,
-                m_target_system);
-
-        m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
-        m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
+        mono::Entity bullet_entity = entity_factory.CreateBulletEntity(m_owner_id, m_bullet_config, m_collision_config, target, velocity, bullet_direction, transform);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 

@@ -45,6 +45,12 @@ namespace game
 
         IEntityLogic* CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
 
+        template <typename T>
+        void ForEach(T&& callback)
+        {
+            m_logics.ForEach(callback);
+        }
+
     private:
 
         const char* Name() const override;

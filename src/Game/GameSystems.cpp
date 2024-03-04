@@ -76,7 +76,8 @@ void game::CreateGameSystems(
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
     game::TriggerSystem* trigger_system =
         system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
-    system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
+    game::EntityLogicSystem* logic_system =
+        system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
     game::SpawnSystem* spawn_system =
         system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
     system_context.CreateSystem<game::PickupSystem>(
@@ -89,14 +90,15 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::SoundSystem>(max_entities, trigger_system);
     system_context.CreateSystem<game::RegionSystem>(physics_system);
     system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-    system_context.CreateSystem<game::WeaponSystem>(
-        transform_system, sprite_system, physics_system, damage_system, camera_system, entity_system, &system_context);
     system_context.CreateSystem<game::UISystem>(input_system, transform_system, camera_system, trigger_system);
     system_context.CreateSystem<game::ShopSystem>();
     system_context.CreateSystem<game::NavigationSystem>();
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);
     system_context.CreateSystem<game::WorldEntityTrackingSystem>();
-    system_context.CreateSystem<game::TargetSystem>(transform_system, physics_system, damage_system);
+    game::TargetSystem* target_system =
+        system_context.CreateSystem<game::TargetSystem>(transform_system, physics_system, damage_system);
+    system_context.CreateSystem<game::WeaponSystem>(
+        transform_system, sprite_system, physics_system, entity_system, damage_system, camera_system, logic_system, target_system, &system_context);
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

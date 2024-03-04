@@ -11,6 +11,7 @@ namespace game
 {
     class DamageSystem;
     class CameraSystem;
+    class WeaponEntityFactory;
 
     void InitWeaponCallbacks(mono::SystemContext* system_context);
     void CleanupWeaponCallbacks();
@@ -33,8 +34,7 @@ namespace game
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system);
+        mono::SpriteSystem* sprite_system);
 
     void PlasmaCollision(
         uint32_t entity_id,
@@ -45,8 +45,7 @@ namespace game
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system);
+        mono::SpriteSystem* sprite_system);
 
     void RocketCollision(
         uint32_t entity_id,
@@ -83,5 +82,5 @@ namespace game
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system);
+        const game::WeaponEntityFactory* entity_factory);
 }
