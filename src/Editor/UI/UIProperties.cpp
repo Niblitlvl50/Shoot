@@ -451,7 +451,7 @@ void editor::AddDynamicProperties(Component& component)
 {
     if(component.hash == BEHAVIOUR_COMPONENT)
     {
-        int logic_type;
+        int logic_type = 0;
         const bool found_logic =
             FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
         if(found_logic)

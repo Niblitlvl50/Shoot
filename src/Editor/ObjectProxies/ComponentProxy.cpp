@@ -96,7 +96,7 @@ bool ComponentProxy::IsLocked() const
     if(!name_folder_component)
         return false;
 
-    uint32_t editor_attributes;
+    uint32_t editor_attributes = 0;
     const bool found_attribute =
         FindAttribute(EDITOR_PROPERTIES_ATTRIBUTE, name_folder_component->properties, editor_attributes, FallbackMode::REQUIRE_ATTRIBUTE);
     if(!found_attribute)

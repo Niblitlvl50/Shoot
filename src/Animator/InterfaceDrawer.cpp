@@ -367,7 +367,7 @@ animator::SpritePickerResult animator::DrawSpritePicker(const char* name, const 
                     ImGui::GetItemRectMax(),
                     ImGui::GetColorU32(ImGuiCol_DragDropTarget),
                     3.0f,
-                    ImDrawCornerFlags_All,
+                    ImDrawFlags_RoundCornersAll,
                     2.0f);
             }
 
