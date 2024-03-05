@@ -141,7 +141,7 @@ void TargetSystem::SetGlobalTargetMode(EnemyTargetMode target_mode)
     m_global_target_mode = target_mode;
 }
 
-ITargetPtr TargetSystem::AquireTarget(const math::Vector& world_position, float max_distance)
+ITargetPtr TargetSystem::AquireTarget(TargetFaction faction, const math::Vector& world_position, float max_distance)
 {
     uint32_t found_target_entity_id = mono::INVALID_ID;
 

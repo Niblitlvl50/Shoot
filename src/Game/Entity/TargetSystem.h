@@ -18,6 +18,12 @@ namespace game
         Horde
     };
 
+    enum class TargetFaction : uint32_t
+    {
+        Player,
+        Enemies
+    };
+
     struct TargetComponent
     {
         uint32_t entity_id;
@@ -55,7 +61,7 @@ namespace game
         void SetTargetEnabled(uint32_t entity_id, bool enabled);
         void SetGlobalTargetMode(EnemyTargetMode target_mode);
 
-        ITargetPtr AquireTarget(const math::Vector& world_position, float max_distance);
+        ITargetPtr AquireTarget(TargetFaction faction, const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
 
         std::vector<ITargetPtr> GetActiveTargets() const;

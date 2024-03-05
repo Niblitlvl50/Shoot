@@ -122,7 +122,7 @@ void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
     m_idle_timer_s = 0.0f;
     
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::track_to_player_distance);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, world_position, tweak_values::track_to_player_distance);
 
     if(!m_aquired_target->IsValid())
         return;

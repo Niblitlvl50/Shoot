@@ -132,7 +132,7 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     m_idle_timer_s = 0.0f;
 
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::activate_distance_to_player_threshold);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, world_position, tweak_values::activate_distance_to_player_threshold);
     if(!m_aquired_target->IsValid())
         return;
 

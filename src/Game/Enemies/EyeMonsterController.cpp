@@ -161,7 +161,7 @@ void EyeMonsterController::SleepState(const mono::UpdateContext& update_context)
     m_visibility_check_timer_s = 0.0f;
 
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::engage_distance);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, entity_position, tweak_values::engage_distance);
     if(!m_aquired_target->IsValid())
         return;
 
@@ -216,7 +216,7 @@ void EyeMonsterController::RetargetState(const mono::UpdateContext& update_conte
 
     // Try to aquire a new target
     const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    m_aquired_target = m_target_system->AquireTarget(entity_position, tweak_values::engage_distance);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, entity_position, tweak_values::engage_distance);
 
     const States new_state = m_aquired_target->IsValid() ? States::HUNT : States::SLEEPING;
     m_states.TransitionTo(new_state);

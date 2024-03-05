@@ -143,7 +143,7 @@ void DemonBossController::Idle(const mono::UpdateContext& update_context)
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
-    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::activate_distance);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, world_position, tweak_values::activate_distance);
     if(!m_aquired_target->IsValid())
         return;
 

@@ -78,7 +78,7 @@ void InvaderPathController::Update(const mono::UpdateContext& update_context)
     }
 
     const math::Vector& world_position = math::GetPosition(*m_transform);
-    m_aquired_target = m_target_system->AquireTarget(world_position, tweak_values::attack_distance);
+    m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, world_position, tweak_values::attack_distance);
     if(!m_aquired_target->IsValid())
         return;
 

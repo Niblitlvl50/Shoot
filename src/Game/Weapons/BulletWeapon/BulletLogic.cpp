@@ -50,13 +50,13 @@ BulletLogic::BulletLogic(
     , m_circulating_behaviour(transform_system)
 {
     m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
+    m_is_player_faction = (collision_config.collision_category & CollisionCategory::PLAYER);
+    m_jumps_left = 3;
 
     m_sound = bullet_config.sound_file.empty() ?
         audio::CreateNullSound() :
         audio::CreateSound(bullet_config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
     m_sound->Play();
-
-    m_jumps_left = 3;
 
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);
     bullet_body->AddCollisionHandler(this);
@@ -97,7 +97,8 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
     {
-        ITargetPtr aquired_target = m_target_system->AquireTarget(m_target, math::INF);
+        const TargetFaction faction = m_is_player_faction ? TargetFaction::Enemies : TargetFaction::Player;
+        ITargetPtr aquired_target = m_target_system->AquireTarget(faction, m_target, math::INF);
         if(aquired_target->IsValid())
         {
             m_homing_behaviour.SetTargetPosition(aquired_target->Position());

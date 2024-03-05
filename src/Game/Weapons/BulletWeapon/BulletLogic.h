@@ -53,10 +53,12 @@ namespace game
         uint32_t m_bullet_behaviour;
 
         float m_life_span;
+        bool m_is_player_faction;
+        int m_jumps_left;
+
         audio::ISoundPtr m_sound;
 
         std::vector<uint32_t> m_jump_ids;
-        int m_jumps_left;
 
         HomingBehaviour m_homing_behaviour;
         CirculatingBehaviour m_circulating_behaviour;
