@@ -39,6 +39,7 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
     const math::Matrix& transform) const
 {
     mono::Entity bullet_entity = m_entity_manager->SpawnEntity(bullet_config.entity_file.c_str());
+    m_transform_system->SetTransform(bullet_entity.id, transform, mono::TransformState::CLIENT);
 
     IEntityLogic* bullet_logic = new BulletLogic(
         bullet_entity.id,
@@ -54,7 +55,6 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
 
     m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
     m_logic_system->AddLogic(bullet_entity.id, bullet_logic);
-    m_transform_system->SetTransform(bullet_entity.id, transform, mono::TransformState::CLIENT);
 
     return bullet_entity;
 }
