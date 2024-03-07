@@ -144,6 +144,7 @@ const DefaultAttribute default_attributes[] = {
     { "emitter_mode",               Variant(0) },
     { "entity_type",                Variant(0) },
     { "priority",                   Variant(0) },
+    { "target_faction",             Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -270,6 +271,7 @@ extern const uint32_t UNIFORM_DIRECTION_ATTRIBUTE           = default_attributes
 extern const uint32_t EMITTER_MODE_ATTRIBUTE                = default_attributes[102].hash;
 extern const uint32_t ENTITY_TYPE_ATTRIBUTE                 = default_attributes[103].hash;
 extern const uint32_t PRIORITY_ATTRIBUTE                    = default_attributes[104].hash;
+extern const uint32_t TARGET_FACTION_ATTRIBUTE              = default_attributes[105].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -497,7 +499,7 @@ const Component default_components[] = {
 
     MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
-    MakeComponent(TARGET_COMPONENT,             NULL_COMPONENT,             false,  "logic",        { PRIORITY_ATTRIBUTE } ),
+    MakeComponent(TARGET_COMPONENT,             NULL_COMPONENT,             false,  "logic",        { TARGET_FACTION_ATTRIBUTE, PRIORITY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
 };
 

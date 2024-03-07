@@ -138,6 +138,7 @@ extern const uint32_t EMITTER_MODE_ATTRIBUTE;
 
 extern const uint32_t ENTITY_TYPE_ATTRIBUTE;
 extern const uint32_t PRIORITY_ATTRIBUTE;
+extern const uint32_t TARGET_FACTION_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

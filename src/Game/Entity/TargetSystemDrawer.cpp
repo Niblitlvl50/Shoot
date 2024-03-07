@@ -22,9 +22,12 @@ void TargetSystemDrawer::Draw(mono::IRenderer& renderer) const
     {
         if(!target->IsValid())
             continue;
+
+        const TargetFaction faction = m_target_system->GetFaction(target->TargetId());
     
         const math::Vector& target_position = target->Position();
-        renderer.DrawCircle(target_position, 0.5f, 16, 1.0f, mono::Color::RED);
+        const mono::Color::RGBA& target_color = (faction == TargetFaction::Enemies) ? mono::Color::RED : mono::Color::BLUE;
+        renderer.DrawCircle(target_position, 0.5f, 16, 1.0f, target_color);
     }
 }
 

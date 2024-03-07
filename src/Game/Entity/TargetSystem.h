@@ -12,25 +12,15 @@
 
 namespace game
 {
-    enum class EnemyTargetMode : uint32_t
-    {
-        Normal,
-        Horde
-    };
-
-    enum class TargetFaction : uint32_t
-    {
-        Player,
-        Enemies
-    };
-
     struct TargetComponent
     {
         uint32_t entity_id;
-        bool enabled;
+
+        TargetFaction faction;
         int priority;
 
         // Internal data
+        bool enabled;
         uint32_t callback_handle;
     };
 
@@ -56,13 +46,14 @@ namespace game
 
         void AllocateTarget(uint32_t entity_id);
         void ReleaseTarget(uint32_t entity_id);
-        void SetTargetData(uint32_t entity_id, int priority);
+        void SetTargetData(uint32_t entity_id, TargetFaction faction, int priority);
 
         void SetTargetEnabled(uint32_t entity_id, bool enabled);
         void SetGlobalTargetMode(EnemyTargetMode target_mode);
 
         ITargetPtr AquireTarget(TargetFaction faction, const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
+        TargetFaction GetFaction(uint32_t entity_id) const;
 
         std::vector<ITargetPtr> GetActiveTargets() const;
 

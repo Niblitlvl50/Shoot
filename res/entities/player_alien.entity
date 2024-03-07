@@ -269,7 +269,7 @@
                             "id": 556824164,
                             "name": "weapon_tertiary",
                             "variant_type": 6,
-                            "variant_value": "Flak Canon"
+                            "variant_value": "Cacodemon Plasma"
                         }
                     ]
                 },
@@ -277,6 +277,12 @@
                     "hash": 845187144,
                     "name": "target",
                     "properties": [
+                        {
+                            "id": 1147998091,
+                            "name": "target_faction",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
                         {
                             "id": 2498028297,
                             "name": "priority",

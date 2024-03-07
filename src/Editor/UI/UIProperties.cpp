@@ -8,6 +8,7 @@
 
 #include "Entity/AnimationModes.h"
 #include "Entity/EntityLogicTypes.h"
+#include "Entity/TargetTypes.h"
 #include "EntitySystem/Entity.h"
 #include "CollisionConfiguration.h"
 #include "Pickups/PickupTypes.h"
@@ -441,6 +442,17 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), game::g_entity_type_strings, std::size(game::g_entity_type_strings));
     }
+    else if(attribute.id == TARGET_FACTION_ATTRIBUTE)
+    {
+        const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
+        {
+            (*out_text) = game::TargetFactionToString(game::TargetFaction(idx));
+            return true;
+        };
+
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::g_target_faction_strings));
+        }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value, ui_context);

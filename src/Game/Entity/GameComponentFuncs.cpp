@@ -1084,11 +1084,13 @@ namespace
 
     bool UpdateEntityTarget(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
+        int faction;
         int priority;
+        FindAttribute(TARGET_FACTION_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
         FindAttribute(PRIORITY_ATTRIBUTE, properties, priority, FallbackMode::SET_DEFAULT);
 
         game::TargetSystem* target_system = context->GetSystem<game::TargetSystem>();
-        target_system->SetTargetData(entity->id, priority);
+        target_system->SetTargetData(entity->id, game::TargetFaction(faction), priority);
         return true;
     }
 }
