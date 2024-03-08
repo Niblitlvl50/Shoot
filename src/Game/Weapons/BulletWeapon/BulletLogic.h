@@ -10,6 +10,7 @@
 #include "Behaviour/HomingBehaviour.h"
 #include "Behaviour/CirculatingBehaviour.h"
 #include "Behaviour/SineWaveBehaviour.h"
+#include "Entity/TargetTypes.h"
 
 #include <vector>
 
@@ -57,6 +58,7 @@ namespace game
         int m_jumps_left;
 
         audio::ISoundPtr m_sound;
+        ITargetPtr m_aquired_target;
 
         std::vector<uint32_t> m_jump_ids;
 

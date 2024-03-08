@@ -97,12 +97,16 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 
     if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
     {
-        const TargetFaction faction = m_is_player_faction ? TargetFaction::Enemies : TargetFaction::Player;
-        const float max_distance = m_is_player_faction ? 5.0f : math::INF;
-        ITargetPtr aquired_target = m_target_system->AquireTarget(faction, m_target, max_distance);
-        if(aquired_target->IsValid())
+        if(!m_aquired_target || !m_aquired_target->IsValid())
         {
-            m_homing_behaviour.SetTargetPosition(aquired_target->Position());
+            const TargetFaction faction = m_is_player_faction ? TargetFaction::Enemies : TargetFaction::Player;
+            const float max_distance = m_is_player_faction ? 2.0f : math::INF;
+            m_aquired_target = m_target_system->AquireTarget(faction, m_target, max_distance);
+        }
+
+        if(m_aquired_target->IsValid())
+        {
+            m_homing_behaviour.SetTargetPosition(m_aquired_target->Position());
             m_homing_behaviour.Run(update_context);
         }
     }
