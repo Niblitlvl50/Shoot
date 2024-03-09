@@ -145,7 +145,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
 
-    AddDrawable(new game::HealthbarDrawer(damage_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
+    m_healthbar_drawer = new game::HealthbarDrawer(damage_system, transform_system, entity_system);
+    AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
     AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::GAMEOBJECTS_UI);
 
     AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
@@ -185,6 +186,10 @@ int GameZone::OnUnload()
     RemoveUpdatable(m_game_mode.get());
     const int game_mode_result = m_game_mode->End(this);
     m_game_mode = nullptr;
+
+    RemoveUpdatableDrawable(m_healthbar_drawer);
+    delete m_healthbar_drawer;
+    m_healthbar_drawer = nullptr;
 
     RemoveUpdatableDrawable(m_region_ui);
     delete m_region_ui;

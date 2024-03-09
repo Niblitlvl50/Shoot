@@ -6,8 +6,12 @@
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
+#include "Rendering/Text/TextBufferFactory.h"
+#include "Rendering/Text/TextFunctions.h"
 #include "Math/Quad.h"
+#include "Math/EasingFunctions.h"
 #include "Util/Algorithm.h"
+#include "Util/Random.h"
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/IEntityManager.h"
 
@@ -33,6 +37,7 @@ namespace
     };
 
     constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
+    constexpr float damage_number_time_to_live_s = 0.75f;
 
     void GenerateHealthbarVertices(
         const std::vector<Healthbar>& healthbars,
@@ -116,6 +121,36 @@ HealthbarDrawer::HealthbarDrawer(
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
 }
 
+void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
+{
+    char text_buffer[256] = { 0 };
+
+    for(const DamageEvent& damage_event : m_damage_system->GetDamageEventsThisFrame())
+    {
+        //const bool was_destroyed = (damage_event.damage_result & DamageType::DESTROYED);
+        const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(damage_event.id);
+
+        const float random_offset_x = mono::Random(-0.2f, 0.2f);
+        const float random_offset_y = mono::Random(0.0f, 0.15f);
+        const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
+        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::TopCenter(world_bb) + offset, 0.5f);
+
+        std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
+
+        DamageNumber damage_number;
+        damage_number.time_to_live_s = damage_number_time_to_live_s;
+        damage_number.buffers = mono::BuildTextDrawBuffers(FontId::RUSSOONE_TINY, text_buffer, mono::FontCentering::HORIZONTAL_VERTICAL);
+        damage_number.transform = world_transform;
+        m_damage_numbers.push_back(std::move(damage_number));
+    }
+
+    const auto remove_if_done = [&update_context](DamageNumber& damage_number) {
+        damage_number.time_to_live_s -= update_context.delta_s;
+        return (damage_number.time_to_live_s <= 0.0f);
+    };
+    mono::remove_if(m_damage_numbers, remove_if_done);
+}
+
 void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
 {
     constexpr uint32_t max_uint = std::numeric_limits<uint32_t>::max();
@@ -188,6 +223,22 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& world_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(icon_position);
         auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
         renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
+    }
+
+    for(const DamageNumber& damage_number : m_damage_numbers)
+    {
+        const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
+        const auto scope = mono::MakeTransformScope(
+            damage_number.transform * math::CreateMatrixWithPosition(math::Vector(0.0f, 0.2f * (1.0f - alpha))), &renderer);
+        const mono::ITexturePtr& texture = mono::GetFontTexture(FontId::RUSSOONE_TINY);
+        renderer.DrawGeometry(
+            damage_number.buffers.vertices.get(),
+            damage_number.buffers.uv.get(),
+            damage_number.buffers.indices.get(),
+            texture.get(),
+            mono::Color::MakeWithAlpha(mono::Color::GOLDEN_YELLOW, alpha),
+            false,
+            damage_number.buffers.indices->Size());
     }
 }
 

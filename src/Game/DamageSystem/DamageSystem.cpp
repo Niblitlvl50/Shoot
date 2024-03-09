@@ -196,6 +196,11 @@ const std::vector<DamageRecord>& DamageSystem::GetDamageRecords() const
     return m_damage_records;
 }
 
+const std::vector<DamageEvent>& DamageSystem::GetDamageEventsThisFrame() const
+{
+    return m_damage_events;
+}
+
 void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)
 {
     m_damage_records[id].release_entity_on_death = !enable;
@@ -259,7 +264,6 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         call_callbacks(damage_event, m_damage_callbacks[damage_event.id]);
         call_callbacks(damage_event, m_global_damage_callbacks);
     }
-    m_damage_events.clear();
 
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {
@@ -280,6 +284,11 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             m_active[entity_id] = false;
         }
     }
+}
+
+void DamageSystem::Sync()
+{
+    m_damage_events.clear();
 }
 
 void DamageSystem::Destroy()

@@ -24,6 +24,14 @@ namespace game
         bool is_invincible;
     };
 
+    struct DamageEvent
+    {
+        uint32_t id;
+        uint32_t id_who_did_damage;
+        int damage;
+        DamageType damage_result;
+    };
+
     struct DamageResult
     {
         bool did_damage;
@@ -57,6 +65,7 @@ namespace game
         DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
         void GainHealth(uint32_t id, int health_gain);
         const std::vector<DamageRecord>& GetDamageRecords() const;
+        const std::vector<DamageEvent>& GetDamageEventsThisFrame() const;
 
         void PreventReleaseOnDeath(uint32_t id, bool enable);
 
@@ -77,6 +86,7 @@ namespace game
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
+        void Sync() override;
         void Destroy() override;
 
     private:
@@ -101,14 +111,6 @@ namespace game
         std::vector<bool> m_active;
 
         DamageCallbacks m_global_damage_callbacks;
-
-        struct DamageEvent
-        {
-            uint32_t id;
-            uint32_t id_who_did_damage;
-            int damage;
-            DamageType damage_result;
-        };
 
         std::vector<DamageEvent> m_damage_events;
     };

@@ -31,6 +31,7 @@ namespace game
         LevelData m_leveldata;
         std::unique_ptr<ImGuiInputHandler> m_debug_input;
 
+        class HealthbarDrawer* m_healthbar_drawer;
         class RegionDrawer* m_region_ui;
         class DebugUpdater* m_debug_updater;
         std::unique_ptr<IGameMode> m_game_mode;
