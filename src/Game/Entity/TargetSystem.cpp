@@ -146,6 +146,7 @@ ITargetPtr TargetSystem::AquireTarget(TargetFaction faction, const math::Vector&
 {
     uint32_t found_target_entity_id = mono::INVALID_ID;
     const float max_distance_sq = max_distance * max_distance;
+    float current_best_distance_sq = math::INF;
 
     for(const TargetComponent& target : m_targets)
     {
@@ -159,10 +160,10 @@ ITargetPtr TargetSystem::AquireTarget(TargetFaction faction, const math::Vector&
         {
             const math::Vector& target_world_position = m_transform_system->GetWorldPosition(target.entity_id);
             const float target_distance_sq = math::DistanceBetweenSquared(target_world_position, world_position);
-            if(target_distance_sq < max_distance_sq)
+            if(target_distance_sq < max_distance_sq && target_distance_sq < current_best_distance_sq)
             {
                 found_target_entity_id = target.entity_id;
-                break;
+                current_best_distance_sq = target_distance_sq;
             }
         }
         else
