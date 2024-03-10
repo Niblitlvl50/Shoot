@@ -106,19 +106,46 @@ namespace
         }
     }
 
+    // https://www.writtensound.com/
+    // https://www.writtensound.com/index.php?term=hard+hit
+
     constexpr const char* damage_words[] = {
-        "Pow",
-        "Blaw",
-        "Hit",
-        "Pof",
-        "Smack",
-        "Blast",
-        "Thud",
-        "Whack",
-        "Slap",
-        "Splat",
-        "Smash",
-        "Crash",
+        "pow",      // sound of a blow
+        "bam",      // sound of a hard hit
+        "blaw",
+        "hit",
+        "pof",
+        "smack",
+        "blast",
+        "thud",     // to hit with a dull sound
+        "whack",    // to strike sharply
+        "wap",      // hit/blow
+        "wham",     // a heavy blow
+        "whap",     // to beat or strike
+        "slap",
+        "splat",    // landing with a smacking sound
+        "slam",     
+        "smash",
+        "crash",
+        "ruin",
+        "tear",
+        "wreck",
+        "burn",
+        "crush",
+        "maul",
+        "pop",
+        "zap",
+        "bam",
+        "bash",
+        "bwak",     // sound of punch or kick from DBZ
+        "bump",     // heavy dull blow
+        "biff",     // sound of an uppercut
+        "bonk",     // something heavy hitting something else
+        "bop",      // sound of a hit
+        "klam",     // sound of punch/hit from DBZ
+        "plonk",    // a dull striking sound
+        "pock",     // dry hit
+        "swah",     // sound of a karate chop from DBZ
     };
 
     const char* DamageToWord(int damage)
@@ -133,8 +160,8 @@ namespace
             damage * (10.0f / float(std::size(damage_words))), 0.0f, 1.0f);
     }
 
-    //constexpr int g_selected_font = FontId::RUSSOONE_TINY;
-    constexpr int g_selected_font = FontId::PIXELETTE_TINY;
+    constexpr int g_selected_font = FontId::RUSSOONE_TINY;
+    //constexpr int g_selected_font = FontId::PIXELETTE_TINY;
 }
 
 HealthbarDrawer::HealthbarDrawer(
@@ -264,10 +291,13 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     }
 
     const mono::ITexturePtr& texture = mono::GetFontTexture(g_selected_font);
+    const mono::Color::Gradient<3> damage_gradient = mono::Color::MakeGradient<3>(
+        {0.0f, 0.7f, 1.0f},
+        {mono::Color::GOLDEN_YELLOW, healthbar_red, mono::Color::MakeWithAlpha(healthbar_red, 0.0f)}
+    );
 
     for(const DamageNumber& damage_number : m_damage_numbers)
     {
-        const mono::Color::Gradient<2> damage_gradient = mono::Color::MakeGradient<2>({0.0f, 1.0f}, {mono::Color::GOLDEN_YELLOW, healthbar_red});
         const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
         const auto scope = mono::MakeTransformScope(
             damage_number.transform * math::CreateMatrixWithPosition(math::Vector(0.0f, 0.2f * (1.0f - alpha))), &renderer);
