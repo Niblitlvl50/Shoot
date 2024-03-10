@@ -2,6 +2,7 @@
 #include "HealthbarDrawer.h"
 #include "FontIds.h"
 #include "DamageSystem/DamageSystem.h"
+#include "Debug/GameDebugVariables.h"
 
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
@@ -104,6 +105,36 @@ namespace
             }
         }
     }
+
+    constexpr const char* damage_words[] = {
+        "Pow",
+        "Blaw",
+        "Hit",
+        "Pof",
+        "Smack",
+        "Blast",
+        "Thud",
+        "Whack",
+        "Slap",
+        "Splat",
+        "Smash",
+        "Crash",
+    };
+
+    const char* DamageToWord(int damage)
+    {
+        const int index = std::clamp(damage / 10, 0, (int)std::size(damage_words));
+        return damage_words[index];
+    }
+
+    float GetNormalizedDamage(int damage)
+    {
+        return std::clamp(
+            damage * (10.0f / float(std::size(damage_words))), 0.0f, 1.0f);
+    }
+
+    //constexpr int g_selected_font = FontId::RUSSOONE_TINY;
+    constexpr int g_selected_font = FontId::PIXELETTE_TINY;
 }
 
 HealthbarDrawer::HealthbarDrawer(
@@ -133,13 +164,20 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         const float random_offset_x = mono::Random(-0.2f, 0.2f);
         const float random_offset_y = mono::Random(0.0f, 0.15f);
         const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
-        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::TopCenter(world_bb) + offset, 0.5f);
+        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::TopLeft(world_bb) + offset, 0.5f);
 
-        std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
+        if(game::g_debug_draw_damage_words)
+        {
+            std::snprintf(text_buffer, std::size(text_buffer), "%s", DamageToWord(damage_event.damage));
+        }
+        else
+        {
+            std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
+        }
 
         DamageNumber damage_number;
         damage_number.time_to_live_s = damage_number_time_to_live_s;
-        damage_number.buffers = mono::BuildTextDrawBuffers(FontId::RUSSOONE_TINY, text_buffer, mono::FontCentering::HORIZONTAL_VERTICAL);
+        damage_number.buffers = mono::BuildTextDrawBuffers(g_selected_font, text_buffer, mono::FontCentering::HORIZONTAL_VERTICAL);
         damage_number.transform = world_transform;
         m_damage_numbers.push_back(std::move(damage_number));
     }
@@ -225,18 +263,20 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
     }
 
+    const mono::ITexturePtr& texture = mono::GetFontTexture(g_selected_font);
+
     for(const DamageNumber& damage_number : m_damage_numbers)
     {
+        const mono::Color::Gradient<2> damage_gradient = mono::Color::MakeGradient<2>({0.0f, 1.0f}, {mono::Color::GOLDEN_YELLOW, healthbar_red});
         const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
         const auto scope = mono::MakeTransformScope(
             damage_number.transform * math::CreateMatrixWithPosition(math::Vector(0.0f, 0.2f * (1.0f - alpha))), &renderer);
-        const mono::ITexturePtr& texture = mono::GetFontTexture(FontId::RUSSOONE_TINY);
         renderer.DrawGeometry(
             damage_number.buffers.vertices.get(),
             damage_number.buffers.uv.get(),
             damage_number.buffers.indices.get(),
             texture.get(),
-            mono::Color::MakeWithAlpha(mono::Color::GOLDEN_YELLOW, alpha),
+            mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, (1.0f - alpha)), alpha),
             false,
             damage_number.buffers.indices->Size());
     }
