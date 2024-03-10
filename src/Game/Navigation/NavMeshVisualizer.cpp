@@ -15,7 +15,7 @@
 #include "Paths/PathFactory.h"
 
 #include "NavMesh.h"
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 
 #include "System/System.h"
 #include "imgui/imgui.h"

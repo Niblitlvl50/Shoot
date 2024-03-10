@@ -4,7 +4,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 

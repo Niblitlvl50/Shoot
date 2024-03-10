@@ -2,7 +2,7 @@
 #include "TriggerSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Debug/IDebugDrawer.h"
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 
 #include "Util/Algorithm.h"
 #include "System/Hash.h"

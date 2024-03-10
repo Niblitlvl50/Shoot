@@ -4,7 +4,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 
 // Debug
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 

@@ -7,7 +7,7 @@
 
 #include "Math/EasingFunctions.h"
 
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
 

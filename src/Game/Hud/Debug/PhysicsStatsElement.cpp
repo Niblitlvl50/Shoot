@@ -3,7 +3,7 @@
 #include "Physics/PhysicsSystem.h"
 
 #include "Math/Quad.h"
-#include "Debug/GameDebug.h"
+#include "Debug/GameDebugVariables.h"
 
 #include "imgui/imgui.h"
 

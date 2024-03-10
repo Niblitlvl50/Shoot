@@ -2,7 +2,6 @@
 #include "EntityLogicSystem.h"
 #include "IEntityLogic.h"
 #include "System/Hash.h"
-#include "Debug/GameDebug.h"
 #include "Debug/IDebugDrawer.h"
 
 #include "EntitySystem/ObjectAttribute.h"
