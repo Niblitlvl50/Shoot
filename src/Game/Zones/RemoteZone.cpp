@@ -21,10 +21,12 @@
 #include "Rendering/Sprite/SpriteBatchDrawer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Text/TextSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TransformSystem/TransformSystemDrawer.h"
 
+#include "Entity/AnimationSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "PredictionSystem/PositionPredictionSystem.h"
@@ -75,10 +77,12 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     mono::RenderSystem* render_system = m_system_context->GetSystem<mono::RenderSystem>();
+    mono::TextSystem* text_system = m_system_context->GetSystem<mono::TextSystem>();
     m_sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
 
     m_damage_system = m_system_context->GetSystem<DamageSystem>();
+    AnimationSystem* animation_system = m_system_context->GetSystem<AnimationSystem>();
     CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     ClientManager* client_manager = m_system_context->GetSystem<ClientManager>();
     client_manager->StartClient();
@@ -98,7 +102,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system, render_system), LayerId::GAMEOBJECTS);
     AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
-    AddDrawable(new HealthbarDrawer(m_damage_system, transform_system, m_entity_manager), LayerId::UI);
+    AddDrawable(new HealthbarDrawer(m_damage_system, animation_system, text_system, transform_system, m_entity_manager), LayerId::UI);
     AddDrawable(m_console_drawer.get(), LayerId::UI);
     AddDrawable(new DebugUpdater(m_system_context, m_event_handler, renderer), LayerId::UI);
     AddDrawable(new NetworkStatusDrawer(client_manager), LayerId::UI);

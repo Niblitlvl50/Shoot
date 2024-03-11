@@ -8,25 +8,31 @@
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
-#include "Rendering/Text/TextBufferFactory.h"
 
 #include <vector>
 
 namespace game
 {
     class DamageSystem;
+    class AnimationSystem;
 
     class HealthbarDrawer : public mono::IUpdatable, public mono::IDrawable
     {
     public:
         HealthbarDrawer(
-            game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system);
+            game::DamageSystem* damage_system,
+            game::AnimationSystem* animation_system,
+            mono::TextSystem* text_system,
+            mono::TransformSystem* transform_system,
+            mono::IEntityManager* entity_system);
 
         void Update(const mono::UpdateContext& update_context) override;
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         game::DamageSystem* m_damage_system;
+        game::AnimationSystem* m_animation_system;
+        mono::TextSystem* m_text_system;
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_system;
 
@@ -36,9 +42,8 @@ namespace game
 
         struct DamageNumber
         {
+            uint32_t entity_id;
             float time_to_live_s;
-            mono::TextDrawBuffers buffers;
-            math::Matrix transform;
         };
 
         std::vector<DamageNumber> m_damage_numbers;

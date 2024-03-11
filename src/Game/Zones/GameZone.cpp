@@ -52,6 +52,7 @@
 #include "DialogSystem/DialogSystem.h"
 #include "DialogSystem/DialogSystemDrawer.h"
 
+#include "Entity/AnimationSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/EntityObjectDrawer.h"
 #include "Entity/TargetSystem.h"
@@ -103,6 +104,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
 
+    game::AnimationSystem* animation_system = m_system_context->GetSystem<game::AnimationSystem>();
     game::CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
     game::TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
@@ -145,7 +147,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
 
-    m_healthbar_drawer = new game::HealthbarDrawer(damage_system, transform_system, entity_system);
+    m_healthbar_drawer = new game::HealthbarDrawer(damage_system, animation_system, text_system, transform_system, entity_system);
     AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
     AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::GAMEOBJECTS_UI);
 

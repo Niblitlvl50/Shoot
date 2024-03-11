@@ -4,11 +4,15 @@
 #include "DamageSystem/DamageSystem.h"
 #include "Debug/GameDebugVariables.h"
 
+#include "Entity/AnimationSystem.h"
+#include "Entity/Component.h"
+
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/Text/TextBufferFactory.h"
 #include "Rendering/Text/TextFunctions.h"
+#include "Rendering/Text/TextSystem.h"
 #include "Math/Quad.h"
 #include "Math/EasingFunctions.h"
 #include "Util/Algorithm.h"
@@ -165,8 +169,10 @@ namespace
 }
 
 HealthbarDrawer::HealthbarDrawer(
-    game::DamageSystem* damage_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system)
+    game::DamageSystem* damage_system, game::AnimationSystem* animation_system, mono::TextSystem* text_system, mono::TransformSystem* transform_system, mono::IEntityManager* entity_system)
     : m_damage_system(damage_system)
+    , m_animation_system(animation_system)
+    , m_text_system(text_system)
     , m_transform_system(transform_system)
     , m_entity_system(entity_system)
 {
@@ -202,18 +208,53 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
             std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
         }
 
+        mono::Entity damage_number_entity = m_entity_system->CreateEntity("damage_number", { TRANSFORM_COMPONENT, TEXT_COMPONENT, TRANSLATION_COMPONENT });
+        m_transform_system->SetTransform(damage_number_entity.id, world_transform);
+
+        mono::TextComponent text_data;
+        text_data.text = text_buffer;
+        text_data.font_id = g_selected_font;
+        text_data.tint = mono::Color::RED;
+        text_data.center_flags = mono::FontCentering::HORIZONTAL_VERTICAL;
+        text_data.draw_shadow = true;
+        text_data.shadow_offset = math::Vector(0.01f, 0.01f);
+        text_data.shadow_color = mono::Color::BLACK;
+        m_text_system->SetTextData(damage_number_entity.id, text_data);
+
+        m_animation_system->AddTranslationComponent(
+            damage_number_entity.id, 0, damage_number_time_to_live_s, math::EaseOutCubic, game::AnimationMode::ONE_SHOT, math::Vector(0.0f, 0.1f));
+
         DamageNumber damage_number;
+        damage_number.entity_id = damage_number_entity.id;
         damage_number.time_to_live_s = damage_number_time_to_live_s;
-        damage_number.buffers = mono::BuildTextDrawBuffers(g_selected_font, text_buffer, mono::FontCentering::HORIZONTAL_VERTICAL);
-        damage_number.transform = world_transform;
         m_damage_numbers.push_back(std::move(damage_number));
     }
 
-    const auto remove_if_done = [&update_context](DamageNumber& damage_number) {
+    static const mono::Color::Gradient<3> damage_gradient = mono::Color::MakeGradient<3>(
+        {0.0f, 0.7f, 1.0f},
+        {mono::Color::GOLDEN_YELLOW, healthbar_red, mono::Color::MakeWithAlpha(healthbar_red, 0.0f)}
+    );
+
+/*
+    const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
+    mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, (1.0f - alpha)), alpha);
+*/
+
+
+    const auto update_and_remove_if_done = [this, &update_context](DamageNumber& damage_number)
+    {
+        const float alpha_value = damage_number.time_to_live_s / damage_number_time_to_live_s;
+        const float inverse_alpha_value = 1.0f - alpha_value;
+
         damage_number.time_to_live_s -= update_context.delta_s;
-        return (damage_number.time_to_live_s <= 0.0f);
+        m_text_system->SetTextColor(
+            damage_number.entity_id, mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, inverse_alpha_value), alpha_value));
+        const bool time_to_destroy = (damage_number.time_to_live_s <= 0.0f);
+        if(time_to_destroy)
+            m_entity_system->ReleaseEntity(damage_number.entity_id);
+        return time_to_destroy;
     };
-    mono::remove_if(m_damage_numbers, remove_if_done);
+    mono::remove_if(m_damage_numbers, update_and_remove_if_done);
 }
 
 void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
@@ -288,27 +329,6 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& world_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(icon_position);
         auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
         renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
-    }
-
-    const mono::ITexturePtr& texture = mono::GetFontTexture(g_selected_font);
-    const mono::Color::Gradient<3> damage_gradient = mono::Color::MakeGradient<3>(
-        {0.0f, 0.7f, 1.0f},
-        {mono::Color::GOLDEN_YELLOW, healthbar_red, mono::Color::MakeWithAlpha(healthbar_red, 0.0f)}
-    );
-
-    for(const DamageNumber& damage_number : m_damage_numbers)
-    {
-        const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
-        const auto scope = mono::MakeTransformScope(
-            damage_number.transform * math::CreateMatrixWithPosition(math::Vector(0.0f, 0.2f * (1.0f - alpha))), &renderer);
-        renderer.DrawGeometry(
-            damage_number.buffers.vertices.get(),
-            damage_number.buffers.uv.get(),
-            damage_number.buffers.indices.get(),
-            texture.get(),
-            mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, (1.0f - alpha)), alpha),
-            false,
-            damage_number.buffers.indices->Size());
     }
 }
 
