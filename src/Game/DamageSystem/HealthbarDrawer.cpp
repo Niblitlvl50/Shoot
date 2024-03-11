@@ -222,7 +222,7 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         m_text_system->SetTextData(damage_number_entity.id, text_data);
 
         m_animation_system->AddTranslationComponent(
-            damage_number_entity.id, 0, damage_number_time_to_live_s, math::EaseOutCubic, game::AnimationMode::ONE_SHOT, math::Vector(0.0f, 0.1f));
+            damage_number_entity.id, 0, damage_number_time_to_live_s, math::EaseOutCubic, game::AnimationMode::ONE_SHOT, math::Vector(0.0f, 0.2f));
 
         DamageNumber damage_number;
         damage_number.entity_id = damage_number_entity.id;
@@ -234,12 +234,6 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         {0.0f, 0.7f, 1.0f},
         {mono::Color::GOLDEN_YELLOW, healthbar_red, mono::Color::MakeWithAlpha(healthbar_red, 0.0f)}
     );
-
-/*
-    const float alpha = math::EaseInCubic(1.0f - damage_number.time_to_live_s, damage_number_time_to_live_s, 1.0f, -1.0f);
-    mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, (1.0f - alpha)), alpha);
-*/
-
 
     const auto update_and_remove_if_done = [this, &update_context](DamageNumber& damage_number)
     {
