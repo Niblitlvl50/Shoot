@@ -3,7 +3,8 @@
     "bullets": [
         {
             "name": "generic_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
@@ -13,7 +14,8 @@
         },
         {
             "name": "generic_sinewave_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
@@ -23,7 +25,8 @@
         },
         {
             "name": "plasma_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 0.2,
             "fuzzy_life_span": 0.2,
             "bullet_want_direction": false,
@@ -33,7 +36,8 @@
         },
         {
             "name": "flak_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
@@ -43,7 +47,8 @@
         },
         {
             "name": "flak_bullet_homing",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
@@ -53,7 +58,8 @@
         },
         {
             "name": "familiar_bullet",
-            "damage": 10,
+            "min_damage": 10,
+            "max_damage": 10,
             "life_span": 0.3,
             "fuzzy_life_span": 0.1,
             "bullet_want_direction": true,
@@ -63,7 +69,8 @@
         },
         {
             "name": "fire_wobbly_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 3.0,
             "bullet_want_direction": false,
@@ -73,7 +80,8 @@
         },
         {
             "name": "burst_gun_bullet",
-            "damage": 80,
+            "min_damage": 80,
+            "max_damage": 80,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
@@ -83,7 +91,8 @@
         },
         {
             "name": "caco_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 2.0,
             "fuzzy_life_span": 0.3,
             "bullet_want_direction": false,
@@ -93,7 +102,8 @@
         },
         {
             "name": "boss_caco_bullet",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 3.0,
             "fuzzy_life_span": 0.3,
             "bullet_want_direction": false,
@@ -103,7 +113,8 @@
         },
         {
             "name": "caco_bullet_homing",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 1.0,
             "bullet_want_direction": false,
@@ -113,7 +124,8 @@
         },
         {
             "name": "generic_circulating",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 20.0,
             "fuzzy_life_span": 5.0,
             "bullet_want_direction": false,
@@ -123,7 +135,8 @@
         },
         {
             "name": "rocket",
-            "damage": 50,
+            "min_damage": 50,
+            "max_damage": 50,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": true,
@@ -133,7 +146,8 @@
         },
         {
             "name": "laser",
-            "damage": 20,
+            "min_damage": 20,
+            "max_damage": 20,
             "life_span": 10.0,
             "fuzzy_life_span": 0,
             "bullet_want_direction": true,
@@ -143,7 +157,8 @@
         },
         {
             "name": "webber_bullet",
-            "damage": 1,
+            "min_damage": 1,
+            "max_damage": 1,
             "life_span": 10.0,
             "fuzzy_life_span": 0,
             "bullet_want_direction": false,

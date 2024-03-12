@@ -69,7 +69,8 @@ namespace game
     struct BulletConfiguration
     {
         std::string name;
-        int damage;
+        int min_damage;
+        int max_damage;
         float life_span;
         float fuzzy_life_span;
         bool bullet_want_direction;

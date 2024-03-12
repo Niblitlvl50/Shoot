@@ -45,10 +45,12 @@ BulletLogic::BulletLogic(
     , m_transform_system(transform_system)
     , m_physics_system(physics_system)
     , m_target_system(target_system)
-    , m_damage(bullet_config.damage)
+    , m_damage(0)
     , m_bullet_behaviour(bullet_config.bullet_behaviour)
     , m_circulating_behaviour(transform_system)
 {
+    m_damage = mono::RandomInt(bullet_config.min_damage, bullet_config.max_damage);
+
     m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
     m_is_player_faction = (collision_config.collision_category & CollisionCategory::PLAYER_BULLET);
     m_jumps_left = 3;
