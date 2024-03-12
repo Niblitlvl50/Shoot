@@ -5,6 +5,7 @@
 #include "IUpdatable.h"
 #include "Math/Matrix.h"
 #include "Rendering/IDrawable.h"
+#include "Rendering/Color.h"
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
@@ -44,6 +45,7 @@ namespace game
         {
             uint32_t entity_id;
             float time_to_live_s;
+            mono::Color::Gradient<3> gradient;
         };
 
         std::vector<DamageNumber> m_damage_numbers;

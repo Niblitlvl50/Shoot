@@ -113,48 +113,51 @@ namespace
     // https://www.writtensound.com/
     // https://www.writtensound.com/index.php?term=hard+hit
 
-    constexpr const char* damage_words[] = {
-        "pow",      // sound of a blow
-        "bam",      // sound of a hard hit
-        "blaw",
-        "hit",
-        "pof",
-        "smack",
-        "blast",
-        "thud",     // to hit with a dull sound
-        "whack",    // to strike sharply
-        "wap",      // hit/blow
-        "wham",     // a heavy blow
-        "whap",     // to beat or strike
-        "slap",
-        "splat",    // landing with a smacking sound
-        "slam",     
-        "smash",
-        "crash",
-        "ruin",
-        "tear",
-        "wreck",
-        "burn",
-        "crush",
-        "maul",
-        "pop",
-        "zap",
-        "bam",
-        "bash",
-        "bwak",     // sound of punch or kick from DBZ
-        "bump",     // heavy dull blow
-        "biff",     // sound of an uppercut
-        "bonk",     // something heavy hitting something else
-        "bop",      // sound of a hit
-        "klam",     // sound of punch/hit from DBZ
-        "plonk",    // a dull striking sound
-        "pock",     // dry hit
-        "swah",     // sound of a karate chop from DBZ
+    struct DamageWord
+    {
+        const char* word = nullptr;
+        mono::Color::RGBA color = mono::Color::WHITE;
     };
 
-    const char* DamageToWord(int damage)
+    static const DamageWord damage_words[] = {
+        { "hit",    mono::Color::MakeFromBytes(255, 200, 87)    },
+        { "bop",    mono::Color::MakeFromBytes(233, 114, 76)    },     // sound of a hit
+        { "thud",   mono::Color::MakeFromBytes(197, 40, 61)     },     // to hit with a dull sound
+        { "pock",   mono::Color::MakeFromBytes(72, 29, 36)      },     // dry hit
+        { "pof",    mono::Color::MakeFromBytes(37, 95, 133)     },
+        { "pop",    mono::Color::MakeFromBytes(72, 60, 70)      },
+        { "plonk",  mono::Color::MakeFromBytes(60, 110, 113)    },     // a dull striking sound
+
+        { "bam",    mono::Color::MakeFromBytes(112, 174, 110)   },     // sound of a hard hit
+        { "wap",    mono::Color::MakeFromBytes(190, 238, 98)    },     // hit/blow
+        { "blaw",   mono::Color::MakeFromBytes(244, 116, 59)    },
+        { "whack",  mono::Color::WHITE },     // to strike sharply
+        { "splat",  mono::Color::WHITE },     // landing with a smacking sound
+        { "pow",    mono::Color::WHITE },     // sound of a blow
+        { "zap",    mono::Color::WHITE },
+        { "bwak",   mono::Color::WHITE },     // sound of punch or kick from DBZ
+        { "biff",   mono::Color::WHITE },     // sound of an uppercut
+        { "bonk",   mono::Color::WHITE },     // something heavy hitting something else
+        { "whap",   mono::Color::WHITE },     // to beat or strike
+        { "klam",   mono::Color::WHITE },     // sound of punch/hit from DBZ
+        { "swah",   mono::Color::WHITE },     // sound of a karate chop from DBZ
+        { "slap",   mono::Color::WHITE },
+        { "bump",   mono::Color::WHITE },     // heavy dull blow
+        { "wham",   mono::Color::WHITE },     // a heavy blow
+        { "smack",  mono::Color::WHITE },
+        
+        { "slam",   mono::Color::WHITE },     
+        { "smash",  mono::Color::WHITE },
+        { "wreck",  mono::Color::WHITE },
+        { "burn",   mono::Color::WHITE },
+        { "crush",  mono::Color::WHITE },
+        { "maul",   mono::Color::WHITE },
+        { "bash",   mono::Color::WHITE },
+    };
+
+    const DamageWord& DamageToWord(int damage)
     {
-        const int index = std::clamp(damage / 10, 0, (int)std::size(damage_words));
+        const int index = std::clamp(damage / 5, 0, (int)std::size(damage_words));
         return damage_words[index];
     }
 
@@ -163,9 +166,6 @@ namespace
         return std::clamp(
             damage * (10.0f / float(std::size(damage_words))), 0.0f, 1.0f);
     }
-
-    constexpr int g_selected_font = FontId::RUSSOONE_TINY;
-    //constexpr int g_selected_font = FontId::PIXELETTE_TINY;
 }
 
 HealthbarDrawer::HealthbarDrawer(
@@ -191,7 +191,6 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
 
     for(const DamageEvent& damage_event : m_damage_system->GetDamageEventsThisFrame())
     {
-        //const bool was_destroyed = (damage_event.damage_result & DamageType::DESTROYED);
         const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(damage_event.id);
 
         const float random_offset_x = mono::Random(-0.2f, 0.2f);
@@ -199,22 +198,25 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
         const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::TopLeft(world_bb) + offset, 0.5f);
 
+        const DamageWord& damage_word = DamageToWord(damage_event.damage);
         if(game::g_debug_draw_damage_words)
         {
-            std::snprintf(text_buffer, std::size(text_buffer), "%s", DamageToWord(damage_event.damage));
+            std::snprintf(text_buffer, std::size(text_buffer), "%s", damage_word.word);
         }
         else
         {
             std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
         }
 
-        mono::Entity damage_number_entity = m_entity_system->CreateEntity("damage_number", { TRANSFORM_COMPONENT, TEXT_COMPONENT, TRANSLATION_COMPONENT });
+        mono::Entity damage_number_entity = m_entity_system->CreateEntity(
+            "damage_number", { TRANSFORM_COMPONENT, TEXT_COMPONENT, TRANSLATION_COMPONENT });
         m_transform_system->SetTransform(damage_number_entity.id, world_transform);
 
         mono::TextComponent text_data;
         text_data.text = text_buffer;
-        text_data.font_id = g_selected_font;
-        text_data.tint = mono::Color::RED;
+        //text_data.font_id = FontId::PIXELETTE_TINY;
+        text_data.font_id = FontId::RUSSOONE_TINY;
+        text_data.tint = mono::Color::WHITE;
         text_data.center_flags = mono::FontCentering::HORIZONTAL_VERTICAL;
         text_data.draw_shadow = true;
         text_data.shadow_offset = math::Vector(0.01f, 0.01f);
@@ -227,20 +229,20 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         DamageNumber damage_number;
         damage_number.entity_id = damage_number_entity.id;
         damage_number.time_to_live_s = damage_number_time_to_live_s;
+        damage_number.gradient = mono::Color::MakeGradient<3>(
+            { 0.0f, 0.7f, 1.0f },
+            { damage_word.color, mono::Color::MakeWithAlpha(damage_word.color, 0.2f), mono::Color::MakeWithAlpha(mono::Color::WHITE, 0.0f) }
+        );
+
         m_damage_numbers.push_back(std::move(damage_number));
     }
-
-    static const mono::Color::Gradient<3> damage_gradient = mono::Color::MakeGradient<3>(
-        { 0.0f, 0.7f, 1.0f },
-        { mono::Color::GOLDEN_YELLOW, mono::Color::MakeWithAlpha(healthbar_red, 0.2f), mono::Color::MakeWithAlpha(healthbar_red, 0.0f) }
-    );
 
     const auto update_and_remove_if_done = [this, &update_context](DamageNumber& damage_number)
     {
         damage_number.time_to_live_s -= update_context.delta_s;
 
         const float inverse_alpha_value = 1.0f - (damage_number.time_to_live_s / damage_number_time_to_live_s);
-        m_text_system->SetTextColor(damage_number.entity_id, mono::Color::ColorFromGradient(damage_gradient, inverse_alpha_value));
+        m_text_system->SetTextColor(damage_number.entity_id, mono::Color::ColorFromGradient(damage_number.gradient, inverse_alpha_value));
 
         const bool time_to_destroy = (damage_number.time_to_live_s <= 0.0f);
         if(time_to_destroy)
