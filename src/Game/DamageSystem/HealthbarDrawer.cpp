@@ -231,21 +231,21 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
     }
 
     static const mono::Color::Gradient<3> damage_gradient = mono::Color::MakeGradient<3>(
-        {0.0f, 0.7f, 1.0f},
-        {mono::Color::GOLDEN_YELLOW, healthbar_red, mono::Color::MakeWithAlpha(healthbar_red, 0.0f)}
+        { 0.0f, 0.7f, 1.0f },
+        { mono::Color::GOLDEN_YELLOW, mono::Color::MakeWithAlpha(healthbar_red, 0.2f), mono::Color::MakeWithAlpha(healthbar_red, 0.0f) }
     );
 
     const auto update_and_remove_if_done = [this, &update_context](DamageNumber& damage_number)
     {
-        const float alpha_value = damage_number.time_to_live_s / damage_number_time_to_live_s;
-        const float inverse_alpha_value = 1.0f - alpha_value;
-
         damage_number.time_to_live_s -= update_context.delta_s;
-        m_text_system->SetTextColor(
-            damage_number.entity_id, mono::Color::MakeWithAlpha(mono::Color::ColorFromGradient(damage_gradient, inverse_alpha_value), alpha_value));
+
+        const float inverse_alpha_value = 1.0f - (damage_number.time_to_live_s / damage_number_time_to_live_s);
+        m_text_system->SetTextColor(damage_number.entity_id, mono::Color::ColorFromGradient(damage_gradient, inverse_alpha_value));
+
         const bool time_to_destroy = (damage_number.time_to_live_s <= 0.0f);
         if(time_to_destroy)
             m_entity_system->ReleaseEntity(damage_number.entity_id);
+
         return time_to_destroy;
     };
     mono::remove_if(m_damage_numbers, update_and_remove_if_done);
