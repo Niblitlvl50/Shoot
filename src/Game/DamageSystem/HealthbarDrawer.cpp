@@ -118,40 +118,50 @@ namespace
         const char* word = nullptr;
         mono::Color::RGBA color = mono::Color::WHITE;
     };
+   
+    static const mono::Color::RGBA DamageColor_SpringBud = mono::Color::MakeFromBytes(162, 231, 35); // https://coolors.co/a2e723
+    static const mono::Color::RGBA DamageColor_Tangelo = mono::Color::MakeFromBytes(242, 89, 24); // https://coolors.co/f25918
+    static const mono::Color::RGBA DamageColor_MajorelleBlue = mono::Color::MakeFromBytes(98, 60, 234); // https://coolors.co/623cea
+    static const mono::Color::RGBA DamageColor_Poppy = mono::Color::MakeFromBytes(214, 64, 69); // https://coolors.co/d64045
+    static const mono::Color::RGBA DamageColor_Saffron = mono::Color::MakeFromBytes(238, 186, 11); // https://coolors.co/eeba0b
 
     static const DamageWord damage_words[] = {
-        { "hit",    mono::Color::MakeFromBytes(255, 200, 87)    },
-        { "bop",    mono::Color::MakeFromBytes(233, 114, 76)    },     // sound of a hit
-        { "thud",   mono::Color::MakeFromBytes(197, 40, 61)     },     // to hit with a dull sound
-        { "pock",   mono::Color::MakeFromBytes(72, 29, 36)      },     // dry hit
-        { "pof",    mono::Color::MakeFromBytes(37, 95, 133)     },
-        { "pop",    mono::Color::MakeFromBytes(72, 60, 70)      },
-        { "plonk",  mono::Color::MakeFromBytes(60, 110, 113)    },     // a dull striking sound
+        { "hit",    DamageColor_SpringBud       },
+        { "bop",    DamageColor_Tangelo         },     // sound of a hit
+        { "thud",   DamageColor_MajorelleBlue   },     // to hit with a dull sound
+        { "pock",   DamageColor_Poppy           },     // dry hit
+        { "pof",    DamageColor_Saffron         },
 
-        { "bam",    mono::Color::MakeFromBytes(112, 174, 110)   },     // sound of a hard hit
-        { "wap",    mono::Color::MakeFromBytes(190, 238, 98)    },     // hit/blow
-        { "blaw",   mono::Color::MakeFromBytes(244, 116, 59)    },
-        { "whack",  mono::Color::WHITE },     // to strike sharply
-        { "splat",  mono::Color::WHITE },     // landing with a smacking sound
-        { "pow",    mono::Color::WHITE },     // sound of a blow
-        { "zap",    mono::Color::WHITE },
-        { "bwak",   mono::Color::WHITE },     // sound of punch or kick from DBZ
-        { "biff",   mono::Color::WHITE },     // sound of an uppercut
-        { "bonk",   mono::Color::WHITE },     // something heavy hitting something else
-        { "whap",   mono::Color::WHITE },     // to beat or strike
-        { "klam",   mono::Color::WHITE },     // sound of punch/hit from DBZ
-        { "swah",   mono::Color::WHITE },     // sound of a karate chop from DBZ
+        { "pop",    DamageColor_SpringBud       },
+        { "plonk",  DamageColor_Tangelo         },     // a dull striking sound
+        { "bam",    DamageColor_MajorelleBlue   },     // sound of a hard hit
+        { "wap",    DamageColor_Poppy           },     // hit/blow
+        { "blaw",   DamageColor_Saffron         },
+
+        { "whack",  DamageColor_SpringBud       },     // to strike sharply
+        { "splat",  DamageColor_Tangelo         },     // landing with a smacking sound
+        { "pow",    DamageColor_MajorelleBlue   },     // sound of a blow
+        { "zap",    DamageColor_Poppy           },
+        { "bwak",   DamageColor_Saffron         },     // sound of punch or kick from DBZ
+
+        { "biff",   DamageColor_SpringBud       },     // sound of an uppercut
+        { "bonk",   DamageColor_Tangelo         },     // something heavy hitting something else
+        { "whap",   DamageColor_MajorelleBlue   },     // to beat or strike
+        { "klam",   DamageColor_Poppy           },     // sound of punch/hit from DBZ
+        { "swah",   DamageColor_Saffron         },     // sound of a karate chop from DBZ
+
         { "slap",   mono::Color::WHITE },
         { "bump",   mono::Color::WHITE },     // heavy dull blow
         { "wham",   mono::Color::WHITE },     // a heavy blow
         { "smack",  mono::Color::WHITE },
-        
         { "slam",   mono::Color::WHITE },     
+
         { "smash",  mono::Color::WHITE },
         { "wreck",  mono::Color::WHITE },
         { "burn",   mono::Color::WHITE },
         { "crush",  mono::Color::WHITE },
         { "maul",   mono::Color::WHITE },
+
         { "bash",   mono::Color::WHITE },
     };
 
@@ -193,10 +203,15 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
     {
         const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(damage_event.id);
 
+        const math::Vector& instigator_position = m_transform_system->GetWorldPosition(damage_event.id_who_did_damage);
+        const bool is_left_of_instigator = instigator_position.x < math::Center(world_bb).x;
+
         const float random_offset_x = mono::Random(-0.2f, 0.2f);
         const float random_offset_y = mono::Random(0.0f, 0.15f);
         const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
-        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::TopLeft(world_bb) + offset, 0.5f);
+
+        const math::Vector box_corner = is_left_of_instigator ? math::TopRight(world_bb) : math::TopLeft(world_bb);
+        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(box_corner + offset, 0.35f);
 
         const DamageWord& damage_word = DamageToWord(damage_event.damage);
         if(game::g_debug_draw_damage_words)
