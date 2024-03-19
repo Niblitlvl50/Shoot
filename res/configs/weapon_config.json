@@ -58,8 +58,8 @@
         },
         {
             "name": "familiar_bullet",
-            "min_damage": 10,
-            "max_damage": 10,
+            "min_damage": 5,
+            "max_damage": 12,
             "life_span": 0.3,
             "fuzzy_life_span": 0.1,
             "bullet_want_direction": true,
