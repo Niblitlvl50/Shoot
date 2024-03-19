@@ -180,6 +180,6 @@ namespace game
         mono::IConstraint* m_pickup_constraint;
         float m_pickup_mass;
 
-        std::unique_ptr<class HookshotLogic> m_hookshot;
+        std::unique_ptr<class Hookshot> m_hookshot;
     };
 }

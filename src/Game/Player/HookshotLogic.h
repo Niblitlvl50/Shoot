@@ -9,20 +9,35 @@
 
 namespace game
 {
-    class HookshotLogic
+    class Hookshot
     {
     public:
-        HookshotLogic(
+        enum class States
+        {
+            IDLE,
+            ANIMATING,
+            ATTACHED,
+            DETACHED,
+            MISSED,
+        };
+
+        Hookshot(
             uint32_t owner_entity_id,
             mono::IEntityManager* entity_system,
             mono::PhysicsSystem* physics_system,
             mono::SpriteSystem* sprite_system,
-            mono::TransformSystem* transform_system);
-        virtual ~HookshotLogic();
+            mono::TransformSystem* transform_system,
+            class EntityLogicSystem* logic_system);
+        virtual ~Hookshot();
 
         void TriggerHookshot(const math::Vector& start, float direction);
         void DetachHookshot();
         void Update(const mono::UpdateContext& update_context);
+
+        States GetState() const;
+        mono::ConstraintBodyPair GetAttachedBodies() const;
+        math::Vector GetAttachedPoint() const;
+        math::Vector GetHookshotPoint() const;
 
     private:
 
@@ -45,20 +60,13 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         mono::TransformSystem* m_transform_system;
 
-        enum class States
-        {
-            IDLE,
-            ANIMATING,
-            ATTACHED,
-            DETACHED,
-            MISSED,
-        };
-
         using HookshotStateMachine = StateMachine<States, const mono::UpdateContext&>;
         HookshotStateMachine m_states;
 
         mono::IBody* m_attached_to_body;
         math::Vector m_attached_to_local_point;
+        float m_rest_length;
+
         mono::IConstraint* m_hookshot_spring;
 
         uint32_t m_grappler_entity;

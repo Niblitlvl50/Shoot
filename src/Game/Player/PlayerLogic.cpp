@@ -149,7 +149,7 @@ PlayerLogic::PlayerLogic(
     };
     m_state.SetStateTableAndState(state_table, PlayerStates::DEFAULT);
 
-    m_hookshot = std::make_unique<HookshotLogic>(m_entity_id, m_entity_system, m_physics_system, m_sprite_system, m_transform_system);
+    m_hookshot = std::make_unique<Hookshot>(m_entity_id, m_entity_system, m_physics_system, m_sprite_system, m_transform_system, m_logic_system);
 
     // Make sure the player info is updated when constructed.
     UpdatePlayerInfo(0);

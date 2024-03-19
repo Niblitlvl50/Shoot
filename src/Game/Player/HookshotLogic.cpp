@@ -6,19 +6,109 @@
 #include "Math/MathFunctions.h"
 
 #include "EntitySystem/IEntityManager.h"
+#include "Rendering/IRenderer.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "CollisionConfiguration.h"
+#include "Entity/EntityLogicSystem.h"
+#include "Entity/IEntityLogic.h"
+#include "Entity/Component.h"
+#include "Debug/IDebugDrawer.h"
+
+
+#include "Rendering/RenderSystem.h"
+#include "Rendering/RenderBuffer/IRenderBuffer.h"
+#include "Rendering/Texture/ITextureFactory.h"
+#include "Paths/PathFactory.h"
+
+namespace
+{
+    const char* GetStateString(game::Hookshot::States state)
+    {
+        switch(state)
+        {
+        case game::Hookshot::States::IDLE:
+            return "IDLE";
+        case game::Hookshot::States::ANIMATING:
+            return "ANIMATING";
+        case game::Hookshot::States::ATTACHED:
+            return "ATTACHED";
+        case game::Hookshot::States::DETACHED:
+            return "DETACHED";
+        case game::Hookshot::States::MISSED:
+            return "MISSED";
+        }
+
+        return "Unknown";
+    }
+
+    class HookshotLogic : public game::IEntityLogic
+    {
+    public:
+        HookshotLogic(game::Hookshot* hookshot)
+            : m_hookshot(hookshot)
+        {
+            m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/particles/beam_white_vertical6.png");
+        }
+
+        void Draw(mono::IRenderer& renderer) const override
+        {
+            const game::Hookshot::States state = m_hookshot->GetState();
+            if(state == game::Hookshot::States::IDLE)
+                return;
+
+            const math::Vector attached_to_point = m_hookshot->GetAttachedPoint();
+            const math::Vector hookshot_point = m_hookshot->GetHookshotPoint();
+
+            std::vector<math::Vector> points = { hookshot_point, attached_to_point };
+
+            mono::PathOptions options;
+            options.closed = false;
+            options.width = 0.2f;
+            options.color = mono::Color::WHITE;
+            options.uv_mode = mono::UVMode::NORMALIZED_DISTANCE;
+
+            mono::PathDrawBuffer m_path_buffers = mono::BuildPathDrawBuffers(mono::PathType::REGULAR, points, options);
+
+            renderer.DrawAnnotatedTrianges(
+                m_path_buffers.vertices.get(),
+                m_path_buffers.anotations.get(),
+                m_path_buffers.indices.get(),
+                m_texture.get(),
+                mono::Color::WHITE,
+                0,
+                m_path_buffers.indices->Size());
+        }
+
+        void DrawDebugInfo(game::IDebugDrawer* debug_drawer) const override
+        {
+            const game::Hookshot::States state = m_hookshot->GetState();
+            const char* state_string = GetStateString(state);
+            debug_drawer->DrawWorldText(state_string, math::ZeroVec, mono::Color::MAGENTA);
+        }
+
+        const char* GetDebugCategory() const override
+        {
+            return "Hookshot";
+        }
+
+
+        game::Hookshot* m_hookshot;
+        //mono::PathDrawBuffer m_path_buffers;
+        mono::ITexturePtr m_texture;
+    };
+}
 
 using namespace game;
 
-HookshotLogic::HookshotLogic(
+Hookshot::Hookshot(
     uint32_t owner_entity_id,
     mono::IEntityManager* entity_system,
     mono::PhysicsSystem* physics_system,
     mono::SpriteSystem* sprite_system,
-    mono::TransformSystem* transform_system)
+    mono::TransformSystem* transform_system,
+    EntityLogicSystem* logic_system)
     : m_owner_entity_id(owner_entity_id)
     , m_entity_system(entity_system)
     , m_physics_system(physics_system)
@@ -27,24 +117,27 @@ HookshotLogic::HookshotLogic(
     , m_hookshot_spring(nullptr)
 {
     m_grappler_entity = entity_system->SpawnEntity("res/entities/hookshot_grappler.entity").id;
+    entity_system->AddComponent(m_grappler_entity, BEHAVIOUR_COMPONENT);
+    logic_system->AddLogic(m_grappler_entity, new HookshotLogic(this));
+
     m_sprite_system->SetSpriteEnabled(m_grappler_entity, false);
 
     const HookshotStateMachine::StateTable state_table = {
-        HookshotStateMachine::MakeState(States::IDLE, &HookshotLogic::OnIdle, &HookshotLogic::Idle, this),
-        HookshotStateMachine::MakeState(States::ANIMATING, &HookshotLogic::OnAnimating, &HookshotLogic::Animating, this),
-        HookshotStateMachine::MakeState(States::ATTACHED, &HookshotLogic::OnAttached, &HookshotLogic::Attached, this),
-        HookshotStateMachine::MakeState(States::DETACHED, &HookshotLogic::OnDetached, &HookshotLogic::Detached, this),
-        HookshotStateMachine::MakeState(States::MISSED, &HookshotLogic::OnMissed, &HookshotLogic::Missed, this),
+        HookshotStateMachine::MakeState(States::IDLE, &Hookshot::OnIdle, &Hookshot::Idle, this),
+        HookshotStateMachine::MakeState(States::ANIMATING, &Hookshot::OnAnimating, &Hookshot::Animating, this),
+        HookshotStateMachine::MakeState(States::ATTACHED, &Hookshot::OnAttached, &Hookshot::Attached, this),
+        HookshotStateMachine::MakeState(States::DETACHED, &Hookshot::OnDetached, &Hookshot::Detached, this),
+        HookshotStateMachine::MakeState(States::MISSED, &Hookshot::OnMissed, &Hookshot::Missed, this),
     };
     m_states.SetStateTableAndState(state_table, States::IDLE);
 }
 
-HookshotLogic::~HookshotLogic()
+Hookshot::~Hookshot()
 {
     m_entity_system->ReleaseEntity(m_grappler_entity);
 }
 
-void HookshotLogic::TriggerHookshot(const math::Vector& start, float direction)
+void Hookshot::TriggerHookshot(const math::Vector& start, float direction)
 {
     const States active_state = m_states.ActiveState();
     if(active_state != States::IDLE)
@@ -60,6 +153,7 @@ void HookshotLogic::TriggerHookshot(const math::Vector& start, float direction)
     {
         m_attached_to_body = result.body;
         m_attached_to_local_point = m_attached_to_body->WorldToLocal(result.point);
+        m_rest_length = math::DistanceBetween(start, result.point);
         m_states.TransitionTo(States::ANIMATING);
     }
     else
@@ -68,7 +162,7 @@ void HookshotLogic::TriggerHookshot(const math::Vector& start, float direction)
     }
 }
 
-void HookshotLogic::DetachHookshot()
+void Hookshot::DetachHookshot()
 {
     if(m_states.ActiveState() != States::ATTACHED)
         return;
@@ -76,7 +170,7 @@ void HookshotLogic::DetachHookshot()
     m_states.TransitionTo(States::DETACHED);
 }
 
-void HookshotLogic::ReleaseHookshot()
+void Hookshot::ReleaseHookshot()
 {
     if(!m_hookshot_spring)
         return;
@@ -89,30 +183,61 @@ void HookshotLogic::ReleaseHookshot()
     m_states.TransitionTo(States::IDLE);
 }
 
-void HookshotLogic::Update(const mono::UpdateContext& update_context)
+void Hookshot::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
 }
 
-void HookshotLogic::OnIdle()
+Hookshot::States Hookshot::GetState() const
+{
+    return m_states.ActiveState();
+}
+
+mono::ConstraintBodyPair Hookshot::GetAttachedBodies() const
+{
+    if(!m_hookshot_spring)
+        return { nullptr, nullptr };
+
+    return m_hookshot_spring->GetBodies();
+}
+
+math::Vector Hookshot::GetAttachedPoint() const
+{
+    if(!m_attached_to_body)
+        return math::ZeroVec;
+
+    return m_attached_to_body->LocalToWorld(m_attached_to_local_point);
+}
+
+math::Vector Hookshot::GetHookshotPoint() const
+{
+    mono::IBody* owner_body = m_physics_system->GetBody(m_owner_entity_id);
+    return owner_body->GetPosition();
+}
+
+void Hookshot::OnIdle()
 {}
-void HookshotLogic::Idle(const mono::UpdateContext& update_context)
+void Hookshot::Idle(const mono::UpdateContext& update_context)
 {}
 
-void HookshotLogic::OnAnimating()
+void Hookshot::OnAnimating()
 {}
-void HookshotLogic::Animating(const mono::UpdateContext& update_context)
+void Hookshot::Animating(const mono::UpdateContext& update_context)
 {
     // Not sure about this state, i guess the travel time should be here.
     m_states.TransitionTo(States::ATTACHED);
 }
 
-void HookshotLogic::OnAttached()
+void Hookshot::OnAttached()
 {
     mono::IBody* owner_body = m_physics_system->GetBody(m_owner_entity_id);
 
+//    m_hookshot_spring =
+//        m_physics_system->CreateSpring(owner_body, m_attached_to_body, math::ZeroVec, m_attached_to_local_point, m_rest_length * 0.9f, 100.0, 0.0f);
+
     m_hookshot_spring =
-        m_physics_system->CreateSpring(owner_body, m_attached_to_body, math::ZeroVec, m_attached_to_local_point, 0.0f, 400.0, 0.0f);
+        m_physics_system->CreateSlideJoint(owner_body, m_attached_to_body, math::ZeroVec, m_attached_to_local_point, 0.0, m_rest_length * 0.9f);
+
 
     const uint32_t attached_to_entity_id = m_attached_to_body->GetId();
     
@@ -121,29 +246,29 @@ void HookshotLogic::OnAttached()
 
     m_sprite_system->SetSpriteEnabled(m_grappler_entity, true);
 }
-void HookshotLogic::Attached(const mono::UpdateContext& update_context)
+void Hookshot::Attached(const mono::UpdateContext& update_context)
 {
-    const mono::ConstraintBodyPair& body_pair = m_hookshot_spring->GetBodies();
-    const math::Vector first_position = body_pair.first->GetPosition();
-    const math::Vector second_position = body_pair.second->LocalToWorld(m_attached_to_local_point);
+    //const mono::ConstraintBodyPair& body_pair = m_hookshot_spring->GetBodies();
+    //const math::Vector first_position = body_pair.first->GetPosition();
+    //const math::Vector second_position = body_pair.second->LocalToWorld(m_attached_to_local_point);
 
-    const float distance = math::DistanceBetween(first_position, second_position);
-    if(distance < 0.5f)
-        m_states.TransitionTo(States::DETACHED);
+    //const float distance = math::DistanceBetween(first_position, second_position);
+    //if(distance < 0.5f)
+    //    m_states.TransitionTo(States::DETACHED);
 }
 
-void HookshotLogic::OnDetached()
+void Hookshot::OnDetached()
 {
     ReleaseHookshot();
 }
-void HookshotLogic::Detached(const mono::UpdateContext& update_context)
+void Hookshot::Detached(const mono::UpdateContext& update_context)
 {
     m_states.TransitionTo(States::IDLE);
 }
 
-void HookshotLogic::OnMissed()
+void Hookshot::OnMissed()
 {}
-void HookshotLogic::Missed(const mono::UpdateContext& update_context)
+void Hookshot::Missed(const mono::UpdateContext& update_context)
 {
     // Missed animation or effect or something.
     m_states.TransitionTo(States::IDLE);
