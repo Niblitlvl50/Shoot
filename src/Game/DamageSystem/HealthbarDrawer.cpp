@@ -204,14 +204,17 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(damage_event.id);
 
         const math::Vector& instigator_position = m_transform_system->GetWorldPosition(damage_event.id_who_did_damage);
-        const bool is_left_of_instigator = instigator_position.x < math::Center(world_bb).x;
+        const math::Vector& delta_position = math::Center(world_bb) - instigator_position;
+        const bool is_left_of_instigator = instigator_position.x < delta_position.x;
+
+        const float shortest_side = math::ShortestSide(world_bb);
 
         const float random_offset_x = mono::Random(-0.2f, 0.2f);
         const float random_offset_y = mono::Random(0.0f, 0.15f);
         const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
 
         const math::Vector box_corner = is_left_of_instigator ? math::TopRight(world_bb) : math::TopLeft(world_bb);
-        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(box_corner + offset, 0.35f);
+        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::Center(world_bb) + (math::Normalized(delta_position) * shortest_side) + offset, 0.35f);
 
         const DamageWord& damage_word = DamageToWord(damage_event.damage);
         if(game::g_debug_draw_damage_words)
