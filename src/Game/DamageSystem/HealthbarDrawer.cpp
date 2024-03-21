@@ -119,42 +119,78 @@ namespace
         mono::Color::RGBA color = mono::Color::WHITE;
     };
    
+
+    // White/Grey
+    static const mono::Color::RGBA DamageColor_WhiteSmoke = mono::Color::MakeFromBytes(245, 245, 245); // https://coolors.co/f5f5f5
+    static const mono::Color::RGBA DamageColor_AntiflashWhite = mono::Color::MakeFromBytes(235, 235, 235); // https://coolors.co/ebebeb
+    static const mono::Color::RGBA DamageColor_Platinum = mono::Color::MakeFromBytes(224, 224, 224); // https://coolors.co/e0e0e0
+    static const mono::Color::RGBA DamageColor_Timberwolf = mono::Color::MakeFromBytes(214, 214, 214); // https://coolors.co/d6d6d6
+    static const mono::Color::RGBA DamageColor_Silver = mono::Color::MakeFromBytes(199, 199, 199); // https://coolors.co/c7c7c7
+
+    // Greens
     static const mono::Color::RGBA DamageColor_SpringBud = mono::Color::MakeFromBytes(162, 231, 35); // https://coolors.co/a2e723
+    static const mono::Color::RGBA DamageColor_SGBUSGreen = mono::Color::MakeFromBytes(95, 232, 35); // https://coolors.co/5fe823
+    static const mono::Color::RGBA DamageColor_Emerald = mono::Color::MakeFromBytes(35, 206, 107); // https://coolors.co/23ce6b
+    static const mono::Color::RGBA DamageColor_LightGreen = mono::Color::MakeFromBytes(169, 253, 172); // https://coolors.co/a9fdac
+    static const mono::Color::RGBA DamageColor_Zomp = mono::Color::MakeFromBytes(50, 162, 135); // https://coolors.co/32a287
+
+    // Red-ish
     static const mono::Color::RGBA DamageColor_Tangelo = mono::Color::MakeFromBytes(242, 89, 24); // https://coolors.co/f25918
-    static const mono::Color::RGBA DamageColor_MajorelleBlue = mono::Color::MakeFromBytes(98, 60, 234); // https://coolors.co/623cea
     static const mono::Color::RGBA DamageColor_Poppy = mono::Color::MakeFromBytes(214, 64, 69); // https://coolors.co/d64045
+    static const mono::Color::RGBA DamageColor_Crayola = mono::Color::MakeFromBytes(237, 37, 78); // https://coolors.co/ed254e
+    static const mono::Color::RGBA DamageColor_AmaranthPurple = mono::Color::MakeFromBytes(159, 32, 66); // https://coolors.co/9f2042
+    static const mono::Color::RGBA DamageColor_Madder = mono::Color::MakeFromBytes(164, 22, 35); // https://coolors.co/a41623
+    //static const mono::Color::RGBA DamageColor_Rose = mono::Color::MakeFromBytes(247, 37, 133); // https://coolors.co/f72585
+
+    // Blues/Purples
+    static const mono::Color::RGBA DamageColor_MajorelleBlue = mono::Color::MakeFromBytes(98, 60, 234); // https://coolors.co/623cea
+    static const mono::Color::RGBA DamageColor_AirSuperiorityBlue = mono::Color::MakeFromBytes(110, 164, 191); // https://coolors.co/6ea4bf
+    static const mono::Color::RGBA DamageColor_Tekhelet = mono::Color::MakeFromBytes(65, 51, 122); // https://coolors.co/41337a
+    //static const mono::Color::RGBA DamageColor_Turquise = mono::Color::MakeFromBytes(115, 238, 220); // https://coolors.co/73eedc
+    static const mono::Color::RGBA DamageColor_NeonBlue = mono::Color::MakeFromBytes(67, 97, 238); // https://coolors.co/4361ee
+    static const mono::Color::RGBA DamageColor_VividSkyBlue = mono::Color::MakeFromBytes(76, 201, 240); // https://coolors.co/4cc9f0
+    //static const mono::Color::RGBA DamageColor_Grape = mono::Color::MakeFromBytes(114, 9, 183); // https://coolors.co/7209b7
+    
+    // Yellowish
     static const mono::Color::RGBA DamageColor_Saffron = mono::Color::MakeFromBytes(238, 186, 11); // https://coolors.co/eeba0b
+    static const mono::Color::RGBA DamageColor_Pantone = mono::Color::MakeFromBytes(248, 94, 0); // https://coolors.co/f85e00
+    static const mono::Color::RGBA DamageColor_BurntSienna = mono::Color::MakeFromBytes(221, 110, 66); // https://coolors.co/dd6e42
+    static const mono::Color::RGBA DamageColor_Maize = mono::Color::MakeFromBytes(255, 242, 117); // https://coolors.co/fff275
+    static const mono::Color::RGBA DamageColor_Citrine = mono::Color::MakeFromBytes(234, 214, 55); // https://coolors.co/ead637
+
+    // Blacks
+    //static const mono::Color::RGBA DamageColor_Night = mono::Color::MakeFromBytes(15, 15, 15); // https://coolors.co/0f0f0f
 
     static const DamageWord damage_words[] = {
-        { "hit",    DamageColor_SpringBud       },
-        { "bop",    DamageColor_Tangelo         },     // sound of a hit
-        { "thud",   DamageColor_MajorelleBlue   },     // to hit with a dull sound
-        { "pock",   DamageColor_Poppy           },     // dry hit
-        { "pof",    DamageColor_Saffron         },
+        { "hit",    DamageColor_WhiteSmoke      },
+        { "bop",    DamageColor_AntiflashWhite  },     // sound of a hit
+        { "thud",   DamageColor_Platinum        },     // to hit with a dull sound
+        { "pock",   DamageColor_Timberwolf      },     // dry hit
+        { "pof",    DamageColor_Silver          },
 
         { "pop",    DamageColor_SpringBud       },
-        { "plonk",  DamageColor_Tangelo         },     // a dull striking sound
-        { "bam",    DamageColor_MajorelleBlue   },     // sound of a hard hit
-        { "wap",    DamageColor_Poppy           },     // hit/blow
-        { "blaw",   DamageColor_Saffron         },
+        { "plonk",  DamageColor_SGBUSGreen      },     // a dull striking sound
+        { "bam",    DamageColor_Emerald         },     // sound of a hard hit
+        { "wap",    DamageColor_LightGreen      },     // hit/blow
+        { "blaw",   DamageColor_Zomp            },
 
-        { "whack",  DamageColor_SpringBud       },     // to strike sharply
-        { "splat",  DamageColor_Tangelo         },     // landing with a smacking sound
-        { "pow",    DamageColor_MajorelleBlue   },     // sound of a blow
-        { "zap",    DamageColor_Poppy           },
-        { "bwak",   DamageColor_Saffron         },     // sound of punch or kick from DBZ
+        { "whack",  DamageColor_Tangelo         },     // to strike sharply
+        { "splat",  DamageColor_Poppy           },     // landing with a smacking sound
+        { "pow",    DamageColor_Crayola         },     // sound of a blow
+        { "zap",    DamageColor_AmaranthPurple  },
+        { "bwak",   DamageColor_Madder          },     // sound of punch or kick from DBZ
 
-        { "biff",   DamageColor_SpringBud       },     // sound of an uppercut
-        { "bonk",   DamageColor_Tangelo         },     // something heavy hitting something else
-        { "whap",   DamageColor_MajorelleBlue   },     // to beat or strike
-        { "klam",   DamageColor_Poppy           },     // sound of punch/hit from DBZ
-        { "swah",   DamageColor_Saffron         },     // sound of a karate chop from DBZ
+        { "biff",   DamageColor_MajorelleBlue       },     // sound of an uppercut
+        { "bonk",   DamageColor_AirSuperiorityBlue  },     // something heavy hitting something else
+        { "whap",   DamageColor_Tekhelet            },     // to beat or strike
+        { "klam",   DamageColor_NeonBlue            },     // sound of punch/hit from DBZ
+        { "swah",   DamageColor_VividSkyBlue        },     // sound of a karate chop from DBZ
 
-        { "slap",   mono::Color::WHITE },
-        { "bump",   mono::Color::WHITE },     // heavy dull blow
-        { "wham",   mono::Color::WHITE },     // a heavy blow
-        { "smack",  mono::Color::WHITE },
-        { "slam",   mono::Color::WHITE },     
+        { "slap",   DamageColor_Saffron     },
+        { "bump",   DamageColor_Pantone     },     // heavy dull blow
+        { "wham",   DamageColor_BurntSienna },     // a heavy blow
+        { "smack",  DamageColor_Maize       },
+        { "slam",   DamageColor_Citrine     },     
 
         { "smash",  mono::Color::WHITE },
         { "wreck",  mono::Color::WHITE },
@@ -201,30 +237,19 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
 
     for(const DamageEvent& damage_event : m_damage_system->GetDamageEventsThisFrame())
     {
-        const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(damage_event.id);
-
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(damage_event.id);
         const math::Vector& instigator_position = m_transform_system->GetWorldPosition(damage_event.id_who_did_damage);
-        const math::Vector& delta_position = math::Center(world_bb) - instigator_position;
-        const bool is_left_of_instigator = instigator_position.x < delta_position.x;
-
-        const float shortest_side = math::ShortestSide(world_bb);
-
-        const float random_offset_x = mono::Random(-0.2f, 0.2f);
-        const float random_offset_y = mono::Random(0.0f, 0.15f);
-        const math::Vector offset = math::Vector(math::Width(world_bb) * random_offset_x, math::Height(world_bb) * random_offset_y);
-
-        const math::Vector box_corner = is_left_of_instigator ? math::TopRight(world_bb) : math::TopLeft(world_bb);
-        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(math::Center(world_bb) + (math::Normalized(delta_position) * shortest_side) + offset, 0.35f);
+        const math::Vector& delta_position_norm = math::Normalized(world_position - instigator_position);
+        const math::Vector& offset = math::Vector(
+            mono::Random(-0.2f, 0.2f),
+            mono::Random(0.0f, 0.15f));
+        const math::Matrix& world_transform = math::CreateMatrixWithPositionScale(world_position + offset, 0.35f);
 
         const DamageWord& damage_word = DamageToWord(damage_event.damage);
         if(game::g_debug_draw_damage_words)
-        {
             std::snprintf(text_buffer, std::size(text_buffer), "%s", damage_word.word);
-        }
         else
-        {
             std::snprintf(text_buffer, std::size(text_buffer), "%d", damage_event.damage);
-        }
 
         mono::Entity damage_number_entity = m_entity_system->CreateEntity(
             "damage_number", { TRANSFORM_COMPONENT, TEXT_COMPONENT, TRANSLATION_COMPONENT });
@@ -232,7 +257,6 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
 
         mono::TextComponent text_data;
         text_data.text = text_buffer;
-        //text_data.font_id = FontId::PIXELETTE_TINY;
         text_data.font_id = FontId::RUSSOONE_TINY;
         text_data.tint = mono::Color::WHITE;
         text_data.center_flags = mono::FontCentering::HORIZONTAL_VERTICAL;
@@ -242,7 +266,13 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         m_text_system->SetTextData(damage_number_entity.id, text_data);
 
         m_animation_system->AddTranslationComponent(
-            damage_number_entity.id, 0, damage_number_time_to_live_s, math::EaseOutCubic, game::AnimationMode::ONE_SHOT, math::Vector(0.0f, 0.2f));
+            damage_number_entity.id,
+            0,
+            damage_number_time_to_live_s,
+            math::EaseOutCubic,
+            math::EaseOutCubic,
+            game::AnimationMode::ONE_SHOT,
+            math::Vector(delta_position_norm.x * 0.1f, delta_position_norm.y * 0.2f));
 
         DamageNumber damage_number;
         damage_number.entity_id = damage_number_entity.id;
