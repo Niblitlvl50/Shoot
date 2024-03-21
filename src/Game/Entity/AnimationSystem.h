@@ -37,7 +37,8 @@ namespace game
         float duration;
         float duration_counter;
 
-        math::EaseFunction ease_function;
+        math::EaseFunction ease_function_x;
+        math::EaseFunction ease_function_y;
         AnimationMode animation_flags;
         TransformAnimType transform_type;
 
@@ -80,7 +81,8 @@ namespace game
             uint32_t container_id,
             uint32_t trigger_hash,
             float duration,
-            math::EaseFunction func,
+            math::EaseFunction func_x,
+            math::EaseFunction func_y,
             AnimationMode mode,
             TransformAnimType type,
             const math::Vector& transform_delta);
@@ -89,7 +91,8 @@ namespace game
             uint32_t container_id,
             uint32_t trigger_hash,
             float duration,
-            math::EaseFunction func,
+            math::EaseFunction func_x,
+            math::EaseFunction func_y,
             AnimationMode mode,
             const math::Vector& translation_delta);
 

@@ -682,7 +682,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddTranslationComponent(
-            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), translation);
+            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), translation);
 
         return true;
     }
