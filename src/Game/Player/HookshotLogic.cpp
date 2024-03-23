@@ -65,7 +65,7 @@ namespace
 
             mono::PathOptions options;
             options.closed = false;
-            options.width = 0.1f;
+            options.width = 0.0625f; // 2 pixels wide is the texture, thus 2/32 since the game runs as 32 pixels per meter.
             options.color = mono::Color::WHITE;
             options.uv_mode = mono::UVMode(mono::UVMode::DISTANCE | mono::UVMode::NORMALIZED_WIDTH);
 
