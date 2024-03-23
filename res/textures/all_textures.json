@@ -41,6 +41,7 @@
         "res/textures/roads/road_dirt_road_grass_1.png",
         "res/textures/title_logo.png",
         "res/textures/title_logo_2.png",
-        "res/textures/title_logo_3.png"
+        "res/textures/title_logo_3.png",
+        "res/textures/particles/rope_vertical1.png"
     ]
 }
