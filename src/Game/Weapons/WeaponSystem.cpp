@@ -222,3 +222,13 @@ uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math:
 
     return spawned_entity.id;
 }
+
+const WeaponModifierList& WeaponSystem::GetWeaponModifierForId(uint32_t id) const
+{
+    const auto it = m_weapon_modifiers.find(id);
+    if(it != m_weapon_modifiers.end())
+        return it->second.modifiers;
+
+    static const WeaponModifierList empty_list;
+    return empty_list;
+}

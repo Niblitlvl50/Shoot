@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "IGameSystem.h"
 
+#include "IWeaponModifier.h"
 #include "WeaponTypes.h"
 #include "WeaponConfiguration.h"
 #include "WeaponEntityFactory.h"
@@ -16,6 +17,7 @@
 namespace game
 {
     using IWeaponPtr = std::unique_ptr<class IWeapon>;
+    using WeaponModifierList = std::vector<std::unique_ptr<IWeaponModifier>>;
     
     class WeaponSystem : public mono::IGameSystem
     {
@@ -54,6 +56,8 @@ namespace game
 
         uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 
+        const WeaponModifierList& GetWeaponModifierForId(uint32_t id) const;
+
     private:
 
         IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
@@ -74,6 +78,12 @@ namespace game
             WeaponSetup tertiary;
         };
         std::unordered_map<uint32_t, WeaponLoadoutComponent> m_weapon_loadout;
+
+        struct WeaponModifierContext
+        {
+            WeaponModifierList modifiers;
+        };
+        std::unordered_map<uint32_t, WeaponModifierContext> m_weapon_modifiers;
 
         class DamageEffect* m_damage_effect = nullptr;
         class ImpactEffect* m_impact_effect = nullptr;

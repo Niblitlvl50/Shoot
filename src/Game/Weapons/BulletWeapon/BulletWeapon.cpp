@@ -1,6 +1,9 @@
 
 #include "BulletWeapon.h"
 #include "Weapons/WeaponEntityFactory.h"
+#include "Weapons/IWeaponModifier.h"
+#include "Weapons/Modifiers/DamageModifier.h"
+#include "Weapons/WeaponSystem.h"
 
 #include "BulletLogic.h"
 #include "Entity/Component.h"
@@ -68,6 +71,7 @@ Weapon::Weapon(
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
     m_target_system = system_context->GetSystem<TargetSystem>();
+    m_weapon_system = system_context->GetSystem<WeaponSystem>();
 
     m_muzzle_flash = std::make_unique<MuzzleFlash>(m_particle_system, m_entity_manager);
     m_bullet_trail = std::make_unique<BulletTrailEffect>(m_transform_system, m_particle_system, m_entity_manager);
@@ -95,7 +99,13 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
         return m_state;
     }
 
-    const float rps_hz = 1.0f / m_weapon_config.rounds_per_second;
+    WeaponConfiguration local_weapon_config = m_weapon_config;
+
+    const WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifierForId(m_owner_id);
+    for(const auto& modifier : modifier_list)
+        local_weapon_config = modifier->ModifyWeapon(local_weapon_config);
+
+    const float rps_hz = 1.0f / local_weapon_config.rounds_per_second;
     const uint32_t weapon_delta = rps_hz * 1000.0f;
 
     const uint32_t delta = timestamp - m_last_fire_timestamp;
@@ -123,27 +133,31 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     const math::Vector fire_direction = math::Normalized(target - position);
     const math::Vector perpendicular_fire_direction = math::Perpendicular(fire_direction);
 
-    for(int n_bullet = 0; n_bullet < m_weapon_config.projectiles_per_fire; ++n_bullet)
+    BulletConfiguration local_bullet_config = m_bullet_config;
+    for(const auto& modifier : modifier_list)
+        local_bullet_config = modifier->ModifyBullet(local_bullet_config);
+
+    for(int n_bullet = 0; n_bullet < local_weapon_config.projectiles_per_fire; ++n_bullet)
     {
         const float fire_direction_deviation =
-            mono::Random(-m_weapon_config.bullet_spread_degrees, m_weapon_config.bullet_spread_degrees);
+            mono::Random(-local_weapon_config.bullet_spread_degrees, local_weapon_config.bullet_spread_degrees);
         const math::Vector modified_fire_direction = math::RotateAroundZero(fire_direction, math::ToRadians(fire_direction_deviation));
 
-        const float velocity_multiplier = m_weapon_config.bullet_velocity_random ? mono::Random(0.8f, 1.2f) : 1.0f;
+        const float velocity_multiplier = local_weapon_config.bullet_velocity_random ? mono::Random(0.8f, 1.2f) : 1.0f;
         const math::Vector& velocity =
-            math::Normalized(modified_fire_direction) * m_weapon_config.bullet_velocity * velocity_multiplier;
+            math::Normalized(modified_fire_direction) * local_weapon_config.bullet_velocity * velocity_multiplier;
 
         const float bullet_direction = math::AngleFromVector(modified_fire_direction);
 
         const math::Vector perp_offset =
-            perpendicular_fire_direction * mono::Random(-m_weapon_config.bullet_offset, m_weapon_config.bullet_offset);
+            perpendicular_fire_direction * mono::Random(-local_weapon_config.bullet_offset, local_weapon_config.bullet_offset);
         const math::Vector fire_position = position + perp_offset;
 
         const float bullet_rotation =
-            m_bullet_config.bullet_want_direction ? math::AngleFromVector(modified_fire_direction) : 0.0f;
+            local_bullet_config.bullet_want_direction ? math::AngleFromVector(modified_fire_direction) : 0.0f;
         const math::Matrix& transform = math::CreateMatrixWithPositionRotation(fire_position, bullet_rotation);
 
-        mono::Entity bullet_entity = entity_factory.CreateBulletEntity(m_owner_id, m_bullet_config, m_collision_config, target, velocity, bullet_direction, transform);
+        mono::Entity bullet_entity = entity_factory.CreateBulletEntity(m_owner_id, local_bullet_config, m_collision_config, target, velocity, bullet_direction, transform);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 
@@ -153,10 +167,10 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
     m_fire_sound->Play();
 
-    m_current_fire_rate *= m_weapon_config.fire_rate_multiplier;
-    m_current_fire_rate = std::min(m_current_fire_rate, m_weapon_config.max_fire_rate);
+    m_current_fire_rate *= local_weapon_config.fire_rate_multiplier;
+    m_current_fire_rate = std::min(m_current_fire_rate, local_weapon_config.max_fire_rate);
 
-    if(!m_weapon_config.infinite_ammo)
+    if(!local_weapon_config.infinite_ammo)
         m_ammunition--;
 
     m_state = WeaponState::FIRE;

@@ -64,6 +64,7 @@ namespace game
         mono::ParticleSystem* m_particle_system;
         EntityLogicSystem* m_logic_system;
         class TargetSystem* m_target_system;
+        class WeaponSystem* m_weapon_system;
 
         std::unique_ptr<class MuzzleFlash> m_muzzle_flash;
         std::unique_ptr<class BulletTrailEffect> m_bullet_trail;
