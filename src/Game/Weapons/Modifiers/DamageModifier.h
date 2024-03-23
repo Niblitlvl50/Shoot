@@ -9,7 +9,7 @@ namespace game
     {
     public:
 
-        WeaponConfiguration ModifyWeapon(const WeaponConfiguration& WeaponConfig) override;
-        BulletConfiguration ModifyBullet(const BulletConfiguration& BulletConfig) override;
+        WeaponConfiguration ModifyWeapon(const WeaponConfiguration& weapon_config) override;
+        BulletConfiguration ModifyBullet(const BulletConfiguration& bullet_config) override;
     };
 }

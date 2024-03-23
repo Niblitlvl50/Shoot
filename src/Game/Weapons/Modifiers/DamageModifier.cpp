@@ -4,12 +4,15 @@
 
 using namespace game;
 
-WeaponConfiguration DamageModifier::ModifyWeapon(const WeaponConfiguration& WeaponConfig)
+WeaponConfiguration DamageModifier::ModifyWeapon(const WeaponConfiguration& weapon_config)
 {
-    return WeaponConfig;
+    return weapon_config;
 }
 
-BulletConfiguration DamageModifier::ModifyBullet(const BulletConfiguration& BulletConfig)
+BulletConfiguration DamageModifier::ModifyBullet(const BulletConfiguration& bullet_config)
 {
-    return BulletConfig;
+    BulletConfiguration config = bullet_config;
+    config.min_damage += 25;
+    config.max_damage += 50;
+    return config;
 }
