@@ -18,7 +18,7 @@ using namespace game;
 HomingBehaviour::HomingBehaviour()
     : m_body(nullptr)
     , m_current_heading(0.0f)
-    , m_forward_velocity(0.1f)
+    , m_forward_velocity(1.0f)
     , m_angular_velocity(180.0f)
     , m_homing_start_delay_s(0.0f)
     , m_homing_duration_s(math::INF)
@@ -98,13 +98,18 @@ HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
     const float turn_value = scale_value * radians_turn;
 
     m_current_heading += turn_value;
-
-    const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
-    //m_body->ApplyLocalImpulse(angle1 * m_forward_velocity * update_context.delta_s, math::ZeroVec);
-    m_body->SetVelocity(angle1 * m_forward_velocity);
-
     result.new_heading = m_current_heading;
     result.is_stuck = CheckIfBlocked(m_position_samples, update_context.timestamp, body_position);
+
+    const math::Vector angle1 = math::VectorFromAngle(m_current_heading);
+    m_body->SetVelocity(angle1 * m_forward_velocity);
+
+/*
+    const float mass = m_body->GetMass();
+    const math::Vector angle1Norm = math::Normalized(angle1);
+    const math::Vector mass_adjusted_impulse = angle1Norm * m_forward_velocity * mass * update_context.delta_s;
+    m_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
+*/
 
     return result;
 }

@@ -86,6 +86,9 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
             update_context.delta_s);
 
         m_entity_body->SetVelocity(m_move_velocity);
+
+        //const math::Vector mass_adjusted_impulse = m_move_velocity * m_entity_body->GetMass() * update_context.delta_s;
+        //m_entity_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
         
         result.state = TrackingState::TRACKING;
     }
