@@ -49,7 +49,7 @@ namespace
         HookshotLogic(game::Hookshot* hookshot)
             : m_hookshot(hookshot)
         {
-            m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/particles/beam_white_vertical6.png");
+            m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture("res/textures/particles/rope_vertical1.png");
         }
 
         void Draw(mono::IRenderer& renderer) const override
@@ -65,9 +65,9 @@ namespace
 
             mono::PathOptions options;
             options.closed = false;
-            options.width = 0.2f;
+            options.width = 0.1f;
             options.color = mono::Color::WHITE;
-            options.uv_mode = mono::UVMode::NORMALIZED_DISTANCE;
+            options.uv_mode = mono::UVMode(mono::UVMode::DISTANCE | mono::UVMode::NORMALIZED_WIDTH);
 
             mono::PathDrawBuffer m_path_buffers = mono::BuildPathDrawBuffers(mono::PathType::REGULAR, points, options);
 
@@ -238,16 +238,15 @@ void Hookshot::OnAttached()
     m_hookshot_spring =
         m_physics_system->CreateSlideJoint(owner_body, m_attached_to_body, math::ZeroVec, m_attached_to_local_point, 0.0, m_rest_length * 0.9f);
 
-
-    const uint32_t attached_to_entity_id = m_attached_to_body->GetId();
-    
-    m_transform_system->ChildTransform(m_grappler_entity, attached_to_entity_id);
-    m_transform_system->SetTransform(m_grappler_entity, math::CreateMatrixWithPosition(m_attached_to_local_point));
-
     m_sprite_system->SetSpriteEnabled(m_grappler_entity, true);
 }
 void Hookshot::Attached(const mono::UpdateContext& update_context)
 {
+    const math::Vector attached_point = GetAttachedPoint();
+    const float angle = math::AngleBetweenPointsSimple(attached_point, GetHookshotPoint());
+
+    m_transform_system->SetTransform(m_grappler_entity, math::CreateMatrixWithPositionRotation(attached_point, angle + math::PI_2()));
+
     //const mono::ConstraintBodyPair& body_pair = m_hookshot_spring->GetBodies();
     //const math::Vector first_position = body_pair.first->GetPosition();
     //const math::Vector second_position = body_pair.second->LocalToWorld(m_attached_to_local_point);
