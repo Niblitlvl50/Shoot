@@ -56,6 +56,8 @@ namespace game
 
         uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 
+        void AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
+        void AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
         const WeaponModifierList& GetWeaponModifierForId(uint32_t id) const;
 
     private:

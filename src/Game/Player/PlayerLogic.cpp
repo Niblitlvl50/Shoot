@@ -26,6 +26,7 @@
 #include "InteractionSystem/InteractionSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
+#include "Weapons/Modifiers/DamageModifier.h"
 #include "Entity/TargetSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -567,6 +568,11 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
             m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
         }
 
+        break;
+    }
+    case PickupType::DAMAGE_BUFF:
+    {
+        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new DamageModifier(2.0f));
         break;
     }
     };

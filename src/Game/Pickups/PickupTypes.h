@@ -11,7 +11,8 @@ namespace game
         HEALTH,
         SECOND_WIND,
         COINS,
-        EXPERIENCE
+        EXPERIENCE,
+        DAMAGE_BUFF,
     };
 
     constexpr const char* g_pickup_items[] = {
@@ -19,7 +20,8 @@ namespace game
         "Health",
         "Second Wind",
         "Coins",
-        "Experience"
+        "Experience",
+        "Damage Buff",
     };
 
     inline const char* PickupTypeToString(PickupType pickup_type)

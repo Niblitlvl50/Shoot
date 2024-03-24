@@ -223,6 +223,17 @@ uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math:
     return spawned_entity.id;
 }
 
+void WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier)
+{
+    AddModifierForIdWithDuration(id, -1.0f, weapon_modifier);
+}
+
+void WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
+{
+    WeaponModifierContext& context = m_weapon_modifiers[id];
+    context.modifiers.push_back(std::unique_ptr<IWeaponModifier>(weapon_modifier));
+}
+
 const WeaponModifierList& WeaponSystem::GetWeaponModifierForId(uint32_t id) const
 {
     const auto it = m_weapon_modifiers.find(id);
