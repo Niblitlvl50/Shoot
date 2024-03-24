@@ -55,7 +55,7 @@ namespace
         void Draw(mono::IRenderer& renderer) const override
         {
             const game::Hookshot::States state = m_hookshot->GetState();
-            if(state == game::Hookshot::States::IDLE)
+            if(state != game::Hookshot::States::ATTACHED)
                 return;
 
             const math::Vector attached_to_point = m_hookshot->GetAttachedPoint();
@@ -143,6 +143,8 @@ void Hookshot::TriggerHookshot(const math::Vector& start, float direction)
     if(active_state != States::IDLE)
         return;
 
+    m_attached_to_body = nullptr;
+
     constexpr float ray_length = 5.0f;
     const math::Vector unit_direction = math::VectorFromAngle(direction);
     const math::Vector end = start + (unit_direction * ray_length);
@@ -177,6 +179,7 @@ void Hookshot::ReleaseHookshot()
 
     m_physics_system->ReleaseConstraint(m_hookshot_spring);
     m_hookshot_spring = nullptr;
+    m_attached_to_body = nullptr;
 
     m_sprite_system->SetSpriteEnabled(m_grappler_entity, false);
 
