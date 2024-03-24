@@ -253,8 +253,8 @@ void HordeGameMode::SetupEvents()
     m_gameover_token = m_event_handler->AddListener(on_game_over);
 
     const PlayerLevelUpFunc on_level_up = [this](const game::PlayerLevelUpEvent& level_up_event) {
-        const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-        m_levelup_screen->ShowAt(camera->GetTargetPosition());
+        //const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+        //m_levelup_screen->ShowAt(camera->GetTargetPosition());
         return mono::EventResult::PASS_ON;
     };
     m_levelup_token = m_event_handler->AddListener(on_level_up);
