@@ -6,15 +6,15 @@
                 0
             ],
             "loop": true,
-            "name": "default"
+            "name": "idle"
         }
     ],
     "frames": [
         {
-            "h": 6,
-            "name": "pow9",
-            "w": 16,
-            "x": 803,
+            "h": 7,
+            "name": "tiny_skull_idle_1",
+            "w": 7,
+            "x": 750,
             "y": 418
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/weapons/",
+    "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

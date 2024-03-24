@@ -163,7 +163,7 @@
             "h": 14,
             "name": "eye_monster_medium_run_1",
             "w": 20,
-            "x": 1319,
+            "x": 1343,
             "y": 382
         },
         {
@@ -177,7 +177,7 @@
             "h": 14,
             "name": "eye_monster_medium_run_3",
             "w": 20,
-            "x": 1181,
+            "x": 1504,
             "y": 382
         },
         {
@@ -191,21 +191,21 @@
             "h": 14,
             "name": "eye_monster_medium_run_5",
             "w": 20,
-            "x": 1504,
+            "x": 1480,
             "y": 382
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_6",
             "w": 20,
-            "x": 1480,
+            "x": 1319,
             "y": 382
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_7",
             "w": 20,
-            "x": 1343,
+            "x": 1181,
             "y": 382
         },
         {
