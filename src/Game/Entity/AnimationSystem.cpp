@@ -20,8 +20,8 @@ AnimationSystem::AnimationSystem(
     : m_trigger_system(trigger_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
-    , m_sprite_anim_pool(32)
-    , m_transform_anim_pool(32)
+    , m_sprite_anim_pool(64)
+    , m_transform_anim_pool(64)
 {
     m_animation_containers.resize(n);
     m_active_animation_containers.resize(n, false);
