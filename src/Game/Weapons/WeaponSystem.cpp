@@ -14,6 +14,7 @@
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include <algorithm>
 #include <functional>
 
 namespace
@@ -104,9 +105,32 @@ void WeaponSystem::Reset()
     CleanupWeaponCallbacks();
 }
 
+
 void WeaponSystem::Update(const mono::UpdateContext& update_context)
 {
+    for(auto& pair : m_weapon_modifiers)
+    {
+        std::vector<uint32_t> indices_to_remove;
 
+        for(uint32_t index = 0; index < pair.second.durations.size(); ++index)
+        {
+            if(pair.second.durations[index] > 0.0f)
+            {
+                pair.second.durations[index] -= update_context.delta_s;
+
+                if(pair.second.durations[index] <= 0.0f)
+                    indices_to_remove.push_back(index);
+            }
+        }
+
+        std::reverse(indices_to_remove.begin(), indices_to_remove.end());
+
+        for(uint32_t index_to_remove : indices_to_remove)
+        {
+            pair.second.durations.erase(pair.second.durations.begin() + index_to_remove);
+            pair.second.modifiers.erase(pair.second.modifiers.begin() + index_to_remove);
+        }
+    }
 }
 
 void WeaponSystem::SetWeaponLoadout(
@@ -231,6 +255,7 @@ void WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifie
 void WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
 {
     WeaponModifierContext& context = m_weapon_modifiers[id];
+    context.durations.push_back(duration_s);
     context.modifiers.push_back(std::unique_ptr<IWeaponModifier>(weapon_modifier));
 }
 

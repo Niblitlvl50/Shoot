@@ -17,4 +17,12 @@ namespace game
         int m_damage_delta;
         float m_damage_multiplier;
     };
+
+    class BulletWallModifier : public IWeaponModifier
+    {
+    public:
+
+        BulletWallModifier();
+        WeaponConfiguration ModifyWeapon(const WeaponConfiguration& weapon_config) override;
+    };
 }

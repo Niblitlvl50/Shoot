@@ -568,6 +568,8 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
             m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
         }
 
+        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new BulletWallModifier());
+
         break;
     }
     case PickupType::DAMAGE_BUFF:

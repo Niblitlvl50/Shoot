@@ -58,6 +58,7 @@ namespace game
 
         void AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
         void AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
+
         const WeaponModifierList& GetWeaponModifierForId(uint32_t id) const;
 
     private:
@@ -84,6 +85,7 @@ namespace game
         struct WeaponModifierContext
         {
             WeaponModifierList modifiers;
+            std::vector<float> durations;
         };
         std::unordered_map<uint32_t, WeaponModifierContext> m_weapon_modifiers;
 

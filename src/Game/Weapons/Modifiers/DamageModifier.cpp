@@ -26,3 +26,20 @@ BulletConfiguration DamageModifier::ModifyBullet(const BulletConfiguration& bull
 
     return config;
 }
+
+
+
+BulletWallModifier::BulletWallModifier()
+{ }
+
+WeaponConfiguration BulletWallModifier::ModifyWeapon(const WeaponConfiguration& weapon_config)
+{
+    WeaponConfiguration config = weapon_config;
+
+    config.rounds_per_second *= 2.0f;
+    config.bullet_offset = 0.35f;
+    config.infinite_ammo = true;
+
+    return config;
+}
+
