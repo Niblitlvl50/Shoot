@@ -53,6 +53,8 @@ bool game::g_debug_draw_damage_words = false;
 bool game::g_draw_debug_soundsystem = false;
 bool game::g_mute_soundsystem = false;
 
+bool game::g_draw_entity_introspection = false;
+
 constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
 void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float delta)
@@ -77,14 +79,11 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
             std::size(mono::all_physics_debug_component),
             mono::PhsicsDebugComponentToString);
         ImGui::PopID();
-        ImGui::Checkbox("Physics Interact",     &game::g_interact_physics);
-        ImGui::Checkbox("Body Introspection",   &game::g_body_introspection);
         ImGui::Checkbox("Physics Stats",        &game::g_draw_physics_stats);
         ImGui::Checkbox("Particle Stats",       &game::g_draw_particle_stats);
         ImGui::Checkbox("Network Stats",        &game::g_draw_network_stats);
         ImGui::Checkbox("Client Viewport",      &game::g_draw_client_viewport);
         ImGui::Checkbox("Prediction System",    &game::g_draw_position_prediction);
-        ImGui::Checkbox("Players",              &game::g_draw_debug_players);
         ImGui::Checkbox("Frame Times",          &game::g_draw_debug_frametimes);
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
@@ -110,6 +109,15 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
                 logic_system->SetDebugCategory(debug_category.category, enabled);
         }
 
+        ImGui::EndMenu();
+    }
+
+    if(ImGui::BeginMenu("Tools"))
+    {
+        ImGui::Checkbox("Physics Interact",     &game::g_interact_physics);
+        ImGui::Checkbox("Body Introspection",   &game::g_body_introspection);
+        ImGui::Checkbox("Players",              &game::g_draw_debug_players);
+        ImGui::Checkbox("Entity Introspection", &game::g_draw_entity_introspection);
         ImGui::EndMenu();
     }
 
@@ -311,6 +319,49 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::End();
 }
 
+void DrawDebugEntityIntrospection(bool& show_window, mono::IEntityManager* entity_manager)
+{
+    static int s_entity_id = 0;
+
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    ImGui::SetNextWindowSize(ImVec2(500, -1));
+    ImGui::Begin("DebugEntities", &show_window, flags);
+
+    ImGui::InputInt("Entity Id", &s_entity_id);
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    const mono::Entity* entity = entity_manager->GetEntity(s_entity_id);
+    if(entity)
+    {
+        const bool package_table_result = ImGui::BeginTable("package_table", 3, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+        if(package_table_result)
+        {
+            ImGui::TableSetupColumn("Name", 0, 200);
+            ImGui::TableSetupColumn("State", 0, 100);
+            ImGui::TableSetupColumn("Index", 0, 30);
+            ImGui::TableHeadersRow();
+
+            ImGui::TableNextRow();
+
+            ImGui::TableNextColumn(); ImGui::Text("%s", entity_manager->GetEntityName(s_entity_id));
+            ImGui::TableNextColumn(); ImGui::Text("%s", "Unknoiwn....");
+            ImGui::TableNextColumn(); ImGui::Text("%d", s_entity_id);
+
+            ImGui::EndTable();
+        }
+    }
+    else
+    {
+        ImGui::TextDisabled("Invalid entity id...");
+    }
+
+    ImGui::End();
+}
+
 using namespace game;
 
 class DebugUpdater::PlayerDebugHandler
@@ -447,8 +498,8 @@ DebugUpdater::DebugUpdater(
     m_keyup_token = m_event_handler->AddListener(key_up_func);
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
-    m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, entity_manager, event_handler);
+    m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
+    m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, m_entity_manager, event_handler);
 }
 
 DebugUpdater::~DebugUpdater()
@@ -475,6 +526,9 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(game::g_draw_debug_players)
         DrawDebugPlayers(game::g_draw_debug_players, m_damage_system, m_event_handler);
+
+    if(game::g_draw_entity_introspection)
+        DrawDebugEntityIntrospection(game::g_draw_entity_introspection, m_entity_manager);
 }
 
 math::Quad DebugUpdater::BoundingBox() const

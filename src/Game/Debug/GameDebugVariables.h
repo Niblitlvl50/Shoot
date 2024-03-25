@@ -29,4 +29,6 @@ namespace game
 
     extern bool g_draw_debug_soundsystem;
     extern bool g_mute_soundsystem;
+
+    extern bool g_draw_entity_introspection;
 }
