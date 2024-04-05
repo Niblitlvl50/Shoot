@@ -16,6 +16,7 @@
 #include <memory>
 #include <functional>
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 
 namespace game
@@ -96,6 +97,8 @@ namespace game
         mono::ActiveVector<LootBox> m_lootboxes;
         std::vector<std::unique_ptr<mono::ICollisionHandler>> m_collision_handlers;
         std::unordered_map<uint32_t, PickupCallback> m_pickup_targets;
+
+        std::unordered_set<uint32_t> m_garanteed_drop;
 
         struct PickupToTarget
         {

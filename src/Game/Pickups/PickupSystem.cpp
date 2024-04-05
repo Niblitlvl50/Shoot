@@ -310,10 +310,12 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
     if(is_player)
         return;
 
-    const bool initial_spawn_pickup = mono::Chance(50);
-    const bool is_boss = m_damage_system->IsBoss(id);
+    const bool garanteed_drop = (m_garanteed_drop.count(id) != 0);
+    const bool initial_spawn_pickup = garanteed_drop || mono::Chance(50);
 
-    if(!initial_spawn_pickup && !is_boss)
+    m_garanteed_drop.erase(id);
+
+    if(!initial_spawn_pickup)
         return;
 
     const int n_pickups = mono::RandomInt(2, 4);
@@ -323,7 +325,7 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
         const int picked_index = mono::RandomInt(0, m_pickup_definitions.size() - 1);
         const PickupDefinition& pickup_definition = m_pickup_definitions[picked_index];
 
-        const bool spawn_pickup = mono::Chance(pickup_definition.drop_chance_percentage);
+        const bool spawn_pickup = garanteed_drop || mono::Chance(pickup_definition.drop_chance_percentage);
         if(!spawn_pickup)
             continue;
 
@@ -351,6 +353,8 @@ void PickupSystem::HandleEnemySpawn(uint32_t entity_id, int spawn_score)
 
     if(!initial_spawn_pickup && !is_boss)
         return;
+
+    m_garanteed_drop.insert(entity_id);
 
     const math::Quad& bb = m_transform_system->GetBoundingBox(entity_id);
     const math::Vector& top_right = math::TopRight(bb) / 2.0f;
