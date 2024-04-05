@@ -1,0 +1,107 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                2
+            ],
+            "loop": true,
+            "name": "left"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                3,
+                4,
+                5
+            ],
+            "loop": true,
+            "name": "turn"
+        }
+    ],
+    "frames": [
+        {
+            "h": 58,
+            "name": "demon_minion_idle_1",
+            "w": 41,
+            "x": 1723,
+            "y": 179
+        },
+        {
+            "h": 58,
+            "name": "demon_minion_idle_2",
+            "w": 41,
+            "x": 619,
+            "y": 182
+        },
+        {
+            "h": 62,
+            "name": "demon_minion_left_1",
+            "w": 42,
+            "x": 754,
+            "y": 176
+        },
+        {
+            "h": 62,
+            "name": "demon_minion_turn_1",
+            "w": 42,
+            "x": 800,
+            "y": 176
+        },
+        {
+            "h": 64,
+            "name": "demon_minion_turn_2",
+            "w": 42,
+            "x": 465,
+            "y": 119
+        },
+        {
+            "h": 66,
+            "name": "demon_minion_turn_3",
+            "w": 43,
+            "x": 619,
+            "y": 112
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/demon_minion/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

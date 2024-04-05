@@ -31,78 +31,78 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 1720,
-            "y": 417
+            "x": 750,
+            "y": 451
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 623,
-            "y": 418
+            "x": 1878,
+            "y": 451
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 587,
-            "y": 418
+            "x": 1896,
+            "y": 451
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 1656,
-            "y": 417
+            "x": 734,
+            "y": 451
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 1196,
-            "y": 417
+            "x": 384,
+            "y": 438
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 688,
-            "y": 418
+            "x": 2011,
+            "y": 451
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 1688,
-            "y": 417
+            "x": 370,
+            "y": 451
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 1591,
-            "y": 417
+            "x": 353,
+            "y": 451
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 673,
-            "y": 418
+            "x": 2026,
+            "y": 451
         },
         {
             "h": 8,
             "name": "spider_small_move_5",
             "w": 10,
-            "x": 1750,
-            "y": 417
+            "x": 121,
+            "y": 451
         },
         {
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 1640,
-            "y": 417
+            "x": 386,
+            "y": 451
         }
     ],
     "frames_offsets": [
