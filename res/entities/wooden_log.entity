@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -3.9217586517333984,
-                                "y": -4.001667499542236
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -178,6 +178,24 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 845187144,
+                    "name": "target",
+                    "properties": [
+                        {
+                            "id": 1147998091,
+                            "name": "target_faction",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2498028297,
+                            "name": "priority",
+                            "variant_type": 1,
+                            "variant_value": 1
                         }
                     ]
                 }

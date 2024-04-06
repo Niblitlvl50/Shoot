@@ -6,7 +6,7 @@ using namespace game;
 
 namespace tweak_values
 {
-    constexpr float decoy_time_s = 2.0f; 
+    constexpr float decoy_time_s = 4.0f; 
 }
 
 DecoyLogic::DecoyLogic(uint32_t entity_id, mono::IEntityManager* entity_manager)
