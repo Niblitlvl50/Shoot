@@ -59,6 +59,8 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     m_player_entities = json["player_entities"];
     m_familiar_entities = json["familiar_entities"];
     m_package_entities = json["package_entities"];
+    m_decoy_entities = json["decoy_entities"];
+    m_weapon_entities = json["weapon_entities"];
 
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     //std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);
@@ -278,7 +280,11 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, input_system, event_handler, system_context);
+    PlayerConfig player_config;
+    player_config.decoy_entity = m_decoy_entities.front();
+    player_config.weapon_entity = m_weapon_entities.front();
+
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, player_config, input_system, event_handler, system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
     player_info->entity_id = player_entity.id;

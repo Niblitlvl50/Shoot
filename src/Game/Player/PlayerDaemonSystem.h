@@ -97,6 +97,8 @@ namespace game
         std::vector<std::string> m_player_entities;
         std::vector<std::string> m_familiar_entities;
         std::vector<std::string> m_package_entities;
+        std::vector<std::string> m_decoy_entities;
+        std::vector<std::string> m_weapon_entities;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;

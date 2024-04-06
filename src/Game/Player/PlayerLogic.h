@@ -9,6 +9,7 @@
 
 #include "Entity/IEntityLogic.h"
 #include "PlayerAbilities.h"
+#include "PlayerConfig.h"
 #include "Controllers/PlayerGamepadController.h"
 #include "Controllers/PlayerKeybordController.h"
 #include "Weapons/WeaponTypes.h"
@@ -37,6 +38,7 @@ namespace game
         PlayerLogic(
             uint32_t entity_id,
             PlayerInfo* player_info,
+            const PlayerConfig& config,
             mono::InputSystem* input_system,
             mono::EventHandler* event_handler,
             mono::SystemContext* system_context);
@@ -102,6 +104,7 @@ namespace game
 
         const uint32_t m_entity_id;
         PlayerInfo* m_player_info;
+        PlayerConfig m_config;
         PlayerGamepadController m_gamepad_controller;
         PlayerKeyboardController m_keyboard_controller;
         mono::EventHandler* m_event_handler;

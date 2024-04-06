@@ -12,5 +12,11 @@
     ],
     "package_entities": [
         "res/entities/cardboard_box.entity"
+    ],
+    "decoy_entities": [
+        "res/entities/wooden_log.entity"
+    ],
+    "weapon_entities": [
+        "res/entities/player_weapon.entity"
     ]
 }
