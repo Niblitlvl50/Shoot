@@ -2,8 +2,13 @@
 #include "TargetSystemDrawer.h"
 #include "TargetSystem.h"
 #include "Math/Quad.h"
+#include "Math/Matrix.h"
 #include "Rendering/Color.h"
 #include "Rendering/IRenderer.h"
+
+#include "FontIds.h"
+
+#include <cstdio>
 
 using namespace game;
 
@@ -24,10 +29,17 @@ void TargetSystemDrawer::Draw(mono::IRenderer& renderer) const
             continue;
 
         const TargetFaction faction = m_target_system->GetFaction(target->TargetId());
-    
+        const int priority = m_target_system->GetPriority(target->TargetId());
         const math::Vector& target_position = target->Position();
+
+        const auto transform_scope = mono::MakeTransformScope(math::CreateMatrixWithPosition(target_position), &renderer);
+
         const mono::Color::RGBA& target_color = (faction == TargetFaction::Enemies) ? mono::Color::RED : mono::Color::BLUE;
-        renderer.DrawCircle(target_position, 0.5f, 16, 1.0f, target_color);
+        renderer.DrawCircle(math::ZeroVec, 0.5f, 16, 1.0f, target_color);
+
+        char buffer[16] = { 0 };
+        std::snprintf(buffer, std::size(buffer), "%d", priority);
+        renderer.RenderText(FontId::PIXELETTE_TINY, buffer, target_color, mono::FontCentering::HORIZONTAL_VERTICAL);
     }
 }
 

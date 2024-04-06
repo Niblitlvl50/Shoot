@@ -109,7 +109,12 @@ void TargetSystem::ReleaseTarget(uint32_t entity_id)
     };
     mono::remove_if(m_targets, remove_on_id);
 
-    m_active_targets.erase(entity_id);
+    const auto it = m_active_targets.find(entity_id);
+    if(it != m_active_targets.end())
+    {
+        it->second->InvalidateTarget();
+        m_active_targets.erase(entity_id);
+    }
 }
 
 void TargetSystem::SetTargetData(uint32_t entity_id, TargetFaction faction, int priority)
@@ -147,6 +152,7 @@ ITargetPtr TargetSystem::AquireTarget(TargetFaction faction, const math::Vector&
     uint32_t found_target_entity_id = mono::INVALID_ID;
     const float max_distance_sq = max_distance * max_distance;
     float current_best_distance_sq = math::INF;
+    int current_best_priority = -1000;
 
     for(const TargetComponent& target : m_targets)
     {
@@ -155,6 +161,11 @@ ITargetPtr TargetSystem::AquireTarget(TargetFaction faction, const math::Vector&
 
         if(target.faction != faction)
             continue;
+
+        if(target.priority < current_best_priority)
+            continue;
+
+        current_best_priority = target.priority;
 
         if(m_global_target_mode == EnemyTargetMode::Normal || faction == TargetFaction::Enemies)
         {
@@ -185,10 +196,10 @@ bool TargetSystem::SeesTarget(uint32_t entity_id, const ITarget* target)
     const math::Vector& origin_world_position = m_transform_system->GetWorldPosition(entity_id);
     const math::Vector& target_world_position = m_transform_system->GetWorldPosition(target->TargetId());
 
-    const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::STATIC;
+    const uint32_t query_category = CollisionCategory::PLAYER | CollisionCategory::PROPS | CollisionCategory::STATIC;
     const mono::PhysicsSpace* space = m_physics_system->GetSpace();
     const mono::QueryResult result = space->QueryFirst(origin_world_position, target_world_position, query_category);
-    return (result.body != nullptr && result.collision_category & CollisionCategory::PLAYER);
+    return (result.body != nullptr && (result.collision_category & ~CollisionCategory::STATIC));
 }
 
 TargetFaction TargetSystem::GetFaction(uint32_t entity_id) const
@@ -201,6 +212,18 @@ TargetFaction TargetSystem::GetFaction(uint32_t entity_id) const
         return component->faction;
 
     return TargetFaction::Player;
+}
+
+int TargetSystem::GetPriority(uint32_t entity_id) const
+{
+    const auto find_on_id = [entity_id](const TargetComponent& target) {
+        return target.entity_id == entity_id;
+    };
+    const TargetComponent* component = mono::find_if(m_targets, find_on_id);
+    if(component)
+        return component->priority;
+
+    return -1;
 }
 
 std::vector<ITargetPtr> TargetSystem::GetActiveTargets() const

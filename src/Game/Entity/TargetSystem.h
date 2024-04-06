@@ -54,6 +54,7 @@ namespace game
         ITargetPtr AquireTarget(TargetFaction faction, const math::Vector& world_position, float max_distance);
         bool SeesTarget(uint32_t entity_id, const ITarget* target);
         TargetFaction GetFaction(uint32_t entity_id) const;
+        int GetPriority(uint32_t entity_id) const;
 
         std::vector<ITargetPtr> GetActiveTargets() const;
 
