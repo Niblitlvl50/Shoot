@@ -75,6 +75,7 @@ namespace game
         float fuzzy_life_span;
         bool bullet_want_direction;
         std::string entity_file;
+        std::string impact_entity_file;
         std::string sound_file;
         uint32_t bullet_behaviour;
     };

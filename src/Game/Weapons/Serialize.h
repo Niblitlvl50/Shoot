@@ -16,6 +16,7 @@ namespace game
         bullet_config.fuzzy_life_span       = json["fuzzy_life_span"].get<float>();
         bullet_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();
         bullet_config.entity_file           = json["entity_file"].get<std::string>();
+        bullet_config.impact_entity_file    = json["impact_entity_file"].get<std::string>();
         bullet_config.sound_file            = json["sound_file"].get<std::string>();
         bullet_config.bullet_behaviour      = 0;
 
