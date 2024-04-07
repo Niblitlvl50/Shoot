@@ -50,18 +50,6 @@ namespace game
         mono::SpriteSystem* sprite_system,
         mono::TransformSystem* transform_system);
 
-    void CacoPlasmaCollision(
-        uint32_t entity_id,
-        uint32_t owner_entity_id,
-        int damage,
-        const char* impact_entity,
-        game::BulletImpactFlag flags,
-        const CollisionDetails& collision_details,
-        mono::IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::SpriteSystem* sprite_system,
-        mono::TransformSystem* transform_system);
-
     void WebberCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,

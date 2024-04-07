@@ -83,8 +83,6 @@ WeaponSystem::WeaponSystem(
 
     m_bullet_callbacks = {
         { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, camera_system, sprite_system, transform_system) },
-        { hash::Hash("caco_bullet"),        std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, sprite_system, transform_system) },
-        { hash::Hash("caco_bullet_homing"), std::bind(CacoPlasmaCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, sprite_system, transform_system) },
         { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, physics_system, sprite_system, transform_system, &m_weapon_entity_factory) },
     };
 }
