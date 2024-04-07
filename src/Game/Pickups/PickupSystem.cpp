@@ -97,6 +97,8 @@ PickupSystem::PickupSystem(
             pickup_def.drop_chance_percentage = horde_pickup_config["drop_chance"];
             m_lootbox_definition.push_back(pickup_def);
         }
+
+        m_pickup_annotation_entity = json["pickup_annotation"];
     }
 
     m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
@@ -360,14 +362,10 @@ void PickupSystem::HandleEnemySpawn(uint32_t entity_id, int spawn_score)
     const math::Vector& top_right = math::TopRight(bb) / 2.0f;
     const math::Matrix transform = math::CreateMatrixWithPosition(top_right);
 
-    mono::Entity spawned_entity = m_entity_manager->SpawnEntity("res/entities/pickup_annotation.entity");
+    mono::Entity spawned_entity = m_entity_manager->SpawnEntity(m_pickup_annotation_entity.c_str());
     m_transform_system->SetTransform(spawned_entity.id, transform, mono::TransformState::CLIENT);
     m_transform_system->ChildTransform(spawned_entity.id, entity_id);
-
-    const mono::ReleaseCallback on_parent_destroyed = [this, spawned_entity](uint32_t entity_id, mono::ReleasePhase phase) {
-        m_entity_manager->ReleaseEntity(spawned_entity.id);
-    };
-    m_entity_manager->AddReleaseCallback(entity_id, mono::ReleasePhase::PRE_RELEASE, on_parent_destroyed);
+    m_entity_manager->SetLifetimeDependency(entity_id, spawned_entity.id);
 }
 
 void PickupSystem::PlayPickupSound(PickupType type)

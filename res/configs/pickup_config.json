@@ -17,5 +17,6 @@
     "horde_pickups": [
         { "entity_file": "res/entities/loot_box.entity", "drop_chance": 25.0 },
         { "entity_file": "res/entities/pinata.entity", "drop_chance": 25.0 }
-    ]
+    ],
+    "pickup_annotation": "res/entities/pickup_annotation.entity"
 }

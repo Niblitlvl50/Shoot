@@ -115,7 +115,8 @@ namespace game
         std::vector<PickupDefinition> m_pickup_definitions;
         std::vector<PickupDefinition> m_lootbox_pickup_definitions;
         std::vector<PickupDefinition> m_lootbox_definition;
-
+        std::string m_pickup_annotation_entity;
+        
         struct SpawnedPickup
         {
             uint32_t pickup_id;
