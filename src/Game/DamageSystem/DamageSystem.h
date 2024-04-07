@@ -9,6 +9,7 @@
 #include <vector>
 #include <array>
 #include <memory>
+#include <string>
 
 
 namespace game
@@ -110,6 +111,7 @@ namespace game
         std::vector<DamageFilter> m_damage_filters;
         std::vector<bool> m_active;
 
+        std::vector<std::string> m_death_entities;
         DamageCallbacks m_global_damage_callbacks;
 
         std::vector<DamageEvent> m_damage_events;

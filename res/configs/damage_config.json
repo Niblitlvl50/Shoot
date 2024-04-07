@@ -1,0 +1,7 @@
+{
+    "death_entities": [
+        "res/entities/explosion_splatter_small.entity",
+        "res/entities/explosion_small.entity",
+        "res/entities/explosion_medium_3.entity"
+    ]
+}

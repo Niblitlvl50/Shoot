@@ -6,10 +6,13 @@
 #include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
+#include "System/File.h"
 #include "System/Hash.h"
 #include "System/Debug.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
+
+#include "nlohmann/json.hpp"
 
 #include <limits>
 
@@ -61,7 +64,16 @@ DamageSystem::DamageSystem(
     , m_damage_callbacks(num_records)
     , m_damage_filters(num_records)
     , m_active(num_records, false)
-{ }
+{
+    file::FilePtr config_file = file::OpenAsciiFile("res/configs/damage_config.json");
+    if(config_file)
+    {
+        const std::vector<byte>& file_data = file::FileRead(config_file);
+        const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+        m_death_entities = json["death_entities"];
+    }
+}
 
 DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 {
@@ -251,10 +263,7 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             if(valid_callback_type)
             {
                 callback_data.callback(
-                    damage_event.id,
-                    damage_event.damage,
-                    damage_event.id_who_did_damage,
-                    damage_event.damage_result);
+                    damage_event.id, damage_event.damage, damage_event.id_who_did_damage, damage_event.damage_result);
             }
         }
     };
@@ -276,11 +285,9 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             if(damage_record.release_entity_on_death)
                 m_entity_manager->ReleaseEntity(entity_id);
 
-            //constexpr const char* explosion_entity = "res/entities/explosion_small.entity";
-            constexpr const char* explosion_entity = "res/entities/explosion_splatter_small.entity";
-            //constexpr const char* explosion_entity = "res/entities/explosion_medium_3.entity";
+            const std::string& explosion_entity = m_death_entities.front();
             game::SpawnEntityWithAnimation(
-                explosion_entity, 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
+                explosion_entity.c_str(), 0, entity_id, m_entity_manager, m_transform_system, m_sprite_system);
             m_active[entity_id] = false;
         }
     }
