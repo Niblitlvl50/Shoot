@@ -29,34 +29,24 @@ namespace game
         uint32_t entity_id,
         uint32_t owner_entity_id,
         int damage,
+        const char* impact_entity,
         game::BulletImpactFlag flags,
-        const CollisionDetails& details,
+        const CollisionDetails& collision_details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system);
-
-    void PlasmaCollision(
-        uint32_t entity_id,
-        uint32_t owner_entity_id,
-        int damage,
-        game::BulletImpactFlag flags,
-        const CollisionDetails& details,
-        mono::IEntityManager* entity_manager,
-        game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system,
-        mono::SpriteSystem* sprite_system);
+        mono::SpriteSystem* sprite_system,
+        mono::TransformSystem* transform_system);
 
     void RocketCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
         int damage,
+        const char* impact_entity,
         game::BulletImpactFlag flags,
-        const CollisionDetails& details,
+        const CollisionDetails& collision_details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         game::CameraSystem* camera_system,
-        mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
         mono::TransformSystem* transform_system);
 
@@ -64,11 +54,11 @@ namespace game
         uint32_t entity_id,
         uint32_t owner_entity_id,
         int damage,
+        const char* impact_entity,
         game::BulletImpactFlag flags,
-        const CollisionDetails& details,
+        const CollisionDetails& collision_details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
-        mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
         mono::TransformSystem* transform_system);
 
@@ -76,11 +66,13 @@ namespace game
         uint32_t entity_id,
         uint32_t owner_entity_id,
         int damage,
+        const char* impact_entity,
         game::BulletImpactFlag flags,
-        const CollisionDetails& details,
+        const CollisionDetails& collision_details,
         mono::IEntityManager* entity_manager,
         game::DamageSystem* damage_system,
         mono::PhysicsSystem* physics_system,
         mono::SpriteSystem* sprite_system,
+        mono::TransformSystem* transform_system,
         const game::WeaponEntityFactory* entity_factory);
 }

@@ -13,6 +13,7 @@
 #include "Entity/TargetTypes.h"
 
 #include <vector>
+#include <string>
 
 namespace game
 {
@@ -51,6 +52,7 @@ namespace game
         class TargetSystem* m_target_system;
 
         int m_damage;
+        std::string m_impact_entity;
         uint32_t m_bullet_behaviour;
 
         float m_life_span;

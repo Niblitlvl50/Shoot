@@ -46,6 +46,7 @@ BulletLogic::BulletLogic(
     , m_physics_system(physics_system)
     , m_target_system(target_system)
     , m_damage(0)
+    , m_impact_entity(bullet_config.impact_entity_file)
     , m_bullet_behaviour(bullet_config.bullet_behaviour)
     , m_circulating_behaviour(transform_system)
 {
@@ -93,7 +94,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         details.point = math::ZeroVec;
         details.normal = math::ZeroVec;
 
-        m_collision_callback(m_entity_id, m_owner_entity_id, 0, BulletImpactFlag::DESTROY_THIS, details);
+        m_collision_callback(m_entity_id, m_owner_entity_id, 0, nullptr, BulletImpactFlag::DESTROY_THIS, details);
         return;
     }
 
@@ -185,6 +186,8 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         //System::Log("EXPLODE THE BULLET PLX");
     }
 
+    const char* impact_entity = m_impact_entity.empty() ? nullptr : m_impact_entity.c_str();
+
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
     BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
 
@@ -199,7 +202,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     details.point = collision_point;
     details.normal = collision_normal;
 
-    m_collision_callback(m_entity_id, m_owner_entity_id, m_damage, collision_flags, details);
+    m_collision_callback(m_entity_id, m_owner_entity_id, m_damage, impact_entity, collision_flags, details);
     return resolve_type;
 }
 
