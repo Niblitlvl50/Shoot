@@ -139,7 +139,18 @@ void TargetSystem::SetTargetEnabled(uint32_t entity_id, bool enabled)
     };
     TargetComponent* component = mono::find_if(m_targets, find_on_id);
     if(component)
+    {
         component->enabled = enabled;
+        if(!enabled)
+        {
+            const auto it = m_active_targets.find(entity_id);
+            if(it != m_active_targets.end())
+            {
+                it->second->InvalidateTarget();
+                m_active_targets.erase(it);
+            }
+        }
+    }
 }
 
 void TargetSystem::SetGlobalTargetMode(EnemyTargetMode target_mode)

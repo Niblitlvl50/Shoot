@@ -450,6 +450,7 @@ void PlayerLogic::ToBlink()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, false);
+    m_target_system->SetTargetEnabled(m_entity_id, false);
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
 
@@ -495,6 +496,7 @@ void PlayerLogic::ExitBlink()
 {
     m_sprite_system->SetSpriteEnabled(m_entity_id, true);
     m_sprite_system->SetSpriteEnabled(m_weapon_entity, true);
+    m_target_system->SetTargetEnabled(m_entity_id, true);
 }
 
 void PlayerLogic::Fire(uint32_t timestamp)
