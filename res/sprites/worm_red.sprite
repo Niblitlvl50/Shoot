@@ -49,14 +49,14 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 1323,
+            "x": 1354,
             "y": 452
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 718,
+            "x": 743,
             "y": 437
         },
         {
@@ -84,43 +84,43 @@
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 890,
+            "x": 864,
             "y": 321
         },
         {
             "h": 26,
             "name": "worm_red_appear_7",
             "w": 22,
-            "x": 1085,
+            "x": 1059,
             "y": 320
         },
         {
             "h": 26,
             "name": "worm_red_appear_8",
             "w": 22,
-            "x": 1059,
+            "x": 1033,
             "y": 320
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_1",
             "w": 22,
-            "x": 1137,
+            "x": 1111,
             "y": 320
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_2",
             "w": 22,
-            "x": 693,
+            "x": 1137,
             "y": 320
         },
         {
             "h": 25,
             "name": "worm_red_dissapear_3",
             "w": 22,
-            "x": 864,
-            "y": 321
+            "x": 1812,
+            "y": 320
         },
         {
             "h": 24,
@@ -147,28 +147,28 @@
             "h": 10,
             "name": "worm_red_dissapear_7",
             "w": 21,
-            "x": 743,
+            "x": 718,
             "y": 437
         },
         {
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 1298,
+            "x": 1329,
             "y": 452
         },
         {
             "h": 26,
             "name": "worm_red_idle_1",
             "w": 22,
-            "x": 1111,
+            "x": 1085,
             "y": 320
         },
         {
             "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 1033,
+            "x": 693,
             "y": 320
         },
         {
@@ -196,8 +196,8 @@
             "h": 25,
             "name": "worm_red_idle_6",
             "w": 22,
-            "x": 1812,
-            "y": 320
+            "x": 890,
+            "y": 321
         }
     ],
     "frames_offsets": [

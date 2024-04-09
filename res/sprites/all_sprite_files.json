@@ -16,6 +16,7 @@
         "res/sprites/board_2.sprite",
         "res/sprites/board_small.sprite",
         "res/sprites/bolter.sprite",
+        "res/sprites/bone_wand1.sprite",
         "res/sprites/boulder_1.sprite",
         "res/sprites/boulder_2.sprite",
         "res/sprites/boulder_3.sprite",
@@ -279,6 +280,7 @@
         "res/sprites/tree_tiny_green_3.sprite",
         "res/sprites/ui_item_selection.sprite",
         "res/sprites/vine_1.sprite",
+        "res/sprites/voodoo_dagger1.sprite",
         "res/sprites/well.sprite",
         "res/sprites/wizard_crazy.sprite",
         "res/sprites/wooden_log.sprite",
@@ -290,6 +292,7 @@
         "res/sprites/wooden_pole_skulls_2.sprite",
         "res/sprites/wooden_pole_skulls_3.sprite",
         "res/sprites/wooden_pole_skulls_4.sprite",
+        "res/sprites/wooden_stick1.sprite",
         "res/sprites/worm_red.sprite",
         "res/sprites/xbox_one_a.sprite"
     ]
