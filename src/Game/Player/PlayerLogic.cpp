@@ -721,7 +721,9 @@ void PlayerLogic::MoveInDirection(const math::Vector& direction)
 void PlayerLogic::ResetMovement()
 {
     m_movement_direction = math::ZeroVec;
-    ResetForces();
+
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    body->ResetForces();
 }
 
 void PlayerLogic::ApplyImpulse(const math::Vector& force)
@@ -741,15 +743,6 @@ void PlayerLogic::SetVelocity(const math::Vector& velocity)
 {
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     body->SetVelocity(velocity);
-}
-
-void PlayerLogic::ResetForces()
-{
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    body->ResetForces();
-    //body->SetVelocity(math::ZeroVec);
-
-    //SetAnimation(PlayerAnimation::IDLE);
 }
 
 void PlayerLogic::SetAimDirection(float aim_direction)

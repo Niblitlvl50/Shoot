@@ -80,7 +80,6 @@ namespace game
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
         void SetVelocity(const math::Vector& velocity);
-        void ResetForces();
 
         void SetAimDirection(float aim_direction);
         void SetAimScreenPosition(const math::Vector& aim_screen_position);

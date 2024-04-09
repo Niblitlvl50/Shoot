@@ -162,7 +162,4 @@ void game::WebberCollision(
     {
         entity_factory->CreateWebberEntity(found_bodies, math::CreateMatrixWithPosition(collision_details.point));
     }
-
-    //if(collision_details.body)
-    //    SpawnEntityWithAnimation("res/entities/explosion_caco.entity", 0, entity_id, entity_manager, transform_system, sprite_system);
 }
