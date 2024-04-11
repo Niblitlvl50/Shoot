@@ -53,7 +53,7 @@ namespace
         }
         game::WeaponSetup GetWeaponSetup() const override
         {
-            return { 0, 0 };
+            return { 0, 0, 0 };
         }
     };
 }
@@ -101,7 +101,6 @@ void WeaponSystem::Reset()
 {
     CleanupWeaponCallbacks();
 }
-
 
 void WeaponSystem::Update(const mono::UpdateContext& update_context)
 {
@@ -230,6 +229,16 @@ std::vector<WeaponBulletCombination> WeaponSystem::GetAllWeaponCombinations() co
         weapon_combinations.push_back(pair.second);
 
     return weapon_combinations;
+}
+
+const WeaponBulletCombination& WeaponSystem::GetWeaponBulletConfigForHash(uint32_t weapon_hash) const
+{
+    const auto it = m_weapon_configuration.weapon_combinations.find(weapon_hash);
+    if(it != m_weapon_configuration.weapon_combinations.end())
+        return it->second;
+
+    static const WeaponBulletCombination dummy_combination;
+    return dummy_combination;
 }
 
 uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position)

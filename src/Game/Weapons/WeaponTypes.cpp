@@ -37,9 +37,10 @@ game::WeaponConfig game::LoadWeaponConfig(const char* weapon_config_file)
 
 game::WeaponSetup game::FindWeaponSetupFromString(const WeaponConfig& weapon_config, const char* weapon_combination_name)
 {
-    WeaponSetup weapon_setup = { 0, 0 };
+    const uint32_t weapon_name_hash = hash::Hash(weapon_combination_name);
+    WeaponSetup weapon_setup = { weapon_name_hash, 0, 0 };
 
-    const auto it = weapon_config.weapon_combinations.find(hash::Hash(weapon_combination_name));
+    const auto it = weapon_config.weapon_combinations.find(weapon_name_hash);
     if(it != weapon_config.weapon_combinations.end())
     {
         weapon_setup.weapon_hash = hash::Hash(it->second.weapon.c_str());

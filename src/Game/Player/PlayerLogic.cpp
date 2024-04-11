@@ -331,6 +331,13 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
 
 void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
 {
+    IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
+    const game::WeaponSetup& weapon_setup = active_weapon->GetWeaponSetup();
+    const WeaponBulletCombination& weapon_bullet = m_weapon_system->GetWeaponBulletConfigForHash(weapon_setup.weapon_identifier_hash);
+
+
+
+
     const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
     const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
     const float delta_angle_between = math::AngleBetweenPoints(aim_target_vector, aim_direction_vector);
@@ -340,6 +347,8 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     m_aim_direction = math::NormalizeAngle(m_aim_direction);
 
     mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
+    m_sprite_system->SetSpriteFile(m_weapon_entity, weapon_bullet.sprite_file.c_str());
+    
     if(m_aim_direction > 0.0f)
         weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
     else

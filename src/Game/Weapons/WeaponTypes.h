@@ -19,22 +19,25 @@ namespace game
     struct WeaponSetup
     {
         WeaponSetup()
-            : weapon_hash(0)
+            : weapon_identifier_hash(0)
+            , weapon_hash(0)
             , bullet_hash(0)
         { }
 
-        WeaponSetup(uint32_t weapon_hash, uint32_t bullet_hash)
-            : weapon_hash(weapon_hash)
+        WeaponSetup(uint32_t weapon_identifier_hash, uint32_t weapon_hash, uint32_t bullet_hash)
+            : weapon_identifier_hash(weapon_identifier_hash)
+            , weapon_hash(weapon_hash)
             , bullet_hash(bullet_hash)
         { }
 
+        uint32_t weapon_identifier_hash;
         uint32_t weapon_hash;
         uint32_t bullet_hash;
     };
 
     inline bool operator == (const WeaponSetup& left, const WeaponSetup& right)
     {
-        return (left.weapon_hash == right.weapon_hash && left.bullet_hash == right.bullet_hash);
+        return (left.weapon_identifier_hash == right.weapon_identifier_hash && left.weapon_hash == right.weapon_hash && left.bullet_hash == right.bullet_hash);
     }
 
     struct WeaponConfig

@@ -53,6 +53,7 @@ namespace game
         IWeaponPtr CreateWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
 
         std::vector<WeaponBulletCombination> GetAllWeaponCombinations() const;
+        const WeaponBulletCombination& GetWeaponBulletConfigForHash(uint32_t weapon_hash) const;
 
         uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 

@@ -448,85 +448,85 @@
             "name": "Familiar Generic",
             "weapon": "plasma_gun_familiar",
             "bullet": "familiar_bullet",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Generic Homing",
             "weapon": "generic_homing_gun",
             "bullet": "flak_bullet_homing",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Plasma Gun",
             "weapon": "plasma_gun",
             "bullet": "plasma_bullet",
-            "sprite_file": "res/sprites/sg2.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Flak Canon",
             "weapon": "flak_gun",
             "bullet": "flak_bullet",
-            "sprite_file": "res/sprites/flak_cannon.sprite"
+            "sprite_file": "res/sprites/voodoo_dagger1.sprite"
         },
         {
             "name": "Plasma Canon",
             "weapon": "flak_gun",
             "bullet": "plasma_bullet",
-            "sprite_file": "res/sprites/flak_cannon.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Burst Plasma",
             "weapon": "burst_gun",
             "bullet": "burst_gun_bullet",
-            "sprite_file": "res/sprites/pow9.sprite"
+            "sprite_file": "res/sprites/bone_wand1.sprite"
         },
         {
             "name": "Cacodemon Plasma",
             "weapon": "cacodemon_plasma",
             "bullet": "caco_bullet_homing",
-            "sprite_file": "res/sprites/pow9.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Cacodemon Plasma Circulating",
             "weapon": "boss_circulating_weapon",
             "bullet": "generic_circulating",
-            "sprite_file": "res/sprites/pow9.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Cacodemon Long Attack",
             "weapon": "boss_cacoplasma",
             "bullet": "boss_caco_bullet",
-            "sprite_file": "res/sprites/pow9.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Caco Plasma",
             "weapon": "cacoplasma",
             "bullet": "caco_bullet",
-            "sprite_file": "res/sprites/pow9.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Rocket Launcher",
             "weapon": "rocketlauncher",
             "bullet": "rocket",
-            "sprite_file": "res/sprites/rocket_launcher.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Laser Blaster",
             "weapon": "blaster",
             "bullet": "laset",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Webber Gun",
             "weapon": "webber_gun",
             "bullet": "webber_bullet",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Turret",
             "weapon": "generic",
             "bullet": "generic_bullet",
-            "sprite_file": "res/sprites/rocket_launcher.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         }
     ]
 }
