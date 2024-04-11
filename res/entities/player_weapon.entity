@@ -60,6 +60,24 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": -0.1
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
