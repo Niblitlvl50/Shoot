@@ -218,8 +218,6 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
 
-    UpdatePlayerInfo(update_context.timestamp);
-
     if(m_player_info->auto_aim)
     {
         mono::PhysicsSpace* space = m_physics_system->GetSpace();
@@ -231,6 +229,8 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
             SetAimDirection(aim_direction);
         }
     }
+
+    UpdatePlayerInfo(update_context.timestamp);
 }
 
 void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -331,12 +331,16 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
 
 void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
 {
+    mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
+
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     const game::WeaponSetup& weapon_setup = active_weapon->GetWeaponSetup();
-    const WeaponBulletCombination& weapon_bullet = m_weapon_system->GetWeaponBulletConfigForHash(weapon_setup.weapon_identifier_hash);
 
-
-
+    if(m_player_info->weapon_type != weapon_setup)
+    {
+        const WeaponBulletCombination& weapon_bullet = m_weapon_system->GetWeaponBulletConfigForHash(weapon_setup.weapon_identifier_hash);
+        m_sprite_system->SetSpriteFile(m_weapon_entity, weapon_bullet.sprite_file.c_str());
+    }
 
     const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
     const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
@@ -345,10 +349,6 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
     math::simple_spring_damper_implicit(
         m_aim_direction, m_aim_velocity, m_aim_direction - delta_angle_between, 0.1f, update_context.delta_s);
     m_aim_direction = math::NormalizeAngle(m_aim_direction);
-
-    mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
-    m_sprite_system->SetSpriteFile(m_weapon_entity, weapon_bullet.sprite_file.c_str());
-    
     if(m_aim_direction > 0.0f)
         weapon_sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
     else

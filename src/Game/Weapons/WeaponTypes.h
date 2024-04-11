@@ -40,6 +40,11 @@ namespace game
         return (left.weapon_identifier_hash == right.weapon_identifier_hash && left.weapon_hash == right.weapon_hash && left.bullet_hash == right.bullet_hash);
     }
 
+    inline bool operator != (const WeaponSetup& left, const WeaponSetup& right)
+    {
+        return !(left == right);
+    }
+
     struct WeaponConfig
     {
         std::string weapon_pickup_entity;
