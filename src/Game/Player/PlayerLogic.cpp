@@ -356,7 +356,7 @@ void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_contex
 
     math::Matrix& weapon_transform = m_transform_system->GetTransform(m_weapon_entity);
     weapon_transform =
-        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.1f)) *
+        math::CreateMatrixWithPosition(math::Vector(0.0f, -0.075f)) *
         math::CreateMatrixFromZRotation(m_aim_direction + math::PI_2()) *
         math::CreateMatrixWithPosition(math::Vector(0.1f, 0.0f));
 }
