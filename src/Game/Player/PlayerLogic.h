@@ -51,8 +51,7 @@ namespace game
 
         void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateMovement(const mono::UpdateContext& update_context);
-        void UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
-        void UpdateWeaponAnimation(const mono::UpdateContext& update_context);
+        void UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateController(const mono::UpdateContext& update_context);
 
         void Fire(uint32_t timestamp);
@@ -160,6 +159,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::RenderSystem* m_render_system;
         mono::SpriteSystem* m_sprite_system;
         mono::LightSystem* m_light_system;
         mono::IEntityManager* m_entity_system;

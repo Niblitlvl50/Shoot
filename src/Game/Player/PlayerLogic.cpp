@@ -16,6 +16,7 @@
 #include "Physics/IShape.h"
 #include "Physics/IConstraint.h"
 #include "Physics/PhysicsSpace.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/SpriteProperties.h"
@@ -96,6 +97,7 @@ PlayerLogic::PlayerLogic(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_light_system = system_context->GetSystem<mono::LightSystem>();
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
@@ -297,17 +299,19 @@ void PlayerLogic::UpdateMovement(const mono::UpdateContext& update_context)
     }
 }
 
-void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
+void PlayerLogic::UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
 {
     float anim_speed = 1.0f;
     int anim_id = m_idle_anim_id;
 
-    const bool facing_left = (aim_direction > 0.0f);
     const float velocity_magnitude = math::Length(player_velocity);
+
+    const bool facing_left = (aim_direction > 0.0f);
+    const bool facing_down = (std::abs(player_velocity.x) >= player_velocity.y);
 
     if(velocity_magnitude > 0.2f)
     {
-        anim_id = (std::abs(player_velocity.x) > player_velocity.y) ? m_run_anim_id : m_run_up_anim_id;
+        anim_id = facing_down ? m_run_anim_id : m_run_up_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
     }
 
@@ -327,11 +331,14 @@ void PlayerLogic::UpdateAnimation(float aim_direction, const math::Vector& world
     if(anim_id != sprite->GetActiveAnimation())
         sprite->SetAnimation(anim_id);
     sprite->SetAnimationPlaybackSpeed(anim_speed);
-}
 
-void PlayerLogic::UpdateWeaponAnimation(const mono::UpdateContext& update_context)
-{
+
+    // Weapon animation
+
     mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
+
+    const float weapon_sort_offset = facing_down ? -0.1 : 0.1f;
+    m_render_system->UpdateLayer(m_weapon_entity, 0, weapon_sort_offset);
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     const game::WeaponSetup& weapon_setup = active_weapon->GetWeaponSetup();
@@ -413,8 +420,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     }
 
     UpdateMovement(update_context);
-    UpdateWeaponAnimation(update_context);
-    UpdateAnimation(m_aim_direction, position, m_player_info->velocity);
+    UpdateAnimation(update_context, m_aim_direction, position, m_player_info->velocity);
 
     m_hookshot->Update(update_context);
 

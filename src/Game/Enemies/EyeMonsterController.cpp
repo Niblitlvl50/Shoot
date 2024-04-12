@@ -34,7 +34,7 @@ namespace tweak_values
 
     constexpr uint32_t collision_damage = 25;
 
-    constexpr float shockwave_radius = 1.0f;
+    constexpr float shockwave_radius = 2.0f;
     constexpr float shockwave_magnitude = 5.0f;
 
     constexpr float degrees_per_second = 180.0f;
@@ -130,7 +130,7 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
     if(m_states.ActiveState() == States::SLEEPING)
         m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
 
-    if(category == CollisionCategory::PLAYER)
+    if(category == CollisionCategory::PLAYER || category == CollisionCategory::PROPS)
     {
         const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
