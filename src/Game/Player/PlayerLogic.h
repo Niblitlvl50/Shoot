@@ -145,6 +145,7 @@ namespace game
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
         std::unique_ptr<class ShockwaveEffect> m_shockwave_effect;
         std::unique_ptr<class FootStepsEffect> m_footsteps_effect;
+        std::unique_ptr<class WeaponModifierEffect> m_weapon_modifier_effect;
         audio::ISoundPtr m_switch_weapon_sound;
         audio::ISoundPtr m_blink_sound;
         audio::ISoundPtr m_running_sound;

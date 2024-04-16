@@ -41,6 +41,7 @@
 #include "Effects/SmokeEffect.h"
 #include "Effects/ShockwaveEffect.h"
 #include "Effects/FootStepsEffect.h"
+#include "Effects/WeaponModifierEffect.h"
 #include "Pickups/PickupSystem.h"
 #include "Shockwave.h"
 
@@ -135,10 +136,13 @@ PlayerLogic::PlayerLogic(
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
     m_shockwave_effect = std::make_unique<ShockwaveEffect>(m_transform_system, particle_system, m_entity_system);
     m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);
+    m_weapon_modifier_effect = std::make_unique<WeaponModifierEffect>(m_transform_system, particle_system, m_entity_system);
 
     const mono::Entity spawned_weapon = m_entity_system->SpawnEntity(m_config.weapon_entity.c_str());
     m_weapon_entity = spawned_weapon.id;
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
+
+    m_weapon_modifier_effect->AttachToEntityWithOffset(m_weapon_entity, math::Vector(0.2f, 0.0f));
 
     // Make sure we have a weapon
     m_weapons[0] = m_weapon_system->CreatePrimaryWeapon(entity_id, WeaponFaction::PLAYER);
@@ -588,12 +592,15 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
         }
 
         m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new BulletWallModifier());
+        m_weapon_modifier_effect->EmitForDuration(m_weapon_entity, 5.0f);
 
         break;
     }
     case PickupType::DAMAGE_BUFF:
     {
         m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new DamageModifier(2.0f));
+        m_weapon_modifier_effect->EmitForDuration(m_weapon_entity, 5.0f);
+
         break;
     }
     };
