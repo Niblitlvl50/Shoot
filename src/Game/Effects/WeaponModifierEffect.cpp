@@ -77,9 +77,9 @@ void WeaponModifierEffect::AttachToEntityWithOffset(uint32_t entity_id, const ma
     m_transform_system->ChildTransform(m_particle_entity, entity_id);
 }
 
-void WeaponModifierEffect::EmitForDuration(uint32_t entity_id, float duration_s)
+void WeaponModifierEffect::EmitForDuration(float duration_s)
 {
-    const auto generator_proxy = [this, entity_id](const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view) {
+    const auto generator_proxy = [this](const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view) {
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_particle_entity);
         TrailGenerator(context, component_view, world_position);
     };

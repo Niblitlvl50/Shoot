@@ -591,15 +591,15 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
             m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
         }
 
-        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new BulletWallModifier());
-        m_weapon_modifier_effect->EmitForDuration(m_weapon_entity, 5.0f);
+        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new BulletWallModifier());
+        m_weapon_modifier_effect->EmitForDuration(10.0f);
 
         break;
     }
     case PickupType::DAMAGE_BUFF:
     {
-        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 5.0f, new DamageModifier(2.0f));
-        m_weapon_modifier_effect->EmitForDuration(m_weapon_entity, 5.0f);
+        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new DamageModifier(2.0f));
+        m_weapon_modifier_effect->EmitForDuration(10.0f);
 
         break;
     }

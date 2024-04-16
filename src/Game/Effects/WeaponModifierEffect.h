@@ -18,7 +18,7 @@ namespace game
         ~WeaponModifierEffect();
 
         void AttachToEntityWithOffset(uint32_t entity_id, const math::Vector& offset);
-        void EmitForDuration(uint32_t entity_id, float duration_s);
+        void EmitForDuration(float duration_s);
 
     private:
 
