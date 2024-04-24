@@ -23,6 +23,7 @@ namespace game
         mono::InputResult Move(const event::MouseMotionEvent& event) override;
         mono::InputResult ButtonDown(const event::MouseDownEvent& event) override;
         mono::InputResult ButtonUp(const event::MouseUpEvent& event) override;
+        mono::InputResult Wheel(const event::MouseWheelEvent& event) override;
 
         game::PlayerLogic* m_player_logic;
         mono::InputSystem* m_input_system;

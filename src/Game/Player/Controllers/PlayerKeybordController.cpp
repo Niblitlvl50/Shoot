@@ -213,3 +213,9 @@ mono::InputResult PlayerKeyboardController::ButtonUp(const event::MouseUpEvent& 
 
     return mono::InputResult::Handled;
 }
+
+mono::InputResult PlayerKeyboardController::Wheel(const event::MouseWheelEvent& event)
+{
+    m_cycle_weapon = true;
+    return mono::InputResult::Handled;
+}
