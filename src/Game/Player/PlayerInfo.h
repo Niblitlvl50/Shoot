@@ -63,11 +63,15 @@ namespace game
         WeaponState weapon_state;
         int magazine_left;
 
-        uint32_t cooldown_id;
-        float cooldown_fraction;
         float health_fraction;
         float stamina_fraction;
         float experience_fraction;
+
+        uint32_t cooldown_id;
+        float cooldown_fraction;
+
+        uint32_t powerup_id;
+        float powerup_fraction;
 
         bool laser_sight;
         bool auto_aim;

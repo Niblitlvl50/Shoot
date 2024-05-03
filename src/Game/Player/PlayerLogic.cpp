@@ -92,6 +92,7 @@ PlayerLogic::PlayerLogic(
     , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
     , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
     , m_shield_cooldown(tweak_values::shield_cooldown_s)
+    , m_damage_modifier_handle(0)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -285,6 +286,9 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
         m_player_info->cooldown_id = index;
         m_player_info->cooldown_fraction = m_active_cooldowns[index];
     }
+
+    const float damage_modifier_fraction = m_weapon_system->GetDurationFractionForModifierOnEntity(m_entity_id, m_damage_modifier_handle);
+    m_player_info->powerup_fraction = damage_modifier_fraction;
 
     m_player_info->last_used_input = m_input_context->most_recent_input;
 }
@@ -591,16 +595,14 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
             m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
         }
 
-        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new BulletWallModifier());
+        m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new BulletWallModifier());
         m_weapon_modifier_effect->EmitForDuration(10.0f);
 
         break;
     }
     case PickupType::DAMAGE_BUFF:
     {
-        m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new DamageModifier(2.0f));
-        m_weapon_modifier_effect->EmitForDuration(10.0f);
-
+        AddDamageBuff(amount);
         break;
     }
     };
@@ -613,6 +615,14 @@ void PlayerLogic::CycleWeapon()
         m_weapon_index = 0;
 
     m_switch_weapon_sound->Play();
+}
+
+void PlayerLogic::AddDamageBuff(int amount)
+{
+    constexpr float duration_s = 10.0f;
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier(2.0f));
+    m_weapon_modifier_effect->EmitForDuration(duration_s);
+    m_player_info->powerup_fraction = duration_s;
 }
 
 void PlayerLogic::TriggerHookshot()

@@ -2,6 +2,7 @@
 #include "WeaponSystem.h"
 #include "System/Hash.h"
 #include "System/System.h"
+#include "Util/Algorithm.h"
 
 #include "Weapons/BulletWeapon/BulletWeapon.h"
 #include "Weapons/ThrowableWeapon/ThrowableWeapon.h"
@@ -74,6 +75,7 @@ WeaponSystem::WeaponSystem(
     , m_entity_manager(entity_manager)
     , m_system_context(system_context)
     , m_weapon_entity_factory(entity_manager, transform_system, physics_system, logic_system, target_system)
+    , m_modifier_id(0)
 {
     m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");
 
@@ -110,11 +112,12 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
 
         for(uint32_t index = 0; index < pair.second.durations.size(); ++index)
         {
-            if(pair.second.durations[index] > 0.0f)
+            WeaponModifierDuration& duration = pair.second.durations[index];
+            if(duration.duration_counter > 0.0f)
             {
-                pair.second.durations[index] -= update_context.delta_s;
+                duration.duration_counter -= update_context.delta_s;
 
-                if(pair.second.durations[index] <= 0.0f)
+                if(duration.duration_counter <= 0.0f)
                     indices_to_remove.push_back(index);
             }
         }
@@ -125,6 +128,7 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
         {
             pair.second.durations.erase(pair.second.durations.begin() + index_to_remove);
             pair.second.modifiers.erase(pair.second.modifiers.begin() + index_to_remove);
+            pair.second.ids.erase(pair.second.ids.begin() + index_to_remove);
         }
     }
 }
@@ -251,19 +255,42 @@ uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math:
     return spawned_entity.id;
 }
 
-void WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier)
+int WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier)
 {
-    AddModifierForIdWithDuration(id, -1.0f, weapon_modifier);
+    return AddModifierForIdWithDuration(id, -1.0f, weapon_modifier);
 }
 
-void WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
+int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
 {
+    m_modifier_id++;
+
+    WeaponModifierDuration duration;
+    duration.duration = duration_s;
+    duration.duration_counter = duration_s;
+
     WeaponModifierContext& context = m_weapon_modifiers[id];
-    context.durations.push_back(duration_s);
+    context.durations.push_back(duration);
     context.modifiers.push_back(std::unique_ptr<IWeaponModifier>(weapon_modifier));
+    context.ids.push_back(m_modifier_id);
+
+    return m_modifier_id;
 }
 
-const WeaponModifierList& WeaponSystem::GetWeaponModifierForId(uint32_t id) const
+float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const
+{
+    const auto it_context = m_weapon_modifiers.find(entity_id);
+    if(it_context == m_weapon_modifiers.end())
+        return 0.0f;
+    
+    const uint32_t index = mono::find_index_of(it_context->second.ids, modifier_id);
+    if(index == -1)
+        return 0.0f;
+
+    const WeaponModifierDuration& duration = it_context->second.durations[index];
+    return duration.duration / duration.duration_counter;
+}
+
+const WeaponModifierList& WeaponSystem::GetWeaponModifiersForId(uint32_t id) const
 {
     const auto it = m_weapon_modifiers.find(id);
     if(it != m_weapon_modifiers.end())

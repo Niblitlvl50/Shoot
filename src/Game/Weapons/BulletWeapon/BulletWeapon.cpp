@@ -101,7 +101,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
 
     WeaponConfiguration local_weapon_config = m_weapon_config;
 
-    const WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifierForId(m_owner_id);
+    const WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForId(m_owner_id);
     for(const auto& modifier : modifier_list)
         local_weapon_config = modifier->ModifyWeapon(local_weapon_config);
 

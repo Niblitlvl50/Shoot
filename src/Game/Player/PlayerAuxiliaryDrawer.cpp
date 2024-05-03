@@ -7,6 +7,7 @@
 #include "Math/CriticalDampedSpring.h"
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
+#include "Weapons/WeaponModifierTypes.h"
 
 #include "Camera/ICamera.h"
 #include "EntitySystem/Entity.h"
@@ -135,6 +136,14 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
         m_ability_render_datas.push_back(std::move(render_data));
     }
 
+    for(const char* sprite_file : g_weapon_modifier_to_sprite)
+    {
+        AbilityRenderData render_data;
+        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file);
+        render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
+        m_powerup_render_datas.push_back(std::move(render_data));
+    }
+
     m_crosshair_render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_player_crosshair_sprite);
     m_crosshair_render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(m_crosshair_render_data.sprite->GetSpriteData());
 
@@ -161,6 +170,7 @@ void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const
     DrawLasers(active_players, renderer);
     DrawStaminaBar(active_players, renderer);
     DrawAbilities(active_players, renderer);
+    DrawPowerups(active_players, renderer);
     DrawCrosshair(active_players, renderer);
 }
 
@@ -298,6 +308,37 @@ void PlayerAuxiliaryDrawer::DrawAbilities(const std::vector<const game::PlayerIn
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];
+        renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
+    }
+}
+
+void PlayerAuxiliaryDrawer::DrawPowerups(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
+{
+    struct ActivePowerups
+    {
+        math::Vector point;
+        uint32_t render_data_index;
+    };
+    std::vector<ActivePowerups> active_powerups;
+
+    for(const game::PlayerInfo* player_info : players)
+    {
+        const bool is_active_powerups = (player_info->powerup_fraction > 0.0f);
+        if(!is_active_powerups)
+            continue;
+
+        const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(player_info->entity_id);
+        const math::Vector powerup_draw_point = math::TopRight(world_bb);
+
+        active_powerups.push_back({ powerup_draw_point, 0 });
+    }
+
+    for(const ActivePowerups& powerup : active_powerups)
+    {
+        const math::Matrix& transform = math::CreateMatrixWithPositionScale(powerup.point, 0.35f);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        const AbilityRenderData& render_data = m_powerup_render_datas[powerup.render_data_index];
         renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
     }
 }

@@ -43,12 +43,14 @@ namespace game
         void DrawLasers(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
         void DrawStaminaBar(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
         void DrawAbilities(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
+        void DrawPowerups(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
         void DrawCrosshair(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
 
         const game::CameraSystem* m_camera_system;
         const mono::TransformSystem* m_transform_system;
 
         std::vector<AbilityRenderData> m_ability_render_datas;
+        std::vector<AbilityRenderData> m_powerup_render_datas;
         AbilityRenderData m_crosshair_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 

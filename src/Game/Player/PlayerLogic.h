@@ -14,6 +14,7 @@
 #include "Controllers/PlayerKeybordController.h"
 #include "Weapons/WeaponTypes.h"
 #include "Weapons/WeaponFwd.h"
+#include "Weapons/WeaponModifierTypes.h"
 #include "Pickups/PickupTypes.h"
 
 #include <memory>
@@ -61,6 +62,8 @@ namespace game
         void HandlePickup(PickupType type, int amount);
 
         void CycleWeapon();
+        void AddDamageBuff(int amount);
+
         void TriggerHookshot();
         void ReleaseHookshot();
 
@@ -178,6 +181,9 @@ namespace game
         //ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
 
         float m_active_cooldowns[PlayerAbility::N_ABILITIES];
+        float m_active_weapon_modifiers[WeaponModifier::N_MODIFIERS];
+
+        int m_damage_modifier_handle;
 
         uint32_t m_picked_up_id;
         mono::IConstraint* m_pickup_constraint;

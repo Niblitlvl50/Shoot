@@ -57,10 +57,11 @@ namespace game
 
         uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 
-        void AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
-        void AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
+        int AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
+        int AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
 
-        const WeaponModifierList& GetWeaponModifierForId(uint32_t id) const;
+        float GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const;
+        const WeaponModifierList& GetWeaponModifiersForId(uint32_t id) const;
 
     private:
 
@@ -83,12 +84,22 @@ namespace game
         };
         std::unordered_map<uint32_t, WeaponLoadoutComponent> m_weapon_loadout;
 
+        struct WeaponModifierDuration
+        {
+            float duration;
+            float duration_counter;
+        };
+
         struct WeaponModifierContext
         {
             WeaponModifierList modifiers;
-            std::vector<float> durations;
+            std::vector<WeaponModifierDuration> durations;
+            std::vector<uint32_t> ids;
         };
+
         std::unordered_map<uint32_t, WeaponModifierContext> m_weapon_modifiers;
+
+        uint32_t m_modifier_id;
 
         class DamageEffect* m_damage_effect = nullptr;
         class ImpactEffect* m_impact_effect = nullptr;
