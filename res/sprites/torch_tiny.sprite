@@ -16,14 +16,14 @@
             "h": 11,
             "name": "torch_tiny_default_1",
             "w": 4,
-            "x": 710,
+            "x": 167,
             "y": 437
         },
         {
             "h": 11,
             "name": "torch_tiny_default_2",
             "w": 4,
-            "x": 167,
+            "x": 710,
             "y": 437
         },
         {
