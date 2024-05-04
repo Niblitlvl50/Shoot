@@ -36,14 +36,14 @@
             "h": 9,
             "name": "cardboard_box_small_idle_1",
             "w": 10,
-            "x": 235,
-            "y": 441
+            "x": 1228,
+            "y": 450
         },
         {
             "h": 12,
             "name": "cardboard_box_small_open_1",
             "w": 10,
-            "x": 1734,
+            "x": 1706,
             "y": 436
         },
         {
@@ -57,7 +57,7 @@
             "h": 9,
             "name": "cardboard_box_small_open_3",
             "w": 20,
-            "x": 1158,
+            "x": 1214,
             "y": 437
         }
     ],

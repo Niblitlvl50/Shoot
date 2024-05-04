@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "flak_bullet.sprite"
+                            "variant_value": "fire_bullet_tiny.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -81,9 +81,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.18836505711078644,
-                                "green": 0.18836505711078644,
-                                "red": 0.9852941036224365
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
@@ -98,7 +98,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": -0.30000001192092896
+                                "y": -0.20000000298023224
                             }
                         },
                         {
@@ -140,22 +140,22 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.42683103680610657,
-                                "green": 0.42683103680610657,
-                                "red": 0.936274528503418
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
                             }
                         },
                         {
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 3.0
+                            "variant_value": 1.0
                         },
                         {
                             "id": 2538831285,

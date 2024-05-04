@@ -20,8 +20,8 @@
             "h": 9,
             "name": "brain_monster_idle_1",
             "w": 13,
-            "x": 1246,
-            "y": 437
+            "x": 104,
+            "y": 438
         },
         {
             "h": 9,
@@ -34,42 +34,42 @@
             "h": 9,
             "name": "brain_monster_idle_3",
             "w": 13,
-            "x": 1949,
-            "y": 437
-        },
-        {
-            "h": 9,
-            "name": "brain_monster_idle_4",
-            "w": 13,
-            "x": 1966,
-            "y": 437
-        },
-        {
-            "h": 9,
-            "name": "brain_monster_idle_5",
-            "w": 13,
-            "x": 1983,
-            "y": 437
-        },
-        {
-            "h": 9,
-            "name": "brain_monster_idle_6",
-            "w": 13,
             "x": 36,
             "y": 438
         },
         {
             "h": 9,
-            "name": "brain_monster_idle_7",
+            "name": "brain_monster_idle_4",
             "w": 13,
             "x": 19,
             "y": 438
         },
         {
             "h": 9,
-            "name": "brain_monster_idle_8",
+            "name": "brain_monster_idle_5",
             "w": 13,
             "x": 2,
+            "y": 438
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_6",
+            "w": 13,
+            "x": 87,
+            "y": 438
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_7",
+            "w": 13,
+            "x": 175,
+            "y": 438
+        },
+        {
+            "h": 9,
+            "name": "brain_monster_idle_8",
+            "w": 13,
+            "x": 70,
             "y": 438
         }
     ],

@@ -40,43 +40,43 @@
             "h": 8,
             "name": "bat_medium_attack_1",
             "w": 18,
-            "x": 2,
+            "x": 341,
             "y": 451
         },
         {
             "h": 9,
             "name": "bat_medium_attack_2",
             "w": 18,
-            "x": 1204,
+            "x": 1238,
             "y": 437
         },
         {
             "h": 12,
             "name": "bat_medium_attack_3",
             "w": 15,
-            "x": 1424,
+            "x": 1405,
             "y": 436
         },
         {
             "h": 13,
             "name": "bat_medium_attack_4",
             "w": 13,
-            "x": 1576,
+            "x": 1644,
             "y": 419
         },
         {
             "h": 14,
             "name": "bat_medium_attack_5",
             "w": 11,
-            "x": 1000,
+            "x": 1060,
             "y": 419
         },
         {
             "h": 15,
             "name": "bat_medium_attack_6",
             "w": 12,
-            "x": 304,
-            "y": 405
+            "x": 1968,
+            "y": 418
         },
         {
             "h": 12,
@@ -96,85 +96,85 @@
             "h": 9,
             "name": "bat_medium_attack_9",
             "w": 16,
-            "x": 1226,
+            "x": 1971,
             "y": 437
         },
         {
             "h": 8,
             "name": "bat_medium_attack_10",
             "w": 20,
-            "x": 1241,
-            "y": 450
+            "x": 64,
+            "y": 451
         },
         {
             "h": 8,
             "name": "bat_medium_idle_1",
             "w": 18,
-            "x": 24,
+            "x": 319,
             "y": 451
         },
         {
             "h": 10,
             "name": "bat_medium_idle_2",
             "w": 16,
-            "x": 872,
+            "x": 832,
             "y": 437
         },
         {
             "h": 11,
             "name": "bat_medium_idle_3",
             "w": 12,
-            "x": 611,
+            "x": 579,
             "y": 437
         },
         {
             "h": 11,
             "name": "bat_medium_idle_4",
             "w": 14,
-            "x": 1882,
+            "x": 1918,
             "y": 436
         },
         {
             "h": 9,
             "name": "bat_medium_idle_5",
             "w": 18,
-            "x": 1182,
+            "x": 1949,
             "y": 437
         },
         {
             "h": 8,
             "name": "bat_medium_idle_6",
             "w": 20,
-            "x": 1949,
-            "y": 450
+            "x": 88,
+            "y": 451
         },
         {
             "h": 7,
             "name": "bat_medium_idle_7",
             "w": 21,
-            "x": 1787,
+            "x": 1853,
             "y": 451
         },
         {
             "h": 7,
             "name": "bat_medium_idle_8",
             "w": 17,
-            "x": 1812,
+            "x": 1899,
             "y": 451
         },
         {
             "h": 7,
             "name": "bat_medium_idle_9",
             "w": 17,
-            "x": 1833,
+            "x": 1878,
             "y": 451
         },
         {
             "h": 8,
             "name": "bat_medium_idle_10",
             "w": 19,
-            "x": 1973,
-            "y": 450
+            "x": 112,
+            "y": 451
         }
     ],
     "frames_offsets": [
