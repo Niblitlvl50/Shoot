@@ -595,9 +595,7 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
             m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
         }
 
-        m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, 10.0f, new BulletWallModifier());
-        m_weapon_modifier_effect->EmitForDuration(10.0f);
-
+        AddBulletWallBuff(amount);
         break;
     }
     case PickupType::DAMAGE_BUFF:
@@ -622,7 +620,17 @@ void PlayerLogic::AddDamageBuff(int amount)
     constexpr float duration_s = 10.0f;
     m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier(2.0f));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
-    m_player_info->powerup_fraction = duration_s;
+
+    m_player_info->powerup_id = WeaponModifier::DAMAGE;
+}
+
+void PlayerLogic::AddBulletWallBuff(int amount)
+{
+    constexpr float duration_s = 10.0f;
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new BulletWallModifier());
+    m_weapon_modifier_effect->EmitForDuration(duration_s);
+
+    m_player_info->powerup_id = WeaponModifier::SPREAD;
 }
 
 void PlayerLogic::TriggerHookshot()

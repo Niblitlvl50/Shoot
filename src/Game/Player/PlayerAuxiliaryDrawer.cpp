@@ -330,12 +330,12 @@ void PlayerAuxiliaryDrawer::DrawPowerups(const std::vector<const game::PlayerInf
         const math::Quad world_bb = m_transform_system->GetWorldBoundingBox(player_info->entity_id);
         const math::Vector powerup_draw_point = math::TopRight(world_bb);
 
-        active_powerups.push_back({ powerup_draw_point, 0 });
+        active_powerups.push_back({ powerup_draw_point, player_info->powerup_id });
     }
 
     for(const ActivePowerups& powerup : active_powerups)
     {
-        const math::Matrix& transform = math::CreateMatrixWithPositionScale(powerup.point, 0.35f);
+        const math::Matrix& transform = math::CreateMatrixWithPositionScale(powerup.point, 0.65f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_powerup_render_datas[powerup.render_data_index];

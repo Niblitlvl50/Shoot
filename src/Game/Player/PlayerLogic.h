@@ -63,6 +63,7 @@ namespace game
 
         void CycleWeapon();
         void AddDamageBuff(int amount);
+        void AddBulletWallBuff(int amount);
 
         void TriggerHookshot();
         void ReleaseHookshot();
