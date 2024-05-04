@@ -283,7 +283,7 @@ float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, u
         return 0.0f;
     
     const uint32_t index = mono::find_index_of(it_context->second.ids, modifier_id);
-    if(index == -1)
+    if(index == uint32_t(-1))
         return 0.0f;
 
     const WeaponModifierDuration& duration = it_context->second.durations[index];
