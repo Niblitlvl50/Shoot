@@ -276,7 +276,7 @@ void UISystem::ReleaseUISetGroupState(uint32_t entity_id)
 {
     const auto remove_by_entity_id = [this, entity_id](UISetGroupState& item) {
         const bool found_item = item.entity_id == entity_id;
-        if(found_item)
+        if(found_item && item.trigger_callback_id != mono::INVALID_ID)
         {
             m_trigger_system->RemoveTriggerCallback(item.trigger_hash, item.trigger_callback_id, entity_id);
             item.trigger_callback_id = mono::INVALID_ID;
