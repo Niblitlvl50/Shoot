@@ -1,6 +1,7 @@
 {
     "all_worlds": [
         "res/worlds/boss_arena.components",
+        "res/worlds/deep_forest.components",
         "res/worlds/empty_world.components",
         "res/worlds/end_screen.components",
         "res/worlds/game_over.components",
