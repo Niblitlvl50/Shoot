@@ -132,56 +132,6 @@
                             "variant_value": false
                         }
                     ]
-                },
-                {
-                    "hash": 3801947695,
-                    "name": "light",
-                    "properties": [
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        },
-                        {
-                            "id": 348705738,
-                            "name": "offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 226247311,
-                            "name": "flicker",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 800267265,
-                            "name": "frequency",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 2538831285,
-                            "name": "percentage",
-                            "variant_type": 3,
-                            "variant_value": 0.5
-                        }
-                    ]
                 }
             ],
             "entity_properties": 0,
