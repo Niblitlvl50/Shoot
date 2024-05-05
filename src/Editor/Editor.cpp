@@ -401,8 +401,13 @@ void Editor::CreateNewWorld(const std::string& new_world)
     System::Log("%s", world_filename.c_str());
 
     game::LevelMetadata level_metadata;
+    level_metadata.level_name = new_world;
+    level_metadata.camera_size = m_context.level_metadata.camera_size;
+
     SaveWorld(world_filename.c_str(), { }, level_metadata);
     AddNewWorld(world_filename.c_str());
+
+    m_context.all_worlds = editor::GetAllWorlds();
 }
 
 void Editor::LoadWorld(const std::string& world_filename)
