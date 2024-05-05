@@ -360,7 +360,7 @@ void PacketDeliveryGameMode::ToLevelCompleted()
 
 void PacketDeliveryGameMode::ToLevelAborted()
 {
-    TriggerLevelCompletedFade("Deliver Aborted", "See you!", game::ZoneResult::ZR_ABORTED);
+    TriggerLevelCompletedFade("Delivery Aborted", "See you!", game::ZoneResult::ZR_ABORTED);
 }
 
 void PacketDeliveryGameMode::TriggerLevelCompletedFade(const char* text, const char* sub_text, int exit_zone)
