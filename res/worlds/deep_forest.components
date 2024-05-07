@@ -3195,20 +3195,28 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": -0.8101868629455566,
-                                    "y": -0.16014370322227478
+                                    "x": -0.7896819114685059,
+                                    "y": -0.10792720317840576
                                 },
                                 {
-                                    "x": 0.7495288848876953,
-                                    "y": -0.16576194763183594
+                                    "x": 0.862856388092041,
+                                    "y": -0.3271747827529907
                                 },
                                 {
-                                    "x": 0.5287094116210938,
-                                    "y": -0.6158938407897949
+                                    "x": 0.6076126098632813,
+                                    "y": -0.6478652954101563
                                 },
                                 {
-                                    "x": -0.4564852714538574,
-                                    "y": -0.60740065574646
+                                    "x": 0.09058141708374023,
+                                    "y": -0.6413204669952393
+                                },
+                                {
+                                    "x": -0.5278935432434082,
+                                    "y": -0.6216864585876465
+                                },
+                                {
+                                    "x": -0.8191323280334473,
+                                    "y": -0.3958941698074341
                                 }
                             ]
                         },
@@ -4131,7 +4139,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -1.9500000476837158,
-                                "y": 12.750000953674316
+                                "y": 12.600000381469727
                             }
                         },
                         {
@@ -4184,7 +4192,25 @@
                             "id": 3732203999,
                             "name": "draw_name",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
                         }
                     ]
                 },
@@ -4346,7 +4372,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.10000000149011612
+                                "y": 0.0
                             }
                         },
                         {
@@ -5136,7 +5162,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -3.1500000953674316,
-                                "y": 13.200000762939453
+                                "y": 13.350000381469727
                             }
                         },
                         {
@@ -7476,6 +7502,24 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -7592,6 +7636,24 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7716,6 +7778,24 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -7832,6 +7912,24 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7956,6 +8054,24 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -8076,6 +8192,24 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -8192,6 +8326,24 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8552,24 +8704,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         }
                     ]
                 },
