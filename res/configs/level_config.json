@@ -102,6 +102,16 @@
             }
         },
         {
+            "name": "deep_forest",
+            "filename": "res/worlds/deep_forest.components",
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
+        },
+        {
             "name": "empty_world",
             "filename": "res/worlds/empty_world.components",
             "transitions": {
