@@ -500,6 +500,30 @@ namespace
         }
     }
 
+    void DrawQuitDialog(editor::UIContext& context)
+    {
+        constexpr const char* popup_name = "Quit Application";
+        if(context.wants_quit)
+        {
+            ImGui::OpenPopup(popup_name);
+            context.wants_quit = false;
+        }
+
+        if(ImGui::BeginPopupModal(popup_name, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            if(ImGui::Button("Yes", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                context.quit_callback();
+            }
+
+            ImGui::SameLine();
+            if(ImGui::Button("No", ImVec2(120, 0)))
+                ImGui::CloseCurrentPopup();
+
+            ImGui::EndPopup();
+        }
+    }
 }
 
 ImGuiInterfaceDrawer::ImGuiInterfaceDrawer(UIContext& context)
@@ -515,6 +539,7 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
+    DrawQuitDialog(m_context);
 
     if(g_show_imgui_demo)
         ImGui::ShowDemoWindow();

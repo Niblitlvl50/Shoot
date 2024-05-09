@@ -231,6 +231,10 @@ Editor::Editor(
         SetSelection({ entity_id });
     };
 
+    m_context.quit_callback = [this]() {
+        m_event_handler.DispatchEvent(event::QuitEvent());
+    };
+
     m_context.delete_callback = std::bind(&Editor::OnDeleteObject, this);
     m_context.switch_world = std::bind(&Editor::SwitchWorld, this, _1);
     m_context.create_new_world = std::bind(&Editor::CreateNewWorld, this, _1);
@@ -445,7 +449,7 @@ void Editor::LoadWorld(const std::string& world_filename)
 
 void Editor::Quit()
 {
-    m_event_handler.DispatchEvent(event::QuitEvent());
+    m_context.wants_quit = true;
 }
 
 void Editor::Save()

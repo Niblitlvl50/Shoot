@@ -69,6 +69,8 @@ namespace editor
 
     struct UIContext
     {
+        bool wants_quit = false;
+
         float fps;
         math::Vector world_mouse_position;
         std::unordered_map<std::string, UIIcon> ui_icons;
@@ -119,6 +121,7 @@ namespace editor
         std::vector<Notification> notifications;
 
         // Callbacks
+        std::function<void ()> quit_callback;
         std::function<void ()> delete_callback;
         std::function<void (const std::string& new_world)> switch_world;
         std::function<void (const std::string& new_world)> create_new_world;
